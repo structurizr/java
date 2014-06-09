@@ -2,20 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="655aeccd-15c7-40da-998c-90a4b0c635db" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/AbstractParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/ClassFileParser.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/DependencyConstraint.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/FileManager.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/JDepend.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/JavaClass.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/JavaClassBuilder.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/JavaPackage.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/PackageComparator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/PackageFilter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/ParserListener.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/PropertyConfigurator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/com/structurizr/Component.java" afterPath="$PROJECT_DIR$/client/src/com/structurizr/Component.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/com/structurizr/Main.java" afterPath="$PROJECT_DIR$/client/src/com/structurizr/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.iws" afterPath="$PROJECT_DIR$/java.iws" />
     </list>
     <ignored path="java.iws" />
@@ -68,6 +55,7 @@
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/diagram/DiagramComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347285697" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/interactions/InteractionsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402349589512" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/softwaresystems/SoftwareSystemsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402349631257" ignored="false" />
+    <file path="/.gitignore" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402350261653" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,13 +165,22 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="99" column="39" selection-start="4196" selection-end="4196" vertical-scroll-proportion="0.4310722">
+            <state line="99" column="39" selection-start="4196" selection-end="4196" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="1" column="0" selection-start="4" selection-end="4" vertical-scroll-proportion="0.032822758">
+              <folding />
             </state>
           </provider>
         </entry>
@@ -201,15 +198,6 @@
         <entry file="file://$PROJECT_DIR$/client/src/jdepend/framework/JavaPackage.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="126" column="0" selection-start="3156" selection-end="3156" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/README.md">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="54" selection-start="130" selection-end="130" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -252,6 +240,7 @@
         <option value="$PROJECT_DIR$/client/src/jdepend/framework/JavaPackage.java" />
         <option value="$PROJECT_DIR$/client/src/jdepend/framework/ClassFileParser.java" />
         <option value="$PROJECT_DIR$/client/src/com/structurizr/Main.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
   </component>
@@ -550,7 +539,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2494432" sideWeight="0.6701847" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3298153" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3298153" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -623,13 +612,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="54" selection-start="130" selection-end="130" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/Container.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="9" column="18" selection-start="276" selection-end="276" vertical-scroll-proportion="0.0">
@@ -740,10 +722,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="99" column="39" selection-start="4196" selection-end="4196" vertical-scroll-proportion="0.4310722">
+        <state line="99" column="39" selection-start="4196" selection-end="4196" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1" column="0" selection-start="4" selection-end="4" vertical-scroll-proportion="0.032822758">
+          <folding />
         </state>
       </provider>
     </entry>
