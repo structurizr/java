@@ -24,8 +24,8 @@ public class Main {
     private static Map<String, Component> components = new HashMap<>();
 
     public static void main(String[] args) throws Exception {
-        String path1 = "/Users/simon/sandbox/techtribesje/build/techtribes-core/production-classes/";
-        String path2 = "/Users/simon/sandbox/techtribesje/build/techtribes-updater/production-classes/";
+        String path1 = "/Users/simon/sandbox/structurizr/build/structurizr-core/production-classes/";
+        String path2 = "/Users/simon/sandbox/structurizr/build/structurizr-web/production-classes/";
 
         AnnotationDB db = new AnnotationDB();
         db.scanArchives(new File(path1).toURI().toURL());
@@ -43,33 +43,75 @@ public class Main {
         filter.addPackage("com.sun.*");
         filter.addPackage("org.eclipse.*");
 
-        filter.addPackage("je.techtribes.domain");
-        filter.addPackage("je.techtribes.util");
+        filter.addPackage("com.structurizr.domain");
 
         JDepend jdepend = new JDepend(filter);
         jdepend.addDirectory(path1);
         jdepend.addDirectory(path2);
+        jdepend.analyze();
 
         for (String entityClass : entityClasses) {
             Component component = new Component(entityClass);
             component.setResponsibility(db.getAnnotationValue(entityClass, "com.structurizr.element.Component", "responsibility"));
             components.put(component.getPackage(), component);
-            jdepend.addPackage(component.getPackage());
         }
 
-        jdepend.analyze();
+        for (Component component : components.values()) {
+            calculateEfferents(jdepend, component, jdepend.getPackage(component.getPackage()));
+        }
 
-        Collection javaPackages = jdepend.getPackages();
-        for (Object javaPackage : javaPackages) {
-            JavaPackage jp = (JavaPackage)javaPackage;
+        System.out.println();
+        System.out.println("Components");
+        System.out.println("----------");
+        for (Component component : components.values()) {
+            System.out.println(component.getName() + "(" + component.getResponsibility() + ")");
+        }
+        System.out.println("----------");
 
-            Collection efferents = jp.getEfferents();
-            for (Object efferent : efferents) {
-                JavaPackage efferentJavaPackage = (JavaPackage)efferent;
-                System.out.println(findComponent(jp.getName()) + " --> " + findComponent(efferentJavaPackage.getName()));
+        System.out.println();
+        System.out.println("Dependencies");
+        System.out.println("------------");
+        for (Component component : components.values()) {
+            for (Component dependency : component.getDependencies()) {
+                System.out.println(component.getName() + " -> " + dependency.getName());
+            }
+        }
+        System.out.println("------------");
+    }
+
+    private static void calculateEfferents(JDepend jdepend, Component component, JavaPackage javaPackage) {
+        Collection efferents = javaPackage.getEfferents();
+        for (Object efferent : efferents) {
+            JavaPackage efferentJavaPackage = (JavaPackage)efferent;
+            Component destination = findComponent(efferentJavaPackage.getName());
+            if (destination != null) {
+                component.addDependency(destination);
             }
         }
 
+        for (Object o : javaPackage.getClasses()) {
+            JavaClass javaClass = (JavaClass)o;
+            System.out.println("Name: " + javaClass.getName());
+            JavaPackage superClassPackage = jdepend.getPackage(getPackageForClass(javaClass.getSuperClassName()));
+            if (superClassPackage != null) {
+                System.out.println("Superclass name: " + javaClass.getSuperClassName());
+                JavaClass superClass = superClassPackage.getClass(javaClass.getSuperClassName());
+                if (superClass != null) {
+                    calculateEfferents(component, superClass);
+                }
+            }
+        }
+    }
+
+    private static void calculateEfferents(Component component, JavaClass javaClass) {
+        Collection efferents = javaClass.getImportedPackages();
+        for (Object efferent : efferents) {
+            JavaPackage efferentJavaPackage = (JavaPackage)efferent;
+            Component destination = findComponent(efferentJavaPackage.getName());
+            if (destination != null) {
+                component.addDependency(destination);
+            }
+        }
     }
 
     private static Component findComponent(String fullyQualifiedClassName) {
@@ -79,6 +121,10 @@ public class Main {
         }
 
         return component;
+    }
+
+    private static String getPackageForClass(String fullyQualifiedClassName) {
+        return fullyQualifiedClassName.substring(0, fullyQualifiedClassName.lastIndexOf("."));
     }
 
 }

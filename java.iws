@@ -2,14 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="655aeccd-15c7-40da-998c-90a4b0c635db" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/client.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/AbstractParser.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/ClassFileParser.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/DependencyConstraint.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/FileManager.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/JDepend.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/JavaClass.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/JavaClassBuilder.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/JavaPackage.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/PackageComparator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/PackageFilter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/ParserListener.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/client/src/jdepend/framework/PropertyConfigurator.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/com/structurizr/Component.java" afterPath="$PROJECT_DIR$/client/src/com/structurizr/Component.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/com/structurizr/Main.java" afterPath="$PROJECT_DIR$/client/src/com/structurizr/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.iws" afterPath="$PROJECT_DIR$/java.iws" />
     </list>
     <ignored path="java.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402337161739" ignored="false" />
-    <file path="/Component.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402336718537" ignored="false" />
-    <file path="/Main.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402338270487" ignored="false" />
+    <file path="/Dummy.txt" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402349449176" ignored="false" />
+    <file path="/Component.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402345646049" ignored="false" />
+    <file path="/Main.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402349237456" ignored="false" />
     <file path="/a.dummy" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402337300924" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/log/LoggingComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402337307428" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/search/SearchComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402337307428" ignored="false" />
@@ -29,6 +42,32 @@
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/component/contentupdater/ContentUpdateComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402337307428" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/updater/Main.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402338271736" ignored="false" />
     <file path="/README.md" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402338571146" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/package-info.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402339681159" ignored="false" />
+    <file path="/package-info.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402339676553" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/people/PeopleController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402340919879" ignored="false" />
+    <file path="/PeopleController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402340884870" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/summary/WorkspaceController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402341069770" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/softwaresystems/SoftwareSystemsComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347314732" ignored="false" />
+    <file path="/SoftwareSystemsComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402341460985" ignored="false" />
+    <file path="/JavaClass.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402344475914" ignored="false" />
+    <file path="/ClassFileParser.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402346259250" ignored="false" />
+    <file path="/JavaPackage.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402346062491" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/people/PeopleComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347306512" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/people/PeopleComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347308509" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/authorisation/AuthorisationComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347269011" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/authorisation/AuthorisationComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347266623" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/interactions/InteractionsComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347294104" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/interactions/InteractionsComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347279471" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/log/LoggingComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347301575" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/log/CommonsLoggingComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347303777" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/softwaresystems/SoftwareSystemsComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347313056" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/user/UserComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347319160" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/user/UserComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347320783" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/workspace/WorkspaceComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347323512" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/workspace/WorkspaceComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347325387" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/diagram/DiagramComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347285697" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/interactions/InteractionsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402349589512" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/softwaresystems/SoftwareSystemsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402349631257" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,6 +132,35 @@
         <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/AnnotationProcessor.java">
           <provider selected="true" editor-type-id="text-editor">
             <state line="90" column="1" selection-start="3747" selection-end="3747" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbstractParser.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/jdepend/framework/AbstractParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="22" selection-start="318" selection-end="318" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JavaClass.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/jdepend/framework/JavaClass.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="59" column="27" selection-start="1220" selection-end="1220" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ClassFileParser.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/jdepend/framework/ClassFileParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="201" column="8" selection-start="5538" selection-end="5538" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -101,34 +169,47 @@
       <file leaf-file-name="Component.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/Component.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="42" selection-start="643" selection-end="643" vertical-scroll-proportion="0.0">
-              <folding />
+            <state line="23" column="15" selection-start="595" selection-end="595" vertical-scroll-proportion="0.0">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="74" column="21" selection-start="2847" selection-end="2847" vertical-scroll-proportion="0.0">
+            <state line="99" column="39" selection-start="4196" selection-end="4196" vertical-scroll-proportion="0.4310722">
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="JDepend.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/jdepend/framework/JDepend.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="197" column="15" selection-start="5757" selection-end="5757" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="JavaPackage.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/src/jdepend/framework/JavaPackage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="126" column="0" selection-start="3156" selection-end="3156" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="100" selection-start="129" selection-end="129" vertical-scroll-proportion="0.09375">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Component.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/Component.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="18" selection-start="276" selection-end="276" vertical-scroll-proportion="0.0">
+            <state line="4" column="54" selection-start="130" selection-end="130" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -163,11 +244,14 @@
       <list>
         <option value="$PROJECT_DIR$/annotationprocessor/src/com/structurizr/AnnotationProcessor.java" />
         <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/Interaction.java" />
-        <option value="$PROJECT_DIR$/client/src/com/structurizr/Component.java" />
-        <option value="$PROJECT_DIR$/client/src/com/structurizr/Main.java" />
         <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/IntegrationType.java" />
         <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/Layer.java" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/client/src/jdepend/framework/JavaClass.java" />
+        <option value="$PROJECT_DIR$/client/src/com/structurizr/Component.java" />
+        <option value="$PROJECT_DIR$/client/src/jdepend/framework/JavaPackage.java" />
+        <option value="$PROJECT_DIR$/client/src/jdepend/framework/ClassFileParser.java" />
+        <option value="$PROJECT_DIR$/client/src/com/structurizr/Main.java" />
       </list>
     </option>
   </component>
@@ -188,7 +272,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="2" />
+    <option name="STATE" value="0" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
@@ -219,6 +303,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="client" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jdepend" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="framework" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -300,9 +406,9 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="dynamic.classpath" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
+    <property name="dynamic.classpath" value="false" />
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration default="false" name="Main" type="Application" factoryName="Application" temporary="true">
@@ -429,6 +535,7 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298153" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -437,16 +544,15 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298153" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2494432" sideWeight="0.6701847" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3298153" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3298153" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -517,24 +623,44 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="54" selection-start="130" selection-end="130" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/Container.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="18" selection-start="276" selection-end="276" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/AnnotationProcessor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="90" column="1" selection-start="3747" selection-end="3747" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="40" column="37" selection-start="1447" selection-end="1447" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/Component.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="0" selection-start="51" selection-end="51" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -552,31 +678,72 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="54" selection-start="130" selection-end="130" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/AnnotationProcessor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="90" column="1" selection-start="3747" selection-end="3747" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/jdepend/framework/AbstractParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="22" selection-start="318" selection-end="318" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/jdepend/framework/JDepend.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="197" column="15" selection-start="5757" selection-end="5757" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/jdepend/framework/JavaClass.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="59" column="27" selection-start="1220" selection-end="1220" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/Component.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="42" selection-start="643" selection-end="643" vertical-scroll-proportion="0.0">
+        <state line="23" column="15" selection-start="595" selection-end="595" vertical-scroll-proportion="0.0">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/jdepend/framework/JavaPackage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="126" column="0" selection-start="3156" selection-end="3156" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/src/jdepend/framework/ClassFileParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="201" column="8" selection-start="5538" selection-end="5538" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="74" column="21" selection-start="2847" selection-end="2847" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="100" selection-start="129" selection-end="129" vertical-scroll-proportion="0.09375">
-          <folding />
+        <state line="99" column="39" selection-start="4196" selection-end="4196" vertical-scroll-proportion="0.4310722">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
