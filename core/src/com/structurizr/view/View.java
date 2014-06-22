@@ -78,4 +78,14 @@ public abstract class View {
         this.description = description;
     }
 
+    public void removeElementsWithNoRelationships() {
+        Set<RelationshipView> relationships = getRelationships();
+
+        Set<Long> elementIds = new HashSet<>();
+        relationships.forEach(rv -> elementIds.add(rv.getSourceId()));
+        relationships.forEach(rv -> elementIds.add(rv.getDestinationId()));
+
+        elementViews.removeIf(ev -> !elementIds.contains(ev.getId()));
+    }
+
 }

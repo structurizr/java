@@ -2,10 +2,10 @@ package com.structurizr;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.structurizr.model.*;
 import com.structurizr.view.ComponentView;
 import com.structurizr.view.ContainerView;
 import com.structurizr.view.ContextView;
-import com.structurizr.model.*;
 
 public class Main {
 

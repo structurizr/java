@@ -46,7 +46,9 @@ public class Component extends Element {
 
     public void uses(Component destination, String description) {
         Relationship relationship = new Relationship(this, destination, description);
-        relationships.add(relationship);
+        if (!relationships.contains(relationship)) {
+            relationships.add(relationship);
+        }
     }
 
 }

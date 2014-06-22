@@ -8,31 +8,9 @@ import com.structurizr.view.ComponentView;
 import com.structurizr.view.ContainerView;
 import com.structurizr.view.ContextView;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        ComponentFinder componentFinder = new ScannotationComponentFinder();
-        DependencyFinder dependencyFinder = new JDependDependencyFinder();
-
-        Collection<String> pathsToScan = new ArrayList<>();
-        pathsToScan.add("/Users/simon/sandbox/techtribesje/build/techtribes-core/production-classes/");
-        pathsToScan.add("/Users/simon/sandbox/techtribesje/build/techtribes-updater/production-classes/");        
-        
-        Collection<String> packagesToFilter = new ArrayList<>();
-        packagesToFilter.add("java.*");
-        packagesToFilter.add("javax.*");
-        packagesToFilter.add("org.springframework.*");
-        packagesToFilter.add("org.apache.*");
-        packagesToFilter.add("com.mongodb");
-        packagesToFilter.add("twitter4j");
-        packagesToFilter.add("twitter4j.*");
-        packagesToFilter.add("com.sun.*");
-        packagesToFilter.add("org.eclipse.*");
-        packagesToFilter.add("je.techtribes.domain");
-
         Model model = new Model();
         SoftwareSystem techTribes = model.createSoftwareSystem(Location.Internal, "techtribes.je", "techtribes.je is the only way to keep up to date with the IT, tech and digital sector in Jersey and Guernsey, Channel Islands");
 
@@ -73,8 +51,8 @@ public class Main {
         contentUpdater.uses(gitHub, "Gets information about public code repositories from.");
         contentUpdater.uses(blogs, "Gets content using RSS and Atom feeds from.");
 
-        componentFinder.findComponents(contentUpdater, pathsToScan);
-        dependencyFinder.findDependencies(contentUpdater, pathsToScan, packagesToFilter);
+        ComponentFinder componentFinder = new ComponentFinder("je.techtribes");
+        componentFinder.findComponents(contentUpdater);
 
         System.out.println("Context view");
         System.out.println("============");
@@ -109,12 +87,15 @@ public class Main {
         componentView.remove(webApplication);
         componentView.addAllComponents();
         componentView.remove(contentUpdater.getComponentWithName("LoggingComponent"));
+        componentView.remove(contentUpdater.getComponentWithName("ContentSourceComponent"));
+        componentView.remove(contentUpdater.getComponentWithName("ActivityComponent"));
+        componentView.removeElementsWithNoRelationships();
         componentView.getElements().forEach(System.out::println);
         componentView.getRelationships().forEach(System.out::println);
         System.out.println("============");
 
         ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+//        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
         System.out.println(objectMapper.writeValueAsString(model));
     }

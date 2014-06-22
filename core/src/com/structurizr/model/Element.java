@@ -63,13 +63,9 @@ public abstract class Element {
         return relationships;
     }
 
-    @JsonIgnore
-    public Key getKey() {
-        return new Key(getType(), id);
-    }
-
     @Override
     public String toString() {
         return "{" + getId() + " | " + getName() + " | " + getDescription() + "}";
     }
+
 }

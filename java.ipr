@@ -251,6 +251,14 @@
       <SOURCES />
       <jarDirectory url="file://$PROJECT_DIR$/lib/runtime" recursive="false" />
     </library>
+    <library name="techtribesje">
+      <CLASSES>
+        <root url="file://$PROJECT_DIR$/../../techtribesje/build/techtribes-updater/production-classes" />
+        <root url="file://$PROJECT_DIR$/../../techtribesje/build/techtribes-core/production-classes" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES />
+    </library>
   </component>
 </project>
 
