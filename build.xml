@@ -1,0 +1,94 @@
+<project name="hello-ivy" default="run" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+    <property name="project.name" value="techtribesje"/>
+
+    <property name="build.dir" value="${basedir}/build"/>
+    <property name="dist.dir" value="${build.dir}/dist"/>
+
+    <property name="core.dir" value="${basedir}/core" />
+    <property name="core.build.dir" value="${build.dir}/core" />
+
+    <property name="test.lib.dir" value="${basedir}/lib/test"/>
+    <property name="runtime.lib.dir" value="${basedir}/lib/runtime"/>
+
+    <target name="init" depends="clean">
+        <mkdir dir="${build.dir}"/>
+
+        <mkdir dir="${core.build.dir}"/>
+        <mkdir dir="${core.build.dir}/production-classes"/>
+        <mkdir dir="${core.build.dir}/test-classes"/>
+
+        <mkdir dir="${dist.dir}"/>
+        <mkdir dir="${dist.dir}/lib"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${core.dir}/src" destdir="${core.build.dir}/production-classes" debug="yes">
+            <classpath>
+                <fileset dir="${runtime.lib.dir}">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+
+        <javac srcdir="${core.dir}/test" destdir="${core.build.dir}/test-classes" debug="yes">
+            <classpath>
+                <fileset dir="${runtime.lib.dir}" includes="*.jar" />
+                <fileset dir="${test.lib.dir}" includes="*.jar" />
+                <pathelement location="${core.build.dir}/production-classes" />
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="unit-tests" depends="compile">
+        <junit printsummary="yes" haltonfailure="yes">
+            <classpath>
+                <fileset dir="${runtime.lib.dir}" includes="*.jar" />
+                <fileset dir="${test.lib.dir}" includes="*.jar" />
+                <pathelement location="${core.build.dir}/production-classes" />
+                <pathelement location="${core.build.dir}/test-classes"/>
+            </classpath>
+
+            <formatter type="plain"/>
+
+            <batchtest fork="no" todir="${build.dir}">
+                <fileset dir="${core.dir}/test/unit">
+                    <include name="**/*Tests.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="build" depends="unit-tests">
+        <jar jarfile="${build.dir}/structurizr-core.jar">
+            <fileset dir="${core.build.dir}/production-classes"/>
+            <fileset dir="${core.dir}/src" includes="**/*.xml" />
+        </jar>
+    </target>
+
+    <target name="dist" depends="unit-tests">
+        <copy todir="${dist.dir}/lib">
+            <fileset dir="${runtime.lib.dir}">
+                <include name="*.jar"/>
+            </fileset>
+        </copy>
+
+        <!--<zip destfile="${build.dir}/${project.name}-${build.number}.zip">-->
+            <!--<fileset dir="${dist.dir}"/>-->
+        <!--</zip>-->
+    </target>
+
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+
+    <target name="resolve" description="--> retreive dependencies with ivy">
+        <ivy:retrieve conf="runtime" pattern="${runtime.lib.dir}/[artifact].[ext]"/>
+    </target>    
+    
+	<target name="clean-cache" description="--> clean the ivy cache">
+		<ivy:cleancache />
+	</target>
+
+
+</project>

@@ -1,4 +1,4 @@
-package com.structurizr.domain;
+package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -30,11 +30,12 @@ public class Component extends Element {
         this.fullyQualifiedClassName = fullyQualifiedClassName;
     }
 
+    @Override
     public String getName() {
-        if (this.fullyQualifiedClassName != null) {
-            return fullyQualifiedClassName.substring(fullyQualifiedClassName.lastIndexOf(".") + 1);
-        } else {
+        if (this.fullyQualifiedClassName == null) {
             return super.getName();
+        } else {
+            return fullyQualifiedClassName.substring(fullyQualifiedClassName.lastIndexOf(".") + 1);
         }
     }
 

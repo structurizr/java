@@ -1,8 +1,9 @@
-package com.structurizr.domain;
+package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class Container extends Element {
@@ -59,6 +60,16 @@ public class Container extends Element {
 
     public Set<Component> getComponents() {
         return components;
+    }
+
+    public Component getComponentWithName(String name) {
+        Optional<Component> component = components.stream().filter(c -> c.getName().equals(name)).findFirst();
+
+        if (component.isPresent()) {
+            return component.get();
+        } else {
+            return null;
+        }
     }
 
 }

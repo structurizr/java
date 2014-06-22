@@ -1,4 +1,4 @@
-package com.structurizr.domain;
+package com.structurizr.model;
 
 public class Person extends Element {
 
@@ -7,7 +7,7 @@ public class Person extends Element {
         return ElementType.Person;
     }
 
-    public void addRelationshipTo(SoftwareSystem destination, String description) {
+    public void uses(SoftwareSystem destination, String description) {
         Relationship relationship = new Relationship(this, destination, description);
         relationships.add(relationship);
     }

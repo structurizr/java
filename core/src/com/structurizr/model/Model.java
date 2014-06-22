@@ -1,4 +1,9 @@
-package com.structurizr.domain;
+package com.structurizr.model;
+
+import com.structurizr.view.ComponentView;
+import com.structurizr.view.ContainerView;
+import com.structurizr.view.ContextView;
+import com.structurizr.view.View;
 
 import java.util.*;
 
@@ -6,13 +11,16 @@ public class Model {
 
     private long id = 1;
 
-    private final Map<Long,Element> elements = new HashMap<>();
+    private final Map<Long,Element> elementsById = new HashMap<>();
 
     private Set<Person> people = new HashSet<>();
     private Set<SoftwareSystem> softwareSystems = new HashSet<>();
 
-    public SoftwareSystem createSoftwareSystem(String name, String description) {
+    private Set<View> views = new HashSet<>();
+
+    public SoftwareSystem createSoftwareSystem(Location location, String name, String description) {
         SoftwareSystem softwareSystem = new SoftwareSystem();
+        softwareSystem.setLocation(location);
         softwareSystem.setName(name);
         softwareSystem.setDescription(description);
         softwareSystem.setId(getId());
@@ -23,8 +31,9 @@ public class Model {
         return softwareSystem;
     }
 
-    public Person createPerson(String name, String description) {
+    public Person createPerson(Location location, String name, String description) {
         Person person = new Person();
+        person.setLocation(location);
         person.setName(name);
         person.setDescription(description);
         person.setId(getId());
@@ -65,12 +74,12 @@ public class Model {
     }
 
     private void addElement(Element element) {
-        elements.put(element.getId(), element);
+        elementsById.put(element.getId(), element);
         element.setModel(this);
     }
 
     public Element getElement(long id) {
-        return elements.get(id);
+        return elementsById.get(id);
     }
 
     public Collection<Person> getPeople() {
@@ -78,7 +87,7 @@ public class Model {
     }
 
     public Set<SoftwareSystem> getSoftwareSystems() {
-        return softwareSystems;
+        return new HashSet<>(softwareSystems);
     }
 
     public void enrich() {
@@ -114,6 +123,35 @@ public class Model {
             relationship.setSource(getElement(relationship.getSourceId()));
             relationship.setDestination(getElement(relationship.getDestinationId()));
         }
+    }
+
+    public boolean contains(Element element) {
+        return elementsById.values().contains(element);
+    }
+
+    public ContextView createContextView(SoftwareSystem softwareSystem) {
+        ContextView view = new ContextView(softwareSystem);
+        views.add(view);
+
+        return view;
+    }
+
+    public ContainerView createContainerView(SoftwareSystem softwareSystem) {
+        ContainerView view = new ContainerView(softwareSystem);
+        views.add(view);
+
+        return view;
+    }
+
+    public ComponentView createComponentView(SoftwareSystem softwareSystem, Container container) {
+        ComponentView view = new ComponentView(softwareSystem, container);
+        views.add(view);
+
+        return view;
+    }
+
+    public Set<View> getViews() {
+        return new HashSet<>(views);
     }
 
 }

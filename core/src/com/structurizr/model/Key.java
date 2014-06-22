@@ -1,4 +1,4 @@
-package com.structurizr.domain;
+package com.structurizr.model;
 
 /**
  * This provides a way to uniquely identify elements given their type and ID.

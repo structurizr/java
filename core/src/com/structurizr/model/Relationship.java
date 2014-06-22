@@ -1,4 +1,4 @@
-package com.structurizr.domain;
+package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -71,6 +71,6 @@ public class Relationship {
 
     @Override
     public String toString() {
-        return source.toString() + " -> " + destination.toString();
+        return source.toString() + " ---[" + description + "]---> " + destination.toString();
     }
 }

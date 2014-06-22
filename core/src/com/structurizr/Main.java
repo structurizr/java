@@ -2,30 +2,35 @@ package com.structurizr;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.structurizr.domain.Container;
-import com.structurizr.domain.Model;
-import com.structurizr.domain.Person;
-import com.structurizr.domain.SoftwareSystem;
+import com.structurizr.view.ComponentView;
+import com.structurizr.view.ContainerView;
+import com.structurizr.view.ContextView;
+import com.structurizr.model.*;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        ObjectMapper objectMapper = new ObjectMapper();
+//        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+
         Model model = new Model();
+        SoftwareSystem techTribes = model.createSoftwareSystem(Location.Internal, "techtribes.je", "techtribes.je is the only way to keep up to date with the IT, tech and digital sector in Jersey and Guernsey, Channel Islands");
 
-        SoftwareSystem techTribes = model.createSoftwareSystem("techtribes.je", "techtribes.je is the only way to keep up to date with the IT, tech and digital sector in Jersey and Guernsey, Channel Islands");
+        Person anonymousUser = model.createPerson(Location.External, "Anonymous User", "Anybody on the web.");
+        Person authenticatedUser = model.createPerson(Location.External, "Aggregated User", "A user or business with content that is aggregated into the website.");
+        Person adminUser = model.createPerson(Location.External, "Administration User", "A system administration user.");
+        anonymousUser.uses(techTribes, "View people, tribes (businesses, communities and interest groups), content, events, jobs, etc from the local tech, digital and IT sector.");
+        authenticatedUser.uses(techTribes, "Manage user profile and tribe membership.");
+        adminUser.uses(techTribes, "Add people, add tribes and manage tribe membership.");
 
-        Person anonymousUser = model.createPerson("Anonymous User", "Anybody on the web.");
-        Person authenticatedUser = model.createPerson("Authenticated User", "A user or business who's content is aggregated into the website.");
-        Person adminUser = model.createPerson("Admin User", "A system administration user.");
-
-        SoftwareSystem twitter = model.createSoftwareSystem("Twitter", null);
+        SoftwareSystem twitter = model.createSoftwareSystem(Location.External, "Twitter", null);
         techTribes.uses(twitter, "Gets profile information and tweets from.");
 
-        SoftwareSystem gitHub = model.createSoftwareSystem("GitHub", null);
+        SoftwareSystem gitHub = model.createSoftwareSystem(Location.External, "GitHub", null);
         techTribes.uses(gitHub, "Gets information about public code repositories from.");
 
-        SoftwareSystem blogs = model.createSoftwareSystem("Blogs", null);
+        SoftwareSystem blogs = model.createSoftwareSystem(Location.External, "Blogs", null);
         techTribes.uses(blogs, "Gets content using RSS and Atom feeds from.");
 
         Container webApplication = techTribes.createContainer("Web Application", "Allows users to view people, tribes, content, events, jobs, etc from the local tech, digital and IT sector.", "Apache Tomcat 7.x");
@@ -49,19 +54,51 @@ public class Main {
         contentUpdater.uses(gitHub, "Gets information about public code repositories from.");
         contentUpdater.uses(blogs, "Gets content using RSS and Atom feeds from.");
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-        String json = objectMapper.writeValueAsString(model);
-        System.out.println(json);
+        System.out.println("Context view");
+        System.out.println("============");
+        ContextView contextView = model.createContextView(techTribes);
+        contextView.addAllSoftwareSystems();
+        contextView.addAllPeople();
+        contextView.getElements().forEach(System.out::println);
+        contextView.getRelationships().forEach(System.out::println);
+        System.out.println("============");
 
-        model = objectMapper.readValue(json, Model.class);
-        model.enrich();
+        System.out.println();
 
-        model.getSoftwareSystems().forEach(System.out::println);
-        for (Person person : model.getPeople()) {
-            person.getRelationships().forEach(System.out::println);
-        }
+        System.out.println("Container view");
+        System.out.println("============");
+        ContainerView containerView = model.createContainerView(techTribes);
+        containerView.addAllSoftwareSystems();
+        containerView.addAllPeople();
+        containerView.addAllContainers();
+        containerView.getElements().forEach(System.out::println);
+        containerView.getRelationships().forEach(System.out::println);
+        System.out.println("============");
+
+        System.out.println();
+
+        System.out.println("Component view - content updater");
+        System.out.println("============");
+        ComponentView componentView = model.createComponentView(techTribes, contentUpdater);
+        componentView.add(twitter);
+        componentView.add(gitHub);
+        componentView.add(blogs);
+        componentView.addAllPeople();
+        componentView.addAllContainers();
+        componentView.getElements().forEach(System.out::println);
+        componentView.getRelationships().forEach(System.out::println);
+        System.out.println("============");
+
+        String modelJson = objectMapper.writeValueAsString(model);
+        System.out.println(modelJson);
+
+//        model = objectMapper.readValue(json, Model.class);
+//        model.enrich();
+//
+//        model.getSoftwareSystems().forEach(System.out::println);
+//        for (Person person : model.getPeople()) {
+//            person.getRelationships().forEach(System.out::println);
+//        }
     }
 
 }

@@ -1,4 +1,4 @@
-package com.structurizr.domain;
+package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -17,7 +17,7 @@ public abstract class Element {
     protected Set<Relationship> relationships = new HashSet<>();
 
     @JsonIgnore
-    protected Model getModel() {
+    public Model getModel() {
         return this.model;
     }
 
@@ -41,7 +41,6 @@ public abstract class Element {
         this.name = name;
     }
 
-    @JsonIgnore
     public abstract ElementType getType();
 
     public String getDescription() {
@@ -71,6 +70,6 @@ public abstract class Element {
 
     @Override
     public String toString() {
-        return "[" + id + "|" + name + "]";
+        return "{" + getId() + " | " + getName() + " | " + getDescription() + "}";
     }
 }
