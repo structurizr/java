@@ -5,6 +5,9 @@
     <property name="build.dir" value="${basedir}/build"/>
     <property name="dist.dir" value="${build.dir}/dist"/>
 
+    <property name="annotations.dir" value="${basedir}/annotations" />
+    <property name="annotations.build.dir" value="${build.dir}/annotations" />
+
     <property name="core.dir" value="${basedir}/core" />
     <property name="core.build.dir" value="${build.dir}/core" />
 
@@ -13,6 +16,9 @@
 
     <target name="init" depends="clean">
         <mkdir dir="${build.dir}"/>
+
+        <mkdir dir="${annotations.build.dir}"/>
+        <mkdir dir="${annotations.build.dir}/production-classes"/>
 
         <mkdir dir="${core.build.dir}"/>
         <mkdir dir="${core.build.dir}/production-classes"/>
@@ -23,6 +29,9 @@
     </target>
 
     <target name="compile" depends="init">
+        <javac srcdir="${annotations.dir}/src" destdir="${annotations.build.dir}/production-classes" debug="yes" source="1.7" target="1.7">
+        </javac>
+
         <javac srcdir="${core.dir}/src" destdir="${core.build.dir}/production-classes" debug="yes">
             <classpath>
                 <fileset dir="${runtime.lib.dir}">
@@ -60,9 +69,12 @@
     </target>
 
     <target name="build" depends="unit-tests">
+        <jar jarfile="${build.dir}/structurizr-annotations.jar">
+            <fileset dir="${annotations.build.dir}/production-classes"/>
+        </jar>
+
         <jar jarfile="${build.dir}/structurizr-core.jar">
             <fileset dir="${core.build.dir}/production-classes"/>
-            <fileset dir="${core.dir}/src" includes="**/*.xml" />
         </jar>
     </target>
 
@@ -84,7 +96,8 @@
 
     <target name="resolve" description="--> retreive dependencies with ivy">
         <ivy:retrieve conf="runtime" pattern="${runtime.lib.dir}/[artifact].[ext]"/>
-    </target>    
+        <ivy:retrieve conf="test" pattern="${runtime.lib.dir}/[artifact].[ext]"/>
+    </target>
     
 	<target name="clean-cache" description="--> clean the ivy cache">
 		<ivy:cleancache />

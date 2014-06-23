@@ -44,11 +44,16 @@ public class Component extends Element {
         return fullyQualifiedClassName.substring(0, fullyQualifiedClassName.lastIndexOf("."));
     }
 
+    public void uses(SoftwareSystem destination, String description) {
+        addRelationship(new Relationship(this, destination, description));
+    }
+
+    public void uses(Container destination, String description) {
+        addRelationship(new Relationship(this, destination, description));
+    }
+
     public void uses(Component destination, String description) {
-        Relationship relationship = new Relationship(this, destination, description);
-        if (!relationships.contains(relationship)) {
-            relationships.add(relationship);
-        }
+        addRelationship(new Relationship(this, destination, description));
     }
 
 }

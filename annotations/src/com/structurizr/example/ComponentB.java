@@ -1,6 +1,6 @@
-package com.structurizr.element.example;
+package com.structurizr.example;
 
-import com.structurizr.element.Component;
+import com.structurizr.annotation.Component;
 
 @Component( description = "Does something else" )
 public interface ComponentB {

@@ -1,7 +1,7 @@
-package com.structurizr.element.example;
+package com.structurizr.example;
 
-import com.structurizr.element.ComponentDependency;
-import com.structurizr.element.ContainerDependency;
+import com.structurizr.annotation.ComponentDependency;
+import com.structurizr.annotation.ContainerDependency;
 
 @ContainerDependency( target = Dependencies.RelationalDatabase, description = "Reads from and writes to" )
 public class ComponentAImpl implements ComponentA {

@@ -41,13 +41,7 @@ public class Container extends Element {
     }
 
     public void uses(SoftwareSystem destination, String description) {
-        Relationship relationship = new Relationship(this, destination, description);
-        relationships.add(relationship);
-    }
-
-    public void uses(Person destination, String description) {
-        Relationship relationship = new Relationship(this, destination, description);
-        relationships.add(relationship);
+        addRelationship(new Relationship(this, destination, description));
     }
 
     public Component createComponentWithClass(String fullyQualifiedClassName, String description) {

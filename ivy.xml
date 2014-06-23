@@ -5,7 +5,8 @@
             <conf name="test" description="Test dependencies"/>
         </configurations>
     <dependencies>
-        <dependency org="com.fasterxml.jackson.core" name="jackson-databind" rev="2.4.0" conf="runtime" />
-        <dependency org="org.reflections" name="reflections" rev="0.9.9-RC1" conf="runtime" />
+        <dependency org="com.fasterxml.jackson.core" name="jackson-databind" rev="2.4.0" conf="runtime->default" />
+        <dependency org="org.reflections" name="reflections" rev="0.9.9-RC1" conf="runtime->default" />
+        <dependency org="junit" name="junit" rev="4.11" conf="test->default" />
     </dependencies>
 </ivy-module>

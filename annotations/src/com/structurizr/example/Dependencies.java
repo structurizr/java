@@ -1,4 +1,4 @@
-package com.structurizr.element.example;
+package com.structurizr.example;
 
 public class Dependencies {
 

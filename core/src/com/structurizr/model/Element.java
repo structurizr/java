@@ -59,6 +59,12 @@ public abstract class Element {
         this.location = location;
     }
 
+    protected void addRelationship(Relationship relationship) {
+        if (!relationships.contains(relationship)) {
+            relationships.add(relationship);
+        }
+    }
+
     public Set<Relationship> getRelationships() {
         return relationships;
     }

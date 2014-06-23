@@ -21,18 +21,26 @@ public class SoftwareSystem extends Element {
     }
 
     public void uses(SoftwareSystem destination, String description) {
-        Relationship relationship = new Relationship(this, destination, description);
-        relationships.add(relationship);
+        addRelationship(new Relationship(this, destination, description));
     }
 
-    public void addRelationshipTo(Person destination, String description) {
-        Relationship relationship = new Relationship(this, destination, description);
-        relationships.add(relationship);
+    // todo: think of a better name for an outgoing relationship between a software system and a person :-)
+    public void sendsSomethingTo(Person destination, String description) {
+        addRelationship(new Relationship(this, destination, description));
     }
-
 
     public Container createContainer(String name, String description, String technology) {
         return getModel().createContainer(this, name, description, technology);
     }
+
+    public Container getContainerWithName(String name) {
+         for (Container container : getContainers()) {
+             if (container.getName().equals(name)) {
+                 return container;
+             }
+         }
+
+         return null;
+     }
 
 }

@@ -51,8 +51,11 @@ public class Main {
         contentUpdater.uses(gitHub, "Gets information about public code repositories from.");
         contentUpdater.uses(blogs, "Gets content using RSS and Atom feeds from.");
 
-        ComponentFinder componentFinder = new ComponentFinder("je.techtribes");
-        componentFinder.findComponents(contentUpdater);
+        ComponentFinder componentFinder = new ComponentFinder(contentUpdater, "je.techtribes");
+        componentFinder.findComponents();
+        componentFinder.findComponentDependencies();
+        componentFinder.findSoftwareSystemDependencies();
+        componentFinder.findContainerDependencies();
 
         System.out.println("Context view");
         System.out.println("============");

@@ -52,6 +52,7 @@ public class Model {
         container.setId(getId());
 
         parent.add(container);
+        container.setParent(parent);
         addElement(container);
 
         return container;
@@ -64,6 +65,7 @@ public class Model {
         component.setId(getId());
 
         parent.add(component);
+        component.setParent(parent);
         addElement(component);
 
         return component;
@@ -152,6 +154,16 @@ public class Model {
 
     public Set<View> getViews() {
         return new HashSet<>(views);
+    }
+
+    public SoftwareSystem getSoftwareSystemWithName(String name) {
+        for (SoftwareSystem softwareSystem : getSoftwareSystems()) {
+            if (softwareSystem.getName().equals(name)) {
+                return softwareSystem;
+            }
+        }
+
+        return null;
     }
 
 }
