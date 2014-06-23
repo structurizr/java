@@ -2,42 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="655aeccd-15c7-40da-998c-90a4b0c635db" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/com/structurizr/AnnotationProcessor.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/com/structurizr/DependencyFinder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/com/structurizr/JDependDependencyFinder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/com/structurizr/ScannotationComponentFinder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/jdepend/framework/AbstractParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/jdepend/framework/ClassFileParser.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/jdepend/framework/DependencyConstraint.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/jdepend/framework/FileManager.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/jdepend/framework/JDepend.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/jdepend/framework/JavaClass.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/jdepend/framework/JavaClassBuilder.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/jdepend/framework/JavaPackage.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/jdepend/framework/PackageComparator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/jdepend/framework/PackageFilter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/jdepend/framework/ParserListener.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/jdepend/framework/PropertyConfigurator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Key.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/scannotation-1.0.2.jar" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/runtime/javassist.jar" afterPath="$PROJECT_DIR$/lib/runtime/javassist.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Component.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Component.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/annotations/src/com/structurizr/element/example/ComponentA.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/annotations/src/com/structurizr/element/example/ComponentAImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/annotations/src/com/structurizr/element/example/ComponentB.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/annotations/src/com/structurizr/element/example/ComponentBImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/annotations/src/com/structurizr/element/ContainerDependency.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/annotations/src/com/structurizr/element/example/Dependencies.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/annotations/src/com/structurizr/element/SoftwareSystemDependency.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/annotations/src/com/structurizr/element/Dependency.java" afterPath="$PROJECT_DIR$/annotations/src/com/structurizr/element/ComponentDependency.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/com/structurizr/ComponentFinder.java" afterPath="$PROJECT_DIR$/client/src/com/structurizr/ComponentFinder.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/com/structurizr/Main.java" afterPath="$PROJECT_DIR$/client/src/com/structurizr/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/Main.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Relationship.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Relationship.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/View.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/View.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/annotations/annotations.iml" afterPath="$PROJECT_DIR$/annotations/annotations.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/client.iml" afterPath="$PROJECT_DIR$/client/client.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ivy.xml" afterPath="$PROJECT_DIR$/ivy.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.ipr" afterPath="$PROJECT_DIR$/java.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/annotations/src/com/structurizr/element/Container.java" afterPath="$PROJECT_DIR$/annotations/src/com/structurizr/element/Container.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.iws" afterPath="$PROJECT_DIR$/java.iws" />
     </list>
     <ignored path="java.iws" />
     <ignored path=".idea/workspace.xml" />
     <file path="/Dummy.txt" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403463753744" ignored="false" />
-    <file path="/Component.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403473977782" ignored="false" />
+    <file path="/Component.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403504625086" ignored="false" />
     <file path="/Main.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403478934418" ignored="false" />
     <file path="/a.dummy" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403448012406" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/log/LoggingComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403447979742" ignored="false" />
@@ -85,14 +65,14 @@
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/interactions/InteractionsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403474437372" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/softwaresystems/SoftwareSystemsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403474432968" ignored="false" />
     <file path="/.gitignore" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402350261653" ignored="false" />
-    <file path="/Container.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403445246120" ignored="false" />
+    <file path="/Container.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403504520842" ignored="false" />
     <file path="/Model.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403444915255" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/public/readonly-diagram.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403478833069" ignored="false" />
     <file path="/readonly-diagram.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403441246471" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/structurizr-diagram.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403477859742" ignored="false" />
     <file path="/structurizr-diagram.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403477769927" ignored="false" />
     <file path="/Diagram.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403434422300" ignored="false" />
-    <file path="/fragment.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403468427218" ignored="false" />
+    <file path="/fragment.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403507853635" ignored="false" />
     <file path="/DiagramType.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403426564765" ignored="false" />
     <file path="/ContextDiagram.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403431016297" ignored="false" />
     <file path="/Box.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403429518649" ignored="false" />
@@ -110,17 +90,17 @@
     <file path="/ScheduledContentUpdater.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403447157210" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/scheduledcontentupdater/ScheduledContentUpdaterImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403469344728" ignored="false" />
     <file path="/ScheduledContentUpdaterImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403447197438" ignored="false" />
-    <file path="/Dependency.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403476165039" ignored="false" />
+    <file path="/Dependency.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403507849518" ignored="false" />
     <file path="/LoggingComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403474419115" ignored="false" />
     <file path="/NewsFeedConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403448055628" ignored="false" />
     <file path="/build.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403475944996" ignored="false" />
     <file path="/ivy.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403451857171" ignored="false" />
     <file path="/ScannotationComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403465102036" ignored="false" />
     <file path="/JDependDependencyFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403467500089" ignored="false" />
-    <file path="/ComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403459082341" ignored="false" />
+    <file path="/ComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403517659687" ignored="false" />
     <file path="/ReflectionsScanner.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403477081335" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/build.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403475944996" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/twitterconnector/Twitter4jTwitterConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403469358560" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/twitterconnector/Twitter4jTwitterConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403479652002" ignored="false" />
     <file path="/Type.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403470641647" ignored="false" />
     <file path="/WorkspaceComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403474374497" ignored="false" />
     <file path="/InteractionsComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403474378610" ignored="false" />
@@ -134,6 +114,14 @@
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/test/component/je/techtribes/AbstractComponentTestsBase.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403474915753" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/test/component/je/techtribes/AbstractComponentTestsBase.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403475031140" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/test/component/techtribesje-test.properties" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403475470680" ignored="false" />
+    <file path="/Test.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403508174520" ignored="false" />
+    <file path="/SoftwareSystems.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403508203099" ignored="false" />
+    <file path="/Interface.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403508026058" ignored="false" />
+    <file path="/ComponentA.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403507937831" ignored="false" />
+    <file path="/ComponentB.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403507954318" ignored="false" />
+    <file path="/ComponentBImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403508108601" ignored="false" />
+    <file path="/Dependencies.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403508198912" ignored="false" />
+    <file path="/ContainerDependency.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403508225458" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -194,28 +182,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Element.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Element.java">
+      <file leaf-file-name="Container.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/Container.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="69" column="0" selection-start="1399" selection-end="1399" vertical-scroll-proportion="0.0">
+            <state line="9" column="29" selection-start="287" selection-end="287" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Component.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/Component.java">
+      <file leaf-file-name="SoftwareSystemDependency.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/SoftwareSystemDependency.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="18" selection-start="276" selection-end="276" vertical-scroll-proportion="0.0">
+            <state line="12" column="25" selection-start="371" selection-end="371" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Main.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/Main.java">
+      <file leaf-file-name="ComponentAImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/example/ComponentAImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="82" column="0" selection-start="5237" selection-end="5237" vertical-scroll-proportion="2.633833">
+            <state line="6" column="13" selection-start="267" selection-end="267" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -223,10 +211,55 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Container.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/Container.java">
+      <file leaf-file-name="ComponentB.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/example/ComponentB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="18" selection-start="276" selection-end="276" vertical-scroll-proportion="0.0">
+            <state line="4" column="0" selection-start="85" selection-end="85" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ComponentBImpl.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/example/ComponentBImpl.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="0" selection-start="294" selection-end="294" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ComponentA.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/example/ComponentA.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="0" selection-start="160" selection-end="160" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ComponentDependency.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/ComponentDependency.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="18" selection-start="297" selection-end="297" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Dependencies.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/example/Dependencies.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="6" column="64" selection-start="189" selection-end="189" vertical-scroll-proportion="0.1875">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ContainerDependency.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/ContainerDependency.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="25" selection-start="366" selection-end="366" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -235,55 +268,10 @@
       <file leaf-file-name="ComponentFinder.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/ComponentFinder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="18" selection-start="1168" selection-end="1168" vertical-scroll-proportion="0.0">
+            <state line="42" column="0" selection-start="1604" selection-end="1604" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Dependency.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/Dependency.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="45" selection-start="241" selection-end="241" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SoftwareSystem.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="13" selection-start="94" selection-end="94" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Location.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Location.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="12" selection-start="44" selection-end="44" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ElementType.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/ElementType.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="12" selection-start="44" selection-end="44" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Component.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Component.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="16" selection-start="1138" selection-end="1138" vertical-scroll-proportion="0.0">
-              <folding />
             </state>
           </provider>
         </entry>
@@ -307,21 +295,21 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/Component.java" />
-        <option value="$PROJECT_DIR$/build.xml" />
-        <option value="$PROJECT_DIR$/ivy.xml" />
-        <option value="$PROJECT_DIR$/client/src/com/structurizr/AnnotationProcessor.java" />
-        <option value="$PROJECT_DIR$/client/src/com/structurizr/ComponentFinder.java" />
-        <option value="$PROJECT_DIR$/client/src/com/structurizr/ScannotationComponentFinder.java" />
-        <option value="$PROJECT_DIR$/client/src/com/structurizr/DependencyFinder.java" />
-        <option value="$PROJECT_DIR$/client/src/com/structurizr/JDependDependencyFinder.java" />
-        <option value="$PROJECT_DIR$/client/src/com/structurizr/Type.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Component.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Relationship.java" />
+        <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/Container.java" />
+        <option value="$PROJECT_DIR$/annotations/src/com/structurizr/Thing.java" />
+        <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/example/SoftwareSystems.java" />
+        <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/Interface.java" />
+        <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/ComponentDependency.java" />
         <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/Dependency.java" />
-        <option value="$PROJECT_DIR$/client/src/com/structurizr/ReflectionsScanner.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/view/View.java" />
-        <option value="$PROJECT_DIR$/client/src/com/structurizr/Main.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" />
+        <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/example/Thing.java" />
+        <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/example/ComponentA.java" />
+        <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/example/ComponentB.java" />
+        <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/SoftwareSystemDependency.java" />
+        <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/example/ComponentBImpl.java" />
+        <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/example/ComponentAImpl.java" />
+        <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/ContainerDependency.java" />
+        <option value="$PROJECT_DIR$/client/src/com/structurizr/ComponentFinder.java" />
+        <option value="$PROJECT_DIR$/annotations/src/com/structurizr/element/example/Dependencies.java" />
       </list>
     </option>
   </component>
@@ -525,6 +513,36 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="element" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="annotations" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="structurizr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="element" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="example" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -786,34 +804,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Relationship.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="79" column="25" selection-start="1886" selection-end="1886" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/RelationshipView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="140" selection-end="140" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="0" selection-start="2584" selection-end="2584" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Component.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="16" selection-start="1138" selection-end="1138" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="13" selection-start="94" selection-end="94" vertical-scroll-proportion="0.0">
@@ -842,42 +832,91 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/Dependency.java">
+    <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="45" selection-start="241" selection-end="241" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/Container.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="18" selection-start="276" selection-end="276" vertical-scroll-proportion="0.0">
+        <state line="3" column="51" selection-start="139" selection-end="139" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/Component.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="18" selection-start="276" selection-end="276" vertical-scroll-proportion="0.0">
+        <state line="11" column="24" selection-start="313" selection-end="313" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/Container.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="29" selection-start="287" selection-end="287" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/ComponentDependency.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="18" selection-start="297" selection-end="297" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/SoftwareSystemDependency.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="25" selection-start="371" selection-end="371" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/ContainerDependency.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="25" selection-start="366" selection-end="366" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/ComponentFinder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="18" selection-start="1168" selection-end="1168" vertical-scroll-proportion="0.0">
+        <state line="42" column="0" selection-start="1604" selection-end="1604" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/Main.java">
+    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/example/ComponentA.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="82" column="0" selection-start="5237" selection-end="5237" vertical-scroll-proportion="2.633833">
+        <state line="6" column="0" selection-start="160" selection-end="160" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/example/ComponentB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="0" selection-start="85" selection-end="85" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/example/ComponentAImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="13" selection-start="267" selection-end="267" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/example/ComponentBImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="0" selection-start="294" selection-end="294" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/element/example/Dependencies.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="64" selection-start="189" selection-end="189" vertical-scroll-proportion="0.1875">
+          <folding />
         </state>
       </provider>
     </entry>

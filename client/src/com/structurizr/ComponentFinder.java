@@ -1,6 +1,6 @@
 package com.structurizr;
 
-import com.structurizr.element.Dependency;
+import com.structurizr.element.ComponentDependency;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 import com.structurizr.model.Relationship;
@@ -54,11 +54,11 @@ public class ComponentFinder {
         }
 
         // and finally populate the dependency descriptions
-        Set<Field> fields = reflections.getFieldsAnnotatedWith(Dependency.class);
+        Set<Field> fields = reflections.getFieldsAnnotatedWith(ComponentDependency.class);
         for (Field field : fields) {
             if (componentsByType.containsKey(field.getType().getCanonicalName())) {
                 Component destination = componentsByType.get(field.getType().getCanonicalName());
-                String description = field.getAnnotation(Dependency.class).description();
+                String description = field.getAnnotation(ComponentDependency.class).description();
 
                 AnnotatedType[] annotatedTypes = field.getDeclaringClass().getAnnotatedInterfaces();
                 for (AnnotatedType annotatedType : annotatedTypes) {
