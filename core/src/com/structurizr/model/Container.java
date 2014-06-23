@@ -23,7 +23,7 @@ public class Container extends Element {
         return parent;
     }
 
-    public void setParent(SoftwareSystem parent) {
+    void setParent(SoftwareSystem parent) {
         this.parent = parent;
     }
 

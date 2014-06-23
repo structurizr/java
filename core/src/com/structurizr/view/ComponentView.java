@@ -1,5 +1,6 @@
 package com.structurizr.view;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 import com.structurizr.model.SoftwareSystem;
@@ -7,6 +8,10 @@ import com.structurizr.model.SoftwareSystem;
 public class ComponentView extends View {
 
     private Container container;
+    private int containerId;
+
+    public ComponentView() {
+    }
 
     public ComponentView(SoftwareSystem softwareSystem, Container container) {
         super(softwareSystem);
@@ -14,8 +19,25 @@ public class ComponentView extends View {
         this.container = container;
     }
 
-    public long getContainerId() {
-        return container.getId();
+    public int getContainerId() {
+        if (this.container != null) {
+            return container.getId();
+        } else {
+            return this.containerId;
+        }
+    }
+
+    public void setContainerId(int containerId) {
+        this.containerId = containerId;
+    }
+
+    @JsonIgnore
+    public Container getContainer() {
+        return container;
+    }
+
+    public void setContainer(Container container) {
+        this.container = container;
     }
 
     public void addAllSoftwareSystems() {

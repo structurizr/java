@@ -1,22 +1,19 @@
 package com.structurizr.model;
 
-import com.structurizr.view.ComponentView;
-import com.structurizr.view.ContainerView;
-import com.structurizr.view.ContextView;
-import com.structurizr.view.View;
+import com.structurizr.view.*;
 
 import java.util.*;
 
 public class Model {
 
-    private long id = 1;
-
-    private final Map<Long,Element> elementsById = new HashMap<>();
+    private final Map<Integer,Element> elementsById = new HashMap<>();
 
     private Set<Person> people = new HashSet<>();
     private Set<SoftwareSystem> softwareSystems = new HashSet<>();
 
-    private Set<View> views = new HashSet<>();
+    private Set<ContextView> contextViews = new HashSet<>();
+    private Set<ContainerView> containerViews = new HashSet<>();
+    private Set<ComponentView> componentViews = new HashSet<>();
 
     public SoftwareSystem createSoftwareSystem(Location location, String name, String description) {
         SoftwareSystem softwareSystem = new SoftwareSystem();
@@ -71,8 +68,10 @@ public class Model {
         return component;
     }
 
-    private synchronized long getId() {
-        return id++;
+    private synchronized int getId() {
+        int id = elementsById.keySet().stream().reduce(0, Integer::max);
+
+        return ++id;
     }
 
     private void addElement(Element element) {
@@ -80,7 +79,7 @@ public class Model {
         element.setModel(this);
     }
 
-    public Element getElement(long id) {
+    public Element getElement(int id) {
         return elementsById.get(id);
     }
 
@@ -92,38 +91,54 @@ public class Model {
         return new HashSet<>(softwareSystems);
     }
 
-    public void enrich() {
+    public void hydrate() {
+        // add all of the elements to the model
         people.forEach(this::addElement);
         for (SoftwareSystem softwareSystem : softwareSystems) {
             addElement(softwareSystem);
             for (Container container : softwareSystem.getContainers()) {
                 addElement(container);
+                container.setParent(softwareSystem);
+                for (Component component : container.getComponents()) {
+                    addElement(component);
+                    component.setParent(container);
+                }
             }
         }
 
-        people.forEach(this::enrichRelationships);
+        // now hydrate the relationships
+        people.forEach(this::hydrateRelationships);
         for (SoftwareSystem softwareSystem : softwareSystems) {
-            enrichRelationships(softwareSystem);
+            hydrateRelationships(softwareSystem);
             for (Container container : softwareSystem.getContainers()) {
-                enrichRelationships(container);
+                hydrateRelationships(container);
+                for (Component component : container.getComponents()) {
+                    hydrateRelationships(component);
+                }
             }
         }
 
-        for (Person person : people) {
-            enrichRelationships(person);
-        }
-        for (SoftwareSystem softwareSystem : softwareSystems) {
-            enrichRelationships(softwareSystem);
-            for (Container container : softwareSystem.getContainers()) {
-                enrichRelationships(container);
-            }
+        contextViews.forEach(this::hydrateView);
+        containerViews.forEach(this::hydrateView);
+        componentViews.forEach(this::hydrateView);
+        for (ComponentView view : componentViews) {
+            hydrateView(view);
+            view.setContainer(view.getSoftwareSystem().getContainerWithId(view.getContainerId()));
         }
     }
 
-    private void enrichRelationships(Element element) {
+    private void hydrateRelationships(Element element) {
         for (Relationship relationship : element.getRelationships()) {
             relationship.setSource(getElement(relationship.getSourceId()));
             relationship.setDestination(getElement(relationship.getDestinationId()));
+        }
+    }
+
+    private void hydrateView(View view) {
+        view.setSoftwareSystem(getSoftwareSystemWithId(view.getSoftwareSystemId()));
+
+        for (ElementView elementView : view.getElements()) {
+            elementView.setElement(getElement(elementView.getId()));
         }
     }
 
@@ -133,32 +148,50 @@ public class Model {
 
     public ContextView createContextView(SoftwareSystem softwareSystem) {
         ContextView view = new ContextView(softwareSystem);
-        views.add(view);
+        contextViews.add(view);
 
         return view;
     }
 
     public ContainerView createContainerView(SoftwareSystem softwareSystem) {
         ContainerView view = new ContainerView(softwareSystem);
-        views.add(view);
+        containerViews.add(view);
 
         return view;
     }
 
     public ComponentView createComponentView(SoftwareSystem softwareSystem, Container container) {
         ComponentView view = new ComponentView(softwareSystem, container);
-        views.add(view);
+        componentViews.add(view);
 
         return view;
     }
 
-    public Set<View> getViews() {
-        return new HashSet<>(views);
+    public Set<ContextView> getContextViews() {
+        return new HashSet<>(contextViews);
+    }
+
+    public Set<ContainerView> getContainerViews() {
+        return new HashSet<>(containerViews);
+    }
+
+    public Set<ComponentView> getComponentViews() {
+        return new HashSet<>(componentViews);
     }
 
     public SoftwareSystem getSoftwareSystemWithName(String name) {
         for (SoftwareSystem softwareSystem : getSoftwareSystems()) {
             if (softwareSystem.getName().equals(name)) {
+                return softwareSystem;
+            }
+        }
+
+        return null;
+    }
+
+    public SoftwareSystem getSoftwareSystemWithId(int id) {
+        for (SoftwareSystem softwareSystem : getSoftwareSystems()) {
+            if (softwareSystem.getId() == id) {
                 return softwareSystem;
             }
         }

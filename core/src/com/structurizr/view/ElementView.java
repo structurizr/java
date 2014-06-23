@@ -6,6 +6,10 @@ import com.structurizr.model.Element;
 public class ElementView {
 
     private Element element;
+    private int id;
+
+    public ElementView() {
+    }
 
     public ElementView(Element element) {
         this.element = element;
@@ -16,8 +20,20 @@ public class ElementView {
         return element;
     }
 
-    public long getId() {
-        return element.getId();
+    public void setElement(Element element) {
+        this.element = element;
+    }
+
+    public int getId() {
+        if (element != null) {
+            return element.getId();
+        } else {
+            return this.id;
+        }
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -31,7 +47,7 @@ public class ElementView {
 
     @Override
     public int hashCode() {
-        return element.hashCode();
+        return getId();
     }
 
     @Override

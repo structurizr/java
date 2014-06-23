@@ -100,7 +100,11 @@ public class Main {
         ObjectMapper objectMapper = new ObjectMapper();
 //        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-        System.out.println(objectMapper.writeValueAsString(model));
+        String modelAsJson = objectMapper.writeValueAsString(model);
+        System.out.println(modelAsJson);
+//
+//        Model newModel = objectMapper.readValue(modelAsJson, Model.class);
+//        newModel.hydrate();
     }
 
 }

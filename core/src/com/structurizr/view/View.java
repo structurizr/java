@@ -1,6 +1,7 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.structurizr.model.Element;
 import com.structurizr.model.Model;
 import com.structurizr.model.Relationship;
@@ -10,12 +11,17 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+@JsonIgnoreProperties(ignoreUnknown=true)
 public abstract class View {
 
     private SoftwareSystem softwareSystem;
+    private int softwareSystemId;
     private String description;
 
     private Set<ElementView> elementViews = new HashSet<>();
+
+    protected View() {
+    }
 
     public View(SoftwareSystem softwareSystem) {
         this.softwareSystem = softwareSystem;
@@ -31,8 +37,20 @@ public abstract class View {
         return softwareSystem;
     }
 
-    public long getSoftwareSystemId() {
-        return this.softwareSystem.getId();
+    public void setSoftwareSystem(SoftwareSystem softwareSystem) {
+        this.softwareSystem = softwareSystem;
+    }
+
+    public int getSoftwareSystemId() {
+        if (this.softwareSystem != null) {
+            return this.softwareSystem.getId();
+        } else {
+            return this.softwareSystemId;
+        }
+    }
+
+    public void setSoftwareSystemId(int softwareSystemId) {
+        this.softwareSystemId = softwareSystemId;
     }
 
     public void add(SoftwareSystem softwareSystem) {
@@ -68,6 +86,10 @@ public abstract class View {
                 .collect(Collectors.toSet());
     }
 
+    public void setRelationships(Set<RelationshipView> relationships) {
+        // do nothing
+    }
+
     public abstract ViewType getType();
 
     public String getDescription() {
@@ -81,7 +103,7 @@ public abstract class View {
     public void removeElementsWithNoRelationships() {
         Set<RelationshipView> relationships = getRelationships();
 
-        Set<Long> elementIds = new HashSet<>();
+        Set<Integer> elementIds = new HashSet<>();
         relationships.forEach(rv -> elementIds.add(rv.getSourceId()));
         relationships.forEach(rv -> elementIds.add(rv.getDestinationId()));
 

@@ -43,4 +43,14 @@ public class SoftwareSystem extends Element {
          return null;
      }
 
+    public Container getContainerWithId(int id) {
+         for (Container container : getContainers()) {
+             if (container.getId() == id) {
+                 return container;
+             }
+         }
+
+         return null;
+     }
+
 }

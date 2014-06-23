@@ -4,6 +4,9 @@ import com.structurizr.model.SoftwareSystem;
 
 public class ContextView extends View {
 
+    public ContextView() {
+    }
+
     public ContextView(SoftwareSystem softwareSystem) {
         super(softwareSystem);
         addElement(softwareSystem);

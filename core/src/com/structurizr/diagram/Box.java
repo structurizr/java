@@ -4,14 +4,14 @@ import com.structurizr.model.Element;
 
 public class Box {
 
-    private long elementId;
+    private int elementId;
     private Position position = new Position(0, 0);
 
     public Box(Element element) {
         this.elementId = element.getId();
     }
 
-    public long getElementId() {
+    public int getElementId() {
         return elementId;
     }
 

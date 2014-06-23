@@ -1,14 +1,16 @@
 package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.HashSet;
 import java.util.Set;
 
+@JsonIgnoreProperties(ignoreUnknown=true)
 public abstract class Element {
 
     private Model model;
-    protected long id = -1;
+    protected int id = -1;
 
     protected String name;
     protected String description;
@@ -25,11 +27,11 @@ public abstract class Element {
         this.model = model;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

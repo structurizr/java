@@ -4,6 +4,9 @@ import com.structurizr.model.SoftwareSystem;
 
 public class ContainerView extends View {
 
+    public ContainerView() {
+    }
+
     public ContainerView(SoftwareSystem softwareSystem) {
         super(softwareSystem);
     }

@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Relationship {
 
     private Element source;
-    private long sourceId;
+    private int sourceId;
     private Element destination;
-    private long destinationId;
+    private int destinationId;
     private String description;
 
     public Relationship() {
@@ -24,7 +24,7 @@ public class Relationship {
         return source;
     }
 
-    public long getSourceId() {
+    public int getSourceId() {
         if (this.source != null) {
             return this.source.getId();
         } else {
@@ -32,7 +32,7 @@ public class Relationship {
         }
     }
 
-    public void setSourceId(long sourceId) {
+    public void setSourceId(int sourceId) {
         this.sourceId = sourceId;
     }
 
@@ -45,7 +45,7 @@ public class Relationship {
         return destination;
     }
 
-    public long getDestinationId() {
+    public int getDestinationId() {
         if (this.destination != null) {
             return this.destination.getId();
         } else {
@@ -53,7 +53,7 @@ public class Relationship {
         }
     }
 
-    public void setDestinationId(long destinationId) {
+    public void setDestinationId(int destinationId) {
         this.destinationId = destinationId;
     }
 
