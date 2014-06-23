@@ -2,35 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="655aeccd-15c7-40da-998c-90a4b0c635db" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/diagram/Box.class" afterPath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/diagram/Box.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/model/Component.class" afterPath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/model/Component.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/view/ComponentView.class" afterPath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/view/ComponentView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/model/Container.class" afterPath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/model/Container.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/view/ContainerView.class" afterPath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/view/ContainerView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/view/ContextView.class" afterPath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/view/ContextView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/model/Element.class" afterPath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/model/Element.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/view/ElementView.class" afterPath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/view/ElementView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/model/Model.class" afterPath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/model/Model.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/model/Relationship.class" afterPath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/model/Relationship.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/view/RelationshipView.class" afterPath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/view/RelationshipView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/model/SoftwareSystem.class" afterPath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/model/SoftwareSystem.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/view/View.class" afterPath="$PROJECT_DIR$/build/core/production-classes/com/structurizr/view/View.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/structurizr-annotations.jar" afterPath="$PROJECT_DIR$/build/structurizr-annotations.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build/structurizr-core.jar" afterPath="$PROJECT_DIR$/build/structurizr-core.jar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/diagram/Box.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/diagram/Box.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/ComponentView.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/ComponentView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Container.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Container.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/ContainerView.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/ContainerView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/ContextView.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/ContextView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/ElementView.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/ElementView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/src/com/structurizr/Main.java" afterPath="$PROJECT_DIR$/client/src/com/structurizr/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Relationship.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Relationship.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/RelationshipView.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/RelationshipView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/View.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/View.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/structurizr-annotations.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/build/structurizr-core.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/client/src/com/structurizr/Main.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/client/src/com/structurizr/ComponentFinder.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/ComponentFinder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/Main.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/Main.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/core.iml" afterPath="$PROJECT_DIR$/core/core.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.ipr" afterPath="$PROJECT_DIR$/java.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.iws" afterPath="$PROJECT_DIR$/java.iws" />
     </list>
     <ignored path="java.iws" />
@@ -91,7 +70,7 @@
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/structurizr-diagram.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403477859742" ignored="false" />
     <file path="/structurizr-diagram.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403477769927" ignored="false" />
     <file path="/Diagram.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403434422300" ignored="false" />
-    <file path="/fragment.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403507853635" ignored="false" />
+    <file path="/fragment.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403538818075" ignored="false" />
     <file path="/DiagramType.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403426564765" ignored="false" />
     <file path="/ContextDiagram.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403431016297" ignored="false" />
     <file path="/Box.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403429518649" ignored="false" />
@@ -112,7 +91,7 @@
     <file path="/Dependency.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403507849518" ignored="false" />
     <file path="/LoggingComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403474419115" ignored="false" />
     <file path="/NewsFeedConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519528795" ignored="false" />
-    <file path="/build.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519051159" ignored="false" />
+    <file path="/build.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403538996290" ignored="false" />
     <file path="/ivy.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519214313" ignored="false" />
     <file path="/ScannotationComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403465102036" ignored="false" />
     <file path="/JDependDependencyFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403467500089" ignored="false" />
@@ -214,17 +193,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Container.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Container.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="4" selection-start="512" selection-end="512" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="View.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/View.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -246,9 +214,9 @@
         </entry>
       </file>
       <file leaf-file-name="Main.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/Main.java">
+        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="101" column="54" selection-start="6324" selection-end="6324" vertical-scroll-proportion="0.0">
+            <state line="16" column="16" selection-start="724" selection-end="724" vertical-scroll-proportion="0.0">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -256,10 +224,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+      <file leaf-file-name="Component.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/Component.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="5" selection-start="5" selection-end="5" vertical-scroll-proportion="0.0">
+            <state line="11" column="11" selection-start="303" selection-end="303" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Box.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/diagram/Box.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="13" column="11" selection-start="267" selection-end="267" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -285,19 +262,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ElementView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/ElementView.java">
+      <file leaf-file-name="build.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/build.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="45" selection-start="441" selection-end="441" vertical-scroll-proportion="0.0">
+            <state line="37" column="0" selection-start="1498" selection-end="1498" vertical-scroll-proportion="-0.6210375">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ContextView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/ContextView.java">
+      <file leaf-file-name="ElementView.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/ElementView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="35" selection-start="112" selection-end="112" vertical-scroll-proportion="0.0">
+            <state line="22" column="45" selection-start="441" selection-end="441" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -330,7 +307,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Component.java" />
         <option value="$PROJECT_DIR$/client/src/com/structurizr/ComponentFinder.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/ContextView.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/RelationshipView.java" />
@@ -346,6 +322,7 @@
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
         <option value="$PROJECT_DIR$/client/src/com/structurizr/Main.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/build.xml" />
       </list>
     </option>
   </component>
@@ -484,38 +461,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="structurizr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -560,15 +505,15 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="com.structurizr.Main" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
       <option name="ENABLE_SWING_INSPECTOR" value="false" />
       <option name="ENV_VARIABLES" />
       <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="client" />
+      <module name="core" />
       <envs />
       <RunnerSettings RunnerId="Debug">
         <option name="DEBUG_PORT" value="" />
@@ -774,27 +719,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="0" selection-start="5780" selection-end="5780" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/RelationshipView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="0" selection-start="765" selection-end="765" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/diagram/Box.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="11" selection-start="267" selection-end="267" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Relationship.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="47" column="11" selection-start="1019" selection-end="1019" vertical-scroll-proportion="0.0">
@@ -878,18 +802,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/src/com/structurizr/Main.java">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="54" selection-start="6324" selection-end="6324" vertical-scroll-proportion="0.0">
+        <state line="0" column="5" selection-start="5" selection-end="5" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/diagram/Box.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="11" selection-start="267" selection-end="267" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/Component.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="11" column="11" selection-start="303" selection-end="303" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="16" selection-start="724" selection-end="724" vertical-scroll-proportion="0.0">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="5" selection-start="5" selection-end="5" vertical-scroll-proportion="0.0">
+        <state line="37" column="0" selection-start="1498" selection-end="1498" vertical-scroll-proportion="-0.6210375">
           <folding />
         </state>
       </provider>
@@ -947,7 +892,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>annotations</last-edited>
+          <last-edited>core</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

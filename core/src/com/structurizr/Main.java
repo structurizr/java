@@ -2,6 +2,7 @@ package com.structurizr;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.structurizr.model.*;
 import com.structurizr.view.ComponentView;
 import com.structurizr.view.ContainerView;
@@ -10,10 +11,6 @@ import com.structurizr.view.ContextView;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
-//        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-
         Model model = new Model();
         SoftwareSystem techTribes = model.createSoftwareSystem(Location.Internal, "techtribes.je", "techtribes.je is the only way to keep up to date with the IT, tech and digital sector in Jersey and Guernsey, Channel Islands");
 
@@ -24,13 +21,13 @@ public class Main {
         authenticatedUser.uses(techTribes, "Manage user profile and tribe membership.");
         adminUser.uses(techTribes, "Add people, add tribes and manage tribe membership.");
 
-        SoftwareSystem twitter = model.createSoftwareSystem(Location.External, "Twitter", null);
+        SoftwareSystem twitter = model.createSoftwareSystem(Location.External, "Twitter", "twitter.com");
         techTribes.uses(twitter, "Gets profile information and tweets from.");
 
-        SoftwareSystem gitHub = model.createSoftwareSystem(Location.External, "GitHub", null);
+        SoftwareSystem gitHub = model.createSoftwareSystem(Location.External, "GitHub", "github.com");
         techTribes.uses(gitHub, "Gets information about public code repositories from.");
 
-        SoftwareSystem blogs = model.createSoftwareSystem(Location.External, "Blogs", null);
+        SoftwareSystem blogs = model.createSoftwareSystem(Location.External, "Blogs", "RSS and Atom feeds");
         techTribes.uses(blogs, "Gets content using RSS and Atom feeds from.");
 
         Container webApplication = techTribes.createContainer("Web Application", "Allows users to view people, tribes, content, events, jobs, etc from the local tech, digital and IT sector.", "Apache Tomcat 7.x");
@@ -53,6 +50,12 @@ public class Main {
         contentUpdater.uses(twitter, "Gets profile information and tweets from.");
         contentUpdater.uses(gitHub, "Gets information about public code repositories from.");
         contentUpdater.uses(blogs, "Gets content using RSS and Atom feeds from.");
+
+        ComponentFinder componentFinder = new ComponentFinder(contentUpdater, "je.techtribes");
+        componentFinder.findComponents();
+        componentFinder.findComponentDependencies();
+        componentFinder.findSoftwareSystemDependencies();
+        componentFinder.findContainerDependencies();
 
         System.out.println("Context view");
         System.out.println("============");
@@ -83,22 +86,25 @@ public class Main {
         componentView.add(twitter);
         componentView.add(gitHub);
         componentView.add(blogs);
-        componentView.addAllPeople();
         componentView.addAllContainers();
+        componentView.remove(webApplication);
+        componentView.addAllComponents();
+        componentView.remove(contentUpdater.getComponentWithName("LoggingComponent"));
+        componentView.remove(contentUpdater.getComponentWithName("ContentSourceComponent"));
+        componentView.remove(contentUpdater.getComponentWithName("ActivityComponent"));
+        componentView.removeElementsWithNoRelationships();
         componentView.getElements().forEach(System.out::println);
         componentView.getRelationships().forEach(System.out::println);
         System.out.println("============");
 
-        String modelJson = objectMapper.writeValueAsString(model);
-        System.out.println(modelJson);
-
-//        model = objectMapper.readValue(json, Model.class);
-//        model.enrich();
+        ObjectMapper objectMapper = new ObjectMapper();
+//        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+        objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+        String modelAsJson = objectMapper.writeValueAsString(model);
+        System.out.println(modelAsJson);
 //
-//        model.getSoftwareSystems().forEach(System.out::println);
-//        for (Person person : model.getPeople()) {
-//            person.getRelationships().forEach(System.out::println);
-//        }
+//        Model newModel = objectMapper.readValue(modelAsJson, Model.class);
+//        newModel.hydrate();
     }
 
 }

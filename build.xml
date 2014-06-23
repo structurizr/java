@@ -34,9 +34,8 @@
 
         <javac srcdir="${core.dir}/src" destdir="${core.build.dir}/production-classes" debug="yes">
             <classpath>
-                <fileset dir="${runtime.lib.dir}">
-                    <include name="*.jar"/>
-                </fileset>
+                <fileset dir="${runtime.lib.dir}" includes="*.jar" />
+                <pathelement location="${annotations.build.dir}/production-classes" />
             </classpath>
         </javac>
 
@@ -44,7 +43,7 @@
             <classpath>
                 <fileset dir="${runtime.lib.dir}" includes="*.jar" />
                 <fileset dir="${test.lib.dir}" includes="*.jar" />
-                <pathelement location="${core.build.dir}/production-classes" />
+                <pathelement location="${annotations.build.dir}/production-classes" />
             </classpath>
         </javac>
     </target>
@@ -73,7 +72,7 @@
             <fileset dir="${annotations.build.dir}/production-classes"/>
         </jar>
 
-        <jar jarfile="${build.dir}/structurizr-core.jar">
+        <jar jarfile="${build.dir}/structurizr.jar">
             <fileset dir="${core.build.dir}/production-classes"/>
         </jar>
     </target>
