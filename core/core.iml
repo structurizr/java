@@ -9,6 +9,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="runtime" level="project" />
     <orderEntry type="module" module-name="annotations" />
+    <orderEntry type="library" name="techtribesje" level="project" />
   </component>
 </module>
 

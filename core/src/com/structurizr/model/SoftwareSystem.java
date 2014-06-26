@@ -12,7 +12,7 @@ public class SoftwareSystem extends Element {
         return ElementType.SoftwareSystem;
     }
 
-    public void add(Container container) {
+    void add(Container container) {
         containers.add(container);
     }
 
@@ -29,8 +29,8 @@ public class SoftwareSystem extends Element {
         addRelationship(new Relationship(this, destination, description));
     }
 
-    public Container createContainer(String name, String description, String technology) {
-        return getModel().createContainer(this, name, description, technology);
+    public Container addContainer(String name, String description, String technology) {
+        return getModel().addContainer(this, name, description, technology);
     }
 
     public Container getContainerWithName(String name) {

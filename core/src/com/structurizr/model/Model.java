@@ -15,7 +15,7 @@ public class Model {
     private Set<ContainerView> containerViews = new HashSet<>();
     private Set<ComponentView> componentViews = new HashSet<>();
 
-    public SoftwareSystem createSoftwareSystem(Location location, String name, String description) {
+    public SoftwareSystem addSoftwareSystem(Location location, String name, String description) {
         SoftwareSystem softwareSystem = new SoftwareSystem();
         softwareSystem.setLocation(location);
         softwareSystem.setName(name);
@@ -28,7 +28,7 @@ public class Model {
         return softwareSystem;
     }
 
-    public Person createPerson(Location location, String name, String description) {
+    public Person addPerson(Location location, String name, String description) {
         Person person = new Person();
         person.setLocation(location);
         person.setName(name);
@@ -41,7 +41,7 @@ public class Model {
         return person;
     }
 
-    public Container createContainer(SoftwareSystem parent, String name, String description, String technology) {
+    Container addContainer(SoftwareSystem parent, String name, String description, String technology) {
         Container container = new Container();
         container.setName(name);
         container.setDescription(description);
@@ -55,7 +55,7 @@ public class Model {
         return container;
     }
 
-    public Component createComponentWithClass(Container parent, String fullyQualifiedClassName, String description) {
+    Component addComponentWithType(Container parent, String fullyQualifiedClassName, String description) {
         Component component = new Component();
         component.setFullyQualifiedClassName(fullyQualifiedClassName);
         component.setDescription(description);
@@ -97,9 +97,11 @@ public class Model {
         for (SoftwareSystem softwareSystem : softwareSystems) {
             addElement(softwareSystem);
             for (Container container : softwareSystem.getContainers()) {
+                softwareSystem.add(container);
                 addElement(container);
                 container.setParent(softwareSystem);
                 for (Component component : container.getComponents()) {
+                    container.add(component);
                     addElement(component);
                     component.setParent(container);
                 }

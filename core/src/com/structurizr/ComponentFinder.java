@@ -47,7 +47,7 @@ public class ComponentFinder {
         Set<Class<?>> componentTypes = reflections.getTypesAnnotatedWith(com.structurizr.annotation.Component.class);
         for (Class<?> componentType : componentTypes) {
             // create a component, based upon the interface name
-            Component component = container.createComponentWithClass(componentType.getCanonicalName(), componentType.getAnnotation(com.structurizr.annotation.Component.class).description());
+            Component component = container.addComponentWithType(componentType.getCanonicalName(), componentType.getAnnotation(com.structurizr.annotation.Component.class).description());
             componentsByType.put(component.getFullyQualifiedClassName(), component);
         }
     }

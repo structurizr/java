@@ -44,11 +44,11 @@ public class Container extends Element {
         addRelationship(new Relationship(this, destination, description));
     }
 
-    public Component createComponentWithClass(String fullyQualifiedClassName, String description) {
-        return getModel().createComponentWithClass(this, fullyQualifiedClassName, description);
+    public Component addComponentWithType(String fullyQualifiedClassName, String description) {
+        return getModel().addComponentWithType(this, fullyQualifiedClassName, description);
     }
 
-    public void add(Component component) {
+    void add(Component component) {
         components.add(component);
     }
 
