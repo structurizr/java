@@ -46,7 +46,7 @@ public class ComponentFinder {
     public void findComponents() throws Exception {
         Set<Class<?>> componentTypes = reflections.getTypesAnnotatedWith(com.structurizr.annotation.Component.class);
         for (Class<?> componentType : componentTypes) {
-            // create a component, based upon the interface name
+            // create a component, based upon the name of the type (i.e. class or interface)
             Component component = container.addComponentWithType(componentType.getCanonicalName(), componentType.getAnnotation(com.structurizr.annotation.Component.class).description());
             componentsByType.put(component.getFullyQualifiedClassName(), component);
         }
@@ -54,7 +54,10 @@ public class ComponentFinder {
 
     public void findComponentDependencies() throws Exception {
         for (Component component : componentsByType.values()) {
-            // find the implementations of the component
+            // find dependencies of the component type itself
+            addEfferentDependencies(component, component.getFullyQualifiedClassName(), 1);
+
+            // and also find the implementations of the component (i.e. an interface was marked as a component)
             Set<String> componentImplementations = reflections.getStore().getSubTypesOf(component.getFullyQualifiedClassName());
             for (String componentImplementation : componentImplementations) {
                 addEfferentDependencies(component, componentImplementation, 1);
