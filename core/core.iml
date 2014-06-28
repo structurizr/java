@@ -10,6 +10,7 @@
     <orderEntry type="library" name="runtime" level="project" />
     <orderEntry type="module" module-name="annotations" />
     <orderEntry type="library" name="techtribesje" level="project" />
+    <orderEntry type="library" name="Spring Petclinic" level="project" />
   </component>
 </module>
 
