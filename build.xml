@@ -44,6 +44,7 @@
                 <fileset dir="${runtime.lib.dir}" includes="*.jar" />
                 <fileset dir="${test.lib.dir}" includes="*.jar" />
                 <pathelement location="${annotations.build.dir}/production-classes" />
+                <pathelement location="${core.build.dir}/production-classes" />
             </classpath>
         </javac>
     </target>

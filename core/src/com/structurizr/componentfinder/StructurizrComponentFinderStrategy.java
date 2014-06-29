@@ -1,6 +1,5 @@
 package com.structurizr.componentfinder;
 
-import com.google.common.base.Predicates;
 import com.structurizr.annotation.ComponentDependency;
 import com.structurizr.annotation.ContainerDependency;
 import com.structurizr.annotation.SoftwareSystemDependency;
@@ -8,7 +7,6 @@ import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 import com.structurizr.model.Relationship;
 import com.structurizr.model.SoftwareSystem;
-import org.reflections.ReflectionUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -59,7 +57,6 @@ public class StructurizrComponentFinderStrategy extends AbstractComponentFinderS
             if (component.getImplementationType() != null) {
                 findComponentDependencies(component, component.getImplementationType());
             }
-
         }
     }
 
@@ -87,48 +84,55 @@ public class StructurizrComponentFinderStrategy extends AbstractComponentFinderS
         }
     }
 
-
-    private void findSoftwareSystemDependencies() {
-        Set<Class<?>> componentImplementationTypes = getTypesAnnotatedWith(SoftwareSystemDependency.class);
-        for (Class<?> componentImplementationType : componentImplementationTypes) {
-
-            Set<Class<?>> superTypes = ReflectionUtils.getAllSuperTypes(
-                    componentImplementationType,
-                    Predicates.and(ReflectionUtils.withAnnotation(com.structurizr.annotation.Component.class)));
-            for (Class<?> superType : superTypes) {
-                Component component = getComponentWithType(superType.getCanonicalName());
-                if (component != null) {
-                    // find the software system with a given name
-                    String target = componentImplementationType.getAnnotation(SoftwareSystemDependency.class).target();
-                    String description = componentImplementationType.getAnnotation(SoftwareSystemDependency.class).description();
-                    SoftwareSystem targetSoftwareSystem = component.getModel().getSoftwareSystemWithName(target);
-                    if (targetSoftwareSystem != null) {
-                        component.uses(targetSoftwareSystem, description);
-                    }
-                }
+    private void findSoftwareSystemDependencies() throws Exception {
+        for (Component component : getComponentFinder().getContainer().getComponents()) {
+            if (component.getImplementationType() != null) {
+                findSoftwareSystemDependencies(component, component.getImplementationType());
             }
         }
     }
 
-    private void findContainerDependencies() {
-        Set<Class<?>> componentImplementationTypes = getTypesAnnotatedWith(ContainerDependency.class);
-        for (Class<?> componentImplementationType : componentImplementationTypes) {
+    private void findSoftwareSystemDependencies(Component component, String implementationType) throws Exception {
+        Class<?> componentClass = Class.forName(implementationType);
 
-            Set<Class<?>> superTypes = ReflectionUtils.getAllSuperTypes(
-                    componentImplementationType,
-                    Predicates.and(ReflectionUtils.withAnnotation(com.structurizr.annotation.Component.class)));
-            for (Class<?> superType : superTypes) {
-                Component component = getComponentWithType(superType.getCanonicalName());
-                if (component != null) {
-                    // find the software system with a given name
-                    String target = componentImplementationType.getAnnotation(ContainerDependency.class).target();
-                    String description = componentImplementationType.getAnnotation(ContainerDependency.class).description();
-                    Container targetContainer = component.getParent().getParent().getContainerWithName(target);
-                    if (targetContainer != null) {
-                        component.uses(targetContainer, description);
-                    }
-                }
+        if (componentClass.getAnnotation(SoftwareSystemDependency.class) != null) {
+            String target = componentClass.getAnnotation(SoftwareSystemDependency.class).target();
+            String description = componentClass.getAnnotation(SoftwareSystemDependency.class).description();
+            SoftwareSystem targetSoftwareSystem = component.getModel().getSoftwareSystemWithName(target);
+            if (targetSoftwareSystem != null) {
+                component.uses(targetSoftwareSystem, description);
             }
+        }
+
+        // and repeat for super-types
+        if (componentClass.getSuperclass() != null) {
+            findComponentDependencies(component, componentClass.getSuperclass().getCanonicalName());
+        }
+    }
+
+    private void findContainerDependencies() throws Exception {
+        for (Component component : getComponentFinder().getContainer().getComponents()) {
+            if (component.getImplementationType() != null) {
+                findContainerDependencies(component, component.getImplementationType());
+            }
+        }
+    }
+
+    private void findContainerDependencies(Component component, String implementationType) throws Exception {
+        Class<?> componentClass = Class.forName(implementationType);
+
+        if (componentClass.getAnnotation(ContainerDependency.class) != null) {
+            String target = componentClass.getAnnotation(ContainerDependency.class).target();
+            String description = componentClass.getAnnotation(ContainerDependency.class).description();
+            Container targetContainer = component.getParent().getParent().getContainerWithName(target);
+            if (targetContainer != null) {
+                component.uses(targetContainer, description);
+            }
+        }
+
+        // and repeat for super-types
+        if (componentClass.getSuperclass() != null) {
+            findComponentDependencies(component, componentClass.getSuperclass().getCanonicalName());
         }
     }
 
