@@ -44,8 +44,11 @@ public class Container extends Element {
         addRelationship(new Relationship(this, destination, description));
     }
 
-    public Component addComponentWithType(String fullyQualifiedClassName, String description) {
-        return getModel().addComponentWithType(this, fullyQualifiedClassName, description);
+    public Component addComponentWithType(String fullyQualifiedClassName, String description, String technology) {
+        Component component = getModel().addComponentWithType(this, fullyQualifiedClassName, description);
+        component.setTechnology(technology);
+
+        return component;
     }
 
     void add(Component component) {
@@ -58,6 +61,16 @@ public class Container extends Element {
 
     public Component getComponentWithName(String name) {
         Optional<Component> component = components.stream().filter(c -> c.getName().equals(name)).findFirst();
+
+        if (component.isPresent()) {
+            return component.get();
+        } else {
+            return null;
+        }
+    }
+
+    public Component getComponentWithType(String fullyQualifiedClassName) {
+        Optional<Component> component = components.stream().filter(c -> c.getFullyQualifiedClassName().equals(fullyQualifiedClassName)).findFirst();
 
         if (component.isPresent()) {
             return component.get();

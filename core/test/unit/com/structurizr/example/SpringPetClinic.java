@@ -2,7 +2,8 @@ package com.structurizr.example;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.structurizr.SpringComponentFinder;
+import com.structurizr.componentfinder.ComponentFinder;
+import com.structurizr.componentfinder.SpringComponentFinderStrategy;
 import com.structurizr.model.*;
 import com.structurizr.view.ComponentView;
 import com.structurizr.view.ContainerView;
@@ -27,9 +28,11 @@ public class SpringPetClinic {
         webApplication.uses(relationalDatabase, "Reads from and writes to");
 
         // and now automatically find all Spring @Controller, @Component, @Service and @Repository components
-        SpringComponentFinder componentFinder = new SpringComponentFinder(webApplication, "org.springframework.samples.petclinic");
+        ComponentFinder componentFinder = new ComponentFinder(
+                webApplication,
+                "org.springframework.samples.petclinic",
+                new SpringComponentFinderStrategy());
         componentFinder.findComponents();
-        componentFinder.findComponentDependencies();
 
         // finally create some views
         ContextView contextView = model.createContextView(springPetClinic);
