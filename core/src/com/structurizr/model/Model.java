@@ -55,9 +55,10 @@ public class Model {
         return container;
     }
 
-    Component addComponentWithType(Container parent, String fullyQualifiedClassName, String description) {
+    Component addComponentOfType(Container parent, String interfaceType, String implementationType, String description) {
         Component component = new Component();
-        component.setFullyQualifiedClassName(fullyQualifiedClassName);
+        component.setInterfaceType(interfaceType);
+        component.setImplementationType(implementationType);
         component.setDescription(description);
         component.setId(getId());
 

@@ -7,7 +7,8 @@ public class Component extends Element {
     private Container parent;
 
     private String technology;
-    private String fullyQualifiedClassName;
+    private String interfaceType;
+    private String implementationType;
 
     @JsonIgnore
     public Container getParent() {
@@ -31,26 +32,34 @@ public class Component extends Element {
         this.technology = technology;
     }
 
-    public String getFullyQualifiedClassName() {
-        return fullyQualifiedClassName;
+    public String getInterfaceType() {
+        return interfaceType;
     }
 
-    public void setFullyQualifiedClassName(String fullyQualifiedClassName) {
-        this.fullyQualifiedClassName = fullyQualifiedClassName;
+    public void setInterfaceType(String interfaceType) {
+        this.interfaceType = interfaceType;
+    }
+
+    public String getImplementationType() {
+        return implementationType;
+    }
+
+    public void setImplementationType(String implementationType) {
+        this.implementationType = implementationType;
     }
 
     @Override
     public String getName() {
-        if (this.fullyQualifiedClassName == null) {
+        if (this.interfaceType == null) {
             return super.getName();
         } else {
-            return fullyQualifiedClassName.substring(fullyQualifiedClassName.lastIndexOf(".") + 1);
+            return interfaceType.substring(interfaceType.lastIndexOf(".") + 1);
         }
     }
 
     @JsonIgnore
     public String getPackage() {
-        return fullyQualifiedClassName.substring(0, fullyQualifiedClassName.lastIndexOf("."));
+        return interfaceType.substring(0, interfaceType.lastIndexOf("."));
     }
 
     public void uses(SoftwareSystem destination, String description) {

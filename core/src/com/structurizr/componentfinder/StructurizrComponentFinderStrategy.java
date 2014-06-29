@@ -1,5 +1,6 @@
 package com.structurizr.componentfinder;
 
+import com.google.common.base.Predicates;
 import com.structurizr.annotation.ComponentDependency;
 import com.structurizr.annotation.ContainerDependency;
 import com.structurizr.annotation.SoftwareSystemDependency;
@@ -7,74 +8,103 @@ import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 import com.structurizr.model.Relationship;
 import com.structurizr.model.SoftwareSystem;
+import org.reflections.ReflectionUtils;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.AnnotatedType;
 import java.lang.reflect.Field;
 import java.util.Set;
 
 /**
- * TODO: find dependencies from parent classes (e.g. TweetComponent extends AbstractComponent)
+ * TODO: find dependencies from parent classes (e.g. TweetComponent extends AbstractComponent
  */
 public class StructurizrComponentFinderStrategy extends AbstractComponentFinderStrategy {
 
     public void findComponents() throws Exception {
-        findClassesAnnotated(com.structurizr.annotation.Component.class);
+        findAnnotatedInterfaces();
     }
 
     @Override
     public void findDependencies() throws Exception {
         super.findDependencies();
 
-        populateComponentDependencyDescriptions();
+        findComponentDependencies();
         findSoftwareSystemDependencies();
         findContainerDependencies();
     }
 
-    private void findClassesAnnotated(Class<? extends Annotation> type) {
-        Set<Class<?>> componentTypes = getTypesAnnotatedWith(type);
+    private void findAnnotatedInterfaces() {
+        Set<Class<?>> componentTypes = getTypesAnnotatedWith(com.structurizr.annotation.Component.class);
         for (Class<?> componentType : componentTypes) {
-            // create a component, based upon the name of the type (i.e. class or interface)
-            getComponentFinder().foundComponent(componentType.getCanonicalName(),
+            String interfaceType = componentType.getCanonicalName();
+            String implementationType = componentType.getCanonicalName();
+
+            if (componentType.isInterface()) {
+                // TODO: fix this untyped collection reference
+                Set subtypes = reflections.getSubTypesOf(componentType);
+                if (subtypes.size() > 0) {
+                    // WARNING: this code chooses the first implementation that it finds
+                    implementationType = ((Class<?>)(subtypes.iterator().next())).getCanonicalName();
+                }
+            }
+
+            getComponentFinder().foundComponent(
+                    interfaceType,
+                    implementationType,
                     componentType.getAnnotation(com.structurizr.annotation.Component.class).description(), "");
         }
     }
 
-    private void populateComponentDependencyDescriptions() {
-        Set<Field> fields = getFieldsAnnotatedWith(ComponentDependency.class);
-        for (Field field : fields) {
-            Component destination = getComponentWithType(field.getType().getCanonicalName());
-            if (destination != null) {
-                String description = field.getAnnotation(ComponentDependency.class).description();
-                System.out.println(description);
+    private void findComponentDependencies() throws Exception {
+        for (Component component : getComponentFinder().getContainer().getComponents()) {
+            if (component.getImplementationType() != null) {
+                findComponentDependencies(component, component.getImplementationType());
+            }
 
-                AnnotatedType[] annotatedTypes = field.getDeclaringClass().getAnnotatedInterfaces();
-                for (AnnotatedType annotatedType : annotatedTypes) {
-                    Component source = getComponentWithType(annotatedType.getType().getTypeName());
-                    if (source != null) {
-                        for (Relationship relationship : source.getRelationships()) {
-                            if (relationship.getDestination() == destination) {
-                                relationship.setDescription(description);
-                            }
+        }
+    }
+
+    private void findComponentDependencies(Component component, String implementationType) throws Exception {
+        Class componentClass = Class.forName(implementationType);
+
+        Field[] fields = componentClass.getDeclaredFields();
+        for (Field field : fields) {
+            for (Annotation annotation : field.getDeclaredAnnotations()) {
+                if (annotation.annotationType() == ComponentDependency.class) {
+                    Component destination = getComponentWithType(field.getType().getCanonicalName());
+                    String description = field.getAnnotation(ComponentDependency.class).description();
+                    for (Relationship relationship : component.getRelationships()) {
+                        if (relationship.getDestination() == destination) {
+                            relationship.setDescription(description);
                         }
                     }
                 }
             }
         }
+
+        // and repeat for super-types
+        if (componentClass.getSuperclass() != null) {
+            findComponentDependencies(component, componentClass.getSuperclass().getCanonicalName());
+        }
     }
+
 
     private void findSoftwareSystemDependencies() {
         Set<Class<?>> componentImplementationTypes = getTypesAnnotatedWith(SoftwareSystemDependency.class);
         for (Class<?> componentImplementationType : componentImplementationTypes) {
 
-            Component component = getComponentWithType(componentImplementationType.getCanonicalName());
-            if (component != null) {
-                // find the software system with a given name
-                String target = componentImplementationType.getAnnotation(SoftwareSystemDependency.class).target();
-                String description = componentImplementationType.getAnnotation(SoftwareSystemDependency.class).description();
-                SoftwareSystem targetSoftwareSystem = component.getModel().getSoftwareSystemWithName(target);
-                if (targetSoftwareSystem != null) {
-                    component.uses(targetSoftwareSystem, description);
+            Set<Class<?>> superTypes = ReflectionUtils.getAllSuperTypes(
+                    componentImplementationType,
+                    Predicates.and(ReflectionUtils.withAnnotation(com.structurizr.annotation.Component.class)));
+            for (Class<?> superType : superTypes) {
+                Component component = getComponentWithType(superType.getCanonicalName());
+                if (component != null) {
+                    // find the software system with a given name
+                    String target = componentImplementationType.getAnnotation(SoftwareSystemDependency.class).target();
+                    String description = componentImplementationType.getAnnotation(SoftwareSystemDependency.class).description();
+                    SoftwareSystem targetSoftwareSystem = component.getModel().getSoftwareSystemWithName(target);
+                    if (targetSoftwareSystem != null) {
+                        component.uses(targetSoftwareSystem, description);
+                    }
                 }
             }
         }
@@ -84,14 +114,19 @@ public class StructurizrComponentFinderStrategy extends AbstractComponentFinderS
         Set<Class<?>> componentImplementationTypes = getTypesAnnotatedWith(ContainerDependency.class);
         for (Class<?> componentImplementationType : componentImplementationTypes) {
 
-            Component component = getComponentFinder().getContainer().getComponentWithType(componentImplementationType.getCanonicalName());
-            if (component != null) {
-                // find the software system with a given name
-                String target = componentImplementationType.getAnnotation(ContainerDependency.class).target();
-                String description = componentImplementationType.getAnnotation(ContainerDependency.class).description();
-                Container targetContainer = component.getParent().getParent().getContainerWithName(target);
-                if (targetContainer != null) {
-                    component.uses(targetContainer, description);
+            Set<Class<?>> superTypes = ReflectionUtils.getAllSuperTypes(
+                    componentImplementationType,
+                    Predicates.and(ReflectionUtils.withAnnotation(com.structurizr.annotation.Component.class)));
+            for (Class<?> superType : superTypes) {
+                Component component = getComponentWithType(superType.getCanonicalName());
+                if (component != null) {
+                    // find the software system with a given name
+                    String target = componentImplementationType.getAnnotation(ContainerDependency.class).target();
+                    String description = componentImplementationType.getAnnotation(ContainerDependency.class).description();
+                    Container targetContainer = component.getParent().getParent().getContainerWithName(target);
+                    if (targetContainer != null) {
+                        component.uses(targetContainer, description);
+                    }
                 }
             }
         }

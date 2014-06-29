@@ -16,7 +16,7 @@ public class SpringComponentFinderStrategy extends AbstractComponentFinderStrate
     private void findClassesAnnotated(Class<? extends Annotation> type, String technology) {
         Set<Class<?>> componentTypes = getTypesAnnotatedWith(type);
         for (Class<?> componentType : componentTypes) {
-            getComponentFinder().foundComponent(componentType.getCanonicalName(), "", technology);
+            getComponentFinder().foundComponent(null, componentType.getCanonicalName(), "", technology);
         }
     }
 
@@ -24,9 +24,9 @@ public class SpringComponentFinderStrategy extends AbstractComponentFinderStrate
         Set<Class<?>> componentTypes = getTypesAnnotatedWith(type);
         for (Class<?> componentType : componentTypes) {
             // WARNING: this code makes an assumption that the first implemented interface is the component type
-            // i.e. JdbcSomethingRepository (annotated @Repository) implements SomethingRepository,
+            // i.e. JdbcSomethingRepository (annotated @Repository) *only* implements SomethingRepository,
             // which is the component type we're interested in
-            getComponentFinder().foundComponent(componentType.getInterfaces()[0].getCanonicalName(), "", technology);
+            getComponentFinder().foundComponent(componentType.getInterfaces()[0].getCanonicalName(), componentType.getCanonicalName(), "", technology);
         }
     }
 

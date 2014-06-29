@@ -23,21 +23,28 @@ public class ComponentFinder {
         }
     }
 
-    public void foundComponent(String fullyQualifiedClassName, String description, String technology) {
-        if (fullyQualifiedClassName == null || fullyQualifiedClassName.equals("")) {
+    public void foundComponent(String interfaceType, String implementationType, String description, String technology) {
+        if (interfaceType == null || interfaceType.equals("")) {
             return;
         }
 
-        Component component = container.getComponentWithType(fullyQualifiedClassName);
+        Component component;
+
+        if (interfaceType != null) {
+            component = container.getComponentOfType(interfaceType);
+        } else {
+            component = container.getComponentOfType(implementationType);
+        }
+
         if (component != null) {
             // this is a duplicate, so do nothing
         } else {
-            String name = fullyQualifiedClassName.substring(fullyQualifiedClassName.lastIndexOf(".") + 1);
+            String name = interfaceType.substring(interfaceType.lastIndexOf(".") + 1);
             component = container.getComponentWithName(name);
             if (component == null) {
-                container.addComponentWithType(fullyQualifiedClassName, description, technology);
+                container.addComponentOfType(interfaceType, implementationType, description, technology);
             } else {
-                component.setFullyQualifiedClassName(fullyQualifiedClassName);
+                component.setInterfaceType(interfaceType);
                 component.setTechnology(technology);
             }
         }

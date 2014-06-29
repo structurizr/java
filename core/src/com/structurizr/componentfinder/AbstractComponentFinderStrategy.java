@@ -19,7 +19,7 @@ import java.util.Set;
 public abstract class AbstractComponentFinderStrategy implements ComponentFinderStrategy {
 
     private ComponentFinder componentFinder;
-    private Reflections reflections;
+    protected Reflections reflections;
 
     public AbstractComponentFinderStrategy() {
     }
@@ -32,20 +32,13 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
                   .filterInputsBy(new FilterBuilder().includePackage(componentFinder.getPackageToScan()))
                   .setUrls(ClasspathHelper.forPackage(componentFinder.getPackageToScan()))
                   .setScanners(new TypeAnnotationsScanner(), new SubTypesScanner(), new FieldAnnotationsScanner()));
-
     }
 
     @Override
     public void findDependencies() throws Exception {
         for (Component component : componentFinder.getContainer().getComponents()) {
-            // find dependencies of the component type itself
-            addEfferentDependencies(component, component.getFullyQualifiedClassName(), 1);
-
-            // and also find the implementations of the component (i.e. an interface was marked as a component)
-            Set<String> componentImplementations = reflections.getStore().getSubTypesOf(component.getFullyQualifiedClassName());
-            for (String componentImplementation : componentImplementations) {
-                addEfferentDependencies(component, componentImplementation, 1);
-            }
+            addEfferentDependencies(component, component.getInterfaceType(), 1);
+            addEfferentDependencies(component, component.getImplementationType(), 1);
         }
     }
 
@@ -57,7 +50,7 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
                 String referencedTypeName = (String)referencedType;
                 if (referencedTypeName.startsWith(componentFinder.getPackageToScan())) {
 
-                    Component destinationComponent = componentFinder.getContainer().getComponentWithType(referencedTypeName);
+                    Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedTypeName);
                     if (destinationComponent != null) {
                         if (component != destinationComponent) {
                             component.uses(destinationComponent, "");
@@ -85,7 +78,7 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
     }
 
     protected Component getComponentWithType(String fullyQualifiedClassName) {
-        return componentFinder.getContainer().getComponentWithType(fullyQualifiedClassName);
+        return componentFinder.getContainer().getComponentOfType(fullyQualifiedClassName);
     }
 
 }
