@@ -51,6 +51,7 @@ public class SpringComponentFinder {
         Set<Class<?>> componentTypes = reflections.getTypesAnnotatedWith(type);
         for (Class<?> componentType : componentTypes) {
             Component component = container.addComponentWithType(componentType.getCanonicalName(), "");
+            component.setTechnology("Spring " + type.getSimpleName());
             componentsByType.put(component.getFullyQualifiedClassName(), component);
         }
     }
@@ -59,6 +60,7 @@ public class SpringComponentFinder {
         Set<Class<?>> componentTypes = reflections.getTypesAnnotatedWith(type);
         for (Class<?> componentType : componentTypes) {
             Component component = container.addComponentWithType(componentType.getInterfaces()[0].getCanonicalName(), "");
+            component.setTechnology("Spring " + type.getSimpleName());
             componentsByType.put(component.getFullyQualifiedClassName(), component);
         }
     }

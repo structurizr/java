@@ -6,6 +6,7 @@ public class Component extends Element {
 
     private Container parent;
 
+    private String technology;
     private String fullyQualifiedClassName;
 
     @JsonIgnore
@@ -20,6 +21,14 @@ public class Component extends Element {
     @Override
     public ElementType getType() {
         return ElementType.Component;
+    }
+
+    public String getTechnology() {
+        return technology;
+    }
+
+    public void setTechnology(String technology) {
+        this.technology = technology;
     }
 
     public String getFullyQualifiedClassName() {

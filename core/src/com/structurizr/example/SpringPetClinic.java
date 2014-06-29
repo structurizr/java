@@ -1,6 +1,5 @@
 package com.structurizr.example;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.structurizr.SpringComponentFinder;
@@ -20,11 +19,11 @@ public class SpringPetClinic {
         // create the basic model (the stuff we can't get from the code)
         SoftwareSystem springPetClinic = model.addSoftwareSystem(Location.Internal, "Spring PetClinic", "");
         Person user = model.addPerson(Location.External, "User", "");
-        user.uses(springPetClinic, "Views information using");
+        user.uses(springPetClinic, "Uses");
 
         Container webApplication = springPetClinic.addContainer("Web Application", "", "Apache Tomcat 7.x");
         Container relationalDatabase = springPetClinic.addContainer("Relational Database", "", "HSQLDB");
-        user.uses(webApplication, "Views information using");
+        user.uses(webApplication, "Uses");
         webApplication.uses(relationalDatabase, "Reads from and writes to");
 
         // and now automatically find all Spring @Controller, @Component, @Service and @Repository components
@@ -47,7 +46,6 @@ public class SpringPetClinic {
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
         String modelAsJson = objectMapper.writeValueAsString(model);
         System.out.println(modelAsJson);
     }
