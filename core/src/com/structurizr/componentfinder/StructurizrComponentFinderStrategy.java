@@ -93,6 +93,7 @@ public class StructurizrComponentFinderStrategy extends AbstractComponentFinderS
     }
 
     private void findSoftwareSystemDependencies(Component component, String implementationType) throws Exception {
+        System.out.println(implementationType);
         Class<?> componentClass = Class.forName(implementationType);
 
         if (componentClass.getAnnotation(SoftwareSystemDependency.class) != null) {
@@ -106,7 +107,11 @@ public class StructurizrComponentFinderStrategy extends AbstractComponentFinderS
 
         // and repeat for super-types
         if (componentClass.getSuperclass() != null) {
-            findComponentDependencies(component, componentClass.getSuperclass().getCanonicalName());
+            findSoftwareSystemDependencies(component, componentClass.getSuperclass().getCanonicalName());
+        }
+
+        for (Class<?> interfaceType : componentClass.getInterfaces()) {
+            findSoftwareSystemDependencies(component, interfaceType.getCanonicalName());
         }
     }
 
@@ -132,7 +137,12 @@ public class StructurizrComponentFinderStrategy extends AbstractComponentFinderS
 
         // and repeat for super-types
         if (componentClass.getSuperclass() != null) {
-            findComponentDependencies(component, componentClass.getSuperclass().getCanonicalName());
+            findContainerDependencies(component, componentClass.getSuperclass().getCanonicalName());
+        }
+
+
+        for (Class<?> interfaceType : componentClass.getInterfaces()) {
+            findContainerDependencies(component, interfaceType.getCanonicalName());
         }
     }
 
