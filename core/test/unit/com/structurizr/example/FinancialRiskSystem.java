@@ -19,7 +19,7 @@ public class FinancialRiskSystem {
         Model model = new Model();
 
         // create the basic model
-        SoftwareSystem financialRiskSystem = model.addSoftwareSystem(Location.Internal, "Financial Risk System", "Calculates the banks exposure to risk for product X");
+        SoftwareSystem financialRiskSystem = model.addSoftwareSystem(Location.Internal, "Financial Risk System", "Calculates the bank's exposure to risk for product X");
 
         Person businessUser = model.addPerson(Location.Internal, "Business User", "A regular business user");
         businessUser.uses(financialRiskSystem, "Views reports");
@@ -27,10 +27,10 @@ public class FinancialRiskSystem {
         Person configurationUser = model.addPerson(Location.Internal, "Configuration User", "A regular business user who can also configure the parameters used in the risk calculations");
         configurationUser.uses(financialRiskSystem, "Configures parameters");
 
-        SoftwareSystem tradeDataSystem = model.addSoftwareSystem(Location.External, "Trade Data System", "The system of record for trades of type X");
+        SoftwareSystem tradeDataSystem = model.addSoftwareSystem(Location.Internal, "Trade Data System", "The system of record for trades of type X");
         financialRiskSystem.uses(tradeDataSystem, "Gets trade data from");
 
-        SoftwareSystem referenceDataSystem = model.addSoftwareSystem(Location.External, "Reference Data System", "Manages reference data for all counterparties the bank interacts with");
+        SoftwareSystem referenceDataSystem = model.addSoftwareSystem(Location.Internal, "Reference Data System", "Manages reference data for all counterparties the bank interacts with");
         financialRiskSystem.uses(referenceDataSystem, "Gets counterparty data from");
 
         SoftwareSystem emailSystem = model.addSoftwareSystem(Location.Internal, "E-mail system", "Microsoft Exchange");
@@ -39,6 +39,9 @@ public class FinancialRiskSystem {
 
         SoftwareSystem centralMonitoringService = model.addSoftwareSystem(Location.Internal, "Central Monitoring Service", "The bank-wide monitoring and alerting dashboard");
         financialRiskSystem.uses(centralMonitoringService, "Sends critical failure alerts to");
+
+        SoftwareSystem activeDirectory = model.addSoftwareSystem(Location.Internal, "Active Directory", "Manages users and security roles across the bank");
+        financialRiskSystem.uses(activeDirectory, "Uses for authentication and authorisation");
 
         // and create some views
         ContextView contextView = model.createContextView(financialRiskSystem);

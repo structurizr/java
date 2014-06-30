@@ -43,8 +43,6 @@ public abstract class Element {
         this.name = name;
     }
 
-    public abstract ElementType getType();
-
     public String getDescription() {
         return description;
     }
@@ -75,5 +73,7 @@ public abstract class Element {
     public String toString() {
         return "{" + getId() + " | " + getName() + " | " + getDescription() + "}";
     }
+
+    public abstract ElementType getType();
 
 }

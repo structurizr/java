@@ -5,6 +5,6 @@ public enum ElementType {
     SoftwareSystem,
     Person,
     Container,
-    Component;
+    Component
 
 }

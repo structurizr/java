@@ -1,4 +1,4 @@
-package com.structurizr.example;
+package com.structurizr.annotation.example;
 
 import com.structurizr.componentfinder.ComponentFinder;
 import com.structurizr.componentfinder.SpringComponentFinderStrategy;

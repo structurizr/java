@@ -13,11 +13,6 @@ public class Container extends Element {
 
     private Set<Component> components = new HashSet<>();
 
-    @Override
-    public ElementType getType() {
-        return ElementType.Container;
-    }
-
     @JsonIgnore
     public SoftwareSystem getParent() {
         return parent;
@@ -77,6 +72,11 @@ public class Container extends Element {
         } else {
             return null;
         }
+    }
+
+    @Override
+    public ElementType getType() {
+        return ElementType.Container;
     }
 
 }

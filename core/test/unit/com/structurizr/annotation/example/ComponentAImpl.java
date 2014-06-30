@@ -1,4 +1,4 @@
-package com.structurizr.example;
+package com.structurizr.annotation.example;
 
 import com.structurizr.annotation.ComponentDependency;
 import com.structurizr.annotation.ContainerDependency;
@@ -6,7 +6,7 @@ import com.structurizr.annotation.ContainerDependency;
 @ContainerDependency( target = Dependencies.RelationalDatabase, description = "Reads from and writes to" )
 public class ComponentAImpl implements ComponentA {
 
-    @ComponentDependency( description = "Uses this other thing to do something else" )
+    @ComponentDependency( description = "Uses component B to do something else" )
     private ComponentB componentB;
 
     @Override

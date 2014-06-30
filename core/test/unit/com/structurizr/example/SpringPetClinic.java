@@ -32,6 +32,8 @@ public class SpringPetClinic {
                 new SpringComponentFinderStrategy());
         componentFinder.findComponents();
 
+        webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Repository")).forEach(c -> c.uses(relationalDatabase, "blah"));
+
         // finally create some views
         ContextView contextView = model.createContextView(springPetClinic);
         contextView.addAllSoftwareSystems();
@@ -44,6 +46,7 @@ public class SpringPetClinic {
 
         ComponentView componentView = model.createComponentView(springPetClinic, webApplication);
         componentView.addAllComponents();
+        componentView.addContainer(relationalDatabase);
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);

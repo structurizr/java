@@ -7,11 +7,6 @@ public class SoftwareSystem extends Element {
 
     private Set<Container> containers = new HashSet<>();
 
-    @Override
-    public ElementType getType() {
-        return ElementType.SoftwareSystem;
-    }
-
     void add(Container container) {
         containers.add(container);
     }
@@ -52,5 +47,10 @@ public class SoftwareSystem extends Element {
 
          return null;
      }
+
+    @Override
+    public ElementType getType() {
+        return ElementType.SoftwareSystem;
+    }
 
 }

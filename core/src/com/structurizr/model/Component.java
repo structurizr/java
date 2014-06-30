@@ -19,11 +19,6 @@ public class Component extends Element {
         this.parent = parent;
     }
 
-    @Override
-    public ElementType getType() {
-        return ElementType.Component;
-    }
-
     public String getTechnology() {
         return technology;
     }
@@ -72,6 +67,11 @@ public class Component extends Element {
 
     public void uses(Component destination, String description) {
         addRelationship(new Relationship(this, destination, description));
+    }
+
+    @Override
+    public ElementType getType() {
+        return ElementType.Component;
     }
 
 }

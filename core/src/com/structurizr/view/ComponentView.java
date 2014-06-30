@@ -56,6 +56,10 @@ public class ComponentView extends View {
                 .forEach(this::addElement);
     }
 
+    public void addContainer(Container container) {
+        addElement(container);
+    }
+
     public void addAllComponents() {
         container.getComponents().forEach(this::addElement);
     }

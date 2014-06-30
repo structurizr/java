@@ -29,8 +29,7 @@
     </target>
 
     <target name="compile" depends="init">
-        <javac srcdir="${annotations.dir}/src" destdir="${annotations.build.dir}/production-classes" debug="yes" source="1.7" target="1.7">
-        </javac>
+        <javac srcdir="${annotations.dir}/src" destdir="${annotations.build.dir}/production-classes" debug="yes" source="1.7" target="1.7" />
 
         <javac srcdir="${core.dir}/src" destdir="${core.build.dir}/production-classes" debug="yes">
             <classpath>
@@ -39,7 +38,7 @@
             </classpath>
         </javac>
 
-        <javac srcdir="${core.dir}/test" destdir="${core.build.dir}/test-classes" debug="yes">
+        <javac srcdir="${core.dir}/test/unit" destdir="${core.build.dir}/test-classes" debug="yes">
             <classpath>
                 <fileset dir="${runtime.lib.dir}" includes="*.jar" />
                 <fileset dir="${test.lib.dir}" includes="*.jar" />
