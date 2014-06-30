@@ -28,9 +28,7 @@ public class SpringPetClinic {
         webApplication.uses(relationalDatabase, "Reads from and writes to");
 
         // and now automatically find all Spring @Controller, @Component, @Service and @Repository components
-        ComponentFinder componentFinder = new ComponentFinder(
-                webApplication,
-                "org.springframework.samples.petclinic",
+        ComponentFinder componentFinder = new ComponentFinder(webApplication, "org.springframework.samples.petclinic",
                 new SpringComponentFinderStrategy());
         componentFinder.findComponents();
 

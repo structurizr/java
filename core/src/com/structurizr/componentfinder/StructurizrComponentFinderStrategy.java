@@ -110,6 +110,7 @@ public class StructurizrComponentFinderStrategy extends AbstractComponentFinderS
             findSoftwareSystemDependencies(component, componentClass.getSuperclass().getCanonicalName());
         }
 
+        // and all interfaces implemented by this class
         for (Class<?> interfaceType : componentClass.getInterfaces()) {
             findSoftwareSystemDependencies(component, interfaceType.getCanonicalName());
         }
@@ -140,7 +141,7 @@ public class StructurizrComponentFinderStrategy extends AbstractComponentFinderS
             findContainerDependencies(component, componentClass.getSuperclass().getCanonicalName());
         }
 
-
+        // and all interfaces implemented by this class
         for (Class<?> interfaceType : componentClass.getInterfaces()) {
             findContainerDependencies(component, interfaceType.getCanonicalName());
         }
