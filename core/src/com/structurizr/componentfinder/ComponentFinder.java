@@ -25,17 +25,11 @@ public class ComponentFinder {
 
     public void foundComponent(String interfaceType, String implementationType, String description, String technology) {
         if (interfaceType == null || interfaceType.equals("")) {
-            return;
+            // there is no interface type, so we'll just have to use the implementation type
+            interfaceType = implementationType;
         }
 
-        Component component;
-
-        if (interfaceType != null) {
-            component = container.getComponentOfType(interfaceType);
-        } else {
-            component = container.getComponentOfType(implementationType);
-        }
-
+        Component component = container.getComponentOfType(interfaceType);
         if (component != null) {
             // this is a duplicate, so do nothing
         } else {
