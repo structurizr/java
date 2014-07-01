@@ -7,7 +7,7 @@ import com.structurizr.componentfinder.SpringComponentFinderStrategy;
 import com.structurizr.model.*;
 import com.structurizr.view.ComponentView;
 import com.structurizr.view.ContainerView;
-import com.structurizr.view.ContextView;
+import com.structurizr.view.SystemContextView;
 
 /**
  * This is a C4 representation of the Spring PetClinic sample app (https://github.com/spring-projects/spring-petclinic/).
@@ -35,7 +35,7 @@ public class SpringPetClinic {
         webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Repository")).forEach(c -> c.uses(relationalDatabase, "blah"));
 
         // finally create some views
-        ContextView contextView = model.createContextView(springPetClinic);
+        SystemContextView contextView = model.createContextView(springPetClinic);
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 

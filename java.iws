@@ -2,33 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="655aeccd-15c7-40da-998c-90a4b0c635db" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/Dependencies.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/annotations/src/com/structurizr/example/Dependencies.java" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/annotations/src/com/structurizr/example/ComponentA.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/ComponentA.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/annotations/src/com/structurizr/example/ComponentAImpl.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/ComponentAImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/annotations/src/com/structurizr/example/ComponentB.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/ComponentB.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/annotations/src/com/structurizr/example/ComponentBImpl.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/ComponentBImpl.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/StructurizrAnnotationsExample.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/StructurizrAnnotationsExample.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Component.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Component.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/ComponentView.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/ComponentView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Container.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Container.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/ElementType.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/ElementType.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/ContextView.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/SystemContextView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Location.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Location.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Person.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Person.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/annotations/annotations.iml" afterPath="$PROJECT_DIR$/annotations/annotations.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.iws" afterPath="$PROJECT_DIR$/java.iws" />
     </list>
     <ignored path="java.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404134201520" ignored="false" />
+    <file path="/Dummy.txt" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404207480890" ignored="false" />
     <file path="/Component.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404078501215" ignored="false" />
     <file path="/Main.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403783483890" ignored="false" />
-    <file path="/a.dummy" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403534078192" ignored="false" />
+    <file path="/a.dummy" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404197586369" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/log/LoggingComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519470023" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/search/SearchComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519484160" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/githubconnector/GitHubConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519797170" ignored="false" />
@@ -78,10 +64,10 @@
     <file path="/Model.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404079132128" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/public/readonly-diagram.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404134386858" ignored="false" />
     <file path="/readonly-diagram.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404134385682" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/structurizr-diagram.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404136238450" ignored="false" />
-    <file path="/structurizr-diagram.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404136234777" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/structurizr-diagram.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404236676092" ignored="false" />
+    <file path="/structurizr-diagram.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404236654725" ignored="false" />
     <file path="/Diagram.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403434422300" ignored="false" />
-    <file path="/fragment.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404127108157" ignored="false" />
+    <file path="/fragment.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404196927621" ignored="false" />
     <file path="/DiagramType.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403426564765" ignored="false" />
     <file path="/ContextDiagram.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403431016297" ignored="false" />
     <file path="/Box.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403429518649" ignored="false" />
@@ -144,8 +130,8 @@
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/tweet/TweetComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403521638990" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/search/LuceneSearchComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403521672343" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/github/GitHubComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403521708741" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/public/tryit.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404136177913" ignored="false" />
-    <file path="/tryit.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404136177913" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/public/tryit.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404236763594" ignored="false" />
+    <file path="/tryit.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404236763594" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/diagram/TryItController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403549908854" ignored="false" />
     <file path="/TryItController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403549899075" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/applicationContext-security.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554752750" ignored="false" />
@@ -167,7 +153,7 @@
     <file path="/createComponentModelForContentUpdater.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404074860730" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/createViews.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403601957533" ignored="false" />
     <file path="/createViews.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403601957533" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateComponentModelForContainer.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404078242396" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateComponentModelForContainer.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404197269774" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/structurizr/bin/createComponentModelForContentUpdater.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404074860730" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/structurizr/bin/createModelAndViews.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403703731786" ignored="false" />
     <file path="/createModelAndViews.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403703731786" ignored="false" />
@@ -182,9 +168,9 @@
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes.json" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403865102846" ignored="false" />
     <file path="/SpringComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404058440514" ignored="false" />
     <file path="/SpringPetClinic.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404138395382" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/joint.shapes.c4.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404136475186" ignored="false" />
-    <file path="/joint.shapes.c4.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404136273105" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/structurizr-export.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404030675510" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/joint.shapes.c4.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404207977154" ignored="false" />
+    <file path="/joint.shapes.c4.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404207803310" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/structurizr-export.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404236852515" ignored="false" />
     <file path="/ComponentFinderStrategy.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404068306578" ignored="false" />
     <file path="/AbstractReflectionsComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404068556845" ignored="false" />
     <file path="/StructurizrComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404085053263" ignored="false" />
@@ -196,7 +182,15 @@
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/util/AbstractComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404075663078" ignored="false" />
     <file path="/AbstractComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404075652083" ignored="false" />
     <file path="/SpringComponentFinderStrategy.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404079166648" ignored="false" />
-    <file path="/FinancialRiskSystem.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404135829714" ignored="false" />
+    <file path="/FinancialRiskSystem.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404207322719" ignored="false" />
+    <file path="/TechTribes.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404197061238" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/talk/TalkComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404197379401" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/badge/BadgeComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404197391668" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/css/structurizr.css" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404236201284" ignored="false" />
+    <file path="/structurizr.css" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404236199838" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/structurizr-zoom.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404236725012" ignored="false" />
+    <file path="/structurizr-zoom.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404236452725" ignored="false" />
+    <file path="/structurizr-export.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404236850314" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -211,6 +205,7 @@
     <disable_hints />
   </component>
   <component name="DebuggerManager">
+    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_any default_suspend_policy="SuspendAll" default_condition_enabled="true">
       <breakpoint>
         <option name="NOTIFY_CAUGHT" value="true" />
@@ -247,7 +242,6 @@
         <option name="LOG_MESSAGE" value="" />
       </breakpoint>
     </breakpoint_any>
-    <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -257,93 +251,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FinancialRiskSystem.java" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="FinancialRiskSystem.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="44" column="38" selection-start="2726" selection-end="2726" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StructurizrAnnotationsExample.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/StructurizrAnnotationsExample.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="13" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Container.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Container.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="0" selection-start="2215" selection-end="2215" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SpringPetClinic.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="8" selection-start="1659" selection-end="1659" vertical-scroll-proportion="0.39481267">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ComponentView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/ComponentView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="59" column="30" selection-start="1530" selection-end="1530" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="View.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/View.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="14" column="22" selection-start="457" selection-end="457" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ContainerView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/ContainerView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="13" selection-start="90" selection-end="90" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Person.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Person.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="19" column="0" selection-start="567" selection-end="567" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SoftwareSystem.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="76" selection-start="427" selection-end="427" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Component.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Component.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="76" column="0" selection-start="1901" selection-end="1901" vertical-scroll-proportion="0.0">
+            <state line="46" column="14" selection-start="2780" selection-end="2780" vertical-scroll-proportion="0.8158996">
               <folding />
             </state>
           </provider>
@@ -367,7 +278,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/AbstractComponentFinderStrategy.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/StructurizrComponentFinderStrategy.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/ComponentFinder.java" />
         <option value="$PROJECT_DIR$/annotations/test/unit/com/structurizr/example/ComponentAImpl.java" />
@@ -380,16 +290,17 @@
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Component.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Container.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java" />
-        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/ComponentView.java" />
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java" />
+        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java" />
+        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="47" />
+    <option name="x" value="76" />
     <option name="y" value="22" />
-    <option name="width" value="1393" />
+    <option name="width" value="1295" />
     <option name="height" value="878" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -419,6 +330,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -613,7 +525,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -630,15 +541,16 @@
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="MemberChooser.showClasses" value="true" />
     <property name="FullScreen" value="false" />
+    <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.splitter.details.proportions" value="0.2" />
-    <property name="options.searchVisible" value="true" />
     <property name="dynamic.classpath" value="false" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.structurizr.example" />
       <recent name="com.structurizr" />
       <recent name="com.structurizr.element" />
       <recent name="com.structurizr.view" />
@@ -653,7 +565,7 @@
       <recent name="com.structurizr" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SpringPetClinic">
+  <component name="RunManager" selected="Application.FinancialRiskSystem">
     <configuration default="false" name="FinancialRiskSystem" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" runner="idea">
         <pattern>
@@ -690,6 +602,28 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="com.structurizr.example.SpringPetClinic" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="core" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="TechTribes" type="Application" factoryName="Application" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.structurizr.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="com.structurizr.example.TechTribes" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -761,15 +695,16 @@
       <patterns />
       <method />
     </configuration>
-    <list size="2">
+    <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
       <item index="1" class="java.lang.String" itemvalue="Application.SpringPetClinic" />
+      <item index="2" class="java.lang.String" itemvalue="Application.TechTribes" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.SpringPetClinic" />
-        <item index="1" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
-        <item index="2" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
+        <item index="0" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
+        <item index="1" class="java.lang.String" itemvalue="Application.TechTribes" />
+        <item index="2" class="java.lang.String" itemvalue="Application.SpringPetClinic" />
         <item index="3" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
         <item index="4" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
       </list>
@@ -806,12 +741,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="47" y="22" width="1393" height="878" extended-state="0" />
+    <frame x="76" y="22" width="1295" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298153" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.8166227" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -825,10 +759,11 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24573125" sideWeight="0.52506596" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47493404" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26341072" sideWeight="0.52638525" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47361478" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298153" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -899,20 +834,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/SoftwareSystemDependency.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="18" selection-start="300" selection-end="300" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="33" column="0" selection-start="1289" selection-end="1289" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Model.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="6" column="13" selection-start="98" selection-end="98" vertical-scroll-proportion="0.0">
@@ -972,15 +893,6 @@
     <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/StructurizrAnnotationsExample.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="13" selection-start="292" selection-end="292" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="38" selection-start="2726" selection-end="2726" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1008,7 +920,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="34" column="8" selection-start="1659" selection-end="1659" vertical-scroll-proportion="0.39481267">
+        <state line="37" column="47" selection-start="1893" selection-end="1893" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../techtribesje/build/techtribes-core/production-classes/je/techtribes/component/search/LuceneSearchComponent.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="6" selection-start="280" selection-end="280" vertical-scroll-proportion="0.13452914">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="34" selection-start="2199" selection-end="2199" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="14" selection-start="2780" selection-end="2780" vertical-scroll-proportion="0.8158996">
           <folding />
         </state>
       </provider>

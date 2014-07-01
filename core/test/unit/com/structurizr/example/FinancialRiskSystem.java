@@ -7,7 +7,7 @@ import com.structurizr.model.Location;
 import com.structurizr.model.Model;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
-import com.structurizr.view.ContextView;
+import com.structurizr.view.SystemContextView;
 
 /**
  * This is a simple (incomplete) example C4 model based upon the financial risk system
@@ -44,7 +44,7 @@ public class FinancialRiskSystem {
         financialRiskSystem.uses(activeDirectory, "Uses for authentication and authorisation");
 
         // and create some views
-        ContextView contextView = model.createContextView(financialRiskSystem);
+        SystemContextView contextView = model.createContextView(financialRiskSystem);
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 

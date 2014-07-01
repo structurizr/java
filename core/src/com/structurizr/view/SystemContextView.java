@@ -2,12 +2,12 @@ package com.structurizr.view;
 
 import com.structurizr.model.SoftwareSystem;
 
-public class ContextView extends View {
+public class SystemContextView extends View {
 
-    public ContextView() {
+    public SystemContextView() {
     }
 
-    public ContextView(SoftwareSystem softwareSystem) {
+    public SystemContextView(SoftwareSystem softwareSystem) {
         super(softwareSystem);
         addElement(softwareSystem);
     }

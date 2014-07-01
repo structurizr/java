@@ -11,7 +11,7 @@ public class Model {
     private Set<Person> people = new HashSet<>();
     private Set<SoftwareSystem> softwareSystems = new HashSet<>();
 
-    private Set<ContextView> contextViews = new HashSet<>();
+    private Set<SystemContextView> systemContextViews = new HashSet<>();
     private Set<ContainerView> containerViews = new HashSet<>();
     private Set<ComponentView> componentViews = new HashSet<>();
 
@@ -121,7 +121,7 @@ public class Model {
             }
         }
 
-        contextViews.forEach(this::hydrateView);
+        systemContextViews.forEach(this::hydrateView);
         containerViews.forEach(this::hydrateView);
         componentViews.forEach(this::hydrateView);
         for (ComponentView view : componentViews) {
@@ -149,9 +149,9 @@ public class Model {
         return elementsById.values().contains(element);
     }
 
-    public ContextView createContextView(SoftwareSystem softwareSystem) {
-        ContextView view = new ContextView(softwareSystem);
-        contextViews.add(view);
+    public SystemContextView createContextView(SoftwareSystem softwareSystem) {
+        SystemContextView view = new SystemContextView(softwareSystem);
+        systemContextViews.add(view);
 
         return view;
     }
@@ -170,8 +170,8 @@ public class Model {
         return view;
     }
 
-    public Set<ContextView> getContextViews() {
-        return new HashSet<>(contextViews);
+    public Set<SystemContextView> getSystemContextViews() {
+        return new HashSet<>(systemContextViews);
     }
 
     public Set<ContainerView> getContainerViews() {
