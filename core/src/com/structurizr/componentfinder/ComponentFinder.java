@@ -31,16 +31,33 @@ public class ComponentFinder {
 
         Component component = container.getComponentOfType(interfaceType);
         if (component != null) {
-            // this is a duplicate, so do nothing
+            mergeInformation(component, interfaceType, implementationType, description, technology);
         } else {
             String name = interfaceType.substring(interfaceType.lastIndexOf(".") + 1);
             component = container.getComponentWithName(name);
             if (component == null) {
                 container.addComponentOfType(interfaceType, implementationType, description, technology);
             } else {
-                component.setInterfaceType(interfaceType);
-                component.setTechnology(technology);
+                mergeInformation(component, interfaceType, implementationType, description, technology);
             }
+        }
+    }
+
+    private void mergeInformation(Component component, String interfaceType, String implementationType, String description, String technology) {
+        if (component.getInterfaceType() != null && component.getInterfaceType().isEmpty()) {
+            component.setInterfaceType(interfaceType);
+        }
+
+        if (component.getImplementationType() != null && component.getImplementationType().isEmpty()) {
+            component.setImplementationType(implementationType);
+        }
+
+        if (component.getDescription() != null && component.getDescription().isEmpty()) {
+            component.setDescription(description);
+        }
+
+        if (component.getTechnology() != null && component.getTechnology().isEmpty()) {
+            component.setTechnology(technology);
         }
     }
 

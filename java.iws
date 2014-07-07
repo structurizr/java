@@ -2,16 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="655aeccd-15c7-40da-998c-90a4b0c635db" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/ComponentView.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/ComponentView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Container.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Container.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/ContainerView.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/ContainerView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/StructurizrComponentFinderStrategy.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/StructurizrComponentFinderStrategy.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/SystemContextView.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/SystemContextView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/View.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/View.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/ViewType.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/ViewType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.iws" afterPath="$PROJECT_DIR$/java.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/ComponentFinder.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/ComponentFinder.java" />
     </list>
     <ignored path="java.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -96,7 +87,7 @@
     <file path="/ivy.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519214313" ignored="false" />
     <file path="/ScannotationComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403465102036" ignored="false" />
     <file path="/JDependDependencyFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403467500089" ignored="false" />
-    <file path="/ComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404108353676" ignored="false" />
+    <file path="/ComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404763502433" ignored="false" />
     <file path="/ReflectionsScanner.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403477081335" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/build.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403475944996" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/twitterconnector/Twitter4jTwitterConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519949352" ignored="false" />
@@ -147,7 +138,7 @@
     <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/views/workspace/diagram-summary.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554752750" ignored="false" />
     <file path="/CreateBaseModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403634545408" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateBaseModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404285379112" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateViews.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404759680493" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateViews.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404763027208" ignored="false" />
     <file path="/CreateViews.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404759505577" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/AbstractUtility.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403734034532" ignored="false" />
     <file path="/AbstractUtility.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403600167033" ignored="false" />
@@ -157,7 +148,7 @@
     <file path="/createComponentModelForContentUpdater.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404074860730" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/createViews.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403601957533" ignored="false" />
     <file path="/createViews.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403601957533" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateComponentModelForContainer.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404197269774" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateComponentModelForContainer.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404762920289" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/structurizr/bin/createComponentModelForContentUpdater.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404074860730" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/structurizr/bin/createModelAndViews.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403703731786" ignored="false" />
     <file path="/createModelAndViews.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403703731786" ignored="false" />
@@ -202,9 +193,9 @@
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/component/job/JobComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404732112124" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/event/EventComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404732130952" ignored="false" />
     <file path="/SystemContextView.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404734015986" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/lib/structurizr.jar!/com/structurizr/view/View.class" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404747983482" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/lib/structurizr.jar!/com/structurizr/model/Container.class" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404747983482" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/tweets/TweetsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404735655991" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/lib/structurizr.jar!/com/structurizr/view/View.class" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404762902453" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/lib/structurizr.jar!/com/structurizr/model/Container.class" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404762902453" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/tweets/TweetsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404762488432" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/contentsource/ContentSourceComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404738606046" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -302,10 +293,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="View.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="View.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/View.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="113" column="37" selection-start="3328" selection-end="3328" vertical-scroll-proportion="0.49080622">
+            <state line="101" column="33" selection-start="2821" selection-end="2821" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -332,16 +323,16 @@
       <file leaf-file-name="StructurizrComponentFinderStrategy.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/StructurizrComponentFinderStrategy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="96" column="0" selection-start="4055" selection-end="4055" vertical-scroll-proportion="0.0">
+            <state line="47" column="40" selection-start="1830" selection-end="1830" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractComponentFinderStrategy.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/AbstractComponentFinderStrategy.java">
+      <file leaf-file-name="ComponentFinder.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/ComponentFinder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="22" selection-start="708" selection-end="708" vertical-scroll-proportion="0.0">
+            <state line="57" column="0" selection-start="2465" selection-end="2465" vertical-scroll-proportion="0.80259365">
               <folding />
             </state>
           </provider>
@@ -374,7 +365,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Location.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Person.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Component.java" />
@@ -390,6 +380,7 @@
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/ComponentView.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/View.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/ComponentFinder.java" />
       </list>
     </option>
   </component>
@@ -956,11 +947,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../techtribesje/build/techtribes-core/production-classes/je/techtribes/component/search/LuceneSearchComponent.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="6" selection-start="280" selection-end="280" vertical-scroll-proportion="0.13452914" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="35" column="34" selection-start="2199" selection-end="2199" vertical-scroll-proportion="0.0">
@@ -999,13 +985,6 @@
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/AbstractComponentFinderStrategy.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="20" column="22" selection-start="708" selection-end="708" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/StructurizrComponentFinderStrategy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="96" column="0" selection-start="4055" selection-end="4055" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1061,7 +1040,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/View.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="113" column="37" selection-start="3328" selection-end="3328" vertical-scroll-proportion="0.49080622">
+        <state line="101" column="33" selection-start="2821" selection-end="2821" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/StructurizrComponentFinderStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="40" selection-start="1830" selection-end="1830" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/ComponentFinder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="0" selection-start="2465" selection-end="2465" vertical-scroll-proportion="0.80259365">
           <folding />
         </state>
       </provider>
