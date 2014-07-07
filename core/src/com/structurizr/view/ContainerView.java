@@ -30,4 +30,9 @@ public class ContainerView extends View {
         return ViewType.Container;
     }
 
+    @Override
+    public String getName() {
+        return getSoftwareSystem().getName() + " - Containers";
+    }
+
 }

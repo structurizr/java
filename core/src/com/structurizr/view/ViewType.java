@@ -2,7 +2,7 @@ package com.structurizr.view;
 
 public enum ViewType {
 
-    Context,
+    SystemContext,
     Container,
     Component
 

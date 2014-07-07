@@ -93,7 +93,7 @@ public class StructurizrComponentFinderStrategy extends AbstractComponentFinderS
     }
 
     private void findSoftwareSystemDependencies(Component component, String implementationType) throws Exception {
-        System.out.println(implementationType);
+//        System.out.println(implementationType);
         Class<?> componentClass = Class.forName(implementationType);
 
         if (componentClass.getAnnotation(SoftwareSystemDependency.class) != null) {

@@ -22,7 +22,12 @@ public class SystemContextView extends View {
 
     @Override
     public final ViewType getType() {
-        return ViewType.Context;
+        return ViewType.SystemContext;
+    }
+
+    @Override
+    public String getName() {
+        return getSoftwareSystem().getName() + " - System Context";
     }
 
 }

@@ -16,7 +16,7 @@ public abstract class View {
 
     private SoftwareSystem softwareSystem;
     private int softwareSystemId;
-    private String description;
+    private String description = "";
 
     private Set<ElementView> elementViews = new HashSet<>();
 
@@ -109,5 +109,23 @@ public abstract class View {
 
         elementViews.removeIf(ev -> !elementIds.contains(ev.getId()));
     }
+
+    public void removeElementsThatCantBeReachedFrom(Element element) {
+        Set<Integer> elementIdsToShow = new HashSet<>();
+        findElementsToShow(element, elementIdsToShow, 1);
+
+        elementViews.removeIf(ev -> !elementIdsToShow.contains(ev.getId()));
+    }
+
+    private void findElementsToShow(Element element, Set<Integer> elementIds, int depth) {
+        if (elementViews.contains(new ElementView(element))) {
+            elementIds.add(element.getId());
+            if (depth < 100) {
+                element.getRelationships().forEach(r -> findElementsToShow(r.getDestination(), elementIds, depth + 1));
+            }
+        }
+    }
+
+    public abstract String getName();
 
 }

@@ -5,6 +5,8 @@ import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 import com.structurizr.model.SoftwareSystem;
 
+import java.util.Collection;
+
 public class ComponentView extends View {
 
     private Container container;
@@ -56,8 +58,12 @@ public class ComponentView extends View {
                 .forEach(this::addElement);
     }
 
-    public void addContainer(Container container) {
+    public void add(Container container) {
         addElement(container);
+    }
+
+    public void add(Component component) {
+        addElement(component);
     }
 
     public void addAllComponents() {
@@ -72,9 +78,18 @@ public class ComponentView extends View {
         removeElement(component);
     }
 
+    public void remove(Collection<Component> components) {
+        components.forEach(this::removeElement);
+    }
+
     @Override
     public final ViewType getType() {
         return ViewType.Component;
+    }
+
+    @Override
+    public String getName() {
+        return getSoftwareSystem().getName() + " - " + getContainer().getName() + " - Components";
     }
 
 }

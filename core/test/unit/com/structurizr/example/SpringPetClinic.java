@@ -46,7 +46,7 @@ public class SpringPetClinic {
 
         ComponentView componentView = model.createComponentView(springPetClinic, webApplication);
         componentView.addAllComponents();
-        componentView.addContainer(relationalDatabase);
+        componentView.add(relationalDatabase);
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);

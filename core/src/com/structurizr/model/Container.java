@@ -46,8 +46,14 @@ public class Container extends Element {
         return component;
     }
 
+    public Component addComponent(String name, String description) {
+        return getModel().addComponent(this, name, description);
+    }
+
     void add(Component component) {
-        components.add(component);
+        if (getComponentWithName(component.getName()) == null) {
+            components.add(component);
+        }
     }
 
     public Set<Component> getComponents() {

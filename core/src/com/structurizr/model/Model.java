@@ -69,6 +69,18 @@ public class Model {
         return component;
     }
 
+    Component addComponent(Container parent, String name, String description) {
+        Component component = new Component();
+        component.setName(name);
+        component.setDescription(description);
+
+        parent.add(component);
+        component.setParent(parent);
+        addElement(component);
+
+        return component;
+    }
+
     private synchronized int getId() {
         int id = elementsById.keySet().stream().reduce(0, Integer::max);
 
