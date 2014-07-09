@@ -12,6 +12,11 @@ public class Person extends Element {
         relationships.add(relationship);
     }
 
+    public void uses(Component destination, String description) {
+        Relationship relationship = new Relationship(this, destination, description);
+        relationships.add(relationship);
+    }
+
     @Override
     public ElementType getType() {
         return ElementType.Person;

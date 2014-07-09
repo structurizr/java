@@ -2,30 +2,36 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="655aeccd-15c7-40da-998c-90a4b0c635db" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/ComponentFinder.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/ComponentFinder.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/UsedBy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Person.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Person.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/StructurizrComponentFinderStrategy.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/StructurizrComponentFinderStrategy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/View.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/View.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.iws" afterPath="$PROJECT_DIR$/java.iws" />
     </list>
     <ignored path="java.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404716438996" ignored="false" />
+    <file path="/Dummy.txt" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404838184318" ignored="false" />
     <file path="/Component.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404078501215" ignored="false" />
     <file path="/Main.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403783483890" ignored="false" />
     <file path="/a.dummy" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404734963386" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/log/LoggingComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519470023" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/search/SearchComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519484160" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/githubconnector/GitHubConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519797170" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/githubconnector/GitHubConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404839500294" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/event/EventComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519453348" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/activity/ActivityComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519599921" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/activity/ActivityComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404808697798" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/talk/TalkComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519492156" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/newsfeedentry/NewsFeedEntryComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519478034" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/twitterconnector/TwitterConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519944689" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/tweet/TweetComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519502865" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/github/GitHubComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519462990" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/newsfeedconnector/NewsFeedConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519888184" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/contentsource/ContentSourceComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519443439" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/contentsource/ContentSourceComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404906621249" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/job/JobComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403448017520" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/scheduledcontentupdater/ScheduledContentUpdater.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519545385" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/badge/BadgeComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519411449" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/component/contentupdater/ContentUpdateComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519579613" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/component/contentupdater/ContentUpdateComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404906293358" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/updater/Main.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519656295" ignored="false" />
     <file path="/README.md" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402338571146" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/package-info.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402339681159" ignored="false" />
@@ -56,17 +62,17 @@
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/softwaresystems/SoftwareSystemsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554478264" ignored="false" />
     <file path="/.gitignore" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403538086974" ignored="false" />
     <file path="/Container.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404727402451" ignored="false" />
-    <file path="/Model.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404727645841" ignored="false" />
+    <file path="/Model.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404912059545" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/public/readonly-diagram.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404248950552" ignored="false" />
     <file path="/readonly-diagram.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404134385682" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/structurizr-diagram.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404719427379" ignored="false" />
     <file path="/structurizr-diagram.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404253726251" ignored="false" />
     <file path="/Diagram.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403434422300" ignored="false" />
-    <file path="/fragment.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404760342400" ignored="false" />
+    <file path="/fragment.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936680339" ignored="false" />
     <file path="/DiagramType.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403426564765" ignored="false" />
     <file path="/ContextDiagram.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403431016297" ignored="false" />
     <file path="/Box.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403429518649" ignored="false" />
-    <file path="/Person.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403429438561" ignored="false" />
+    <file path="/Person.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404912081068" ignored="false" />
     <file path="/Position.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403429534816" ignored="false" />
     <file path="/Relationship.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403474149236" ignored="false" />
     <file path="/ContextView.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403533725703" ignored="false" />
@@ -74,12 +80,12 @@
     <file path="/ElementView.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403534064728" ignored="false" />
     <file path="/RelationshipView.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403533995313" ignored="false" />
     <file path="/ContainerView.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403439235378" ignored="false" />
-    <file path="/View.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404760349756" ignored="false" />
+    <file path="/View.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404910021979" ignored="false" />
     <file path="/ComponentView.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404735604198" ignored="false" />
     <file path="/GitHubConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519509455" ignored="false" />
     <file path="/ScheduledContentUpdater.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403447157210" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/scheduledcontentupdater/ScheduledContentUpdaterImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519376786" ignored="false" />
-    <file path="/ScheduledContentUpdaterImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519359788" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/scheduledcontentupdater/ScheduledContentUpdaterImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404892412350" ignored="false" />
+    <file path="/ScheduledContentUpdaterImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404843303408" ignored="false" />
     <file path="/Dependency.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403507849518" ignored="false" />
     <file path="/LoggingComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403474419115" ignored="false" />
     <file path="/NewsFeedConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519528795" ignored="false" />
@@ -90,7 +96,7 @@
     <file path="/ComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404763502433" ignored="false" />
     <file path="/ReflectionsScanner.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403477081335" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/build.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403475944996" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/twitterconnector/Twitter4jTwitterConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519949352" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/twitterconnector/Twitter4jTwitterConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404839434621" ignored="false" />
     <file path="/Type.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403470641647" ignored="false" />
     <file path="/WorkspaceComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403474374497" ignored="false" />
     <file path="/InteractionsComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403474378610" ignored="false" />
@@ -115,18 +121,18 @@
     <file path="/TwitterConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519569181" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/component/job/JobComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519586944" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/updater/Dependencies.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519777446" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/githubconnector/GitHubConnectorImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519865437" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/githubconnector/GitHubConnectorImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404839499493" ignored="false" />
     <file path="/GitHubConnectorImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519825885" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/newsfeedconnector/RomeNewsFeedConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519901671" ignored="false" />
-    <file path="/SoftwareSystem.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403537089690" ignored="false" />
+    <file path="/SoftwareSystem.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404912002377" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/tweet/MongoDbTweetDao.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403521654267" ignored="false" />
     <file path="/MongoDbTweetDao.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403521531046" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/newsfeedentry/NewsFeedEntryComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403521619868" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/tweet/TweetComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403521638990" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/search/LuceneSearchComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403521672343" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/search/LuceneSearchComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404840110977" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/github/GitHubComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403521708741" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/public/tryit.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404733522892" ignored="false" />
-    <file path="/tryit.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404733522892" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/public/tryit.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404910593625" ignored="false" />
+    <file path="/tryit.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404910364510" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/diagram/TryItController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404282811489" ignored="false" />
     <file path="/TryItController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403549899075" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/applicationContext-security.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554752750" ignored="false" />
@@ -138,9 +144,9 @@
     <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/views/workspace/diagram-summary.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554752750" ignored="false" />
     <file path="/CreateBaseModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403634545408" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateBaseModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404285379112" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateViews.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404763027208" ignored="false" />
-    <file path="/CreateViews.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404759505577" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/AbstractUtility.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403734034532" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateViews.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404935378524" ignored="false" />
+    <file path="/CreateViews.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404935375750" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/AbstractUtility.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404937006355" ignored="false" />
     <file path="/AbstractUtility.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403600167033" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateComponentModelForContentUpdater.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403688675706" ignored="false" />
     <file path="/CreateComponentModelForContentUpdater.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403688676102" ignored="false" />
@@ -160,9 +166,9 @@
     <file path="/HomePageController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403695306878" ignored="false" />
     <file path="/createComponentModelForWebApplication.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404074869009" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/structurizr/bin/createComponentModelForWebApplication.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404074869009" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/techtribes.json" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403865102846" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes.json" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404911035026" ignored="false" />
     <file path="/SpringComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404058440514" ignored="false" />
-    <file path="/SpringPetClinic.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404138395382" ignored="false" />
+    <file path="/SpringPetClinic.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404802279940" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/joint.shapes.c4.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404250735823" ignored="false" />
     <file path="/joint.shapes.c4.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404250661633" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/structurizr-export.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404236852515" ignored="false" />
@@ -171,11 +177,11 @@
     <file path="/StructurizrComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404085053263" ignored="false" />
     <file path="/StructurizrAnnotationsExample.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404068384778" ignored="false" />
     <file path="/SpringComponentStrategy.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404068963737" ignored="false" />
-    <file path="/StructurizrComponentFinderStrategy.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404084821337" ignored="false" />
+    <file path="/StructurizrComponentFinderStrategy.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404912024026" ignored="false" />
     <file path="/AbstractComponentFinderStrategy.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404083926797" ignored="false" />
     <file path="/CreateComponentModelForContainer.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404074745610" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/util/AbstractComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404075663078" ignored="false" />
-    <file path="/AbstractComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404075652083" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/util/AbstractComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404839759969" ignored="false" />
+    <file path="/AbstractComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404839640690" ignored="false" />
     <file path="/SpringComponentFinderStrategy.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404079166648" ignored="false" />
     <file path="/FinancialRiskSystem.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404207322719" ignored="false" />
     <file path="/TechTribes.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404197061238" ignored="false" />
@@ -193,10 +199,96 @@
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/component/job/JobComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404732112124" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/event/EventComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404732130952" ignored="false" />
     <file path="/SystemContextView.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404734015986" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/lib/structurizr.jar!/com/structurizr/view/View.class" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404762902453" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/lib/structurizr.jar!/com/structurizr/model/Container.class" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404762902453" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/tweets/TweetsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404762488432" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/contentsource/ContentSourceComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404738606046" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/lib/structurizr.jar!/com/structurizr/view/View.class" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404935183137" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/lib/structurizr.jar!/com/structurizr/model/Container.class" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404935183137" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/tweets/TweetsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936655259" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/contentsource/ContentSourceComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404908372625" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/activity/ActivityComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404808374886" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/activity/ActivityUpdaterComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404808438535" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/activity/ActivityUpdaterComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404808546601" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/activity/component.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404808401312" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/activity/ActivityUpdaterException.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404808390125" ignored="false" />
+    <file path="/component.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404906723269" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/activity/JdbcActivityUpdaterDao.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404808758313" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/scheduledcontentupdater/component.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404892432327" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/activity/ActivityComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404908365501" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/activity/component.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404907018413" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/activityupdater/ActivityUpdaterComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404892401877" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/activityupdater/JdbcActivityUpdaterDao.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404808795204" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/activityupdater/ActivityUpdaterComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404841001622" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/activityupdater/ActivityUpdaterException.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404808795204" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/test/component/je/techtribes/component/activity/ActivityComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404809636542" ignored="false" />
+    <file path="/ActivityComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404809333504" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/test/component/je/techtribes/component/activityupdater/ActivityComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404809452145" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/test/component/je/techtribes/component/activityupdater/ActivityUpdaterComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404841075366" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/test/component/je/techtribes/AbstractComponentTestsBase.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404896410436" ignored="false" />
+    <file path="/AbstractComponentTestsBase.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404809801083" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/test/unit/je/techtribes/web/controller/ActivityComponentStub.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404809824818" ignored="false" />
+    <file path="/LuceneSearchComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404818617148" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/search/component.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404840114260" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/test/component/je/techtribes/component/github/GitHubComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404837737308" ignored="false" />
+    <file path="/GitHubComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404837661038" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/test/component/je/techtribes/component.githubconnector/GitHubConnectorTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404838277883" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/scheduledcontentupdater/GitHubUpdater.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404839499493" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/githubconnector2/component.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404838277883" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/githubconnector2/GitHubConnectorException.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404838277883" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/githubconnector2/GitHubApi.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404838277883" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/githubconnector2/GitHubConnectorImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404838277883" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/githubconnector2/EclipseMylynGitHubApi.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404838277883" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/githubconnector2/GitHubConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404838277883" ignored="false" />
+    <file path="/Twitter4jTwitterConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404838622029" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/twitterconnector/component.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404839452314" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/test/component/je/techtribes/component/githubconnector/GitHubConnectorTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404896474750" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/githubconnector/component.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404839499493" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/githubconnector/GitHubConnectorException.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404839499493" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/githubconnector/GitHubApi.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404839499493" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/githubconnector/EclipseMylynGitHubApi.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404839499493" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/config.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404840036509" ignored="false" />
+    <file path="/ActivityUpdaterComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404841060274" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/badgeawarder/BadgeAwarder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404844102700" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/badgeawarder/BadgeAwarderImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404844146423" ignored="false" />
+    <file path="/BadgeAwarder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404843118831" ignored="false" />
+    <file path="/BadgeAwarderImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404844129606" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/badgeawarder/component.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404844187524" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/activityupdater/ActivityUpdater.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404892411592" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/activityupdater/ActivityUpdaterImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404892411592" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/src/je/techtribes/component/activityupdater/component.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404892423001" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/test/component/je/techtribes/component/activityupdater/ActivityUpdaterTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404892536263" ignored="false" />
+    <file path="/ContentUpdateComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404906292951" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/component/contentupdater/ContentCache.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404906302463" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/component/cache/component.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404906341277" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/component/cache/ContentUpdateComponentException.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404906330535" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/component/cache/ContentCache.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404906726529" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/component/cache/ContentUpdateComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404906340256" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/component/cache/ContentCacheImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404906405035" ignored="false" />
+    <file path="/ContentCache.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404906440934" ignored="false" />
+    <file path="/ContentSourceComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404906837211" ignored="false" />
+    <file path="/ActivityComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404906997859" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/component/social/SignInAdapterImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404908641838" ignored="false" />
+    <file path="/SignInAdapterImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404908641838" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/component/social/TwitterSignInComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404908642428" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/component/social/component.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404908642428" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/security/SecurityController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404909052194" ignored="false" />
+    <file path="/SecurityController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404909035929" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/jobs/JobsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404911705709" ignored="false" />
+    <file path="/JobsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404911702437" ignored="false" />
+    <file path="/UsedBy.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404911620632" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/activity/ActivityController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936590596" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/admin/AdminController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936600958" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/badges/BadgesController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936607902" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/code/CodeController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936612563" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/content/ContentController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936616746" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/events/EventsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936620198" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/home/HomePageController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936623423" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/news/NewsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936628641" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/newsfeed/RssController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936633109" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/people/PeopleController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936636243" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/search/SearchController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936640346" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/talks/TalksController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936648099" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/tribes/TribesController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936651710" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/AboutPageController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936664492" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/security/SignOutController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936866088" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/security/SignInController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936861342" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -260,7 +352,7 @@
       <file leaf-file-name="FinancialRiskSystem.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="14" selection-start="2780" selection-end="2780" vertical-scroll-proportion="0.0">
+            <state line="24" column="55" selection-start="1086" selection-end="1086" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -269,25 +361,7 @@
       <file leaf-file-name="SpringPetClinic.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="48" column="25" selection-start="2391" selection-end="2391" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ComponentView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/ComponentView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="32" selection-start="1557" selection-end="1557" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ContainerView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/ContainerView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="34" column="44" selection-start="846" selection-end="846" vertical-scroll-proportion="0.0">
+            <state line="49" column="39" selection-start="2504" selection-end="2504" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -296,16 +370,16 @@
       <file leaf-file-name="View.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/View.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="101" column="33" selection-start="2821" selection-end="2821" vertical-scroll-proportion="0.0">
+            <state line="136" column="51" selection-start="4135" selection-end="4135" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ElementView.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/ElementView.java">
+      <file leaf-file-name="UsedBy.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/UsedBy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="11" selection-start="245" selection-end="245" vertical-scroll-proportion="0.0">
+            <state line="12" column="25" selection-start="356" selection-end="356" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -314,7 +388,7 @@
       <file leaf-file-name="Model.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Model.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="177" column="42" selection-start="5850" selection-end="5850" vertical-scroll-proportion="0.0">
+            <state line="223" column="20" selection-start="7146" selection-end="7146" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -323,16 +397,34 @@
       <file leaf-file-name="StructurizrComponentFinderStrategy.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/StructurizrComponentFinderStrategy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="40" selection-start="1830" selection-end="1830" vertical-scroll-proportion="0.0">
+            <state line="164" column="24" selection-start="7379" selection-end="7379" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ComponentFinder.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="Person.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Person.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="17" column="5" selection-start="674" selection-end="674" vertical-scroll-proportion="0.3606789">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SoftwareSystem.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="50" column="0" selection-start="1445" selection-end="1445" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ComponentFinder.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/ComponentFinder.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="57" column="0" selection-start="2465" selection-end="2465" vertical-scroll-proportion="0.80259365">
+            <state line="35" column="52" selection-start="1432" selection-end="1432" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -341,7 +433,7 @@
       <file leaf-file-name="SpringComponentFinderStrategy.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/SpringComponentFinderStrategy.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="13" selection-start="118" selection-end="118" vertical-scroll-proportion="0.0">
+            <state line="12" column="76" selection-start="655" selection-end="655" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -365,22 +457,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Person.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Component.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java" />
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java" />
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/ViewType.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Container.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/ContainerView.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/SystemContextView.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/StructurizrComponentFinderStrategy.java" />
-        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/ComponentView.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/view/View.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/ComponentFinder.java" />
+        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/view/View.java" />
+        <option value="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/UsedBy.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/StructurizrComponentFinderStrategy.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Person.java" />
       </list>
     </option>
   </component>
@@ -663,6 +755,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.structurizr.annotation" />
       <recent name="com.structurizr.example" />
       <recent name="com.structurizr" />
       <recent name="com.structurizr.element" />
@@ -678,7 +771,7 @@
       <recent name="com.structurizr" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SpringPetClinic">
+  <component name="RunManager" selected="Application.FinancialRiskSystem">
     <configuration default="false" name="FinancialRiskSystem" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" runner="idea">
         <pattern>
@@ -815,8 +908,8 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.SpringPetClinic" />
-        <item index="1" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
+        <item index="0" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
+        <item index="1" class="java.lang.String" itemvalue="Application.SpringPetClinic" />
         <item index="2" class="java.lang.String" itemvalue="Application.TechTribes" />
         <item index="3" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
         <item index="4" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
@@ -854,7 +947,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="46" y="22" width="1394" height="878" extended-state="6" />
+    <frame x="46" y="22" width="1394" height="878" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -873,8 +966,8 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24406528" sideWeight="0.67150396" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47361478" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23516321" sideWeight="0.52638525" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4726444" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -947,27 +1040,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="34" selection-start="2199" selection-end="2199" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/ViewType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="38" selection-start="106" selection-end="106" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="33" selection-start="896" selection-end="896" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/SystemContextView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="28" column="21" selection-start="647" selection-end="647" vertical-scroll-proportion="0.0">
@@ -989,20 +1061,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/SpringComponentFinderStrategy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="13" selection-start="118" selection-end="118" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="14" selection-start="2780" selection-end="2780" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/ContainerView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="34" column="44" selection-start="846" selection-end="846" vertical-scroll-proportion="0.0">
@@ -1010,23 +1068,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="48" column="25" selection-start="2391" selection-end="2391" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/ComponentView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="32" selection-start="1557" selection-end="1557" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Model.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="177" column="42" selection-start="5850" selection-end="5850" vertical-scroll-proportion="0.0">
+        <state line="62" column="5" selection-start="1557" selection-end="1557" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1038,23 +1082,72 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/ComponentFinder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="52" selection-start="1432" selection-end="1432" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="39" selection-start="2504" selection-end="2504" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="55" selection-start="1086" selection-end="1086" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/SpringComponentFinderStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="76" selection-start="655" selection-end="655" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/View.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="101" column="33" selection-start="2821" selection-end="2821" vertical-scroll-proportion="0.0">
+        <state line="136" column="51" selection-start="4135" selection-end="4135" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/UsedBy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="25" selection-start="356" selection-end="356" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="0" selection-start="1445" selection-end="1445" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Model.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="223" column="20" selection-start="7146" selection-end="7146" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/StructurizrComponentFinderStrategy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="40" selection-start="1830" selection-end="1830" vertical-scroll-proportion="0.0">
+        <state line="164" column="24" selection-start="7379" selection-end="7379" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/ComponentFinder.java">
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Person.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="57" column="0" selection-start="2465" selection-end="2465" vertical-scroll-proportion="0.80259365">
+        <state line="17" column="5" selection-start="674" selection-end="674" vertical-scroll-proportion="0.3606789">
           <folding />
         </state>
       </provider>

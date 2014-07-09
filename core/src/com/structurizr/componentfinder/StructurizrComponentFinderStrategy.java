@@ -3,10 +3,8 @@ package com.structurizr.componentfinder;
 import com.structurizr.annotation.ComponentDependency;
 import com.structurizr.annotation.ContainerDependency;
 import com.structurizr.annotation.SoftwareSystemDependency;
-import com.structurizr.model.Component;
-import com.structurizr.model.Container;
-import com.structurizr.model.Relationship;
-import com.structurizr.model.SoftwareSystem;
+import com.structurizr.annotation.UsedBy;
+import com.structurizr.model.*;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -28,6 +26,7 @@ public class StructurizrComponentFinderStrategy extends AbstractComponentFinderS
         findComponentDependencies();
         findSoftwareSystemDependencies();
         findContainerDependencies();
+        findPeopleDependencies();
     }
 
     private void findAnnotatedInterfaces() {
@@ -144,6 +143,37 @@ public class StructurizrComponentFinderStrategy extends AbstractComponentFinderS
         // and all interfaces implemented by this class
         for (Class<?> interfaceType : componentClass.getInterfaces()) {
             findContainerDependencies(component, interfaceType.getCanonicalName());
+        }
+    }
+
+    private void findPeopleDependencies() throws Exception {
+        for (Component component : getComponentFinder().getContainer().getComponents()) {
+            if (component.getImplementationType() != null) {
+                findPeopleDependencies(component, component.getImplementationType());
+            }
+        }
+    }
+
+    private void findPeopleDependencies(Component component, String implementationType) throws Exception {
+        Class<?> componentClass = Class.forName(implementationType);
+
+        if (componentClass.getAnnotation(UsedBy.class) != null) {
+            String name = componentClass.getAnnotation(UsedBy.class).person();
+            String description = componentClass.getAnnotation(UsedBy.class).description();
+            Person person = component.getModel().getPersonWithName(name);
+            if (person != null) {
+                person.uses(component, description);
+            }
+        }
+
+        // and repeat for super-types
+        if (componentClass.getSuperclass() != null) {
+            findPeopleDependencies(component, componentClass.getSuperclass().getCanonicalName());
+        }
+
+        // and all interfaces implemented by this class
+        for (Class<?> interfaceType : componentClass.getInterfaces()) {
+            findPeopleDependencies(component, interfaceType.getCanonicalName());
         }
     }
 

@@ -32,7 +32,8 @@ public class SpringPetClinic {
                 new SpringComponentFinderStrategy());
         componentFinder.findComponents();
 
-        webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Repository")).forEach(c -> c.uses(relationalDatabase, "blah"));
+        // connect all of the repository components to the relational database
+        webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Repository")).forEach(c -> c.uses(relationalDatabase, "Reads from and writes to"));
 
         // finally create some views
         SystemContextView contextView = model.createContextView(springPetClinic);

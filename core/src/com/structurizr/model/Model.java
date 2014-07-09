@@ -11,9 +11,9 @@ public class Model {
     private Set<Person> people = new HashSet<>();
     private Set<SoftwareSystem> softwareSystems = new HashSet<>();
 
-    private Set<SystemContextView> systemContextViews = new HashSet<>();
-    private Set<ContainerView> containerViews = new HashSet<>();
-    private Set<ComponentView> componentViews = new HashSet<>();
+    private Set<SystemContextView> systemContextViews = new TreeSet<>();
+    private Set<ContainerView> containerViews = new TreeSet<>();
+    private Set<ComponentView> componentViews = new TreeSet<>();
 
     public SoftwareSystem addSoftwareSystem(Location location, String name, String description) {
         SoftwareSystem softwareSystem = new SoftwareSystem();
@@ -183,15 +183,15 @@ public class Model {
     }
 
     public Set<SystemContextView> getSystemContextViews() {
-        return new HashSet<>(systemContextViews);
+        return new TreeSet<>(systemContextViews);
     }
 
     public Set<ContainerView> getContainerViews() {
-        return new HashSet<>(containerViews);
+        return new TreeSet<>(containerViews);
     }
 
     public Set<ComponentView> getComponentViews() {
-        return new HashSet<>(componentViews);
+        return new TreeSet<>(componentViews);
     }
 
     public SoftwareSystem getSoftwareSystemWithName(String name) {
@@ -208,6 +208,16 @@ public class Model {
         for (SoftwareSystem softwareSystem : getSoftwareSystems()) {
             if (softwareSystem.getId() == id) {
                 return softwareSystem;
+            }
+        }
+
+        return null;
+    }
+
+    public Person getPersonWithName(String name) {
+        for (Person person : getPeople()) {
+            if (person.getName().equals(name)) {
+                return person;
             }
         }
 

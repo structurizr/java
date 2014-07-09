@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @JsonIgnoreProperties(ignoreUnknown=true)
-public abstract class View {
+public abstract class View implements Comparable<View> {
 
     private SoftwareSystem softwareSystem;
     private int softwareSystemId;
@@ -127,5 +127,14 @@ public abstract class View {
     }
 
     public abstract String getName();
+
+    @Override
+    public int compareTo(View view) {
+        return getTitle().compareTo(view.getTitle());
+    }
+
+    private String getTitle() {
+        return getName() + " - " + getDescription();
+    }
 
 }
