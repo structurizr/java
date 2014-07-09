@@ -1,4 +1,4 @@
-<project name="hello-ivy" default="run" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="hello-ivy" default="build" xmlns:ivy="antlib:org.apache.ivy.ant">
 
     <property name="project.name" value="techtribesje"/>
 
