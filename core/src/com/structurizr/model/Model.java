@@ -15,6 +15,14 @@ public class Model {
     private Set<ContainerView> containerViews = new TreeSet<>();
     private Set<ComponentView> componentViews = new TreeSet<>();
 
+    private String name;
+    private String description;
+
+    public Model (String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public SoftwareSystem addSoftwareSystem(Location location, String name, String description) {
         SoftwareSystem softwareSystem = new SoftwareSystem();
         softwareSystem.setLocation(location);

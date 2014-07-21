@@ -14,7 +14,7 @@ import com.structurizr.view.SystemContextView;
 public class TechTribes {
 
     public static void main(String[] args) throws Exception {
-        Model model = new Model();
+        Model model = new Model("techtribes.je", "This is a simple (incomplete) example C4 model based upon the techtribes.je system the code for which can be found at https://github.com/techtribesje/techtribesje");
         SoftwareSystem techTribes = model.addSoftwareSystem(Location.Internal, "techtribes.je", "techtribes.je is the only way to keep up to date with the IT, tech and digital sector in Jersey and Guernsey, Channel Islands");
 
         Person anonymousUser = model.addPerson(Location.External, "Anonymous User", "Anybody on the web.");

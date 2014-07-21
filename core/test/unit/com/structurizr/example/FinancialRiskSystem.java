@@ -16,7 +16,7 @@ import com.structurizr.view.SystemContextView;
 public class FinancialRiskSystem {
 
     public static void main(String[] args) throws Exception {
-        Model model = new Model();
+        Model model = new Model("Financial Risk System", "This is a simple (incomplete) example C4 model based upon the financial risk system architecture kata, which can be found at http://bit.ly/sa4d-risksystem");
 
         // create the basic model
         SoftwareSystem financialRiskSystem = model.addSoftwareSystem(Location.Internal, "Financial Risk System", "Calculates the bank's exposure to risk for product X");
