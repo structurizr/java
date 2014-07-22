@@ -15,6 +15,7 @@ public class Model {
     private Set<ContainerView> containerViews = new TreeSet<>();
     private Set<ComponentView> componentViews = new TreeSet<>();
 
+    private long id;
     private String name;
     private String description;
 
@@ -24,6 +25,14 @@ public class Model {
     public Model (String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -47,7 +56,7 @@ public class Model {
         softwareSystem.setLocation(location);
         softwareSystem.setName(name);
         softwareSystem.setDescription(description);
-        softwareSystem.setId(getId());
+        softwareSystem.setId(generateId());
 
         softwareSystems.add(softwareSystem);
         addElement(softwareSystem);
@@ -60,7 +69,7 @@ public class Model {
         person.setLocation(location);
         person.setName(name);
         person.setDescription(description);
-        person.setId(getId());
+        person.setId(generateId());
 
         people.add(person);
         addElement(person);
@@ -73,7 +82,7 @@ public class Model {
         container.setName(name);
         container.setDescription(description);
         container.setTechnology(technology);
-        container.setId(getId());
+        container.setId(generateId());
 
         parent.add(container);
         container.setParent(parent);
@@ -87,7 +96,7 @@ public class Model {
         component.setInterfaceType(interfaceType);
         component.setImplementationType(implementationType);
         component.setDescription(description);
-        component.setId(getId());
+        component.setId(generateId());
 
         parent.add(component);
         component.setParent(parent);
@@ -108,7 +117,7 @@ public class Model {
         return component;
     }
 
-    private synchronized int getId() {
+    private synchronized int generateId() {
         int id = elementsById.keySet().stream().reduce(0, Integer::max);
 
         return ++id;
