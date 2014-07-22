@@ -2,22 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="655aeccd-15c7-40da-998c-90a4b0c635db" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/Component.java" afterPath="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/Component.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/ComponentDependency.java" afterPath="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/ComponentDependency.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/Container.java" afterPath="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/Container.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/ContainerDependency.java" afterPath="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/ContainerDependency.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/hamcrest-core.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/jackson-databind-2.4.0.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/junit.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/reflections-0.9.9-RC1-uberjar.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/spring-context-4.0.5.RELEASE.jar" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/SoftwareSystemDependency.java" afterPath="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/SoftwareSystemDependency.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/StructurizrAnnotationsExample.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/StructurizrAnnotationsExample.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/UsedBy.java" afterPath="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/UsedBy.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ivy.xml" afterPath="$PROJECT_DIR$/ivy.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.iws" afterPath="$PROJECT_DIR$/java.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setenv.sh" afterPath="$PROJECT_DIR$/setenv.sh" />
     </list>
     <ignored path="java.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405927170987" ignored="false" />
+    <file path="/Dummy.txt" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405931367257" ignored="false" />
     <file path="/Component.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404993642234" ignored="false" />
     <file path="/Main.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403783483890" ignored="false" />
     <file path="/a.dummy" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404734963386" ignored="false" />
@@ -41,39 +39,39 @@
     <file path="/README.md" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402338571146" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/package-info.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402339681159" ignored="false" />
     <file path="/package-info.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402339676553" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/people/PeopleController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554470272" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/people/PeopleController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405931043923" ignored="false" />
     <file path="/PeopleController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403474429327" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/summary/WorkspaceController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402341069770" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/softwaresystems/SoftwareSystemsComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347314732" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/softwaresystems/SoftwareSystemsComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614423" ignored="false" />
     <file path="/SoftwareSystemsComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402341460985" ignored="false" />
     <file path="/JavaClass.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402344475914" ignored="false" />
     <file path="/ClassFileParser.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402346259250" ignored="false" />
     <file path="/JavaPackage.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402346062491" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/people/PeopleComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554428292" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/people/PeopleComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347308509" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/authorisation/AuthorisationComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554457605" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/authorisation/AuthorisationComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554431675" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/interactions/InteractionsComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554408008" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/interactions/InteractionsComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554434059" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/people/PeopleComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614423" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/people/PeopleComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/authorisation/AuthorisationComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929419346" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/authorisation/AuthorisationComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929424894" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/interactions/InteractionsComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/interactions/InteractionsComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/log/LoggingComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554419895" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/log/CommonsLoggingComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347303777" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/softwaresystems/SoftwareSystemsComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554439755" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/softwaresystems/SoftwareSystemsComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614423" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/user/UserComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554414343" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/user/UserComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347320783" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/workspace/WorkspaceComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554403064" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/workspace/WorkspaceComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1402347325387" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/diagram/DiagramComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554445145" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/interactions/InteractionsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554484678" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/softwaresystems/SoftwareSystemsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554478264" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/diagram/DiagramComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/interactions/InteractionsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928854699" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/softwaresystems/SoftwareSystemsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929099944" ignored="false" />
     <file path="/.gitignore" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403538086974" ignored="false" />
     <file path="/Container.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404727402451" ignored="false" />
-    <file path="/Model.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405927238560" ignored="false" />
+    <file path="/Model.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929640450" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/public/readonly-diagram.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404248950552" ignored="false" />
     <file path="/readonly-diagram.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404134385682" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/structurizr-diagram.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405249760115" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/structurizr-diagram.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013703153" ignored="false" />
     <file path="/structurizr-diagram.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405249756848" ignored="false" />
     <file path="/Diagram.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403434422300" ignored="false" />
-    <file path="/fragment.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936680339" ignored="false" />
+    <file path="/fragment.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406021548601" ignored="false" />
     <file path="/DiagramType.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403426564765" ignored="false" />
     <file path="/ContextDiagram.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403431016297" ignored="false" />
     <file path="/Box.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403429518649" ignored="false" />
@@ -81,7 +79,7 @@
     <file path="/Position.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403429534816" ignored="false" />
     <file path="/Relationship.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403474149236" ignored="false" />
     <file path="/ContextView.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403533725703" ignored="false" />
-    <file path="/Element.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403448346350" ignored="false" />
+    <file path="/Element.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405931111117" ignored="false" />
     <file path="/ElementView.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403534064728" ignored="false" />
     <file path="/RelationshipView.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403533995313" ignored="false" />
     <file path="/ContainerView.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403439235378" ignored="false" />
@@ -94,8 +92,8 @@
     <file path="/Dependency.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403507849518" ignored="false" />
     <file path="/LoggingComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403474419115" ignored="false" />
     <file path="/NewsFeedConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519528795" ignored="false" />
-    <file path="/build.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404126663756" ignored="false" />
-    <file path="/ivy.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519214313" ignored="false" />
+    <file path="/build.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406024720969" ignored="false" />
+    <file path="/ivy.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406024149807" ignored="false" />
     <file path="/ScannotationComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403465102036" ignored="false" />
     <file path="/JDependDependencyFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403467500089" ignored="false" />
     <file path="/ComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404763502433" ignored="false" />
@@ -136,19 +134,19 @@
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/tweet/TweetComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403521638990" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/search/LuceneSearchComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404840110977" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/github/GitHubComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403521708741" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/public/tryit.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405246969759" ignored="false" />
-    <file path="/tryit.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405246852499" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/diagram/TryItController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404282811489" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/public/tryit.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013718597" ignored="false" />
+    <file path="/tryit.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406012739827" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/diagram/TryItController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014527215" ignored="false" />
     <file path="/TryItController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403549899075" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/applicationContext-security.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405255038903" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/root-servlet.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554373859" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/web.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405255038903" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/applicationContext.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405255038903" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/applicationContext-security.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406018182786" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/root-servlet.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406018182786" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/web.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406018182786" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/applicationContext.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406018182786" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/fragments/prelude.jspf" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554752750" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/views/workspace/diagrams.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554752750" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/views/workspace/diagram-summary.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554752750" ignored="false" />
     <file path="/CreateBaseModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403634545408" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateBaseModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404285379112" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateBaseModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405927674835" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateViews.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404935378524" ignored="false" />
     <file path="/CreateViews.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404935375750" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/AbstractUtility.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405246912988" ignored="false" />
@@ -166,7 +164,7 @@
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/web/WEB-INF/fragments/prelude.jspf" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403695280397" ignored="false" />
     <file path="/prelude.jspf" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405246715678" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/AbstractController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403695307357" ignored="false" />
-    <file path="/AbstractController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403695293734" ignored="false" />
+    <file path="/AbstractController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014000833" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/HomePageController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403695307357" ignored="false" />
     <file path="/HomePageController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405246088543" ignored="false" />
     <file path="/createComponentModelForWebApplication.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404074869009" ignored="false" />
@@ -227,7 +225,7 @@
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/test/component/je/techtribes/component/activityupdater/ActivityComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404809452145" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/test/component/je/techtribes/component/activityupdater/ActivityUpdaterComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404841075366" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-updater/test/component/je/techtribes/AbstractComponentTestsBase.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404896410436" ignored="false" />
-    <file path="/AbstractComponentTestsBase.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404809801083" ignored="false" />
+    <file path="/AbstractComponentTestsBase.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929943843" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/test/unit/je/techtribes/web/controller/ActivityComponentStub.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404809824818" ignored="false" />
     <file path="/LuceneSearchComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404818617148" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/search/component.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404840114260" ignored="false" />
@@ -294,10 +292,112 @@
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/AboutPageController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936664492" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/security/SignOutController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936866088" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/security/SignInController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936861342" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/fragments/coda.jspf" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405246163268" ignored="false" />
-    <file path="/coda.jspf" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405246146348" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/fragments/coda.jspf" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406017161408" ignored="false" />
+    <file path="/coda.jspf" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406017106896" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/home.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405246701220" ignored="false" />
     <file path="/home.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405246681422" ignored="false" />
+    <file path="/03_models.sql" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928204943" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/sql/schema/03_models.sql" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928986174" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/sql/schema/04_workspace_users.sql" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928235978" ignored="false" />
+    <file path="/04_workspace_users.sql" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928235633" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/sql/schema/00_drop.sql" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928276732" ignored="false" />
+    <file path="/00_drop.sql" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928276732" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/test/component/com/structurizr/component/diagram/DiagramComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/diagram/DiagramComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/softwaresystems/SoftwareSystemsViewModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929099944" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/people/PersonRowMapper.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/softwaresystems/SoftwareSystemViewModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/people/PersonResultExtractor.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/test/unit/com/structurizr/web/controller/workspace/softwaresystems/SoftwareSystemViewModelTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/test/unit/com/structurizr/web/controller/workspace/softwaresystems/SoftwareSystemsViewModelTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929099944" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/summary/WorkspaceSummaryController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405931230380" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/interactions/ParticipantViewModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/interactions/InteractionsViewModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929099944" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/test/unit/com/structurizr/web/controller/workspace/people/PersonViewModelTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/interactions/InteractionViewModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/domain/diagram/Line.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/interactions/InteractionRowMapper.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/diagram/LineRowMapper.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928615679" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/interactions/InteractionResultExtractor.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/people/JdbcPeopleDao.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/diagram/JdbcDiagramPeopleDao.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614422" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/people/PeopleViewModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405931155980" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/test/component/com/structurizr/component/people/PeopleComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614423" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/people/PersonViewModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405931146849" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/domain/diagram/Stereotype.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614423" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/diagram/DiagramController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014527215" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/diagram/BoxRowMapper.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614423" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/diagram/BoxResultExtractor.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614423" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/diagram/JdbcDiagramSoftwareSystemsDao.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614423" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/domain/diagram/Box.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614423" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/test/unit/com/structurizr/web/controller/workspace/people/PeopleViewModelTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929099944" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/domain/diagram/Diagram.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614423" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/interactions/JdbcInteractionsDao.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614423" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/softwaresystems/SoftwareSystemRowMapper.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614423" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/softwaresystems/JdbcSoftwareSystemsDao.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614423" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/softwaresystems/SoftwareSystemResultExtractor.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614423" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/test/component/com/structurizr/component/interactions/InteractionsComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614423" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/test/component/com/structurizr/component/softwaresystems/SoftwareSystemsComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928614423" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/WorkspaceResultExtractor.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928973331" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/WorkspaceRowMapper.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929046390" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/WorkspaceException.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928760142" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/WorkspaceComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928760142" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/JdbcWorkspaceDao.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928854699" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/DashboardController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928840211" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/test/component/com/structurizr/component/model/WorkspaceComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929489525" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/component.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928813576" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/test/component/com/structurizr/AbstractComponentTestsBase.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405930187522" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/WorkspaceComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928768273" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/ModelComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013403351" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/ModelComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013322865" ignored="false" />
+    <file path="/ModelComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013321551" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/AbstractWorkspaceController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014071610" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/domain/User.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929462688" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/dashboard.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013899470" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/domain/Models.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929489525" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/test/unit/com/structurizr/domain/WorkspacesTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928854699" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/domain/Model.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928854699" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/diagrams/DiagramsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928854699" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/security/WorkspaceSecurityController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014071610" ignored="false" />
+    <file path="/ModelComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013402072" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/JdbcModelDao.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013577339" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/ModelException.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928908318" ignored="false" />
+    <file path="/WorkspaceRowMapper.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929047107" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/ModelRowMapper.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929903893" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/ModelResultExtractor.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405930108604" ignored="false" />
+    <file path="/ModelResultExtractor.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929383526" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/test/unit/com/structurizr/domain/ModelsTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929710536" ignored="false" />
+    <file path="/ModelsTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929696681" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/test/component/com/structurizr/component/model/ModelComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406015692001" ignored="false" />
+    <file path="/ModelComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929831195" ignored="false" />
+    <file path="/JdbcModelDao.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013461473" ignored="false" />
+    <file path="/PersonViewModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405931146849" ignored="false" />
+    <file path="/PeopleViewModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405931155980" ignored="false" />
+    <file path="/dashboard.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013856752" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/views/dashboard.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406012478312" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/public/diagrams.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013746122" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/fragments/tryit.jspf" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406012657819" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/fragments/diagramControls.jspf" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406012727896" ignored="false" />
+    <file path="/diagrams.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013062528" ignored="false" />
+    <file path="/DiagramController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014541036" ignored="false" />
+    <file path="/AbstractWorkspaceController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013210998" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/AbstractController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014001767" ignored="false" />
+    <file path="/403.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014378428" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/403.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014427762" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/404.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014422742" ignored="false" />
+    <file path="/404.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014291996" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/500.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014416607" ignored="false" />
+    <file path="/500.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014351507" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/diagram/DiagramsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014541036" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/TryItController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406021523391" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/DiagramsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406021549599" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/AbstractWorkspaceController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406021549599" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/ApiController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406021881406" ignored="false" />
+    <file path="/ApiController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406021757576" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/ivy.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406023700966" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/build.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406024415800" ignored="false" />
+    <file path="/setenv.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406022223053" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/setenv.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406022264224" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -349,6 +449,25 @@
       </breakpoint>
     </breakpoint_any>
     <ui_properties default_suspend_policy="SuspendAll" default_condition_enabled="true" />
+    <method_breakpoints>
+      <breakpoint url="file://$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" line="25" class="com.structurizr.model.Element" package="com.structurizr.model">
+        <option name="WATCH_ENTRY" value="true" />
+        <option name="WATCH_EXIT" value="true" />
+        <option name="ENABLED" value="true" />
+        <option name="LOG_ENABLED" value="false" />
+        <option name="LOG_EXPRESSION_ENABLED" value="false" />
+        <option name="REMOVE_AFTER_HIT" value="false" />
+        <option name="SUSPEND_POLICY" value="SuspendAll" />
+        <option name="SUSPEND" value="true" />
+        <option name="COUNT_FILTER_ENABLED" value="false" />
+        <option name="COUNT_FILTER" value="0" />
+        <option name="CONDITION_ENABLED" value="true" />
+        <option name="CLASS_FILTERS_ENABLED" value="false" />
+        <option name="INSTANCE_FILTERS_ENABLED" value="false" />
+        <option name="CONDITION" value="" />
+        <option name="LOG_MESSAGE" value="" />
+      </breakpoint>
+    </method_breakpoints>
     <breakpoint_rules />
     <ui_properties />
   </component>
@@ -376,64 +495,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StructurizrAnnotationsExample.java" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="StructurizrAnnotationsExample.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/StructurizrAnnotationsExample.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="118" selection-start="506" selection-end="506" vertical-scroll-proportion="0.23595506">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SpringPetClinic.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="20" column="170" selection-start="891" selection-end="891" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ComponentDependency.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/ComponentDependency.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Container.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/Container.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ContainerDependency.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/ContainerDependency.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SoftwareSystemDependency.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/SoftwareSystemDependency.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="5" column="0" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UsedBy.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/UsedBy.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="38" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0">
+            <state line="10" column="118" selection-start="506" selection-end="506" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -442,7 +507,61 @@
       <file leaf-file-name="Model.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Model.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="39" selection-start="677" selection-end="677" vertical-scroll-proportion="0.0">
+            <state line="22" column="5" selection-start="606" selection-end="606" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Person.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Person.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="2" column="31" selection-start="63" selection-end="63" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Element.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Element.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="24" column="45" selection-start="584" selection-end="584" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ivy.xml" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ivy.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="112" selection-start="618" selection-end="618" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="build.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/build.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="81" column="33" selection-start="3285" selection-end="3285" vertical-scroll-proportion="0.58357346">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="setenv.sh" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/setenv.sh">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="3" column="0" selection-start="153" selection-end="153" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="View.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/View.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="45" column="44" selection-start="1245" selection-end="1245" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -466,10 +585,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/ComponentFinder.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/view/View.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/StructurizrComponentFinderStrategy.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Person.java" />
         <option value="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/ComponentDependency.java" />
         <option value="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/Component.java" />
@@ -477,11 +592,15 @@
         <option value="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/ContainerDependency.java" />
         <option value="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/SoftwareSystemDependency.java" />
         <option value="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/UsedBy.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java" />
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java" />
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java" />
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/StructurizrAnnotationsExample.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" />
+        <option value="$PROJECT_DIR$/setenv.sh" />
+        <option value="$PROJECT_DIR$/ivy.xml" />
+        <option value="$PROJECT_DIR$/build.xml" />
       </list>
     </option>
   </component>
@@ -532,206 +651,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="unit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="structurizr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="example" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="unit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="structurizr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="annotation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="example" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="structurizr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="structurizr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="structurizr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="structurizr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="componentfinder" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="annotations" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="annotations" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="structurizr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="annotation" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -969,12 +888,12 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32849604" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32849604" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24647364" sideWeight="0.67150396" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24647364" sideWeight="0.5277045" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.47229552" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1049,48 +968,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="136" column="51" selection-start="4135" selection-end="4135" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="0" selection-start="1445" selection-end="1445" vertical-scroll-proportion="0.75342464">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/StructurizrComponentFinderStrategy.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="164" column="24" selection-start="7379" selection-end="7379" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Person.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="5" selection-start="674" selection-end="674" vertical-scroll-proportion="0.34931508">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_05.jdk/Contents/Home/src.zip!/java/lang/annotation/Documented.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="6" selection-start="680" selection-end="692" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/Component.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/ComponentDependency.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="0" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
@@ -1121,14 +998,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/UsedBy.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="38" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Model.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="39" selection-start="677" selection-end="677" vertical-scroll-proportion="0.0">
+        <state line="13" column="0" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1156,7 +1026,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/StructurizrAnnotationsExample.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="118" selection-start="506" selection-end="506" vertical-scroll-proportion="0.23595506">
+        <state line="10" column="118" selection-start="506" selection-end="506" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Model.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="5" selection-start="606" selection-end="606" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Person.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="31" selection-start="63" selection-end="63" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="44" selection-start="1245" selection-end="1245" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Element.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="45" selection-start="584" selection-end="584" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/setenv.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="0" selection-start="153" selection-end="153" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ivy.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="112" selection-start="618" selection-end="618" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/build.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="81" column="33" selection-start="3285" selection-end="3285" vertical-scroll-proportion="0.58357346">
           <folding />
         </state>
       </provider>
