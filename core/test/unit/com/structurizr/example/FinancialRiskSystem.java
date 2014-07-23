@@ -1,12 +1,10 @@
 package com.structurizr.example;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.structurizr.model.Location;
 import com.structurizr.model.Model;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
+import com.structurizr.util.JsonUtils;
 import com.structurizr.view.SystemContextView;
 
 /**
@@ -48,11 +46,7 @@ public class FinancialRiskSystem {
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-        String modelAsJson = objectMapper.writeValueAsString(model);
-        System.out.println(modelAsJson);
+        System.out.println(JsonUtils.toJson(model, true));
     }
 
 }

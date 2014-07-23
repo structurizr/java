@@ -11,8 +11,12 @@
     <property name="core.dir" value="${basedir}/core" />
     <property name="core.build.dir" value="${build.dir}/core" />
 
+    <property name="spring.dir" value="${basedir}/spring" />
+    <property name="spring.build.dir" value="${build.dir}/spring" />
+
     <property name="test.lib.dir" value="${basedir}/lib/test"/>
     <property name="runtime.lib.dir" value="${basedir}/lib/runtime"/>
+    <property name="spring.lib.dir" value="${basedir}/lib/spring"/>
 
     <target name="init" depends="clean">
         <mkdir dir="${build.dir}"/>
@@ -24,8 +28,9 @@
         <mkdir dir="${core.build.dir}/production-classes"/>
         <mkdir dir="${core.build.dir}/test-classes"/>
 
-        <mkdir dir="${dist.dir}"/>
-        <mkdir dir="${dist.dir}/lib"/>
+        <mkdir dir="${spring.build.dir}"/>
+        <mkdir dir="${spring.build.dir}/production-classes"/>
+        <mkdir dir="${spring.build.dir}/test-classes"/>
     </target>
 
     <target name="compile" depends="init">
@@ -35,6 +40,14 @@
             <classpath>
                 <fileset dir="${runtime.lib.dir}" includes="*.jar" />
                 <pathelement location="${annotations.build.dir}/production-classes" />
+            </classpath>
+        </javac>
+
+        <javac srcdir="${spring.dir}/src" destdir="${spring.build.dir}/production-classes" debug="yes">
+            <classpath>
+                <fileset dir="${runtime.lib.dir}" includes="*.jar" />
+                <fileset dir="${spring.lib.dir}" includes="*.jar" />
+                <pathelement location="${core.build.dir}/production-classes" />
             </classpath>
         </javac>
 
@@ -75,18 +88,34 @@
         <jar jarfile="${build.dir}/structurizr.jar">
             <fileset dir="${core.build.dir}/production-classes"/>
         </jar>
+
+        <jar jarfile="${build.dir}/structurizr-spring.jar">
+            <fileset dir="${spring.build.dir}/production-classes"/>
+        </jar>
     </target>
 
     <target name="dist" depends="build">
-        <copy todir="${dist.dir}">
-            <fileset dir="${build.dir}">
-                <include name="*.jar"/>
-            </fileset>
+        <mkdir dir="${dist.dir}"/>
+        <mkdir dir="${dist.dir}/annotations" />
+        <mkdir dir="${dist.dir}/core/lib" />
+        <mkdir dir="${dist.dir}/spring/lib" />
+
+        <copy todir="${dist.dir}/annotations">
+            <fileset dir="${build.dir}" includes="structurizr-annotations.jar" />
         </copy>
-        <copy todir="${dist.dir}/lib">
-            <fileset dir="${runtime.lib.dir}">
-                <include name="*.jar"/>
-            </fileset>
+
+        <copy todir="${dist.dir}/core">
+            <fileset dir="${build.dir}" includes="structurizr.jar" />
+        </copy>
+        <copy todir="${dist.dir}/core/lib">
+            <fileset dir="${runtime.lib.dir}" includes="*.jar" />
+        </copy>
+
+        <copy todir="${dist.dir}/spring">
+            <fileset dir="${build.dir}" includes="structurizr-spring.jar" />
+        </copy>
+        <copy todir="${dist.dir}/spring/lib">
+            <fileset dir="${spring.lib.dir}" includes="*.jar" />
         </copy>
 
         <zip destfile="${build.dir}/${project.name}.zip">
@@ -101,10 +130,12 @@
     <target name="resolve" description="--> retreive dependencies with ivy">
         <delete>
             <fileset dir="${runtime.lib.dir}" includes="*.jar" />
+            <fileset dir="${spring.lib.dir}" includes="*.jar" />
             <fileset dir="${test.lib.dir}" includes="*.jar" />
         </delete>
 
         <ivy:retrieve conf="runtime" pattern="${runtime.lib.dir}/[artifact].[ext]"/>
+        <ivy:retrieve conf="spring" pattern="${spring.lib.dir}/[artifact].[ext]"/>
         <ivy:retrieve conf="test" pattern="${test.lib.dir}/[artifact].[ext]"/>
     </target>
 

@@ -1,7 +1,6 @@
-package com.structurizr.annotation.example;
+package com.structurizr.example;
 
 import com.structurizr.componentfinder.ComponentFinder;
-import com.structurizr.componentfinder.SpringComponentFinderStrategy;
 import com.structurizr.componentfinder.StructurizrComponentFinderStrategy;
 import com.structurizr.model.*;
 
@@ -20,8 +19,7 @@ public class StructurizrAnnotationsExample {
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
                 "com.structurizr.example",
-                new StructurizrComponentFinderStrategy(),
-                new SpringComponentFinderStrategy());
+                new StructurizrComponentFinderStrategy());
         componentFinder.findComponents();
     }
 

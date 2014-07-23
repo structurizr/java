@@ -1,16 +1,12 @@
 package com.structurizr.example;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.structurizr.componentfinder.ComponentFinder;
 import com.structurizr.componentfinder.SpringComponentFinderStrategy;
 import com.structurizr.model.*;
+import com.structurizr.util.JsonUtils;
 import com.structurizr.view.ComponentView;
 import com.structurizr.view.ContainerView;
 import com.structurizr.view.SystemContextView;
-
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * This is a C4 representation of the Spring PetClinic sample app (https://github.com/spring-projects/spring-petclinic/).
@@ -56,10 +52,7 @@ public class SpringPetClinic {
         componentView.addAllPeople();
         componentView.add(relationalDatabase);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-        String modelAsJson = objectMapper.writeValueAsString(model);
-        System.out.println(modelAsJson);
+        System.out.println(JsonUtils.toJson(model, true));
     }
 
 }

@@ -2,16 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="655aeccd-15c7-40da-998c-90a4b0c635db" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/hamcrest-core.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/jackson-databind-2.4.0.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/junit.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/reflections-0.9.9-RC1-uberjar.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/spring-context-4.0.5.RELEASE.jar" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/com/structurizr/util/JsonUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring/spring.iml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/aopalliance.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/commons-logging.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/spring-aop.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/spring-beans.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/spring-context.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/spring-core.jar" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/runtime/spring-expression.jar" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/core/src/com/structurizr/componentfinder/SpringComponentFinderStrategy.java" afterPath="$PROJECT_DIR$/spring/src/com/structurizr/componentfinder/SpringComponentFinderStrategy.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/StructurizrAnnotationsExample.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/StructurizrAnnotationsExample.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java" afterPath="$PROJECT_DIR$/spring/test/com/structurizr/example/SpringPetClinic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ivy.xml" afterPath="$PROJECT_DIR$/ivy.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.ipr" afterPath="$PROJECT_DIR$/java.ipr" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.iws" afterPath="$PROJECT_DIR$/java.iws" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/setenv.sh" afterPath="$PROJECT_DIR$/setenv.sh" />
     </list>
     <ignored path="java.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -71,7 +79,7 @@
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/structurizr-diagram.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013703153" ignored="false" />
     <file path="/structurizr-diagram.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405249756848" ignored="false" />
     <file path="/Diagram.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403434422300" ignored="false" />
-    <file path="/fragment.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406021548601" ignored="false" />
+    <file path="/fragment.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406111320883" ignored="false" />
     <file path="/DiagramType.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403426564765" ignored="false" />
     <file path="/ContextDiagram.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403431016297" ignored="false" />
     <file path="/Box.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403429518649" ignored="false" />
@@ -92,8 +100,8 @@
     <file path="/Dependency.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403507849518" ignored="false" />
     <file path="/LoggingComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403474419115" ignored="false" />
     <file path="/NewsFeedConnector.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403519528795" ignored="false" />
-    <file path="/build.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406024720969" ignored="false" />
-    <file path="/ivy.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406024149807" ignored="false" />
+    <file path="/build.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406111992114" ignored="false" />
+    <file path="/ivy.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406110765899" ignored="false" />
     <file path="/ScannotationComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403465102036" ignored="false" />
     <file path="/JDependDependencyFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403467500089" ignored="false" />
     <file path="/ComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404763502433" ignored="false" />
@@ -140,7 +148,7 @@
     <file path="/TryItController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403549899075" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/applicationContext-security.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406018182786" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/root-servlet.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406018182786" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/web.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406018182786" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/web.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406064894396" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/applicationContext.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406018182786" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/fragments/prelude.jspf" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554752750" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/views/workspace/diagrams.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403554752750" ignored="false" />
@@ -149,8 +157,8 @@
     <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateBaseModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405927674835" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateViews.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404935378524" ignored="false" />
     <file path="/CreateViews.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404935375750" ignored="false" />
-    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/AbstractUtility.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405246912988" ignored="false" />
-    <file path="/AbstractUtility.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403600167033" ignored="false" />
+    <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/AbstractUtility.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406112283079" ignored="false" />
+    <file path="/AbstractUtility.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406112274653" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/structurizr/src/je/techtribes/CreateComponentModelForContentUpdater.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403688675706" ignored="false" />
     <file path="/CreateComponentModelForContentUpdater.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403688676102" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/createComponentModelForContentUpdater.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1403600960455" ignored="false" />
@@ -171,7 +179,7 @@
     <file path="$PROJECT_DIR$/../../techtribesje/structurizr/bin/createComponentModelForWebApplication.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404074869009" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes.json" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404911035026" ignored="false" />
     <file path="/SpringComponentFinder.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404058440514" ignored="false" />
-    <file path="/SpringPetClinic.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404970836968" ignored="false" />
+    <file path="/SpringPetClinic.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406111443295" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/joint.shapes.c4.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404250735823" ignored="false" />
     <file path="/joint.shapes.c4.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404250661633" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/structurizr-export.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404236852515" ignored="false" />
@@ -187,13 +195,13 @@
     <file path="/AbstractComponent.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404839640690" ignored="false" />
     <file path="/SpringComponentFinderStrategy.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404079166648" ignored="false" />
     <file path="/FinancialRiskSystem.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404207322719" ignored="false" />
-    <file path="/TechTribes.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404197061238" ignored="false" />
+    <file path="/TechTribes.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406111548937" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/talk/TalkComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404197379401" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-core/src/je/techtribes/component/badge/BadgeComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404197391668" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/css/structurizr.css" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405250361216" ignored="false" />
     <file path="/structurizr.css" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405250357998" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/structurizr-zoom.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405250587305" ignored="false" />
-    <file path="/structurizr-zoom.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405250578416" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/static/js/structurizr-zoom.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406066182543" ignored="false" />
+    <file path="/structurizr-zoom.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406066173292" ignored="false" />
     <file path="/structurizr-export.js" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404236850314" ignored="false" />
     <file path="/ViewType.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404252049397" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/HomePageController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405246088543" ignored="false" />
@@ -292,8 +300,8 @@
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/AboutPageController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936664492" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/security/SignOutController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936866088" ignored="false" />
     <file path="$PROJECT_DIR$/../../techtribesje/techtribes-web/src/je/techtribes/web/controller/security/SignInController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1404936861342" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/fragments/coda.jspf" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406017161408" ignored="false" />
-    <file path="/coda.jspf" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406017106896" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/fragments/coda.jspf" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406112675970" ignored="false" />
+    <file path="/coda.jspf" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406112675970" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/views/home.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405246701220" ignored="false" />
     <file path="/home.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405246681422" ignored="false" />
     <file path="/03_models.sql" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928204943" ignored="false" />
@@ -360,17 +368,17 @@
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/diagrams/DiagramsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928854699" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/security/WorkspaceSecurityController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014071610" ignored="false" />
     <file path="/ModelComponentImpl.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013402072" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/JdbcModelDao.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013577339" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/JdbcModelDao.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406112556545" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/ModelException.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405928908318" ignored="false" />
     <file path="/WorkspaceRowMapper.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929047107" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/ModelRowMapper.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929903893" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/ModelResultExtractor.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405930108604" ignored="false" />
-    <file path="/ModelResultExtractor.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929383526" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/src/com/structurizr/component/model/ModelResultExtractor.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406112525106" ignored="false" />
+    <file path="/ModelResultExtractor.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406112503674" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/test/unit/com/structurizr/domain/ModelsTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929710536" ignored="false" />
     <file path="/ModelsTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929696681" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/test/component/com/structurizr/component/model/ModelComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406015692001" ignored="false" />
     <file path="/ModelComponentTests.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405929831195" ignored="false" />
-    <file path="/JdbcModelDao.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013461473" ignored="false" />
+    <file path="/JdbcModelDao.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406112542432" ignored="false" />
     <file path="/PersonViewModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405931146849" ignored="false" />
     <file path="/PeopleViewModel.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1405931155980" ignored="false" />
     <file path="/dashboard.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406013856752" ignored="false" />
@@ -390,14 +398,24 @@
     <file path="/500.jsp" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014351507" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/workspace/diagram/DiagramsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406014541036" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/TryItController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406021523391" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/DiagramsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406021549599" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/DiagramsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406112606326" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/AbstractWorkspaceController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406021549599" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/ApiController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406021881406" ignored="false" />
-    <file path="/ApiController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406021757576" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/ivy.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406023700966" ignored="false" />
-    <file path="$PROJECT_DIR$/../../structurizr/build.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406024415800" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/src/com/structurizr/web/controller/ApiController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406112470804" ignored="false" />
+    <file path="/ApiController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406068152912" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/ivy.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406025266575" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/build.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406036910565" ignored="false" />
     <file path="/setenv.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406022223053" ignored="false" />
     <file path="$PROJECT_DIR$/../../structurizr/setenv.sh" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406022264224" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/build/dist/structurizr-web/WEB-INF/fragments/diagramControls.jspf" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406030101880" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/sql/setup/create-schema-and-user.sql" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406064899990" ignored="false" />
+    <file path="/create-schema-and-user.sql" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406031999360" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/test/component/structurizr-test.properties" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406030198781" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-core/sql/setup/create-test-schema-and-user.sql" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406036796858" ignored="false" />
+    <file path="/create-test-schema-and-user.sql" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406036796858" ignored="false" />
+    <file path="$PROJECT_DIR$/../../structurizr/structurizr-web/web/WEB-INF/root-servlet.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406068447654" ignored="false" />
+    <file path="/root-servlet.xml" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406068447654" ignored="false" />
+    <file path="/JsonUtils.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406111521673" ignored="false" />
+    <file path="/DiagramsController.java" changelist="655aeccd-15c7-40da-998c-90a4b0c635db" time="1406112591579" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -477,91 +495,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="FinancialRiskSystem.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="18" column="0" selection-start="680" selection-end="680" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TechTribes.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="133" selection-start="731" selection-end="731" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StructurizrAnnotationsExample.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/StructurizrAnnotationsExample.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="118" selection-start="506" selection-end="506" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Model.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Model.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="5" selection-start="606" selection-end="606" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Person.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Person.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="31" selection-start="63" selection-end="63" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Element.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Element.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="24" column="45" selection-start="584" selection-end="584" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ivy.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ivy.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="112" selection-start="618" selection-end="618" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="build.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/build.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="81" column="33" selection-start="3285" selection-end="3285" vertical-scroll-proportion="0.58357346">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="setenv.sh" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/setenv.sh">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="0" selection-start="153" selection-end="153" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="View.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/View.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="44" selection-start="1245" selection-end="1245" vertical-scroll-proportion="0.0">
+            <state line="109" column="37" selection-start="4522" selection-end="4522" vertical-scroll-proportion="0.33472803">
               <folding />
             </state>
           </provider>
@@ -585,21 +522,21 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Person.java" />
-        <option value="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/ComponentDependency.java" />
         <option value="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/Component.java" />
         <option value="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/Container.java" />
         <option value="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/ContainerDependency.java" />
         <option value="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/SoftwareSystemDependency.java" />
         <option value="$PROJECT_DIR$/annotations/src/com/structurizr/annotation/UsedBy.java" />
-        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java" />
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java" />
-        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java" />
-        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/StructurizrAnnotationsExample.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" />
         <option value="$PROJECT_DIR$/setenv.sh" />
         <option value="$PROJECT_DIR$/ivy.xml" />
+        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/StructurizrAnnotationsExample.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/util/JsonUtils.java" />
+        <option value="$PROJECT_DIR$/spring/test/com/structurizr/example/SpringPetClinic.java" />
+        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java" />
+        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java" />
         <option value="$PROJECT_DIR$/build.xml" />
       </list>
     </option>
@@ -643,6 +580,92 @@
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="External Libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="runtime" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.NamedLibraryElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spring" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spring" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="structurizr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spring" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="structurizr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="componentfinder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -654,6 +677,154 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="unit" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="structurizr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="unit" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="structurizr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="annotation" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="structurizr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="structurizr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="util" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="structurizr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="componentfinder" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="annotations" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
@@ -661,6 +832,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="last_directory_selection" value="$PROJECT_DIR$/spring/test" />
     <property name="GoToFile.includeJavaFiles" value="false" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="OverrideImplement.combined" value="true" />
@@ -669,7 +841,7 @@
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="options.lastSelected" value="project.propVCSSupport.Mappings" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../spring/spring-petclinic/target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/classes" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/spring" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
@@ -695,83 +867,12 @@
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.structurizr.example" />
+      <recent name="com.structurizr.componentfinder" />
       <recent name="com.structurizr.annotation" />
       <recent name="com.structurizr" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.SpringPetClinic">
-    <configuration default="false" name="FinancialRiskSystem" type="Application" factoryName="Application" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.structurizr.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="com.structurizr.example.FinancialRiskSystem" />
-      <option name="VM_PARAMETERS" value="" />
-      <option name="PROGRAM_PARAMETERS" value="" />
-      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="core" />
-      <envs />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="true" />
-      </RunnerSettings>
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Debug" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="SpringPetClinic" type="Application" factoryName="Application" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.structurizr.annotation.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="com.structurizr.example.SpringPetClinic" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="core" />
-      <envs />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
-    <configuration default="false" name="TechTribes" type="Application" factoryName="Application" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.structurizr.example.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="com.structurizr.example.TechTribes" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="core" />
-      <envs />
-      <RunnerSettings RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Run" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Application.TechTribes">
     <configuration default="true" type="Remote" factoryName="Remote">
       <option name="USE_SOCKET_TRANSPORT" value="true" />
       <option name="SERVER_MODE" value="false" />
@@ -829,18 +930,87 @@
       <patterns />
       <method />
     </configuration>
+    <configuration default="false" name="FinancialRiskSystem" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.structurizr.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="com.structurizr.example.FinancialRiskSystem" />
+      <option name="VM_PARAMETERS" value="" />
+      <option name="PROGRAM_PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="core" />
+      <envs />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="true" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="SpringPetClinic" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.structurizr.annotation.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="com.structurizr.example.SpringPetClinic" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="spring" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="TechTribes" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.structurizr.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="com.structurizr.example.TechTribes" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="core" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
     <list size="3">
       <item index="0" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
       <item index="1" class="java.lang.String" itemvalue="Application.SpringPetClinic" />
       <item index="2" class="java.lang.String" itemvalue="Application.TechTribes" />
     </list>
     <recent_temporary>
-      <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.SpringPetClinic" />
+      <list size="2">
+        <item index="0" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
         <item index="1" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
-        <item index="2" class="java.lang.String" itemvalue="Application.TechTribes" />
-        <item index="3" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
-        <item index="4" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -968,27 +1138,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/ComponentDependency.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/Container.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/ContainerDependency.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="5" column="0" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/SoftwareSystemDependency.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="5" column="0" selection-start="81" selection-end="81" vertical-scroll-proportion="0.0">
@@ -999,34 +1148,6 @@
     <entry file="file://$PROJECT_DIR$/annotations/src/com/structurizr/annotation/UsedBy.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="13" column="0" selection-start="242" selection-end="242" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/SpringPetClinic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="170" selection-start="891" selection-end="891" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="0" selection-start="680" selection-end="680" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="133" selection-start="731" selection-end="731" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/StructurizrAnnotationsExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="118" selection-start="506" selection-end="506" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -1055,27 +1176,80 @@
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Element.java">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="45" selection-start="584" selection-end="584" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/setenv.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="0" selection-start="153" selection-end="153" vertical-scroll-proportion="0.0">
+        <state line="3" column="0" selection-start="153" selection-end="153" vertical-scroll-proportion="0.12096774">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ivy.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="112" selection-start="618" selection-end="618" vertical-scroll-proportion="0.0">
+        <state line="11" column="100" selection-start="667" selection-end="667" vertical-scroll-proportion="0.44354838">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/componentfinder/AbstractComponentFinderStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="40" selection-start="1041" selection-end="1041" vertical-scroll-proportion="0.5645161">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/StructurizrAnnotationsExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="0" selection-start="90" selection-end="90" vertical-scroll-proportion="0.13392857">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/util/JsonUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="21" selection-start="899" selection-end="899" vertical-scroll-proportion="0.9885387">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spring/test/com/structurizr/example/SpringPetClinic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="54" column="57" selection-start="2883" selection-end="2883" vertical-scroll-proportion="2.142857">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spring/src/com/structurizr/componentfinder/SpringComponentFinderStrategy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="13" selection-start="118" selection-end="118" vertical-scroll-proportion="0.16713092">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="0" selection-start="4505" selection-end="4564" vertical-scroll-proportion="1.557103">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="16" selection-start="1093" selection-end="1093" vertical-scroll-proportion="0.45833334">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="81" column="33" selection-start="3285" selection-end="3285" vertical-scroll-proportion="0.58357346">
+        <state line="109" column="37" selection-start="4522" selection-end="4522" vertical-scroll-proportion="0.33472803">
           <folding />
         </state>
       </provider>
@@ -1133,7 +1307,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>core</last-edited>
+          <last-edited>spring</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1157,7 +1331,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>Spring Petclinic</last-edited>
+          <last-edited>runtime</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
