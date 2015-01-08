@@ -49,30 +49,55 @@ public class Model {
         this.description = description;
     }
 
+    /**
+     * Creates a software system and adds it to the model, unless a software system
+     * already exists with that name.
+     *
+     * @param location      the location of the software system (e.g. internal, external, etc)
+     * @param name          the name of the software system
+     * @param description   a short description of the software system
+     * @return  the SoftwareSystem instance created and added to the model
+     */
     public SoftwareSystem addSoftwareSystem(Location location, String name, String description) {
-        SoftwareSystem softwareSystem = new SoftwareSystem();
-        softwareSystem.setLocation(location);
-        softwareSystem.setName(name);
-        softwareSystem.setDescription(description);
-        softwareSystem.setId(generateId());
+        if (getSoftwareSystemWithName(name) == null) {
+            SoftwareSystem softwareSystem = new SoftwareSystem();
+            softwareSystem.setLocation(location);
+            softwareSystem.setName(name);
+            softwareSystem.setDescription(description);
+            softwareSystem.setId(generateId());
 
-        softwareSystems.add(softwareSystem);
-        addElement(softwareSystem);
+            softwareSystems.add(softwareSystem);
+            addElement(softwareSystem);
 
-        return softwareSystem;
+            return softwareSystem;
+        } else {
+            return null;
+        }
     }
 
+    /**
+     * Creates a person and adds it to the model.
+     *
+     * @param location      the location of the person (e.g. internal, external, etc)
+     * @param name          the name of the person (e.g. "Admin User" or "Bob the Business User")
+     * @param description   a short description of the person
+     * @return  the Person instance created and added to the model
+     */
     public Person addPerson(Location location, String name, String description) {
-        Person person = new Person();
-        person.setLocation(location);
-        person.setName(name);
-        person.setDescription(description);
-        person.setId(generateId());
+        if (getPersonWithName(name) == null) {
+            Person person = new Person();
+            person.setLocation(location);
+            person.setName(name);
+            person.setDescription(description);
+            person.setId(generateId());
 
-        people.add(person);
-        addElement(person);
+            people.add(person);
+            addElement(person);
 
-        return person;
+            return person;
+        } else {
+            return null;
+        }
     }
 
     Container addContainer(SoftwareSystem parent, String name, String description, String technology) {
@@ -126,14 +151,24 @@ public class Model {
         element.setModel(this);
     }
 
+    /**
+     * Returns the element in this model with the specified ID
+     * (or null if it doesn't exist).
+     */
     public Element getElement(int id) {
         return elementsById.get(id);
     }
 
+    /**
+     * Gets a collection containing all of the Person instances in this model.
+     */
     public Collection<Person> getPeople() {
         return new HashSet<>(people);
     }
 
+    /**
+     * Gets a collection containing all of the SoftwareSystem instances in this model.
+     */
     public Set<SoftwareSystem> getSoftwareSystems() {
         return new HashSet<>(softwareSystems);
     }
@@ -175,10 +210,17 @@ public class Model {
         }
     }
 
+    /**
+     * Determines whether this model contains the specified element.
+     */
     public boolean contains(Element element) {
         return elementsById.values().contains(element);
     }
 
+    /**
+     * Gets the SoftwareSystem instance with the specified name
+     * (or null if it doesn't exist).
+     */
     public SoftwareSystem getSoftwareSystemWithName(String name) {
         for (SoftwareSystem softwareSystem : getSoftwareSystems()) {
             if (softwareSystem.getName().equals(name)) {
@@ -189,6 +231,10 @@ public class Model {
         return null;
     }
 
+    /**
+     * Gets the SoftwareSystem instance with the specified ID
+     * (or null if it doesn't exist).
+     */
     public SoftwareSystem getSoftwareSystemWithId(int id) {
         for (SoftwareSystem softwareSystem : getSoftwareSystems()) {
             if (softwareSystem.getId() == id) {
@@ -199,6 +245,10 @@ public class Model {
         return null;
     }
 
+    /**
+     * Gets the Person instance with the specified name
+     * (or null if it doesn't exist).
+     */
     public Person getPersonWithName(String name) {
         for (Person person : getPeople()) {
             if (person.getName().equals(name)) {
