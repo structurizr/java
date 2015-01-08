@@ -1,9 +1,11 @@
 package com.structurizr.model;
 
-import com.structurizr.view.*;
-
 import java.util.*;
 
+/**
+ * This is the starting point for creating a software architecture
+ * model - everything is attached to an instance of this.
+ */
 public class Model {
 
     private final Map<Integer,Element> elementsById = new HashMap<>();
@@ -11,18 +13,14 @@ public class Model {
     private Set<Person> people = new HashSet<>();
     private Set<SoftwareSystem> softwareSystems = new HashSet<>();
 
-    private Set<SystemContextView> systemContextViews = new TreeSet<>();
-    private Set<ContainerView> containerViews = new TreeSet<>();
-    private Set<ComponentView> componentViews = new TreeSet<>();
-
     private long id;
     private String name;
     private String description;
 
-    public Model() {
+    Model() {
     }
 
-    public Model (String name, String description) {
+    public Model(String name, String description) {
         this.name = name;
         this.description = description;
     }
@@ -168,14 +166,6 @@ public class Model {
                 }
             }
         }
-
-        systemContextViews.forEach(this::hydrateView);
-        containerViews.forEach(this::hydrateView);
-        componentViews.forEach(this::hydrateView);
-        for (ComponentView view : componentViews) {
-            hydrateView(view);
-            view.setContainer(view.getSoftwareSystem().getContainerWithId(view.getContainerId()));
-        }
     }
 
     private void hydrateRelationships(Element element) {
@@ -185,49 +175,8 @@ public class Model {
         }
     }
 
-    private void hydrateView(View view) {
-        view.setSoftwareSystem(getSoftwareSystemWithId(view.getSoftwareSystemId()));
-
-        for (ElementView elementView : view.getElements()) {
-            elementView.setElement(getElement(elementView.getId()));
-        }
-    }
-
     public boolean contains(Element element) {
         return elementsById.values().contains(element);
-    }
-
-    public SystemContextView createContextView(SoftwareSystem softwareSystem) {
-        SystemContextView view = new SystemContextView(softwareSystem);
-        systemContextViews.add(view);
-
-        return view;
-    }
-
-    public ContainerView createContainerView(SoftwareSystem softwareSystem) {
-        ContainerView view = new ContainerView(softwareSystem);
-        containerViews.add(view);
-
-        return view;
-    }
-
-    public ComponentView createComponentView(SoftwareSystem softwareSystem, Container container) {
-        ComponentView view = new ComponentView(softwareSystem, container);
-        componentViews.add(view);
-
-        return view;
-    }
-
-    public Set<SystemContextView> getSystemContextViews() {
-        return new TreeSet<>(systemContextViews);
-    }
-
-    public Set<ContainerView> getContainerViews() {
-        return new TreeSet<>(containerViews);
-    }
-
-    public Set<ComponentView> getComponentViews() {
-        return new TreeSet<>(componentViews);
     }
 
     public SoftwareSystem getSoftwareSystemWithName(String name) {

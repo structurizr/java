@@ -1,11 +1,16 @@
 package com.structurizr.example;
 
+import com.structurizr.io.json.JsonReader;
+import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.Location;
 import com.structurizr.model.Model;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
-import com.structurizr.util.JsonUtils;
+import com.structurizr.view.ViewSet;
 import com.structurizr.view.SystemContextView;
+
+import java.io.StringReader;
+import java.io.StringWriter;
 
 /**
  * This is a simple (incomplete) example C4 model based upon the financial risk system
@@ -42,11 +47,20 @@ public class FinancialRiskSystem {
         financialRiskSystem.uses(activeDirectory, "Uses for authentication and authorisation");
 
         // and create some views
-        SystemContextView contextView = model.createContextView(financialRiskSystem);
+        ViewSet viewSet = new ViewSet(model);
+        SystemContextView contextView = viewSet.createContextView(financialRiskSystem);
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
-        System.out.println(JsonUtils.toJson(model, true));
+        JsonWriter jsonWriter = new JsonWriter(true);
+        StringWriter stringWriter = new StringWriter();
+        jsonWriter.write(viewSet, stringWriter);
+
+        System.out.println(stringWriter.toString());
+
+        StringReader stringReader = new StringReader(stringWriter.toString());
+        JsonReader jsonReader = new JsonReader();
+        viewSet = jsonReader.read(stringReader);
     }
 
 }

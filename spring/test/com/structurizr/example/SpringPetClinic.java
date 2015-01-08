@@ -2,11 +2,14 @@ package com.structurizr.example;
 
 import com.structurizr.componentfinder.ComponentFinder;
 import com.structurizr.componentfinder.SpringComponentFinderStrategy;
+import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
-import com.structurizr.util.JsonUtils;
+import com.structurizr.view.ViewSet;
 import com.structurizr.view.ComponentView;
 import com.structurizr.view.ContainerView;
 import com.structurizr.view.SystemContextView;
+
+import java.io.StringWriter;
 
 /**
  * This is a C4 representation of the Spring PetClinic sample app (https://github.com/spring-projects/spring-petclinic/).
@@ -38,21 +41,26 @@ public class SpringPetClinic {
         webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Repository")).forEach(c -> c.uses(relationalDatabase, "Reads from and writes to"));
 
         // finally create some views
-        SystemContextView contextView = model.createContextView(springPetClinic);
+        ViewSet viewSet = new ViewSet(model);
+        SystemContextView contextView = viewSet.createContextView(springPetClinic);
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
-        ContainerView containerView = model.createContainerView(springPetClinic);
+        ContainerView containerView = viewSet.createContainerView(springPetClinic);
         containerView.addAllPeople();
         containerView.addAllSoftwareSystems();
         containerView.addAllContainers();
 
-        ComponentView componentView = model.createComponentView(springPetClinic, webApplication);
+        ComponentView componentView = viewSet.createComponentView(springPetClinic, webApplication);
         componentView.addAllComponents();
         componentView.addAllPeople();
         componentView.add(relationalDatabase);
 
-        System.out.println(JsonUtils.toJson(model, true));
+        JsonWriter jsonWriter = new JsonWriter(true);
+        StringWriter stringWriter = new StringWriter();
+        jsonWriter.write(viewSet, stringWriter);
+
+        System.out.println(stringWriter.toString());
     }
 
 }

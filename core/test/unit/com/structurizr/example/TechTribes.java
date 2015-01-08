@@ -1,9 +1,12 @@
 package com.structurizr.example;
 
+import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
-import com.structurizr.util.JsonUtils;
+import com.structurizr.view.ViewSet;
 import com.structurizr.view.ContainerView;
 import com.structurizr.view.SystemContextView;
+
+import java.io.StringWriter;
 
 /**
  * This is a simple (incomplete) example C4 model based upon the techtribes.je system,
@@ -48,21 +51,27 @@ public class TechTribes {
         contentUpdater.uses(relationalDatabase, "Reads from and writes data to");
         contentUpdater.uses(noSqlStore, "Reads from and writes data to");
         contentUpdater.uses(fileSystem, "Writes to");
-        contentUpdater.uses(twitter, "Gets profile information and tweets from.");
-        contentUpdater.uses(gitHub, "Gets information about public code repositories from.");
-        contentUpdater.uses(blogs, "Gets content using RSS and Atom feeds from.");
+        contentUpdater.uses(twitter, "Gets profile information and recent tweets using the REST API from.", "JSON over HTTPS", 443, "1.1");
+        contentUpdater.uses(twitter, "Subscribes to tweets using the Twitter Streaming API from.", "JSON over HTTPS", 443, "1.1");
+        contentUpdater.uses(gitHub, "Gets information about public code repositories using the GitHub API from.", "JSON over HTTPS", 443, "v3");
+        contentUpdater.uses(blogs, "Gets blog posts and news from.", "RSS and Atom over HTTP", 80, null);
 
         // and create some views
-        SystemContextView contextView = model.createContextView(techTribes);
+        ViewSet viewSet = new ViewSet(model);
+        SystemContextView contextView = viewSet.createContextView(techTribes);
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
-        ContainerView containerView = model.createContainerView(techTribes);
+        ContainerView containerView = viewSet.createContainerView(techTribes);
         containerView.addAllSoftwareSystems();
         containerView.addAllPeople();
         containerView.addAllContainers();
 
-        System.out.println(JsonUtils.toJson(model, true));
+        JsonWriter jsonWriter = new JsonWriter(true);
+        StringWriter stringWriter = new StringWriter();
+        jsonWriter.write(viewSet, stringWriter);
+
+        System.out.println(stringWriter.toString());
     }
 
 }

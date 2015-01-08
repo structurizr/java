@@ -3,6 +3,7 @@ package com.structurizr.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +15,7 @@ public abstract class Element {
 
     protected String name;
     protected String description;
-    protected Location location = Location.Internal;
+    protected Location location = Location.Unspecified;
 
     protected Set<Relationship> relationships = new HashSet<>();
 
@@ -56,7 +57,11 @@ public abstract class Element {
     }
 
     public void setLocation(Location location) {
-        this.location = location;
+        if (location != null) {
+            this.location = location;
+        } else {
+            this.location = Location.Unspecified;
+        }
     }
 
     protected void addRelationship(Relationship relationship) {

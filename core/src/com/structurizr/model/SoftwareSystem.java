@@ -7,6 +7,9 @@ public class SoftwareSystem extends Element {
 
     private Set<Container> containers = new HashSet<>();
 
+    SoftwareSystem() {
+    }
+
     void add(Container container) {
         containers.add(container);
     }

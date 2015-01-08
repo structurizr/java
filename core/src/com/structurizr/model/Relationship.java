@@ -74,18 +74,20 @@ public class Relationship {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Relationship that = (Relationship)o;
+        Relationship that = (Relationship) o;
 
         if (getDestinationId() != that.getDestinationId()) return false;
         if (getSourceId() != that.getSourceId()) return false;
+        if (getDescription() != null ? !getDescription().equals(that.getDescription()) : that.getDescription() != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (sourceId ^ (sourceId >>> 32));
-        result = 31 * result + (int) (destinationId ^ (destinationId >>> 32));
+        int result = sourceId;
+        result = 31 * result + destinationId;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
         return result;
     }
 

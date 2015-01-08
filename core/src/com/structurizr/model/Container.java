@@ -39,6 +39,10 @@ public class Container extends Element {
         addRelationship(new Relationship(this, destination, description));
     }
 
+    public void uses(SoftwareSystem destination, String description, String protocol, int port, String version) {
+        addRelationship(new Relationship(this, destination, description));
+    }
+
     public Component addComponentOfType(String interfaceType, String implementationType, String description, String technology) {
         Component component = getModel().addComponentOfType(this, interfaceType, implementationType, description);
         component.setTechnology(technology);
