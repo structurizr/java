@@ -7,6 +7,9 @@ import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * This is the superclass for all model elements.
+ */
 @JsonIgnoreProperties(ignoreUnknown=true)
 public abstract class Element {
 

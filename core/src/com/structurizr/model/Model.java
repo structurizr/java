@@ -50,13 +50,13 @@ public class Model {
     }
 
     /**
-     * Creates a software system and adds it to the model, unless a software system
-     * already exists with that name.
+     * Creates a software system and adds it to the model
+     * (unless one exists with the same name already).
      *
      * @param location      the location of the software system (e.g. internal, external, etc)
      * @param name          the name of the software system
      * @param description   a short description of the software system
-     * @return  the SoftwareSystem instance created and added to the model
+     * @return  the SoftwareSystem instance created and added to the model (or null)
      */
     public SoftwareSystem addSoftwareSystem(Location location, String name, String description) {
         if (getSoftwareSystemWithName(name) == null) {
@@ -76,12 +76,13 @@ public class Model {
     }
 
     /**
-     * Creates a person and adds it to the model.
+     * Creates a person and adds it to the model
+     * (unless one exists with the same name already).
      *
      * @param location      the location of the person (e.g. internal, external, etc)
      * @param name          the name of the person (e.g. "Admin User" or "Bob the Business User")
      * @param description   a short description of the person
-     * @return  the Person instance created and added to the model
+     * @return  the Person instance created and added to the model (or null)
      */
     public Person addPerson(Location location, String name, String description) {
         if (getPersonWithName(name) == null) {
@@ -101,17 +102,21 @@ public class Model {
     }
 
     Container addContainer(SoftwareSystem parent, String name, String description, String technology) {
-        Container container = new Container();
-        container.setName(name);
-        container.setDescription(description);
-        container.setTechnology(technology);
-        container.setId(generateId());
+        if (parent.getContainerWithName(name) == null) {
+            Container container = new Container();
+            container.setName(name);
+            container.setDescription(description);
+            container.setTechnology(technology);
+            container.setId(generateId());
 
-        parent.add(container);
-        container.setParent(parent);
-        addElement(container);
+            parent.add(container);
+            container.setParent(parent);
+            addElement(container);
 
-        return container;
+            return container;
+        } else {
+            return null;
+        }
     }
 
     Component addComponentOfType(Container parent, String interfaceType, String implementationType, String description) {

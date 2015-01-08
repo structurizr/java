@@ -3,6 +3,10 @@ package com.structurizr.model;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * This represents a software system, which itself can be made up of
+ * a number of containers.
+ */
 public class SoftwareSystem extends Element {
 
     private Set<Container> containers = new HashSet<>();
@@ -18,19 +22,23 @@ public class SoftwareSystem extends Element {
         return new HashSet<>(containers);
     }
 
-    public void uses(SoftwareSystem destination, String description) {
-        addRelationship(new Relationship(this, destination, description));
-    }
-
-    // todo: think of a better name for an outgoing relationship between a software system and a person :-)
-    public void sendsSomethingTo(Person destination, String description) {
-        addRelationship(new Relationship(this, destination, description));
-    }
-
+    /**
+     * Adds a container with the specified name, description and technology
+     * (unless one exists with the same name already).
+     *
+     * @param name              the name of the container (e.g. "Web Application")
+     * @param description       a short description/list of responsibilities
+     * @param technology        the technoogy choice (e.g. "Spring MVC", "Java EE", etc)
+     * @return      the newly created Container instance added to the model (or null)
+     */
     public Container addContainer(String name, String description, String technology) {
         return getModel().addContainer(this, name, description, technology);
     }
 
+    /**
+     * Gets the container with the specified name
+     * (or null if it doesn't exist).
+     */
     public Container getContainerWithName(String name) {
          for (Container container : getContainers()) {
              if (container.getName().equals(name)) {
@@ -41,6 +49,10 @@ public class SoftwareSystem extends Element {
          return null;
      }
 
+    /**
+     * Gets the container with the specified ID
+     * (or null if it doesn't exist).
+     */
     public Container getContainerWithId(int id) {
          for (Container container : getContainers()) {
              if (container.getId() == id) {
@@ -50,6 +62,15 @@ public class SoftwareSystem extends Element {
 
          return null;
      }
+
+    public void uses(SoftwareSystem destination, String description) {
+        addRelationship(new Relationship(this, destination, description));
+    }
+
+    // todo: think of a better name for an outgoing relationship between a software system and a person :-)
+    public void sendsSomethingTo(Person destination, String description) {
+        addRelationship(new Relationship(this, destination, description));
+    }
 
     @Override
     public ElementType getType() {
