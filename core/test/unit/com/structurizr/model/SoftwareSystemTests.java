@@ -104,10 +104,10 @@ public class SoftwareSystemTests {
     }
 
     @Test
-    public void test_sendsSomethingTo_AddsAUnidirectionalRelationshipBetweenASoftwareSystemAndAPerson() {
+    public void test_delivers_AddsAUnidirectionalRelationshipBetweenASoftwareSystemAndAPerson() {
         SoftwareSystem system = model.addSoftwareSystem(Location.Internal, "System", "Description");
         Person person = model.addPerson(Location.Internal, "User", "Description");
-        system.sendsSomethingTo(person, "E-mails results to");
+        system.delivers(person, "E-mails results to");
 
         assertEquals(1, system.getRelationships().size());
         assertEquals(0, person.getRelationships().size());
@@ -118,11 +118,11 @@ public class SoftwareSystemTests {
     }
 
     @Test
-    public void test_sendsSomethingTo_AddsAUnidirectionalRelationshipBetweenASoftwareSystemAndAPerson_WhenADifferentRelationshipAlreadyExists() {
+    public void test_delivers_AddsAUnidirectionalRelationshipBetweenASoftwareSystemAndAPerson_WhenADifferentRelationshipAlreadyExists() {
         SoftwareSystem system = model.addSoftwareSystem(Location.Internal, "System", "Description");
         Person person = model.addPerson(Location.Internal, "User", "Description");
-        system.sendsSomethingTo(person, "E-mails results to");
-        system.sendsSomethingTo(person, "Text messages results to");
+        system.delivers(person, "E-mails results to");
+        system.delivers(person, "Text messages results to");
 
         Iterator<Relationship> it = system.getRelationships().iterator();
         assertEquals(2, system.getRelationships().size());
@@ -139,11 +139,11 @@ public class SoftwareSystemTests {
     }
 
     @Test
-    public void test_sendsSomethingTo_DoesNotAddAUnidirectionalRelationshipBetweenASoftwareSystemAndAPerson_WhenTheSameRelationshipAlreadyExists() {
+    public void test_delivers_DoesNotAddAUnidirectionalRelationshipBetweenASoftwareSystemAndAPerson_WhenTheSameRelationshipAlreadyExists() {
         SoftwareSystem system = model.addSoftwareSystem(Location.Internal, "System", "Description");
         Person person = model.addPerson(Location.Internal, "User", "Description");
-        system.sendsSomethingTo(person, "E-mails results to");
-        system.sendsSomethingTo(person, "E-mails results to");
+        system.delivers(person, "E-mails results to");
+        system.delivers(person, "E-mails results to");
 
         assertEquals(1, system.getRelationships().size());
     }

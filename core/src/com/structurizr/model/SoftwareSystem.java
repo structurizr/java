@@ -63,12 +63,24 @@ public class SoftwareSystem extends Element {
          return null;
      }
 
+    /**
+     * Adds a unidirectional "uses" style relationship between this software system
+     * and another.
+     *
+     * @param destination   the target of the relationship
+     * @param description   a description of the relationship (e.g. "uses", "gets data from", "sends data to")
+     */
     public void uses(SoftwareSystem destination, String description) {
         addRelationship(new Relationship(this, destination, description));
     }
 
-    // todo: think of a better name for an outgoing relationship between a software system and a person :-)
-    public void sendsSomethingTo(Person destination, String description) {
+    /**
+     * Adds a unidirectional relationship between this software system and a person.
+     *
+     * @param destination   the target of the relationship
+     * @param description   a description of the relationship (e.g. "sends e-mail to")
+     */
+    public void delivers(Person destination, String description) {
         addRelationship(new Relationship(this, destination, description));
     }
 

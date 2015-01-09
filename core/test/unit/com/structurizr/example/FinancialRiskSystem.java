@@ -38,7 +38,7 @@ public class FinancialRiskSystem {
 
         SoftwareSystem emailSystem = model.addSoftwareSystem(Location.Internal, "E-mail system", "Microsoft Exchange");
         financialRiskSystem.uses(emailSystem, "Sends a notification that a report is ready via e-mail to");
-        emailSystem.sendsSomethingTo(businessUser, "Sends a notification that a report is ready via e-mail to");
+        emailSystem.delivers(businessUser, "Sends a notification that a report is ready via e-mail to");
 
         SoftwareSystem centralMonitoringService = model.addSoftwareSystem(Location.Internal, "Central Monitoring Service", "The bank-wide monitoring and alerting dashboard");
         financialRiskSystem.uses(centralMonitoringService, "Sends critical failure alerts to");
