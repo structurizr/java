@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="655aeccd-15c7-40da-998c-90a4b0c635db" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/model/SoftwareSystemTests.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/ElementType.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/ElementType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.iws" afterPath="$PROJECT_DIR$/java.iws" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/model/SoftwareSystemTests.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/model/SoftwareSystemTests.java" />
     </list>
     <ignored path="java.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -92,8 +88,8 @@
       <file leaf-file-name="SoftwareSystemTests.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/model/SoftwareSystemTests.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44113263" vertical-offset="214" max-vertical-offset="960">
-              <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.195231" vertical-offset="1564" max-vertical-offset="2295">
+              <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -152,10 +148,10 @@
         <option value="$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonReader.java" />
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem.java" />
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/model/ModelTests.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/ElementType.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" />
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/model/SoftwareSystemTests.java" />
       </list>
     </option>
@@ -891,12 +887,12 @@
       <workItem from="1415283598502" duration="1553000" />
       <workItem from="1416433124017" duration="643000" />
       <workItem from="1420631740275" duration="184000" />
-      <workItem from="1420632657923" duration="12216000" />
+      <workItem from="1420632657923" duration="14028000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="24335000" />
+    <option name="totallyTimeSpent" value="26147000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="47" y="23" width="1233" height="777" extended-state="6" />
@@ -1097,14 +1093,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1083815" vertical-offset="0" max-vertical-offset="0">
           <caret line="6" column="13" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Relationship.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.4688427" vertical-offset="0" max-vertical-offset="1290">
-          <caret line="82" column="20" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1316,14 +1304,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Element.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.22807017" vertical-offset="306" max-vertical-offset="990">
-          <caret line="10" column="49" selection-start-line="2" selection-start-column="7" selection-end-line="7" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Model.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15648286" vertical-offset="585" max-vertical-offset="3780">
@@ -1334,16 +1314,32 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.16228071" vertical-offset="501" max-vertical-offset="1185">
-          <caret line="31" column="76" selection-start-line="26" selection-start-column="76" selection-end-line="26" selection-end-column="76" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="1185">
+          <caret line="9" column="39" selection-start-line="8" selection-start-column="39" selection-end-line="8" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Element.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19736843" vertical-offset="120" max-vertical-offset="990">
+          <caret line="21" column="58" selection-start-line="17" selection-start-column="58" selection-end-line="17" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Relationship.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14772727" vertical-offset="938" max-vertical-offset="1290">
+          <caret line="82" column="20" selection-start-line="66" selection-start-column="20" selection-end-line="66" selection-end-column="20" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/model/SoftwareSystemTests.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44113263" vertical-offset="214" max-vertical-offset="960">
-          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.195231" vertical-offset="1564" max-vertical-offset="2295">
+          <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
           <folding />
         </state>
       </provider>

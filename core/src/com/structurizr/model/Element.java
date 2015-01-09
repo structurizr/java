@@ -3,8 +3,7 @@ package com.structurizr.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.annotation.Nonnull;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -20,7 +19,7 @@ public abstract class Element {
     protected String description;
     protected Location location = Location.Unspecified;
 
-    protected Set<Relationship> relationships = new HashSet<>();
+    protected Set<Relationship> relationships = new LinkedHashSet<>();
 
     @JsonIgnore
     public Model getModel() {
