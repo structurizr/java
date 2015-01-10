@@ -6,7 +6,7 @@ import com.structurizr.model.Element;
 public class ElementView {
 
     private Element element;
-    private int id;
+    private String id;
 
     public ElementView() {
     }
@@ -24,7 +24,7 @@ public class ElementView {
         this.element = element;
     }
 
-    public int getId() {
+    public String getId() {
         if (element != null) {
             return element.getId();
         } else {
@@ -32,7 +32,7 @@ public class ElementView {
         }
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -41,13 +41,16 @@ public class ElementView {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ElementView that = (ElementView)o;
-        return this.getId() == that.getId();
+        ElementView that = (ElementView) o;
+
+        if (!getId().equals(that.getId())) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return getId();
+        return getId().hashCode();
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.util.Set;
 public abstract class Element {
 
     private Model model;
-    protected int id = -1;
+    protected String id = "";
 
     protected String name;
     protected String description;
@@ -30,11 +30,11 @@ public abstract class Element {
         this.model = model;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    void setId(String id) {
         this.id = id;
     }
 
@@ -66,14 +66,16 @@ public abstract class Element {
         }
     }
 
-    protected void addRelationship(Relationship relationship) {
-        if (!relationships.contains(relationship)) {
-            relationships.add(relationship);
-        }
+    boolean has(Relationship relationship) {
+        return relationships.contains(relationship);
+    }
+
+    void addRelationship(Relationship relationship) {
+        relationships.add(relationship);
     }
 
     public Set<Relationship> getRelationships() {
-        return relationships;
+        return new LinkedHashSet<>(relationships);
     }
 
     @Override

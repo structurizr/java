@@ -36,11 +36,11 @@ public class Container extends Element {
     }
 
     public void uses(SoftwareSystem destination, String description) {
-        addRelationship(new Relationship(this, destination, description));
+        getModel().addRelationship(new Relationship(this, destination, description));
     }
 
     public void uses(SoftwareSystem destination, String description, String protocol, int port, String version) {
-        addRelationship(new Relationship(this, destination, description));
+        getModel().addRelationship(new Relationship(this, destination, description));
     }
 
     public Component addComponentOfType(String interfaceType, String implementationType, String description, String technology) {

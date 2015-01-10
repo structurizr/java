@@ -10,7 +10,7 @@ import java.util.Collection;
 public class ComponentView extends View {
 
     private Container container;
-    private int containerId;
+    private String containerId;
 
     public ComponentView() {
     }
@@ -21,7 +21,7 @@ public class ComponentView extends View {
         this.container = container;
     }
 
-    public int getContainerId() {
+    public String getContainerId() {
         if (this.container != null) {
             return container.getId();
         } else {
@@ -29,7 +29,7 @@ public class ComponentView extends View {
         }
     }
 
-    public void setContainerId(int containerId) {
+    public void setContainerId(String containerId) {
         this.containerId = containerId;
     }
 

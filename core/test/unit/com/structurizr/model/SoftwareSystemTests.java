@@ -22,7 +22,7 @@ public class SoftwareSystemTests {
         assertEquals("Web Application", container.getName());
         assertEquals("Description", container.getDescription());
         assertEquals("Spring MVC", container.getTechnology());
-        assertTrue(container.getId() > 0);
+        assertEquals("2", container.getId());
         assertEquals(1, softwareSystem.getContainers().size());
         assertSame(container, softwareSystem.getContainers().iterator().next());
     }
@@ -50,7 +50,7 @@ public class SoftwareSystemTests {
 
     @Test
     public void test_getContainerWithId_ReturnsNull_WhenAContainerWithTheSpecifiedIdDoesNotExist() {
-        assertNull(softwareSystem.getContainerWithId(100));
+        assertNull(softwareSystem.getContainerWithId("100"));
     }
 
     @Test

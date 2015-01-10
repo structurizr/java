@@ -4,16 +4,18 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Relationship {
 
+    protected String id = "";
+
     private Element source;
-    private int sourceId;
+    private String sourceId;
     private Element destination;
-    private int destinationId;
+    private String destinationId;
     private String description;
 
-    public Relationship() {
+    Relationship() {
     }
 
-    public Relationship(Element source, Element destination, String description) {
+    Relationship(Element source, Element destination, String description) {
         this.source = source;
         this.destination = destination;
         this.description = description;
@@ -24,7 +26,7 @@ public class Relationship {
         return source;
     }
 
-    public int getSourceId() {
+    public String getSourceId() {
         if (this.source != null) {
             return this.source.getId();
         } else {
@@ -32,7 +34,15 @@ public class Relationship {
         }
     }
 
-    public void setSourceId(int sourceId) {
+    public String getId() {
+        return id;
+    }
+
+    void setId(String id) {
+        this.id = id;
+    }
+
+    public void setSourceId(String sourceId) {
         this.sourceId = sourceId;
     }
 
@@ -45,7 +55,7 @@ public class Relationship {
         return destination;
     }
 
-    public int getDestinationId() {
+    public String getDestinationId() {
         if (this.destination != null) {
             return this.destination.getId();
         } else {
@@ -53,7 +63,7 @@ public class Relationship {
         }
     }
 
-    public void setDestinationId(int destinationId) {
+    public void setDestinationId(String destinationId) {
         this.destinationId = destinationId;
     }
 
@@ -76,18 +86,18 @@ public class Relationship {
 
         Relationship that = (Relationship) o;
 
-        if (getDestinationId() != that.getDestinationId()) return false;
-        if (getSourceId() != that.getSourceId()) return false;
-        if (getDescription() != null ? !getDescription().equals(that.getDescription()) : that.getDescription() != null) return false;
+        if (!getDescription().equals(that.getDescription())) return false;
+        if (!getDestinationId().equals(that.getDestinationId())) return false;
+        if (!getSourceId().equals(that.getSourceId())) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = sourceId;
-        result = 31 * result + destinationId;
-        result = 31 * result + (description != null ? description.hashCode() : 0);
+        int result = getSourceId().hashCode();
+        result = 31 * result + getDestinationId().hashCode();
+        result = 31 * result + getDescription().hashCode();
         return result;
     }
 

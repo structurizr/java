@@ -24,7 +24,7 @@ public class ModelTests {
         assertEquals(Location.External, softwareSystem.getLocation());
         assertEquals("System A", softwareSystem.getName());
         assertEquals("Some description", softwareSystem.getDescription());
-        assertTrue(softwareSystem.getId() > 0);
+        assertEquals("1", softwareSystem.getId());
         assertSame(softwareSystem, model.getSoftwareSystems().iterator().next());
     }
 
@@ -47,7 +47,7 @@ public class ModelTests {
         assertEquals(Location.Internal, person.getLocation());
         assertEquals("Some internal user", person.getName());
         assertEquals("Some description", person.getDescription());
-        assertTrue(person.getId() > 0);
+        assertEquals("1", person.getId());
         assertSame(person, model.getPeople().iterator().next());
     }
 
@@ -63,7 +63,7 @@ public class ModelTests {
 
     @Test
     public void test_getElement_ReturnsNull_WhenAnElementWithTheSpecifiedIdDoesNotExist() {
-        assertNull(model.getElement(100));
+        assertNull(model.getElement("100"));
     }
 
     @Test
@@ -98,7 +98,7 @@ public class ModelTests {
 
     @Test
     public void test_getSoftwareSystemWithId_ReturnsNull_WhenASoftwareSystemWithTheSpecifiedIdDoesNotExist() {
-        assertNull(model.getSoftwareSystemWithId(100));
+        assertNull(model.getSoftwareSystemWithId("100"));
     }
 
     @Test

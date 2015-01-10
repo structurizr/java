@@ -58,15 +58,15 @@ public class Component extends Element {
     }
 
     public void uses(SoftwareSystem destination, String description) {
-        addRelationship(new Relationship(this, destination, description));
+        getModel().addRelationship(new Relationship(this, destination, description));
     }
 
     public void uses(Container destination, String description) {
-        addRelationship(new Relationship(this, destination, description));
+        getModel().addRelationship(new Relationship(this, destination, description));
     }
 
     public void uses(Component destination, String description) {
-        addRelationship(new Relationship(this, destination, description));
+        getModel().addRelationship(new Relationship(this, destination, description));
     }
 
     @Override

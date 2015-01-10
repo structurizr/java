@@ -6,8 +6,7 @@ import com.structurizr.model.Relationship;
 public class RelationshipView {
 
     private Relationship relationship;
-    private int sourceId;
-    private int destinationId;
+    private String id;
 
     public RelationshipView() {
     }
@@ -21,28 +20,16 @@ public class RelationshipView {
         return relationship;
     }
 
-    public int getSourceId() {
+    public String getId() {
         if (relationship != null) {
-            return relationship.getSourceId();
+            return relationship.getId();
         } else {
-            return this.sourceId;
+            return this.id;
         }
     }
 
-    public void setSourceId(int sourceId) {
-        this.sourceId = sourceId;
-    }
-
-    public int getDestinationId() {
-        if (relationship != null) {
-            return relationship.getDestinationId();
-        } else {
-            return this.destinationId;
-        }
-    }
-
-    public void setDestinationId(int destinationId) {
-        this.destinationId = destinationId;
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override

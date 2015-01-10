@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public abstract class View implements Comparable<View> {
 
     private SoftwareSystem softwareSystem;
-    private int softwareSystemId;
+    private String softwareSystemId;
     private String description = "";
 
     private Set<ElementView> elementViews = new HashSet<>();
@@ -41,7 +41,7 @@ public abstract class View implements Comparable<View> {
         this.softwareSystem = softwareSystem;
     }
 
-    public int getSoftwareSystemId() {
+    public String getSoftwareSystemId() {
         if (this.softwareSystem != null) {
             return this.softwareSystem.getId();
         } else {
@@ -49,7 +49,7 @@ public abstract class View implements Comparable<View> {
         }
     }
 
-    public void setSoftwareSystemId(int softwareSystemId) {
+    public void setSoftwareSystemId(String softwareSystemId) {
         this.softwareSystemId = softwareSystemId;
     }
 
@@ -103,21 +103,21 @@ public abstract class View implements Comparable<View> {
     public void removeElementsWithNoRelationships() {
         Set<RelationshipView> relationships = getRelationships();
 
-        Set<Integer> elementIds = new HashSet<>();
-        relationships.forEach(rv -> elementIds.add(rv.getSourceId()));
-        relationships.forEach(rv -> elementIds.add(rv.getDestinationId()));
+        Set<String> elementIds = new HashSet<>();
+        relationships.forEach(rv -> elementIds.add(rv.getRelationship().getSourceId()));
+        relationships.forEach(rv -> elementIds.add(rv.getRelationship().getDestinationId()));
 
         elementViews.removeIf(ev -> !elementIds.contains(ev.getId()));
     }
 
     public void removeElementsThatCantBeReachedFrom(Element element) {
-        Set<Integer> elementIdsToShow = new HashSet<>();
+        Set<String> elementIdsToShow = new HashSet<>();
         findElementsToShow(element, elementIdsToShow, 1);
 
         elementViews.removeIf(ev -> !elementIdsToShow.contains(ev.getId()));
     }
 
-    private void findElementsToShow(Element element, Set<Integer> elementIds, int depth) {
+    private void findElementsToShow(Element element, Set<String> elementIds, int depth) {
         if (elementViews.contains(new ElementView(element))) {
             elementIds.add(element.getId());
             if (depth < 100) {

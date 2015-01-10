@@ -53,9 +53,9 @@ public class SoftwareSystem extends Element {
      * Gets the container with the specified ID
      * (or null if it doesn't exist).
      */
-    public Container getContainerWithId(int id) {
+    public Container getContainerWithId(String id) {
          for (Container container : getContainers()) {
-             if (container.getId() == id) {
+             if (container.getId().equals(id)) {
                  return container;
              }
          }
@@ -71,7 +71,7 @@ public class SoftwareSystem extends Element {
      * @param description   a description of the relationship (e.g. "uses", "gets data from", "sends data to")
      */
     public void uses(SoftwareSystem destination, String description) {
-        addRelationship(new Relationship(this, destination, description));
+        getModel().addRelationship(new Relationship(this, destination, description));
     }
 
     /**
@@ -81,7 +81,7 @@ public class SoftwareSystem extends Element {
      * @param description   a description of the relationship (e.g. "sends e-mail to")
      */
     public void delivers(Person destination, String description) {
-        addRelationship(new Relationship(this, destination, description));
+        getModel().addRelationship(new Relationship(this, destination, description));
     }
 
     @Override

@@ -8,7 +8,9 @@ import java.util.*;
  */
 public class Model {
 
-    private final Map<Integer,Element> elementsById = new HashMap<>();
+    private IdGenerator idGenerator = new SequentialIntegerIdGeneratorStrategy();
+
+    private final Map<String,Element> elementsById = new HashMap<>();
 
     private Set<Person> people = new HashSet<>();
     private Set<SoftwareSystem> softwareSystems = new HashSet<>();
@@ -64,7 +66,7 @@ public class Model {
             softwareSystem.setLocation(location);
             softwareSystem.setName(name);
             softwareSystem.setDescription(description);
-            softwareSystem.setId(generateId());
+            softwareSystem.setId(idGenerator.generateId(softwareSystem));
 
             softwareSystems.add(softwareSystem);
             addElement(softwareSystem);
@@ -90,7 +92,7 @@ public class Model {
             person.setLocation(location);
             person.setName(name);
             person.setDescription(description);
-            person.setId(generateId());
+            person.setId(idGenerator.generateId(person));
 
             people.add(person);
             addElement(person);
@@ -107,7 +109,7 @@ public class Model {
             container.setName(name);
             container.setDescription(description);
             container.setTechnology(technology);
-            container.setId(generateId());
+            container.setId(idGenerator.generateId(container));
 
             parent.add(container);
             container.setParent(parent);
@@ -124,7 +126,7 @@ public class Model {
         component.setInterfaceType(interfaceType);
         component.setImplementationType(implementationType);
         component.setDescription(description);
-        component.setId(generateId());
+        component.setId(idGenerator.generateId(component));
 
         parent.add(component);
         component.setParent(parent);
@@ -145,10 +147,11 @@ public class Model {
         return component;
     }
 
-    private synchronized int generateId() {
-        int id = elementsById.keySet().stream().reduce(0, Integer::max);
-
-        return ++id;
+    void addRelationship(Relationship relationship) {
+        if (!relationship.getSource().has(relationship)) {
+            relationship.setId(idGenerator.generateId(relationship));
+            relationship.getSource().addRelationship(relationship);
+        }
     }
 
     private void addElement(Element element) {
@@ -160,7 +163,7 @@ public class Model {
      * Returns the element in this model with the specified ID
      * (or null if it doesn't exist).
      */
-    public Element getElement(int id) {
+    public Element getElement(String id) {
         return elementsById.get(id);
     }
 
@@ -240,9 +243,9 @@ public class Model {
      * Gets the SoftwareSystem instance with the specified ID
      * (or null if it doesn't exist).
      */
-    public SoftwareSystem getSoftwareSystemWithId(int id) {
+    public SoftwareSystem getSoftwareSystemWithId(String id) {
         for (SoftwareSystem softwareSystem : getSoftwareSystems()) {
-            if (softwareSystem.getId() == id) {
+            if (softwareSystem.getId().equals(id)) {
                 return softwareSystem;
             }
         }
