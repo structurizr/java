@@ -1,14 +1,7 @@
 package com.structurizr.io.json;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.Model;
-import com.structurizr.view.View;
 import com.structurizr.view.ViewSet;
-import org.springframework.web.servlet.ModelAndView;
-
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Set;
 
 class ModelAndViewSet {
 
