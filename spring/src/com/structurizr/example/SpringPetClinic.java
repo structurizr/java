@@ -56,7 +56,7 @@ public class SpringPetClinic {
         componentView.addAllPeople();
         componentView.add(relationalDatabase);
 
-        JsonWriter jsonWriter = new JsonWriter(true);
+        JsonWriter jsonWriter = new JsonWriter(false);
         StringWriter stringWriter = new StringWriter();
         jsonWriter.write(viewSet, stringWriter);
 

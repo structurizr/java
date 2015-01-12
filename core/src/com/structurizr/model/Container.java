@@ -31,8 +31,7 @@ public class Container extends Element {
     }
 
     public void uses(Container destination, String description) {
-        Relationship relationship = new Relationship(this, destination, description);
-        relationships.add(relationship);
+        getModel().addRelationship(new Relationship(this, destination, description));
     }
 
     public void uses(SoftwareSystem destination, String description) {
