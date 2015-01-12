@@ -100,6 +100,10 @@
         <mkdir dir="${dist.dir}/core/lib" />
         <mkdir dir="${dist.dir}/spring/lib" />
 
+        <copy todir="${dist.dir}">
+            <fileset dir="${core.dir}/etc" includes="*.sh" />
+        </copy>
+
         <copy todir="${dist.dir}/annotations">
             <fileset dir="${build.dir}" includes="structurizr-annotations.jar" />
         </copy>
