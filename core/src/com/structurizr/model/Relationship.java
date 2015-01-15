@@ -42,7 +42,7 @@ public class Relationship {
         this.id = id;
     }
 
-    public void setSourceId(String sourceId) {
+    void setSourceId(String sourceId) {
         this.sourceId = sourceId;
     }
 
@@ -63,7 +63,7 @@ public class Relationship {
         }
     }
 
-    public void setDestinationId(String destinationId) {
+    void setDestinationId(String destinationId) {
         this.destinationId = destinationId;
     }
 

@@ -8,7 +8,7 @@ public class ElementView {
     private Element element;
     private String id;
 
-    public ElementView() {
+    ElementView() {
     }
 
     public ElementView(Element element) {
@@ -32,7 +32,7 @@ public class ElementView {
         }
     }
 
-    public void setId(String id) {
+    void setId(String id) {
         this.id = id;
     }
 

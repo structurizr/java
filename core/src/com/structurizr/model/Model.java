@@ -12,8 +12,8 @@ public class Model {
 
     private final Map<String,Element> elementsById = new HashMap<>();
 
-    private Set<Person> people = new HashSet<>();
-    private Set<SoftwareSystem> softwareSystems = new HashSet<>();
+    private Set<Person> people = new LinkedHashSet<>();
+    private Set<SoftwareSystem> softwareSystems = new LinkedHashSet<>();
 
     private long id;
     private String name;
@@ -171,14 +171,14 @@ public class Model {
      * Gets a collection containing all of the Person instances in this model.
      */
     public Collection<Person> getPeople() {
-        return new HashSet<>(people);
+        return new LinkedHashSet<>(people);
     }
 
     /**
      * Gets a collection containing all of the SoftwareSystem instances in this model.
      */
     public Set<SoftwareSystem> getSoftwareSystems() {
-        return new HashSet<>(softwareSystems);
+        return new LinkedHashSet<>(softwareSystems);
     }
 
     public void hydrate() {

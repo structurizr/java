@@ -2,22 +2,26 @@ package com.structurizr.view;
 
 import com.structurizr.model.SoftwareSystem;
 
+/**
+ * Represents the System Context view from the C4 model. This is the "big picture" view,
+ * showing how a software system fits into its environment, in terms of key types of
+ * users and system dependencies. The permitted elements in this view are
+ * software systems and people.
+ */
 public class SystemContextView extends View {
 
-    public SystemContextView() {
+    SystemContextView() {
     }
 
+    /**
+     * Creates a system context view for the given software system.
+     *
+     * @param softwareSystem        the SoftwareSystem to create a view for
+     */
     public SystemContextView(SoftwareSystem softwareSystem) {
         super(softwareSystem);
+
         addElement(softwareSystem);
-    }
-
-    public void addAllSoftwareSystems() {
-        getModel().getSoftwareSystems().forEach(this::addElement);
-    }
-
-    public void addAllPeople() {
-        getModel().getPeople().forEach(this::addElement);
     }
 
     @Override
