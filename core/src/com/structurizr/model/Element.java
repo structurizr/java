@@ -17,7 +17,6 @@ public abstract class Element {
 
     protected String name;
     protected String description;
-    protected Location location = Location.Unspecified;
 
     protected Set<Relationship> relationships = new LinkedHashSet<>();
 
@@ -52,18 +51,6 @@ public abstract class Element {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Location getLocation() {
-        return location;
-    }
-
-    public void setLocation(Location location) {
-        if (location != null) {
-            this.location = location;
-        } else {
-            this.location = Location.Unspecified;
-        }
     }
 
     boolean has(Relationship relationship) {

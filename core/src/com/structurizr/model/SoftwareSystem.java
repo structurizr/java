@@ -9,9 +9,23 @@ import java.util.Set;
  */
 public class SoftwareSystem extends Element {
 
+    private Location location = Location.Unspecified;
+
     private Set<Container> containers = new HashSet<>();
 
     SoftwareSystem() {
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        if (location != null) {
+            this.location = location;
+        } else {
+            this.location = Location.Unspecified;
+        }
     }
 
     void add(Container container) {
