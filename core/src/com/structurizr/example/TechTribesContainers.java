@@ -1,10 +1,11 @@
 package com.structurizr.example;
 
+import com.structurizr.Workspace;
 import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
-import com.structurizr.view.ViewSet;
 import com.structurizr.view.ContainerView;
 import com.structurizr.view.SystemContextView;
+import com.structurizr.view.ViewSet;
 
 import java.io.StringWriter;
 
@@ -16,7 +17,9 @@ public class TechTribesContainers {
 
     public static void main(String[] args) throws Exception {
         // create a model and the software system we want to describe
-        Model model = new Model("techtribes.je", "This is a model of the system context for the techtribes.je system, the code for which can be found at https://github.com/techtribesje/techtribesje");
+        Workspace workspace = new Workspace("techtribes.je", "This is a model of the system context for the techtribes.je system, the code for which can be found at https://github.com/techtribesje/techtribesje");
+        Model model = workspace.getModel();
+
         SoftwareSystem techTribes = model.addSoftwareSystem(Location.Internal, "techtribes.je", "techtribes.je is the only way to keep up to date with the IT, tech and digital sector in Jersey and Guernsey, Channel Islands");
 
         // create the various types of people (roles) that use the software system
@@ -63,7 +66,7 @@ public class TechTribesContainers {
         contentUpdater.uses(blogs, "Gets blog posts and news from.", "RSS and Atom over HTTP", 80, null);
 
         // now create the system context view based upon the model
-        ViewSet viewSet = new ViewSet(model);
+        ViewSet viewSet = workspace.getViews();
         SystemContextView contextView = viewSet.createContextView(techTribes);
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
@@ -77,7 +80,7 @@ public class TechTribesContainers {
         // and output the model and view to JSON (so that we can render it using structurizr.com)
         JsonWriter jsonWriter = new JsonWriter(true);
         StringWriter stringWriter = new StringWriter();
-        jsonWriter.write(viewSet, stringWriter);
+        jsonWriter.write(workspace, stringWriter);
         System.out.println(stringWriter.toString());
     }
 

@@ -1,15 +1,14 @@
 package com.structurizr.example;
 
-import com.structurizr.io.json.JsonReader;
+import com.structurizr.Workspace;
 import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.Location;
 import com.structurizr.model.Model;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
-import com.structurizr.view.ViewSet;
 import com.structurizr.view.SystemContextView;
+import com.structurizr.view.ViewSet;
 
-import java.io.StringReader;
 import java.io.StringWriter;
 
 /**
@@ -19,7 +18,8 @@ import java.io.StringWriter;
 public class FinancialRiskSystem {
 
     public static void main(String[] args) throws Exception {
-        Model model = new Model("Financial Risk System", "This is a simple (incomplete) example C4 model based upon the financial risk system architecture kata, which can be found at http://bit.ly/sa4d-risksystem");
+        Workspace workspace = new Workspace("SA4D - Financial Risk System", "This is a simple (incomplete) example C4 model based upon the financial risk system architecture kata, which can be found at http://bit.ly/sa4d-risksystem");
+        Model model = workspace.getModel();
 
         // create the basic model
         SoftwareSystem financialRiskSystem = model.addSoftwareSystem(Location.Internal, "Financial Risk System", "Calculates the bank's exposure to risk for product X");
@@ -47,20 +47,16 @@ public class FinancialRiskSystem {
         financialRiskSystem.uses(activeDirectory, "Uses for authentication and authorisation");
 
         // and create some views
-        ViewSet viewSet = new ViewSet(model);
+        ViewSet viewSet = workspace.getViews();
         SystemContextView contextView = viewSet.createContextView(financialRiskSystem);
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
         JsonWriter jsonWriter = new JsonWriter(true);
         StringWriter stringWriter = new StringWriter();
-        jsonWriter.write(viewSet, stringWriter);
+        jsonWriter.write(workspace, stringWriter);
 
         System.out.println(stringWriter.toString());
-
-        StringReader stringReader = new StringReader(stringWriter.toString());
-        JsonReader jsonReader = new JsonReader();
-        viewSet = jsonReader.read(stringReader);
     }
 
 }

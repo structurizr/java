@@ -2,16 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="655aeccd-15c7-40da-998c-90a4b0c635db" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/view/SystemContextViewTests.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/view/ViewTests.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/ElementView.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/ElementView.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/AbstractWorkspaceTestBase.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/com/structurizr/api/StructurizrClient.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonUtils.java" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/core/src/com/structurizr/io/json/ModelAndViewSet.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/Workspace.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/example/FinancialRiskSystem.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/example/FinancialRiskSystem.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonReader.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonReader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonWriter.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonWriter.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/model/Relationship.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/model/Relationship.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/RelationshipView.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/RelationshipView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/SystemContextView.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/SystemContextView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/View.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/View.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/view/ViewSet.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/view/ViewSet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/model/ModelTests.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/model/ModelTests.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/model/SoftwareSystemTests.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/model/SoftwareSystemTests.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/spring/src/com/structurizr/example/SpringPetClinic.java" afterPath="$PROJECT_DIR$/spring/src/com/structurizr/example/SpringPetClinic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/example/StructurizrAnnotationsExample.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/example/StructurizrAnnotationsExample.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrReader.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrReader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrWriter.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrWriter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/view/SystemContextViewTests.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/view/SystemContextViewTests.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/example/TechTribesContainers.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/example/TechTribesContainers.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/example/TechTribesSystemContext.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/example/TechTribesSystemContext.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/test/unit/com/structurizr/view/ViewTests.java" afterPath="$PROJECT_DIR$/core/test/unit/com/structurizr/view/ViewTests.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ivy.xml" afterPath="$PROJECT_DIR$/ivy.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.iws" afterPath="$PROJECT_DIR$/java.iws" />
     </list>
     <ignored path="java.iws" />
@@ -97,11 +106,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="View.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/View.java">
+      <file leaf-file-name="TechTribesSystemContext.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/example/TechTribesSystemContext.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46348733" vertical-offset="1504" max-vertical-offset="2175">
-              <caret line="152" column="0" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.7764531" vertical-offset="214" max-vertical-offset="885">
+              <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -125,23 +134,10 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/setenv.sh" />
-        <option value="$PROJECT_DIR$/ivy.xml" />
-        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/annotation/example/StructurizrAnnotationsExample.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/util/JsonUtils.java" />
-        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/FinancialRiskSystem2.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Location.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/io/WriterException.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/io/ModelAndViewReader.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/io/StructurozrWriterException.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrWriterException.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrReaderException.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonUtils.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/io/ViewSetReader.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/io/ModelAndViewWriter.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/io/Structurizr.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonWriter.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrWriter.java" />
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/example/TechTribes.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/C4ViewSet.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/io/ModelAndViewSet.java" />
@@ -152,30 +148,43 @@
         <option value="$PROJECT_DIR$/core/src/com/structurizr/diagram/Box.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/ComponentView.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/SequentialIntegerIdGeneratorStrategy.java" />
-        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/model/SoftwareSystemTests.java" />
-        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/model/ModelTests.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/io/json/ModelAndViewSet.java" />
         <option value="$PROJECT_DIR$/spring/test/com/structurizr/example/SpringPetClinic.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/example/TechTribes.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Container.java" />
         <option value="$PROJECT_DIR$/core/etc/techtribesje.sh" />
         <option value="$PROJECT_DIR$/build.xml" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/example/TechTribesSystemContext.java" />
         <option value="$PROJECT_DIR$/core/etc/techtribesje-systemcontext-example.sh" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/example/TechTribesContainers.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Element.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/SoftwareSystem.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Person.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/SystemContextView.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Relationship.java" />
-        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/view/SystemContextViewTests.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/ElementView.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/RelationshipView.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/ViewSet.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonReader.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/View.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/Model.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonWriter.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrWriter.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/example/StructurizrAnnotationsExample.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/example/TechTribesContainers.java" />
+        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/AbstractTestBase.java" />
+        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/AbstractWorkspaceTests.java" />
+        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/view/SystemContextViewTests.java" />
+        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/model/SoftwareSystemTests.java" />
+        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/model/ModelTests.java" />
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/view/ViewTests.java" />
+        <option value="$PROJECT_DIR$/spring/src/com/structurizr/example/SpringPetClinic.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonReader.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/Workspace.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrReader.java" />
+        <option value="$PROJECT_DIR$/ivy.xml" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/api/Client.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/api/StructuzirClient.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/api/StructurizrClient.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/example/FinancialRiskSystem.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/example/TechTribesSystemContext.java" />
       </list>
     </option>
   </component>
@@ -211,8 +220,8 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -256,6 +265,32 @@
               <option name="myItemId" value="structurizr" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="unit" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="structurizr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="view" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
@@ -301,11 +336,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="test" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="unit" />
+              <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -314,14 +345,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="structurizr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="annotation" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="example" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -347,7 +370,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
+              <option name="myItemId" value="io" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -373,29 +396,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="model" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="core" />
+              <option name="myItemId" value="io" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="structurizr" />
+              <option name="myItemId" value="json" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -435,7 +440,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="etc" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="structurizr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="api" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -464,9 +481,10 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
     <property name="dynamic.classpath" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/view/SystemContextViewTests.java&#10;Model&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/model/ModelTests.java&#10;Fin&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/example/FinancialRiskSystem.java&#10;Spring&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/spring/test/com/structurizr/example/SpringPetClinic.java&#10;Finan&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/example/FinancialRiskSystem.java&#10;build.&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/build.xml&#10;tech&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/example/TechTribes.java&#10;Rel&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/src/com/structurizr/model/Relationship.java&#10;SpringPet&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/spring/test/com/structurizr/example/SpringPetClinic.java" />
+    <property name="SearchEverywhereHistoryKey" value="SC&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/src/com/structurizr/api/StructurizrClient.java&#10;&#9;FILE&#9;jar:///Users/simon/Documents/sandbox/structurizr-public/java/lib/runtime/httpclient.jar!/org/apache/http/client/methods/HttpRequestBase.class&#10;Model&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/model/ModelTests.java&#10;Fin&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/example/FinancialRiskSystem.java&#10;Spring&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/spring/test/com/structurizr/example/SpringPetClinic.java&#10;Finan&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/example/FinancialRiskSystem.java&#10;build.&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/build.xml&#10;tech&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/example/TechTribes.java&#10;Rel&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/src/com/structurizr/model/Relationship.java&#10;SpringPet&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/spring/test/com/structurizr/example/SpringPetClinic.java" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
+    <property name="LayoutCode.rearrangeEntriesJava" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -487,7 +505,7 @@
       <recent name="com.structurizr.annotation" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Unit tests in core">
+  <component name="RunManager" selected="Application.TechTribesSystemContext">
     <configuration default="false" name="FinancialRiskSystem2" type="Application" factoryName="Application" temporary="true">
       <extension name="coverage" enabled="false" merge="false" runner="idea">
         <pattern>
@@ -518,6 +536,28 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="com.structurizr.example.TechTribesSystemContext" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="core" />
+      <envs />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method />
+    </configuration>
+    <configuration default="false" name="StructurizrClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.structurizr.api.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="com.structurizr.api.StructurizrClient" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -796,20 +836,22 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <list size="6">
+    <list size="7">
       <item index="0" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
       <item index="1" class="java.lang.String" itemvalue="Application.SpringPetClinic" />
       <item index="2" class="java.lang.String" itemvalue="Application.TechTribes" />
       <item index="3" class="java.lang.String" itemvalue="JUnit.Unit tests in core" />
       <item index="4" class="java.lang.String" itemvalue="Application.FinancialRiskSystem2" />
       <item index="5" class="java.lang.String" itemvalue="Application.TechTribesSystemContext" />
+      <item index="6" class="java.lang.String" itemvalue="Application.StructurizrClient" />
     </list>
     <recent_temporary>
-      <list size="4">
+      <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Application.TechTribesSystemContext" />
-        <item index="1" class="java.lang.String" itemvalue="Application.FinancialRiskSystem2" />
-        <item index="2" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
+        <item index="1" class="java.lang.String" itemvalue="Application.StructurizrClient" />
+        <item index="2" class="java.lang.String" itemvalue="Application.FinancialRiskSystem2" />
         <item index="3" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
+        <item index="4" class="java.lang.String" itemvalue="Application.FinancialRiskSystem" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -840,21 +882,22 @@
       <workItem from="1421191796343" duration="597000" />
       <workItem from="1421308034345" duration="3437000" />
       <workItem from="1421350278955" duration="6208000" />
+      <workItem from="1421400862796" duration="51000" />
+      <workItem from="1422461776140" duration="11431000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="45271000" />
+    <option name="totallyTimeSpent" value="56753000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="47" y="23" width="1233" height="777" extended-state="0" />
+    <frame x="47" y="23" width="1233" height="777" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32846716" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.8166227" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -875,6 +918,7 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32846716" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -907,50 +951,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/example/FinancialRiskSystem.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="100" max-vertical-offset="795">
-          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/example/FinancialRiskSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="100" max-vertical-offset="795">
-          <caret line="28" column="32" selection-start-line="28" selection-start-column="32" selection-end-line="28" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/example/TechTribesContainers.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="46" max-vertical-offset="1080">
-          <caret line="9" column="82" selection-start-line="9" selection-start-column="82" selection-end-line="9" selection-end-column="82" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spring/src/com/structurizr/example/SpringPetClinic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="495" max-vertical-offset="945">
-          <caret line="33" column="45" selection-start-line="33" selection-start-column="45" selection-end-line="33" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/example/FinancialRiskSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="795">
-          <caret line="27" column="16" selection-start-line="27" selection-start-column="16" selection-end-line="27" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/example/FinancialRiskSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="330" max-vertical-offset="795">
           <caret line="27" column="16" selection-start-line="22" selection-start-column="16" selection-end-line="22" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ivy.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44354838" vertical-offset="0" max-vertical-offset="0">
-          <caret line="11" column="100" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -958,13 +960,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5645161" vertical-offset="0" max-vertical-offset="0">
           <caret line="30" column="40" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/example/StructurizrAnnotationsExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13392857" vertical-offset="0" max-vertical-offset="0">
-          <caret line="3" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
       </provider>
     </entry>
@@ -1000,34 +995,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.04385965" vertical-offset="0" max-vertical-offset="684">
           <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13157895" vertical-offset="0" max-vertical-offset="684">
-          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrWriter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19480519" vertical-offset="0" max-vertical-offset="462">
-          <caret line="8" column="15" selection-start-line="6" selection-start-column="15" selection-end-line="6" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30701753" vertical-offset="0" max-vertical-offset="684">
-          <caret line="17" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonWriter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.38356164" vertical-offset="115" max-vertical-offset="480">
-          <caret line="26" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -1073,20 +1040,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/io/json/ModelAndViewSet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.79452056" vertical-offset="25" max-vertical-offset="495">
-          <caret line="25" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/spring/src/com/structurizr/example/SpringPetClinic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3721591" vertical-offset="199" max-vertical-offset="930">
-          <caret line="31" column="31" selection-start-line="22" selection-start-column="31" selection-end-line="22" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/setenv.sh">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.06828528" vertical-offset="0" max-vertical-offset="659">
@@ -1109,43 +1062,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/model/ModelTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53491825" vertical-offset="0" max-vertical-offset="1875">
-          <caret line="26" column="23" selection-start-line="24" selection-start-column="23" selection-end-line="24" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/example/TechTribesSystemContext.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.85289747" vertical-offset="131" max-vertical-offset="825">
-          <caret line="55" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/example/TechTribesContainers.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.533532" vertical-offset="482" max-vertical-offset="1260">
-          <caret line="62" column="32" selection-start-line="56" selection-start-column="32" selection-end-line="56" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/model/SoftwareSystemTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4918033" vertical-offset="0" max-vertical-offset="2295">
-          <caret line="26" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/SequentialIntegerIdGeneratorStrategy.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.21929824" vertical-offset="0" max-vertical-offset="684">
           <caret line="13" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1153,7 +1073,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4470939" vertical-offset="105" max-vertical-offset="1545">
           <caret line="30" column="0" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1161,7 +1080,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.7808219" vertical-offset="0" max-vertical-offset="600">
           <caret line="21" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1169,7 +1087,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.40625" vertical-offset="615" max-vertical-offset="1215">
           <caret line="8" column="35" selection-start-line="2" selection-start-column="7" selection-end-line="6" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1185,15 +1102,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.60655737" vertical-offset="223" max-vertical-offset="930">
           <caret line="60" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/example/FinancialRiskSystem.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.10581222" vertical-offset="259" max-vertical-offset="930">
-          <caret line="32" column="20" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1201,7 +1109,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.46348733" vertical-offset="259" max-vertical-offset="1380">
           <caret line="44" column="4" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1209,7 +1116,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.34210527" vertical-offset="111" max-vertical-offset="795">
           <caret line="31" column="18" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1221,19 +1127,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/view/SystemContextViewTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.42473918" vertical-offset="0" max-vertical-offset="671">
-          <caret line="25" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/ElementView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.59210527" vertical-offset="0" max-vertical-offset="810">
           <caret line="34" column="4" selection-start-line="27" selection-start-column="4" selection-end-line="27" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1241,15 +1138,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.369863" vertical-offset="0" max-vertical-offset="555">
           <caret line="10" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Model.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2475" max-vertical-offset="3825">
-          <caret line="183" column="16" selection-start-line="165" selection-start-column="16" selection-end-line="165" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1261,26 +1149,186 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonReader.java">
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_20.jdk/Contents/Home/jre/lib/jce.jar!/javax/crypto/Mac.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46052632" vertical-offset="0" max-vertical-offset="684">
-          <caret line="29" column="1" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/view/ViewTests.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.30700448" vertical-offset="1099" max-vertical-offset="2460">
-          <caret line="96" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.11144131" vertical-offset="0" max-vertical-offset="945">
+          <caret line="6" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/View.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46348733" vertical-offset="1504" max-vertical-offset="2175">
-          <caret line="152" column="0" selection-start-line="152" selection-start-column="0" selection-end-line="152" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.51560175" vertical-offset="1468" max-vertical-offset="2175">
+          <caret line="152" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Model.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3800298" vertical-offset="0" max-vertical-offset="3510">
+          <caret line="17" column="11" selection-start-line="17" selection-start-column="11" selection-end-line="17" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0877193" vertical-offset="0" max-vertical-offset="684">
+          <caret line="12" column="45" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrWriter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19480519" vertical-offset="0" max-vertical-offset="462">
+          <caret line="9" column="34" selection-start-line="6" selection-start-column="34" selection-end-line="6" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/example/StructurizrAnnotationsExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2650334" vertical-offset="46" max-vertical-offset="510">
+          <caret line="11" column="43" selection-start-line="11" selection-start-column="43" selection-end-line="11" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/example/TechTribesContainers.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.1269488" vertical-offset="619" max-vertical-offset="1290">
+          <caret line="82" column="34" selection-start-line="75" selection-start-column="34" selection-end-line="75" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/AbstractWorkspaceTestBase.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15350877" vertical-offset="0" max-vertical-offset="684">
+          <caret line="7" column="49" selection-start-line="7" selection-start-column="49" selection-end-line="7" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/view/SystemContextViewTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20119224" vertical-offset="0" max-vertical-offset="671">
+          <caret line="15" column="9" selection-start-line="9" selection-start-column="9" selection-end-line="9" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/model/SoftwareSystemTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.12816691" vertical-offset="4" max-vertical-offset="2280">
+          <caret line="11" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/model/ModelTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.26229507" vertical-offset="799" max-vertical-offset="1740">
+          <caret line="68" column="35" selection-start-line="65" selection-start-column="35" selection-end-line="65" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/test/unit/com/structurizr/view/ViewTests.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.7037861" vertical-offset="0" max-vertical-offset="2445">
+          <caret line="61" column="33" selection-start-line="51" selection-start-column="33" selection-end-line="51" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spring/src/com/structurizr/example/SpringPetClinic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.23579545" vertical-offset="593" max-vertical-offset="945">
+          <caret line="44" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/Workspace.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.79452056" vertical-offset="370" max-vertical-offset="795">
+          <caret line="65" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4520548" vertical-offset="0" max-vertical-offset="365">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2631579" vertical-offset="0" max-vertical-offset="684">
+          <caret line="12" column="44" selection-start-line="2" selection-start-column="7" selection-end-line="10" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ivy.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.26825634" vertical-offset="0" max-vertical-offset="671">
+          <caret line="12" column="108" selection-start-line="12" selection-start-column="108" selection-end-line="12" selection-end-column="108" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/runtime/httpclient.jar!/org/apache/http/client/methods/HttpPut.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13657056" vertical-offset="0" max-vertical-offset="659">
+          <caret line="7" column="73" selection-start-line="6" selection-start-column="73" selection-end-line="6" selection-end-column="73" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/runtime/httpclient.jar!/org/apache/http/client/methods/HttpEntityEnclosingRequestBase.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13931888" vertical-offset="0" max-vertical-offset="646">
+          <caret line="7" column="98" selection-start-line="6" selection-start-column="98" selection-end-line="6" selection-end-column="98" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/lib/runtime/httpclient.jar!/org/apache/http/client/methods/HttpRequestBase.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="90" max-vertical-offset="600">
+          <caret line="7" column="37" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/api/StructurizrClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.1622807" vertical-offset="0" max-vertical-offset="1065">
+          <caret line="70" column="46" selection-start-line="53" selection-start-column="46" selection-end-line="53" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/example/FinancialRiskSystem.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.79880774" vertical-offset="214" max-vertical-offset="885">
+          <caret line="62" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/example/TechTribesSystemContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7764531" vertical-offset="214" max-vertical-offset="885">
+          <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
           <folding />
         </state>
       </provider>

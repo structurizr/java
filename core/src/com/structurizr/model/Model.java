@@ -15,40 +15,7 @@ public class Model {
     private Set<Person> people = new LinkedHashSet<>();
     private Set<SoftwareSystem> softwareSystems = new LinkedHashSet<>();
 
-    private long id;
-    private String name;
-    private String description;
-
-    Model() {
-    }
-
-    public Model(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    public long getId() {
-        return this.id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public Model() {
     }
 
     /**

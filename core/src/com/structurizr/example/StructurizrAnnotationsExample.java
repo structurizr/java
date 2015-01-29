@@ -1,5 +1,6 @@
 package com.structurizr.example;
 
+import com.structurizr.Workspace;
 import com.structurizr.componentfinder.ComponentFinder;
 import com.structurizr.componentfinder.StructurizrComponentFinderStrategy;
 import com.structurizr.model.*;
@@ -7,7 +8,8 @@ import com.structurizr.model.*;
 public class StructurizrAnnotationsExample {
 
     public static void main(String[] args) throws Exception  {
-        Model model = new Model("Structurizr annotations example", "A simple example of how to use the automated component finders");
+        Workspace workspace = new Workspace("Structurizr annotations example", "A simple example of how to use the automated component finders");
+        Model model = workspace.getModel();
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "Example software system", "An example software system");
 
         Person user = model.addPerson(Location.External, "A user", "An example user");

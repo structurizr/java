@@ -1,5 +1,6 @@
 package com.structurizr.view;
 
+import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.model.Location;
 import com.structurizr.model.Model;
 import com.structurizr.model.Person;
@@ -11,9 +12,8 @@ import java.util.Iterator;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public class ViewTests {
+public class ViewTests extends AbstractWorkspaceTestBase {
 
-    private Model model = new Model("Name", "Description");
     private SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
     private View view;
 
@@ -59,7 +59,7 @@ public class ViewTests {
     public void test_addSoftwareSystem_DoesNothing_WhenTheSoftwareSystemIsNotInTheModel() {
         view = new SystemContextView(softwareSystem);
 
-        Model model2 = new Model("Name", "Description");
+        Model model2 = new Model();
         SoftwareSystem softwareSystemA = model2.addSoftwareSystem(Location.Unspecified, "System A", "Description");
         view.addSoftwareSystem(softwareSystemA);
         assertEquals(1, view.getElements().size());
@@ -114,7 +114,7 @@ public class ViewTests {
     public void test_addPerson_DoesNothing_WhenThePersonIsNotInTheModel() {
         view = new SystemContextView(softwareSystem);
 
-        Model model2 = new Model("Name", "Description");
+        Model model2 = new Model();
         Person person1 = model2.addPerson(Location.Unspecified, "Person 1", "Description");
         view.addPerson(person1);
         assertEquals(1, view.getElements().size());

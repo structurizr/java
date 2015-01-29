@@ -1,5 +1,6 @@
 package com.structurizr.example;
 
+import com.structurizr.Workspace;
 import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.Location;
 import com.structurizr.model.Model;
@@ -17,8 +18,11 @@ import java.io.StringWriter;
 public class TechTribesSystemContext {
 
     public static void main(String[] args) throws Exception {
+        Workspace workspace = new Workspace("techtribes.je", "This is a model of the system context for the techtribes.je system, the code for which can be found at https://github.com/techtribesje/techtribesje");
+
+        Model model = workspace.getModel();
+
         // create a model and the software system we want to describe
-        Model model = new Model("techtribes.je", "This is a model of the system context for the techtribes.je system, the code for which can be found at https://github.com/techtribesje/techtribesje");
         SoftwareSystem techTribes = model.addSoftwareSystem(Location.Internal, "techtribes.je", "techtribes.je is the only way to keep up to date with the IT, tech and digital sector in Jersey and Guernsey, Channel Islands");
 
         // create the various types of people (roles) that use the software system
@@ -42,7 +46,7 @@ public class TechTribesSystemContext {
         techTribes.uses(blogs, "Gets content using RSS and Atom feeds from.");
 
         // now create the system context view based upon the model
-        ViewSet viewSet = new ViewSet(model);
+        ViewSet viewSet = workspace.getViews();
         SystemContextView contextView = viewSet.createContextView(techTribes);
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
@@ -50,8 +54,9 @@ public class TechTribesSystemContext {
         // and output the model and view to JSON (so that we can render it using structurizr.com)
         JsonWriter jsonWriter = new JsonWriter(true);
         StringWriter stringWriter = new StringWriter();
-        jsonWriter.write(viewSet, stringWriter);
+        jsonWriter.write(workspace, stringWriter);
         System.out.println(stringWriter.toString());
+
     }
 
 }

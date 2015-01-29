@@ -1,5 +1,6 @@
 package com.structurizr.example;
 
+import com.structurizr.Workspace;
 import com.structurizr.componentfinder.ComponentFinder;
 import com.structurizr.componentfinder.SpringComponentFinderStrategy;
 import com.structurizr.io.json.JsonWriter;
@@ -17,7 +18,8 @@ import java.io.StringWriter;
 public class SpringPetClinic {
 
     public static void main(String[] args) throws Exception {
-        Model model = new Model("Spring PetClinic", "This is a C4 representation of the Spring PetClinic sample app (https://github.com/spring-projects/spring-petclinic/)");
+        Workspace workspace = new Workspace("Spring PetClinic", "This is a C4 representation of the Spring PetClinic sample app (https://github.com/spring-projects/spring-petclinic/)");
+        Model model = workspace.getModel();
 
         // create the basic model (the stuff we can't get from the code)
         SoftwareSystem springPetClinic = model.addSoftwareSystem(Location.Internal, "Spring PetClinic", "");
@@ -58,7 +60,7 @@ public class SpringPetClinic {
 
         JsonWriter jsonWriter = new JsonWriter(false);
         StringWriter stringWriter = new StringWriter();
-        jsonWriter.write(viewSet, stringWriter);
+        jsonWriter.write(workspace, stringWriter);
 
         System.out.println(stringWriter.toString());
     }

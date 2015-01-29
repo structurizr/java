@@ -1,16 +1,15 @@
 package com.structurizr.view;
 
+import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.model.Location;
-import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-public class SystemContextViewTests {
+public class SystemContextViewTests extends AbstractWorkspaceTestBase {
 
-    private Model model = new Model("Name", "Description");
     private SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
     private SystemContextView view;
 
