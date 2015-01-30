@@ -1,1 +1,1 @@
-java -cp core/structurizr.jar:core/lib/* com.structurizr.example.TechTribesSystemContext
+java -cp core/structurizr-core.jar:core/lib/* com.structurizr.example.TechTribesSystemContext
