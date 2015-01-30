@@ -5,10 +5,10 @@ import com.structurizr.componentfinder.ComponentFinder;
 import com.structurizr.componentfinder.SpringComponentFinderStrategy;
 import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
-import com.structurizr.view.ViewSet;
 import com.structurizr.view.ComponentView;
 import com.structurizr.view.ContainerView;
 import com.structurizr.view.SystemContextView;
+import com.structurizr.view.ViewSet;
 
 import java.io.StringWriter;
 
@@ -43,7 +43,7 @@ public class SpringPetClinic {
         webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Repository")).forEach(c -> c.uses(relationalDatabase, "Reads from and writes to"));
 
         // finally create some views
-        ViewSet viewSet = new ViewSet(model);
+        ViewSet viewSet = workspace.getViews();
         SystemContextView contextView = viewSet.createContextView(springPetClinic);
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
