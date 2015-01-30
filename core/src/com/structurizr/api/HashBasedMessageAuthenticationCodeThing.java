@@ -4,14 +4,14 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.util.Base64;
 
-public class HashBasedMessageAuthenticationCode {
+public class HashBasedMessageAuthenticationCodeThing {
 
     private static final String HMAC_SHA256_ALGORITHM = "HmacSHA256";
 
     private String apiKey;
     private String apiSecret;
 
-    public HashBasedMessageAuthenticationCode(String apiKey, String apiSecret) {
+    public HashBasedMessageAuthenticationCodeThing(String apiKey, String apiSecret) {
         this.apiKey = apiKey;
         this.apiSecret = apiSecret;
     }

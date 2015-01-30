@@ -3,7 +3,6 @@ package com.structurizr.api;
 import com.structurizr.Workspace;
 import com.structurizr.io.json.JsonReader;
 import com.structurizr.io.json.JsonWriter;
-import org.apache.http.Header;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
@@ -79,7 +78,7 @@ public class StructurizrClient {
         String path = httpRequest.getURI().getPath();
         String contentMd5 = new Md5Digest().generate(content);
 
-        HashBasedMessageAuthenticationCode hmac = new HashBasedMessageAuthenticationCode(apiKey, apiSecret);
+        HashBasedMessageAuthenticationCodeThing hmac = new HashBasedMessageAuthenticationCodeThing(apiKey, apiSecret);
         httpRequest.addHeader(HttpHeaders.AUTHORIZATION, hmac.generate(httpMethod, contentMd5, contentType, date, path));
         httpRequest.addHeader(HttpHeaders.DATE, date);
         httpRequest.addHeader(HttpHeaders.CONTENT_MD5, contentMd5);
