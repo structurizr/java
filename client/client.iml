@@ -9,8 +9,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="core" />
-    <orderEntry type="library" name="api" level="project" />
     <orderEntry type="library" scope="TEST" name="test" level="project" />
+    <orderEntry type="library" name="client" level="project" />
   </component>
 </module>
 

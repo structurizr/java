@@ -8,8 +8,8 @@
     <property name="annotations.dir" value="${basedir}/annotations" />
     <property name="annotations.build.dir" value="${build.dir}/annotations" />
 
-    <property name="api.dir" value="${basedir}/api" />
-    <property name="api.build.dir" value="${build.dir}/api" />
+    <property name="client.dir" value="${basedir}/client" />
+    <property name="client.build.dir" value="${build.dir}/client" />
 
     <property name="core.dir" value="${basedir}/core" />
     <property name="core.build.dir" value="${build.dir}/core" />
@@ -18,7 +18,7 @@
     <property name="spring.build.dir" value="${build.dir}/spring" />
 
     <property name="test.lib.dir" value="${basedir}/lib/test"/>
-    <property name="api.lib.dir" value="${api.dir}/lib"/>
+    <property name="client.lib.dir" value="${client.dir}/lib"/>
     <property name="core.lib.dir" value="${core.dir}/lib"/>
     <property name="spring.lib.dir" value="${spring.dir}/lib"/>
 
@@ -28,9 +28,9 @@
         <mkdir dir="${annotations.build.dir}"/>
         <mkdir dir="${annotations.build.dir}/production-classes"/>
 
-        <mkdir dir="${api.lib.dir}" />
-        <mkdir dir="${api.build.dir}"/>
-        <mkdir dir="${api.build.dir}/production-classes"/>
+        <mkdir dir="${client.lib.dir}" />
+        <mkdir dir="${client.build.dir}"/>
+        <mkdir dir="${client.build.dir}/production-classes"/>
 
         <mkdir dir="${core.lib.dir}" />
         <mkdir dir="${core.build.dir}"/>
@@ -53,9 +53,9 @@
             </classpath>
         </javac>
 
-        <javac srcdir="${api.dir}/src" destdir="${api.build.dir}/production-classes" debug="yes">
+        <javac srcdir="${client.dir}/src" destdir="${client.build.dir}/production-classes" debug="yes">
             <classpath>
-                <fileset dir="${api.lib.dir}" includes="*.jar" />
+                <fileset dir="${client.lib.dir}" includes="*.jar" />
                 <pathelement location="${core.build.dir}/production-classes" />
             </classpath>
         </javac>
@@ -100,8 +100,8 @@
             <fileset dir="${annotations.build.dir}/production-classes"/>
         </jar>
 
-        <jar jarfile="${build.dir}/structurizr-api.jar">
-            <fileset dir="${api.build.dir}/production-classes"/>
+        <jar jarfile="${build.dir}/structurizr-client.jar">
+            <fileset dir="${client.build.dir}/production-classes"/>
         </jar>
 
         <jar jarfile="${build.dir}/structurizr-core.jar">
@@ -115,9 +115,6 @@
 
     <target name="dist" depends="build">
         <mkdir dir="${dist.dir}"/>
-        <mkdir dir="${dist.dir}/annotations" />
-        <mkdir dir="${dist.dir}/core/lib" />
-        <mkdir dir="${dist.dir}/spring/lib" />
 
         <copy todir="${dist.dir}">
             <fileset dir="${core.dir}/etc" includes="*.sh" />
@@ -127,11 +124,11 @@
             <fileset dir="${build.dir}" includes="structurizr-annotations.jar" />
         </copy>
 
-        <copy todir="${dist.dir}/api">
-            <fileset dir="${build.dir}" includes="structurizr-api.jar" />
+        <copy todir="${dist.dir}/client">
+            <fileset dir="${build.dir}" includes="structurizr-client.jar" />
         </copy>
-        <copy todir="${dist.dir}/api/lib">
-            <fileset dir="${api.lib.dir}" includes="*.jar" />
+        <copy todir="${dist.dir}/client/lib">
+            <fileset dir="${client.lib.dir}" includes="*.jar" />
         </copy>
 
         <copy todir="${dist.dir}/core">
@@ -159,13 +156,13 @@
 
     <target name="resolve" depends="init" description="--> retreive dependencies with ivy">
         <delete>
-            <fileset dir="${api.lib.dir}" includes="*.jar" />
+            <fileset dir="${client.lib.dir}" includes="*.jar" />
             <fileset dir="${core.lib.dir}" includes="*.jar" />
             <fileset dir="${spring.lib.dir}" includes="*.jar" />
             <fileset dir="${test.lib.dir}" includes="*.jar" />
         </delete>
 
-        <ivy:retrieve conf="api" pattern="${api.lib.dir}/[artifact].[ext]"/>
+        <ivy:retrieve conf="client" pattern="${client.lib.dir}/[artifact].[ext]"/>
         <ivy:retrieve conf="core" pattern="${core.lib.dir}/[artifact].[ext]"/>
         <ivy:retrieve conf="spring" pattern="${spring.lib.dir}/[artifact].[ext]"/>
         <ivy:retrieve conf="test" pattern="${test.lib.dir}/[artifact].[ext]"/>
