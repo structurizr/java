@@ -3,6 +3,7 @@ package com.structurizr.api;
 import com.structurizr.Workspace;
 import com.structurizr.io.json.JsonReader;
 import com.structurizr.io.json.JsonWriter;
+import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPut;
@@ -39,13 +40,13 @@ public class StructurizrClient {
         addHeaders(httpGet, "", "");
 
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            debugResponse(httpGet, response);
-            System.out.println(response.getEntity().getContentType());
-
             String json = EntityUtils.toString(response.getEntity());
-            System.out.println(json);
-
-            return new JsonReader().read(new StringReader(json));
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                return new JsonReader().read(new StringReader(json));
+            } else {
+                ApiError apiError = ApiError.parse(json);
+                throw new StructurizrClientException(apiError.getMessage());
+            }
         }
     }
 
@@ -88,9 +89,7 @@ public class StructurizrClient {
     public static void main(String[] args) throws Exception {
         StructurizrClient structurizrClient = new StructurizrClient("https://structurizr-api.cfapps.io", "key", "secret");
         Workspace workspace = structurizrClient.getWorkspace(1);
-        structurizrClient.updateWorkspace(workspace);
+        System.out.println(workspace.getName());
     }
-
-
 
 }

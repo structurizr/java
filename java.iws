@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="655aeccd-15c7-40da-998c-90a4b0c635db" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/core/src/com/structurizr/api/HashBasedMessageAuthenticationCodeThing.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/api/HashBasedMessageAuthenticationCode.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/com/structurizr/api/ApiError.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/core/src/com/structurizr/api/StructurizrClientException.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/src/com/structurizr/api/StructurizrClient.java" afterPath="$PROJECT_DIR$/core/src/com/structurizr/api/StructurizrClient.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.iws" afterPath="$PROJECT_DIR$/java.iws" />
     </list>
@@ -89,13 +90,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="HashBasedMessageAuthenticationCode.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/api/HashBasedMessageAuthenticationCode.java">
+      <file leaf-file-name="ApiError.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/api/ApiError.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.17045455" vertical-offset="0" max-vertical-offset="840">
-              <caret line="6" column="47" selection-start-line="6" selection-start-column="47" selection-end-line="6" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.147929" vertical-offset="0" max-vertical-offset="507">
+              <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
               <folding>
-                <marker date="1422622617000" expanded="true" signature="380:453" placeholder="{...}" />
+                <element signature="e#414#415#0" expanded="true" />
+                <element signature="e#452#453#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -119,8 +121,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/model/IdGenerator.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/diagram/Box.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/view/ComponentView.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/model/SequentialIntegerIdGeneratorStrategy.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/io/json/ModelAndViewSet.java" />
@@ -150,7 +150,6 @@
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/model/SoftwareSystemTests.java" />
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/model/ModelTests.java" />
         <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/view/ViewTests.java" />
-        <option value="$PROJECT_DIR$/spring/src/com/structurizr/example/SpringPetClinic.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonReader.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/Workspace.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrReader.java" />
@@ -166,10 +165,13 @@
         <option value="$PROJECT_DIR$/core/src/com/structurizr/api/HashbasedMessageAuthenticationCode.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/api/Md5Digest.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/api/HttpHeaders.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/api/StructurizrClient.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/api/HashBasedMessageAuthenticationCodef.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/api/HashBasedMessageAuthenticationCodeThing.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/api/HashBasedMessageAuthenticationCode.java" />
+        <option value="$PROJECT_DIR$/spring/src/com/structurizr/example/SpringPetClinic.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/api/ApiError.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/api/StructurizrClientException.java" />
+        <option value="$PROJECT_DIR$/core/src/com/structurizr/api/StructurizrClient.java" />
       </list>
     </option>
   </component>
@@ -213,6 +215,64 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="java" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spring" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spring" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="structurizr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spring" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="structurizr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -455,7 +515,7 @@
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="options.lastSelected" value="preferences.keymap" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../structurizr/structurizr-core/test/unit" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../spring/spring-petclinic" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
@@ -480,6 +540,7 @@
       <recent name="com.structurizr.element" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.structurizr.api" />
       <recent name="com.structurizr" />
       <recent name="com.structurizr.diagram" />
     </key>
@@ -868,12 +929,12 @@
       <workItem from="1421350278955" duration="6208000" />
       <workItem from="1421400862796" duration="51000" />
       <workItem from="1422461776140" duration="18911000" />
-      <workItem from="1422622001544" duration="472000" />
+      <workItem from="1422622001544" duration="7031000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64705000" />
+    <option name="totallyTimeSpent" value="71264000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="38" y="23" width="1242" height="777" extended-state="6" />
@@ -898,7 +959,7 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29666665" sideWeight="0.5316623" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.46569344" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25839415" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299748" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -934,20 +995,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../techtribesje/build/techtribes-updater/production-classes/je/techtribes/component/githubconnector/EclipseMylynGitHubApi.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.1083815" vertical-offset="0" max-vertical-offset="0">
-          <caret line="6" column="13" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Location.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19736843" vertical-offset="0" max-vertical-offset="684">
-          <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrWriterException.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.15350877" vertical-offset="0" max-vertical-offset="684">
@@ -1194,17 +1241,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/spring/src/com/structurizr/example/SpringPetClinic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.23579545" vertical-offset="593" max-vertical-offset="945">
-          <caret line="44" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/Workspace.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.79452056" vertical-offset="370" max-vertical-offset="795">
           <caret line="65" column="0" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1212,13 +1253,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.4520548" vertical-offset="0" max-vertical-offset="365">
           <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2631579" vertical-offset="0" max-vertical-offset="684">
-          <caret line="12" column="44" selection-start-line="2" selection-start-column="7" selection-end-line="10" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -1273,14 +1307,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/api/StructurizrClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4034091" vertical-offset="923" max-vertical-offset="1275">
-          <caret line="89" column="113" selection-start-line="71" selection-start-column="113" selection-end-line="71" selection-end-column="113" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/api/Md5Digest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.53424656" vertical-offset="0" max-vertical-offset="365">
@@ -1292,9 +1318,50 @@
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/api/HashBasedMessageAuthenticationCode.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17045455" vertical-offset="0" max-vertical-offset="840">
-          <caret line="6" column="47" selection-start-line="6" selection-start-column="47" selection-end-line="6" selection-end-column="47" />
+          <caret line="6" column="47" selection-start-line="4" selection-start-column="47" selection-end-line="4" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spring/src/com/structurizr/example/SpringPetClinic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.82116246" vertical-offset="274" max-vertical-offset="945">
+          <caret line="65" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.46575344" vertical-offset="10" max-vertical-offset="375">
+          <caret line="19" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/api/StructurizrClientException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.20547946" vertical-offset="0" max-vertical-offset="365">
+          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/api/StructurizrClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.277328" vertical-offset="0" max-vertical-offset="1245">
+          <caret line="93" column="0" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/api/ApiError.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.147929" vertical-offset="0" max-vertical-offset="507">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
           <folding>
-            <marker date="1422622617000" expanded="true" signature="380:453" placeholder="{...}" />
+            <element signature="e#414#415#0" expanded="true" />
+            <element signature="e#452#453#0" expanded="true" />
           </folding>
         </state>
       </provider>
