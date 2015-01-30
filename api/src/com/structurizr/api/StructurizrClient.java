@@ -19,6 +19,7 @@ import java.io.StringWriter;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Base64;
 
 public class StructurizrClient {
 
@@ -82,7 +83,7 @@ public class StructurizrClient {
         HashBasedMessageAuthenticationCode hmac = new HashBasedMessageAuthenticationCode(apiKey, apiSecret);
         httpRequest.addHeader(HttpHeaders.AUTHORIZATION, hmac.generate(httpMethod, contentMd5, contentType, date, path));
         httpRequest.addHeader(HttpHeaders.DATE, date);
-        httpRequest.addHeader(HttpHeaders.CONTENT_MD5, contentMd5);
+        httpRequest.addHeader(HttpHeaders.CONTENT_MD5, Base64.getEncoder().encodeToString(contentMd5.getBytes()));
         httpRequest.addHeader(HttpHeaders.CONTENT_TYPE, contentType);
     }
 
