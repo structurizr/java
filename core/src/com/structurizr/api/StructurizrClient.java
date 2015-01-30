@@ -78,7 +78,7 @@ public class StructurizrClient {
         String path = httpRequest.getURI().getPath();
         String contentMd5 = new Md5Digest().generate(content);
 
-        HashBasedMessageAuthenticationCodeThing hmac = new HashBasedMessageAuthenticationCodeThing(apiKey, apiSecret);
+        HashBasedMessageAuthenticationCode hmac = new HashBasedMessageAuthenticationCode(apiKey, apiSecret);
         httpRequest.addHeader(HttpHeaders.AUTHORIZATION, hmac.generate(httpMethod, contentMd5, contentType, date, path));
         httpRequest.addHeader(HttpHeaders.DATE, date);
         httpRequest.addHeader(HttpHeaders.CONTENT_MD5, contentMd5);
