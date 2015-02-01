@@ -1,4 +1,4 @@
-package com.structurizr.example;
+package com.structurizr.example.core;
 
 import com.structurizr.Workspace;
 import com.structurizr.io.json.JsonWriter;
@@ -19,7 +19,6 @@ public class TechTribesSystemContext {
 
     public static void main(String[] args) throws Exception {
         Workspace workspace = new Workspace("techtribes.je", "This is a model of the system context for the techtribes.je system, the code for which can be found at https://github.com/techtribesje/techtribesje");
-
         Model model = workspace.getModel();
 
         // create a model and the software system we want to describe
@@ -51,12 +50,11 @@ public class TechTribesSystemContext {
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
-        // and output the model and view to JSON (so that we can render it using structurizr.com)
+        // and output the model and view to JSON
         JsonWriter jsonWriter = new JsonWriter(true);
         StringWriter stringWriter = new StringWriter();
         jsonWriter.write(workspace, stringWriter);
         System.out.println(stringWriter.toString());
-
     }
 
 }

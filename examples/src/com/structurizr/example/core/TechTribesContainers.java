@@ -1,4 +1,4 @@
-package com.structurizr.example;
+package com.structurizr.example.core;
 
 import com.structurizr.Workspace;
 import com.structurizr.io.json.JsonWriter;
@@ -77,7 +77,7 @@ public class TechTribesContainers {
         containerView.addAllPeople();
         containerView.addAllContainers();
 
-        // and output the model and view to JSON (so that we can render it using structurizr.com)
+        // and output the model and view to JSON
         JsonWriter jsonWriter = new JsonWriter(true);
         StringWriter stringWriter = new StringWriter();
         jsonWriter.write(workspace, stringWriter);

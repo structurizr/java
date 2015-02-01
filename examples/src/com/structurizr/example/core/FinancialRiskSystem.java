@@ -1,4 +1,4 @@
-package com.structurizr.example;
+package com.structurizr.example.core;
 
 import com.structurizr.Workspace;
 import com.structurizr.io.json.JsonWriter;
@@ -46,16 +46,16 @@ public class FinancialRiskSystem {
         SoftwareSystem activeDirectory = model.addSoftwareSystem(Location.Internal, "Active Directory", "Manages users and security roles across the bank");
         financialRiskSystem.uses(activeDirectory, "Uses for authentication and authorisation");
 
-        // and create some views
+        // create some views
         ViewSet viewSet = workspace.getViews();
         SystemContextView contextView = viewSet.createContextView(financialRiskSystem);
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
+        // and output the model as JSON
         JsonWriter jsonWriter = new JsonWriter(true);
         StringWriter stringWriter = new StringWriter();
         jsonWriter.write(workspace, stringWriter);
-
         System.out.println(stringWriter.toString());
     }
 

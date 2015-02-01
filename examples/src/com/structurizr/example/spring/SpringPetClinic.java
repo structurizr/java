@@ -1,4 +1,4 @@
-package com.structurizr.example;
+package com.structurizr.example.spring;
 
 import com.structurizr.Workspace;
 import com.structurizr.componentfinder.ComponentFinder;
@@ -58,7 +58,7 @@ public class SpringPetClinic {
         componentView.addAllPeople();
         componentView.add(relationalDatabase);
 
-        JsonWriter jsonWriter = new JsonWriter(false);
+        JsonWriter jsonWriter = new JsonWriter(true);
         StringWriter stringWriter = new StringWriter();
         jsonWriter.write(workspace, stringWriter);
 

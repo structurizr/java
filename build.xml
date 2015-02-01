@@ -14,6 +14,9 @@
     <property name="core.dir" value="${basedir}/core" />
     <property name="core.build.dir" value="${build.dir}/core" />
 
+    <property name="examples.dir" value="${basedir}/examples" />
+    <property name="examples.build.dir" value="${build.dir}/examples" />
+
     <property name="spring.dir" value="${basedir}/spring" />
     <property name="spring.build.dir" value="${build.dir}/spring" />
 
@@ -31,11 +34,15 @@
         <mkdir dir="${client.lib.dir}" />
         <mkdir dir="${client.build.dir}"/>
         <mkdir dir="${client.build.dir}/production-classes"/>
+        <mkdir dir="${client.build.dir}/test-classes"/>
 
         <mkdir dir="${core.lib.dir}" />
         <mkdir dir="${core.build.dir}"/>
         <mkdir dir="${core.build.dir}/production-classes"/>
         <mkdir dir="${core.build.dir}/test-classes"/>
+
+        <mkdir dir="${examples.build.dir}"/>
+        <mkdir dir="${examples.build.dir}/production-classes"/>
 
         <mkdir dir="${spring.lib.dir}" />
         <mkdir dir="${spring.build.dir}"/>
@@ -53,9 +60,24 @@
             </classpath>
         </javac>
 
+        <javac srcdir="${core.dir}/test/unit" destdir="${core.build.dir}/test-classes" debug="yes">
+            <classpath>
+                <fileset dir="${test.lib.dir}" includes="*.jar" />
+                <pathelement location="${core.build.dir}/production-classes" />
+            </classpath>
+        </javac>
+
         <javac srcdir="${client.dir}/src" destdir="${client.build.dir}/production-classes" debug="yes">
             <classpath>
                 <fileset dir="${client.lib.dir}" includes="*.jar" />
+                <pathelement location="${core.build.dir}/production-classes" />
+            </classpath>
+        </javac>
+
+        <javac srcdir="${client.dir}/test/unit" destdir="${client.build.dir}/test-classes" debug="yes">
+            <classpath>
+                <fileset dir="${test.lib.dir}" includes="*.jar" />
+                <pathelement location="${client.build.dir}/production-classes" />
                 <pathelement location="${core.build.dir}/production-classes" />
             </classpath>
         </javac>
@@ -67,11 +89,15 @@
             </classpath>
         </javac>
 
-        <javac srcdir="${core.dir}/test/unit" destdir="${core.build.dir}/test-classes" debug="yes">
+        <javac srcdir="${examples.dir}/src" destdir="${examples.build.dir}/production-classes" debug="yes">
             <classpath>
-                <fileset dir="${test.lib.dir}" includes="*.jar" />
+                <fileset dir="${client.lib.dir}" includes="*.jar" />
+                <fileset dir="${core.lib.dir}" includes="*.jar" />
+                <fileset dir="${spring.lib.dir}" includes="*.jar" />
                 <pathelement location="${annotations.build.dir}/production-classes" />
+                <pathelement location="${client.build.dir}/production-classes" />
                 <pathelement location="${core.build.dir}/production-classes" />
+                <pathelement location="${spring.build.dir}/production-classes" />
             </classpath>
         </javac>
     </target>
@@ -89,6 +115,24 @@
 
             <batchtest fork="no" todir="${build.dir}">
                 <fileset dir="${core.dir}/test/unit">
+                    <include name="**/*Tests.java"/>
+                </fileset>
+            </batchtest>
+        </junit>
+
+        <junit printsummary="yes" haltonfailure="yes">
+            <classpath>
+                <fileset dir="${client.lib.dir}" includes="*.jar" />
+                <fileset dir="${test.lib.dir}" includes="*.jar" />
+                <pathelement location="${client.build.dir}/production-classes" />
+                <pathelement location="${client.build.dir}/test-classes"/>
+                <pathelement location="${core.build.dir}/production-classes" />
+            </classpath>
+
+            <formatter type="plain"/>
+
+            <batchtest fork="no" todir="${build.dir}">
+                <fileset dir="${client.dir}/test/unit">
                     <include name="**/*Tests.java"/>
                 </fileset>
             </batchtest>
@@ -115,10 +159,6 @@
 
     <target name="dist" depends="build">
         <mkdir dir="${dist.dir}"/>
-
-        <copy todir="${dist.dir}">
-            <fileset dir="${core.dir}/etc" includes="*.sh" />
-        </copy>
 
         <copy todir="${dist.dir}/annotations">
             <fileset dir="${build.dir}" includes="structurizr-annotations.jar" />
