@@ -12,7 +12,7 @@ import com.structurizr.view.ViewSet;
 
 import java.io.StringWriter;
 
-public class StructurizrAnnotationsExample {
+public class StructurizrAnnotations {
 
     public static void main(String[] args) throws Exception  {
         Workspace workspace = new Workspace("Structurizr annotations example", "A simple example of how to use the automated component finders");
