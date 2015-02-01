@@ -10,8 +10,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="core" level="project" />
     <orderEntry type="module" module-name="annotations" />
-    <orderEntry type="library" scope="RUNTIME" name="techtribesje" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Spring Petclinic" level="project" />
     <orderEntry type="library" scope="TEST" name="test" level="project" />
   </component>
 </module>

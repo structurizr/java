@@ -2,8 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="655aeccd-15c7-40da-998c-90a4b0c635db" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/src/com/structurizr/example/annotations/StructurizrAnnotationsExample.java" afterPath="$PROJECT_DIR$/examples/src/com/structurizr/example/annotations/StructurizrAnnotations.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/src/com/structurizr/example/client/StructurizrApiClientExample.java" afterPath="$PROJECT_DIR$/examples/src/com/structurizr/example/client/StructurizrApiClient.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/JdbcSomeRepository.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/SomeController.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/SomeRepository.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/SomeService.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/SomeServiceImpl.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/SpringMvc.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/examples/springpetclinic.sh" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/examples/src/com/structurizr/example/spring/SpringPetClinic.java" afterPath="$PROJECT_DIR$/examples/src/com/structurizr/example/spring/petclinic/SpringPetClinic.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/core/core.iml" afterPath="$PROJECT_DIR$/core/core.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/examples/examples.iml" afterPath="$PROJECT_DIR$/examples/examples.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.ipr" afterPath="$PROJECT_DIR$/java.ipr" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/java.iws" afterPath="$PROJECT_DIR$/java.iws" />
     </list>
     <ignored path="java.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -88,11 +98,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="setenv.sh" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/setenv.sh">
+      <file leaf-file-name="springpetclinic.sh" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/examples/springpetclinic.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="659">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.065789476" vertical-offset="0" max-vertical-offset="684">
+              <caret line="3" column="98" selection-start-line="3" selection-start-column="98" selection-end-line="3" selection-end-column="98" />
               <folding />
             </state>
           </provider>
@@ -116,15 +126,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrWriter.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/example/StructurizrAnnotationsExample.java" />
-        <option value="$PROJECT_DIR$/core/src/com/structurizr/example/TechTribesContainers.java" />
-        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/AbstractTestBase.java" />
-        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/AbstractWorkspaceTests.java" />
-        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/view/SystemContextViewTests.java" />
-        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/model/SoftwareSystemTests.java" />
-        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/model/ModelTests.java" />
-        <option value="$PROJECT_DIR$/core/test/unit/com/structurizr/view/ViewTests.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/io/json/JsonReader.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/Workspace.java" />
         <option value="$PROJECT_DIR$/core/src/com/structurizr/io/StructurizrReader.java" />
@@ -167,6 +168,15 @@
         <option value="$PROJECT_DIR$/examples/src/com/structurizr/example/annotations/componentA/ComponentAImpl.java" />
         <option value="$PROJECT_DIR$/examples/src/com/structurizr/example/annotations/componentB/ComponentBImpl.java" />
         <option value="$PROJECT_DIR$/build.xml" />
+        <option value="$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/SomeService.java" />
+        <option value="$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/SomeController.java" />
+        <option value="$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/SomeRepository.java" />
+        <option value="$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/JdbcRepository.java" />
+        <option value="$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/JdbcSomeRepository.java" />
+        <option value="$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/SomeServiceImpl.java" />
+        <option value="$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/SpringMvc.java" />
+        <option value="$PROJECT_DIR$/examples/src/com/structurizr/example/spring/petclinic/SpringPetClinic.java" />
+        <option value="$PROJECT_DIR$/examples/springpetclinic.sh" />
       </list>
     </option>
   </component>
@@ -251,6 +261,10 @@
               <option name="myItemId" value="spring" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="petclinic" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -276,6 +290,46 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="example" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="spring" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="mvc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="examples" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="structurizr" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="example" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="core" />
@@ -288,67 +342,19 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="structurizr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="example" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="client" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="examples" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="structurizr" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="example" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="annotations" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="structurizr" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -359,14 +365,14 @@
   <component name="PropertiesComponent">
     <property name="last_directory_selection" value="$PROJECT_DIR$/examples/src/com/structurizr/example/annotations" />
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Libraries" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
     <property name="MemberChooser.sorted" value="false" />
     <property name="options.lastSelected" value="preferences.keymap" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/core/test/unit" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../spring/spring-petclinic/target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/lib" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="MemberChooser.copyJavadoc" value="false" />
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
@@ -377,18 +383,18 @@
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
     <property name="dynamic.classpath" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/examples/src/com/structurizr/example/annotations/StructurizrAnnotationsExample.java&#10;SC&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/src/com/structurizr/api/StructurizrClient.java&#10;Model&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/model/ModelTests.java&#10;Fin&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/example/FinancialRiskSystem.java&#10;Spring&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/spring/test/com/structurizr/example/SpringPetClinic.java&#10;Finan&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/example/FinancialRiskSystem.java&#10;build.&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/build.xml&#10;tech&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/example/TechTribes.java&#10;Rel&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/src/com/structurizr/model/Relationship.java&#10;SpringPet&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/spring/test/com/structurizr/example/SpringPetClinic.java" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/examples/src/com/structurizr/example/spring/petclinic/SpringPetClinic.java&#10;SC&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/src/com/structurizr/api/StructurizrClient.java&#10;Model&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/model/ModelTests.java&#10;Fin&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/example/FinancialRiskSystem.java&#10;Spring&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/spring/test/com/structurizr/example/SpringPetClinic.java&#10;Finan&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/example/FinancialRiskSystem.java&#10;build.&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/build.xml&#10;tech&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/test/unit/com/structurizr/example/TechTribes.java&#10;Rel&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/core/src/com/structurizr/model/Relationship.java&#10;SpringPet&#9;FILE&#9;file:///Users/simon/Documents/sandbox/structurizr-public/java/spring/test/com/structurizr/example/SpringPetClinic.java" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="LayoutCode.rearrangeEntriesJava" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.structurizr.example.spring.mvc" />
       <recent name="com.structurizr.example" />
       <recent name="com.structurizr.io" />
       <recent name="com.structurizr.annotation" />
       <recent name="com.structurizr" />
-      <recent name="com.structurizr.element" />
     </key>
     <key name="CreateClassDialog.RecentsKey">
       <recent name="com.structurizr.api" />
@@ -407,7 +413,7 @@
       <recent name="com.structurizr.componentfinder" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.Unit tests - core">
+  <component name="RunManager" selected="Application.Example - techtribes.je context and containers">
     <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
       <module name="" />
       <setting name="vmparams" value="" />
@@ -646,14 +652,14 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <configuration default="false" name="Example - Spring PetClinic" type="Application" factoryName="Application">
+    <configuration default="false" name="Example - Spring MVC" type="Application" factoryName="Application">
       <extension name="coverage" enabled="false" merge="false" runner="idea">
         <pattern>
-          <option name="PATTERN" value="com.structurizr.annotation.example.*" />
+          <option name="PATTERN" value="com.structurizr.example.spring.mvc.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="MAIN_CLASS_NAME" value="com.structurizr.example.spring.SpringPetClinic" />
+      <option name="MAIN_CLASS_NAME" value="com.structurizr.example.spring.mvc.SpringMvc" />
       <option name="VM_PARAMETERS" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
@@ -744,7 +750,7 @@
       <item index="0" class="java.lang.String" itemvalue="Application.Example - Structurizr API client" />
       <item index="1" class="java.lang.String" itemvalue="Application.Example - Structurizr Annotations" />
       <item index="2" class="java.lang.String" itemvalue="Application.Example - Financial Risk System" />
-      <item index="3" class="java.lang.String" itemvalue="Application.Example - Spring PetClinic" />
+      <item index="3" class="java.lang.String" itemvalue="Application.Example - Spring MVC" />
       <item index="4" class="java.lang.String" itemvalue="Application.Example - techtribes.je context and containers" />
       <item index="5" class="java.lang.String" itemvalue="JUnit.Unit tests - core" />
       <item index="6" class="java.lang.String" itemvalue="JUnit.Unit tests - api" />
@@ -788,19 +794,18 @@
       <workItem from="1422622001544" duration="9298000" />
       <workItem from="1422647697711" duration="6283000" />
       <workItem from="1422716874433" duration="1128000" />
-      <workItem from="1422790584319" duration="2691000" />
+      <workItem from="1422790584319" duration="5411000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="83633000" />
+    <option name="totallyTimeSpent" value="86353000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="38" y="23" width="1242" height="777" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -817,15 +822,19 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29583332" sideWeight="0.5316623" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.78978103" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29583332" sideWeight="0.5316623" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5357664" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3299748" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32846716" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.sh" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -854,34 +863,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Component.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.60655737" vertical-offset="223" max-vertical-offset="930">
-          <caret line="60" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Relationship.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46348733" vertical-offset="259" max-vertical-offset="1380">
-          <caret line="44" column="4" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/model/Element.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34210527" vertical-offset="111" max-vertical-offset="795">
-          <caret line="31" column="18" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/SystemContextView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.21929824" vertical-offset="0" max-vertical-offset="684">
-          <caret line="10" column="41" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/core/src/com/structurizr/view/ElementView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.59210527" vertical-offset="0" max-vertical-offset="810">
@@ -1069,14 +1050,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/examples/src/com/structurizr/example/spring/SpringPetClinic.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.709389" vertical-offset="274" max-vertical-offset="945">
-          <caret line="60" column="51" selection-start-line="50" selection-start-column="51" selection-end-line="50" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/examples/src/com/structurizr/example/core/TechTribesContainers.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.31296572" vertical-offset="0" max-vertical-offset="1290">
@@ -1213,8 +1186,72 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/setenv.sh">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="100">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.065789476" vertical-offset="0" max-vertical-offset="684">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/SomeRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0877193" vertical-offset="0" max-vertical-offset="684">
+          <caret line="4" column="27" selection-start-line="4" selection-start-column="27" selection-end-line="4" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/JdbcSomeRepository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.19736843" vertical-offset="0" max-vertical-offset="684">
+          <caret line="9" column="25" selection-start-line="9" selection-start-column="25" selection-end-line="9" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/SomeServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32894737" vertical-offset="0" max-vertical-offset="684">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/SomeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24122807" vertical-offset="0" max-vertical-offset="684">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/SomeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.04385965" vertical-offset="0" max-vertical-offset="684">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/src/com/structurizr/example/spring/mvc/SpringMvc.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31296572" vertical-offset="240" max-vertical-offset="975">
+          <caret line="40" column="33" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/src/com/structurizr/example/spring/petclinic/SpringPetClinic.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6706408" vertical-offset="0" max-vertical-offset="1005">
+          <caret line="40" column="41" selection-start-line="30" selection-start-column="41" selection-end-line="30" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/springpetclinic.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.065789476" vertical-offset="0" max-vertical-offset="684">
+          <caret line="3" column="98" selection-start-line="3" selection-start-column="98" selection-end-line="3" selection-end-column="98" />
           <folding />
         </state>
       </provider>
@@ -1272,7 +1309,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>examples</last-edited>
+          <last-edited>spring</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1296,7 +1333,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>client</last-edited>
+          <last-edited>test</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

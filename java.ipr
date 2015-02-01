@@ -271,23 +271,6 @@
       <SOURCES />
       <jarDirectory url="file://$PROJECT_DIR$/spring/lib" recursive="false" />
     </library>
-    <library name="Spring Petclinic">
-      <CLASSES>
-        <root url="file://$PROJECT_DIR$/../../spring/spring-petclinic/target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/lib" />
-        <root url="file://$PROJECT_DIR$/../../spring/spring-petclinic/target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/classes" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-      <jarDirectory url="file://$PROJECT_DIR$/../../spring/spring-petclinic/target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/lib" recursive="false" />
-    </library>
-    <library name="techtribesje">
-      <CLASSES>
-        <root url="file://$PROJECT_DIR$/../../techtribesje/build/techtribes-updater/production-classes" />
-        <root url="file://$PROJECT_DIR$/../../techtribesje/build/techtribes-core/production-classes" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
-    </library>
     <library name="test">
       <CLASSES>
         <root url="file://$PROJECT_DIR$/lib/test" />

@@ -11,6 +11,7 @@
     <orderEntry type="module" module-name="client" />
     <orderEntry type="module" module-name="core" />
     <orderEntry type="module" module-name="spring" />
+    <orderEntry type="library" name="spring" level="project" />
   </component>
 </module>
 

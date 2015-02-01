@@ -1,4 +1,4 @@
-package com.structurizr.example.spring;
+package com.structurizr.example.spring.mvc;
 
 import com.structurizr.Workspace;
 import com.structurizr.componentfinder.ComponentFinder;
@@ -13,26 +13,28 @@ import com.structurizr.view.ViewSet;
 import java.io.StringWriter;
 
 /**
- * This is a C4 representation of the Spring PetClinic sample app (https://github.com/spring-projects/spring-petclinic/).
+ * A simple Spring MVC example.
  */
-public class SpringPetClinic {
+public class SpringMvc {
 
     public static void main(String[] args) throws Exception {
-        Workspace workspace = new Workspace("Spring PetClinic", "This is a C4 representation of the Spring PetClinic sample app (https://github.com/spring-projects/spring-petclinic/)");
+        Workspace workspace = new Workspace("Spring MVC app", "This is a C4 representation of a simple Spring MVC web application");
         Model model = workspace.getModel();
 
         // create the basic model (the stuff we can't get from the code)
-        SoftwareSystem springPetClinic = model.addSoftwareSystem(Location.Internal, "Spring PetClinic", "");
+        SoftwareSystem springPetClinic = model.addSoftwareSystem(Location.Internal, "My Spring MVC webapp", "");
         Person user = model.addPerson(Location.External, "User", "");
         user.uses(springPetClinic, "Uses");
 
         Container webApplication = springPetClinic.addContainer("Web Application", "", "Apache Tomcat 7.x");
-        Container relationalDatabase = springPetClinic.addContainer("Relational Database", "", "HSQLDB");
+        Container relationalDatabase = springPetClinic.addContainer("Relational Database", "", "MySQL");
         user.uses(webApplication, "Uses");
         webApplication.uses(relationalDatabase, "Reads from and writes to");
 
         // and now automatically find all Spring @Controller, @Component, @Service and @Repository components
-        ComponentFinder componentFinder = new ComponentFinder(webApplication, "org.springframework.samples.petclinic",
+        ComponentFinder componentFinder = new ComponentFinder(
+                webApplication,
+                SpringMvc.class.getPackage().getName(),
                 new SpringComponentFinderStrategy());
         componentFinder.findComponents();
 
