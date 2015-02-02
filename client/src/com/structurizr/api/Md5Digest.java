@@ -2,7 +2,6 @@ package com.structurizr.api;
 
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
-import java.util.Base64;
 
 public class Md5Digest {
 
