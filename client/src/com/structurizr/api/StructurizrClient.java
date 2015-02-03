@@ -3,6 +3,9 @@ package com.structurizr.api;
 import com.structurizr.Workspace;
 import com.structurizr.io.json.JsonReader;
 import com.structurizr.io.json.JsonWriter;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.http.Header;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -14,20 +17,45 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
+import java.util.Properties;
 
 public class StructurizrClient {
 
+    private static final Log log = LogFactory.getLog(StructurizrClient.class);
     private static final String GMT_TIME_ZONE = "GMT";
+
+    public static final String STRUCTURIZR_API_URL = "structurizr.api.url";
+    public static final String STRUCTURIZR_API_KEY = "structurizr.api.key";
+    public static final String STRUCTURIZR_API_SECRET = "structurizr.api.secret";
 
     private String url;
     private String apiKey;
     private String apiSecret;
+
+    public StructurizrClient() {
+        try {
+            Properties properties = new Properties();
+            InputStream in = StructurizrClient.class.getClassLoader().getResourceAsStream("structurizr.properties");
+            if (in != null) {
+                properties.load(in);
+                this.url = properties.getProperty(STRUCTURIZR_API_URL);
+                this.apiKey = properties.getProperty(STRUCTURIZR_API_KEY);
+                this.apiSecret = properties.getProperty(STRUCTURIZR_API_SECRET);
+                in.close();
+            }
+        } catch (Exception e) {
+            log.error(e);
+        }
+    }
 
     public StructurizrClient(String url, String apiKey, String apiSecret) {
         this.url = url;
@@ -39,8 +67,11 @@ public class StructurizrClient {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url + "/workspace/" + workspaceId);
         addHeaders(httpGet, "", "");
+        debugRequest(httpGet);
 
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+            debugResponse(response);
+
             String json = EntityUtils.toString(response.getEntity());
             if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                 return new JsonReader().read(new StringReader(json));
@@ -51,7 +82,7 @@ public class StructurizrClient {
         }
     }
 
-    public void updateWorkspace(Workspace workspace) throws Exception {
+    public void putWorkspace(Workspace workspace) throws Exception {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPut httpPut = new HttpPut(url + "/workspace/" + workspace.getId());
 
@@ -62,16 +93,23 @@ public class StructurizrClient {
         StringEntity stringEntity = new StringEntity(stringWriter.toString(), ContentType.APPLICATION_JSON);
         httpPut.setEntity(stringEntity);
         addHeaders(httpPut, EntityUtils.toString(stringEntity), ContentType.APPLICATION_JSON.toString());
+        debugRequest(httpPut);
 
         try (CloseableHttpResponse response = httpClient.execute(httpPut)) {
-            debugResponse(httpPut, response);
+            debugResponse(response);
         }
     }
 
-    private void debugResponse(HttpRequestBase httpRequest, CloseableHttpResponse response) {
-        System.out.println("---");
-        System.out.println(httpRequest.getMethod() + " " + httpRequest.getURI().getPath());
-        System.out.println(response.getStatusLine());
+    private void debugRequest(HttpRequestBase httpRequest) {
+        log.debug(httpRequest.getMethod() + " " + httpRequest.getURI().getPath());
+        Header[] headers = httpRequest.getAllHeaders();
+        for (Header header : headers) {
+            log.debug(header.getName() + ": " + header.getValue());
+        }
+    }
+
+    private void debugResponse(CloseableHttpResponse response) {
+        log.info(response.getStatusLine());
     }
 
     private void addHeaders(HttpRequestBase httpRequest, String content, String contentType) throws Exception {
