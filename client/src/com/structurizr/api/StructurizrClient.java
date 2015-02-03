@@ -20,8 +20,6 @@ import org.apache.http.util.EntityUtils;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
