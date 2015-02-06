@@ -6,4 +6,6 @@ public interface IdGenerator {
 
     String generateId(Relationship relationship);
 
+    void found(String id);
+
 }

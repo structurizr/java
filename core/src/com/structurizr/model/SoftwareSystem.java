@@ -9,9 +9,23 @@ import java.util.Set;
  */
 public class SoftwareSystem extends Element {
 
+    private Location location = Location.Unspecified;
+
     private Set<Container> containers = new HashSet<>();
 
     SoftwareSystem() {
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        if (location != null) {
+            this.location = location;
+        } else {
+            this.location = Location.Unspecified;
+        }
     }
 
     void add(Container container) {
@@ -71,6 +85,17 @@ public class SoftwareSystem extends Element {
      * @param description   a description of the relationship (e.g. "uses", "gets data from", "sends data to")
      */
     public void uses(SoftwareSystem destination, String description) {
+        getModel().addRelationship(new Relationship(this, destination, description));
+    }
+
+    /**
+     * Adds a unidirectional "uses" style relationship between this software system
+     * and a container.
+     *
+     * @param destination   the target of the relationship
+     * @param description   a description of the relationship (e.g. "uses", "gets data from", "sends data to")
+     */
+    public void uses(Container destination, String description) {
         getModel().addRelationship(new Relationship(this, destination, description));
     }
 

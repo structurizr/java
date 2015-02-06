@@ -8,7 +8,7 @@ public class RelationshipView {
     private Relationship relationship;
     private String id;
 
-    public RelationshipView() {
+    RelationshipView() {
     }
 
     public RelationshipView(Relationship relationship) {
@@ -28,7 +28,7 @@ public class RelationshipView {
         }
     }
 
-    public void setId(String id) {
+    void setId(String id) {
         this.id = id;
     }
 

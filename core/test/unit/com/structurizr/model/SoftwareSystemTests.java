@@ -1,14 +1,14 @@
 package com.structurizr.model;
 
+import com.structurizr.AbstractWorkspaceTestBase;
 import org.junit.Test;
 
 import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
-public class SoftwareSystemTests {
+public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
 
-    private Model model = new Model("Name", "Description");
     private SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "Name", "Description");
 
     @Test

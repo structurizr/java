@@ -2,12 +2,10 @@ package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.structurizr.model.Element;
-import com.structurizr.model.Model;
-import com.structurizr.model.Relationship;
-import com.structurizr.model.SoftwareSystem;
+import com.structurizr.model.*;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -18,9 +16,9 @@ public abstract class View implements Comparable<View> {
     private String softwareSystemId;
     private String description = "";
 
-    private Set<ElementView> elementViews = new HashSet<>();
+    private Set<ElementView> elementViews = new LinkedHashSet<>();
 
-    protected View() {
+    View() {
     }
 
     public View(SoftwareSystem softwareSystem) {
@@ -49,12 +47,49 @@ public abstract class View implements Comparable<View> {
         }
     }
 
-    public void setSoftwareSystemId(String softwareSystemId) {
+    void setSoftwareSystemId(String softwareSystemId) {
         this.softwareSystemId = softwareSystemId;
     }
 
-    public void add(SoftwareSystem softwareSystem) {
+    public abstract ViewType getType();
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Adds all software systems in the model to this view.
+     */
+    public void addAllSoftwareSystems() {
+        getModel().getSoftwareSystems().forEach(this::addElement);
+    }
+
+    /**
+     * Adds the given software system to this view.
+     *
+     * @param softwareSystem        the SoftwareSystem to add
+     */
+    public void addSoftwareSystem(SoftwareSystem softwareSystem) {
         addElement(softwareSystem);
+    }
+
+    /**
+     * Adds all software systems in the model to this view.
+     */
+    public void addAllPeople() {
+        getModel().getPeople().forEach(this::addElement);
+    }
+    /**
+     * Adds the given person to this view.
+     *
+     * @param person        the Person to add
+     */
+    public void addPerson(Person person) {
+        addElement(person);
     }
 
     protected void addElement(Element element) {
@@ -68,6 +103,11 @@ public abstract class View implements Comparable<View> {
         elementViews.remove(elementView);
     }
 
+    /**
+     * Gets the set of elements in this view.
+     *
+     * @return  a Set of ElementView objects
+     */
     public Set<ElementView> getElements() {
         return elementViews;
     }
@@ -87,19 +127,13 @@ public abstract class View implements Comparable<View> {
     }
 
     public void setRelationships(Set<RelationshipView> relationships) {
-        // do nothing
+        // do nothing ... this are determined automatically
     }
 
-    public abstract ViewType getType();
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
+    /**
+     * Removes all elements that have no relationships
+     * to other elements in this view.
+     */
     public void removeElementsWithNoRelationships() {
         Set<RelationshipView> relationships = getRelationships();
 

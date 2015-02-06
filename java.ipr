@@ -226,10 +226,19 @@
       </item>
     </group>
   </component>
+  <component name="ProjectDictionaryState">
+    <dictionary name="simon">
+      <words>
+        <w>structurizr</w>
+      </words>
+    </dictionary>
+  </component>
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/annotations/annotations.iml" filepath="$PROJECT_DIR$/annotations/annotations.iml" />
+      <module fileurl="file://$PROJECT_DIR$/client/client.iml" filepath="$PROJECT_DIR$/client/client.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/examples/examples.iml" filepath="$PROJECT_DIR$/examples/examples.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring/spring.iml" filepath="$PROJECT_DIR$/spring/spring.iml" />
     </modules>
   </component>
@@ -241,38 +250,41 @@
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
   </component>
   <component name="libraryTable">
-    <library name="runtime">
+    <library name="client">
       <CLASSES>
-        <root url="file://$PROJECT_DIR$/lib/runtime" />
+        <root url="file://$PROJECT_DIR$/client/lib" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
-      <jarDirectory url="file://$PROJECT_DIR$/lib/runtime" recursive="false" />
+      <jarDirectory url="file://$PROJECT_DIR$/api/lib" recursive="false" />
+      <jarDirectory url="file://$PROJECT_DIR$/client/lib" recursive="false" />
+    </library>
+    <library name="core">
+      <CLASSES>
+        <root url="file://$PROJECT_DIR$/core/lib" />
+      </CLASSES>
+      <JAVADOC />
+      <SOURCES>
+        <root url="file://$PROJECT_DIR$/core/lib" />
+      </SOURCES>
+      <jarDirectory url="file://$PROJECT_DIR$/core/lib" recursive="false" />
+      <jarDirectory url="file://$PROJECT_DIR$/core/lib" recursive="false" type="SOURCES" />
     </library>
     <library name="spring">
       <CLASSES>
-        <root url="file://$PROJECT_DIR$/lib/spring" />
+        <root url="file://$PROJECT_DIR$/spring/lib" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
-      <jarDirectory url="file://$PROJECT_DIR$/lib/spring" recursive="false" />
+      <jarDirectory url="file://$PROJECT_DIR$/spring/lib" recursive="false" />
     </library>
-    <library name="Spring Petclinic">
+    <library name="test">
       <CLASSES>
-        <root url="file://$PROJECT_DIR$/../../spring/spring-petclinic/target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/lib" />
-        <root url="file://$PROJECT_DIR$/../../spring/spring-petclinic/target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/classes" />
+        <root url="file://$PROJECT_DIR$/lib/test" />
       </CLASSES>
       <JAVADOC />
       <SOURCES />
-      <jarDirectory url="file://$PROJECT_DIR$/../../spring/spring-petclinic/target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/lib" recursive="false" />
-    </library>
-    <library name="techtribesje">
-      <CLASSES>
-        <root url="file://$PROJECT_DIR$/../../techtribesje/build/techtribes-updater/production-classes" />
-        <root url="file://$PROJECT_DIR$/../../techtribesje/build/techtribes-core/production-classes" />
-      </CLASSES>
-      <JAVADOC />
-      <SOURCES />
+      <jarDirectory url="file://$PROJECT_DIR$/lib/test" recursive="false" />
     </library>
   </component>
 </project>

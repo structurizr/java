@@ -1,11 +1,11 @@
 package com.structurizr.io;
 
-import com.structurizr.view.ViewSet;
+import com.structurizr.Workspace;
 
 import java.io.Reader;
 
 public interface StructurizrReader {
 
-    ViewSet read(Reader reader) throws StructurizrReaderException;
+    Workspace read(Reader reader) throws StructurizrReaderException;
 
 }

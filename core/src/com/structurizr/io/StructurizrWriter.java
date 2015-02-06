@@ -1,11 +1,11 @@
 package com.structurizr.io;
 
-import com.structurizr.view.ViewSet;
+import com.structurizr.Workspace;
 
 import java.io.Writer;
 
 public interface StructurizrWriter {
 
-    void write(ViewSet viewSet, Writer writer) throws StructurizrWriterException;
+    void write(Workspace workspace, Writer writer) throws StructurizrWriterException;
 
 }

@@ -8,47 +8,15 @@ import java.util.*;
  */
 public class Model {
 
-    private IdGenerator idGenerator = new SequentialIntegerIdGeneratorStrategy();
+    private SequentialIntegerIdGeneratorStrategy idGenerator = new SequentialIntegerIdGeneratorStrategy();
 
     private final Map<String,Element> elementsById = new HashMap<>();
+    private final Map<String,Relationship> relationshipsById = new HashMap<>();
 
-    private Set<Person> people = new HashSet<>();
-    private Set<SoftwareSystem> softwareSystems = new HashSet<>();
+    private Set<Person> people = new LinkedHashSet<>();
+    private Set<SoftwareSystem> softwareSystems = new LinkedHashSet<>();
 
-    private long id;
-    private String name;
-    private String description;
-
-    Model() {
-    }
-
-    public Model(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    public long getId() {
-        return this.id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public Model() {
     }
 
     /**
@@ -157,6 +125,12 @@ public class Model {
     private void addElement(Element element) {
         elementsById.put(element.getId(), element);
         element.setModel(this);
+        idGenerator.found(element.getId());
+    }
+
+    private void addRelationshipX(Relationship relationship) {
+        relationshipsById.put(relationship.getId(), relationship);
+        idGenerator.found(relationship.getId());
     }
 
     /**
@@ -171,14 +145,14 @@ public class Model {
      * Gets a collection containing all of the Person instances in this model.
      */
     public Collection<Person> getPeople() {
-        return new HashSet<>(people);
+        return new LinkedHashSet<>(people);
     }
 
     /**
      * Gets a collection containing all of the SoftwareSystem instances in this model.
      */
     public Set<SoftwareSystem> getSoftwareSystems() {
-        return new HashSet<>(softwareSystems);
+        return new LinkedHashSet<>(softwareSystems);
     }
 
     public void hydrate() {
@@ -215,6 +189,7 @@ public class Model {
         for (Relationship relationship : element.getRelationships()) {
             relationship.setSource(getElement(relationship.getSourceId()));
             relationship.setDestination(getElement(relationship.getDestinationId()));
+            addRelationshipX(relationship);
         }
     }
 

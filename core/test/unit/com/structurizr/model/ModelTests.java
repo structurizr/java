@@ -1,19 +1,11 @@
 package com.structurizr.model;
 
+import com.structurizr.AbstractWorkspaceTestBase;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class ModelTests {
-
-    private Model model = new Model("Name", "Description");
-
-    @Test
-    public void test_modelConstruction() {
-        model = new Model("Model name", "Model description");
-        assertEquals("Model name", model.getName());
-        assertEquals("Model description", model.getDescription());
-    }
+public class ModelTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addSoftwareSystem_AddsTheSoftwareSystem_WhenASoftwareSystemDoesNotExistWithTheSameName() {
@@ -74,7 +66,7 @@ public class ModelTests {
 
     @Test
     public void test_contains_ReturnsFalse_WhenTheSpecifiedElementIsNotInTheModel() {
-        Model newModel = new Model("Name", "Description");
+        Model newModel = new Model();
         SoftwareSystem softwareSystem = newModel.addSoftwareSystem(Location.Unspecified, "Name", "Description");
         assertFalse(model.contains(softwareSystem));
     }

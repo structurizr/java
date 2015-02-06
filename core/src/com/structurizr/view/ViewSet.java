@@ -19,7 +19,7 @@ public class ViewSet {
     private Collection<ContainerView> containerViews = new LinkedList<>();
     private Collection<ComponentView> componentViews = new LinkedList<>();
 
-    public ViewSet() {
+    ViewSet() {
     }
 
     public ViewSet(Model model) {
