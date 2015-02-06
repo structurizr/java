@@ -12,6 +12,15 @@
     <orderEntry type="module" module-name="core" />
     <orderEntry type="module" module-name="spring" />
     <orderEntry type="library" name="spring" level="project" />
+    <orderEntry type="module-library" scope="RUNTIME">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/etc" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
 

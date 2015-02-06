@@ -8,9 +8,10 @@ import java.util.*;
  */
 public class Model {
 
-    private IdGenerator idGenerator = new SequentialIntegerIdGeneratorStrategy();
+    private SequentialIntegerIdGeneratorStrategy idGenerator = new SequentialIntegerIdGeneratorStrategy();
 
     private final Map<String,Element> elementsById = new HashMap<>();
+    private final Map<String,Relationship> relationshipsById = new HashMap<>();
 
     private Set<Person> people = new LinkedHashSet<>();
     private Set<SoftwareSystem> softwareSystems = new LinkedHashSet<>();
@@ -124,6 +125,12 @@ public class Model {
     private void addElement(Element element) {
         elementsById.put(element.getId(), element);
         element.setModel(this);
+        idGenerator.found(element.getId());
+    }
+
+    private void addRelationshipX(Relationship relationship) {
+        relationshipsById.put(relationship.getId(), relationship);
+        idGenerator.found(relationship.getId());
     }
 
     /**
@@ -182,6 +189,7 @@ public class Model {
         for (Relationship relationship : element.getRelationships()) {
             relationship.setSource(getElement(relationship.getSourceId()));
             relationship.setDestination(getElement(relationship.getDestinationId()));
+            addRelationshipX(relationship);
         }
     }
 

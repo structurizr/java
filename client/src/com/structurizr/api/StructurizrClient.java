@@ -17,6 +17,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -39,6 +40,13 @@ public class StructurizrClient {
     private String apiKey;
     private String apiSecret;
 
+    /**
+     * Creates a new Structurizr client based upon configuration in a structurizr.properties file
+     * on the classpath with the following name-value pairs:
+     *  - structurizr.api.url
+     *  - structurizr.api.key
+     *  - structurizr.api.secret
+     */
     public StructurizrClient() {
         try {
             Properties properties = new Properties();
@@ -55,6 +63,9 @@ public class StructurizrClient {
         }
     }
 
+    /**
+     * Creates a new Structurizr client with the specified API URL, key and secret.
+     */
     public StructurizrClient(String url, String apiKey, String apiSecret) {
         this.url = url;
         this.apiKey = apiKey;
@@ -95,6 +106,7 @@ public class StructurizrClient {
 
         try (CloseableHttpResponse response = httpClient.execute(httpPut)) {
             debugResponse(response);
+            log.info(EntityUtils.toString(response.getEntity()));
         }
     }
 
