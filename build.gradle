@@ -2,18 +2,6 @@ description = 'Structurizr'
 group = 'com.structurizr'
 version = '0.0.1'
 
-ext {
-    springVersion = '4.0.7.RELEASE'
-    hibernateVersion = '4.3.1.Final'
-    hibernateValidatorVersion = '5.0.3.Final'
-    cpVersion = '3.1.143'
-    springBootVersion = '1.1.8.RELEASE'
-    springSecurityVersion = '3.2.5.RELEASE'
-    springDataCommonsVersion = '1.8.4.RELEASE'
-    springDataJpaVersion = '1.6.4.RELEASE'
-    guavaVersion = '16.0.1'
-}
-
 task wrapper(type: Wrapper) {
     gradleVersion = '2.1'
 }
@@ -25,8 +13,6 @@ subprojects { proj ->
 
     repositories {
         mavenCentral()
-        maven { url "http://repo.spring.io/milestone" }
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots' }
     }
 
     sourceSets {

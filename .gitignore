@@ -2,13 +2,14 @@
 
 **/*.ipr
 **/*.iws
+**/*.iml
 
 .idea/*
-!.idea/vcs.xml
-!.idea/modules.xml
-!.idea/encodings.xml
-!.idea/codeStyleSettings.xml
-!.idea/runConfigurations/
+# !.idea/vcs.xml
+# !.idea/modules.xml
+# !.idea/encodings.xml
+# !.idea/codeStyleSettings.xml
+# !.idea/runConfigurations/
 
 build
 out
