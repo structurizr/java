@@ -1,3 +1,15 @@
+**/.gradle
+
+**/*.ipr
+**/*.iws
+
+.idea/*
+!.idea/vcs.xml
+!.idea/modules.xml
+!.idea/encodings.xml
+!.idea/codeStyleSettings.xml
+!.idea/runConfigurations/
+
 build
 out
 
