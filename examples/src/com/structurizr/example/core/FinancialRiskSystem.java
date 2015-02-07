@@ -1,18 +1,14 @@
 package com.structurizr.example.core;
 
 import com.structurizr.Workspace;
-import com.structurizr.api.StructurizrClient;
-import com.structurizr.io.json.JsonReader;
 import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.Location;
 import com.structurizr.model.Model;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
-import com.structurizr.view.ElementStyle;
 import com.structurizr.view.SystemContextView;
 import com.structurizr.view.ViewSet;
 
-import java.io.StringReader;
 import java.io.StringWriter;
 
 /**
@@ -27,7 +23,6 @@ public class FinancialRiskSystem {
 
         // create the basic model
         SoftwareSystem financialRiskSystem = model.addSoftwareSystem(Location.Internal, "Financial Risk System", "Calculates the bank's exposure to risk for product X");
-        financialRiskSystem.addTags("systemUnderConstruction");
 
         Person businessUser = model.addPerson(Location.Internal, "Business User", "A regular business user");
         businessUser.uses(financialRiskSystem, "Views reports");
@@ -57,23 +52,11 @@ public class FinancialRiskSystem {
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
-        viewSet.getStyles().add(new ElementStyle("systemUnderConstruction", null, null, "#041F37", "white"));
-        viewSet.getStyles().add(new ElementStyle("softwareSystem", null, null, "#2A4E6E", "white"));
-        viewSet.getStyles().add(new ElementStyle("person", null, null, "#728da5", "white"));
-
         // and output the model as JSON
         JsonWriter jsonWriter = new JsonWriter(true);
         StringWriter stringWriter = new StringWriter();
         jsonWriter.write(workspace, stringWriter);
         System.out.println(stringWriter.toString());
-
-//        JsonReader jsonReader = new JsonReader();
-//        StringReader stringReader = new StringReader(stringWriter.toString());
-//        Workspace newWorkspace = jsonReader.read(stringReader);
-
-        StructurizrClient structurizrClient = new StructurizrClient("http://localhost:9090", "eab0b844-3e63-4961-b04e-c5a0b48411b6", "f9b7a3fe-1f39-4956-84ee-a5651cb1160b");
-        workspace.setId(1);
-        structurizrClient.putWorkspace(workspace);
     }
 
 }

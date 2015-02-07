@@ -151,7 +151,7 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_getTags_IncludesSoftwareSystemByDefault() {
         SoftwareSystem system = model.addSoftwareSystem(Location.Internal, "System", "Description");
-        assertEquals("softwareSystem", system.getTags());
+        assertEquals(Tags.SOFTWARE_SYSTEM, system.getTags());
     }
 
 }

@@ -2,10 +2,8 @@ package com.structurizr.example.client;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.model.Location;
-import com.structurizr.model.Model;
-import com.structurizr.model.Person;
-import com.structurizr.model.SoftwareSystem;
+import com.structurizr.model.*;
+import com.structurizr.view.ElementStyle;
 import com.structurizr.view.SystemContextView;
 import com.structurizr.view.ViewSet;
 
@@ -15,7 +13,7 @@ import com.structurizr.view.ViewSet;
 public class FinancialRiskSystem {
 
     public static void main(String[] args) throws Exception {
-        Workspace workspace = new Workspace("SA4D - Financial Risk System", "This is a simple (incomplete) example C4 model based upon the financial risk system architecture kata, which can be found at http://bit.ly/sa4d-risksystem");
+        Workspace workspace = new Workspace("Financial Risk System", "This is a simple (incomplete) example C4 model based upon the financial risk system architecture kata, which can be found at http://bit.ly/sa4d-risksystem");
         Model model = workspace.getModel();
 
         // create the basic model
@@ -48,6 +46,12 @@ public class FinancialRiskSystem {
         SystemContextView contextView = viewSet.createContextView(financialRiskSystem);
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
+
+        // tag and style some elements
+        financialRiskSystem.addTags("System Under Construction");
+        viewSet.getStyles().add(new ElementStyle("System Under Construction", null, null, "#041F37", "white"));
+        viewSet.getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#2A4E6E", "white"));
+        viewSet.getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#728da5", "white"));
 
         // and upload the model to structurizr.com
         StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");

@@ -1,10 +1,10 @@
 package com.structurizr.model;
 
-class Tags {
+public class Tags {
 
-    static final String PERSON = "person";
-    static final String SOFTWARE_SYSTEM = "softwareSystem";
-    static final String CONTAINER = "container";
-    static final String COMPONENT = "component";
+    public static final String PERSON = "Person";
+    public static final String SOFTWARE_SYSTEM = "Software System";
+    public static final String CONTAINER = "Container";
+    public static final String COMPONENT = "Component";
 
 }

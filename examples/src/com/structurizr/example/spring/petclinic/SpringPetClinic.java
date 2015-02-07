@@ -5,10 +5,7 @@ import com.structurizr.componentfinder.ComponentFinder;
 import com.structurizr.componentfinder.SpringComponentFinderStrategy;
 import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
-import com.structurizr.view.ComponentView;
-import com.structurizr.view.ContainerView;
-import com.structurizr.view.SystemContextView;
-import com.structurizr.view.ViewSet;
+import com.structurizr.view.*;
 
 import java.io.StringWriter;
 
@@ -61,6 +58,21 @@ public class SpringPetClinic {
         componentView.addAllComponents();
         componentView.addAllPeople();
         componentView.add(relationalDatabase);
+
+        // tag and style some elements
+        springPetClinic.addTags("Spring PetClinic");
+        webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Controller")).forEach(c -> c.addTags("Spring Controller"));
+        webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Service")).forEach(c -> c.addTags("Spring Service"));
+        webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Repository")).forEach(c -> c.addTags("Spring Repository"));
+
+        viewSet.getStyles().add(new ElementStyle("Spring PetClinic", null, null, "#6CB33E", "white"));
+        viewSet.getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#35760A", "white"));
+        viewSet.getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#519823", "white"));
+        viewSet.getStyles().add(new ElementStyle(Tags.CONTAINER, null, null, "#91D366", "white"));
+        viewSet.getStyles().add(new ElementStyle(Tags.COMPONENT, null, null, "#6CB33E", "black"));
+        viewSet.getStyles().add(new ElementStyle("Spring Controller", null, null, "#D4F3C0", "black"));
+        viewSet.getStyles().add(new ElementStyle("Spring Service", null, null, "#6CB33E", "black"));
+        viewSet.getStyles().add(new ElementStyle("Spring Repository", null, null, "#95D46C", "black"));
 
         JsonWriter jsonWriter = new JsonWriter(true);
         StringWriter stringWriter = new StringWriter();
