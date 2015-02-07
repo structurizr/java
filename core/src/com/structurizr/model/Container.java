@@ -13,6 +13,10 @@ public class Container extends Element {
 
     private Set<Component> components = new HashSet<>();
 
+    Container() {
+        addTags(Tags.CONTAINER);
+    }
+
     @JsonIgnore
     public SoftwareSystem getParent() {
         return parent;

@@ -37,7 +37,7 @@ public class Model {
             softwareSystem.setId(idGenerator.generateId(softwareSystem));
 
             softwareSystems.add(softwareSystem);
-            addElement(softwareSystem);
+            addElementToInternalStructures(softwareSystem);
 
             return softwareSystem;
         } else {
@@ -63,7 +63,7 @@ public class Model {
             person.setId(idGenerator.generateId(person));
 
             people.add(person);
-            addElement(person);
+            addElementToInternalStructures(person);
 
             return person;
         } else {
@@ -81,7 +81,7 @@ public class Model {
 
             parent.add(container);
             container.setParent(parent);
-            addElement(container);
+            addElementToInternalStructures(container);
 
             return container;
         } else {
@@ -98,7 +98,7 @@ public class Model {
 
         parent.add(component);
         component.setParent(parent);
-        addElement(component);
+        addElementToInternalStructures(component);
 
         return component;
     }
@@ -110,7 +110,7 @@ public class Model {
 
         parent.add(component);
         component.setParent(parent);
-        addElement(component);
+        addElementToInternalStructures(component);
 
         return component;
     }
@@ -122,13 +122,13 @@ public class Model {
         }
     }
 
-    private void addElement(Element element) {
+    private void addElementToInternalStructures(Element element) {
         elementsById.put(element.getId(), element);
         element.setModel(this);
         idGenerator.found(element.getId());
     }
 
-    private void addRelationshipX(Relationship relationship) {
+    private void addRelationshipToInternalStructures(Relationship relationship) {
         relationshipsById.put(relationship.getId(), relationship);
         idGenerator.found(relationship.getId());
     }
@@ -157,16 +157,16 @@ public class Model {
 
     public void hydrate() {
         // add all of the elements to the model
-        people.forEach(this::addElement);
+        people.forEach(this::addElementToInternalStructures);
         for (SoftwareSystem softwareSystem : softwareSystems) {
-            addElement(softwareSystem);
+            addElementToInternalStructures(softwareSystem);
             for (Container container : softwareSystem.getContainers()) {
                 softwareSystem.add(container);
-                addElement(container);
+                addElementToInternalStructures(container);
                 container.setParent(softwareSystem);
                 for (Component component : container.getComponents()) {
                     container.add(component);
-                    addElement(component);
+                    addElementToInternalStructures(component);
                     component.setParent(container);
                 }
             }
@@ -189,7 +189,7 @@ public class Model {
         for (Relationship relationship : element.getRelationships()) {
             relationship.setSource(getElement(relationship.getSourceId()));
             relationship.setDestination(getElement(relationship.getDestinationId()));
-            addRelationshipX(relationship);
+            addRelationshipToInternalStructures(relationship);
         }
     }
 

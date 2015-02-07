@@ -14,6 +14,7 @@ public class SoftwareSystem extends Element {
     private Set<Container> containers = new HashSet<>();
 
     SoftwareSystem() {
+        addTags(Tags.SOFTWARE_SYSTEM);
     }
 
     public Location getLocation() {

@@ -1,7 +1,3 @@
-description = 'Structurizr'
-group = 'com.structurizr'
-version = '0.0.1'
-
 task wrapper(type: Wrapper) {
     gradleVersion = '2.1'
 }
@@ -10,6 +6,10 @@ subprojects { proj ->
 
     apply plugin: 'idea'
     apply plugin: 'java'
+
+    description = 'Structurizr'
+    group = 'com.structurizr'
+    version = '0.0.1'
 
     repositories {
         mavenCentral()
@@ -33,4 +33,9 @@ subprojects { proj ->
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
+
+    jar {
+        baseName = 'structurizr-' + baseName
+    }
+
 }

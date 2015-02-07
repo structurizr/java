@@ -148,4 +148,10 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
         assertEquals(1, system.getRelationships().size());
     }
 
+    @Test
+    public void test_getTags_IncludesSoftwareSystemByDefault() {
+        SoftwareSystem system = model.addSoftwareSystem(Location.Internal, "System", "Description");
+        assertEquals("softwareSystem", system.getTags());
+    }
+
 }

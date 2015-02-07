@@ -19,6 +19,8 @@ public class ViewSet {
     private Collection<ContainerView> containerViews = new LinkedList<>();
     private Collection<ComponentView> componentViews = new LinkedList<>();
 
+    private Styles styles = new Styles();
+
     ViewSet() {
     }
 
@@ -84,6 +86,10 @@ public class ViewSet {
         for (ElementView elementView : view.getElements()) {
             elementView.setElement(model.getElement(elementView.getId()));
         }
+    }
+
+    public Styles getStyles() {
+        return styles;
     }
 
 }

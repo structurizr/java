@@ -5,6 +5,7 @@ public class Person extends Element {
     private Location location = Location.Unspecified;
 
     Person() {
+        addTags(Tags.PERSON);
     }
 
     public Location getLocation() {

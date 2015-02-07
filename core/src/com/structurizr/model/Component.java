@@ -10,6 +10,10 @@ public class Component extends Element {
     private String interfaceType;
     private String implementationType;
 
+    public Component() {
+        addTags(Tags.COMPONENT);
+    }
+
     @JsonIgnore
     public Container getParent() {
         return parent;
