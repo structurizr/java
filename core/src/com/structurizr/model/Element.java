@@ -14,6 +14,9 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public abstract class Element {
 
+    // TODO: what happens if an element name includes a forward slash character?
+    public static final String CANONICAL_NAME_SEPARATOR = "/";
+
     private Model model;
     protected String id = "";
 
@@ -111,5 +114,8 @@ public abstract class Element {
     }
 
     public abstract ElementType getType();
+
+    @JsonIgnore
+    public abstract String getCanonicalName();
 
 }

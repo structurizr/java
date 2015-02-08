@@ -37,4 +37,9 @@ public class Person extends Element {
         return ElementType.Person;
     }
 
+    @Override
+    public String getCanonicalName() {
+        return CANONICAL_NAME_SEPARATOR + getName();
+    }
+
 }

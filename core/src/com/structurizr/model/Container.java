@@ -92,4 +92,9 @@ public class Container extends Element {
         return ElementType.Container;
     }
 
+    @Override
+    public String getCanonicalName() {
+        return getParent().getCanonicalName() + CANONICAL_NAME_SEPARATOR + getName();
+    }
+
 }

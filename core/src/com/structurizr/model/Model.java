@@ -34,9 +34,10 @@ public class Model {
             softwareSystem.setLocation(location);
             softwareSystem.setName(name);
             softwareSystem.setDescription(description);
-            softwareSystem.setId(idGenerator.generateId(softwareSystem));
 
             softwareSystems.add(softwareSystem);
+
+            softwareSystem.setId(idGenerator.generateId(softwareSystem));
             addElementToInternalStructures(softwareSystem);
 
             return softwareSystem;
@@ -60,9 +61,10 @@ public class Model {
             person.setLocation(location);
             person.setName(name);
             person.setDescription(description);
-            person.setId(idGenerator.generateId(person));
 
             people.add(person);
+
+            person.setId(idGenerator.generateId(person));
             addElementToInternalStructures(person);
 
             return person;
@@ -77,10 +79,11 @@ public class Model {
             container.setName(name);
             container.setDescription(description);
             container.setTechnology(technology);
-            container.setId(idGenerator.generateId(container));
 
             parent.add(container);
             container.setParent(parent);
+
+            container.setId(idGenerator.generateId(container));
             addElementToInternalStructures(container);
 
             return container;
@@ -94,10 +97,11 @@ public class Model {
         component.setInterfaceType(interfaceType);
         component.setImplementationType(implementationType);
         component.setDescription(description);
-        component.setId(idGenerator.generateId(component));
 
         parent.add(component);
         component.setParent(parent);
+
+        component.setId(idGenerator.generateId(component));
         addElementToInternalStructures(component);
 
         return component;
@@ -110,6 +114,8 @@ public class Model {
 
         parent.add(component);
         component.setParent(parent);
+
+        component.setId(idGenerator.generateId(component));
         addElementToInternalStructures(component);
 
         return component;

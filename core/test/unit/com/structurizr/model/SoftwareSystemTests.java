@@ -154,4 +154,10 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
         assertEquals(Tags.SOFTWARE_SYSTEM, system.getTags());
     }
 
+    @Test
+    public void test_getCanonicalName() {
+        SoftwareSystem system = model.addSoftwareSystem(Location.Internal, "System", "Description");
+        assertEquals("/System", system.getCanonicalName());
+    }
+
 }
