@@ -68,7 +68,11 @@ public class Container extends Element {
     }
 
     public Component getComponentWithName(String name) {
-        Optional<Component> component = components.stream().filter(c -> c.getName().equals(name)).findFirst();
+        if (name == null) {
+            return null;
+        }
+
+        Optional<Component> component = components.stream().filter(c -> name.equals(c.getName())).findFirst();
 
         if (component.isPresent()) {
             return component.get();
@@ -77,13 +81,22 @@ public class Container extends Element {
         }
     }
 
-    public Component getComponentOfType(String interfaceType) {
-        Optional<Component> component = components.stream().filter(c -> c.getInterfaceType().equals(interfaceType)).findFirst();
+    public Component getComponentOfType(String type) {
+        if (type == null) {
+            return null;
+        }
+
+        Optional<Component> component = components.stream().filter(c -> type.equals(c.getInterfaceType())).findFirst();
 
         if (component.isPresent()) {
             return component.get();
         } else {
-            return null;
+            component = components.stream().filter(c -> type.equals(c.getImplementationType())).findFirst();
+            if (component.isPresent()) {
+                return component.get();
+            } else {
+                return null;
+            }
         }
     }
 

@@ -49,10 +49,14 @@ public class Component extends Element {
 
     @Override
     public String getName() {
-        if (this.interfaceType == null) {
+        if (this.name != null) {
             return super.getName();
-        } else {
+        } else if (this.interfaceType != null) {
             return interfaceType.substring(interfaceType.lastIndexOf(".") + 1);
+        } else if (this.implementationType != null) {
+            return implementationType.substring(implementationType.lastIndexOf(".") + 1);
+        } else {
+            return "";
         }
     }
 

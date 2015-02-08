@@ -39,8 +39,12 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
     @Override
     public void findDependencies() throws Exception {
         for (Component component : componentFinder.getContainer().getComponents()) {
-            addEfferentDependencies(component, component.getInterfaceType(), 1);
-            addEfferentDependencies(component, component.getImplementationType(), 1);
+            if (component.getInterfaceType() != null) {
+                addEfferentDependencies(component, component.getInterfaceType(), 1);
+            }
+            if (component.getImplementationType() != null) {
+                addEfferentDependencies(component, component.getImplementationType(), 1);
+            }
         }
     }
 
