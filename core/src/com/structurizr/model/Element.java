@@ -118,4 +118,18 @@ public abstract class Element {
     @JsonIgnore
     public abstract String getCanonicalName();
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || !(o instanceof Element)) {
+            return false;
+        }
+
+        Element element = (Element)o;
+        return getCanonicalName().equals(element.getCanonicalName());
+    }
+
 }

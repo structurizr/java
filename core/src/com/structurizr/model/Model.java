@@ -80,8 +80,8 @@ public class Model {
             container.setDescription(description);
             container.setTechnology(technology);
 
-            parent.add(container);
             container.setParent(parent);
+            parent.add(container);
 
             container.setId(idGenerator.generateId(container));
             addElementToInternalStructures(container);
@@ -98,8 +98,8 @@ public class Model {
         component.setImplementationType(implementationType);
         component.setDescription(description);
 
-        parent.add(component);
         component.setParent(parent);
+        parent.add(component);
 
         component.setId(idGenerator.generateId(component));
         addElementToInternalStructures(component);
@@ -112,8 +112,8 @@ public class Model {
         component.setName(name);
         component.setDescription(description);
 
-        parent.add(component);
         component.setParent(parent);
+        parent.add(component);
 
         component.setId(idGenerator.generateId(component));
         addElementToInternalStructures(component);

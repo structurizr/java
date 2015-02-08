@@ -171,4 +171,23 @@ public abstract class View implements Comparable<View> {
         return getName() + " - " + getDescription();
     }
 
+    ElementView findElementView(Element element) {
+        for (ElementView elementView : getElements()) {
+            if (elementView.getElement().equals(element)) {
+                return elementView;
+            }
+        }
+
+        return null;
+    }
+
+    public void copyLayoutInformationFrom(View source) {
+        for (ElementView sourceElementView : source.getElements()) {
+            ElementView destinationElementView = findElementView(sourceElementView.getElement());
+            if (destinationElementView != null) {
+                destinationElementView.copyLayoutInformationFrom(sourceElementView);
+            }
+        }
+    }
+
 }

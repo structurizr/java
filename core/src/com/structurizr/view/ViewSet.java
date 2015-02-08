@@ -2,6 +2,7 @@ package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.Container;
+import com.structurizr.model.Element;
 import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;
 
@@ -90,6 +91,59 @@ public class ViewSet {
 
     public Styles getStyles() {
         return styles;
+    }
+
+    public void copyLayoutInformationFrom(ViewSet source) {
+        for (SystemContextView sourceView : source.getSystemContextViews()) {
+            SystemContextView destinationView = findSystemContextViewWithName(sourceView.getName());
+            if (destinationView != null) {
+                destinationView.copyLayoutInformationFrom(sourceView);
+            }
+        }
+
+        for (ContainerView sourceView : source.getContainerViews()) {
+            ContainerView destinationView = findContainerViewWithName(sourceView.getName());
+            if (destinationView != null) {
+                destinationView.copyLayoutInformationFrom(sourceView);
+            }
+        }
+
+        for (ComponentView sourceView : source.getComponentViews()) {
+            ComponentView destinationView = findComponentViewWithName(sourceView.getName());
+            if (destinationView != null) {
+                destinationView.copyLayoutInformationFrom(sourceView);
+            }
+        }
+    }
+
+    private SystemContextView findSystemContextViewWithName(String name) {
+        for (SystemContextView view : systemContextViews) {
+            if (view.getName().equals(name)) {
+                return view;
+            }
+        }
+
+        return null;
+    }
+
+    private ContainerView findContainerViewWithName(String name) {
+        for (ContainerView view : containerViews) {
+            if (view.getName().equals(name)) {
+                return view;
+            }
+        }
+
+        return null;
+    }
+
+    private ComponentView findComponentViewWithName(String name) {
+        for (ComponentView view : componentViews) {
+            if (view.getName().equals(name)) {
+                return view;
+            }
+        }
+
+        return null;
     }
 
 }

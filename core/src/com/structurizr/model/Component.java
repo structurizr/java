@@ -6,7 +6,7 @@ public class Component extends Element {
 
     private Container parent;
 
-    private String technology;
+    private String technology = "";
     private String interfaceType;
     private String implementationType;
 

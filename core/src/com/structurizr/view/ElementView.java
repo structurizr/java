@@ -76,4 +76,11 @@ public class ElementView {
         return getElement().toString();
     }
 
+    public void copyLayoutInformationFrom(ElementView source) {
+        if (source != null) {
+            setX(source.getX());
+            setY(source.getY());
+        }
+    }
+
 }

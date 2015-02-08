@@ -1,6 +1,7 @@
 package com.structurizr.example.spring.petclinic;
 
 import com.structurizr.Workspace;
+import com.structurizr.api.StructurizrClient;
 import com.structurizr.componentfinder.ComponentFinder;
 import com.structurizr.componentfinder.SpringComponentFinderStrategy;
 import com.structurizr.io.json.JsonWriter;
@@ -79,6 +80,12 @@ public class SpringPetClinic {
         jsonWriter.write(workspace, stringWriter);
 
         System.out.println(stringWriter.toString());
+
+        StructurizrClient structurizrClient = new StructurizrClient("http://localhost:9090", "eab0b844-3e63-4961-b04e-c5a0b48411b6", "f9b7a3fe-1f39-4956-84ee-a5651cb1160b");
+        Workspace oldWorkspace = structurizrClient.getWorkspace(1);
+        workspace.getViews().copyLayoutInformationFrom(oldWorkspace.getViews());
+        workspace.setId(1);
+        structurizrClient.putWorkspace(workspace);
     }
 
 }
