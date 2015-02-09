@@ -4,6 +4,8 @@ import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 
 public class ComponentFinder {
@@ -23,7 +25,7 @@ public class ComponentFinder {
         }
     }
 
-    public void foundComponent(String interfaceType, String implementationType, String description, String technology) {
+    public Component foundComponent(String interfaceType, String implementationType, String description, String technology) {
         String type = interfaceType;
         if (type == null || type.equals("")) {
             // there is no interface type, so we'll just have to use the implementation type
@@ -37,11 +39,13 @@ public class ComponentFinder {
             String name = type.substring(type.lastIndexOf(".") + 1);
             component = container.getComponentWithName(name);
             if (component == null) {
-                container.addComponentOfType(interfaceType, implementationType, description, technology);
+                component = container.addComponentOfType(interfaceType, implementationType, description, technology);
             } else {
                 mergeInformation(component, interfaceType, implementationType, description, technology);
             }
         }
+
+        return component;
     }
 
     private void mergeInformation(Component component, String interfaceType, String implementationType, String description, String technology) {
@@ -62,14 +66,18 @@ public class ComponentFinder {
         }
     }
 
-    public void findComponents() throws Exception {
+    public Collection<Component> findComponents() throws Exception {
+        Collection<Component> componentsFound = new LinkedList<>();
+
         for (ComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {
-            componentFinderStrategy.findComponents();
+            componentsFound.addAll(componentFinderStrategy.findComponents());
         }
 
         for (ComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {
             componentFinderStrategy.findDependencies();
         }
+
+        return componentsFound;
     }
 
     Container getContainer() {

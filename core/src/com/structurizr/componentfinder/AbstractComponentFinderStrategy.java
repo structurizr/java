@@ -33,7 +33,7 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         this.reflections = new Reflections(new ConfigurationBuilder()
                   .filterInputsBy(new FilterBuilder().includePackage(componentFinder.getPackageToScan()))
                   .setUrls(ClasspathHelper.forPackage(componentFinder.getPackageToScan()))
-                  .setScanners(new TypeAnnotationsScanner(), new SubTypesScanner(), new FieldAnnotationsScanner()));
+                  .setScanners(new TypeAnnotationsScanner(), new SubTypesScanner(false), new FieldAnnotationsScanner()));
     }
 
     @Override
@@ -75,14 +75,18 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         return reflections.getTypesAnnotatedWith(annotation);
     }
 
-    protected Set<Field> getFieldsAnnotatedWith(Class<? extends Annotation> annotation) {
-        return reflections.getFieldsAnnotatedWith(annotation);
+    protected Set<Class<?>> getAllTypes() {
+        return reflections.getSubTypesOf(Object.class);
     }
 
-    protected Set<Class<?>> findSuperTypesAnnotatedWith(Class<?> implementationType, Class annotation) {
-        return ReflectionUtils.getAllSuperTypes(implementationType, Predicates.and(ReflectionUtils.withAnnotation(annotation)));
+//    protected Set<Field> getFieldsAnnotatedWith(Class<? extends Annotation> annotation) {
+//        return reflections.getFieldsAnnotatedWith(annotation);
+//    }
 
-    }
+//    protected Set<Class<?>> findSuperTypesAnnotatedWith(Class<?> implementationType, Class annotation) {
+//        return ReflectionUtils.getAllSuperTypes(implementationType, Predicates.and(ReflectionUtils.withAnnotation(annotation)));
+//
+//    }
 
     protected ComponentFinder getComponentFinder() {
         return componentFinder;

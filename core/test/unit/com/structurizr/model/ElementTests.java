@@ -32,7 +32,7 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_addTags_DoesNotDoAnything_WhenPassedNull() {
         Element element = model.addSoftwareSystem(Location.Internal, "Name", "Description");
-        element.addTags(null);
+        element.addTags((String)null);
         assertEquals("Software System", element.getTags());
 
         element.addTags(null, null, null);

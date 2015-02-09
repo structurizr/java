@@ -8,6 +8,8 @@ import com.structurizr.model.*;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
+import java.util.Collection;
+import java.util.LinkedList;
 import java.util.Set;
 
 /**
@@ -15,8 +17,8 @@ import java.util.Set;
  */
 public class StructurizrComponentFinderStrategy extends AbstractComponentFinderStrategy {
 
-    public void findComponents() throws Exception {
-        findAnnotatedInterfaces();
+    public Collection<Component> findComponents() throws Exception {
+        return findAnnotatedInterfaces();
     }
 
     @Override
@@ -29,7 +31,8 @@ public class StructurizrComponentFinderStrategy extends AbstractComponentFinderS
         findPeopleDependencies();
     }
 
-    private void findAnnotatedInterfaces() {
+    private Collection<Component> findAnnotatedInterfaces() {
+        Collection<Component> componentsFound = new LinkedList<>();
         Set<Class<?>> componentTypes = getTypesAnnotatedWith(com.structurizr.annotation.Component.class);
         for (Class<?> componentType : componentTypes) {
             String interfaceType = componentType.getCanonicalName();
@@ -44,11 +47,14 @@ public class StructurizrComponentFinderStrategy extends AbstractComponentFinderS
                 }
             }
 
-            getComponentFinder().foundComponent(
+            Component component = getComponentFinder().foundComponent(
                     interfaceType,
                     implementationType,
                     componentType.getAnnotation(com.structurizr.annotation.Component.class).description(), "");
+            componentsFound.add(component);
         }
+
+        return componentsFound;
     }
 
     private void findComponentDependencies() throws Exception {
