@@ -1,9 +1,10 @@
+# Gradle caches, etc
 **/.gradle
 
+# IntelliJ IDEA project files
 **/*.ipr
 **/*.iws
 **/*.iml
-
 .idea/*
 # !.idea/vcs.xml
 # !.idea/modules.xml
@@ -11,15 +12,17 @@
 # !.idea/codeStyleSettings.xml
 # !.idea/runConfigurations/
 
-build
-out
-**/bin/
-
-examples/etc/structurizr.properties
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+# Eclipse project files
 .classpath
 .project
 .settings
 **/.settings
+
+# Compiled stuff
+build
+out
+bin
+**/bin/
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
