@@ -15,7 +15,7 @@ public abstract class View implements Comparable<View> {
     private SoftwareSystem softwareSystem;
     private String softwareSystemId;
     private String description = "";
-    private PaperSize paperSize = PaperSize.A4_Landscape;
+    private PaperSize paperSize = PaperSize.A4_Portrait;
 
     private Set<ElementView> elementViews = new LinkedHashSet<>();
 
