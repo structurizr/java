@@ -1,6 +1,6 @@
 dependencies {
 
-    compile project(':annotations')
+    compile project(':structurizr-annotations')
 
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'

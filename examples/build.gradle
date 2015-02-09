@@ -1,6 +1,0 @@
-dependencies {
-    compile project(':annotations')
-    compile project(':core')
-    compile project(':client')
-    compile project(':spring')
-}
