@@ -15,6 +15,7 @@ public abstract class View implements Comparable<View> {
     private SoftwareSystem softwareSystem;
     private String softwareSystemId;
     private String description = "";
+    private PaperSize paperSize = PaperSize.A4_Landscape;
 
     private Set<ElementView> elementViews = new LinkedHashSet<>();
 
@@ -59,6 +60,14 @@ public abstract class View implements Comparable<View> {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public PaperSize getPaperSize() {
+        return paperSize;
+    }
+
+    public void setPaperSize(PaperSize paperSize) {
+        this.paperSize = paperSize;
     }
 
     /**
