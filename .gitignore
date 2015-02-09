@@ -13,6 +13,7 @@
 
 build
 out
+**/bin/
 
 examples/etc/structurizr.properties
 
@@ -20,21 +21,5 @@ examples/etc/structurizr.properties
 hs_err_pid*
 .classpath
 .project
-.settings/gradle/org.springsource.ide.eclipse.gradle.core.import.prefs
-.settings/gradle/org.springsource.ide.eclipse.gradle.core.prefs
-.settings/gradle/org.springsource.ide.eclipse.gradle.refresh.prefs
-.settings/org.eclipse.jdt.core.prefs
-annotations/.settings/org.eclipse.jdt.core.prefs
-annotations/.settings/gradle/org.springsource.ide.eclipse.gradle.core.prefs
-annotations/.settings/gradle/org.springsource.ide.eclipse.gradle.refresh.prefs
-client/.settings/gradle/org.springsource.ide.eclipse.gradle.core.prefs
-client/.settings/gradle/org.springsource.ide.eclipse.gradle.refresh.prefs
-client/.settings/org.eclipse.jdt.core.prefs
-core/.settings/gradle/org.springsource.ide.eclipse.gradle.core.prefs
-core/.settings/gradle/org.springsource.ide.eclipse.gradle.refresh.prefs
-core/.settings/org.eclipse.jdt.core.prefs
-examples/.settings/gradle/org.springsource.ide.eclipse.gradle.core.prefs
-examples/.settings/gradle/org.springsource.ide.eclipse.gradle.refresh.prefs
-examples/.settings/org.eclipse.jdt.core.prefs
-spring/.settings/gradle/org.springsource.ide.eclipse.gradle.core.prefs
-spring/.settings/gradle/org.springsource.ide.eclipse.gradle.refresh.prefs
+.settings
+**/.settings
