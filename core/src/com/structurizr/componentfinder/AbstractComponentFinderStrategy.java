@@ -1,11 +1,12 @@
 package com.structurizr.componentfinder;
 
-import com.google.common.base.Predicates;
-import com.structurizr.model.Component;
+import java.lang.annotation.Annotation;
+import java.util.Set;
+
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.NotFoundException;
-import org.reflections.ReflectionUtils;
+
 import org.reflections.Reflections;
 import org.reflections.scanners.FieldAnnotationsScanner;
 import org.reflections.scanners.SubTypesScanner;
@@ -14,9 +15,7 @@ import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.util.Set;
+import com.structurizr.model.Component;
 
 public abstract class AbstractComponentFinderStrategy implements ComponentFinderStrategy {
 

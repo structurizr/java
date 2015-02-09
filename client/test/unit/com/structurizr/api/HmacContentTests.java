@@ -6,7 +6,6 @@ import static org.junit.Assert.assertEquals;
 
 public class HmacContentTests {
 
-    private HmacContent content;
 
     @Test
     public void test_toString_WhenThereAreNoStrings() {

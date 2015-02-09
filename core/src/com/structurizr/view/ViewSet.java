@@ -1,13 +1,12 @@
 package com.structurizr.view;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.structurizr.model.Container;
-import com.structurizr.model.Element;
-import com.structurizr.model.Model;
-import com.structurizr.model.SoftwareSystem;
-
 import java.util.Collection;
 import java.util.LinkedList;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.structurizr.model.Container;
+import com.structurizr.model.Model;
+import com.structurizr.model.SoftwareSystem;
 
 /**
  * Represents a set of views onto a model.

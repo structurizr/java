@@ -1,8 +1,14 @@
 package com.structurizr.api;
 
-import com.structurizr.Workspace;
-import com.structurizr.io.json.JsonReader;
-import com.structurizr.io.json.JsonWriter;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Base64;
+import java.util.Properties;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.Header;
@@ -17,15 +23,9 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Base64;
-import java.util.Properties;
+import com.structurizr.Workspace;
+import com.structurizr.io.json.JsonReader;
+import com.structurizr.io.json.JsonWriter;
 
 public class StructurizrClient {
 

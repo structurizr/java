@@ -40,7 +40,7 @@ public class StructurizrComponentFinderStrategy extends AbstractComponentFinderS
 
             if (componentType.isInterface()) {
                 // TODO: fix this untyped collection reference
-                Set subtypes = reflections.getSubTypesOf(componentType);
+                Set<?> subtypes = reflections.getSubTypesOf(componentType);
                 if (subtypes.size() > 0) {
                     // WARNING: this code chooses the first implementation that it finds
                     implementationType = ((Class<?>)(subtypes.iterator().next())).getCanonicalName();
@@ -66,7 +66,7 @@ public class StructurizrComponentFinderStrategy extends AbstractComponentFinderS
     }
 
     private void findComponentDependencies(Component component, String implementationType) throws Exception {
-        Class componentClass = Class.forName(implementationType);
+        Class<?> componentClass = Class.forName(implementationType);
 
         Field[] fields = componentClass.getDeclaredFields();
         for (Field field : fields) {
