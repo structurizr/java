@@ -101,6 +101,17 @@ public class SoftwareSystem extends Element {
     }
 
     /**
+     * Adds a unidirectional "uses" style relationship between this software system
+     * and a component (within a container).
+     *
+     * @param destination   the target of the relationship
+     * @param description   a description of the relationship (e.g. "uses", "gets data from", "sends data to")
+     */
+    public void uses(Component destination, String description) {
+        getModel().addRelationship(new Relationship(this, destination, description));
+    }
+
+    /**
      * Adds a unidirectional relationship between this software system and a person.
      *
      * @param destination   the target of the relationship

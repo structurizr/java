@@ -46,6 +46,17 @@ public class Container extends Element {
         getModel().addRelationship(new Relationship(this, destination, description));
     }
 
+    /**
+     * Adds a unidirectional "uses" style relationship between this container
+     * and a component (within a container).
+     *
+     * @param destination   the target of the relationship
+     * @param description   a description of the relationship (e.g. "uses", "gets data from", "sends data to")
+     */
+    public void uses(Component destination, String description) {
+        getModel().addRelationship(new Relationship(this, destination, description));
+    }
+
     public Component addComponentOfType(String interfaceType, String implementationType, String description, String technology) {
         Component component = getModel().addComponentOfType(this, interfaceType, implementationType, description);
         component.setTechnology(technology);
