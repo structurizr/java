@@ -191,6 +191,7 @@ public abstract class View implements Comparable<View> {
     }
 
     public void copyLayoutInformationFrom(View source) {
+        this.setPaperSize(source.getPaperSize());
         for (ElementView sourceElementView : source.getElements()) {
             ElementView destinationElementView = findElementView(sourceElementView.getElement());
             if (destinationElementView != null) {
