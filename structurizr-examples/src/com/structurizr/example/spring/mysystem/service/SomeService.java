@@ -1,4 +1,4 @@
-package com.structurizr.example.spring.mvc;
+package com.structurizr.example.spring.mysystem.service;
 
 public interface SomeService {
 
