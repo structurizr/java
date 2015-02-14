@@ -1,14 +1,8 @@
 package com.structurizr.api;
 
-import java.io.InputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Base64;
-import java.util.Properties;
-
+import com.structurizr.Workspace;
+import com.structurizr.io.json.JsonReader;
+import com.structurizr.io.json.JsonWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.Header;
@@ -23,9 +17,14 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-import com.structurizr.Workspace;
-import com.structurizr.io.json.JsonReader;
-import com.structurizr.io.json.JsonWriter;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Base64;
+import java.util.Properties;
 
 public class StructurizrClient {
 
@@ -53,7 +52,7 @@ public class StructurizrClient {
             InputStream in = StructurizrClient.class.getClassLoader().getResourceAsStream("structurizr.properties");
             if (in != null) {
                 properties.load(in);
-                this.url = properties.getProperty(STRUCTURIZR_API_URL);
+                setUrl(properties.getProperty(STRUCTURIZR_API_URL));
                 this.apiKey = properties.getProperty(STRUCTURIZR_API_KEY);
                 this.apiSecret = properties.getProperty(STRUCTURIZR_API_SECRET);
                 in.close();
@@ -67,9 +66,23 @@ public class StructurizrClient {
      * Creates a new Structurizr client with the specified API URL, key and secret.
      */
     public StructurizrClient(String url, String apiKey, String apiSecret) {
-        this.url = url;
+        setUrl(url);
         this.apiKey = apiKey;
         this.apiSecret = apiSecret;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        if (url != null) {
+            if (url.endsWith("/")) {
+                this.url = url.substring(0, url.length()-1);
+            } else {
+                this.url = url;
+            }
+        }
     }
 
     public Workspace getWorkspace(long workspaceId) throws Exception {
