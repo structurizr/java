@@ -12,38 +12,38 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_getTags_WhenThereAreNoTags() {
         Element element = model.addSoftwareSystem(Location.Internal, "Name", "Description");
-        assertEquals("Software System", element.getTags());
+        assertEquals("Element,Software System", element.getTags());
     }
 
     @Test
     public void test_getTags_ReturnsTheListOfTags_WhenThereAreSomeTags() {
         Element element = model.addSoftwareSystem(Location.Internal, "Name", "Description");
         element.addTags("tag1", "tag2", "tag3");
-        assertEquals("Software System,tag1,tag2,tag3", element.getTags());
+        assertEquals("Element,Software System,tag1,tag2,tag3", element.getTags());
     }
 
     @Test
     public void test_setTags_DoesNotDoAnything_WhenPassedNull() {
         Element element = model.addSoftwareSystem(Location.Internal, "Name", "Description");
         element.setTags(null);
-        assertEquals("Software System", element.getTags());
+        assertEquals("Element,Software System", element.getTags());
     }
 
     @Test
     public void test_addTags_DoesNotDoAnything_WhenPassedNull() {
         Element element = model.addSoftwareSystem(Location.Internal, "Name", "Description");
         element.addTags((String)null);
-        assertEquals("Software System", element.getTags());
+        assertEquals("Element,Software System", element.getTags());
 
         element.addTags(null, null, null);
-        assertEquals("Software System", element.getTags());
+        assertEquals("Element,Software System", element.getTags());
     }
 
     @Test
     public void test_addTags_AddsTags_WhenPassedSomeTags() {
         Element element = model.addSoftwareSystem(Location.Internal, "Name", "Description");
         element.addTags(null, "tag1", null, "tag2");
-        assertEquals("Software System,tag1,tag2", element.getTags());
+        assertEquals("Element,Software System,tag1,tag2", element.getTags());
     }
 
     @Test

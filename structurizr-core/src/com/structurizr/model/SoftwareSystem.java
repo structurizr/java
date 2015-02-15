@@ -85,8 +85,11 @@ public class SoftwareSystem extends Element {
      * @param destination   the target of the relationship
      * @param description   a description of the relationship (e.g. "uses", "gets data from", "sends data to")
      */
-    public void uses(SoftwareSystem destination, String description) {
-        getModel().addRelationship(new Relationship(this, destination, description));
+    public Relationship uses(SoftwareSystem destination, String description) {
+        Relationship relationship = new Relationship(this, destination, description);
+        getModel().addRelationship(relationship);
+
+        return relationship;
     }
 
     /**
@@ -96,8 +99,11 @@ public class SoftwareSystem extends Element {
      * @param destination   the target of the relationship
      * @param description   a description of the relationship (e.g. "uses", "gets data from", "sends data to")
      */
-    public void uses(Container destination, String description) {
-        getModel().addRelationship(new Relationship(this, destination, description));
+    public Relationship uses(Container destination, String description) {
+        Relationship relationship = new Relationship(this, destination, description);
+        getModel().addRelationship(relationship);
+
+        return relationship;
     }
 
     /**
@@ -107,8 +113,11 @@ public class SoftwareSystem extends Element {
      * @param destination   the target of the relationship
      * @param description   a description of the relationship (e.g. "uses", "gets data from", "sends data to")
      */
-    public void uses(Component destination, String description) {
-        getModel().addRelationship(new Relationship(this, destination, description));
+    public Relationship uses(Component destination, String description) {
+        Relationship relationship = new Relationship(this, destination, description);
+        getModel().addRelationship(relationship);
+
+        return relationship;
     }
 
     /**
@@ -117,8 +126,11 @@ public class SoftwareSystem extends Element {
      * @param destination   the target of the relationship
      * @param description   a description of the relationship (e.g. "sends e-mail to")
      */
-    public void delivers(Person destination, String description) {
-        getModel().addRelationship(new Relationship(this, destination, description));
+    public Relationship delivers(Person destination, String description) {
+        Relationship relationship = new Relationship(this, destination, description);
+        getModel().addRelationship(relationship);
+
+        return relationship;
     }
 
     @Override

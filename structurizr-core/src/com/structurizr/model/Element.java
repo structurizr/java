@@ -26,6 +26,10 @@ public abstract class Element {
 
     protected Set<Relationship> relationships = new LinkedHashSet<>();
 
+    protected Element() {
+        addTags(Tags.ELEMENT);
+    }
+
     @JsonIgnore
     public Model getModel() {
         return this.model;

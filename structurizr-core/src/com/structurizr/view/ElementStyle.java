@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 public class ElementStyle {
 
+    public static final int DEFAULT_WIDTH = 450;
+    public static final int DEFAULT_HEIGHT = 300;
+
     private String tag;
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
