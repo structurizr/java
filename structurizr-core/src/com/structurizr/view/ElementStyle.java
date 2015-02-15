@@ -18,15 +18,23 @@ public class ElementStyle {
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private String color;
 
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private Integer fontSize;
+
     public ElementStyle() {
     }
 
-    public ElementStyle(String tag, Integer width, Integer height, String background, String color) {
+    public ElementStyle(String tag) {
+        this.tag = tag;
+    }
+
+    public ElementStyle(String tag, Integer width, Integer height, String background, String color, Integer fontSize) {
         this.tag = tag;
         this.width = width;
         this.height = height;
         this.background = background;
         this.color = color;
+        this.fontSize = fontSize;
     }
 
     public String getTag() {
@@ -67,6 +75,14 @@ public class ElementStyle {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public Integer getFontSize() {
+        return fontSize;
+    }
+
+    public void setFontSize(Integer fontSize) {
+        this.fontSize = fontSize;
     }
 
 }

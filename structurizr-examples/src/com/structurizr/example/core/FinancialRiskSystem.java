@@ -1,7 +1,6 @@
 package com.structurizr.example.core;
 
 import com.structurizr.Workspace;
-import com.structurizr.io.json.JsonReader;
 import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.Location;
 import com.structurizr.model.Model;
@@ -10,7 +9,6 @@ import com.structurizr.model.SoftwareSystem;
 import com.structurizr.view.SystemContextView;
 import com.structurizr.view.ViewSet;
 
-import java.io.StringReader;
 import java.io.StringWriter;
 
 /**
