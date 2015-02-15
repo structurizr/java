@@ -12,7 +12,10 @@ public enum PaperSize {
     A3_Landscape("A3", Orientation.Landscape, 4950, 3510),
 
     Letter_Portrait("Letter", Orientation.Portrait, 2550, 3300),
-    Letter_Landscape("Letter", Orientation.Landscape, 3300, 2550);
+    Letter_Landscape("Letter", Orientation.Landscape, 3300, 2550),
+
+    Slide_4_3("Slide 4:3", Orientation.Landscape, 3306, 2480),
+    Slide_16_9("Slide 16:9", Orientation.Landscape, 3510, 1974);
 
     private String name;
     private Orientation orientation;
