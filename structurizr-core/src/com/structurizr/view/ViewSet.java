@@ -51,8 +51,8 @@ public class ViewSet {
         return view;
     }
 
-    public ComponentView createComponentView(SoftwareSystem softwareSystem, Container container) {
-        ComponentView view = new ComponentView(softwareSystem, container);
+    public ComponentView createComponentView(Container container) {
+        ComponentView view = new ComponentView(container);
         componentViews.add(view);
 
         return view;

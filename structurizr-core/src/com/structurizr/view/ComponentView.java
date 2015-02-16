@@ -15,8 +15,8 @@ public class ComponentView extends View {
     public ComponentView() {
     }
 
-    public ComponentView(SoftwareSystem softwareSystem, Container container) {
-        super(softwareSystem);
+    public ComponentView(Container container) {
+        super(container.getParent());
 
         this.container = container;
     }

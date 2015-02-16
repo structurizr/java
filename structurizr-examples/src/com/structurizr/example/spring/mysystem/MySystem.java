@@ -58,7 +58,7 @@ public class MySystem {
         containerView.addAllSoftwareSystems();
         containerView.addAllContainers();
 
-        ComponentView componentView = viewSet.createComponentView(mySystem, webApplication);
+        ComponentView componentView = viewSet.createComponentView(webApplication);
         componentView.addAllPeople();
         componentView.addAllSoftwareSystems();
         componentView.addAllContainers();

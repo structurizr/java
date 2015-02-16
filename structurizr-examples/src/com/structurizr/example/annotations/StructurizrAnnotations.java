@@ -42,7 +42,7 @@ public class StructurizrAnnotations {
         containerView.addAllSoftwareSystems();
         containerView.addAllContainers();
 
-        ComponentView componentView = viewSet.createComponentView(softwareSystem, webApplication);
+        ComponentView componentView = viewSet.createComponentView(webApplication);
         componentView.addAllContainers();
         componentView.addAllComponents();
 

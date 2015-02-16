@@ -55,7 +55,7 @@ public class SpringPetClinic {
         containerView.addAllSoftwareSystems();
         containerView.addAllContainers();
 
-        ComponentView componentView = viewSet.createComponentView(springPetClinic, webApplication);
+        ComponentView componentView = viewSet.createComponentView(webApplication);
         componentView.addAllComponents();
         componentView.addAllPeople();
         componentView.add(relationalDatabase);
