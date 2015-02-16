@@ -12,10 +12,10 @@ public class ComponentView extends View {
     private Container container;
     private String containerId;
 
-    public ComponentView() {
+    ComponentView() {
     }
 
-    public ComponentView(Container container) {
+    ComponentView(Container container) {
         super(container.getParent());
 
         this.container = container;

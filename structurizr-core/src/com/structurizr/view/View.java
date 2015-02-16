@@ -22,7 +22,7 @@ public abstract class View implements Comparable<View> {
     View() {
     }
 
-    public View(SoftwareSystem softwareSystem) {
+    View(SoftwareSystem softwareSystem) {
         this.softwareSystem = softwareSystem;
     }
 

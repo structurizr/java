@@ -18,7 +18,7 @@ public class SystemContextView extends View {
      *
      * @param softwareSystem        the SoftwareSystem to create a view for
      */
-    public SystemContextView(SoftwareSystem softwareSystem) {
+    SystemContextView(SoftwareSystem softwareSystem) {
         super(softwareSystem);
 
         addElement(softwareSystem);
