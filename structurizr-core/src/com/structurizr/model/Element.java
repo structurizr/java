@@ -1,17 +1,16 @@
 package com.structurizr.model;
 
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * This is the superclass for all model elements.
  */
 @JsonIgnoreProperties(ignoreUnknown=true)
-public abstract class Element {
+public abstract class Element extends TaggableThing {
 
     // TODO: what happens if an element name includes a forward slash character?
     public static final String CANONICAL_NAME_SEPARATOR = "/";
@@ -21,8 +20,6 @@ public abstract class Element {
 
     protected String name;
     protected String description;
-
-    protected Set<String> tags = new LinkedHashSet<>();
 
     protected Set<Relationship> relationships = new LinkedHashSet<>();
 
@@ -61,42 +58,6 @@ public abstract class Element {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getTags() {
-        if (this.tags.isEmpty()) {
-            return "";
-        }
-
-        StringBuilder buf = new StringBuilder();
-        for (String tag : tags) {
-            buf.append(tag);
-            buf.append(",");
-        }
-
-        String tagsAsString = buf.toString();
-        return tagsAsString.substring(0, tagsAsString.length()-1);
-    }
-
-    void setTags(String tags) {
-        if (tags == null) {
-            return;
-        }
-
-        this.tags.clear();
-        Collections.addAll(this.tags, tags.split(","));
-    }
-
-    public void addTags(String... tags) {
-        if (tags == null) {
-            return;
-        }
-
-        for (String tag : tags) {
-            if (tag != null) {
-                this.tags.add(tag);
-            }
-        }
     }
 
     boolean has(Relationship relationship) {

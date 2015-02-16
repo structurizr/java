@@ -2,11 +2,7 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
-public class Relationship {
+public class Relationship extends TaggableThing {
 
     protected String id = "";
 
@@ -15,8 +11,6 @@ public class Relationship {
     private Element destination;
     private String destinationId;
     private String description;
-
-    protected Set<String> tags = new LinkedHashSet<>();
 
     Relationship() {
         addTags(Tags.RELATIONSHIP);
@@ -86,42 +80,6 @@ public class Relationship {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public String getTags() {
-        if (this.tags.isEmpty()) {
-            return "";
-        }
-
-        StringBuilder buf = new StringBuilder();
-        for (String tag : tags) {
-            buf.append(tag);
-            buf.append(",");
-        }
-
-        String tagsAsString = buf.toString();
-        return tagsAsString.substring(0, tagsAsString.length()-1);
-    }
-
-    void setTags(String tags) {
-        if (tags == null) {
-            return;
-        }
-
-        this.tags.clear();
-        Collections.addAll(this.tags, tags.split(","));
-    }
-
-    public void addTags(String... tags) {
-        if (tags == null) {
-            return;
-        }
-
-        for (String tag : tags) {
-            if (tag != null) {
-                this.tags.add(tag);
-            }
-        }
     }
 
     @Override
