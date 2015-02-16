@@ -14,7 +14,7 @@ import java.io.StringWriter;
 public class TechTribesSystemContextForPresentation {
 
     public static void main(String[] args) throws Exception {
-        Workspace workspace = new Workspace("techtribes.je", "This is a model of the system context for the techtribes.je system, the code for which can be found at https://github.com/techtribesje/techtribesje");
+        Workspace workspace = new Workspace("techtribes.je", "This is a model of the system context for the techtribes.je system, for use in presentations.");
         Model model = workspace.getModel();
 
         // create a model and the software system we want to describe
