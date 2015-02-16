@@ -29,7 +29,6 @@ import java.util.Properties;
 public class StructurizrClient {
 
     private static final Log log = LogFactory.getLog(StructurizrClient.class);
-    private static final String GMT_TIME_ZONE = "GMT";
 
     public static final String STRUCTURIZR_API_URL = "structurizr.api.url";
     public static final String STRUCTURIZR_API_KEY = "structurizr.api.key";
@@ -137,14 +136,14 @@ public class StructurizrClient {
 
     private void addHeaders(HttpRequestBase httpRequest, String content, String contentType) throws Exception {
         String httpMethod = httpRequest.getMethod();
-        String date = DateTimeFormatter.RFC_1123_DATE_TIME.format(ZonedDateTime.now(ZoneId.of(GMT_TIME_ZONE)));
         String path = httpRequest.getURI().getPath();
         String contentMd5 = new Md5Digest().generate(content);
+        String nonce = "" + System.currentTimeMillis();
 
         HashBasedMessageAuthenticationCode hmac = new HashBasedMessageAuthenticationCode(apiSecret);
-        HmacContent hmacContent = new HmacContent(httpMethod, path, contentMd5, contentType, date);
+        HmacContent hmacContent = new HmacContent(httpMethod, path, contentMd5, contentType, nonce);
         httpRequest.addHeader(HttpHeaders.AUTHORIZATION, new HmacAuthorizationHeader(apiKey, hmac.generate(hmacContent.toString())).format());
-        httpRequest.addHeader(HttpHeaders.DATE, date);
+        httpRequest.addHeader(HttpHeaders.NONCE, nonce);
         httpRequest.addHeader(HttpHeaders.CONTENT_MD5, Base64.getEncoder().encodeToString(contentMd5.getBytes()));
         httpRequest.addHeader(HttpHeaders.CONTENT_TYPE, contentType);
     }
