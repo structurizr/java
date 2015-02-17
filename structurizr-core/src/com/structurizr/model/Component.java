@@ -65,18 +65,6 @@ public class Component extends Element {
         return interfaceType.substring(0, interfaceType.lastIndexOf("."));
     }
 
-    public void uses(SoftwareSystem destination, String description) {
-        getModel().addRelationship(new Relationship(this, destination, description));
-    }
-
-    public void uses(Container destination, String description) {
-        getModel().addRelationship(new Relationship(this, destination, description));
-    }
-
-    public void uses(Component destination, String description) {
-        getModel().addRelationship(new Relationship(this, destination, description));
-    }
-
     @Override
     public ElementType getType() {
         return ElementType.Component;

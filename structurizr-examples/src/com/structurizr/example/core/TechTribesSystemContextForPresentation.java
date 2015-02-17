@@ -48,9 +48,9 @@ public class TechTribesSystemContextForPresentation {
 
         // tag and style some elements
         techTribes.addTags("techtribesje");
-        viewSet.getStyles().add(new ElementStyle(Tags.ELEMENT, 600, 450, "#041F37", "white", 40));
-        viewSet.getStyles().add(new ElementStyle("techtribesje", null, null, "#041F37", "white", null));
-        viewSet.getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#2A4E6E", "white", null));
+        viewSet.getStyles().add(new ElementStyle(Tags.ELEMENT, 600, 450, null, null, 40));
+        viewSet.getStyles().add(new ElementStyle("techtribesje", null, null, "#041F37", "#ffffff", null));
+        viewSet.getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#2A4E6E", "#ffffff", null));
         viewSet.getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#728da5", "white", 40));
         viewSet.getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 5, null, 40, 500));
         contextView.setPaperSize(PaperSize.Slide_4_3);

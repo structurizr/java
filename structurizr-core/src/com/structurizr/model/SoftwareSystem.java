@@ -1,6 +1,7 @@
 package com.structurizr.model;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -11,7 +12,7 @@ public class SoftwareSystem extends Element {
 
     private Location location = Location.Unspecified;
 
-    private Set<Container> containers = new HashSet<>();
+    private Set<Container> containers = new LinkedHashSet<>();
 
     SoftwareSystem() {
         addTags(Tags.SOFTWARE_SYSTEM);
@@ -77,48 +78,6 @@ public class SoftwareSystem extends Element {
 
          return null;
      }
-
-    /**
-     * Adds a unidirectional "uses" style relationship between this software system
-     * and another.
-     *
-     * @param destination   the target of the relationship
-     * @param description   a description of the relationship (e.g. "uses", "gets data from", "sends data to")
-     */
-    public Relationship uses(SoftwareSystem destination, String description) {
-        Relationship relationship = new Relationship(this, destination, description);
-        getModel().addRelationship(relationship);
-
-        return relationship;
-    }
-
-    /**
-     * Adds a unidirectional "uses" style relationship between this software system
-     * and a container.
-     *
-     * @param destination   the target of the relationship
-     * @param description   a description of the relationship (e.g. "uses", "gets data from", "sends data to")
-     */
-    public Relationship uses(Container destination, String description) {
-        Relationship relationship = new Relationship(this, destination, description);
-        getModel().addRelationship(relationship);
-
-        return relationship;
-    }
-
-    /**
-     * Adds a unidirectional "uses" style relationship between this software system
-     * and a component (within a container).
-     *
-     * @param destination   the target of the relationship
-     * @param description   a description of the relationship (e.g. "uses", "gets data from", "sends data to")
-     */
-    public Relationship uses(Component destination, String description) {
-        Relationship relationship = new Relationship(this, destination, description);
-        getModel().addRelationship(relationship);
-
-        return relationship;
-    }
 
     /**
      * Adds a unidirectional relationship between this software system and a person.

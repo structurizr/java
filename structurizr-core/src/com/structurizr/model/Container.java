@@ -2,7 +2,7 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
@@ -11,7 +11,7 @@ public class Container extends Element {
     private SoftwareSystem parent;
     private String technology;
 
-    private Set<Component> components = new HashSet<>();
+    private Set<Component> components = new LinkedHashSet<>();
 
     Container() {
         addTags(Tags.CONTAINER);
@@ -34,27 +34,12 @@ public class Container extends Element {
         this.technology = technology;
     }
 
-    public void uses(Container destination, String description) {
-        getModel().addRelationship(new Relationship(this, destination, description));
-    }
+    // todo
+    public Relationship uses(SoftwareSystem destination, String description, String protocol, int port, String version) {
+        Relationship relationship = new Relationship(this, destination, description);
+        getModel().addRelationship(relationship);
 
-    public void uses(SoftwareSystem destination, String description) {
-        getModel().addRelationship(new Relationship(this, destination, description));
-    }
-
-    public void uses(SoftwareSystem destination, String description, String protocol, int port, String version) {
-        getModel().addRelationship(new Relationship(this, destination, description));
-    }
-
-    /**
-     * Adds a unidirectional "uses" style relationship between this container
-     * and a component (within a container).
-     *
-     * @param destination the target of the relationship
-     * @param description a description of the relationship (e.g. "uses", "gets data from", "sends data to")
-     */
-    public void uses(Component destination, String description) {
-        getModel().addRelationship(new Relationship(this, destination, description));
+        return relationship;
     }
 
     public Component addComponentOfType(String interfaceType, String implementationType, String description, String technology) {

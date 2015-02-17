@@ -11,16 +11,19 @@ public class ContainerView extends View {
         super(softwareSystem);
     }
 
+    /**
+     * Adds all software systems in the model to this view.
+     */
+    @Override
     public void addAllSoftwareSystems() {
         getModel().getSoftwareSystems().stream()
                 .filter(ss -> ss != getSoftwareSystem())
                 .forEach(this::addElement);
     }
 
-    public void addAllPeople() {
-        getModel().getPeople().forEach(this::addElement);
-    }
-
+    /**
+     * Adds all containers in the software system to this view.
+     */
     public void addAllContainers() {
         getSoftwareSystem().getContainers().forEach(this::addElement);
     }
@@ -33,6 +36,13 @@ public class ContainerView extends View {
     @Override
     public String getName() {
         return getSoftwareSystem().getName() + " - Containers";
+    }
+
+    @Override
+    public void addAllElements() {
+        addAllSoftwareSystems();
+        addAllPeople();
+        addAllContainers();
     }
 
 }

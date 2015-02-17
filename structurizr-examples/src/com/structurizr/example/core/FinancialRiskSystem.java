@@ -49,8 +49,7 @@ public class FinancialRiskSystem {
         // create some views
         ViewSet viewSet = workspace.getViews();
         SystemContextView contextView = viewSet.createContextView(financialRiskSystem);
-        contextView.addAllSoftwareSystems();
-        contextView.addAllPeople();
+        contextView.addAllElements();
 
         // and output the model as JSON
         JsonWriter jsonWriter = new JsonWriter(true);

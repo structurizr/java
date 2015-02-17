@@ -42,16 +42,19 @@ public class ComponentView extends View {
         this.container = container;
     }
 
+    /**
+     * Adds all software systems in the model to this view.
+     */
+    @Override
     public void addAllSoftwareSystems() {
         getModel().getSoftwareSystems().stream()
                 .filter(ss -> ss != getSoftwareSystem())
                 .forEach(this::addElement);
     }
 
-    public void addAllPeople() {
-        getModel().getPeople().forEach(this::addElement);
-    }
-
+    /**
+     * Adds all containers in the software system to this view.
+     */
     public void addAllContainers() {
         getSoftwareSystem().getContainers().stream()
                 .filter(c -> c != container)
@@ -66,6 +69,9 @@ public class ComponentView extends View {
         addElement(component);
     }
 
+    /**
+     * Adds all components in the container to this view.
+     */
     public void addAllComponents() {
         container.getComponents().forEach(this::addElement);
     }
@@ -90,6 +96,15 @@ public class ComponentView extends View {
     @Override
     public String getName() {
         return getSoftwareSystem().getName() + " - " + getContainer().getName() + " - Components";
+    }
+
+    @Override
+    public void addAllElements() {
+        addAllSoftwareSystems();
+        addAllPeople();
+        addAllContainers();
+        addAllComponents();
+        removeElementsThatCantBeReachedFrom(this.container);
     }
 
 }

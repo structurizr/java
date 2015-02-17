@@ -19,6 +19,8 @@ public abstract class View implements Comparable<View> {
 
     private Set<ElementView> elementViews = new LinkedHashSet<>();
 
+    private Set<RelationshipView> relationshipViews = new LinkedHashSet<>();
+
     View() {
     }
 
@@ -92,6 +94,7 @@ public abstract class View implements Comparable<View> {
     public void addAllPeople() {
         getModel().getPeople().forEach(this::addElement);
     }
+
     /**
      * Adds the given person to this view.
      *
@@ -121,22 +124,36 @@ public abstract class View implements Comparable<View> {
         return elementViews;
     }
 
+    void setElements(Set<ElementView> elementViews) {
+        this.elementViews = elementViews;
+    }
+
+    public abstract void addAllElements();
+
     public Set<RelationshipView> getRelationships() {
-        Set<Relationship> relationships = new HashSet<>();
+        if (this.relationshipViews.isEmpty()) {
+            addRelationships();
+        }
+
+        return this.relationshipViews;
+    }
+
+    public void setRelationships(Set<RelationshipView> relationships) {
+        this.relationshipViews = relationships;
+    }
+
+    public void addRelationships() {
+        Set<Relationship> relationships = new LinkedHashSet<>();
         Set<Element> elements = getElements().stream()
                 .map(ElementView::getElement)
                 .collect(Collectors.toSet());
 
         elements.forEach(b -> relationships.addAll(b.getRelationships()));
 
-        return relationships.stream()
+        setRelationships(relationships.stream()
                 .filter(r -> elements.contains(r.getSource()) && elements.contains(r.getDestination()))
                 .map(RelationshipView::new)
-                .collect(Collectors.toSet());
-    }
-
-    public void setRelationships(Set<RelationshipView> relationships) {
-        // do nothing ... this are determined automatically
+                .collect(Collectors.toSet()));
     }
 
     /**

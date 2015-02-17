@@ -34,4 +34,13 @@ public class SystemContextView extends View {
         return getSoftwareSystem().getName() + " - System Context";
     }
 
+    /**
+     * Adds all software systems and all people to this view.
+     */
+    @Override
+    public void addAllElements() {
+        addAllSoftwareSystems();
+        addAllPeople();
+    }
+
 }

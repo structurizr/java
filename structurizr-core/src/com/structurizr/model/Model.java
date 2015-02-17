@@ -11,12 +11,23 @@ public class Model {
     private SequentialIntegerIdGeneratorStrategy idGenerator = new SequentialIntegerIdGeneratorStrategy();
 
     private final Map<String,Element> elementsById = new HashMap<>();
-    private final Map<String,Relationship> relationshipsById = new HashMap<>();
 
     private Set<Person> people = new LinkedHashSet<>();
     private Set<SoftwareSystem> softwareSystems = new LinkedHashSet<>();
 
     public Model() {
+    }
+
+    /**
+     * Creates a software system (location is unspecified) and adds it to the model
+     * (unless one exists with the same name already).
+     *
+     * @param name          the name of the software system
+     * @param description   a short description of the software system
+     * @return  the SoftwareSystem instance created and added to the model (or null)
+     */
+    public SoftwareSystem addSoftwareSystem(String name, String description) {
+        return addSoftwareSystem(name, description);
     }
 
     /**
@@ -44,6 +55,18 @@ public class Model {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Creates a person (location is unspecified) and adds it to the model
+     * (unless one exists with the same name already).
+     *
+     * @param name          the name of the person (e.g. "Admin User" or "Bob the Business User")
+     * @param description   a short description of the person
+     * @return  the Person instance created and added to the model (or null)
+     */
+    public Person addPerson(String name, String description) {
+        return addPerson(Location.Unspecified, name, description);
     }
 
     /**
@@ -135,7 +158,6 @@ public class Model {
     }
 
     private void addRelationshipToInternalStructures(Relationship relationship) {
-        relationshipsById.put(relationship.getId(), relationship);
         idGenerator.found(relationship.getId());
     }
 
