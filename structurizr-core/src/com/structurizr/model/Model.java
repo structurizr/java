@@ -27,7 +27,7 @@ public class Model {
      * @return  the SoftwareSystem instance created and added to the model (or null)
      */
     public SoftwareSystem addSoftwareSystem(String name, String description) {
-        return addSoftwareSystem(name, description);
+        return addSoftwareSystem(Location.Unspecified, name, description);
     }
 
     /**

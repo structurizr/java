@@ -31,6 +31,19 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_addSoftwareSystemWithoutSpecifyingLocation_AddsTheSoftwareSystem_WhenASoftwareSystemDoesNotExistWithTheSameName() {
+        assertTrue(model.getSoftwareSystems().isEmpty());
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("System A", "Some description");
+        assertEquals(1, model.getSoftwareSystems().size());
+
+        assertEquals(Location.Unspecified, softwareSystem.getLocation());
+        assertEquals("System A", softwareSystem.getName());
+        assertEquals("Some description", softwareSystem.getDescription());
+        assertEquals("1", softwareSystem.getId());
+        assertSame(softwareSystem, model.getSoftwareSystems().iterator().next());
+    }
+
+    @Test
     public void test_addPerson_AddsThePerson_WhenAPersonDoesNotExistWithTheSameName() {
         assertTrue(model.getPeople().isEmpty());
         Person person = model.addPerson(Location.Internal, "Some internal user", "Some description");
@@ -51,6 +64,19 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         person = model.addPerson(Location.External, "Admin User", "Description");
         assertEquals(1, model.getPeople().size());
         assertNull(person);
+    }
+
+    @Test
+    public void test_addPerson_AddsThePersonWithoutSpecifyingTheLocation_WhenAPersonDoesNotExistWithTheSameName() {
+        assertTrue(model.getPeople().isEmpty());
+        Person person = model.addPerson("Some internal user", "Some description");
+        assertEquals(1, model.getPeople().size());
+
+        assertEquals(Location.Unspecified, person.getLocation());
+        assertEquals("Some internal user", person.getName());
+        assertEquals("Some description", person.getDescription());
+        assertEquals("1", person.getId());
+        assertSame(person, model.getPeople().iterator().next());
     }
 
     @Test
