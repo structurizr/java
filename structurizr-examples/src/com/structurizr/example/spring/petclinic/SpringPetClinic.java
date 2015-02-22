@@ -67,10 +67,8 @@ public class SpringPetClinic {
         webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Repository")).forEach(c -> c.addTags("Spring Repository"));
 
         viewSet.getStyles().add(new ElementStyle("Spring PetClinic", null, null, "#6CB33E", "white", null));
-        viewSet.getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#35760A", "white", null));
         viewSet.getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#519823", "white", null));
         viewSet.getStyles().add(new ElementStyle(Tags.CONTAINER, null, null, "#91D366", "white", null));
-        viewSet.getStyles().add(new ElementStyle(Tags.COMPONENT, null, null, "#6CB33E", "black", null));
         viewSet.getStyles().add(new ElementStyle("Spring Controller", null, null, "#D4F3C0", "black", null));
         viewSet.getStyles().add(new ElementStyle("Spring Service", null, null, "#6CB33E", "black", null));
         viewSet.getStyles().add(new ElementStyle("Spring Repository", null, null, "#95D46C", "black", null));
@@ -81,7 +79,7 @@ public class SpringPetClinic {
 
         System.out.println(stringWriter.toString());
 
-        StructurizrClient structurizrClient = new StructurizrClient("http://localhost:9090", "eab0b844-3e63-4961-b04e-c5a0b48411b6", "f9b7a3fe-1f39-4956-84ee-a5651cb1160b");
+        StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
         Workspace oldWorkspace = structurizrClient.getWorkspace(1);
         workspace.getViews().copyLayoutInformationFrom(oldWorkspace.getViews());
         workspace.setId(1);

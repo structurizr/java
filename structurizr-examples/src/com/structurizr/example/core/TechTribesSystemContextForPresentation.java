@@ -1,6 +1,7 @@
 package com.structurizr.example.core;
 
 import com.structurizr.Workspace;
+import com.structurizr.api.StructurizrClient;
 import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
@@ -47,9 +48,9 @@ public class TechTribesSystemContextForPresentation {
         contextView.addAllPeople();
 
         // tag and style some elements
-        techTribes.addTags("techtribesje");
+        techTribes.addTags("techtribes.je");
         viewSet.getStyles().add(new ElementStyle(Tags.ELEMENT, 600, 450, null, null, 40));
-        viewSet.getStyles().add(new ElementStyle("techtribesje", null, null, "#041F37", "#ffffff", null));
+        viewSet.getStyles().add(new ElementStyle("techtribes.je", null, null, "#041F37", "#ffffff", null));
         viewSet.getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#2A4E6E", "#ffffff", null));
         viewSet.getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#728da5", "white", 40));
         viewSet.getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 5, null, 40, 500));
@@ -60,6 +61,12 @@ public class TechTribesSystemContextForPresentation {
         StringWriter stringWriter = new StringWriter();
         jsonWriter.write(workspace, stringWriter);
         System.out.println(stringWriter.toString());
+
+        StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
+        Workspace oldWorkspace = structurizrClient.getWorkspace(101);
+        workspace.getViews().copyLayoutInformationFrom(oldWorkspace.getViews());
+        workspace.setId(101);
+        structurizrClient.putWorkspace(workspace);
     }
 
 }

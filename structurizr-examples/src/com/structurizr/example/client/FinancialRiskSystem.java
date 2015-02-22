@@ -48,14 +48,16 @@ public class FinancialRiskSystem {
         contextView.addAllPeople();
 
         // tag and style some elements
-        financialRiskSystem.addTags("System Under Construction");
-        viewSet.getStyles().add(new ElementStyle("System Under Construction", null, null, "#041F37", "white", null));
+        financialRiskSystem.addTags("Risk System");
+        viewSet.getStyles().add(new ElementStyle("Risk System", null, null, "#041F37", "white", null));
         viewSet.getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#2A4E6E", "white", null));
         viewSet.getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#728da5", "white", null));
 
         // and upload the model to structurizr.com
         StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
-        workspace.setId(1234); // this would be your workspace ID
+        Workspace currentWorkspace = structurizrClient.getWorkspace(31);
+        workspace.getViews().copyLayoutInformationFrom(currentWorkspace.getViews());
+        workspace.setId(31); // this would be your workspace ID
         structurizrClient.putWorkspace(workspace);
     }
 
