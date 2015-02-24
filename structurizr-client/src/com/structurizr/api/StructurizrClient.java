@@ -20,9 +20,6 @@ import org.apache.http.util.EntityUtils;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Properties;
 
@@ -41,9 +38,9 @@ public class StructurizrClient {
     /**
      * Creates a new Structurizr client based upon configuration in a structurizr.properties file
      * on the classpath with the following name-value pairs:
-     *  - structurizr.api.url
-     *  - structurizr.api.key
-     *  - structurizr.api.secret
+     * - structurizr.api.url
+     * - structurizr.api.key
+     * - structurizr.api.secret
      */
     public StructurizrClient() {
         try {
@@ -77,7 +74,7 @@ public class StructurizrClient {
     public void setUrl(String url) {
         if (url != null) {
             if (url.endsWith("/")) {
-                this.url = url.substring(0, url.length()-1);
+                this.url = url.substring(0, url.length() - 1);
             } else {
                 this.url = url;
             }
@@ -120,6 +117,22 @@ public class StructurizrClient {
             debugResponse(response);
             log.info(EntityUtils.toString(response.getEntity()));
         }
+    }
+
+    /**
+     * Fetches the workspace with the given workspaceId from the server and merges its layout information with
+     * the given workspace. All models from the the new workspace are taken, only the old layout information is preserved
+     * @param workspaceId the ID of your workspace
+     * @param workspace the new workspace
+     * @throws Exception if you are not allowed to update the workspace with the given ID or there are any network troubles
+     */
+    public void mergeWorkspace(long workspaceId, Workspace workspace) throws Exception {
+        Workspace currentWorkspace = getWorkspace(workspaceId);
+        if (currentWorkspace != null) {
+            workspace.getViews().copyLayoutInformationFrom(currentWorkspace.getViews());
+        }
+        workspace.setId(workspaceId);
+        putWorkspace(workspace);
     }
 
     private void debugRequest(HttpRequestBase httpRequest) {
