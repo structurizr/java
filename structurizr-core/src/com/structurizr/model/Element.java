@@ -12,7 +12,6 @@ import java.util.Set;
 @JsonIgnoreProperties(ignoreUnknown=true)
 public abstract class Element extends TaggableThing {
 
-    // TODO: what happens if an element name includes a forward slash character?
     public static final String CANONICAL_NAME_SEPARATOR = "/";
 
     private Model model;
@@ -81,6 +80,10 @@ public abstract class Element extends TaggableThing {
 
     @JsonIgnore
     public abstract String getCanonicalName();
+
+    protected String formatForCanonicalName(String name) {
+        return name.replace(CANONICAL_NAME_SEPARATOR, "");
+    }
 
     /**
      * Adds a unidirectional "uses" style relationship between this element

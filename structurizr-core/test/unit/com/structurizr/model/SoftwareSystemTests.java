@@ -160,4 +160,10 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
         assertEquals("/System", system.getCanonicalName());
     }
 
+    @Test
+    public void test_getCanonicalName_WhenNameContainsASlashCharacter() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Name1/Name2", "Description");
+        assertEquals("/Name1Name2", softwareSystem.getCanonicalName());
+    }
+
 }

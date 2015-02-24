@@ -14,4 +14,10 @@ public class PersonTests extends AbstractWorkspaceTestBase {
         assertEquals("/Person", person.getCanonicalName());
     }
 
+    @Test
+    public void test_getCanonicalName_WhenNameContainsASlashCharacter() {
+        person.setName("Name1/Name2");
+        assertEquals("/Name1Name2", person.getCanonicalName());
+    }
+
 }

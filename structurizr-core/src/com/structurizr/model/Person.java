@@ -27,7 +27,7 @@ public class Person extends Element {
 
     @Override
     public String getCanonicalName() {
-        return CANONICAL_NAME_SEPARATOR + getName();
+        return CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getName());
     }
 
 }
