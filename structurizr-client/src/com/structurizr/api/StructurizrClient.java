@@ -31,6 +31,8 @@ public class StructurizrClient {
     public static final String STRUCTURIZR_API_KEY = "structurizr.api.key";
     public static final String STRUCTURIZR_API_SECRET = "structurizr.api.secret";
 
+    private static final String WORKSPACE_PATH = "/workspace/";
+
     private String url;
     private String apiKey;
     private String apiSecret;
@@ -81,9 +83,16 @@ public class StructurizrClient {
         }
     }
 
+    /**
+     * Gets the workspace with the given ID.
+     *
+     * @param workspaceId   the ID of your workspace
+     * @return a Workspace instance
+     * @throws Exception    if there are problems related to the network, authorization, JSON deserialization, etc
+     */
     public Workspace getWorkspace(long workspaceId) throws Exception {
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(url + "/workspace/" + workspaceId);
+        HttpGet httpGet = new HttpGet(url + WORKSPACE_PATH + workspaceId);
         addHeaders(httpGet, "", "");
         debugRequest(httpGet);
 
@@ -100,9 +109,21 @@ public class StructurizrClient {
         }
     }
 
+    /**
+     * Updates the given workspace.
+     *
+     * @param workspace     the workspace instance to update
+     * @throws Exception    if there are problems related to the network, authorization, JSON serialization, etc
+     */
     public void putWorkspace(Workspace workspace) throws Exception {
+        if (workspace == null) {
+            throw new IllegalArgumentException("A workspace must be supplied");
+        } else if (workspace.getId() <= 0) {
+            throw new IllegalArgumentException("The workspace ID must be set");
+        }
+
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpPut httpPut = new HttpPut(url + "/workspace/" + workspace.getId());
+        HttpPut httpPut = new HttpPut(url + WORKSPACE_PATH + workspace.getId());
 
         JsonWriter jsonWriter = new JsonWriter(true);
         StringWriter stringWriter = new StringWriter();
@@ -121,10 +142,11 @@ public class StructurizrClient {
 
     /**
      * Fetches the workspace with the given workspaceId from the server and merges its layout information with
-     * the given workspace. All models from the the new workspace are taken, only the old layout information is preserved
-     * @param workspaceId the ID of your workspace
-     * @param workspace the new workspace
-     * @throws Exception if you are not allowed to update the workspace with the given ID or there are any network troubles
+     * the given workspace. All models from the the new workspace are taken, only the old layout information is preserved.
+     *
+     * @param workspaceId   the ID of your workspace
+     * @param workspace     the new workspace
+     * @throws Exception    if you are not allowed to update the workspace with the given ID or there are any network troubles
      */
     public void mergeWorkspace(long workspaceId, Workspace workspace) throws Exception {
         Workspace currentWorkspace = getWorkspace(workspaceId);
