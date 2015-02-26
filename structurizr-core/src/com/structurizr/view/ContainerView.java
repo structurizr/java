@@ -7,8 +7,8 @@ public class ContainerView extends View {
     ContainerView() {
     }
 
-    ContainerView(SoftwareSystem softwareSystem) {
-        super(softwareSystem);
+    ContainerView(SoftwareSystem softwareSystem, String description) {
+        super(softwareSystem, description);
     }
 
     /**

@@ -24,8 +24,9 @@ public abstract class View implements Comparable<View> {
     View() {
     }
 
-    View(SoftwareSystem softwareSystem) {
+    View(SoftwareSystem softwareSystem, String description) {
         this.softwareSystem = softwareSystem;
+        setDescription(description);
     }
 
     @JsonIgnore
@@ -61,7 +62,11 @@ public abstract class View implements Comparable<View> {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        if (description == null) {
+            this.description = "";
+        } else {
+            this.description = description;
+        }
     }
 
     public PaperSize getPaperSize() {
@@ -193,8 +198,13 @@ public abstract class View implements Comparable<View> {
         return getTitle().compareTo(view.getTitle());
     }
 
-    private String getTitle() {
-        return getName() + " - " + getDescription();
+    @JsonIgnore
+    public String getTitle() {
+        if (getDescription() != null && getDescription().trim().length() > 0) {
+            return getName() + " [" + getDescription() + "]";
+        } else {
+            return getName();
+        }
     }
 
     ElementView findElementView(Element element) {

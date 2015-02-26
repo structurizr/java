@@ -1,12 +1,12 @@
 package com.structurizr.view;
 
-import java.util.Collection;
-import java.util.LinkedList;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.Container;
 import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;
+
+import java.util.Collection;
+import java.util.LinkedList;
 
 /**
  * Represents a set of views onto a model.
@@ -38,21 +38,33 @@ public class ViewSet {
     }
 
     public SystemContextView createContextView(SoftwareSystem softwareSystem) {
-        SystemContextView view = new SystemContextView(softwareSystem);
+        return createContextView(softwareSystem, null);
+    }
+
+    public SystemContextView createContextView(SoftwareSystem softwareSystem, String name) {
+        SystemContextView view = new SystemContextView(softwareSystem, name);
         systemContextViews.add(view);
 
         return view;
     }
 
     public ContainerView createContainerView(SoftwareSystem softwareSystem) {
-        ContainerView view = new ContainerView(softwareSystem);
+        return createContainerView(softwareSystem, null);
+    }
+
+    public ContainerView createContainerView(SoftwareSystem softwareSystem, String name) {
+        ContainerView view = new ContainerView(softwareSystem, name);
         containerViews.add(view);
 
         return view;
     }
 
     public ComponentView createComponentView(Container container) {
-        ComponentView view = new ComponentView(container);
+        return createComponentView(container, null);
+    }
+
+    public ComponentView createComponentView(Container container, String name) {
+        ComponentView view = new ComponentView(container, name);
         componentViews.add(view);
 
         return view;
@@ -94,30 +106,30 @@ public class ViewSet {
 
     public void copyLayoutInformationFrom(ViewSet source) {
         for (SystemContextView sourceView : source.getSystemContextViews()) {
-            SystemContextView destinationView = findSystemContextViewWithName(sourceView.getName());
+            SystemContextView destinationView = findSystemContextView(sourceView);
             if (destinationView != null) {
                 destinationView.copyLayoutInformationFrom(sourceView);
             }
         }
 
         for (ContainerView sourceView : source.getContainerViews()) {
-            ContainerView destinationView = findContainerViewWithName(sourceView.getName());
+            ContainerView destinationView = findContainerView(sourceView);
             if (destinationView != null) {
                 destinationView.copyLayoutInformationFrom(sourceView);
             }
         }
 
         for (ComponentView sourceView : source.getComponentViews()) {
-            ComponentView destinationView = findComponentViewWithName(sourceView.getName());
+            ComponentView destinationView = findComponentView(sourceView);
             if (destinationView != null) {
                 destinationView.copyLayoutInformationFrom(sourceView);
             }
         }
     }
 
-    private SystemContextView findSystemContextViewWithName(String name) {
+    private SystemContextView findSystemContextView(SystemContextView systemContextView) {
         for (SystemContextView view : systemContextViews) {
-            if (view.getName().equals(name)) {
+            if (view.getTitle().equals(systemContextView.getTitle())) {
                 return view;
             }
         }
@@ -125,9 +137,9 @@ public class ViewSet {
         return null;
     }
 
-    private ContainerView findContainerViewWithName(String name) {
+    private ContainerView findContainerView(ContainerView containerView) {
         for (ContainerView view : containerViews) {
-            if (view.getName().equals(name)) {
+            if (view.getTitle().equals(containerView.getTitle())) {
                 return view;
             }
         }
@@ -135,9 +147,9 @@ public class ViewSet {
         return null;
     }
 
-    private ComponentView findComponentViewWithName(String name) {
+    private ComponentView findComponentView(ComponentView componentView) {
         for (ComponentView view : componentViews) {
-            if (view.getName().equals(name)) {
+            if (view.getTitle().equals(componentView.getTitle())) {
                 return view;
             }
         }

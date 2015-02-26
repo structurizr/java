@@ -15,8 +15,8 @@ public class ComponentView extends View {
     ComponentView() {
     }
 
-    ComponentView(Container container) {
-        super(container.getParent());
+    ComponentView(Container container, String description) {
+        super(container.getParent(), description);
 
         this.container = container;
     }

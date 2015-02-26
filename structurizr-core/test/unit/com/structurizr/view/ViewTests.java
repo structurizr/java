@@ -1,7 +1,6 @@
 package com.structurizr.view;
 
 import com.structurizr.AbstractWorkspaceTestBase;
-import com.structurizr.Workspace;
 import com.structurizr.model.Location;
 import com.structurizr.model.Model;
 import com.structurizr.model.Person;
@@ -208,6 +207,25 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         assertEquals(0, view2.findElementView(softwareSystemB).getY());
         assertEquals(456, view2.findElementView(person).getX());
         assertEquals(654, view2.findElementView(person).getY());
+    }
+
+    @Test
+    public void test_getTitle() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
+        SystemContextView systemContextView = new SystemContextView(softwareSystem);
+        assertEquals("The System - System Context", systemContextView.getTitle());
+
+        systemContextView.setDescription(null);
+        assertEquals("The System - System Context", systemContextView.getTitle());
+
+        systemContextView.setDescription("");
+        assertEquals("The System - System Context", systemContextView.getTitle());
+
+        systemContextView.setDescription("   ");
+        assertEquals("The System - System Context", systemContextView.getTitle());
+
+        systemContextView.setDescription("Some description");
+        assertEquals("The System - System Context [Some description]", systemContextView.getTitle());
     }
 
 }
