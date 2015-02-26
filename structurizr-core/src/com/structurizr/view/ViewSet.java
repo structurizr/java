@@ -6,7 +6,7 @@ import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;
 
 import java.util.Collection;
-import java.util.LinkedList;
+import java.util.TreeSet;
 
 /**
  * Represents a set of views onto a model.
@@ -15,9 +15,9 @@ public class ViewSet {
 
     private Model model;
 
-    private Collection<SystemContextView> systemContextViews = new LinkedList<>();
-    private Collection<ContainerView> containerViews = new LinkedList<>();
-    private Collection<ComponentView> componentViews = new LinkedList<>();
+    private Collection<SystemContextView> systemContextViews = new TreeSet<>();
+    private Collection<ContainerView> containerViews = new TreeSet<>();
+    private Collection<ComponentView> componentViews = new TreeSet<>();
 
     private Styles styles = new Styles();
 
@@ -41,8 +41,8 @@ public class ViewSet {
         return createContextView(softwareSystem, null);
     }
 
-    public SystemContextView createContextView(SoftwareSystem softwareSystem, String name) {
-        SystemContextView view = new SystemContextView(softwareSystem, name);
+    public SystemContextView createContextView(SoftwareSystem softwareSystem, String description) {
+        SystemContextView view = new SystemContextView(softwareSystem, description);
         systemContextViews.add(view);
 
         return view;
@@ -52,8 +52,8 @@ public class ViewSet {
         return createContainerView(softwareSystem, null);
     }
 
-    public ContainerView createContainerView(SoftwareSystem softwareSystem, String name) {
-        ContainerView view = new ContainerView(softwareSystem, name);
+    public ContainerView createContainerView(SoftwareSystem softwareSystem, String description) {
+        ContainerView view = new ContainerView(softwareSystem, description);
         containerViews.add(view);
 
         return view;
@@ -63,23 +63,23 @@ public class ViewSet {
         return createComponentView(container, null);
     }
 
-    public ComponentView createComponentView(Container container, String name) {
-        ComponentView view = new ComponentView(container, name);
+    public ComponentView createComponentView(Container container, String description) {
+        ComponentView view = new ComponentView(container, description);
         componentViews.add(view);
 
         return view;
     }
 
     public Collection<SystemContextView> getSystemContextViews() {
-        return new LinkedList<>(systemContextViews);
+        return new TreeSet<>(systemContextViews);
     }
 
     public Collection<ContainerView> getContainerViews() {
-        return new LinkedList<>(containerViews);
+        return new TreeSet<>(containerViews);
     }
 
     public Collection<ComponentView> getComponentViews() {
-        return new LinkedList<>(componentViews);
+        return new TreeSet<>(componentViews);
     }
 
     public void hydrate() {
