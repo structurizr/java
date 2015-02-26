@@ -49,9 +49,9 @@ public class FinancialRiskSystem {
 
         // tag and style some elements
         financialRiskSystem.addTags("Risk System");
-        viewSet.getStyles().add(new ElementStyle("Risk System", null, null, "#041F37", "white", null));
-        viewSet.getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#2A4E6E", "white", null));
-        viewSet.getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#728da5", "white", null));
+        viewSet.getStyles().add(new ElementStyle("Risk System", null, null, "#550000", "#ffffff", null));
+        viewSet.getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#801515", "#ffffff", null));
+        viewSet.getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#d46a6a", "#ffffff", null));
 
         // and upload the model to structurizr.com
         StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
