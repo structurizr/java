@@ -19,11 +19,6 @@ public class RelationshipView {
         this.relationship = relationship;
     }
 
-    @JsonIgnore
-    public Relationship getRelationship() {
-        return relationship;
-    }
-
     public String getId() {
         if (relationship != null) {
             return relationship.getId();
@@ -34,6 +29,15 @@ public class RelationshipView {
 
     void setId(String id) {
         this.id = id;
+    }
+
+    @JsonIgnore
+    public Relationship getRelationship() {
+        return relationship;
+    }
+
+    public void setRelationship(Relationship relationship) {
+        this.relationship = relationship;
     }
 
     public Collection<Vertex> getVertices() {

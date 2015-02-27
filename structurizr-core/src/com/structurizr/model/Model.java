@@ -11,6 +11,7 @@ public class Model {
     private SequentialIntegerIdGeneratorStrategy idGenerator = new SequentialIntegerIdGeneratorStrategy();
 
     private final Map<String,Element> elementsById = new HashMap<>();
+    private final Map<String,Relationship> relationshipsById = new HashMap<>();
 
     private Set<Person> people = new LinkedHashSet<>();
     private Set<SoftwareSystem> softwareSystems = new LinkedHashSet<>();
@@ -158,6 +159,7 @@ public class Model {
     }
 
     private void addRelationshipToInternalStructures(Relationship relationship) {
+        relationshipsById.put(relationship.getId(), relationship);
         idGenerator.found(relationship.getId());
     }
 
@@ -167,6 +169,14 @@ public class Model {
      */
     public Element getElement(String id) {
         return elementsById.get(id);
+    }
+
+    /**
+     * Returns the relationship in this model with the specified ID
+     * (or null if it doesn't exist).
+     */
+    public Relationship getRelationship(String id) {
+        return relationshipsById.get(id);
     }
 
     /**

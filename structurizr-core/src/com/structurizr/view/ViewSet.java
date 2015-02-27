@@ -98,6 +98,9 @@ public class ViewSet {
         for (ElementView elementView : view.getElements()) {
             elementView.setElement(model.getElement(elementView.getId()));
         }
+        for (RelationshipView relationshipView : view.getRelationships()) {
+            relationshipView.setRelationship(model.getRelationship(relationshipView.getId()));
+        }
     }
 
     public Styles getStyles() {
