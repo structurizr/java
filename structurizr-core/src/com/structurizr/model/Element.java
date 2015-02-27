@@ -1,7 +1,6 @@
 package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -9,7 +8,6 @@ import java.util.Set;
 /**
  * This is the superclass for all model elements.
  */
-@JsonIgnoreProperties(ignoreUnknown=true)
 public abstract class Element extends TaggableThing {
 
     public static final String CANONICAL_NAME_SEPARATOR = "/";

@@ -1,7 +1,6 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.structurizr.model.*;
 
 import java.util.HashSet;
@@ -9,7 +8,6 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@JsonIgnoreProperties(ignoreUnknown=true)
 public abstract class View implements Comparable<View> {
 
     private SoftwareSystem softwareSystem;
@@ -217,12 +215,29 @@ public abstract class View implements Comparable<View> {
         return null;
     }
 
+    RelationshipView findRelationshipView(Relationship relationship) {
+        for (RelationshipView relationshipView : getRelationships()) {
+            if (relationshipView.getRelationship().equals(relationship)) {
+                return relationshipView;
+            }
+        }
+
+        return null;
+    }
+
     public void copyLayoutInformationFrom(View source) {
         this.setPaperSize(source.getPaperSize());
         for (ElementView sourceElementView : source.getElements()) {
             ElementView destinationElementView = findElementView(sourceElementView.getElement());
             if (destinationElementView != null) {
                 destinationElementView.copyLayoutInformationFrom(sourceElementView);
+            }
+        }
+
+        for (RelationshipView sourceRelationshipView : source.getRelationships()) {
+            RelationshipView destinationRelationshipView = findRelationshipView(sourceRelationshipView.getRelationship());
+            if (destinationRelationshipView != null) {
+                destinationRelationshipView.copyLayoutInformationFrom(sourceRelationshipView);
             }
         }
     }

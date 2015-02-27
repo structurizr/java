@@ -3,10 +3,14 @@ package com.structurizr.view;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.Relationship;
 
+import java.util.Collection;
+import java.util.LinkedList;
+
 public class RelationshipView {
 
     private Relationship relationship;
     private String id;
+    private Collection<Vertex> vertices = new LinkedList<>();
 
     RelationshipView() {
     }
@@ -30,6 +34,20 @@ public class RelationshipView {
 
     void setId(String id) {
         this.id = id;
+    }
+
+    public Collection<Vertex> getVertices() {
+        return vertices;
+    }
+
+    public void setVertices(Collection<Vertex> vertices) {
+        this.vertices = vertices;
+    }
+
+    public void copyLayoutInformationFrom(RelationshipView source) {
+        if (source != null) {
+            setVertices(source.getVertices());
+        }
     }
 
     @Override

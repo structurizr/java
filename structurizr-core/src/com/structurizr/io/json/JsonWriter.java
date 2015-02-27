@@ -1,5 +1,6 @@
 package com.structurizr.io.json;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.structurizr.Workspace;
@@ -23,6 +24,8 @@ public class JsonWriter implements StructurizrWriter {
             if (indentOutput) {
                 objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
             }
+            objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+            objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 
             writer.write(objectMapper.writeValueAsString(workspace));
         } catch (IOException ioe) {

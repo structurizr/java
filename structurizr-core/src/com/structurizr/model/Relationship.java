@@ -75,7 +75,7 @@ public class Relationship extends TaggableThing {
     }
 
     public String getDescription() {
-        return description;
+        return description != null ? description : "";
     }
 
     public void setDescription(String description) {

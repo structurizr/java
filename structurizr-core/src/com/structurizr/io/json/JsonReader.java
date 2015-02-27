@@ -15,6 +15,8 @@ public class JsonReader implements StructurizrReader {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+
             Workspace workspace = objectMapper.readValue(reader, Workspace.class);
             workspace.hydrate();
 
