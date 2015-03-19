@@ -65,6 +65,7 @@ public class ViewSet {
 
     public ComponentView createComponentView(Container container, String description) {
         ComponentView view = new ComponentView(container, description);
+        view.add(container);
         componentViews.add(view);
 
         return view;

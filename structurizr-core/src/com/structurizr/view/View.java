@@ -85,7 +85,7 @@ public abstract class View implements Comparable<View> {
     /**
      * Adds the given software system to this view.
      *
-     * @param softwareSystem        the SoftwareSystem to add
+     * @param softwareSystem the SoftwareSystem to add
      */
     public void addSoftwareSystem(SoftwareSystem softwareSystem) {
         addElement(softwareSystem);
@@ -101,7 +101,7 @@ public abstract class View implements Comparable<View> {
     /**
      * Adds the given person to this view.
      *
-     * @param person        the Person to add
+     * @param person the Person to add
      */
     public void addPerson(Person person) {
         addElement(person);
@@ -121,7 +121,7 @@ public abstract class View implements Comparable<View> {
     /**
      * Gets the set of elements in this view.
      *
-     * @return  a Set of ElementView objects
+     * @return a Set of ElementView objects
      */
     public Set<ElementView> getElements() {
         return elementViews;
@@ -173,11 +173,17 @@ public abstract class View implements Comparable<View> {
         elementViews.removeIf(ev -> !elementIds.contains(ev.getId()));
     }
 
-    public void removeElementsThatCantBeReachedFrom(Element element) {
+    /**
+     * Removes all elements of a view that cannot be reached from a certain element
+     *
+     * @param element   the source element
+     * @param whiteList a set of elements that must not be removed
+     */
+    public void removeElementsThatCantBeReachedFrom(Element element, Set<? extends Element> whiteList) {
         Set<String> elementIdsToShow = new HashSet<>();
         findElementsToShow(element, elementIdsToShow, 1);
 
-        elementViews.removeIf(ev -> !elementIdsToShow.contains(ev.getId()));
+        elementViews.removeIf(ev -> !elementIdsToShow.contains(ev.getId()) && !whiteList.contains(ev.getElement()));
     }
 
     private void findElementsToShow(Element element, Set<String> elementIds, int depth) {

@@ -235,4 +235,20 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         assertEquals("The System - System Context [Some description]", systemContextView.getTitle());
     }
 
+    @Test
+    public void test_containerViewContainsItself() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
+        Container container = softwareSystem.addContainer("Container", "", "");
+        Component component = container.addComponent("Component", "");
+
+        ViewSet views = workspace.getViews();
+        ComponentView componentView = views.createComponentView(container);
+        componentView.add(container);
+        componentView.addAllElements();
+
+        assertEquals(2, componentView.getElements().size());
+        assertTrue(componentView.getElements().contains(new ElementView(component)));
+        assertTrue(componentView.getElements().contains(new ElementView(container)));
+    }
+
 }
