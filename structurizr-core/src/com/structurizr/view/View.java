@@ -182,6 +182,9 @@ public abstract class View implements Comparable<View> {
     public void removeElementsThatCantBeReachedFrom(Element element, Set<? extends Element> whiteList) {
         Set<String> elementIdsToShow = new HashSet<>();
         findElementsToShow(element, elementIdsToShow, 1);
+        for (Element whiteListedElement : whiteList) {
+            findElementsToShow(whiteListedElement, elementIdsToShow, 1);
+        }
 
         elementViews.removeIf(ev -> !elementIdsToShow.contains(ev.getId()) && !whiteList.contains(ev.getElement()));
     }

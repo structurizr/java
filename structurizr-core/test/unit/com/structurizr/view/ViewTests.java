@@ -238,8 +238,10 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_containerViewContainsItself() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
+        SoftwareSystem externalSystem = model.addSoftwareSystem(Location.External, "External System", "");
         Container container = softwareSystem.addContainer("Container", "", "");
         Component component = container.addComponent("Component", "");
+        component.uses(externalSystem, "");
 
         ViewSet views = workspace.getViews();
         ComponentView componentView = views.createComponentView(container);
@@ -247,7 +249,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
 
         assertEquals(2, componentView.getElements().size());
         assertTrue(componentView.getElements().contains(new ElementView(component)));
-        assertTrue(componentView.getElements().contains(new ElementView(container)));
+        assertTrue(componentView.getElements().contains(new ElementView(externalSystem)));
     }
 
 }
