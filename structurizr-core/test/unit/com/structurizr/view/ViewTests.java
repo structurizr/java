@@ -243,7 +243,6 @@ public class ViewTests extends AbstractWorkspaceTestBase {
 
         ViewSet views = workspace.getViews();
         ComponentView componentView = views.createComponentView(container);
-        componentView.add(container);
         componentView.addAllElements();
 
         assertEquals(2, componentView.getElements().size());
