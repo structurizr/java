@@ -3,7 +3,6 @@ package com.structurizr.view;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
-import com.structurizr.model.SoftwareSystem;
 
 import java.util.Collection;
 
@@ -104,7 +103,8 @@ public class ComponentView extends View {
         addAllPeople();
         addAllContainers();
         addAllComponents();
-        removeElementsThatCantBeReachedFrom(this.container);
-    }
 
+        // Components of the current container should always be included in the ComponentView
+        removeElementsThatCantBeReachedFrom(this.container, this.container.getComponents());
+    }
 }
