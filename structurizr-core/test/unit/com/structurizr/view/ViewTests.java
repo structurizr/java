@@ -4,13 +4,10 @@ import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.model.*;
 import org.junit.Test;
 
-import javax.management.relation.Relation;
 import java.util.Arrays;
 import java.util.Iterator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ViewTests extends AbstractWorkspaceTestBase {
 
@@ -233,6 +230,67 @@ public class ViewTests extends AbstractWorkspaceTestBase {
 
         systemContextView.setDescription("Some description");
         assertEquals("The System - System Context [Some description]", systemContextView.getTitle());
+    }
+
+    @Test
+    public void test_removeElementsThatCantBeReachedFrom_DoesNothing_WhenANullElementIsSpecified() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
+        View view = new SystemContextView(softwareSystem);
+        view.removeElementsThatCantBeReachedFrom(null);
+    }
+
+    @Test
+    public void test_removeElementsThatCantBeReachedFrom_DoesNothing_WhenAllElementsCanBeReached() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("The System", "Description");
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "");
+
+        softwareSystem.uses(softwareSystemA, "uses");
+        softwareSystemA.uses(softwareSystemB, "uses");
+
+        View view = new SystemContextView(softwareSystem);
+        view.addAllElements();
+        assertEquals(3, view.getElements().size());
+
+        view.removeElementsThatCantBeReachedFrom(softwareSystem);
+        assertEquals(3, view.getElements().size());
+    }
+
+    @Test
+    public void test_removeElementsThatCantBeReachedFrom_RemovesOrphanedElements_WhenThereAreSomeOrphanedElements() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("The System", "Description");
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "");
+        SoftwareSystem softwareSystemC = model.addSoftwareSystem("System C", "");
+
+        softwareSystem.uses(softwareSystemA, "uses");
+        softwareSystemA.uses(softwareSystemB, "uses");
+
+        View view = new SystemContextView(softwareSystem);
+        view.addAllElements();
+        assertEquals(4, view.getElements().size());
+
+        view.removeElementsThatCantBeReachedFrom(softwareSystem);
+        assertEquals(3, view.getElements().size());
+        assertFalse(view.getElements().contains(new ElementView(softwareSystemC)));
+    }
+
+    @Test
+    public void test_removeElementsThatCantBeReachedFrom_RemovesUnreachableElements_WhenThereAreSomeUnreachableElements() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("The System", "Description");
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "");
+
+        softwareSystem.uses(softwareSystemA, "uses");
+        softwareSystemA.uses(softwareSystemB, "uses");
+
+        View view = new SystemContextView(softwareSystem);
+        view.addAllElements();
+        assertEquals(3, view.getElements().size());
+
+        view.removeElementsThatCantBeReachedFrom(softwareSystemA);
+        assertEquals(2, view.getElements().size());
+        assertFalse(view.getElements().contains(new ElementView(softwareSystem)));
     }
 
 }

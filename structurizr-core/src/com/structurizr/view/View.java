@@ -10,6 +10,8 @@ import java.util.stream.Collectors;
 
 public abstract class View implements Comparable<View> {
 
+    private static final int MAX_DEPTH = 100;
+
     private SoftwareSystem softwareSystem;
     private String softwareSystemId;
     private String description = "";
@@ -108,14 +110,18 @@ public abstract class View implements Comparable<View> {
     }
 
     protected void addElement(Element element) {
-        if (softwareSystem.getModel().contains(element)) {
-            elementViews.add(new ElementView(element));
+        if (element != null) {
+            if (softwareSystem.getModel().contains(element)) {
+                elementViews.add(new ElementView(element));
+            }
         }
     }
 
     protected void removeElement(Element element) {
-        ElementView elementView = new ElementView(element);
-        elementViews.remove(elementView);
+        if (element != null) {
+            ElementView elementView = new ElementView(element);
+            elementViews.remove(elementView);
+        }
     }
 
     /**
@@ -173,17 +179,26 @@ public abstract class View implements Comparable<View> {
         elementViews.removeIf(ev -> !elementIds.contains(ev.getId()));
     }
 
+    /**
+     * Removes all elements that cannot be reached by traversing the graph of relationships
+     * starting with the specified element.
+     *
+     * @param element       the starting element
+     */
     public void removeElementsThatCantBeReachedFrom(Element element) {
-        Set<String> elementIdsToShow = new HashSet<>();
-        findElementsToShow(element, elementIdsToShow, 1);
+        if (element != null) {
+            Set<String> elementIdsToShow = new HashSet<>();
+            findElementsToShow(element, elementIdsToShow, 1);
 
-        elementViews.removeIf(ev -> !elementIdsToShow.contains(ev.getId()));
+            elementViews.removeIf(ev -> !elementIdsToShow.contains(ev.getId()));
+        }
     }
 
     private void findElementsToShow(Element element, Set<String> elementIds, int depth) {
         if (elementViews.contains(new ElementView(element))) {
             elementIds.add(element.getId());
-            if (depth < 100) {
+            // this is here to protect us from cyclic dependencies
+            if (depth < MAX_DEPTH) {
                 element.getRelationships().forEach(r -> findElementsToShow(r.getDestination(), elementIds, depth + 1));
             }
         }

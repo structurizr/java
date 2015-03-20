@@ -3,9 +3,6 @@ package com.structurizr.view;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
-import com.structurizr.model.SoftwareSystem;
-
-import java.util.Collection;
 
 public class ComponentView extends View {
 
@@ -29,7 +26,7 @@ public class ComponentView extends View {
         }
     }
 
-    public void setContainerId(String containerId) {
+    void setContainerId(String containerId) {
         this.containerId = containerId;
     }
 
@@ -61,14 +58,6 @@ public class ComponentView extends View {
                 .forEach(this::addElement);
     }
 
-    public void add(Container container) {
-        addElement(container);
-    }
-
-    public void add(Component component) {
-        addElement(component);
-    }
-
     /**
      * Adds all components in the container to this view.
      */
@@ -76,16 +65,40 @@ public class ComponentView extends View {
         container.getComponents().forEach(this::addElement);
     }
 
+    /**
+     * Adds an individual container to this view.
+     *
+     * @param container     the Container to add
+     */
+    public void add(Container container) {
+        addElement(container);
+    }
+
+    /**
+     * Adds an individual component to this view.
+     *
+     * @param component     the Component to add
+     */
+    public void add(Component component) {
+        addElement(component);
+    }
+
+    /**
+     * Removes an individual container from this view.
+     *
+     * @param container     the Container to remove
+     */
     public void remove(Container container) {
         removeElement(container);
     }
 
+    /**
+     * Removes an individual component from this view.
+     *
+     * @param component     the Component to remove
+     */
     public void remove(Component component) {
         removeElement(component);
-    }
-
-    public void remove(Collection<Component> components) {
-        components.forEach(this::removeElement);
     }
 
     @Override
@@ -104,7 +117,7 @@ public class ComponentView extends View {
         addAllPeople();
         addAllContainers();
         addAllComponents();
-        removeElementsThatCantBeReachedFrom(this.container);
+//        removeElementsThatCantBeReachedFrom(this.container);
     }
 
 }
