@@ -70,8 +70,8 @@ public class JsonTests {
 
         views.getStyles().add(new ElementStyle(Tags.ELEMENT, 600, 450, "#dddddd", "#000000", 30));
         views.getStyles().add(new ElementStyle("Internal", null, null, "#041F37", "#ffffff", null));
-        views.getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 4, "#dddddd", 25, 300));
-        views.getStyles().add(new RelationshipStyle("JDBC", 4, "#ff0000", 25, 300));
+        views.getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 4, "#dddddd", true, 25, 300));
+        views.getStyles().add(new RelationshipStyle("JDBC", 4, "#ff0000", true, 25, 300));
 
         return workspace;
     }

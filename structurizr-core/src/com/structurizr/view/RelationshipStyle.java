@@ -18,6 +18,9 @@ public class RelationshipStyle {
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Integer width;
 
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private Boolean dashed;
+
     public RelationshipStyle() {
     }
 
@@ -25,10 +28,11 @@ public class RelationshipStyle {
         this.tag = tag;
     }
 
-    public RelationshipStyle(String tag, Integer thickness, String color, Integer fontSize, Integer width) {
+    public RelationshipStyle(String tag, Integer thickness, String color, Boolean dashed, Integer fontSize, Integer width) {
         this.tag = tag;
         this.thickness = thickness;
         this.color = color;
+        this.dashed = dashed;
         this.fontSize = fontSize;
         this.width = width;
     }
@@ -55,6 +59,14 @@ public class RelationshipStyle {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public Boolean getDashed() {
+        return dashed;
+    }
+
+    public void setDashed(Boolean dashed) {
+        this.dashed = dashed;
     }
 
     public Integer getFontSize() {
