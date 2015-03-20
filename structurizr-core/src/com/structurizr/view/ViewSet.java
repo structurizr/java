@@ -20,6 +20,7 @@ public class ViewSet {
     private Collection<ComponentView> componentViews = new TreeSet<>();
 
     private Styles styles = new Styles();
+    private Configuration configuration = new Configuration();
 
     ViewSet() {
     }
@@ -103,8 +104,13 @@ public class ViewSet {
         }
     }
 
+    @Deprecated
     public Styles getStyles() {
         return styles;
+    }
+
+    public Configuration getConfiguration() {
+        return configuration;
     }
 
     public void copyLayoutInformationFrom(ViewSet source) {
