@@ -35,23 +35,23 @@ public class StructurizrComponentFinderStrategy extends AbstractComponentFinderS
         Collection<Component> componentsFound = new LinkedList<>();
         Set<Class<?>> componentTypes = getTypesAnnotatedWith(com.structurizr.annotation.Component.class);
         for (Class<?> componentType : componentTypes) {
-            String interfaceType = componentType.getCanonicalName();
-            String implementationType = componentType.getCanonicalName();
-
             if (componentType.isInterface()) {
+                String interfaceType = componentType.getCanonicalName();
+                String implementationType = componentType.getCanonicalName();
+
                 // TODO: fix this untyped collection reference
                 Set<?> subtypes = reflections.getSubTypesOf(componentType);
                 if (subtypes.size() > 0) {
                     // WARNING: this code chooses the first implementation that it finds
-                    implementationType = ((Class<?>)(subtypes.iterator().next())).getCanonicalName();
+                    implementationType = ((Class<?>) (subtypes.iterator().next())).getCanonicalName();
                 }
-            }
 
-            Component component = getComponentFinder().foundComponent(
-                    interfaceType,
-                    implementationType,
-                    componentType.getAnnotation(com.structurizr.annotation.Component.class).description(), "");
-            componentsFound.add(component);
+                Component component = getComponentFinder().foundComponent(
+                        interfaceType,
+                        implementationType,
+                        componentType.getAnnotation(com.structurizr.annotation.Component.class).description(), "");
+                componentsFound.add(component);
+            }
         }
 
         return componentsFound;

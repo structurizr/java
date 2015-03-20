@@ -5,10 +5,7 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.0'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'
 
-    compile 'com.google.guava:guava:11.0.2'
-    compile 'org.javassist:javassist:3.16.1-GA'
-
-    compile 'org.reflections:reflections:0.9.9-RC1'
+    compile 'org.reflections:reflections:0.9.9'
 
     compile 'commons-logging:commons-logging:1.1.3'
 
