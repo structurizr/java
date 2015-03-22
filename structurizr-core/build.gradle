@@ -11,5 +11,7 @@ dependencies {
 
     compile 'org.apache.httpcomponents:httpcore:4.3.3'
 
+    compile files("${System.getProperty('java.home')}/../lib/tools.jar")
+
     testCompile 'junit:junit:4.12'
 }

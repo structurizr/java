@@ -2,6 +2,7 @@ package com.structurizr.example.annotations;
 
 import com.structurizr.Workspace;
 import com.structurizr.componentfinder.ComponentFinder;
+import com.structurizr.componentfinder.JavadocComponentFinderStrategy;
 import com.structurizr.componentfinder.StructurizrComponentFinderStrategy;
 import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
@@ -28,7 +29,9 @@ public class StructurizrAnnotations {
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
                 "com.structurizr.example.annotations",
-                new StructurizrComponentFinderStrategy());
+                new StructurizrComponentFinderStrategy(),
+                new JavadocComponentFinderStrategy("/Users/simon/sandbox/structurizr-java/structurizr-examples/src/")
+        );
         componentFinder.findComponents();
 
         // create some views

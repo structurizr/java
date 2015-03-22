@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Set;
 
-public class SpringComponentFinderStrategy extends AbstractComponentFinderStrategy {
+public class SpringComponentFinderStrategy extends AbstractReflectionsComponentFinderStrategy {
 
     @Override
     public Collection<Component> findComponents() throws Exception {

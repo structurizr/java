@@ -48,6 +48,21 @@ public class ComponentFinder {
         return component;
     }
 
+    public Component enrichComponent(String interfaceType, String implementationType, String description, String technology) {
+        String type = interfaceType;
+        if (type == null || type.isEmpty()) {
+            // there is no interface type, so we'll just have to use the implementation type
+            type = implementationType;
+        }
+
+        Component component = container.getComponentOfType(type);
+        if (component != null) {
+            mergeInformation(component, interfaceType, implementationType, description, technology);
+        }
+
+        return component;
+    }
+
     private void mergeInformation(Component component, String interfaceType, String implementationType, String description, String technology) {
         if (component.getInterfaceType() != null && component.getInterfaceType().isEmpty()) {
             component.setInterfaceType(interfaceType);
