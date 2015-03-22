@@ -16,6 +16,7 @@ public class JavadocComponentFinderStrategyTests {
 
     private Container webApplication;
     private Component componentA, componentB, componentC;
+    private File sourcePath = new File("test/unit");
 
     @Before
     public void setUp() {
@@ -43,7 +44,6 @@ public class JavadocComponentFinderStrategyTests {
 
     @Test
     public void test_findComponents() throws Exception {
-        File sourcePath = new File("structurizr-core/test/unit");
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
                 "com.structurizr.componentfinder",
@@ -58,7 +58,6 @@ public class JavadocComponentFinderStrategyTests {
 
     @Test
     public void test_findComponents_TruncatesComponentDescriptions_WhenComponentDescriptionsAreTooLong() throws Exception {
-        File sourcePath = new File("structurizr-core/test/unit");
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
                 "com.structurizr.componentfinder",
