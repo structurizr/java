@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * TODO: find dependencies from parent classes (e.g. TweetComponent extends AbstractComponent
  */
-public class StructurizrComponentFinderStrategy extends AbstractReflectionsComponentFinderStrategy {
+public class StructurizrAnnotationsComponentFinderStrategy extends AbstractReflectionsComponentFinderStrategy {
 
     public Collection<Component> findComponents() throws Exception {
         return findAnnotatedInterfaces();

@@ -1,11 +1,11 @@
 package com.structurizr.example.core;
 
 import com.structurizr.Workspace;
+import com.structurizr.api.StructurizrClient;
 import com.structurizr.io.json.JsonWriter;
-import com.structurizr.model.Location;
-import com.structurizr.model.Model;
-import com.structurizr.model.Person;
-import com.structurizr.model.SoftwareSystem;
+import com.structurizr.model.*;
+import com.structurizr.view.ElementStyle;
+import com.structurizr.view.RelationshipStyle;
 import com.structurizr.view.SystemContextView;
 import com.structurizr.view.ViewSet;
 
@@ -16,6 +16,9 @@ import java.io.StringWriter;
  * architecture kata, which can be found at http://bit.ly/sa4d-risksystem
  */
 public class FinancialRiskSystem {
+
+    private static final String TAG_ASYNCHRONOUS = "Asynchronous";
+    private static final String TAG_ALERT = "Alert";
 
     public static void main(String[] args) throws Exception {
         Workspace workspace = new Workspace("Financial Risk System", "This is a simple (incomplete) example C4 model based upon the financial risk system architecture kata, which can be found at http://bit.ly/sa4d-risksystem");
@@ -38,10 +41,10 @@ public class FinancialRiskSystem {
 
         SoftwareSystem emailSystem = model.addSoftwareSystem(Location.Internal, "E-mail system", "Microsoft Exchange");
         financialRiskSystem.uses(emailSystem, "Sends a notification that a report is ready via e-mail to");
-        emailSystem.delivers(businessUser, "Sends a notification that a report is ready via e-mail to");
+        emailSystem.delivers(businessUser, "Sends a notification that a report is ready via e-mail to").addTags(TAG_ASYNCHRONOUS);
 
         SoftwareSystem centralMonitoringService = model.addSoftwareSystem(Location.Internal, "Central Monitoring Service", "The bank-wide monitoring and alerting dashboard");
-        financialRiskSystem.uses(centralMonitoringService, "Sends critical failure alerts to");
+        financialRiskSystem.uses(centralMonitoringService, "Sends critical failure alerts to").addTags(TAG_ALERT);
 
         SoftwareSystem activeDirectory = model.addSoftwareSystem(Location.Internal, "Active Directory", "Manages users and security roles across the bank");
         financialRiskSystem.uses(activeDirectory, "Uses for authentication and authorisation");
@@ -49,13 +52,27 @@ public class FinancialRiskSystem {
         // create some views
         ViewSet viewSet = workspace.getViews();
         SystemContextView contextView = viewSet.createContextView(financialRiskSystem);
-        contextView.addAllElements();
+        contextView.addAllSoftwareSystems();
+        contextView.addAllPeople();
 
-        // and output the model as JSON
+        // tag and style some elements
+        financialRiskSystem.addTags("Risk System");
+        viewSet.getConfiguration().getStyles().add(new ElementStyle("Risk System", null, null, "#550000", "#ffffff", null));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#801515", "#ffffff", null));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#d46a6a", "#ffffff", null));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, null, null, false, null, null));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(TAG_ASYNCHRONOUS, null, null, true, null, null));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(TAG_ALERT, null, "#ff0000", false, null, null));
+
+        // output the model as JSON
         JsonWriter jsonWriter = new JsonWriter(true);
         StringWriter stringWriter = new StringWriter();
         jsonWriter.write(workspace, stringWriter);
         System.out.println(stringWriter.toString());
+
+        // and upload the model to structurizr.com
+        StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
+        structurizrClient.mergeWorkspace(31, workspace);
     }
 
 }

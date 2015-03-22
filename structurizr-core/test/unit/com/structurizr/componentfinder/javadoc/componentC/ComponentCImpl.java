@@ -1,9 +1,9 @@
-package com.structurizr.componentfinder.componentC;
+package com.structurizr.componentfinder.javadoc.componentC;
 
 import com.structurizr.annotation.ComponentDependency;
-import com.structurizr.componentfinder.componentA.ComponentA;
+import com.structurizr.componentfinder.javadoc.componentA.ComponentA;
 
-class ComponentCImpl implements ComponentC {
+class ComponentCImpl implements com.structurizr.componentfinder.javadoc.componentC.ComponentC {
 
     @ComponentDependency(description = "Uses to do something")
     private ComponentA componentA;

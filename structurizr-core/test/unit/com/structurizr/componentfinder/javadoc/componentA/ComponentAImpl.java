@@ -1,4 +1,4 @@
-package com.structurizr.componentfinder.componentA;
+package com.structurizr.componentfinder.javadoc.componentA;
 
 class ComponentAImpl implements ComponentA {
 

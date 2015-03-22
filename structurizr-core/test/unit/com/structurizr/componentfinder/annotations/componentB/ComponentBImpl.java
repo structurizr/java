@@ -1,9 +1,11 @@
-package com.structurizr.componentfinder.componentB;
+package com.structurizr.componentfinder.annotations.componentB;
 
-import com.structurizr.componentfinder.componentA.ComponentA;
+import com.structurizr.annotation.ComponentDependency;
+import com.structurizr.componentfinder.annotations.componentA.ComponentA;
 
 class ComponentBImpl implements ComponentB {
 
+    @ComponentDependency(description = "Does something with")
     private ComponentA componentA;
 
     public ComponentBImpl(ComponentA componentA) {

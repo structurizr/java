@@ -3,6 +3,7 @@ package com.structurizr.example.spring.petclinic;
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
 import com.structurizr.componentfinder.ComponentFinder;
+import com.structurizr.componentfinder.JavadocComponentFinderStrategy;
 import com.structurizr.componentfinder.SpringComponentFinderStrategy;
 import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
@@ -35,7 +36,8 @@ public class SpringPetClinic {
 
         // and now automatically find all Spring @Controller, @Component, @Service and @Repository components
         ComponentFinder componentFinder = new ComponentFinder(webApplication, "org.springframework.samples.petclinic",
-                new SpringComponentFinderStrategy());
+                new SpringComponentFinderStrategy(),
+                new JavadocComponentFinderStrategy("/Users/simon/sandbox/spring/spring-petclinic/src/main/java/", 150));
         componentFinder.findComponents();
 
         // connect the user to all of the Spring MVC controllers
@@ -80,10 +82,7 @@ public class SpringPetClinic {
         System.out.println(stringWriter.toString());
 
         StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
-        Workspace oldWorkspace = structurizrClient.getWorkspace(1);
-        workspace.getViews().copyLayoutInformationFrom(oldWorkspace.getViews());
-        workspace.setId(1);
-        structurizrClient.putWorkspace(workspace);
+        structurizrClient.mergeWorkspace(1, workspace);
     }
 
 }

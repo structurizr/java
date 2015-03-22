@@ -1,6 +1,8 @@
-package com.structurizr.componentfinder;
+package com.structurizr.componentfinder.javadoc;
 
 import com.structurizr.Workspace;
+import com.structurizr.componentfinder.ComponentFinder;
+import com.structurizr.componentfinder.JavadocComponentFinderStrategy;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 import com.structurizr.model.Model;
@@ -27,18 +29,18 @@ public class JavadocComponentFinderStrategyTests {
         webApplication = softwareSystem.addContainer("Name", "Description", "Technology");
 
         componentA = webApplication.addComponentOfType(
-                "com.structurizr.componentfinder.componentA.ComponentA",
-                "com.structurizr.componentfinder.componentA.ComponentAImpl",
+                "com.structurizr.componentfinder.javadoc.componentA.ComponentA",
+                "com.structurizr.componentfinder.javadoc.componentA.ComponentAImpl",
                 "", "");
 
         componentB = webApplication.addComponentOfType(
-                "com.structurizr.componentfinder.componentB.ComponentB",
-                "com.structurizr.componentfinder.componentB.ComponentBImpl",
+                "com.structurizr.componentfinder.javadoc.componentB.ComponentB",
+                "com.structurizr.componentfinder.javadoc.componentB.ComponentBImpl",
                 "", "");
 
         componentC = webApplication.addComponentOfType(
-                "com.structurizr.componentfinder.componentC.ComponentC",
-                "com.structurizr.componentfinder.componentC.ComponentCImpl",
+                "com.structurizr.componentfinder.javadoc.componentC.ComponentC",
+                "com.structurizr.componentfinder.javadoc.componentC.ComponentCImpl",
                 "", "");
     }
 
@@ -46,7 +48,7 @@ public class JavadocComponentFinderStrategyTests {
     public void test_findComponents() throws Exception {
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
-                "com.structurizr.componentfinder",
+                "com.structurizr.componentfinder.javadoc",
                 new JavadocComponentFinderStrategy(sourcePath.getCanonicalPath())
         );
         componentFinder.findComponents();
@@ -60,7 +62,7 @@ public class JavadocComponentFinderStrategyTests {
     public void test_findComponents_TruncatesComponentDescriptions_WhenComponentDescriptionsAreTooLong() throws Exception {
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
-                "com.structurizr.componentfinder",
+                "com.structurizr.componentfinder.javadoc",
                 new JavadocComponentFinderStrategy(sourcePath.getCanonicalPath(), 32)
         );
         componentFinder.findComponents();

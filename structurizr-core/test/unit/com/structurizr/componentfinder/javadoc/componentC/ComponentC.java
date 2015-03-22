@@ -1,4 +1,4 @@
-package com.structurizr.componentfinder.componentC;
+package com.structurizr.componentfinder.javadoc.componentC;
 
 /**
  * A component that does <code>something else</code> too.
