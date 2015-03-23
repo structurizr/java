@@ -49,7 +49,7 @@ public class JavadocComponentFinderStrategyTests {
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
                 "com.structurizr.componentfinder.javadoc",
-                new JavadocComponentFinderStrategy(sourcePath.getCanonicalPath())
+                new JavadocComponentFinderStrategy(sourcePath)
         );
         componentFinder.findComponents();
 
@@ -63,7 +63,7 @@ public class JavadocComponentFinderStrategyTests {
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
                 "com.structurizr.componentfinder.javadoc",
-                new JavadocComponentFinderStrategy(sourcePath.getCanonicalPath(), 32)
+                new JavadocComponentFinderStrategy(sourcePath, 32)
         );
         componentFinder.findComponents();
 

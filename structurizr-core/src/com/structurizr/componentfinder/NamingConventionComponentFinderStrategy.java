@@ -16,9 +16,9 @@ public abstract class NamingConventionComponentFinderStrategy extends AbstractRe
             if (matches(type)) {
                 Component component;
                 if (type.isInterface()) {
-                    component = getComponentFinder().foundComponent(type.getCanonicalName(), null, null, "");
+                    component = getComponentFinder().foundComponent(type.getCanonicalName(), null, null, "", "");
                 } else {
-                    component = getComponentFinder().foundComponent(null, type.getCanonicalName(), null, "");
+                    component = getComponentFinder().foundComponent(null, type.getCanonicalName(), null, "", "");
                 }
                 componentsFound.add(component);
             }

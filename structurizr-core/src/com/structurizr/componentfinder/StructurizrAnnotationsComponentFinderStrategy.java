@@ -49,7 +49,7 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractRefle
                 Component component = getComponentFinder().foundComponent(
                         interfaceType,
                         implementationType,
-                        componentType.getAnnotation(com.structurizr.annotation.Component.class).description(), "");
+                        componentType.getAnnotation(com.structurizr.annotation.Component.class).description(), "", "");
                 componentsFound.add(component);
             }
         }

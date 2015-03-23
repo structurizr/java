@@ -4,6 +4,7 @@ import com.structurizr.model.Component;
 import com.sun.javadoc.ClassDoc;
 import com.sun.javadoc.RootDoc;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -11,14 +12,14 @@ public class JavadocComponentFinderStrategy extends AbstractComponentFinderStrat
 
     private static RootDoc ROOTDOC;
 
-    private String sourcePath;
+    private File sourcePath;
     private Integer maxDescriptionLength = null;
 
-    public JavadocComponentFinderStrategy(String sourcePath) {
+    public JavadocComponentFinderStrategy(File sourcePath) {
         this.sourcePath = sourcePath;
     }
 
-    public JavadocComponentFinderStrategy(String sourcePath, int maxDescriptionLength) {
+    public JavadocComponentFinderStrategy(File sourcePath, int maxDescriptionLength) {
         this.sourcePath = sourcePath;
         this.maxDescriptionLength = maxDescriptionLength;
     }
@@ -31,28 +32,34 @@ public class JavadocComponentFinderStrategy extends AbstractComponentFinderStrat
 
         // interfaces first (use interface Javadoc over implementation Javadoc)
         for (ClassDoc classDoc : ROOTDOC.classes()) {
-            String comment = classDoc.commentText();
-            if (comment != null && !comment.isEmpty()) {
-                comment = filterAndTruncate(comment);
-                if (classDoc.isInterface()) {
-                    Component component = getComponentFinder().enrichComponent(classDoc.qualifiedTypeName(), null, comment, "");
-                    if (component != null) {
-                        componentsFound.add(component);
-                    }
+            String comment = filterAndTruncate(classDoc.commentText());
+            String pathToSourceFile = calculateRelativeSourcePath(classDoc.position().file());
+            if (classDoc.isInterface()) {
+                Component component = getComponentFinder().enrichComponent(
+                        classDoc.qualifiedTypeName(),
+                        null, // implementation type
+                        comment,
+                        "", // technology
+                        pathToSourceFile);
+                if (component != null) {
+                    componentsFound.add(component);
                 }
             }
         }
 
         // then implementation classes
         for (ClassDoc classDoc : ROOTDOC.classes()) {
-            String comment = classDoc.commentText();
-            if (comment != null && !comment.isEmpty()) {
-                comment = filterAndTruncate(comment);
-                if (!classDoc.isInterface()) {
-                    Component component = getComponentFinder().enrichComponent(null, classDoc.qualifiedTypeName(), comment, "");
-                    if (component != null) {
-                        componentsFound.add(component);
-                    }
+            String comment = filterAndTruncate(classDoc.commentText());
+            String pathToSourceFile = calculateRelativeSourcePath(classDoc.position().file());
+            if (!classDoc.isInterface()) {
+                Component component = getComponentFinder().enrichComponent(
+                        null, // interface type
+                        classDoc.qualifiedTypeName(),
+                        comment,
+                        "", // technology
+                        pathToSourceFile);
+                if (component != null) {
+                    componentsFound.add(component);
                 }
             }
         }
@@ -60,12 +67,18 @@ public class JavadocComponentFinderStrategy extends AbstractComponentFinderStrat
         return componentsFound;
     }
 
-    private void runJavaDoc() {
+    private String calculateRelativeSourcePath(File sourceFile) throws Exception {
+        String currentDirectory = new File(".").getCanonicalPath();
+        return sourceFile.getCanonicalPath().substring(currentDirectory.length()+1);
+    }
+
+    private void runJavaDoc() throws Exception {
         com.sun.tools.javadoc.Main.execute("StructurizrDoclet",
                 this.getClass().getName(),
                 new String[]{
-                        "-sourcepath", sourcePath,
-                        "-subpackages", getComponentFinder().getPackageToScan()
+                        "-sourcepath", sourcePath.getCanonicalPath(),
+                        "-subpackages", getComponentFinder().getPackageToScan(),
+                        "-private"
                 });
     }
 

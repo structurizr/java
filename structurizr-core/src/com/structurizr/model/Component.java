@@ -9,6 +9,7 @@ public class Component extends Element {
     private String technology = "";
     private String interfaceType;
     private String implementationType;
+    private String sourcePath;
 
     public Component() {
         addTags(Tags.COMPONENT);
@@ -45,6 +46,14 @@ public class Component extends Element {
 
     public void setImplementationType(String implementationType) {
         this.implementationType = implementationType;
+    }
+
+    public String getSourcePath() {
+        return sourcePath;
+    }
+
+    public void setSourcePath(String sourcePath) {
+        this.sourcePath = sourcePath;
     }
 
     @Override

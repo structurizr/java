@@ -9,6 +9,7 @@ import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
+import java.io.File;
 import java.io.StringWriter;
 
 /**
@@ -37,7 +38,7 @@ public class SpringPetClinic {
         // and now automatically find all Spring @Controller, @Component, @Service and @Repository components
         ComponentFinder componentFinder = new ComponentFinder(webApplication, "org.springframework.samples.petclinic",
                 new SpringComponentFinderStrategy(),
-                new JavadocComponentFinderStrategy("/Users/simon/sandbox/spring/spring-petclinic/src/main/java/", 150));
+                new JavadocComponentFinderStrategy(new File("/Users/simon/sandbox/spring/spring-petclinic/src/main/java/"), 150));
         componentFinder.findComponents();
 
         // connect the user to all of the Spring MVC controllers

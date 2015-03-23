@@ -25,7 +25,7 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
         Collection<Component> componentsFound = new LinkedList<>();
         Set<Class<?>> componentTypes = getTypesAnnotatedWith(type);
         for (Class<?> componentType : componentTypes) {
-            componentsFound.add(getComponentFinder().foundComponent(null, componentType.getCanonicalName(), "", technology));
+            componentsFound.add(getComponentFinder().foundComponent(null, componentType.getCanonicalName(), "", technology, ""));
 
         }
         return componentsFound;
@@ -38,7 +38,7 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
             // WARNING: this code makes an assumption that the first implemented interface is the component type
             // i.e. JdbcSomethingRepository (annotated @Repository) *only* implements SomethingRepository,
             // which is the component type we're interested in
-            componentsFound.add(getComponentFinder().foundComponent(componentType.getInterfaces()[0].getCanonicalName(), componentType.getCanonicalName(), "", technology));
+            componentsFound.add(getComponentFinder().foundComponent(componentType.getInterfaces()[0].getCanonicalName(), componentType.getCanonicalName(), "", technology, ""));
         }
         return componentsFound;
     }

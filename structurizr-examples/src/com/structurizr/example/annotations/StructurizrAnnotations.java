@@ -11,6 +11,7 @@ import com.structurizr.view.ContainerView;
 import com.structurizr.view.SystemContextView;
 import com.structurizr.view.ViewSet;
 
+import java.io.File;
 import java.io.StringWriter;
 
 public class StructurizrAnnotations {
@@ -30,7 +31,7 @@ public class StructurizrAnnotations {
                 webApplication,
                 "com.structurizr.example.annotations",
                 new StructurizrAnnotationsComponentFinderStrategy(),
-                new JavadocComponentFinderStrategy("/Users/simon/sandbox/structurizr-java/structurizr-examples/src/")
+                new JavadocComponentFinderStrategy(new File("structurizr-examples/src/"))
         );
         componentFinder.findComponents();
 
