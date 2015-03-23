@@ -293,4 +293,25 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         assertFalse(view.getElements().contains(new ElementView(softwareSystem)));
     }
 
+    @Test
+    public void test_removeElementsThatCantBeReachedFrom_DoesntIncludeAllElements_WhenThereIsACyclicGraph() {
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
+        Person user = model.addPerson("User", "");
+
+        user.uses(softwareSystem1, "");
+        user.uses(softwareSystem2, "");
+        softwareSystem1.delivers(user, "");
+
+        View view = new SystemContextView(softwareSystem1, "");
+        view.addAllElements();
+        assertEquals(3, view.getElements().size());
+
+        // this should remove software system 2
+        view.removeElementsThatCantBeReachedFrom(softwareSystem1);
+        assertEquals(2, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(softwareSystem1)));
+        assertTrue(view.getElements().contains(new ElementView(user)));
+    }
+
 }

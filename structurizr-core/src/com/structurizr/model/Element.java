@@ -124,6 +124,21 @@ public abstract class Element extends TaggableThing {
 
         return relationship;
     }
+
+    public boolean hasEfferentRelationshipWith(Element element) {
+        if (element == null) {
+            return false;
+        }
+
+        for (Relationship relationship : relationships) {
+            if (relationship.getDestination().equals(element)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

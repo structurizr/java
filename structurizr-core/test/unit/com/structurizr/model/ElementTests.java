@@ -5,6 +5,7 @@ import com.structurizr.Workspace;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class ElementTests extends AbstractWorkspaceTestBase {
@@ -58,6 +59,33 @@ public class ElementTests extends AbstractWorkspaceTestBase {
         SoftwareSystem softwareSystem2 = new Workspace("", "").getModel().addSoftwareSystem(Location.Internal, "SystemA", "");
         assertTrue(softwareSystem1.equals(softwareSystem2));
         assertTrue(softwareSystem2.equals(softwareSystem1));
+    }
+
+    @Test
+    public void test_hasEfferentRelationshipWith_ReturnsFalse_WhenANullElementIsSpecified() {
+        SoftwareSystem softwareSystem1 = new Workspace("", "").getModel().addSoftwareSystem(Location.Internal, "SystemA", "");
+        assertFalse(softwareSystem1.hasEfferentRelationshipWith(null));
+    }
+
+    @Test
+    public void test_hasEfferentRelationshipWith_ReturnsFalse_WhenTheSameElementIsSpecifiedAndNoCyclicRelationshipExists() {
+        SoftwareSystem softwareSystem1 = new Workspace("", "").getModel().addSoftwareSystem(Location.Internal, "SystemA", "");
+        assertFalse(softwareSystem1.hasEfferentRelationshipWith(softwareSystem1));
+    }
+
+    @Test
+    public void test_hasEfferentRelationshipWith_ReturnsTrue_WhenTheSameElementIsSpecifiedAndACyclicRelationshipExists() {
+        SoftwareSystem softwareSystem1 = new Workspace("", "").getModel().addSoftwareSystem(Location.Internal, "SystemA", "");
+        softwareSystem1.uses(softwareSystem1, "uses");
+        assertTrue(softwareSystem1.hasEfferentRelationshipWith(softwareSystem1));
+    }
+
+    @Test
+    public void test_hasEfferentRelationshipWith_ReturnsTrue_WhenThereIsARelationship() {
+        SoftwareSystem softwareSystem1 = new Workspace("", "").getModel().addSoftwareSystem(Location.Internal, "SystemA", "");
+        SoftwareSystem softwareSystem2 = new Workspace("", "").getModel().addSoftwareSystem(Location.Internal, "SystemA", "");
+        softwareSystem1.uses(softwareSystem2, "uses");
+        assertTrue(softwareSystem1.hasEfferentRelationshipWith(softwareSystem2));
     }
 
 }

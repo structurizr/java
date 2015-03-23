@@ -10,8 +10,6 @@ import java.util.stream.Collectors;
 
 public abstract class View implements Comparable<View> {
 
-    private static final int MAX_DEPTH = 100;
-
     private SoftwareSystem softwareSystem;
     private String softwareSystemId;
     private String description = "";
@@ -188,18 +186,21 @@ public abstract class View implements Comparable<View> {
     public void removeElementsThatCantBeReachedFrom(Element element) {
         if (element != null) {
             Set<String> elementIdsToShow = new HashSet<>();
-            findElementsToShow(element, elementIdsToShow, 1);
+            Set<String> elementIdsVisited = new HashSet<>();
+            findElementsToShow(element, element, elementIdsToShow, elementIdsVisited);
 
             elementViews.removeIf(ev -> !elementIdsToShow.contains(ev.getId()));
         }
     }
 
-    private void findElementsToShow(Element element, Set<String> elementIds, int depth) {
-        if (elementViews.contains(new ElementView(element))) {
-            elementIds.add(element.getId());
-            // this is here to protect us from cyclic dependencies
-            if (depth < MAX_DEPTH) {
-                element.getRelationships().forEach(r -> findElementsToShow(r.getDestination(), elementIds, depth + 1));
+    private void findElementsToShow(Element startingElement, Element element, Set<String> elementIdsToShow, Set<String> elementIdsVisited) {
+        if (!elementIdsVisited.contains(element.getId()) && elementViews.contains(new ElementView(element))) {
+            elementIdsVisited.add(element.getId());
+            elementIdsToShow.add(element.getId());
+
+            // check that we've not gone back to the starting point of the graph
+            if (!element.hasEfferentRelationshipWith(startingElement)) {
+                element.getRelationships().forEach(r -> findElementsToShow(startingElement, r.getDestination(), elementIdsToShow, elementIdsVisited));
             }
         }
     }
