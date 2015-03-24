@@ -38,7 +38,7 @@ public class SpringPetClinic {
         // and now automatically find all Spring @Controller, @Component, @Service and @Repository components
         ComponentFinder componentFinder = new ComponentFinder(webApplication, "org.springframework.samples.petclinic",
                 new SpringComponentFinderStrategy(),
-                new JavadocComponentFinderStrategy(new File("/Users/simon/sandbox/spring/spring-petclinic/src/main/java/"), 150));
+                new JavadocComponentFinderStrategy(new File("/Users/simon/Documents/sandbox/spring/spring-petclinic/src/main/java/"), 150));
         componentFinder.findComponents();
 
         // connect the user to all of the Spring MVC controllers
@@ -46,6 +46,12 @@ public class SpringPetClinic {
 
         // connect all of the repository components to the relational database
         webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Repository")).forEach(c -> c.uses(relationalDatabase, "Reads from and writes to"));
+
+        for (Component component : webApplication.getComponents()) {
+            if (component.getSourcePath() != null) {
+                component.setSourcePath(component.getSourcePath().replace("/Users/simon/Documents/sandbox/spring/spring-petclinic/", "https://github.com/spring-projects/spring-petclinic/tree/master/"));
+            }
+        }
 
         // finally create some views
         ViewSet viewSet = workspace.getViews();

@@ -33,7 +33,7 @@ public class JavadocComponentFinderStrategy extends AbstractComponentFinderStrat
         // interfaces first (use interface Javadoc over implementation Javadoc)
         for (ClassDoc classDoc : ROOTDOC.classes()) {
             String comment = filterAndTruncate(classDoc.commentText());
-            String pathToSourceFile = calculateRelativeSourcePath(classDoc.position().file());
+            String pathToSourceFile = classDoc.position().file().getCanonicalPath();
             if (classDoc.isInterface()) {
                 Component component = getComponentFinder().enrichComponent(
                         classDoc.qualifiedTypeName(),
@@ -50,7 +50,7 @@ public class JavadocComponentFinderStrategy extends AbstractComponentFinderStrat
         // then implementation classes
         for (ClassDoc classDoc : ROOTDOC.classes()) {
             String comment = filterAndTruncate(classDoc.commentText());
-            String pathToSourceFile = calculateRelativeSourcePath(classDoc.position().file());
+            String pathToSourceFile = classDoc.position().file().getCanonicalPath();
             if (!classDoc.isInterface()) {
                 Component component = getComponentFinder().enrichComponent(
                         null, // interface type
@@ -65,11 +65,6 @@ public class JavadocComponentFinderStrategy extends AbstractComponentFinderStrat
         }
 
         return componentsFound;
-    }
-
-    private String calculateRelativeSourcePath(File sourceFile) throws Exception {
-        String currentDirectory = new File(".").getCanonicalPath();
-        return sourceFile.getCanonicalPath().substring(currentDirectory.length()+1);
     }
 
     private void runJavaDoc() throws Exception {
