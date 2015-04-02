@@ -125,7 +125,7 @@ public class StructurizrClient {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPut httpPut = new HttpPut(url + WORKSPACE_PATH + workspace.getId());
 
-        JsonWriter jsonWriter = new JsonWriter(true);
+        JsonWriter jsonWriter = new JsonWriter(false);
         StringWriter stringWriter = new StringWriter();
         jsonWriter.write(workspace, stringWriter);
 
