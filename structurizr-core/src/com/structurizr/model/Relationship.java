@@ -90,8 +90,8 @@ public class Relationship extends TaggableThing {
         Relationship that = (Relationship) o;
 
         if (!getDescription().equals(that.getDescription())) return false;
-        if (!getDestinationId().equals(that.getDestinationId())) return false;
-        if (!getSourceId().equals(that.getSourceId())) return false;
+        if (!getDestination().equals(that.getDestination())) return false;
+        if (!getSource().equals(that.getSource())) return false;
 
         return true;
     }

@@ -1,6 +1,7 @@
 package com.structurizr.view;
 
 import com.structurizr.AbstractWorkspaceTestBase;
+import com.structurizr.Workspace;
 import com.structurizr.model.*;
 import org.junit.Test;
 
@@ -176,39 +177,51 @@ public class ViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_copyLayoutInformationFrom() {
-        SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
-        SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.Unspecified, "System A", "Description");
-        SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.Unspecified, "System B", "Description");
-        Person person = model.addPerson(Location.Unspecified, "Person", "Description");
-
-        Relationship personUsesSoftwareSystem = person.uses(softwareSystem, "Uses");
+        Workspace workspace1 = new Workspace("", "");
+        Model model1 = workspace1.getModel();
+        SoftwareSystem softwareSystem1A = model1.addSoftwareSystem("System A", "Description");
+        SoftwareSystem softwareSystem1B = model1.addSoftwareSystem("System B", "Description");
+        Person person1 = model1.addPerson("Person", "Description");
+        Relationship personUsesSoftwareSystem1 = person1.uses(softwareSystem1A, "Uses");
 
         // create a view with SystemA and Person (locations are set for both, relationship has vertices)
-        View view1 = new SystemContextView(softwareSystem);
-        view1.addSoftwareSystem(softwareSystemA);
-        view1.findElementView(softwareSystemA).setX(123);
-        view1.findElementView(softwareSystemA).setY(321);
-        view1.addPerson(person);
-        view1.findElementView(person).setX(456);
-        view1.findElementView(person).setY(654);
-        view1.findRelationshipView(personUsesSoftwareSystem).setVertices(Arrays.asList(new Vertex(123, 456)));
+        View view1 = new SystemContextView(softwareSystem1A);
+        view1.addSoftwareSystem(softwareSystem1B);
+        view1.findElementView(softwareSystem1B).setX(123);
+        view1.findElementView(softwareSystem1B).setY(321);
+        view1.addPerson(person1);
+        view1.findElementView(person1).setX(456);
+        view1.findElementView(person1).setY(654);
+        view1.findRelationshipView(personUsesSoftwareSystem1).setVertices(Arrays.asList(new Vertex(123, 456)));
+
+        Workspace workspace2 = new Workspace("", "");
+        Model model2 = workspace2.getModel();
+        // creating these in the opposite order will cause them to get different internal IDs
+        SoftwareSystem softwareSystem2B = model2.addSoftwareSystem("System B", "Description");
+        SoftwareSystem softwareSystem2A = model2.addSoftwareSystem("System A", "Description");
+        Person person2 = model2.addPerson("Person", "Description");
+        Relationship personUsesSoftwareSystem2 = person2.uses(softwareSystem2A, "Uses");
 
         // create a view with SystemB and Person (locations are 0,0 for both)
-        View view2 = new SystemContextView(softwareSystem);
-        view2.addSoftwareSystem(softwareSystemB);
-        view2.addPerson(person);
-        assertEquals(0, view2.findElementView(softwareSystemB).getX());
-        assertEquals(0, view2.findElementView(softwareSystemB).getY());
-        assertEquals(0, view2.findElementView(person).getX());
-        assertEquals(0, view2.findElementView(person).getY());
-        assertTrue(view2.findRelationshipView(personUsesSoftwareSystem).getVertices().isEmpty());
+        View view2 = new SystemContextView(softwareSystem2A);
+        view2.addSoftwareSystem(softwareSystem2B);
+        view2.addPerson(person2);
+        assertEquals(0, view2.findElementView(softwareSystem2B).getX());
+        assertEquals(0, view2.findElementView(softwareSystem2B).getY());
+        assertEquals(0, view2.findElementView(softwareSystem2B).getX());
+        assertEquals(0, view2.findElementView(softwareSystem2B).getY());
+        assertEquals(0, view2.findElementView(person2).getX());
+        assertEquals(0, view2.findElementView(person2).getY());
+        assertTrue(view2.findRelationshipView(personUsesSoftwareSystem2).getVertices().isEmpty());
 
         view2.copyLayoutInformationFrom(view1);
-        assertEquals(0, view2.findElementView(softwareSystemB).getX());
-        assertEquals(0, view2.findElementView(softwareSystemB).getY());
-        assertEquals(456, view2.findElementView(person).getX());
-        assertEquals(654, view2.findElementView(person).getY());
-        Vertex vertex = view2.findRelationshipView(personUsesSoftwareSystem).getVertices().iterator().next();
+        assertEquals(0, view2.findElementView(softwareSystem2A).getX());
+        assertEquals(0, view2.findElementView(softwareSystem2A).getY());
+        assertEquals(123, view2.findElementView(softwareSystem2B).getX());
+        assertEquals(321, view2.findElementView(softwareSystem2B).getY());
+        assertEquals(456, view2.findElementView(person2).getX());
+        assertEquals(654, view2.findElementView(person2).getY());
+        Vertex vertex = view2.findRelationshipView(personUsesSoftwareSystem2).getVertices().iterator().next();
         assertEquals(123, vertex.getX());
         assertEquals(456, vertex.getY());
     }
