@@ -6,97 +6,123 @@ import com.structurizr.model.*;
 import com.structurizr.view.*;
 
 /**
- * An example of a software architecture model to describe an initial solution to Nate Schutta's
- * case study in his "Modeling for Architects" workshop at the O'Reilly Software Architecture
- * conference in Boston, United States during March 2015.
+ * A software architecture model to describe the Java EE Hands on Lab Movie Plex 7 sample application. The goal is to
+ * create a better illustration of the software architecture than this diagram:
+ *  - https://github.com/javaee-samples/javaee7-hol/blob/master/docs/images/2.0-problem-statement.png
  *
- *  - http://softwarearchitecturecon.com/sa2015/public/schedule/detail/40246
- *  - https://www.structurizr.com/public/271
+ * For more information, see:
+ *  - https://github.com/javaee-samples/javaee7-hol
+ *
+ *  And the live software architecture diagrams are hosted here:
+ *  - https://www.structurizr.com/public/511
  */
 public class JavaEEMoviePlex7 {
 
     public static void main(String[] args) throws Exception {
-        Workspace workspace = new Workspace("Self-Driving Car System", "Case study for Nate Schutta's modeling workshop at the O'Reilly Software Architecture Conference 2015");
+        Workspace workspace = new Workspace("Java EE Hands on Lab - Movie Plex 7", "A cohesive example application using the a number of Java EE 7 technologies.");
         Model model = workspace.getModel();
 
         // create the model
-        SoftwareSystem selfDrivingCarSystem = model.addSoftwareSystem(Location.Internal, "Self-Driving Car System", "Central system for storing information about self-driving cars.");
+        SoftwareSystem moviePlex = model.addSoftwareSystem("Movie Plex 7", "Allows customers to view the show timings for a movie in a 7-theater Cineplex and make reservations.");
+        Person customer = model.addPerson("Customer", "A customer of the cinema.");
+        customer.uses(moviePlex, "View show timings, make reservations and chat using");
 
-        SoftwareSystem selfDrivingCar = model.addSoftwareSystem("Self-Driving Car", "Our own self-driving cars");
-        selfDrivingCar.uses(selfDrivingCarSystem, "Sends VIN and status information (battery level, health of engine, location, etc) to");
+        Container webBrowser = moviePlex.addContainer("Web Browser", "The point of access for all Movie Plex functionality.", null);
+        Container webApplication = moviePlex.addContainer("Web Application", "The main Movie Plex web application, providing all functionality.", "GlassFish 4.1");
+        Container database = moviePlex.addContainer("Database", "Data store for all Movie Plex data", "Derby");
+        Container messageBus = moviePlex.addContainer("Message Bus", "Used to communicate movie point accruals.", "GlassFish");
+        Container fileSystem = moviePlex.addContainer("File System", "Stores sales information for batch processing.", null);
 
-        Person carOwner = model.addPerson("Car Owner", "The owner of a self-driving car");
-        carOwner.uses(selfDrivingCarSystem, "Gets information from and makes requests (e.g. summon car) to");
-        carOwner.uses(selfDrivingCar, "Owns and drives");
+        customer.uses(webBrowser, "View show timings, make reservations and chat using");
+        webBrowser.uses(webApplication, "Uses [HTTP and WebSockets]");
+        webApplication.uses(database, "Reads from and writes to [JDBC]");
+        webApplication.uses(messageBus, "Movie points accrual messages [JMS]");
+        messageBus.uses(webApplication, "Movie points accrual messages [JMS]");
+        webApplication.uses(fileSystem, "Reads from");
 
-        Person auditor = model.addPerson("Auditor", "Audits access to customer data");
-        auditor.uses(selfDrivingCarSystem, "Views audit information about customer data access from");
+        // TODO: the goal is to have all components and their dependencies defined automatically by extracting them from
+        // the codebase using something like a JavaEEComponentFinderStrategy (which hasn't been built yet)
 
-        Person dataScientist = model.addPerson("Data Scientist", "Mines self-driving car data");
-        dataScientist.uses(selfDrivingCarSystem, "Mines and produces reports about self-driving cars and their usage with");
+        // booking
+        Component bookingComponent = webApplication.addComponent("Booking", "Allows customers to book movie showings", "EJB");
+        bookingComponent.setSourcePath("https://github.com/javaee-samples/javaee7-hol/blob/master/solution/movieplex7/src/main/java/org/javaee7/movieplex7/booking/Booking.java");
+        Component bookingUI = webApplication.addComponent("Booking UI", "Allows customers to book movie showings", "JavaServer Faces");
+        bookingUI.setSourcePath("https://github.com/javaee-samples/javaee7-hol/tree/master/solution/movieplex7/src/main/webapp/booking");
+        webBrowser.uses(bookingUI, "uses");
+        bookingUI.uses(bookingComponent, "uses");
+        bookingComponent.uses(database, "Reads to and writes from");
 
-        Person developer = model.addPerson("Developer", "Builds and maintains the software used in the self-driving cars");
-        developer.uses(selfDrivingCarSystem, "Send software updates for cars to");
-        selfDrivingCarSystem.uses(selfDrivingCar, "Sends software updates and requests (e.g. drive to location) to");
+        // movies
+        Component moviesComponent = webApplication.addComponent("Movies", "CRUD operations for movies", "RESTful EJB");
+        moviesComponent.setSourcePath("https://github.com/javaee-samples/javaee7-hol/blob/master/solution/movieplex7/src/main/java/org/javaee7/movieplex7/rest/MovieFacadeREST.java");
+        bookingUI.uses(moviesComponent, "uses");
+        moviesComponent.uses(database, "uses");
 
-        SoftwareSystem activeDirectory = model.addSoftwareSystem("Active Directory", "Provides enterprise-wide authorisationa and authentication services");
-        selfDrivingCarSystem.uses(activeDirectory, "uses");
+        Component movieManagementComponent = webApplication.addComponent("Movie Management", "Allows movies to be added and removed", "Java API for RESTful Web Services");
+        movieManagementComponent.setSourcePath("https://github.com/javaee-samples/javaee7-hol/tree/master/solution/movieplex7/src/main/java/org/javaee7/movieplex7/client");
+        Component movieManagementComponentUI = webApplication.addComponent("Movie Management UI", "Allows movies to be added and removed", "JavaServer Faces");
+        movieManagementComponentUI.setSourcePath("https://github.com/javaee-samples/javaee7-hol/tree/master/solution/movieplex7/src/main/webapp/client");
+        webBrowser.uses(movieManagementComponentUI, "uses");
+        movieManagementComponentUI.uses(movieManagementComponent, "uses");
+        movieManagementComponent.uses(moviesComponent, "uses [HTTP]");
 
-        Container mobileApp = selfDrivingCarSystem.addContainer("Mobile App", "Allows car owners to view information about and make requests to their car", "Apple iOS, Android and Windows Phone");
-        carOwner.uses(mobileApp, "Views information from and makes requests to");
-        Container browser = selfDrivingCarSystem.addContainer("Web Browser", "Allows car owners to view information about and make requests to their car", "Apple iOS, Android and Windows Phone");
-        carOwner.uses(browser, "Views information from and makes requests to");
-        Container webApp = selfDrivingCarSystem.addContainer("Web Application", "Hosts the browser-based web application", "Apache Tomcat");
-        browser.uses(webApp, "uses");
+        // time slot
+        Component timeSlotComponent = webApplication.addComponent("Time Slot", "Finds movie time slots", "RESTful EJB");
+        timeSlotComponent.setSourcePath("https://github.com/javaee-samples/javaee7-hol/blob/master/solution/movieplex7/src/main/java/org/javaee7/movieplex7/rest/TimeslotFacadeREST.java");
+        bookingUI.uses(timeSlotComponent, "uses");
+        timeSlotComponent.uses(database, "uses");
 
-        Container apiServer = selfDrivingCarSystem.addContainer("API Server", "Provides an API to get information from and make requests to cars", "Node.js");
-        mobileApp.uses(apiServer, "uses [JSON/HTTPS]");
-        browser.uses(apiServer, "uses [JSON/HTTPS]");
+        // movie points
+        Component moviePointsComponent = webApplication.addComponent("Movie Points", "Sends and receives movie point accrual messages");
+        moviePointsComponent.setSourcePath("https://github.com/javaee-samples/javaee7-hol/tree/master/solution/movieplex7/src/main/java/org/javaee7/movieplex7/points");
+        moviePointsComponent.uses(messageBus, "Movie points accrual messages [JMS]");
+        messageBus.uses(moviePointsComponent, "Movie points accrual messages [JMS]");
+        Component moviePointsUI = webApplication.addComponent("Movie Points UI", "Allows customers to send/receive points accrual messages", "JavaServer Faces");
+        moviePointsUI.setSourcePath("https://github.com/javaee-samples/javaee7-hol/blob/master/solution/movieplex7/src/main/webapp/points/points.xhtml");
+        webBrowser.uses(moviePointsUI, "uses");
+        moviePointsUI.uses(moviePointsComponent, "uses");
 
-        Container customerService = selfDrivingCarSystem.addContainer("Customer Service", "Provides information and behaviour related to customers", "Ruby");
-        Container selfDrivingCarService = selfDrivingCarSystem.addContainer("Self-Driving Service", "Provides information and behaviour related to self-driving cars", "Scala");
+        // chat server
+        Component chatServerComponent = webApplication.addComponent("ChatServer", "Allows customers to chat about movies", "Java API for WebSocket");
+        chatServerComponent.setSourcePath("https://github.com/javaee-samples/javaee7-hol/blob/master/solution/movieplex7/src/main/java/org/javaee7/movieplex7/chat/ChatServer.java");
+        webBrowser.uses(chatServerComponent, "Sends/receives messages using [WebSocket]");
 
-        Container coreDataStore = selfDrivingCarSystem.addContainer("Core Data Store", "Stores all data relating to self-driving cars and their owners", "MySQL");
-        Container dataReporting = selfDrivingCarSystem.addContainer("Data Reporting", "Allows users to report and mine data", "Hadoop");
-        dataScientist.uses(dataReporting, "Does science with data from");
-        auditor.uses(dataReporting, "Looks at audit information from");
-        developer.uses(selfDrivingCarService, "Pushes updates to");
-        selfDrivingCarService.uses(selfDrivingCar, "Pushes updates to");
-
-        selfDrivingCarService.uses(dataReporting, "Sends events to");
-        customerService.uses(dataReporting, "Sends events to");
-
-        selfDrivingCarService.uses(coreDataStore, "Reads from and writes to");
-        customerService.uses(coreDataStore, "Reads from and writes to");
-
-        apiServer.uses(selfDrivingCarService, "uses [JSON/HTTPS]");
-        apiServer.uses(customerService, "uses [JSON/HTTPS]");
-
-        selfDrivingCar.uses(selfDrivingCarService, "Sends VIN and status information (battery level, health of engine, location, etc) to");
-        dataReporting.uses(activeDirectory, "uses");
+        // ticket sales batch
+        Component ticketSalesBatchComponent = webApplication.addComponent("Ticket Sales", "", "Java API for Batch Processing");
+        ticketSalesBatchComponent.setSourcePath("https://github.com/javaee-samples/javaee7-hol/tree/master/solution/movieplex7/src/main/java/org/javaee7/movieplex7/batch");
+        Component ticketSalesUI = webApplication.addComponent("Ticket Sales UI", "Used to trigger to ticket sales batch process", "JavaServer Faces");
+        ticketSalesUI.setSourcePath("https://github.com/javaee-samples/javaee7-hol/blob/master/solution/movieplex7/src/main/webapp/batch/sales.xhtml");
+        webBrowser.uses(ticketSalesUI, "uses");
+        ticketSalesUI.uses(ticketSalesBatchComponent, "initiates");
+        ticketSalesBatchComponent.uses(database, "uses");
+        ticketSalesBatchComponent.uses(fileSystem, "Reads from");
 
         // create some views
         ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createContextView(selfDrivingCarSystem);
-        contextView.setPaperSize(PaperSize.Slide_4_3);
+        SystemContextView contextView = viewSet.createContextView(moviePlex);
+        contextView.setPaperSize(PaperSize.A4_Landscape);
         contextView.addAllElements();
 
-        ContainerView containerView = viewSet.createContainerView(selfDrivingCarSystem);
-        containerView.setPaperSize(PaperSize.A3_Landscape);
+        ContainerView containerView = viewSet.createContainerView(moviePlex);
+        contextView.setPaperSize(PaperSize.A4_Landscape);
         containerView.addAllElements();
 
+        ComponentView componentView = viewSet.createComponentView(webApplication);
+        componentView.setPaperSize(PaperSize.A3_Landscape);
+        componentView.addAllElements();
+
         // tag and style some elements
-        selfDrivingCarSystem.addTags("System Under Construction");
-        viewSet.getStyles().add(new ElementStyle(Tags.ELEMENT, 600, 450, null, null, 40));
-        viewSet.getStyles().add(new ElementStyle("System Under Construction", null, null, "#041F37", "#ffffff", null));
-        viewSet.getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#2A4E6E", "#ffffff", null));
-        viewSet.getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#728da5", "white", 40));
-        viewSet.getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 5, null, null, 40, 500));
-        contextView.setPaperSize(PaperSize.Slide_4_3);
+        moviePlex.addTags("System Under Construction");
+        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.ELEMENT, 600, 450, null, null, 40));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle("System Under Construction", null, null, "#041F37", "#ffffff", null));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#2A4E6E", "#ffffff", null));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#728da5", "white", 40));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.CONTAINER, null, null, "#041F37", "#ffffff", null));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 5, null, null, 40, 500));
 
         // upload it to structurizr.com
         StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
-        structurizrClient.mergeWorkspace(271, workspace);
-    }
+        structurizrClient.mergeWorkspace(511, workspace);
+   }
 
 }
