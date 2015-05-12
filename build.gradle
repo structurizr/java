@@ -10,7 +10,7 @@ subprojects { proj ->
 
     description = 'Structurizr'
     group = 'com.structurizr'
-    version = '0.3.0'
+    version = '0.3.1'
 
     repositories {
         mavenCentral()

@@ -94,7 +94,7 @@ public class StructurizrClient {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url + WORKSPACE_PATH + workspaceId);
         addHeaders(httpGet, "", "");
-        debugRequest(httpGet);
+        debugRequest(httpGet, "");
 
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
             debugResponse(response);
@@ -132,7 +132,8 @@ public class StructurizrClient {
         StringEntity stringEntity = new StringEntity(stringWriter.toString(), ContentType.APPLICATION_JSON);
         httpPut.setEntity(stringEntity);
         addHeaders(httpPut, EntityUtils.toString(stringEntity), ContentType.APPLICATION_JSON.toString());
-        debugRequest(httpPut);
+
+        debugRequest(httpPut, EntityUtils.toString(stringEntity));
 
         try (CloseableHttpResponse response = httpClient.execute(httpPut)) {
             debugResponse(response);
@@ -157,12 +158,14 @@ public class StructurizrClient {
         putWorkspace(workspace);
     }
 
-    private void debugRequest(HttpRequestBase httpRequest) {
+    private void debugRequest(HttpRequestBase httpRequest, String content) {
         log.debug(httpRequest.getMethod() + " " + httpRequest.getURI().getPath());
         Header[] headers = httpRequest.getAllHeaders();
         for (Header header : headers) {
             log.debug(header.getName() + ": " + header.getValue());
         }
+
+        log.debug(content);
     }
 
     private void debugResponse(CloseableHttpResponse response) {
@@ -179,7 +182,7 @@ public class StructurizrClient {
         HmacContent hmacContent = new HmacContent(httpMethod, path, contentMd5, contentType, nonce);
         httpRequest.addHeader(HttpHeaders.AUTHORIZATION, new HmacAuthorizationHeader(apiKey, hmac.generate(hmacContent.toString())).format());
         httpRequest.addHeader(HttpHeaders.NONCE, nonce);
-        httpRequest.addHeader(HttpHeaders.CONTENT_MD5, Base64.getEncoder().encodeToString(contentMd5.getBytes()));
+        httpRequest.addHeader(HttpHeaders.CONTENT_MD5, Base64.getEncoder().encodeToString(contentMd5.getBytes("UTF-8")));
         httpRequest.addHeader(HttpHeaders.CONTENT_TYPE, contentType);
     }
 

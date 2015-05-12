@@ -13,7 +13,7 @@ public class Md5Digest {
         }
 
         MessageDigest digest = MessageDigest.getInstance(ALGORITHM);
-        return DatatypeConverter.printHexBinary(digest.digest(content.getBytes())).toLowerCase();
+        return DatatypeConverter.printHexBinary(digest.digest(content.getBytes("UTF-8"))).toLowerCase();
     }
 
 }
