@@ -11,17 +11,23 @@ public class Relationship extends TaggableThing {
     private Element destination;
     private String destinationId;
     private String description;
+    private String technology;
 
     Relationship() {
         addTags(Tags.RELATIONSHIP);
     }
 
     Relationship(Element source, Element destination, String description) {
+        this(source, destination, description, null);
+    }
+
+    Relationship(Element source, Element destination, String description, String technology) {
         this();
 
         this.source = source;
         this.destination = destination;
         this.description = description;
+        this.technology = technology;
     }
 
     @JsonIgnore
@@ -80,6 +86,14 @@ public class Relationship extends TaggableThing {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getTechnology() {
+        return technology;
+    }
+
+    public void setTechnology(String technology) {
+        this.technology = technology;
     }
 
     @Override

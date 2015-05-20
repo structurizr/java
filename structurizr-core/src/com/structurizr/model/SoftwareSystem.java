@@ -92,6 +92,20 @@ public class SoftwareSystem extends Element {
         return relationship;
     }
 
+    /**
+     * Adds a unidirectional relationship between this software system and a person.
+     *
+     * @param destination   the target of the relationship
+     * @param description   a description of the relationship (e.g. "sends e-mail to")
+     * @param technology    the technology details (e.g. JSON/HTTPS)
+     */
+    public Relationship delivers(Person destination, String description, String technology) {
+        Relationship relationship = new Relationship(this, destination, description, technology);
+        getModel().addRelationship(relationship);
+
+        return relationship;
+    }
+
     @Override
     public ElementType getType() {
         return ElementType.SoftwareSystem;

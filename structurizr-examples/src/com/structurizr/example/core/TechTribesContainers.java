@@ -60,10 +60,10 @@ public class TechTribesContainers {
         contentUpdater.uses(relationalDatabase, "Reads from and writes data to");
         contentUpdater.uses(noSqlStore, "Reads from and writes data to");
         contentUpdater.uses(fileSystem, "Writes to");
-        contentUpdater.uses(twitter, "Gets profile information and recent tweets using the REST API from.", "JSON over HTTPS", 443, "1.1");
-        contentUpdater.uses(twitter, "Subscribes to tweets using the Twitter Streaming API from.", "JSON over HTTPS", 443, "1.1");
-        contentUpdater.uses(gitHub, "Gets information about public code repositories using the GitHub API from.", "JSON over HTTPS", 443, "v3");
-        contentUpdater.uses(blogs, "Gets blog posts and news from.", "RSS and Atom over HTTP", 80, null);
+        contentUpdater.uses(twitter, "Gets profile information and recent tweets using the REST API from.", "JSON over HTTPS");
+        contentUpdater.uses(twitter, "Subscribes to tweets using the Twitter Streaming API from.", "JSON over HTTPS");
+        contentUpdater.uses(gitHub, "Gets information about public code repositories using the GitHub API from.", "JSON over HTTPS");
+        contentUpdater.uses(blogs, "Gets blog posts and news from.", "RSS and Atom over HTTP");
 
         // now create the system context view based upon the model
         ViewSet viewSet = workspace.getViews();
