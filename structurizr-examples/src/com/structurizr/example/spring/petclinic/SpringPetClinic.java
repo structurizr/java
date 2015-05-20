@@ -75,12 +75,12 @@ public class SpringPetClinic {
         webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Service")).forEach(c -> c.addTags("Spring Service"));
         webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Repository")).forEach(c -> c.addTags("Spring Repository"));
 
-        viewSet.getStyles().add(new ElementStyle("Spring PetClinic", null, null, "#6CB33E", "white", null));
-        viewSet.getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#519823", "white", null));
-        viewSet.getStyles().add(new ElementStyle(Tags.CONTAINER, null, null, "#91D366", "white", null));
-        viewSet.getStyles().add(new ElementStyle("Spring Controller", null, null, "#D4F3C0", "black", null));
-        viewSet.getStyles().add(new ElementStyle("Spring Service", null, null, "#6CB33E", "black", null));
-        viewSet.getStyles().add(new ElementStyle("Spring Repository", null, null, "#95D46C", "black", null));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle("Spring PetClinic", null, null, "#6CB33E", "white", null));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#519823", "white", null));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.CONTAINER, null, null, "#91D366", "white", null));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle("Spring Controller", null, null, "#D4F3C0", "black", null));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle("Spring Service", null, null, "#6CB33E", "black", null));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle("Spring Repository", null, null, "#95D46C", "black", null));
 
         JsonWriter jsonWriter = new JsonWriter(true);
         StringWriter stringWriter = new StringWriter();
