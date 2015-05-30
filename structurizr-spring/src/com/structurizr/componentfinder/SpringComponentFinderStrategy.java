@@ -13,7 +13,7 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
     public Collection<Component> findComponents() throws Exception {
         Collection<Component> componentsFound = new LinkedList<>();
 
-        componentsFound.addAll(findClassesAnnotated(org.springframework.stereotype.Controller.class, "Spring Controller"));
+        componentsFound.addAll(findClassesAnnotated(org.springframework.stereotype.Controller.class, "Spring MVC Controller"));
         componentsFound.addAll(findImplementationClassesAnnotated(org.springframework.stereotype.Service.class, "Spring Service"));
         componentsFound.addAll(findImplementationClassesAnnotated(org.springframework.stereotype.Repository.class, "Spring Repository"));
         componentsFound.addAll(findImplementationClassesAnnotated(org.springframework.stereotype.Component.class, "Spring Component"));
