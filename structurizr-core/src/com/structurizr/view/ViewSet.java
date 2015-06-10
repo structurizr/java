@@ -104,6 +104,9 @@ public class ViewSet {
         }
     }
 
+    /**
+     * @deprecated use {@link ViewSet#getConfiguration()} and call {@link Configuration#getStyles()} there
+     */
     @Deprecated
     public Styles getStyles() {
         return styles;
