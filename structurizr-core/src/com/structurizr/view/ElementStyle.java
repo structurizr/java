@@ -24,6 +24,9 @@ public class ElementStyle {
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Integer fontSize;
 
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private Shape shape;
+
     public ElementStyle() {
     }
 
@@ -32,12 +35,17 @@ public class ElementStyle {
     }
 
     public ElementStyle(String tag, Integer width, Integer height, String background, String color, Integer fontSize) {
+        this(tag, width, height, background, color, fontSize, Shape.Box);
+    }
+
+    public ElementStyle(String tag, Integer width, Integer height, String background, String color, Integer fontSize, Shape shape) {
         this.tag = tag;
         this.width = width;
         this.height = height;
         this.background = background;
         this.color = color;
         this.fontSize = fontSize;
+        this.shape = shape;
     }
 
     public String getTag() {
@@ -86,6 +94,14 @@ public class ElementStyle {
 
     public void setFontSize(Integer fontSize) {
         this.fontSize = fontSize;
+    }
+
+    public Shape getShape() {
+        return shape;
+    }
+
+    public void setShape(Shape shape) {
+        this.shape = shape;
     }
 
 }
