@@ -35,7 +35,7 @@ public class ElementStyle {
     }
 
     public ElementStyle(String tag, Integer width, Integer height, String background, String color, Integer fontSize) {
-        this(tag, width, height, background, color, fontSize, Shape.Box);
+        this(tag, width, height, background, color, fontSize, null);
     }
 
     public ElementStyle(String tag, Integer width, Integer height, String background, String color, Integer fontSize, Shape shape) {
