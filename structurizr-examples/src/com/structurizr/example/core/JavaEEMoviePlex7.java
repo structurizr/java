@@ -2,8 +2,11 @@ package com.structurizr.example.core;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
+import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
+
+import java.io.StringWriter;
 
 /**
  * A software architecture model to describe the Java EE Hands on Lab Movie Plex 7 sample application. The goal is to
@@ -59,7 +62,7 @@ public class JavaEEMoviePlex7 {
         moviesComponent.uses(database, "uses");
 
         Component movieManagementComponent = webApplication.addComponent("Movie Management", "Allows movies to be added and removed", "Java API for RESTful Web Services");
-        movieManagementComponent.setSourcePath("https://github.com/javaee-samples/javaee7-hol/tree/master/solution/movieplex7/src/main/java/org/javaee7/movieplex7/client");
+        movieManagementComponent.setSourcePath("https://github.com/javaee-samples/javaee7-hol/blob/master/solution/movieplex7/src/main/java/org/javaee7/movieplex7/client/MovieClientBean.java");
         Component movieManagementComponentUI = webApplication.addComponent("Movie Management UI", "Allows movies to be added and removed", "JavaServer Faces");
         movieManagementComponentUI.setSourcePath("https://github.com/javaee-samples/javaee7-hol/tree/master/solution/movieplex7/src/main/webapp/client");
         webBrowser.uses(movieManagementComponentUI, "uses");
@@ -118,7 +121,7 @@ public class JavaEEMoviePlex7 {
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#2A4E6E", "#ffffff", null));
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#728da5", "white", 40));
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.CONTAINER, null, null, "#041F37", "#ffffff", null));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 5, null, null, 40, 500));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 5, null, null, 40, 500, null));
 
         // upload it to structurizr.com
         StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
