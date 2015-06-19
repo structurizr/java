@@ -4,10 +4,7 @@ import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
 import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
-import com.structurizr.view.ElementStyle;
-import com.structurizr.view.RelationshipStyle;
-import com.structurizr.view.SystemContextView;
-import com.structurizr.view.ViewSet;
+import com.structurizr.view.*;
 
 import java.io.StringWriter;
 
@@ -57,12 +54,12 @@ public class FinancialRiskSystem {
 
         // tag and style some elements
         financialRiskSystem.addTags("Risk System");
-        viewSet.getConfiguration().getStyles().add(new ElementStyle("Risk System", null, null, "#550000", "#ffffff", null));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#801515", "#ffffff", null));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#d46a6a", "#ffffff", null));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, null, null, false, null, null));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(TAG_ASYNCHRONOUS, null, null, true, null, null));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(TAG_ALERT, null, "#ff0000", false, null, null));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle("Risk System", null, null, "#550000", "#ffffff", 40));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, 650, 300, "#801515", "#ffffff", 36, Shape.RoundedBox));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, 550, null, "#d46a6a", "#ffffff", 32, Shape.Person));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 6, "#222222", false, 36, 400, null));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(TAG_ASYNCHRONOUS, null, null, true, null, null, null));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(TAG_ALERT, null, "#ff0000", true, null, null, null));
 
         // output the model as JSON
         JsonWriter jsonWriter = new JsonWriter(true);

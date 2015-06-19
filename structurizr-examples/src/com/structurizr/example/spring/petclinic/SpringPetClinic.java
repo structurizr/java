@@ -5,10 +5,12 @@ import com.structurizr.api.StructurizrClient;
 import com.structurizr.componentfinder.ComponentFinder;
 import com.structurizr.componentfinder.JavadocComponentFinderStrategy;
 import com.structurizr.componentfinder.SpringComponentFinderStrategy;
+import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
 import java.io.File;
+import java.io.StringWriter;
 
 /**
  * This is a C4 representation of the Spring PetClinic sample app
@@ -26,14 +28,14 @@ public class SpringPetClinic {
 
         // create the basic model (the stuff we can't get from the code)
         SoftwareSystem springPetClinic = model.addSoftwareSystem("Spring PetClinic", "Allows employees to view and manage information regarding the veterinarians, the clients, and their pets.");
-        Person user = model.addPerson("Clinic Employee", "An employee of the clinic");
-        user.uses(springPetClinic, "Uses");
+        Person clinicEmployee = model.addPerson("Clinic Employee", "An employee of the clinic");
+        clinicEmployee.uses(springPetClinic, "Uses");
 
         Container webApplication = springPetClinic.addContainer(
                "Web Application", "Allows employees to view and manage information regarding the veterinarians, the clients, and their pets.", "Apache Tomcat 7.x");
         Container relationalDatabase = springPetClinic.addContainer(
                "Relational Database", "Stores information regarding the veterinarians, the clients, and their pets.", "HSQLDB");
-        user.uses(webApplication, "Uses", "HTTP");
+        clinicEmployee.uses(webApplication, "Uses", "HTTP");
         webApplication.uses(relationalDatabase, "Reads from and writes to", "JDBC, port 9001");
 
         // and now automatically find all Spring @Controller, @Component, @Service and @Repository components
@@ -46,7 +48,7 @@ public class SpringPetClinic {
         // connect the user to all of the Spring MVC controllers
         webApplication.getComponents().stream()
                 .filter(c -> c.getTechnology().equals("Spring MVC Controller"))
-                .forEach(c -> user.uses(c, "Uses"));
+                .forEach(c -> clinicEmployee.uses(c, "Uses"));
 
         // connect all of the repository components to the relational database
         webApplication.getComponents().stream()

@@ -25,7 +25,7 @@ public class TechTribesSystemContextForPresentation {
         Person anonymousUser = model.addPerson(Location.External, "Anonymous User", "Anybody on the web.");
         anonymousUser.uses(techTribes, "View people, tribes (businesses, communities and interest groups), content, events, jobs, etc from the local tech, digital and IT sector.");
 
-        Person authenticatedUser = model.addPerson(Location.External, "Aggregated User", "A user or business with content that is aggregated into the website.");
+        Person authenticatedUser = model.addPerson(Location.External, "Aggregated User", "A user or business with content aggregated into the website.");
         authenticatedUser.uses(techTribes, "Manage user profile and tribe membership.");
 
         Person adminUser = model.addPerson(Location.External, "Administration User", "A system administration user.");
@@ -49,11 +49,11 @@ public class TechTribesSystemContextForPresentation {
 
         // tag and style some elements
         techTribes.addTags("techtribes.je");
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.ELEMENT, 600, 450, null, null, 40));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.ELEMENT, 600, 450, null, null, 40, Shape.RoundedBox));
         viewSet.getConfiguration().getStyles().add(new ElementStyle("techtribes.je", null, null, "#041F37", "#ffffff", null));
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#2A4E6E", "#ffffff", null));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#728da5", "white", 40));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 5, null, null, 40, 500));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, 575, null, "#728da5", "white", 40, Shape.Person));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 5, null, null, 40, 500, null));
         contextView.setPaperSize(PaperSize.Slide_4_3);
 
         // and output the model and view to JSON
@@ -63,10 +63,7 @@ public class TechTribesSystemContextForPresentation {
         System.out.println(stringWriter.toString());
 
         StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
-        Workspace oldWorkspace = structurizrClient.getWorkspace(101);
-        workspace.getViews().copyLayoutInformationFrom(oldWorkspace.getViews());
-        workspace.setId(101);
-        structurizrClient.putWorkspace(workspace);
+        structurizrClient.mergeWorkspace(101, workspace);
     }
 
 }
