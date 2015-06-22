@@ -17,9 +17,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-import java.io.InputStream;
-import java.io.StringReader;
-import java.io.StringWriter;
+import java.io.*;
 import java.util.Base64;
 import java.util.Properties;
 
@@ -36,6 +34,9 @@ public class StructurizrClient {
     private String url;
     private String apiKey;
     private String apiSecret;
+
+    /** the location where a copy of the workspace will be archived when it is retrieved from the server */
+    private File workspaceArchiveLocation = new File(".");
 
     /**
      * Creates a new Structurizr client based upon configuration in a structurizr.properties file
@@ -84,6 +85,26 @@ public class StructurizrClient {
     }
 
     /**
+     * Gets the location where a copy of the workspace is archived when it is retrieved from the server.
+     *
+     * @return  a File instance representing a directory, or null if this client instance is not archiving
+     */
+    public File getWorkspaceArchiveLocation() {
+        return this.workspaceArchiveLocation;
+    }
+
+    /**
+     * Sets the location where a copy of the workspace will be archived whenever it is retrieved from
+     * the server. Set this to null if you don't want archiving.
+     *
+     * @param workspaceArchiveLocation      a File instance representing a directory, or null if
+     *                                      you don't want archiving
+     */
+    public void setWorkspaceArchiveLocation(File workspaceArchiveLocation) {
+        this.workspaceArchiveLocation = workspaceArchiveLocation;
+    }
+
+    /**
      * Gets the workspace with the given ID.
      *
      * @param workspaceId   the ID of your workspace
@@ -91,16 +112,19 @@ public class StructurizrClient {
      * @throws Exception    if there are problems related to the network, authorization, JSON deserialization, etc
      */
     public Workspace getWorkspace(long workspaceId) throws Exception {
+        log.info("Getting workspace with ID " + workspaceId);
+
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url + WORKSPACE_PATH + workspaceId);
         addHeaders(httpGet, "", "");
-        debugRequest(httpGet, "");
+        debugRequest(httpGet, null);
 
         try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
             debugResponse(response);
 
             String json = EntityUtils.toString(response.getEntity());
             if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                archiveWorkspace(workspaceId, json);
                 return new JsonReader().read(new StringReader(json));
             } else {
                 ApiError apiError = ApiError.parse(json);
@@ -112,18 +136,22 @@ public class StructurizrClient {
     /**
      * Updates the given workspace.
      *
+     * @param workspaceId   the ID of your workspace
      * @param workspace     the workspace instance to update
      * @throws Exception    if there are problems related to the network, authorization, JSON serialization, etc
      */
-    public void putWorkspace(Workspace workspace) throws Exception {
+    public void putWorkspace(long workspaceId, Workspace workspace) throws Exception {
+        log.info("Putting workspace with ID " + workspaceId);
         if (workspace == null) {
             throw new IllegalArgumentException("A workspace must be supplied");
-        } else if (workspace.getId() <= 0) {
+        } else if (workspaceId <= 0) {
             throw new IllegalArgumentException("The workspace ID must be set");
         }
 
+        workspace.setId(workspaceId);
+
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpPut httpPut = new HttpPut(url + WORKSPACE_PATH + workspace.getId());
+        HttpPut httpPut = new HttpPut(url + WORKSPACE_PATH + workspaceId);
 
         JsonWriter jsonWriter = new JsonWriter(false);
         StringWriter stringWriter = new StringWriter();
@@ -137,7 +165,7 @@ public class StructurizrClient {
 
         try (CloseableHttpResponse response = httpClient.execute(httpPut)) {
             debugResponse(response);
-            log.info(EntityUtils.toString(response.getEntity()));
+            log.debug(EntityUtils.toString(response.getEntity()));
         }
     }
 
@@ -150,12 +178,13 @@ public class StructurizrClient {
      * @throws Exception    if you are not allowed to update the workspace with the given ID or there are any network troubles
      */
     public void mergeWorkspace(long workspaceId, Workspace workspace) throws Exception {
+        log.info("Merging workspace with ID " + workspaceId);
+
         Workspace currentWorkspace = getWorkspace(workspaceId);
         if (currentWorkspace != null) {
             workspace.getViews().copyLayoutInformationFrom(currentWorkspace.getViews());
         }
-        workspace.setId(workspaceId);
-        putWorkspace(workspace);
+        putWorkspace(workspaceId, workspace);
     }
 
     private void debugRequest(HttpRequestBase httpRequest, String content) {
@@ -165,11 +194,13 @@ public class StructurizrClient {
             log.debug(header.getName() + ": " + header.getValue());
         }
 
-        log.debug(content);
+        if (content != null) {
+            log.debug(content);
+        }
     }
 
     private void debugResponse(CloseableHttpResponse response) {
-        log.info(response.getStatusLine());
+        log.debug(response.getStatusLine());
     }
 
     private void addHeaders(HttpRequestBase httpRequest, String content, String contentType) throws Exception {
@@ -184,6 +215,32 @@ public class StructurizrClient {
         httpRequest.addHeader(HttpHeaders.NONCE, nonce);
         httpRequest.addHeader(HttpHeaders.CONTENT_MD5, Base64.getEncoder().encodeToString(contentMd5.getBytes("UTF-8")));
         httpRequest.addHeader(HttpHeaders.CONTENT_TYPE, contentType);
+    }
+
+    private void archiveWorkspace(long workspaceId, String json) {
+        if (this.workspaceArchiveLocation == null) {
+            return;
+        }
+
+        File archiveFile = new File(workspaceArchiveLocation, createArchiveFileName(workspaceId));
+        try {
+            FileWriter fileWriter = new FileWriter(archiveFile);
+            fileWriter.write(json);
+            fileWriter.flush();
+            fileWriter.close();
+
+            try {
+                log.debug("Workspace from server archived to " + archiveFile.getCanonicalPath());
+            } catch (IOException ioe) {
+                log.debug("Workspace from server archived to " + archiveFile.getAbsolutePath());
+            }
+        } catch (Exception e) {
+            log.warn("Could not archive JSON to " + archiveFile.getAbsolutePath());
+        }
+    }
+
+    private String createArchiveFileName(long workspaceId) {
+        return "structurizr-" + workspaceId + "-" + System.currentTimeMillis() + ".json";
     }
 
 }

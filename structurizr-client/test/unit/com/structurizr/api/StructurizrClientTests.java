@@ -30,14 +30,14 @@ public class StructurizrClientTests {
     @Test(expected = IllegalArgumentException.class)
     public void test_putWorkspace_ThrowsAnException_WhenANullWorkspaceIsSpecified() throws Exception {
         structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
-        structurizrClient.putWorkspace(null);
+        structurizrClient.putWorkspace(1234, null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void test_putWorkspace_ThrowsAnException_WhenTheWorkspaceIdIsNotSet() throws Exception {
         structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
         Workspace workspace = new Workspace("Name", "Description");
-        structurizrClient.putWorkspace(workspace);
+        structurizrClient.putWorkspace(0, workspace);
     }
 
 }

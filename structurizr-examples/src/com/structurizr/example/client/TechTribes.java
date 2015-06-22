@@ -46,8 +46,7 @@ public class TechTribes {
 
         // and upload the model to structurizr.com
         StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
-        workspace.setId(1234); // this would be your workspace ID
-        structurizrClient.putWorkspace(workspace);
+        structurizrClient.putWorkspace(1234, workspace);
     }
 
 }
