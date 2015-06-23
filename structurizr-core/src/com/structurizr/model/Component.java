@@ -75,7 +75,7 @@ public class Component extends Element {
     }
 
     @Override
-    public ElementType getType() {
+    public final ElementType getType() {
         return ElementType.Component;
     }
 

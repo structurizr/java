@@ -107,7 +107,7 @@ public class SoftwareSystem extends Element {
     }
 
     @Override
-    public ElementType getType() {
+    public final ElementType getType() {
         return ElementType.SoftwareSystem;
     }
 
