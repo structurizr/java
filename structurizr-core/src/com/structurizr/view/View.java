@@ -146,6 +146,25 @@ public abstract class View implements Comparable<View> {
 
     public abstract void addAllElements();
 
+    public abstract void addNearestNeighbours(Element element);
+
+    protected void addNearestNeighbours(Element element, ElementType type) {
+        if (element == null) {
+            return;
+        }
+
+        addElement(element);
+
+        Set<Relationship> relationships = getModel().getRelationships();
+        relationships.stream().filter(r -> r.getSource().equals(element) && r.getDestination().isType(type))
+                .map(Relationship::getDestination)
+                .forEach(this::addElement);
+
+        relationships.stream().filter(r -> r.getDestination().equals(element) && r.getSource().isType(type))
+                .map(Relationship::getSource)
+                .forEach(this::addElement);
+    }
+
     public Set<RelationshipView> getRelationships() {
         if (this.relationshipViews.isEmpty()) {
             addRelationships();
@@ -158,7 +177,7 @@ public abstract class View implements Comparable<View> {
         this.relationshipViews = relationships;
     }
 
-    public void addRelationships() {
+    private void addRelationships() {
         Set<Relationship> relationships = new LinkedHashSet<>();
         Set<Element> elements = getElements().stream()
                 .map(ElementView::getElement)

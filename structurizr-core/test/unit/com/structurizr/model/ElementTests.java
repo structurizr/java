@@ -88,4 +88,16 @@ public class ElementTests extends AbstractWorkspaceTestBase {
         assertTrue(softwareSystem1.hasEfferentRelationshipWith(softwareSystem2));
     }
 
+    @Test
+    public void test_isType_ReturnsTrue_WhenTheElementIsOfTheSpecifiedType() {
+        SoftwareSystem softwareSystem = new Workspace("", "").getModel().addSoftwareSystem("Software System", "");
+        assertTrue(softwareSystem.isType(ElementType.SoftwareSystem));
+    }
+
+    @Test
+    public void test_isType_ReturnsFalse_WhenTheElementIsNotOfTheSpecifiedType() {
+        SoftwareSystem softwareSystem = new Workspace("", "").getModel().addSoftwareSystem("Software System", "");
+        assertFalse(softwareSystem.isType(ElementType.Container));
+    }
+
 }

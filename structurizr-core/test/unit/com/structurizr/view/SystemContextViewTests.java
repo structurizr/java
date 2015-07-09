@@ -1,9 +1,7 @@
 package com.structurizr.view;
 
 import com.structurizr.AbstractWorkspaceTestBase;
-import com.structurizr.model.Location;
-import com.structurizr.model.Person;
-import com.structurizr.model.SoftwareSystem;
+import com.structurizr.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -95,6 +93,72 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
         assertTrue(view.getElements().contains(new ElementView(userA)));
         assertTrue(view.getElements().contains(new ElementView(userB)));
+    }
+
+    @Test
+    public void test_addNearestNeightbours_DoesNothing_WhenANullElementIsSpecified() {
+        View view = new SystemContextView(softwareSystem);
+        view.addNearestNeighbours(null);
+
+        assertEquals(1, view.getElements().size());
+    }
+
+    @Test
+    public void test_addNearestNeighbours_DoesNothing_WhenThereAreNoNeighbours() {
+        View view = new SystemContextView(softwareSystem);
+        view.addNearestNeighbours(softwareSystem);
+
+        assertEquals(1, view.getElements().size());
+    }
+
+    @Test
+    public void test_addNearestNeighbours_AddsNearestNeighbours_WhenThereAreSomeNearestNeighbours() {
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "Description");
+        Person userA = model.addPerson("User A", "Description");
+        Person userB = model.addPerson("User B", "Description");
+
+        // userA -> systemA -> system -> systemB -> userB
+        userA.uses(softwareSystemA, "");
+        softwareSystemA.uses(softwareSystem, "");
+        softwareSystem.uses(softwareSystemB, "");
+        softwareSystemB.delivers(userB, "");
+
+        // userA -> systemA -> web application -> systemB -> userB
+        // web application -> database
+        Container webApplication = softwareSystem.addContainer("Web Application", "", "");
+        Container database = softwareSystem.addContainer("Database", "", "");
+        softwareSystemA.uses(webApplication, "");
+        webApplication.uses(softwareSystemB, "");
+        webApplication.uses(database, "");
+
+        // userA -> systemA -> controller -> service -> repository -> database
+        Component controller = webApplication.addComponent("Controller", "");
+        Component service = webApplication.addComponent("Service", "");
+        Component repository = webApplication.addComponent("Repository", "");
+        softwareSystemA.uses(controller, "");
+        controller.uses(service, "");
+        service.uses(repository, "");
+        repository.uses(database, "");
+
+        // userA -> systemA -> controller -> service -> systemB -> userB
+        service.uses(softwareSystemB, "");
+
+        View view = new SystemContextView(softwareSystem);
+        view.addNearestNeighbours(softwareSystem);
+
+        assertEquals(3, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(softwareSystemA)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystem)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
+
+        view = new SystemContextView(softwareSystem);
+        view.addNearestNeighbours(softwareSystemA);
+
+        assertEquals(3, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(userA)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystemA)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystem)));
     }
 
 }

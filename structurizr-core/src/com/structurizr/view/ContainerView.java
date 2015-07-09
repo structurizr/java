@@ -1,5 +1,7 @@
 package com.structurizr.view;
 
+import com.structurizr.model.Element;
+import com.structurizr.model.ElementType;
 import com.structurizr.model.SoftwareSystem;
 
 public class ContainerView extends View {
@@ -43,6 +45,13 @@ public class ContainerView extends View {
         addAllSoftwareSystems();
         addAllPeople();
         addAllContainers();
+    }
+
+    @Override
+    public void addNearestNeighbours(Element element) {
+        super.addNearestNeighbours(element, ElementType.SoftwareSystem);
+        super.addNearestNeighbours(element, ElementType.Person);
+        super.addNearestNeighbours(element, ElementType.Container);
     }
 
 }

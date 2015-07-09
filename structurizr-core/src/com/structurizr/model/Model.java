@@ -1,5 +1,7 @@
 package com.structurizr.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.*;
 
 /**
@@ -149,6 +151,8 @@ public class Model {
         if (!relationship.getSource().has(relationship)) {
             relationship.setId(idGenerator.generateId(relationship));
             relationship.getSource().addRelationship(relationship);
+
+            addRelationshipToInternalStructures(relationship);
         }
     }
 
@@ -164,11 +168,27 @@ public class Model {
     }
 
     /**
+     * Returns a set containing all elements in this model.
+     */
+    @JsonIgnore
+    public Set<Element> getElements() {
+        return new HashSet<>(this.elementsById.values());
+    }
+
+    /**
      * Returns the element in this model with the specified ID
      * (or null if it doesn't exist).
      */
     public Element getElement(String id) {
         return elementsById.get(id);
+    }
+
+    /**
+     * Returns a set containing all relationships in this model.
+     */
+    @JsonIgnore
+    public Set<Relationship> getRelationships() {
+        return new HashSet<>(this.relationshipsById.values());
     }
 
     /**

@@ -76,6 +76,10 @@ public abstract class Element extends TaggableThing {
 
     public abstract ElementType getType();
 
+    public final boolean isType(ElementType type) {
+        return this.getType() == type;
+    }
+
     @JsonIgnore
     public abstract String getCanonicalName();
 

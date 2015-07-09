@@ -3,6 +3,8 @@ package com.structurizr.view;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
+import com.structurizr.model.Element;
+import com.structurizr.model.ElementType;
 
 public class ComponentView extends View {
 
@@ -118,6 +120,14 @@ public class ComponentView extends View {
         addAllContainers();
         addAllComponents();
 //        removeElementsThatCantBeReachedFrom(this.container);
+    }
+
+    @Override
+    public void addNearestNeighbours(Element element) {
+        super.addNearestNeighbours(element, ElementType.SoftwareSystem);
+        super.addNearestNeighbours(element, ElementType.Person);
+        super.addNearestNeighbours(element, ElementType.Container);
+        super.addNearestNeighbours(element, ElementType.Component);
     }
 
 }

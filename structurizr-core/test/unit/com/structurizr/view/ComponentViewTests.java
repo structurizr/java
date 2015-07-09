@@ -257,4 +257,98 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(componentA)));
     }
 
+    @Test
+    public void test_addNearestNeightbours_DoesNothing_WhenANullElementIsSpecified() {
+        View view = new ComponentView(webApplication, "");
+        view.addNearestNeighbours(null);
+
+        assertEquals(0, view.getElements().size());
+    }
+
+    @Test
+    public void test_addNearestNeighbours_DoesNothing_WhenThereAreNoNeighbours() {
+        View view = new ComponentView(webApplication, "");
+        view.addNearestNeighbours(softwareSystem);
+
+        assertEquals(1, view.getElements().size());
+    }
+
+    @Test
+    public void test_addNearestNeighbours_AddsNearestNeighbours_WhenThereAreSomeNearestNeighbours() {
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "Description");
+        Person userA = model.addPerson("User A", "Description");
+        Person userB = model.addPerson("User B", "Description");
+
+        // userA -> systemA -> system -> systemB -> userB
+        userA.uses(softwareSystemA, "");
+        softwareSystemA.uses(softwareSystem, "");
+        softwareSystem.uses(softwareSystemB, "");
+        softwareSystemB.delivers(userB, "");
+
+        // userA -> systemA -> web application -> systemB -> userB
+        // web application -> database
+        Container database = softwareSystem.addContainer("Database", "", "");
+        softwareSystemA.uses(webApplication, "");
+        webApplication.uses(softwareSystemB, "");
+        webApplication.uses(database, "");
+
+        // userA -> systemA -> controller -> service -> repository -> database
+        Component controller = webApplication.addComponent("Controller", "");
+        Component service = webApplication.addComponent("Service", "");
+        Component repository = webApplication.addComponent("Repository", "");
+        softwareSystemA.uses(controller, "");
+        controller.uses(service, "");
+        service.uses(repository, "");
+        repository.uses(database, "");
+
+        // userA -> systemA -> controller -> service -> systemB -> userB
+        service.uses(softwareSystemB, "");
+
+        View view = new ComponentView(webApplication, "");
+        view.addNearestNeighbours(softwareSystem);
+
+        assertEquals(3, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(softwareSystemA)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystem)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
+
+        view = new ComponentView(webApplication, "");
+        view.addNearestNeighbours(softwareSystemA);
+
+        assertEquals(5, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(userA)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystemA)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystem)));
+        assertTrue(view.getElements().contains(new ElementView(webApplication)));
+        assertTrue(view.getElements().contains(new ElementView(controller)));
+
+        view = new ComponentView(webApplication, "");
+        view.addNearestNeighbours(webApplication);
+
+        assertEquals(4, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(softwareSystemA)));
+        assertTrue(view.getElements().contains(new ElementView(webApplication)));
+        assertTrue(view.getElements().contains(new ElementView(database)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
+
+        view = new ComponentView(webApplication, "");
+        view.addNearestNeighbours(controller);
+
+        assertEquals(3, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(softwareSystemA)));
+        assertTrue(view.getElements().contains(new ElementView(controller)));
+        assertTrue(view.getElements().contains(new ElementView(service)));
+
+
+        view = new ComponentView(webApplication, "");
+        view.addNearestNeighbours(service);
+
+        assertEquals(4, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(controller)));
+        assertTrue(view.getElements().contains(new ElementView(service)));
+        assertTrue(view.getElements().contains(new ElementView(repository)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
+    }
+
 }

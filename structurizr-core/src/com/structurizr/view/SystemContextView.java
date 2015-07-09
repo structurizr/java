@@ -1,5 +1,7 @@
 package com.structurizr.view;
 
+import com.structurizr.model.Element;
+import com.structurizr.model.ElementType;
 import com.structurizr.model.SoftwareSystem;
 
 /**
@@ -51,6 +53,12 @@ public class SystemContextView extends View {
     public void addAllElements() {
         addAllSoftwareSystems();
         addAllPeople();
+    }
+
+    @Override
+    public void addNearestNeighbours(Element element) {
+        super.addNearestNeighbours(element, ElementType.SoftwareSystem);
+        super.addNearestNeighbours(element, ElementType.Person);
     }
 
 }
