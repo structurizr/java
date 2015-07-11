@@ -1,0 +1,2000 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "https://api.structurizr.com",
+  "type": "object",
+  "properties": {
+    "id": {
+      "id": "https://api.structurizr.com/id",
+      "type": "integer"
+    },
+    "name": {
+      "id": "https://api.structurizr.com/name",
+      "type": "string"
+    },
+    "description": {
+      "id": "https://api.structurizr.com/description",
+      "type": "string"
+    },
+    "model": {
+      "id": "https://api.structurizr.com/model",
+      "type": "object",
+      "properties": {
+        "people": {
+          "id": "https://api.structurizr.com/model/people",
+          "type": "array",
+          "items": {
+            "id": "https://api.structurizr.com/model/people/0",
+            "type": "object",
+            "properties": {
+              "tags": {
+                "id": "https://api.structurizr.com/model/people/0/tags",
+                "type": "string"
+              },
+              "id": {
+                "id": "https://api.structurizr.com/model/people/0/id",
+                "type": "string"
+              },
+              "name": {
+                "id": "https://api.structurizr.com/model/people/0/name",
+                "type": "string"
+              },
+              "description": {
+                "id": "https://api.structurizr.com/model/people/0/description",
+                "type": "string"
+              },
+              "relationships": {
+                "id": "https://api.structurizr.com/model/people/0/relationships",
+                "type": "array",
+                "items": [
+                  {
+                    "id": "https://api.structurizr.com/model/people/0/relationships/0",
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/0/tags",
+                        "type": "string"
+                      },
+                      "id": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/0/id",
+                        "type": "string"
+                      },
+                      "sourceId": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/0/sourceId",
+                        "type": "string"
+                      },
+                      "destinationId": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/0/destinationId",
+                        "type": "string"
+                      },
+                      "description": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/0/description",
+                        "type": "string"
+                      },
+                      "technology": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/0/technology",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/model/people/0/relationships/1",
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/1/tags",
+                        "type": "string"
+                      },
+                      "id": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/1/id",
+                        "type": "string"
+                      },
+                      "sourceId": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/1/sourceId",
+                        "type": "string"
+                      },
+                      "destinationId": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/1/destinationId",
+                        "type": "string"
+                      },
+                      "description": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/1/description",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/model/people/0/relationships/2",
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/2/tags",
+                        "type": "string"
+                      },
+                      "id": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/2/id",
+                        "type": "string"
+                      },
+                      "sourceId": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/2/sourceId",
+                        "type": "string"
+                      },
+                      "destinationId": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/2/destinationId",
+                        "type": "string"
+                      },
+                      "description": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/2/description",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/model/people/0/relationships/3",
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/3/tags",
+                        "type": "string"
+                      },
+                      "id": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/3/id",
+                        "type": "string"
+                      },
+                      "sourceId": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/3/sourceId",
+                        "type": "string"
+                      },
+                      "destinationId": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/3/destinationId",
+                        "type": "string"
+                      },
+                      "description": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/3/description",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/model/people/0/relationships/4",
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/4/tags",
+                        "type": "string"
+                      },
+                      "id": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/4/id",
+                        "type": "string"
+                      },
+                      "sourceId": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/4/sourceId",
+                        "type": "string"
+                      },
+                      "destinationId": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/4/destinationId",
+                        "type": "string"
+                      },
+                      "description": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/4/description",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/model/people/0/relationships/5",
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/5/tags",
+                        "type": "string"
+                      },
+                      "id": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/5/id",
+                        "type": "string"
+                      },
+                      "sourceId": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/5/sourceId",
+                        "type": "string"
+                      },
+                      "destinationId": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/5/destinationId",
+                        "type": "string"
+                      },
+                      "description": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/5/description",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/model/people/0/relationships/6",
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/6/tags",
+                        "type": "string"
+                      },
+                      "id": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/6/id",
+                        "type": "string"
+                      },
+                      "sourceId": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/6/sourceId",
+                        "type": "string"
+                      },
+                      "destinationId": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/6/destinationId",
+                        "type": "string"
+                      },
+                      "description": {
+                        "id": "https://api.structurizr.com/model/people/0/relationships/6/description",
+                        "type": "string"
+                      }
+                    }
+                  }
+                ]
+              },
+              "location": {
+                "id": "https://api.structurizr.com/model/people/0/location",
+                "type": "string"
+              },
+              "type": {
+                "id": "https://api.structurizr.com/model/people/0/type",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "softwareSystems": {
+          "id": "https://api.structurizr.com/model/softwareSystems",
+          "type": "array",
+          "items": {
+            "id": "https://api.structurizr.com/model/softwareSystems/0",
+            "type": "object",
+            "properties": {
+              "tags": {
+                "id": "https://api.structurizr.com/model/softwareSystems/0/tags",
+                "type": "string"
+              },
+              "id": {
+                "id": "https://api.structurizr.com/model/softwareSystems/0/id",
+                "type": "string"
+              },
+              "name": {
+                "id": "https://api.structurizr.com/model/softwareSystems/0/name",
+                "type": "string"
+              },
+              "description": {
+                "id": "https://api.structurizr.com/model/softwareSystems/0/description",
+                "type": "string"
+              },
+              "location": {
+                "id": "https://api.structurizr.com/model/softwareSystems/0/location",
+                "type": "string"
+              },
+              "containers": {
+                "id": "https://api.structurizr.com/model/softwareSystems/0/containers",
+                "type": "array",
+                "items": [
+                  {
+                    "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0",
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/tags",
+                        "type": "string"
+                      },
+                      "id": {
+                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/id",
+                        "type": "string"
+                      },
+                      "name": {
+                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/name",
+                        "type": "string"
+                      },
+                      "description": {
+                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/description",
+                        "type": "string"
+                      },
+                      "relationships": {
+                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/relationships",
+                        "type": "array",
+                        "items": {
+                          "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/relationships/0",
+                          "type": "object",
+                          "properties": {
+                            "tags": {
+                              "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/relationships/0/tags",
+                              "type": "string"
+                            },
+                            "id": {
+                              "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/relationships/0/id",
+                              "type": "string"
+                            },
+                            "sourceId": {
+                              "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/relationships/0/sourceId",
+                              "type": "string"
+                            },
+                            "destinationId": {
+                              "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/relationships/0/destinationId",
+                              "type": "string"
+                            },
+                            "description": {
+                              "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/relationships/0/description",
+                              "type": "string"
+                            },
+                            "technology": {
+                              "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/relationships/0/technology",
+                              "type": "string"
+                            }
+                          }
+                        }
+                      },
+                      "technology": {
+                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/technology",
+                        "type": "string"
+                      },
+                      "components": {
+                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components",
+                        "type": "array",
+                        "items": [
+                          {
+                            "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/0",
+                            "type": "object",
+                            "properties": {
+                              "tags": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/0/tags",
+                                "type": "string"
+                              },
+                              "id": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/0/id",
+                                "type": "string"
+                              },
+                              "name": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/0/name",
+                                "type": "string"
+                              },
+                              "description": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/0/description",
+                                "type": "string"
+                              },
+                              "technology": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/0/technology",
+                                "type": "string"
+                              },
+                              "implementationType": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/0/implementationType",
+                                "type": "string"
+                              },
+                              "sourcePath": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/0/sourcePath",
+                                "type": "string"
+                              },
+                              "type": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/0/type",
+                                "type": "string"
+                              }
+                            }
+                          },
+                          {
+                            "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1",
+                            "type": "object",
+                            "properties": {
+                              "tags": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/tags",
+                                "type": "string"
+                              },
+                              "id": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/id",
+                                "type": "string"
+                              },
+                              "name": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/name",
+                                "type": "string"
+                              },
+                              "description": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/description",
+                                "type": "string"
+                              },
+                              "relationships": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/relationships",
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/relationships/0",
+                                    "type": "object",
+                                    "properties": {
+                                      "tags": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/relationships/0/tags",
+                                        "type": "string"
+                                      },
+                                      "id": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/relationships/0/id",
+                                        "type": "string"
+                                      },
+                                      "sourceId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/relationships/0/sourceId",
+                                        "type": "string"
+                                      },
+                                      "destinationId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/relationships/0/destinationId",
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/relationships/1",
+                                    "type": "object",
+                                    "properties": {
+                                      "tags": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/relationships/1/tags",
+                                        "type": "string"
+                                      },
+                                      "id": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/relationships/1/id",
+                                        "type": "string"
+                                      },
+                                      "sourceId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/relationships/1/sourceId",
+                                        "type": "string"
+                                      },
+                                      "destinationId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/relationships/1/destinationId",
+                                        "type": "string"
+                                      },
+                                      "description": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/relationships/1/description",
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "technology": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/technology",
+                                "type": "string"
+                              },
+                              "interfaceType": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/interfaceType",
+                                "type": "string"
+                              },
+                              "implementationType": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/implementationType",
+                                "type": "string"
+                              },
+                              "sourcePath": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/sourcePath",
+                                "type": "string"
+                              },
+                              "type": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/1/type",
+                                "type": "string"
+                              }
+                            }
+                          },
+                          {
+                            "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2",
+                            "type": "object",
+                            "properties": {
+                              "tags": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2/tags",
+                                "type": "string"
+                              },
+                              "id": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2/id",
+                                "type": "string"
+                              },
+                              "name": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2/name",
+                                "type": "string"
+                              },
+                              "description": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2/description",
+                                "type": "string"
+                              },
+                              "relationships": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2/relationships",
+                                "type": "array",
+                                "items": {
+                                  "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2/relationships/0",
+                                  "type": "object",
+                                  "properties": {
+                                    "tags": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2/relationships/0/tags",
+                                      "type": "string"
+                                    },
+                                    "id": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2/relationships/0/id",
+                                      "type": "string"
+                                    },
+                                    "sourceId": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2/relationships/0/sourceId",
+                                      "type": "string"
+                                    },
+                                    "destinationId": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2/relationships/0/destinationId",
+                                      "type": "string"
+                                    },
+                                    "description": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2/relationships/0/description",
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "technology": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2/technology",
+                                "type": "string"
+                              },
+                              "interfaceType": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2/interfaceType",
+                                "type": "string"
+                              },
+                              "implementationType": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2/implementationType",
+                                "type": "string"
+                              },
+                              "sourcePath": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2/sourcePath",
+                                "type": "string"
+                              },
+                              "type": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/2/type",
+                                "type": "string"
+                              }
+                            }
+                          },
+                          {
+                            "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/3",
+                            "type": "object",
+                            "properties": {
+                              "tags": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/3/tags",
+                                "type": "string"
+                              },
+                              "id": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/3/id",
+                                "type": "string"
+                              },
+                              "name": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/3/name",
+                                "type": "string"
+                              },
+                              "relationships": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/3/relationships",
+                                "type": "array",
+                                "items": {
+                                  "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/3/relationships/0",
+                                  "type": "object",
+                                  "properties": {
+                                    "tags": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/3/relationships/0/tags",
+                                      "type": "string"
+                                    },
+                                    "id": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/3/relationships/0/id",
+                                      "type": "string"
+                                    },
+                                    "sourceId": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/3/relationships/0/sourceId",
+                                      "type": "string"
+                                    },
+                                    "destinationId": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/3/relationships/0/destinationId",
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "technology": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/3/technology",
+                                "type": "string"
+                              },
+                              "implementationType": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/3/implementationType",
+                                "type": "string"
+                              },
+                              "sourcePath": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/3/sourcePath",
+                                "type": "string"
+                              },
+                              "type": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/3/type",
+                                "type": "string"
+                              }
+                            }
+                          },
+                          {
+                            "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4",
+                            "type": "object",
+                            "properties": {
+                              "tags": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4/tags",
+                                "type": "string"
+                              },
+                              "id": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4/id",
+                                "type": "string"
+                              },
+                              "name": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4/name",
+                                "type": "string"
+                              },
+                              "description": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4/description",
+                                "type": "string"
+                              },
+                              "relationships": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4/relationships",
+                                "type": "array",
+                                "items": {
+                                  "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4/relationships/0",
+                                  "type": "object",
+                                  "properties": {
+                                    "tags": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4/relationships/0/tags",
+                                      "type": "string"
+                                    },
+                                    "id": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4/relationships/0/id",
+                                      "type": "string"
+                                    },
+                                    "sourceId": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4/relationships/0/sourceId",
+                                      "type": "string"
+                                    },
+                                    "destinationId": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4/relationships/0/destinationId",
+                                      "type": "string"
+                                    },
+                                    "description": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4/relationships/0/description",
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "technology": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4/technology",
+                                "type": "string"
+                              },
+                              "interfaceType": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4/interfaceType",
+                                "type": "string"
+                              },
+                              "implementationType": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4/implementationType",
+                                "type": "string"
+                              },
+                              "sourcePath": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4/sourcePath",
+                                "type": "string"
+                              },
+                              "type": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/4/type",
+                                "type": "string"
+                              }
+                            }
+                          },
+                          {
+                            "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/5",
+                            "type": "object",
+                            "properties": {
+                              "tags": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/5/tags",
+                                "type": "string"
+                              },
+                              "id": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/5/id",
+                                "type": "string"
+                              },
+                              "name": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/5/name",
+                                "type": "string"
+                              },
+                              "relationships": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/5/relationships",
+                                "type": "array",
+                                "items": {
+                                  "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/5/relationships/0",
+                                  "type": "object",
+                                  "properties": {
+                                    "tags": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/5/relationships/0/tags",
+                                      "type": "string"
+                                    },
+                                    "id": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/5/relationships/0/id",
+                                      "type": "string"
+                                    },
+                                    "sourceId": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/5/relationships/0/sourceId",
+                                      "type": "string"
+                                    },
+                                    "destinationId": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/5/relationships/0/destinationId",
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "technology": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/5/technology",
+                                "type": "string"
+                              },
+                              "implementationType": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/5/implementationType",
+                                "type": "string"
+                              },
+                              "sourcePath": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/5/sourcePath",
+                                "type": "string"
+                              },
+                              "type": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/5/type",
+                                "type": "string"
+                              }
+                            }
+                          },
+                          {
+                            "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/6",
+                            "type": "object",
+                            "properties": {
+                              "tags": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/6/tags",
+                                "type": "string"
+                              },
+                              "id": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/6/id",
+                                "type": "string"
+                              },
+                              "name": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/6/name",
+                                "type": "string"
+                              },
+                              "relationships": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/6/relationships",
+                                "type": "array",
+                                "items": {
+                                  "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/6/relationships/0",
+                                  "type": "object",
+                                  "properties": {
+                                    "tags": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/6/relationships/0/tags",
+                                      "type": "string"
+                                    },
+                                    "id": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/6/relationships/0/id",
+                                      "type": "string"
+                                    },
+                                    "sourceId": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/6/relationships/0/sourceId",
+                                      "type": "string"
+                                    },
+                                    "destinationId": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/6/relationships/0/destinationId",
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "technology": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/6/technology",
+                                "type": "string"
+                              },
+                              "implementationType": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/6/implementationType",
+                                "type": "string"
+                              },
+                              "sourcePath": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/6/sourcePath",
+                                "type": "string"
+                              },
+                              "type": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/6/type",
+                                "type": "string"
+                              }
+                            }
+                          },
+                          {
+                            "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7",
+                            "type": "object",
+                            "properties": {
+                              "tags": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/tags",
+                                "type": "string"
+                              },
+                              "id": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/id",
+                                "type": "string"
+                              },
+                              "name": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/name",
+                                "type": "string"
+                              },
+                              "description": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/description",
+                                "type": "string"
+                              },
+                              "relationships": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships",
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships/0",
+                                    "type": "object",
+                                    "properties": {
+                                      "tags": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships/0/tags",
+                                        "type": "string"
+                                      },
+                                      "id": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships/0/id",
+                                        "type": "string"
+                                      },
+                                      "sourceId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships/0/sourceId",
+                                        "type": "string"
+                                      },
+                                      "destinationId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships/0/destinationId",
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships/1",
+                                    "type": "object",
+                                    "properties": {
+                                      "tags": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships/1/tags",
+                                        "type": "string"
+                                      },
+                                      "id": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships/1/id",
+                                        "type": "string"
+                                      },
+                                      "sourceId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships/1/sourceId",
+                                        "type": "string"
+                                      },
+                                      "destinationId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships/1/destinationId",
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships/2",
+                                    "type": "object",
+                                    "properties": {
+                                      "tags": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships/2/tags",
+                                        "type": "string"
+                                      },
+                                      "id": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships/2/id",
+                                        "type": "string"
+                                      },
+                                      "sourceId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships/2/sourceId",
+                                        "type": "string"
+                                      },
+                                      "destinationId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships/2/destinationId",
+                                        "type": "string"
+                                      },
+                                      "description": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/relationships/2/description",
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "technology": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/technology",
+                                "type": "string"
+                              },
+                              "interfaceType": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/interfaceType",
+                                "type": "string"
+                              },
+                              "implementationType": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/implementationType",
+                                "type": "string"
+                              },
+                              "sourcePath": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/sourcePath",
+                                "type": "string"
+                              },
+                              "type": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/7/type",
+                                "type": "string"
+                              }
+                            }
+                          },
+                          {
+                            "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/8",
+                            "type": "object",
+                            "properties": {
+                              "tags": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/8/tags",
+                                "type": "string"
+                              },
+                              "id": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/8/id",
+                                "type": "string"
+                              },
+                              "name": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/8/name",
+                                "type": "string"
+                              },
+                              "relationships": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/8/relationships",
+                                "type": "array",
+                                "items": {
+                                  "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/8/relationships/0",
+                                  "type": "object",
+                                  "properties": {
+                                    "tags": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/8/relationships/0/tags",
+                                      "type": "string"
+                                    },
+                                    "id": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/8/relationships/0/id",
+                                      "type": "string"
+                                    },
+                                    "sourceId": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/8/relationships/0/sourceId",
+                                      "type": "string"
+                                    },
+                                    "destinationId": {
+                                      "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/8/relationships/0/destinationId",
+                                      "type": "string"
+                                    }
+                                  }
+                                }
+                              },
+                              "technology": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/8/technology",
+                                "type": "string"
+                              },
+                              "implementationType": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/8/implementationType",
+                                "type": "string"
+                              },
+                              "sourcePath": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/8/sourcePath",
+                                "type": "string"
+                              },
+                              "type": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/8/type",
+                                "type": "string"
+                              }
+                            }
+                          },
+                          {
+                            "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9",
+                            "type": "object",
+                            "properties": {
+                              "tags": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/tags",
+                                "type": "string"
+                              },
+                              "id": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/id",
+                                "type": "string"
+                              },
+                              "name": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/name",
+                                "type": "string"
+                              },
+                              "description": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/description",
+                                "type": "string"
+                              },
+                              "relationships": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships",
+                                "type": "array",
+                                "items": [
+                                  {
+                                    "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/0",
+                                    "type": "object",
+                                    "properties": {
+                                      "tags": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/0/tags",
+                                        "type": "string"
+                                      },
+                                      "id": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/0/id",
+                                        "type": "string"
+                                      },
+                                      "sourceId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/0/sourceId",
+                                        "type": "string"
+                                      },
+                                      "destinationId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/0/destinationId",
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/1",
+                                    "type": "object",
+                                    "properties": {
+                                      "tags": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/1/tags",
+                                        "type": "string"
+                                      },
+                                      "id": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/1/id",
+                                        "type": "string"
+                                      },
+                                      "sourceId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/1/sourceId",
+                                        "type": "string"
+                                      },
+                                      "destinationId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/1/destinationId",
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/2",
+                                    "type": "object",
+                                    "properties": {
+                                      "tags": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/2/tags",
+                                        "type": "string"
+                                      },
+                                      "id": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/2/id",
+                                        "type": "string"
+                                      },
+                                      "sourceId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/2/sourceId",
+                                        "type": "string"
+                                      },
+                                      "destinationId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/2/destinationId",
+                                        "type": "string"
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/3",
+                                    "type": "object",
+                                    "properties": {
+                                      "tags": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/3/tags",
+                                        "type": "string"
+                                      },
+                                      "id": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/3/id",
+                                        "type": "string"
+                                      },
+                                      "sourceId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/3/sourceId",
+                                        "type": "string"
+                                      },
+                                      "destinationId": {
+                                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/relationships/3/destinationId",
+                                        "type": "string"
+                                      }
+                                    }
+                                  }
+                                ]
+                              },
+                              "technology": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/technology",
+                                "type": "string"
+                              },
+                              "interfaceType": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/interfaceType",
+                                "type": "string"
+                              },
+                              "implementationType": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/implementationType",
+                                "type": "string"
+                              },
+                              "sourcePath": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/sourcePath",
+                                "type": "string"
+                              },
+                              "type": {
+                                "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/components/9/type",
+                                "type": "string"
+                              }
+                            }
+                          }
+                        ]
+                      },
+                      "type": {
+                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/0/type",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/model/softwareSystems/0/containers/1",
+                    "type": "object",
+                    "properties": {
+                      "tags": {
+                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/1/tags",
+                        "type": "string"
+                      },
+                      "id": {
+                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/1/id",
+                        "type": "string"
+                      },
+                      "name": {
+                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/1/name",
+                        "type": "string"
+                      },
+                      "description": {
+                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/1/description",
+                        "type": "string"
+                      },
+                      "technology": {
+                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/1/technology",
+                        "type": "string"
+                      },
+                      "type": {
+                        "id": "https://api.structurizr.com/model/softwareSystems/0/containers/1/type",
+                        "type": "string"
+                      }
+                    }
+                  }
+                ]
+              },
+              "type": {
+                "id": "https://api.structurizr.com/model/softwareSystems/0/type",
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "views": {
+      "id": "https://api.structurizr.com/views",
+      "type": "object",
+      "properties": {
+        "systemContextViews": {
+          "id": "https://api.structurizr.com/views/systemContextViews",
+          "type": "array",
+          "items": {
+            "id": "https://api.structurizr.com/views/systemContextViews/0",
+            "type": "object",
+            "properties": {
+              "softwareSystemId": {
+                "id": "https://api.structurizr.com/views/systemContextViews/0/softwareSystemId",
+                "type": "string"
+              },
+              "paperSize": {
+                "id": "https://api.structurizr.com/views/systemContextViews/0/paperSize",
+                "type": "string"
+              },
+              "name": {
+                "id": "https://api.structurizr.com/views/systemContextViews/0/name",
+                "type": "string"
+              },
+              "type": {
+                "id": "https://api.structurizr.com/views/systemContextViews/0/type",
+                "type": "string"
+              },
+              "elements": {
+                "id": "https://api.structurizr.com/views/systemContextViews/0/elements",
+                "type": "array",
+                "items": [
+                  {
+                    "id": "https://api.structurizr.com/views/systemContextViews/0/elements/0",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/systemContextViews/0/elements/0/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/systemContextViews/0/elements/0/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/systemContextViews/0/elements/0/y",
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/systemContextViews/0/elements/1",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/systemContextViews/0/elements/1/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/systemContextViews/0/elements/1/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/systemContextViews/0/elements/1/y",
+                        "type": "integer"
+                      }
+                    }
+                  }
+                ]
+              },
+              "relationships": {
+                "id": "https://api.structurizr.com/views/systemContextViews/0/relationships",
+                "type": "array",
+                "items": {
+                  "id": "https://api.structurizr.com/views/systemContextViews/0/relationships/0",
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "id": "https://api.structurizr.com/views/systemContextViews/0/relationships/0/id",
+                      "type": "string"
+                    },
+                    "vertices": {
+                      "id": "https://api.structurizr.com/views/systemContextViews/0/relationships/0/vertices",
+                      "type": "array",
+                      "items": {
+                        "id": "https://api.structurizr.com/views/systemContextViews/0/relationships/0/vertices/0",
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "id": "https://api.structurizr.com/views/systemContextViews/0/relationships/0/vertices/0/x",
+                            "type": "integer"
+                          },
+                          "y": {
+                            "id": "https://api.structurizr.com/views/systemContextViews/0/relationships/0/vertices/0/y",
+                            "type": "integer"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "containerViews": {
+          "id": "https://api.structurizr.com/views/containerViews",
+          "type": "array",
+          "items": {
+            "id": "https://api.structurizr.com/views/containerViews/0",
+            "type": "object",
+            "properties": {
+              "softwareSystemId": {
+                "id": "https://api.structurizr.com/views/containerViews/0/softwareSystemId",
+                "type": "string"
+              },
+              "paperSize": {
+                "id": "https://api.structurizr.com/views/containerViews/0/paperSize",
+                "type": "string"
+              },
+              "name": {
+                "id": "https://api.structurizr.com/views/containerViews/0/name",
+                "type": "string"
+              },
+              "type": {
+                "id": "https://api.structurizr.com/views/containerViews/0/type",
+                "type": "string"
+              },
+              "elements": {
+                "id": "https://api.structurizr.com/views/containerViews/0/elements",
+                "type": "array",
+                "items": [
+                  {
+                    "id": "https://api.structurizr.com/views/containerViews/0/elements/0",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/containerViews/0/elements/0/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/containerViews/0/elements/0/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/containerViews/0/elements/0/y",
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/containerViews/0/elements/1",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/containerViews/0/elements/1/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/containerViews/0/elements/1/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/containerViews/0/elements/1/y",
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/containerViews/0/elements/2",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/containerViews/0/elements/2/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/containerViews/0/elements/2/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/containerViews/0/elements/2/y",
+                        "type": "integer"
+                      }
+                    }
+                  }
+                ]
+              },
+              "relationships": {
+                "id": "https://api.structurizr.com/views/containerViews/0/relationships",
+                "type": "array",
+                "items": [
+                  {
+                    "id": "https://api.structurizr.com/views/containerViews/0/relationships/0",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/containerViews/0/relationships/0/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/containerViews/0/relationships/1",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/containerViews/0/relationships/1/id",
+                        "type": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "componentViews": {
+          "id": "https://api.structurizr.com/views/componentViews",
+          "type": "array",
+          "items": {
+            "id": "https://api.structurizr.com/views/componentViews/0",
+            "type": "object",
+            "properties": {
+              "softwareSystemId": {
+                "id": "https://api.structurizr.com/views/componentViews/0/softwareSystemId",
+                "type": "string"
+              },
+              "paperSize": {
+                "id": "https://api.structurizr.com/views/componentViews/0/paperSize",
+                "type": "string"
+              },
+              "containerId": {
+                "id": "https://api.structurizr.com/views/componentViews/0/containerId",
+                "type": "string"
+              },
+              "name": {
+                "id": "https://api.structurizr.com/views/componentViews/0/name",
+                "type": "string"
+              },
+              "type": {
+                "id": "https://api.structurizr.com/views/componentViews/0/type",
+                "type": "string"
+              },
+              "elements": {
+                "id": "https://api.structurizr.com/views/componentViews/0/elements",
+                "type": "array",
+                "items": [
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/elements/0",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/0/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/0/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/0/y",
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/elements/1",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/1/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/1/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/1/y",
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/elements/2",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/2/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/2/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/2/y",
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/elements/3",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/3/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/3/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/3/y",
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/elements/4",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/4/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/4/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/4/y",
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/elements/5",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/5/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/5/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/5/y",
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/elements/6",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/6/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/6/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/6/y",
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/elements/7",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/7/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/7/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/7/y",
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/elements/8",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/8/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/8/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/8/y",
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/elements/9",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/9/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/9/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/9/y",
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/elements/10",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/10/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/10/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/10/y",
+                        "type": "integer"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/elements/11",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/11/id",
+                        "type": "string"
+                      },
+                      "x": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/11/x",
+                        "type": "integer"
+                      },
+                      "y": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/elements/11/y",
+                        "type": "integer"
+                      }
+                    }
+                  }
+                ]
+              },
+              "relationships": {
+                "id": "https://api.structurizr.com/views/componentViews/0/relationships",
+                "type": "array",
+                "items": [
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/0",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/0/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/1",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/1/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/2",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/2/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/3",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/3/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/4",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/4/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/5",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/5/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/6",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/6/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/7",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/7/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/8",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/8/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/9",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/9/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/10",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/10/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/11",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/11/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/12",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/12/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/13",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/13/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/14",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/14/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/15",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/15/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/16",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/16/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/17",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/17/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/18",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/18/id",
+                        "type": "string"
+                      }
+                    }
+                  },
+                  {
+                    "id": "https://api.structurizr.com/views/componentViews/0/relationships/19",
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "id": "https://api.structurizr.com/views/componentViews/0/relationships/19/id",
+                        "type": "string"
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "styles": {
+          "id": "https://api.structurizr.com/views/styles",
+          "type": "object",
+          "properties": {
+          }
+        },
+        "configuration": {
+          "id": "https://api.structurizr.com/views/configuration",
+          "type": "object",
+          "properties": {
+            "styles": {
+              "id": "https://api.structurizr.com/views/configuration/styles",
+              "type": "object",
+              "properties": {
+                "elements": {
+                  "id": "https://api.structurizr.com/views/configuration/styles/elements",
+                  "type": "array",
+                  "items": [
+                    {
+                      "id": "https://api.structurizr.com/views/configuration/styles/elements/0",
+                      "type": "object",
+                      "properties": {
+                        "tag": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/0/tag",
+                          "type": "string"
+                        },
+                        "background": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/0/background",
+                          "type": "string"
+                        },
+                        "color": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/0/color",
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "id": "https://api.structurizr.com/views/configuration/styles/elements/1",
+                      "type": "object",
+                      "properties": {
+                        "tag": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/1/tag",
+                          "type": "string"
+                        },
+                        "width": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/1/width",
+                          "type": "integer"
+                        },
+                        "background": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/1/background",
+                          "type": "string"
+                        },
+                        "color": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/1/color",
+                          "type": "string"
+                        },
+                        "shape": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/1/shape",
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "id": "https://api.structurizr.com/views/configuration/styles/elements/2",
+                      "type": "object",
+                      "properties": {
+                        "tag": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/2/tag",
+                          "type": "string"
+                        },
+                        "background": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/2/background",
+                          "type": "string"
+                        },
+                        "color": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/2/color",
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "id": "https://api.structurizr.com/views/configuration/styles/elements/3",
+                      "type": "object",
+                      "properties": {
+                        "tag": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/3/tag",
+                          "type": "string"
+                        },
+                        "shape": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/3/shape",
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "id": "https://api.structurizr.com/views/configuration/styles/elements/4",
+                      "type": "object",
+                      "properties": {
+                        "tag": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/4/tag",
+                          "type": "string"
+                        },
+                        "background": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/4/background",
+                          "type": "string"
+                        },
+                        "color": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/4/color",
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "id": "https://api.structurizr.com/views/configuration/styles/elements/5",
+                      "type": "object",
+                      "properties": {
+                        "tag": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/5/tag",
+                          "type": "string"
+                        },
+                        "background": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/5/background",
+                          "type": "string"
+                        },
+                        "color": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/5/color",
+                          "type": "string"
+                        }
+                      }
+                    },
+                    {
+                      "id": "https://api.structurizr.com/views/configuration/styles/elements/6",
+                      "type": "object",
+                      "properties": {
+                        "tag": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/6/tag",
+                          "type": "string"
+                        },
+                        "background": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/6/background",
+                          "type": "string"
+                        },
+                        "color": {
+                          "id": "https://api.structurizr.com/views/configuration/styles/elements/6/color",
+                          "type": "string"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "description",
+    "model",
+    "views"
+  ]
+}
