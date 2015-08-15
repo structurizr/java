@@ -55,6 +55,23 @@ public class RelationshipView {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RelationshipView that = (RelationshipView) o;
+
+        if (!getId().equals(that.getId())) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return getId().hashCode();
+    }
+
+    @Override
     public String toString() {
         return relationship.toString();
     }

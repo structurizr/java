@@ -119,7 +119,6 @@ public class ComponentView extends View {
         addAllPeople();
         addAllContainers();
         addAllComponents();
-//        removeElementsThatCantBeReachedFrom(this.container);
     }
 
     @Override

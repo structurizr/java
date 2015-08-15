@@ -116,10 +116,33 @@ public abstract class View implements Comparable<View> {
         addElement(person);
     }
 
-    protected void addElement(Element element) {
+    protected final void addElement(Element element) {
         if (element != null) {
             if (softwareSystem.getModel().contains(element)) {
                 elementViews.add(new ElementView(element));
+                addRelationships(element);
+            }
+        }
+    }
+
+    private void addRelationships(Element element) {
+        Set<Element> elements = getElements().stream()
+                .map(ElementView::getElement)
+                .collect(Collectors.toSet());
+
+        // add relationships where the destination exists in the view already
+        for (Relationship relationship : element.getRelationships()) {
+            if (elements.contains(relationship.getDestination())) {
+                this.relationshipViews.add(new RelationshipView(relationship));
+            }
+        }
+
+        // add relationships where the source exists in the view already
+        for (Element e : elements) {
+            for (Relationship r : e.getRelationships()) {
+                if (r.getDestination().equals(element)) {
+                    this.relationshipViews.add(new RelationshipView(r));
+                }
             }
         }
     }
@@ -128,6 +151,15 @@ public abstract class View implements Comparable<View> {
         if (element != null) {
             ElementView elementView = new ElementView(element);
             elementViews.remove(elementView);
+        }
+    }
+
+    public void removeRelationship(Relationship relationship) {
+        getRelationships();
+
+        if (relationship != null) {
+            RelationshipView relationshipView = new RelationshipView(relationship);
+            relationshipViews.remove(relationshipView);
         }
     }
 
@@ -166,29 +198,11 @@ public abstract class View implements Comparable<View> {
     }
 
     public Set<RelationshipView> getRelationships() {
-        if (this.relationshipViews.isEmpty()) {
-            addRelationships();
-        }
-
-        return this.relationshipViews;
+        return new HashSet<>(this.relationshipViews);
     }
 
     public void setRelationships(Set<RelationshipView> relationships) {
         this.relationshipViews = relationships;
-    }
-
-    private void addRelationships() {
-        Set<Relationship> relationships = new LinkedHashSet<>();
-        Set<Element> elements = getElements().stream()
-                .map(ElementView::getElement)
-                .collect(Collectors.toSet());
-
-        elements.forEach(b -> relationships.addAll(b.getRelationships()));
-
-        setRelationships(relationships.stream()
-                .filter(r -> elements.contains(r.getSource()) && elements.contains(r.getDestination()))
-                .map(RelationshipView::new)
-                .collect(Collectors.toSet()));
     }
 
     /**

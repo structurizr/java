@@ -327,4 +327,42 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(user)));
     }
 
+    @Test
+    public void test_removeRelationship_DoesNothing_WhenNullIsSpecified() {
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
+        SoftwareSystem softwareSystem3 = model.addSoftwareSystem("Software System 3", "Description");
+
+        softwareSystem1.uses(softwareSystem2, "Uses");
+        softwareSystem2.uses(softwareSystem3, "Uses");
+        softwareSystem3.uses(softwareSystem1, "Uses");
+
+        View view = new SystemContextView(softwareSystem1, "");
+        view.addAllElements();
+
+        assertEquals(3, view.getRelationships().size());
+        view.removeRelationship(null);
+    }
+
+    @Test
+    public void test_removeRelationship_RemovesARelationship_WhenAValidRelationshipIsSpecified() {
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
+        SoftwareSystem softwareSystem3 = model.addSoftwareSystem("Software System 3", "Description");
+
+        Relationship relationship12 = softwareSystem1.uses(softwareSystem2, "Uses");
+        Relationship relationship23 = softwareSystem2.uses(softwareSystem3, "Uses");
+        Relationship relationship31 = softwareSystem3.uses(softwareSystem1, "Uses");
+
+        View view = new SystemContextView(softwareSystem1, "");
+        view.addAllElements();
+
+        assertEquals(3, view.getRelationships().size());
+        view.removeRelationship(relationship31);
+
+        assertEquals(2, view.getRelationships().size());
+        assertTrue(view.getRelationships().contains(new RelationshipView(relationship12)));
+        assertTrue(view.getRelationships().contains(new RelationshipView(relationship23)));
+    }
+
 }
