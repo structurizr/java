@@ -5,17 +5,20 @@ package com.structurizr.view;
  */
 public enum PaperSize {
 
-    A4_Portrait("A4", Orientation.Portrait, 2480, 3510),
-    A4_Landscape("A4", Orientation.Landscape, 3510, 2480),
+    A4_Portrait("A4", Orientation.Portrait, 2480, 3508),
+    A4_Landscape("A4", Orientation.Landscape, 3508, 2480),
 
-    A3_Portrait("A3", Orientation.Portrait, 3510, 4950),
-    A3_Landscape("A3", Orientation.Landscape, 4950, 3510),
+    A3_Portrait("A3", Orientation.Portrait, 3508, 4961),
+    A3_Landscape("A3", Orientation.Landscape, 4961, 3508),
+
+    A2_Portrait("A2", Orientation.Portrait, 4961, 7016),
+    A2_Landscape("A2", Orientation.Landscape, 7016, 4961),
 
     Letter_Portrait("Letter", Orientation.Portrait, 2550, 3300),
     Letter_Landscape("Letter", Orientation.Landscape, 3300, 2550),
 
     Slide_4_3("Slide 4:3", Orientation.Landscape, 3306, 2480),
-    Slide_16_9("Slide 16:9", Orientation.Landscape, 3510, 1974);
+    Slide_16_9("Slide 16:9", Orientation.Landscape, 3508, 1973);
 
     private String name;
     private Orientation orientation;
