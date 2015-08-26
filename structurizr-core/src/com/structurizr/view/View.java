@@ -151,12 +151,17 @@ public abstract class View implements Comparable<View> {
         if (element != null) {
             ElementView elementView = new ElementView(element);
             elementViews.remove(elementView);
+
+            for (RelationshipView relationshipView : getRelationships()) {
+                if (relationshipView.getRelationship().getSource().equals(element) ||
+                    relationshipView.getRelationship().getDestination().equals(element)) {
+                    removeRelationship(relationshipView.getRelationship());
+                }
+            }
         }
     }
 
     public void removeRelationship(Relationship relationship) {
-        getRelationships();
-
         if (relationship != null) {
             RelationshipView relationshipView = new RelationshipView(relationship);
             relationshipViews.remove(relationshipView);
@@ -169,7 +174,7 @@ public abstract class View implements Comparable<View> {
      * @return  a Set of ElementView objects
      */
     public Set<ElementView> getElements() {
-        return elementViews;
+        return new HashSet<>(elementViews);
     }
 
     void setElements(Set<ElementView> elementViews) {
@@ -216,7 +221,11 @@ public abstract class View implements Comparable<View> {
         relationships.forEach(rv -> elementIds.add(rv.getRelationship().getSourceId()));
         relationships.forEach(rv -> elementIds.add(rv.getRelationship().getDestinationId()));
 
-        elementViews.removeIf(ev -> !elementIds.contains(ev.getId()));
+        for (ElementView elementView : getElements()) {
+            if (!elementIds.contains(elementView.getId())) {
+                removeElement(elementView.getElement());
+            }
+        }
     }
 
     /**
@@ -227,22 +236,26 @@ public abstract class View implements Comparable<View> {
      */
     public void removeElementsThatCantBeReachedFrom(Element element) {
         if (element != null) {
-            Set<String> elementIdsToShow = new HashSet<>();
-            Set<String> elementIdsVisited = new HashSet<>();
-            findElementsToShow(element, element, elementIdsToShow, elementIdsVisited);
+            Set<Element> elementsToShow = new HashSet<>();
+            Set<Element> elementsVisited = new HashSet<>();
+            findElementsToShow(element, element, elementsToShow, elementsVisited);
 
-            elementViews.removeIf(ev -> !elementIdsToShow.contains(ev.getId()));
+            for (ElementView elementView : getElements()) {
+                if (!elementsToShow.contains(elementView.getElement())) {
+                    removeElement(elementView.getElement());
+                }
+            }
         }
     }
 
-    private void findElementsToShow(Element startingElement, Element element, Set<String> elementIdsToShow, Set<String> elementIdsVisited) {
-        if (!elementIdsVisited.contains(element.getId()) && elementViews.contains(new ElementView(element))) {
-            elementIdsVisited.add(element.getId());
-            elementIdsToShow.add(element.getId());
+    private void findElementsToShow(Element startingElement, Element element, Set<Element> elementsToShow, Set<Element> elementsVisited) {
+        if (!elementsVisited.contains(element) && elementViews.contains(new ElementView(element))) {
+            elementsVisited.add(element);
+            elementsToShow.add(element);
 
             // check that we've not gone back to the starting point of the graph
             if (!element.hasEfferentRelationshipWith(startingElement)) {
-                element.getRelationships().forEach(r -> findElementsToShow(startingElement, r.getDestination(), elementIdsToShow, elementIdsVisited));
+                element.getRelationships().forEach(r -> findElementsToShow(startingElement, r.getDestination(), elementsToShow, elementsVisited));
             }
         }
     }

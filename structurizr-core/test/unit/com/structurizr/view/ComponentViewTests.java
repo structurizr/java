@@ -205,7 +205,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_AddsTheComponent_WhenTheComponentIsNoInTheViewAlready() {
+    public void test_add_AddsTheComponent_WhenTheComponentIsNotInTheViewAlready() {
         Component componentA = webApplication.addComponent("Component A", "Does something", "Java");
 
         assertEquals(0, view.getElements().size());
@@ -241,6 +241,22 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
 
         view.remove(componentA);
         assertEquals(0, view.getElements().size());
+    }
+
+    @Test
+    public void test_remove_RemovesTheComponentAndRelationships_WhenTheComponentIsInTheViewAndHasArelationshipToAnotherElement() {
+        Component componentA = webApplication.addComponent("Component A", "Does something", "Java");
+        Component componentB = webApplication.addComponent("Component B", "Does something", "Java");
+        componentA.uses(componentB, "uses");
+
+        view.add(componentA);
+        view.add(componentB);
+        assertEquals(2, view.getElements().size());
+        assertEquals(1, view.getRelationships().size());
+
+        view.remove(componentB);
+        assertEquals(1, view.getElements().size());
+        assertEquals(0, view.getRelationships().size());
     }
 
     @Test
