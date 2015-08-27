@@ -9,14 +9,19 @@ import java.util.Set;
 
 public class SpringComponentFinderStrategy extends AbstractReflectionsComponentFinderStrategy {
 
+    public static final String SPRING_MVC_CONTROLLER = "Spring MVC Controller";
+    public static final String SPRING_SERVICE = "Spring Service";
+    public static final String SPRING_REPOSITORY = "Spring Repository";
+    public static final String SPRING_COMPONENT = "Spring Component";
+
     @Override
     public Collection<Component> findComponents() throws Exception {
         Collection<Component> componentsFound = new LinkedList<>();
 
-        componentsFound.addAll(findClassesAnnotated(org.springframework.stereotype.Controller.class, "Spring MVC Controller"));
-        componentsFound.addAll(findImplementationClassesAnnotated(org.springframework.stereotype.Service.class, "Spring Service"));
-        componentsFound.addAll(findImplementationClassesAnnotated(org.springframework.stereotype.Repository.class, "Spring Repository"));
-        componentsFound.addAll(findImplementationClassesAnnotated(org.springframework.stereotype.Component.class, "Spring Component"));
+        componentsFound.addAll(findClassesAnnotated(org.springframework.stereotype.Controller.class, SPRING_MVC_CONTROLLER));
+        componentsFound.addAll(findImplementationClassesAnnotated(org.springframework.stereotype.Service.class, SPRING_SERVICE));
+        componentsFound.addAll(findImplementationClassesAnnotated(org.springframework.stereotype.Repository.class, SPRING_REPOSITORY));
+        componentsFound.addAll(findImplementationClassesAnnotated(org.springframework.stereotype.Component.class, SPRING_COMPONENT));
 
         return componentsFound;
     }
