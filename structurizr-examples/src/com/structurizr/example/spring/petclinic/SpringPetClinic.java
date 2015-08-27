@@ -18,6 +18,8 @@ import java.io.StringWriter;
  *
  * Use the examples/springpetclinic.sh file to run this example -
  * you'll need a compiled version of the app on the CLASSPATH.
+ *
+ * You can see the resulting diagrams at https://www.structurizr.com/public/1
  */
 public class SpringPetClinic {
 
@@ -82,7 +84,7 @@ public class SpringPetClinic {
 
         // tag and style some elements
         springPetClinic.addTags("Spring PetClinic");
-        webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring MVC Controller")).forEach(c -> c.addTags("Spring Controller"));
+        webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring MVC Controller")).forEach(c -> c.addTags("Spring MVC Controller"));
         webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Service")).forEach(c -> c.addTags("Spring Service"));
         webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Repository")).forEach(c -> c.addTags("Spring Repository"));
         relationalDatabase.addTags("Database");
@@ -91,7 +93,7 @@ public class SpringPetClinic {
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, 400, null, "#519823", "white", null, Shape.Person));
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.CONTAINER, null, null, "#91D366", "white", null));
         viewSet.getConfiguration().getStyles().add(new ElementStyle("Database", null, null, null, null, null, Shape.Cylinder));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle("Spring Controller", null, null, "#D4F3C0", "black", null));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle("Spring MVC Controller", null, null, "#D4F3C0", "black", null));
         viewSet.getConfiguration().getStyles().add(new ElementStyle("Spring Service", null, null, "#6CB33E", "black", null));
         viewSet.getConfiguration().getStyles().add(new ElementStyle("Spring Repository", null, null, "#95D46C", "black", null));
 
