@@ -84,13 +84,13 @@ public class SpringPetClinic {
 
         // tag and style some elements
         springPetClinic.addTags("Spring PetClinic");
-        webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring MVC Controller")).forEach(c -> c.addTags("Spring MVC Controller"));
-        webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Service")).forEach(c -> c.addTags("Spring Service"));
-        webApplication.getComponents().stream().filter(c -> c.getTechnology().equals("Spring Repository")).forEach(c -> c.addTags("Spring Repository"));
+        webApplication.getComponents().stream().filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_MVC_CONTROLLER)).forEach(c -> c.addTags("Spring MVC Controller"));
+        webApplication.getComponents().stream().filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_SERVICE)).forEach(c -> c.addTags("Spring Service"));
+        webApplication.getComponents().stream().filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_REPOSITORY)).forEach(c -> c.addTags("Spring Repository"));
         relationalDatabase.addTags("Database");
 
         viewSet.getConfiguration().getStyles().add(new ElementStyle("Spring PetClinic", null, null, "#6CB33E", "white", null));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, 400, null, "#519823", "white", null, Shape.Person));
+        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#519823", "white", null, Shape.Person));
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.CONTAINER, null, null, "#91D366", "white", null));
         viewSet.getConfiguration().getStyles().add(new ElementStyle("Database", null, null, null, null, null, Shape.Cylinder));
         viewSet.getConfiguration().getStyles().add(new ElementStyle("Spring MVC Controller", null, null, "#D4F3C0", "black", null));
