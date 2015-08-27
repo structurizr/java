@@ -60,15 +60,18 @@ public class SpringPetClinic {
         // finally create some views
         ViewSet viewSet = workspace.getViews();
         SystemContextView contextView = viewSet.createContextView(springPetClinic);
+        contextView.setKey("context");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
         ContainerView containerView = viewSet.createContainerView(springPetClinic);
+        containerView.setKey("containers");
         containerView.addAllPeople();
         containerView.addAllSoftwareSystems();
         containerView.addAllContainers();
 
         ComponentView componentView = viewSet.createComponentView(webApplication);
+        componentView.setKey("components");
         componentView.addAllComponents();
         componentView.addAllPeople();
         componentView.add(relationalDatabase);
