@@ -18,7 +18,9 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Date;
 import java.util.Properties;
 
 public class StructurizrClient {
@@ -240,7 +242,8 @@ public class StructurizrClient {
     }
 
     private String createArchiveFileName(long workspaceId) {
-        return "structurizr-" + workspaceId + "-" + System.currentTimeMillis() + ".json";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        return "structurizr-" + workspaceId + "-" + sdf.format(new Date()) + ".json";
     }
 
 }
