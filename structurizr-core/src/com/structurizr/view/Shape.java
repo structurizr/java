@@ -5,6 +5,7 @@ public enum Shape {
     Box,
     RoundedBox,
     Cylinder,
-    Person
+    Person,
+    Folder
 
 }
