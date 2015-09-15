@@ -11,7 +11,7 @@ To build Struturizr for Java from the sources (you'll need Java 8)...
 
 ```
 git clone https://github.com/structurizr/java.git
-
+cd java
 ./gradlew build
 ```
 
