@@ -10,4 +10,7 @@ public class Tags {
     public static final String CONTAINER = "Container";
     public static final String COMPONENT = "Component";
 
+    public static final String SYNCHRONOUS = "Synchronous";
+    public static final String ASYNCHRONOUS = "Asynchronous";
+
 }

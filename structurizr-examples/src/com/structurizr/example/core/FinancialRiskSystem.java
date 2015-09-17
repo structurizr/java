@@ -14,7 +14,6 @@ import java.io.StringWriter;
  */
 public class FinancialRiskSystem {
 
-    private static final String TAG_ASYNCHRONOUS = "Asynchronous";
     private static final String TAG_ALERT = "Alert";
 
     public static void main(String[] args) throws Exception {
@@ -38,7 +37,7 @@ public class FinancialRiskSystem {
 
         SoftwareSystem emailSystem = model.addSoftwareSystem(Location.Internal, "E-mail system", "Microsoft Exchange");
         financialRiskSystem.uses(emailSystem, "Sends a notification that a report is ready via e-mail to");
-        emailSystem.delivers(businessUser, "Sends a notification that a report is ready via e-mail to").addTags(TAG_ASYNCHRONOUS);
+        emailSystem.delivers(businessUser, "Sends a notification that a report is ready via e-mail to", null, InteractionStyle.Asynchronous);
 
         SoftwareSystem centralMonitoringService = model.addSoftwareSystem(Location.Internal, "Central Monitoring Service", "The bank-wide monitoring and alerting dashboard");
         financialRiskSystem.uses(centralMonitoringService, "Sends critical failure alerts to").addTags(TAG_ALERT);
@@ -58,7 +57,8 @@ public class FinancialRiskSystem {
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, 650, 300, "#801515", "#ffffff", 36, Shape.RoundedBox));
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, 550, null, "#d46a6a", "#ffffff", 32, Shape.Person));
         viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 6, "#222222", false, 36, 400, null));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(TAG_ASYNCHRONOUS, null, null, true, null, null, null));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.SYNCHRONOUS, 6, "#222222", false, 36, 400, null));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.ASYNCHRONOUS, null, null, true, null, null, null));
         viewSet.getConfiguration().getStyles().add(new RelationshipStyle(TAG_ALERT, null, "#ff0000", true, null, null, null));
 
         // output the model as JSON

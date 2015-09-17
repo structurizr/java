@@ -47,4 +47,10 @@ abstract class TaggableThing {
         }
     }
 
+    public void removeTag(String tag) {
+        if (tag != null) {
+            this.tags.remove(tag);
+        }
+    }
+
 }

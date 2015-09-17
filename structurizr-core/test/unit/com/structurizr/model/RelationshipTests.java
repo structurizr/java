@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class RelationshipTests extends AbstractWorkspaceTestBase {
 
@@ -19,38 +21,55 @@ public class RelationshipTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_getTags_WhenThereAreNoTags() {
         Relationship relationship = softwareSystem1.uses(softwareSystem2, "uses");
-        assertEquals("Relationship", relationship.getTags());
+        assertEquals("Relationship,Synchronous", relationship.getTags());
     }
 
     @Test
     public void test_getTags_ReturnsTheListOfTags_WhenThereAreSomeTags() {
         Relationship relationship = softwareSystem1.uses(softwareSystem2, "uses");
         relationship.addTags("tag1", "tag2", "tag3");
-        assertEquals("Relationship,tag1,tag2,tag3", relationship.getTags());
+        assertEquals("Relationship,Synchronous,tag1,tag2,tag3", relationship.getTags());
     }
 
     @Test
     public void test_setTags_DoesNotDoAnything_WhenPassedNull() {
         Relationship relationship = softwareSystem1.uses(softwareSystem2, "uses");
         relationship.setTags(null);
-        assertEquals("Relationship", relationship.getTags());
+        assertEquals("Relationship,Synchronous", relationship.getTags());
     }
 
     @Test
     public void test_addTags_DoesNotDoAnything_WhenPassedNull() {
         Relationship relationship = softwareSystem1.uses(softwareSystem2, "uses");
         relationship.addTags((String)null);
-        assertEquals("Relationship", relationship.getTags());
+        assertEquals("Relationship,Synchronous", relationship.getTags());
 
         relationship.addTags(null, null, null);
-        assertEquals("Relationship", relationship.getTags());
+        assertEquals("Relationship,Synchronous", relationship.getTags());
     }
 
     @Test
     public void test_addTags_AddsTags_WhenPassedSomeTags() {
         Relationship relationship = softwareSystem1.uses(softwareSystem2, "uses");
         relationship.addTags(null, "tag1", null, "tag2");
-        assertEquals("Relationship,tag1,tag2", relationship.getTags());
+        assertEquals("Relationship,Synchronous,tag1,tag2", relationship.getTags());
+    }
+
+    @Test
+    public void test_getInteractionStyle_ReturnsSynchronous_WhenNotExplicitlySet() {
+        Relationship relationship = softwareSystem1.uses(softwareSystem2, "uses");
+        assertEquals(InteractionStyle.Synchronous, relationship.getInteractionStyle());
+    }
+
+    @Test
+    public void test_getTags_IncludesTheInteractionStyleWhenSpecified() {
+        Relationship relationship = softwareSystem1.uses(softwareSystem2, "uses");
+        assertTrue(relationship.getTags().contains(Tags.SYNCHRONOUS));
+        assertFalse(relationship.getTags().contains(Tags.ASYNCHRONOUS));
+
+        relationship.setInteractionStyle(InteractionStyle.Asynchronous);
+        assertFalse(relationship.getTags().contains(Tags.SYNCHRONOUS));
+        assertTrue(relationship.getTags().contains(Tags.ASYNCHRONOUS));
     }
 
 }

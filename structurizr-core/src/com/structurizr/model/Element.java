@@ -118,6 +118,22 @@ public abstract class Element extends TaggableThing {
 
     /**
      * Adds a unidirectional "uses" style relationship between this element
+     * and another.
+     *
+     * @param destination       the target of the relationship
+     * @param description       a description of the relationship (e.g. "uses", "gets data from", "sends data to")
+     * @param technology        the technology details (e.g. JSON/HTTPS)
+     * @param interactionStyle  the interaction style (sync vs async)
+     */
+    public Relationship uses(SoftwareSystem destination, String description, String technology, InteractionStyle interactionStyle) {
+        Relationship relationship = new Relationship(this, destination, description, technology, interactionStyle);
+        getModel().addRelationship(relationship);
+
+        return relationship;
+    }
+
+    /**
+     * Adds a unidirectional "uses" style relationship between this element
      * and a container.
      *
      * @param destination   the target of the relationship
@@ -147,6 +163,22 @@ public abstract class Element extends TaggableThing {
 
     /**
      * Adds a unidirectional "uses" style relationship between this element
+     * and a container.
+     *
+     * @param destination       the target of the relationship
+     * @param description       a description of the relationship (e.g. "uses", "gets data from", "sends data to")
+     * @param technology        the technology details (e.g. JSON/HTTPS)
+     * @param interactionStyle  the interaction style (sync vs async)
+     */
+    public Relationship uses(Container destination, String description, String technology, InteractionStyle interactionStyle) {
+        Relationship relationship = new Relationship(this, destination, description, technology, interactionStyle);
+        getModel().addRelationship(relationship);
+
+        return relationship;
+    }
+
+    /**
+     * Adds a unidirectional "uses" style relationship between this element
      * and a component (within a container).
      *
      * @param destination   the target of the relationship
@@ -169,6 +201,22 @@ public abstract class Element extends TaggableThing {
      */
     public Relationship uses(Component destination, String description, String technology) {
         Relationship relationship = new Relationship(this, destination, description, technology);
+        getModel().addRelationship(relationship);
+
+        return relationship;
+    }
+
+    /**
+     * Adds a unidirectional "uses" style relationship between this element
+     * and a component (within a container).
+     *
+     * @param destination       the target of the relationship
+     * @param description       a description of the relationship (e.g. "uses", "gets data from", "sends data to")
+     * @param technology        the technology details (e.g. JSON/HTTPS)
+     * @param interactionStyle  the interaction style (sync vs async)
+     */
+    public Relationship uses(Component destination, String description, String technology, InteractionStyle interactionStyle) {
+        Relationship relationship = new Relationship(this, destination, description, technology, interactionStyle);
         getModel().addRelationship(relationship);
 
         return relationship;

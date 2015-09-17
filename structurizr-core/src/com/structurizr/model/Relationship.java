@@ -12,6 +12,7 @@ public class Relationship extends TaggableThing {
     private String destinationId;
     private String description;
     private String technology;
+    private InteractionStyle interactionStyle = InteractionStyle.Synchronous;
 
     Relationship() {
         addTags(Tags.RELATIONSHIP);
@@ -22,12 +23,17 @@ public class Relationship extends TaggableThing {
     }
 
     Relationship(Element source, Element destination, String description, String technology) {
+        this(source, destination, description, technology, InteractionStyle.Synchronous);
+    }
+
+    Relationship(Element source, Element destination, String description, String technology, InteractionStyle interactionStyle) {
         this();
 
         this.source = source;
         this.destination = destination;
         this.description = description;
         this.technology = technology;
+        setInteractionStyle(interactionStyle);
     }
 
     @JsonIgnore
@@ -94,6 +100,22 @@ public class Relationship extends TaggableThing {
 
     public void setTechnology(String technology) {
         this.technology = technology;
+    }
+
+    public InteractionStyle getInteractionStyle() {
+        return interactionStyle;
+    }
+
+    public void setInteractionStyle(InteractionStyle interactionStyle) {
+        this.interactionStyle = interactionStyle;
+
+        if (interactionStyle == InteractionStyle.Synchronous) {
+            removeTag(Tags.ASYNCHRONOUS);
+            addTags(Tags.SYNCHRONOUS);
+        } else {
+            removeTag(Tags.SYNCHRONOUS);
+            addTags(Tags.ASYNCHRONOUS);
+        }
     }
 
     @Override
