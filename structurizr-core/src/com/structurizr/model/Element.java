@@ -223,17 +223,21 @@ public abstract class Element extends TaggableThing {
     }
 
     public boolean hasEfferentRelationshipWith(Element element) {
+        return getEfferentRelationshipWith(element) != null;
+    }
+
+    public Relationship getEfferentRelationshipWith(Element element) {
         if (element == null) {
-            return false;
+            return null;
         }
 
         for (Relationship relationship : relationships) {
             if (relationship.getDestination().equals(element)) {
-                return true;
+                return relationship;
             }
         }
 
-        return false;
+        return null;
     }
 
     @Override

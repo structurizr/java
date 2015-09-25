@@ -1,10 +1,11 @@
 package com.structurizr.view;
 
+import com.structurizr.model.Container;
 import com.structurizr.model.Element;
 import com.structurizr.model.ElementType;
 import com.structurizr.model.SoftwareSystem;
 
-public class ContainerView extends View {
+public class ContainerView extends StaticView {
 
     ContainerView() {
     }
@@ -20,15 +21,25 @@ public class ContainerView extends View {
     public void addAllSoftwareSystems() {
         getModel().getSoftwareSystems().stream()
                 .filter(ss -> ss != getSoftwareSystem())
-                .forEach(this::addElement);
+                .forEach(this::addSoftwareSystem);
     }
 
     /**
      * Adds all containers in the software system to this view.
      */
     public void addAllContainers() {
-        getSoftwareSystem().getContainers().forEach(this::addElement);
+        getSoftwareSystem().getContainers().forEach(this::add);
     }
+
+    /**
+     * Adds an individual container to this view.
+     *
+     * @param container     the Container to add
+     */
+    public void add(Container container) {
+        addElement(container, true);
+    }
+
 
     @Override
     public final ViewType getType() {

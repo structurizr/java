@@ -5,12 +5,10 @@ import com.structurizr.api.StructurizrClient;
 import com.structurizr.componentfinder.ComponentFinder;
 import com.structurizr.componentfinder.JavadocComponentFinderStrategy;
 import com.structurizr.componentfinder.SpringComponentFinderStrategy;
-import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
 import java.io.File;
-import java.io.StringWriter;
 
 /**
  * This is a C4 representation of the Spring PetClinic sample app
@@ -49,13 +47,13 @@ public class SpringPetClinic {
 
         // connect the user to all of the Spring MVC controllers
         webApplication.getComponents().stream()
-                .filter(c -> c.getTechnology().equals("Spring MVC Controller"))
-                .forEach(c -> clinicEmployee.uses(c, "Uses"));
+                .filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_MVC_CONTROLLER))
+                .forEach(c -> clinicEmployee.uses(c, "Uses", "HTTP"));
 
         // connect all of the repository components to the relational database
         webApplication.getComponents().stream()
-                .filter(c -> c.getTechnology().equals("Spring Repository"))
-                .forEach(c -> c.uses(relationalDatabase, "Reads from and writes to"));
+                .filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_REPOSITORY))
+                .forEach(c -> c.uses(relationalDatabase, "Reads from and writes to", "JDBC"));
 
         // finally create some views
         ViewSet viewSet = workspace.getViews();
@@ -91,6 +89,16 @@ public class SpringPetClinic {
         webApplication.getComponents().stream().filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_SERVICE)).forEach(c -> c.addTags("Spring Service"));
         webApplication.getComponents().stream().filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_REPOSITORY)).forEach(c -> c.addTags("Spring Repository"));
         relationalDatabase.addTags("Database");
+
+        Component vetController = webApplication.getComponentWithName("VetController");
+        Component clinicService = webApplication.getComponentWithName("ClinicService");
+        Component vetRepository = webApplication.getComponentWithName("VetRepository");
+
+        DynamicView dynamicView = viewSet.createDynamicView(springPetClinic, "View list of vets");
+        dynamicView.add(clinicEmployee, "Requests list of vets from /vets", vetController);
+        dynamicView.add(vetController, "Calls findVets", clinicService);
+        dynamicView.add(clinicService, "Calls findAll", vetRepository);
+        dynamicView.add(vetRepository, "select * from vets", relationalDatabase);
 
         viewSet.getConfiguration().getStyles().add(new ElementStyle("Spring PetClinic", null, null, "#6CB33E", "white", null));
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#519823", "white", null, Shape.Person));

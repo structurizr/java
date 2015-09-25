@@ -18,6 +18,7 @@ public class ViewSet {
     private Collection<SystemContextView> systemContextViews = new TreeSet<>();
     private Collection<ContainerView> containerViews = new TreeSet<>();
     private Collection<ComponentView> componentViews = new TreeSet<>();
+    private Collection<DynamicView> dynamicViews = new TreeSet<>();
 
     private Styles styles = new Styles();
     private Configuration configuration = new Configuration();
@@ -71,6 +72,13 @@ public class ViewSet {
         return view;
     }
 
+    public DynamicView createDynamicView(SoftwareSystem softwareSystem, String description) {
+        DynamicView view = new DynamicView(softwareSystem, description);
+        dynamicViews.add(view);
+
+        return view;
+    }
+
     public Collection<SystemContextView> getSystemContextViews() {
         return new TreeSet<>(systemContextViews);
     }
@@ -83,6 +91,10 @@ public class ViewSet {
         return new TreeSet<>(componentViews);
     }
 
+    public Collection<DynamicView> getDynamicViews() {
+        return new TreeSet<>(dynamicViews);
+    }
+
     public void hydrate() {
         systemContextViews.forEach(this::hydrateView);
         containerViews.forEach(this::hydrateView);
@@ -91,6 +103,8 @@ public class ViewSet {
             hydrateView(view);
             view.setContainer(view.getSoftwareSystem().getContainerWithId(view.getContainerId()));
         }
+
+        dynamicViews.forEach(this::hydrateView);
     }
 
     private void hydrateView(View view) {
@@ -137,6 +151,13 @@ public class ViewSet {
                 destinationView.copyLayoutInformationFrom(sourceView);
             }
         }
+
+        for (DynamicView sourceView : source.getDynamicViews()) {
+            DynamicView destinationView = findDynamicView(sourceView);
+            if (destinationView != null) {
+                destinationView.copyLayoutInformationFrom(sourceView);
+            }
+        }
     }
 
     private SystemContextView findSystemContextView(SystemContextView systemContextView) {
@@ -162,6 +183,16 @@ public class ViewSet {
     private ComponentView findComponentView(ComponentView componentView) {
         for (ComponentView view : componentViews) {
             if (view.getTitle().equals(componentView.getTitle())) {
+                return view;
+            }
+        }
+
+        return null;
+    }
+
+    private DynamicView findDynamicView(DynamicView dynamicView) {
+        for (DynamicView view : dynamicViews) {
+            if (view.getTitle().equals(dynamicView.getTitle())) {
                 return view;
             }
         }

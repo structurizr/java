@@ -6,7 +6,7 @@ import com.structurizr.model.Container;
 import com.structurizr.model.Element;
 import com.structurizr.model.ElementType;
 
-public class ComponentView extends View {
+public class ComponentView extends StaticView {
 
     private Container container;
     private String containerId;
@@ -48,7 +48,7 @@ public class ComponentView extends View {
     public void addAllSoftwareSystems() {
         getModel().getSoftwareSystems().stream()
                 .filter(ss -> ss != getSoftwareSystem())
-                .forEach(this::addElement);
+                .forEach(this::addSoftwareSystem);
     }
 
     /**
@@ -57,14 +57,14 @@ public class ComponentView extends View {
     public void addAllContainers() {
         getSoftwareSystem().getContainers().stream()
                 .filter(c -> c != container)
-                .forEach(this::addElement);
+                .forEach(this::add);
     }
 
     /**
      * Adds all components in the container to this view.
      */
     public void addAllComponents() {
-        container.getComponents().forEach(this::addElement);
+        container.getComponents().forEach(this::add);
     }
 
     /**
@@ -73,7 +73,7 @@ public class ComponentView extends View {
      * @param container     the Container to add
      */
     public void add(Container container) {
-        addElement(container);
+        addElement(container, true);
     }
 
     /**
@@ -82,7 +82,7 @@ public class ComponentView extends View {
      * @param component     the Component to add
      */
     public void add(Component component) {
-        addElement(component);
+        addElement(component, true);
     }
 
     /**

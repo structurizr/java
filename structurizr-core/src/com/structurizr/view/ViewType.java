@@ -4,6 +4,7 @@ public enum ViewType {
 
     SystemContext,
     Container,
-    Component
+    Component,
+    Dynamic
 
 }

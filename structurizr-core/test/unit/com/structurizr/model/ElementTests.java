@@ -2,8 +2,11 @@ package com.structurizr.model;
 
 import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.Workspace;
+import org.junit.Assert;
 import org.junit.Test;
 
+import static junit.framework.Assert.assertSame;
+import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -86,6 +89,41 @@ public class ElementTests extends AbstractWorkspaceTestBase {
         SoftwareSystem softwareSystem2 = new Workspace("", "").getModel().addSoftwareSystem(Location.Internal, "SystemA", "");
         softwareSystem1.uses(softwareSystem2, "uses");
         assertTrue(softwareSystem1.hasEfferentRelationshipWith(softwareSystem2));
+    }
+
+    @Test
+    public void test_getEfferentRelationshipWith_ReturnsNull_WhenANullElementIsSpecified() {
+        SoftwareSystem softwareSystem1 = new Workspace("", "").getModel().addSoftwareSystem(Location.Internal, "SystemA", "");
+        assertNull(softwareSystem1.getEfferentRelationshipWith(null));
+    }
+
+    @Test
+    public void test_getEfferentRelationshipWith_ReturnsNull_WhenTheSameElementIsSpecifiedAndNoCyclicRelationshipExists() {
+        SoftwareSystem softwareSystem1 = new Workspace("", "").getModel().addSoftwareSystem(Location.Internal, "SystemA", "");
+        assertNull(softwareSystem1.getEfferentRelationshipWith(softwareSystem1));
+    }
+
+    @Test
+    public void test_getEfferentRelationshipWith_ReturnsCyclicRelationship_WhenTheSameElementIsSpecifiedAndACyclicRelationshipExists() {
+        SoftwareSystem softwareSystem1 = new Workspace("", "").getModel().addSoftwareSystem(Location.Internal, "SystemA", "");
+        softwareSystem1.uses(softwareSystem1, "uses");
+
+        Relationship relationship = softwareSystem1.getEfferentRelationshipWith(softwareSystem1);
+        assertSame(softwareSystem1, relationship.getSource());
+        assertEquals("uses", relationship.getDescription());
+        assertSame(softwareSystem1, relationship.getDestination());
+    }
+
+    @Test
+    public void test_getEfferentRelationshipWith_ReturnsTheRelationship_WhenThereIsARelationship() {
+        SoftwareSystem softwareSystem1 = new Workspace("", "").getModel().addSoftwareSystem(Location.Internal, "SystemA", "");
+        SoftwareSystem softwareSystem2 = new Workspace("", "").getModel().addSoftwareSystem(Location.Internal, "SystemA", "");
+        softwareSystem1.uses(softwareSystem2, "uses");
+
+        Relationship relationship = softwareSystem1.getEfferentRelationshipWith(softwareSystem1);
+        assertSame(softwareSystem1, relationship.getSource());
+        assertEquals("uses", relationship.getDescription());
+        assertSame(softwareSystem2, relationship.getDestination());
     }
 
     @Test

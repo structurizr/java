@@ -10,7 +10,7 @@ import com.structurizr.model.SoftwareSystem;
  * users and system dependencies. The permitted elements in this view are
  * software systems and people.
  */
-public class SystemContextView extends View {
+public class SystemContextView extends StaticView {
 
     SystemContextView() {
     }
@@ -33,7 +33,7 @@ public class SystemContextView extends View {
     SystemContextView(SoftwareSystem softwareSystem, String description) {
         super(softwareSystem, description);
 
-        addElement(softwareSystem);
+        addElement(softwareSystem, true);
     }
 
     @Override

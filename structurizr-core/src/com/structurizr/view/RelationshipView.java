@@ -10,6 +10,8 @@ public class RelationshipView {
 
     private Relationship relationship;
     private String id;
+    private String description;
+    private String order;
     private Collection<Vertex> vertices = new LinkedList<>();
 
     RelationshipView() {
@@ -40,6 +42,22 @@ public class RelationshipView {
         this.relationship = relationship;
     }
 
+    public String getDescription() {
+        return description != null ? description : "";
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getOrder() {
+        return order;
+    }
+
+    public void setOrder(String order) {
+        this.order = order;
+    }
+
     public Collection<Vertex> getVertices() {
         return vertices;
     }
@@ -61,14 +79,19 @@ public class RelationshipView {
 
         RelationshipView that = (RelationshipView) o;
 
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (!getId().equals(that.getId())) return false;
+        if (order != null ? !order.equals(that.order) : that.order != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        return getId().hashCode();
+        int result = getId().hashCode();
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (order != null ? order.hashCode() : 0);
+        return result;
     }
 
     @Override

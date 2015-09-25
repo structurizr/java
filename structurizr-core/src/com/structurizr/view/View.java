@@ -1,10 +1,14 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.structurizr.model.*;
+import com.structurizr.model.Element;
+import com.structurizr.model.Model;
+import com.structurizr.model.Relationship;
+import com.structurizr.model.SoftwareSystem;
 
 import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -84,43 +88,25 @@ public abstract class View implements Comparable<View> {
         this.paperSize = paperSize;
     }
 
-    /**
-     * Adds all software systems in the model to this view.
-     */
-    public void addAllSoftwareSystems() {
-        getModel().getSoftwareSystems().forEach(this::addElement);
+    public abstract String getName();
+
+    @JsonIgnore
+    public String getTitle() {
+        if (getDescription() != null && getDescription().trim().length() > 0) {
+            return getName() + " [" + getDescription() + "]";
+        } else {
+            return getName();
+        }
     }
 
-    /**
-     * Adds the given software system to this view.
-     *
-     * @param softwareSystem        the SoftwareSystem to add
-     */
-    public void addSoftwareSystem(SoftwareSystem softwareSystem) {
-        addElement(softwareSystem);
-    }
-
-    /**
-     * Adds all software systems in the model to this view.
-     */
-    public void addAllPeople() {
-        getModel().getPeople().forEach(this::addElement);
-    }
-
-    /**
-     * Adds the given person to this view.
-     *
-     * @param person        the Person to add
-     */
-    public void addPerson(Person person) {
-        addElement(person);
-    }
-
-    protected final void addElement(Element element) {
+    protected final void addElement(Element element, boolean addRelationships) {
         if (element != null) {
-            if (softwareSystem.getModel().contains(element)) {
+            if (getSoftwareSystem().getModel().contains(element)) {
                 elementViews.add(new ElementView(element));
-                addRelationships(element);
+
+                if (addRelationships) {
+                    addRelationships(element);
+                }
             }
         }
     }
@@ -154,10 +140,35 @@ public abstract class View implements Comparable<View> {
 
             for (RelationshipView relationshipView : getRelationships()) {
                 if (relationshipView.getRelationship().getSource().equals(element) ||
-                    relationshipView.getRelationship().getDestination().equals(element)) {
+                        relationshipView.getRelationship().getDestination().equals(element)) {
                     removeRelationship(relationshipView.getRelationship());
                 }
             }
+        }
+    }
+
+    public RelationshipView addRelationship(Relationship relationship) {
+        if (relationship != null) {
+            if (isElementInView(relationship.getSource()) && isElementInView(relationship.getDestination())) {
+                RelationshipView relationshipView = new RelationshipView(relationship);
+                relationshipViews.add(relationshipView);
+
+                return relationshipView;
+            }
+        }
+
+        return null;
+    }
+
+    private boolean isElementInView(Element element) {
+        return this.elementViews.stream().filter(ev -> ev.getElement().equals(element)).count() > 0;
+    }
+
+    protected void addRelationship(Relationship relationship, String description, String order) {
+        RelationshipView relationshipView = addRelationship(relationship);
+        if (relationshipView != null) {
+            relationshipView.setDescription(description);
+            relationshipView.setOrder(order);
         }
     }
 
@@ -179,27 +190,6 @@ public abstract class View implements Comparable<View> {
 
     void setElements(Set<ElementView> elementViews) {
         this.elementViews = elementViews;
-    }
-
-    public abstract void addAllElements();
-
-    public abstract void addNearestNeighbours(Element element);
-
-    protected void addNearestNeighbours(Element element, ElementType type) {
-        if (element == null) {
-            return;
-        }
-
-        addElement(element);
-
-        Set<Relationship> relationships = getModel().getRelationships();
-        relationships.stream().filter(r -> r.getSource().equals(element) && r.getDestination().isType(type))
-                .map(Relationship::getDestination)
-                .forEach(this::addElement);
-
-        relationships.stream().filter(r -> r.getDestination().equals(element) && r.getSource().isType(type))
-                .map(Relationship::getSource)
-                .forEach(this::addElement);
     }
 
     public Set<RelationshipView> getRelationships() {
@@ -228,57 +218,27 @@ public abstract class View implements Comparable<View> {
         }
     }
 
-    /**
-     * Removes all elements that cannot be reached by traversing the graph of relationships
-     * starting with the specified element.
-     *
-     * @param element       the starting element
-     */
-    public void removeElementsThatCantBeReachedFrom(Element element) {
-        if (element != null) {
-            Set<Element> elementsToShow = new HashSet<>();
-            Set<Element> elementsVisited = new HashSet<>();
-            findElementsToShow(element, element, elementsToShow, elementsVisited);
+    public void copyLayoutInformationFrom(View source) {
+        this.setPaperSize(source.getPaperSize());
 
-            for (ElementView elementView : getElements()) {
-                if (!elementsToShow.contains(elementView.getElement())) {
-                    removeElement(elementView.getElement());
-                }
+        for (ElementView sourceElementView : source.getElements()) {
+            ElementView destinationElementView = findElementView(sourceElementView);
+            if (destinationElementView != null) {
+                destinationElementView.copyLayoutInformationFrom(sourceElementView);
+            }
+        }
+
+        for (RelationshipView sourceRelationshipView : source.getRelationships()) {
+            RelationshipView destinationRelationshipView = findRelationshipView(sourceRelationshipView);
+            if (destinationRelationshipView != null) {
+                destinationRelationshipView.copyLayoutInformationFrom(sourceRelationshipView);
             }
         }
     }
 
-    private void findElementsToShow(Element startingElement, Element element, Set<Element> elementsToShow, Set<Element> elementsVisited) {
-        if (!elementsVisited.contains(element) && elementViews.contains(new ElementView(element))) {
-            elementsVisited.add(element);
-            elementsToShow.add(element);
-
-            // check that we've not gone back to the starting point of the graph
-            if (!element.hasEfferentRelationshipWith(startingElement)) {
-                element.getRelationships().forEach(r -> findElementsToShow(startingElement, r.getDestination(), elementsToShow, elementsVisited));
-            }
-        }
-    }
-
-    public abstract String getName();
-
-    @Override
-    public int compareTo(View view) {
-        return getTitle().compareTo(view.getTitle());
-    }
-
-    @JsonIgnore
-    public String getTitle() {
-        if (getDescription() != null && getDescription().trim().length() > 0) {
-            return getName() + " [" + getDescription() + "]";
-        } else {
-            return getName();
-        }
-    }
-
-    ElementView findElementView(Element element) {
+    private ElementView findElementView(ElementView sourceElementView) {
         for (ElementView elementView : getElements()) {
-            if (elementView.getElement().equals(element)) {
+            if (elementView.getElement().equals(sourceElementView.getElement())) {
                 return elementView;
             }
         }
@@ -286,32 +246,40 @@ public abstract class View implements Comparable<View> {
         return null;
     }
 
-    RelationshipView findRelationshipView(Relationship relationship) {
+    public ElementView getElementView(Element element) {
+        Optional<ElementView> elementView = this.elementViews.stream().filter(ev -> ev.getElement().equals(element)).findFirst();
+        return elementView.isPresent() ? elementView.get() : null;
+    }
+
+    RelationshipView findRelationshipView(RelationshipView sourceRelationshipView) {
+        System.out.println("Source: " + sourceRelationshipView + " " + sourceRelationshipView.getDescription() + " " + sourceRelationshipView.getOrder());
         for (RelationshipView relationshipView : getRelationships()) {
-            if (relationshipView.getRelationship().equals(relationship)) {
-                return relationshipView;
+            if (relationshipView.getRelationship().equals(sourceRelationshipView.getRelationship())) {
+                System.out.println("Possible match: " + relationshipView + " " + relationshipView.getDescription() + " " + relationshipView.getOrder());
+                if (this.getType() == ViewType.Dynamic) {
+                    if ((relationshipView.getDescription() != null && relationshipView.getDescription().equals(sourceRelationshipView.getDescription())) &&
+                            relationshipView.getOrder().equals(sourceRelationshipView.getOrder())) {
+                        System.out.println("Yes");
+                        return relationshipView;
+                    }
+                } else {
+                    System.out.println("Yes");
+                    return relationshipView;
+                }
             }
         }
 
         return null;
     }
 
-    public void copyLayoutInformationFrom(View source) {
-        this.setPaperSize(source.getPaperSize());
+    public RelationshipView getRelationshipView(Relationship relationship) {
+        Optional<RelationshipView> relationshipView = this.relationshipViews.stream().filter(rv -> rv.getRelationship().equals(relationship)).findFirst();
+        return relationshipView.isPresent() ? relationshipView.get() : null;
+    }
 
-        for (ElementView sourceElementView : source.getElements()) {
-            ElementView destinationElementView = findElementView(sourceElementView.getElement());
-            if (destinationElementView != null) {
-                destinationElementView.copyLayoutInformationFrom(sourceElementView);
-            }
-        }
-
-        for (RelationshipView sourceRelationshipView : source.getRelationships()) {
-            RelationshipView destinationRelationshipView = findRelationshipView(sourceRelationshipView.getRelationship());
-            if (destinationRelationshipView != null) {
-                destinationRelationshipView.copyLayoutInformationFrom(sourceRelationshipView);
-            }
-        }
+    @Override
+    public int compareTo(View view) {
+        return getTitle().compareTo(view.getTitle());
     }
 
 }

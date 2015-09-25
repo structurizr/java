@@ -115,7 +115,6 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addNearestNeightbours_DoesNothing_WhenANullElementIsSpecified() {
-        View view = new ContainerView(softwareSystem, "");
         view.addNearestNeighbours(null);
 
         assertEquals(0, view.getElements().size());
@@ -123,7 +122,6 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addNearestNeighbours_DoesNothing_WhenThereAreNoNeighbours() {
-        View view = new ContainerView(softwareSystem, "");
         view.addNearestNeighbours(softwareSystem);
 
         assertEquals(1, view.getElements().size());
@@ -162,7 +160,6 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
         // userA -> systemA -> controller -> service -> systemB -> userB
         service.uses(softwareSystemB, "");
 
-        View view = new ContainerView(softwareSystem, "");
         view.addNearestNeighbours(softwareSystem);
 
         assertEquals(3, view.getElements().size());

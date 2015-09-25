@@ -97,7 +97,6 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addNearestNeightbours_DoesNothing_WhenANullElementIsSpecified() {
-        View view = new SystemContextView(softwareSystem);
         view.addNearestNeighbours(null);
 
         assertEquals(1, view.getElements().size());
@@ -105,7 +104,6 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addNearestNeighbours_DoesNothing_WhenThereAreNoNeighbours() {
-        View view = new SystemContextView(softwareSystem);
         view.addNearestNeighbours(softwareSystem);
 
         assertEquals(1, view.getElements().size());
@@ -144,7 +142,6 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
         // userA -> systemA -> controller -> service -> systemB -> userB
         service.uses(softwareSystemB, "");
 
-        View view = new SystemContextView(softwareSystem);
         view.addNearestNeighbours(softwareSystem);
 
         assertEquals(3, view.getElements().size());
