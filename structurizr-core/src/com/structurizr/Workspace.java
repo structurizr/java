@@ -8,6 +8,8 @@ public class Workspace {
     private long id;
     private String name;
     private String description;
+    private String thumbnail;
+
     private Model model = new Model();
     private ViewSet viewSet = new ViewSet(model);
 
@@ -41,6 +43,14 @@ public class Workspace {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(String thumbnail) {
+        this.thumbnail = thumbnail;
     }
 
     public Model getModel() {
