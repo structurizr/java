@@ -252,18 +252,14 @@ public abstract class View implements Comparable<View> {
     }
 
     RelationshipView findRelationshipView(RelationshipView sourceRelationshipView) {
-        System.out.println("Source: " + sourceRelationshipView + " " + sourceRelationshipView.getDescription() + " " + sourceRelationshipView.getOrder());
         for (RelationshipView relationshipView : getRelationships()) {
             if (relationshipView.getRelationship().equals(sourceRelationshipView.getRelationship())) {
-                System.out.println("Possible match: " + relationshipView + " " + relationshipView.getDescription() + " " + relationshipView.getOrder());
                 if (this.getType() == ViewType.Dynamic) {
                     if ((relationshipView.getDescription() != null && relationshipView.getDescription().equals(sourceRelationshipView.getDescription())) &&
                             relationshipView.getOrder().equals(sourceRelationshipView.getOrder())) {
-                        System.out.println("Yes");
                         return relationshipView;
                     }
                 } else {
-                    System.out.println("Yes");
                     return relationshipView;
                 }
             }

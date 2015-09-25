@@ -24,10 +24,10 @@ public class FinancialRiskSystem {
         SoftwareSystem financialRiskSystem = model.addSoftwareSystem(Location.Internal, "Financial Risk System", "Calculates the bank's exposure to risk for product X");
 
         Person businessUser = model.addPerson(Location.Internal, "Business User", "A regular business user");
-        businessUser.uses(financialRiskSystem, "Views reports");
+        businessUser.uses(financialRiskSystem, "Views reports using");
 
         Person configurationUser = model.addPerson(Location.Internal, "Configuration User", "A regular business user who can also configure the parameters used in the risk calculations");
-        configurationUser.uses(financialRiskSystem, "Configures parameters");
+        configurationUser.uses(financialRiskSystem, "Configures parameters using");
 
         SoftwareSystem tradeDataSystem = model.addSoftwareSystem(Location.Internal, "Trade Data System", "The system of record for trades of type X");
         financialRiskSystem.uses(tradeDataSystem, "Gets trade data from");
@@ -36,8 +36,8 @@ public class FinancialRiskSystem {
         financialRiskSystem.uses(referenceDataSystem, "Gets counterparty data from");
 
         SoftwareSystem emailSystem = model.addSoftwareSystem(Location.Internal, "E-mail system", "Microsoft Exchange");
-        financialRiskSystem.uses(emailSystem, "Sends a notification that a report is ready via e-mail to");
-        emailSystem.delivers(businessUser, "Sends a notification that a report is ready via e-mail to", null, InteractionStyle.Asynchronous);
+        financialRiskSystem.uses(emailSystem, "Sends a notification that a report is ready to");
+        emailSystem.delivers(businessUser, "Sends a notification that a report is ready to", "E-mail message", InteractionStyle.Asynchronous);
 
         SoftwareSystem centralMonitoringService = model.addSoftwareSystem(Location.Internal, "Central Monitoring Service", "The bank-wide monitoring and alerting dashboard");
         financialRiskSystem.uses(centralMonitoringService, "Sends critical failure alerts to").addTags(TAG_ALERT);
@@ -56,16 +56,10 @@ public class FinancialRiskSystem {
         viewSet.getConfiguration().getStyles().add(new ElementStyle("Risk System", null, null, "#550000", "#ffffff", 40));
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, 650, 300, "#801515", "#ffffff", 36, Shape.RoundedBox));
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, 550, null, "#d46a6a", "#ffffff", 32, Shape.Person));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 6, "#222222", false, 36, 400, null));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.SYNCHRONOUS, 6, "#222222", false, 36, 400, null));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 4, null, false, 32, 400, null));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.SYNCHRONOUS, null, null, false, 32, 400, null));
         viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.ASYNCHRONOUS, null, null, true, null, null, null));
         viewSet.getConfiguration().getStyles().add(new RelationshipStyle(TAG_ALERT, null, "#ff0000", true, null, null, null));
-
-        // output the model as JSON
-        JsonWriter jsonWriter = new JsonWriter(true);
-        StringWriter stringWriter = new StringWriter();
-        jsonWriter.write(workspace, stringWriter);
-        System.out.println(stringWriter.toString());
 
         // and upload the model to structurizr.com
         StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
