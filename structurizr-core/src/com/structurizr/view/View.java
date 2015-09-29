@@ -133,6 +133,10 @@ public abstract class View implements Comparable<View> {
         }
     }
 
+    public void remove(Element element) {
+        removeElement(element);
+    }
+
     protected void removeElement(Element element) {
         if (element != null) {
             ElementView elementView = new ElementView(element);
@@ -147,7 +151,15 @@ public abstract class View implements Comparable<View> {
         }
     }
 
+    /**
+     * @deprecated use {@link View#add(com.structurizr.model.Relationship)}
+     */
+    @Deprecated
     public RelationshipView addRelationship(Relationship relationship) {
+        return add(relationship);
+    }
+
+    public RelationshipView add(Relationship relationship) {
         if (relationship != null) {
             if (isElementInView(relationship.getSource()) && isElementInView(relationship.getDestination())) {
                 RelationshipView relationshipView = new RelationshipView(relationship);
@@ -172,7 +184,15 @@ public abstract class View implements Comparable<View> {
         }
     }
 
+    /**
+     * @deprecated use {@link View#remove(com.structurizr.model.Relationship)}
+     */
+    @Deprecated
     public void removeRelationship(Relationship relationship) {
+        remove(relationship);
+    }
+
+    public void remove(Relationship relationship) {
         if (relationship != null) {
             RelationshipView relationshipView = new RelationshipView(relationship);
             relationshipViews.remove(relationshipView);

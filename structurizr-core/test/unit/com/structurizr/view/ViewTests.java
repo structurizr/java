@@ -51,7 +51,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     public void test_addSoftwareSystem_DoesNothing_WhenGivenNull() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         StaticView view = new SystemContextView(softwareSystem);
-        view.addSoftwareSystem(null);
+        view.add((SoftwareSystem)null);
         assertEquals(1, view.getElements().size());
     }
 
@@ -62,7 +62,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
 
         Model model2 = new Model();
         SoftwareSystem softwareSystemA = model2.addSoftwareSystem(Location.Unspecified, "System A", "Description");
-        view.addSoftwareSystem(softwareSystemA);
+        view.add(softwareSystemA);
         assertEquals(1, view.getElements().size());
     }
 
@@ -72,7 +72,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.Unspecified, "System A", "Description");
 
         StaticView view = new SystemContextView(softwareSystem);
-        view.addSoftwareSystem(softwareSystemA);
+        view.add(softwareSystemA);
         assertEquals(2, view.getElements().size());
         Iterator<ElementView> it = view.getElements().iterator();
         assertSame(softwareSystem, it.next().getElement());
@@ -112,7 +112,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     public void test_addPerson_DoesNothing_WhenGivenNull() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         StaticView view = new SystemContextView(softwareSystem);
-        view.addPerson(null);
+        view.add((Person)null);
         assertEquals(1, view.getElements().size());
     }
 
@@ -123,7 +123,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
 
         Model model2 = new Model();
         Person person1 = model2.addPerson(Location.Unspecified, "Person 1", "Description");
-        view.addPerson(person1);
+        view.add(person1);
         assertEquals(1, view.getElements().size());
     }
 
@@ -133,7 +133,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         StaticView view = new SystemContextView(softwareSystem);
 
         Person person1 = model.addPerson(Location.Unspecified, "Person 1", "Description");
-        view.addPerson(person1);
+        view.add(person1);
 
         assertEquals(2, view.getElements().size());
         Iterator<ElementView> it = view.getElements().iterator();
@@ -186,10 +186,10 @@ public class ViewTests extends AbstractWorkspaceTestBase {
 
         // create a view with SystemA and Person (locations are set for both, relationship has vertices)
         StaticView view1 = new SystemContextView(softwareSystem1A);
-        view1.addSoftwareSystem(softwareSystem1B);
+        view1.add(softwareSystem1B);
         view1.getElementView(softwareSystem1B).setX(123);
         view1.getElementView(softwareSystem1B).setY(321);
-        view1.addPerson(person1);
+        view1.add(person1);
         view1.getElementView(person1).setX(456);
         view1.getElementView(person1).setY(654);
         view1.getRelationshipView(personUsesSoftwareSystem1).setVertices(Arrays.asList(new Vertex(123, 456)));
@@ -204,8 +204,8 @@ public class ViewTests extends AbstractWorkspaceTestBase {
 
         // create a view with SystemB and Person (locations are 0,0 for both)
         StaticView view2 = new SystemContextView(softwareSystem2A);
-        view2.addSoftwareSystem(softwareSystem2B);
-        view2.addPerson(person2);
+        view2.add(softwareSystem2B);
+        view2.add(person2);
         assertEquals(0, view2.getElementView(softwareSystem2B).getX());
         assertEquals(0, view2.getElementView(softwareSystem2B).getY());
         assertEquals(0, view2.getElementView(softwareSystem2B).getX());
@@ -341,7 +341,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         view.addAllElements();
 
         assertEquals(3, view.getRelationships().size());
-        view.removeRelationship(null);
+        view.remove((Relationship)null);
     }
 
     @Test
@@ -358,7 +358,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         view.addAllElements();
 
         assertEquals(3, view.getRelationships().size());
-        view.removeRelationship(relationship31);
+        view.remove(relationship31);
 
         assertEquals(2, view.getRelationships().size());
         assertTrue(view.getRelationships().contains(new RelationshipView(relationship12)));

@@ -48,7 +48,7 @@ public class ComponentView extends StaticView {
     public void addAllSoftwareSystems() {
         getModel().getSoftwareSystems().stream()
                 .filter(ss -> ss != getSoftwareSystem())
-                .forEach(this::addSoftwareSystem);
+                .forEach(this::add);
     }
 
     /**

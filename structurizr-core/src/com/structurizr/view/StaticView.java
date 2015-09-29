@@ -25,8 +25,19 @@ public abstract class StaticView extends View {
      * Adds the given software system to this view.
      *
      * @param softwareSystem        the SoftwareSystem to add
+     * @deprecated use {@link StaticView#add(com.structurizr.model.SoftwareSystem)}
      */
+    @Deprecated
     public void addSoftwareSystem(SoftwareSystem softwareSystem) {
+        addElement(softwareSystem, true);
+    }
+
+    /**
+     * Adds the given software system to this view.
+     *
+     * @param softwareSystem        the SoftwareSystem to add
+     */
+    public void add(SoftwareSystem softwareSystem) {
         addElement(softwareSystem, true);
     }
 
@@ -41,8 +52,18 @@ public abstract class StaticView extends View {
      * Adds the given person to this view.
      *
      * @param person        the Person to add
+     * @deprecated use {@link StaticView#add(com.structurizr.model.Person)}
      */
     public void addPerson(Person person) {
+        addElement(person, true);
+    }
+
+    /**
+     * Adds the given person to this view.
+     *
+     * @param person        the Person to add
+     */
+    public void add(Person person) {
         addElement(person, true);
     }
 

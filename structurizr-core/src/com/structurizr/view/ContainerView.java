@@ -21,7 +21,7 @@ public class ContainerView extends StaticView {
     public void addAllSoftwareSystems() {
         getModel().getSoftwareSystems().stream()
                 .filter(ss -> ss != getSoftwareSystem())
-                .forEach(this::addSoftwareSystem);
+                .forEach(this::add);
     }
 
     /**
@@ -39,7 +39,6 @@ public class ContainerView extends StaticView {
     public void add(Container container) {
         addElement(container, true);
     }
-
 
     @Override
     public final ViewType getType() {
