@@ -121,7 +121,7 @@ public class JavaEEMoviePlex7 {
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#2A4E6E", "#ffffff", null));
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#728da5", "white", 40));
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.CONTAINER, null, null, "#041F37", "#ffffff", null));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 5, null, null, 40, 500, null));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 5, null, null, null, 40, 500, null));
 
         // upload it to structurizr.com
         StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");

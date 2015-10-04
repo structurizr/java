@@ -30,6 +30,10 @@ public class RelationshipStyle {
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Boolean dashed;
 
+    /** whether the line should be smooth or not */
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private Boolean smooth;
+
     /** the position of the annotation along the line; 0 (start) to 100 (end) */
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Integer position;
@@ -41,11 +45,20 @@ public class RelationshipStyle {
         this.tag = tag;
     }
 
+    /**
+     * @deprecated
+     */
+    @Deprecated
     public RelationshipStyle(String tag, Integer thickness, String color, Boolean dashed, Integer fontSize, Integer width, Integer position) {
+        this(tag, thickness, color, dashed, false, fontSize, width, position);
+    }
+
+    public RelationshipStyle(String tag, Integer thickness, String color, Boolean dashed, Boolean smooth, Integer fontSize, Integer width, Integer position) {
         this.tag = tag;
         this.thickness = thickness;
         this.color = color;
         this.dashed = dashed;
+        this.smooth = smooth;
         this.fontSize = fontSize;
         this.width = width;
         this.position = position;
@@ -81,6 +94,14 @@ public class RelationshipStyle {
 
     public void setDashed(Boolean dashed) {
         this.dashed = dashed;
+    }
+
+    public Boolean getSmooth() {
+        return smooth;
+    }
+
+    public void setSmooth(Boolean smooth) {
+        this.smooth = smooth;
     }
 
     public Integer getFontSize() {

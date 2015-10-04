@@ -72,8 +72,8 @@ public class MessageBusExample {
         views.getConfiguration().getStyles().add(new ElementStyle(DATABASE_TAG, null, null, "#BE81F7", "white", null, Shape.Cylinder));
         views.getConfiguration().getStyles().add(new ElementStyle(EVENT_STORE_TAG, null, null, "#D0A9F5", "white", null, Shape.Cylinder));
 
-        views.getConfiguration().getStyles().add(new RelationshipStyle(Tags.ASYNCHRONOUS, null, null, true, null, null, null));
-        views.getConfiguration().getStyles().add(new RelationshipStyle(Tags.SYNCHRONOUS, null, null, false, null, null, null));
+        views.getConfiguration().getStyles().add(new RelationshipStyle(Tags.ASYNCHRONOUS, null, null, true, null, null, null, null));
+        views.getConfiguration().getStyles().add(new RelationshipStyle(Tags.SYNCHRONOUS, null, null, false, null, null, null, null));
 
         JsonWriter jsonWriter = new JsonWriter(true);
         StringWriter stringWriter = new StringWriter();

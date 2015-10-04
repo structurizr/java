@@ -56,10 +56,10 @@ public class FinancialRiskSystem {
         viewSet.getConfiguration().getStyles().add(new ElementStyle("Risk System", null, null, "#550000", "#ffffff", 40));
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, 650, 300, "#801515", "#ffffff", 36, Shape.RoundedBox));
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, 550, null, "#d46a6a", "#ffffff", 32, Shape.Person));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 4, null, false, 32, 400, null));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.SYNCHRONOUS, null, null, false, 32, 400, null));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.ASYNCHRONOUS, null, null, true, null, null, null));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(TAG_ALERT, null, "#ff0000", true, null, null, null));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 4, null, false, null, 32, 400, null));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.SYNCHRONOUS, null, null, false, null, 32, 400, null));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.ASYNCHRONOUS, null, null, true, null, null, null, null));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(TAG_ALERT, null, "#ff0000", true, null, null, null, null));
 
         // and upload the model to structurizr.com
         StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");

@@ -53,7 +53,7 @@ public class TechTribesSystemContextForPresentation {
         viewSet.getConfiguration().getStyles().add(new ElementStyle("techtribes.je", null, null, "#041F37", "#ffffff", null));
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#2A4E6E", "#ffffff", null));
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, 575, null, "#728da5", "white", 40, Shape.Person));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 5, null, null, 40, 500, null));
+        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 5, null, null, null, 40, 500, null));
         contextView.setPaperSize(PaperSize.Slide_4_3);
 
         // and output the model and view to JSON
