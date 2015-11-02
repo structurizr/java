@@ -116,7 +116,7 @@ public class StructurizrClient {
     public Workspace getWorkspace(long workspaceId) throws Exception {
         log.info("Getting workspace with ID " + workspaceId);
 
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+        CloseableHttpClient httpClient = HttpClients.createSystem();
         HttpGet httpGet = new HttpGet(url + WORKSPACE_PATH + workspaceId);
         addHeaders(httpGet, "", "");
         debugRequest(httpGet, null);
@@ -245,5 +245,5 @@ public class StructurizrClient {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         return "structurizr-" + workspaceId + "-" + sdf.format(new Date()) + ".json";
     }
-
+    
 }
