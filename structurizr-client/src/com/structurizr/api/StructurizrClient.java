@@ -1,6 +1,7 @@
 package com.structurizr.api;
 
 import com.structurizr.Workspace;
+import com.structurizr.encryption.*;
 import com.structurizr.io.json.JsonReader;
 import com.structurizr.io.json.JsonWriter;
 import org.apache.commons.logging.Log;
@@ -36,6 +37,8 @@ public class StructurizrClient {
     private String url;
     private String apiKey;
     private String apiSecret;
+
+    private EncryptionStrategy encryptionStrategy;
 
     /** the location where a copy of the workspace will be archived when it is retrieved from the server */
     private File workspaceArchiveLocation = new File(".");
@@ -107,6 +110,15 @@ public class StructurizrClient {
     }
 
     /**
+     * Sets the encryption strategy for use when getting or putting workspaces.
+     *
+     * @param encryptionStrategy    an EncryptionStrategy implementation
+     */
+    public void setEncryptionStrategy(EncryptionStrategy encryptionStrategy) {
+        this.encryptionStrategy = encryptionStrategy;
+    }
+
+    /**
      * Gets the workspace with the given ID.
      *
      * @param workspaceId   the ID of your workspace
@@ -127,7 +139,14 @@ public class StructurizrClient {
             String json = EntityUtils.toString(response.getEntity());
             if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
                 archiveWorkspace(workspaceId, json);
-                return new JsonReader().read(new StringReader(json));
+
+                if (encryptionStrategy == null) {
+                    return new JsonReader().read(new StringReader(json));
+                } else {
+                    EncryptedWorkspace encryptedWorkspace = new EncryptedJsonReader().read(new StringReader(json));
+                    encryptedWorkspace.getEncryptionStrategy().setPassphrase(encryptionStrategy.getPassphrase());
+                    return encryptedWorkspace.getWorkspace();
+                }
             } else {
                 ApiError apiError = ApiError.parse(json);
                 throw new StructurizrClientException(apiError.getMessage());
@@ -155,9 +174,16 @@ public class StructurizrClient {
         CloseableHttpClient httpClient = HttpClients.createSystem();
         HttpPut httpPut = new HttpPut(url + WORKSPACE_PATH + workspaceId);
 
-        JsonWriter jsonWriter = new JsonWriter(false);
         StringWriter stringWriter = new StringWriter();
-        jsonWriter.write(workspace, stringWriter);
+        if (encryptionStrategy == null) {
+            JsonWriter jsonWriter = new JsonWriter(false);
+            jsonWriter.write(workspace, stringWriter);
+        } else {
+            EncryptedWorkspace encryptedWorkspace = new EncryptedWorkspace(workspace, encryptionStrategy);
+            encryptionStrategy.setLocation(EncryptionLocation.Client);
+            EncryptedJsonWriter jsonWriter = new EncryptedJsonWriter(false);
+            jsonWriter.write(encryptedWorkspace, stringWriter);
+        }
 
         StringEntity stringEntity = new StringEntity(stringWriter.toString(), ContentType.APPLICATION_JSON);
         httpPut.setEntity(stringEntity);
@@ -166,8 +192,14 @@ public class StructurizrClient {
         debugRequest(httpPut, EntityUtils.toString(stringEntity));
 
         try (CloseableHttpResponse response = httpClient.execute(httpPut)) {
-            debugResponse(response);
-            log.debug(EntityUtils.toString(response.getEntity()));
+            String json = EntityUtils.toString(response.getEntity());
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                debugResponse(response);
+                log.info(json);
+            } else {
+                ApiError apiError = ApiError.parse(json);
+                throw new StructurizrClientException(apiError.getMessage());
+            }
         }
     }
 
@@ -245,5 +277,5 @@ public class StructurizrClient {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         return "structurizr-" + workspaceId + "-" + sdf.format(new Date()) + ".json";
     }
-    
+
 }
