@@ -21,9 +21,6 @@ public class EncryptedWorkspace extends AbstractWorkspace {
     }
 
     public EncryptedWorkspace(Workspace workspace, EncryptionStrategy encryptionStrategy) throws Exception {
-        this.encryptionStrategy = encryptionStrategy;
-        this.workspace = workspace;
-
         JsonWriter jsonWriter = new JsonWriter(false);
         StringWriter stringWriter = new StringWriter();
         jsonWriter.write(workspace, stringWriter);
@@ -36,6 +33,8 @@ public class EncryptedWorkspace extends AbstractWorkspace {
     }
 
     private void init(Workspace workspace, String plaintext, EncryptionStrategy encryptionStrategy) throws Exception {
+        this.workspace = workspace;
+
         setId(workspace.getId());
         setName(workspace.getName());
         setDescription(workspace.getDescription());
@@ -43,6 +42,7 @@ public class EncryptedWorkspace extends AbstractWorkspace {
 
         this.plaintext = plaintext;
         this.ciphertext = encryptionStrategy.encrypt(plaintext);
+        this.encryptionStrategy = encryptionStrategy;
     }
 
     @JsonIgnore

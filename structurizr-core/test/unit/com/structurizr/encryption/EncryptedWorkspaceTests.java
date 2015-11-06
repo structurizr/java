@@ -28,7 +28,9 @@ public class EncryptedWorkspaceTests {
     }
 
     @Test
-    public void test_construction() throws Exception {
+    public void test_construction_WhenTwoParametersAreSpecified() throws Exception {
+        encryptedWorkspace = new EncryptedWorkspace(workspace, encryptionStrategy);
+
         assertEquals("Name", encryptedWorkspace.getName());
         assertEquals("Description", encryptedWorkspace.getDescription());
         assertEquals("thumbnail data", encryptedWorkspace.getThumbnail());
@@ -40,6 +42,26 @@ public class EncryptedWorkspaceTests {
         JsonWriter jsonWriter = new JsonWriter(false);
         StringWriter stringWriter = new StringWriter();
         jsonWriter.write(workspace, stringWriter);
+
+        assertEquals(stringWriter.toString(), encryptedWorkspace.getPlaintext());
+        assertEquals(encryptionStrategy.encrypt(stringWriter.toString()), encryptedWorkspace.getCiphertext());
+    }
+
+    @Test
+    public void test_construction_WhenThreeParametersAreSpecified() throws Exception {
+        JsonWriter jsonWriter = new JsonWriter(false);
+        StringWriter stringWriter = new StringWriter();
+        jsonWriter.write(workspace, stringWriter);
+
+        encryptedWorkspace = new EncryptedWorkspace(workspace, stringWriter.toString(), encryptionStrategy);
+
+        assertEquals("Name", encryptedWorkspace.getName());
+        assertEquals("Description", encryptedWorkspace.getDescription());
+        assertEquals("thumbnail data", encryptedWorkspace.getThumbnail());
+        assertEquals(1234, encryptedWorkspace.getId());
+
+        assertSame(workspace, encryptedWorkspace.getWorkspace());
+        assertSame(encryptionStrategy, encryptedWorkspace.getEncryptionStrategy());
 
         assertEquals(stringWriter.toString(), encryptedWorkspace.getPlaintext());
         assertEquals(encryptionStrategy.encrypt(stringWriter.toString()), encryptedWorkspace.getCiphertext());
