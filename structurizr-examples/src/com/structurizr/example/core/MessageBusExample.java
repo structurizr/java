@@ -67,10 +67,10 @@ public class MessageBusExample {
         dynamicView.endChildSequence();
 
         views.getConfiguration().getStyles().add(new ElementStyle(Tags.ELEMENT, null, null, null, null, null, Shape.RoundedBox));
-        views.getConfiguration().getStyles().add(new ElementStyle(MESSAGE_BUS_TAG, 1600, null, "#9A2EFE", "white", null));
-        views.getConfiguration().getStyles().add(new ElementStyle(MICROSERVICE_TAG, null, null, "#AC58FA", "white", null, null));
-        views.getConfiguration().getStyles().add(new ElementStyle(DATABASE_TAG, null, null, "#BE81F7", "white", null, Shape.Cylinder));
-        views.getConfiguration().getStyles().add(new ElementStyle(EVENT_STORE_TAG, null, null, "#D0A9F5", "white", null, Shape.Cylinder));
+        views.getConfiguration().getStyles().add(new ElementStyle(MESSAGE_BUS_TAG, 1600, null, "#FFBF00", "#000000", null));
+        views.getConfiguration().getStyles().add(new ElementStyle(MICROSERVICE_TAG, null, null, "#FACC2E", "#000000", null, null));
+        views.getConfiguration().getStyles().add(new ElementStyle(DATABASE_TAG, null, null, "#F5DA81", "#000000", null, Shape.Cylinder));
+        views.getConfiguration().getStyles().add(new ElementStyle(EVENT_STORE_TAG, null, null, "#F5DA81", "#000000", null, Shape.Cylinder));
 
         views.getConfiguration().getStyles().add(new RelationshipStyle(Tags.ASYNCHRONOUS, null, null, true, null, null, null, null));
         views.getConfiguration().getStyles().add(new RelationshipStyle(Tags.SYNCHRONOUS, null, null, false, null, null, null, null));

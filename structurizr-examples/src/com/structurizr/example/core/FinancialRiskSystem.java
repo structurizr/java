@@ -2,11 +2,8 @@ package com.structurizr.example.core;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
-
-import java.io.StringWriter;
 
 /**
  * This is a simple (incomplete) example C4 model based upon the financial risk system
