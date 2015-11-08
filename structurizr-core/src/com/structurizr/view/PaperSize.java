@@ -5,6 +5,9 @@ package com.structurizr.view;
  */
 public enum PaperSize {
 
+    A5_Portrait("A5", Orientation.Portrait, 1748, 2480),
+    A5_Landscape("A5", Orientation.Landscape, 2480, 1748),
+
     A4_Portrait("A4", Orientation.Portrait, 2480, 3508),
     A4_Landscape("A4", Orientation.Landscape, 3508, 2480),
 
