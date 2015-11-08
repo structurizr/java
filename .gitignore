@@ -29,3 +29,5 @@ hs_err_pid*
 
 # Structurizr workspace archives
 *.json
+
+structurizr-javaee/**

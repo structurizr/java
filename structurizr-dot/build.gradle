@@ -1,0 +1,10 @@
+repositories {
+    flatDir {
+        dirs 'lib'
+    }
+}
+
+dependencies {
+    compile project(':structurizr-core')
+    compile name: 'dot-diagram'
+}
