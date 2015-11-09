@@ -166,4 +166,9 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
         assertEquals("/Name1Name2", softwareSystem.getCanonicalName());
     }
 
+    @Test
+    public void test_getParent_ReturnsNull() {
+        assertNull(softwareSystem.getParent());
+    }
+
 }

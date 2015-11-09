@@ -1,8 +1,16 @@
 package com.structurizr.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Person extends Element {
 
     private Location location = Location.Unspecified;
+
+    @Override
+    @JsonIgnore
+    public Element getParent() {
+        return null;
+    }
 
     Person() {
         addTags(Tags.PERSON);

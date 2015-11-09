@@ -15,7 +15,7 @@ public class ComponentView extends StaticView {
     }
 
     ComponentView(Container container, String description) {
-        super(container.getParent(), description);
+        super(container.getSoftwareSystem(), description);
 
         this.container = container;
     }

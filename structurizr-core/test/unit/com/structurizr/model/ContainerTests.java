@@ -21,4 +21,14 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
         assertEquals("/System/Name1Name2", container.getCanonicalName());
     }
 
+    @Test
+    public void test_getParent_ReturnsTheParentSoftwareSystem() {
+        assertEquals(softwareSystem, container.getParent());
+    }
+
+    @Test
+    public void test_getSoftwareSystem_ReturnsTheParentSoftwareSystem() {
+        assertEquals(softwareSystem, container.getSoftwareSystem());
+    }
+
 }

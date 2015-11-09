@@ -15,8 +15,14 @@ public class Component extends Element {
         addTags(Tags.COMPONENT);
     }
 
+    @Override
     @JsonIgnore
-    public Container getParent() {
+    public Element getParent() {
+        return parent;
+    }
+
+    @JsonIgnore
+    public Container getContainer() {
         return parent;
     }
 

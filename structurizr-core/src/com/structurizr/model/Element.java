@@ -57,6 +57,8 @@ public abstract class Element extends TaggableThing {
         this.description = description;
     }
 
+    public abstract Element getParent();
+
     boolean has(Relationship relationship) {
         return relationships.contains(relationship);
     }

@@ -1,5 +1,7 @@
 package com.structurizr.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -13,6 +15,12 @@ public class SoftwareSystem extends Element {
     private Location location = Location.Unspecified;
 
     private Set<Container> containers = new LinkedHashSet<>();
+
+    @Override
+    @JsonIgnore
+    public Element getParent() {
+        return null;
+    }
 
     SoftwareSystem() {
         addTags(Tags.SOFTWARE_SYSTEM);

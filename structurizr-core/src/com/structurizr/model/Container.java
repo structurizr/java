@@ -17,8 +17,14 @@ public class Container extends Element {
         addTags(Tags.CONTAINER);
     }
 
+    @Override
     @JsonIgnore
-    public SoftwareSystem getParent() {
+    public Element getParent() {
+        return parent;
+    }
+
+    @JsonIgnore
+    public SoftwareSystem getSoftwareSystem() {
         return parent;
     }
 

@@ -135,7 +135,7 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractRefle
         if (componentClass.getAnnotation(ContainerDependency.class) != null) {
             String target = componentClass.getAnnotation(ContainerDependency.class).target();
             String description = componentClass.getAnnotation(ContainerDependency.class).description();
-            Container targetContainer = component.getParent().getParent().getContainerWithName(target);
+            Container targetContainer = component.getContainer().getSoftwareSystem().getContainerWithName(target);
             if (targetContainer != null) {
                 component.uses(targetContainer, description);
             }

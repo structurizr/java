@@ -44,4 +44,16 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
         assertEquals("/System/Container/Name1Name2", component.getCanonicalName());
     }
 
+    @Test
+    public void test_getParent_ReturnsTheParentContainer() {
+        Component component = container.addComponent("Component", "Description");
+        assertEquals(container, component.getParent());
+    }
+
+    @Test
+    public void test_getContainer_ReturnsTheParentContainer() {
+        Component component = container.addComponent("Name", "Description");
+        assertEquals(container, component.getContainer());
+    }
+
 }

@@ -4,6 +4,7 @@ import com.structurizr.AbstractWorkspaceTestBase;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class PersonTests extends AbstractWorkspaceTestBase {
 
@@ -18,6 +19,11 @@ public class PersonTests extends AbstractWorkspaceTestBase {
     public void test_getCanonicalName_WhenNameContainsASlashCharacter() {
         person.setName("Name1/Name2");
         assertEquals("/Name1Name2", person.getCanonicalName());
+    }
+
+    @Test
+    public void test_getParent_ReturnsNull() {
+        assertNull(person.getParent());
     }
 
 }

@@ -12,8 +12,7 @@ import java.io.StringWriter;
 public class DotWriterExample {
 
     public static void main(String[] args) {
-        Workspace workspace = ExampleWorkspace.create(false
-        );
+        Workspace workspace = ExampleWorkspace.create(false);
         StringWriter stringWriter = new StringWriter();
         DotWriter dotWriter = new DotWriter();
         dotWriter.write(workspace, stringWriter);
