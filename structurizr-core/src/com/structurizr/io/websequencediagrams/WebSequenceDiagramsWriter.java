@@ -1,8 +1,8 @@
 package com.structurizr.io.websequencediagrams;
 
 import com.structurizr.Workspace;
-import com.structurizr.io.StructurizrWriter;
-import com.structurizr.io.StructurizrWriterException;
+import com.structurizr.io.WorkspaceWriter;
+import com.structurizr.io.WorkspaceWriterException;
 import com.structurizr.model.InteractionStyle;
 import com.structurizr.model.Relationship;
 import com.structurizr.view.DynamicView;
@@ -18,20 +18,20 @@ import java.io.Writer;
  * both synchronous and asynchronous. It doesn't support return messages,
  * parallel behaviour, etc.
  */
-public class WebSequenceDiagramsWriter implements StructurizrWriter {
+public class WebSequenceDiagramsWriter implements WorkspaceWriter {
 
     private static final String SYNCHRONOUS_INTERACTION = "->";
     private static final String ASYNCHRONOUS_INTERACTION = "->>";
 
     @Override
-    public void write(Workspace workspace, Writer writer) throws StructurizrWriterException {
+    public void write(Workspace workspace, Writer writer) throws WorkspaceWriterException {
         if (workspace != null && writer != null) {
             try {
                 for (DynamicView view : workspace.getViews().getDynamicViews()) {
                     write(view, writer);
                 }
             } catch (Exception e) {
-                throw new StructurizrWriterException("There was an error creating a websequencediagram", e);
+                throw new WorkspaceWriterException("There was an error creating a websequencediagram", e);
             }
         }
     }

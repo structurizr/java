@@ -4,13 +4,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.structurizr.Workspace;
-import com.structurizr.io.StructurizrWriter;
-import com.structurizr.io.StructurizrWriterException;
+import com.structurizr.io.WorkspaceWriter;
+import com.structurizr.io.WorkspaceWriterException;
 
 import java.io.IOException;
 import java.io.Writer;
 
-public class JsonWriter implements StructurizrWriter {
+public class JsonWriter implements WorkspaceWriter {
 
     private boolean indentOutput = true;
 
@@ -18,7 +18,7 @@ public class JsonWriter implements StructurizrWriter {
         this.indentOutput = indentOutput;
     }
 
-    public void write(Workspace workspace, Writer writer) throws StructurizrWriterException {
+    public void write(Workspace workspace, Writer writer) throws WorkspaceWriterException {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             if (indentOutput) {
@@ -29,7 +29,7 @@ public class JsonWriter implements StructurizrWriter {
 
             writer.write(objectMapper.writeValueAsString(workspace));
         } catch (IOException ioe) {
-            throw new StructurizrWriterException("Could not write as JSON", ioe);
+            throw new WorkspaceWriterException("Could not write as JSON", ioe);
         }
     }
 
