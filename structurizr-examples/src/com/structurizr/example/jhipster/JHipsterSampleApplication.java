@@ -36,7 +36,7 @@ public class JHipsterSampleApplication {
         browser.uses(webApplication, "Uses");
         webApplication.uses(relationalDatabase, "Reads from and writes to", "JDBC");
 
-        // and now automatically find all Spring @Controller, @Component, @Service and @Repository components
+        // and now automatically find all components in the Spring Boot part of the application
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication, "com.mycompany.myapp",
                 new JHipsterComponentFinderStrategy(),
