@@ -5,5 +5,6 @@ include 'structurizr-client'
 include 'structurizr-core'
 include 'structurizr-dot'
 include 'structurizr-examples'
+include 'structurizr-jhipster'
 include 'structurizr-spring'
 
