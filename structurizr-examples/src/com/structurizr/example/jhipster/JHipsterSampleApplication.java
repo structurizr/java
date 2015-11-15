@@ -98,7 +98,7 @@ public class JHipsterSampleApplication {
         viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.CONTAINER, null, null, null, null, null));
         viewSet.getConfiguration().getStyles().add(new ElementStyle("Database", null, null, null, null, null, Shape.Cylinder));
 
-        StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "6e88c6ae-9c62-4825-840e-532bf09e6977", "029ec5b1-013c-45d3-ad40-c55f29f75699");
+        StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
         structurizrClient.mergeWorkspace(5651, workspace);
     }
 
