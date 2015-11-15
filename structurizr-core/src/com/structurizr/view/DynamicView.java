@@ -1,6 +1,12 @@
 package com.structurizr.view;
 
-import com.structurizr.model.*;
+import com.structurizr.model.Element;
+import com.structurizr.model.Relationship;
+import com.structurizr.model.SoftwareSystem;
+
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 public class DynamicView extends View {
 
@@ -36,6 +42,14 @@ public class DynamicView extends View {
 
     public void endChildSequence() {
         this.counter = counter.getParent();
+    }
+
+    @Override
+    public Set<RelationshipView> getRelationships() {
+        SortedSet<RelationshipView> set = new TreeSet<RelationshipView>((rv1, rv2) -> rv1.getOrder().compareTo(rv2.getOrder()));
+        set.addAll(super.getRelationships());
+
+        return set;
     }
 
     @Override
