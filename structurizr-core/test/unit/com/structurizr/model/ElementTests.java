@@ -51,6 +51,13 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_addTags_AddsTags_WhenPassedSomeTagsAndThereAreDuplicateTags() {
+        Element element = model.addSoftwareSystem(Location.Internal, "Name", "Description");
+        element.addTags(null, "tag1", null, "tag2", "tag2");
+        assertEquals("Element,Software System,tag1,tag2", element.getTags());
+    }
+
+    @Test
     public void test_equals_ReturnsTrue_WhenTheSameObjectIsPassed() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "SystemA", "");
         assertTrue(softwareSystem.equals(softwareSystem));

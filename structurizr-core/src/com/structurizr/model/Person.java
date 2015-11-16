@@ -2,6 +2,10 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 public class Person extends Element {
 
     private Location location = Location.Unspecified;
@@ -13,7 +17,6 @@ public class Person extends Element {
     }
 
     Person() {
-        addTags(Tags.PERSON);
     }
 
     public Location getLocation() {
@@ -36,6 +39,11 @@ public class Person extends Element {
     @Override
     public String getCanonicalName() {
         return CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getName());
+    }
+
+    @Override
+    protected Set<String> getRequiredTags() {
+        return new LinkedHashSet<>(Arrays.asList(Tags.ELEMENT, Tags.PERSON));
     }
 
 }

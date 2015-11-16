@@ -2,7 +2,11 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-public class Relationship extends TaggableThing {
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
+public class Relationship extends Taggable {
 
     protected String id = "";
 
@@ -15,7 +19,6 @@ public class Relationship extends TaggableThing {
     private InteractionStyle interactionStyle = InteractionStyle.Synchronous;
 
     Relationship() {
-        addTags(Tags.RELATIONSHIP);
     }
 
     Relationship(Element source, Element destination, String description) {
@@ -116,6 +119,11 @@ public class Relationship extends TaggableThing {
             removeTag(Tags.SYNCHRONOUS);
             addTags(Tags.ASYNCHRONOUS);
         }
+    }
+
+    @Override
+    protected Set<String> getRequiredTags() {
+        return new LinkedHashSet<String>(Arrays.asList(Tags.RELATIONSHIP));
     }
 
     @Override

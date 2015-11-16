@@ -2,6 +2,7 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -14,7 +15,6 @@ public class Container extends Element {
     private Set<Component> components = new LinkedHashSet<>();
 
     Container() {
-        addTags(Tags.CONTAINER);
     }
 
     @Override
@@ -108,6 +108,11 @@ public class Container extends Element {
     @Override
     public String getCanonicalName() {
         return getParent().getCanonicalName() + CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getName());
+    }
+
+    @Override
+    protected Set<String> getRequiredTags() {
+        return new LinkedHashSet<>(Arrays.asList(Tags.ELEMENT, Tags.CONTAINER));
     }
 
 }

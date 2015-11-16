@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * This is the superclass for all model elements.
  */
-public abstract class Element extends TaggableThing {
+public abstract class Element extends Taggable {
 
     public static final String CANONICAL_NAME_SEPARATOR = "/";
 
@@ -21,7 +21,6 @@ public abstract class Element extends TaggableThing {
     protected Set<Relationship> relationships = new LinkedHashSet<>();
 
     protected Element() {
-        addTags(Tags.ELEMENT);
     }
 
     @JsonIgnore

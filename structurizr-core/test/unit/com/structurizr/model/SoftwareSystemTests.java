@@ -171,4 +171,16 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
         assertNull(softwareSystem.getParent());
     }
 
+    @Test
+    public void test_removeTags_DoesNotRemoveRequiredTags() {
+        assertTrue(softwareSystem.getTags().contains(Tags.ELEMENT));
+        assertTrue(softwareSystem.getTags().contains(Tags.SOFTWARE_SYSTEM));
+
+        softwareSystem.removeTag(Tags.SOFTWARE_SYSTEM);
+        softwareSystem.removeTag(Tags.ELEMENT);
+
+        assertTrue(softwareSystem.getTags().contains(Tags.ELEMENT));
+        assertTrue(softwareSystem.getTags().contains(Tags.SOFTWARE_SYSTEM));
+    }
+
 }
