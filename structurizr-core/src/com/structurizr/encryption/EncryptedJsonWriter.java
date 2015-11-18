@@ -3,7 +3,7 @@ package com.structurizr.encryption;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.structurizr.io.StructurizrWriterException;
+import com.structurizr.io.WorkspaceWriterException;
 
 import java.io.Writer;
 
@@ -15,7 +15,7 @@ public class EncryptedJsonWriter {
         this.indentOutput = indentOutput;
     }
 
-    public void write(EncryptedWorkspace encryptedWorkspace, Writer writer) throws StructurizrWriterException {
+    public void write(EncryptedWorkspace encryptedWorkspace, Writer writer) throws WorkspaceWriterException {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
             if (indentOutput) {
@@ -26,7 +26,7 @@ public class EncryptedJsonWriter {
 
             writer.write(objectMapper.writeValueAsString(encryptedWorkspace));
         } catch (Exception e) {
-            throw new StructurizrWriterException("Could not write as JSON", e);
+            throw new WorkspaceWriterException("Could not write as JSON", e);
         }
     }
 

@@ -1,23 +1,26 @@
 package com.structurizr.model;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-/**
- * Sorry about the name, send a pull request if you think of something better! :-)
- */
-abstract class TaggableThing {
+abstract class Taggable {
 
     private Set<String> tags = new LinkedHashSet<>();
 
+    protected abstract Set<String> getRequiredTags();
+
     public String getTags() {
-        if (this.tags.isEmpty()) {
+        Set<String> setOfTags = new LinkedHashSet<>(getRequiredTags());
+        setOfTags.addAll(tags);
+
+        if (setOfTags.isEmpty()) {
             return "";
         }
 
         StringBuilder buf = new StringBuilder();
-        for (String tag : tags) {
+        for (String tag : setOfTags) {
             buf.append(tag);
             buf.append(",");
         }

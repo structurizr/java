@@ -77,6 +77,10 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Abstrac
         return reflections.getSubTypesOf(Object.class);
     }
 
+    protected Set<Class> getInterfacesThatExtend(Class interfaceType) {
+        return reflections.getSubTypesOf(interfaceType);
+    }
+
 //    protected Set<Field> getFieldsAnnotatedWith(Class<? extends Annotation> annotation) {
 //        return reflections.getFieldsAnnotatedWith(annotation);
 //    }

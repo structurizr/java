@@ -4,6 +4,7 @@ import com.structurizr.AbstractWorkspaceTestBase;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ComponentTests extends AbstractWorkspaceTestBase {
 
@@ -54,6 +55,19 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     public void test_getContainer_ReturnsTheParentContainer() {
         Component component = container.addComponent("Name", "Description");
         assertEquals(container, component.getContainer());
+    }
+
+    @Test
+    public void test_removeTags_DoesNotRemoveRequiredTags() {
+        Component component = new Component();
+        assertTrue(component.getTags().contains(Tags.ELEMENT));
+        assertTrue(component.getTags().contains(Tags.COMPONENT));
+
+        component.removeTag(Tags.COMPONENT);
+        component.removeTag(Tags.ELEMENT);
+
+        assertTrue(component.getTags().contains(Tags.ELEMENT));
+        assertTrue(component.getTags().contains(Tags.COMPONENT));
     }
 
 }

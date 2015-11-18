@@ -1,7 +1,7 @@
 package com.structurizr.io.dot;
 
 import com.structurizr.Workspace;
-import com.structurizr.io.StructurizrWriter;
+import com.structurizr.io.WorkspaceWriter;
 import com.structurizr.model.Element;
 import com.structurizr.model.Relationship;
 import com.structurizr.view.ElementView;
@@ -12,7 +12,7 @@ import org.livingdocumentation.dotdiagram.DotGraph;
 import java.io.IOException;
 import java.io.Writer;
 
-public class DotWriter implements StructurizrWriter {
+public class DotWriter implements WorkspaceWriter {
 
     @Override
     public void write(Workspace workspace, Writer writer) {

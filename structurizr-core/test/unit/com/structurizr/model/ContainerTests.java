@@ -4,6 +4,7 @@ import com.structurizr.AbstractWorkspaceTestBase;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ContainerTests extends AbstractWorkspaceTestBase {
 
@@ -29,6 +30,18 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_getSoftwareSystem_ReturnsTheParentSoftwareSystem() {
         assertEquals(softwareSystem, container.getSoftwareSystem());
+    }
+
+    @Test
+    public void test_removeTags_DoesNotRemoveRequiredTags() {
+        assertTrue(container.getTags().contains(Tags.ELEMENT));
+        assertTrue(container.getTags().contains(Tags.CONTAINER));
+
+        container.removeTag(Tags.CONTAINER);
+        container.removeTag(Tags.ELEMENT);
+
+        assertTrue(container.getTags().contains(Tags.ELEMENT));
+        assertTrue(container.getTags().contains(Tags.CONTAINER));
     }
 
 }
