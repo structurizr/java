@@ -1,6 +1,9 @@
 package com.structurizr.componentfinder;
 
-public class NamePrefixComponentFinderStrategy extends NamingConventionComponentFinderStrategy {
+/**
+ * Finds components based upon the start of the class name. For example *Controller.
+ */
+public class NamePrefixComponentFinderStrategy extends AbstractNamingConventionComponentFinderStrategy {
 
     private String prefix;
 

@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Set;
 
-public abstract class NamingConventionComponentFinderStrategy extends AbstractReflectionsComponentFinderStrategy {
+public abstract class AbstractNamingConventionComponentFinderStrategy extends AbstractReflectionsComponentFinderStrategy {
 
     @Override
     public Collection<Component> findComponents() throws Exception {

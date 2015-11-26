@@ -8,6 +8,11 @@ import java.io.File;
 import java.util.Collection;
 import java.util.LinkedList;
 
+/**
+ * This component finder strategy doesn't really find components, it instead extracts
+ * the top-level Javadoc comment from the code so that this can be added to existing
+ * component definitions.
+ */
 public class JavadocComponentFinderStrategy extends AbstractComponentFinderStrategy {
 
     private static RootDoc ROOTDOC;

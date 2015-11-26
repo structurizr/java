@@ -1,6 +1,9 @@
 package com.structurizr.componentfinder;
 
-public class NameSuffixComponentFinderStrategy extends NamingConventionComponentFinderStrategy {
+/**
+ * Finds components based upon the end of the class name. For example *Controller.
+ */
+public class NameSuffixComponentFinderStrategy extends AbstractNamingConventionComponentFinderStrategy {
 
     private String suffix;
 

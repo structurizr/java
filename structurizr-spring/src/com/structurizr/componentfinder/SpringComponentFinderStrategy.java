@@ -7,6 +7,10 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Set;
 
+/**
+ * Finds classes annotated @Controller, @Component, @Service and @Repository to extract
+ * them as components.
+ */
 public class SpringComponentFinderStrategy extends AbstractReflectionsComponentFinderStrategy {
 
     public static final String SPRING_MVC_CONTROLLER = "Spring MVC Controller";
