@@ -76,8 +76,9 @@ public class SpringPetClinic {
 
         // link the architecture model with the code
         for (Component component : webApplication.getComponents()) {
-            if (component.getSourcePath() != null) {
-                component.setSourcePath(component.getSourcePath().replace(
+            String sourcePath = component.getSourcePath();
+            if (sourcePath != null) {
+                component.setSourcePath(sourcePath.replace(
                         "/Users/simon/Documents/sandbox/spring/spring-petclinic/",
                         "https://github.com/spring-projects/spring-petclinic/tree/master/"));
             }
@@ -100,13 +101,14 @@ public class SpringPetClinic {
         dynamicView.add(clinicService, "Calls findAll", vetRepository);
         dynamicView.add(vetRepository, "select * from vets", relationalDatabase);
 
-        viewSet.getConfiguration().getStyles().add(new ElementStyle("Spring PetClinic", null, null, "#6CB33E", "white", null));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#519823", "white", null, Shape.Person));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.CONTAINER, null, null, "#91D366", "white", null));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle("Database", null, null, null, null, null, Shape.Cylinder));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle("Spring MVC Controller", null, null, "#D4F3C0", "black", null));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle("Spring Service", null, null, "#6CB33E", "black", null));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle("Spring Repository", null, null, "#95D46C", "black", null));
+        Styles styles = viewSet.getConfiguration().getStyles();
+        styles.add(new ElementStyle("Spring PetClinic", null, null, "#6CB33E", "white", null));
+        styles.add(new ElementStyle(Tags.PERSON, null, null, "#519823", "white", null, Shape.Person));
+        styles.add(new ElementStyle(Tags.CONTAINER, null, null, "#91D366", "white", null));
+        styles.add(new ElementStyle("Database", null, null, null, null, null, Shape.Cylinder));
+        styles.add(new ElementStyle("Spring MVC Controller", null, null, "#D4F3C0", "black", null));
+        styles.add(new ElementStyle("Spring Service", null, null, "#6CB33E", "black", null));
+        styles.add(new ElementStyle("Spring Repository", null, null, "#95D46C", "black", null));
 
         StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
         structurizrClient.mergeWorkspace(1, workspace);
