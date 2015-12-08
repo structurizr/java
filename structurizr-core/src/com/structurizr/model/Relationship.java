@@ -6,6 +6,9 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * A relationship between two elements.
+ */
 public class Relationship extends Taggable {
 
     protected String id = "";
@@ -44,6 +47,11 @@ public class Relationship extends Taggable {
         return source;
     }
 
+    /**
+     * Gets the ID of the source element.
+     *
+     * @return  the ID of the source element, as a String
+     */
     public String getSourceId() {
         if (this.source != null) {
             return this.source.getId();
@@ -52,6 +60,11 @@ public class Relationship extends Taggable {
         }
     }
 
+    /**
+     * Gets the ID of this relationship in the model.
+     *
+     * @return  the ID, as a String
+     */
     public String getId() {
         return id;
     }
@@ -73,6 +86,11 @@ public class Relationship extends Taggable {
         return destination;
     }
 
+    /**
+     * Gets the ID of the destination element.
+     *
+     * @return  the ID of the destination element, as a String
+     */
     public String getDestinationId() {
         if (this.destination != null) {
             return this.destination.getId();
@@ -97,6 +115,12 @@ public class Relationship extends Taggable {
         this.description = description;
     }
 
+    /**
+     * Gets the technology associated with this relationship (e.g. HTTPS, JDBC, etc).
+     *
+     * @return  the technology as a String,
+     *          or null if a technology is not specified
+     */
     public String getTechnology() {
         return technology;
     }
@@ -105,6 +129,12 @@ public class Relationship extends Taggable {
         this.technology = technology;
     }
 
+    /**
+     * Gets the interaction style (synchronous or asynchronous).
+     *
+     * @return  an InteractionStyle,
+     *          or null if an interaction style has not been specified
+     */
     public InteractionStyle getInteractionStyle() {
         return interactionStyle;
     }

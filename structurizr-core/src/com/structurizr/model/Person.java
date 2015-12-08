@@ -6,6 +6,9 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * A person who uses a software system.
+ */
 public class Person extends Element {
 
     private Location location = Location.Unspecified;
@@ -19,6 +22,11 @@ public class Person extends Element {
     Person() {
     }
 
+    /**
+     * Gets the location of this person.
+     *
+     * @return  a Location
+     */
     public Location getLocation() {
         return location;
     }

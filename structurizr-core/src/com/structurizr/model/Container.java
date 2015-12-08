@@ -7,6 +7,9 @@ import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
+/**
+ * A container (something that can execute code or host data).
+ */
 public class Container extends Element {
 
     private SoftwareSystem parent;
@@ -32,6 +35,12 @@ public class Container extends Element {
         this.parent = parent;
     }
 
+    /**
+     * Gets the technology associated with thie container (e.g. Apache Tomcat).
+     *
+     * @return  the technology, as a String,
+     *          or null if no technology has been specified
+     */
     public String getTechnology() {
         return technology;
     }
@@ -63,6 +72,11 @@ public class Container extends Element {
         }
     }
 
+    /**
+     * Gets the set of components within this software system.
+     *
+     * @return  a Set of Component objects
+     */
     public Set<Component> getComponents() {
         return components;
     }

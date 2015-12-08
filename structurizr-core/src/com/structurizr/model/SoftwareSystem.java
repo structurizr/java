@@ -8,8 +8,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * This represents a software system, which itself can be made up of
- * a number of containers.
+ * A software system, which itself can be made up of a number of containers.
  */
 public class SoftwareSystem extends Element {
 
@@ -26,6 +25,11 @@ public class SoftwareSystem extends Element {
     SoftwareSystem() {
     }
 
+    /**
+     * Gets the location of this softare system.
+     *
+     * @return  a Location
+     */
     public Location getLocation() {
         return location;
     }
@@ -42,6 +46,11 @@ public class SoftwareSystem extends Element {
         containers.add(container);
     }
 
+    /**
+     * Gets the set of containers within this software system.
+     *
+     * @return  a Set of Container objects
+     */
     public Set<Container> getContainers() {
         return new HashSet<>(containers);
     }

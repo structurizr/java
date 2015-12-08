@@ -5,8 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.*;
 
 /**
- * This is the starting point for creating a software architecture
- * model - everything is attached to an instance of this.
+ * A software architecture model.
  */
 public class Model {
 

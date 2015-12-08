@@ -6,6 +6,9 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * A component (a grouping of related functionality behind an interface that runs inside a container).
+ */
 public class Component extends Element {
 
     private Container parent;
@@ -33,6 +36,12 @@ public class Component extends Element {
         this.parent = parent;
     }
 
+    /**
+     * Gets the technology associated with this component (e.g. Spring Bean).
+     *
+     * @return  the technology, as a String,
+     *          or null if no technology has been specified
+     */
     public String getTechnology() {
         return technology;
     }
@@ -41,6 +50,11 @@ public class Component extends Element {
         this.technology = technology;
     }
 
+    /**
+     * Gets the interface type (a fully qualified Java interface name).
+     *
+     * @return  the interface type, as a String
+     */
     public String getInterfaceType() {
         return interfaceType;
     }
@@ -49,6 +63,11 @@ public class Component extends Element {
         this.interfaceType = interfaceType;
     }
 
+    /**
+     * Gets the implementation type (a fully qualified Java class name).
+     *
+     * @return  the implementation type, as a String
+     */
     public String getImplementationType() {
         return implementationType;
     }
@@ -57,6 +76,11 @@ public class Component extends Element {
         this.implementationType = implementationType;
     }
 
+    /**
+     * Gets the source code path that reflects this component (e.g. a GitHub URL).
+     *
+     * @return  a path to the source code, as a String
+     */
     public String getSourcePath() {
         return sourcePath;
     }

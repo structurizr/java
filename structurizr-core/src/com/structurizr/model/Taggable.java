@@ -11,6 +11,12 @@ abstract class Taggable {
 
     protected abstract Set<String> getRequiredTags();
 
+    /**
+     * Gets the comma separated list of tags.
+     *
+     * @return  a comma separated list of tags,
+     *          or an empty string if there are no tags
+     */
     public String getTags() {
         Set<String> setOfTags = new LinkedHashSet<>(getRequiredTags());
         setOfTags.addAll(tags);

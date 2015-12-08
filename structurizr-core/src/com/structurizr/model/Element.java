@@ -13,6 +13,7 @@ public abstract class Element extends Taggable {
     public static final String CANONICAL_NAME_SEPARATOR = "/";
 
     private Model model;
+
     protected String id = "";
 
     protected String name;
@@ -32,6 +33,11 @@ public abstract class Element extends Taggable {
         this.model = model;
     }
 
+    /**
+     * Gets the ID of this element in the model.
+     *
+     * @return  the ID, as a String
+     */
     public String getId() {
         return id;
     }
@@ -40,6 +46,11 @@ public abstract class Element extends Taggable {
         this.id = id;
     }
 
+    /**
+     * Gets the name of this person.
+     *
+     * @return  the name, as a String
+     */
     public String getName() {
         return name;
     }
@@ -48,6 +59,11 @@ public abstract class Element extends Taggable {
         this.name = name;
     }
 
+    /**
+     * Gets a description of this person.
+     *
+     * @return  the description, as a String
+     */
     public String getDescription() {
         return description;
     }

@@ -3,6 +3,10 @@ package com.structurizr;
 import com.structurizr.model.Model;
 import com.structurizr.view.ViewSet;
 
+/**
+ * Represents a Structurizr workspace, which is a wrapper for a
+ * software architecture model and the associated views.
+ */
 public class Workspace extends AbstractWorkspace {
 
     private Model model = new Model();
@@ -15,6 +19,11 @@ public class Workspace extends AbstractWorkspace {
         super(name, description);
     }
 
+    /**
+     * Gets the software architecture model.
+     *
+     * @return  a Model instance
+     */
     public Model getModel() {
         return model;
     }
@@ -23,6 +32,11 @@ public class Workspace extends AbstractWorkspace {
         this.model = model;
     }
 
+    /**
+     * Gets the set of views onto a software architecture model.
+     *
+     * @return  a ViewSet instance
+     */
     public ViewSet getViews() {
         return viewSet;
     }

@@ -9,7 +9,7 @@ import java.util.Collection;
 import java.util.TreeSet;
 
 /**
- * Represents a set of views onto a model.
+ * A set of views onto a software architecture model.
  */
 public class ViewSet {
 
