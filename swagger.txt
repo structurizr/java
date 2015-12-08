@@ -1,0 +1,251 @@
+swagger: '2.0'
+info:
+  version: 0.5.0
+  title: Structurizr
+  description: This is the API for Structurizr.
+host: api.structurizr.com
+basePath: /
+schemes:
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /workspace/{id}:
+    get:
+      parameters:
+        - name: id
+          in: path
+          description: The workspace ID
+          type: number
+          format: long
+          required: true
+      responses:
+        '200':
+          description: A Structurizr workspace
+          schema:
+            $ref: '#/definitions/Workspace'
+    put:
+      parameters:
+        - name: id
+          in: path
+          description: The workspace ID
+          type: number
+          format: long
+          required: true
+        - name: workspace
+          in: body
+          description: The workspace JSON you want to put
+          schema:
+            $ref: '#/definitions/Workspace'
+          required: true
+      responses:
+        '200':
+          description: Updates the workspace
+
+definitions:
+
+  Workspace:
+    type: object
+    description: Represents a Structurizr workspace, which is a wrapper for a software architecture model and the associated views.
+    properties:
+      id:
+        type: number
+        format: long
+        description: The workspace ID
+      name:
+        type: string
+        description: The name of the workspace
+      description:
+        type: string
+        description: A short description of the workspace
+      thumbnail:
+        type: string
+        description: The thumbnail associated with the workspace; a Base64 encoded PNG file as a Data URI (data:image/png;base64)
+      model:
+        type: object
+        description: The software architecture model.
+        $ref: "#/definitions/Model"
+      views:
+        type: string
+        description: The set of views onto a software architecture model
+
+  Model:
+    type: object
+    description: A software architecture model.
+    properties:
+      people:
+        type: array
+        items:
+          $ref: "#/definitions/Person"
+      softwareSystems:
+        type: array
+        items:
+          $ref: "#/definitions/SoftwareSystem"
+
+  Person:
+    type: object
+    description: A person who uses a software system.
+    properties:
+      id:
+        type: string
+        description: The ID of this person in the model.
+      name:
+        type: string
+        description: The name of this person.
+      description:
+        type: string
+        description: A short description of this person.
+      tags:
+        type: string
+        description: A comma separated list of tags associated with this person.
+      location:
+        type: string
+        description: The location of this person.
+        enum: [ "Extenal", "Internal", "Unspecified" ]
+      type:
+        type: string
+        description: The type of this element.
+        enum: [ "Person" ]
+      relationships:
+        type: array
+        items:
+        description: The set of relationships between this person and other elements.
+        items:
+          $ref: "#/definitions/Relationship"
+
+  SoftwareSystem:
+    type: object
+    description: A software system.
+    properties:
+      id:
+        type: string
+        description: The ID of this software system in the model.
+      name:
+        type: string
+        description: The name of this software system.
+      description:
+        type: string
+        description: A short description of this software system.
+      location:
+        type: string
+        description: The location of this software system.
+        enum: [ "Extenal", "Internal", "Unspecified" ]
+      type:
+        type: string
+        description: The type of this element.
+        enum: [ "SoftwareSystem" ]
+      tags:
+        type: string
+        description: A comma separated list of tags associated with this software system.
+      containers:
+        type: array
+        description: The set of containers within this software system.
+        items:
+          $ref: "#/definitions/Container"
+      relationships:
+        type: array
+        description: The set of relationships between this software system and other elements.
+        items:
+          $ref: "#/definitions/Relationship"
+
+  Container:
+    type: object
+    description: A container (something that can execute code or host data).
+    properties:
+      id:
+        type: string
+        description: The ID of this container in the model.
+      name:
+        type: string
+        description: The name of this container.
+      description:
+        type: string
+        description: A short description of this container.
+      technology:
+        type: string
+        description: The technology associated with this container (e.g. Apache Tomcat).
+      type:
+        type: string
+        description: The type of this element.
+        enum: [ "Container" ]
+      tags:
+        type: string
+        description: A comma separated list of tags associated with this container.
+      components:
+        type: array
+        description: The set of components within this container.
+        items:
+          $ref: "#/definitions/Component"
+      relationships:
+        type: array
+        description: The set of relationships between this container and other elements.
+        items:
+          $ref: "#/definitions/Relationship"
+
+  Component:
+    type: object
+    description: A component (a grouping of related functionality behind an interface that runs inside a container).
+    properties:
+      id:
+        type: string
+        description: The ID of this component in the model.
+      name:
+        type: string
+        description: The name of this component.
+      description:
+        type: string
+        description: A short description of this component.
+      technology:
+        type: string
+        description: The technology associated with this component (e.g. Spring Bean).
+      interfaceType:
+        type: string
+        description: The interface type (e.g. a fully qualified Java interface name).
+      implementationType:
+        type: string
+        description: The implementation type (e.g. a fully qualified Java class name).
+      sourcePath:
+        type: string
+        description: The source code path that reflects this component (e.g. a GitHub URL).
+      type:
+        type: string
+        description: The type of this element.
+        enum: [ "Component" ]
+      tags:
+        type: string
+        description: A comma separated list of tags associated with this container.
+      relationships:
+        type: array
+        description: The set of relationships between this container and other elements.
+        items:
+          $ref: "#/definitions/Relationship"
+
+  Relationship:
+    type: object
+    description: A relationship between two elements.
+    properties:
+      id:
+        type: string
+        description: The ID of this relationship in the model.
+      description:
+        type: string
+        description: A short description of this relationship.
+      tags:
+        type: string
+        description: A comma separated list of tags associated with this relationship.
+      sourceId:
+        type: string
+        description: The ID of the source element.
+      destinationId:
+        type: string
+        description: The ID of the destination element.
+      technology:
+        type: string
+        description: The technology associated with this relationship (e.g. HTTPS, JDBC, etc).
+      interactionStyle:
+        type: string
+        description: The interaction style (synchronous or asynchronous).
+        enum: [ "Synchronous", "Asynchronous" ]
+
