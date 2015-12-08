@@ -67,6 +67,15 @@ public class StructurizrClient {
     }
 
     /**
+     * Creates a new Structurizr client with the specified API key and secret.
+     */
+    public StructurizrClient(String apiKey, String apiSecret) {
+        setUrl("https://api.structurizr.com");
+        this.apiKey = apiKey;
+        this.apiSecret = apiSecret;
+    }
+
+    /**
      * Creates a new Structurizr client with the specified API URL, key and secret.
      */
     public StructurizrClient(String url, String apiKey, String apiSecret) {
