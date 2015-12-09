@@ -71,7 +71,7 @@ definitions:
         type: string
         description: The set of views onto a software architecture model.
         $ref: "#/definitions/Views"
-        
+
   Model:
     type: object
     description: A software architecture model.
@@ -84,7 +84,7 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/SoftwareSystem"
-          
+
   Person:
     type: object
     description: A person who uses a software system.
@@ -111,7 +111,7 @@ definitions:
         description: The set of relationships between this person and other elements.
         items:
           $ref: "#/definitions/Relationship"
-            
+
   SoftwareSystem:
     type: object
     description: A software system.
@@ -142,7 +142,7 @@ definitions:
         description: The set of relationships between this software system and other elements.
         items:
           $ref: "#/definitions/Relationship"
-    
+
   Container:
     type: object
     description: A container (something that can execute code or host data).
@@ -172,7 +172,7 @@ definitions:
         description: The set of relationships between this container and other elements.
         items:
           $ref: "#/definitions/Relationship"
-    
+
   Component:
     type: object
     description: A component (a grouping of related functionality behind an interface that runs inside a container).
@@ -206,7 +206,7 @@ definitions:
         description: The set of relationships between this container and other elements.
         items:
           $ref: "#/definitions/Relationship"
-    
+
   Relationship:
     type: object
     description: A relationship between two elements.
@@ -233,7 +233,7 @@ definitions:
         type: string
         description: The interaction style (synchronous or asynchronous).
         enum: [ "Synchronous", "Asynchronous" ]
-        
+
   Views:
     type: object
     description: The set of views onto a software architecture model.
@@ -243,6 +243,16 @@ definitions:
         description: The set of system context views.
         items:
           $ref: "#/definitions/SystemContextView"
+      containerViews:
+        type: array
+        description: The set of container views.
+        items:
+          $ref: "#/definitions/ContainerView"
+      componentViews:
+        type: array
+        description: The set of component views.
+        items:
+          $ref: "#/definitions/ComponentView"
       configuration:
         type: object
         description: The configuration object associated with this set of views.
@@ -350,7 +360,7 @@ definitions:
         type: number
         format: integer
         description: The vertical position of the element when rendered.
-        
+
   RelationshipInView:
     type: object
     description: An instance of a model relationship in a View.
@@ -369,7 +379,7 @@ definitions:
         description: The set of vertices used to render the relationship.
         items:
           $ref: "#/definitions/Vertex"
-          
+
   Vertex:
     type: object
     description: The X, Y coordinate of a bend in a line.
@@ -395,12 +405,12 @@ definitions:
             type: array
             description: The set of element styles.
             items:
-              $ref: "#/definitions/ElementStyle"  
+              $ref: "#/definitions/ElementStyle"
           relationships:
             type: array
             description: The set of relationship styles.
             items:
-              $ref: "#/definitions/RelationshipStyle"  
+              $ref: "#/definitions/RelationshipStyle"
 
   ElementStyle:
     type: object
