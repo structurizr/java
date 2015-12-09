@@ -20,7 +20,6 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_construction() {
-        assertEquals(ViewType.Container, view.getType());
         assertEquals("The System - Containers", view.getName());
         assertEquals("Some description", view.getDescription());
         assertEquals(0, view.getElements().size());

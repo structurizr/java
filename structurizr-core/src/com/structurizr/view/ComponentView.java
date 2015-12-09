@@ -101,11 +101,6 @@ public class ComponentView extends StaticView {
     }
 
     @Override
-    public final ViewType getType() {
-        return ViewType.Component;
-    }
-
-    @Override
     public String getName() {
         return getSoftwareSystem().getName() + " - " + getContainer().getName() + " - Components";
     }

@@ -22,7 +22,6 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_construction() {
-        assertEquals(ViewType.SystemContext, view.getType());
         assertEquals("The System - System Context", view.getName());
         assertEquals(1, view.getElements().size());
         assertSame(view.getElements().iterator().next().getElement(), softwareSystem);

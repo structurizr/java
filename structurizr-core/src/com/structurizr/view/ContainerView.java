@@ -41,11 +41,6 @@ public class ContainerView extends StaticView {
     }
 
     @Override
-    public final ViewType getType() {
-        return ViewType.Container;
-    }
-
-    @Override
     public String getName() {
         return getSoftwareSystem().getName() + " - Containers";
     }

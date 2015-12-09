@@ -58,8 +58,6 @@ public abstract class View implements Comparable<View> {
         this.softwareSystemId = softwareSystemId;
     }
 
-    public abstract ViewType getType();
-
     public String getDescription() {
         return description;
     }
@@ -274,14 +272,7 @@ public abstract class View implements Comparable<View> {
     RelationshipView findRelationshipView(RelationshipView sourceRelationshipView) {
         for (RelationshipView relationshipView : getRelationships()) {
             if (relationshipView.getRelationship().equals(sourceRelationshipView.getRelationship())) {
-                if (this.getType() == ViewType.Dynamic) {
-                    if ((relationshipView.getDescription() != null && relationshipView.getDescription().equals(sourceRelationshipView.getDescription())) &&
-                            relationshipView.getOrder().equals(sourceRelationshipView.getOrder())) {
-                        return relationshipView;
-                    }
-                } else {
-                    return relationshipView;
-                }
+                return relationshipView;
             }
         }
 

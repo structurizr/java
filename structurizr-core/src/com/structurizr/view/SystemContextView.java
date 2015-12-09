@@ -37,11 +37,6 @@ public class SystemContextView extends StaticView {
     }
 
     @Override
-    public final ViewType getType() {
-        return ViewType.SystemContext;
-    }
-
-    @Override
     public String getName() {
         return getSoftwareSystem().getName() + " - System Context";
     }
