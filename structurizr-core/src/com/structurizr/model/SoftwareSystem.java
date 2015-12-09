@@ -139,11 +139,6 @@ public class SoftwareSystem extends Element {
     }
 
     @Override
-    public final ElementType getType() {
-        return ElementType.SoftwareSystem;
-    }
-
-    @Override
     public String getCanonicalName() {
         return CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getName());
     }

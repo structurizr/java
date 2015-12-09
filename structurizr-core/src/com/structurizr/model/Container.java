@@ -115,11 +115,6 @@ public class Container extends Element {
     }
 
     @Override
-    public final ElementType getType() {
-        return ElementType.Container;
-    }
-
-    @Override
     public String getCanonicalName() {
         return getParent().getCanonicalName() + CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getName());
     }

@@ -70,7 +70,7 @@ definitions:
       views:
         type: string
         description: The set of views onto a software architecture model
-
+        
   Model:
     type: object
     description: A software architecture model.
@@ -83,7 +83,7 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/SoftwareSystem"
-
+          
   Person:
     type: object
     description: A person who uses a software system.
@@ -104,17 +104,13 @@ definitions:
         type: string
         description: The location of this person.
         enum: [ "Extenal", "Internal", "Unspecified" ]
-      type:
-        type: string
-        description: The type of this element.
-        enum: [ "Person" ]
       relationships:
         type: array
         items:
         description: The set of relationships between this person and other elements.
         items:
           $ref: "#/definitions/Relationship"
-
+            
   SoftwareSystem:
     type: object
     description: A software system.
@@ -132,10 +128,6 @@ definitions:
         type: string
         description: The location of this software system.
         enum: [ "Extenal", "Internal", "Unspecified" ]
-      type:
-        type: string
-        description: The type of this element.
-        enum: [ "SoftwareSystem" ]
       tags:
         type: string
         description: A comma separated list of tags associated with this software system.
@@ -149,7 +141,7 @@ definitions:
         description: The set of relationships between this software system and other elements.
         items:
           $ref: "#/definitions/Relationship"
-
+    
   Container:
     type: object
     description: A container (something that can execute code or host data).
@@ -166,10 +158,6 @@ definitions:
       technology:
         type: string
         description: The technology associated with this container (e.g. Apache Tomcat).
-      type:
-        type: string
-        description: The type of this element.
-        enum: [ "Container" ]
       tags:
         type: string
         description: A comma separated list of tags associated with this container.
@@ -183,7 +171,7 @@ definitions:
         description: The set of relationships between this container and other elements.
         items:
           $ref: "#/definitions/Relationship"
-
+    
   Component:
     type: object
     description: A component (a grouping of related functionality behind an interface that runs inside a container).
@@ -209,10 +197,6 @@ definitions:
       sourcePath:
         type: string
         description: The source code path that reflects this component (e.g. a GitHub URL).
-      type:
-        type: string
-        description: The type of this element.
-        enum: [ "Component" ]
       tags:
         type: string
         description: A comma separated list of tags associated with this container.
@@ -221,7 +205,7 @@ definitions:
         description: The set of relationships between this container and other elements.
         items:
           $ref: "#/definitions/Relationship"
-
+    
   Relationship:
     type: object
     description: A relationship between two elements.
@@ -248,4 +232,4 @@ definitions:
         type: string
         description: The interaction style (synchronous or asynchronous).
         enum: [ "Synchronous", "Asynchronous" ]
-
+        

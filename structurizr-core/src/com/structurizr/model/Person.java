@@ -40,11 +40,6 @@ public class Person extends Element {
     }
 
     @Override
-    public final ElementType getType() {
-        return ElementType.Person;
-    }
-
-    @Override
     public String getCanonicalName() {
         return CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getName());
     }

@@ -71,7 +71,7 @@ public abstract class StaticView extends View {
 
     public abstract void addNearestNeighbours(Element element);
 
-    protected void addNearestNeighbours(Element element, ElementType type) {
+    protected <T extends Element> void addNearestNeighbours(Element element, Class<T> typeOfElement) {
         if (element == null) {
             return;
         }
@@ -79,11 +79,11 @@ public abstract class StaticView extends View {
         addElement(element, true);
 
         Set<Relationship> relationships = getModel().getRelationships();
-        relationships.stream().filter(r -> r.getSource().equals(element) && r.getDestination().isType(type))
+        relationships.stream().filter(r -> r.getSource().equals(element) && typeOfElement.isInstance(r.getDestination()))
                 .map(Relationship::getDestination)
                 .forEach(d -> addElement(d, true));
 
-        relationships.stream().filter(r -> r.getDestination().equals(element) && r.getSource().isType(type))
+        relationships.stream().filter(r -> r.getDestination().equals(element) && typeOfElement.isInstance(r.getSource()))
                 .map(Relationship::getSource)
                 .forEach(s -> addElement(s, true));
     }

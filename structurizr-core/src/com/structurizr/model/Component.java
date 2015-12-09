@@ -108,11 +108,6 @@ public class Component extends Element {
     }
 
     @Override
-    public final ElementType getType() {
-        return ElementType.Component;
-    }
-
-    @Override
     public String getCanonicalName() {
         return getParent().getCanonicalName() + CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getName());
     }

@@ -2,7 +2,7 @@ package com.structurizr.view;
 
 import com.structurizr.model.Container;
 import com.structurizr.model.Element;
-import com.structurizr.model.ElementType;
+import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
 
 public class ContainerView extends StaticView {
@@ -59,9 +59,9 @@ public class ContainerView extends StaticView {
 
     @Override
     public void addNearestNeighbours(Element element) {
-        super.addNearestNeighbours(element, ElementType.SoftwareSystem);
-        super.addNearestNeighbours(element, ElementType.Person);
-        super.addNearestNeighbours(element, ElementType.Container);
+        super.addNearestNeighbours(element, SoftwareSystem.class);
+        super.addNearestNeighbours(element, Person.class);
+        super.addNearestNeighbours(element, Container.class);
     }
 
 }

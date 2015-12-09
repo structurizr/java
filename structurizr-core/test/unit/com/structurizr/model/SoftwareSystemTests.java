@@ -12,11 +12,6 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
     private SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "Name", "Description");
 
     @Test
-    public void test_getType_ReturnsSoftwareSystem() {
-        assertEquals(ElementType.SoftwareSystem, softwareSystem.getType());
-    }
-
-    @Test
     public void test_addContainer_AddsAContainer_WhenAContainerWithTheSameNameDoesNotExist() {
         Container container = softwareSystem.addContainer("Web Application", "Description", "Spring MVC");
         assertEquals("Web Application", container.getName());

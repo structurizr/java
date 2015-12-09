@@ -1,10 +1,7 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.structurizr.model.Component;
-import com.structurizr.model.Container;
-import com.structurizr.model.Element;
-import com.structurizr.model.ElementType;
+import com.structurizr.model.*;
 
 public class ComponentView extends StaticView {
 
@@ -123,10 +120,10 @@ public class ComponentView extends StaticView {
 
     @Override
     public void addNearestNeighbours(Element element) {
-        super.addNearestNeighbours(element, ElementType.SoftwareSystem);
-        super.addNearestNeighbours(element, ElementType.Person);
-        super.addNearestNeighbours(element, ElementType.Container);
-        super.addNearestNeighbours(element, ElementType.Component);
+        super.addNearestNeighbours(element, SoftwareSystem.class);
+        super.addNearestNeighbours(element, Person.class);
+        super.addNearestNeighbours(element, Container.class);
+        super.addNearestNeighbours(element, Component.class);
     }
 
 }
