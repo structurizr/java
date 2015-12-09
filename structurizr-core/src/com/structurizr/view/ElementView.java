@@ -3,6 +3,9 @@ package com.structurizr.view;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.Element;
 
+/**
+ * Represents an instance of an Element in a View.
+ */
 public class ElementView {
 
     private Element element;
@@ -26,6 +29,11 @@ public class ElementView {
         this.element = element;
     }
 
+    /**
+     * Gets the ID of the Element.
+     *
+     * @return  the ID of the Element, as a String
+     */
     public String getId() {
         if (element != null) {
             return element.getId();
@@ -38,6 +46,11 @@ public class ElementView {
         this.id = id;
     }
 
+    /**
+     * Gets the horizontal position of the element when rendered.
+     *
+     * @return  the X coordinate, as an int
+     */
     public int getX() {
         return x;
     }
@@ -46,6 +59,11 @@ public class ElementView {
         this.x = x;
     }
 
+    /**
+     * Gets the vertical position of the element when rendered.
+     *
+     * @return  the Y coordinate, as an int
+     */
     public int getY() {
         return y;
     }

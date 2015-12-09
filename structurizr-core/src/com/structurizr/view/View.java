@@ -46,6 +46,11 @@ public abstract class View implements Comparable<View> {
         this.softwareSystem = softwareSystem;
     }
 
+    /**
+     * Gets the ID of the software system this view is associated with.
+     *
+     * @return  the ID, as a String
+     */
     public String getSoftwareSystemId() {
         if (this.softwareSystem != null) {
             return this.softwareSystem.getId();
@@ -70,6 +75,12 @@ public abstract class View implements Comparable<View> {
         }
     }
 
+    /**
+     * Gets the identifer for this view.
+     *
+     * @return  the identifier, as a String,
+     *          or null if no key has been specified
+     */
     public String getKey() {
         return key;
     }
@@ -78,6 +89,11 @@ public abstract class View implements Comparable<View> {
         this.key = key;
     }
 
+    /**
+     * Gets the paper size that should be used to render this view.
+     *
+     * @return  a PaperSize (A4_Portrait by default)
+     */
     public PaperSize getPaperSize() {
         return paperSize;
     }
@@ -86,6 +102,11 @@ public abstract class View implements Comparable<View> {
         this.paperSize = paperSize;
     }
 
+    /**
+     * Gets the name of this view.
+     *
+     * @return  the name, as a String
+     */
     public abstract String getName();
 
     @JsonIgnore
@@ -210,6 +231,11 @@ public abstract class View implements Comparable<View> {
         this.elementViews = elementViews;
     }
 
+    /**
+     * Gets the set of relationships in this view.
+     *
+     * @return  a Set of RelationshipView objects
+     */
     public Set<RelationshipView> getRelationships() {
         return new HashSet<>(this.relationshipViews);
     }

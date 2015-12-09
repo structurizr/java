@@ -2,6 +2,9 @@ package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+/**
+ * A definition of an element style.
+ */
 public class ElementStyle {
 
     public static final int DEFAULT_WIDTH = 450;
@@ -48,6 +51,11 @@ public class ElementStyle {
         this.shape = shape;
     }
 
+    /**
+     * The tag to which this element style applies.
+     *
+     * @return  the tag, as a String
+     */
     public String getTag() {
         return tag;
     }
@@ -56,6 +64,11 @@ public class ElementStyle {
         this.tag = tag;
     }
 
+    /**
+     * Gets the width of the element, in pixels.
+     *
+     * @return  the width as an Integer, or null if not specified
+     */
     public Integer getWidth() {
         return width;
     }
@@ -64,6 +77,11 @@ public class ElementStyle {
         this.width = width;
     }
 
+    /**
+     * Gets the height of the element, in pixels.
+     *
+     * @return  the height as an Integer, or null if not specified
+     */
     public Integer getHeight() {
         return height;
     }
@@ -72,6 +90,11 @@ public class ElementStyle {
         this.height = height;
     }
 
+    /**
+     * Gets the background colour of the element, as a HTML RGB hex string (e.g. #123456).
+     *
+     * @return  the background colour as a String, or null if not specified
+     */
     public String getBackground() {
         return background;
     }
@@ -80,6 +103,11 @@ public class ElementStyle {
         this.background = background;
     }
 
+    /**
+     * Gets the foreground (text) colour of the element, as a HTML RGB hex string (e.g. #123456).
+     *
+     * @return  the foreground colour as a String, or null if not specified
+     */
     public String getColor() {
         return color;
     }
@@ -88,6 +116,11 @@ public class ElementStyle {
         this.color = color;
     }
 
+    /**
+     * Gets the standard font size used to render text, in pixels.
+     *
+     * @return  the font size, in pixels, as an Integer, or null if not specified
+     */
     public Integer getFontSize() {
         return fontSize;
     }
@@ -96,6 +129,11 @@ public class ElementStyle {
         this.fontSize = fontSize;
     }
 
+    /**
+     * Gets the shape used to render the element.
+     *
+     * @return  a Shape, or null if not specified
+     */
     public Shape getShape() {
         return shape;
     }

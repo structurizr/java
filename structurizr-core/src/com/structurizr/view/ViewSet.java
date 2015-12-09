@@ -20,7 +20,6 @@ public class ViewSet {
     private Collection<ComponentView> componentViews = new TreeSet<>();
     private Collection<DynamicView> dynamicViews = new TreeSet<>();
 
-    private Styles styles = new Styles();
     private Configuration configuration = new Configuration();
 
     ViewSet() {
@@ -79,6 +78,11 @@ public class ViewSet {
         return view;
     }
 
+    /**
+     * Gets the set of system context views.
+     *
+     * @return  a Collection of SystemContextView objects
+     */
     public Collection<SystemContextView> getSystemContextViews() {
         return new TreeSet<>(systemContextViews);
     }
@@ -119,13 +123,10 @@ public class ViewSet {
     }
 
     /**
-     * @deprecated use {@link ViewSet#getConfiguration()} and call {@link Configuration#getStyles()} there
+     * Gets the configuration object associated with this set of views.
+     *
+     * @return  a Configuration object
      */
-    @Deprecated
-    public Styles getStyles() {
-        return styles;
-    }
-
     public Configuration getConfiguration() {
         return configuration;
     }

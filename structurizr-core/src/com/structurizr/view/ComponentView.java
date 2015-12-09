@@ -17,6 +17,11 @@ public class ComponentView extends StaticView {
         this.container = container;
     }
 
+    /**
+     * Gets the ID of the container associated with this view.
+     *
+     * @return  the ID, as a String
+     */
     public String getContainerId() {
         if (this.container != null) {
             return container.getId();

@@ -17,32 +17,32 @@ paths:
       parameters:
         - name: id
           in: path
-          description: The workspace ID
+          description: The workspace ID.
           type: number
           format: long
           required: true
       responses:
         '200':
-          description: A Structurizr workspace
+          description: A Structurizr workspace.
           schema:
             $ref: '#/definitions/Workspace'
     put:
       parameters:
         - name: id
           in: path
-          description: The workspace ID
+          description: The workspace ID.
           type: number
           format: long
           required: true
         - name: workspace
           in: body
-          description: The workspace JSON you want to put
+          description: The workspace JSON you want to put.
           schema:
             $ref: '#/definitions/Workspace'
           required: true
       responses:
         '200':
-          description: Updates the workspace
+          description: Updates the workspace.
 
 definitions:
 
@@ -53,23 +53,24 @@ definitions:
       id:
         type: number
         format: long
-        description: The workspace ID
+        description: The workspace ID.
       name:
         type: string
-        description: The name of the workspace
+        description: The name of the workspace.
       description:
         type: string
-        description: A short description of the workspace
+        description: A short description of the workspace.
       thumbnail:
         type: string
-        description: The thumbnail associated with the workspace; a Base64 encoded PNG file as a Data URI (data:image/png;base64)
+        description: The thumbnail associated with the workspace; a Base64 encoded PNG file as a Data URI (data:image/png;base64).
       model:
         type: object
         description: The software architecture model.
         $ref: "#/definitions/Model"
       views:
         type: string
-        description: The set of views onto a software architecture model
+        description: The set of views onto a software architecture model.
+        $ref: "#/definitions/Views"
         
   Model:
     type: object
@@ -232,4 +233,235 @@ definitions:
         type: string
         description: The interaction style (synchronous or asynchronous).
         enum: [ "Synchronous", "Asynchronous" ]
+        
+  Views:
+    type: object
+    description: The set of views onto a software architecture model.
+    properties:
+      systemContextViews:
+        type: array
+        description: The set of system context views.
+        items:
+          $ref: "#/definitions/SystemContextView"
+      configuration:
+        type: object
+        description: The configuration object associated with this set of views.
+        $ref: "#/definitions/Configuration"
+
+  SystemContextView:
+    type: object
+    description: A system context view.
+    properties:
+      name:
+        type: string
+        description: The name of this view.
+      key:
+        type: string
+        description: An identifier for this view.
+      softwareSystemId:
+        type: string
+        description: The ID of the software system this view is associated with.
+      paperSize:
+        type: string
+        description: The paper size that should be used to render this view.
+        enum: [ "A5_Portrait", "A5_Landscape", "A4_Portrait", "A4_Landscape", "A3_Portrait", "A3_Landscape", "A2_Portrait", "A2_Landscape", "Letter_Portrait", "Letter_Landscape", "Slide_4_3", "Slide_16_9" ]
+      elements:
+        type: array
+        description: The set of elements in this views.
+        items:
+          $ref: "#/definitions/ElementInView"
+      relationships:
+        type: array
+        description: The set of relationships in this views.
+        items:
+          $ref: "#/definitions/RelationshipInView"
+
+  ContainerView:
+    type: object
+    description: A container view.
+    properties:
+      name:
+        type: string
+        description: The name of this view.
+      key:
+        type: string
+        description: An identifier for this view.
+      softwareSystemId:
+        type: string
+        description: The ID of the software system this view is associated with.
+      paperSize:
+        type: string
+        description: The paper size that should be used to render this view.
+        enum: [ "A5_Portrait", "A5_Landscape", "A4_Portrait", "A4_Landscape", "A3_Portrait", "A3_Landscape", "A2_Portrait", "A2_Landscape", "Letter_Portrait", "Letter_Landscape", "Slide_4_3", "Slide_16_9" ]
+      elements:
+        type: array
+        description: The set of elements in this views.
+        items:
+          $ref: "#/definitions/ElementInView"
+      relationships:
+        type: array
+        description: The set of relationships in this views.
+        items:
+          $ref: "#/definitions/RelationshipInView"
+
+  ComponentView:
+    type: object
+    description: A system context view.
+    properties:
+      name:
+        type: string
+        description: The name of this view.
+      key:
+        type: string
+        description: An identifier for this view.
+      softwareSystemId:
+        type: string
+        description: The ID of the software system this view is associated with.
+      containerId:
+        type: string
+        description: The ID of the container this view is associated with.
+      paperSize:
+        type: string
+        description: The paper size that should be used to render this view.
+        enum: [ "A5_Portrait", "A5_Landscape", "A4_Portrait", "A4_Landscape", "A3_Portrait", "A3_Landscape", "A2_Portrait", "A2_Landscape", "Letter_Portrait", "Letter_Landscape", "Slide_4_3", "Slide_16_9" ]
+      elements:
+        type: array
+        description: The set of elements in this views.
+        items:
+          $ref: "#/definitions/ElementInView"
+      relationships:
+        type: array
+        description: The set of relationships in this views.
+        items:
+          $ref: "#/definitions/RelationshipInView"
+
+  ElementInView:
+    type: object
+    description: An instance of a model element (Person, Software System, Container or Component) in a View.
+    properties:
+      id:
+        type: string
+        description: The ID of the element.
+      x:
+        type: number
+        format: integer
+        description: The horizontal position of the element when rendered.
+      y:
+        type: number
+        format: integer
+        description: The vertical position of the element when rendered.
+        
+  RelationshipInView:
+    type: object
+    description: An instance of a model relationship in a View.
+    properties:
+      id:
+        type: string
+        description: The ID of the relationship.
+      order:
+        type: string
+        description: The order of this relationship (used in dynamic views only; e.g. 1.0, 1.1, 2.0, etc).
+      description:
+        type: string
+        description: The description of this relationship (used in dynamic views only).
+      vertices:
+        type: array
+        description: The set of vertices used to render the relationship.
+        items:
+          $ref: "#/definitions/Vertex"
+          
+  Vertex:
+    type: object
+    description: The X, Y coordinate of a bend in a line.
+    properties:
+      x:
+        type: number
+        format: integer
+        description: The horizontal position of the vertex when rendered.
+      y:
+        type: number
+        format: integer
+        description: The vertical position of the vertex when rendered.
+
+  Configuration:
+    type: object
+    description: The configuration associated with a set of views.
+    properties:
+      styles:
+        type: object
+        description: The styles associated with this set of views.
+        properties:
+          elements:
+            type: array
+            description: The set of element styles.
+            items:
+              $ref: "#/definitions/ElementStyle"  
+          relationships:
+            type: array
+            description: The set of relationship styles.
+            items:
+              $ref: "#/definitions/RelationshipStyle"  
+
+  ElementStyle:
+    type: object
+    description: A definition of an element style.
+    properties:
+      tag:
+        type: string
+        description: The tag to which this element style applies.
+      width:
+        type: number
+        format: integer
+        description: The width of the element, in pixels.
+      height:
+        type: number
+        format: integer
+        description: The height of the element, in pixels.
+      background:
+        type: string
+        description: The background colour of the element, as a HTML RGB hex string (e.g. #123456).
+      color:
+        type: string
+        description: The foreground (text) colour of the element, as a HTML RGB hex string (e.g. #123456).
+      fontSize:
+        type: number
+        format: integer
+        description: The standard font size used to render text, in pixels.
+      shape:
+        type: string
+        description: The shape used to render the element.
+        enum: [ "Box", "RoundedBox", "Cylinder", "Person", "Folder" ]
+
+  RelationshipStyle:
+    type: object
+    description: A definition of a relationship style.
+    properties:
+      tag:
+        type: string
+        description: The tag to which this relationship style applies.
+      thickness:
+        type: number
+        format: integer
+        description: The thickness of the line, in pixels.
+      color:
+        type: string
+        description: The colour of the line, as a HTML RGB hex string (e.g. #123456).
+      fontSize:
+        type: number
+        format: integer
+        description: The standard font size used to render the relationship annotation, in pixels.
+      width:
+        type: number
+        format: integer
+        description: The width of the relationship annotation, in pixels.
+      dashed:
+        type: boolean
+        description: A flag to indicate whether the line is rendered as dashed or not.
+      smooth:
+        type: boolean
+        description: A flag to indicate whether the line is rendered as smooth (curved) or not.
+      position:
+        type: number
+        format: integer
+        description: The position of the annotation along the line; 0 (start) to 100 (end).
         

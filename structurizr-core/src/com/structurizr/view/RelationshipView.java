@@ -42,6 +42,12 @@ public class RelationshipView {
         this.relationship = relationship;
     }
 
+    /**
+     * Gets the description of this relationship (used in dynamic views only).
+     *
+     * @return  the description, as a String
+     *          or an empty string if a description has not been set
+     */
     public String getDescription() {
         return description != null ? description : "";
     }
@@ -50,6 +56,11 @@ public class RelationshipView {
         this.description = description;
     }
 
+    /**
+     * Gets the order of this relationship (used in dynamic views only; e.g. 1.0, 1.1, 2.0, etc).
+     *
+     * @return  the order, as a String
+     */
     public String getOrder() {
         return order;
     }
@@ -58,6 +69,11 @@ public class RelationshipView {
         this.order = order;
     }
 
+    /**
+     * Gets the set of vertices used to render the relationship.
+     *
+     * @return  a collection of Vertex objects
+     */
     public Collection<Vertex> getVertices() {
         return vertices;
     }

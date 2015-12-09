@@ -1,5 +1,8 @@
 package com.structurizr.view;
 
+/**
+ * The X, Y coordinate of a bend in a line.
+ */
 public class Vertex {
 
     private int x;
@@ -13,6 +16,11 @@ public class Vertex {
         this.y = y;
     }
 
+    /**
+     * Gets the horizontal position of the vertex when rendered.
+     *
+     * @return  the X coordinate, as an int
+     */
     public int getX() {
         return x;
     }
@@ -21,6 +29,11 @@ public class Vertex {
         this.x = x;
     }
 
+    /**
+     * Gets the vertical position of the vertex when rendered.
+     *
+     * @return  the Y coordinate, as an int
+     */
     public int getY() {
         return y;
     }
