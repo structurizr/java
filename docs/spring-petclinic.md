@@ -98,6 +98,7 @@ webApplication.getComponents().stream()
 webApplication.getComponents().stream()
     .filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_REPOSITORY))
     .forEach(c -> c.uses(relationalDatabase, "Reads from and writes to", "JDBC"));
+```
 
 ## 6. Create some views
 
