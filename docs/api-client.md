@@ -8,7 +8,7 @@ The are two ways to configure the API client.
 
 ### 1. Programmatically
 
-The easiest way to configure the API client is to provide values for the URL, API key and API secret programmatically. Each workspace has its own API key and secret, the values for which can be found on [your dashboard](https://structurizr.com/dashboard).
+The easiest way to configure the API client is to provide values for the API key and API secret programmatically. Each workspace has its own API key and secret, the values for which can be found on [your dashboard](https://structurizr.com/dashboard).
 
 ```java
 StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
