@@ -111,4 +111,4 @@ Once you have uploaded your model to Structurizr and organised the boxes on the 
 structurizrClient.mergeWorkspace(1234, workspace);
 ```
 
-This will get the current version of the workspace via the API, merge the diagram layout information, and then upload the new version via the API. See [The API Client](https://github.com/structurizr/java/blob/master/structurizr-client/src/com/structurizr/api/StructurizrClient.java) for more details.
+This will get the current version of the workspace via the API, merge the diagram layout information, and then upload the new version via the API. See [API Client](docs/api-client) for more details.
