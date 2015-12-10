@@ -7,7 +7,7 @@ FREE [The Art of Visualising Software Architecture](https://leanpub.com/visualis
 
 ![An overview of Structurizr](docs/images/structurizr-overview.png)
 
-## Table of Contents
+## Table of contents
 
 1. [Building from source](#building)
 1. [Binaries](#binaries)
