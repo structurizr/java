@@ -69,6 +69,7 @@ Container relationalDatabase = springPetClinic.addContainer("Relational Database
 
 clinicEmployee.uses(webApplication, "Uses", "HTTP");
 webApplication.uses(relationalDatabase, "Reads from and writes to", "JDBC, port 9001");
+```
 
 ## 5. Components
 
