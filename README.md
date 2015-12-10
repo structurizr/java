@@ -16,7 +16,7 @@ FREE [The Art of Visualising Software Architecture](https://leanpub.com/visualis
 1. [Styling elements](docs/styling-elements.md)
 1. [Styling relationships](docs/styling-relationships.md)
 1. [Hiding relationships](docs/hiding-relationships.md)
-1. [Component finder](docs/component-finder.md)
+1. [Extracting components from your codebase](docs/extracting-components.md)
  
 ## Building
 

@@ -1,4 +1,4 @@
-# Component finder
+# Extracting components from your codebase
 
 The Structurizr for Java library includes a component finder and a number of prebuilt pluggable strategies that allow you to extract components from a codebase.
 
