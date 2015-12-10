@@ -1,15 +1,21 @@
-![Structurizr](images/structurizr-banner.png)
+![Structurizr](docs/images/structurizr-banner.png)
 
 # Structurizr for Java
 
 Structurizr is an implementation of the C4 model as described in Simon Brown's
 FREE [The Art of Visualising Software Architecture](https://leanpub.com/visualising-software-architecture) book, which provides a way to easily and effectively communicate the software architecture of a software system. Structurizr allows you to create __software architecture models and diagrams as code__. This GitHub repo provides a Java implementation and tooling to create software architecture models. [structurizr.com](https://structurizr.com) provides a way to create diagrams from those models.
 
-![An overview of Structurizr](images/structurizr-overview.png)
+![An overview of Structurizr](docs/images/structurizr-overview.png)
+
+## Table of Contents
+
+1. [Building from source](#building)
+1. [Binaries](#binaries)
+1. [Getting started](#getting-started)
 
 ## Building
 
-To build Struturizr for Java from the sources (you'll need Java 8)...
+To build "Structurizr for Java" from the sources (you'll need Java 8)...
 
 ```
 git clone https://github.com/structurizr/java.git
@@ -95,7 +101,7 @@ structurizrClient.putWorkspace(1234, workspace);
 
 The result is a diagram like this (once you've dragged the boxes around).
 
-![Getting Started with Structurizr for Java](images/getting-started.png)
+![Getting Started with Structurizr for Java](docs/images/getting-started.png)
 
 #### Retaining diagram layout information
 
