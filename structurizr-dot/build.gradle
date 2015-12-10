@@ -1,9 +1,3 @@
-repositories {
-    flatDir {
-        dirs 'lib'
-    }
-}
-
 dependencies {
     compile project(':structurizr-core')
     compile 'org.livingdocumentation:dot-diagram:1.0'

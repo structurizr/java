@@ -1,1 +1,0 @@
-The source code for dot-diagram.jar can be found at https://github.com/cyriux/dot-diagram
