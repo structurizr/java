@@ -14,7 +14,8 @@ FREE [The Art of Visualising Software Architecture](https://leanpub.com/visualis
 1. [Getting started](#getting-started)
 1. [API Client](docs/api-client.md)
 1. [Styling elements](docs/styling-elements.md)
-
+1. [Styling relationships](docs/styling-relationships.md)
+ 
 ## Building
 
 To build "Structurizr for Java" from the sources (you'll need Java 8)...

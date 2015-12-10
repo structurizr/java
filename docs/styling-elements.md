@@ -28,7 +28,7 @@ All of these tags are defined as constants in the [Tags](https://github.com/stru
 
 ## Colour
 
-To style an element, simply create an [ElementStyle](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/view/ElementStyle.java") for a particular tag and specify the characteristics that you would like to change. For example, you can change the colour of all elements as follows.
+To style an element, simply create an [ElementStyle](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/view/ElementStyle.java) for a particular tag and specify the characteristics that you would like to change. For example, you can change the colour of all elements as follows.
 
 ```java
 Styles styles = workspace.getViews().getConfiguration().getStyles();
