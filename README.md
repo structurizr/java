@@ -3,7 +3,7 @@
 # Structurizr for Java
 
 Structurizr is an implementation of the C4 model as described in Simon Brown's
-FREE [The Art of Visualising Software Architecture](https://leanpub.com/visualising-software-architecture) book, which provides a way to easily and effectively communicate the software architecture of a software system. Structurizr allows you to create __software architecture models and diagrams as code__. This GitHub repo provides Java implementation and tooling to create software architecture models. [structurizr.com](https://structurizr.com) provides a way to create diagrams from those models.
+FREE [The Art of Visualising Software Architecture](https://leanpub.com/visualising-software-architecture) book, which provides a way to easily and effectively communicate the software architecture of a software system. Structurizr allows you to create __software architecture models and diagrams as code__. This GitHub repo provides a Java implementation and tooling to create software architecture models. [structurizr.com](https://structurizr.com) provides a way to create diagrams from those models.
 
 ![An overview of Structurizr](images/structurizr-overview.png)
 
@@ -77,7 +77,8 @@ contextView.addAllPeople();
 Elements and relationships can be styled by specifying colours, sizes and shapes.
 
 ```java
-Styles styles = viewSet.getConfiguration().getStyles();        styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#A4B7C9").color("#000000");
+Styles styles = viewSet.getConfiguration().getStyles();
+styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#A4B7C9").color("#000000");
 styles.addElementStyle(Tags.PERSON).background("#728da5").color("#ffffff");
 ```
 
@@ -86,11 +87,13 @@ styles.addElementStyle(Tags.PERSON).background("#728da5").color("#ffffff");
 structurizr.com provides an API to get and put workspaces directly from/to your Structurizr account as follows.
 
 ```java
-StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
+StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
 structurizrClient.putWorkspace(1234, workspace);
 ```
 
-In order to upload your model to Structurizr using the web API, you'll need to [sign up](https://structurizr.com/signup) to get your own API key and secret. The result is a diagram like this (once you've dragged the boxes around).
+> In order to upload your model to Structurizr using the web API, you'll need to [sign up](https://structurizr.com/signup) to get your own API key and secret.
+
+The result is a diagram like this (once you've dragged the boxes around).
 
 ![Getting Started with Structurizr for Java](images/getting-started.png)
 
