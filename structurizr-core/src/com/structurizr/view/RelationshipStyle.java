@@ -45,14 +45,6 @@ public class RelationshipStyle {
         this.tag = tag;
     }
 
-    /**
-     * @deprecated
-     */
-    @Deprecated
-    public RelationshipStyle(String tag, Integer thickness, String color, Boolean dashed, Integer fontSize, Integer width, Integer position) {
-        this(tag, thickness, color, dashed, false, fontSize, width, position);
-    }
-
     public RelationshipStyle(String tag, Integer thickness, String color, Boolean dashed, Boolean smooth, Integer fontSize, Integer width, Integer position) {
         this.tag = tag;
         this.thickness = thickness;
@@ -80,12 +72,22 @@ public class RelationshipStyle {
         this.thickness = thickness;
     }
 
+    public RelationshipStyle thickness(int thickness) {
+        setThickness(thickness);
+        return this;
+    }
+
     public String getColor() {
         return color;
     }
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public RelationshipStyle color(String color) {
+        setColor(color);
+        return this;
     }
 
     public Boolean getDashed() {
@@ -96,12 +98,22 @@ public class RelationshipStyle {
         this.dashed = dashed;
     }
 
+    public RelationshipStyle dashed(boolean dashed) {
+        setDashed(dashed);
+        return this;
+    }
+
     public Boolean getSmooth() {
         return smooth;
     }
 
     public void setSmooth(Boolean smooth) {
         this.smooth = smooth;
+    }
+
+    public RelationshipStyle smooth(boolean smooth) {
+        setSmooth(smooth);
+        return this;
     }
 
     public Integer getFontSize() {
@@ -112,12 +124,22 @@ public class RelationshipStyle {
         this.fontSize = fontSize;
     }
 
+    public RelationshipStyle fontSize(int fontSize) {
+        setFontSize(fontSize);
+        return this;
+    }
+
     public Integer getWidth() {
         return width;
     }
 
     public void setWidth(Integer width) {
         this.width = width;
+    }
+
+    public RelationshipStyle width(int width) {
+        setWidth(width);
+        return this;
     }
 
     public Integer getPosition() {
@@ -134,6 +156,11 @@ public class RelationshipStyle {
         } else {
             this.position = position;
         }
+    }
+
+    public RelationshipStyle position(int position) {
+        setPosition(position);
+        return this;
     }
 
 }

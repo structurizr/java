@@ -77,6 +77,11 @@ public class ElementStyle {
         this.width = width;
     }
 
+    public ElementStyle width(int width) {
+        setWidth(width);
+        return this;
+    }
+
     /**
      * Gets the height of the element, in pixels.
      *
@@ -88,6 +93,11 @@ public class ElementStyle {
 
     public void setHeight(Integer height) {
         this.height = height;
+    }
+
+    public ElementStyle height(int height) {
+        setHeight(height);
+        return this;
     }
 
     /**
@@ -103,6 +113,11 @@ public class ElementStyle {
         this.background = background;
     }
 
+    public ElementStyle background(String background) {
+        setBackground(background);
+        return this;
+    }
+
     /**
      * Gets the foreground (text) colour of the element, as a HTML RGB hex string (e.g. #123456).
      *
@@ -114,6 +129,11 @@ public class ElementStyle {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public ElementStyle color(String color) {
+        setColor(color);
+        return this;
     }
 
     /**
@@ -129,6 +149,11 @@ public class ElementStyle {
         this.fontSize = fontSize;
     }
 
+    public ElementStyle fontSize(int fontSize) {
+        setFontSize(fontSize);
+        return this;
+    }
+
     /**
      * Gets the shape used to render the element.
      *
@@ -140,6 +165,11 @@ public class ElementStyle {
 
     public void setShape(Shape shape) {
         this.shape = shape;
+    }
+
+    public ElementStyle shape(Shape shape) {
+        setShape(shape);
+        return this;
     }
 
 }

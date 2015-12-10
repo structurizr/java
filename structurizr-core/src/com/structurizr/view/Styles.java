@@ -18,6 +18,19 @@ public class Styles {
         }
     }
 
+    public ElementStyle addElementStyle(String tag) {
+        ElementStyle elementStyle = null;
+
+        if (tag != null) {
+            elementStyle = new ElementStyle();
+            elementStyle.setTag(tag);
+
+            this.elements.add(elementStyle);
+        }
+
+        return elementStyle;
+    }
+
     public Collection<RelationshipStyle> getRelationships() {
         return relationships;
     }
@@ -26,6 +39,19 @@ public class Styles {
         if (relationshipStyle != null) {
             this.relationships.add(relationshipStyle);
         }
+    }
+
+    public RelationshipStyle addRelationshipStyle(String tag) {
+        RelationshipStyle relationshipStyle = null;
+
+        if (tag != null) {
+            relationshipStyle = new RelationshipStyle();
+            relationshipStyle.setTag(tag);
+
+            this.relationships.add(relationshipStyle);
+        }
+
+        return relationshipStyle;
     }
 
 }
