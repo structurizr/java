@@ -17,6 +17,7 @@ FREE [The Art of Visualising Software Architecture](https://leanpub.com/visualis
 1. [Styling relationships](docs/styling-relationships.md)
 1. [Hiding relationships](docs/hiding-relationships.md)
 1. [Extracting components from your codebase](docs/extracting-components.md)
+1. [The Spring PetClinic example](docs/spring-petclinic.md)
  
 ## Building
 
