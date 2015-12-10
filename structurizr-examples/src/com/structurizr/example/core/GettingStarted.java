@@ -29,7 +29,7 @@ public class GettingStarted {
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#A4B7C9").color("#000000");
         styles.addElementStyle(Tags.PERSON).background("#728da5").color("#ffffff");
 
-        StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
+        StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.putWorkspace(1234, workspace);
     }
 
