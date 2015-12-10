@@ -1,6 +1,6 @@
 swagger: '2.0'
 info:
-  version: 0.5.0
+  version: 0.6.0
   title: Structurizr
   description: This is the API for Structurizr.
 host: api.structurizr.com
@@ -474,4 +474,3 @@ definitions:
         type: number
         format: integer
         description: The position of the annotation along the line; 0 (start) to 100 (end).
-        

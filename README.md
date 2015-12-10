@@ -53,10 +53,10 @@ The dependencies for use with Maven, Ivy, Gradle, etc are as follows.
 
 Name                                          | Description
 -------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------
-com.structurizr:structurizr-core:0.5.0        | The core library that can used to create models.</td>
-com.structurizr:structurizr-client:0.5.0      | The structurizr.com API client for Java for uploading models.
-com.structurizr:structurizr-spring:0.5.0      | The Spring integration to extract classes annotated @Controller, @Service and @Repository for identification as components.
-com.structurizr:structurizr-annotations:0.5.0 | Annotations to add software architecture hints into your own code.
+com.structurizr:structurizr-core:0.6.0        | The core library that can used to create models.</td>
+com.structurizr:structurizr-client:0.6.0      | The structurizr.com API client for Java for uploading models.
+com.structurizr:structurizr-spring:0.6.0      | The Spring integration to extract classes annotated @Controller, @Service and @Repository for identification as components.
+com.structurizr:structurizr-annotations:0.6.0 | Annotations to add software architecture hints into your own code.
 
 ## Getting started
 
@@ -71,8 +71,8 @@ The dependencies for use with Maven, Ivy, Gradle, etc are as follows.
 
 Name                                          | Description
 -------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------
-com.structurizr:structurizr-core:0.5.0        | The core library that can used to create models.</td>
-com.structurizr:structurizr-client:0.5.0      | The structurizr.com API client for Java for uploading models.
+com.structurizr:structurizr-core:0.6.0        | The core library that can used to create models.</td>
+com.structurizr:structurizr-client:0.6.0      | The structurizr.com API client for Java for uploading models.
 
 ### 2. Create a model
 
