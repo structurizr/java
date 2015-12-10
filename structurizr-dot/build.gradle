@@ -6,5 +6,5 @@ repositories {
 
 dependencies {
     compile project(':structurizr-core')
-    compile name: 'dot-diagram'
+    compile 'org.livingdocumentation:dot-diagram:1.0'
 }

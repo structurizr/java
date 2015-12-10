@@ -33,6 +33,18 @@ cd java
 ./gradlew build
 ```
 
+Note: For now, if you want to build the structurizr-dot libs you need to first clone and install (locally) dot-diagram:
+
+    git clone git@github.com:cyriux/dot-diagram.git
+    cd dot-diagram/dot-diagram/
+    mvn install -DskipTests=true
+
+The -DskipTests=true is needed as the unit test are failing int he dot-diagram project
+
+Then you can build and install into maven locally by:
+
+    ./gradlew publishToMavenLocal
+
 ## Binaries
 The Structurizr for Java binaries are hosted on [Bintray](https://bintray.com/structurizr/maven/structurizr-java) and the JCenter repository.
 The dependencies for use with Maven, Ivy, Gradle, etc are as follows.
