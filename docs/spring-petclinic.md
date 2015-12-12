@@ -178,7 +178,7 @@ styles.addElementStyle("Spring Repository").background("#95D46C").color("000000"
 The code we've just seen simply creates an in-memory representation of the software architecture model, in this case as a collection of Java objects. The open source Structurizr for Java library also includes a way to export this model to an intermediate JSON representation, which can then be imported into some tooling that is able to visualise it. This is what Structurizr does.
 
 ```java
-StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
+StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
 structurizrClient.mergeWorkspace(1234, workspace);
 ```
 
