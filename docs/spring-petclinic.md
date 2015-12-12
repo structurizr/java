@@ -162,13 +162,13 @@ webApplication.getComponents().stream().filter(c -> c.getTechnology().equals(Spr
 relationalDatabase.addTags("Database");
 
 Styles styles = viewSet.getConfiguration().getStyles();
-styles.add(new ElementStyle("Spring PetClinic", null, null, "#6CB33E", "white", null));
-styles.add(new ElementStyle(Tags.PERSON, null, null, "#519823", "white", null, Shape.Person));
-styles.add(new ElementStyle(Tags.CONTAINER, null, null, "#91D366", "white", null));
-styles.add(new ElementStyle("Database", null, null, null, null, null, Shape.Cylinder));
-styles.add(new ElementStyle("Spring MVC Controller", null, null, "#D4F3C0", "black", null));
-styles.add(new ElementStyle("Spring Service", null, null, "#6CB33E", "black", null));
-styles.add(new ElementStyle("Spring Repository", null, null, "#95D46C", "black", null));
+styles.addElementStyle("Spring PetClinic").background("#6CB33E").color("#ffffff");
+styles.addElementStyle(Tags.PERSON).background("#519823").color("#ffffff").shape(Shape.Person);
+styles.addElementStyle(Tags.CONTAINER).background("#91D366").color("#ffffff");
+styles.addElementStyle("Database").shape(Shape.Cylinder);
+styles.addElementStyle("Spring MVC Controller").background("#D4F3C0").color("#000000");
+styles.addElementStyle("Spring Service").background("#6CB33E").color("000000");
+styles.addElementStyle("Spring Repository").background("#95D46C").color("000000");
 ```
 
 > Please note: shapes will only be seen if you are a [Structurizr paid plan](https://structurizr.com/pricing) customer.
