@@ -3,7 +3,10 @@ package com.structurizr.example.core;
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
 import com.structurizr.model.*;
-import com.structurizr.view.*;
+import com.structurizr.view.Shape;
+import com.structurizr.view.Styles;
+import com.structurizr.view.SystemContextView;
+import com.structurizr.view.ViewSet;
 
 /**
  * This is a simple (incomplete) example C4 model based upon the financial risk system
@@ -37,7 +40,7 @@ public class FinancialRiskSystem {
         emailSystem.delivers(businessUser, "Sends a notification that a report is ready to", "E-mail message", InteractionStyle.Asynchronous);
 
         SoftwareSystem centralMonitoringService = model.addSoftwareSystem(Location.Internal, "Central Monitoring Service", "The bank-wide monitoring and alerting dashboard");
-        financialRiskSystem.uses(centralMonitoringService, "Sends critical failure alerts to").addTags(TAG_ALERT);
+        financialRiskSystem.uses(centralMonitoringService, "Sends critical failure alerts to", "SNMP", InteractionStyle.Asynchronous).addTags(TAG_ALERT);
 
         SoftwareSystem activeDirectory = model.addSoftwareSystem(Location.Internal, "Active Directory", "Manages users and security roles across the bank");
         financialRiskSystem.uses(activeDirectory, "Uses for authentication and authorisation");
@@ -49,17 +52,21 @@ public class FinancialRiskSystem {
         contextView.addAllPeople();
 
         // tag and style some elements
+        Styles styles = viewSet.getConfiguration().getStyles();
         financialRiskSystem.addTags("Risk System");
-        viewSet.getConfiguration().getStyles().add(new ElementStyle("Risk System", null, null, "#550000", "#ffffff", 40));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, 650, 300, "#801515", "#ffffff", 36, Shape.RoundedBox));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, 550, null, "#d46a6a", "#ffffff", 32, Shape.Person));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 4, null, false, null, 32, 400, null));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.SYNCHRONOUS, null, null, false, null, 32, 400, null));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.ASYNCHRONOUS, null, null, true, null, null, null, null));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(TAG_ALERT, null, "#ff0000", true, null, null, null, null));
+
+        styles.addElementStyle(Tags.ELEMENT).color("#ffffff").fontSize(34);
+        styles.addElementStyle("Risk System").background("#550000").color("#ffffff");
+        styles.addElementStyle(Tags.SOFTWARE_SYSTEM).width(650).height(400).background("#801515").shape(Shape.RoundedBox);
+        styles.addElementStyle(Tags.PERSON).width(550).background("#d46a6a").shape(Shape.Person);
+
+        styles.addRelationshipStyle(Tags.RELATIONSHIP).thickness(4).dashed(false).fontSize(32).width(400);
+        styles.addRelationshipStyle(Tags.SYNCHRONOUS).dashed(false);
+        styles.addRelationshipStyle(Tags.ASYNCHRONOUS).dashed(true);
+        styles.addRelationshipStyle(TAG_ALERT).color("#ff0000");
 
         // and upload the model to structurizr.com
-        StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
+        StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.mergeWorkspace(31, workspace);
     }
 
