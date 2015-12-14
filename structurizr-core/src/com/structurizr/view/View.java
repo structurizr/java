@@ -107,6 +107,7 @@ public abstract class View implements Comparable<View> {
      *
      * @return  the name, as a String
      */
+    @JsonIgnore
     public abstract String getName();
 
     @JsonIgnore

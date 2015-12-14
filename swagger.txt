@@ -262,9 +262,6 @@ definitions:
     type: object
     description: A system context view.
     properties:
-      name:
-        type: string
-        description: The name of this view.
       key:
         type: string
         description: An identifier for this view.
@@ -290,9 +287,6 @@ definitions:
     type: object
     description: A container view.
     properties:
-      name:
-        type: string
-        description: The name of this view.
       key:
         type: string
         description: An identifier for this view.
@@ -318,9 +312,6 @@ definitions:
     type: object
     description: A system context view.
     properties:
-      name:
-        type: string
-        description: The name of this view.
       key:
         type: string
         description: An identifier for this view.
