@@ -2,11 +2,8 @@ package com.structurizr.example.core;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
-
-import java.io.StringWriter;
 
 /**
  * This is a model of the system context for the techtribes.je system,
@@ -49,20 +46,19 @@ public class TechTribesSystemContextForPresentation {
 
         // tag and style some elements
         techTribes.addTags("techtribes.je");
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.ELEMENT, 600, 450, null, null, 40, Shape.RoundedBox));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle("techtribes.je", null, null, "#041F37", "#ffffff", null));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#2A4E6E", "#ffffff", null));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, 575, null, "#728da5", "white", 40, Shape.Person));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 5, null, null, null, 40, 500, null));
+
+        Styles styles = viewSet.getConfiguration().getStyles();
+        styles.addElementStyle(Tags.ELEMENT).width(600).height(450).color("#ffffff").fontSize(40).shape(Shape.RoundedBox);
+        styles.addElementStyle("techtribes.je").background("#041F37");
+        styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#2A4E6E");
+        styles.addElementStyle(Tags.PERSON).width(575).background("#728da5").shape(Shape.Person);
+        styles.addRelationshipStyle(Tags.RELATIONSHIP).thickness(5).fontSize(40).width(500);
         contextView.setPaperSize(PaperSize.Slide_4_3);
 
-        // and output the model and view to JSON
-        JsonWriter jsonWriter = new JsonWriter(true);
-        StringWriter stringWriter = new StringWriter();
-        jsonWriter.write(workspace, stringWriter);
-        System.out.println(stringWriter.toString());
+        // since this is for a presentation, remove the diagram metadata
+        viewSet.getConfiguration().setMetadata(Metadata.None);
 
-        StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
+        StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.mergeWorkspace(101, workspace);
     }
 

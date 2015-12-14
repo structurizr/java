@@ -392,6 +392,10 @@ definitions:
         type: object
         description: The styles associated with this set of views.
         properties:
+          metadata:
+            type: string
+            description: The placement of the diagram metadata.
+            enum: [ "Top", "Bottom", "None" ]
           elements:
             type: array
             description: The set of element styles.
