@@ -32,8 +32,20 @@ public class DynamicView extends View {
                 addElement(destination, false);
                 addRelationship(relationship, description, counter.toString());
                 counter.increment();
+            } else {
+                throw new IllegalArgumentException("relationship does not exist in model");
             }
+        } else {
+            throw new IllegalArgumentException("source and description must not be null");
         }
+    }
+
+    @Override
+    public RelationshipView add(Relationship relationship) {
+        // when adding a relationship to a DynamicView we suppose the user really wants to also see both components
+        addElement(relationship.getSource(), false);
+        addElement(relationship.getDestination(), false);
+        return super.add(relationship);
     }
 
     public void startChildSequence() {
