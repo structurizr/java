@@ -21,6 +21,8 @@ import java.io.File;
  */
 public class SpringPetClinic {
 
+    private static final String sourceRoot = "/Users/structurizr/Documents/spring-petclinic";
+
     public static void main(String[] args) throws Exception {
         Workspace workspace = new Workspace("Spring PetClinic",
                 "This is a C4 representation of the Spring PetClinic sample app (https://github.com/spring-projects/spring-petclinic/)");
@@ -42,7 +44,7 @@ public class SpringPetClinic {
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication, "org.springframework.samples.petclinic",
                 new SpringComponentFinderStrategy(),
-                new JavadocComponentFinderStrategy(new File("/Users/simon/Documents/sandbox/spring/spring-petclinic/src/main/java/"), 150));
+                new JavadocComponentFinderStrategy(new File(sourceRoot, "/src/main/java/"), 150));
         componentFinder.findComponents();
 
         // connect the user to all of the Spring MVC controllers
@@ -79,7 +81,7 @@ public class SpringPetClinic {
             String sourcePath = component.getSourcePath();
             if (sourcePath != null) {
                 component.setSourcePath(sourcePath.replace(
-                        "/Users/simon/Documents/sandbox/spring/spring-petclinic/",
+                        sourceRoot,
                         "https://github.com/spring-projects/spring-petclinic/tree/master/"));
             }
         }
@@ -107,8 +109,8 @@ public class SpringPetClinic {
         styles.addElementStyle(Tags.CONTAINER).background("#91D366").color("#ffffff");
         styles.addElementStyle("Database").shape(Shape.Cylinder);
         styles.addElementStyle("Spring MVC Controller").background("#D4F3C0").color("#000000");
-        styles.addElementStyle("Spring Service").background("#6CB33E").color("000000");
-        styles.addElementStyle("Spring Repository").background("#95D46C").color("000000");
+        styles.addElementStyle("Spring Service").background("#6CB33E").color("#000000");
+        styles.addElementStyle("Spring Repository").background("#95D46C").color("#000000");
 
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.mergeWorkspace(1, workspace);

@@ -167,8 +167,8 @@ styles.addElementStyle(Tags.PERSON).background("#519823").color("#ffffff").shape
 styles.addElementStyle(Tags.CONTAINER).background("#91D366").color("#ffffff");
 styles.addElementStyle("Database").shape(Shape.Cylinder);
 styles.addElementStyle("Spring MVC Controller").background("#D4F3C0").color("#000000");
-styles.addElementStyle("Spring Service").background("#6CB33E").color("000000");
-styles.addElementStyle("Spring Repository").background("#95D46C").color("000000");
+styles.addElementStyle("Spring Service").background("#6CB33E").color("#000000");
+styles.addElementStyle("Spring Repository").background("#95D46C").color("#000000");
 ```
 
 > Please note: shapes will only be seen if you are a [Structurizr paid plan](https://structurizr.com/pricing) customer.
