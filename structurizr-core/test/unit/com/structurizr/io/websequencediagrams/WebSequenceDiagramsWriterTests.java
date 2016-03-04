@@ -50,10 +50,10 @@ public class WebSequenceDiagramsWriterTests {
 
         webSequenceDiagramsWriter.write(workspace, stringWriter);
         assertEquals("title System A - Dynamic - A description of the diagram\n" +
-                "\n" +
-                "System A->System B: Does something using\n" +
-                "System B->>System C: Does something then using\n" +
-                "\n", stringWriter.toString());
+                System.lineSeparator() +
+                "System A->System B: Does something using" + System.lineSeparator() +
+                "System B->>System C: Does something then using" + System.lineSeparator() +
+                System.lineSeparator(), stringWriter.toString());
     }
 
 }
