@@ -49,7 +49,7 @@ public class WebSequenceDiagramsWriterTests {
         view.add(b, "Does something then using", c);
 
         webSequenceDiagramsWriter.write(workspace, stringWriter);
-        assertEquals("title System A - Dynamic - A description of the diagram\n" +
+        assertEquals("title System A - Dynamic - A description of the diagram" + System.lineSeparator() +
                 System.lineSeparator() +
                 "System A->System B: Does something using" + System.lineSeparator() +
                 "System B->>System C: Does something then using" + System.lineSeparator() +
