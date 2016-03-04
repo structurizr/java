@@ -4,8 +4,11 @@ import org.junit.Test;
 
 import javax.crypto.BadPaddingException;
 
+import java.security.InvalidKeyException;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.fail;
 
 public class AesEncryptionStrategyTests {
 
@@ -37,14 +40,20 @@ public class AesEncryptionStrategyTests {
         assertEquals("Hello world", strategy.decrypt(ciphertext));
     }
 
-    @Test(expected = BadPaddingException.class)
     public void test_decrypt_doesNotDecryptTheCiphertext_WhenTheIncorrectKeySizeIsUsed() throws Exception {
-        strategy = new AesEncryptionStrategy(128, 1000, "password");
+        try {
+            strategy = new AesEncryptionStrategy(128, 1000, "password");
 
-        String ciphertext = strategy.encrypt("Hello world");
+            String ciphertext = strategy.encrypt("Hello world");
 
-        strategy = new AesEncryptionStrategy(256, strategy.getIterationCount(), strategy.getSalt(), strategy.getIv(), "password");
-        strategy.decrypt(ciphertext);
+            strategy = new AesEncryptionStrategy(256, strategy.getIterationCount(), strategy.getSalt(), strategy.getIv(), "password");
+            strategy.decrypt(ciphertext);
+        } catch (BadPaddingException | InvalidKeyException bpe) {
+            // BadPaddingException is thrown on Mac and Linux
+            // InvalidKeyException is thrown in Windows
+        } catch (Exception e) {
+            fail();
+        }
     }
 
     @Test(expected = BadPaddingException.class)
