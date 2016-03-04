@@ -2,6 +2,5 @@ dependencies {
     compile project(':structurizr-annotations')
     compile project(':structurizr-core')
     compile project(':structurizr-client')
-    compile project(':structurizr-jhipster')
     compile project(':structurizr-spring')
 }

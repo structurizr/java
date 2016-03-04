@@ -1,5 +1,8 @@
 dependencies {
     compile project(':structurizr-core')
 
-    compile 'org.springframework:spring-context:4.0.6.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-web:1.2.7.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.2.7.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-security:1.2.7.RELEASE'
+
 }

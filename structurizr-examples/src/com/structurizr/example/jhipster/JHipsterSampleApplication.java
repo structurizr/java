@@ -3,8 +3,8 @@ package com.structurizr.example.jhipster;
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
 import com.structurizr.componentfinder.ComponentFinder;
-import com.structurizr.componentfinder.JHipsterComponentFinderStrategy;
 import com.structurizr.componentfinder.JavadocComponentFinderStrategy;
+import com.structurizr.componentfinder.SpringComponentFinderStrategy;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
@@ -39,18 +39,18 @@ public class JHipsterSampleApplication {
         // and now automatically find all components in the Spring Boot part of the application
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication, "com.mycompany.myapp",
-                new JHipsterComponentFinderStrategy(),
+                new SpringComponentFinderStrategy(),
                 new JavadocComponentFinderStrategy(new File("/Users/simon/Desktop/jhipster-sample-app/src/main/java/"), 150));
         componentFinder.findComponents();
 
         // connect the web browser to all REST controllers
         webApplication.getComponents().stream()
-                .filter(c -> c.getTechnology().equals(JHipsterComponentFinderStrategy.SPRING_REST_CONTROLLER))
+                .filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_REST_CONTROLLER))
                 .forEach(c -> browser.uses(c, "Uses", "JSON/HTTP(S)"));
 
         // connect all of the repository components to the relational database
         webApplication.getComponents().stream()
-                .filter(c -> c.getTechnology().equals(JHipsterComponentFinderStrategy.SPRING_REPOSITORY))
+                .filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_REPOSITORY))
                 .forEach(c -> c.uses(relationalDatabase, "Reads from and writes to", "JDBC"));
 
         // create some views
@@ -73,7 +73,7 @@ public class JHipsterSampleApplication {
         componentView.addAllContainers();
 
         Set<Component> restControllers = webApplication.getComponents().stream()
-                .filter(c -> c.getTechnology().equals(JHipsterComponentFinderStrategy.SPRING_REST_CONTROLLER)).collect(Collectors.toSet());
+                .filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_REST_CONTROLLER)).collect(Collectors.toSet());
         for (Component restController : restControllers) {
             ComponentView view = viewSet.createComponentView(webApplication, restController.getName());
             view.addAllElements();
