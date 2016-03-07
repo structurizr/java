@@ -16,7 +16,7 @@ public class ElementView {
     ElementView() {
     }
 
-    public ElementView(Element element) {
+    ElementView(Element element) {
         this.element = element;
     }
 
@@ -77,11 +77,10 @@ public class ElementView {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ElementView that = (ElementView) o;
+        ElementView that = (ElementView)o;
 
-        if (!getId().equals(that.getId())) return false;
+        return getId().equals(that.getId());
 
-        return true;
     }
 
     @Override

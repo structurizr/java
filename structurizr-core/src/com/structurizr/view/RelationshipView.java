@@ -17,7 +17,7 @@ public class RelationshipView {
     RelationshipView() {
     }
 
-    public RelationshipView(Relationship relationship) {
+    RelationshipView(Relationship relationship) {
         this.relationship = relationship;
     }
 
@@ -97,9 +97,7 @@ public class RelationshipView {
 
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (!getId().equals(that.getId())) return false;
-        if (order != null ? !order.equals(that.order) : that.order != null) return false;
-
-        return true;
+        return !(order != null ? !order.equals(that.order) : that.order != null);
     }
 
     @Override

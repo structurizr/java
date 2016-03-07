@@ -18,7 +18,7 @@ public abstract class StaticView extends View {
      * Adds all software systems in the model to this view.
      */
     public void addAllSoftwareSystems() {
-        getModel().getSoftwareSystems().forEach(this::addSoftwareSystem);
+        getModel().getSoftwareSystems().forEach(this::add);
     }
 
     /**
@@ -42,10 +42,10 @@ public abstract class StaticView extends View {
     }
 
     /**
-     * Adds all software systems in the model to this view.
+     * Adds all people in the model to this view.
      */
     public void addAllPeople() {
-        getModel().getPeople().forEach(this::addPerson);
+        getModel().getPeople().forEach(this::add);
     }
 
     /**

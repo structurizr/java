@@ -24,8 +24,7 @@ public class Styles {
         if (tag != null) {
             elementStyle = new ElementStyle();
             elementStyle.setTag(tag);
-
-            this.elements.add(elementStyle);
+            add(elementStyle);
         }
 
         return elementStyle;
@@ -47,8 +46,7 @@ public class Styles {
         if (tag != null) {
             relationshipStyle = new RelationshipStyle();
             relationshipStyle.setTag(tag);
-
-            this.relationships.add(relationshipStyle);
+             add(relationshipStyle);
         }
 
         return relationshipStyle;

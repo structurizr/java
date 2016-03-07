@@ -197,7 +197,7 @@ public abstract class View implements Comparable<View> {
     }
 
     protected void addRelationship(Relationship relationship, String description, String order) {
-        RelationshipView relationshipView = addRelationship(relationship);
+        RelationshipView relationshipView = add(relationship);
         if (relationshipView != null) {
             relationshipView.setDescription(description);
             relationshipView.setOrder(order);
