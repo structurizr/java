@@ -296,7 +296,7 @@ public abstract class View implements Comparable<View> {
         return elementView.isPresent() ? elementView.get() : null;
     }
 
-    RelationshipView findRelationshipView(RelationshipView sourceRelationshipView) {
+    private RelationshipView findRelationshipView(RelationshipView sourceRelationshipView) {
         for (RelationshipView relationshipView : getRelationships()) {
             if (relationshipView.getRelationship().equals(sourceRelationshipView.getRelationship())) {
                 return relationshipView;

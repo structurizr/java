@@ -43,14 +43,11 @@ public class ComponentView extends StaticView {
         this.container = container;
     }
 
-    /**
-     * Adds all software systems in the model to this view.
-     */
     @Override
-    public void addAllSoftwareSystems() {
-        getModel().getSoftwareSystems().stream()
-                .filter(ss -> ss != getSoftwareSystem())
-                .forEach(this::add);
+    public void add(SoftwareSystem softwareSystem) {
+        if (softwareSystem != null && !softwareSystem.equals(getSoftwareSystem())) {
+            addElement(softwareSystem, true);
+        }
     }
 
     /**
@@ -58,15 +55,7 @@ public class ComponentView extends StaticView {
      */
     public void addAllContainers() {
         getSoftwareSystem().getContainers().stream()
-                .filter(c -> c != container)
                 .forEach(this::add);
-    }
-
-    /**
-     * Adds all components in the container to this view.
-     */
-    public void addAllComponents() {
-        container.getComponents().forEach(this::add);
     }
 
     /**
@@ -75,7 +64,16 @@ public class ComponentView extends StaticView {
      * @param container     the Container to add
      */
     public void add(Container container) {
-        addElement(container, true);
+        if (container != null && !container.equals(getContainer())) {
+            addElement(container, true);
+        }
+    }
+
+    /**
+     * Adds all components in the container to this view.
+     */
+    public void addAllComponents() {
+        container.getComponents().forEach(this::add);
     }
 
     /**

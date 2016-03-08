@@ -14,14 +14,11 @@ public class ContainerView extends StaticView {
         super(softwareSystem, description);
     }
 
-    /**
-     * Adds all software systems in the model to this view.
-     */
     @Override
-    public void addAllSoftwareSystems() {
-        getModel().getSoftwareSystems().stream()
-                .filter(ss -> ss != getSoftwareSystem())
-                .forEach(this::add);
+    public void add(SoftwareSystem softwareSystem) {
+        if (softwareSystem != null && !softwareSystem.equals(getSoftwareSystem())) {
+            addElement(softwareSystem, true);
+        }
     }
 
     /**

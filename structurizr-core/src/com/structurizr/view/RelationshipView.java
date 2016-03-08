@@ -82,7 +82,7 @@ public class RelationshipView {
         this.vertices = vertices;
     }
 
-    public void copyLayoutInformationFrom(RelationshipView source) {
+    void copyLayoutInformationFrom(RelationshipView source) {
         if (source != null) {
             setVertices(source.getVertices());
         }

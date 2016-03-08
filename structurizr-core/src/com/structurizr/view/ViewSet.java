@@ -101,8 +101,9 @@ public class ViewSet {
 
     public void hydrate() {
         systemContextViews.forEach(this::hydrateView);
+
         containerViews.forEach(this::hydrateView);
-        componentViews.forEach(this::hydrateView);
+
         for (ComponentView view : componentViews) {
             hydrateView(view);
             view.setContainer(view.getSoftwareSystem().getContainerWithId(view.getContainerId()));
