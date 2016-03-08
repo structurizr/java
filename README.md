@@ -49,12 +49,12 @@ If necessary, after building, you can install "Structurizr for Java" into your l
 ```
 
 ## Binaries
-The Structurizr for Java binaries are hosted on [Bintray](https://bintray.com/structurizr/maven/structurizr-java) and the JCenter repository.
+The "Structurizr for Java" binaries are hosted on [Bintray](https://bintray.com/structurizr/maven/structurizr-java) and the JCenter repository.
 The dependencies for use with Maven, Ivy, Gradle, etc are as follows.
 
 Name                                          | Description
 -------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------
-com.structurizr:structurizr-core:0.6.0        | The core library that can used to create models.</td>
+com.structurizr:structurizr-core:0.6.0        | The core library that can used to create models.
 com.structurizr:structurizr-client:0.6.0      | The structurizr.com API client for Java for uploading models.
 com.structurizr:structurizr-spring:0.6.0      | The Spring integration to extract classes annotated @Controller, @Service and @Repository for identification as components.
 com.structurizr:structurizr-annotations:0.6.0 | Annotations to add software architecture hints into your own code.
@@ -113,7 +113,7 @@ styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#A4B7C9").color("#00000
 styles.addElementStyle(Tags.PERSON).background("#728da5").color("#ffffff");
 ```
 
-### 5. Upload to Structurizr</h2>
+### 5. Upload to Structurizr
 
 structurizr.com provides an API to get and put workspaces directly from/to your Structurizr account as follows.
 
@@ -130,7 +130,7 @@ The result is a diagram like this (once you've dragged the boxes around).
 
 #### Retaining diagram layout information
 
-Once you have uploaded your model to Structurizr and organised the boxes on the diagrams, you'll probably want to retain the diagram layout next time you upload the model. To do this, you can use the `mergeWorkspace` helper method on the `StructurizrClient`.
+Once you have uploaded your model to Structurizr and organised the boxes on the diagrams, you'll probably want to retain the diagram layout next time you upload the model. To do this, you can use the ```mergeWorkspace``` helper method on the ```StructurizrClient```.
 
 ```java
 structurizrClient.mergeWorkspace(1234, workspace);
