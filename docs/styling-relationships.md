@@ -33,8 +33,8 @@ You can also change the colour of specific relationships, based upon their tag, 
 
 ```java
 user.getRelationships().forEach(r -> r.addTags("HTTPS"));
-styles.addRelationshipStyle(Tags.RELATIONSHIP).color("#3366FF");
-styles.addRelationshipStyle("HTTPS").color("#33CC33").dashed(false);
+styles.addRelationshipStyle(Tags.RELATIONSHIP).color("#3366ff");
+styles.addRelationshipStyle("HTTPS").color("#33cc33").dashed(false);
 ```
 
 ![Colouring relationships based upon tag](images/styling-relationships-3.png)
