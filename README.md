@@ -109,7 +109,7 @@ Elements and relationships can be styled by specifying colours, sizes and shapes
 
 ```java
 Styles styles = viewSet.getConfiguration().getStyles();
-styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#A4B7C9").color("#000000");
+styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#a4b7c9").color("#000000");
 styles.addElementStyle(Tags.PERSON).background("#728da5").color("#ffffff");
 ```
 
