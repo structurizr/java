@@ -32,7 +32,7 @@ To style an element, simply create an [ElementStyle](https://github.com/structur
 
 ```java
 Styles styles = workspace.getViews().getConfiguration().getStyles();
-styles.addElementStyle(Tags.ELEMENT).background("#A4B7C9").color("#000000");
+styles.addElementStyle(Tags.ELEMENT).background("#a4b7c9").color("#000000");
 ```
 
  ![Colouring all elements](images/styling-elements-2.png)
@@ -42,7 +42,7 @@ You can also change the colour of specific elements, for example based upon thei
 ```java
 Styles styles = workspace.getViews().getConfiguration().getStyles();
 styles.addElementStyle(Tags.PERSON).background("#728da5").color("#ffffff");
-styles.addElementStyle(Tags.CONTAINER).background("#2A4E6E").color("#ffffff");
+styles.addElementStyle(Tags.CONTAINER).background("#2a4e6e").color("#ffffff");
 ```
 
 ![Colouring elements based upon type](images/styling-elements-3.png)
@@ -56,11 +56,10 @@ Subscribers to a [Structurizr paid plan](https://structurizr.com/pricing) can al
 ```java
 Styles styles = workspace.getViews().getConfiguration().getStyles();
 styles.addElementStyle(Tags.PERSON).background("#728da5").color("#ffffff").shape(Shape.Person);
-styles.addElementStyle(Tags.CONTAINER).background("#2A4E6E").color("#ffffff");
+styles.addElementStyle(Tags.CONTAINER).background("#2a4e6e").color("#ffffff");
 database.addTags("Database");
 styles.addElementStyle("Database").shape(Shape.Cylinder);
 ```
-</code></pre>
 
 ![Adding some shapes](images/styling-elements-4.png)
 
