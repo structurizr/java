@@ -13,6 +13,7 @@ import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 
 import java.lang.annotation.Annotation;
+import java.util.HashSet;
 import java.util.Set;
 
 public abstract class AbstractReflectionsComponentFinderStrategy extends ComponentFinderStrategy {
@@ -37,21 +38,22 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
         for (Component component : componentFinder.getContainer().getComponents()) {
             if (component.getType() != null) {
                 Class type = Class.forName(component.getType());
-                addEfferentDependencies(component, component.getType(), 1);
+                addEfferentDependencies(component, component.getType(), new HashSet<>());
 
                 // and repeat for the first implementation class we can find
                 if (type.isInterface()) {
                     Class implementationType = getFirstImplementationOfInterface(type);
                     if (implementationType != null) {
-                        addEfferentDependencies(component, implementationType.getCanonicalName(), 1);
+                        addEfferentDependencies(component, implementationType.getCanonicalName(), new HashSet<>());
                     }
                 }
             }
         }
     }
 
-    // todo: remove the depth thing
-    protected void addEfferentDependencies(Component component, String type, int depth) {
+    private void addEfferentDependencies(Component component, String type, Set<String> typesVisited) {
+        typesVisited.add(type);
+
         try {
             ClassPool pool = ClassPool.getDefault();
             CtClass cc = pool.get(type);
@@ -63,8 +65,8 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
                         if (component != destinationComponent) {
                             component.uses(destinationComponent, "");
                         }
-                    } else if (!referencedTypeName.equals(type) && depth < 10) {
-                        addEfferentDependencies(component, referencedTypeName, ++depth);
+                    } else if (!typesVisited.contains(referencedTypeName)) {
+                        addEfferentDependencies(component, referencedTypeName, typesVisited);
                     }
                 }
             }
