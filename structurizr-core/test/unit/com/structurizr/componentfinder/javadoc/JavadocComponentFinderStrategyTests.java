@@ -28,19 +28,19 @@ public class JavadocComponentFinderStrategyTests {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
         webApplication = softwareSystem.addContainer("Name", "Description", "Technology");
 
-        componentA = webApplication.addComponentOfType(
+        componentA = webApplication.addComponent(
+                "ComponentA",
                 "com.structurizr.componentfinder.javadoc.componentA.ComponentA",
-                "com.structurizr.componentfinder.javadoc.componentA.ComponentAImpl",
                 "", "");
 
-        componentB = webApplication.addComponentOfType(
+        componentB = webApplication.addComponent(
+                "ComponentB",
                 "com.structurizr.componentfinder.javadoc.componentB.ComponentB",
-                "com.structurizr.componentfinder.javadoc.componentB.ComponentBImpl",
                 "", "");
 
-        componentC = webApplication.addComponentOfType(
+        componentC = webApplication.addComponent(
+                "ComponentC",
                 "com.structurizr.componentfinder.javadoc.componentC.ComponentC",
-                "com.structurizr.componentfinder.javadoc.componentC.ComponentCImpl",
                 "", "");
     }
 

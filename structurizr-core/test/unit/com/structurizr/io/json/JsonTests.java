@@ -7,9 +7,6 @@ import org.junit.Test;
 
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import static org.junit.Assert.assertEquals;
 
@@ -47,7 +44,7 @@ public class JsonTests {
         webApplicationToDatabase.addTags("JDBC");
 
         Component componentA = webApplication.addComponent("ComponentA", "Description", "Technology A");
-        Component componentB = webApplication.addComponentOfType("com.somecompany.system.ComponentB", "com.somecompany.system.ComponentBImpl", "Description", "Technology B");
+        Component componentB = webApplication.addComponent("com.somecompany.system.ComponentB", "com.somecompany.system.ComponentBImpl", "Description", "Technology B");
         person.uses(componentA, "Uses");
         componentA.uses(componentB, "Uses");
         componentB.uses(database, "Reads from and writes to");

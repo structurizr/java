@@ -2,13 +2,10 @@ package com.structurizr.componentfinder.annotations;
 
 import com.structurizr.Workspace;
 import com.structurizr.componentfinder.ComponentFinder;
-import com.structurizr.componentfinder.JavadocComponentFinderStrategy;
 import com.structurizr.componentfinder.StructurizrAnnotationsComponentFinderStrategy;
 import com.structurizr.model.*;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.File;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -38,15 +35,13 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
         Component componentA = webApplication.getComponentWithName("ComponentA");
         assertNotNull(componentA);
         assertEquals("ComponentA", componentA.getName());
-        assertEquals("com.structurizr.componentfinder.annotations.componentA.ComponentA", componentA.getInterfaceType());
-        assertEquals("com.structurizr.componentfinder.annotations.componentA.ComponentAImpl", componentA.getImplementationType());
+        assertEquals("com.structurizr.componentfinder.annotations.componentA.ComponentA", componentA.getType());
         assertEquals("A component that does something.", componentA.getDescription());
 
         Component componentB = webApplication.getComponentWithName("ComponentB");
         assertNotNull(componentB);
         assertEquals("ComponentB", componentB.getName());
-        assertEquals("com.structurizr.componentfinder.annotations.componentB.ComponentB", componentB.getInterfaceType());
-        assertEquals("com.structurizr.componentfinder.annotations.componentB.ComponentBImpl", componentB.getImplementationType());
+        assertEquals("com.structurizr.componentfinder.annotations.componentB.ComponentB", componentB.getType());
         assertEquals("A component that does something else.", componentB.getDescription());
 
         assertEquals(1, componentB.getRelationships().size());

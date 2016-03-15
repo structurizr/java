@@ -5,4 +5,6 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-data-jpa:1.2.7.RELEASE'
     compile 'org.springframework.boot:spring-boot-starter-security:1.2.7.RELEASE'
 
+    testCompile 'junit:junit:4.12'
+
 }

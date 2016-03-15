@@ -12,9 +12,6 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Set;
 
-/**
- * TODO: find dependencies from parent classes (e.g. TweetComponent extends AbstractComponent
- */
 public class StructurizrAnnotationsComponentFinderStrategy extends AbstractReflectionsComponentFinderStrategy {
 
     public Collection<Component> findComponents() throws Exception {
@@ -36,19 +33,9 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractRefle
         Set<Class<?>> componentTypes = getTypesAnnotatedWith(com.structurizr.annotation.Component.class);
         for (Class<?> componentType : componentTypes) {
             if (componentType.isInterface()) {
-                String interfaceType = componentType.getCanonicalName();
-                String implementationType = componentType.getCanonicalName();
-
-                // TODO: fix this untyped collection reference
-                Set<?> subtypes = reflections.getSubTypesOf(componentType);
-                if (subtypes.size() > 0) {
-                    // WARNING: this code chooses the first implementation that it finds
-                    implementationType = ((Class<?>) (subtypes.iterator().next())).getCanonicalName();
-                }
-
                 Component component = getComponentFinder().foundComponent(
-                        interfaceType,
-                        implementationType,
+                        componentType.getSimpleName(),
+                        componentType.getCanonicalName(),
                         componentType.getAnnotation(com.structurizr.annotation.Component.class).description(), "", "");
                 componentsFound.add(component);
             }
@@ -59,20 +46,23 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractRefle
 
     private void findComponentDependencies() throws Exception {
         for (Component component : getComponentFinder().getContainer().getComponents()) {
-            if (component.getImplementationType() != null) {
-                findComponentDependencies(component, component.getImplementationType());
+            if (component.getType() != null) {
+                Class interfaceType = Class.forName(component.getType());
+                Class implementationType = getFirstImplementationOfInterface(interfaceType);
+                if (implementationType != null) {
+                    findComponentDependencies(component, implementationType.getCanonicalName());
+                }
             }
         }
     }
 
-    private void findComponentDependencies(Component component, String implementationType) throws Exception {
-        Class<?> componentClass = Class.forName(implementationType);
-
-        Field[] fields = componentClass.getDeclaredFields();
+    private void findComponentDependencies(Component component, String type) throws Exception {
+        Class<?> clazz = Class.forName(type);
+        Field[] fields = clazz.getDeclaredFields();
         for (Field field : fields) {
             for (Annotation annotation : field.getDeclaredAnnotations()) {
                 if (annotation.annotationType() == ComponentDependency.class) {
-                    Component destination = getComponentWithType(field.getType().getCanonicalName());
+                    Component destination = componentFinder.getContainer().getComponentOfType(field.getType().getCanonicalName());
                     String description = field.getAnnotation(ComponentDependency.class).description();
                     for (Relationship relationship : component.getRelationships()) {
                         if (relationship.getDestination() == destination) {
@@ -83,22 +73,21 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractRefle
             }
         }
 
-        // and repeat for super-types
-        if (componentClass.getSuperclass() != null) {
-            findComponentDependencies(component, componentClass.getSuperclass().getCanonicalName());
+        // repeat for super-types
+        if (clazz.getSuperclass() != null) {
+            findComponentDependencies(component, clazz.getSuperclass().getCanonicalName());
         }
     }
 
     private void findSoftwareSystemDependencies() throws Exception {
         for (Component component : getComponentFinder().getContainer().getComponents()) {
-            if (component.getImplementationType() != null) {
-                findSoftwareSystemDependencies(component, component.getImplementationType());
+            if (component.getType() != null) {
+                findSoftwareSystemDependencies(component, component.getType());
             }
         }
     }
 
     private void findSoftwareSystemDependencies(Component component, String implementationType) throws Exception {
-//        System.out.println(implementationType);
         Class<?> componentClass = Class.forName(implementationType);
 
         if (componentClass.getAnnotation(SoftwareSystemDependency.class) != null) {
@@ -123,8 +112,8 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractRefle
 
     private void findContainerDependencies() throws Exception {
         for (Component component : getComponentFinder().getContainer().getComponents()) {
-            if (component.getImplementationType() != null) {
-                findContainerDependencies(component, component.getImplementationType());
+            if (component.getType() != null) {
+                findContainerDependencies(component, component.getType());
             }
         }
     }
@@ -154,8 +143,8 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractRefle
 
     private void findPeopleDependencies() throws Exception {
         for (Component component : getComponentFinder().getContainer().getComponents()) {
-            if (component.getImplementationType() != null) {
-                findPeopleDependencies(component, component.getImplementationType());
+            if (component.getType() != null) {
+                findPeopleDependencies(component, component.getType());
             }
         }
     }

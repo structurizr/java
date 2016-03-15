@@ -153,10 +153,6 @@ public abstract class View implements Comparable<View> {
         }
     }
 
-    public void remove(Element element) {
-        removeElement(element);
-    }
-
     protected void removeElement(Element element) {
         if (element != null) {
             ElementView elementView = new ElementView(element);

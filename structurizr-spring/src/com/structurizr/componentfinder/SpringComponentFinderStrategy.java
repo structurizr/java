@@ -14,7 +14,7 @@ import java.util.Set;
  * - Classes annotated @Controller or @RestController
  * - Classes annotated @Component or @Service
  * - Classes annotated @Repository
- * - Classes that extend JpaRepository
+ * - Classes that extend the JpaRepository interface
  */
 public class SpringComponentFinderStrategy extends AbstractReflectionsComponentFinderStrategy {
 
@@ -44,17 +44,17 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
     }
 
     protected Collection<Component> findSpringServices() {
-        return findImplementationClassesAnnotated(
+        return findInterfacesForImplementationClassesAnnotated(
                 org.springframework.stereotype.Service.class, SPRING_SERVICE);
     }
 
     protected Collection<Component> findSpringRepositories() {
-        return findImplementationClassesAnnotated(
+        return findInterfacesForImplementationClassesAnnotated(
                 org.springframework.stereotype.Repository.class, SPRING_REPOSITORY);
     }
 
     protected Collection<Component> findSpringComponents() {
-        return findImplementationClassesAnnotated(
+        return findInterfacesForImplementationClassesAnnotated(
                 org.springframework.stereotype.Component.class, SPRING_COMPONENT);
     }
 
@@ -70,7 +70,11 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
 
         for (Class<?> componentType : componentTypes) {
             componentsFound.add(getComponentFinder().foundComponent(
-                    componentType.getCanonicalName(), null, "", SPRING_REPOSITORY, ""));
+                    componentType.getSimpleName(),
+                    componentType.getCanonicalName(),
+                    "",
+                    SPRING_REPOSITORY,
+                    ""));
 
         }
         return componentsFound;
@@ -81,13 +85,17 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
         Set<Class<?>> componentTypes = getTypesAnnotatedWith(type);
         for (Class<?> componentType : componentTypes) {
             components.add(getComponentFinder().foundComponent(
-                    null, componentType.getCanonicalName(), "", technology, ""));
+                    componentType.getSimpleName(),
+                    componentType.getCanonicalName(),
+                    "",
+                    technology,
+                    ""));
 
         }
         return components;
     }
 
-    protected Collection<Component> findImplementationClassesAnnotated(Class<? extends Annotation> type, String technology) {
+    protected Collection<Component> findInterfacesForImplementationClassesAnnotated(Class<? extends Annotation> type, String technology) {
         Collection<Component> components = new LinkedList<>();
 
         Set<Class<?>> componentTypes = getTypesAnnotatedWith(type);
@@ -95,12 +103,19 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
             // WARNING: this code makes an assumption that the first implemented interface is the component type
             // i.e. JdbcSomethingRepository (annotated @Repository) *only* implements SomethingRepository,
             // which is the component type we're interested in
-            String interfaceName = null;
+            Class interfaceType = null;
             if (componentType.getInterfaces().length > 0) {
-                interfaceName = componentType.getInterfaces()[0].getCanonicalName();
+                interfaceType = componentType.getInterfaces()[0];
             }
-            components.add(getComponentFinder().foundComponent(
-                    interfaceName, componentType.getCanonicalName(), "", technology, ""));
+
+            if (interfaceType != null) {
+                components.add(getComponentFinder().foundComponent(
+                        interfaceType.getSimpleName(),
+                        interfaceType.getCanonicalName(),
+                        "",
+                        technology,
+                        ""));
+            }
         }
 
         return components;

@@ -117,11 +117,12 @@ public class Model {
         }
     }
 
-    Component addComponentOfType(Container parent, String interfaceType, String implementationType, String description) {
+    Component addComponentOfType(Container parent, String name, String type, String description, String technology) {
         Component component = new Component();
-        component.setInterfaceType(interfaceType);
-        component.setImplementationType(implementationType);
+        component.setName(name);
+        component.setType(type);
         component.setDescription(description);
+        component.setTechnology(technology);
 
         component.setParent(parent);
         parent.add(component);

@@ -1,12 +1,9 @@
 package com.structurizr.componentfinder;
 
-import java.lang.annotation.Annotation;
-import java.util.Set;
-
+import com.structurizr.model.Component;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.NotFoundException;
-
 import org.reflections.Reflections;
 import org.reflections.scanners.FieldAnnotationsScanner;
 import org.reflections.scanners.SubTypesScanner;
@@ -15,9 +12,10 @@ import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 
-import com.structurizr.model.Component;
+import java.lang.annotation.Annotation;
+import java.util.Set;
 
-public abstract class AbstractReflectionsComponentFinderStrategy extends AbstractComponentFinderStrategy {
+public abstract class AbstractReflectionsComponentFinderStrategy extends ComponentFinderStrategy {
 
     protected Reflections reflections;
 
@@ -37,29 +35,35 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Abstrac
     @Override
     public void findDependencies() throws Exception {
         for (Component component : componentFinder.getContainer().getComponents()) {
-            if (component.getInterfaceType() != null) {
-                addEfferentDependencies(component, component.getInterfaceType(), 1);
-            }
-            if (component.getImplementationType() != null) {
-                addEfferentDependencies(component, component.getImplementationType(), 1);
+            if (component.getType() != null) {
+                Class type = Class.forName(component.getType());
+                addEfferentDependencies(component, component.getType(), 1);
+
+                // and repeat for the first implementation class we can find
+                if (type.isInterface()) {
+                    Class implementationType = getFirstImplementationOfInterface(type);
+                    if (implementationType != null) {
+                        addEfferentDependencies(component, implementationType.getCanonicalName(), 1);
+                    }
+                }
             }
         }
     }
 
-    private void addEfferentDependencies(Component component, String implementationType, int depth) {
+    // todo: remove the depth thing
+    protected void addEfferentDependencies(Component component, String type, int depth) {
         try {
             ClassPool pool = ClassPool.getDefault();
-            CtClass cc = pool.get(implementationType);
+            CtClass cc = pool.get(type);
             for (Object referencedType : cc.getRefClasses()) {
                 String referencedTypeName = (String)referencedType;
                 if (referencedTypeName.startsWith(componentFinder.getPackageToScan())) {
-
                     Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedTypeName);
                     if (destinationComponent != null) {
                         if (component != destinationComponent) {
                             component.uses(destinationComponent, "");
                         }
-                    } else if (!referencedTypeName.equals(implementationType) && depth < 10) {
+                    } else if (!referencedTypeName.equals(type) && depth < 10) {
                         addEfferentDependencies(component, referencedTypeName, ++depth);
                     }
                 }
@@ -81,6 +85,16 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Abstrac
         return reflections.getSubTypesOf(interfaceType);
     }
 
+    protected Class getFirstImplementationOfInterface(Class interfaceType) {
+        Set<Class> implementationClasses = reflections.getSubTypesOf(interfaceType);
+
+        if (implementationClasses.isEmpty()) {
+            return null;
+        } else {
+            return implementationClasses.iterator().next();
+        }
+    }
+
 //    protected Set<Field> getFieldsAnnotatedWith(Class<? extends Annotation> annotation) {
 //        return reflections.getFieldsAnnotatedWith(annotation);
 //    }
@@ -89,9 +103,5 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Abstrac
 //        return ReflectionUtils.getAllSuperTypes(implementationType, Predicates.and(ReflectionUtils.withAnnotation(annotation)));
 //
 //    }
-
-    protected Component getComponentWithType(String fullyQualifiedClassName) {
-        return componentFinder.getContainer().getComponentOfType(fullyQualifiedClassName);
-    }
 
 }

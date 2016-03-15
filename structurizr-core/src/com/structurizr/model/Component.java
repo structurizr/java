@@ -14,8 +14,7 @@ public class Component extends Element {
     private Container parent;
 
     private String technology = "";
-    private String interfaceType;
-    private String implementationType;
+    private String type;
     private String sourcePath;
 
     public Component() {
@@ -51,29 +50,16 @@ public class Component extends Element {
     }
 
     /**
-     * Gets the interface type (a fully qualified Java interface name).
+     * Gets the type of this component (e.g. a fully qualified Java interface/class name).
      *
-     * @return  the interface type, as a String
+     * @return  the type, as a String
      */
-    public String getInterfaceType() {
-        return interfaceType;
+    public String getType() {
+        return type;
     }
 
-    public void setInterfaceType(String interfaceType) {
-        this.interfaceType = interfaceType;
-    }
-
-    /**
-     * Gets the implementation type (a fully qualified Java class name).
-     *
-     * @return  the implementation type, as a String
-     */
-    public String getImplementationType() {
-        return implementationType;
-    }
-
-    public void setImplementationType(String implementationType) {
-        this.implementationType = implementationType;
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
@@ -89,22 +75,9 @@ public class Component extends Element {
         this.sourcePath = sourcePath;
     }
 
-    @Override
-    public String getName() {
-        if (this.name != null) {
-            return super.getName();
-        } else if (this.interfaceType != null) {
-            return interfaceType.substring(interfaceType.lastIndexOf(".") + 1);
-        } else if (this.implementationType != null) {
-            return implementationType.substring(implementationType.lastIndexOf(".") + 1);
-        } else {
-            return "";
-        }
-    }
-
     @JsonIgnore
     public String getPackage() {
-        return interfaceType.substring(0, interfaceType.lastIndexOf("."));
+        return type.substring(0, type.lastIndexOf("."));
     }
 
     @Override

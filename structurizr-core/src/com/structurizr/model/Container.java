@@ -49,11 +49,8 @@ public class Container extends Element {
         this.technology = technology;
     }
 
-    public Component addComponentOfType(String interfaceType, String implementationType, String description, String technology) {
-        Component component = getModel().addComponentOfType(this, interfaceType, implementationType, description);
-        component.setTechnology(technology);
-
-        return component;
+    public Component addComponent(String name, String type, String description, String technology) {
+        return getModel().addComponentOfType(this, name, type, description, technology);
     }
 
     public Component addComponent(String name, String description) {
@@ -100,17 +97,12 @@ public class Container extends Element {
             return null;
         }
 
-        Optional<Component> component = components.stream().filter(c -> type.equals(c.getInterfaceType())).findFirst();
+        Optional<Component> component = components.stream().filter(c -> type.equals(c.getType())).findFirst();
 
         if (component.isPresent()) {
             return component.get();
         } else {
-            component = components.stream().filter(c -> type.equals(c.getImplementationType())).findFirst();
-            if (component.isPresent()) {
-                return component.get();
-            } else {
-                return null;
-            }
+            return null;
         }
     }
 

@@ -25,51 +25,25 @@ public class ComponentFinder {
         }
     }
 
-    public Component foundComponent(String interfaceType, String implementationType, String description, String technology, String sourcePath) {
-        String type = interfaceType;
-        if (type == null || type.equals("")) {
-            // there is no interface type, so we'll just have to use the implementation type
-            type = implementationType;
-        }
-
+    public Component foundComponent(String name, String type, String description, String technology, String sourcePath) {
         Component component = container.getComponentOfType(type);
         if (component != null) {
-            mergeInformation(component, interfaceType, implementationType, description, technology, sourcePath);
+            mergeInformation(component, type, description, technology, sourcePath);
         } else {
-            String name = type.substring(type.lastIndexOf(".") + 1);
             component = container.getComponentWithName(name);
             if (component == null) {
-                component = container.addComponentOfType(interfaceType, implementationType, description, technology);
+                component = container.addComponent(name, type, description, technology);
             } else {
-                mergeInformation(component, interfaceType, implementationType, description, technology, sourcePath);
+                mergeInformation(component, type, description, technology, sourcePath);
             }
         }
 
         return component;
     }
 
-    public Component enrichComponent(String interfaceType, String implementationType, String description, String technology, String sourcePath) {
-        String type = interfaceType;
-        if (type == null || type.isEmpty()) {
-            // there is no interface type, so we'll just have to use the implementation type
-            type = implementationType;
-        }
-
-        Component component = container.getComponentOfType(type);
-        if (component != null) {
-            mergeInformation(component, interfaceType, implementationType, description, technology, sourcePath);
-        }
-
-        return component;
-    }
-
-    private void mergeInformation(Component component, String interfaceType, String implementationType, String description, String technology, String sourcePath) {
-        if (component.getInterfaceType() == null || component.getInterfaceType().isEmpty()) {
-            component.setInterfaceType(interfaceType);
-        }
-
-        if (component.getImplementationType() == null || component.getImplementationType().isEmpty()) {
-            component.setImplementationType(implementationType);
+    private void mergeInformation(Component component, String type, String description, String technology, String sourcePath) {
+        if (component.getType() == null || component.getType().isEmpty()) {
+            component.setType(type);
         }
 
         if (component.getDescription() == null || component.getDescription().isEmpty()) {

@@ -13,7 +13,7 @@ import java.util.LinkedList;
  * the top-level Javadoc comment from the code so that this can be added to existing
  * component definitions.
  */
-public class JavadocComponentFinderStrategy extends AbstractComponentFinderStrategy {
+public class JavadocComponentFinderStrategy extends ComponentFinderStrategy {
 
     private static RootDoc ROOTDOC;
 
@@ -33,43 +33,19 @@ public class JavadocComponentFinderStrategy extends AbstractComponentFinderStrat
     public Collection<Component> findComponents() throws Exception {
         runJavaDoc();
 
-        Collection<Component> componentsFound = new LinkedList<>();
-
-        // interfaces first (use interface Javadoc over implementation Javadoc)
         for (ClassDoc classDoc : ROOTDOC.classes()) {
             String comment = filterAndTruncate(classDoc.commentText());
             String pathToSourceFile = classDoc.position().file().getCanonicalPath();
-            if (classDoc.isInterface()) {
-                Component component = getComponentFinder().enrichComponent(
-                        classDoc.qualifiedTypeName(),
-                        null, // implementation type
-                        comment,
-                        "", // technology
-                        pathToSourceFile);
-                if (component != null) {
-                    componentsFound.add(component);
-                }
+
+            Component component = getComponentFinder().getContainer().getComponentOfType(classDoc.qualifiedTypeName());
+            if (component != null)
+            {
+                component.setDescription(comment);
+                component.setSourcePath(pathToSourceFile);
             }
         }
 
-        // then implementation classes
-        for (ClassDoc classDoc : ROOTDOC.classes()) {
-            String comment = filterAndTruncate(classDoc.commentText());
-            String pathToSourceFile = classDoc.position().file().getCanonicalPath();
-            if (!classDoc.isInterface()) {
-                Component component = getComponentFinder().enrichComponent(
-                        null, // interface type
-                        classDoc.qualifiedTypeName(),
-                        comment,
-                        "", // technology
-                        pathToSourceFile);
-                if (component != null) {
-                    componentsFound.add(component);
-                }
-            }
-        }
-
-        return componentsFound;
+        return new LinkedList<>();
     }
 
     private void runJavaDoc() throws Exception {
