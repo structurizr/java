@@ -82,7 +82,7 @@ public class SpringPetClinic {
             if (sourcePath != null) {
                 component.setSourcePath(sourcePath.replace(
                         sourceRoot,
-                        "https://github.com/spring-projects/spring-petclinic/tree/master/"));
+                        "https://github.com/spring-projects/spring-petclinic/tree/master"));
             }
         }
 
