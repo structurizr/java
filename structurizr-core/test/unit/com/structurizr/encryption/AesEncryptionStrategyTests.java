@@ -16,10 +16,10 @@ public class AesEncryptionStrategyTests {
 
     @Test
     public void test_encrypt_EncryptsPlaintext() throws Exception {
-        strategy = new AesEncryptionStrategy(128, 1000, "password");
+        strategy = new AesEncryptionStrategy(128, 1000, "06DC30A48ADEEE72D98E33C2CEAEAD3E", "ED124530AF64A5CAD8EF463CF5628434", "password");
 
         String ciphertext = strategy.encrypt("Hello world");
-        assertNotEquals("Hello world", ciphertext);
+        assertEquals("A/DzjV17WVS6ZAKsLOaC/Q==", ciphertext);
     }
 
     @Test

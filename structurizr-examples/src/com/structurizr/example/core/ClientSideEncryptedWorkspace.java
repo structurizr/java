@@ -32,14 +32,14 @@ public class ClientSideEncryptedWorkspace {
         contextView.addAllPeople();
 
         Styles styles = viewSet.getConfiguration().getStyles();
-        styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#a4b7c9").color("#000000");
-        styles.addElementStyle(Tags.PERSON).background("#728da5").color("#ffffff");
+        styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#d34407").color("#ffffff");
+        styles.addElementStyle(Tags.PERSON).background("#f86628").color("#ffffff");
 
-        EncryptionStrategy encryptionStrategy = new AesEncryptionStrategy(128, 1000, "password");
+        EncryptionStrategy encryptionStrategy = new AesEncryptionStrategy("password");
 
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.setEncryptionStrategy(encryptionStrategy);
-        structurizrClient.putWorkspace(41, workspace);
+        structurizrClient.mergeWorkspace(41, workspace);
     }
 
 }

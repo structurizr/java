@@ -19,7 +19,7 @@ import java.util.Base64;
  * This is implementation of an AES encryption strategy, allowing you to specify the
  * key size, iteration count and passphrase.
  */
-public class AesEncryptionStrategy implements EncryptionStrategy {
+public class AesEncryptionStrategy extends EncryptionStrategy {
 
     private static final String CIPHER_SPECIFICATION = "AES/CBC/PKCS5PADDING";
     private static final int INITIALIZATION_VECTOR_SIZE_IN_BYTES = 16;
@@ -28,14 +28,17 @@ public class AesEncryptionStrategy implements EncryptionStrategy {
     private int iterationCount;
     private String salt;
     private String iv;
-    private String passphrase = "";
-
-    private EncryptionLocation location = EncryptionLocation.Client;
 
     AesEncryptionStrategy() {
     }
 
+    public AesEncryptionStrategy(String passphrase) {
+        this(128, 1000, passphrase);
+    }
+
     public AesEncryptionStrategy(int keySize, int iterationCount, String passphrase) {
+        super(passphrase);
+
         this.keySize = keySize;
         this.iterationCount = iterationCount;
 
@@ -48,16 +51,15 @@ public class AesEncryptionStrategy implements EncryptionStrategy {
         SecureRandom prng = new SecureRandom();
         prng.nextBytes(ivAsBytes);
         this.iv = DatatypeConverter.printHexBinary(ivAsBytes);
-
-        this.passphrase = passphrase;
     }
 
     public AesEncryptionStrategy(int keySize, int iterationCount, String salt, String iv, String passphrase) {
+        super(passphrase);
+
         this.keySize = keySize;
         this.iterationCount = iterationCount;
         this.salt = salt;
         this.iv = iv;
-        this.passphrase = passphrase;
     }
 
     public String encrypt(String plaintext) throws Exception {
@@ -84,7 +86,7 @@ public class AesEncryptionStrategy implements EncryptionStrategy {
 
     private SecretKey createSecretKey() throws NoSuchAlgorithmException, InvalidKeySpecException {
         SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        KeySpec spec = new PBEKeySpec(passphrase.toCharArray(), DatatypeConverter.parseHexBinary(salt), iterationCount, keySize);
+        KeySpec spec = new PBEKeySpec(getPassphrase().toCharArray(), DatatypeConverter.parseHexBinary(salt), iterationCount, keySize);
         return new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
     }
 
@@ -102,23 +104,6 @@ public class AesEncryptionStrategy implements EncryptionStrategy {
 
     public String getIv() {
         return iv;
-    }
-
-    @JsonIgnore // we definitely do not want this in the JSON!
-    public String getPassphrase() {
-        return passphrase;
-    }
-
-    public void setPassphrase(String passphrase) {
-        this.passphrase = passphrase;
-    }
-
-    public EncryptionLocation getLocation() {
-        return location;
-    }
-
-    public void setLocation(EncryptionLocation location) {
-        this.location = location;
     }
 
 }

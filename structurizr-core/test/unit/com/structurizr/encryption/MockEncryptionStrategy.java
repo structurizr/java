@@ -1,15 +1,6 @@
 package com.structurizr.encryption;
 
-public class MockEncryptionStrategy implements EncryptionStrategy {
-
-    @Override
-    public String getPassphrase() {
-        return null;
-    }
-
-    @Override
-    public void setPassphrase(String passphrase) {
-    }
+public class MockEncryptionStrategy extends EncryptionStrategy {
 
     @Override
     public String encrypt(String plaintext) throws Exception {
@@ -19,15 +10,6 @@ public class MockEncryptionStrategy implements EncryptionStrategy {
     @Override
     public String decrypt(String ciphertext) throws Exception {
         return new StringBuilder(ciphertext).reverse().toString();
-    }
-
-    @Override
-    public EncryptionLocation getLocation() {
-        return EncryptionLocation.Client;
-    }
-
-    @Override
-    public void setLocation(EncryptionLocation location) {
     }
 
 }

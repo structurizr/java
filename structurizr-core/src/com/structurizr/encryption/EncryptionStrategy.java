@@ -1,25 +1,48 @@
 package com.structurizr.encryption;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
+/**
+ * Superclass for all encryption strategies.
+ */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type")
 @JsonSubTypes({
     @JsonSubTypes.Type(value=AesEncryptionStrategy.class, name="aes")
 })
-public interface EncryptionStrategy {
+public abstract class EncryptionStrategy {
 
-    public String getPassphrase();
+    private String passphrase = "";
+    private EncryptionLocation location = EncryptionLocation.Client;
 
-    public void setPassphrase(String passphrase);
+    protected EncryptionStrategy() {
+    }
 
-    public String encrypt(String plaintext) throws Exception;
+    protected EncryptionStrategy(String passphrase) {
+        this.passphrase = passphrase;
+    }
 
-    public String decrypt(String ciphertext) throws Exception;
+    @JsonIgnore // we definitely do not want this in the JSON!
+    public String getPassphrase() {
+        return passphrase;
+    }
 
-    public EncryptionLocation getLocation();
+    public void setPassphrase(String passphrase) {
+        this.passphrase = passphrase;
+    }
 
-    public void setLocation(EncryptionLocation location);
+    public EncryptionLocation getLocation() {
+        return location;
+    }
+
+    public void setLocation(EncryptionLocation location) {
+        this.location = location;
+    }
+
+    public abstract String encrypt(String plaintext) throws Exception;
+
+    public abstract String decrypt(String ciphertext) throws Exception;
 
 }
 

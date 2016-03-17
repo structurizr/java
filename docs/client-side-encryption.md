@@ -6,14 +6,14 @@ To use client-side encryption, simply create an instance of ```AesEncryptionStra
 
 ```java
 StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-EncryptionStrategy encryptionStrategy = new AesEncryptionStrategy(128, 1000, "password");
+EncryptionStrategy encryptionStrategy = new AesEncryptionStrategy("password");
 structurizrClient.setEncryptionStrategy(encryptionStrategy);
 
 // upload your workspace as usual
 structurizrClient.putWorkspace(1234, workspace);
 ```
 
-The constructor parameters for <code>AesEncryptionStrategy</code> are:
+The default key size is 128 bits and the default iteration count is 1000. An alternative constructor for <code>AesEncryptionStrategy</code> takes the following parameters:
 
 - The key size (number of bits; e.g. 128, 192 or 256).
 - The iteration count (used when generating keys).
