@@ -42,6 +42,15 @@ public abstract class StaticView extends View {
     }
 
     /**
+     * Removes the given software system from this view.
+     *
+     * @param softwareSystem        the SoftwareSystem to remove
+     */
+    public void remove(SoftwareSystem softwareSystem) {
+        removeElement(softwareSystem);
+    }
+
+    /**
      * Adds all people in the model to this view.
      */
     public void addAllPeople() {
@@ -65,6 +74,15 @@ public abstract class StaticView extends View {
      */
     public void add(Person person) {
         addElement(person, true);
+    }
+
+    /**
+     * Removes the given person from this view.
+     *
+     * @param person        the Person to add
+     */
+    public void remove(Person person) {
+        removeElement(person);
     }
 
     public abstract void addAllElements();
