@@ -26,37 +26,10 @@ public class ComponentFinder {
     }
 
     public Component foundComponent(String name, String type, String description, String technology, String sourcePath) {
-        Component component = container.getComponentOfType(type);
-        if (component != null) {
-            mergeInformation(component, type, description, technology, sourcePath);
-        } else {
-            component = container.getComponentWithName(name);
-            if (component == null) {
-                component = container.addComponent(name, type, description, technology);
-            } else {
-                mergeInformation(component, type, description, technology, sourcePath);
-            }
-        }
+        Component component = container.addComponent(name, type, description, technology);
+        component.setSourcePath(sourcePath);
 
         return component;
-    }
-
-    private void mergeInformation(Component component, String type, String description, String technology, String sourcePath) {
-        if (component.getType() == null || component.getType().isEmpty()) {
-            component.setType(type);
-        }
-
-        if (component.getDescription() == null || component.getDescription().isEmpty()) {
-            component.setDescription(description);
-        }
-
-        if (component.getTechnology() == null || component.getTechnology().isEmpty()) {
-            component.setTechnology(technology);
-        }
-
-        if (component.getSourcePath() == null || component.getSourcePath().isEmpty()) {
-            component.setSourcePath(sourcePath);
-        }
     }
 
     public Collection<Component> findComponents() throws Exception {
