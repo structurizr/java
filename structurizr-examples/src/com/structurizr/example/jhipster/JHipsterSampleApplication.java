@@ -94,11 +94,10 @@ public class JHipsterSampleApplication {
         // tag and style some elements
         relationalDatabase.addTags("Database");
 
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, null, null, null, null, null, Shape.Person));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.CONTAINER, null, null, null, null, null));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle("Database", null, null, null, null, null, Shape.Cylinder));
+        viewSet.getConfiguration().getStyles().addElementStyle(Tags.PERSON).shape(Shape.Person);
+        viewSet.getConfiguration().getStyles().addElementStyle("Database").shape(Shape.Cylinder);
 
-        StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
+        StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.mergeWorkspace(5651, workspace);
     }
 
