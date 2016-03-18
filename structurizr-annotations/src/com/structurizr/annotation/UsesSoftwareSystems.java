@@ -3,10 +3,10 @@ package com.structurizr.annotation;
 import java.lang.annotation.*;
 
 @Documented
-@Target({ElementType.TYPE, ElementType.FIELD})
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ComponentDependency {
+public @interface UsesSoftwareSystems {
 
-    String description();
+    UsesSoftwareSystem[] value();
 
 }

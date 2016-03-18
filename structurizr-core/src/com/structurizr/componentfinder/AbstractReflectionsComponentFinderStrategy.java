@@ -1,9 +1,11 @@
 package com.structurizr.componentfinder;
 
+import com.google.common.base.Predicates;
 import com.structurizr.model.Component;
 import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.NotFoundException;
+import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
 import org.reflections.scanners.FieldAnnotationsScanner;
 import org.reflections.scanners.SubTypesScanner;
@@ -101,9 +103,8 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
 //        return reflections.getFieldsAnnotatedWith(annotation);
 //    }
 
-//    protected Set<Class<?>> findSuperTypesAnnotatedWith(Class<?> implementationType, Class annotation) {
-//        return ReflectionUtils.getAllSuperTypes(implementationType, Predicates.and(ReflectionUtils.withAnnotation(annotation)));
-//
-//    }
+    protected Set<Class<?>> findSuperTypesAnnotatedWith(Class<?> implementationType, Class annotation) {
+        return ReflectionUtils.getAllSuperTypes(implementationType, Predicates.and(ReflectionUtils.withAnnotation(annotation)));
+    }
 
 }

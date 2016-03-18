@@ -25,13 +25,6 @@ public class ComponentFinder {
         }
     }
 
-    public Component foundComponent(String name, String type, String description, String technology, String sourcePath) {
-        Component component = container.addComponent(name, type, description, technology);
-        component.setSourcePath(sourcePath);
-
-        return component;
-    }
-
     public Collection<Component> findComponents() throws Exception {
         Collection<Component> componentsFound = new LinkedList<>();
 

@@ -49,10 +49,6 @@ public class Container extends Element {
         this.technology = technology;
     }
 
-    public Component addComponent(String name, String type, String description, String technology) {
-        return getModel().addComponentOfType(this, name, type, description, technology);
-    }
-
     public Component addComponent(String name, String description) {
         return getModel().addComponent(this, name, description);
     }
@@ -61,6 +57,14 @@ public class Container extends Element {
         Component c = getModel().addComponent(this, name, description);
         c.setTechnology(technology);
         return c;
+    }
+
+    public Component addComponent(String name, Class type, String description, String technology) {
+        return this.addComponent(name, type.getCanonicalName(), description, technology);
+    }
+
+    public Component addComponent(String name, String type, String description, String technology) {
+        return getModel().addComponentOfType(this, name, type, description, technology);
     }
 
     void add(Component component) {

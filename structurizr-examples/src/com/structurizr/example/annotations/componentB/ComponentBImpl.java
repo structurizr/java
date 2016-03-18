@@ -1,11 +1,11 @@
 package com.structurizr.example.annotations.componentB;
 
-import com.structurizr.annotation.ComponentDependency;
+import com.structurizr.annotation.UsesComponent;
 import com.structurizr.example.annotations.componentA.ComponentA;
 
 class ComponentBImpl implements ComponentB {
 
-    @ComponentDependency(description = "Uses to do something")
+    @UsesComponent(description = "Uses to do something")
     private ComponentA componentA;
 
     /**

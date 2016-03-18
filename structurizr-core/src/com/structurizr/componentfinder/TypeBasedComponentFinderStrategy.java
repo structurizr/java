@@ -20,12 +20,11 @@ public class TypeBasedComponentFinderStrategy extends AbstractReflectionsCompone
         for (Class<?> type : types) {
             for (TypeMatcher typeMatcher : typeMatchers) {
                 if (typeMatcher.matches(type)) {
-                    Component component = getComponentFinder().foundComponent(
+                    Component component = getComponentFinder().getContainer().addComponent(
                             type.getSimpleName(),
                             type.getCanonicalName(),
                             typeMatcher.getDescription(),
-                            typeMatcher.getTechnology(),
-                            "");
+                            typeMatcher.getTechnology());
                     componentsFound.add(component);
                 }
             }

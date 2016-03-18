@@ -69,12 +69,11 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
         Set<Class> componentTypes = getInterfacesThatExtend(JpaRepository.class);
 
         for (Class<?> componentType : componentTypes) {
-            componentsFound.add(getComponentFinder().foundComponent(
+            componentsFound.add(getComponentFinder().getContainer().addComponent(
                     componentType.getSimpleName(),
                     componentType.getCanonicalName(),
                     "",
-                    SPRING_REPOSITORY,
-                    ""));
+                    SPRING_REPOSITORY));
 
         }
         return componentsFound;
@@ -84,12 +83,11 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
         Collection<Component> components = new LinkedList<>();
         Set<Class<?>> componentTypes = getTypesAnnotatedWith(type);
         for (Class<?> componentType : componentTypes) {
-            components.add(getComponentFinder().foundComponent(
+            components.add(getComponentFinder().getContainer().addComponent(
                     componentType.getSimpleName(),
                     componentType.getCanonicalName(),
                     "",
-                    technology,
-                    ""));
+                    technology));
 
         }
         return components;
@@ -109,12 +107,11 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
             }
 
             if (interfaceType != null) {
-                components.add(getComponentFinder().foundComponent(
+                components.add(getComponentFinder().getContainer().addComponent(
                         interfaceType.getSimpleName(),
                         interfaceType.getCanonicalName(),
                         "",
-                        technology,
-                        ""));
+                        technology));
             }
         }
 
