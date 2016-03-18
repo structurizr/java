@@ -1,7 +1,6 @@
 rootProject.name = 'structurizr'
 
 include 'structurizr-annotations'
-include 'structurizr-client'
 include 'structurizr-core'
 include 'structurizr-dot'
 include 'structurizr-examples'
