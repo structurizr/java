@@ -2,11 +2,8 @@ package com.structurizr.example.core;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
-
-import java.io.StringWriter;
 
 /**
  * A software architecture model to describe the Java EE Hands on Lab Movie Plex 7 sample application. The goal is to
@@ -124,7 +121,7 @@ public class JavaEEMoviePlex7 {
         viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 5, null, null, null, 40, 500, null));
 
         // upload it to structurizr.com
-        StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
+        StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.mergeWorkspace(511, workspace);
    }
 
