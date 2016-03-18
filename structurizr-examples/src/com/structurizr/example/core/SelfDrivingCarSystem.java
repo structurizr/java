@@ -3,7 +3,10 @@ package com.structurizr.example.core;
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
 import com.structurizr.model.*;
-import com.structurizr.view.*;
+import com.structurizr.view.ContainerView;
+import com.structurizr.view.PaperSize;
+import com.structurizr.view.SystemContextView;
+import com.structurizr.view.ViewSet;
 
 /**
  * An example of a software architecture model to describe an initial solution to Nate Schutta's
@@ -20,7 +23,7 @@ public class SelfDrivingCarSystem {
         Model model = workspace.getModel();
 
         // create the model
-        SoftwareSystem selfDrivingCarSystem = model.addSoftwareSystem(Location.Internal, "Self-Driving Car System", "Central system for storing information about self-driving cars.");
+        SoftwareSystem selfDrivingCarSystem = model.addSoftwareSystem("Self-Driving Car System", "Central system for storing information about self-driving cars.");
 
         SoftwareSystem selfDrivingCar = model.addSoftwareSystem("Self-Driving Car", "Our own self-driving cars");
         selfDrivingCar.uses(selfDrivingCarSystem, "Sends VIN and status information (battery level, health of engine, location, etc) to");
@@ -87,11 +90,11 @@ public class SelfDrivingCarSystem {
 
         // tag and style some elements
         selfDrivingCarSystem.addTags("System Under Construction");
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.ELEMENT, 600, 450, null, null, 40));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle("System Under Construction", null, null, "#041F37", "#ffffff", null));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#2A4E6E", "#ffffff", null));
-        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#728da5", "white", 40));
-        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 5, null, null, null, 40, 500, null));
+        viewSet.getConfiguration().getStyles().addElementStyle(Tags.ELEMENT).width(600).height(450).fontSize(40);
+        viewSet.getConfiguration().getStyles().addElementStyle("System Under Construction").background("#041f37").color("#ffffff");
+        viewSet.getConfiguration().getStyles().addElementStyle(Tags.SOFTWARE_SYSTEM).background("#2a4e6e").color("#ffffff");
+        viewSet.getConfiguration().getStyles().addElementStyle(Tags.PERSON).background("#728da5").color("#ffffff");
+        viewSet.getConfiguration().getStyles().addRelationshipStyle(Tags.RELATIONSHIP).thickness(5).fontSize(40).width(500);
         contextView.setPaperSize(PaperSize.Slide_4_3);
 
         // upload it to structurizr.com

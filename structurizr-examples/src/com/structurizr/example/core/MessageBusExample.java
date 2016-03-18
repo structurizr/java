@@ -2,11 +2,11 @@ package com.structurizr.example.core;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
-import com.structurizr.view.*;
-
-import java.io.StringWriter;
+import com.structurizr.view.ContainerView;
+import com.structurizr.view.DynamicView;
+import com.structurizr.view.Shape;
+import com.structurizr.view.ViewSet;
 
 public class MessageBusExample {
 
@@ -66,21 +66,16 @@ public class MessageBusExample {
         dynamicView.add(messageBus, microserviceA);
         dynamicView.endChildSequence();
 
-        views.getConfiguration().getStyles().add(new ElementStyle(Tags.ELEMENT, null, null, null, null, null, Shape.RoundedBox));
-        views.getConfiguration().getStyles().add(new ElementStyle(MESSAGE_BUS_TAG, 1600, null, "#FFBF00", "#000000", null));
-        views.getConfiguration().getStyles().add(new ElementStyle(MICROSERVICE_TAG, null, null, "#FACC2E", "#000000", null, null));
-        views.getConfiguration().getStyles().add(new ElementStyle(DATABASE_TAG, null, null, "#F5DA81", "#000000", null, Shape.Cylinder));
-        views.getConfiguration().getStyles().add(new ElementStyle(EVENT_STORE_TAG, null, null, "#F5DA81", "#000000", null, Shape.Cylinder));
+        views.getConfiguration().getStyles().addElementStyle(Tags.ELEMENT).shape(Shape.RoundedBox);
+        views.getConfiguration().getStyles().addElementStyle(MESSAGE_BUS_TAG).width(1600).background("#FFBF00").color("#000000");
+        views.getConfiguration().getStyles().addElementStyle(MICROSERVICE_TAG).background("#FACC2E").color("#000000");
+        views.getConfiguration().getStyles().addElementStyle(DATABASE_TAG).background("#F5DA81").color("#000000").shape(Shape.Cylinder);
+        views.getConfiguration().getStyles().addElementStyle(EVENT_STORE_TAG).background("#F5DA81").color("#000000").shape(Shape.Cylinder);
 
-        views.getConfiguration().getStyles().add(new RelationshipStyle(Tags.ASYNCHRONOUS, null, null, true, null, null, null, null));
-        views.getConfiguration().getStyles().add(new RelationshipStyle(Tags.SYNCHRONOUS, null, null, false, null, null, null, null));
+        views.getConfiguration().getStyles().addRelationshipStyle(Tags.ASYNCHRONOUS).dashed(true);
+        views.getConfiguration().getStyles().addRelationshipStyle(Tags.SYNCHRONOUS).dashed(false);
 
-        JsonWriter jsonWriter = new JsonWriter(true);
-        StringWriter stringWriter = new StringWriter();
-        jsonWriter.write(workspace, stringWriter);
-        System.out.println(stringWriter.toString());
-
-        StructurizrClient client = new StructurizrClient("https://api.structurizr.com", "key", "secret");
+        StructurizrClient client = new StructurizrClient("key", "secret");
         client.mergeWorkspace(4241, workspace);
     }
 
