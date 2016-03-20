@@ -9,6 +9,8 @@ import com.structurizr.view.DynamicView;
 import com.structurizr.view.RelationshipView;
 
 import java.io.Writer;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * A simple writer that outputs a diagram definition that can be copy-pasted
@@ -41,7 +43,10 @@ public class WebSequenceDiagramsWriter implements WorkspaceWriter {
         writer.write(System.lineSeparator());
         writer.write(System.lineSeparator());
 
-        for (RelationshipView relationshipView : view.getRelationships()) {
+        Set<RelationshipView> relationships = new TreeSet<>((rv1, rv2) -> rv1.getOrder().compareTo(rv2.getOrder()));;
+        relationships.addAll(view.getRelationships());
+
+        for (RelationshipView relationshipView : relationships) {
             Relationship r = relationshipView.getRelationship();
             // Thing A->Thing B: Description
             writer.write(String.format("%s%s%s: %s",
