@@ -167,14 +167,6 @@ public abstract class View implements Comparable<View> {
         }
     }
 
-    /**
-     * @deprecated use {@link View#add(com.structurizr.model.Relationship)}
-     */
-    @Deprecated
-    public RelationshipView addRelationship(Relationship relationship) {
-        return add(relationship);
-    }
-
     public RelationshipView add(Relationship relationship) {
         if (relationship != null) {
             if (isElementInView(relationship.getSource()) && isElementInView(relationship.getDestination())) {
@@ -292,7 +284,7 @@ public abstract class View implements Comparable<View> {
         return elementView.isPresent() ? elementView.get() : null;
     }
 
-    private RelationshipView findRelationshipView(RelationshipView sourceRelationshipView) {
+    protected RelationshipView findRelationshipView(RelationshipView sourceRelationshipView) {
         for (RelationshipView relationshipView : getRelationships()) {
             if (relationshipView.getRelationship().equals(sourceRelationshipView.getRelationship())) {
                 return relationshipView;

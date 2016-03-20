@@ -97,7 +97,9 @@ public class RelationshipView {
 
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (!getId().equals(that.getId())) return false;
-        return !(order != null ? !order.equals(that.order) : that.order != null);
+        if (order != null ? !order.equals(that.order) : that.order != null) return false;
+
+        return true;
     }
 
     @Override
@@ -110,7 +112,7 @@ public class RelationshipView {
 
     @Override
     public String toString() {
-        return relationship.toString();
+        return relationship != null ? relationship.toString() : "";
     }
 
 }

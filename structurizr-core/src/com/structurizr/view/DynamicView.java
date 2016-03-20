@@ -42,7 +42,7 @@ public class DynamicView extends View {
 
     @Override
     public RelationshipView add(Relationship relationship) {
-        // when adding a relationship to a DynamicView we suppose the user really wants to also see both components
+        // when adding a relationship to a DynamicView we suppose the user really wants to also see both elements
         addElement(relationship.getSource(), false);
         addElement(relationship.getDestination(), false);
         return super.add(relationship);
@@ -57,14 +57,7 @@ public class DynamicView extends View {
     }
 
     @Override
-    public Set<RelationshipView> getRelationships() {
-        SortedSet<RelationshipView> set = new TreeSet<RelationshipView>((rv1, rv2) -> rv1.getOrder().compareTo(rv2.getOrder()));
-        set.addAll(super.getRelationships());
-
-        return set;
-    }
-
-    RelationshipView findRelationshipView(RelationshipView sourceRelationshipView) {
+    protected RelationshipView findRelationshipView(RelationshipView sourceRelationshipView) {
         for (RelationshipView relationshipView : getRelationships()) {
             if (relationshipView.getRelationship().equals(sourceRelationshipView.getRelationship())) {
                 if ((relationshipView.getDescription() != null && relationshipView.getDescription().equals(sourceRelationshipView.getDescription())) &&
