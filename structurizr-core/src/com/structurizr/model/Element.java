@@ -233,6 +233,10 @@ public abstract class Element extends Taggable {
         return relationship;
     }
 
+    public boolean hasAfferentRelationships() {
+        return getModel().getRelationships().stream().filter(r -> r.getDestination() == this).count() > 0;
+    }
+
     public boolean hasEfferentRelationshipWith(Element element) {
         return getEfferentRelationshipWith(element) != null;
     }
