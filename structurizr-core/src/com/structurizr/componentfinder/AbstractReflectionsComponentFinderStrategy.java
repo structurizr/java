@@ -45,7 +45,7 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
                 // and repeat for the first implementation class we can find
                 if (type.isInterface()) {
                     Class implementationType = getFirstImplementationOfInterface(type);
-                    if (implementationType != null) {
+                    if (implementationType != null && implementationType.getCanonicalName() != null) {
                         addEfferentDependencies(component, implementationType.getCanonicalName(), new HashSet<>());
                     }
                 }
@@ -63,6 +63,15 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
                 String referencedTypeName = (String)referencedType;
                 if (referencedTypeName.startsWith(componentFinder.getPackageToScan())) {
                     Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedTypeName);
+
+                    // if there was no component of the interface type, perhaps there is one of the implementation type
+                    Class referencedTypeAsClass = Class.forName(referencedTypeName);
+                    if (destinationComponent == null && referencedTypeAsClass.isInterface()) {
+                        Class implementationClass = getFirstImplementationOfInterface(referencedTypeAsClass);
+                        if (implementationClass != null) {
+                            destinationComponent = componentFinder.getContainer().getComponentOfType(implementationClass.getCanonicalName());
+                        }
+                    }
                     if (destinationComponent != null) {
                         if (component != destinationComponent) {
                             component.uses(destinationComponent, "");
@@ -73,7 +82,10 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
                 }
             }
         } catch (NotFoundException nfe) {
+            System.err.println(type + " not found");
             nfe.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
