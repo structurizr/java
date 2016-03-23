@@ -20,7 +20,7 @@ import java.util.Set;
  *
  * Non-public types will be ignored so that, for example, you can
  * hide repository implementations behind services.
- * (e.g. at http://olivergierke.de/2013/01/whoops-where-did-my-architecture-go/)
+ * - e.g. http://olivergierke.de/2013/01/whoops-where-did-my-architecture-go/
  */
 public class SpringComponentFinderStrategy extends AbstractReflectionsComponentFinderStrategy {
 
