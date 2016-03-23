@@ -33,6 +33,7 @@ public class SpringComponentFinderStrategyTests {
         componentFinder.findComponents();
 
         assertEquals(4, webApplication.getComponents().size());
+        assertEquals(0, webApplication.getComponents().stream().filter(c -> "SomeNonPublicRepository".equals(c.getName())).count());
 
         Component someController = webApplication.getComponentWithName("SomeController");
         assertNotNull(someController);
