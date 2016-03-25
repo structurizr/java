@@ -3,6 +3,7 @@ package com.structurizr.model;
 import com.structurizr.AbstractWorkspaceTestBase;
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -53,6 +54,20 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
 
         assertTrue(component.getTags().contains(Tags.ELEMENT));
         assertTrue(component.getTags().contains(Tags.COMPONENT));
+    }
+
+    @Test
+    public void test_getPackage_ReturnsNull_WhenNoTypeHasBeenSet() {
+        Component component = new Component();
+        assertNull(component.getType());
+        assertNull(component.getPackage());
+    }
+
+    @Test
+    public void test_getPackage_ReturnsThePackageName_WhenATypeHasBeenSet() {
+        Component component = new Component();
+        component.setType(ComponentTests.class.getCanonicalName());
+        assertEquals("com.structurizr.model", component.getPackage());
     }
 
 }

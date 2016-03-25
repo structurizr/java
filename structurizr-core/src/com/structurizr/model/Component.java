@@ -77,7 +77,15 @@ public class Component extends Element {
 
     @JsonIgnore
     public String getPackage() {
-        return type.substring(0, type.lastIndexOf("."));
+        if (getType() != null) {
+            try {
+                return Class.forName(getType()).getPackage().getName();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return null;
     }
 
     @Override
