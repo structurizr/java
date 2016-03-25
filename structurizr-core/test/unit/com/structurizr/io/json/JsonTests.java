@@ -67,8 +67,8 @@ public class JsonTests {
 
         views.getConfiguration().getStyles().add(new ElementStyle(Tags.ELEMENT, 600, 450, "#dddddd", "#000000", 30));
         views.getConfiguration().getStyles().add(new ElementStyle("Internal", null, null, "#041F37", "#ffffff", null));
-        views.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 4, "#dddddd", true, null, 25, 300, null));
-        views.getConfiguration().getStyles().add(new RelationshipStyle("JDBC", 4, "#ff0000", true, null, 25, 300, null));
+        views.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 4, "#dddddd", true, Routing.Direct, 25, 300, null));
+        views.getConfiguration().getStyles().add(new RelationshipStyle("JDBC", 4, "#ff0000", true, Routing.Direct, 25, 300, null));
 
         return workspace;
     }

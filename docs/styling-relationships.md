@@ -9,7 +9,7 @@ However, the following characteristics of the relationships can be customized:
 - Line thickness (pixels)
 - Colour (HTML hex value)
 - Line style (dashed or solid)
-- Smooth (angled or curved)
+- Routing (direct or orthogonal)
 - Font size (pixels)
 - Width (of the description, in pixels)
 - Position (of the description along the line, as a percentage from start to end)

@@ -30,9 +30,9 @@ public class RelationshipStyle {
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Boolean dashed;
 
-    /** whether the line should be smooth or not */
+    /** the routing algorithm used when rendering lines */
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
-    private Boolean smooth;
+    private Routing routing;
 
     /** the position of the annotation along the line; 0 (start) to 100 (end) */
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
@@ -45,12 +45,12 @@ public class RelationshipStyle {
         this.tag = tag;
     }
 
-    public RelationshipStyle(String tag, Integer thickness, String color, Boolean dashed, Boolean smooth, Integer fontSize, Integer width, Integer position) {
+    public RelationshipStyle(String tag, Integer thickness, String color, Boolean dashed, Routing routing, Integer fontSize, Integer width, Integer position) {
         this.tag = tag;
         this.thickness = thickness;
         this.color = color;
         this.dashed = dashed;
-        this.smooth = smooth;
+        this.routing = routing;
         this.fontSize = fontSize;
         this.width = width;
         this.position = position;
@@ -103,16 +103,16 @@ public class RelationshipStyle {
         return this;
     }
 
-    public Boolean getSmooth() {
-        return smooth;
+    public Routing getRouting() {
+        return routing;
     }
 
-    public void setSmooth(Boolean smooth) {
-        this.smooth = smooth;
+    public void setRouting(Routing routing) {
+        this.routing = routing;
     }
 
-    public RelationshipStyle smooth(boolean smooth) {
-        setSmooth(smooth);
+    public RelationshipStyle routing(Routing routing) {
+        setRouting(routing);
         return this;
     }
 
