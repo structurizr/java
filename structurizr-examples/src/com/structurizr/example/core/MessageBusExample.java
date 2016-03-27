@@ -66,11 +66,10 @@ public class MessageBusExample {
         dynamicView.add(messageBus, microserviceA);
         dynamicView.endChildSequence();
 
-        views.getConfiguration().getStyles().addElementStyle(Tags.ELEMENT).shape(Shape.Box);
-        views.getConfiguration().getStyles().addElementStyle(MESSAGE_BUS_TAG).width(1600).background("#FFBF00").color("#000000").shape(Shape.RoundedBox);
-        views.getConfiguration().getStyles().addElementStyle(MICROSERVICE_TAG).background("#FACC2E").color("#000000");
-        views.getConfiguration().getStyles().addElementStyle(DATABASE_TAG).background("#F5DA81").color("#000000").shape(Shape.Cylinder);
-        views.getConfiguration().getStyles().addElementStyle(EVENT_STORE_TAG).background("#F5DA81").color("#000000").shape(Shape.Cylinder);
+        views.getConfiguration().getStyles().addElementStyle(MESSAGE_BUS_TAG).width(1600).background("#ffbf00").color("#000000").shape(Shape.RoundedBox);
+        views.getConfiguration().getStyles().addElementStyle(MICROSERVICE_TAG).background("#facc2E").color("#000000").shape(Shape.Ellipse);
+        views.getConfiguration().getStyles().addElementStyle(DATABASE_TAG).background("#f5da81").color("#000000").shape(Shape.Cylinder);
+        views.getConfiguration().getStyles().addElementStyle(EVENT_STORE_TAG).background("#f5da81").color("#000000").shape(Shape.Cylinder);
 
         views.getConfiguration().getStyles().addRelationshipStyle(Tags.ASYNCHRONOUS).dashed(true);
         views.getConfiguration().getStyles().addRelationshipStyle(Tags.SYNCHRONOUS).dashed(false);
