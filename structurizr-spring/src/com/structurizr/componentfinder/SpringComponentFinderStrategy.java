@@ -11,16 +11,20 @@ import java.util.LinkedList;
 import java.util.Set;
 
 /**
- * This component finder strategy knows how to find the following Spring components:
+ * <p>This component finder strategy knows how to find the following Spring components:</p>
+ * <ul>
+ * <li>Classes annotated {@link org.springframework.stereotype.Controller} or {@link org.springframework.web.bind.annotation.RestController}</li>
+ * <li> Classes annotated {@link org.springframework.stereotype.Component} or {@link org.springframework.stereotype.Service}</li>
+ * <li> Classes annotated {@link org.springframework.data.repository.Repository}</li>
+ * <li> Classes that extend the {@link JpaRepository} or {@link CrudRepository} interface</li>
+ * </ul>
+ * <p>Non-public types will be ignored so that, for example, you can
+ * hide repository implementations behind services.</p>
+ * <ul>
+ * <li>e.g. http://olivergierke.de/2013/01/whoops-where-did-my-architecture-go/</li>
+ * </ul>
  *
- * - Classes annotated @Controller or @RestController
- * - Classes annotated @Component or @Service
- * - Classes annotated @Repository
- * - Classes that extend the JpaRepository or CrudRepository interface
- *
- * Non-public types will be ignored so that, for example, you can
- * hide repository implementations behind services.
- * - e.g. http://olivergierke.de/2013/01/whoops-where-did-my-architecture-go/
+ * @author Simon Brown
  */
 public class SpringComponentFinderStrategy extends AbstractReflectionsComponentFinderStrategy {
 
