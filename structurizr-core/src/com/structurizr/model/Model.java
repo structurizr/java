@@ -147,12 +147,32 @@ public class Model {
         return component;
     }
 
-    void addRelationship(Relationship relationship) {
+    Relationship addRelationship(Element source, Element destination, String description) {
+        return addRelationship(source, destination, description, null);
+    }
+
+    Relationship addRelationship(Element source, Element destination, String description, String technology) {
+        return addRelationship(source, destination, description, technology, InteractionStyle.Synchronous);
+    }
+
+    Relationship addRelationship(Element source, Element destination, String description, String technology, InteractionStyle interactionStyle) {
+        Relationship relationship = new Relationship(source, destination, description, technology, interactionStyle);
+        if (addRelationship(relationship)) {
+            return relationship;
+        } else {
+            return null;
+        }
+    }
+
+    private boolean addRelationship(Relationship relationship) {
         if (!relationship.getSource().has(relationship)) {
             relationship.setId(idGenerator.generateId(relationship));
             relationship.getSource().addRelationship(relationship);
 
             addRelationshipToInternalStructures(relationship);
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -298,6 +318,65 @@ public class Model {
         }
 
         return null;
+    }
+
+    /**
+     * Propagates all relationships from children to their parents. For example, if you have two components (AAA and BBB)
+     * in different software systems that have a relationship, calling this method will add the following
+     * additional implied relationships to the model: AAA->BB AAA->B AA->BBB AA->BB AA->B A->BBB A->BB A->B.
+     */
+    public void addImplicitRelationships() {
+        for (Relationship relationship : getRelationships()) {
+            Element source = relationship.getSource();
+            Element destination = relationship.getDestination();
+
+            while (source != null) {
+                while (destination != null) {
+                    if (!source.hasEfferentRelationshipWith(destination)) {
+                        if (propagatedRelationshipIsAllowed(source, destination)) {
+                            addRelationship(source, destination, "");
+                        }
+                    }
+
+                    destination = destination.getParent();
+                }
+
+                destination = relationship.getDestination();
+                source = source.getParent();
+            }
+        }
+    }
+
+    private boolean propagatedRelationshipIsAllowed(Element source, Element destination) {
+        if (source.equals(destination)) {
+            return false;
+        }
+
+        if (source.getParent() != null) {
+            if (destination.equals(source.getParent())) {
+                return false;
+            }
+
+            if (source.getParent().getParent() != null) {
+                if (destination.equals(source.getParent().getParent())) {
+                    return false;
+                }
+            }
+        }
+
+        if (destination.getParent() != null) {
+            if (source.equals(destination.getParent())) {
+                return false;
+            }
+
+            if (destination.getParent().getParent() != null) {
+                if (source.equals(destination.getParent().getParent())) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
 }

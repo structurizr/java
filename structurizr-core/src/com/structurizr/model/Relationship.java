@@ -24,14 +24,6 @@ public class Relationship extends Taggable {
     Relationship() {
     }
 
-    Relationship(Element source, Element destination, String description) {
-        this(source, destination, description, null);
-    }
-
-    Relationship(Element source, Element destination, String description, String technology) {
-        this(source, destination, description, technology, InteractionStyle.Synchronous);
-    }
-
     Relationship(Element source, Element destination, String description, String technology, InteractionStyle interactionStyle) {
         this();
 

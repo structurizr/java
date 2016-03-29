@@ -49,4 +49,19 @@ public class Person extends Element {
         return new LinkedHashSet<>(Arrays.asList(Tags.ELEMENT, Tags.PERSON));
     }
 
+    @Override
+    public Relationship delivers(Person destination, String description) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Relationship delivers(Person destination, String description, String technology) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Relationship delivers(Person destination, String description, String technology, InteractionStyle interactionStyle) {
+        throw new UnsupportedOperationException();
+    }
+
 }

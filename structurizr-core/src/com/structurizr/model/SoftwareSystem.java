@@ -26,7 +26,7 @@ public class SoftwareSystem extends Element {
     }
 
     /**
-     * Gets the location of this softare system.
+     * Gets the location of this software system.
      *
      * @return  a Location
      */
@@ -95,48 +95,6 @@ public class SoftwareSystem extends Element {
 
          return null;
      }
-
-    /**
-     * Adds a unidirectional relationship between this software system and a person.
-     *
-     * @param destination   the target of the relationship
-     * @param description   a description of the relationship (e.g. "sends e-mail to")
-     */
-    public Relationship delivers(Person destination, String description) {
-        Relationship relationship = new Relationship(this, destination, description);
-        getModel().addRelationship(relationship);
-
-        return relationship;
-    }
-
-    /**
-     * Adds a unidirectional relationship between this software system and a person.
-     *
-     * @param destination   the target of the relationship
-     * @param description   a description of the relationship (e.g. "sends e-mail to")
-     * @param technology    the technology details (e.g. JSON/HTTPS)
-     */
-    public Relationship delivers(Person destination, String description, String technology) {
-        Relationship relationship = new Relationship(this, destination, description, technology);
-        getModel().addRelationship(relationship);
-
-        return relationship;
-    }
-
-    /**
-     * Adds a unidirectional relationship between this software system and a person.
-     *
-     * @param destination       the target of the relationship
-     * @param description       a description of the relationship (e.g. "sends e-mail to")
-     * @param technology        the technology details (e.g. JSON/HTTPS)
-     * @param interactionStyle  the interaction style (sync vs async)
-     */
-    public Relationship delivers(Person destination, String description, String technology, InteractionStyle interactionStyle) {
-        Relationship relationship = new Relationship(this, destination, description, technology, interactionStyle);
-        getModel().addRelationship(relationship);
-
-        return relationship;
-    }
 
     @Override
     public String getCanonicalName() {

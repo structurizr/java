@@ -2,14 +2,9 @@ package com.structurizr.model;
 
 import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.Workspace;
-import org.junit.Assert;
 import org.junit.Test;
 
-import static junit.framework.Assert.assertSame;
-import static junit.framework.TestCase.assertNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ElementTests extends AbstractWorkspaceTestBase {
 
@@ -149,6 +144,85 @@ public class ElementTests extends AbstractWorkspaceTestBase {
         softwareSystem1.uses(softwareSystem2, "Uses");
 
         assertTrue(softwareSystem2.hasAfferentRelationships());
+    }
+
+    @Test
+    public void test_addRelationship_DoesNothing_WhenTheSameRelationshipWithASoftwareSystemIsAddedMoreThanOnce() {
+        SoftwareSystem a = model.addSoftwareSystem("A", "");
+        SoftwareSystem b = model.addSoftwareSystem("B", "");
+
+        Relationship relationship = a.uses(b, "Uses");
+        assertNotNull(relationship);
+        assertEquals(1, model.getRelationships().size());
+
+        assertNull(a.uses(b, "Uses"));
+        assertEquals(1, model.getRelationships().size());
+
+        assertNull(a.uses(b, "Uses", "Technology"));
+        assertEquals(1, model.getRelationships().size());
+
+        assertNull(a.uses(b, "Uses", "Technology", InteractionStyle.Synchronous));
+        assertEquals(1, model.getRelationships().size());
+    }
+
+    @Test
+    public void test_addRelationship_DoesNothing_WhenTheSameRelationshipWithAContainerIsAddedMoreThanOnce() {
+        SoftwareSystem a = model.addSoftwareSystem("A", "");
+        SoftwareSystem b = model.addSoftwareSystem("B", "");
+        Container bb = b.addContainer("BB", "", "");
+
+        Relationship relationship = a.uses(bb, "Uses");
+        assertNotNull(relationship);
+        assertEquals(1, model.getRelationships().size());
+
+        assertNull(a.uses(bb, "Uses"));
+        assertEquals(1, model.getRelationships().size());
+
+        assertNull(a.uses(bb, "Uses", "Technology"));
+        assertEquals(1, model.getRelationships().size());
+
+        assertNull(a.uses(bb, "Uses", "Technology", InteractionStyle.Synchronous));
+        assertEquals(1, model.getRelationships().size());
+    }
+
+    @Test
+    public void test_addRelationship_DoesNothing_WhenTheSameRelationshipWithAComponentIsAddedMoreThanOnce() {
+        SoftwareSystem a = model.addSoftwareSystem("A", "");
+        SoftwareSystem b = model.addSoftwareSystem("B", "");
+        Container bb = b.addContainer("BB", "", "");
+        Component bbb = bb.addComponent("BBB", "", "");
+
+        Relationship relationship = a.uses(bbb, "Uses");
+        assertNotNull(relationship);
+        assertEquals(1, model.getRelationships().size());
+
+        assertNull(a.uses(bbb, "Uses"));
+        assertEquals(1, model.getRelationships().size());
+
+        assertNull(a.uses(bbb, "Uses", "Technology"));
+        assertEquals(1, model.getRelationships().size());
+
+        assertNull(a.uses(bbb, "Uses", "Technology", InteractionStyle.Synchronous));
+        assertEquals(1, model.getRelationships().size());
+    }
+
+    @Test
+    public void test_addRelationship_DoesNothing_WhenTheSameRelationshipWithAPersonIsAddedMoreThanOnce() {
+        SoftwareSystem a = model.addSoftwareSystem("A", "");
+        Person b = model.addPerson("B", "");
+
+        Relationship relationship = a.delivers(b, "Sends e-mail to");
+        assertNotNull(relationship);
+        assertEquals(1, model.getRelationships().size());
+
+        assertNull(a.delivers(b, "Sends e-mail to"));
+        assertEquals(1, model.getRelationships().size());
+
+        assertNull(a.delivers(b, "Sends e-mail to", "Technology"));
+        assertEquals(1, model.getRelationships().size());
+
+        assertNull(a.delivers(b, "Sends e-mail to", "Technology", InteractionStyle.Synchronous));
+        assertEquals(1, model.getRelationships().size());
     }
 
 }
