@@ -5,6 +5,11 @@ import com.structurizr.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 
 public class ComponentViewTests extends AbstractWorkspaceTestBase {
@@ -379,6 +384,46 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(service)));
         assertTrue(view.getElements().contains(new ElementView(repository)));
         assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
+    }
+
+    @Test
+    public void test_AddAllComponentsAndDirectDependencies() {
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "Description");
+        Person userA = model.addPerson("User A", "Description");
+
+        Set<Element> expectedElementsInView = new HashSet<>();
+        Set<Relationship> expectedRelationshipsInView = new HashSet<>();
+
+        final Container containerA1 = softwareSystemA.addContainer("Container A1", "Description", "Tec");
+        final Component componentA1_1 = containerA1.addComponent("Component A1-1", "Description");
+        final Component componentA1_2 = containerA1.addComponent("Component A1-2", "Description");
+        final Component componentA1_3 = containerA1.addComponent("Component A1-3", "Description");
+
+        expectedElementsInView.add(componentA1_1);
+        expectedElementsInView.add(componentA1_2);
+        expectedElementsInView.add(componentA1_3);
+
+        expectedRelationshipsInView.add(componentA1_1.uses(componentA1_2, ""));
+        expectedRelationshipsInView.add(componentA1_1.uses(componentA1_3, ""));
+
+        final Container containerA2 = softwareSystemA.addContainer("Container A2", "Description", "Tec");
+        expectedRelationshipsInView.add(componentA1_1.uses(containerA2, ""));
+        expectedElementsInView.add(containerA2);
+
+        final Container containerA3 = softwareSystemA.addContainer("Container A3", "Description", "Tec");
+        containerA2.uses(containerA3, ""); // this relationship must not make it into the view as it is outside of our container
+
+        expectedRelationshipsInView.add(userA.uses(componentA1_1, ""));
+        expectedElementsInView.add(userA);
+
+        softwareSystemA.uses(softwareSystemB, "");// this relationship must not make it into the view as it is outside of our container
+
+        view = new ComponentView(containerA1, "");
+        view.addAllComponentsAndDirectDependencies();
+
+        assertThat(view.getElements()).isEqualTo(expectedElementsInView.stream().map(e -> new ElementView(e)).collect(Collectors.toSet()));
+        assertThat(view.getRelationships()).isEqualTo(expectedRelationshipsInView.stream().map(e -> new RelationshipView(e)).collect(Collectors.toSet()));
     }
 
 }

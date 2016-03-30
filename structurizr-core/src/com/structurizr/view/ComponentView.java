@@ -3,6 +3,9 @@ package com.structurizr.view;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class ComponentView extends StaticView {
 
     private Container container;
@@ -20,7 +23,7 @@ public class ComponentView extends StaticView {
     /**
      * Gets the ID of the container associated with this view.
      *
-     * @return  the ID, as a String
+     * @return the ID, as a String
      */
     public String getContainerId() {
         if (this.container != null) {
@@ -61,7 +64,7 @@ public class ComponentView extends StaticView {
     /**
      * Adds an individual container to this view.
      *
-     * @param container     the Container to add
+     * @param container the Container to add
      */
     public void add(Container container) {
         if (container != null && !container.equals(getContainer())) {
@@ -79,7 +82,7 @@ public class ComponentView extends StaticView {
     /**
      * Adds an individual component to this view.
      *
-     * @param component     the Component to add
+     * @param component the Component to add
      */
     public void add(Component component) {
         addElement(component, true);
@@ -88,7 +91,7 @@ public class ComponentView extends StaticView {
     /**
      * Removes an individual container from this view.
      *
-     * @param container     the Container to remove
+     * @param container the Container to remove
      */
     public void remove(Container container) {
         removeElement(container);
@@ -97,7 +100,7 @@ public class ComponentView extends StaticView {
     /**
      * Removes an individual component from this view.
      *
-     * @param component     the Component to remove
+     * @param component the Component to remove
      */
     public void remove(Component component) {
         removeElement(component);
@@ -122,6 +125,57 @@ public class ComponentView extends StaticView {
         super.addNearestNeighbours(element, Person.class);
         super.addNearestNeighbours(element, Container.class);
         super.addNearestNeighbours(element, Component.class);
+    }
+
+    /**
+     * <p>Calling this method gives you an isolated view of this {@link Container} with all its
+     * component and all ingoing and outgoing relationships. Effectively, the following components
+     * and relationships are added to the view:</p>
+     * <ul>
+     * <li>all {@link Component}s of this view's {@link Container}</li>
+     * <li>all other {@link Element}s (Person, SoftwareSystem, Container or Component) that have direct {@link Relationship}s to
+     * this Container or to one of its Components</li>
+     * <li>all other {@link Element}s (Person, SoftwareSystem, Container or Component) that are referenced by this
+     * {@link Container} or one of its {@link Component}s</li>
+     * </ul>
+     * <p>{@link Relationship}s between external {@link Element}s (i.e. elements that are not part of this container) are
+     * removed from the view though.
+     * </p>
+     */
+    public void addAllComponentsAndDirectDependencies() {
+        final Set<Element> insideElements = new HashSet<>();
+        insideElements.add(getContainer());
+        insideElements.addAll(getContainer().getComponents());
+
+        addAllComponents();
+
+        // add relationships of all other elements to or from our inside components
+        for (Relationship relationship : getContainer().getModel().getRelationships()) {
+            if (insideElements.contains(relationship.getSource())) {
+                addElement(relationship.getDestination());
+            }
+            if (insideElements.contains(relationship.getDestination())) {
+                addElement(relationship.getSource());
+            }
+        }
+
+        // remove all relationships between outside components, we dont care about them here
+        getRelationships().stream()
+                .map(v -> v.getRelationship())
+                .filter(r -> !insideElements.contains(r.getSource()) && !insideElements.contains(r.getDestination()))
+                .forEach(r -> remove(r));
+    }
+
+    private void addElement(Element element) {
+        if (element instanceof Person) {
+            add((Person) element);
+        } else if (element instanceof SoftwareSystem) {
+            add((SoftwareSystem) element);
+        } else if (element instanceof Component) {
+            add((Component) element);
+        } else if (element instanceof Container) {
+            add((Container) element);
+        }
     }
 
 }
