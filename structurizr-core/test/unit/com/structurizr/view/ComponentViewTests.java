@@ -420,7 +420,8 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         softwareSystemA.uses(softwareSystemB, "");// this relationship must not make it into the view as it is outside of our container
 
         view = new ComponentView(containerA1, "");
-        view.addAllComponentsAndDirectDependencies();
+        view.addAllComponents();
+        view.addDirectDependencies();
 
         assertThat(view.getElements()).isEqualTo(expectedElementsInView.stream().map(e -> new ElementView(e)).collect(Collectors.toSet()));
         assertThat(view.getRelationships()).isEqualTo(expectedRelationshipsInView.stream().map(e -> new RelationshipView(e)).collect(Collectors.toSet()));

@@ -142,40 +142,26 @@ public class ComponentView extends StaticView {
      * removed from the view though.
      * </p>
      */
-    public void addAllComponentsAndDirectDependencies() {
+    public void addDirectDependencies() {
         final Set<Element> insideElements = new HashSet<>();
         insideElements.add(getContainer());
-        insideElements.addAll(getContainer().getComponents());
-
-        addAllComponents();
+        getElements().stream().forEach(e -> insideElements.add(e.getElement()));
 
         // add relationships of all other elements to or from our inside components
         for (Relationship relationship : getContainer().getModel().getRelationships()) {
             if (insideElements.contains(relationship.getSource())) {
-                addElement(relationship.getDestination());
+                addElement(relationship.getDestination(), true);
             }
             if (insideElements.contains(relationship.getDestination())) {
-                addElement(relationship.getSource());
+                addElement(relationship.getSource(), true);
             }
         }
 
-        // remove all relationships between outside components, we dont care about them here
+        // remove all relationships between outside components, we don't care about them here
         getRelationships().stream()
-                .map(v -> v.getRelationship())
+                .map(RelationshipView::getRelationship)
                 .filter(r -> !insideElements.contains(r.getSource()) && !insideElements.contains(r.getDestination()))
-                .forEach(r -> remove(r));
-    }
-
-    private void addElement(Element element) {
-        if (element instanceof Person) {
-            add((Person) element);
-        } else if (element instanceof SoftwareSystem) {
-            add((SoftwareSystem) element);
-        } else if (element instanceof Component) {
-            add((Component) element);
-        } else if (element instanceof Container) {
-            add((Container) element);
-        }
+                .forEach(this::remove);
     }
 
 }
