@@ -40,7 +40,9 @@ public class StructurizrClient {
 
     private EncryptionStrategy encryptionStrategy;
 
-    /** the location where a copy of the workspace will be archived when it is retrieved from the server */
+    /**
+     * the location where a copy of the workspace will be archived when it is retrieved from the server
+     */
     private File workspaceArchiveLocation = new File(".");
 
     /**
@@ -67,7 +69,10 @@ public class StructurizrClient {
     }
 
     /**
-     * Creates a new Structurizr client with the specified API key and secret.
+     * Creates a new Structurizr client at https://api.structurizr.com with the specified API key and secret.
+     *
+     * @param apiKey    the API key of your workspace
+     * @param apiSecret the API secret of your workspace
      */
     public StructurizrClient(String apiKey, String apiSecret) {
         setUrl("https://api.structurizr.com");
@@ -77,6 +82,10 @@ public class StructurizrClient {
 
     /**
      * Creates a new Structurizr client with the specified API URL, key and secret.
+     *
+     * @param url       the URL of your structurizr web instance
+     * @param apiKey    the API key of your workspace
+     * @param apiSecret the API secret of your workspace
      */
     public StructurizrClient(String url, String apiKey, String apiSecret) {
         setUrl(url);
@@ -101,7 +110,7 @@ public class StructurizrClient {
     /**
      * Gets the location where a copy of the workspace is archived when it is retrieved from the server.
      *
-     * @return  a File instance representing a directory, or null if this client instance is not archiving
+     * @return a File instance representing a directory, or null if this client instance is not archiving
      */
     public File getWorkspaceArchiveLocation() {
         return this.workspaceArchiveLocation;
@@ -111,8 +120,8 @@ public class StructurizrClient {
      * Sets the location where a copy of the workspace will be archived whenever it is retrieved from
      * the server. Set this to null if you don't want archiving.
      *
-     * @param workspaceArchiveLocation      a File instance representing a directory, or null if
-     *                                      you don't want archiving
+     * @param workspaceArchiveLocation a File instance representing a directory, or null if
+     *                                 you don't want archiving
      */
     public void setWorkspaceArchiveLocation(File workspaceArchiveLocation) {
         this.workspaceArchiveLocation = workspaceArchiveLocation;
@@ -121,7 +130,7 @@ public class StructurizrClient {
     /**
      * Sets the encryption strategy for use when getting or putting workspaces.
      *
-     * @param encryptionStrategy    an EncryptionStrategy implementation
+     * @param encryptionStrategy an EncryptionStrategy implementation
      */
     public void setEncryptionStrategy(EncryptionStrategy encryptionStrategy) {
         this.encryptionStrategy = encryptionStrategy;
@@ -130,9 +139,9 @@ public class StructurizrClient {
     /**
      * Gets the workspace with the given ID.
      *
-     * @param workspaceId   the ID of your workspace
+     * @param workspaceId the ID of your workspace
      * @return a Workspace instance
-     * @throws Exception    if there are problems related to the network, authorization, JSON deserialization, etc
+     * @throws Exception if there are problems related to the network, authorization, JSON deserialization, etc
      */
     public Workspace getWorkspace(long workspaceId) throws Exception {
         log.info("Getting workspace with ID " + workspaceId);
@@ -166,9 +175,9 @@ public class StructurizrClient {
     /**
      * Updates the given workspace.
      *
-     * @param workspaceId   the ID of your workspace
-     * @param workspace     the workspace instance to update
-     * @throws Exception    if there are problems related to the network, authorization, JSON serialization, etc
+     * @param workspaceId the ID of your workspace
+     * @param workspace   the workspace instance to update
+     * @throws Exception if there are problems related to the network, authorization, JSON serialization, etc
      */
     public void putWorkspace(long workspaceId, Workspace workspace) throws Exception {
         log.info("Putting workspace with ID " + workspaceId);
@@ -216,9 +225,9 @@ public class StructurizrClient {
      * Fetches the workspace with the given workspaceId from the server and merges its layout information with
      * the given workspace. All models from the the new workspace are taken, only the old layout information is preserved.
      *
-     * @param workspaceId   the ID of your workspace
-     * @param workspace     the new workspace
-     * @throws Exception    if you are not allowed to update the workspace with the given ID or there are any network troubles
+     * @param workspaceId the ID of your workspace
+     * @param workspace   the new workspace
+     * @throws Exception if you are not allowed to update the workspace with the given ID or there are any network troubles
      */
     public void mergeWorkspace(long workspaceId, Workspace workspace) throws Exception {
         log.info("Merging workspace with ID " + workspaceId);

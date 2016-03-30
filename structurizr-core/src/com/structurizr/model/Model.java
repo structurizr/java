@@ -11,8 +11,8 @@ public class Model {
 
     private SequentialIntegerIdGeneratorStrategy idGenerator = new SequentialIntegerIdGeneratorStrategy();
 
-    private final Map<String,Element> elementsById = new HashMap<>();
-    private final Map<String,Relationship> relationshipsById = new HashMap<>();
+    private final Map<String, Element> elementsById = new HashMap<>();
+    private final Map<String, Relationship> relationshipsById = new HashMap<>();
 
     private Set<Person> people = new LinkedHashSet<>();
     private Set<SoftwareSystem> softwareSystems = new LinkedHashSet<>();
@@ -24,9 +24,9 @@ public class Model {
      * Creates a software system (location is unspecified) and adds it to the model
      * (unless one exists with the same name already).
      *
-     * @param name          the name of the software system
-     * @param description   a short description of the software system
-     * @return  the SoftwareSystem instance created and added to the model (or null)
+     * @param name        the name of the software system
+     * @param description a short description of the software system
+     * @return the SoftwareSystem instance created and added to the model (or null)
      */
     public SoftwareSystem addSoftwareSystem(String name, String description) {
         return addSoftwareSystem(Location.Unspecified, name, description);
@@ -36,10 +36,10 @@ public class Model {
      * Creates a software system and adds it to the model
      * (unless one exists with the same name already).
      *
-     * @param location      the location of the software system (e.g. internal, external, etc)
-     * @param name          the name of the software system
-     * @param description   a short description of the software system
-     * @return  the SoftwareSystem instance created and added to the model (or null)
+     * @param location    the location of the software system (e.g. internal, external, etc)
+     * @param name        the name of the software system
+     * @param description a short description of the software system
+     * @return the SoftwareSystem instance created and added to the model (or null)
      */
     public SoftwareSystem addSoftwareSystem(Location location, String name, String description) {
         if (getSoftwareSystemWithName(name) == null) {
@@ -63,9 +63,9 @@ public class Model {
      * Creates a person (location is unspecified) and adds it to the model
      * (unless one exists with the same name already).
      *
-     * @param name          the name of the person (e.g. "Admin User" or "Bob the Business User")
-     * @param description   a short description of the person
-     * @return  the Person instance created and added to the model (or null)
+     * @param name        the name of the person (e.g. "Admin User" or "Bob the Business User")
+     * @param description a short description of the person
+     * @return the Person instance created and added to the model (or null)
      */
     public Person addPerson(String name, String description) {
         return addPerson(Location.Unspecified, name, description);
@@ -75,10 +75,10 @@ public class Model {
      * Creates a person and adds it to the model
      * (unless one exists with the same name already).
      *
-     * @param location      the location of the person (e.g. internal, external, etc)
-     * @param name          the name of the person (e.g. "Admin User" or "Bob the Business User")
-     * @param description   a short description of the person
-     * @return  the Person instance created and added to the model (or null)
+     * @param location    the location of the person (e.g. internal, external, etc)
+     * @param name        the name of the person (e.g. "Admin User" or "Bob the Business User")
+     * @param description a short description of the person
+     * @return the Person instance created and added to the model (or null)
      */
     public Person addPerson(Location location, String name, String description) {
         if (getPersonWithName(name) == null) {
@@ -188,7 +188,7 @@ public class Model {
     }
 
     /**
-     * Returns a set containing all elements in this model.
+     * @return a set containing all elements in this model.
      */
     @JsonIgnore
     public Set<Element> getElements() {
@@ -196,15 +196,16 @@ public class Model {
     }
 
     /**
-     * Returns the element in this model with the specified ID
-     * (or null if it doesn't exist).
+     * @param id the {@link Element#getId()} of the element
+     * @return the element in this model with the specified ID (or null if it doesn't exist).
+     * @see Element#getId()
      */
     public Element getElement(String id) {
         return elementsById.get(id);
     }
 
     /**
-     * Returns a set containing all relationships in this model.
+     * @return a set containing all relationships in this model.
      */
     @JsonIgnore
     public Set<Relationship> getRelationships() {
@@ -212,22 +213,23 @@ public class Model {
     }
 
     /**
-     * Returns the relationship in this model with the specified ID
-     * (or null if it doesn't exist).
+     * @param id the {@link Relationship#getId()} of the relationship
+     * @return the relationship in this model with the specified ID (or null if it doesn't exist).
+     * @see Relationship#getId()
      */
     public Relationship getRelationship(String id) {
         return relationshipsById.get(id);
     }
 
     /**
-     * Gets a collection containing all of the Person instances in this model.
+     * @return a collection containing all of the Person instances in this model.
      */
     public Collection<Person> getPeople() {
         return new LinkedHashSet<>(people);
     }
 
     /**
-     * Gets a collection containing all of the SoftwareSystem instances in this model.
+     * @return a collection containing all of the SoftwareSystem instances in this model.
      */
     public Set<SoftwareSystem> getSoftwareSystems() {
         return new LinkedHashSet<>(softwareSystems);
@@ -273,14 +275,17 @@ public class Model {
 
     /**
      * Determines whether this model contains the specified element.
+     *
+     * @param element any element
+     * @return true, if the element is contained in this model
      */
     public boolean contains(Element element) {
         return elementsById.values().contains(element);
     }
 
     /**
-     * Gets the SoftwareSystem instance with the specified name
-     * (or null if it doesn't exist).
+     * @param name the name of a {@link SoftwareSystem}
+     * @return the SoftwareSystem instance with the specified name (or null if it doesn't exist).
      */
     public SoftwareSystem getSoftwareSystemWithName(String name) {
         for (SoftwareSystem softwareSystem : getSoftwareSystems()) {
@@ -293,8 +298,9 @@ public class Model {
     }
 
     /**
-     * Gets the SoftwareSystem instance with the specified ID
-     * (or null if it doesn't exist).
+     * @param id the {@link SoftwareSystem#getId()} of the softwaresystem
+     * @return Gets the SoftwareSystem instance with the specified ID (or null if it doesn't exist).
+     * @see SoftwareSystem#getId()
      */
     public SoftwareSystem getSoftwareSystemWithId(String id) {
         for (SoftwareSystem softwareSystem : getSoftwareSystems()) {
@@ -307,8 +313,8 @@ public class Model {
     }
 
     /**
-     * Gets the Person instance with the specified name
-     * (or null if it doesn't exist).
+     * @param name the name of the person
+     * @return the Person instance with the specified name (or null if it doesn't exist).
      */
     public Person getPersonWithName(String name) {
         for (Person person : getPeople()) {
@@ -321,9 +327,11 @@ public class Model {
     }
 
     /**
-     * Propagates all relationships from children to their parents. For example, if you have two components (AAA and BBB)
+     * <p>Propagates all relationships from children to their parents. For example, if you have two components (AAA and BBB)
      * in different software systems that have a relationship, calling this method will add the following
-     * additional implied relationships to the model: AAA->BB AAA->B AA->BBB AA->BB AA->B A->BBB A->BB A->B.
+     * additional implied relationships to the model: AAA-&gt;BB AAA--&gt;B AA-&gt;BBB AA-&gt;BB AA-&gt;B A-&gt;BBB A-&gt;BB A-&gt;B.</p>
+     *
+     * @return a set of all implicit relationships
      */
     public Set<Relationship> addImplicitRelationships() {
         Set<Relationship> implicitRelationships = new HashSet<>();

@@ -49,7 +49,7 @@ public abstract class View implements Comparable<View> {
     /**
      * Gets the ID of the software system this view is associated with.
      *
-     * @return  the ID, as a String
+     * @return the ID, as a String
      */
     public String getSoftwareSystemId() {
         if (this.softwareSystem != null) {
@@ -78,8 +78,8 @@ public abstract class View implements Comparable<View> {
     /**
      * Gets the identifer for this view.
      *
-     * @return  the identifier, as a String,
-     *          or null if no key has been specified
+     * @return the identifier, as a String,
+     * or null if no key has been specified
      */
     public String getKey() {
         return key;
@@ -92,7 +92,7 @@ public abstract class View implements Comparable<View> {
     /**
      * Gets the paper size that should be used to render this view.
      *
-     * @return  a PaperSize (A4_Portrait by default)
+     * @return a PaperSize (A4_Portrait by default)
      */
     public PaperSize getPaperSize() {
         return paperSize;
@@ -105,7 +105,7 @@ public abstract class View implements Comparable<View> {
     /**
      * Gets the name of this view.
      *
-     * @return  the name, as a String
+     * @return the name, as a String
      */
     @JsonIgnore
     public abstract String getName();
@@ -193,6 +193,7 @@ public abstract class View implements Comparable<View> {
     }
 
     /**
+     * @param relationship the relationship to be removed
      * @deprecated use {@link View#remove(com.structurizr.model.Relationship)}
      */
     @Deprecated
@@ -210,7 +211,7 @@ public abstract class View implements Comparable<View> {
     /**
      * Gets the set of elements in this view.
      *
-     * @return  a Set of ElementView objects
+     * @return a Set of ElementView objects
      */
     public Set<ElementView> getElements() {
         return new HashSet<>(elementViews);
@@ -223,7 +224,7 @@ public abstract class View implements Comparable<View> {
     /**
      * Gets the set of relationships in this view.
      *
-     * @return  a Set of RelationshipView objects
+     * @return a Set of RelationshipView objects
      */
     public Set<RelationshipView> getRelationships() {
         return new HashSet<>(this.relationshipViews);
