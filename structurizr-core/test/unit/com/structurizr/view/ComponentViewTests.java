@@ -139,7 +139,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_add_DoesNothing_WhenANullContainerIsSpecified() {
         assertEquals(0, view.getElements().size());
-        view.add((Container)null);
+        view.add((Container) null);
         assertEquals(0, view.getElements().size());
     }
 
@@ -167,7 +167,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_remove_DoesNothing_WhenANullContainerIsPassed() {
         assertEquals(0, view.getElements().size());
-        view.remove((Container)null);
+        view.remove((Container) null);
         assertEquals(0, view.getElements().size());
     }
 
@@ -199,7 +199,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_add_DoesNothing_WhenANullComponentIsSpecified() {
         assertEquals(0, view.getElements().size());
-        view.add((Component)null);
+        view.add((Component) null);
         assertEquals(0, view.getElements().size());
     }
 
@@ -225,9 +225,27 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_add_DoesNothing_WhenTheContainerOfTheViewIsAdded() {
+        assertEquals("the container itself is not added to the view", 0, view.getElements().stream().map(e -> e.getElement()).filter(e -> e.equals(webApplication)).count());
+        view.add(webApplication);
+        assertEquals("the container itself is not added to the view", 0, view.getElements().stream().map(e -> e.getElement()).filter(e -> e.equals(webApplication)).count());
+    }
+
+    @Test
+    public void test_add_DoesNothing_WhenTheContainerOfTheViewIsAddedViaDependency() {
+        final SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "Some other system", "external system that uses our web application");
+
+        final Relationship relationshipFromExternalSystem = softwareSystem.uses(webApplication, "");
+
+        assertEquals("the container itself is not added to the view", 0, view.getElements().stream().map(e -> e.getElement()).filter(e -> e.equals(webApplication)).count());
+        view.add(relationshipFromExternalSystem);
+        assertEquals("the container itself is not added to the view", 0, view.getElements().stream().map(e -> e.getElement()).filter(e -> e.equals(webApplication)).count());
+    }
+
+    @Test
     public void test_remove_DoesNothing_WhenANullComponentIsPassed() {
         assertEquals(0, view.getElements().size());
-        view.remove((Component)null);
+        view.remove((Component) null);
         assertEquals(0, view.getElements().size());
     }
 
