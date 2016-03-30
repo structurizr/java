@@ -10,7 +10,17 @@ public class Tags {
     public static final String CONTAINER = "Container";
     public static final String COMPONENT = "Component";
 
+    /**
+     * To be used for styling of synchronous relationships
+     *
+     * @see InteractionStyle#Synchronous
+     */
     public static final String SYNCHRONOUS = "Synchronous";
+    /**
+     * To be used for styling of asynchronous relationships
+     *
+     * @see InteractionStyle#Asynchronous
+     */
     public static final String ASYNCHRONOUS = "Asynchronous";
 
 }

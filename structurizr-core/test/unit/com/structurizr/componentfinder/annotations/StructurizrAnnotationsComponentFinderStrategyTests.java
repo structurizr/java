@@ -46,7 +46,7 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
 
     @Test
     public void test_ThereAreFourComponents() {
-        // there should be 4 components: MyHtmlController, MyJsonController, MyService, MyRepository and the LoggingComponent
+        // there should be 5 components: MyHtmlController, MyJsonController, MyService, MyRepository and the LoggingComponent
         assertEquals(5, webApplication.getComponents().size());
 
         Component myHtmlController = webApplication.getComponentWithName("MyHtmlController");

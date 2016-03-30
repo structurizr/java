@@ -28,7 +28,7 @@ public class SoftwareSystem extends Element {
     /**
      * Gets the location of this software system.
      *
-     * @return  a Location
+     * @return a Location
      */
     public Location getLocation() {
         return location;
@@ -49,7 +49,7 @@ public class SoftwareSystem extends Element {
     /**
      * Gets the set of containers within this software system.
      *
-     * @return  a Set of Container objects
+     * @return a Set of Container objects
      */
     public Set<Container> getContainers() {
         return new HashSet<>(containers);
@@ -59,42 +59,42 @@ public class SoftwareSystem extends Element {
      * Adds a container with the specified name, description and technology
      * (unless one exists with the same name already).
      *
-     * @param name              the name of the container (e.g. "Web Application")
-     * @param description       a short description/list of responsibilities
-     * @param technology        the technoogy choice (e.g. "Spring MVC", "Java EE", etc)
-     * @return      the newly created Container instance added to the model (or null)
+     * @param name        the name of the container (e.g. "Web Application")
+     * @param description a short description/list of responsibilities
+     * @param technology  the technoogy choice (e.g. "Spring MVC", "Java EE", etc)
+     * @return the newly created Container instance added to the model (or null)
      */
     public Container addContainer(String name, String description, String technology) {
         return getModel().addContainer(this, name, description, technology);
     }
 
     /**
-     * Gets the container with the specified name
-     * (or null if it doesn't exist).
+     * @param name the name of the {@link Container}
+     * @return the container with the specified name (or null if it doesn't exist).
      */
     public Container getContainerWithName(String name) {
-         for (Container container : getContainers()) {
-             if (container.getName().equals(name)) {
-                 return container;
-             }
-         }
+        for (Container container : getContainers()) {
+            if (container.getName().equals(name)) {
+                return container;
+            }
+        }
 
-         return null;
-     }
+        return null;
+    }
 
     /**
-     * Gets the container with the specified ID
-     * (or null if it doesn't exist).
+     * @param id the {@link Container#getId()} of the container
+     * @return Gets the container with the specified ID (or null if it doesn't exist).
      */
     public Container getContainerWithId(String id) {
-         for (Container container : getContainers()) {
-             if (container.getId().equals(id)) {
-                 return container;
-             }
-         }
+        for (Container container : getContainers()) {
+            if (container.getId().equals(id)) {
+                return container;
+            }
+        }
 
-         return null;
-     }
+        return null;
+    }
 
     @Override
     public String getCanonicalName() {
