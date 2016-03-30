@@ -325,7 +325,9 @@ public class Model {
      * in different software systems that have a relationship, calling this method will add the following
      * additional implied relationships to the model: AAA->BB AAA->B AA->BBB AA->BB AA->B A->BBB A->BB A->B.
      */
-    public void addImplicitRelationships() {
+    public Set<Relationship> addImplicitRelationships() {
+        Set<Relationship> implicitRelationships = new HashSet<>();
+
         for (Relationship relationship : getRelationships()) {
             Element source = relationship.getSource();
             Element destination = relationship.getDestination();
@@ -334,7 +336,10 @@ public class Model {
                 while (destination != null) {
                     if (!source.hasEfferentRelationshipWith(destination)) {
                         if (propagatedRelationshipIsAllowed(source, destination)) {
-                            addRelationship(source, destination, "");
+                            Relationship implicitRelationship = addRelationship(source, destination, "");
+                            if (implicitRelationship != null) {
+                                implicitRelationships.add(implicitRelationship);
+                            }
                         }
                     }
 
@@ -345,6 +350,8 @@ public class Model {
                 source = source.getParent();
             }
         }
+
+        return implicitRelationships;
     }
 
     private boolean propagatedRelationshipIsAllowed(Element source, Element destination) {

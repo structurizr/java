@@ -3,6 +3,8 @@ package com.structurizr.model;
 import com.structurizr.AbstractWorkspaceTestBase;
 import org.junit.Test;
 
+import java.util.Set;
+
 import static org.junit.Assert.*;
 
 public class ModelTests extends AbstractWorkspaceTestBase {
@@ -196,8 +198,9 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertTrue(aaa.hasEfferentRelationshipWith(bbb));
 
         // AAA->BBB implies AAA->BB AAA->B AA->BBB AA->BB AA->B A->BBB A->BB A->B
-        model.addImplicitRelationships();
+        Set<Relationship> implicitRelationships = model.addImplicitRelationships();
         assertEquals(9, model.getRelationships().size());
+        assertEquals(8, implicitRelationships.size());
         assertTrue(aaa.hasEfferentRelationshipWith(bb));
         assertTrue(aa.hasEfferentRelationshipWith(bbb));
         assertTrue(aa.hasEfferentRelationshipWith(bb));
@@ -222,8 +225,9 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertTrue(aaa.hasEfferentRelationshipWith(bb));
 
         // AAA->BB implies AAA->B AA->BB AA->B A->BB A->B
-        model.addImplicitRelationships();
+        Set<Relationship> implicitRelationships = model.addImplicitRelationships();
         assertEquals(6, model.getRelationships().size());
+        assertEquals(5, implicitRelationships.size());
         assertTrue(aa.hasEfferentRelationshipWith(bb));
         assertTrue(aaa.hasEfferentRelationshipWith(b));
         assertTrue(aa.hasEfferentRelationshipWith(b));
@@ -244,8 +248,9 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertTrue(aaa.hasEfferentRelationshipWith(b));
 
         // AAA->B implies AA->B A->B
-        model.addImplicitRelationships();
+        Set<Relationship> implicitRelationships = model.addImplicitRelationships();
         assertEquals(3, model.getRelationships().size());
+        assertEquals(2, implicitRelationships.size());
         assertTrue(aa.hasEfferentRelationshipWith(b));
         assertTrue(a.hasEfferentRelationshipWith(b));
     }
@@ -264,8 +269,9 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertTrue(aa.hasEfferentRelationshipWith(bbb));
 
         // AA->BBB implies AA->BB AA->B A->BBB A->BB A->B
-        model.addImplicitRelationships();
+        Set<Relationship> implicitRelationships = model.addImplicitRelationships();
         assertEquals(6, model.getRelationships().size());
+        assertEquals(5, implicitRelationships.size());
         assertTrue(aa.hasEfferentRelationshipWith(bb));
         assertTrue(aa.hasEfferentRelationshipWith(b));
         assertTrue(a.hasEfferentRelationshipWith(bbb));
@@ -286,8 +292,9 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertTrue(aa.hasEfferentRelationshipWith(bb));
 
         // AA->BB implies AA->B A->BB A->B
-        model.addImplicitRelationships();
+        Set<Relationship> implicitRelationships = model.addImplicitRelationships();
         assertEquals(4, model.getRelationships().size());
+        assertEquals(3, implicitRelationships.size());
         assertTrue(aa.hasEfferentRelationshipWith(b));
         assertTrue(a.hasEfferentRelationshipWith(bb));
         assertTrue(a.hasEfferentRelationshipWith(b));
@@ -305,8 +312,9 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertTrue(aa.hasEfferentRelationshipWith(b));
 
         // AA->B implies A->B
-        model.addImplicitRelationships();
+        Set<Relationship> implicitRelationships = model.addImplicitRelationships();
         assertEquals(2, model.getRelationships().size());
+        assertEquals(1, implicitRelationships.size());
         assertTrue(a.hasEfferentRelationshipWith(b));
     }
 
@@ -323,8 +331,9 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertTrue(a.hasEfferentRelationshipWith(bbb));
 
         // A->BBB implies A->BB A->B
-        model.addImplicitRelationships();
+        Set<Relationship> implicitRelationships = model.addImplicitRelationships();
         assertEquals(3, model.getRelationships().size());
+        assertEquals(2, implicitRelationships.size());
         assertTrue(a.hasEfferentRelationshipWith(bb));
         assertTrue(a.hasEfferentRelationshipWith(b));
     }
@@ -341,8 +350,9 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertTrue(a.hasEfferentRelationshipWith(bb));
 
         // A->BB implies A->B
-        model.addImplicitRelationships();
+        Set<Relationship> implicitRelationships = model.addImplicitRelationships();
         assertEquals(2, model.getRelationships().size());
+        assertEquals(1, implicitRelationships.size());
         assertTrue(a.hasEfferentRelationshipWith(b));
     }
 
@@ -356,8 +366,9 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertEquals(1, model.getRelationships().size());
         assertTrue(a.hasEfferentRelationshipWith(b));
 
-        model.addImplicitRelationships();
+        Set<Relationship> implicitRelationships = model.addImplicitRelationships();
         assertEquals(1, model.getRelationships().size());
+        assertEquals(0, implicitRelationships.size());
     }
 
     @Test
@@ -371,8 +382,9 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertEquals(1, model.getRelationships().size());
         assertTrue(aaa1.hasEfferentRelationshipWith(aaa2));
 
-        model.addImplicitRelationships();
+        Set<Relationship> implicitRelationships = model.addImplicitRelationships();
         assertEquals(1, model.getRelationships().size());
+        assertEquals(0, implicitRelationships.size());
     }
 
     @Test
@@ -385,8 +397,9 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertEquals(1, model.getRelationships().size());
         assertTrue(aa1.hasEfferentRelationshipWith(aa2));
 
-        model.addImplicitRelationships();
+        Set<Relationship> implicitRelationships = model.addImplicitRelationships();
         assertEquals(1, model.getRelationships().size());
+        assertEquals(0, implicitRelationships.size());
     }
 
     @Test
@@ -402,8 +415,9 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertTrue(aaa1.hasEfferentRelationshipWith(aaa2));
 
         // AAA1->AAA2 implies AAA1->AA2 AA1->AAA2 AA1->AA2
-        model.addImplicitRelationships();
+        Set<Relationship> implicitRelationships = model.addImplicitRelationships();
         assertEquals(4, model.getRelationships().size());
+        assertEquals(3, implicitRelationships.size());
         assertTrue(aaa1.hasEfferentRelationshipWith(aa2));
         assertTrue(aa1.hasEfferentRelationshipWith(aaa2));
         assertTrue(aa1.hasEfferentRelationshipWith(aa2));
