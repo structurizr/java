@@ -2,6 +2,8 @@ package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -10,6 +12,8 @@ public class ComponentView extends StaticView {
 
     private Container container;
     private String containerId;
+
+    private static final Log LOG = LogFactory.getLog(ComponentView.class);
 
     ComponentView() {
     }
@@ -87,6 +91,8 @@ public class ComponentView extends StaticView {
     public void add(Component component) {
         if (component != null && component.getContainer().equals(getContainer())) {
             addElement(component, true);
+        } else {
+            LOG.warn("You cannot add components of other containers to a ComponentView");
         }
     }
 
@@ -153,10 +159,10 @@ public class ComponentView extends StaticView {
         // add relationships of all other elements to or from our inside components
         for (Relationship relationship : getContainer().getModel().getRelationships()) {
             if (insideElements.contains(relationship.getSource())) {
-                addElement(relationship.getDestination());
+                addDependency(relationship.getDestination());
             }
             if (insideElements.contains(relationship.getDestination())) {
-                addElement(relationship.getSource());
+                addDependency(relationship.getSource());
             }
         }
 
@@ -167,21 +173,16 @@ public class ComponentView extends StaticView {
                 .forEach(this::remove);
     }
 
-    /**
-     * bit ugly code here but we want to ensure that {@link #addDirectDependencies()} calls the add methods
-     * directly in this class to not bypass any special handling here (i.e. don't add components of other containers)
-     *
-     * @param element the element to be added
-     */
-    private void addElement(Element element) {
-        if (element instanceof Person) {
-            add((Person) element);
-        } else if (element instanceof SoftwareSystem) {
-            add((SoftwareSystem) element);
-        } else if (element instanceof Component) {
-            add((Component) element);
-        } else if (element instanceof Container) {
-            add((Container) element);
+    private void addDependency(Element element) {
+        if (element instanceof Component && !((Component) element).getContainer().equals(getContainer())) {
+            // in case there is a dependency from a component of another dependency to one of our elements,
+            // we add its parent container instead
+            addElement(((Component) element).getContainer(), true);
+
+            // TODO in case there is dependency between element.getContainer to one of our elements, we could add a relationship here,
+            // this is somehow related to Model#addImplicitDependencies
+        } else {
+            addElement(element, true);
         }
     }
 
