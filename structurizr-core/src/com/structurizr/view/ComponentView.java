@@ -138,57 +138,48 @@ public class ComponentView extends StaticView {
     }
 
     /**
-     * <p>Calling this method gives you an isolated view of this {@link Container} with all its
-     * components and their ingoing/outgoing relationships. Effectively, the following components
-     * and relationships are added to the view:</p>
-     * <ul>
-     * <li>all other {@link Element}s (Person, SoftwareSystem, Container or Component) that have direct {@link Relationship}s to
-     * all {@link Component}s in this view</li>
-     * <li>all other {@link Element}s (Person, SoftwareSystem, Container or Component) that are referenced by one
-     * of the {@link Component}s in this view</li>
-     * </ul>
-     * <p>
-     * Not included are:
+     * <p>Adds all {@link Element}s external to the container (Person, SoftwareSystem or Container)
+     * that have {@link Relationship}s <b>to</b> or <b>from</b> {@link Component}s in this view.</p>
+     * <p>Not included are:</p>
      * <ul>
      * <li>References to and from the {@link Container} of this view (only references to and from the components are considered)</li>
      * <li>{@link Relationship}s between external {@link Element}s (i.e. elements that are not part of this container)</li>
      * </ul>
-     * </p>
      * <p>Don't forget to add elements to your view prior to calling this method, e.g. by calling {@link #addAllComponents()}
      * or be selectively choosing certain components.</p>
      */
-    public void addDirectDependencies() {
-        final Set<Element> insideElements = new HashSet<>();
+    public void addExternalDependencies() {
+        final Set<Element> components = new HashSet<>();
         getElements().stream()
                 .map(ElementView::getElement)
                 .filter(e -> e instanceof Component)
-                .forEach(insideElements::add);
+                .forEach(components::add);
 
         // add relationships of all other elements to or from our inside components
         for (Relationship relationship : getContainer().getModel().getRelationships()) {
-            if (insideElements.contains(relationship.getSource())) {
-                addDependency(relationship.getDestination(), insideElements);
+            if (components.contains(relationship.getSource())) {
+                addDependency(relationship.getDestination(), components);
             }
-            if (insideElements.contains(relationship.getDestination())) {
-                addDependency(relationship.getSource(), insideElements);
+            if (components.contains(relationship.getDestination())) {
+                addDependency(relationship.getSource(), components);
             }
         }
 
-        // remove all relationships between outside components, we don't care about them here
+        // remove all relationships between elements outside of this container
         getRelationships().stream()
                 .map(RelationshipView::getRelationship)
-                .filter(r -> !insideElements.contains(r.getSource()) && !insideElements.contains(r.getDestination()))
+                .filter(r -> !components.contains(r.getSource()) && !components.contains(r.getDestination()))
                 .forEach(this::remove);
     }
 
-    private void addDependency(Element element, Set<Element> insideElements) {
+    private void addDependency(Element element, Set<Element> components) {
         if (element instanceof Component && !element.getParent().equals(getContainer())) {
             final Container container = ((Component) element).getContainer();
             // in case there is a dependency from a component of another dependency to one of our elements,
             // we add its parent container instead
             addElement(container, true);
 
-            if (!hasAnyRelationship(container, insideElements)) {
+            if (!hasAnyRelationship(container, components)) {
                 LOG.warn(String.format("Container %s was added to the ComponentView '%s' because its component %s has a relationship " +
                         "with one of the elements inside this diagram. Nevertheless, the container does not have any relationship " +
                         "to the elements of this diagram. You might add one manually or call Model#addImplicitRelationships() " +
@@ -200,9 +191,9 @@ public class ComponentView extends StaticView {
         }
     }
 
-    private boolean hasAnyRelationship(Container container, Set<Element> insideElements) {
-        for (Element insideElement : insideElements) {
-            if (insideElement.hasEfferentRelationshipWith(container) || container.hasEfferentRelationshipWith(insideElement)) {
+    private boolean hasAnyRelationship(Container container, Set<Element> components) {
+        for (Element component : components) {
+            if (component.hasEfferentRelationshipWith(container) || container.hasEfferentRelationshipWith(component)) {
                 return true;
             }
         }
