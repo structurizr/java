@@ -89,10 +89,12 @@ public class ComponentView extends StaticView {
      * @param component the Component to add
      */
     public void add(Component component) {
-        if (component != null && component.getContainer().equals(getContainer())) {
-            addElement(component, true);
-        } else {
-            LOG.warn(String.format("Component %s is not component of %s and thus cannot be added to its ComponentView", component, getContainer()));
+        if (component != null) {
+            if (component.getContainer().equals(getContainer())) {
+                addElement(component, true);
+            } else {
+                LOG.warn(String.format("Component %s is not component of %s and thus cannot be added to its ComponentView", component, getContainer()));
+            }
         }
     }
 
@@ -137,7 +139,7 @@ public class ComponentView extends StaticView {
 
     /**
      * <p>Calling this method gives you an isolated view of this {@link Container} with all its
-     * component and all ingoing and outgoing relationships. Effectively, the following components
+     * components and their ingoing/outgoing relationships. Effectively, the following components
      * and relationships are added to the view:</p>
      * <ul>
      * <li>all other {@link Element}s (Person, SoftwareSystem, Container or Component) that have direct {@link Relationship}s to
@@ -148,13 +150,16 @@ public class ComponentView extends StaticView {
      * <p>{@link Relationship}s between external {@link Element}s (i.e. elements that are not part of this container) are
      * removed from the view though.
      * </p>
-     * <p>Dont forget to add elements to your view prior to calling this method, e.g. by calling {@link #addAllComponents()}
+     * <p>Don't forget to add elements to your view prior to calling this method, e.g. by calling {@link #addAllComponents()}
      * or be selectively choosing certain components.</p>
      */
     public void addDirectDependencies() {
         final Set<Element> insideElements = new HashSet<>();
         insideElements.add(getContainer());
-        getElements().stream().forEach(e -> insideElements.add(e.getElement()));
+        getElements().stream()
+                .map(ElementView::getElement)
+                .filter(e -> e instanceof Component)
+                .forEach(insideElements::add);
 
         // add relationships of all other elements to or from our inside components
         for (Relationship relationship : getContainer().getModel().getRelationships()) {
@@ -174,7 +179,7 @@ public class ComponentView extends StaticView {
     }
 
     private void addDependency(Element element, Set<Element> insideElements) {
-        if (element instanceof Component && !((Component) element).getContainer().equals(getContainer())) {
+        if (element instanceof Component && !element.getParent().equals(getContainer())) {
             final Container container = ((Component) element).getContainer();
             // in case there is a dependency from a component of another dependency to one of our elements,
             // we add its parent container instead

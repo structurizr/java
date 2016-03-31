@@ -467,4 +467,30 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         assertThat(view.getElements()).doesNotContain(new ElementView(componentA2_1));
     }
 
+    @Test
+    public void test_addDirectDependencies_AddsElementsWithoutRelationships_WhenThereAreNoRelationshipsWithTheComponents() {
+        SoftwareSystem source = model.addSoftwareSystem("Source", "");
+        SoftwareSystem destination = model.addSoftwareSystem("Destination", "");
+
+        SoftwareSystem a = model.addSoftwareSystem("A", "");
+        Container aa = a.addContainer("AA", "", "");
+        Component aaa1 = aa.addComponent("AAA1", "", "");
+
+        source.uses(aa, "");
+        aa.uses(destination, "");
+
+        view = new ComponentView(aa, "");
+        view.addAllComponents();
+        view.addDirectDependencies();
+
+        // check that the view includes the desired elements
+        Set<Element> elementsInView = view.getElements().stream().map(ElementView::getElement).collect(Collectors.toSet());
+        assertTrue(elementsInView.contains(source));
+        assertTrue(elementsInView.contains(aaa1));
+        assertTrue(elementsInView.contains(destination));
+
+        // but there are no relationships between them
+        assertEquals(0, view.getRelationships().size());
+    }
+
 }
