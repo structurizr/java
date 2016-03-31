@@ -85,7 +85,9 @@ public class ComponentView extends StaticView {
      * @param component the Component to add
      */
     public void add(Component component) {
-        addElement(component, true);
+        if (component != null && component.getContainer().equals(getContainer())) {
+            addElement(component, true);
+        }
     }
 
     /**
@@ -151,10 +153,10 @@ public class ComponentView extends StaticView {
         // add relationships of all other elements to or from our inside components
         for (Relationship relationship : getContainer().getModel().getRelationships()) {
             if (insideElements.contains(relationship.getSource())) {
-                addElement(relationship.getDestination(), true);
+                addElement(relationship.getDestination());
             }
             if (insideElements.contains(relationship.getDestination())) {
-                addElement(relationship.getSource(), true);
+                addElement(relationship.getSource());
             }
         }
 
@@ -163,6 +165,24 @@ public class ComponentView extends StaticView {
                 .map(RelationshipView::getRelationship)
                 .filter(r -> !insideElements.contains(r.getSource()) && !insideElements.contains(r.getDestination()))
                 .forEach(this::remove);
+    }
+
+    /**
+     * bit ugly code here but we want to ensure that {@link #addDirectDependencies()} calls the add methods
+     * directly in this class to not bypass any special handling here (i.e. don't add components of other containers)
+     *
+     * @param element the element to be added
+     */
+    private void addElement(Element element) {
+        if (element instanceof Person) {
+            add((Person) element);
+        } else if (element instanceof SoftwareSystem) {
+            add((SoftwareSystem) element);
+        } else if (element instanceof Component) {
+            add((Component) element);
+        } else if (element instanceof Container) {
+            add((Container) element);
+        }
     }
 
 }

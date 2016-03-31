@@ -427,4 +427,34 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         assertThat(view.getRelationships()).isEqualTo(expectedRelationshipsInView.stream().map(e -> new RelationshipView(e)).collect(Collectors.toSet()));
     }
 
+    /**
+     * When someone tries to add a component of another container to a container view, then this must not be added
+     */
+    @Test
+    public void test_AddComponentFromOtherContainer() {
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
+
+        final Container containerA1 = softwareSystemA.addContainer("Container A1", "Description", "Tec");
+        final Component componentA1_1 = containerA1.addComponent("Component A1-1", "Description");
+
+
+        final Container containerA2 = softwareSystemA.addContainer("Container A2", "Description", "Tec");
+        final Component componentA2_1 = containerA2.addComponent("Component A2-1", "Description");
+
+        view = new ComponentView(containerA1, "");
+        view.addAllComponents();
+
+        assertThat(view.getElements()).contains(new ElementView(componentA1_1));
+
+        // manually add another container to the view
+        view.add(containerA2);
+        // container should be added to the view
+        assertThat(view.getElements()).contains(new ElementView(containerA2));
+
+        // now manually add a component from another container to the view
+        view.add(componentA2_1);
+        // component must not be added to the view
+        assertThat(view.getElements()).doesNotContain(new ElementView(componentA2_1));
+    }
+
 }
