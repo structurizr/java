@@ -15,4 +15,5 @@ dependencies {
     compile files("${System.getProperty('java.home')}/../lib/tools.jar")
 
     testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:3.4.0'
 }

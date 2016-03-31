@@ -5,6 +5,11 @@ import com.structurizr.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.*;
 
 public class ComponentViewTests extends AbstractWorkspaceTestBase {
@@ -225,6 +230,24 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_add_DoesNothing_WhenTheSpecifiedComponentIsInADifferentContainer() {
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
+
+        final Container containerA1 = softwareSystemA.addContainer("Container A1", "Description", "Tec");
+        final Component componentA1_1 = containerA1.addComponent("Component A1-1", "Description");
+
+        final Container containerA2 = softwareSystemA.addContainer("Container A2", "Description", "Tec");
+        final Component componentA2_1 = containerA2.addComponent("Component A2-1", "Description");
+
+        view = new ComponentView(containerA1, "");
+        view.add(componentA1_1);
+        view.add(componentA2_1);
+
+        assertEquals(1, view.getElements().size());
+        assertThat(view.getElements()).contains(new ElementView(componentA1_1));
+    }
+
+    @Test
     public void test_add_DoesNothing_WhenTheContainerOfTheViewIsAdded() {
         assertEquals("the container itself is not added to the view", 0, view.getElements().stream().map(e -> e.getElement()).filter(e -> e.equals(webApplication)).count());
         view.add(webApplication);
@@ -379,6 +402,102 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(service)));
         assertTrue(view.getElements().contains(new ElementView(repository)));
         assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
+    }
+
+    @Test
+    public void test_addExternalDependencies() {
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "Description");
+        Person userA = model.addPerson("User A", "Description");
+
+        Set<Element> expectedElementsInView = new HashSet<>();
+        Set<Relationship> expectedRelationshipsInView = new HashSet<>();
+
+        final Container containerA1 = softwareSystemA.addContainer("Container A1", "Description", "Tec");
+        final Component componentA1_1 = containerA1.addComponent("Component A1-1", "Description");
+        final Component componentA1_2 = containerA1.addComponent("Component A1-2", "Description");
+        final Component componentA1_3 = containerA1.addComponent("Component A1-3", "Description");
+
+        expectedElementsInView.add(componentA1_1);
+        expectedElementsInView.add(componentA1_2);
+        expectedElementsInView.add(componentA1_3);
+
+        expectedRelationshipsInView.add(componentA1_1.uses(componentA1_2, ""));
+        expectedRelationshipsInView.add(componentA1_1.uses(componentA1_3, ""));
+
+        final Container containerA2 = softwareSystemA.addContainer("Container A2", "Description", "Tec");
+        final Component componentA2_1 = containerA2.addComponent("Component A2-1", "Description");
+
+        expectedRelationshipsInView.add(componentA1_1.uses(containerA2, ""));
+        expectedElementsInView.add(containerA2);
+
+        componentA2_1.uses(componentA1_1, ""); // this relationship must not be part of the diagram as componentA2_1 is from another container
+
+        final Container containerA3 = softwareSystemA.addContainer("Container A3", "Description", "Tec");
+        containerA2.uses(containerA3, ""); // this relationship must not make it into the view as it is outside of our container
+
+        final Container containerA4 = softwareSystemA.addContainer("Container A4", "Description", "Tec");
+        final Component componentA4_1 = containerA4.addComponent("Component A3-1", "Description");
+        componentA4_1.uses(componentA1_1, ""); // this relationship must not be part of the diagram as componentA2_1 is from another container
+        expectedElementsInView.add(containerA4);
+
+
+        expectedRelationshipsInView.add(userA.uses(componentA1_1, ""));
+        expectedElementsInView.add(userA);
+
+        softwareSystemA.uses(softwareSystemB, "");// this relationship must not make it into the view as it is outside of our container
+
+        view = new ComponentView(containerA1, "");
+        view.addAllComponents();
+        view.addExternalDependencies();
+
+        assertThat(view.getElements()).isEqualTo(expectedElementsInView.stream().map(e -> new ElementView(e)).collect(Collectors.toSet()));
+        assertThat(view.getRelationships()).isEqualTo(expectedRelationshipsInView.stream().map(e -> new RelationshipView(e)).collect(Collectors.toSet()));
+    }
+
+    @Test
+    public void test_addExternalDependencies_AddsTheParentContainer_WhenThereIsARelationshipToAComponentInADifferentContainer() {
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
+
+        final Container containerA1 = softwareSystemA.addContainer("Container A1", "Description", "Tec");
+        final Component componentA1_1 = containerA1.addComponent("Component A1-1", "Description");
+
+        final Container containerA2 = softwareSystemA.addContainer("Container A2", "Description", "Tec");
+        final Component componentA2_1 = containerA2.addComponent("Component A2-1", "Description");
+
+        componentA1_1.uses(componentA2_1, "Uses");
+
+        view = new ComponentView(containerA1, "");
+        view.add(componentA1_1);
+        view.addExternalDependencies();
+
+        assertEquals(2, view.getElements().size());
+        assertThat(view.getElements()).contains(new ElementView(componentA1_1));
+        assertThat(view.getElements()).contains(new ElementView(containerA2)); // the parent container has been added
+    }
+
+    @Test
+    public void test_addExternalDependencies_AddsOrphanedElements_WhenThereAreNoDirectRelationshipsWithAComponent() {
+        SoftwareSystem source = model.addSoftwareSystem("Source", "");
+        SoftwareSystem destination = model.addSoftwareSystem("Destination", "");
+
+        SoftwareSystem a = model.addSoftwareSystem("A", "");
+        Container aa = a.addContainer("AA", "", "");
+        Component aaa = aa.addComponent("AAA", "", "");
+
+        source.uses(aa, "");
+        aa.uses(destination, "");
+
+        view = new ComponentView(aa, "");
+        view.addAllComponents();
+        view.addExternalDependencies();
+
+        // check that the view includes the desired elements
+        Set<Element> elementsInView = view.getElements().stream().map(ElementView::getElement).collect(Collectors.toSet());
+        assertTrue(elementsInView.contains(aaa));
+
+        // but there are no relationships (because component AAA isn't directly related to anything)
+        assertEquals(0, view.getRelationships().size());
     }
 
 }
