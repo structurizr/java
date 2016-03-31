@@ -143,19 +143,22 @@ public class ComponentView extends StaticView {
      * and relationships are added to the view:</p>
      * <ul>
      * <li>all other {@link Element}s (Person, SoftwareSystem, Container or Component) that have direct {@link Relationship}s to
-     * this elements in this view including the Container itself</li>
-     * <li>all other {@link Element}s (Person, SoftwareSystem, Container or Component) that are referenced by the
-     * {@link Container} of this view or one of the {@link Element}s in this view</li>
+     * all {@link Component}s in this view</li>
+     * <li>all other {@link Element}s (Person, SoftwareSystem, Container or Component) that are referenced by one
+     * of the {@link Component}s in this view</li>
      * </ul>
-     * <p>{@link Relationship}s between external {@link Element}s (i.e. elements that are not part of this container) are
-     * removed from the view though.
+     * <p>
+     * Not included are:
+     * <ul>
+     * <li>References to and from the {@link Container} of this view (only references to and from the components are considered)</li>
+     * <li>{@link Relationship}s between external {@link Element}s (i.e. elements that are not part of this container)</li>
+     * </ul>
      * </p>
      * <p>Don't forget to add elements to your view prior to calling this method, e.g. by calling {@link #addAllComponents()}
      * or be selectively choosing certain components.</p>
      */
     public void addDirectDependencies() {
         final Set<Element> insideElements = new HashSet<>();
-        insideElements.add(getContainer());
         getElements().stream()
                 .map(ElementView::getElement)
                 .filter(e -> e instanceof Component)

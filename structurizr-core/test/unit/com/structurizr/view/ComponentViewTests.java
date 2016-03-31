@@ -485,11 +485,8 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
 
         // check that the view includes the desired elements
         Set<Element> elementsInView = view.getElements().stream().map(ElementView::getElement).collect(Collectors.toSet());
-        assertTrue(elementsInView.contains(source));
         assertTrue(elementsInView.contains(aaa1));
-        assertTrue(elementsInView.contains(destination));
 
-        // but there are no relationships between them
         assertEquals(0, view.getRelationships().size());
     }
 
