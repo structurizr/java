@@ -408,11 +408,21 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         expectedRelationshipsInView.add(componentA1_1.uses(componentA1_3, ""));
 
         final Container containerA2 = softwareSystemA.addContainer("Container A2", "Description", "Tec");
+        final Component componentA2_1 = containerA2.addComponent("Component A2-1", "Description");
+
         expectedRelationshipsInView.add(componentA1_1.uses(containerA2, ""));
         expectedElementsInView.add(containerA2);
 
+        componentA2_1.uses(componentA1_1, ""); // this relationship must not be part of the diagram as componentA2_1 is from another container
+
         final Container containerA3 = softwareSystemA.addContainer("Container A3", "Description", "Tec");
         containerA2.uses(containerA3, ""); // this relationship must not make it into the view as it is outside of our container
+
+        final Container containerA4 = softwareSystemA.addContainer("Container A4", "Description", "Tec");
+        final Component componentA4_1 = containerA4.addComponent("Component A3-1", "Description");
+        componentA4_1.uses(componentA1_1, ""); // this relationship must not be part of the diagram as componentA2_1 is from another container
+        expectedElementsInView.add(containerA4);
+
 
         expectedRelationshipsInView.add(userA.uses(componentA1_1, ""));
         expectedElementsInView.add(userA);

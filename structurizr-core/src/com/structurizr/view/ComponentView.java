@@ -92,7 +92,7 @@ public class ComponentView extends StaticView {
         if (component != null && component.getContainer().equals(getContainer())) {
             addElement(component, true);
         } else {
-            LOG.warn("You cannot add components of other containers to a ComponentView");
+            LOG.warn(String.format("Component %s is not component of %s and thus cannot be added to its ComponentView", component, getContainer()));
         }
     }
 
@@ -159,10 +159,10 @@ public class ComponentView extends StaticView {
         // add relationships of all other elements to or from our inside components
         for (Relationship relationship : getContainer().getModel().getRelationships()) {
             if (insideElements.contains(relationship.getSource())) {
-                addDependency(relationship.getDestination());
+                addDependency(relationship.getDestination(), insideElements);
             }
             if (insideElements.contains(relationship.getDestination())) {
-                addDependency(relationship.getSource());
+                addDependency(relationship.getSource(), insideElements);
             }
         }
 
@@ -173,17 +173,32 @@ public class ComponentView extends StaticView {
                 .forEach(this::remove);
     }
 
-    private void addDependency(Element element) {
+    private void addDependency(Element element, Set<Element> insideElements) {
         if (element instanceof Component && !((Component) element).getContainer().equals(getContainer())) {
+            final Container container = ((Component) element).getContainer();
             // in case there is a dependency from a component of another dependency to one of our elements,
             // we add its parent container instead
-            addElement(((Component) element).getContainer(), true);
+            addElement(container, true);
 
-            // TODO in case there is dependency between element.getContainer to one of our elements, we could add a relationship here,
-            // this is somehow related to Model#addImplicitDependencies
+            if (!hasAnyRelationship(container, insideElements)) {
+                LOG.warn(String.format("Container %s was added to the ComponentView '%s' because its component %s has a relationship " +
+                        "with one of the elements inside this diagram. Nevertheless, the container does not have any relationship " +
+                        "to the elements of this diagram. You might add one manually or call Model#addImplicitRelationships() " +
+                        "to add all implicit relationships automatically", container, getName(), element));
+            }
+
         } else {
             addElement(element, true);
         }
+    }
+
+    private boolean hasAnyRelationship(Container container, Set<Element> insideElements) {
+        for (Element insideElement : insideElements) {
+            if (insideElement.hasEfferentRelationshipWith(container) || container.hasEfferentRelationshipWith(insideElement)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }
