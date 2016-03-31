@@ -61,24 +61,22 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
             CtClass cc = pool.get(type);
             for (Object referencedType : cc.getRefClasses()) {
                 String referencedTypeName = (String)referencedType;
-                if (referencedTypeName.startsWith(componentFinder.getPackageToScan())) {
-                    Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedTypeName);
+                Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedTypeName);
 
-                    // if there was no component of the interface type, perhaps there is one of the implementation type
-                    Class referencedTypeAsClass = Class.forName(referencedTypeName);
-                    if (destinationComponent == null && referencedTypeAsClass.isInterface()) {
-                        Class implementationClass = getFirstImplementationOfInterface(referencedTypeAsClass);
-                        if (implementationClass != null) {
-                            destinationComponent = componentFinder.getContainer().getComponentOfType(implementationClass.getCanonicalName());
-                        }
+                // if there was no component of the interface type, perhaps there is one of the implementation type
+                Class referencedTypeAsClass = Class.forName(referencedTypeName);
+                if (destinationComponent == null && referencedTypeAsClass.isInterface()) {
+                    Class implementationClass = getFirstImplementationOfInterface(referencedTypeAsClass);
+                    if (implementationClass != null) {
+                        destinationComponent = componentFinder.getContainer().getComponentOfType(implementationClass.getCanonicalName());
                     }
-                    if (destinationComponent != null) {
-                        if (component != destinationComponent) {
-                            component.uses(destinationComponent, "");
-                        }
-                    } else if (!typesVisited.contains(referencedTypeName)) {
-                        addEfferentDependencies(component, referencedTypeName, typesVisited);
+                }
+                if (destinationComponent != null) {
+                    if (component != destinationComponent) {
+                        component.uses(destinationComponent, "");
                     }
+                } else if (!typesVisited.contains(referencedTypeName)) {
+                    addEfferentDependencies(component, referencedTypeName, typesVisited);
                 }
             }
         } catch (NotFoundException nfe) {

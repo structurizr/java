@@ -81,4 +81,60 @@ public class AbstractReflectionsComponentFinderStrategyTests {
         assertNotNull(someComponent.getRelationships().stream().filter(r -> r.getDestination() == loggingComponent).findFirst().get());
     }
 
+    @Test
+    public void test_findComponents_CorrectlyFindsDependenciesBetweenComponentsFoundByDifferentComponentFinders_WhenPackage1IsScannedFirst() throws Exception {
+        ComponentFinder componentFinder1 = new ComponentFinder(
+                webApplication,
+                "com.structurizr.componentfinder.packages.package1",
+                new TypeBasedComponentFinderStrategy(
+                        new NameSuffixTypeMatcher("Controller", "", "")
+                )
+        );
+
+        ComponentFinder componentFinder2 = new ComponentFinder(
+                webApplication,
+                "com.structurizr.componentfinder.packages.package2",
+                new TypeBasedComponentFinderStrategy(
+                        new NameSuffixTypeMatcher("Repository", "", "")
+                )
+        );
+
+        componentFinder1.findComponents();
+        componentFinder2.findComponents();
+
+        assertEquals(2, webApplication.getComponents().size());
+        Component myController = webApplication.getComponentWithName("MyController");
+        Component myRepository = webApplication.getComponentWithName("MyRepository");
+        assertEquals(1, myController.getRelationships().size());
+        assertNotNull(myController.getRelationships().stream().filter(r -> r.getDestination() == myRepository).findFirst().get());
+    }
+
+    @Test
+    public void test_findComponents_CorrectlyFindsDependenciesBetweenComponentsFoundByDifferentComponentFinders_WhenPackage2IsScannedFirst() throws Exception {
+        ComponentFinder componentFinder1 = new ComponentFinder(
+                webApplication,
+                "com.structurizr.componentfinder.packages.package1",
+                new TypeBasedComponentFinderStrategy(
+                        new NameSuffixTypeMatcher("Controller", "", "")
+                )
+        );
+
+        ComponentFinder componentFinder2 = new ComponentFinder(
+                webApplication,
+                "com.structurizr.componentfinder.packages.package2",
+                new TypeBasedComponentFinderStrategy(
+                        new NameSuffixTypeMatcher("Repository", "", "")
+                )
+        );
+
+        componentFinder2.findComponents();
+        componentFinder1.findComponents();
+
+        assertEquals(2, webApplication.getComponents().size());
+        Component myController = webApplication.getComponentWithName("MyController");
+        Component myRepository = webApplication.getComponentWithName("MyRepository");
+        assertEquals(1, myController.getRelationships().size());
+        assertNotNull(myController.getRelationships().stream().filter(r -> r.getDestination() == myRepository).findFirst().get());
+    }
+
 }
