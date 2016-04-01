@@ -185,4 +185,17 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
     }
 
+    @Test
+    public void test_remove_RemovesContainer() {
+        Container webApplication = softwareSystem.addContainer("Web Application", "", "");
+        Container database = softwareSystem.addContainer("Database", "", "");
+
+        view.addAllContainers();
+        assertEquals(2, view.getElements().size());
+
+        view.remove(webApplication);
+        assertEquals(1, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(database)));
+    }
+
 }

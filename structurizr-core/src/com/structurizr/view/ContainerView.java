@@ -37,6 +37,15 @@ public class ContainerView extends StaticView {
         addElement(container, true);
     }
 
+    /**
+     * Removes an individual container from this view.
+     *
+     * @param container the Container to remove
+     */
+    public void remove(Container container) {
+        removeElement(container);
+    }
+
     @Override
     public String getName() {
         return getSoftwareSystem().getName() + " - Containers";
