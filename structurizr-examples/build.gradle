@@ -3,3 +3,13 @@ dependencies {
     compile project(':structurizr-core')
     compile project(':structurizr-spring')
 }
+
+task springPetClinic(type:JavaExec) {
+    main = "com.structurizr.example.spring.petclinic.SpringPetClinic"
+    classpath(
+            sourceSets.main.runtimeClasspath,
+            '/Users/structurizr/Documents/spring-petclinic/target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/classes',
+            fileTree(dir: '/Users/structurizr/Documents/spring-petclinic/target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/lib', include: '*.jar')
+    )
+    args '/Users/structurizr/Documents/spring-petclinic'
+}
