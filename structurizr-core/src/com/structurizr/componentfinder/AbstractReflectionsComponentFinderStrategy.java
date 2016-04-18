@@ -64,13 +64,14 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
                 Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedTypeName);
 
                 // if there was no component of the interface type, perhaps there is one of the implementation type
-                Class referencedTypeAsClass = Class.forName(referencedTypeName);
+                CtClass referencedTypeAsClass = pool.get(referencedTypeName);
                 if (destinationComponent == null && referencedTypeAsClass.isInterface()) {
-                    Class implementationClass = getFirstImplementationOfInterface(referencedTypeAsClass);
+                    Class implementationClass = getFirstImplementationOfInterface(Class.forName(referencedTypeName));
                     if (implementationClass != null) {
                         destinationComponent = componentFinder.getContainer().getComponentOfType(implementationClass.getCanonicalName());
                     }
                 }
+
                 if (destinationComponent != null) {
                     if (component != destinationComponent) {
                         component.uses(destinationComponent, "");
@@ -80,10 +81,9 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
                 }
             }
         } catch (NotFoundException nfe) {
-            System.err.println(type + " not found");
-            nfe.printStackTrace();
+            System.err.println(nfe.getMessage() + " not found");
         } catch (Exception e) {
-            e.printStackTrace();
+            System.err.println(e.getMessage());
         }
     }
 

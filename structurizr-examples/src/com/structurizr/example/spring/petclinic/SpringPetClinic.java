@@ -12,18 +12,29 @@ import java.io.File;
 
 /**
  * This is a C4 representation of the Spring PetClinic sample app
- * (https://github.com/spring-projects/spring-petclinic/).
+ * (https://github.com/spring-projects/spring-petclinic/) and you can see
+ * the resulting diagrams at https://www.structurizr.com/public/1
  *
- * Use the examples/springpetclinic.sh file to run this example -
- * you'll need a compiled version of the app on the CLASSPATH.
+ * Use the following command to run this example: ./gradlew :structurizr-example:springPetClinic
  *
- * You can see the resulting diagrams at https://www.structurizr.com/public/1
+ * Please note, you will need to modify the paths specified in the structurizr-examples/build.gradle file.
  */
 public class SpringPetClinic {
 
-    private static final String sourceRoot = "/Users/structurizr/Documents/spring-petclinic";
-
     public static void main(String[] args) throws Exception {
+        if (args.length == 0) {
+            System.out.println("The path to the Spring PetClinic source code must be provided.");
+            System.exit(-1);
+        }
+        String sourceRoot = args[0];
+
+        try {
+            Class.forName("org.springframework.samples.petclinic.model.Vet");
+        } catch (ClassNotFoundException e) {
+            System.err.println("Please check that the compiled version of the Spring PetClinic application is on the classpath");
+            System.exit(-1);
+        }
+
         Workspace workspace = new Workspace("Spring PetClinic",
                 "This is a C4 representation of the Spring PetClinic sample app (https://github.com/spring-projects/spring-petclinic/)");
         Model model = workspace.getModel();

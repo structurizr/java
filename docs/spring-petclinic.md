@@ -182,10 +182,13 @@ StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
 structurizrClient.mergeWorkspace(1234, workspace);
 ```
 
-In order to upload your model to Structurizr using the web API, you'll need to [sign up](https://structurizr.com/signup) to get your own API key and secret. Also, when you run the Structurizr program you just created, you'll need to ensure that the compiled version of the Spring PetClinic application is on your classpath; specifically this directory:
+In order to upload your model to Structurizr using the web API, you'll need to [sign up](https://structurizr.com/signup) to get your own API key and secret.
+Also, when you run the Structurizr program you just created, you'll need to ensure that the compiled version of the Spring PetClinic application is on your classpath;
+specifically these directories:
 
 ```
 target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/classes
+target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/lib
 ```
 
 ## 10. View the diagrams and layout the elements
