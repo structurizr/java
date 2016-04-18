@@ -33,10 +33,10 @@ public class DynamicView extends View {
                 addRelationship(relationship, description, counter.toString());
                 counter.increment();
             } else {
-                throw new IllegalArgumentException("relationship does not exist in model");
+                throw new IllegalArgumentException("Relationship does not exist in model");
             }
         } else {
-            throw new IllegalArgumentException("source and description must not be null");
+            throw new IllegalArgumentException("Source and destination must not be null");
         }
     }
 
