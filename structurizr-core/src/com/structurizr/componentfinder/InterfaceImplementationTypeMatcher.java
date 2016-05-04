@@ -1,5 +1,8 @@
 package com.structurizr.componentfinder;
 
+/**
+ * Matches types where the type implements the specified interface.
+ */
 public class InterfaceImplementationTypeMatcher implements TypeMatcher {
 
     private Class interfaceType;

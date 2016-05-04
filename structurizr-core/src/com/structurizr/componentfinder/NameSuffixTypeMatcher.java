@@ -1,5 +1,8 @@
 package com.structurizr.componentfinder;
 
+/**
+ * Matches types where the name of the type ends with the specified suffix.
+ */
 public class NameSuffixTypeMatcher implements TypeMatcher {
 
     private String suffix;
