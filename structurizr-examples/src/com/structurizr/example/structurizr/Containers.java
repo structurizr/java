@@ -46,6 +46,10 @@ public class Containers extends AbstractStructurizrWorkspace {
         webApplication.uses(database, "Reads from and writes to");
         api.uses(database, "Reads from and writes to");
 
+        Container httpSessionStore = structurizr.addContainer(HTTP_SESSION_STORE, "Stores HTTP session information.", "Redis 3.0.x");
+        httpSessionStore.addTags(DATABASE_TAG);
+        webApplication.uses(httpSessionStore, "Reads from and writes to");
+
         pingdom.uses(webApplication, "Monitors");
         webApplication.uses(sendGrid, "Sends e-mails using");
 

@@ -26,6 +26,7 @@ abstract class AbstractStructurizrWorkspace {
     static final String WWW = "www.structurizr.com";
     static final String API = "api.structurizr.com";
     static final String DATABASE = "Database";
+    static final String HTTP_SESSION_STORE = "HTTP Session Store";
 
     static final String LOGGING_COMPONENT = "LoggingComponent";
 
