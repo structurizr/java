@@ -75,6 +75,8 @@ Name                                          | Description
 com.structurizr:structurizr-core:0.6.0        | The core library that can used to create models.</td>
 com.structurizr:structurizr-client:0.6.0      | The structurizr.com API client for Java for uploading models.
 
+> Please note that you will need to add "http://jcenter.bintray.com" as an additional repository to your build configuration.
+
 ### 2. Create a model
 
 The first step is to create a workspace in which the software architecture model will reside.
