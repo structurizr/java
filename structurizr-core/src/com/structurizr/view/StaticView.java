@@ -110,7 +110,7 @@ public abstract class StaticView extends View {
      * Removes all elements that cannot be reached by traversing the graph of relationships
      * starting with the specified element.
      *
-     * @param element       the starting element
+     * @param element the starting element
      */
     public void removeElementsThatCantBeReachedFrom(Element element) {
         if (element != null) {
@@ -138,4 +138,27 @@ public abstract class StaticView extends View {
         }
     }
 
+    /**
+     * Removes all {@link Element}s that have the given tag from this view.
+     *
+     * @param tag a tag
+     * @see {@link Element#hasTag(String)}
+     */
+    public void removeElementsWithTag(String tag) {
+        getElements().stream()
+                .filter(e -> e.getElement().hasTag(tag))
+                .forEach(e -> removeElement(e.getElement()));
+    }
+
+    /**
+     * Removes all {@link Relationship}s that have the given tag from this view.
+     *
+     * @param tag a tag
+     * @see {@link Element#hasTag(String)}
+     */
+    public void removeRelationshipsWithTag(String tag) {
+        getRelationships().stream()
+                .filter(r -> r.getRelationship().hasTag(tag))
+                .forEach(r -> remove(r.getRelationship()));
+    }
 }

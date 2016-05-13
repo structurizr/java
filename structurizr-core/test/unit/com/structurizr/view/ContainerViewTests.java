@@ -198,4 +198,36 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(database)));
     }
 
+    @Test
+    public void test_remove_ElementsWithTag() {
+        final String TAG = "myTag";
+        Container webApplication = softwareSystem.addContainer("Web Application", "", "");
+        Container database = softwareSystem.addContainer("Database", "", "");
+        database.addTags(TAG);
+
+        view.addAllContainers();
+        assertEquals(2, view.getElements().size());
+
+        view.removeElementsWithTag(TAG);
+        assertEquals(1, view.getElements().size());
+        assertEquals(webApplication, view.getElements().iterator().next().getElement());
+    }
+
+    @Test
+    public void test_remove_RelationshipWithTag() {
+        final String TAG = "myTag";
+        Container webApplication = softwareSystem.addContainer("Web Application", "", "");
+        Container database = softwareSystem.addContainer("Database", "", "");
+        webApplication.uses(database, "").addTags(TAG);
+
+        view.addAllContainers();
+        assertEquals(2, view.getElements().size());
+        assertEquals(1, view.getRelationships().size());
+
+        view.removeRelationshipsWithTag(TAG);
+        assertEquals(2, view.getElements().size());
+        assertEquals(0, view.getRelationships().size());
+    }
+
+
 }
