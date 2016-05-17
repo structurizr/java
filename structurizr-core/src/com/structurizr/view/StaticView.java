@@ -1,6 +1,9 @@
 package com.structurizr.view;
 
-import com.structurizr.model.*;
+import com.structurizr.model.Element;
+import com.structurizr.model.Person;
+import com.structurizr.model.Relationship;
+import com.structurizr.model.SoftwareSystem;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,7 +27,7 @@ public abstract class StaticView extends View {
     /**
      * Adds the given software system to this view.
      *
-     * @param softwareSystem        the SoftwareSystem to add
+     * @param softwareSystem the SoftwareSystem to add
      * @deprecated use {@link StaticView#add(com.structurizr.model.SoftwareSystem)}
      */
     @Deprecated
@@ -35,7 +38,7 @@ public abstract class StaticView extends View {
     /**
      * Adds the given software system to this view.
      *
-     * @param softwareSystem        the SoftwareSystem to add
+     * @param softwareSystem the SoftwareSystem to add
      */
     public void add(SoftwareSystem softwareSystem) {
         addElement(softwareSystem, true);
@@ -44,7 +47,7 @@ public abstract class StaticView extends View {
     /**
      * Removes the given software system from this view.
      *
-     * @param softwareSystem        the SoftwareSystem to remove
+     * @param softwareSystem the SoftwareSystem to remove
      */
     public void remove(SoftwareSystem softwareSystem) {
         removeElement(softwareSystem);
@@ -60,7 +63,7 @@ public abstract class StaticView extends View {
     /**
      * Adds the given person to this view.
      *
-     * @param person        the Person to add
+     * @param person the Person to add
      * @deprecated use {@link StaticView#add(com.structurizr.model.Person)}
      */
     public void addPerson(Person person) {
@@ -70,7 +73,7 @@ public abstract class StaticView extends View {
     /**
      * Adds the given person to this view.
      *
-     * @param person        the Person to add
+     * @param person the Person to add
      */
     public void add(Person person) {
         addElement(person, true);
@@ -79,7 +82,7 @@ public abstract class StaticView extends View {
     /**
      * Removes the given person from this view.
      *
-     * @param person        the Person to add
+     * @param person the Person to add
      */
     public void remove(Person person) {
         removeElement(person);
@@ -110,7 +113,7 @@ public abstract class StaticView extends View {
      * Removes all elements that cannot be reached by traversing the graph of relationships
      * starting with the specified element.
      *
-     * @param element       the starting element
+     * @param element the starting element
      */
     public void removeElementsThatCantBeReachedFrom(Element element) {
         if (element != null) {
@@ -138,4 +141,29 @@ public abstract class StaticView extends View {
         }
     }
 
+    /**
+     * Removes all {@link Element}s that have the given tag from this view.
+     *
+     * @param tag a tag
+     * @see {@link Element#hasTag(String)}
+     */
+    public final void removeElementsWithTag(String tag) {
+        getElements().stream()
+                .map(ElementView::getElement)
+                .filter(e -> e.hasTag(tag))
+                .forEach(this::removeElement);
+    }
+
+    /**
+     * Removes all {@link Relationship}s that have the given tag from this view.
+     *
+     * @param tag a tag
+     * @see {@link Element#hasTag(String)}
+     */
+    public final void removeRelationshipsWithTag(String tag) {
+        getRelationships().stream()
+                .map(RelationshipView::getRelationship)
+                .filter(r -> r.hasTag(tag))
+                .forEach(this::remove);
+    }
 }

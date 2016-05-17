@@ -62,4 +62,7 @@ abstract class Taggable {
         }
     }
 
+    public boolean hasTag(String tag) {
+        return this.tags.contains(tag);
+    }
 }
