@@ -1,5 +1,6 @@
 package com.structurizr;
 
+import com.structurizr.documentation.Documentation;
 import com.structurizr.model.Model;
 import com.structurizr.view.ViewSet;
 
@@ -11,6 +12,7 @@ public class Workspace extends AbstractWorkspace {
 
     private Model model = new Model();
     private ViewSet viewSet = new ViewSet(model);
+    private Documentation documentation = new Documentation(model);
 
     Workspace() {
     }
@@ -47,8 +49,19 @@ public class Workspace extends AbstractWorkspace {
 
     public void hydrate() {
         this.viewSet.setModel(model);
+        this.documentation.setModel(model);
+
         this.model.hydrate();
         this.viewSet.hydrate();
+        this.documentation.hydrate();
+    }
+
+    public Documentation getDocumentation() {
+        return documentation;
+    }
+
+    public void setDocumentation(Documentation documentation) {
+        this.documentation = documentation;
     }
 
 }

@@ -1,12 +1,17 @@
-package com.structurizr.example.core;
+package com.structurizr.example.core.financialrisksystem;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
+import com.structurizr.documentation.Documentation;
+import com.structurizr.documentation.Format;
+import com.structurizr.documentation.Type;
 import com.structurizr.model.*;
 import com.structurizr.view.Shape;
 import com.structurizr.view.Styles;
 import com.structurizr.view.SystemContextView;
 import com.structurizr.view.ViewSet;
+
+import java.io.File;
 
 /**
  * This is a simple (incomplete) example C4 model based upon the financial risk system
@@ -64,6 +69,12 @@ public class FinancialRiskSystem {
         styles.addRelationshipStyle(Tags.SYNCHRONOUS).dashed(false);
         styles.addRelationshipStyle(Tags.ASYNCHRONOUS).dashed(true);
         styles.addRelationshipStyle(TAG_ALERT).color("#ff0000");
+
+        Documentation documentation = workspace.getDocumentation();
+        File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/core/financialrisksystem");
+        documentation.add(financialRiskSystem, Type.Context, Format.Markdown, new File(documentationRoot, "context.md"));
+        documentation.add(financialRiskSystem, Type.FunctionalOverview, Format.Markdown, new File(documentationRoot, "functional-overview.md"));
+        documentation.add(financialRiskSystem, Type.QualityAttributes, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));
 
         // and upload the model to structurizr.com
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
