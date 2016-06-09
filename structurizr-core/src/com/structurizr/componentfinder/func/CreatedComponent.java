@@ -8,8 +8,6 @@ public class CreatedComponent {
     private final Class<?> originClass;
 
     private CreatedComponent(Component component, Class<?> originClass) {
-        System.out.println("Component created for [" + originClass.getName() +
-                "]");
         this.component = component;
         this.originClass = originClass;
     }

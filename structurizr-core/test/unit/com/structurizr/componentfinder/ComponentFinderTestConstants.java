@@ -11,6 +11,10 @@ public class ComponentFinderTestConstants {
     public static final String PAPERBOY_APP_PACKAGE_TO_SCAN = "com.structurizr.testapp.paperboy";
     public static final String CONTROLLER_SUFFIX = "Controller";
     public static final String REPOSITORY_SUFFIX = "Repository";
+    public static final String JAVA_INTERFACE = "JAVA_INTERFACE";
+    public static final String JAVA_CLASS = "JAVA_CLASS";
+    public static final String MYAPP_TAG = "MYAPP";
+    public static final String PAPERBOY_TAG = "PAPERBOY";
 
     private ComponentFinderTestConstants() {
     }

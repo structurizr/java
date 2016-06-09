@@ -11,6 +11,7 @@ import java.util.function.Predicate;
 enum DirectDependenciesScanner implements DependenciesScanner {
     INSTANCE;
 
+    @Override
     public void addDependencies(ScanResult scanResult) {
         final Processor processor = new Processor(scanResult);
         scanResult.stream()
@@ -35,7 +36,6 @@ enum DirectDependenciesScanner implements DependenciesScanner {
 
         private void addDirectDependencies(Component component) {
             final String type = component.getType();
-            System.out.println("ComponentType " + type);
             typesVisited.add(type);
 
             try {

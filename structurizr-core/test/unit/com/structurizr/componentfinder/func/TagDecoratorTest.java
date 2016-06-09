@@ -19,8 +19,6 @@ public class TagDecoratorTest {
     private static final String REPOSITORY_TAG = "Repository";
     private static final String INTERFACE_TAG = "INTERFACE";
     private static final String CLASS_TAG = "CLASS";
-    private static final Predicate<Class<?>> MY_CONTROLLER_PREDICATE = RegexClassNameMatcher.create(".*\\.MyController");
-    private static final Predicate<Class<?>> MY_REPOSITORY_PREDICATE = RegexClassNameMatcher.create(".*\\.MyRepository.*");
     private static final Predicate<Class<?>> IS_INTERFACE_PREDICATE = Class::isInterface;
     private static final Predicate<Class<?>> IS_CLASS_PREDICATE = IS_INTERFACE_PREDICATE.negate();
 
@@ -48,8 +46,8 @@ public class TagDecoratorTest {
 
     private Consumer<CreatedComponent> createDecoratorThroughBuilder() {
         return TagDecorator.builder()
-                .addTag(MY_CONTROLLER_PREDICATE, CONTROLLER_TAG)
-                .addTag(MY_REPOSITORY_PREDICATE, REPOSITORY_TAG)
+                .addTagForMatchingClass(".*\\.MyController", CONTROLLER_TAG)
+                .addTagForMatchingClass(".*\\.MyRepository.*", REPOSITORY_TAG)
                 .addTag(IS_INTERFACE_PREDICATE, INTERFACE_TAG)
                 .addTag(IS_CLASS_PREDICATE, CLASS_TAG)
                 .build();

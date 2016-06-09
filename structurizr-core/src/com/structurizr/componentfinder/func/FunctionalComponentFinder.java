@@ -8,9 +8,9 @@ import java.util.Collection;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class FunctionalComponentFinder {
+class FunctionalComponentFinder {
     private final ComponentScanner componentScanner;
-    private final DirectDependenciesScanner dependenciesScanner;
+    private final DependenciesScanner dependenciesScanner;
 
 
     private FunctionalComponentFinder(Builder builder) {
@@ -31,7 +31,7 @@ public class FunctionalComponentFinder {
 
     public static final class Builder {
         private ImmutableSet.Builder<ComponentFactory> factoriesBuilder = ImmutableSet.builder();
-        private DirectDependenciesScanner dependenciesScanner;
+        private DependenciesScanner dependenciesScanner;
 
         private Builder() {
         }
@@ -41,7 +41,11 @@ public class FunctionalComponentFinder {
             return withDependenciesScanner(DirectDependenciesScanner.INSTANCE);
         }
 
-        public Builder withDependenciesScanner(DirectDependenciesScanner val) {
+        public Builder withStructurizrDependencyScanner() {
+            return withDependenciesScanner(StrategyDependenciesScanner.INSTANCE);
+        }
+
+        public Builder withDependenciesScanner(DependenciesScanner val) {
             dependenciesScanner = val;
             return this;
         }
