@@ -42,7 +42,7 @@ class FunctionalComponentFinder {
         }
 
         public Builder withStructurizrDependencyScanner() {
-            return withDependenciesScanner(StrategyDependenciesScanner.INSTANCE);
+            return withDependenciesScanner(StructurizrDependenciesScanner.INSTANCE);
         }
 
         public Builder withDependenciesScanner(DependenciesScanner val) {

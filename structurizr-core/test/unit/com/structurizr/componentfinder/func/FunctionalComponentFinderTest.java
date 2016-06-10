@@ -10,7 +10,7 @@ import java.util.function.Predicate;
 
 import static com.structurizr.componentfinder.ComponentFinderTestConstants.*;
 
-public class FunctionalComponentFinderStrategyTest {
+public class FunctionalComponentFinderTest {
 
     private static final Predicate<Class<?>> IS_INTERFACE = Class::isInterface;
 

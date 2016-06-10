@@ -9,8 +9,19 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-//Copy off how dependencies are calculated in AbstractReflectionsComponentFinderStrategy, modified in func style using scan result
-enum StrategyDependenciesScanner implements DependenciesScanner {
+/**
+ * Copy off how dependencies are calculated in AbstractReflectionsComponentFinderStrategy,
+ * modified a bit to use scan result
+ * <p>
+ * This algorithm gives Interfaces:
+ * <ol>
+ * <li>a dependency on their implementation</li>
+ * <li>a dependency on all the dependencies of the first implementation</li>
+ * </ol>
+ * <p>
+ * I don't understand why  :)
+ */
+enum StructurizrDependenciesScanner implements DependenciesScanner {
     INSTANCE;
 
     @Override
