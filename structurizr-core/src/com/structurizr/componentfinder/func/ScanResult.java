@@ -1,5 +1,6 @@
 package com.structurizr.componentfinder.func;
 
+import com.google.common.collect.ImmutableSet;
 import com.structurizr.model.Component;
 import org.reflections.Reflections;
 
@@ -14,7 +15,7 @@ public class ScanResult implements Iterable<Component> {
 
     public ScanResult(Reflections reflections, Collection<Component> components) {
         this.reflections = reflections;
-        this.components = components;
+        this.components = ImmutableSet.copyOf(components);
     }
 
     @Override

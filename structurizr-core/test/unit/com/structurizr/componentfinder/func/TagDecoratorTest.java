@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
+import static com.structurizr.componentfinder.ComponentFinderTestConstants.createDefaultContainer;
 import static com.structurizr.componentfinder.func.TagValidator.validateTag;
 
 public class TagDecoratorTest {
@@ -63,9 +64,9 @@ public class TagDecoratorTest {
     }
 
     private Component createDecoratedComponent(Consumer<CreatedComponent> decorator, Class<?> originClass) {
-        final Component component = new Component();
-        decorator.accept(CreatedComponent.create(component, originClass));
-        return component;
+        final CreatedComponent createdComponent = CreatedComponent.createFromClass(createDefaultContainer(), originClass);
+        decorator.accept(createdComponent);
+        return createdComponent.getComponent();
     }
 
     private Collection<String> generateAllTags(Class<?> aClass) {

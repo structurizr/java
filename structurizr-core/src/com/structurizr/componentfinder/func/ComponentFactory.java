@@ -28,7 +28,6 @@ public class ComponentFactory {
 
 
     public Optional<Component> createComponent(Class<?> type) {
-
         if (typeMatcher.test(type))
             return create(type);
         else
@@ -56,6 +55,11 @@ public class ComponentFactory {
             return this;
         }
 
+        public Builder withTypeMatching(String typeRegex) {
+            return withTypeMatcher(createNonInnerClassRegexTypeMatcher(typeRegex));
+
+        }
+
         public Builder withFactory(Function<Class<?>, CreatedComponent> val) {
             factory = val;
             return this;
@@ -76,6 +80,11 @@ public class ComponentFactory {
             checkNotNull(factory, "A component factory is required.");
             checkNotNull(decorator, "A decorator is required.");
             return new ComponentFactory(this);
+        }
+
+        private Predicate<Class<?>> createNonInnerClassRegexTypeMatcher(String typeRegex) {
+            return RegexClassNameMatcher.create(typeRegex)
+                    .and(InnerClassMatcher.INSTANCE).negate();
         }
 
 

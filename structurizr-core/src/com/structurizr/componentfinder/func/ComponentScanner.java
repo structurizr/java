@@ -10,10 +10,7 @@ import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 
 class ComponentScanner {
 
@@ -32,7 +29,7 @@ class ComponentScanner {
     }
 
     private Collection<Component> createComponents(Reflections reflections) {
-        final Collection<Component> c = new LinkedList<>();
+        final Collection<Component> c = new HashSet<>();
         final Set<Class<?>> types = getAllTypes(reflections);
         types.stream().forEach(x -> c.addAll(createComponents(x)));
         return c;
