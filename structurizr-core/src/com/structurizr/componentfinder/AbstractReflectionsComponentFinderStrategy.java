@@ -65,7 +65,7 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
 
                 // if there was no component of the interface type, perhaps there is one of the implementation type
                 CtClass referencedTypeAsClass = pool.get(referencedTypeName);
-                if (destinationComponent == null && referencedTypeAsClass.isInterface()) {
+                if (destinationComponent == null && referencedTypeAsClass.isInterface() && !cc.subtypeOf(referencedTypeAsClass)) {
                     Class implementationClass = getFirstImplementationOfInterface(Class.forName(referencedTypeName));
                     if (implementationClass != null) {
                         destinationComponent = componentFinder.getContainer().getComponentOfType(implementationClass.getCanonicalName());

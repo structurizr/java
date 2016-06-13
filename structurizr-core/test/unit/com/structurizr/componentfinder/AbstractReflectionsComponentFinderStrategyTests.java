@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class AbstractReflectionsComponentFinderStrategyTests {
 
@@ -65,12 +66,17 @@ public class AbstractReflectionsComponentFinderStrategyTests {
         );
         componentFinder.findComponents();
 
-        assertEquals(2, webApplication.getComponents().size());
+        assertEquals(3, webApplication.getComponents().size());
 
         Component someComponent = webApplication.getComponentWithName("SomeComponent");
         assertNotNull(someComponent);
         assertEquals("SomeComponent", someComponent.getName());
         assertEquals("com.structurizr.componentfinder.subtypes.SomeComponent", someComponent.getType());
+
+        Component otherComponent = webApplication.getComponentWithName("OtherComponent");
+        assertNotNull(otherComponent);
+        assertEquals("OtherComponent", otherComponent.getName());
+        assertEquals("com.structurizr.componentfinder.subtypes.OtherComponent", otherComponent.getType());
 
         Component loggingComponent = webApplication.getComponentWithName("LoggingComponent");
         assertNotNull(loggingComponent);
@@ -79,6 +85,8 @@ public class AbstractReflectionsComponentFinderStrategyTests {
 
         assertEquals(1, someComponent.getRelationships().size());
         assertNotNull(someComponent.getRelationships().stream().filter(r -> r.getDestination() == loggingComponent).findFirst().get());
+        assertNull(someComponent.getRelationships().stream().filter(r -> r.getDestination() == otherComponent).findFirst().orElse(null));
+        assertNull(otherComponent.getRelationships().stream().filter(r -> r.getDestination() == someComponent).findFirst().orElse(null));
     }
 
     @Test
