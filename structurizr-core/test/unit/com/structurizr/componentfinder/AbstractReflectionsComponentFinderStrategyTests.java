@@ -83,6 +83,7 @@ public class AbstractReflectionsComponentFinderStrategyTests {
         assertEquals("LoggingComponent", loggingComponent.getName());
         assertEquals("com.structurizr.componentfinder.subtypes.LoggingComponent", loggingComponent.getType());
 
+        assertEquals(1, someComponent.getRelationships().size());
         assertNotNull(someComponent.getRelationships().stream().filter(r -> r.getDestination() == loggingComponent).findFirst().get());
         assertNull(someComponent.getRelationships().stream().filter(r -> r.getDestination() == otherComponent).findFirst().orElse(null));
         assertNull(otherComponent.getRelationships().stream().filter(r -> r.getDestination() == someComponent).findFirst().orElse(null));
