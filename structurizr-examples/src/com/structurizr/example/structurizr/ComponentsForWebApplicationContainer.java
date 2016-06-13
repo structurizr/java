@@ -67,7 +67,8 @@ public class ComponentsForWebApplicationContainer extends AbstractStructurizrWor
 
         // create one component view per Spring controller
         for (Component controller : controllers) {
-            ComponentView view = workspace.getViews().createComponentView(container, controller.getName());
+            ComponentView view = workspace.getViews().createComponentView(container, "This diagram shows the components for a slice through the web application, focussed around the " + controller.getName() + " component");
+            view.setSubtitle(controller.getName());
             view.setKey(controller.getName());
 
             view.addAllElements();

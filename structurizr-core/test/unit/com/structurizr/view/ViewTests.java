@@ -241,8 +241,12 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         systemContextView.setDescription("   ");
         assertEquals("The System - System Context", systemContextView.getTitle());
 
-        systemContextView.setDescription("Some description");
-        assertEquals("The System - System Context [Some description]", systemContextView.getTitle());
+        systemContextView.setDescription("Description");
+        assertEquals("The System - System Context - Description", systemContextView.getTitle());
+
+        // and subtitle overrides description
+        systemContextView.setSubtitle("Subtitle");
+        assertEquals("The System - System Context - Subtitle", systemContextView.getTitle());
     }
 
     @Test

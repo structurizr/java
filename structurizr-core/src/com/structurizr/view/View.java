@@ -16,6 +16,7 @@ public abstract class View implements Comparable<View> {
 
     private SoftwareSystem softwareSystem;
     private String softwareSystemId;
+    private String subtitle = "";
     private String description = "";
     private String key;
     private PaperSize paperSize = PaperSize.A4_Portrait;
@@ -112,11 +113,21 @@ public abstract class View implements Comparable<View> {
 
     @JsonIgnore
     public String getTitle() {
-        if (getDescription() != null && getDescription().trim().length() > 0) {
-            return getName() + " [" + getDescription() + "]";
+        if (getSubtitle() != null && getSubtitle().trim().length() > 0) {
+            return getName() + " - " + getSubtitle();
+        } else if (getDescription() != null && getDescription().trim().length() > 0) {
+            return getName() + " - " + getDescription();
         } else {
             return getName();
         }
+    }
+
+    public String getSubtitle() {
+        return subtitle;
+    }
+
+    public void setSubtitle(String subtitle) {
+        this.subtitle = subtitle;
     }
 
     protected final void addElement(Element element, boolean addRelationships) {
