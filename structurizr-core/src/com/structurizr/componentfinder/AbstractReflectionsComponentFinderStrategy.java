@@ -63,13 +63,15 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
             for (Object referencedType : cc.getRefClasses()) {
                 String referencedTypeName = (String)referencedType;
 
-                Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedTypeName);
-                if (destinationComponent != null) {
-                    if (component != destinationComponent) {
-                        component.uses(destinationComponent, "");
+                if (!isAJavaPlatformType(referencedTypeName)) {
+                    Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedTypeName);
+                    if (destinationComponent != null) {
+                        if (component != destinationComponent) {
+                            component.uses(destinationComponent, "");
+                        }
+                    } else if (!typesVisited.contains(referencedTypeName)) {
+                        addEfferentDependencies(component, referencedTypeName, typesVisited);
                     }
-                } else if (!typesVisited.contains(referencedTypeName)) {
-                    addEfferentDependencies(component, referencedTypeName, typesVisited);
                 }
             }
         } catch (NotFoundException nfe) {
@@ -77,6 +79,12 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
+    }
+
+    private boolean isAJavaPlatformType(String typeName) {
+        return  typeName.startsWith("java.") ||
+                typeName.startsWith("javax.") ||
+                typeName.startsWith("sun.");
     }
 
     protected Set<Class<?>> getTypesAnnotatedWith(Class<? extends Annotation> annotation) {
