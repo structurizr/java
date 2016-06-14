@@ -82,6 +82,33 @@ public class AbstractReflectionsComponentFinderStrategyTests {
     }
 
     @Test
+    public void test_findComponents_CorrectlyFindsNoDependenciesWhenTwoComponentsImplementTheSameInterface() throws Exception {
+        ComponentFinder componentFinder = new ComponentFinder(
+                webApplication,
+                "com.structurizr.componentfinder.featureinterface",
+                new TypeBasedComponentFinderStrategy(
+                        new NameSuffixTypeMatcher("Component", "", "")
+                )
+        );
+        componentFinder.findComponents();
+
+        assertEquals(2, webApplication.getComponents().size());
+
+        Component someComponent = webApplication.getComponentWithName("SomeComponent");
+        assertNotNull(someComponent);
+        assertEquals("SomeComponent", someComponent.getName());
+        assertEquals("com.structurizr.componentfinder.featureinterface.SomeComponent", someComponent.getType());
+
+        Component otherComponent = webApplication.getComponentWithName("OtherComponent");
+        assertNotNull(otherComponent);
+        assertEquals("OtherComponent", otherComponent.getName());
+        assertEquals("com.structurizr.componentfinder.featureinterface.OtherComponent", otherComponent.getType());
+
+        assertEquals(0, someComponent.getRelationships().size());
+        assertEquals(0, otherComponent.getRelationships().size());
+    }
+
+    @Test
     public void test_findComponents_CorrectlyFindsDependenciesBetweenComponentsFoundByDifferentComponentFinders_WhenPackage1IsScannedFirst() throws Exception {
         ComponentFinder componentFinder1 = new ComponentFinder(
                 webApplication,
@@ -127,7 +154,9 @@ public class AbstractReflectionsComponentFinderStrategyTests {
                 )
         );
 
+        System.out.println("Finding components 2");
         componentFinder2.findComponents();
+        System.out.println("Finding components 1");
         componentFinder1.findComponents();
 
         assertEquals(2, webApplication.getComponents().size());

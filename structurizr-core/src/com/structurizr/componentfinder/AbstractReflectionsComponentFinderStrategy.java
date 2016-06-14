@@ -39,12 +39,13 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
     public void findDependencies() throws Exception {
         for (Component component : componentFinder.getContainer().getComponents()) {
             if (component.getType() != null) {
-                Class type = Class.forName(component.getType());
                 addEfferentDependencies(component, component.getType(), new HashSet<>());
 
                 // and repeat for the first implementation class we can find
-                if (type.isInterface()) {
-                    Class implementationType = getFirstImplementationOfInterface(type);
+                ClassPool pool = ClassPool.getDefault();
+                CtClass cc = pool.get(component.getType());
+                if (cc.isInterface()) {
+                    Class implementationType = getFirstImplementationOfInterface(cc.getName());
                     if (implementationType != null && implementationType.getCanonicalName() != null) {
                         addEfferentDependencies(component, implementationType.getCanonicalName(), new HashSet<>());
                     }
@@ -61,17 +62,8 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
             CtClass cc = pool.get(type);
             for (Object referencedType : cc.getRefClasses()) {
                 String referencedTypeName = (String)referencedType;
+
                 Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedTypeName);
-
-                // if there was no component of the interface type, perhaps there is one of the implementation type
-                CtClass referencedTypeAsClass = pool.get(referencedTypeName);
-                if (destinationComponent == null && referencedTypeAsClass.isInterface()) {
-                    Class implementationClass = getFirstImplementationOfInterface(Class.forName(referencedTypeName));
-                    if (implementationClass != null) {
-                        destinationComponent = componentFinder.getContainer().getComponentOfType(implementationClass.getCanonicalName());
-                    }
-                }
-
                 if (destinationComponent != null) {
                     if (component != destinationComponent) {
                         component.uses(destinationComponent, "");
@@ -99,7 +91,11 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
         return reflections.getSubTypesOf(interfaceType);
     }
 
-    protected Class getFirstImplementationOfInterface(Class interfaceType) {
+    protected Class getFirstImplementationOfInterface(String interfaceTypeName) throws Exception {
+        return getFirstImplementationOfInterface(Class.forName(interfaceTypeName));
+    }
+
+    protected Class getFirstImplementationOfInterface(Class interfaceType) throws Exception {
         Set<Class> implementationClasses = reflections.getSubTypesOf(interfaceType);
 
         if (implementationClasses.isEmpty()) {
