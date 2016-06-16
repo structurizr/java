@@ -22,8 +22,8 @@ public class ExampleWorkspace {
         Container webApplication = softwareSystem.addContainer("Web Application", "Does interesting things.", "Apache Tomcat");
         Container database = softwareSystem.addContainer("Database", "Stores interesting data.", "MySQL");
         database.addTags(DATABASE_TAG);
-        user.uses(webApplication, "Uses");
-        webApplication.uses(database, "Reads from and writes to");
+        user.uses(webApplication, "Uses", "HTTPS");
+        webApplication.uses(database, "Reads from and writes to", "JDBC");
 
         // create some views
         ViewSet viewSet = workspace.getViews();
