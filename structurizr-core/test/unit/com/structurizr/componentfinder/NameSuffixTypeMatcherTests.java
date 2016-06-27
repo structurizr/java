@@ -1,6 +1,5 @@
 package com.structurizr.componentfinder;
 
-import com.structurizr.componentfinder.myapp.MyController;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -40,5 +39,7 @@ public class NameSuffixTypeMatcherTests {
         assertTrue(matcher.matches(MyController.class));
     }
 
+    private class MyController {
+    }
 
 }

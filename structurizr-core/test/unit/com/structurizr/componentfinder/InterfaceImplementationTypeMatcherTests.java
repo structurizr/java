@@ -1,15 +1,11 @@
 package com.structurizr.componentfinder;
 
-import com.structurizr.componentfinder.myapp.MyController;
-import com.structurizr.componentfinder.myapp.MyRepository;
-import com.structurizr.componentfinder.myapp.MyRepositoryImpl;
+import org.junit.Test;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Test;
-
 public class InterfaceImplementationTypeMatcherTests {
-
 
     @Test
     public void test_construction_DoesNotThrowAnExceptionWhenAnInterfaceTypeIsSupplied()
@@ -37,5 +33,13 @@ public class InterfaceImplementationTypeMatcherTests {
         assertTrue(matcher.matches(MyRepositoryImpl.class));
     }
 
+    private class MyController {
+    }
+
+    private interface MyRepository {
+    }
+
+    private class MyRepositoryImpl implements MyRepository {
+    }
 
 }

@@ -2,6 +2,7 @@ package com.structurizr.componentfinder;
 
 import com.structurizr.model.Component;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -12,6 +13,8 @@ public abstract class ComponentFinderStrategy {
     // a reference to the parent component finder
     protected ComponentFinder componentFinder;
 
+    private Collection<Component> components = new ArrayList<>();
+
     public void setComponentFinder(ComponentFinder componentFinder) {
         this.componentFinder = componentFinder;
     }
@@ -20,8 +23,20 @@ public abstract class ComponentFinderStrategy {
         return componentFinder;
     }
 
-    public abstract Collection<Component> findComponents() throws Exception;
+    public abstract void findComponents() throws Exception;
 
     public abstract void findDependencies() throws Exception;
+
+    public Collection<Component> getComponents() {
+        return new ArrayList<>(components);
+    }
+
+    protected void add(Component component) {
+        this.components.add(component);
+    }
+
+    protected void addAll(Collection<Component> components) {
+        this.components.addAll(components);
+    }
 
 }

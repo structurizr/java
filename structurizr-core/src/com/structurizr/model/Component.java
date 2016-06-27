@@ -3,6 +3,7 @@ package com.structurizr.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -15,7 +16,9 @@ public class Component extends Element {
 
     private String technology = "";
     private String type;
+    private Set<String> supportingTypes = new HashSet<>();
     private String sourcePath;
+    private long size;
 
     public Component() {
     }
@@ -62,6 +65,21 @@ public class Component extends Element {
         this.type = type;
     }
 
+    @JsonIgnore
+    public Set<String> getSupportingTypes() {
+        return supportingTypes;
+    }
+
+    void setSupportingTypes(Set<String> supportingTypes) {
+        this.supportingTypes = supportingTypes;
+    }
+
+    public void addSupportingType(String type) {
+        if (type != null && !supportingTypes.contains(type) && !type.equals(this.getType())) {
+            this.supportingTypes.add(type);
+        }
+    }
+
     /**
      * Gets the source code path that reflects this component (e.g. a GitHub URL).
      *
@@ -73,6 +91,14 @@ public class Component extends Element {
 
     public void setSourcePath(String sourcePath) {
         this.sourcePath = sourcePath;
+    }
+
+    public long getSize() {
+        return size;
+    }
+
+    public void setSize(long size) {
+        this.size = size;
     }
 
     @JsonIgnore

@@ -34,18 +34,22 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
     public static final String SPRING_COMPONENT = "Spring Component";
     public static final String SPRING_REST_CONTROLLER = "Spring REST Controller";
 
+    public SpringComponentFinderStrategy() {
+        super(new FirstImplementationOfInterfaceSupportingTypesStrategy());
+    }
+
+    public SpringComponentFinderStrategy(SupportingTypesStrategy... strategies) {
+        super(strategies);
+    }
+
     @Override
-    public Collection<Component> findComponents() throws Exception {
-        Collection<Component> components = new LinkedList<>();
-
-        components.addAll(findAnnotatedSpringMvcControllers());
-        components.addAll(findAnnotatedSpringRestControllers());
-        components.addAll(findAnnotatedSpringServices());
-        components.addAll(findAnnotatedSpringRepositories());
-        components.addAll(findAnnotatedSpringComponents());
-        components.addAll(findSpringRepositoryInterfaces());
-
-        return components;
+    public void findComponents() throws Exception {
+        addAll(findAnnotatedSpringMvcControllers());
+        addAll(findAnnotatedSpringRestControllers());
+        addAll(findAnnotatedSpringServices());
+        addAll(findAnnotatedSpringRepositories());
+        addAll(findAnnotatedSpringComponents());
+        addAll(findSpringRepositoryInterfaces());
     }
 
     protected Collection<Component> findAnnotatedSpringMvcControllers() {

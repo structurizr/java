@@ -2,9 +2,7 @@ package com.structurizr.example.spring.petclinic;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.componentfinder.ComponentFinder;
-import com.structurizr.componentfinder.JavadocComponentFinderStrategy;
-import com.structurizr.componentfinder.SpringComponentFinderStrategy;
+import com.structurizr.componentfinder.*;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
@@ -53,9 +51,13 @@ public class SpringPetClinic {
 
         // and now automatically find all Spring @Controller, @Component, @Service and @Repository components
         ComponentFinder componentFinder = new ComponentFinder(
-                webApplication, "org.springframework.samples.petclinic",
-                new SpringComponentFinderStrategy(),
-                new JavadocComponentFinderStrategy(new File(sourceRoot, "/src/main/java/"), 150));
+                webApplication,
+                "org.springframework.samples.petclinic",
+                new SpringComponentFinderStrategy(
+                        new FirstImplementationOfInterfaceSupportingTypesStrategy(),
+                        new ReferencedTypesSupportingTypesStrategy()
+                ),
+                new SourceCodeComponentFinderStrategy(new File(sourceRoot, "/src/main/java/"), 150));
         componentFinder.findComponents();
 
         // connect the user to all of the Spring MVC controllers
@@ -123,7 +125,10 @@ public class SpringPetClinic {
         styles.addElementStyle("Spring Service").background("#6CB33E").color("#000000");
         styles.addElementStyle("Spring Repository").background("#95D46C").color("#000000");
 
-        StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
+//        StructurizrClient structurizrClient = new StructurizrClient("https://localhost:9443", "cb2a537d-282f-4834-ab2c-3c4fd4fc54ac", "ff64a5d5-19e5-4a98-818a-c36455f38e44");
+//        structurizrClient.mergeWorkspace(19, workspace);
+//
+        StructurizrClient structurizrClient = new StructurizrClient("c9532520-06da-4579-b640-496d8fb3e0f9", "b7856871-8934-431c-8f71-28a6e3fad939");
         structurizrClient.mergeWorkspace(1, workspace);
     }
 

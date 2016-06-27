@@ -7,8 +7,7 @@ import com.structurizr.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class StructurizrAnnotationsComponentFinderStrategyTests {
 
@@ -36,49 +35,59 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
 
         SoftwareSystem someOtherSoftwareSystem = model.addSoftwareSystem("Software System A", "");
 
+        StructurizrAnnotationsComponentFinderStrategy componentFinderStrategy = new StructurizrAnnotationsComponentFinderStrategy();
+
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
                 "com.structurizr.componentfinder.annotations",
-                new StructurizrAnnotationsComponentFinderStrategy()
+                componentFinderStrategy
         );
         componentFinder.findComponents();
     }
 
     @Test
-    public void test_ThereAreFourComponents() {
+    public void test_ThereAreFiveComponents() {
         // there should be 5 components: MyHtmlController, MyJsonController, MyService, MyRepository and the LoggingComponent
         assertEquals(5, webApplication.getComponents().size());
 
         Component myHtmlController = webApplication.getComponentWithName("MyHtmlController");
         assertNotNull(myHtmlController);
         assertEquals("MyHtmlController", myHtmlController.getName());
-        assertEquals("com.structurizr.componentfinder.annotations.MyHtmlController", myHtmlController.getType());
+        assertEquals("com.structurizr.componentfinder.annotations.controller.html.MyHtmlController", myHtmlController.getType());
         assertEquals("Allows users to do something", myHtmlController.getDescription());
+        assertTrue(myHtmlController.getSupportingTypes().isEmpty());
 
         Component myJsonController = webApplication.getComponentWithName("MyJsonController");
         assertNotNull(myJsonController);
         assertEquals("MyJsonController", myJsonController.getName());
-        assertEquals("com.structurizr.componentfinder.annotations.MyJsonController", myJsonController.getType());
+        assertEquals("com.structurizr.componentfinder.annotations.controller.json.MyJsonController", myJsonController.getType());
         assertEquals("Allows systems to do something", myJsonController.getDescription());
+        assertTrue(myJsonController.getSupportingTypes().isEmpty());
 
         Component myService = webApplication.getComponentWithName("MyService");
         assertNotNull(myService);
         assertEquals("MyService", myService.getName());
-        assertEquals("com.structurizr.componentfinder.annotations.MyService", myService.getType());
+        assertEquals("com.structurizr.componentfinder.annotations.service.MyService", myService.getType());
         assertEquals("A component that does some business logic", myService.getDescription());
+        assertEquals(1, myService.getSupportingTypes().size());
+        assertTrue(myService.getSupportingTypes().contains("com.structurizr.componentfinder.annotations.service.MyServiceImpl"));
 
         Component myRepository = webApplication.getComponentWithName("MyRepository");
         assertNotNull(myRepository);
         assertEquals("MyRepository", myRepository.getName());
-        assertEquals("com.structurizr.componentfinder.annotations.MyRepository", myRepository.getType());
+        assertEquals("com.structurizr.componentfinder.annotations.repository.MyRepository", myRepository.getType());
         assertEquals("Manages some data", myRepository.getDescription());
+        assertEquals(1, myRepository.getSupportingTypes().size());
+        assertTrue(myRepository.getSupportingTypes().contains("com.structurizr.componentfinder.annotations.repository.MyRepositoryImpl"));
 
         Component loggingComponent = webApplication.getComponentWithName("LoggingComponent");
         assertNotNull(loggingComponent);
         assertEquals("LoggingComponent", loggingComponent.getName());
-        assertEquals("com.structurizr.componentfinder.annotations.LoggingComponent", loggingComponent.getType());
+        assertEquals("com.structurizr.componentfinder.annotations.logging.LoggingComponent", loggingComponent.getType());
         assertEquals("Writes log entries", loggingComponent.getDescription());
         assertEquals("Java and Logstash", loggingComponent.getTechnology());
+        assertEquals(1, loggingComponent.getSupportingTypes().size());
+        assertTrue(loggingComponent.getSupportingTypes().contains("com.structurizr.componentfinder.annotations.logging.LoggingComponentImpl"));
     }
 
     @Test

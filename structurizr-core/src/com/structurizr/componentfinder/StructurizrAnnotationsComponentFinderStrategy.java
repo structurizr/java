@@ -5,8 +5,6 @@ import com.structurizr.model.Component;
 import com.structurizr.model.*;
 
 import java.lang.reflect.Field;
-import java.util.Collection;
-import java.util.LinkedList;
 import java.util.Set;
 
 /**
@@ -18,12 +16,19 @@ import java.util.Set;
  */
 public class StructurizrAnnotationsComponentFinderStrategy extends AbstractReflectionsComponentFinderStrategy {
 
+    public StructurizrAnnotationsComponentFinderStrategy() {
+        super(new FirstImplementationOfInterfaceSupportingTypesStrategy());
+    }
+
+    public StructurizrAnnotationsComponentFinderStrategy(SupportingTypesStrategy... strategies) {
+        super(strategies);
+    }
+
     /**
      * This finds all types that have been annotated @Component.
      */
     @Override
-    public Collection<Component> findComponents() throws Exception {
-        Collection<Component> componentsFound = new LinkedList<>();
+    public void findComponents() throws Exception {
         Set<Class<?>> componentTypes = getTypesAnnotatedWith(com.structurizr.annotation.Component.class);
         for (Class<?> componentType : componentTypes) {
             Set<Class<?>> classes = findSuperTypesAnnotatedWith(componentType, com.structurizr.annotation.Component.class);
@@ -37,12 +42,9 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractRefle
                         componentType.getAnnotation(com.structurizr.annotation.Component.class).description(),
                         componentType.getAnnotation(com.structurizr.annotation.Component.class).technology()
                 );
-
-                componentsFound.add(component);
+                add(component);
             }
         }
-
-        return componentsFound;
     }
 
     @Override

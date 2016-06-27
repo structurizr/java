@@ -17,9 +17,7 @@ public class TypeBasedComponentFinderStrategy extends AbstractReflectionsCompone
     }
 
     @Override
-    public Collection<Component> findComponents() throws Exception {
-        Collection<Component> componentsFound = new LinkedList<>();
-
+    public void findComponents() throws Exception {
         Set<Class<?>> types = getAllTypes();
         for (Class<?> type : types) {
             for (TypeMatcher typeMatcher : typeMatchers) {
@@ -29,12 +27,10 @@ public class TypeBasedComponentFinderStrategy extends AbstractReflectionsCompone
                             type.getCanonicalName(),
                             typeMatcher.getDescription(),
                             typeMatcher.getTechnology());
-                    componentsFound.add(component);
+                    add(component);
                 }
             }
         }
-
-        return componentsFound;
     }
 
 }

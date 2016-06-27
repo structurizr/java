@@ -9,6 +9,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class SpringComponentFinderStrategyTests {
 
@@ -39,16 +40,21 @@ public class SpringComponentFinderStrategyTests {
         assertNotNull(someController);
         assertEquals("SomeController", someController.getName());
         assertEquals("com.structurizr.componentfinder.myapp.web.SomeController", someController.getType());
+        assertEquals(0, someController.getSupportingTypes().size());
 
         Component someService = webApplication.getComponentWithName("SomeService");
         assertNotNull(someService);
         assertEquals("SomeService", someService.getName());
         assertEquals("com.structurizr.componentfinder.myapp.service.SomeService", someService.getType());
+        assertEquals(1, someService.getSupportingTypes().size());
+        assertTrue(someService.getSupportingTypes().contains("com.structurizr.componentfinder.myapp.service.SomeServiceImpl"));
 
         Component someRepository = webApplication.getComponentWithName("SomeRepository");
         assertNotNull(someRepository);
         assertEquals("SomeRepository", someRepository.getName());
         assertEquals("com.structurizr.componentfinder.myapp.data.SomeRepository", someRepository.getType());
+        assertEquals(1, someRepository.getSupportingTypes().size());
+        assertTrue(someRepository.getSupportingTypes().contains("com.structurizr.componentfinder.myapp.data.JdbcSomeRepository"));
 
         Component someOtherRepository = webApplication.getComponentWithName("SomeOtherRepository");
         assertNotNull(someOtherRepository);

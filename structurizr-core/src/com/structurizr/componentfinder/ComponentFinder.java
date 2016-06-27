@@ -29,11 +29,15 @@ public class ComponentFinder {
         Collection<Component> componentsFound = new LinkedList<>();
 
         for (ComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {
-            componentsFound.addAll(componentFinderStrategy.findComponents());
+            componentFinderStrategy.findComponents();
         }
 
         for (ComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {
             componentFinderStrategy.findDependencies();
+        }
+
+        for (ComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {
+            componentsFound.addAll(componentFinderStrategy.getComponents());
         }
 
         return componentsFound;

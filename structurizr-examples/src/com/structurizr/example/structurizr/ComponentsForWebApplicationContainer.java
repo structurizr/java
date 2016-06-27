@@ -1,10 +1,8 @@
 package com.structurizr.example.structurizr;
 
 import com.structurizr.Workspace;
-import com.structurizr.componentfinder.ComponentFinder;
-import com.structurizr.componentfinder.JavadocComponentFinderStrategy;
-import com.structurizr.componentfinder.SpringComponentFinderStrategy;
-import com.structurizr.componentfinder.StructurizrAnnotationsComponentFinderStrategy;
+import com.structurizr.componentfinder.*;
+import com.structurizr.componentfinder.ComponentPackageSupportingTypesStrategy;
 import com.structurizr.model.*;
 import com.structurizr.view.ComponentView;
 
@@ -44,9 +42,11 @@ public class ComponentsForWebApplicationContainer extends AbstractStructurizrWor
                 container,
                 "com.structurizr",
                 new SpringComponentFinderStrategy(),
-                new StructurizrAnnotationsComponentFinderStrategy(),
-                new JavadocComponentFinderStrategy(new File("structurizr-core/src/")),
-                new JavadocComponentFinderStrategy(new File("structurizr-web/src/"))
+                new StructurizrAnnotationsComponentFinderStrategy(
+                        new ComponentPackageSupportingTypesStrategy()
+                ),
+                new SourceCodeComponentFinderStrategy(new File("structurizr-core/src/")),
+                new SourceCodeComponentFinderStrategy(new File("structurizr-web/src/"))
         );
         componentFinder.findComponents();
 
