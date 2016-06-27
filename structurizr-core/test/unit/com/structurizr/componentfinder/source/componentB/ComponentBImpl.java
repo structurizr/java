@@ -1,6 +1,6 @@
-package com.structurizr.componentfinder.sourceCode.componentB;
+package com.structurizr.componentfinder.source.componentB;
 
-import com.structurizr.componentfinder.sourceCode.componentA.ComponentA;
+import com.structurizr.componentfinder.source.componentA.ComponentA;
 
 class ComponentBImpl implements ComponentB {
 

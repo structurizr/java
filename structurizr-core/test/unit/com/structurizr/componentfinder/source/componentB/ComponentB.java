@@ -1,4 +1,4 @@
-package com.structurizr.componentfinder.sourceCode.componentB;
+package com.structurizr.componentfinder.source.componentB;
 
 /**
  * A component that does something else.

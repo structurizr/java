@@ -1,9 +1,9 @@
-package com.structurizr.componentfinder.sourceCode.componentC;
+package com.structurizr.componentfinder.source.componentC;
 
 import com.structurizr.annotation.UsesComponent;
-import com.structurizr.componentfinder.sourceCode.componentA.ComponentA;
+import com.structurizr.componentfinder.source.componentA.ComponentA;
 
-class ComponentCImpl implements com.structurizr.componentfinder.sourceCode.componentC.ComponentC {
+class ComponentCImpl implements com.structurizr.componentfinder.source.componentC.ComponentC {
 
     @UsesComponent(description = "Uses to do something")
     private ComponentA componentA;

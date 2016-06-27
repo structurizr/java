@@ -1,4 +1,4 @@
-package com.structurizr.componentfinder.sourceCode;
+package com.structurizr.componentfinder.source;
 
 import com.structurizr.Workspace;
 import com.structurizr.componentfinder.ComponentFinder;
@@ -36,17 +36,17 @@ public class SourceCodeComponentFinderStrategyTests {
 
         componentA = webApplication.addComponent(
                 "ComponentA",
-                "com.structurizr.componentfinder.sourceCode.componentA.ComponentA",
+                "com.structurizr.componentfinder.source.componentA.ComponentA",
                 "", "");
 
         componentB = webApplication.addComponent(
                 "ComponentB",
-                "com.structurizr.componentfinder.sourceCode.componentB.ComponentB",
+                "com.structurizr.componentfinder.source.componentB.ComponentB",
                 "", "");
 
         componentC = webApplication.addComponent(
                 "ComponentC",
-                "com.structurizr.componentfinder.sourceCode.componentC.ComponentC",
+                "com.structurizr.componentfinder.source.componentC.ComponentC",
                 "", "");
     }
 
@@ -54,7 +54,7 @@ public class SourceCodeComponentFinderStrategyTests {
     public void test_findComponents() throws Exception {
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
-                "com.structurizr.componentfinder.sourceCode",
+                "com.structurizr.componentfinder.source",
                 new SourceCodeComponentFinderStrategy(sourcePath)
         );
         componentFinder.findComponents();
@@ -73,7 +73,7 @@ public class SourceCodeComponentFinderStrategyTests {
     public void test_findComponents_TruncatesComponentDescriptions_WhenComponentDescriptionsAreTooLong() throws Exception {
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
-                "com.structurizr.componentfinder.sourceCode",
+                "com.structurizr.componentfinder.source",
                 new SourceCodeComponentFinderStrategy(sourcePath, 32)
         );
         componentFinder.findComponents();
