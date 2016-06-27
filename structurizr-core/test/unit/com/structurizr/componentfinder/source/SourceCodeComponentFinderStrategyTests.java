@@ -18,16 +18,10 @@ public class SourceCodeComponentFinderStrategyTests {
 
     private Container webApplication;
     private Component componentA, componentB, componentC;
-    private File sourcePath;
+    private File sourcePath = new File("test/unit");
 
     @Before
     public void setUp() {
-        if (new File("structurizr-core").exists()) {
-            sourcePath = new File("structurizr-core/test/unit");
-        } else {
-            sourcePath = new File("test/unit");
-        }
-
         Workspace workspace = new Workspace("Name", "Description");
         Model model = workspace.getModel();
 
