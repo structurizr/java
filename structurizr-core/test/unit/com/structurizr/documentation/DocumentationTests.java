@@ -65,7 +65,7 @@ public class DocumentationTests {
     public void test_addFromFileForSoftwareSystem_AddsASectionWithTheSpecifiedContent_WhenThatSectionDoesNotExist() throws IOException {
         documentation.add(softwareSystem, Type.Context, Format.Markdown, "Some Markdown content");
 
-        File file = new File("./structurizr-core/test/unit/com/structurizr/documentation/example.md");
+        File file = new File(".//test/unit/com/structurizr/documentation/example.md");
         Section section = documentation.add(softwareSystem, Type.FunctionalOverview, Format.Markdown, file);
 
         assertEquals(softwareSystem, section.getElement());
@@ -86,7 +86,7 @@ public class DocumentationTests {
         assertEquals(1, documentation.getSections().size());
 
         try {
-            File file = new File("./structurizr-core/test/unit/com/structurizr/documentation/example.md");
+            File file = new File(".//test/unit/com/structurizr/documentation/example.md");
             documentation.add(softwareSystem, Type.Context, Format.Markdown, file);
             fail();
         } catch (IllegalArgumentException iae) {
@@ -133,7 +133,7 @@ public class DocumentationTests {
     public void test_addFromFileForContainer_AddsASectionWithTheSpecifiedContent_WhenThatSectionDoesNotExist() throws IOException {
         documentation.add(softwareSystem, Type.Context, Format.Markdown, "Some Markdown content");
 
-        File file = new File("./structurizr-core/test/unit/com/structurizr/documentation/example.md");
+        File file = new File(".//test/unit/com/structurizr/documentation/example.md");
         Section section = documentation.add(container, Format.Markdown, file);
 
         assertEquals(container, section.getElement());
@@ -154,7 +154,7 @@ public class DocumentationTests {
         assertEquals(1, documentation.getSections().size());
 
         try {
-            File file = new File("./structurizr-core/test/unit/com/structurizr/documentation/example.md");
+            File file = new File(".//test/unit/com/structurizr/documentation/example.md");
             documentation.add(container, Format.Markdown, file);
             fail();
         } catch (IllegalArgumentException iae) {
@@ -165,7 +165,7 @@ public class DocumentationTests {
 
     @Test
     public void test_addImages_DoesNothing_WhenThereAreNoImageFilesInTheSpecifiedDirectory() throws IOException {
-        documentation.addImages(new File("./structurizr-core/test/unit/com/structurizr/"));
+        documentation.addImages(new File(".//test/unit/com/structurizr/"));
         assertTrue(documentation.getImages().isEmpty());
     }
 
@@ -181,7 +181,7 @@ public class DocumentationTests {
     @Test
     public void test_addImages_ThrowsAnException_WhenTheSpecifiedDirectoryIsNotADirectory() throws IOException {
         try {
-            documentation.addImages(new File("./structurizr-core/test/unit/com/structurizr/documentation/example.md"));
+            documentation.addImages(new File(".//test/unit/com/structurizr/documentation/example.md"));
         } catch (IllegalArgumentException iae) {
             assertTrue(iae.getMessage().endsWith("/structurizr-core/test/unit/com/structurizr/documentation/example.md is not a directory."));
         }
@@ -190,7 +190,7 @@ public class DocumentationTests {
     @Test
     public void test_addImages_ThrowsAnException_WhenTheSpecifiedDirectoryDoesNotExist() throws IOException {
         try {
-            documentation.addImages(new File("./structurizr-core/test/unit/com/structurizr/document"));
+            documentation.addImages(new File(".//test/unit/com/structurizr/document"));
         } catch (IllegalArgumentException iae) {
             assertTrue(iae.getMessage().endsWith("/structurizr-core/test/unit/com/structurizr/document does not exist."));
         }
@@ -199,7 +199,7 @@ public class DocumentationTests {
     @Test
     public void test_addImages_AddsAllImagesFromTheSpecifiedDirectory_WhenThereAreImageFilesInTheSpecifiedDirectory() throws IOException {
         assertTrue(documentation.getImages().isEmpty());
-        documentation.addImages(new File("./structurizr-core/test/unit/com/structurizr/documentation"));
+        documentation.addImages(new File(".//test/unit/com/structurizr/documentation"));
         assertEquals(4, documentation.getImages().size());
 
         Image png = documentation.getImages().stream().filter(i -> i.getName().equals("image.png")).findFirst().get();
@@ -222,7 +222,7 @@ public class DocumentationTests {
     @Test
     public void test_addImage_AddsTheSpecifiedImage_WhenTheSpecifiedFileExists() throws IOException {
         assertTrue(documentation.getImages().isEmpty());
-        documentation.addImage(new File("./structurizr-core/test/unit/com/structurizr/documentation/image.png"));
+        documentation.addImage(new File(".//test/unit/com/structurizr/documentation/image.png"));
         assertEquals(1, documentation.getImages().size());
 
         Image png = documentation.getImages().stream().filter(i -> i.getName().equals("image.png")).findFirst().get();
@@ -242,7 +242,7 @@ public class DocumentationTests {
     @Test
     public void test_addImage_ThrowsAnException_WhenTheSpecifiedFileIsNotAFile() throws IOException {
         try {
-            documentation.addImage(new File("./structurizr-core/test/unit/com/structurizr/documentation/"));
+            documentation.addImage(new File(".//test/unit/com/structurizr/documentation/"));
         } catch (IllegalArgumentException iae) {
             assertTrue(iae.getMessage().endsWith("/structurizr-core/test/unit/com/structurizr/documentation is not a file."));
         }
@@ -251,7 +251,7 @@ public class DocumentationTests {
     @Test
     public void test_addImage_ThrowsAnException_WhenTheSpecifiedFileDoesNotExist() throws IOException {
         try {
-            documentation.addImage(new File("./structurizr-core/test/unit/com/structurizr/documentation/some-other-image.png"));
+            documentation.addImage(new File(".//test/unit/com/structurizr/documentation/some-other-image.png"));
         } catch (IllegalArgumentException iae) {
             assertTrue(iae.getMessage().endsWith("/structurizr-core/test/unit/com/structurizr/documentation/some-other-image.png does not exist."));
         }
@@ -260,7 +260,7 @@ public class DocumentationTests {
     @Test
     public void test_addImage_ThrowsAnException_WhenTheSpecifiedFileIsNotAnImage() throws IOException {
         try {
-            documentation.addImage(new File("./structurizr-core/test/unit/com/structurizr/documentation/example.md"));
+            documentation.addImage(new File(".//test/unit/com/structurizr/documentation/example.md"));
         } catch (IllegalArgumentException iae) {
             assertTrue(iae.getMessage().endsWith("/structurizr-core/test/unit/com/structurizr/documentation/example.md is not a supported image file."));
         }
