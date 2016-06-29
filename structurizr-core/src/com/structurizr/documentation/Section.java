@@ -82,7 +82,9 @@ public class Section {
 
     @Override
     public int hashCode() {
-        return type.hashCode();
+        int result = getElementId().hashCode();
+        result = 31 * result + type.hashCode();
+        return result;
     }
 
 }

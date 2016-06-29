@@ -57,6 +57,7 @@ public class DocumentationTests {
             fail();
         } catch (IllegalArgumentException iae) {
             // this is the expected exception
+            assertEquals("A section of type Context for Name already exists.", iae.getMessage());
             assertEquals(1, documentation.getSections().size());
         }
     }
@@ -91,13 +92,19 @@ public class DocumentationTests {
             fail();
         } catch (IllegalArgumentException iae) {
             // this is the expected exception
+            assertEquals("A section of type Context for Name already exists.", iae.getMessage());
             assertEquals(1, documentation.getSections().size());
         }
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void test_addWithContentForSoftwareSystem_ThrowsAnException_WhenAContainerIsNotSpecifiedForTheComponentType() {
-        documentation.add(softwareSystem, Type.Components, Format.Markdown, "Some Markdown content");
+        try {
+            documentation.add(softwareSystem, Type.Components, Format.Markdown, "Some Markdown content");
+        } catch (IllegalArgumentException iae) {
+            // this is the expected exception
+            assertEquals("Sections of type Components must be related to a container rather than a software system.", iae.getMessage());
+        }
     }
 
     @Test
@@ -125,6 +132,7 @@ public class DocumentationTests {
             fail();
         } catch (IllegalArgumentException iae) {
             // this is the expected exception
+            assertEquals("A section of type Components for Name already exists.", iae.getMessage());
             assertEquals(1, documentation.getSections().size());
         }
     }
@@ -159,6 +167,7 @@ public class DocumentationTests {
             fail();
         } catch (IllegalArgumentException iae) {
             // this is the expected exception
+            assertEquals("A section of type Components for Name already exists.", iae.getMessage());
             assertEquals(1, documentation.getSections().size());
         }
     }
@@ -174,7 +183,7 @@ public class DocumentationTests {
         try {
             documentation.addImages(null);
         } catch (IllegalArgumentException iae) {
-            assertEquals("Directory path must not be null", iae.getMessage());
+            assertEquals("Directory path must not be null.", iae.getMessage());
         }
     }
 
@@ -190,9 +199,9 @@ public class DocumentationTests {
     @Test
     public void test_addImages_ThrowsAnException_WhenTheSpecifiedDirectoryDoesNotExist() throws IOException {
         try {
-            documentation.addImages(new File(".//test/unit/com/structurizr/document"));
+            documentation.addImages(new File(".//test/unit/com/structurizr/documentation/blah"));
         } catch (IllegalArgumentException iae) {
-            assertTrue(iae.getMessage().endsWith("/structurizr-core/test/unit/com/structurizr/document does not exist."));
+            assertTrue(iae.getMessage().endsWith("/structurizr-core/test/unit/com/structurizr/documentation/blah does not exist."));
         }
     }
 
@@ -235,7 +244,7 @@ public class DocumentationTests {
         try {
             documentation.addImage(null);
         } catch (IllegalArgumentException iae) {
-            assertEquals("File must not be null", iae.getMessage());
+            assertEquals("File must not be null.", iae.getMessage());
         }
     }
 

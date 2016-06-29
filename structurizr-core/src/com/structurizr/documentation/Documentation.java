@@ -2,6 +2,7 @@ package com.structurizr.documentation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.Container;
+import com.structurizr.model.Element;
 import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;
 
@@ -66,17 +67,7 @@ public class Documentation {
      * @return  a documentation {@link Section}
      */
     public Section add(SoftwareSystem softwareSystem, Type type, Format format, String content) {
-        if (type == Type.Components) {
-            throw new IllegalArgumentException("Sections of type Components must be related to a container rather than a software system.");
-        }
-        Section section = new Section(softwareSystem, type, format, content);
-        if (!sections.contains(section)) {
-            this.sections.add(section);
-
-            return section;
-        } else {
-            throw new IllegalArgumentException("A section of type " + type + " already exists.");
-        }
+        return addSection(softwareSystem, type, format, content);
     }
 
     /**
@@ -102,13 +93,20 @@ public class Documentation {
      * @return  a documentation {@link Section}
      */
     public Section add(Container container, Format format, String content) {
-        Section section = new Section(container, Type.Components, format, content);
-        if (!sections.contains(section)) {
-            this.sections.add(section);
+        return addSection(container, Type.Components, format, content);
+    }
 
+    private Section addSection(Element element, Type type, Format format, String content) {
+        if (!(element instanceof Container) && type == Type.Components) {
+            throw new IllegalArgumentException("Sections of type Components must be related to a container rather than a software system.");
+        }
+
+        Section section = new Section(element, type, format, content);
+        if (!sections.contains(section)) {
+            sections.add(section);
             return section;
         } else {
-            throw new IllegalArgumentException("A section of type " + section.getType() + " for " + container + " already exists.");
+            throw new IllegalArgumentException("A section of type " + type + " for " + element.getName() + " already exists.");
         }
     }
 
@@ -133,7 +131,7 @@ public class Documentation {
      */
     public void addImages(File path) throws IOException {
         if (path == null) {
-            throw new IllegalArgumentException("Directory path must not be null");
+            throw new IllegalArgumentException("Directory path must not be null.");
         } else if (!path.exists()) {
             throw new IllegalArgumentException("The directory " + path.getCanonicalPath() + " does not exist.");
         } else if (!path.isDirectory()) {
@@ -158,7 +156,7 @@ public class Documentation {
      */
     public void addImage(File file) throws IOException {
         if (file == null) {
-            throw new IllegalArgumentException("File must not be null");
+            throw new IllegalArgumentException("File must not be null.");
         } else if (!file.exists()) {
             throw new IllegalArgumentException("The file " + file.getCanonicalPath() + " does not exist.");
         } else if (!file.isFile()) {
