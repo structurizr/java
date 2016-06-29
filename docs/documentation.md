@@ -48,3 +48,7 @@ As shown in [this example Markdown file](https://github.com/structurizr/java/blo
 ```java
 documentation.addImages(documentationRoot);
 ```
+
+### Software architecture diagrams
+
+Software architecture diagrams from the workspace can be embedded within the documentation sections using an additional special syntax. See [Documentation](https://structurizr.com/help/documentation) on the Structurizr website for more information.
