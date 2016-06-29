@@ -2,7 +2,7 @@
 
 # Structurizr for Java
 
-This GitHub repository is a Java library to create software architecture models that are compatible with [Structurizr](https://structurizr.com), a SaaS to create web-based software architecture diagrams. It's an implementation of the "C4 software architecture model", as described in Simon Brown's FREE [The Art of Visualising Software Architecture](https://leanpub.com/visualising-software-architecture) book. In a nutshell:
+This GitHub repository is a Java library to create software architecture models that are compatible with [Structurizr](https://structurizr.com), a SaaS to create web-based software architecture diagrams. In summary:
 
 1. Create a software architecture model using Java code, either manually or by extracting information from an existing codebase.
 1. Upload the model (as a JSON document) to [Structurizr](https://structurizr.com) using the web API.
@@ -26,6 +26,8 @@ This GitHub repository is a Java library to create software architecture models 
 1. [Graphviz and DOT](docs/graphviz-and-dot.md)
  
 ## Building
+
+[![Build Status](https://travis-ci.org/structurizr/java.svg?branch=master)](https://travis-ci.org/structurizr/java)
 
 To build "Structurizr for Java" from the sources (you'll need Java 8)...
 
