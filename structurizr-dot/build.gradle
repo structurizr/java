@@ -1,4 +1,4 @@
 dependencies {
     compile project(':structurizr-core')
-    compile 'org.livingdocumentation:dot-diagram:1.0'
+    compile fileTree(dir: 'lib', include: ['*.jar'])
 }
