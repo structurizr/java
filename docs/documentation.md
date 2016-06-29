@@ -1,12 +1,12 @@
 # Documentation
 
-In addition to diagrams, Structurizr lets you create supplementary documentation using the Markdown format. See [Documentation](https://structurizr.com/help/documentation) for more information.
+In addition to diagrams, Structurizr lets you create supplementary documentation using the Markdown format. See [Documentation](https://structurizr.com/help/documentation) on the Structurizr website for more information about this feature.
 
 ![Example documentation](images/documentation-1.png)
 
 ## Adding documentation to your workspace
 
-The following example code shows how to add documentation to your workspace.
+The following [example code](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/financialrisksystem/FinancialRiskSystem.java) shows how to add documentation to your workspace.
 
 ```java
 SoftwareSystem financialRiskSystem = model.addSoftwareSystem("Financial Risk System", "Calculates the bank's exposure to risk for product X");
