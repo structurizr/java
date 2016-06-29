@@ -30,8 +30,8 @@ With the Spring PetClinic application built, we now need to create a software ar
 
 Name                                          | Description
 -------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------
-com.structurizr:structurizr-core:0.7.0        | The core library that can used to create models and upload models to Structurizr.
-com.structurizr:structurizr-spring:0.7.0      | The Spring component finder.
+com.structurizr:structurizr-core:0.8.0        | The core library that can used to create models and upload models to Structurizr.
+com.structurizr:structurizr-spring:0.8.0      | The Spring component finder.
 
 First we need to create a little boilerplate code to create a workspace and a model.
 
@@ -79,13 +79,17 @@ Spring MVC uses Java annotations (```@Controller```, ```@Service``` and ```@Repo
 ```java
 ComponentFinder componentFinder = new ComponentFinder(
     webApplication, "org.springframework.samples.petclinic",
-    new SpringComponentFinderStrategy(),
-    new JavadocComponentFinderStrategy(new File("/some-path/spring/spring-petclinic/src/main/java/"), 150));
+    new SpringComponentFinderStrategy(
+            new FirstImplementationOfInterfaceSupportingTypesStrategy(),
+            new ReferencedTypesSupportingTypesStrategy()
+    ),
+    new SourceCodeComponentFinderStrategy(new File(sourceRoot, "/src/main/java/"), 150));
 
 componentFinder.findComponents();
 ```
 
-Built-in to the ```SpringComponentFinderStrategy``` are some rules that automatically collapse the interface and implementation of a Spring Bean, so the controllers, services and repositories are treated as "components" rather than a number of separate interfaces and classes. The dependencies between components are also identified and extracted. In addition, the ```JavadocComponentFinderStrategy``` will parse the class-level Javadoc comment  from the source file for inclusion in the model.
+Built-in to the ```SpringComponentFinderStrategy``` are some rules that automatically collapse the interface and implementation of a Spring Bean, so the controllers, services and repositories are treated as "components" rather than a number of separate interfaces and classes. The dependencies between components are also identified and extracted. In addition, the ```SourceCodeComponentFinderStrategy``` will parse the class-level Javadoc comment from the source file for inclusion in the model.
+It will also calculate the size of each component based upon the number of lines of source code.
 
 The final thing we need to do is connect the user to the web controllers, and the repositories to the database. This is easy to do since the software architecture model is represented in code.
 
