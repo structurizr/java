@@ -34,6 +34,8 @@ public class StructurizrClient {
 
     private static final String WORKSPACE_PATH = "/workspace/";
 
+    private static final String VERSION = Package.getPackage("com.structurizr.api").getImplementationVersion();
+
     private String url;
     private String apiKey;
     private String apiSecret;
@@ -263,6 +265,7 @@ public class StructurizrClient {
 
         HashBasedMessageAuthenticationCode hmac = new HashBasedMessageAuthenticationCode(apiSecret);
         HmacContent hmacContent = new HmacContent(httpMethod, path, contentMd5, contentType, nonce);
+        httpRequest.addHeader(HttpHeaders.USER_AGENT, "structurizr-java/" + (VERSION != null ? VERSION : "dev"));
         httpRequest.addHeader(HttpHeaders.AUTHORIZATION, new HmacAuthorizationHeader(apiKey, hmac.generate(hmacContent.toString())).format());
         httpRequest.addHeader(HttpHeaders.NONCE, nonce);
         httpRequest.addHeader(HttpHeaders.CONTENT_MD5, Base64.getEncoder().encodeToString(contentMd5.getBytes("UTF-8")));

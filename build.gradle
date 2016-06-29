@@ -36,6 +36,14 @@ subprojects { proj ->
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
+    jar {
+        manifest {
+            attributes(
+                    "Implementation-Title": "Structurizr for Java",
+                    "Implementation-Version": version
+            )
+        }
+    }
 
     task sourceJar(type: Jar) {
         from sourceSets.main.allJava
