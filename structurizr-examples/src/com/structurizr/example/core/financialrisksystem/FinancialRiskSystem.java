@@ -78,7 +78,7 @@ public class FinancialRiskSystem {
         documentation.addImages(documentationRoot);
 
         // and upload the model to structurizr.com
-        StructurizrClient structurizrClient = new StructurizrClient("c9532520-06da-4579-b640-496d8fb3e0f9", "b7856871-8934-431c-8f71-28a6e3fad939");
+        StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.mergeWorkspace(31, workspace);
     }
 

@@ -66,6 +66,9 @@ public class Documentation {
      * @return  a documentation {@link Section}
      */
     public Section add(SoftwareSystem softwareSystem, Type type, Format format, String content) {
+        if (type == Type.Components) {
+            throw new IllegalArgumentException("Sections of type Components must be related to a container rather than a software system.");
+        }
         Section section = new Section(softwareSystem, type, format, content);
         if (!sections.contains(section)) {
             this.sections.add(section);
@@ -123,31 +126,58 @@ public class Documentation {
     }
 
     /**
-     * Adds png/jpg/gif images in the given directory to the workspace
+     * Adds png/jpg/jpeg/gif images in the given directory to the workspace.
      *
      * @param path  a File descriptor representing a directory on disk
      * @throws IOException
      */
     public void addImages(File path) throws IOException {
-        if (path != null && path.exists() && path.isDirectory()) {
-            File[] imageFiles = path.listFiles((dir, name) -> {
-                name = name.toLowerCase();
-                return name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".gif");
-            });
-
-            for (File file : imageFiles) {
-                String contentType = URLConnection.guessContentTypeFromName(file.getName());
-                BufferedImage bufferedImage = ImageIO.read(file);
-
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                ImageIO.write(bufferedImage, contentType.split("/")[1], bos);
-                byte[] imageBytes = bos.toByteArray();
-
-                String base64Content = Base64.getEncoder().encodeToString(imageBytes);
-                Image image = new Image(file.getName(), contentType, base64Content);
-                images.add(image);
-            }
+        if (path == null) {
+            throw new IllegalArgumentException("Directory path must not be null");
+        } else if (!path.exists()) {
+            throw new IllegalArgumentException("The directory " + path.getCanonicalPath() + " does not exist.");
+        } else if (!path.isDirectory()) {
+            throw new IllegalArgumentException(path.getCanonicalPath() + " is not a directory.");
         }
+
+        File[] imageFiles = path.listFiles((dir, name) -> {
+            name = name.toLowerCase();
+            return name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".gif");
+        });
+
+        for (File file : imageFiles) {
+            addImage(file);
+        }
+    }
+
+    /**
+     * Adds an image from the given file to the workspace.
+     *
+     * @param file  a File descriptor representing an image file on disk
+     * @throws IOException
+     */
+    public void addImage(File file) throws IOException {
+        if (file == null) {
+            throw new IllegalArgumentException("File must not be null");
+        } else if (!file.exists()) {
+            throw new IllegalArgumentException("The file " + file.getCanonicalPath() + " does not exist.");
+        } else if (!file.isFile()) {
+            throw new IllegalArgumentException(file.getCanonicalPath() + " is not a file.");
+        }
+
+        String contentType = URLConnection.guessContentTypeFromName(file.getName());
+        if (contentType == null || !contentType.startsWith("image/")) {
+            throw new IllegalArgumentException(file.getCanonicalPath() + " is not a supported image file.");
+        }
+
+        BufferedImage bufferedImage = ImageIO.read(file);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ImageIO.write(bufferedImage, contentType.split("/")[1], bos);
+        byte[] imageBytes = bos.toByteArray();
+
+        String base64Content = Base64.getEncoder().encodeToString(imageBytes);
+        Image image = new Image(file.getName(), contentType, base64Content);
+        images.add(image);
     }
 
     /**
@@ -163,7 +193,6 @@ public class Documentation {
         this.images = images;
     }
 
-    // todo
     public void hydrate() {
         for (Section section : sections) {
             section.setElement(model.getElement(section.getElementId()));

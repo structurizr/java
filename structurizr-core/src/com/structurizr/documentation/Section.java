@@ -30,7 +30,7 @@ public class Section {
         return element;
     }
 
-    public void setElement(Element element) {
+    void setElement(Element element) {
         this.element = element;
     }
 
@@ -42,7 +42,7 @@ public class Section {
         }
     }
 
-    public void setElementId(String elementId) {
+    void setElementId(String elementId) {
         this.elementId = elementId;
     }
 
@@ -58,7 +58,7 @@ public class Section {
         return format;
     }
 
-    public void setFormat(Format format) {
+    void setFormat(Format format) {
         this.format = format;
     }
 
@@ -66,7 +66,7 @@ public class Section {
         return content;
     }
 
-    public void setContent(String content) {
+    void setContent(String content) {
         this.content = content;
     }
 
@@ -77,10 +77,7 @@ public class Section {
 
         Section section = (Section) o;
 
-        if (!getElementId().equals(section.getElementId())) return false;
-        if (type != section.type) return false;
-
-        return true;
+        return getElementId().equals(section.getElementId()) && type == section.type;
     }
 
     @Override
