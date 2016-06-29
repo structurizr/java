@@ -43,7 +43,7 @@ All sections must be associated with a software system in the model, except for 
 
 ### Images
 
-As shown in [this example Markdown file](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/financialrisksystem/functional-overview.md), images can be included using the regular Markdown syntax. For this to work, the image files must be hosted externally (e.g. on your own web server) or uploaded with your workspace using the ```addImages()``` or ```addImage()``` method on the [Documentation class](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/Documentation.java).
+As shown in [this example Markdown file](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/financialrisksystem/functional-overview.md), images can be included using the regular Markdown syntax. For this to work, the image files must be hosted externally (e.g. on your own web server) or uploaded with your workspace using the ```addImages()``` or ```addImage()``` methods on the [Documentation class](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/Documentation.java).
 
 ```java
 documentation.addImages(documentationRoot);
