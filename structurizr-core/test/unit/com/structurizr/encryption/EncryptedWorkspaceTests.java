@@ -2,7 +2,6 @@ package com.structurizr.encryption;
 
 import com.structurizr.Workspace;
 import com.structurizr.io.json.JsonWriter;
-import junit.framework.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
