@@ -40,17 +40,17 @@ public class ExampleWorkspace {
 
         // create some views
         ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createContextView(softwareSystem, "A description of this diagram.");
+        SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "context", "A description of this diagram.");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
         contextView.setPaperSize(PaperSize.A5_Landscape);
 
-        ContainerView containerView = viewSet.createContainerView(softwareSystem, "A description of this diagram.");
+        ContainerView containerView = viewSet.createContainerView(softwareSystem, "containers", "A description of this diagram.");
         containerView.addAllPeople();
         containerView.addAllContainers();
         containerView.setPaperSize(PaperSize.A5_Landscape);
 
-        ComponentView componentView = viewSet.createComponentView(backendForFrontend, "A description of this diagram.");
+        ComponentView componentView = viewSet.createComponentView(backendForFrontend, "components", "A description of this diagram.");
         componentView.addAllContainers();
         componentView.addAllComponents();
         componentView.setPaperSize(PaperSize.A5_Landscape);

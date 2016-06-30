@@ -80,11 +80,11 @@ public class SelfDrivingCarSystem {
 
         // create some views
         ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createContextView(selfDrivingCarSystem);
+        SystemContextView contextView = viewSet.createSystemContextView(selfDrivingCarSystem, "context", null);
         contextView.setPaperSize(PaperSize.Slide_4_3);
         contextView.addAllElements();
 
-        ContainerView containerView = viewSet.createContainerView(selfDrivingCarSystem);
+        ContainerView containerView = viewSet.createContainerView(selfDrivingCarSystem, "containers", null);
         containerView.setPaperSize(PaperSize.A3_Landscape);
         containerView.addAllElements();
 

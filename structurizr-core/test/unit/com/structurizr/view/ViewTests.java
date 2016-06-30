@@ -13,17 +13,17 @@ import static org.junit.Assert.*;
 public class ViewTests extends AbstractWorkspaceTestBase {
 
     @Test
-    public void test_description() {
+    public void test_construction() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
-        StaticView view = new SystemContextView(softwareSystem);
-        view.setDescription("Some description");
-        assertEquals("Some description", view.getDescription());
+        StaticView view = new SystemContextView(softwareSystem, "key", "Description");
+        assertEquals("key", view.getKey());
+        assertEquals("Description", view.getDescription());
     }
 
     @Test
     public void test_addAllSoftwareSystems_DoesNothing_WhenThereAreNoOtherSoftwareSystemsInTheModel() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
-        StaticView view = new SystemContextView(softwareSystem);
+        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
         assertEquals(1, view.getElements().size());
         view.addAllSoftwareSystems();
         assertEquals(1, view.getElements().size());
@@ -36,7 +36,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.Unspecified, "System B", "Description");
         SoftwareSystem softwareSystemC = model.addSoftwareSystem(Location.Unspecified, "System C", "Description");
 
-        StaticView view = new SystemContextView(softwareSystem);
+        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
         view.addAllSoftwareSystems();
 
         assertEquals(4, view.getElements().size());
@@ -50,7 +50,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_addSoftwareSystem_DoesNothing_WhenGivenNull() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
-        StaticView view = new SystemContextView(softwareSystem);
+        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
         view.add((SoftwareSystem)null);
         assertEquals(1, view.getElements().size());
     }
@@ -58,7 +58,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_addSoftwareSystem_DoesNothing_WhenTheSoftwareSystemIsNotInTheModel() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
-        StaticView view = new SystemContextView(softwareSystem);
+        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
 
         Model model2 = new Model();
         SoftwareSystem softwareSystemA = model2.addSoftwareSystem(Location.Unspecified, "System A", "Description");
@@ -71,7 +71,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.Unspecified, "System A", "Description");
 
-        StaticView view = new SystemContextView(softwareSystem);
+        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
         view.add(softwareSystemA);
         assertEquals(2, view.getElements().size());
         Iterator<ElementView> it = view.getElements().iterator();
@@ -83,7 +83,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     public void test_addAllPeople_DoesNothing_WhenThereAreNoPeopleInTheModel() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
 
-        StaticView view = new SystemContextView(softwareSystem);
+        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
         assertEquals(1, view.getElements().size());
 
         view.addAllPeople();
@@ -97,7 +97,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         Person person2 = model.addPerson(Location.Unspecified, "Person 2", "Description");
         Person person3 = model.addPerson(Location.Unspecified, "Person 3", "Description");
 
-        StaticView view = new SystemContextView(softwareSystem);
+        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
         view.addAllPeople();
 
         assertEquals(4, view.getElements().size());
@@ -111,7 +111,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_addPerson_DoesNothing_WhenGivenNull() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
-        StaticView view = new SystemContextView(softwareSystem);
+        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
         view.add((Person)null);
         assertEquals(1, view.getElements().size());
     }
@@ -119,7 +119,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_addPerson_DoesNothing_WhenThePersonIsNotInTheModel() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
-        StaticView view = new SystemContextView(softwareSystem);
+        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
 
         Model model2 = new Model();
         Person person1 = model2.addPerson(Location.Unspecified, "Person 1", "Description");
@@ -130,7 +130,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_addPerson_AddsThePerson_WhenThPersonIsInTheModel() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
-        StaticView view = new SystemContextView(softwareSystem);
+        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
 
         Person person1 = model.addPerson(Location.Unspecified, "Person 1", "Description");
         view.add(person1);
@@ -147,7 +147,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.Unspecified, "System A", "Description");
         Person person1 = model.addPerson(Location.Unspecified, "Person 1", "Description");
 
-        StaticView view = new SystemContextView(softwareSystem);
+        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
         view.addAllSoftwareSystems();
         view.addAllPeople();
         view.removeElementsWithNoRelationships();
@@ -162,7 +162,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.Unspecified, "System B", "Description");
         Person person1 = model.addPerson(Location.Unspecified, "Person 1", "Description");
         Person person2 = model.addPerson(Location.Unspecified, "Person 2", "Description");
-        StaticView view = new SystemContextView(softwareSystem);
+        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
 
         softwareSystem.uses(softwareSystemA, "uses");
         person1.uses(softwareSystem, "uses");
@@ -185,7 +185,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         Relationship personUsesSoftwareSystem1 = person1.uses(softwareSystem1A, "Uses");
 
         // create a view with SystemA and Person (locations are set for both, relationship has vertices)
-        StaticView view1 = new SystemContextView(softwareSystem1A);
+        StaticView view1 = new SystemContextView(softwareSystem1A, "context", "Description");
         view1.add(softwareSystem1B);
         view1.getElementView(softwareSystem1B).setX(123);
         view1.getElementView(softwareSystem1B).setY(321);
@@ -203,7 +203,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         Relationship personUsesSoftwareSystem2 = person2.uses(softwareSystem2A, "Uses");
 
         // create a view with SystemB and Person (locations are 0,0 for both)
-        StaticView view2 = new SystemContextView(softwareSystem2A);
+        StaticView view2 = new SystemContextView(softwareSystem2A, "context", "Description");
         view2.add(softwareSystem2B);
         view2.add(person2);
         assertEquals(0, view2.getElementView(softwareSystem2B).getX());
@@ -227,32 +227,16 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getTitle() {
+    public void test_getName() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
-        SystemContextView systemContextView = new SystemContextView(softwareSystem);
-        assertEquals("The System - System Context", systemContextView.getTitle());
-
-        systemContextView.setDescription(null);
-        assertEquals("The System - System Context", systemContextView.getTitle());
-
-        systemContextView.setDescription("");
-        assertEquals("The System - System Context", systemContextView.getTitle());
-
-        systemContextView.setDescription("   ");
-        assertEquals("The System - System Context", systemContextView.getTitle());
-
-        systemContextView.setDescription("Description");
-        assertEquals("The System - System Context - Description", systemContextView.getTitle());
-
-        // and subtitle overrides description
-        systemContextView.setSubtitle("Subtitle");
-        assertEquals("The System - System Context - Subtitle", systemContextView.getTitle());
+        SystemContextView systemContextView = new SystemContextView(softwareSystem, "context", "Description");
+        assertEquals("The System - System Context", systemContextView.getName());
     }
 
     @Test
     public void test_removeElementsThatCantBeReachedFrom_DoesNothing_WhenANullElementIsSpecified() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
-        StaticView view = new SystemContextView(softwareSystem);
+        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
         view.removeElementsThatCantBeReachedFrom(null);
     }
 
@@ -265,7 +249,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         softwareSystem.uses(softwareSystemA, "uses");
         softwareSystemA.uses(softwareSystemB, "uses");
 
-        StaticView view = new SystemContextView(softwareSystem);
+        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
         view.addAllElements();
         assertEquals(3, view.getElements().size());
 
@@ -283,7 +267,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         softwareSystem.uses(softwareSystemA, "uses");
         softwareSystemA.uses(softwareSystemB, "uses");
 
-        StaticView view = new SystemContextView(softwareSystem);
+        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
         view.addAllElements();
         assertEquals(4, view.getElements().size());
 
@@ -301,7 +285,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         softwareSystem.uses(softwareSystemA, "uses");
         softwareSystemA.uses(softwareSystemB, "uses");
 
-        StaticView view = new SystemContextView(softwareSystem);
+        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
         view.addAllElements();
         assertEquals(3, view.getElements().size());
 
@@ -320,7 +304,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         user.uses(softwareSystem2, "");
         softwareSystem1.delivers(user, "");
 
-        StaticView view = new SystemContextView(softwareSystem1, "");
+        StaticView view = new SystemContextView(softwareSystem1, "context", "Description");
         view.addAllElements();
         assertEquals(3, view.getElements().size());
 
@@ -341,7 +325,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         softwareSystem2.uses(softwareSystem3, "Uses");
         softwareSystem3.uses(softwareSystem1, "Uses");
 
-        StaticView view = new SystemContextView(softwareSystem1, "");
+        StaticView view = new SystemContextView(softwareSystem1, "context", "Description");
         view.addAllElements();
 
         assertEquals(3, view.getRelationships().size());
@@ -358,7 +342,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         Relationship relationship23 = softwareSystem2.uses(softwareSystem3, "Uses");
         Relationship relationship31 = softwareSystem3.uses(softwareSystem1, "Uses");
 
-        StaticView view = new SystemContextView(softwareSystem1, "");
+        StaticView view = new SystemContextView(softwareSystem1, "context", "Description");
         view.addAllElements();
 
         assertEquals(3, view.getRelationships().size());
@@ -367,6 +351,18 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         assertEquals(2, view.getRelationships().size());
         assertTrue(view.getRelationships().contains(new RelationshipView(relationship12)));
         assertTrue(view.getRelationships().contains(new RelationshipView(relationship23)));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_setKey_ThrowsAnException_WhenANullKeyIsSpecified() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
+        new SystemContextView(softwareSystem, null, "Description");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_setKey_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
+        new SystemContextView(softwareSystem, " ", "Description");
     }
 
 }

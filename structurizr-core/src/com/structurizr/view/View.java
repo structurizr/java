@@ -12,11 +12,13 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public abstract class View implements Comparable<View> {
+/**
+ * The superclass for all views.
+ */
+public abstract class View {
 
     private SoftwareSystem softwareSystem;
     private String softwareSystemId;
-    private String subtitle = "";
     private String description = "";
     private String key;
     private PaperSize paperSize = PaperSize.A4_Portrait;
@@ -28,8 +30,13 @@ public abstract class View implements Comparable<View> {
     View() {
     }
 
-    View(SoftwareSystem softwareSystem, String description) {
+    View(SoftwareSystem softwareSystem, String key, String description) {
         this.softwareSystem = softwareSystem;
+        if (key != null && key.trim().length() > 0) {
+            setKey(key);
+        } else {
+            throw new IllegalArgumentException("A key must be specified");
+        }
         setDescription(description);
     }
 
@@ -86,7 +93,7 @@ public abstract class View implements Comparable<View> {
         return key;
     }
 
-    public void setKey(String key) {
+    void setKey(String key) {
         this.key = key;
     }
 
@@ -110,25 +117,6 @@ public abstract class View implements Comparable<View> {
      */
     @JsonIgnore
     public abstract String getName();
-
-    @JsonIgnore
-    public String getTitle() {
-        if (getSubtitle() != null && getSubtitle().trim().length() > 0) {
-            return getName() + " - " + getSubtitle();
-        } else if (getDescription() != null && getDescription().trim().length() > 0) {
-            return getName() + " - " + getDescription();
-        } else {
-            return getName();
-        }
-    }
-
-    public String getSubtitle() {
-        return subtitle;
-    }
-
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
-    }
 
     protected final void addElement(Element element, boolean addRelationships) {
         if (element != null) {
@@ -309,11 +297,6 @@ public abstract class View implements Comparable<View> {
     public RelationshipView getRelationshipView(Relationship relationship) {
         Optional<RelationshipView> relationshipView = this.relationshipViews.stream().filter(rv -> rv.getRelationship().equals(relationship)).findFirst();
         return relationshipView.isPresent() ? relationshipView.get() : null;
-    }
-
-    @Override
-    public int compareTo(View view) {
-        return getTitle().compareTo(view.getTitle());
     }
 
 }

@@ -27,7 +27,7 @@ public class ClientSideEncryptedWorkspace {
         user.uses(softwareSystem, "Uses");
 
         ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createContextView(softwareSystem);
+        SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "context", "A simple example of a client-side encrypted workspace.");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 

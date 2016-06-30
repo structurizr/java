@@ -62,7 +62,7 @@ public class ComponentsForApiContainer extends AbstractStructurizrWorkspace {
                 .forEach(c -> c.setTechnology("Spring Bean"));
 
         // and, since the API container is small, create a single component view for it
-        ComponentView componentView = workspace.getViews().createComponentView(container);
+        ComponentView componentView = workspace.getViews().createComponentView(container, "ApiComponents", "The component diagram for the Structurizr API container.");
         componentView.add(structurizrClient);
         componentView.add(webBrowser);
         componentView.add(model.getSoftwareSystemWithName(PINGDOM));

@@ -44,12 +44,12 @@ public class WebSequenceDiagramsWriterTests {
         Relationship bc = b.uses(c, "");
         bc.setInteractionStyle(InteractionStyle.Asynchronous);
 
-        DynamicView view = workspace.getViews().createDynamicView(a, "A description of the diagram");
+        DynamicView view = workspace.getViews().createDynamicView(a, "Some Key", "A description of the diagram");
         view.add(a, "Does something using", b);
         view.add(b, "Does something then using", c);
 
         webSequenceDiagramsWriter.write(workspace, stringWriter);
-        assertEquals("title System A - Dynamic - A description of the diagram" + System.lineSeparator() +
+        assertEquals("title System A - Dynamic - Some Key" + System.lineSeparator() +
                 System.lineSeparator() +
                 "System A->System B: Does something using" + System.lineSeparator() +
                 "System B->>System C: Does something then using" + System.lineSeparator() +

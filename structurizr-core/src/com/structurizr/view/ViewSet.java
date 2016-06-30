@@ -4,8 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.Container;
 import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.TreeSet;
 
 /**
@@ -13,12 +17,14 @@ import java.util.TreeSet;
  */
 public class ViewSet {
 
+    private static final Log log = LogFactory.getLog(ViewSet.class);
+
     private Model model;
 
-    private Collection<SystemContextView> systemContextViews = new TreeSet<>();
-    private Collection<ContainerView> containerViews = new TreeSet<>();
-    private Collection<ComponentView> componentViews = new TreeSet<>();
-    private Collection<DynamicView> dynamicViews = new TreeSet<>();
+    private Collection<SystemContextView> systemContextViews = new HashSet<>();
+    private Collection<ContainerView> containerViews = new HashSet<>();
+    private Collection<ComponentView> componentViews = new HashSet<>();
+    private Collection<DynamicView> dynamicViews = new HashSet<>();
 
     private Configuration configuration = new Configuration();
 
@@ -38,44 +44,132 @@ public class ViewSet {
         this.model = model;
     }
 
+    /**
+     * Please use {@link #createSystemContextView(com.structurizr.model.SoftwareSystem, String, String)} instead.
+     * @deprecated
+     */
+    @Deprecated
     public SystemContextView createContextView(SoftwareSystem softwareSystem) {
-        return createContextView(softwareSystem, null);
+        return createSystemContextView(softwareSystem, null, null);
     }
 
+    /**
+     * Please use {@link #createSystemContextView(com.structurizr.model.SoftwareSystem, String, String)} instead.
+     * @deprecated
+     */
+    @Deprecated
     public SystemContextView createContextView(SoftwareSystem softwareSystem, String description) {
-        SystemContextView view = new SystemContextView(softwareSystem, description);
-        systemContextViews.add(view);
+        return createSystemContextView(softwareSystem, null, description);
+    }
+
+    public SystemContextView createSystemContextView(SoftwareSystem softwareSystem, String key, String description) {
+        SystemContextView view = new SystemContextView(softwareSystem, key, description);
+
+        if (getViewWithKey(key) != null) {
+            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
+        } else {
+            systemContextViews.add(view);
+            return view;
+        }
+    }
+
+    /**
+     * Finds the view with the specified key, or null if the view does not exist.
+     *
+     * @param key   the key
+     * @return  a View object, or null if a view with the specified key could not be found
+     */
+    public View getViewWithKey(String key) {
+        View view = null;
+
+        if (key != null) {
+            Set<View> views = new HashSet<>();
+            views.addAll(systemContextViews);
+            views.addAll(containerViews);
+            views.addAll(componentViews);
+            views.addAll(dynamicViews);
+
+            view = views.stream().filter(v -> key.equals(v.getKey())).findFirst().orElse(null);
+        }
 
         return view;
     }
 
+    /**
+     * Please use {@link #createContainerView(com.structurizr.model.SoftwareSystem, String, String)} instead.
+     * @deprecated
+     */
     public ContainerView createContainerView(SoftwareSystem softwareSystem) {
-        return createContainerView(softwareSystem, null);
+        return createContainerView(softwareSystem, null, null);
     }
 
+    /**
+     * Please use {@link #createContainerView(com.structurizr.model.SoftwareSystem, String, String)} instead.
+     * @deprecated
+     */
+    @Deprecated
     public ContainerView createContainerView(SoftwareSystem softwareSystem, String description) {
-        ContainerView view = new ContainerView(softwareSystem, description);
-        containerViews.add(view);
-
-        return view;
+        return createContainerView(softwareSystem, null, description);
     }
 
+    public ContainerView createContainerView(SoftwareSystem softwareSystem, String key, String description) {
+        ContainerView view = new ContainerView(softwareSystem, key, description);
+
+        if (getViewWithKey(key) != null) {
+            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
+        } else {
+            containerViews.add(view);
+            return view;
+        }
+    }
+
+    /**
+     * Please use {@link #createComponentView(com.structurizr.model.Container, String, String)} instead.
+     * @deprecated
+     */
+    @Deprecated
     public ComponentView createComponentView(Container container) {
         return createComponentView(container, null);
     }
 
+    /**
+     * Please use {@link #createComponentView(com.structurizr.model.Container, String, String)} instead.
+     * @deprecated
+     */
+    @Deprecated
     public ComponentView createComponentView(Container container, String description) {
-        ComponentView view = new ComponentView(container, description);
-        componentViews.add(view);
-
-        return view;
+        return createComponentView(container, null, description);
     }
 
-    public DynamicView createDynamicView(SoftwareSystem softwareSystem, String description) {
-        DynamicView view = new DynamicView(softwareSystem, description);
-        dynamicViews.add(view);
+    public ComponentView createComponentView(Container container, String key, String description) {
+        ComponentView view = new ComponentView(container, key, description);
 
-        return view;
+        if (getViewWithKey(key) != null) {
+            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
+        } else {
+            componentViews.add(view);
+            return view;
+        }
+    }
+
+    /**
+     * Please use {@link #createDynamicView(com.structurizr.model.SoftwareSystem, String, String)} instead.
+     * @deprecated
+     */
+    @Deprecated
+    public DynamicView createDynamicView(SoftwareSystem softwareSystem, String description) {
+        return createDynamicView(softwareSystem, null, description);
+    }
+
+    public DynamicView createDynamicView(SoftwareSystem softwareSystem, String key, String description) {
+        DynamicView view = new DynamicView(softwareSystem, key, description);
+
+        if (getViewWithKey(key) != null) {
+            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
+        } else {
+            dynamicViews.add(view);
+            return view;
+        }
     }
 
     /**
@@ -84,19 +178,19 @@ public class ViewSet {
      * @return  a Collection of SystemContextView objects
      */
     public Collection<SystemContextView> getSystemContextViews() {
-        return new TreeSet<>(systemContextViews);
+        return new HashSet<>(systemContextViews);
     }
 
     public Collection<ContainerView> getContainerViews() {
-        return new TreeSet<>(containerViews);
+        return new HashSet<>(containerViews);
     }
 
     public Collection<ComponentView> getComponentViews() {
-        return new TreeSet<>(componentViews);
+        return new HashSet<>(componentViews);
     }
 
     public Collection<DynamicView> getDynamicViews() {
-        return new TreeSet<>(dynamicViews);
+        return new HashSet<>(dynamicViews);
     }
 
     public void hydrate() {
@@ -133,69 +227,59 @@ public class ViewSet {
     }
 
     public void copyLayoutInformationFrom(ViewSet source) {
-        for (SystemContextView sourceView : source.getSystemContextViews()) {
-            SystemContextView destinationView = findSystemContextView(sourceView);
-            if (destinationView != null) {
-                destinationView.copyLayoutInformationFrom(sourceView);
-            }
-        }
-
-        for (ContainerView sourceView : source.getContainerViews()) {
-            ContainerView destinationView = findContainerView(sourceView);
-            if (destinationView != null) {
-                destinationView.copyLayoutInformationFrom(sourceView);
-            }
-        }
-
-        for (ComponentView sourceView : source.getComponentViews()) {
-            ComponentView destinationView = findComponentView(sourceView);
-            if (destinationView != null) {
-                destinationView.copyLayoutInformationFrom(sourceView);
-            }
-        }
-
-        for (DynamicView sourceView : source.getDynamicViews()) {
-            DynamicView destinationView = findDynamicView(sourceView);
-            if (destinationView != null) {
-                destinationView.copyLayoutInformationFrom(sourceView);
-            }
-        }
-    }
-
-    private SystemContextView findSystemContextView(SystemContextView systemContextView) {
         for (SystemContextView view : systemContextViews) {
-            if (view.getTitle().equals(systemContextView.getTitle())) {
-                return view;
+            SystemContextView sourceView = findView(source.getSystemContextViews(), view);
+            if (sourceView != null) {
+                view.copyLayoutInformationFrom(sourceView);
+            } else {
+                log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
             }
         }
 
-        return null;
-    }
-
-    private ContainerView findContainerView(ContainerView containerView) {
         for (ContainerView view : containerViews) {
-            if (view.getTitle().equals(containerView.getTitle())) {
-                return view;
+            ContainerView sourceView = findView(source.getContainerViews(), view);
+            if (sourceView != null) {
+                view.copyLayoutInformationFrom(sourceView);
+            } else {
+                log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
             }
         }
 
-        return null;
-    }
-
-    private ComponentView findComponentView(ComponentView componentView) {
         for (ComponentView view : componentViews) {
-            if (view.getTitle().equals(componentView.getTitle())) {
+            ComponentView sourceView = findView(source.getComponentViews(), view);
+            if (sourceView != null) {
+                view.copyLayoutInformationFrom(sourceView);
+            } else {
+                log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+            }
+        }
+
+        for (DynamicView view : dynamicViews) {
+            DynamicView sourceView = findView(source.getDynamicViews(), view);
+            if (sourceView != null) {
+                view.copyLayoutInformationFrom(sourceView);
+            } else {
+                log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+            }
+        }
+    }
+
+    private <T extends View> T findView(Collection<T> views, T sourceView) {
+        for (T view : views) {
+            if (view.getKey() != null && view.getKey().equals(sourceView.getKey())) {
                 return view;
             }
         }
 
-        return null;
-    }
-
-    private DynamicView findDynamicView(DynamicView dynamicView) {
-        for (DynamicView view : dynamicViews) {
-            if (view.getTitle().equals(dynamicView.getTitle())) {
-                return view;
+        for (T view : views) {
+            if (view.getName().equals(sourceView.getName())) {
+                if (view.getDescription() != null) {
+                    if (view.getDescription().equals(sourceView.getDescription())) {
+                        return view;
+                    }
+                } else {
+                    return view;
+                }
             }
         }
 

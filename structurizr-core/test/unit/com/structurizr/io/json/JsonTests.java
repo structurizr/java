@@ -8,8 +8,6 @@ import org.junit.Test;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import static org.junit.Assert.assertEquals;
-
 public class JsonTests {
 
     @Test
@@ -50,16 +48,16 @@ public class JsonTests {
         componentB.uses(database, "Reads from and writes to");
 
         ViewSet views = workspace.getViews();
-        SystemContextView systemContextView = views.createContextView(mySoftwareSystem);
+        SystemContextView systemContextView = views.createSystemContextView(mySoftwareSystem, "context", "Description");
         systemContextView.addAllSoftwareSystems();
         systemContextView.addAllPeople();
 
-        ContainerView containerView = views.createContainerView(mySoftwareSystem);
+        ContainerView containerView = views.createContainerView(mySoftwareSystem, "containers", "Description");
         containerView.addAllSoftwareSystems();
         containerView.addAllPeople();
         containerView.addAllContainers();
 
-        ComponentView componentView = views.createComponentView(webApplication);
+        ComponentView componentView = views.createComponentView(webApplication, "components", "Description");
         componentView.addAllSoftwareSystems();
         componentView.addAllPeople();
         componentView.addAllContainers();

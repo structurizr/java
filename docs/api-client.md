@@ -60,4 +60,4 @@ This is the same as ```putWorkspace``` except that any layout information (i.e. 
 structurizrClient.mergeWorkspace(1234, workspace);
 ```
 
-Under the covers, this operation calls ```getWorkspace``` followed by ```putWorkspace```. If the merge doesn't work as expected, you still have the previous version of the workspace (as JSON) in the archive location.
+Under the covers, this operation calls ```getWorkspace``` followed by ```putWorkspace```. Views from the new version and the version retrieved from Structurizr are matched based upon their key or title. If the merge doesn't work as expected, you still have the previous version of the workspace (as JSON) in the archive location.

@@ -17,7 +17,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     @Before
     public void setUp() {
         softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
-        view = new SystemContextView(softwareSystem);
+        view = new SystemContextView(softwareSystem, "context", "Description");
     }
 
     @Test
@@ -148,7 +148,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(softwareSystem)));
         assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
 
-        view = new SystemContextView(softwareSystem);
+        view = new SystemContextView(softwareSystem, "context", "Description");
         view.addNearestNeighbours(softwareSystemA);
 
         assertEquals(3, view.getElements().size());

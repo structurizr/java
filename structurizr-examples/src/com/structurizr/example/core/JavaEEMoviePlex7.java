@@ -99,15 +99,15 @@ public class JavaEEMoviePlex7 {
 
         // create some views
         ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createContextView(moviePlex);
+        SystemContextView contextView = viewSet.createSystemContextView(moviePlex, "context", null);
         contextView.setPaperSize(PaperSize.A4_Landscape);
         contextView.addAllElements();
 
-        ContainerView containerView = viewSet.createContainerView(moviePlex);
+        ContainerView containerView = viewSet.createContainerView(moviePlex, "containers", null);
         contextView.setPaperSize(PaperSize.A4_Landscape);
         containerView.addAllElements();
 
-        ComponentView componentView = viewSet.createComponentView(webApplication);
+        ComponentView componentView = viewSet.createComponentView(webApplication, "components", null);
         componentView.setPaperSize(PaperSize.A3_Landscape);
         componentView.addAllElements();
 

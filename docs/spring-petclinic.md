@@ -30,8 +30,8 @@ With the Spring PetClinic application built, we now need to create a software ar
 
 Name                                          | Description
 -------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------
-com.structurizr:structurizr-core:0.8.0        | The core library that can used to create models and upload models to Structurizr.
-com.structurizr:structurizr-spring:0.8.0      | The Spring component finder.
+com.structurizr:structurizr-core:0.8.1        | The core library that can used to create models and upload models to Structurizr.
+com.structurizr:structurizr-spring:0.8.1      | The Spring component finder.
 
 First we need to create a little boilerplate code to create a workspace and a model.
 

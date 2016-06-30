@@ -10,8 +10,8 @@ public class ContainerView extends StaticView {
     ContainerView() {
     }
 
-    ContainerView(SoftwareSystem softwareSystem, String description) {
-        super(softwareSystem, description);
+    ContainerView(SoftwareSystem softwareSystem, String key, String description) {
+        super(softwareSystem, key, description);
     }
 
     @Override

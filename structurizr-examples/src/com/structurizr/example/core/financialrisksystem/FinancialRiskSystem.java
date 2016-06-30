@@ -52,7 +52,7 @@ public class FinancialRiskSystem {
 
         // create some views
         ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createContextView(financialRiskSystem);
+        SystemContextView contextView = viewSet.createSystemContextView(financialRiskSystem, "context", "An example System Context diagram for the Financial Risk System architecture kata.");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 

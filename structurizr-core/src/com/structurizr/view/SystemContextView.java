@@ -19,19 +19,10 @@ public class SystemContextView extends StaticView {
      * Creates a system context view for the given software system.
      *
      * @param softwareSystem        the SoftwareSystem to create a view for
-     */
-    SystemContextView(SoftwareSystem softwareSystem) {
-        this(softwareSystem, null);
-    }
-
-    /**
-     * Creates a system context view for the given software system.
-     *
-     * @param softwareSystem        the SoftwareSystem to create a view for
      * @param description           the (optional) description for the view
      */
-    SystemContextView(SoftwareSystem softwareSystem, String description) {
-        super(softwareSystem, description);
+    SystemContextView(SoftwareSystem softwareSystem, String key, String description) {
+        super(softwareSystem, key, description);
 
         addElement(softwareSystem, true);
     }

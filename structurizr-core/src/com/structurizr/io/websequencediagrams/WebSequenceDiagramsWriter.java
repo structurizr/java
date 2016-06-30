@@ -39,11 +39,11 @@ public class WebSequenceDiagramsWriter implements WorkspaceWriter {
     }
 
     private void write(DynamicView view, Writer writer) throws Exception {
-        writer.write("title " + view.getName());
+        writer.write("title " + view.getName() + " - " + view.getKey());
         writer.write(System.lineSeparator());
         writer.write(System.lineSeparator());
 
-        Set<RelationshipView> relationships = new TreeSet<>((rv1, rv2) -> rv1.getOrder().compareTo(rv2.getOrder()));;
+        Set<RelationshipView> relationships = new TreeSet<>((rv1, rv2) -> rv1.getOrder().compareTo(rv2.getOrder()));
         relationships.addAll(view.getRelationships());
 
         for (RelationshipView relationshipView : relationships) {

@@ -23,7 +23,7 @@ public class DotWriter implements WorkspaceWriter {
 
     private void write(View view, Element clusterElement, Writer writer)  {
         try {
-            DotGraph graph = new DotGraph(view.getTitle());
+            DotGraph graph = new DotGraph(view.getName());
             DotGraph.Digraph digraph = graph.getDigraph();
             DotGraph.Cluster cluster = null;
 

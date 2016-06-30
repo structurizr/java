@@ -13,8 +13,8 @@ public abstract class StaticView extends View {
     StaticView() {
     }
 
-    StaticView(SoftwareSystem softwareSystem, String description) {
-        super(softwareSystem, description);
+    StaticView(SoftwareSystem softwareSystem, String key, String description) {
+        super(softwareSystem, key, description);
     }
 
     /**

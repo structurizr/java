@@ -32,20 +32,20 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addRelationshipWithElements() {
-        final DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystem, "DynamicView1");
+        final DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystem, "key", "Description");
         dynamicView.add(container1, container2);
         Assert.assertEquals(2, dynamicView.getElements().size());
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void test_nonExistingRelationShip() {
-        final DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystem, "DynamicView1");
+        final DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystem, "key", "Description");
         dynamicView.add(container1, container3);
     }
 
     @Test
     public void test_addRelationshipDirectly() {
-        final DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystem, "DynamicView1");
+        final DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystem, "key", "Description");
         dynamicView.add(relationship);
         Assert.assertEquals(2, dynamicView.getElements().size());
     }

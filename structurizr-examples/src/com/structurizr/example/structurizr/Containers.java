@@ -54,9 +54,8 @@ public class Containers extends AbstractStructurizrWorkspace {
         webApplication.uses(sendGrid, "Sends e-mails using");
 
         ViewSet views = workspace.getViews();
-        ContainerView containerView = views.createContainerView(structurizr);
+        ContainerView containerView = views.createContainerView(structurizr, "Containers", "The container diagram for Structurizr.");
         containerView.addAllElements();
-        containerView.setKey("Containers");
 
         writeToFile(workspace);
     }

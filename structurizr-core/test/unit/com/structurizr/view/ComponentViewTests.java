@@ -22,7 +22,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     public void setUp() {
         softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         webApplication = softwareSystem.addContainer("Web Application", "Does something", "Apache Tomcat");
-        view = new ComponentView(webApplication, "Some description");
+        view = new ComponentView(webApplication, "Key", "Some description");
     }
 
     @Test
@@ -239,7 +239,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         final Container containerA2 = softwareSystemA.addContainer("Container A2", "Description", "Tec");
         final Component componentA2_1 = containerA2.addComponent("Component A2-1", "Description");
 
-        view = new ComponentView(containerA1, "");
+        view = new ComponentView(containerA1, "components", "Description");
         view.add(componentA1_1);
         view.add(componentA2_1);
 
@@ -366,7 +366,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(softwareSystem)));
         assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
 
-        view = new ComponentView(webApplication, "");
+        view = new ComponentView(webApplication, "components", "Description");
         view.addNearestNeighbours(softwareSystemA);
 
         assertEquals(5, view.getElements().size());
@@ -376,7 +376,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(webApplication)));
         assertTrue(view.getElements().contains(new ElementView(controller)));
 
-        view = new ComponentView(webApplication, "");
+        view = new ComponentView(webApplication, "components", "Description");
         view.addNearestNeighbours(webApplication);
 
         assertEquals(4, view.getElements().size());
@@ -385,7 +385,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(database)));
         assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
 
-        view = new ComponentView(webApplication, "");
+        view = new ComponentView(webApplication, "components", "Description");
         view.addNearestNeighbours(controller);
 
         assertEquals(3, view.getElements().size());
@@ -393,8 +393,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(controller)));
         assertTrue(view.getElements().contains(new ElementView(service)));
 
-
-        view = new ComponentView(webApplication, "");
+        view = new ComponentView(webApplication, "components", "Description");
         view.addNearestNeighbours(service);
 
         assertEquals(4, view.getElements().size());
@@ -447,7 +446,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
 
         softwareSystemA.uses(softwareSystemB, "");// this relationship must not make it into the view as it is outside of our container
 
-        view = new ComponentView(containerA1, "");
+        view = new ComponentView(containerA1, "components", "Description");
         view.addAllComponents();
         view.addExternalDependencies();
 
@@ -467,7 +466,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
 
         componentA1_1.uses(componentA2_1, "Uses");
 
-        view = new ComponentView(containerA1, "");
+        view = new ComponentView(containerA1, "components", "Description");
         view.add(componentA1_1);
         view.addExternalDependencies();
 
@@ -488,7 +487,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         source.uses(aa, "");
         aa.uses(destination, "");
 
-        view = new ComponentView(aa, "");
+        view = new ComponentView(aa, "components", "Description");
         view.addAllComponents();
         view.addExternalDependencies();
 

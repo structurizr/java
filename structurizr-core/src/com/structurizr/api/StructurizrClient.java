@@ -4,6 +4,7 @@ import com.structurizr.Workspace;
 import com.structurizr.encryption.*;
 import com.structurizr.io.json.JsonReader;
 import com.structurizr.io.json.JsonWriter;
+import com.structurizr.view.View;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.Header;
@@ -190,6 +191,12 @@ public class StructurizrClient {
         }
 
         workspace.setId(workspaceId);
+
+        // output warnings if diagram keys have not been specified
+        workspace.getViews().getSystemContextViews().stream().filter(v -> v.getKey() == null).forEach(v -> log.warn("Key not set for view \"" + v.getName() + "\""));
+        workspace.getViews().getContainerViews()    .stream().filter(v -> v.getKey() == null).forEach(v -> log.warn("Key not set for view \"" + v.getName() + "\""));
+        workspace.getViews().getComponentViews()    .stream().filter(v -> v.getKey() == null).forEach(v -> log.warn("Key not set for view \"" + v.getName() + "\""));
+        workspace.getViews().getDynamicViews()      .stream().filter(v -> v.getKey() == null).forEach(v -> log.warn("Key not set for view \"" + v.getName() + "\""));
 
         CloseableHttpClient httpClient = HttpClients.createSystem();
         HttpPut httpPut = new HttpPut(url + WORKSPACE_PATH + workspaceId);

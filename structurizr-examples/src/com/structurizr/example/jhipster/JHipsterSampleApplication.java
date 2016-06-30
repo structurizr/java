@@ -3,7 +3,7 @@ package com.structurizr.example.jhipster;
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
 import com.structurizr.componentfinder.ComponentFinder;
-import com.structurizr.componentfinder.JavadocComponentFinderStrategy;
+import com.structurizr.componentfinder.SourceCodeComponentFinderStrategy;
 import com.structurizr.componentfinder.SpringComponentFinderStrategy;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
@@ -40,7 +40,7 @@ public class JHipsterSampleApplication {
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication, "com.mycompany.myapp",
                 new SpringComponentFinderStrategy(),
-                new JavadocComponentFinderStrategy(new File("/Users/simon/Desktop/jhipster-sample-app/src/main/java/"), 150));
+                new SourceCodeComponentFinderStrategy(new File("/Users/simon/Desktop/jhipster-sample-app/src/main/java/"), 150));
         componentFinder.findComponents();
 
         // connect the web browser to all REST controllers
@@ -55,19 +55,16 @@ public class JHipsterSampleApplication {
 
         // create some views
         ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createContextView(jhipsterSampleApplication);
-        contextView.setKey("context");
+        SystemContextView contextView = viewSet.createSystemContextView(jhipsterSampleApplication, "context", null);
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
-        ContainerView containerView = viewSet.createContainerView(jhipsterSampleApplication);
-        containerView.setKey("containers");
+        ContainerView containerView = viewSet.createContainerView(jhipsterSampleApplication, "containers", null);
         containerView.addAllPeople();
         containerView.addAllSoftwareSystems();
         containerView.addAllContainers();
 
-        ComponentView componentView = viewSet.createComponentView(webApplication);
-        componentView.setKey("components");
+        ComponentView componentView = viewSet.createComponentView(webApplication, "components", null);
         componentView.addAllComponents();
         componentView.addAllPeople();
         componentView.addAllContainers();
@@ -75,7 +72,7 @@ public class JHipsterSampleApplication {
         Set<Component> restControllers = webApplication.getComponents().stream()
                 .filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_REST_CONTROLLER)).collect(Collectors.toSet());
         for (Component restController : restControllers) {
-            ComponentView view = viewSet.createComponentView(webApplication, restController.getName());
+            ComponentView view = viewSet.createComponentView(webApplication, restController.getName(), "Component view for " + restController.getName());
             view.addAllElements();
             view.removeElementsThatCantBeReachedFrom(restController);
             view.addAllContainers();

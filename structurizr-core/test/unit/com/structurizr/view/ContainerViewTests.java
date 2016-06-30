@@ -15,13 +15,13 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     @Before
     public void setUp() {
         softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
-        view = new ContainerView(softwareSystem, "Some description");
+        view = new ContainerView(softwareSystem, "containers", "Description");
     }
 
     @Test
     public void test_construction() {
         assertEquals("The System - Containers", view.getName());
-        assertEquals("Some description", view.getDescription());
+        assertEquals("Description", view.getDescription());
         assertEquals(0, view.getElements().size());
         assertSame(softwareSystem, view.getSoftwareSystem());
         assertEquals(softwareSystem.getId(), view.getSoftwareSystemId());
@@ -166,7 +166,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(softwareSystem)));
         assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
 
-        view = new ContainerView(softwareSystem, "");
+        view = new ContainerView(softwareSystem, "containers", "Description");
         view.addNearestNeighbours(softwareSystemA);
 
         assertEquals(4, view.getElements().size());
@@ -175,7 +175,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(softwareSystem)));
         assertTrue(view.getElements().contains(new ElementView(webApplication)));
 
-        view = new ContainerView(softwareSystem, "");
+        view = new ContainerView(softwareSystem, "containers", "Description");
         view.addNearestNeighbours(webApplication);
 
         assertEquals(4, view.getElements().size());

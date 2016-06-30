@@ -72,19 +72,16 @@ public class SpringPetClinic {
 
         // finally create some views
         ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createContextView(springPetClinic);
-        contextView.setKey("context");
+        SystemContextView contextView = viewSet.createSystemContextView(springPetClinic, "context", "The System Context diagram for the Spring PetClinic system.");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
-        ContainerView containerView = viewSet.createContainerView(springPetClinic);
-        containerView.setKey("containers");
+        ContainerView containerView = viewSet.createContainerView(springPetClinic, "containers", "The Containers diagram for the Spring PetClinic system.");
         containerView.addAllPeople();
         containerView.addAllSoftwareSystems();
         containerView.addAllContainers();
 
-        ComponentView componentView = viewSet.createComponentView(webApplication);
-        componentView.setKey("components");
+        ComponentView componentView = viewSet.createComponentView(webApplication, "components", "The Components diagram for the Spring PetClinic web application.");
         componentView.addAllComponents();
         componentView.addAllPeople();
         componentView.add(relationalDatabase);
@@ -110,7 +107,7 @@ public class SpringPetClinic {
         Component clinicService = webApplication.getComponentWithName("ClinicService");
         Component vetRepository = webApplication.getComponentWithName("VetRepository");
 
-        DynamicView dynamicView = viewSet.createDynamicView(springPetClinic, "View list of vets");
+        DynamicView dynamicView = viewSet.createDynamicView(springPetClinic, "View List Of Vets", "Shows how the \"view list of vets\" feature works.");
         dynamicView.add(clinicEmployee, "Requests list of vets from /vets", vetController);
         dynamicView.add(vetController, "Calls findVets", clinicService);
         dynamicView.add(clinicService, "Calls findAll", vetRepository);

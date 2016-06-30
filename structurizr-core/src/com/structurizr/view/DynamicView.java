@@ -15,8 +15,8 @@ public class DynamicView extends View {
     DynamicView() {
     }
 
-    DynamicView(SoftwareSystem softwareSystem, String description) {
-        super(softwareSystem, description);
+    DynamicView(SoftwareSystem softwareSystem, String key, String description) {
+        super(softwareSystem, key, description);
     }
 
     public void add(Element source, Element destination) {
@@ -72,7 +72,7 @@ public class DynamicView extends View {
 
     @Override
     public String getName() {
-        return getSoftwareSystem().getName() + " - Dynamic - " + getDescription();
+        return getSoftwareSystem().getName() + " - Dynamic";
     }
 
 }

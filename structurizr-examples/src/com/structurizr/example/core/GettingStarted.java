@@ -21,7 +21,7 @@ public class GettingStarted {
         user.uses(softwareSystem, "Uses");
 
         ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createContextView(softwareSystem);
+        SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "context", "A simple example of a System Context diagram.");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 

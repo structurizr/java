@@ -46,9 +46,8 @@ public class SystemContext extends AbstractStructurizrWorkspace {
         taxamo.uses(braintree, "Delegates payment processing to");
 
         ViewSet views = workspace.getViews();
-        SystemContextView systemContextView = views.createContextView(structurizr);
+        SystemContextView systemContextView = views.createSystemContextView(structurizr, "Context", "The System Context view for Structurizr.");
         systemContextView.addAllElements();
-        systemContextView.setKey("Context");
 
         writeToFile(workspace);
     }
