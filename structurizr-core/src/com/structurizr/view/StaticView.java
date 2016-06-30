@@ -145,7 +145,6 @@ public abstract class StaticView extends View {
      * Removes all {@link Element}s that have the given tag from this view.
      *
      * @param tag a tag
-     * @see {@link Element#hasTag(String)}
      */
     public final void removeElementsWithTag(String tag) {
         getElements().stream()
@@ -158,7 +157,6 @@ public abstract class StaticView extends View {
      * Removes all {@link Relationship}s that have the given tag from this view.
      *
      * @param tag a tag
-     * @see {@link Element#hasTag(String)}
      */
     public final void removeRelationshipsWithTag(String tag) {
         getRelationships().stream()
