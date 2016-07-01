@@ -47,10 +47,10 @@ public class MessageBusExample {
 
         ViewSet views = workspace.getViews();
 
-        ContainerView containerView = views.createContainerView(mySoftwareSystem, "containers", null);
+        ContainerView containerView = views.createContainerView(mySoftwareSystem, "Containers", null);
         containerView.addAllElements();
 
-        DynamicView dynamicView = views.createDynamicView(mySoftwareSystem, "Business Event X", "This diagram shows what happens when business event X is received.");
+        DynamicView dynamicView = views.createDynamicView(mySoftwareSystem, "BusinessEventX", "This diagram shows what happens when business event X is received.");
         dynamicView.add(microserviceA, messageBus);
         dynamicView.startChildSequence();
         dynamicView.add(messageBus, microserviceB);

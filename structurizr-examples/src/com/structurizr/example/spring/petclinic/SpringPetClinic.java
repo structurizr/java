@@ -107,7 +107,7 @@ public class SpringPetClinic {
         Component clinicService = webApplication.getComponentWithName("ClinicService");
         Component vetRepository = webApplication.getComponentWithName("VetRepository");
 
-        DynamicView dynamicView = viewSet.createDynamicView(springPetClinic, "View List Of Vets", "Shows how the \"view list of vets\" feature works.");
+        DynamicView dynamicView = viewSet.createDynamicView(springPetClinic, "viewListOfVets", "Shows how the \"view list of vets\" feature works.");
         dynamicView.add(clinicEmployee, "Requests list of vets from /vets", vetController);
         dynamicView.add(vetController, "Calls findVets", clinicService);
         dynamicView.add(clinicService, "Calls findAll", vetRepository);

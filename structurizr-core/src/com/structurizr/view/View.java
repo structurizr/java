@@ -35,7 +35,7 @@ public abstract class View {
         if (key != null && key.trim().length() > 0) {
             setKey(key);
         } else {
-            throw new IllegalArgumentException("A key must be specified");
+            throw new IllegalArgumentException("A key must be specified.");
         }
         setDescription(description);
     }
