@@ -95,21 +95,6 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
         return componentsFound;
     }
 
-    protected Collection<Component> findPublicClassesWithAnnotation(Class<? extends Annotation> type, String technology) {
-        Collection<Component> components = new LinkedList<>();
-        Set<Class<?>> componentTypes = getTypesAnnotatedWith(type);
-        for (Class<?> componentType : componentTypes) {
-            if (Modifier.isPublic(componentType.getModifiers())) {
-                components.add(getComponentFinder().getContainer().addComponent(
-                        componentType.getSimpleName(),
-                        componentType.getCanonicalName(),
-                        "",
-                        technology));
-            }
-        }
-        return components;
-    }
-
     protected Collection<Component> findPublicInterfacesForImplementationClassesWithAnnotation(Class<? extends Annotation> type, String technology) {
         Collection<Component> components = new LinkedList<>();
 

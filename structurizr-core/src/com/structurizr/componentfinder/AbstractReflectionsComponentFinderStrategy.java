@@ -14,6 +14,7 @@ import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Modifier;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -149,6 +150,21 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
 
     protected Set<Class<?>> findSuperTypesAnnotatedWith(Class<?> implementationType, Class annotation) {
         return ReflectionUtils.getAllSuperTypes(implementationType, Predicates.and(ReflectionUtils.withAnnotation(annotation)));
+    }
+
+    protected Collection<Component> findPublicClassesWithAnnotation(Class<? extends Annotation> type, String technology) {
+        Collection<Component> components = new LinkedList<>();
+        Set<Class<?>> componentTypes = getTypesAnnotatedWith(type);
+        for (Class<?> componentType : componentTypes) {
+            if (Modifier.isPublic(componentType.getModifiers())) {
+                components.add(getComponentFinder().getContainer().addComponent(
+                        componentType.getSimpleName(),
+                        componentType.getCanonicalName(),
+                        "",
+                        technology));
+            }
+        }
+        return components;
     }
 
     public void addSupportingTypesStrategy(SupportingTypesStrategy supportingTypesStrategy) {

@@ -1,0 +1,5 @@
+dependencies {
+   compile project(':structurizr-core')
+
+   compile 'javax:javaee-api:7.0'
+}

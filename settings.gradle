@@ -4,5 +4,6 @@ include 'structurizr-annotations'
 include 'structurizr-core'
 include 'structurizr-dot'
 include 'structurizr-examples'
+include 'structurizr-javaee'
 include 'structurizr-spring'
 
