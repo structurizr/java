@@ -1,7 +1,17 @@
 dependencies {
     compile project(':structurizr-annotations')
     compile project(':structurizr-core')
+    compile project(':structurizr-javaee')
     compile project(':structurizr-spring')
+}
+
+task javaEEMoviePlex(type:JavaExec) {
+    main = "com.structurizr.example.javaee.JavaEEMoviePlex7"
+    classpath(
+            sourceSets.main.runtimeClasspath,
+            '/Users/structurizr/Desktop/javaee7-hol/solution/movieplex7-1.0-SNAPSHOT/WEB-INF/classes'
+    )
+    args '/Users/structurizr/Desktop/javaee7-hol/solution/movieplex7'
 }
 
 task springPetClinic(type:JavaExec) {
