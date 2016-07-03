@@ -17,7 +17,7 @@ import java.io.File;
  *  - https://github.com/javaee-samples/javaee7-hol
  *
  *  And the live software architecture diagrams are hosted here:
- *  - https://www.structurizr.com/public/xxxx
+ *  - https://www.structurizr.com/public/14181
  */
 public class JavaEEMoviePlex7 {
 
@@ -75,9 +75,6 @@ public class JavaEEMoviePlex7 {
             }
         }
 
-//        // TODO: the goal is to have all components and their dependencies defined automatically by extracting them from
-//        // the codebase using something like a JavaEEComponentFinderStrategy (which hasn't been built yet)
-//
 //        // booking
 //        Component bookingComponent = webApplication.addComponent("Booking", "Allows customers to book movie showings", "EJB");
 //        bookingComponent.setSourcePath("https://github.com/javaee-samples/javaee7-hol/blob/master/solution/movieplex7/src/main/java/org/javaee7/movieplex7/booking/Booking.java");
@@ -147,15 +144,9 @@ public class JavaEEMoviePlex7 {
 
         // tag and style some elements
         moviePlex.addTags("MoviePlex");
-//        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.ELEMENT, 600, 450, null, null, 40));
-//        viewSet.getConfiguration().getStyles().add(new ElementStyle("System Under Construction", null, null, "#041F37", "#ffffff", null));
-//        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.SOFTWARE_SYSTEM, null, null, "#2A4E6E", "#ffffff", null));
-//        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.PERSON, null, null, "#728da5", "white", 40));
-//        viewSet.getConfiguration().getStyles().add(new ElementStyle(Tags.CONTAINER, null, null, "#041F37", "#ffffff", null));
-//        viewSet.getConfiguration().getStyles().add(new RelationshipStyle(Tags.RELATIONSHIP, 5, null, null, null, 40, 500, null));
 
         // upload it to structurizr.com
-        StructurizrClient structurizrClient = new StructurizrClient("036c4e0f-a464-4b5b-85a9-1cd323bf1e6e", "a8b70e5f-0a80-4091-a593-e9a64602c2eb");
+        StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.mergeWorkspace(14181, workspace);
    }
 
