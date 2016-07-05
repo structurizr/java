@@ -1,7 +1,8 @@
 package com.structurizr.componentfinder.func;
 
-import com.structurizr.componentfinder.myapp.MyController;
-import com.structurizr.componentfinder.myapp.MyRepository;
+import com.structurizr.componentfinder.TestConstants;
+import com.structurizr.componentfinder.typeBased.myapp.MyController;
+import com.structurizr.componentfinder.typeBased.myapp.MyRepository;
 import org.junit.Test;
 
 import java.util.function.Predicate;
@@ -12,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 public class RegexClassNameMatcherTest {
     @Test
     public void matches() {
-        final Predicate<Class<?>> typeMatcher = RegexClassNameMatcher.create("com.structurizr.componentfinder.myapp..*");
+        final Predicate<Class<?>> typeMatcher = RegexClassNameMatcher.create(TestConstants.MATCH_ALL_UNDER_MYAPP_PACKAGE_REGEX);
         assertFalse(typeMatcher.test(this.getClass()));
         assertTrue(typeMatcher.test(MyController.class));
         assertTrue(typeMatcher.test(MyRepository.class));
@@ -20,7 +21,7 @@ public class RegexClassNameMatcherTest {
 
     @Test
     public void matchRegex() {
-        final Predicate<Class<?>> typeMatcher = RegexClassNameMatcher.create("com\\..*\\.myapp\\..*");
+        final Predicate<Class<?>> typeMatcher = RegexClassNameMatcher.create("com\\..*typeBased\\.myapp\\..*");
         assertFalse(typeMatcher.test(this.getClass()));
         assertTrue(typeMatcher.test(MyController.class));
         assertTrue(typeMatcher.test(MyRepository.class));
@@ -28,7 +29,7 @@ public class RegexClassNameMatcherTest {
 
     @Test
     public void matchSingleClass() {
-        final Predicate<Class<?>> typeMatcher = RegexClassNameMatcher.create("com\\..*\\.myapp\\..*Controller");
+        final Predicate<Class<?>> typeMatcher = RegexClassNameMatcher.create("com\\..*typeBased\\.myapp\\..*Controller");
         assertFalse(typeMatcher.test(this.getClass()));
         assertTrue(typeMatcher.test(MyController.class));
         assertFalse(typeMatcher.test(MyRepository.class));
