@@ -45,7 +45,8 @@ public class ComponentFactory {
     public static final class Builder {
         private Predicate<Class<?>> typeMatcher;
         private Function<Class<?>, CreatedComponent> factory;
-        private Consumer<CreatedComponent> decorator;
+        private Consumer<CreatedComponent> decorator = (x) -> {
+        };
 
         private Builder() {
         }
@@ -83,8 +84,9 @@ public class ComponentFactory {
         }
 
         private Predicate<Class<?>> createNonInnerClassRegexTypeMatcher(String typeRegex) {
-            return RegexClassNameMatcher.create(typeRegex)
-                    .and(InnerClassMatcher.INSTANCE).negate();
+            final Predicate<Class<?>> negate = InnerClassMatcher.INSTANCE.negate();
+            final Predicate<Class<?>> other = RegexClassNameMatcher.create(typeRegex);
+            return negate.and(other);
         }
 
 

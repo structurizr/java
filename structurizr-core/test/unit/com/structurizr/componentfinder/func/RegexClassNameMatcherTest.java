@@ -26,4 +26,12 @@ public class RegexClassNameMatcherTest {
         assertTrue(typeMatcher.test(MyRepository.class));
     }
 
+    @Test
+    public void matchSingleClass() {
+        final Predicate<Class<?>> typeMatcher = RegexClassNameMatcher.create("com\\..*\\.myapp\\..*Controller");
+        assertFalse(typeMatcher.test(this.getClass()));
+        assertTrue(typeMatcher.test(MyController.class));
+        assertFalse(typeMatcher.test(MyRepository.class));
+    }
+
 }

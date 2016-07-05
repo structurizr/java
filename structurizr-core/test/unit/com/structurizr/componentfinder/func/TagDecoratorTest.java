@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import static com.structurizr.componentfinder.ComponentFinderTestConstants.createDefaultContainer;
+import static com.structurizr.componentfinder.TestConstants.createDefaultContainer;
 import static com.structurizr.componentfinder.func.TagValidator.validateTag;
 
 public class TagDecoratorTest {

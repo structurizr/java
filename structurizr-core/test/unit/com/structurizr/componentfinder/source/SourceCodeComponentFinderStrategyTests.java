@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import java.io.File;
 
-import static com.structurizr.componentfinder.ComponentFinderTestConstants.createDefaultContainer;
+import static com.structurizr.componentfinder.TestConstants.createDefaultContainer;
 import static org.junit.Assert.assertEquals;
 
 public class SourceCodeComponentFinderStrategyTests {

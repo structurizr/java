@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static com.structurizr.componentfinder.ComponentFinderTestConstants.createDefaultContainer;
+import static com.structurizr.componentfinder.TestConstants.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -45,7 +46,6 @@ public class TypeBasedComponentFinderStrategyTests {
         assertNotNull(myController);
         assertEquals("MyController", myController.getName());
         assertEquals("com.structurizr.componentfinder.typeBased.myapp.MyController", myController.getType());
-        assertEquals(MyController.class.getName(), myController.getType());
         assertEquals("", myController.getDescription());
 
         final Component myRepository = webApplication.getComponentWithName("MyRepository");

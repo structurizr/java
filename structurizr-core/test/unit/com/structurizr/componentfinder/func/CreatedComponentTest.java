@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.Set;
 
-import static com.structurizr.componentfinder.ComponentFinderTestConstants.createDefaultContainer;
+import static com.structurizr.componentfinder.TestConstants.createDefaultContainer;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CreatedComponentTest {

@@ -5,7 +5,7 @@ import com.structurizr.model.Container;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.structurizr.componentfinder.ComponentFinderTestConstants.createDefaultContainer;
+import static com.structurizr.componentfinder.TestConstants.createDefaultContainer;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 

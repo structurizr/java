@@ -5,7 +5,7 @@ import com.structurizr.model.Container;
 import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;
 
-public class ComponentFinderTestConstants {
+public class TestConstants {
 
     public static final String MY_APP_TEST_PACKAGE_TO_SCAN = "com.structurizr.componentfinder.myapp";
     public static final String PAPERBOY_APP_PACKAGE_TO_SCAN = "com.structurizr.testapp.paperboy";
@@ -15,8 +15,11 @@ public class ComponentFinderTestConstants {
     public static final String JAVA_CLASS = "JAVA_CLASS";
     public static final String MYAPP_TAG = "MYAPP";
     public static final String PAPERBOY_TAG = "PAPERBOY";
+    public static final String MATCH_PAPERBOY_PACKAGE_REGEX = ".*\\.paperboy\\..*";
+    public static final String MATCH_MYAPP_PACKAGE_REGEX = ".*\\.myapp\\..*";
+    public static final String MATCH_ALL_TYPES_REGEX = ".*";
 
-    private ComponentFinderTestConstants() {
+    private TestConstants() {
     }
 
     public static Container createDefaultContainer() {

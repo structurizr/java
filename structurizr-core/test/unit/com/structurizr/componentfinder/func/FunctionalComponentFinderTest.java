@@ -9,37 +9,35 @@ import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 
-import static com.structurizr.componentfinder.ComponentFinderTestConstants.*;
+import static com.structurizr.componentfinder.TestConstants.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class FunctionalComponentFinderTest {
 
-    private static final String MATCH_PAPERBOY_PACKAGE_REGEX = ".*\\.paperboy\\..*";
-    private static final String MATCH_MYAPP_PACKAGE_REGEX = ".*\\.myapp\\..*";
     private static final Predicate<Class<?>> IS_INTERFACE = Class::isInterface;
-    private static final String MATCH_ALL_TYPES_REGEX = ".*";
-    private Container webApplication;
+    private Container container;
 
     @Before
     public void setUp() {
-        webApplication = createDefaultContainer();
+        container = createDefaultContainer();
     }
 
     @Test
     public void findComponentsInMyApp() throws Exception {
         final FunctionalComponentFinder componentFinder = createComponentFinderWithDirectDependencies(MATCH_ALL_TYPES_REGEX);
         final Collection<Component> components = componentFinder.findComponents(MY_APP_TEST_PACKAGE_TO_SCAN);
-        new DirectDependenciesValidator(webApplication).validateMyAppComponentDependencies(components);
+        new DirectDependenciesValidator(container).validateMyAppComponentDependencies(components);
     }
 
     @Test
     public void findComponentsInPaperboy() throws Exception {
         final FunctionalComponentFinder componentFinder = createComponentFinderWithDirectDependencies(".*");//TODO scan for sub packages
         final Collection<Component> components = componentFinder.findComponents(PAPERBOY_APP_PACKAGE_TO_SCAN);
-        new DirectDependenciesValidator(webApplication).validatePaperBoyComponentDependencies(components);
+        new DirectDependenciesValidator(container).validatePaperBoyComponentDependencies(components);
     }
 
     @Test
-    public void combineComponentsFinder() throws Exception {
+    public void combineMultipleComponentsFinder() throws Exception {
         final FunctionalComponentFinder componentFinder = FunctionalComponentFinder.builder()
                 .addComponentFactory(createComponentFactoryWithTag(".*\\.paperboy\\.model", ".*Factory", "FACTORY"))
                 .addComponentFactory(createComponentFactoryWithTag(".*\\.paperboy\\.service", ".*Service", "SERVICE"))
@@ -48,7 +46,17 @@ public class FunctionalComponentFinderTest {
                 .withDirectDependencyScanner()
                 .build();
         final Collection<Component> components = componentFinder.findComponents(MY_APP_TEST_PACKAGE_TO_SCAN);
-        new DirectDependenciesValidator(webApplication).validateMyAppComponentDependencies(components);
+        new DirectDependenciesValidator(container).validateMyAppComponentDependencies(components);
+    }
+
+    @Test
+    public void matchOnlyOneComponent() throws Exception {
+        final FunctionalComponentFinder componentFinder = FunctionalComponentFinder.builder()
+                .addComponentFactory(createComponentFactory(".*\\.myapp\\.*Controller"))
+                .withDirectDependencyScanner()
+                .build();
+        final Collection<Component> components = componentFinder.findComponents(MY_APP_TEST_PACKAGE_TO_SCAN);
+        assertThat(components).hasSize(1);
     }
 
     @Test
@@ -61,14 +69,14 @@ public class FunctionalComponentFinderTest {
                 .withStructurizrDependencyScanner()
                 .build();
         final Collection<Component> components = componentFinder.findComponents(MY_APP_TEST_PACKAGE_TO_SCAN);
-        new StructurizrDependenciesValidator(webApplication).validateMyAppComponentDependencies(components);
+        new StructurizrDependenciesValidator(container).validateMyAppComponentDependencies(components);
     }
 
     @Test
     public void findComponentsInPaperboyWithStructurizrDependencies() throws Exception {
         final FunctionalComponentFinder componentFinder = createComponentFinderWithStructurizrDependencies(".*");//TODO scan for sub packages
         final Collection<Component> components = componentFinder.findComponents(PAPERBOY_APP_PACKAGE_TO_SCAN);
-        new StructurizrDependenciesValidator(webApplication).validatePaperBoyComponentDependencies(components);
+        new StructurizrDependenciesValidator(container).validatePaperBoyComponentDependencies(components);
     }
 
 
@@ -101,7 +109,7 @@ public class FunctionalComponentFinderTest {
     private ComponentFactory createComponentFactory(String typeRegex, Consumer<CreatedComponent> decorator) {
         return ComponentFactory.builder()
                 .withTypeMatching(typeRegex)
-                .withFactoryFromTypeForContainer(webApplication)
+                .withFactoryFromTypeForContainer(container)
                 .withDecorator(decorator)
                 .build();
     }

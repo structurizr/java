@@ -12,7 +12,7 @@ import com.structurizr.testapp.paperboy.service.DeliveryStrategy;
 
 import java.util.Collection;
 
-import static com.structurizr.componentfinder.ComponentFinderTestConstants.*;
+import static com.structurizr.componentfinder.TestConstants.*;
 import static com.structurizr.componentfinder.func.TagValidator.validateTag;
 import static org.assertj.core.api.Assertions.assertThat;
 
