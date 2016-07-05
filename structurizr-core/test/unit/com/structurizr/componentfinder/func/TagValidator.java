@@ -8,11 +8,16 @@ public class TagValidator {
     private TagValidator() {
     }
 
-    static void validateTag(Component component, String... tagNames) {
-        assertThat(nrOfAddedTags(component)).isEqualTo(tagNames.length);
+
+    static void validateTags(Component component, String... tagNames) {
         for (String tag : tagNames) {
-            assertThat(component.hasTag(tag)).isTrue();
+            assertThat(component.getTags().contains(tag)).isTrue();
         }
+    }
+
+    static void validateTagsExactly(Component component, String... tagNames) {
+        validateTags(component, tagNames);
+        assertThat(nrOfAddedTags(component)).isEqualTo(tagNames.length);
     }
 
     private static int nrOfAddedTags(Component component) {

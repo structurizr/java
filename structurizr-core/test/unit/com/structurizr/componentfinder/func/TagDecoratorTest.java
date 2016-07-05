@@ -12,7 +12,7 @@ import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 import static com.structurizr.componentfinder.TestConstants.createDefaultContainer;
-import static com.structurizr.componentfinder.func.TagValidator.validateTag;
+import static com.structurizr.componentfinder.func.TagValidator.validateTags;
 
 public class TagDecoratorTest {
 
@@ -56,7 +56,7 @@ public class TagDecoratorTest {
 
     private void validateTagComponentForClass(Class<?> componentSourceClass, Consumer<CreatedComponent> tagDecorator, String[] expectedTags) {
         final Component component = createDecoratedComponent(tagDecorator, componentSourceClass);
-        validateTag(component, expectedTags);
+        validateTags(component, expectedTags);
     }
 
     private Consumer<CreatedComponent> createDecoratorThroughFactoryMethod() {

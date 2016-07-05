@@ -11,6 +11,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class TagDecorator implements Consumer<CreatedComponent> {
+    private static final Predicate<Class<?>> IS_INTERFACE = Class::isInterface;
     private final Function<Class<?>, Collection<String>> tagFunction;
 
     private TagDecorator(Function<Class<?>, Collection<String>> tagFunction) {
@@ -51,8 +52,22 @@ public class TagDecorator implements Consumer<CreatedComponent> {
             return this;
         }
 
+        public Builder addTagForInterfaces( String tag) {
+            builder.add(createTagFunction(IS_INTERFACE, tag));
+            return this;
+        }
+
+        public Builder addTagForClasses(String tag) {
+            builder.add(createTagFunction(IS_INTERFACE.negate(), tag));
+            return this;
+        }
+
         public Builder addTagForMatchingClass(String regex, String tag) {
             return addTag(RegexClassNameMatcher.create(regex), tag);
+        }
+
+        public Builder addTagForNotMatchingClass(String regex, String tag) {
+            return addTag(RegexClassNameMatcher.create(regex).negate(), tag);
         }
 
 

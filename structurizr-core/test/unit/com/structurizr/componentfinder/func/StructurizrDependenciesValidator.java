@@ -13,7 +13,7 @@ import com.structurizr.testapp.paperboy.service.DeliveryStrategy;
 import java.util.Collection;
 
 import static com.structurizr.componentfinder.TestConstants.*;
-import static com.structurizr.componentfinder.func.TagValidator.validateTag;
+import static com.structurizr.componentfinder.func.TagValidator.validateTags;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class StructurizrDependenciesValidator extends DependenciesValidator {
@@ -46,17 +46,17 @@ class StructurizrDependenciesValidator extends DependenciesValidator {
         validateRelations(appService, appServiceInterface, paperBoyRepo, strategy, deliverCommand);
         validateRelations(customer, wallet, address, paper, paperBoy, money);
 
-        validateTag(appServiceInterface, JAVA_INTERFACE, PAPERBOY_TAG);
-        validateTag(appService, JAVA_CLASS, PAPERBOY_TAG);
-        validateTag(customer, JAVA_CLASS, PAPERBOY_TAG);
-        validateTag(wallet, JAVA_CLASS, PAPERBOY_TAG);
-        validateTag(address, JAVA_CLASS, PAPERBOY_TAG);
-        validateTag(paper, JAVA_CLASS, PAPERBOY_TAG);
-        validateTag(paperBoy, JAVA_CLASS, PAPERBOY_TAG);
-        validateTag(paperBoyRepo, JAVA_INTERFACE, PAPERBOY_TAG);
-        validateTag(strategy, JAVA_INTERFACE, PAPERBOY_TAG);
-        validateTag(deliverCommand, JAVA_CLASS, PAPERBOY_TAG);
-        validateTag(money, JAVA_CLASS, PAPERBOY_TAG);
+        validateTags(appServiceInterface, JAVA_INTERFACE, PAPERBOY_TAG);
+        validateTags(appService, JAVA_CLASS, PAPERBOY_TAG);
+        validateTags(customer, JAVA_CLASS, PAPERBOY_TAG);
+        validateTags(wallet, JAVA_CLASS, PAPERBOY_TAG);
+        validateTags(address, JAVA_CLASS, PAPERBOY_TAG);
+        validateTags(paper, JAVA_CLASS, PAPERBOY_TAG);
+        validateTags(paperBoy, JAVA_CLASS, PAPERBOY_TAG);
+        validateTags(paperBoyRepo, JAVA_INTERFACE, PAPERBOY_TAG);
+        validateTags(strategy, JAVA_INTERFACE, PAPERBOY_TAG);
+        validateTags(deliverCommand, JAVA_CLASS, PAPERBOY_TAG);
+        validateTags(money, JAVA_CLASS, PAPERBOY_TAG);
     }
 
     public void validateMyAppComponentDependencies(Collection<Component> components) {
@@ -71,8 +71,8 @@ class StructurizrDependenciesValidator extends DependenciesValidator {
         validateRelations(myRepository, myRepositoryImpl);//Interfaces have a dependency on their implementation
         validateRelations(myRepositoryImpl, myRepository);
 
-        validateTag(myRepository, JAVA_INTERFACE, MYAPP_TAG);
-        validateTag(myController, JAVA_CLASS, MYAPP_TAG);
-        validateTag(myRepositoryImpl, JAVA_CLASS, MYAPP_TAG);
+        validateTags(myRepository, JAVA_INTERFACE, MYAPP_TAG);
+        validateTags(myController, JAVA_CLASS, MYAPP_TAG);
+        validateTags(myRepositoryImpl, JAVA_CLASS, MYAPP_TAG);
     }
 }

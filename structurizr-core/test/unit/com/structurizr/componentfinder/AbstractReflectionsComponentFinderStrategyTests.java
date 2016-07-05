@@ -1,11 +1,16 @@
 package com.structurizr.componentfinder;
 
+import com.structurizr.Workspace;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
+import com.structurizr.model.Model;
+import com.structurizr.model.SoftwareSystem;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.structurizr.componentfinder.TestConstants.createDefaultContainer;
+import static com.structurizr.componentfinder.TestConstants.CONTROLLER_SUFFIX;
+import static com.structurizr.componentfinder.TestConstants.MY_APP_TEST_PACKAGE_TO_SCAN;
+import static com.structurizr.componentfinder.TestConstants.REPOSITORY_SUFFIX;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -15,7 +20,11 @@ public class AbstractReflectionsComponentFinderStrategyTests {
 
     @Before
     public void setUp() {
-        webApplication = createDefaultContainer();
+        Workspace workspace = new Workspace("Name", "Description");
+        Model model = workspace.getModel();
+
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
+        webApplication = softwareSystem.addContainer("Name", "Description", "Technology");
     }
 
     @Test
@@ -77,25 +86,27 @@ public class AbstractReflectionsComponentFinderStrategyTests {
 
     @Test
     public void test_findComponents_CorrectlyFindsDependenciesBetweenComponentsFoundByDifferentComponentFinders_WhenPackage1IsScannedFirst() throws Exception {
-        ComponentFinder componentFinder1 = new ComponentFinder(
-                webApplication,
-                "com.structurizr.componentfinder.packages.package1",
-                new TypeBasedComponentFinderStrategy(
-                        new NameSuffixTypeMatcher("Controller", "", "")
-                )
-        );
-
-        ComponentFinder componentFinder2 = new ComponentFinder(
-                webApplication,
-                "com.structurizr.componentfinder.packages.package2",
-                new TypeBasedComponentFinderStrategy(
-                        new NameSuffixTypeMatcher("Repository", "", "")
-                )
-        );
+        final ComponentFinder componentFinder1 = createControllerFinder();
+        final ComponentFinder componentFinder2 = createRepositoryFinder();
 
         componentFinder1.findComponents();
         componentFinder2.findComponents();
 
+        validateMyAppComponents();
+    }
+
+    @Test
+    public void test_findComponents_CorrectlyFindsDependenciesBetweenComponentsFoundByDifferentComponentFinders_WhenPackage2IsScannedFirst() throws Exception {
+        final ComponentFinder componentFinder1 = createControllerFinder();
+        final ComponentFinder componentFinder2 = createRepositoryFinder();
+
+        componentFinder2.findComponents();
+        componentFinder1.findComponents();
+
+        validateMyAppComponents();
+    }
+
+    private void validateMyAppComponents() {
         assertEquals(2, webApplication.getComponents().size());
         Component myController = webApplication.getComponentWithName("MyController");
         Component myRepository = webApplication.getComponentWithName("MyRepository");
@@ -103,32 +114,24 @@ public class AbstractReflectionsComponentFinderStrategyTests {
         assertNotNull(myController.getRelationships().stream().filter(r -> r.getDestination() == myRepository).findFirst().get());
     }
 
-    @Test
-    public void test_findComponents_CorrectlyFindsDependenciesBetweenComponentsFoundByDifferentComponentFinders_WhenPackage2IsScannedFirst() throws Exception {
-        ComponentFinder componentFinder1 = new ComponentFinder(
+    private ComponentFinder createRepositoryFinder() {
+        return new ComponentFinder(
                 webApplication,
-                "com.structurizr.componentfinder.packages.package1",
+                MY_APP_TEST_PACKAGE_TO_SCAN,
                 new TypeBasedComponentFinderStrategy(
-                        new NameSuffixTypeMatcher("Controller", "", "")
+                        new NameSuffixTypeMatcher(REPOSITORY_SUFFIX, "", "")
                 )
         );
+    }
 
-        ComponentFinder componentFinder2 = new ComponentFinder(
+    private ComponentFinder createControllerFinder() {
+        return new ComponentFinder(
                 webApplication,
-                "com.structurizr.componentfinder.packages.package2",
+                MY_APP_TEST_PACKAGE_TO_SCAN,
                 new TypeBasedComponentFinderStrategy(
-                        new NameSuffixTypeMatcher("Repository", "", "")
+                        new NameSuffixTypeMatcher(CONTROLLER_SUFFIX, "", "")
                 )
         );
-
-        componentFinder2.findComponents();
-        componentFinder1.findComponents();
-
-        assertEquals(2, webApplication.getComponents().size());
-        Component myController = webApplication.getComponentWithName("MyController");
-        Component myRepository = webApplication.getComponentWithName("MyRepository");
-        assertEquals(1, myController.getRelationships().size());
-        assertNotNull(myController.getRelationships().stream().filter(r -> r.getDestination() == myRepository).findFirst().get());
     }
 
 }

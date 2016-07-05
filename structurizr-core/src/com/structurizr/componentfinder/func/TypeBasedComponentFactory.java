@@ -10,13 +10,13 @@ import java.util.function.Predicate;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-public class ComponentFactory {
+public class TypeBasedComponentFactory {
     private final Predicate<Class<?>> typeMatcher;
     private final Function<Class<?>, CreatedComponent> factory;
     private final Consumer<CreatedComponent> decorator;
 
 
-    private ComponentFactory(Builder builder) {
+    private TypeBasedComponentFactory(Builder builder) {
         typeMatcher = builder.typeMatcher;
         factory = builder.factory;
         decorator = builder.decorator;
@@ -43,7 +43,7 @@ public class ComponentFactory {
 
 
     public static final class Builder {
-        private Predicate<Class<?>> typeMatcher;
+        private Predicate<Class<?>> typeMatcher = (Class<?> x) -> false;
         private Function<Class<?>, CreatedComponent> factory;
         private Consumer<CreatedComponent> decorator = (x) -> {
         };
@@ -52,41 +52,45 @@ public class ComponentFactory {
         }
 
         public Builder withTypeMatcher(Predicate<Class<?>> val) {
-            typeMatcher = val;
+            checkNotNull(val);
+            this.typeMatcher = typeMatcher.or(val);
             return this;
         }
 
-        public Builder withTypeMatching(String typeRegex) {
+        public Builder addTypeMatcher(String typeRegex) {
             return withTypeMatcher(createNonInnerClassRegexTypeMatcher(typeRegex));
 
         }
 
         public Builder withFactory(Function<Class<?>, CreatedComponent> val) {
+            checkNotNull(val);
             factory = val;
             return this;
         }
 
         public Builder withDecorator(Consumer<CreatedComponent> val) {
+            checkNotNull(val);
             decorator = val;
             return this;
         }
 
-        public Builder withFactoryFromTypeForContainer(Container c) {
+        public Builder withBaseContainer(Container c) {
             factory = (Class<?> x) -> CreatedComponent.createFromClass(c, x);
             return this;
         }
 
-        public ComponentFactory build() {
-            checkNotNull(typeMatcher, "A type matcher is required.");
+        public Builder addSuffixTypeMatcher(String suffix) {
+            return addTypeMatcher(".*" + suffix);
+        }
+
+        public TypeBasedComponentFactory build() {
             checkNotNull(factory, "A component factory is required.");
-            checkNotNull(decorator, "A decorator is required.");
-            return new ComponentFactory(this);
+            return new TypeBasedComponentFactory(this);
         }
 
         private Predicate<Class<?>> createNonInnerClassRegexTypeMatcher(String typeRegex) {
-            final Predicate<Class<?>> negate = InnerClassMatcher.INSTANCE.negate();
-            final Predicate<Class<?>> other = RegexClassNameMatcher.create(typeRegex);
-            return negate.and(other);
+            return RegexClassNameMatcher.create(typeRegex)
+                    .and(InnerClassMatcher.INSTANCE.negate());
         }
 
 

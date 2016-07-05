@@ -3,10 +3,8 @@ package com.structurizr.testapp.paperboy.model;
 import java.util.List;
 import java.util.Optional;
 import java.util.Stack;
-import java.util.logging.Logger;
 
 public class PaperBoy {
-    private final Logger LOGGER = Logger.getLogger(this.toString());
     private final Wallet wallet;
     private final Stack<Paper> papers;
 
@@ -53,21 +51,12 @@ public class PaperBoy {
     private boolean hasSufficientMoney(MonetaryAmount money) {
         final MonetaryAmount priceOfPaper = getPaperPrice();
         if (priceOfPaper.isGreaterThan(money)) {
-            logInsufficientFunds(money, priceOfPaper);
             return false;
         }
-        if (priceOfPaper.isLessThan(money))
-            logThxForTheTip(money, priceOfPaper);
         return true;
 
     }
 
-    private void logThxForTheTip(MonetaryAmount money, MonetaryAmount priceOfPaper) {
-        LOGGER.info("Thanks for the tip ! The price of the paper is " + priceOfPaper + " and gratefully received " + money);
-    }
 
-    private void logInsufficientFunds(MonetaryAmount money, MonetaryAmount priceOfPaper) {
-        LOGGER.warning("Not enough money. The price of the paper is " + priceOfPaper + " but received only " + money);
-    }
 
 }

@@ -8,7 +8,7 @@ import java.util.Collection;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-class FunctionalComponentFinder {
+public class FunctionalComponentFinder {
     private final ComponentScanner componentScanner;
     private final DependenciesScanner dependenciesScanner;
 
@@ -30,7 +30,7 @@ class FunctionalComponentFinder {
 
 
     public static final class Builder {
-        private ImmutableSet.Builder<ComponentFactory> factoriesBuilder = ImmutableSet.builder();
+        private ImmutableSet.Builder<TypeBasedComponentFactory> factoriesBuilder = ImmutableSet.builder();
         private DependenciesScanner dependenciesScanner;
 
         private Builder() {
@@ -56,13 +56,13 @@ class FunctionalComponentFinder {
         }
 
 
-        public Builder addComponentFactory(ComponentFactory componentFactory) {
+        public Builder addComponentFactory(TypeBasedComponentFactory componentFactory) {
             factoriesBuilder.add(componentFactory);
             return this;
         }
 
         private ComponentScanner buildScanner() {
-            final ImmutableSet<ComponentFactory> factories = factoriesBuilder.build();
+            final ImmutableSet<TypeBasedComponentFactory> factories = factoriesBuilder.build();
             Preconditions.checkState(!factories.isEmpty(), "No component factories were added. No components can be created.");
             return new ComponentScanner(factories);
         }
