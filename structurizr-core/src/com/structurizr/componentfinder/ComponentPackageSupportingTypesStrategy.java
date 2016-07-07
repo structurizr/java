@@ -6,7 +6,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * This strategy finds all types in the same package as the component type.
+ * This strategy finds all types in the same package as the component type,
+ * and is useful if each component resides in its own Java package.
  */
 public class ComponentPackageSupportingTypesStrategy extends SupportingTypesStrategy {
 

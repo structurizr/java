@@ -2,6 +2,16 @@
 
 The Structurizr for Java library includes a component finder and a number of prebuilt pluggable strategies that allow you to extract components from a codebase.
 
+## Background
+
+The idea behind the [C4 software architecture model](https://structurizr.com/help/c4) and Structurizr is that there are a number of levels of abstraction sitting above the code. Although we write Java code using interfaces and classes in packages, it's often useful to think about how that code is organised into "components". In its simplest form, a "component" is just a grouping of classes and interfaces.
+
+If you reverse-engineer some Java code using a UML tool, you'll typically get a UML class diagram showing all of the classes and interfaces. The component diagram in the C4 model is about hiding some of this complexity and implementation detail. You can read more about this at [Components vs classes](https://structurizr.com/help/components-vs-classes).
+
+## Purpose
+
+The purpose of the component finder is to find components in your codebase. Since every codebase is different (i.e. code structure, naming conventions, frameworks used, etc), different pluggable component finder strategies allow you to customize how components are found. 
+
 ## Basic usage
 
 To use a component finder, simply create an instance of the ```ComponentFinder``` class and configure it as needed.
@@ -30,3 +40,16 @@ Name | Dependency | Description | Extracted from
 [SpringComponentFinderStrategy](https://github.com/structurizr/java/blob/master/structurizr-spring/src/com/structurizr/componentfinder/SpringComponentFinderStrategy.java) | structurizr-spring | Finds classes annotated ```@Controller```, ```@RestController```, ```@Component```, ```@Service``` and ```@Repository```, plus classes that extend ```JpaRepository```. | Compiled bytecode
 
 See the [Spring PetClinic example](spring-petclinic.md) for an illustration of how to use the component finder.
+
+## Component type and supporting types
+
+In Structurizr, a [Component](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/model/Component.java) is described by a number of properties, including ```type``` and ```supportingTypes```.
+
+- ```type```: This is designed to refer to a single fully qualified Java type that best describes the type of the component. For example, this could be the fully qualified name of the public interface for the component.
+- ```supportingTypes```: This is the set of fully qualified Java types that support the implementation of the component.
+
+Again, because each codebase is different, the mechanism to find a component's supporting types is pluggable via a number of strategies, which can be used in combination.
+
+- [FirstImplementationOfInterfaceSupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/componentfinder/FirstImplementationOfInterfaceSupportingTypesStrategy.java): If the component type is an interface, this strategy finds the first implementation of that interface.
+- [ComponentPackageSupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/componentfinder/ComponentPackageSupportingTypesStrategy.java): This strategy finds all types in the same package as the component type, and is useful if each component resides in its own Java package.
+- [ReferencedTypesSupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/componentfinder/ReferencedTypesSupportingTypesStrategy.java): This strategy finds all types that are referenced by the component type and supporting types.
