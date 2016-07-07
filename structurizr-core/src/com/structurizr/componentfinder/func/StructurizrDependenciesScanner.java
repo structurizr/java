@@ -26,14 +26,15 @@ enum StructurizrDependenciesScanner implements DependenciesScanner {
 
     @Override
     public void addDependencies(ScanResult scanResult) {
+
         for (Component component : scanResult) {
             if (component.getType() != null) {
                 addEfferentDependencies(component, scanResult, component.getType(), new HashSet<>());
 
                 // and repeat for the first implementation class we can find
-                final Class<?> type = getClass(component.getType());
-                if (type.isInterface()) {
-                    Optional<Class> implementationType = scanResult.getFirstImplementationOfInterface(component.getType());
+                final CtClass cc = getCtClass(component.getType());
+                if (cc.isInterface()) {
+                    final Optional<Class> implementationType = scanResult.getFirstImplementationOfInterface(cc.getName());
                     if (implementationType.isPresent()) {
                         final String canonicalName = implementationType.get().getCanonicalName();
                         if (canonicalName != null) {
@@ -45,46 +46,53 @@ enum StructurizrDependenciesScanner implements DependenciesScanner {
         }
     }
 
-    private Class<?> getClass(String name) {
+
+    private void addEfferentDependencies(Component component, ScanResult scanResult, String type, Set<String> typesVisited) {
+        typesVisited.add(type);
+        for (String referencedTypeName : getReferencedTypes(type)) {
+            final Optional<Component> destinationComponent = scanResult.getFirstComponentOfType(referencedTypeName);
+            if (destinationComponent.isPresent()) {
+                if (component != destinationComponent.get()) {
+                    component.uses(destinationComponent.get(), "");
+                }
+            } else if (!typesVisited.contains(referencedTypeName)) {
+                addEfferentDependencies(component, scanResult, referencedTypeName, typesVisited);
+            }
+        }
+
+
+    }
+
+    private CtClass getCtClass(String type) {
         try {
-            return Class.forName(name);
-        } catch (ClassNotFoundException e) {
+            ClassPool pool = ClassPool.getDefault();
+            return pool.get(type);
+        } catch (NotFoundException e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
 
-    private void addEfferentDependencies(Component component, ScanResult scanResult, String type, Set<String> typesVisited) {
-        typesVisited.add(type);
 
-        try {
-            ClassPool pool = ClassPool.getDefault();
-            CtClass cc = pool.get(type);
-            for (Object referencedType : cc.getRefClasses()) {
-                String referencedTypeName = (String) referencedType;
-                Optional<Component> destinationComponent = scanResult.getFirstComponentOfType(referencedTypeName);
+    private Set<String> getReferencedTypes(String type) {
+        final Set<String> referencedTypeNames = new HashSet<>();
+        final CtClass cc = getCtClass(type);
+        for (Object referencedType : cc.getRefClasses()) {
+            String referencedTypeName = (String) referencedType;
 
-                // if there was no component of the interface type, perhaps there is one of the implementation type
-                CtClass referencedTypeAsClass = pool.get(referencedTypeName);
-                if (!destinationComponent.isPresent() && referencedTypeAsClass.isInterface()) {
-                    Optional<Class> implementationClass = scanResult.getFirstImplementationOfInterface(referencedTypeName);
-                    if (implementationClass.isPresent()) {
-                        destinationComponent = scanResult.getFirstComponentOfType(implementationClass.get().getCanonicalName());
-                    }
-                }
-
-                if (destinationComponent.isPresent()) {
-                    if (component != destinationComponent.get()) {
-                        component.uses(destinationComponent.get(), "");
-                    }
-                } else if (!typesVisited.contains(referencedTypeName)) {
-                    addEfferentDependencies(component, scanResult, referencedTypeName, typesVisited);
-                }
+            if (!isAJavaPlatformType(referencedTypeName)) {
+                referencedTypeNames.add(referencedTypeName);
             }
-        } catch (NotFoundException nfe) {
-            System.err.println(nfe.getMessage() + " not found");
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
         }
+
+        return referencedTypeNames;
     }
+
+    private boolean isAJavaPlatformType(String typeName) {
+        return typeName.startsWith("java.") ||
+                typeName.startsWith("javax.") ||
+                typeName.startsWith("sun.");
+    }
+
 
 }
