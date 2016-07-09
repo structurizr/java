@@ -122,10 +122,7 @@ public class SpringPetClinic {
         styles.addElementStyle("Spring Service").background("#6CB33E").color("#000000");
         styles.addElementStyle("Spring Repository").background("#95D46C").color("#000000");
 
-//        StructurizrClient structurizrClient = new StructurizrClient("https://localhost:9443", "cb2a537d-282f-4834-ab2c-3c4fd4fc54ac", "ff64a5d5-19e5-4a98-818a-c36455f38e44");
-//        structurizrClient.mergeWorkspace(19, workspace);
-//
-        StructurizrClient structurizrClient = new StructurizrClient("c9532520-06da-4579-b640-496d8fb3e0f9", "b7856871-8934-431c-8f71-28a6e3fad939");
+        StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.mergeWorkspace(1, workspace);
     }
 
