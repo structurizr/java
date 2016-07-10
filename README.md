@@ -67,7 +67,6 @@ The dependencies for use with Maven, Ivy, Gradle, etc are as follows.
 Name                                          | Description
 -------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------
 com.structurizr:structurizr-core:0.8.1        | The core library that can used to create models and upload models to Structurizr.
-com.structurizr:structurizr-client:0.8.1      | The structurizr.com API client for Java for uploading models.
 
 > Please note that you will need to add "http://jcenter.bintray.com" as an additional repository to your build configuration.
 
