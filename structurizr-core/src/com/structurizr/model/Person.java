@@ -64,4 +64,16 @@ public class Person extends Element {
         throw new UnsupportedOperationException();
     }
 
+    public Relationship interactsWith(Person destination, String description) {
+        return getModel().addRelationship(this, destination, description);
+    }
+
+    public Relationship interactsWith(Person destination, String description, String technology) {
+        return getModel().addRelationship(this, destination, description, technology);
+    }
+
+    public Relationship interactsWith(Person destination, String description, String technology, InteractionStyle interactionStyle) {
+        return getModel().addRelationship(this, destination, description, technology, interactionStyle);
+    }
+
 }
