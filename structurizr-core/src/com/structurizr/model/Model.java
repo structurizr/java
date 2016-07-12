@@ -14,10 +14,20 @@ public class Model {
     private final Map<String, Element> elementsById = new HashMap<>();
     private final Map<String, Relationship> relationshipsById = new HashMap<>();
 
+    private Enterprise enterprise;
+
     private Set<Person> people = new LinkedHashSet<>();
     private Set<SoftwareSystem> softwareSystems = new LinkedHashSet<>();
 
     public Model() {
+    }
+
+    public Enterprise getEnterprise() {
+        return enterprise;
+    }
+
+    public void setEnterprise(Enterprise enterprise) {
+        this.enterprise = enterprise;
     }
 
     /**

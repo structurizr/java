@@ -10,7 +10,6 @@ import org.apache.commons.logging.LogFactory;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 /**
  * A set of views onto a software architecture model.
@@ -21,6 +20,7 @@ public class ViewSet {
 
     private Model model;
 
+    private Collection<EnterpriseContextView> enterpriseContextViews = new HashSet<>();
     private Collection<SystemContextView> systemContextViews = new HashSet<>();
     private Collection<ContainerView> containerViews = new HashSet<>();
     private Collection<ComponentView> componentViews = new HashSet<>();
@@ -42,6 +42,17 @@ public class ViewSet {
 
     public void setModel(Model model) {
         this.model = model;
+    }
+
+    public EnterpriseContextView createEnterpriseContextView(String key, String description) {
+        EnterpriseContextView view = new EnterpriseContextView(model, key, description);
+
+        if (getViewWithKey(key) != null) {
+            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
+        } else {
+            enterpriseContextViews.add(view);
+            return view;
+        }
     }
 
     /**
@@ -173,6 +184,15 @@ public class ViewSet {
     }
 
     /**
+     * Gets the set of enterprise context views.
+     *
+     * @return  a Collection of EnterpriseContextView objects
+     */
+    public Collection<EnterpriseContextView> getEnterpriseContextViews() {
+        return new HashSet<>(enterpriseContextViews);
+    }
+
+    /**
      * Gets the set of system context views.
      *
      * @return  a Collection of SystemContextView objects
@@ -181,19 +201,36 @@ public class ViewSet {
         return new HashSet<>(systemContextViews);
     }
 
+    /**
+     * Gets the set of container views.
+     *
+     * @return  a Collection of ContainerView objects
+     */
     public Collection<ContainerView> getContainerViews() {
         return new HashSet<>(containerViews);
     }
 
+    /**
+     * Gets the set of component views.
+     *
+     * @return  a Collection of ComponentView objects
+     */
     public Collection<ComponentView> getComponentViews() {
         return new HashSet<>(componentViews);
     }
 
+    /**
+     * Gets the set of dynamic views.
+     *
+     * @return  a Collection of DynamicView objects
+     */
     public Collection<DynamicView> getDynamicViews() {
         return new HashSet<>(dynamicViews);
     }
 
     public void hydrate() {
+        enterpriseContextViews.forEach(this::hydrateView);
+
         systemContextViews.forEach(this::hydrateView);
 
         containerViews.forEach(this::hydrateView);
@@ -207,7 +244,12 @@ public class ViewSet {
     }
 
     private void hydrateView(View view) {
-        view.setSoftwareSystem(model.getSoftwareSystemWithId(view.getSoftwareSystemId()));
+        if (view instanceof EnterpriseContextView) {
+            EnterpriseContextView enterpriseContextView = (EnterpriseContextView)view;
+            enterpriseContextView.setModel(model);
+        } else {
+            view.setSoftwareSystem(model.getSoftwareSystemWithId(view.getSoftwareSystemId()));
+        }
 
         for (ElementView elementView : view.getElements()) {
             elementView.setElement(model.getElement(elementView.getId()));
@@ -227,6 +269,15 @@ public class ViewSet {
     }
 
     public void copyLayoutInformationFrom(ViewSet source) {
+        for (EnterpriseContextView view : enterpriseContextViews) {
+            EnterpriseContextView sourceView = findView(source.getEnterpriseContextViews(), view);
+            if (sourceView != null) {
+                view.copyLayoutInformationFrom(sourceView);
+            } else {
+                log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+            }
+        }
+
         for (SystemContextView view : systemContextViews) {
             SystemContextView sourceView = findView(source.getSystemContextViews(), view);
             if (sourceView != null) {

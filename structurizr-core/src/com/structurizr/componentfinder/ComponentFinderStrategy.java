@@ -27,6 +27,11 @@ public abstract class ComponentFinderStrategy {
 
     public abstract void findDependencies() throws Exception;
 
+    /**
+     * Gets the components found by this component finder strategy.
+     *
+     * @return  a Collection of Component objects, or an empty collection if none were found
+     */
     public Collection<Component> getComponents() {
         return new ArrayList<>(components);
     }
