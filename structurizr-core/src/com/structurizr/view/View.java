@@ -120,7 +120,7 @@ public abstract class View {
 
     protected final void addElement(Element element, boolean addRelationships) {
         if (element != null) {
-            if (getSoftwareSystem().getModel().contains(element)) {
+            if (getModel().contains(element)) {
                 elementViews.add(new ElementView(element));
 
                 if (addRelationships) {
