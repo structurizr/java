@@ -24,6 +24,27 @@ public class EnterpriseContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_getName_WhenNoEnterpriseIsSpecified() {
+        assertEquals("Enterprise Context", view.getName());
+    }
+
+    @Test
+    public void test_getName_WhenAnEnterpriseIsSpecified() {
+        model.setEnterprise(new Enterprise("Widgets Limited"));
+        assertEquals("Enterprise Context for Widgets Limited", view.getName());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_getName_WhenAnEmptyEnterpriseNameIsSpecified() {
+        model.setEnterprise(new Enterprise(""));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_getName_WhenANullEnterpriseNameIsSpecified() {
+        model.setEnterprise(new Enterprise(null));
+    }
+
+    @Test
     public void test_addAllSoftwareSystems_DoesNothing_WhenThereAreNoOtherSoftwareSystems() {
         view.addAllSoftwareSystems();
         assertEquals(0, view.getElements().size());

@@ -1,10 +1,7 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.structurizr.model.Element;
-import com.structurizr.model.Model;
-import com.structurizr.model.Person;
-import com.structurizr.model.SoftwareSystem;
+import com.structurizr.model.*;
 
 /**
  * Represents an Enterprise Context view that sits above the C4 model. This is the "big picture" view,
@@ -32,7 +29,8 @@ public class EnterpriseContextView extends StaticView {
 
     @Override
     public String getName() {
-        return "Enterprise Context for " + model.getEnterprise().getName();
+        Enterprise enterprise = model.getEnterprise();
+        return "Enterprise Context" + (enterprise != null && enterprise.getName().trim().length() > 0 ? " for " + enterprise.getName() : "");
     }
 
     @JsonIgnore
