@@ -40,7 +40,7 @@ public class TechTribesSystemContextForPresentation {
 
         // now create the system context view based upon the model
         ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createContextView(techTribes);
+        SystemContextView contextView = viewSet.createSystemContextView(techTribes, "context", "The system context diagram for techtribes.je");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
@@ -54,9 +54,6 @@ public class TechTribesSystemContextForPresentation {
         styles.addElementStyle(Tags.PERSON).width(575).background("#728da5").shape(Shape.Person);
         styles.addRelationshipStyle(Tags.RELATIONSHIP).thickness(5).fontSize(40).width(500);
         contextView.setPaperSize(PaperSize.Slide_4_3);
-
-        // since this is for a presentation, remove the diagram metadata
-        viewSet.getConfiguration().setMetadata(Metadata.None);
 
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.mergeWorkspace(101, workspace);
