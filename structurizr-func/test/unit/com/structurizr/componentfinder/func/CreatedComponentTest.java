@@ -1,8 +1,8 @@
 package com.structurizr.componentfinder.func;
 
-import com.structurizr.componentfinder.typeBased.myapp.MyController;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
+import com.structurizr.testapp.myapp.MyController;
 import org.junit.Before;
 import org.junit.Test;
 

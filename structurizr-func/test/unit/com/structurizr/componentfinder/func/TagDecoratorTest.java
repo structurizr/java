@@ -1,10 +1,10 @@
 package com.structurizr.componentfinder.func;
 
 import com.google.common.collect.ImmutableList;
-import com.structurizr.componentfinder.typeBased.myapp.MyController;
-import com.structurizr.componentfinder.typeBased.myapp.MyRepository;
-import com.structurizr.componentfinder.typeBased.myapp.MyRepositoryImpl;
 import com.structurizr.model.Component;
+import com.structurizr.testapp.myapp.MyController;
+import com.structurizr.testapp.myapp.MyRepository;
+import com.structurizr.testapp.myapp.MyRepositoryImpl;
 import org.junit.Test;
 
 import java.util.Collection;

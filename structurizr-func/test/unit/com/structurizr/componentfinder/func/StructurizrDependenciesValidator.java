@@ -1,11 +1,10 @@
 package com.structurizr.componentfinder.func;
 
-
-import com.structurizr.componentfinder.typeBased.myapp.MyController;
-import com.structurizr.componentfinder.typeBased.myapp.MyRepository;
-import com.structurizr.componentfinder.typeBased.myapp.MyRepositoryImpl;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
+import com.structurizr.testapp.myapp.MyController;
+import com.structurizr.testapp.myapp.MyRepository;
+import com.structurizr.testapp.myapp.MyRepositoryImpl;
 import com.structurizr.testapp.paperboy.PaperDeliveryApplicationService;
 import com.structurizr.testapp.paperboy.model.*;
 import com.structurizr.testapp.paperboy.service.DeliverPapersCommand;
@@ -17,11 +16,11 @@ import static com.structurizr.componentfinder.TestConstants.*;
 import static com.structurizr.componentfinder.func.TagValidator.validateTags;
 import static org.assertj.core.api.Assertions.assertThat;
 
-class DirectDependenciesValidator extends DependenciesValidator {
+class StructurizrDependenciesValidator extends DependenciesValidator {
     private static final String DELIVERY_PAPER_SERVICE = "com.structurizr.testapp.paperboy.DeliverPapersService";
 
 
-    public DirectDependenciesValidator(Container container) {
+    public StructurizrDependenciesValidator(Container container) {
         super(container);
     }
 
@@ -42,7 +41,8 @@ class DirectDependenciesValidator extends DependenciesValidator {
         final Component deliverCommand = loadExpectedComponent(DeliverPapersCommand.class);
         final Component money = loadExpectedComponent(MonetaryAmount.class);
 
-        validateRelations(appServiceInterface);
+        //Interfaces have a dependency on their implementation and on all the dependencies of the first implementation
+        validateRelations(appServiceInterface, appService, paperBoyRepo, strategy, deliverCommand);
         validateRelations(appService, appServiceInterface, paperBoyRepo, strategy, deliverCommand);
         validateRelations(customer, wallet, address, paper, paperBoy, money);
 
@@ -68,7 +68,7 @@ class DirectDependenciesValidator extends DependenciesValidator {
         final Component myRepositoryImpl = loadExpectedComponent(MyRepositoryImpl.class);
 
         validateRelations(myController, myRepository, myRepositoryImpl);
-        validateRelations(myRepository);
+        validateRelations(myRepository, myRepositoryImpl);//Interfaces have a dependency on their implementation
         validateRelations(myRepositoryImpl, myRepository);
 
         validateTags(myRepository, JAVA_INTERFACE, MYAPP_TAG);
