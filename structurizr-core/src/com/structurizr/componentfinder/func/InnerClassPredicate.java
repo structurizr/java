@@ -2,7 +2,7 @@ package com.structurizr.componentfinder.func;
 
 import java.util.function.Predicate;
 
-public enum InnerClassMatcher implements Predicate<Class<?>> {
+enum InnerClassPredicate implements Predicate<Class<?>> {
     INSTANCE;
 
 

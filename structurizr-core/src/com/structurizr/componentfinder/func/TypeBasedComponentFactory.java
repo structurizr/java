@@ -9,6 +9,8 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static com.structurizr.componentfinder.func.RegexClassNamePredicate.createNonInnerClassRegexPredicate;
+import static com.structurizr.componentfinder.func.RegexClassNamePredicate.createSuffixPredicate;
 
 public class TypeBasedComponentFactory {
     private final Predicate<Class<?>> typeMatcher;
@@ -57,8 +59,8 @@ public class TypeBasedComponentFactory {
             return this;
         }
 
-        public Builder addTypeMatcher(String typeRegex) {
-            return withTypeMatcher(createNonInnerClassRegexTypeMatcher(typeRegex));
+        public Builder addNonInnerClassRegexTypeMatcher(String typeRegex) {
+            return withTypeMatcher(createNonInnerClassRegexPredicate(typeRegex));
 
         }
 
@@ -80,17 +82,12 @@ public class TypeBasedComponentFactory {
         }
 
         public Builder addSuffixTypeMatcher(String suffix) {
-            return addTypeMatcher(".*" + suffix);
+            return withTypeMatcher(createSuffixPredicate(suffix));
         }
 
         public TypeBasedComponentFactory build() {
             checkNotNull(factory, "A component factory is required.");
             return new TypeBasedComponentFactory(this);
-        }
-
-        private Predicate<Class<?>> createNonInnerClassRegexTypeMatcher(String typeRegex) {
-            return RegexClassNameMatcher.create(typeRegex)
-                    .and(InnerClassMatcher.INSTANCE.negate());
         }
 
 

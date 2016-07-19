@@ -63,11 +63,11 @@ public class TagDecorator implements Consumer<CreatedComponent> {
         }
 
         public Builder addTagForMatchingClass(String regex, String tag) {
-            return addTag(RegexClassNameMatcher.create(regex), tag);
+            return addTag(RegexClassNamePredicate.create(regex), tag);
         }
 
         public Builder addTagForNotMatchingClass(String regex, String tag) {
-            return addTag(RegexClassNameMatcher.create(regex).negate(), tag);
+            return addTag(RegexClassNamePredicate.create(regex).negate(), tag);
         }
 
 

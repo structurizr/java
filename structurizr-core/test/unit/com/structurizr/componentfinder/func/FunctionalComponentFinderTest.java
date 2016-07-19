@@ -135,7 +135,7 @@ public class FunctionalComponentFinderTest {
 
     private TypeBasedComponentFactory createComponentFactory(String typeRegex, Consumer<CreatedComponent> decorator) {
         return TypeBasedComponentFactory.builder()
-                .addTypeMatcher(typeRegex)
+                .addNonInnerClassRegexTypeMatcher(typeRegex)
                 .withBaseContainer(container)
                 .withDecorator(decorator)
                 .build();

@@ -88,7 +88,7 @@ public class TypeBasedComponentFactoryTest {
 
     private TypeBasedComponentFactory createComponentFactoryWithTags(String typeRegex, Consumer<CreatedComponent> decorator) {
         return TypeBasedComponentFactory.builder()
-                .addTypeMatcher(typeRegex)
+                .addNonInnerClassRegexTypeMatcher(typeRegex)
                 .withBaseContainer(container)
                 .withDecorator(decorator)
                 .build();
@@ -98,7 +98,7 @@ public class TypeBasedComponentFactoryTest {
         final TypeBasedComponentFactory.Builder builder = TypeBasedComponentFactory.builder()
                 .withBaseContainer(container);
         for (String matchType : typeRegex) {
-            builder.addTypeMatcher(matchType);
+            builder.addNonInnerClassRegexTypeMatcher(matchType);
         }
         return builder.build();
     }
