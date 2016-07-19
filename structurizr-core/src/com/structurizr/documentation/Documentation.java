@@ -1,10 +1,7 @@
 package com.structurizr.documentation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.structurizr.model.Container;
-import com.structurizr.model.Element;
-import com.structurizr.model.Model;
-import com.structurizr.model.SoftwareSystem;
+import com.structurizr.model.*;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -94,6 +91,32 @@ public class Documentation {
      */
     public Section add(Container container, Format format, String content) {
         return addSection(container, Type.Components, format, content);
+    }
+
+    /**
+     * Adds documentation content related to a {@link Component} from a file.
+     *
+     * @param component the {@link Component} the documentation content relates to
+     * @param format    the {@link Format} of the documentation content
+     * @param file  a File that points to the documentation content
+     * @return  a documentation {@link Section}
+     * @throws IOException
+     */
+    public Section add(Component component, Format format, File file) throws IOException {
+        String content = new String(Files.readAllBytes(file.toPath()), "UTF-8");
+        return add(component, format, content);
+    }
+
+    /**
+     * Adds documentation content related to a {@link Component} from a String.
+     *
+     * @param component the {@link Component} the documentation content relates to
+     * @param format    the {@link Format} of the documentation content
+     * @param content   a String containing the documentation content
+     * @return  a documentation {@link Section}
+     */
+    public Section add(Component component, Format format, String content) {
+        return addSection(component, Type.Code, format, content);
     }
 
     private Section addSection(Element element, Type type, Format format, String content) {

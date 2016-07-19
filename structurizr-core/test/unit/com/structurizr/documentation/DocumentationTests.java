@@ -1,6 +1,7 @@
 package com.structurizr.documentation;
 
 import com.structurizr.Workspace;
+import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 import com.structurizr.model.SoftwareSystem;
 import org.junit.Before;
@@ -15,6 +16,7 @@ public class DocumentationTests {
 
     private SoftwareSystem softwareSystem;
     private Container container;
+    private Component component;
     private Documentation documentation;
 
     @Before
@@ -22,6 +24,7 @@ public class DocumentationTests {
         Workspace workspace = new Workspace("Name", "Description");
         softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
         container = softwareSystem.addContainer("Name", "Description", "Technology");
+        component = container.addComponent("Name", "Description", "Technology");
 
         documentation = workspace.getDocumentation();
     }
@@ -168,6 +171,71 @@ public class DocumentationTests {
         } catch (IllegalArgumentException iae) {
             // this is the expected exception
             assertEquals("A section of type Components for Name already exists.", iae.getMessage());
+            assertEquals(1, documentation.getSections().size());
+        }
+    }
+
+    @Test
+    public void test_addWithContentForComponent_AddsASectionWithTheSpecifiedContent_WhenThatSectionDoesNotExist() {
+        documentation.add(softwareSystem, Type.Context, Format.Markdown, "Some Markdown content");
+        Section section = documentation.add(component, Format.Markdown, "Some more Markdown content");
+
+        assertEquals(component, section.getElement());
+        assertEquals(component.getId(), section.getElementId());
+        assertEquals(Type.Code, section.getType());
+        assertEquals(Format.Markdown, section.getFormat());
+        assertEquals("Some more Markdown content", section.getContent());
+
+        assertEquals(2, documentation.getSections().size());
+        assertTrue(documentation.getSections().contains(section));
+    }
+
+    @Test
+    public void test_addWithContentForComponent_ThrowsAnException_WhenThatSectionAlreadyExists() {
+        documentation.add(component, Format.Markdown, "Some Markdown content");
+        assertEquals(1, documentation.getSections().size());
+
+        try {
+            documentation.add(component, Format.Markdown, "Some Markdown content");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // this is the expected exception
+            assertEquals("A section of type Code for Name already exists.", iae.getMessage());
+            assertEquals(1, documentation.getSections().size());
+        }
+    }
+
+    @Test
+    public void test_addFromFileForComponent_AddsASectionWithTheSpecifiedContent_WhenThatSectionDoesNotExist() throws IOException {
+        documentation.add(softwareSystem, Type.Context, Format.Markdown, "Some Markdown content");
+
+        File file = new File(".//test/unit/com/structurizr/documentation/example.md");
+        Section section = documentation.add(component, Format.Markdown, file);
+
+        assertEquals(component, section.getElement());
+        assertEquals(component.getId(), section.getElementId());
+        assertEquals(Type.Code, section.getType());
+        assertEquals(Format.Markdown, section.getFormat());
+        assertEquals("## Heading\n" +
+                "\n" +
+                "Here is a paragraph.", section.getContent());
+
+        assertEquals(2, documentation.getSections().size());
+        assertTrue(documentation.getSections().contains(section));
+    }
+
+    @Test
+    public void test_addFromFileForComponent_ThrowsAnException_WhenThatSectionAlreadyExists() throws IOException {
+        documentation.add(component, Format.Markdown, "Some Markdown content");
+        assertEquals(1, documentation.getSections().size());
+
+        try {
+            File file = new File(".//test/unit/com/structurizr/documentation/example.md");
+            documentation.add(component, Format.Markdown, file);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // this is the expected exception
+            assertEquals("A section of type Code for Name already exists.", iae.getMessage());
             assertEquals(1, documentation.getSections().size());
         }
     }
