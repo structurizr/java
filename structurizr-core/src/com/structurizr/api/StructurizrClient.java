@@ -20,6 +20,9 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
@@ -305,5 +308,36 @@ public class StructurizrClient {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         return "structurizr-" + workspaceId + "-" + sdf.format(new Date()) + ".json";
     }
+    
+    /**
+     * Uploads a backup json
+     *
+     * @param workspaceId the ID of your workspace
+     * @param backupFilename backup file to upload
+     * @throws Exception if there are problems related to the network, authorization, JSON serialization, etc
+     */
+    public void putBackup(long workspaceId, String backupFilename) throws Exception {
+        CloseableHttpClient httpClient = HttpClients.createSystem();
+        HttpPut httpPut = new HttpPut(url + WORKSPACE_PATH + workspaceId);
 
+        byte[] fileContentBytes = Files.readAllBytes(Paths.get(backupFilename));
+        String fileContents = new String(fileContentBytes, StandardCharsets.UTF_8);
+
+        StringEntity stringEntity = new StringEntity(fileContents, ContentType.APPLICATION_JSON);
+        httpPut.setEntity(stringEntity);
+        addHeaders(httpPut, EntityUtils.toString(stringEntity), ContentType.APPLICATION_JSON.toString());
+
+        debugRequest(httpPut, EntityUtils.toString(stringEntity));
+
+        try (CloseableHttpResponse response = httpClient.execute(httpPut)) {
+            String json = EntityUtils.toString(response.getEntity());
+            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                debugResponse(response);
+                log.info(json);
+            } else {
+                ApiError apiError = ApiError.parse(json);
+                throw new StructurizrClientException(apiError.getMessage());
+            }
+        }
+    }
 }
