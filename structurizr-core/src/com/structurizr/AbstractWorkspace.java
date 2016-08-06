@@ -1,11 +1,15 @@
 package com.structurizr;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public abstract class AbstractWorkspace {
 
     private long id;
     private String name;
     private String description;
     private String thumbnail;
+    private String source;
 
     public AbstractWorkspace() {
     }
@@ -66,6 +70,26 @@ public abstract class AbstractWorkspace {
 
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+
+    /**
+     * Gets the source of this workspace.
+     *
+     * @return  a
+     */
+    public String getSource() {
+        return source;
+    }
+
+    public void setSource(String source) {
+        if (source != null && source.trim().length() > 0) {
+            try {
+                URL url = new URL(source);
+                this.source = source;
+            } catch (MalformedURLException murle) {
+                throw new IllegalArgumentException(source + " is not a valid URL.");
+            }
+        }
     }
 
 }
