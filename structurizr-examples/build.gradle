@@ -3,6 +3,9 @@ dependencies {
     compile project(':structurizr-core')
     compile project(':structurizr-javaee')
     compile project(':structurizr-spring')
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:3.4.0'
 }
 
 task javaEEMoviePlex(type:JavaExec) {
@@ -18,8 +21,13 @@ task springPetClinic(type:JavaExec) {
     main = "com.structurizr.example.spring.petclinic.SpringPetClinic"
     classpath(
             sourceSets.main.runtimeClasspath,
-            '/Users/structurizr/Documents/spring-petclinic/target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/classes',
-            fileTree(dir: '/Users/structurizr/Documents/spring-petclinic/target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/lib', include: '*.jar')
+            './../../spring-petclinic/target/spring-petclinic-4.2.6-SNAPSHOT/WEB-INF/classes',
+            fileTree(dir: './../../spring-petclinic/target/spring-petclinic-4.2.6-SNAPSHOT/WEB-INF/lib', include: '*.jar')
     )
-    args '/Users/structurizr/Documents/spring-petclinic'
+    args './../../spring-petclinic'
+}
+
+test  {
+    classpath += files('./../../spring-petclinic/target/spring-petclinic-4.2.6-SNAPSHOT/WEB-INF/classes')
+    classpath += fileTree(dir: './../../spring-petclinic/target/spring-petclinic-4.2.6-SNAPSHOT/WEB-INF/lib', include: '*.jar')
 }

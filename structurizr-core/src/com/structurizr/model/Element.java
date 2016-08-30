@@ -11,15 +11,11 @@ import java.util.Set;
 public abstract class Element extends Taggable {
 
     public static final String CANONICAL_NAME_SEPARATOR = "/";
-
-    private Model model;
-
     protected String id = "";
-
     protected String name;
     protected String description;
-
     protected Set<Relationship> relationships = new LinkedHashSet<>();
+    private Model model;
 
     protected Element() {
     }
@@ -74,14 +70,6 @@ public abstract class Element extends Taggable {
 
     public abstract Element getParent();
 
-    boolean has(Relationship relationship) {
-        return relationships.contains(relationship);
-    }
-
-    void addRelationship(Relationship relationship) {
-        relationships.add(relationship);
-    }
-
     public Set<Relationship> getRelationships() {
         return new LinkedHashSet<>(relationships);
     }
@@ -93,10 +81,6 @@ public abstract class Element extends Taggable {
 
     @JsonIgnore
     public abstract String getCanonicalName();
-
-    protected String formatForCanonicalName(String name) {
-        return name.replace(CANONICAL_NAME_SEPARATOR, "");
-    }
 
     /**
      * Adds a unidirectional "uses" style relationship between this element and software system.
@@ -264,6 +248,7 @@ public abstract class Element extends Taggable {
         return null;
     }
 
+    //Breaks euals / hascode contract
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -276,6 +261,18 @@ public abstract class Element extends Taggable {
 
         Element element = (Element) o;
         return getCanonicalName().equals(element.getCanonicalName());
+    }
+
+    boolean has(Relationship relationship) {
+        return relationships.contains(relationship);
+    }
+
+    void addRelationship(Relationship relationship) {
+        relationships.add(relationship);
+    }
+
+    protected String formatForCanonicalName(String name) {
+        return name.replace(CANONICAL_NAME_SEPARATOR, "");
     }
 
 }

@@ -1,17 +1,15 @@
 package com.structurizr.componentfinder.source;
 
-import com.structurizr.Workspace;
 import com.structurizr.componentfinder.ComponentFinder;
 import com.structurizr.componentfinder.SourceCodeComponentFinderStrategy;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
-import com.structurizr.model.Model;
-import com.structurizr.model.SoftwareSystem;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
 
+import static com.structurizr.componentfinder.TestConstants.createDefaultContainer;
 import static org.junit.Assert.assertEquals;
 
 public class SourceCodeComponentFinderStrategyTests {
@@ -22,11 +20,7 @@ public class SourceCodeComponentFinderStrategyTests {
 
     @Before
     public void setUp() {
-        Workspace workspace = new Workspace("Name", "Description");
-        Model model = workspace.getModel();
-
-        SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
-        webApplication = softwareSystem.addContainer("Name", "Description", "Technology");
+        webApplication = createDefaultContainer();
 
         componentA = webApplication.addComponent(
                 "ComponentA",
