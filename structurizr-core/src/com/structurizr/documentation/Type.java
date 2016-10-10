@@ -16,6 +16,7 @@ public enum Type {
     Deployment,
     DevelopmentEnvironment,
     OperationAndSupport,
+    Usage,
     DecisionLog
 
 }
