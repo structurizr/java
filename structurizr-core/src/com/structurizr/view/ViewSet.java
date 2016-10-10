@@ -339,7 +339,7 @@ public class ViewSet {
 
     @JsonIgnore
     public boolean isEmpty() {
-        return enterpriseContextViews.isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && filteredViews.isEmpty();
+        return enterpriseContextViews.isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty();
     }
 
 }
