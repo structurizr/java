@@ -109,8 +109,7 @@ With the software architecture model in place, we now need to create some views 
 
 ```java
 ViewSet viewSet = workspace.getViews();
-SystemContextView contextView = viewSet.createContextView(springPetClinic);
-contextView.setKey("context");
+SystemContextView contextView = viewSet.createContextView(springPetClinic, "context", "Context view for Spring PetClinic");
 contextView.addAllSoftwareSystems();
 contextView.addAllPeople();
 ```
@@ -118,8 +117,7 @@ contextView.addAllPeople();
 Next is the container diagram.
 
 ```java
-ContainerView containerView = viewSet.createContainerView(springPetClinic);
-containerView.setKey("containers");
+ContainerView containerView = viewSet.createContainerView(springPetClinic, "containers", "Container view for Spring PetClinic");
 containerView.addAllPeople();
 containerView.addAllSoftwareSystems();
 containerView.addAllContainers();
