@@ -1,7 +1,8 @@
 package com.structurizr.example;
 
 import com.structurizr.Workspace;
-import com.structurizr.api.StructurizrClient;
+import com.structurizr.documentation.Format;
+import com.structurizr.documentation.Type;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
@@ -40,17 +41,17 @@ public class ExampleWorkspace {
 
         // create some views
         ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "context", "A description of this diagram.");
+        SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "Context", "A description of this diagram.");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
         contextView.setPaperSize(PaperSize.A5_Landscape);
 
-        ContainerView containerView = viewSet.createContainerView(softwareSystem, "containers", "A description of this diagram.");
+        ContainerView containerView = viewSet.createContainerView(softwareSystem, "Containers", "A description of this diagram.");
         containerView.addAllPeople();
         containerView.addAllContainers();
         containerView.setPaperSize(PaperSize.A5_Landscape);
 
-        ComponentView componentView = viewSet.createComponentView(backendForFrontend, "components", "A description of this diagram.");
+        ComponentView componentView = viewSet.createComponentView(backendForFrontend, "Components", "A description of this diagram.");
         componentView.addAllContainers();
         componentView.addAllComponents();
         componentView.setPaperSize(PaperSize.A5_Landscape);
@@ -70,12 +71,13 @@ public class ExampleWorkspace {
             styles.addElementStyle(Tags.PERSON).background("#08427b");
         }
 
-        return workspace;
-    }
+        // add some documentation
+        workspace.getDocumentation().add(softwareSystem, Type.Context, Format.Markdown,
+                "Here is some context about the software system...\n" +
+                "\n" +
+                "![](embed:Context)");
 
-    public static void main(String[] args) throws Exception {
-        StructurizrClient structurizrClient = new StructurizrClient("https://localhost:9443", "b40d5dc7-d39c-47b2-8b57-1ac768c09f1a", "9c57d278-c27a-4f0a-9a1e-e26f11e7b607");
-        structurizrClient.mergeWorkspace(18, create(true));
+        return workspace;
     }
 
 }
