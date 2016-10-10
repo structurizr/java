@@ -404,4 +404,9 @@ public class Model {
         return true;
     }
 
+    @JsonIgnore
+    public boolean isEmpty() {
+        return people.isEmpty() && softwareSystems.isEmpty();
+    }
+
 }

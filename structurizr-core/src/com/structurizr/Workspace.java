@@ -1,5 +1,6 @@
 package com.structurizr;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.documentation.Documentation;
 import com.structurizr.model.Model;
 import com.structurizr.view.ViewSet;
@@ -62,6 +63,11 @@ public class Workspace extends AbstractWorkspace {
 
     public void setDocumentation(Documentation documentation) {
         this.documentation = documentation;
+    }
+
+    @JsonIgnore
+    public boolean isEmpty() {
+        return model.isEmpty() && viewSet.isEmpty() && documentation.isEmpty();
     }
 
 }

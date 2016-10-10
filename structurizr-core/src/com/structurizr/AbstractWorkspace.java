@@ -10,6 +10,7 @@ public abstract class AbstractWorkspace {
     private String description;
     private String thumbnail;
     private String source;
+    private String api;
 
     public AbstractWorkspace() {
     }
@@ -75,7 +76,7 @@ public abstract class AbstractWorkspace {
     /**
      * Gets the source of this workspace.
      *
-     * @return  a
+     * @return  a URL (as a String)
      */
     public String getSource() {
         return source;
@@ -90,6 +91,29 @@ public abstract class AbstractWorkspace {
                 throw new IllegalArgumentException(source + " is not a valid URL.");
             }
         }
+    }
+
+    public boolean hasSource() {
+        return this.source != null && this.source.trim().length() > 0;
+    }
+
+    public String getApi() {
+        return api;
+    }
+
+    public void setApi(String api) {
+        if (api != null && api.trim().length() > 0) {
+            try {
+                URL url = new URL(api);
+                this.api = api;
+            } catch (MalformedURLException murle) {
+                throw new IllegalArgumentException(api + " is not a valid URL.");
+            }
+        }
+    }
+
+    public boolean hasApi() {
+        return this.api != null && this.api.trim().length() > 0;
     }
 
 }

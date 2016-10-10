@@ -28,6 +28,7 @@ public class Containers extends AbstractStructurizrWorkspace {
         SoftwareSystem pingdom = model.getSoftwareSystemWithName(PINGDOM);
         SoftwareSystem sendGrid = model.getSoftwareSystemWithName(SENDGRID);
         SoftwareSystem taxamo = model.getSoftwareSystemWithName(TAXAMO);
+        SoftwareSystem remoteApi = model.getSoftwareSystemWithName(REMOTE_API);
 
         Container webBrowser = structurizr.addContainer(WEB_BROWSER, "Allows users to view and manage workspaces.", "Safari, Firefox, Chrome, IE11");
         anonymousUser.uses(webBrowser, "Uses");
@@ -38,24 +39,27 @@ public class Containers extends AbstractStructurizrWorkspace {
         webApplication.uses(taxamo, "Looks up payment transactions using");
 
         Container api = structurizr.addContainer(API, "Allows authenticated clients to get/put workspaces.", "Apache Tomcat 7.x");
-        webBrowser.uses(api, "Gets workspace data via");
+        webBrowser.uses(api, "Reads and writes workspace data using");
         structurizrClient.uses(api, "Uploads software architecture models using");
 
         Container database = structurizr.addContainer(DATABASE, "Stores information about users, workspaces, etc.", "MySQL");
         database.addTags(DATABASE_TAG);
-        webApplication.uses(database, "Reads from and writes to");
-        api.uses(database, "Reads from and writes to");
+        webApplication.uses(database, "Reads and writes user and workspace information using");
+        api.uses(database, "Reads and writes workspace information using");
 
         Container httpSessionStore = structurizr.addContainer(HTTP_SESSION_STORE, "Stores HTTP session information.", "Redis 3.0.x");
         httpSessionStore.addTags(DATABASE_TAG);
-        webApplication.uses(httpSessionStore, "Reads from and writes to");
+        webApplication.uses(httpSessionStore, "Reads and writes HTTP session information using");
 
         pingdom.uses(webApplication, "Monitors");
         webApplication.uses(sendGrid, "Sends e-mails using");
 
+        webBrowser.uses(remoteApi, "Reads and writes workspace information using");
+
         ViewSet views = workspace.getViews();
         ContainerView containerView = views.createContainerView(structurizr, "Containers", "The container diagram for Structurizr.");
         containerView.addAllElements();
+        containerView.remove(remoteApi);
 
         writeToFile(workspace);
     }

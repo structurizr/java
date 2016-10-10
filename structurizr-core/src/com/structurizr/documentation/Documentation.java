@@ -220,4 +220,9 @@ public class Documentation {
         }
     }
 
+    @JsonIgnore
+    public boolean isEmpty() {
+        return sections.isEmpty() && images.isEmpty();
+    }
+
 }
