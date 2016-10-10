@@ -6,6 +6,7 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
+import org.reflections.scanners.AbstractScanner;
 import org.reflections.scanners.FieldAnnotationsScanner;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.scanners.TypeAnnotationsScanner;
@@ -42,11 +43,13 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
 
         this.reflections = new Reflections(new ConfigurationBuilder()
                   .filterInputsBy(new FilterBuilder().includePackage(componentFinder.getPackageToScan()))
-                  .setUrls(ClasspathHelper.forPackage(componentFinder.getPackageToScan()))
+                  .setUrls(ClasspathHelper.forJavaClassPath())
                   .setScanners(
                           new TypeAnnotationsScanner(),
                           new SubTypesScanner(false),
-                          new FieldAnnotationsScanner())
+                          new FieldAnnotationsScanner(),
+                          new AllTypesScanner()
+                          )
                   );
     }
 
@@ -130,6 +133,10 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
         return reflections.getSubTypesOf(Object.class);
     }
 
+    protected Set<String> getAllTypeNames() {
+        return reflections.getStore().get(AllTypesScanner.class.getSimpleName()).keySet();
+    }
+
     protected Set<Class> getInterfacesThatExtend(Class interfaceType) {
         return reflections.getSubTypesOf(interfaceType);
     }
@@ -169,6 +176,17 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
 
     public void addSupportingTypesStrategy(SupportingTypesStrategy supportingTypesStrategy) {
         supportingTypesStrategies.add(supportingTypesStrategy);
+    }
+
+}
+
+class AllTypesScanner extends AbstractScanner {
+
+    @Override
+    public void scan(Object cls) {
+        String className = getMetadataAdapter().getClassName(cls);
+
+        getStore().put(className, className);
     }
 
 }

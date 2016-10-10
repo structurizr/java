@@ -18,8 +18,9 @@ public class TypeBasedComponentFinderStrategy extends AbstractReflectionsCompone
 
     @Override
     public void findComponents() throws Exception {
-        Set<Class<?>> types = getAllTypes();
-        for (Class<?> type : types) {
+        Set<String> typeNames = getAllTypeNames();
+        for (String typeName : typeNames) {
+            Class type = Class.forName(typeName);
             for (TypeMatcher typeMatcher : typeMatchers) {
                 if (typeMatcher.matches(type)) {
                     Component component = getComponentFinder().getContainer().addComponent(
