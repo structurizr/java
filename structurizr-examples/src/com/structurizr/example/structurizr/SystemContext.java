@@ -45,12 +45,12 @@ public class SystemContext extends AbstractStructurizrWorkspace {
         SoftwareSystem braintree = model.addSoftwareSystem(BRAINTREE, "Online payment provider");
         taxamo.uses(braintree, "Delegates payment processing to");
 
-        SoftwareSystem remoteApi = model.addSoftwareSystem(REMOTE_API, "A Structurizr API server, hosted outside of the Structurizr cloud environment.");
+        SoftwareSystem onPremisesAPi = model.addSoftwareSystem(ON_PREMISES_API, "An on-premises Structurizr API server, hosted outside of the Structurizr cloud environment.");
 
         ViewSet views = workspace.getViews();
         SystemContextView systemContextView = views.createSystemContextView(structurizr, "Context", "The System Context view for Structurizr.");
         systemContextView.addAllElements();
-        systemContextView.remove(remoteApi);
+        systemContextView.remove(onPremisesAPi);
 
         writeToFile(workspace);
     }

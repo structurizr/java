@@ -28,7 +28,7 @@ public class Containers extends AbstractStructurizrWorkspace {
         SoftwareSystem pingdom = model.getSoftwareSystemWithName(PINGDOM);
         SoftwareSystem sendGrid = model.getSoftwareSystemWithName(SENDGRID);
         SoftwareSystem taxamo = model.getSoftwareSystemWithName(TAXAMO);
-        SoftwareSystem remoteApi = model.getSoftwareSystemWithName(REMOTE_API);
+        SoftwareSystem remoteApi = model.getSoftwareSystemWithName(ON_PREMISES_API);
 
         Container webBrowser = structurizr.addContainer(WEB_BROWSER, "Allows users to view and manage workspaces.", "Safari, Firefox, Chrome, IE11");
         anonymousUser.uses(webBrowser, "Uses");

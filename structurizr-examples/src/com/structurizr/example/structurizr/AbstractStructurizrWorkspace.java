@@ -21,6 +21,7 @@ abstract class AbstractStructurizrWorkspace {
     static final String SENDGRID = "SendGrid";
     static final String TAXAMO = "Taxamo";
     static final String BRAINTREE = "Braintree";
+    static final String ON_PREMISES_API = "On-Premises API";
 
     static final String WEB_BROWSER = "Web Browser";
     static final String WWW = "www.structurizr.com";
