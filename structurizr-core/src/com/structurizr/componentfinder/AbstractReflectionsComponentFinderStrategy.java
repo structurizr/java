@@ -33,8 +33,7 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
     }
 
     protected AbstractReflectionsComponentFinderStrategy(SupportingTypesStrategy... strategies) {
-        this.supportingTypesStrategies = Arrays.asList(strategies);
-        this.supportingTypesStrategies.stream().forEach(s -> s.setComponentFinderStrategy(this));
+        Arrays.asList(strategies).stream().forEach(this::addSupportingTypesStrategy);
     }
 
     @Override
@@ -176,6 +175,7 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
 
     public void addSupportingTypesStrategy(SupportingTypesStrategy supportingTypesStrategy) {
         supportingTypesStrategies.add(supportingTypesStrategy);
+        supportingTypesStrategy.setComponentFinderStrategy(this);
     }
 
 }
