@@ -72,7 +72,7 @@ public class FinancialRiskSystem {
 
         Documentation documentation = workspace.getDocumentation();
         File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/core/financialrisksystem");
-        documentation.add(financialRiskSystem, Type.Context, Format.Markdown, new File(documentationRoot, "context.md"));
+        documentation.add(financialRiskSystem, Type.Context, Format.AsciiDoc, new File(documentationRoot, "context.adoc"));
         documentation.add(financialRiskSystem, Type.FunctionalOverview, Format.Markdown, new File(documentationRoot, "functional-overview.md"));
         documentation.add(financialRiskSystem, Type.QualityAttributes, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));
         documentation.addImages(documentationRoot);
