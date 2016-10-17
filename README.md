@@ -49,9 +49,9 @@ The dependencies for use with Maven, Ivy, Gradle, etc are as follows.
 
 Name                                          | Description
 -------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------
-com.structurizr:structurizr-core:0.8.1        | The core library that can used to create and upload models to Structurizr.
-com.structurizr:structurizr-spring:0.8.1      | The Spring integration to extract classes annotated @Controller, @Service and @Repository for identification as components.
-com.structurizr:structurizr-annotations:0.8.1 | Annotations to add software architecture hints into your own code.
+com.structurizr:structurizr-core:0.9.0        | The core library that can used to create and upload models to Structurizr.
+com.structurizr:structurizr-spring:0.9.0      | The Spring integration to extract classes annotated @Controller, @Service and @Repository for identification as components.
+com.structurizr:structurizr-annotations:0.9.0 | Annotations to add software architecture hints into your own code.
 
 ## Getting started
 
@@ -66,7 +66,7 @@ The dependencies for use with Maven, Ivy, Gradle, etc are as follows.
 
 Name                                          | Description
 -------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------
-com.structurizr:structurizr-core:0.8.1        | The core library that can used to create models and upload models to Structurizr.
+com.structurizr:structurizr-core:0.9.0        | The core library that can used to create models and upload models to Structurizr.
 
 > Please note that you will need to add "http://jcenter.bintray.com" as an additional repository to your build configuration.
 
