@@ -126,8 +126,7 @@ containerView.addAllContainers();
 And finally is the component diagram.
 
 ```java
-ComponentView componentView = viewSet.createComponentView(webApplication);
-componentView.setKey("components");
+ComponentView componentView = viewSet.createComponentView(webApplication, "components", "The Components diagram for the Spring PetClinic web application.");
 componentView.addAllComponents();
 componentView.addAllPeople();
 componentView.add(relationalDatabase);
