@@ -1,6 +1,7 @@
 package com.structurizr.componentfinder;
 
 import com.google.common.base.Predicates;
+import com.structurizr.model.CodeElement;
 import com.structurizr.model.Component;
 import javassist.ClassPool;
 import javassist.CtClass;
@@ -59,7 +60,7 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
             for (SupportingTypesStrategy strategy : supportingTypesStrategies) {
                 for (String type : strategy.getSupportingTypes(component)) {
                     if (componentFinder.getContainer().getComponentOfType(type) == null) {
-                        component.addSupportingType(type);
+                        component.addSupportingType(new CodeElement(type));
                     }
                 }
             }
@@ -70,8 +71,8 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
                 addEfferentDependencies(component, component.getType(), new HashSet<>());
 
                 // and repeat for the supporting types
-                for (String supportingType : component.getSupportingTypes()) {
-                    addEfferentDependencies(component, supportingType, new HashSet<>());
+                for (CodeElement codeElement : component.getCode()) {
+                    addEfferentDependencies(component, codeElement.getType(), new HashSet<>());
                 }
             }
         }

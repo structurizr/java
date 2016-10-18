@@ -2,10 +2,7 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * A component (a grouping of related functionality behind an interface that runs inside a container).
@@ -15,9 +12,7 @@ public class Component extends Element {
     private Container parent;
 
     private String technology = "";
-    private String type;
-    private Set<String> supportingTypes = new HashSet<>();
-    private String sourcePath;
+    private Set<CodeElement> codeElements = new HashSet<>();
     private long size;
 
     public Component() {
@@ -57,40 +52,32 @@ public class Component extends Element {
      *
      * @return  the type, as a String
      */
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     @JsonIgnore
-    public Set<String> getSupportingTypes() {
-        return supportingTypes;
-    }
-
-    void setSupportingTypes(Set<String> supportingTypes) {
-        this.supportingTypes = supportingTypes;
-    }
-
-    public void addSupportingType(String type) {
-        if (type != null && !supportingTypes.contains(type) && !type.equals(this.getType())) {
-            this.supportingTypes.add(type);
+    public String getType() {
+        Optional<CodeElement> optional = codeElements.stream().filter(ce -> ce.getRole() == CodeElementRole.Primary).findFirst();
+        if (optional.isPresent()) {
+            return optional.get().getType();
+        } else {
+            return null;
         }
     }
 
-    /**
-     * Gets the source code path that reflects this component (e.g. a GitHub URL).
-     *
-     * @return  a path to the source code, as a String
-     */
-    public String getSourcePath() {
-        return sourcePath;
+    public void setType(String type) {
+        CodeElement codeElement = new CodeElement(type);
+        codeElement.setRole(CodeElementRole.Primary);
+        addSupportingType(codeElement);
     }
 
-    public void setSourcePath(String sourcePath) {
-        this.sourcePath = sourcePath;
+    public Set<CodeElement> getCode() {
+        return codeElements;
+    }
+
+    void setCodeElements(Set<CodeElement> codeElements) {
+        this.codeElements = codeElements;
+    }
+
+    public void addSupportingType(CodeElement codeElement) {
+        this.codeElements.add(codeElement);
     }
 
     public long getSize() {

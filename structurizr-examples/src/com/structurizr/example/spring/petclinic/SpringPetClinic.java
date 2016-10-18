@@ -88,11 +88,13 @@ public class SpringPetClinic {
 
         // link the architecture model with the code
         for (Component component : webApplication.getComponents()) {
-            String sourcePath = component.getSourcePath();
-            if (sourcePath != null) {
-                component.setSourcePath(sourcePath.replace(
-                        sourceRoot,
-                        "https://github.com/spring-projects/spring-petclinic/tree/master"));
+            for (CodeElement codeElement : component.getCode()) {
+                String sourcePath = codeElement.getSource();
+                if (sourcePath != null) {
+                    codeElement.setSource(sourcePath.replace(
+                            sourceRoot,
+                            "https://github.com/spring-projects/spring-petclinic/tree/master"));
+                }
             }
         }
 

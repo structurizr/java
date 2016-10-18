@@ -80,13 +80,13 @@ public class JHipsterSampleApplication {
         }
 
         // link the architecture model with the code
-        for (Component component : webApplication.getComponents()) {
-            if (component.getSourcePath() != null) {
-                component.setSourcePath(component.getSourcePath().replace(
-                        "/Users/simon/Desktop/jhipster-sample-app",
-                        "https://github.com/jhipster/jhipster-sample-app/tree/master/"));
-            }
-        }
+//        for (Component component : webApplication.getComponents()) {
+//            if (component.getSourcePath() != null) {
+//                component.setSourcePath(component.getSourcePath().replace(
+//                        "/Users/simon/Desktop/jhipster-sample-app",
+//                        "https://github.com/jhipster/jhipster-sample-app/tree/master/"));
+//            }
+//        }
 
         // tag and style some elements
         relationalDatabase.addTags("Database");

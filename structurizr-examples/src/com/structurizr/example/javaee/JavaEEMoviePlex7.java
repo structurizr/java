@@ -66,14 +66,14 @@ public class JavaEEMoviePlex7 {
         componentFinder.findComponents();
 
         // link the architecture model with the code
-        for (Component component : webApplication.getComponents()) {
-            String sourcePath = component.getSourcePath();
-            if (sourcePath != null) {
-                component.setSourcePath(sourcePath.replace(
-                        sourceRoot,
-                        "https://github.com/javaee-samples/javaee7-hol/blob/master/solution/movieplex7"));
-            }
-        }
+//        for (Component component : webApplication.getComponents()) {
+//            String sourcePath = component.getSourcePath();
+//            if (sourcePath != null) {
+//                component.setSourcePath(sourcePath.replace(
+//                        sourceRoot,
+//                        "https://github.com/javaee-samples/javaee7-hol/blob/master/solution/movieplex7"));
+//            }
+//        }
 
 //        // booking
 //        Component bookingComponent = webApplication.addComponent("Booking", "Allows customers to book movie showings", "EJB");

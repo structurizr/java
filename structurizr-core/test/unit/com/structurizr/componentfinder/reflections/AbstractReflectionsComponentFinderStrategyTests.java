@@ -2,10 +2,7 @@ package com.structurizr.componentfinder.reflections;
 
 import com.structurizr.Workspace;
 import com.structurizr.componentfinder.*;
-import com.structurizr.model.Component;
-import com.structurizr.model.Container;
-import com.structurizr.model.Model;
-import com.structurizr.model.SoftwareSystem;
+import com.structurizr.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -183,9 +180,12 @@ public class AbstractReflectionsComponentFinderStrategyTests {
 
         // the default strategy for supporting types is to find the first implementation
         // class if the component type is an interface
-        assertEquals(0, myController.getSupportingTypes().size());
-        assertEquals(1, myRepository.getSupportingTypes().size());
-        assertTrue(myRepository.getSupportingTypes().contains("com.structurizr.componentfinder.reflections.supportingTypes.myapp.data.MyRepositoryImpl"));
+        assertEquals(1, myController.getCode().size());
+        assertCodeElementInComponent(myController, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.web.MyController", CodeElementRole.Primary);
+
+        assertEquals(2, myRepository.getCode().size());
+        assertCodeElementInComponent(myRepository, "com.structurizr.componentfinder.reflections.supportingTypes.data.MyRepository", CodeElementRole.Primary);
+        assertCodeElementInComponent(myRepository, "com.structurizr.componentfinder.reflections.supportingTypes.data.MyRepositoryImpl", CodeElementRole.Supporting);
     }
 
     @Test
@@ -205,10 +205,11 @@ public class AbstractReflectionsComponentFinderStrategyTests {
         assertEquals(1, myController.getRelationships().size());
         assertNotNull(myController.getRelationships().stream().filter(r -> r.getDestination() == myRepository).findFirst().get());
 
-        assertEquals(0, myController.getSupportingTypes().size());
-        assertEquals(2, myRepository.getSupportingTypes().size());
-        assertTrue(myRepository.getSupportingTypes().contains("com.structurizr.componentfinder.reflections.supportingTypes.myapp.data.MyRepositoryImpl"));
-        assertTrue(myRepository.getSupportingTypes().contains("com.structurizr.componentfinder.reflections.supportingTypes.myapp.data.MyRepositoryRowMapper"));
+        assertEquals(1, myController.getCode().size());
+        assertEquals(3, myRepository.getCode().size());
+        assertCodeElementInComponent(myRepository, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.data.MyRepository", CodeElementRole.Primary);
+        assertCodeElementInComponent(myRepository, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.data.MyRepositoryImpl", CodeElementRole.Supporting);
+        assertCodeElementInComponent(myRepository, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.data.MyRepositoryRowMapper", CodeElementRole.Supporting);
     }
 
     @Test
@@ -229,12 +230,25 @@ public class AbstractReflectionsComponentFinderStrategyTests {
         assertEquals(1, myController.getRelationships().size());
         assertNotNull(myController.getRelationships().stream().filter(r -> r.getDestination() == myRepository).findFirst().get());
 
-        assertEquals(1, myController.getSupportingTypes().size());
-        assertTrue(myController.getSupportingTypes().contains("com.structurizr.componentfinder.reflections.supportingTypes.myapp.AbstractComponent"));
-        assertEquals(3, myRepository.getSupportingTypes().size());
-        assertTrue(myRepository.getSupportingTypes().contains("com.structurizr.componentfinder.reflections.supportingTypes.myapp.AbstractComponent"));
-        assertTrue(myRepository.getSupportingTypes().contains("com.structurizr.componentfinder.reflections.supportingTypes.myapp.data.MyRepositoryImpl"));
-        assertTrue(myRepository.getSupportingTypes().contains("com.structurizr.componentfinder.reflections.supportingTypes.myapp.data.MyRepositoryRowMapper"));
+        assertEquals(2, myController.getCode().size());
+        assertCodeElementInComponent(myController, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.MyController", CodeElementRole.Primary);
+        assertCodeElementInComponent(myController, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.AbstractComponent", CodeElementRole.Supporting);
+
+        assertEquals(4, myRepository.getCode().size());
+        assertCodeElementInComponent(myController, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.data.MyRepository", CodeElementRole.Primary);
+        assertCodeElementInComponent(myController, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.AbstractComponent", CodeElementRole.Supporting);
+        assertCodeElementInComponent(myController, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.data.MyRepositoryImpl", CodeElementRole.Supporting);
+        assertCodeElementInComponent(myController, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.data.MyRepositoryRowMapper", CodeElementRole.Supporting);
+    }
+
+    private boolean assertCodeElementInComponent(Component component, String type, CodeElementRole role) {
+        for (CodeElement codeElement : component.getCode()) {
+            if (codeElement.getType().equals(type)) {
+                return codeElement.getRole() == role;
+            }
+        }
+
+        return false;
     }
 
 }

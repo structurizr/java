@@ -54,13 +54,13 @@ public class SourceCodeComponentFinderStrategyTests {
         componentFinder.findComponents();
 
         assertEquals("A component that does something.", componentA.getDescription());
-        assertEquals(10, componentA.getSize());
+        assertEquals(20, componentA.getSize());
 
         assertEquals("A component that does something else.", componentB.getDescription());
-        assertEquals(10, componentB.getSize());
+        assertEquals(20, componentB.getSize());
 
         assertEquals("A component that does something else too.", componentC.getDescription());
-        assertEquals(10, componentC.getSize());
+        assertEquals(20, componentC.getSize());
     }
 
     @Test

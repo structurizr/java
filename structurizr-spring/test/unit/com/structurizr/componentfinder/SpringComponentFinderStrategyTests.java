@@ -40,21 +40,24 @@ public class SpringComponentFinderStrategyTests {
         assertNotNull(someController);
         assertEquals("SomeController", someController.getName());
         assertEquals("com.structurizr.componentfinder.myapp.web.SomeController", someController.getType());
-        assertEquals(0, someController.getSupportingTypes().size());
+        assertEquals(1, someController.getCode().size());
 
         Component someService = webApplication.getComponentWithName("SomeService");
         assertNotNull(someService);
         assertEquals("SomeService", someService.getName());
         assertEquals("com.structurizr.componentfinder.myapp.service.SomeService", someService.getType());
-        assertEquals(1, someService.getSupportingTypes().size());
-        assertTrue(someService.getSupportingTypes().contains("com.structurizr.componentfinder.myapp.service.SomeServiceImpl"));
+        assertEquals(2, someService.getCode().size());
+        assertCodeElementInComponent(someService, "com.structurizr.componentfinder.myapp.service.SomeService", CodeElementRole.Primary);
+        assertCodeElementInComponent(someService, "com.structurizr.componentfinder.myapp.service.SomeServiceImpl", CodeElementRole.Supporting);
 
         Component someRepository = webApplication.getComponentWithName("SomeRepository");
         assertNotNull(someRepository);
         assertEquals("SomeRepository", someRepository.getName());
         assertEquals("com.structurizr.componentfinder.myapp.data.SomeRepository", someRepository.getType());
-        assertEquals(1, someRepository.getSupportingTypes().size());
-        assertTrue(someRepository.getSupportingTypes().contains("com.structurizr.componentfinder.myapp.data.JdbcSomeRepository"));
+        assertEquals(2, someRepository.getCode().size());
+        assertCodeElementInComponent(someService, "com.structurizr.componentfinder.myapp.data.SomeRepository", CodeElementRole.Primary);
+        assertCodeElementInComponent(someService, "com.structurizr.componentfinder.myapp.data.JdbcSomeRepository", CodeElementRole.Supporting);
+
 
         Component someOtherRepository = webApplication.getComponentWithName("SomeOtherRepository");
         assertNotNull(someOtherRepository);
@@ -71,6 +74,16 @@ public class SpringComponentFinderStrategyTests {
         Set<Relationship> relationships = someService.getRelationships();
         assertNotNull(relationships.stream().filter(r -> r.getDestination() == someRepository).findFirst().get());
         assertNotNull(relationships.stream().filter(r -> r.getDestination() == someOtherRepository).findFirst().get());
+    }
+
+    private boolean assertCodeElementInComponent(Component component, String type, CodeElementRole role) {
+        for (CodeElement codeElement : component.getCode()) {
+            if (codeElement.getType().equals(type)) {
+                return codeElement.getRole() == role;
+            }
+        }
+
+        return false;
     }
 
 }

@@ -7,6 +7,8 @@ import com.structurizr.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Collection;
+
 import static org.junit.Assert.*;
 
 public class StructurizrAnnotationsComponentFinderStrategyTests {
@@ -55,30 +57,32 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
         assertEquals("MyHtmlController", myHtmlController.getName());
         assertEquals("com.structurizr.componentfinder.annotations.controller.html.MyHtmlController", myHtmlController.getType());
         assertEquals("Allows users to do something", myHtmlController.getDescription());
-        assertTrue(myHtmlController.getSupportingTypes().isEmpty());
+        assertEquals(1, myHtmlController.getCode().size());
 
         Component myJsonController = webApplication.getComponentWithName("MyJsonController");
         assertNotNull(myJsonController);
         assertEquals("MyJsonController", myJsonController.getName());
         assertEquals("com.structurizr.componentfinder.annotations.controller.json.MyJsonController", myJsonController.getType());
         assertEquals("Allows systems to do something", myJsonController.getDescription());
-        assertTrue(myJsonController.getSupportingTypes().isEmpty());
+        assertEquals(1, myJsonController.getCode().size());
 
         Component myService = webApplication.getComponentWithName("MyService");
         assertNotNull(myService);
         assertEquals("MyService", myService.getName());
         assertEquals("com.structurizr.componentfinder.annotations.service.MyService", myService.getType());
         assertEquals("A component that does some business logic", myService.getDescription());
-        assertEquals(1, myService.getSupportingTypes().size());
-        assertTrue(myService.getSupportingTypes().contains("com.structurizr.componentfinder.annotations.service.MyServiceImpl"));
+        assertEquals(2, myService.getCode().size());
+        assertCodeElementInComponent(myService, "com.structurizr.componentfinder.annotations.service.MyService", CodeElementRole.Primary);
+        assertCodeElementInComponent(myService, "com.structurizr.componentfinder.annotations.service.MyServiceImpl", CodeElementRole.Supporting);
 
         Component myRepository = webApplication.getComponentWithName("MyRepository");
         assertNotNull(myRepository);
         assertEquals("MyRepository", myRepository.getName());
         assertEquals("com.structurizr.componentfinder.annotations.repository.MyRepository", myRepository.getType());
         assertEquals("Manages some data", myRepository.getDescription());
-        assertEquals(1, myRepository.getSupportingTypes().size());
-        assertTrue(myRepository.getSupportingTypes().contains("com.structurizr.componentfinder.annotations.repository.MyRepositoryImpl"));
+        assertEquals(2, myRepository.getCode().size());
+        assertCodeElementInComponent(myRepository, "com.structurizr.componentfinder.annotations.repository.MyRepository", CodeElementRole.Primary);
+        assertCodeElementInComponent(myRepository, "com.structurizr.componentfinder.annotations.repository.MyRepositoryImpl", CodeElementRole.Supporting);
 
         Component loggingComponent = webApplication.getComponentWithName("LoggingComponent");
         assertNotNull(loggingComponent);
@@ -86,8 +90,9 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
         assertEquals("com.structurizr.componentfinder.annotations.logging.LoggingComponent", loggingComponent.getType());
         assertEquals("Writes log entries", loggingComponent.getDescription());
         assertEquals("Java and Logstash", loggingComponent.getTechnology());
-        assertEquals(1, loggingComponent.getSupportingTypes().size());
-        assertTrue(loggingComponent.getSupportingTypes().contains("com.structurizr.componentfinder.annotations.logging.LoggingComponentImpl"));
+        assertEquals(2, loggingComponent.getCode().size());
+        assertCodeElementInComponent(loggingComponent, "com.structurizr.componentfinder.annotations.logging.LoggingComponent", CodeElementRole.Primary);
+        assertCodeElementInComponent(loggingComponent, "com.structurizr.componentfinder.annotations.logging.LoggingComponentImpl", CodeElementRole.Supporting);
     }
 
     @Test
@@ -199,6 +204,16 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
 
         Relationship relationship = webBrowser.getRelationships().stream().filter(r -> r.getDestination() == myJsonController).findFirst().get();
         assertEquals("Does something via the API", relationship.getDescription());
+    }
+
+    private boolean assertCodeElementInComponent(Component component, String type, CodeElementRole role) {
+        for (CodeElement codeElement : component.getCode()) {
+            if (codeElement.getType().equals(type)) {
+                return codeElement.getRole() == role;
+            }
+        }
+
+        return false;
     }
 
 }

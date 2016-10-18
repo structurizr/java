@@ -1,5 +1,6 @@
 package com.structurizr.componentfinder;
 
+import com.structurizr.model.CodeElement;
 import com.structurizr.model.Component;
 import com.sun.javadoc.ClassDoc;
 import com.sun.javadoc.RootDoc;
@@ -70,7 +71,6 @@ public class SourceCodeComponentFinderStrategy extends ComponentFinderStrategy {
             if (component != null)
             {
                 component.setDescription(comment);
-                component.setSourcePath(pathToSourceFile);
             }
         }
 
@@ -81,10 +81,13 @@ public class SourceCodeComponentFinderStrategy extends ComponentFinderStrategy {
                 count += Files.lines(Paths.get(sourceFile)).count();
             }
 
-            for (String type : component.getSupportingTypes()) {
-                sourceFile = typeToSourceFile.get(type);
+            for (CodeElement codeElement : component.getCode()) {
+                sourceFile = typeToSourceFile.get(codeElement.getType());
                 if (sourceFile != null) {
-                    count += Files.lines(Paths.get(sourceFile)).count();
+                    long numberOfLinesInFile = Files.lines(Paths.get(sourceFile)).count();
+                    codeElement.setSource(sourceFile);
+                    codeElement.setSize(numberOfLinesInFile);
+                    count += numberOfLinesInFile;
                 }
             }
 

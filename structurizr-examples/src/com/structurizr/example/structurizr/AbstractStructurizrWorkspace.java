@@ -3,6 +3,7 @@ package com.structurizr.example.structurizr;
 import com.structurizr.Workspace;
 import com.structurizr.io.json.JsonReader;
 import com.structurizr.io.json.JsonWriter;
+import com.structurizr.model.CodeElement;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 
@@ -55,8 +56,10 @@ abstract class AbstractStructurizrWorkspace {
     protected void replaceLocalSourcePathWithRemoteUrl(Container container, String remoteSourcePath) throws Exception  {
         String currentDirectory = new File(".").getCanonicalPath();
         for (Component component : container.getComponents()) {
-            if (component.getSourcePath() != null) {
-                component.setSourcePath(component.getSourcePath().replace(currentDirectory, remoteSourcePath));
+            for (CodeElement codeElement : component.getCode()) {
+                if (codeElement.getSource() != null) {
+                    codeElement.setSource(codeElement.getSource().replace(currentDirectory, remoteSourcePath));
+                }
             }
         }
     }
