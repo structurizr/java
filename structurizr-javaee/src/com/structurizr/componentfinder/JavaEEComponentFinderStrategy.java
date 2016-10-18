@@ -19,12 +19,12 @@ public class JavaEEComponentFinderStrategy extends AbstractReflectionsComponentF
 
     @Override
     public void findComponents() throws Exception {
-        addAll(findPublicClassesWithAnnotation(Path.class, "JAX-RS web service"));
-        addAll(findPublicClassesWithAnnotation(ServerEndpoint.class, "Websocket endpoint"));
-        addAll(findPublicClassesWithAnnotation(Stateless.class, "Stateless session bean"));
-        addAll(findPublicClassesWithAnnotation(Stateful.class, "Stateful session bean"));
-        addAll(findPublicClassesWithAnnotation(Singleton.class, "Singleton session bean"));
-        addAll(findPublicClassesWithAnnotation(Named.class, "Named bean"));
+        addAll(findClassesWithAnnotation(Path.class, "JAX-RS web service"));
+        addAll(findClassesWithAnnotation(ServerEndpoint.class, "Websocket endpoint"));
+        addAll(findClassesWithAnnotation(Stateless.class, "Stateless session bean"));
+        addAll(findClassesWithAnnotation(Stateful.class, "Stateful session bean"));
+        addAll(findClassesWithAnnotation(Singleton.class, "Singleton session bean"));
+        addAll(findClassesWithAnnotation(Named.class, "Named bean"));
     }
 
 }

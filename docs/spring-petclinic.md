@@ -88,8 +88,11 @@ ComponentFinder componentFinder = new ComponentFinder(
 componentFinder.findComponents();
 ```
 
-Built-in to the ```SpringComponentFinderStrategy``` are some rules that automatically collapse the interface and implementation of a Spring Bean, so the controllers, services and repositories are treated as "components" rather than a number of separate interfaces and classes. The dependencies between components are also identified and extracted. In addition, the ```SourceCodeComponentFinderStrategy``` will parse the class-level Javadoc comment from the source file for inclusion in the model.
-It will also calculate the size of each component based upon the number of lines of source code.
+The ```SpringComponentFinderStrategy``` is a pre-built component finder strategy that understands how applications are built with Spring and how to identify Spring components, such as MVC controllers, REST controllers, services, repositories, JPA repositories, etc. The way that you identify supporting types (i.e. the Java classes and interfaces) that implement a component is also pluggable, and here we're looking for the first implementation of the component interface type, and all types referenced by it.
+
+Once the components and their supporting types have been idenfied, the dependencies between components are also identified and extracted.
+
+In addition, the ```SourceCodeComponentFinderStrategy``` will parse the top-level Javadoc comment from the source file for each component type for inclusion in the model. It will also calculate the size of each component based upon the number of lines of source code across all supporting types.
 
 The final thing we need to do is connect the user to the web controllers, and the repositories to the database. This is easy to do since the software architecture model is represented in code.
 

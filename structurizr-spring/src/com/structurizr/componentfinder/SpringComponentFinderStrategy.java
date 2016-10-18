@@ -53,27 +53,27 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
     }
 
     protected Collection<Component> findAnnotatedSpringMvcControllers() {
-        return findPublicClassesWithAnnotation(
+        return findClassesWithAnnotation(
                 org.springframework.stereotype.Controller.class, SPRING_MVC_CONTROLLER);
     }
 
     protected Collection<Component> findAnnotatedSpringServices() {
-        return findPublicInterfacesForImplementationClassesWithAnnotation(
+        return findInterfacesForImplementationClassesWithAnnotation(
                 org.springframework.stereotype.Service.class, SPRING_SERVICE);
     }
 
     protected Collection<Component> findAnnotatedSpringRepositories() {
-        return findPublicInterfacesForImplementationClassesWithAnnotation(
+        return findInterfacesForImplementationClassesWithAnnotation(
                 org.springframework.stereotype.Repository.class, SPRING_REPOSITORY);
     }
 
     protected Collection<Component> findAnnotatedSpringComponents() {
-        return findPublicInterfacesForImplementationClassesWithAnnotation(
+        return findInterfacesForImplementationClassesWithAnnotation(
                 org.springframework.stereotype.Component.class, SPRING_COMPONENT);
     }
 
     protected Collection<Component> findAnnotatedSpringRestControllers() {
-        return findPublicClassesWithAnnotation(
+        return findClassesWithAnnotation(
                 org.springframework.web.bind.annotation.RestController.class,
                 SPRING_REST_CONTROLLER);
     }
@@ -95,26 +95,33 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
         return componentsFound;
     }
 
-    protected Collection<Component> findPublicInterfacesForImplementationClassesWithAnnotation(Class<? extends Annotation> type, String technology) {
+    protected Collection<Component> findInterfacesForImplementationClassesWithAnnotation(Class<? extends Annotation> type, String technology) {
         Collection<Component> components = new LinkedList<>();
 
-        Set<Class<?>> componentTypes = getTypesAnnotatedWith(type);
-        for (Class<?> componentType : componentTypes) {
-            // WARNING: this code makes an assumption that the first implemented interface is the component type
-            // i.e. JdbcSomethingRepository (annotated @Repository) *only* implements SomethingRepository,
-            // which is the component type we're interested in
-            Class interfaceType = null;
-            if (componentType.getInterfaces().length > 0) {
-                interfaceType = componentType.getInterfaces()[0];
+        Set<Class<?>> annotatedTypes = getTypesAnnotatedWith(type);
+        for (Class<?> annotatedType : annotatedTypes) {
+            // The Spring @Component, @Service and @Repository annotations are typically used to annotate implementation
+            // classes, but we really want to find the interface type and use that to represent the component. Why?
+            // Well, for example, a Spring MVC controller may have a dependency on a "SomeRepository" interface, but
+            // it's the "JdbcSomeRepositoryImpl" implementation class that gets annotated with @Repository.
+            //
+            // This next bit of code tries to find the "SomeRepository" interface...
+            String componentName = annotatedType.getSimpleName(); // e.g. JdbcSomeRepositoryImpl
+            String componentType = annotatedType.getCanonicalName();
+
+            if (!annotatedType.isInterface() && annotatedType.getInterfaces().length > 0) {
+                for (Class interfaceType : annotatedType.getInterfaces()) {
+                    String interfaceName = interfaceType.getSimpleName();
+                    if (    componentName.startsWith(interfaceName) || // <InterfaceName><***>
+                            componentName.endsWith(interfaceName) ||   // <***><InterfaceName>
+                            componentName.contains(interfaceName)) {   // <***><InterfaceName><***>
+                        componentName = interfaceName;
+                        componentType = interfaceType.getCanonicalName();
+                    }
+                }
             }
 
-            if (interfaceType != null && Modifier.isPublic(interfaceType.getModifiers())) {
-                components.add(getComponentFinder().getContainer().addComponent(
-                        interfaceType.getSimpleName(),
-                        interfaceType.getCanonicalName(),
-                        "",
-                        technology));
-            }
+            components.add(getComponentFinder().getContainer().addComponent(componentName, componentType, "", technology));
         }
 
         return components;
