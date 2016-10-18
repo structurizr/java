@@ -43,10 +43,7 @@ See the [Spring PetClinic example](spring-petclinic.md) for an illustration of h
 
 ## Component type and supporting types
 
-In Structurizr, a [Component](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/model/Component.java) is described by a number of properties, including ```type``` and ```supportingTypes```.
-
-- ```type```: This is designed to refer to a single fully qualified Java type that best describes the type of the component. For example, this could be the fully qualified name of the public interface for the component.
-- ```supportingTypes```: This is the set of fully qualified Java types that support the implementation of the component.
+In Structurizr, a [Component](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/model/Component.java) is described by a number of properties and can have a number of [CodeElement](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/model/CodeElement.java)s associated with it that represent the Java classes and interfaces that implement that component.
 
 Again, because each codebase is different, the mechanism to find a component's supporting types is pluggable via a number of strategies, which can be used in combination.
 
