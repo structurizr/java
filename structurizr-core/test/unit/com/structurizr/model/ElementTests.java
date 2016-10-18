@@ -53,20 +53,6 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_equals_ReturnsTrue_WhenTheSameObjectIsPassed() {
-        SoftwareSystem softwareSystem = model.addSoftwareSystem("SystemA", "");
-        assertTrue(softwareSystem.equals(softwareSystem));
-    }
-
-    @Test
-    public void test_equals_ReturnsTrue_WhenTheAnObjectWithTheSameCanonicalNameIsPassed() {
-        SoftwareSystem softwareSystem1 = new Workspace("", "").getModel().addSoftwareSystem("System 1", "");
-        SoftwareSystem softwareSystem2 = new Workspace("", "").getModel().addSoftwareSystem("System 1", "");
-        assertTrue(softwareSystem1.equals(softwareSystem2));
-        assertTrue(softwareSystem2.equals(softwareSystem1));
-    }
-
-    @Test
     public void test_hasEfferentRelationshipWith_ReturnsFalse_WhenANullElementIsSpecified() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
         assertFalse(softwareSystem1.hasEfferentRelationshipWith(null));
@@ -223,6 +209,46 @@ public class ElementTests extends AbstractWorkspaceTestBase {
 
         assertNull(a.delivers(b, "Sends e-mail to", "Technology", InteractionStyle.Synchronous));
         assertEquals(1, model.getRelationships().size());
+    }
+
+    @Test
+    public void test_equals_ReturnsFalse_WhenTestedAgainstNull() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
+        assertFalse(softwareSystem.equals(null));
+    }
+
+    @Test
+    public void test_equals_ReturnsFalse_WhenTheTwoObjectsAreDifferentTypes() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
+        assertFalse(softwareSystem.equals("hello world"));
+    }
+
+    @Test
+    public void test_equals_ReturnsTrue_WhenTestedAgainstItself() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
+        assertTrue(softwareSystem.equals(softwareSystem));
+    }
+
+    @Test
+    public void test_equals_ReturnsFalse_WhenTheTwoObjectsAreDifferent() {
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("A", "Description");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("B", "Description");
+        assertFalse(softwareSystemA.equals(softwareSystemB));
+    }
+
+    @Test
+    public void test_equals_ReturnsFalse_WhenTheTwoElementsHaveTheSameCanonicalNameButAreDifferentTypes() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
+        Person person = model.addPerson("Name", "Description");
+        assertFalse(softwareSystem.equals(person));
+    }
+
+    @Test
+    public void test_equals_ReturnsTrue_WhenTheAnObjectWithTheSameCanonicalNameIsPassed() {
+        SoftwareSystem softwareSystem1 = new Workspace("", "").getModel().addSoftwareSystem("System 1", "");
+        SoftwareSystem softwareSystem2 = new Workspace("", "").getModel().addSoftwareSystem("System 1", "");
+        assertTrue(softwareSystem1.equals(softwareSystem2));
+        assertTrue(softwareSystem2.equals(softwareSystem1));
     }
 
 }

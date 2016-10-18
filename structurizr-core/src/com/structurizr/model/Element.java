@@ -47,7 +47,7 @@ public abstract class Element extends Taggable {
     }
 
     /**
-     * Gets the name of this person.
+     * Gets the name of this element.
      *
      * @return the name, as a String
      */
@@ -55,40 +55,13 @@ public abstract class Element extends Taggable {
         return name;
     }
 
+    /**
+     * Sets the name of this element.
+     *
+     * @param name  the name, as a String
+     */
     public void setName(String name) {
         this.name = name;
-    }
-
-    /**
-     * Gets a description of this person.
-     *
-     * @return the description, as a String
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public abstract Element getParent();
-
-    boolean has(Relationship relationship) {
-        return relationships.contains(relationship);
-    }
-
-    void addRelationship(Relationship relationship) {
-        relationships.add(relationship);
-    }
-
-    public Set<Relationship> getRelationships() {
-        return new LinkedHashSet<>(relationships);
-    }
-
-    @Override
-    public String toString() {
-        return "{" + getId() + " | " + getName() + " | " + getDescription() + "}";
     }
 
     @JsonIgnore
@@ -96,6 +69,40 @@ public abstract class Element extends Taggable {
 
     protected String formatForCanonicalName(String name) {
         return name.replace(CANONICAL_NAME_SEPARATOR, "");
+    }
+
+    /**
+     * Gets a description of this element.
+     *
+     * @return the description, as a String
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Sets the description of this element.
+     *
+     * @param description   the description, as a String
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Gets the parent of this element.
+     *
+     * @return  the parent Element, or null if this element doesn't have a parent (i.e. a Person or SoftwareSystem)
+     */
+    public abstract Element getParent();
+
+    /**
+     * Gets the set of outgoing relationships.
+     *
+     * @return  a Set of Relationship objects, or an empty set if none exist
+     */
+    public Set<Relationship> getRelationships() {
+        return new LinkedHashSet<>(relationships);
     }
 
     /**
@@ -242,14 +249,33 @@ public abstract class Element extends Taggable {
         return getModel().addRelationship(this, destination, description, technology, interactionStyle);
     }
 
+    /**
+     * Determines whether this element has afferent (incoming) relationships.
+     *
+     * @return  true if this element has afferent relationships, false otherwise
+     */
     public boolean hasAfferentRelationships() {
         return getModel().getRelationships().stream().filter(r -> r.getDestination() == this).count() > 0;
     }
 
+    /**
+     * Determines whether this element has an efferent (outgoing) relationship with
+     * the specified element.
+     *
+     * @param element   the element to look for
+     * @return  true if this element has an efferent relationship with the specified element,
+     *          false otherwise
+     */
     public boolean hasEfferentRelationshipWith(Element element) {
         return getEfferentRelationshipWith(element) != null;
     }
 
+    /**
+     * Gets the efferent (outgoing) relationship with the specified element.
+     *
+     * @param element   the element to look for
+     * @return  a Relationship object if an efferent relationship exists, null otherwise
+     */
     public Relationship getEfferentRelationshipWith(Element element) {
         if (element == null) {
             return null;
@@ -264,6 +290,19 @@ public abstract class Element extends Taggable {
         return null;
     }
 
+    boolean has(Relationship relationship) {
+        return relationships.contains(relationship);
+    }
+
+    void addRelationship(Relationship relationship) {
+        relationships.add(relationship);
+    }
+
+    @Override
+    public String toString() {
+        return "{" + getId() + " | " + getName() + " | " + getDescription() + "}";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -274,7 +313,11 @@ public abstract class Element extends Taggable {
             return false;
         }
 
-        Element element = (Element) o;
+        if (!this.getClass().equals(o.getClass())) {
+            return false;
+        }
+
+        Element element = (Element)o;
         return getCanonicalName().equals(element.getCanonicalName());
     }
 
