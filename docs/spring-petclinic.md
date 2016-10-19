@@ -80,7 +80,6 @@ Spring MVC uses Java annotations (```@Controller```, ```@Service``` and ```@Repo
 ComponentFinder componentFinder = new ComponentFinder(
     webApplication, "org.springframework.samples.petclinic",
     new SpringComponentFinderStrategy(
-            new FirstImplementationOfInterfaceSupportingTypesStrategy(),
             new ReferencedTypesSupportingTypesStrategy()
     ),
     new SourceCodeComponentFinderStrategy(new File(sourceRoot, "/src/main/java/"), 150));
@@ -88,7 +87,7 @@ ComponentFinder componentFinder = new ComponentFinder(
 componentFinder.findComponents();
 ```
 
-The ```SpringComponentFinderStrategy``` is a pre-built component finder strategy that understands how applications are built with Spring and how to identify Spring components, such as MVC controllers, REST controllers, services, repositories, JPA repositories, etc. The way that you identify supporting types (i.e. the Java classes and interfaces) that implement a component is also pluggable, and here we're looking for the first implementation of the component interface type, and all types referenced by it.
+The ```SpringComponentFinderStrategy``` is a pre-built component finder strategy that understands how applications are built with Spring and how to identify Spring components, such as MVC controllers, REST controllers, services, repositories, JPA repositories, etc. The way that you identify supporting types (i.e. the Java classes and interfaces) that implement a component is also pluggable, and here we're looking for all types referenced by the component type(s).
 
 Once the components and their supporting types have been idenfied, the dependencies between components are also identified and extracted.
 

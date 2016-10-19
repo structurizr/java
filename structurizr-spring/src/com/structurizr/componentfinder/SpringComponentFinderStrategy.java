@@ -1,5 +1,6 @@
 package com.structurizr.componentfinder;
 
+import com.structurizr.model.CodeElement;
 import com.structurizr.model.Component;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
@@ -35,7 +36,6 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
     public static final String SPRING_REST_CONTROLLER = "Spring REST Controller";
 
     public SpringComponentFinderStrategy() {
-        super(new FirstImplementationOfInterfaceSupportingTypesStrategy());
     }
 
     public SpringComponentFinderStrategy(SupportingTypesStrategy... strategies) {
@@ -100,28 +100,43 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
 
         Set<Class<?>> annotatedTypes = getTypesAnnotatedWith(type);
         for (Class<?> annotatedType : annotatedTypes) {
-            // The Spring @Component, @Service and @Repository annotations are typically used to annotate implementation
-            // classes, but we really want to find the interface type and use that to represent the component. Why?
-            // Well, for example, a Spring MVC controller may have a dependency on a "SomeRepository" interface, but
-            // it's the "JdbcSomeRepositoryImpl" implementation class that gets annotated with @Repository.
-            //
-            // This next bit of code tries to find the "SomeRepository" interface...
-            String componentName = annotatedType.getSimpleName(); // e.g. JdbcSomeRepositoryImpl
-            String componentType = annotatedType.getCanonicalName();
+            if (annotatedType.isInterface()) {
+                // the annotated type is an interface, so we're done
+                components.add(getComponentFinder().getContainer().addComponent(
+                        annotatedType.getSimpleName(), annotatedType.getCanonicalName(), "", technology));
+            } else {
+                // The Spring @Component, @Service and @Repository annotations are typically used to annotate implementation
+                // classes, but we really want to find the interface type and use that to represent the component. Why?
+                // Well, for example, a Spring MVC controller may have a dependency on a "SomeRepository" interface, but
+                // it's the "JdbcSomeRepositoryImpl" implementation class that gets annotated with @Repository.
+                //
+                // This next bit of code tries to find the "SomeRepository" interface...
+                String componentName = annotatedType.getSimpleName(); // e.g. JdbcSomeRepositoryImpl
+                String componentType = annotatedType.getCanonicalName();
+                boolean foundInterface = false;
 
-            if (!annotatedType.isInterface() && annotatedType.getInterfaces().length > 0) {
-                for (Class interfaceType : annotatedType.getInterfaces()) {
-                    String interfaceName = interfaceType.getSimpleName();
-                    if (    componentName.startsWith(interfaceName) || // <InterfaceName><***>
-                            componentName.endsWith(interfaceName) ||   // <***><InterfaceName>
-                            componentName.contains(interfaceName)) {   // <***><InterfaceName><***>
-                        componentName = interfaceName;
-                        componentType = interfaceType.getCanonicalName();
+                if (annotatedType.getInterfaces().length > 0) {
+                    for (Class interfaceType : annotatedType.getInterfaces()) {
+                        String interfaceName = interfaceType.getSimpleName();
+                        if (componentName.startsWith(interfaceName) || // <InterfaceName><***>
+                                componentName.endsWith(interfaceName) ||   // <***><InterfaceName>
+                                componentName.contains(interfaceName)) {   // <***><InterfaceName><***>
+                            componentName = interfaceName;
+                            componentType = interfaceType.getCanonicalName();
+                            foundInterface = true;
+                            break;
+                        }
                     }
                 }
-            }
 
-            components.add(getComponentFinder().getContainer().addComponent(componentName, componentType, "", technology));
+                Component component = getComponentFinder().getContainer().addComponent(componentName, componentType, "", technology);
+                components.add(component);
+
+                if (foundInterface) {
+                    // the primary component type is now an interface, so add the type we originally found as a supporting type
+                    component.addSupportingType(new CodeElement(annotatedType.getCanonicalName()));
+                }
+            }
         }
 
         return components;
