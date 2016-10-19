@@ -65,7 +65,7 @@ public class Component extends Element {
     public void setType(String type) {
         CodeElement codeElement = new CodeElement(type);
         codeElement.setRole(CodeElementRole.Primary);
-        addSupportingType(codeElement);
+        this.codeElements.add(codeElement);
     }
 
     public Set<CodeElement> getCode() {
@@ -76,7 +76,9 @@ public class Component extends Element {
         this.codeElements = codeElements;
     }
 
-    public void addSupportingType(CodeElement codeElement) {
+    public void addSupportingType(String type) {
+        CodeElement codeElement = new CodeElement(type);
+        codeElement.setRole(CodeElementRole.Supporting);
         this.codeElements.add(codeElement);
     }
 

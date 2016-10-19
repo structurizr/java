@@ -60,7 +60,7 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
             for (SupportingTypesStrategy strategy : supportingTypesStrategies) {
                 for (String type : strategy.getSupportingTypes(component)) {
                     if (componentFinder.getContainer().getComponentOfType(type) == null) {
-                        component.addSupportingType(new CodeElement(type));
+                        component.addSupportingType(type);
                     }
                 }
             }

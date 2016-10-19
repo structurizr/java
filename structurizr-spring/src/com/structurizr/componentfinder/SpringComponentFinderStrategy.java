@@ -134,7 +134,7 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
 
                 if (foundInterface) {
                     // the primary component type is now an interface, so add the type we originally found as a supporting type
-                    component.addSupportingType(new CodeElement(annotatedType.getCanonicalName()));
+                    component.addSupportingType(annotatedType.getCanonicalName());
                 }
             }
         }
