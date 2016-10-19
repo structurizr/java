@@ -26,6 +26,7 @@ public class SourceCodeComponentFinderStrategy extends ComponentFinderStrategy {
     private Integer maxDescriptionLength = null;
 
     private Map<String,String> typeToSourceFile = new HashMap<>();
+    private Map<String,String> typeToDescription = new HashMap<>();
 
     public SourceCodeComponentFinderStrategy(File sourcePath) {
         this.sourcePath = sourcePath;
@@ -60,18 +61,14 @@ public class SourceCodeComponentFinderStrategy extends ComponentFinderStrategy {
     public void findDependencies() throws Exception {
         runJavaDoc();
 
+        JavadocCommentFilter filter = new JavadocCommentFilter(maxDescriptionLength);
         for (ClassDoc classDoc : ROOTDOC.classes()) {
             String type = classDoc.qualifiedTypeName();
-            String comment = filterAndTruncate(classDoc.commentText());
+            String comment = filter.filterAndTruncate(classDoc.commentText());
             String pathToSourceFile = classDoc.position().file().getCanonicalPath();
 
             typeToSourceFile.put(type, pathToSourceFile);
-
-            Component component = getComponentFinder().getContainer().getComponentOfType(type);
-            if (component != null)
-            {
-                component.setDescription(comment);
-            }
+            typeToDescription.put(type, comment);
         }
 
         for (Component component : getComponentFinder().getContainer().getComponents()) {
@@ -81,7 +78,11 @@ public class SourceCodeComponentFinderStrategy extends ComponentFinderStrategy {
                 count += Files.lines(Paths.get(sourceFile)).count();
             }
 
+            component.setDescription(typeToDescription.getOrDefault(component.getType(), null));
+
             for (CodeElement codeElement : component.getCode()) {
+                codeElement.setDescription(typeToDescription.getOrDefault(codeElement.getType(), null));
+
                 sourceFile = typeToSourceFile.get(codeElement.getType());
                 if (sourceFile != null) {
                     long numberOfLinesInFile = Files.lines(Paths.get(sourceFile)).count();
@@ -94,21 +95,6 @@ public class SourceCodeComponentFinderStrategy extends ComponentFinderStrategy {
             if (count > 0) {
                 component.setSize(count);
             }
-        }
-    }
-
-    private String filterAndTruncate(String s) {
-        if (s == null) {
-            return null;
-        }
-
-        s = s.replaceAll("\\n", "");
-        s = s.replaceAll("(?s)<.*?>", "");
-
-        if (maxDescriptionLength != null && s.length() > maxDescriptionLength) {
-            return s.substring(0, maxDescriptionLength-3) + "...";
-        } else {
-            return s;
         }
     }
 

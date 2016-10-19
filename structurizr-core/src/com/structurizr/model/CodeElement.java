@@ -9,6 +9,7 @@ public class CodeElement {
     private CodeElementRole role = CodeElementRole.Supporting;
     private String name;
     private String type;
+    private String description;
     private String source;
     private String language = "Java";
     private long size;
@@ -53,6 +54,14 @@ public class CodeElement {
 
     void setType(String type) {
         this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getSource() {
