@@ -8,10 +8,10 @@ import com.structurizr.view.*;
 /**
  * A simple example of how to use filtered views to show "before" and "after" views of a software system.
  */
-public class FilteredViewExample {
+public class FilteredViews {
 
     public static void main(String[] args) throws Exception {
-        Workspace workspace = new Workspace("Filtered view example", "A simple example of using filtered views.");
+        Workspace workspace = new Workspace("Filtered Views", "A simple example of using filtered views.");
         Model model = workspace.getModel();
 
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "A description of the software system.");
@@ -49,7 +49,7 @@ public class FilteredViewExample {
         viewSet.createFilteredView(contextView, "FutureStateSystemContext", "The future state system context after Software System B is live.", FilterMode.Exclude, "CurrentState");
 
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-        structurizrClient.mergeWorkspace(1234, workspace);
+        structurizrClient.mergeWorkspace(19911, workspace);
 
     }
 
