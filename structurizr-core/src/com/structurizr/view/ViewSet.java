@@ -26,6 +26,8 @@ public class ViewSet {
     private Collection<ComponentView> componentViews = new HashSet<>();
     private Collection<DynamicView> dynamicViews = new HashSet<>();
 
+    private Collection<FilteredView> filteredViews = new HashSet<>();
+
     private Configuration configuration = new Configuration();
 
     ViewSet() {
@@ -82,28 +84,6 @@ public class ViewSet {
             systemContextViews.add(view);
             return view;
         }
-    }
-
-    /**
-     * Finds the view with the specified key, or null if the view does not exist.
-     *
-     * @param key   the key
-     * @return  a View object, or null if a view with the specified key could not be found
-     */
-    public View getViewWithKey(String key) {
-        View view = null;
-
-        if (key != null) {
-            Set<View> views = new HashSet<>();
-            views.addAll(systemContextViews);
-            views.addAll(containerViews);
-            views.addAll(componentViews);
-            views.addAll(dynamicViews);
-
-            view = views.stream().filter(v -> key.equals(v.getKey())).findFirst().orElse(null);
-        }
-
-        return view;
     }
 
     /**
@@ -184,6 +164,49 @@ public class ViewSet {
     }
 
     /**
+     * Creates a FilteredView on top of an existing view.
+     *
+     * @param view          the view to base the FilteredView upon
+     * @param key           the key for the filtered view (must be unique)
+     * @param description   a description
+     * @param mode          whether to Include or Exclude elements/relationships based upon their tag
+     * @param tags          the tags to include or exclude
+     * @return              a FilteredView object
+     */
+    public FilteredView createFilteredView(View view, String key, String description, FilterMode mode, String... tags) {
+        FilteredView filteredView = new FilteredView(view, key, description, mode, tags);
+
+        if (getViewWithKey(key) != null) {
+            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
+        } else {
+            filteredViews.add(filteredView);
+            return filteredView;
+        }
+    }
+
+    /**
+     * Finds the view with the specified key, or null if the view does not exist.
+     *
+     * @param key   the key
+     * @return  a View object, or null if a view with the specified key could not be found
+     */
+    public View getViewWithKey(String key) {
+        View view = null;
+
+        if (key != null) {
+            Set<View> views = new HashSet<>();
+            views.addAll(systemContextViews);
+            views.addAll(containerViews);
+            views.addAll(componentViews);
+            views.addAll(dynamicViews);
+
+            view = views.stream().filter(v -> key.equals(v.getKey())).findFirst().orElse(null);
+        }
+
+        return view;
+    }
+
+    /**
      * Gets the set of enterprise context views.
      *
      * @return  a Collection of EnterpriseContextView objects
@@ -228,6 +251,10 @@ public class ViewSet {
         return new HashSet<>(dynamicViews);
     }
 
+    public Collection<FilteredView> getFilteredViews() {
+        return new HashSet<>(filteredViews);
+    }
+
     public void hydrate() {
         enterpriseContextViews.forEach(this::hydrateView);
 
@@ -241,6 +268,10 @@ public class ViewSet {
         }
 
         dynamicViews.forEach(this::hydrateView);
+
+        for (FilteredView filteredView : filteredViews) {
+            filteredView.setView(getViewWithKey(filteredView.getBaseViewKey()));
+        }
     }
 
     private void hydrateView(View view) {
@@ -339,7 +370,7 @@ public class ViewSet {
 
     @JsonIgnore
     public boolean isEmpty() {
-        return enterpriseContextViews.isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty();
+        return enterpriseContextViews.isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && filteredViews.isEmpty();
     }
 
 }
