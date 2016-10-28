@@ -13,7 +13,7 @@ public class ExampleWorkspace {
 
     private static final String DATABASE_TAG = "Database";
 
-    public static Workspace create(boolean useShapes) {
+    public static Workspace create() {
         Workspace workspace = new Workspace("Example workspace", "This is an example workspace - drag the elements around to organise them on the diagram.");
         Model model = workspace.getModel();
 
@@ -21,8 +21,8 @@ public class ExampleWorkspace {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "My software system.");
         user.uses(softwareSystem, "Uses");
 
-        Container singlePageApplication = softwareSystem.addContainer("Single Page Application", "Does interesting things.", "Web Browser & JavaScript");
-        Container backendForFrontend = softwareSystem.addContainer("Backend For Frontend", "Does interesting things too.", "Apache Tomcat & Java");
+        Container singlePageApplication = softwareSystem.addContainer("Single Page Application", "Does interesting things.", "Angular 2");
+        Container backendForFrontend = softwareSystem.addContainer("Backend For Frontend", "Does interesting things too.", "Spring MVC on Apache Tomcat");
         Container database = softwareSystem.addContainer("Database", "Stores interesting data.", "MySQL");
         database.addTags(DATABASE_TAG);
 
@@ -64,12 +64,8 @@ public class ExampleWorkspace {
         styles.addElementStyle(Tags.COMPONENT).background("#85bbf0").color("#000000");
         styles.addRelationshipStyle(Tags.RELATIONSHIP).thickness(5).routing(Routing.Direct).fontSize(32).width(400);
 
-        if (useShapes) {
-            styles.addElementStyle(Tags.PERSON).background("#08427b").width(550).shape(Shape.Person);
-            styles.addElementStyle(DATABASE_TAG).shape(Shape.Cylinder);
-        } else {
-            styles.addElementStyle(Tags.PERSON).background("#08427b");
-        }
+        styles.addElementStyle(Tags.PERSON).background("#08427b").width(550).shape(Shape.Person);
+        styles.addElementStyle(DATABASE_TAG).shape(Shape.Cylinder);
 
         // add some documentation
         workspace.getDocumentation().add(softwareSystem, Type.Context, Format.Markdown,
