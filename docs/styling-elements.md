@@ -11,7 +11,7 @@ However, the following characteristics of the elements can be customized:
 - Background colour (HTML hex value)
 - Text colour (HTML hex value)
 - Font size (pixels)
-- Shape (Box, rounded box, cylinder, folder, person - [Structurizr paid plans only](https://structurizr.com/pricing))
+- Shape (see the [Shape](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/view/Shape.java) enum)
 
 ## Tagging elements
 
@@ -51,7 +51,7 @@ styles.addElementStyle(Tags.CONTAINER).background("#2a4e6e").color("#ffffff");
 
 ## Shapes
 
-Subscribers to a [Structurizr paid plan](https://structurizr.com/pricing) can also style elements using different shapes as follows.
+You can also style elements using different shapes as follows.
 
 ```java
 Styles styles = workspace.getViews().getConfiguration().getStyles();

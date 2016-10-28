@@ -1,6 +1,6 @@
 # Client-side encryption
 
-The JSON representation of your workspace is stored on the Structurizr servers using AES encryption with a 128-bit key, a random salt and a server-side passphrase. For additional peace of mind, if you're an [Enterprise Plan](https://structurizr.com/pricing) customer, you can choose to encrypt your workspace with your own passphrase on the client before uploading it to Structurizr. In order to view a client-side encrypted workspace, you will be asked to enter your passphrase when you open the workspace in your web browser. The passphrase is then used to decrypt the workspace in your web browser - at no point does the passphrase leave your computer.
+The JSON representation of your workspace is stored on the Structurizr servers using AES encryption with a 128-bit key, a random salt and a server-side passphrase. For additional peace of mind, if you're a [paid plan](https://structurizr.com/pricing) customer, you can choose to encrypt your workspace with your own passphrase on the client before uploading it to Structurizr. In order to view a client-side encrypted workspace, you will be asked to enter your passphrase when you open the workspace in your web browser. The passphrase is then used to decrypt the workspace in your web browser - at no point does the passphrase leave your computer.
 
 To use client-side encryption, simply create an instance of ```AesEncryptionStrategy``` and associate it with your ```StructurizrClient``` instance. For example:
 

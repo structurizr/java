@@ -1,6 +1,6 @@
 # Documentation
 
-In addition to diagrams, Structurizr lets you create supplementary documentation using the Markdown format. See [Documentation](https://structurizr.com/help/documentation) on the Structurizr website for more information about this feature.
+In addition to diagrams, Structurizr lets you create supplementary documentation using the Markdown or AsciiDoc formats. See [Documentation](https://structurizr.com/help/documentation) on the Structurizr website for more information about this feature.
 
 ![Example documentation](images/documentation-1.png)
 
@@ -14,7 +14,7 @@ SoftwareSystem financialRiskSystem = model.addSoftwareSystem("Financial Risk Sys
 Documentation documentation = workspace.getDocumentation();
 File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/core/financialrisksystem");
 
-documentation.add(financialRiskSystem, Type.Context, Format.Markdown, new File(documentationRoot, "context.md"));
+documentation.add(financialRiskSystem, Type.Context, Format.AsciiDoc, new File(documentationRoot, "context.adoc"));
 documentation.add(financialRiskSystem, Type.FunctionalOverview, Format.Markdown, new File(documentationRoot, "functional-overview.md"));
 documentation.add(financialRiskSystem, Type.QualityAttributes, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));
 ```
@@ -37,9 +37,10 @@ The documentation is broken up into a number of sections as follows, which are r
 - Deployment
 - Development Environment
 - Operation and Support
+- Usage
 - Decision Log
 
-All sections must be associated with a software system in the model, except for "Components", which needs to be associated with a container.
+All sections must be associated with a software system in the model, except for "Components" (which needs to be associated with a container) and "Code" (which needs to be associated with a component).
 
 ### Images
 
