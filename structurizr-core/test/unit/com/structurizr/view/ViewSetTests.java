@@ -273,6 +273,16 @@ public class ViewSetTests {
         }
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void test_createDynamicView_ThrowsAnException_WhenANullSoftwareSystemIsSpecified() {
+        new Workspace("Name", "Description").getViews().createDynamicView((SoftwareSystem)null, "key", "Description");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_createDynamicView_ThrowsAnException_WhenANullContainerIsSpecified() {
+        new Workspace("Name", "Description").getViews().createDynamicView((Container)null, "key", "Description");
+    }
+
     @Test
     public void test_createDynamicView_DoesNotThrowAnException_WhenEveryViewHasADifferentKey() {
         Workspace workspace = new Workspace("Name", "Description");

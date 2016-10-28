@@ -48,6 +48,10 @@ public class WidgetsLimited {
         systemContextView.addNearestNeighbours(ecommerceSystem);
         systemContextView.remove(customer.getEfferentRelationshipWith(customerServiceUser));
 
+        DynamicView dynamicView = views.createDynamicView("customerSupportCall", "Customer support call");
+        dynamicView.add(customer, customerServiceUser);
+        dynamicView.add(customerServiceUser, ecommerceSystem);
+
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).shape(Shape.RoundedBox);
         styles.addElementStyle(Tags.PERSON).shape(Shape.Person);
 

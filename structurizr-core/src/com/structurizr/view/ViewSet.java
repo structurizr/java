@@ -152,8 +152,74 @@ public class ViewSet {
         return createDynamicView(softwareSystem, null, description);
     }
 
+    /**
+     * Creates a dynamic view.
+     *
+     * @param key           the key for the dynamic view (must be unique)
+     * @param description   a description of the dynamic view
+     * @return              a DynamicView object
+     */
+    public DynamicView createDynamicView(String key, String description) {
+        DynamicView view = new DynamicView(getModel(), key, description);
+
+        if (getViewWithKey(key) != null) {
+            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
+        } else {
+            dynamicViews.add(view);
+            return view;
+        }
+    }
+
+    /**
+     * Creates a dynamic view, where the scope is the specified software system. The following
+     * elements can be added to the resulting view:
+     * <ul>
+     * <li>People</li>
+     * <li>Software systems</li>
+     * <li>Containers that reside inside the specified software system</li>
+     * </ul>
+     *
+     * @param softwareSystem    the SoftwareSystem object representing the scope of the view
+     * @param key               the key for the dynamic view (must be unique)
+     * @param description       a description of the dynamic view
+     * @return                  a DynamicView object
+     */
     public DynamicView createDynamicView(SoftwareSystem softwareSystem, String key, String description) {
+        if (softwareSystem == null) {
+            throw new IllegalArgumentException("Software system must not be null.");
+        }
+
         DynamicView view = new DynamicView(softwareSystem, key, description);
+
+        if (getViewWithKey(key) != null) {
+            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
+        } else {
+            dynamicViews.add(view);
+            return view;
+        }
+    }
+
+    /**
+     * Creates a dynamic view, where the scope is the specified container. The following
+     * elements can be added to the resulting view:
+     * <ul>
+     * <li>People</li>
+     * <li>Software systems</li>
+     * <li>Containers with the same parent software system as the specified container</li>
+     * <li>Components within the specified container</li>
+     * </ul>
+     *
+     * @param container         the Container object representing the scope of the view
+     * @param key               the key for the dynamic view (must be unique)
+     * @param description       a description of the dynamic view
+     * @return                  a DynamicView object
+     */
+    public DynamicView createDynamicView(Container container, String key, String description) {
+        if (container == null) {
+            throw new IllegalArgumentException("Container must not be null.");
+        }
+
+        DynamicView view = new DynamicView(container, key, description);
 
         if (getViewWithKey(key) != null) {
             throw new IllegalArgumentException("A view with the key " + key + " already exists.");
@@ -256,18 +322,31 @@ public class ViewSet {
     }
 
     public void hydrate() {
-        enterpriseContextViews.forEach(this::hydrateView);
-
-        systemContextViews.forEach(this::hydrateView);
-
-        containerViews.forEach(this::hydrateView);
-
-        for (ComponentView view : componentViews) {
+        for (EnterpriseContextView view : enterpriseContextViews) {
+            view.setModel(model);
             hydrateView(view);
-            view.setContainer(view.getSoftwareSystem().getContainerWithId(view.getContainerId()));
         }
 
-        dynamicViews.forEach(this::hydrateView);
+        for (SystemContextView view : systemContextViews) {
+            view.setSoftwareSystem(model.getSoftwareSystemWithId(view.getSoftwareSystemId()));
+            hydrateView(view);
+        }
+
+        for (ContainerView view : containerViews) {
+            view.setSoftwareSystem(model.getSoftwareSystemWithId(view.getSoftwareSystemId()));
+            hydrateView(view);
+        }
+
+        for (ComponentView view : componentViews) {
+            view.setSoftwareSystem(model.getSoftwareSystemWithId(view.getSoftwareSystemId()));
+            view.setContainer(view.getSoftwareSystem().getContainerWithId(view.getContainerId()));
+            hydrateView(view);
+        }
+
+        for (DynamicView view : dynamicViews) {
+            view.setModel(model);
+            hydrateView(view);
+        }
 
         for (FilteredView filteredView : filteredViews) {
             filteredView.setView(getViewWithKey(filteredView.getBaseViewKey()));
@@ -275,13 +354,6 @@ public class ViewSet {
     }
 
     private void hydrateView(View view) {
-        if (view instanceof EnterpriseContextView) {
-            EnterpriseContextView enterpriseContextView = (EnterpriseContextView)view;
-            enterpriseContextView.setModel(model);
-        } else {
-            view.setSoftwareSystem(model.getSoftwareSystemWithId(view.getSoftwareSystemId()));
-        }
-
         for (ElementView elementView : view.getElements()) {
             elementView.setElement(model.getElement(elementView.getId()));
         }
