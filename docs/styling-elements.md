@@ -32,7 +32,7 @@ To style an element, simply create an [ElementStyle](https://github.com/structur
 
 ```java
 Styles styles = workspace.getViews().getConfiguration().getStyles();
-styles.addElementStyle(Tags.ELEMENT).background("#a4b7c9").color("#000000");
+styles.addElementStyle(Tags.ELEMENT).background("#438dd5").color("#ffffff");
 ```
 
  ![Colouring all elements](images/styling-elements-2.png)
@@ -40,9 +40,9 @@ styles.addElementStyle(Tags.ELEMENT).background("#a4b7c9").color("#000000");
 You can also change the colour of specific elements, for example based upon their type, as follows.
 
 ```java
-Styles styles = workspace.getViews().getConfiguration().getStyles();
-styles.addElementStyle(Tags.PERSON).background("#728da5").color("#ffffff");
-styles.addElementStyle(Tags.CONTAINER).background("#2a4e6e").color("#ffffff");
+styles.addElementStyle(Tags.ELEMENT).color("#ffffff");
+styles.addElementStyle(Tags.PERSON).background("#08427b");
+styles.addElementStyle(Tags.CONTAINER).background("#438dd5");
 ```
 
 ![Colouring elements based upon type](images/styling-elements-3.png)
@@ -54,11 +54,11 @@ styles.addElementStyle(Tags.CONTAINER).background("#2a4e6e").color("#ffffff");
 You can also style elements using different shapes as follows.
 
 ```java
-Styles styles = workspace.getViews().getConfiguration().getStyles();
-styles.addElementStyle(Tags.PERSON).background("#728da5").color("#ffffff").shape(Shape.Person);
-styles.addElementStyle(Tags.CONTAINER).background("#2a4e6e").color("#ffffff");
-database.addTags("Database");
-styles.addElementStyle("Database").shape(Shape.Cylinder);
+styles.addElementStyle(Tags.ELEMENT).color("#ffffff");
+styles.addElementStyle(Tags.PERSON).background("#08427b").shape(Shape.Person);
+styles.addElementStyle(Tags.CONTAINER).background("#438dd5");
+database.addTags(DATABASE_TAG);
+styles.addElementStyle(DATABASE_TAG).shape(Shape.Cylinder);
 ```
 
 ![Adding some shapes](images/styling-elements-4.png)
