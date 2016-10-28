@@ -7,7 +7,7 @@ import com.structurizr.view.*;
 
 /**
  * A simple example of how to use filtered views to show "before" and "after" views of a software system.
- * 
+ *
  * You can see the live diagrams at https://structurizr.com/public/19911
  */
 public class FilteredViews {
