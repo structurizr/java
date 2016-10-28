@@ -167,7 +167,7 @@ public class ViewSetTests {
         Workspace workspace1 = createWorkspace();
         Person person1 = workspace1.getModel().getPersonWithName("Person");
         SoftwareSystem softwareSystem1 = workspace1.getModel().getSoftwareSystemWithName("Software System");
-        DynamicView view1 = workspace1.getViews().createDynamicView(softwareSystem1, "context", "Description");
+        DynamicView view1 = workspace1.getViews().createDynamicView("context", "Description");
         view1.add(person1, softwareSystem1);
         view1.getElements().iterator().next().setX(100);
         view1.setPaperSize(PaperSize.A3_Landscape);
@@ -175,7 +175,7 @@ public class ViewSetTests {
         Workspace workspace2 = createWorkspace();
         Person person2 = workspace2.getModel().getPersonWithName("Person");
         SoftwareSystem softwareSystem2 = workspace2.getModel().getSoftwareSystemWithName("Software System");
-        DynamicView view2 = workspace2.getViews().createDynamicView(softwareSystem2, "context", "Description");
+        DynamicView view2 = workspace2.getViews().createDynamicView("context", "Description");
         view2.add(person2, softwareSystem2);
 
         workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
@@ -190,7 +190,7 @@ public class ViewSetTests {
         Workspace workspace2 = createWorkspace();
         Person person2 = workspace2.getModel().getPersonWithName("Person");
         SoftwareSystem softwareSystem2 = workspace2.getModel().getSoftwareSystemWithName("Software System");
-        DynamicView view2 = workspace2.getViews().createDynamicView(softwareSystem2, "context", "Description");
+        DynamicView view2 = workspace2.getViews().createDynamicView("context", "Description");
         view2.add(person2, softwareSystem2);
 
         workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
