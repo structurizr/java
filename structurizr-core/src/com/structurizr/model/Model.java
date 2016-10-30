@@ -1,6 +1,9 @@
 package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.structurizr.util.Validate;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.*;
 
@@ -18,6 +21,8 @@ public class Model {
 
     private Set<Person> people = new LinkedHashSet<>();
     private Set<SoftwareSystem> softwareSystems = new LinkedHashSet<>();
+
+    private static final Log LOG = LogFactory.getLog(Model.class);
 
     public Model() {
     }
@@ -52,6 +57,8 @@ public class Model {
      * @return the SoftwareSystem instance created and added to the model (or null)
      */
     public SoftwareSystem addSoftwareSystem(Location location, String name, String description) {
+        Validate.notNullOrEmpty(name, "name");
+        Validate.warnIfNullOrEmpty(LOG, description, "description of SoftwareSystem '" + name + "'");
         if (getSoftwareSystemWithName(name) == null) {
             SoftwareSystem softwareSystem = new SoftwareSystem();
             softwareSystem.setLocation(location);
@@ -91,6 +98,8 @@ public class Model {
      * @return the Person instance created and added to the model (or null)
      */
     public Person addPerson(Location location, String name, String description) {
+        Validate.notNullOrEmpty(name, "name");
+        Validate.warnIfNullOrEmpty(LOG, description, "description of Person '" + name + "'");
         if (getPersonWithName(name) == null) {
             Person person = new Person();
             person.setLocation(location);
@@ -109,6 +118,9 @@ public class Model {
     }
 
     Container addContainer(SoftwareSystem parent, String name, String description, String technology) {
+        Validate.notNullOrEmpty(name, "name");
+        Validate.warnIfNullOrEmpty(LOG, description, "description of Container '" + name + "'");
+        Validate.warnIfNullOrEmpty(LOG, technology, "technology of Container '" + name + "'");
         if (parent.getContainerWithName(name) == null) {
             Container container = new Container();
             container.setName(name);
@@ -144,6 +156,8 @@ public class Model {
     }
 
     Component addComponent(Container parent, String name, String description) {
+        Validate.notNullOrEmpty(name, "description");
+        Validate.warnIfNullOrEmpty(LOG, description, "description of Component '" + name + "'");
         Component component = new Component();
         component.setName(name);
         component.setDescription(description);
@@ -166,6 +180,7 @@ public class Model {
     }
 
     Relationship addRelationship(Element source, Element destination, String description, String technology, InteractionStyle interactionStyle) {
+        Validate.warnIfNullOrEmpty(LOG, description, "description of relationship between '" + source + "' and '" + destination + "'");
         Relationship relationship = new Relationship(source, destination, description, technology, interactionStyle);
         if (addRelationship(relationship)) {
             return relationship;
