@@ -229,5 +229,39 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
         assertEquals(0, view.getRelationships().size());
     }
 
+    @Test
+    public void test_addDependentSoftwareSystem() {
+        assertEquals(0, view.getElements().size());
+        assertEquals(0, view.getRelationships().size());
 
+        view.addDependentSoftwareSystems();
+
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem(Location.External, "SoftwareSystem 2", "");
+
+        view.addDependentSoftwareSystems();
+        assertEquals(0, view.getElements().size());
+        assertEquals(0, view.getRelationships().size());
+
+        softwareSystem2.uses(softwareSystem, "");
+
+        view.addDependentSoftwareSystems();
+        assertEquals(1, view.getElements().size());
+    }
+
+    @Test
+    public void test_addDependentSoftwareSystem2() {
+        Container container1a = softwareSystem.addContainer("Container 1A", "", "");
+
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem(Location.External, "SoftwareSystem 2", "");
+        Container container2a = softwareSystem2.addContainer("Container 2-A", "", "");
+
+        container2a.uses(container1a, "");
+
+        model.addImplicitRelationships();
+        view.addDependentSoftwareSystems();
+        view.addAllContainers();
+
+        assertEquals(2, view.getElements().size());
+        assertEquals(1, view.getRelationships().size());
+    }
 }
