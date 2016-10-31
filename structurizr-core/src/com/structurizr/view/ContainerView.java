@@ -34,7 +34,13 @@ public class ContainerView extends StaticView {
      * @param container     the Container to add
      */
     public void add(Container container) {
-        addElement(container, true);
+        if (container != null) {
+            if (container.getParent().equals(getSoftwareSystem())) {
+                addElement(container, true);
+            } else {
+                throw new IllegalArgumentException("Only containers belonging to " + getSoftwareSystem().getName() + " can be added to this view.");
+            }
+        }
     }
 
     /**

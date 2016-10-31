@@ -230,21 +230,20 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_DoesNothing_WhenTheSpecifiedComponentIsInADifferentContainer() {
-        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
+    public void test_add_ThrowsAnException_WhenTheSpecifiedComponentIsInADifferentContainer() {
+        try {
+            SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
 
-        final Container containerA1 = softwareSystemA.addContainer("Container A1", "Description", "Tec");
-        final Component componentA1_1 = containerA1.addComponent("Component A1-1", "Description");
+            final Container containerA1 = softwareSystemA.addContainer("Container A1", "Description", "Tec");
 
-        final Container containerA2 = softwareSystemA.addContainer("Container A2", "Description", "Tec");
-        final Component componentA2_1 = containerA2.addComponent("Component A2-1", "Description");
+            final Container containerA2 = softwareSystemA.addContainer("Container A2", "Description", "Tec");
+            final Component componentA2_1 = containerA2.addComponent("Component A2-1", "Description");
 
-        view = new ComponentView(containerA1, "components", "Description");
-        view.add(componentA1_1);
-        view.add(componentA2_1);
-
-        assertEquals(1, view.getElements().size());
-        assertThat(view.getElements()).contains(new ElementView(componentA1_1));
+            view = new ComponentView(containerA1, "components", "Description");
+            view.add(componentA2_1);
+        } catch (Exception e) {
+            assertEquals("Only components belonging to Container A1 can be added to this view.", e.getMessage());
+        }
     }
 
     @Test
@@ -497,6 +496,20 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
 
         // but there are no relationships (because component AAA isn't directly related to anything)
         assertEquals(0, view.getRelationships().size());
+    }
+
+    @Test
+    public void test_add_ThrowsAnExceptionWhenAddingAContainerThatBelongsToAnotherSoftwareSystem() {
+        try {
+            Container containerInADifferentSoftwareSystem = model.addSoftwareSystem("Other software system", "").addContainer("Other container", "", "");
+
+            ComponentView componentView = views.createComponentView(webApplication, "components", "");
+            componentView.add(webApplication);
+            componentView.add(containerInADifferentSoftwareSystem);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Only containers belonging to The System can be added to this view.", e.getMessage());
+        }
     }
 
 }

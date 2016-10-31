@@ -229,5 +229,19 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
         assertEquals(0, view.getRelationships().size());
     }
 
+    @Test
+    public void test_add_ThrowsAnExceptionWhenAddingAContainerThatBelongsToAnotherSoftwareSystem() {
+        try {
+            Container container = softwareSystem.addContainer("Container", "", "");
+            Container containerInADifferentSoftwareSystem = model.addSoftwareSystem("Other software system", "").addContainer("Other container", "", "");
+
+            ContainerView containerView = views.createContainerView(softwareSystem, "containers", "");
+            containerView.add(container);
+            containerView.add(containerInADifferentSoftwareSystem);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Only containers belonging to The System can be added to this view.", e.getMessage());
+        }
+    }
 
 }

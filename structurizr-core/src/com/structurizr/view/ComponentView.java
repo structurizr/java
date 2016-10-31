@@ -72,7 +72,11 @@ public class ComponentView extends StaticView {
      */
     public void add(Container container) {
         if (container != null && !container.equals(getContainer())) {
-            addElement(container, true);
+            if (container.getParent().equals(getSoftwareSystem())) {
+                addElement(container, true);
+            } else {
+                throw new IllegalArgumentException("Only containers belonging to " + getSoftwareSystem().getName() + " can be added to this view.");
+            }
         }
     }
 
@@ -90,11 +94,11 @@ public class ComponentView extends StaticView {
      */
     public void add(Component component) {
         if (component != null) {
-            if (component.getContainer().equals(getContainer())) {
-                addElement(component, true);
-            } else {
-                LOG.warn(String.format("Component %s is not component of %s and thus cannot be added to its ComponentView", component, getContainer()));
+            if (!component.getContainer().equals(getContainer())) {
+                throw new IllegalArgumentException("Only components belonging to " + container.getName() + " can be added to this view.");
             }
+
+            addElement(component, true);
         }
     }
 
