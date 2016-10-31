@@ -7,7 +7,7 @@ import com.structurizr.io.WorkspaceWriterException;
 
 import java.io.Writer;
 
-public class EncryptedJsonWriter {
+public final class EncryptedJsonWriter {
 
     private boolean indentOutput = true;
 

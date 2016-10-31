@@ -9,7 +9,10 @@ import com.structurizr.io.json.JsonWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 
-public class EncryptedWorkspace extends AbstractWorkspace {
+/**
+ * This is a wrapper around an existing workspace that has been encrypted.
+ */
+public final class EncryptedWorkspace extends AbstractWorkspace {
 
     private Workspace workspace;
     private String ciphertext;
@@ -17,7 +20,7 @@ public class EncryptedWorkspace extends AbstractWorkspace {
 
     private EncryptionStrategy encryptionStrategy;
 
-    public EncryptedWorkspace() {
+    EncryptedWorkspace() {
     }
 
     public EncryptedWorkspace(Workspace workspace, EncryptionStrategy encryptionStrategy) throws Exception {

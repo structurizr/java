@@ -1,7 +1,5 @@
 package com.structurizr.encryption;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -19,7 +17,7 @@ import java.util.Base64;
  * This is implementation of an AES encryption strategy, allowing you to specify the
  * key size, iteration count and passphrase.
  */
-public class AesEncryptionStrategy extends EncryptionStrategy {
+public final class AesEncryptionStrategy extends EncryptionStrategy {
 
     private static final String CIPHER_SPECIFICATION = "AES/CBC/PKCS5PADDING";
     private static final int INITIALIZATION_VECTOR_SIZE_IN_BYTES = 16;

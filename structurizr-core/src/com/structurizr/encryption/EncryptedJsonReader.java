@@ -7,7 +7,7 @@ import com.structurizr.io.WorkspaceReaderException;
 import java.io.IOException;
 import java.io.Reader;
 
-public class EncryptedJsonReader {
+public final class EncryptedJsonReader {
 
     public EncryptedJsonReader() {
     }

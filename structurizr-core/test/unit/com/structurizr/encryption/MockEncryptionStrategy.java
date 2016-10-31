@@ -1,6 +1,6 @@
 package com.structurizr.encryption;
 
-public class MockEncryptionStrategy extends EncryptionStrategy {
+class MockEncryptionStrategy extends EncryptionStrategy {
 
     @Override
     public String encrypt(String plaintext) throws Exception {
