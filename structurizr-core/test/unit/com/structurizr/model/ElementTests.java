@@ -9,6 +9,28 @@ import static org.junit.Assert.*;
 public class ElementTests extends AbstractWorkspaceTestBase {
 
     @Test
+    public void test_setName_ThrowsAnException_WhenANullValueIsSpecified() {
+        Element element = model.addSoftwareSystem("Name", "Description");
+        try {
+            element.setName(null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("The name of an element must not be null or empty.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_setName_ThrowsAnException_WhenAnEmptyValueIsSpecified() {
+        Element element = model.addSoftwareSystem("Name", "Description");
+        try {
+            element.setName(" ");
+            fail();
+        } catch (Exception e) {
+            assertEquals("The name of an element must not be null or empty.", e.getMessage());
+        }
+    }
+
+    @Test
     public void test_getTags_WhenThereAreNoTags() {
         Element element = model.addSoftwareSystem("Name", "Description");
         assertEquals("Element,Software System", element.getTags());

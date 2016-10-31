@@ -9,6 +9,26 @@ import static org.junit.Assert.*;
 
 public class ModelTests extends AbstractWorkspaceTestBase {
 
+    @Test(expected = IllegalArgumentException.class)
+    public void test_addSoftwareSystem_ThrowsAnException_WhenANullNameIsSpecified() {
+        model.addSoftwareSystem(null, "");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_addSoftwareSystem_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
+        model.addSoftwareSystem(" ", "");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_addPerson_ThrowsAnException_WhenANullNameIsSpecified() {
+        model.addPerson(null, "");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_addPerson_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
+        model.addPerson(" ", "");
+    }
+
     @Test
     public void test_addSoftwareSystem_AddsTheSoftwareSystem_WhenASoftwareSystemDoesNotExistWithTheSameName() {
         assertTrue(model.getSoftwareSystems().isEmpty());

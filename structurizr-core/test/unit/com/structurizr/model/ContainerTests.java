@@ -44,4 +44,14 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
         assertTrue(container.getTags().contains(Tags.CONTAINER));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void test_addComponent_ThrowsAnException_WhenANullNameIsSpecified() {
+        container.addComponent(null, "");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_addComponent_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
+        container.addComponent(" ", "");
+    }
+
 }

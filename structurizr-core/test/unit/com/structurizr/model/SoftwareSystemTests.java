@@ -11,6 +11,16 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
 
     private SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "Name", "Description");
 
+    @Test(expected = IllegalArgumentException.class)
+    public void test_addContainer_ThrowsAnException_WhenANullNameIsSpecified() {
+        softwareSystem.addContainer(null, "", "");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_addContainer_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
+        softwareSystem.addContainer(" ", "", "");
+    }
+
     @Test
     public void test_addContainer_AddsAContainer_WhenAContainerWithTheSameNameDoesNotExist() {
         Container container = softwareSystem.addContainer("Web Application", "Description", "Spring MVC");
