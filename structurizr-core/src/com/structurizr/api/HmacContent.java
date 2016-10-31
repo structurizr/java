@@ -1,10 +1,10 @@
 package com.structurizr.api;
 
-public class HmacContent {
+final class HmacContent {
 
     private String[] strings;
 
-    public HmacContent(String... strings) {
+    HmacContent(String... strings) {
         this.strings = strings;
     }
 

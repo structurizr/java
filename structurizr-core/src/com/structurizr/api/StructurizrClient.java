@@ -4,7 +4,6 @@ import com.structurizr.Workspace;
 import com.structurizr.encryption.*;
 import com.structurizr.io.json.JsonReader;
 import com.structurizr.io.json.JsonWriter;
-import com.structurizr.view.View;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.http.Header;
@@ -25,7 +24,11 @@ import java.util.Base64;
 import java.util.Date;
 import java.util.Properties;
 
-public class StructurizrClient {
+/**
+ * An implementation of a client for the Structurizr API, hosted at https://api.structurizr.com,
+ * that allows you to get and put Structurizr workspaces in a JSON format.
+ */
+public final class StructurizrClient {
 
     private static final Log log = LogFactory.getLog(StructurizrClient.class);
 
@@ -44,7 +47,7 @@ public class StructurizrClient {
     private EncryptionStrategy encryptionStrategy;
 
     /**
-     * the location where a copy of the workspace will be archived when it is retrieved from the server
+     * The location where a copy of the workspace will be archived when it is retrieved from the server.
      */
     private File workspaceArchiveLocation = new File(".");
 
@@ -55,7 +58,7 @@ public class StructurizrClient {
      * - structurizr.api.key
      * - structurizr.api.secret
      */
-    public StructurizrClient() {
+    public StructurizrClient() throws StructurizrClientException {
         try {
             Properties properties = new Properties();
             InputStream in = StructurizrClient.class.getClassLoader().getResourceAsStream("structurizr.properties");
@@ -65,9 +68,12 @@ public class StructurizrClient {
                 this.apiKey = properties.getProperty(STRUCTURIZR_API_KEY);
                 this.apiSecret = properties.getProperty(STRUCTURIZR_API_SECRET);
                 in.close();
+            } else {
+                throw new StructurizrClientException("Could not find a structurizr.properties file on the classpath.");
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             log.error(e);
+            throw new StructurizrClientException(e);
         }
     }
 
@@ -96,11 +102,11 @@ public class StructurizrClient {
         this.apiSecret = apiSecret;
     }
 
-    public String getUrl() {
+    String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    void setUrl(String url) {
         if (url != null) {
             if (url.endsWith("/")) {
                 this.url = url.substring(0, url.length() - 1);
@@ -146,32 +152,37 @@ public class StructurizrClient {
      * @return a Workspace instance
      * @throws Exception if there are problems related to the network, authorization, JSON deserialization, etc
      */
-    public Workspace getWorkspace(long workspaceId) throws Exception {
-        log.info("Getting workspace with ID " + workspaceId);
+    public Workspace getWorkspace(long workspaceId) throws StructurizrClientException {
+        try {
+            log.info("Getting workspace with ID " + workspaceId);
 
-        CloseableHttpClient httpClient = HttpClients.createSystem();
-        HttpGet httpGet = new HttpGet(url + WORKSPACE_PATH + workspaceId);
-        addHeaders(httpGet, "", "");
-        debugRequest(httpGet, null);
+            CloseableHttpClient httpClient = HttpClients.createSystem();
+            HttpGet httpGet = new HttpGet(url + WORKSPACE_PATH + workspaceId);
+            addHeaders(httpGet, "", "");
+            debugRequest(httpGet, null);
 
-        try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-            debugResponse(response);
+            try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
+                debugResponse(response);
 
-            String json = EntityUtils.toString(response.getEntity());
-            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                archiveWorkspace(workspaceId, json);
+                String json = EntityUtils.toString(response.getEntity());
+                if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                    archiveWorkspace(workspaceId, json);
 
-                if (encryptionStrategy == null) {
-                    return new JsonReader().read(new StringReader(json));
+                    if (encryptionStrategy == null) {
+                        return new JsonReader().read(new StringReader(json));
+                    } else {
+                        EncryptedWorkspace encryptedWorkspace = new EncryptedJsonReader().read(new StringReader(json));
+                        encryptedWorkspace.getEncryptionStrategy().setPassphrase(encryptionStrategy.getPassphrase());
+                        return encryptedWorkspace.getWorkspace();
+                    }
                 } else {
-                    EncryptedWorkspace encryptedWorkspace = new EncryptedJsonReader().read(new StringReader(json));
-                    encryptedWorkspace.getEncryptionStrategy().setPassphrase(encryptionStrategy.getPassphrase());
-                    return encryptedWorkspace.getWorkspace();
+                    ApiError apiError = ApiError.parse(json);
+                    throw new StructurizrClientException(apiError.getMessage());
                 }
-            } else {
-                ApiError apiError = ApiError.parse(json);
-                throw new StructurizrClientException(apiError.getMessage());
             }
+        } catch (Exception e) {
+            log.error(e);
+            throw new StructurizrClientException(e);
         }
     }
 
@@ -182,51 +193,52 @@ public class StructurizrClient {
      * @param workspace   the workspace instance to update
      * @throws Exception if there are problems related to the network, authorization, JSON serialization, etc
      */
-    public void putWorkspace(long workspaceId, Workspace workspace) throws Exception {
-        log.info("Putting workspace with ID " + workspaceId);
-        if (workspace == null) {
-            throw new IllegalArgumentException("A workspace must be supplied");
-        } else if (workspaceId <= 0) {
-            throw new IllegalArgumentException("The workspace ID must be set");
-        }
-
-        workspace.setId(workspaceId);
-
-        // output warnings if diagram keys have not been specified
-        workspace.getViews().getSystemContextViews().stream().filter(v -> v.getKey() == null).forEach(v -> log.warn("Key not set for view \"" + v.getName() + "\""));
-        workspace.getViews().getContainerViews()    .stream().filter(v -> v.getKey() == null).forEach(v -> log.warn("Key not set for view \"" + v.getName() + "\""));
-        workspace.getViews().getComponentViews()    .stream().filter(v -> v.getKey() == null).forEach(v -> log.warn("Key not set for view \"" + v.getName() + "\""));
-        workspace.getViews().getDynamicViews()      .stream().filter(v -> v.getKey() == null).forEach(v -> log.warn("Key not set for view \"" + v.getName() + "\""));
-
-        CloseableHttpClient httpClient = HttpClients.createSystem();
-        HttpPut httpPut = new HttpPut(url + WORKSPACE_PATH + workspaceId);
-
-        StringWriter stringWriter = new StringWriter();
-        if (encryptionStrategy == null) {
-            JsonWriter jsonWriter = new JsonWriter(false);
-            jsonWriter.write(workspace, stringWriter);
-        } else {
-            EncryptedWorkspace encryptedWorkspace = new EncryptedWorkspace(workspace, encryptionStrategy);
-            encryptionStrategy.setLocation(EncryptionLocation.Client);
-            EncryptedJsonWriter jsonWriter = new EncryptedJsonWriter(false);
-            jsonWriter.write(encryptedWorkspace, stringWriter);
-        }
-
-        StringEntity stringEntity = new StringEntity(stringWriter.toString(), ContentType.APPLICATION_JSON);
-        httpPut.setEntity(stringEntity);
-        addHeaders(httpPut, EntityUtils.toString(stringEntity), ContentType.APPLICATION_JSON.toString());
-
-        debugRequest(httpPut, EntityUtils.toString(stringEntity));
-
-        try (CloseableHttpResponse response = httpClient.execute(httpPut)) {
-            String json = EntityUtils.toString(response.getEntity());
-            if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-                debugResponse(response);
-                log.info(json);
-            } else {
-                ApiError apiError = ApiError.parse(json);
-                throw new StructurizrClientException(apiError.getMessage());
+    public void putWorkspace(long workspaceId, Workspace workspace) throws StructurizrClientException {
+        try {
+            log.info("Putting workspace with ID " + workspaceId);
+            if (workspace == null) {
+                throw new IllegalArgumentException("A workspace must be supplied");
+            } else if (workspaceId <= 0) {
+                throw new IllegalArgumentException("The workspace ID must be set");
             }
+
+            workspace.setId(workspaceId);
+
+            findAndlogWarnings(workspace);
+
+            CloseableHttpClient httpClient = HttpClients.createSystem();
+            HttpPut httpPut = new HttpPut(url + WORKSPACE_PATH + workspaceId);
+
+            StringWriter stringWriter = new StringWriter();
+            if (encryptionStrategy == null) {
+                JsonWriter jsonWriter = new JsonWriter(false);
+                jsonWriter.write(workspace, stringWriter);
+            } else {
+                EncryptedWorkspace encryptedWorkspace = new EncryptedWorkspace(workspace, encryptionStrategy);
+                encryptionStrategy.setLocation(EncryptionLocation.Client);
+                EncryptedJsonWriter jsonWriter = new EncryptedJsonWriter(false);
+                jsonWriter.write(encryptedWorkspace, stringWriter);
+            }
+
+            StringEntity stringEntity = new StringEntity(stringWriter.toString(), ContentType.APPLICATION_JSON);
+            httpPut.setEntity(stringEntity);
+            addHeaders(httpPut, EntityUtils.toString(stringEntity), ContentType.APPLICATION_JSON.toString());
+
+            debugRequest(httpPut, EntityUtils.toString(stringEntity));
+
+            try (CloseableHttpResponse response = httpClient.execute(httpPut)) {
+                String json = EntityUtils.toString(response.getEntity());
+                if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                    debugResponse(response);
+                    log.info(json);
+                } else {
+                    ApiError apiError = ApiError.parse(json);
+                    throw new StructurizrClientException(apiError.getMessage());
+                }
+            }
+        } catch (Exception e) {
+            log.error(e);
+            throw new StructurizrClientException(e);
         }
     }
 
@@ -304,6 +316,36 @@ public class StructurizrClient {
     private String createArchiveFileName(long workspaceId) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         return "structurizr-" + workspaceId + "-" + sdf.format(new Date()) + ".json";
+    }
+
+    private void findAndlogWarnings(Workspace workspace) {
+        // find elements with a missing description
+        workspace.getModel().getElements().stream()
+                .filter(e -> e.getDescription() == null || e.getDescription().trim().length() == 0)
+                .forEach(e -> log.warn(e.getClass().getSimpleName() + " " + e.getCanonicalName() + ": Missing description"));
+
+        // find containers with a missing technology
+        workspace.getModel().getSoftwareSystems()
+                .forEach(s -> s.getContainers().stream()
+                .filter(c -> c.getTechnology() == null || c.getTechnology().trim().length() == 0)
+                .forEach(c -> log.warn("Container " + c.getCanonicalName() + ": Missing technology")));
+
+        // diagram keys have not been specified
+        workspace.getViews().getEnterpriseContextViews().stream()
+                .filter(v -> v.getKey() == null)
+                .forEach(v -> log.warn("Enterprise Context view \"" + v.getName() + "\": Missing key"));
+        workspace.getViews().getSystemContextViews().stream()
+                .filter(v -> v.getKey() == null)
+                .forEach(v -> log.warn("System Context view \"" + v.getName() + "\": Missing key"));
+        workspace.getViews().getContainerViews().stream()
+                .filter(v -> v.getKey() == null)
+                .forEach(v -> log.warn("Container view \"" + v.getName() + "\": Missing key"));
+        workspace.getViews().getComponentViews().stream()
+                .filter(v -> v.getKey() == null)
+                .forEach(v -> log.warn("Component view \"" + v.getName() + "\": Missing key"));
+        workspace.getViews().getDynamicViews().stream()
+                .filter(v -> v.getKey() == null)
+                .forEach(v -> log.warn("Dynamic view \"" + v.getName() + "\": Missing key"));
     }
 
 }
