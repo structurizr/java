@@ -9,8 +9,18 @@ import com.structurizr.io.WorkspaceReaderException;
 import java.io.IOException;
 import java.io.Reader;
 
-public class JsonReader implements WorkspaceReader {
+/**
+ * Reads a workspace definition as JSON.
+ */
+public final class JsonReader implements WorkspaceReader {
 
+    /**
+     * Reads and parses a workspace definition from a JSON document.
+     *
+     * @param reader    a Reader on top of the workspace definition
+     * @return          a Workspace object
+     * @throws WorkspaceReaderException     if something goes wrong
+     */
     public Workspace read(Reader reader) throws WorkspaceReaderException {
         try {
             ObjectMapper objectMapper = new ObjectMapper();

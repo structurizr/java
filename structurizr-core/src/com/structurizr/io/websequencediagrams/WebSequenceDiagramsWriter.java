@@ -20,7 +20,7 @@ import java.util.TreeSet;
  * both synchronous and asynchronous. It doesn't support return messages,
  * parallel behaviour, etc.
  */
-public class WebSequenceDiagramsWriter implements WorkspaceWriter {
+public final class WebSequenceDiagramsWriter implements WorkspaceWriter {
 
     private static final String SYNCHRONOUS_INTERACTION = "->";
     private static final String ASYNCHRONOUS_INTERACTION = "->>";

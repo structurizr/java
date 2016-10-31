@@ -12,6 +12,13 @@ public final class EncryptedJsonReader {
     public EncryptedJsonReader() {
     }
 
+    /**
+     * Reads and parses a workspace definition from a JSON document.
+     *
+     * @param reader    a Reader on top of the workspace definition
+     * @return          a Workspace object
+     * @throws WorkspaceReaderException     if something goes wrong
+     */
     public EncryptedWorkspace read(Reader reader) throws WorkspaceReaderException {
         try {
             ObjectMapper objectMapper = new ObjectMapper();
