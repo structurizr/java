@@ -2,8 +2,7 @@ package com.structurizr;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class WorkspaceTests {
 
@@ -36,6 +35,24 @@ public class WorkspaceTests {
     }
 
     @Test
+    public void test_hasSource_ReturnsFalse_WhenANullSourceIsSpecified() {
+        workspace.setSource(null);
+        assertFalse(workspace.hasSource());
+    }
+
+    @Test
+    public void test_hasSource_ReturnsFalse_WhenAnEmptySourceIsSpecified() {
+        workspace.setSource(" ");
+        assertFalse(workspace.hasSource());
+    }
+
+    @Test
+    public void test_hasSource_ReturnsTrue_WhenAUrlIsSpecified() {
+        workspace.setSource("https://www.somedomain.com");
+        assertTrue(workspace.hasSource());
+    }
+
+    @Test
     public void test_setApi_DoesNotThrowAnException_WhenANullUrlIsSpecified() {
         workspace.setApi(null);
     }
@@ -59,6 +76,24 @@ public class WorkspaceTests {
     public void test_setApi_DoesNotThrowAnException_WhenAnValidUrlIsSpecified() {
         workspace.setApi("https://www.somedomain.com");
         assertEquals("https://www.somedomain.com", workspace.getApi());
+    }
+
+    @Test
+    public void test_hasApi_ReturnsFalse_WhenANullApiIsSpecified() {
+        workspace.setApi(null);
+        assertFalse(workspace.hasApi());
+    }
+
+    @Test
+    public void test_hasApi_ReturnsFalse_WhenAnEmptyApiIsSpecified() {
+        workspace.setApi(" ");
+        assertFalse(workspace.hasApi());
+    }
+
+    @Test
+    public void test_hasApi_ReturnsTrue_WhenAUrlIsSpecified() {
+        workspace.setApi("https://www.somedomain.com");
+        assertTrue(workspace.hasApi());
     }
 
 }

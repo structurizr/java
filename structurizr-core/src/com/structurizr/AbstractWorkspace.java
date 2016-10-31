@@ -12,10 +12,10 @@ public abstract class AbstractWorkspace {
     private String source;
     private String api;
 
-    public AbstractWorkspace() {
+    protected AbstractWorkspace() {
     }
 
-    public AbstractWorkspace(String name, String description) {
+    AbstractWorkspace(String name, String description) {
         this.name = name;
         this.description = description;
     }
@@ -23,12 +23,17 @@ public abstract class AbstractWorkspace {
     /**
      * Gets the ID of this workspace.
      *
-     * @return  the ID
+     * @return  the ID (a positive integer)
      */
     public long getId() {
         return this.id;
     }
 
+    /**
+     * Sets the ID of this workspace.
+     *
+     * @param id    the ID (a positive integer)
+     */
     public void setId(long id) {
         this.id = id;
     }
@@ -42,6 +47,11 @@ public abstract class AbstractWorkspace {
         return name;
     }
 
+    /**
+     * Sets the name of this workspace.
+     *
+     * @param name      the name, as a String
+     */
     public void setName(String name) {
         this.name = name;
     }
@@ -55,6 +65,11 @@ public abstract class AbstractWorkspace {
         return description;
     }
 
+    /**
+     * Sets the description of this workspace.
+     *
+     * @param description       the description, as a String
+     */
     public void setDescription(String description) {
         this.description = description;
     }
@@ -69,12 +84,17 @@ public abstract class AbstractWorkspace {
         return thumbnail;
     }
 
+    /**
+     * Sets the thumbnail associated with this workspace.
+     *
+     * @param thumbnail     a Base64 encoded PNG file as a Data URI (data:image/png;base64)
+     */
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
 
     /**
-     * Gets the source of this workspace.
+     * Gets the URL where the content of this workspace can be found.
      *
      * @return  a URL (as a String)
      */
@@ -82,6 +102,12 @@ public abstract class AbstractWorkspace {
         return source;
     }
 
+    /**
+     * Sets the URL where the content of this workspace can be found.
+     *
+     * @param source    a URL, as a String
+     * @throws          IllegalArgumentException if the URL is not a valid URL
+     */
     public void setSource(String source) {
         if (source != null && source.trim().length() > 0) {
             try {
@@ -93,14 +119,30 @@ public abstract class AbstractWorkspace {
         }
     }
 
+    /**
+     * Determines whether this workspace has a source URL set.
+     *
+     * @return  true if a source URL has been set, false otherwise
+     */
     public boolean hasSource() {
         return this.source != null && this.source.trim().length() > 0;
     }
 
+    /**
+     * Gets the URL of the API where the content of this workspace can be found.
+     *
+     * @return  the URL, as a String
+     */
     public String getApi() {
         return api;
     }
 
+    /**
+     * Sets the URL of the API where the content of this workspace can be found.
+     *
+     * @param api   a URL, as a String
+     * @throws      IllegalArgumentException if the URL is not a valid URL
+     */
     public void setApi(String api) {
         if (api != null && api.trim().length() > 0) {
             try {
@@ -112,6 +154,11 @@ public abstract class AbstractWorkspace {
         }
     }
 
+    /**
+     * Determines whether this workspace has an API set.
+     *
+     * @return  true if an API URL has been specified, false otherwise
+     */
     public boolean hasApi() {
         return this.api != null && this.api.trim().length() > 0;
     }
