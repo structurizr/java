@@ -6,7 +6,7 @@ import com.structurizr.model.Element;
 /**
  * A documentation section.
  */
-public class Section {
+public final class Section {
 
     private Element element;
     private String elementId;
@@ -50,7 +50,7 @@ public class Section {
         return type;
     }
 
-    public void setType(Type type) {
+    void setType(Type type) {
         this.type = type;
     }
 

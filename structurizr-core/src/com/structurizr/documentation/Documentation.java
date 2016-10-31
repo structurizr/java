@@ -15,9 +15,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Represents the documentation within a workspace.
+ * Represents the documentation within a workspace - a collection of
+ * content in Markdown or AsciiDoc format, optionally with attached images.
+ *
+ * See <a href="https://structurizr.com/help/documentation">Documentation</a>
+ * on the Structurizr website for more details.
  */
-public class Documentation {
+public final class Documentation {
 
     private Model model;
     private Set<Section> sections = new HashSet<>();
@@ -31,7 +35,7 @@ public class Documentation {
     }
 
     @JsonIgnore
-    public Model getModel() {
+    Model getModel() {
         return model;
     }
 
@@ -175,7 +179,7 @@ public class Documentation {
      * Adds an image from the given file to the workspace.
      *
      * @param file  a File descriptor representing an image file on disk
-     * @throws IOException
+     * @throws IOException  if the file can't be read
      */
     public void addImage(File file) throws IOException {
         if (file == null) {
