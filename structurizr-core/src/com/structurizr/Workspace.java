@@ -7,9 +7,9 @@ import com.structurizr.view.ViewSet;
 
 /**
  * Represents a Structurizr workspace, which is a wrapper for a
- * software architecture model and the associated views.
+ * software architecture model, views and documentation.
  */
-public class Workspace extends AbstractWorkspace {
+public final class Workspace extends AbstractWorkspace {
 
     private Model model = new Model();
     private ViewSet viewSet = new ViewSet(model);
@@ -44,7 +44,7 @@ public class Workspace extends AbstractWorkspace {
         return viewSet;
     }
 
-    public void setViews(ViewSet viewSet) {
+    void setViews(ViewSet viewSet) {
         this.viewSet = viewSet;
     }
 
@@ -57,11 +57,16 @@ public class Workspace extends AbstractWorkspace {
         this.documentation.hydrate();
     }
 
+    /**
+     * Gets the documentation associated with this workspace.
+     *
+     * @return  a Documentation object
+     */
     public Documentation getDocumentation() {
         return documentation;
     }
 
-    public void setDocumentation(Documentation documentation) {
+    void setDocumentation(Documentation documentation) {
         this.documentation = documentation;
     }
 
