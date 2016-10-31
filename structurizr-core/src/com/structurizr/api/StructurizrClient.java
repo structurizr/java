@@ -150,7 +150,7 @@ public final class StructurizrClient {
      *
      * @param workspaceId the ID of your workspace
      * @return a Workspace instance
-     * @throws Exception if there are problems related to the network, authorization, JSON deserialization, etc
+     * @throws StructurizrClientException   if there are problems related to the network, authorization, JSON deserialization, etc
      */
     public Workspace getWorkspace(long workspaceId) throws StructurizrClientException {
         try {
@@ -191,7 +191,7 @@ public final class StructurizrClient {
      *
      * @param workspaceId the ID of your workspace
      * @param workspace   the workspace instance to update
-     * @throws Exception if there are problems related to the network, authorization, JSON serialization, etc
+     * @throws StructurizrClientException   if there are problems related to the network, authorization, JSON serialization, etc
      */
     public void putWorkspace(long workspaceId, Workspace workspace) throws StructurizrClientException {
         try {
