@@ -57,24 +57,6 @@ public class ViewSet {
         }
     }
 
-    /**
-     * Please use {@link #createSystemContextView(com.structurizr.model.SoftwareSystem, String, String)} instead.
-     * @deprecated
-     */
-    @Deprecated
-    public SystemContextView createContextView(SoftwareSystem softwareSystem) {
-        return createSystemContextView(softwareSystem, null, null);
-    }
-
-    /**
-     * Please use {@link #createSystemContextView(com.structurizr.model.SoftwareSystem, String, String)} instead.
-     * @deprecated
-     */
-    @Deprecated
-    public SystemContextView createContextView(SoftwareSystem softwareSystem, String description) {
-        return createSystemContextView(softwareSystem, null, description);
-    }
-
     public SystemContextView createSystemContextView(SoftwareSystem softwareSystem, String key, String description) {
         SystemContextView view = new SystemContextView(softwareSystem, key, description);
 
@@ -84,23 +66,6 @@ public class ViewSet {
             systemContextViews.add(view);
             return view;
         }
-    }
-
-    /**
-     * Please use {@link #createContainerView(com.structurizr.model.SoftwareSystem, String, String)} instead.
-     * @deprecated
-     */
-    public ContainerView createContainerView(SoftwareSystem softwareSystem) {
-        return createContainerView(softwareSystem, null, null);
-    }
-
-    /**
-     * Please use {@link #createContainerView(com.structurizr.model.SoftwareSystem, String, String)} instead.
-     * @deprecated
-     */
-    @Deprecated
-    public ContainerView createContainerView(SoftwareSystem softwareSystem, String description) {
-        return createContainerView(softwareSystem, null, description);
     }
 
     public ContainerView createContainerView(SoftwareSystem softwareSystem, String key, String description) {
@@ -114,24 +79,6 @@ public class ViewSet {
         }
     }
 
-    /**
-     * Please use {@link #createComponentView(com.structurizr.model.Container, String, String)} instead.
-     * @deprecated
-     */
-    @Deprecated
-    public ComponentView createComponentView(Container container) {
-        return createComponentView(container, null);
-    }
-
-    /**
-     * Please use {@link #createComponentView(com.structurizr.model.Container, String, String)} instead.
-     * @deprecated
-     */
-    @Deprecated
-    public ComponentView createComponentView(Container container, String description) {
-        return createComponentView(container, null, description);
-    }
-
     public ComponentView createComponentView(Container container, String key, String description) {
         ComponentView view = new ComponentView(container, key, description);
 
@@ -141,15 +88,6 @@ public class ViewSet {
             componentViews.add(view);
             return view;
         }
-    }
-
-    /**
-     * Please use {@link #createDynamicView(com.structurizr.model.SoftwareSystem, String, String)} instead.
-     * @deprecated
-     */
-    @Deprecated
-    public DynamicView createDynamicView(SoftwareSystem softwareSystem, String description) {
-        return createDynamicView(softwareSystem, null, description);
     }
 
     /**

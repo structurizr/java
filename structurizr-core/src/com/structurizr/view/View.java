@@ -160,7 +160,7 @@ public abstract class View {
             for (RelationshipView relationshipView : getRelationships()) {
                 if (relationshipView.getRelationship().getSource().equals(element) ||
                         relationshipView.getRelationship().getDestination().equals(element)) {
-                    removeRelationship(relationshipView.getRelationship());
+                    remove(relationshipView.getRelationship());
                 }
             }
         }
@@ -189,15 +189,6 @@ public abstract class View {
             relationshipView.setDescription(description);
             relationshipView.setOrder(order);
         }
-    }
-
-    /**
-     * @param relationship the relationship to be removed
-     * @deprecated use {@link View#remove(com.structurizr.model.Relationship)}
-     */
-    @Deprecated
-    public void removeRelationship(Relationship relationship) {
-        remove(relationship);
     }
 
     public void remove(Relationship relationship) {
