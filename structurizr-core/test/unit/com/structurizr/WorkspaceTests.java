@@ -2,6 +2,8 @@ package com.structurizr;
 
 import org.junit.Test;
 
+import java.io.File;
+
 import static org.junit.Assert.*;
 
 public class WorkspaceTests {
@@ -94,6 +96,33 @@ public class WorkspaceTests {
     public void test_hasApi_ReturnsTrue_WhenAUrlIsSpecified() {
         workspace.setApi("https://www.somedomain.com");
         assertTrue(workspace.hasApi());
+    }
+
+    @Test
+    public void test_isEmpty_ReturnsTrue_WhenThereAreNoElementsViewsOrDocumentation() {
+        workspace = new Workspace("Name", "Description");
+        assertTrue(workspace.isEmpty());
+    }
+
+    @Test
+    public void test_isEmpty_ReturnsFalse_WhenThereAreElements() {
+        workspace = new Workspace("Name", "Description");
+        workspace.getModel().addPerson("Name", "Description");
+        assertFalse(workspace.isEmpty());
+    }
+
+    @Test
+    public void test_isEmpty_ReturnsFalse_WhenThereAreViews() {
+        workspace = new Workspace("Name", "Description");
+        workspace.getViews().createEnterpriseContextView("key", "Description");
+        assertFalse(workspace.isEmpty());
+    }
+
+    @Test
+    public void test_isEmpty_ReturnsFalse_WhenThereIsDocumentation() throws Exception {
+        workspace = new Workspace("Name", "Description");
+        workspace.getDocumentation().addImages(new File("../docs/images"));
+        assertFalse(workspace.isEmpty());
     }
 
 }
