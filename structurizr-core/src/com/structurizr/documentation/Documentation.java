@@ -47,7 +47,7 @@ public class Documentation {
      * @param format    the {@link Format} of the documentation content
      * @param file  a File that points to the documentation content
      * @return  a documentation {@link Section}
-     * @throws IOException
+     * @throws IOException  if the file can't be read
      */
     public Section add(SoftwareSystem softwareSystem, Type type, Format format, File file) throws IOException {
         String content = new String(Files.readAllBytes(file.toPath()), "UTF-8");
@@ -74,7 +74,7 @@ public class Documentation {
      * @param format    the {@link Format} of the documentation content
      * @param file  a File that points to the documentation content
      * @return  a documentation {@link Section}
-     * @throws IOException
+     * @throws IOException  if the file can't be read
      */
     public Section add(Container container, Format format, File file) throws IOException {
         String content = new String(Files.readAllBytes(file.toPath()), "UTF-8");
@@ -100,7 +100,7 @@ public class Documentation {
      * @param format    the {@link Format} of the documentation content
      * @param file  a File that points to the documentation content
      * @return  a documentation {@link Section}
-     * @throws IOException
+     * @throws IOException  if the file can't be read
      */
     public Section add(Component component, Format format, File file) throws IOException {
         String content = new String(Files.readAllBytes(file.toPath()), "UTF-8");
@@ -150,7 +150,7 @@ public class Documentation {
      * Adds png/jpg/jpeg/gif images in the given directory to the workspace.
      *
      * @param path  a File descriptor representing a directory on disk
-     * @throws IOException
+     * @throws IOException  if the path can't be accessed
      */
     public void addImages(File path) throws IOException {
         if (path == null) {
