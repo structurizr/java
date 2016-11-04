@@ -54,11 +54,13 @@ abstract class AbstractStructurizrWorkspace {
     }
 
     protected void replaceLocalSourcePathWithRemoteUrl(Container container, String remoteSourcePath) throws Exception  {
-        String currentDirectory = new File(".").getCanonicalPath();
+        String currentDirectory = new File(".").getCanonicalFile().toURI().toString();
+        System.out.println(currentDirectory);
+        System.out.println(remoteSourcePath);
         for (Component component : container.getComponents()) {
             for (CodeElement codeElement : component.getCode()) {
-                if (codeElement.getSource() != null) {
-                    codeElement.setSource(codeElement.getSource().replace(currentDirectory, remoteSourcePath));
+                if (codeElement.getUrl() != null) {
+                    codeElement.setUrl(codeElement.getUrl().replace(currentDirectory, remoteSourcePath));
                 }
             }
         }

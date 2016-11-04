@@ -25,7 +25,7 @@ public class SourceCodeComponentFinderStrategy extends ComponentFinderStrategy {
     private File sourcePath;
     private Integer maxDescriptionLength = null;
 
-    private Map<String,String> typeToSourceFile = new HashMap<>();
+    private Map<String,File> typeToSourceFile = new HashMap<>();
     private Map<String,String> typeToDescription = new HashMap<>();
 
     public SourceCodeComponentFinderStrategy(File sourcePath) {
@@ -67,15 +67,15 @@ public class SourceCodeComponentFinderStrategy extends ComponentFinderStrategy {
             String comment = filter.filterAndTruncate(classDoc.commentText());
             String pathToSourceFile = classDoc.position().file().getCanonicalPath();
 
-            typeToSourceFile.put(type, pathToSourceFile);
+            typeToSourceFile.put(type, new File(pathToSourceFile));
             typeToDescription.put(type, comment);
         }
 
         for (Component component : getComponentFinder().getContainer().getComponents()) {
             long count = 0;
-            String sourceFile = typeToSourceFile.get(component.getType());
+            File sourceFile = typeToSourceFile.get(component.getType());
             if (sourceFile != null) {
-                count += Files.lines(Paths.get(sourceFile)).count();
+                count += Files.lines(Paths.get(sourceFile.toURI())).count();
             }
 
             component.setDescription(typeToDescription.getOrDefault(component.getType(), null));
@@ -85,8 +85,8 @@ public class SourceCodeComponentFinderStrategy extends ComponentFinderStrategy {
 
                 sourceFile = typeToSourceFile.get(codeElement.getType());
                 if (sourceFile != null) {
-                    long numberOfLinesInFile = Files.lines(Paths.get(sourceFile)).count();
-                    codeElement.setSource(sourceFile);
+                    long numberOfLinesInFile = Files.lines(Paths.get(sourceFile.toURI())).count();
+                    codeElement.setUrl(sourceFile.toURI().toString());
                     codeElement.setSize(numberOfLinesInFile);
                     count += numberOfLinesInFile;
                 }

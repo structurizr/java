@@ -1,5 +1,8 @@
 package com.structurizr.model;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 /**
  * Represents a code element, such as a Java class or interface,
  * that is part of the implementation of a component.
@@ -10,7 +13,7 @@ public class CodeElement {
     private String name;
     private String type;
     private String description;
-    private String source;
+    private String url;
     private String language = "Java";
     private long size;
 
@@ -64,12 +67,30 @@ public class CodeElement {
         this.description = description;
     }
 
-    public String getSource() {
-        return source;
+    /**
+     * Gets the URL where more information about this code element can be found.
+     *
+     * @return  the URL as a String, or null if not set
+     */
+    public String getUrl() {
+        return url;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    /**
+     * Sets the URL where more information about this code element can be found.
+     *
+     * @param url   the URL as a String
+     * @throws IllegalArgumentException     if the URL is not a well-formed URL
+     */
+    public void setUrl(String url) {
+        if (url != null && url.trim().length() > 0) {
+            try {
+                URL u = new URL(url);
+                this.url = url;
+            } catch (MalformedURLException murle) {
+                throw new IllegalArgumentException(url + " is not a valid URL.");
+            }
+        }
     }
 
     public String getLanguage() {

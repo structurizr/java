@@ -26,7 +26,9 @@ public class WidgetsLimited {
         SoftwareSystem ecommerceSystem = model.addSoftwareSystem(Location.Internal, "E-commerce System", "Allows customers to buy widgets online via the widgets.com website.");
         SoftwareSystem fulfilmentSystem = model.addSoftwareSystem(Location.Internal, "Fulfilment System", "Responsible for processing and shipping of customer orders.");
         SoftwareSystem taxamo = model.addSoftwareSystem(Location.External, "Taxamo", "Calculates local tax (for EU B2B customers) and acts as a front-end for Braintree Payments.");
+        taxamo.setUrl("https://www.taxamo.com");
         SoftwareSystem braintreePayments = model.addSoftwareSystem(Location.External, "Braintree Payments", "Processes credit card payments on behalf of Widgets Limited.");
+        braintreePayments.setUrl("https://www.braintreepayments.com");
         SoftwareSystem jerseyPost = model.addSoftwareSystem(Location.External, "Jersey Post", "Calculates worldwide shipping costs for packages.");
 
         model.getPeople().stream().filter(p -> p.getLocation() == Location.External).forEach(p -> p.addTags(EXTERNAL_PERSON_TAG));

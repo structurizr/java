@@ -273,4 +273,31 @@ public class ElementTests extends AbstractWorkspaceTestBase {
         assertTrue(softwareSystem2.equals(softwareSystem1));
     }
 
+    @Test
+    public void test_setUrl() {
+        Element element = model.addSoftwareSystem("Name", "Description");
+        element.setUrl("https://structurizr.com");
+        assertEquals("https://structurizr.com", element.getUrl());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_setUrl_ThrowsAnIllegalArgumentException_WhenAnInvalidUrlIsSpecified() {
+        Element element = model.addSoftwareSystem("Name", "Description");
+        element.setUrl("htt://blah");
+    }
+
+    @Test
+    public void test_setUrl_DoesNothing_WhenANullUrlIsSpecified() {
+        Element element = model.addSoftwareSystem("Name", "Description");
+        element.setUrl(null);
+        assertNull(element.getUrl());
+    }
+
+    @Test
+    public void test_setUrl_DoesNothing_WhenAnEmptyUrlIsSpecified() {
+        Element element = model.addSoftwareSystem("Name", "Description");
+        element.setUrl(" ");
+        assertNull(element.getUrl());
+    }
+
 }

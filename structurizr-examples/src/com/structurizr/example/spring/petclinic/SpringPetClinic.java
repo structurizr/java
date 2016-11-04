@@ -24,7 +24,7 @@ public class SpringPetClinic {
             System.out.println("The path to the Spring PetClinic source code must be provided.");
             System.exit(-1);
         }
-        String sourceRoot = args[0];
+        File sourceRoot = new File(args[0]);
 
         try {
             Class.forName("org.springframework.samples.petclinic.model.Vet");
@@ -88,11 +88,11 @@ public class SpringPetClinic {
         // link the architecture model with the code
         for (Component component : webApplication.getComponents()) {
             for (CodeElement codeElement : component.getCode()) {
-                String sourcePath = codeElement.getSource();
+                String sourcePath = codeElement.getUrl();
                 if (sourcePath != null) {
-                    codeElement.setSource(sourcePath.replace(
-                            sourceRoot,
-                            "https://github.com/spring-projects/spring-petclinic/tree/master"));
+                    codeElement.setUrl(sourcePath.replace(
+                            sourceRoot.toURI().toString(),
+                            "https://github.com/spring-projects/spring-petclinic/tree/master/"));
                 }
             }
         }

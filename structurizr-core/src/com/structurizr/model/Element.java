@@ -2,6 +2,8 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -18,6 +20,7 @@ public abstract class Element extends Taggable {
 
     protected String name;
     protected String description;
+    protected String url;
 
     protected Set<Relationship> relationships = new LinkedHashSet<>();
 
@@ -66,6 +69,32 @@ public abstract class Element extends Taggable {
         }
 
         this.name = name;
+    }
+
+    /**
+     * Gets the URL where more information about this element can be found.
+     *
+     * @return  a URL as a String
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * Sets the URL where more information about this element can be found.
+     *
+     * @param url   the URL as a String
+     * @throws IllegalArgumentException     if the URL is not a well-formed URL
+     */
+    public void setUrl(String url) {
+        if (url != null && url.trim().length() > 0) {
+            try {
+                URL u = new URL(url);
+                this.url = url;
+            } catch (MalformedURLException murle) {
+                throw new IllegalArgumentException(url + " is not a valid URL.");
+            }
+        }
     }
 
     @JsonIgnore

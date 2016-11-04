@@ -60,4 +60,31 @@ public class CodeElementTests {
         assertTrue(codeElement1.equals(codeElement2));
     }
 
+    @Test
+    public void test_setUrl() {
+        CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
+        codeElement.setUrl("https://structurizr.com");
+        assertEquals("https://structurizr.com", codeElement.getUrl());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_setUrl_ThrowsAnIllegalArgumentException_WhenAnInvalidUrlIsSpecified() {
+        CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
+        codeElement.setUrl("htt://blah");
+    }
+
+    @Test
+    public void test_setUrl_DoesNothing_WhenANullUrlIsSpecified() {
+        CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
+        codeElement.setUrl(null);
+        assertNull(codeElement.getUrl());
+    }
+
+    @Test
+    public void test_setUrl_DoesNothing_WhenAnEmptyUrlIsSpecified() {
+        CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
+        codeElement.setUrl(" ");
+        assertNull(codeElement.getUrl());
+    }
+
 }
