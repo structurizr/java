@@ -27,6 +27,7 @@ public class WidgetsLimited {
         SoftwareSystem fulfilmentSystem = model.addSoftwareSystem(Location.Internal, "Fulfilment System", "Responsible for processing and shipping of customer orders.");
         SoftwareSystem taxamo = model.addSoftwareSystem(Location.External, "Taxamo", "Calculates local tax (for EU B2B customers) and acts as a front-end for Braintree Payments.");
         SoftwareSystem braintreePayments = model.addSoftwareSystem(Location.External, "Braintree Payments", "Processes credit card payments on behalf of Widgets Limited.");
+        SoftwareSystem jerseyPost = model.addSoftwareSystem(Location.External, "Jersey Post", "Calculates worldwide shipping costs for packages.");
 
         model.getPeople().stream().filter(p -> p.getLocation() == Location.External).forEach(p -> p.addTags(EXTERNAL_PERSON_TAG));
         model.getPeople().stream().filter(p -> p.getLocation() == Location.Internal).forEach(p -> p.addTags(INTERNAL_PERSON_TAG));
@@ -38,17 +39,21 @@ public class WidgetsLimited {
         customerServiceUser.uses(ecommerceSystem, "Looks up order information using");
         customer.uses(ecommerceSystem, "Places orders for widgets using");
         ecommerceSystem.uses(fulfilmentSystem, "Sends order information to");
+        fulfilmentSystem.uses(jerseyPost, "Gets shipping charges from");
         ecommerceSystem.uses(taxamo, "Delegates credit card processing to");
         taxamo.uses(braintreePayments, "Uses for credit card processing");
 
-        EnterpriseContextView enterpriseContextView = views.createEnterpriseContextView("enterpriseContext", "The enterprise context for Widgets Limited.");
+        EnterpriseContextView enterpriseContextView = views.createEnterpriseContextView("EnterpriseContext", "The enterprise context for Widgets Limited.");
         enterpriseContextView.addAllElements();
 
-        SystemContextView systemContextView = views.createSystemContextView(ecommerceSystem, "systemContext", "A description of the Widgets Limited e-commerce system.");
-        systemContextView.addNearestNeighbours(ecommerceSystem);
-        systemContextView.remove(customer.getEfferentRelationshipWith(customerServiceUser));
+        SystemContextView ecommerceSystemContext = views.createSystemContextView(ecommerceSystem, "EcommerceSystemContext", "The system context diagram for the Widgets Limited e-commerce system.");
+        ecommerceSystemContext.addNearestNeighbours(ecommerceSystem);
+        ecommerceSystemContext.remove(customer.getEfferentRelationshipWith(customerServiceUser));
 
-        DynamicView dynamicView = views.createDynamicView("customerSupportCall", "Customer support call");
+        SystemContextView fulfilmentSystemContext = views.createSystemContextView(fulfilmentSystem, "FulfilmentSystemContext", "The system context diagram for the Widgets Limited fulfilment system.");
+        fulfilmentSystemContext.addNearestNeighbours(fulfilmentSystem);
+
+        DynamicView dynamicView = views.createDynamicView("CustomerSupportCall", "A high-level overview of the customer support call process.");
         dynamicView.add(customer, customerServiceUser);
         dynamicView.add(customerServiceUser, ecommerceSystem);
 
