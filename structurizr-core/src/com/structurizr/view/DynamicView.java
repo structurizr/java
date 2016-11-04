@@ -3,6 +3,10 @@ package com.structurizr.view;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class DynamicView extends View {
 
     private Model model;
@@ -10,7 +14,7 @@ public class DynamicView extends View {
     private Element element;
     private String elementId;
 
-    private HierarchicalSequenceCounter counter = new HierarchicalSequenceCounter();
+    private SequenceNumber sequenceNumber = new SequenceNumber();
 
     DynamicView() {
     }
@@ -78,11 +82,11 @@ public class DynamicView extends View {
         this.element = element;
     }
 
-    public void add(Element source, Element destination) {
-        add(source, "", destination);
+    public RelationshipView add(Element source, Element destination) {
+        return add(source, "", destination);
     }
 
-    public void add(Element source, String description, Element destination) {
+    public RelationshipView add(Element source, String description, Element destination) {
         if (source != null && destination != null) {
             checkElement(source);
             checkElement(destination);
@@ -92,8 +96,8 @@ public class DynamicView extends View {
             if (relationship != null) {
                 addElement(source, false);
                 addElement(destination, false);
-                addRelationship(relationship, description, counter.toString());
-                counter.increment();
+                RelationshipView relationshipView = addRelationship(relationship, description, sequenceNumber.getNext());
+                return relationshipView;
             } else {
                 throw new IllegalArgumentException("Relationship does not exist in model");
             }
@@ -145,14 +149,6 @@ public class DynamicView extends View {
         return super.add(relationship);
     }
 
-    public void startChildSequence() {
-        this.counter = new HierarchicalSequenceCounter(counter);
-    }
-
-    public void endChildSequence() {
-        this.counter = counter.getParent();
-    }
-
     @Override
     protected RelationshipView findRelationshipView(RelationshipView sourceRelationshipView) {
         for (RelationshipView relationshipView : getRelationships()) {
@@ -174,6 +170,24 @@ public class DynamicView extends View {
         } else {
             return "Dynamic";
         }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder buf = new StringBuilder();
+        List<RelationshipView> list = new ArrayList<>(getRelationships());
+        Collections.sort(list, (rv1, rv2) -> rv1.getOrder().compareTo(rv2.getOrder()));
+        list.forEach(rv -> buf.append(rv.toString() + "\n"));
+
+        return buf.toString();
+    }
+
+    public void startParallelSequence() {
+        sequenceNumber.startParallelSequence();
+    }
+
+    public void endParallelSequence() {
+        sequenceNumber.endParallelSequence();
     }
 
 }
