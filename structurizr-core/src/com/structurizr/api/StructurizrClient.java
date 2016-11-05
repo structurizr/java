@@ -253,9 +253,10 @@ public final class StructurizrClient {
     public void mergeWorkspace(long workspaceId, Workspace workspace) throws Exception {
         log.info("Merging workspace with ID " + workspaceId);
 
-        Workspace currentWorkspace = getWorkspace(workspaceId);
-        if (currentWorkspace != null) {
-            workspace.getViews().copyLayoutInformationFrom(currentWorkspace.getViews());
+        Workspace remoteWorkspace = getWorkspace(workspaceId);
+        if (remoteWorkspace != null) {
+            workspace.getViews().copyLayoutInformationFrom(remoteWorkspace.getViews());
+            workspace.getViews().getConfiguration().copyConfigurationFrom(remoteWorkspace.getViews().getConfiguration());
         }
         putWorkspace(workspaceId, workspace);
     }
