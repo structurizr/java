@@ -5,6 +5,11 @@ import com.structurizr.api.StructurizrClient;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
+/**
+ * This workspace contains a number of diagrams for a fictional reseller of widgets online.
+ *
+ * You can see the workspace online at https://structurizr.com/public/14471
+ */
 public class WidgetsLimited {
 
     private static final String EXTERNAL_PERSON_TAG = "External Person";

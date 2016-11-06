@@ -10,6 +10,9 @@ import com.structurizr.view.Styles;
 import com.structurizr.view.SystemContextView;
 import com.structurizr.view.ViewSet;
 
+/**
+ * A simple "getting started" example.
+ */
 public class GettingStarted {
 
     public static void main(String[] args) throws Exception {

@@ -1,6 +1,5 @@
 package com.structurizr.componentfinder;
 
-import com.structurizr.model.CodeElement;
 import com.structurizr.model.Component;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;

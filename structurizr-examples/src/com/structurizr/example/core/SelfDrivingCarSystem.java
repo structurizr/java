@@ -98,7 +98,7 @@ public class SelfDrivingCarSystem {
         contextView.setPaperSize(PaperSize.Slide_4_3);
 
         // upload it to structurizr.com
-        StructurizrClient structurizrClient = new StructurizrClient("https://api.structurizr.com", "key", "secret");
+        StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.mergeWorkspace(271, workspace);
     }
 

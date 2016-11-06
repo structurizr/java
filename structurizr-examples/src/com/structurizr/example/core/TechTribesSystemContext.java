@@ -6,10 +6,11 @@ import com.structurizr.model.*;
 import com.structurizr.view.*;
 
 /**
- * This is a model of the system context for the techtribes.je system,
- * the code for which can be found at https://github.com/techtribesje/techtribesje
+ * This is a model of the system context for the techtribes.je system.
+ *
+ * You can see the workspace online at https://structurizr.com/public/101
  */
-public class TechTribesSystemContextForPresentation {
+public class TechTribesSystemContext {
 
     public static void main(String[] args) throws Exception {
         Workspace workspace = new Workspace("techtribes.je", "This is a model of the system context for the techtribes.je system, for use in presentations.");

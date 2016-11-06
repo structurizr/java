@@ -10,7 +10,8 @@ import com.structurizr.view.ViewSet;
 
 /**
  * A simple example of the shapes available in Structurizr.
- * See the live diagram at https://structurizr.com/workspace/12541
+ *
+ * You can see the workspace online at https://structurizr.com/public/12541
  */
 public class ShapesExample {
 

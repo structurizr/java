@@ -16,6 +16,8 @@ import java.io.File;
 /**
  * This is a simple (incomplete) example C4 model based upon the financial risk system
  * architecture kata, which can be found at http://bit.ly/sa4d-risksystem
+ *
+ * You can see the workspace online at https://structurizr.com/public/31
  */
 public class FinancialRiskSystem {
 

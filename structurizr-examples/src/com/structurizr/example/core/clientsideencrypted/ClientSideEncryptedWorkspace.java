@@ -1,4 +1,4 @@
-package com.structurizr.example.core;
+package com.structurizr.example.core.clientsideencrypted;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
@@ -18,8 +18,11 @@ import com.structurizr.view.ViewSet;
 import java.io.File;
 
 /**
- * This is an example client-side encrypted workspace. You can see it in your web browser
- * at https://structurizr.com/public/41 (the passphrase is "password").
+ * This is an example client-side encrypted workspace, which includes diagrams
+ * and documentation.
+ *
+ * You can see the workspace online at https://structurizr.com/public/41
+ * (the passphrase is "password").
  */
 public class ClientSideEncryptedWorkspace {
 
@@ -49,7 +52,7 @@ public class ClientSideEncryptedWorkspace {
 
         EncryptionStrategy encryptionStrategy = new AesEncryptionStrategy("password");
 
-        StructurizrClient structurizrClient = new StructurizrClient("0ea99dfa-95f2-4adf-a78d-ea14c1949293", "4c23f518-721f-462e-9087-d98efb95c8d5");
+        StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.setEncryptionStrategy(encryptionStrategy);
         structurizrClient.mergeWorkspace(41, workspace);
     }
