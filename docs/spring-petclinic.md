@@ -175,8 +175,6 @@ styles.addElementStyle("Spring Service").background("#6CB33E").color("#000000");
 styles.addElementStyle("Spring Repository").background("#95D46C").color("#000000");
 ```
 
-> Please note: shapes will only be seen if you are a [Structurizr paid plan](https://structurizr.com/pricing) customer.
-
 ## 9. Upload the model and views to Structurizr
 
 The code we've just seen simply creates an in-memory representation of the software architecture model, in this case as a collection of Java objects. The open source Structurizr for Java library also includes a way to export this model to an intermediate JSON representation, which can then be imported into some tooling that is able to visualise it. This is what Structurizr does.
@@ -187,8 +185,7 @@ structurizrClient.mergeWorkspace(1234, workspace);
 ```
 
 In order to upload your model to Structurizr using the web API, you'll need to [sign up](https://structurizr.com/signup) to get your own API key and secret.
-Also, when you run the Structurizr program you just created, you'll need to ensure that the compiled version of the Spring PetClinic application is on your classpath;
-specifically these directories:
+Also, when you run the Structurizr program you just created, you'll need to ensure that the compiled version of the Spring PetClinic application is on your classpath; specifically these directories:
 
 ```
 target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/classes
