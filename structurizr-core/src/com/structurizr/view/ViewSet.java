@@ -47,44 +47,40 @@ public class ViewSet {
     }
 
     public EnterpriseContextView createEnterpriseContextView(String key, String description) {
-        EnterpriseContextView view = new EnterpriseContextView(model, key, description);
-
         if (getViewWithKey(key) != null) {
             throw new IllegalArgumentException("A view with the key " + key + " already exists.");
         } else {
+            EnterpriseContextView view = new EnterpriseContextView(model, key, description);
             enterpriseContextViews.add(view);
             return view;
         }
     }
 
     public SystemContextView createSystemContextView(SoftwareSystem softwareSystem, String key, String description) {
-        SystemContextView view = new SystemContextView(softwareSystem, key, description);
-
         if (getViewWithKey(key) != null) {
             throw new IllegalArgumentException("A view with the key " + key + " already exists.");
         } else {
+            SystemContextView view = new SystemContextView(softwareSystem, key, description);
             systemContextViews.add(view);
             return view;
         }
     }
 
     public ContainerView createContainerView(SoftwareSystem softwareSystem, String key, String description) {
-        ContainerView view = new ContainerView(softwareSystem, key, description);
-
         if (getViewWithKey(key) != null) {
             throw new IllegalArgumentException("A view with the key " + key + " already exists.");
         } else {
+            ContainerView view = new ContainerView(softwareSystem, key, description);
             containerViews.add(view);
             return view;
         }
     }
 
     public ComponentView createComponentView(Container container, String key, String description) {
-        ComponentView view = new ComponentView(container, key, description);
-
         if (getViewWithKey(key) != null) {
             throw new IllegalArgumentException("A view with the key " + key + " already exists.");
         } else {
+            ComponentView view = new ComponentView(container, key, description);
             componentViews.add(view);
             return view;
         }
@@ -98,11 +94,10 @@ public class ViewSet {
      * @return              a DynamicView object
      */
     public DynamicView createDynamicView(String key, String description) {
-        DynamicView view = new DynamicView(getModel(), key, description);
-
         if (getViewWithKey(key) != null) {
             throw new IllegalArgumentException("A view with the key " + key + " already exists.");
         } else {
+            DynamicView view = new DynamicView(getModel(), key, description);
             dynamicViews.add(view);
             return view;
         }
@@ -127,11 +122,10 @@ public class ViewSet {
             throw new IllegalArgumentException("Software system must not be null.");
         }
 
-        DynamicView view = new DynamicView(softwareSystem, key, description);
-
         if (getViewWithKey(key) != null) {
             throw new IllegalArgumentException("A view with the key " + key + " already exists.");
         } else {
+            DynamicView view = new DynamicView(softwareSystem, key, description);
             dynamicViews.add(view);
             return view;
         }
@@ -157,11 +151,10 @@ public class ViewSet {
             throw new IllegalArgumentException("Container must not be null.");
         }
 
-        DynamicView view = new DynamicView(container, key, description);
-
         if (getViewWithKey(key) != null) {
             throw new IllegalArgumentException("A view with the key " + key + " already exists.");
         } else {
+            DynamicView view = new DynamicView(container, key, description);
             dynamicViews.add(view);
             return view;
         }
@@ -178,11 +171,10 @@ public class ViewSet {
      * @return              a FilteredView object
      */
     public FilteredView createFilteredView(View view, String key, String description, FilterMode mode, String... tags) {
-        FilteredView filteredView = new FilteredView(view, key, description, mode, tags);
-
         if (getViewWithKey(key) != null) {
             throw new IllegalArgumentException("A view with the key " + key + " already exists.");
         } else {
+            FilteredView filteredView = new FilteredView(view, key, description, mode, tags);
             filteredViews.add(filteredView);
             return filteredView;
         }

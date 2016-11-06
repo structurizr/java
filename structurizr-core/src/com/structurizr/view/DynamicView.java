@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * A dynamic view, used to describe behaviour between static elements at runtime.
+ */
 public class DynamicView extends View {
 
     private Model model;
