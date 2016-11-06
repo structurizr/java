@@ -165,13 +165,26 @@ public final class Documentation {
             throw new IllegalArgumentException(path.getCanonicalPath() + " is not a directory.");
         }
 
-        File[] imageFiles = path.listFiles((dir, name) -> {
-            name = name.toLowerCase();
-            return name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".gif");
-        });
+        addImagesFromPath("", path);
+    }
 
-        for (File file : imageFiles) {
-            addImage(file);
+    private void addImagesFromPath(String root, File path) throws IOException {
+        File[] files = path.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                String name = file.getName().toLowerCase();
+                if (file.isDirectory()) {
+                    addImagesFromPath(file.getName() + "/", file);
+                } else {
+                    if (name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".gif")) {
+                        Image image = addImage(file);
+
+                        if (!root.isEmpty()) {
+                            image.setName(root + image.getName());
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -181,7 +194,7 @@ public final class Documentation {
      * @param file  a File descriptor representing an image file on disk
      * @throws IOException  if the file can't be read
      */
-    public void addImage(File file) throws IOException {
+    public Image addImage(File file) throws IOException {
         if (file == null) {
             throw new IllegalArgumentException("File must not be null.");
         } else if (!file.exists()) {
@@ -203,6 +216,8 @@ public final class Documentation {
         String base64Content = Base64.getEncoder().encodeToString(imageBytes);
         Image image = new Image(file.getName(), contentType, base64Content);
         images.add(image);
+
+        return image;
     }
 
     /**
