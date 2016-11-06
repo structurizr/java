@@ -8,7 +8,7 @@ This GitHub repository is a Java library to create software architecture models 
 1. Upload the model (as a JSON document) to [Structurizr](https://structurizr.com) using the web API.
 1. Visualise and share the resulting software architecture diagrams ([example](https://structurizr.com/public/1)).
 
-![An overview of Structurizr](docs/images/structurizr-overview.png)
+![An overview of Structurizr](images/structurizr-overview.png)
 
 ## Table of contents
 

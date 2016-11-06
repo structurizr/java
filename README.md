@@ -12,8 +12,8 @@ This GitHub repository is a Java library to create software architecture models 
 
 ## Table of contents
 
-1. [Building from source](#building)
-1. [Binaries](#binaries)
+1. [Building from source](docs/index.md#building)
+1. [Binaries](docs/index.md#binaries)
 1. [Getting started](#getting-started)
 1. [API Client](docs/api-client.md)
 1. [Styling elements](docs/styling-elements.md)
