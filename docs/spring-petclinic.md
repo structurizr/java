@@ -1,6 +1,6 @@
 # The Spring PetClinic example
 
-This is a step-by-step guide to recreating the [Spring PetClinic example diagrams](https://structurizr.com/public/1). It assumes that you have working Java, Maven and git installations plus a development environment to write code.
+This is a step-by-step guide to recreating the [Spring PetClinic example diagrams](https://structurizr.com/public/1). It assumes that you have working Java, Maven and git installations plus a development environment to write code. The full source code for this example can be found in the [SpringPetClinic.java file](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/spring/petclinic/SpringPetClinic.java). 
 
 ## 1. Clone and build the Spring PetClinic code
 
@@ -134,7 +134,7 @@ componentView.addAllPeople();
 componentView.add(relationalDatabase);
 ```
 
-## 7. Link the components to the source code
+## 7. Linking elements to external resources
 
 In order to create a set of maps for the Spring PetClinic system that reflect reality, we can link the components on the component diagram to the source code. This isn't necessary, but doing so means that we can [navigate from the diagrams to the code](https://structurizr.com/help/diagram-navigation).
  
@@ -149,6 +149,12 @@ for (Component component : webApplication.getComponents()) {
 		}
 	}
 }
+```
+
+Since we don't have a component model for the database, let's instead simply link the database element to the data definition language in GitHub.
+
+```java
+relationalDatabase.setUrl("https://github.com/spring-projects/spring-petclinic/tree/master/src/main/resources/db/hsqldb");
 ```
 
 ## 8. Styling the diagrams
@@ -194,8 +200,6 @@ target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/lib
 
 ## 10. View the diagrams and layout the elements
 
-If you sign in to Structurizr and open the workspace you just uploaded, you'll see something like this.
+If you sign in to Structurizr and open the workspace you just uploaded, you'll see something like this. Structurizr doesn't do any automatic layout of the elements on your diagrams, so you will need to drag the boxes around to create a layout that you like. You can save the position of the diagram elements though.
 
 ![The Spring PetClinic workspace](images/spring-petclinic-1.png)
-
-Structurizr doesn't do any automatic layout of the elements on your diagrams, so you will need to drag the boxes around to create a layout that you like. You can save the position of the diagram elements though. And that's it!

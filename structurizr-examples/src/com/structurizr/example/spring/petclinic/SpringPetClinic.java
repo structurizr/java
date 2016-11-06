@@ -97,6 +97,10 @@ public class SpringPetClinic {
             }
         }
 
+        // rather than creating a component model for the database, let's simply link to the DDL
+        // (this is really just an example of linking an arbitrary element in the model to an external resource)
+        relationalDatabase.setUrl("https://github.com/spring-projects/spring-petclinic/tree/master/src/main/resources/db/hsqldb");
+
         // tag and style some elements
         springPetClinic.addTags("Spring PetClinic");
         webApplication.getComponents().stream().filter(c -> c.getTechnology().equals(SpringComponentFinderStrategy.SPRING_MVC_CONTROLLER)).forEach(c -> c.addTags("Spring MVC Controller"));
