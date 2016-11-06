@@ -30,8 +30,8 @@ With the Spring PetClinic application built, we now need to create a software ar
 
 Name                                          | Description
 -------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------
-com.structurizr:structurizr-core:0.8.1        | The core library that can used to create models and upload models to Structurizr.
-com.structurizr:structurizr-spring:0.8.1      | The Spring component finder.
+com.structurizr:structurizr-core:1.0.0-RC1        | The core library that can used to create models and upload models to Structurizr.
+com.structurizr:structurizr-spring:1.0.0-RC1      | The Spring component finder.
 
 First we need to create a little boilerplate code to create a workspace and a model.
 
@@ -140,14 +140,14 @@ In order to create a set of maps for the Spring PetClinic system that reflect re
  
 ```java
 for (Component component : webApplication.getComponents()) {
-    for (CodeElement codeElement : component.getCode()) {
-        String sourcePath = codeElement.getSource();
-        if (sourcePath != null) {
-            codeElement.setSource(sourcePath.replace(
-                    sourceRoot,
-                    "https://github.com/spring-projects/spring-petclinic/tree/master"));
-        }
-    }
+	for (CodeElement codeElement : component.getCode()) {
+    	String sourcePath = codeElement.getUrl();
+       	if (sourcePath != null) {
+           	codeElement.setUrl(sourcePath.replace(
+               	sourceRoot.toURI().toString(),
+               	"https://github.com/spring-projects/spring-petclinic/tree/master/"));
+		}
+	}
 }
 ```
 
