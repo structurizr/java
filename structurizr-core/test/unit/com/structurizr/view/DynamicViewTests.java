@@ -212,4 +212,13 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
         assertEquals(2, view.getRelationships().stream().filter(r -> r.getOrder().equals("5")).count());
     }
 
+    @Test
+    public void test_dynamicViewWithSoftwareSystemAsDestination() {
+        DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
+
+        containerA2.uses(softwareSystemB, "", "");
+
+        dynamicView.add(containerA2, softwareSystemB);
+    }
+
 }
