@@ -336,6 +336,16 @@ public final class StructurizrClient {
                 .filter(c -> c.getTechnology() == null || c.getTechnology().trim().length() == 0)
                 .forEach(c -> log.warn("Container " + c.getCanonicalName() + ": Missing technology")));
 
+        // find relationships with a missing description
+        workspace.getModel().getRelationships().stream()
+                .filter(e -> e.getDescription() == null || e.getDescription().trim().length() == 0)
+                .forEach(e -> log.warn(e.getClass().getSimpleName() + " " + e.toString() + ": Missing description"));
+
+        // find relationships with a missing technology
+        workspace.getModel().getRelationships().stream()
+                .filter(e -> e.getTechnology() == null || e.getTechnology().trim().length() == 0)
+                .forEach(e -> log.warn(e.getClass().getSimpleName() + " " + e.toString() + ": Missing technology"));
+
         // diagram keys have not been specified
         workspace.getViews().getEnterpriseContextViews().stream()
                 .filter(v -> v.getKey() == null)
