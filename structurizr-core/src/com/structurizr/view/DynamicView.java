@@ -113,7 +113,7 @@ public class DynamicView extends View {
      * This checks that only appropriate elements can be added to the view.
      */
     private void checkElement(Element e) {
-        // people can always be added
+        // people and software systems can always be added
         if (e instanceof Person) {
             return;
         }
@@ -123,7 +123,7 @@ public class DynamicView extends View {
             if (e.equals(element)) {
                 throw new IllegalArgumentException(e.getName() + " is already the scope of this view and cannot be added to it.");
             }
-            if (!e.getParent().equals(element)) {
+            if (e instanceof Container && !e.getParent().equals(element)) {
                 throw new IllegalArgumentException("Only containers that reside inside " + element.getName() + " can be added to this view.");
             }
         }
