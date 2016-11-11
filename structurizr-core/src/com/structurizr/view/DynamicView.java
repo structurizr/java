@@ -113,18 +113,23 @@ public class DynamicView extends View {
      * This checks that only appropriate elements can be added to the view.
      */
     private void checkElement(Element e) {
-        // people and software systems can always be added
+        // people can always be added
         if (e instanceof Person) {
             return;
         }
 
-        // if the scope of this dynamic is a software system, we only want containers inside that software system
+        // if the scope of this dynamic is a software system, we only want:
+        //  - containers inside that software system
+        //  - other software systems
         if (element instanceof SoftwareSystem) {
             if (e.equals(element)) {
                 throw new IllegalArgumentException(e.getName() + " is already the scope of this view and cannot be added to it.");
             }
             if (e instanceof Container && !e.getParent().equals(element)) {
                 throw new IllegalArgumentException("Only containers that reside inside " + element.getName() + " can be added to this view.");
+            }
+            if (e instanceof Component) {
+                throw new IllegalArgumentException("Components can't be added to a dynamic view when the scope is a software system.");
             }
         }
 

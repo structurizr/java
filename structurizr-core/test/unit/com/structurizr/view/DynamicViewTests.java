@@ -57,7 +57,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
             dynamicView.add(componentA1, containerA1);
             fail();
         } catch (Exception e) {
-            assertEquals("Only containers that reside inside Software System A can be added to this view.", e.getMessage());
+            assertEquals("Components can't be added to a dynamic view when the scope is a software system.", e.getMessage());
         }
     }
 
@@ -137,6 +137,14 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_add_AddsTheSourceAndDestinationElements_WhenARelationshipBetweenThemExistsAndTheDestinationIsAnExternalSoftwareSystem() {
+        DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
+        containerA2.uses(softwareSystemB, "", "");
+        dynamicView.add(containerA2, softwareSystemB);
+        assertEquals(2, dynamicView.getElements().size());
+    }
+
+    @Test
     public void test_normalSequence() {
         workspace = new Workspace("Name", "Description");
         model = workspace.getModel();
@@ -210,15 +218,6 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
         assertEquals(1, view.getRelationships().stream().filter(r -> r.getOrder().equals("3")).count());
         assertEquals(3, view.getRelationships().stream().filter(r -> r.getOrder().equals("4")).count());
         assertEquals(2, view.getRelationships().stream().filter(r -> r.getOrder().equals("5")).count());
-    }
-
-    @Test
-    public void test_dynamicViewWithSoftwareSystemAsDestination() {
-        DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
-
-        containerA2.uses(softwareSystemB, "", "");
-
-        dynamicView.add(containerA2, softwareSystemB);
     }
 
 }
