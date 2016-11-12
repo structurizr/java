@@ -27,7 +27,6 @@ public final class WorkspaceUtils {
             throw new IllegalArgumentException("The specified JSON file does not exist.");
         }
 
-
         return new JsonReader().read(new FileReader(file));
     }
 
