@@ -1,5 +1,7 @@
 package com.structurizr;
 
+import com.structurizr.model.Container;
+import com.structurizr.model.SoftwareSystem;
 import org.junit.Test;
 
 import java.io.File;
@@ -123,6 +125,19 @@ public class WorkspaceTests {
         workspace = new Workspace("Name", "Description");
         workspace.getDocumentation().addImages(new File("../docs/images"));
         assertFalse(workspace.isEmpty());
+    }
+
+    @Test
+    public void test_countAndLogWarnings() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem1 = workspace.getModel().addSoftwareSystem("Software System 1", null);
+        SoftwareSystem softwareSystem2 = workspace.getModel().addSoftwareSystem("Software System 2", " ");
+        Container container1 = softwareSystem1.addContainer("Name", "Description", null);
+        Container container2 = softwareSystem2.addContainer("Name", "Description", " ");
+        container1.uses(container2, null, null);
+        container2.uses(container1, " ", " ");
+
+        assertEquals(8, workspace.countAndLogWarnings());
     }
 
 }

@@ -209,7 +209,7 @@ public final class StructurizrClient {
 
             workspace.setId(workspaceId);
 
-            findAndlogWarnings(workspace);
+            workspace.countAndLogWarnings();
 
             CloseableHttpClient httpClient = HttpClients.createSystem();
             HttpPut httpPut = new HttpPut(url + WORKSPACE_PATH + workspaceId);
@@ -322,46 +322,6 @@ public final class StructurizrClient {
     private String createArchiveFileName(long workspaceId) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         return "structurizr-" + workspaceId + "-" + sdf.format(new Date()) + ".json";
-    }
-
-    private void findAndlogWarnings(Workspace workspace) {
-        // find elements with a missing description
-        workspace.getModel().getElements().stream()
-                .filter(e -> e.getDescription() == null || e.getDescription().trim().length() == 0)
-                .forEach(e -> log.warn(e.getClass().getSimpleName() + " " + e.getCanonicalName() + ": Missing description"));
-
-        // find containers with a missing technology
-        workspace.getModel().getSoftwareSystems()
-                .forEach(s -> s.getContainers().stream()
-                .filter(c -> c.getTechnology() == null || c.getTechnology().trim().length() == 0)
-                .forEach(c -> log.warn("Container " + c.getCanonicalName() + ": Missing technology")));
-
-        // find relationships with a missing description
-        workspace.getModel().getRelationships().stream()
-                .filter(e -> e.getDescription() == null || e.getDescription().trim().length() == 0)
-                .forEach(e -> log.warn(e.getClass().getSimpleName() + " " + e.toString() + ": Missing description"));
-
-        // find relationships with a missing technology
-        workspace.getModel().getRelationships().stream()
-                .filter(e -> e.getTechnology() == null || e.getTechnology().trim().length() == 0)
-                .forEach(e -> log.warn(e.getClass().getSimpleName() + " " + e.toString() + ": Missing technology"));
-
-        // diagram keys have not been specified
-        workspace.getViews().getEnterpriseContextViews().stream()
-                .filter(v -> v.getKey() == null)
-                .forEach(v -> log.warn("Enterprise Context view \"" + v.getName() + "\": Missing key"));
-        workspace.getViews().getSystemContextViews().stream()
-                .filter(v -> v.getKey() == null)
-                .forEach(v -> log.warn("System Context view \"" + v.getName() + "\": Missing key"));
-        workspace.getViews().getContainerViews().stream()
-                .filter(v -> v.getKey() == null)
-                .forEach(v -> log.warn("Container view \"" + v.getName() + "\": Missing key"));
-        workspace.getViews().getComponentViews().stream()
-                .filter(v -> v.getKey() == null)
-                .forEach(v -> log.warn("Component view \"" + v.getName() + "\": Missing key"));
-        workspace.getViews().getDynamicViews().stream()
-                .filter(v -> v.getKey() == null)
-                .forEach(v -> log.warn("Dynamic view \"" + v.getName() + "\": Missing key"));
     }
 
 }
