@@ -12,16 +12,45 @@ import java.util.Set;
  */
 public class ReferencedTypesSupportingTypesStrategy extends SupportingTypesStrategy {
 
+    private boolean includeIndirectlyReferencedTypes;
+
+    public ReferencedTypesSupportingTypesStrategy() {
+        this(true);
+    }
+
+    public ReferencedTypesSupportingTypesStrategy(boolean includeIndirectlyReferencedTypes) {
+        this.includeIndirectlyReferencedTypes = includeIndirectlyReferencedTypes;
+    }
+
     @Override
     public Set<String> getSupportingTypes(Component component) throws Exception {
-        Set<String> set = new HashSet<>();
-        set.addAll(componentFinderStrategy.getReferencedTypesInPackage(component.getType()));
+        Set<String> referencedTypes = new HashSet<>();
+        referencedTypes.addAll(componentFinderStrategy.getReferencedTypesInPackage(component.getType()));
 
         for (CodeElement codeElement : component.getCode()) {
-            set.addAll(componentFinderStrategy.getReferencedTypesInPackage(codeElement.getType()));
+            referencedTypes.addAll(componentFinderStrategy.getReferencedTypesInPackage(codeElement.getType()));
         }
 
-        return set;
+        if (includeIndirectlyReferencedTypes) {
+            int numberOfTypes = referencedTypes.size();
+            boolean foundMore = true;
+            while (foundMore) {
+                Set<String> indirectlyReferencedTypes = new HashSet<>();
+                for (String type : referencedTypes) {
+                    indirectlyReferencedTypes.addAll(componentFinderStrategy.getReferencedTypesInPackage(type));
+                }
+                referencedTypes.addAll(indirectlyReferencedTypes);
+
+                if (referencedTypes.size() > numberOfTypes) {
+                    foundMore = true;
+                    numberOfTypes = referencedTypes.size();
+                } else {
+                    foundMore = false;
+                }
+            }
+        }
+
+        return referencedTypes;
     }
 
 }

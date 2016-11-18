@@ -213,13 +213,43 @@ public class AbstractReflectionsComponentFinderStrategyTests {
     }
 
     @Test
-    public void test_findComponents_CorrectlyFindsSupportingTypes_WhenTheReferencedTypesStrategyIsUsed() throws Exception {
+    public void test_findComponents_CorrectlyFindsSupportingTypes_WhenTheReferencedTypesStrategyIsUsedAndIndirectlyReferencedTypesShouldBeIncluded() throws Exception {
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
                 "com.structurizr.componentfinder.reflections.supportingTypes.myapp",
                 new StructurizrAnnotationsComponentFinderStrategy(
                         new FirstImplementationOfInterfaceSupportingTypesStrategy(),
                         new ReferencedTypesSupportingTypesStrategy()
+                )
+        );
+        componentFinder.findComponents();
+
+        assertEquals(2, webApplication.getComponents().size());
+        Component myController = webApplication.getComponentWithName("MyController");
+        Component myRepository = webApplication.getComponentWithName("MyRepository");
+        assertEquals(1, myController.getRelationships().size());
+        assertNotNull(myController.getRelationships().stream().filter(r -> r.getDestination() == myRepository).findFirst().get());
+
+        assertEquals(2, myController.getCode().size());
+        assertCodeElementInComponent(myController, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.MyController", CodeElementRole.Primary);
+        assertCodeElementInComponent(myController, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.AbstractComponent", CodeElementRole.Supporting);
+
+        assertEquals(5, myRepository.getCode().size());
+        assertCodeElementInComponent(myController, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.data.MyRepository", CodeElementRole.Primary);
+        assertCodeElementInComponent(myController, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.AbstractComponent", CodeElementRole.Supporting);
+        assertCodeElementInComponent(myController, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.data.MyRepositoryImpl", CodeElementRole.Supporting);
+        assertCodeElementInComponent(myController, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.data.MyRepositoryRowMapper", CodeElementRole.Supporting);
+        assertCodeElementInComponent(myController, "com.structurizr.componentfinder.reflections.supportingTypes.myapp.util.RowMapperHelper", CodeElementRole.Supporting);
+    }
+
+    @Test
+    public void test_findComponents_CorrectlyFindsSupportingTypes_WhenTheReferencedTypesStrategyIsUsedAndIndirectlyReferencedTypesShouldBeExcluded() throws Exception {
+        ComponentFinder componentFinder = new ComponentFinder(
+                webApplication,
+                "com.structurizr.componentfinder.reflections.supportingTypes.myapp",
+                new StructurizrAnnotationsComponentFinderStrategy(
+                        new FirstImplementationOfInterfaceSupportingTypesStrategy(),
+                        new ReferencedTypesSupportingTypesStrategy(false)
                 )
         );
         componentFinder.findComponents();

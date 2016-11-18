@@ -1,4 +1,9 @@
 package com.structurizr.componentfinder.reflections.supportingTypes.myapp.data;
 
-public class MyRepositoryRowMapper {
+import com.structurizr.componentfinder.reflections.supportingTypes.myapp.util.RowMapperHelper;
+
+class MyRepositoryRowMapper {
+
+    private RowMapperHelper helper;
+
 }
