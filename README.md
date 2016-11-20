@@ -24,3 +24,4 @@ This GitHub repository is a Java library to create software architecture models 
 1. [Client-side encryption](docs/client-side-encryption.md)
 1. [Documentation](docs/documentation.md)
 1. [Graphviz and DOT](docs/graphviz-and-dot.md)
+1. [PlantUML](docs/plantuml.md)
