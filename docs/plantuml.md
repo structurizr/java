@@ -40,3 +40,12 @@ User ..> MySoftwareSystem : Uses
 If you copy/paste this into [PlantUML online](http://www.plantuml.com/plantuml/), you will get something like this:
 
 ![A simple PlantUML diagram](images/plantuml.png)
+
+## Benefits of using PlantUML with Structurizr
+
+The two key benefits of using the Structurizr client library with PlantUML are:
+
+1. Creating PlantUML diagram definitions from a __model__ means that the naming of elements and the relationships between them _remains consistent across diagrams_.
+2. The software architecture model at the component level can be created by extracting components from a codebase, using _static analysis and reflection techniques_. Here's a PlantUML version of the Spring PetClinic component diagram, the content of which has been [extracted from the code using the ComponentFinder](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/spring/petclinic/SpringPetClinic.java#L56).
+
+![A PlantUML version of the Spring PetClinic component diagram](images/spring-petclinic-plantuml.png)
