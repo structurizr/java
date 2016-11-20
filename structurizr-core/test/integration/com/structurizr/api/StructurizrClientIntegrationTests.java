@@ -23,6 +23,7 @@ public class StructurizrClientIntegrationTests {
         SystemContextView systemContextView = workspace.getViews().createSystemContextView(softwareSystem, "SystemContext", "Description");
         systemContextView.addAllElements();
 
+        structurizrClient.setMergeFromRemote(false);
         structurizrClient.putWorkspace(20081, workspace);
 
         workspace = structurizrClient.getWorkspace(20081);
@@ -43,6 +44,7 @@ public class StructurizrClientIntegrationTests {
         SystemContextView systemContextView = workspace.getViews().createSystemContextView(softwareSystem, "SystemContext", "Description");
         systemContextView.addAllElements();
 
+        structurizrClient.setMergeFromRemote(false);
         structurizrClient.putWorkspace(20081, workspace);
 
         workspace = structurizrClient.getWorkspace(20081);
