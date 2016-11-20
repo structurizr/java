@@ -25,6 +25,7 @@ public class ShapesExample {
         model.addSoftwareSystem("Circle", "Description").addTags("Circle");
         model.addSoftwareSystem("Hexagon", "Description").addTags("Hexagon");
         model.addSoftwareSystem("Cylinder", "Description").addTags("Cylinder");
+        model.addSoftwareSystem("Folder", "Description").addTags("Folder");
         model.addPerson("Person", "Description").addTags("Person");
 
         // tag and style some elements
@@ -37,6 +38,7 @@ public class ShapesExample {
         styles.addElementStyle("Ellipse").shape(Shape.Ellipse);
         styles.addElementStyle("Circle").shape(Shape.Circle);
         styles.addElementStyle("Cylinder").shape(Shape.Cylinder);
+        styles.addElementStyle("Folder").shape(Shape.Folder);
         styles.addElementStyle("Hexagon").shape(Shape.Hexagon);
         styles.addElementStyle("Person").shape(Shape.Person).width(550);
 
@@ -44,7 +46,7 @@ public class ShapesExample {
         viewSet.createEnterpriseContextView("Diagram", "An example diagram.").addAllElements();
 
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-        structurizrClient.mergeWorkspace(12541, workspace);
+        structurizrClient.putWorkspace(12541, workspace);
 
     }
 
