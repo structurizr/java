@@ -86,7 +86,7 @@ public class MicroservicesExample {
         styles.addRelationshipStyle(Tags.SYNCHRONOUS).dashed(false);
 
         StructurizrClient client = new StructurizrClient("key", "secret");
-        client.mergeWorkspace(4241, workspace);
+        client.putWorkspace(4241, workspace);
     }
 
 }

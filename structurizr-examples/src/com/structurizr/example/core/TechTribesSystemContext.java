@@ -57,7 +57,7 @@ public class TechTribesSystemContext {
         contextView.setPaperSize(PaperSize.Slide_4_3);
 
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-        structurizrClient.mergeWorkspace(101, workspace);
+        structurizrClient.putWorkspace(101, workspace);
     }
 
 }

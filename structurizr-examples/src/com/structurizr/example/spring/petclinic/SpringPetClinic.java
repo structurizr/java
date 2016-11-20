@@ -131,7 +131,7 @@ public class SpringPetClinic {
         styles.addElementStyle("Spring Repository").background("#95D46C").color("#000000");
 
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-        structurizrClient.mergeWorkspace(1, workspace);
+        structurizrClient.putWorkspace(1, workspace);
     }
 
 }

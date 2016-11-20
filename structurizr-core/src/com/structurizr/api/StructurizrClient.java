@@ -46,6 +46,8 @@ public final class StructurizrClient {
 
     private EncryptionStrategy encryptionStrategy;
 
+    private boolean mergeFromRemote = true;
+
     /**
      * The location where a copy of the workspace will be archived when it is retrieved from the server.
      */
@@ -151,6 +153,16 @@ public final class StructurizrClient {
     }
 
     /**
+     * Specifies whether the layout of diagrams from a remote workspace should be retained when putting
+     * a new version of the workspace.
+     *
+     * @param mergeFromRemote   true if layout information should be merged from the remote workspace, false otherwise
+     */
+    public void setMergeFromRemote(boolean mergeFromRemote) {
+        this.mergeFromRemote = mergeFromRemote;
+    }
+
+    /**
      * Gets the workspace with the given ID.
      *
      * @param workspaceId the ID of your workspace
@@ -207,8 +219,15 @@ public final class StructurizrClient {
                 throw new IllegalArgumentException("The workspace ID must be set");
             }
 
-            workspace.setId(workspaceId);
+            if (mergeFromRemote) {
+                Workspace remoteWorkspace = getWorkspace(workspaceId);
+                if (remoteWorkspace != null) {
+                    workspace.getViews().copyLayoutInformationFrom(remoteWorkspace.getViews());
+                    workspace.getViews().getConfiguration().copyConfigurationFrom(remoteWorkspace.getViews().getConfiguration());
+                }
+            }
 
+            workspace.setId(workspaceId);
             workspace.countAndLogWarnings();
 
             CloseableHttpClient httpClient = HttpClients.createSystem();
@@ -245,25 +264,6 @@ public final class StructurizrClient {
             log.error(e);
             throw new StructurizrClientException(e);
         }
-    }
-
-    /**
-     * Fetches the workspace with the given workspaceId from the server and merges its layout information with
-     * the given workspace. All models from the the new workspace are taken, only the old layout information is preserved.
-     *
-     * @param workspaceId the ID of your workspace
-     * @param workspace   the new workspace
-     * @throws Exception if you are not allowed to update the workspace with the given ID or there are any network troubles
-     */
-    public void mergeWorkspace(long workspaceId, Workspace workspace) throws Exception {
-        log.info("Merging workspace with ID " + workspaceId);
-
-        Workspace remoteWorkspace = getWorkspace(workspaceId);
-        if (remoteWorkspace != null) {
-            workspace.getViews().copyLayoutInformationFrom(remoteWorkspace.getViews());
-            workspace.getViews().getConfiguration().copyConfigurationFrom(remoteWorkspace.getViews().getConfiguration());
-        }
-        putWorkspace(workspaceId, workspace);
     }
 
     private void debugRequest(HttpRequestBase httpRequest, String content) {

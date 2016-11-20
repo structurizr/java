@@ -54,7 +54,7 @@ public class ClientSideEncryptedWorkspace {
 
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.setEncryptionStrategy(encryptionStrategy);
-        structurizrClient.mergeWorkspace(41, workspace);
+        structurizrClient.putWorkspace(41, workspace);
     }
 
 }

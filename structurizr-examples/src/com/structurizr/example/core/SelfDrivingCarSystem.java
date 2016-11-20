@@ -99,7 +99,7 @@ public class SelfDrivingCarSystem {
 
         // upload it to structurizr.com
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-        structurizrClient.mergeWorkspace(271, workspace);
+        structurizrClient.putWorkspace(271, workspace);
     }
 
 }

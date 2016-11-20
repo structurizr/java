@@ -67,13 +67,3 @@ structurizrClient.putWorkspace(1234, workspace);
 The result is a diagram like this (once you've dragged the boxes around).
 
 ![Getting Started with Structurizr for Java](images/getting-started.png)
-
-#### Retaining diagram layout information
-
-Once you have uploaded your model to Structurizr and organised the boxes on the diagrams, you'll probably want to retain the diagram layout next time you upload the model. To do this, you can use the ```mergeWorkspace``` helper method on the ```StructurizrClient```.
-
-```java
-structurizrClient.mergeWorkspace(1234, workspace);
-```
-
-This will get the current version of the workspace via the API, merge the diagram layout information, and then upload the new version via the API. See [API Client](api-client.md) for more details.

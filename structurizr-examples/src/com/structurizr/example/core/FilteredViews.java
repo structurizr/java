@@ -51,7 +51,7 @@ public class FilteredViews {
         viewSet.createFilteredView(contextView, "FutureStateSystemContext", "The future state system context after Software System B is live.", FilterMode.Exclude, "CurrentState");
 
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-        structurizrClient.mergeWorkspace(19911, workspace);
+        structurizrClient.putWorkspace(19911, workspace);
 
     }
 

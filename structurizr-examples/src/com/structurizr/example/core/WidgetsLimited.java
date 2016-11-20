@@ -75,7 +75,7 @@ public class WidgetsLimited {
         styles.addElementStyle(INTERNAL_SOFTWARE_SYSTEM_TAG).background("#B60037");
 
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-        structurizrClient.mergeWorkspace(14471, workspace);
+        structurizrClient.putWorkspace(14471, workspace);
     }
 
 }

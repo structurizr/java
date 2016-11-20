@@ -46,18 +46,8 @@ By default, a copy of the workspace (as JSON) is archived to the current working
 
 ### 2. putWorkspace
 
-This allows you to overwrite an existing workspace.
+This allows you to overwrite an existing workspace. If the ```mergeFromRemote``` property (on the ```StructurizrClient``` instance) is set to ```true``` (this is the default), any layout information (i.e. the location of boxes on diagrams) is preserved where possible (i.e. where diagram elements haven't been renamed).
 
 ```java
 structurizrClient.putWorkspace(1234, workspace);
 ```
-
-### 3. mergeWorkspace
-
-This is the same as ```putWorkspace``` except that any layout information (i.e. the location of boxes on diagrams) is preserved where possible (i.e. where diagram elements haven't been renamed).
-
-```java
-structurizrClient.mergeWorkspace(1234, workspace);
-```
-
-Under the covers, this operation calls ```getWorkspace``` followed by ```putWorkspace```. Views from the new version and the version retrieved from Structurizr are matched based upon their key or title. If the merge doesn't work as expected, you still have the previous version of the workspace (as JSON) in the archive location.
