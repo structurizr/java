@@ -1,19 +1,20 @@
 # The Spring PetClinic example
 
-This is a step-by-step guide to recreating the [Spring PetClinic example diagrams](https://structurizr.com/public/1). It assumes that you have working Java, Maven and git installations plus a development environment to write code. The full source code for this example can be found in the [SpringPetClinic.java file](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/spring/petclinic/SpringPetClinic.java). 
+This is a step-by-step guide to recreating the [Spring PetClinic example diagrams](https://structurizr.com/public/1), which are based upon the original version of the application. It assumes that you have working Java, Maven and git installations plus a development environment to write code. The full source code for this example can be found in the [SpringPetClinic.java file](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/spring/petclinic/SpringPetClinic.java). 
 
 ## 1. Clone and build the Spring PetClinic code
 
-First of all, we need to download a copy of the [Spring PetClinic source code](https://github.com/spring-projects/spring-petclinic/)
+First of all, we need to download a copy of the [Spring PetClinic source code](https://github.com/spring-projects/spring-petclinic/).
 
 ```
 git clone https://github.com/spring-projects/spring-petclinic.git
+cd spring-petclinic
+git checkout 864580702f8ef4d2cdfd7fe4497fb8c9e86018d2
 ```
 
 Next we need to run the build.
 
 ```
-cd spring-petclinic
 mvn
 ```
 
@@ -145,7 +146,7 @@ for (Component component : webApplication.getComponents()) {
        	if (sourcePath != null) {
            	codeElement.setUrl(sourcePath.replace(
                	sourceRoot.toURI().toString(),
-               	"https://github.com/spring-projects/spring-petclinic/tree/master/"));
+               	"https://github.com/spring-projects/spring-petclinic/tree/864580702f8ef4d2cdfd7fe4497fb8c9e86018d2/"));
 		}
 	}
 }
@@ -187,7 +188,7 @@ The code we've just seen simply creates an in-memory representation of the softw
 
 ```java
 StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-structurizrClient.mergeWorkspace(1234, workspace);
+structurizrClient.putWorkspace(1234, workspace);
 ```
 
 In order to upload your model to Structurizr using the web API, you'll need to [sign up](https://structurizr.com/signup) to get your own API key and secret.

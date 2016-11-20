@@ -2,15 +2,18 @@ package com.structurizr.example.spring.petclinic;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.componentfinder.*;
+import com.structurizr.componentfinder.ComponentFinder;
+import com.structurizr.componentfinder.ReferencedTypesSupportingTypesStrategy;
+import com.structurizr.componentfinder.SourceCodeComponentFinderStrategy;
+import com.structurizr.componentfinder.SpringComponentFinderStrategy;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
 import java.io.File;
 
 /**
- * This is a C4 representation of the Spring PetClinic sample app
- * (https://github.com/spring-projects/spring-petclinic/) and you can see
+ * This is a C4 representation of the original Spring PetClinic sample app
+ * (https://github.com/spring-projects/spring-petclinic/tree/864580702f8ef4d2cdfd7fe4497fb8c9e86018d2) and you can see
  * the resulting diagrams at https://www.structurizr.com/public/1
  *
  * Use the following command to run this example: ./gradlew :structurizr-example:springPetClinic
@@ -92,7 +95,7 @@ public class SpringPetClinic {
                 if (sourcePath != null) {
                     codeElement.setUrl(sourcePath.replace(
                             sourceRoot.toURI().toString(),
-                            "https://github.com/spring-projects/spring-petclinic/tree/master/"));
+                            "https://github.com/spring-projects/spring-petclinic/tree/864580702f8ef4d2cdfd7fe4497fb8c9e86018d2/"));
                 }
             }
         }
