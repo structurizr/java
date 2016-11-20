@@ -4,13 +4,11 @@ import com.structurizr.Workspace;
 import com.structurizr.io.WorkspaceWriter;
 import com.structurizr.io.WorkspaceWriterException;
 import com.structurizr.model.*;
-import com.structurizr.view.ComponentView;
-import com.structurizr.view.ContainerView;
-import com.structurizr.view.ElementView;
-import com.structurizr.view.SystemContextView;
+import com.structurizr.view.*;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Set;
 
 /**
  * A simple PlantUML writer that outputs diagram definitions that can be copy-pasted
@@ -38,8 +36,11 @@ public final class PlantUMLWriter implements WorkspaceWriter {
             writer.write("title " + view.getName());
             writer.write(System.lineSeparator());
 
-            view.getElements().forEach(ev -> write(ev.getElement(), writer, false));
-            view.getRelationships().forEach(rv -> write(rv.getRelationship(), writer));
+            view.getElements().stream()
+                    .map(ElementView::getElement)
+                    .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
+                    .forEach(e -> write(e, writer, false));
+            write(view.getRelationships(), writer);
 
             writer.write("@enduml");
             writer.write(System.lineSeparator());
@@ -60,6 +61,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
             view.getElements().stream()
                     .filter(ev -> !(ev.getElement() instanceof Container))
                     .map(ElementView::getElement)
+                    .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
                     .forEach(e -> write(e, writer, false));
 
             writer.write("package " + nameOf(view.getSoftwareSystem()) + " {");
@@ -68,12 +70,13 @@ public final class PlantUMLWriter implements WorkspaceWriter {
             view.getElements().stream()
                     .filter(ev -> ev.getElement() instanceof Container)
                     .map(ElementView::getElement)
+                    .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
                     .forEach(e -> write(e, writer, true));
 
             writer.write("}");
             writer.write(System.lineSeparator());
 
-            view.getRelationships().forEach(rv -> write(rv.getRelationship(), writer));
+            write(view.getRelationships(), writer);
 
             writer.write("@enduml");
             writer.write(System.lineSeparator());
@@ -94,6 +97,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
             view.getElements().stream()
                     .filter(ev -> !(ev.getElement() instanceof Component))
                     .map(ElementView::getElement)
+                    .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
                     .forEach(e -> write(e, writer, false));
 
             writer.write("package " + nameOf(view.getContainer()) + " {");
@@ -102,12 +106,13 @@ public final class PlantUMLWriter implements WorkspaceWriter {
             view.getElements().stream()
                     .filter(ev -> ev.getElement() instanceof Component)
                     .map(ElementView::getElement)
+                    .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
                     .forEach(e -> write(e, writer, true));
 
             writer.write("}");
             writer.write(System.lineSeparator());
 
-            view.getRelationships().forEach(rv -> write(rv.getRelationship(), writer));
+            write(view.getRelationships(), writer);
 
             writer.write("@enduml");
             writer.write(System.lineSeparator());
@@ -140,6 +145,13 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void write(Set<RelationshipView> relationships, Writer writer) {
+        relationships.stream()
+                .map(RelationshipView::getRelationship)
+                .sorted((r1, r2) -> (r1.getSource().getName() + r1.getDestination().getName()).compareTo(r2.getSource().getName() + r2.getDestination().getName()))
+                .forEach(r -> write(r, writer));
     }
 
     private void write(Relationship relationship, Writer writer) {

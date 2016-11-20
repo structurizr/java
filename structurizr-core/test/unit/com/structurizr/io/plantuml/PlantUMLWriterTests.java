@@ -71,44 +71,44 @@ public class PlantUMLWriterTests {
         plantUMLWriter.write(workspace, stringWriter);
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Software System - System Context" + System.lineSeparator() +
-                "actor User" + System.lineSeparator() +
-                "[Software System] <<Software System>> as SoftwareSystem" + System.lineSeparator() +
                 "[E-mail System] <<Software System>> as EmailSystem" + System.lineSeparator() +
-                "User ..> SoftwareSystem : Uses " + System.lineSeparator() +
-                "SoftwareSystem ..> EmailSystem : Sends e-mail using " + System.lineSeparator() +
+                "[Software System] <<Software System>> as SoftwareSystem" + System.lineSeparator() +
+                "actor User" + System.lineSeparator() +
                 "EmailSystem ..> User : Delivers e-mails to " + System.lineSeparator() +
+                "SoftwareSystem ..> EmailSystem : Sends e-mail using " + System.lineSeparator() +
+                "User ..> SoftwareSystem : Uses " + System.lineSeparator() +
                 "@enduml" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "@startuml" + System.lineSeparator() +
                 "title Software System - Containers" + System.lineSeparator() +
-                "actor User" + System.lineSeparator() +
                 "[E-mail System] <<Software System>> as EmailSystem" + System.lineSeparator() +
+                "actor User" + System.lineSeparator() +
                 "package SoftwareSystem {" + System.lineSeparator() +
-                "  [Web Application] <<Container>> as WebApplication" + System.lineSeparator() +
                 "  [Database] <<Container>> as Database" + System.lineSeparator() +
+                "  [Web Application] <<Container>> as WebApplication" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "EmailSystem ..> User : Delivers e-mails to " + System.lineSeparator() +
-                "WebApplication ..> EmailSystem : Sends e-mail using " + System.lineSeparator() +
                 "User ..> WebApplication : Uses <<HTTP>>" + System.lineSeparator() +
                 "WebApplication ..> Database : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
+                "WebApplication ..> EmailSystem : Sends e-mail using " + System.lineSeparator() +
                 "@enduml" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "@startuml" + System.lineSeparator() +
                 "title Software System - Web Application - Components" + System.lineSeparator() +
-                "actor User" + System.lineSeparator() +
-                "[E-mail System] <<Software System>> as EmailSystem" + System.lineSeparator() +
                 "[Database] <<Container>> as Database" + System.lineSeparator() +
+                "[E-mail System] <<Software System>> as EmailSystem" + System.lineSeparator() +
+                "actor User" + System.lineSeparator() +
                 "package WebApplication {" + System.lineSeparator() +
-                "  [SomeController] <<Component>> as SomeController" + System.lineSeparator() +
                 "  [EmailComponent] <<Component>> as EmailComponent" + System.lineSeparator() +
+                "  [SomeController] <<Component>> as SomeController" + System.lineSeparator() +
                 "  [SomeRespoitory] <<Component>> as SomeRespoitory" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
-                "SomeRespoitory ..> Database : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
-                "SomeController ..> EmailComponent  " + System.lineSeparator() +
-                "SomeController ..> SomeRespoitory  " + System.lineSeparator() +
-                "User ..> SomeController : Uses <<HTTP>>" + System.lineSeparator() +
                 "EmailSystem ..> User : Delivers e-mails to " + System.lineSeparator() +
                 "EmailComponent ..> EmailSystem : Sends e-mails using <<SMTP>>" + System.lineSeparator() +
+                "SomeController ..> EmailComponent  " + System.lineSeparator() +
+                "SomeController ..> SomeRespoitory  " + System.lineSeparator() +
+                "SomeRespoitory ..> Database : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
+                "User ..> SomeController : Uses <<HTTP>>" + System.lineSeparator() +
                 "@enduml" + System.lineSeparator() +
                 "" + System.lineSeparator(), stringWriter.toString());
     }
