@@ -79,7 +79,8 @@ public class SpringComponentFinderStrategy extends AbstractReflectionsComponentF
 
     protected Collection<Component> findSpringRepositoryInterfaces() {
         Collection<Component> componentsFound = new LinkedList<>();
-        Set<Class> componentTypes = getInterfacesThatExtend(JpaRepository.class);
+        Set<Class> componentTypes = getInterfacesThatExtend(Repository.class);
+        componentTypes.addAll(getInterfacesThatExtend(JpaRepository.class));
         componentTypes.addAll(getInterfacesThatExtend(CrudRepository.class));
 
         for (Class<?> componentType : componentTypes) {
