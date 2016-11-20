@@ -50,9 +50,9 @@ public class PlantUMLWriterTests {
         webApplication.uses(database, "Reads from and writes to", "JDBC");
         webApplication.uses(emailSystem, "Sends e-mail using");
 
-        Component controller = webApplication.addComponent("SomeController", "");
+        Component controller = webApplication.addComponent("SomeController", "", "Spring MVC Controller");
         Component emailComponent = webApplication.addComponent("EmailComponent", "");
-        Component repository = webApplication.addComponent("SomeRespoitory", "");
+        Component repository = webApplication.addComponent("SomeRepository", "", "Spring Data");
         user.uses(controller, "Uses", "HTTP");
         controller.uses(repository, "");
         controller.uses(emailComponent, "");
@@ -100,14 +100,14 @@ public class PlantUMLWriterTests {
                 "actor User" + System.lineSeparator() +
                 "package WebApplication {" + System.lineSeparator() +
                 "  [EmailComponent] <<Component>> as EmailComponent" + System.lineSeparator() +
-                "  [SomeController] <<Component>> as SomeController" + System.lineSeparator() +
-                "  [SomeRespoitory] <<Component>> as SomeRespoitory" + System.lineSeparator() +
+                "  [SomeController] <<Spring MVC Controller>> as SomeController" + System.lineSeparator() +
+                "  [SomeRepository] <<Spring Data>> as SomeRepository" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "EmailSystem ..> User : Delivers e-mails to " + System.lineSeparator() +
                 "EmailComponent ..> EmailSystem : Sends e-mails using <<SMTP>>" + System.lineSeparator() +
                 "SomeController ..> EmailComponent  " + System.lineSeparator() +
-                "SomeController ..> SomeRespoitory  " + System.lineSeparator() +
-                "SomeRespoitory ..> Database : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
+                "SomeController ..> SomeRepository  " + System.lineSeparator() +
+                "SomeRepository ..> Database : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
                 "User ..> SomeController : Uses <<HTTP>>" + System.lineSeparator() +
                 "@enduml" + System.lineSeparator() +
                 "" + System.lineSeparator(), stringWriter.toString());

@@ -179,6 +179,9 @@ public final class PlantUMLWriter implements WorkspaceWriter {
     private String typeOf(Element e) {
         if (e instanceof SoftwareSystem) {
             return "Software System";
+        } else if (e instanceof Component) {
+            Component component = (Component)e;
+            return hasValue(component.getTechnology()) ? component.getTechnology() : "Component";
         } else {
             return e.getClass().getSimpleName();
         }
