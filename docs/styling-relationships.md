@@ -13,6 +13,7 @@ However, the following characteristics of the relationships can be customized:
 - Font size (pixels)
 - Width (of the description, in pixels)
 - Position (of the description along the line, as a percentage from start to end)
+- Opacity (an integer between 0 and 100)
 
 ## Tagging relationships
 

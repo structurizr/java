@@ -12,6 +12,8 @@ However, the following characteristics of the elements can be customized:
 - Text colour (HTML hex value)
 - Font size (pixels)
 - Shape (see the [Shape](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/view/Shape.java) enum)
+- Border (see the [Border](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/view/Border.java) enum)
+- Opacity (an integer between 0 and 100)
 
 ## Tagging elements
 

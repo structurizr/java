@@ -30,10 +30,16 @@ public class ElementStyle {
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Shape shape;
 
-    public ElementStyle() {
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private Border border;
+
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private Integer opacity;
+
+    ElementStyle() {
     }
 
-    public ElementStyle(String tag) {
+    ElementStyle(String tag) {
         this.tag = tag;
     }
 
@@ -169,6 +175,50 @@ public class ElementStyle {
 
     public ElementStyle shape(Shape shape) {
         setShape(shape);
+        return this;
+    }
+
+    /**
+     * Gets the border used when rendering the element.
+     *
+     * @return  a Border, or null if not specified
+     */
+    public Border getBorder() {
+        return border;
+    }
+
+    public void setBorder(Border border) {
+        this.border = border;
+    }
+
+    public ElementStyle border(Border border) {
+        setBorder(border);
+        return this;
+    }
+
+    /**
+     * Gets the opacity used when rendering the element.
+     *
+     * @return  the opacity, as an integer between 0 and 100.
+     */
+    public Integer getOpacity() {
+        return opacity;
+    }
+
+    public void setOpacity(Integer opacity) {
+        if (opacity != null) {
+            if (opacity < 0) {
+                this.opacity = 0;
+            } else if (opacity > 100) {
+                this.opacity = 100;
+            } else {
+                this.opacity = opacity;
+            }
+        }
+    }
+
+    public ElementStyle opacity(int opacity) {
+        setOpacity(opacity);
         return this;
     }
 

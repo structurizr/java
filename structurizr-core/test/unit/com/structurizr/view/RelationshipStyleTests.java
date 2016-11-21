@@ -46,4 +46,46 @@ public class RelationshipStyleTests {
         assertEquals(new Integer(100), relationshipStyle.getPosition());
     }
 
+    @Test
+    public void test_setOpacity() {
+        RelationshipStyle style = new RelationshipStyle();
+        assertNull(style.getOpacity());
+
+        style.setOpacity(-1);
+        assertEquals(0, style.getOpacity().intValue());
+
+        style.setOpacity(0);
+        assertEquals(0, style.getOpacity().intValue());
+
+        style.setOpacity(50);
+        assertEquals(50, style.getOpacity().intValue());
+
+        style.setOpacity(100);
+        assertEquals(100, style.getOpacity().intValue());
+
+        style.setOpacity(101);
+        assertEquals(100, style.getOpacity().intValue());
+    }
+
+    @Test
+    public void test_opacity() {
+        RelationshipStyle style = new RelationshipStyle();
+        assertNull(style.getOpacity());
+
+        style.opacity(-1);
+        assertEquals(0, style.getOpacity().intValue());
+
+        style.opacity(0);
+        assertEquals(0, style.getOpacity().intValue());
+
+        style.opacity(50);
+        assertEquals(50, style.getOpacity().intValue());
+
+        style.opacity(100);
+        assertEquals(100, style.getOpacity().intValue());
+
+        style.opacity(101);
+        assertEquals(100, style.getOpacity().intValue());
+    }
+
 }

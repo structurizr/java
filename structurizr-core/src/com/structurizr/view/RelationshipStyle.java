@@ -38,10 +38,14 @@ public class RelationshipStyle {
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Integer position;
 
-    public RelationshipStyle() {
+    /** the opacity of the line/text; 0 to 100 */
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private Integer opacity;
+
+    RelationshipStyle() {
     }
 
-    public RelationshipStyle(String tag) {
+    RelationshipStyle(String tag) {
         this.tag = tag;
     }
 
@@ -160,6 +164,32 @@ public class RelationshipStyle {
 
     public RelationshipStyle position(int position) {
         setPosition(position);
+        return this;
+    }
+
+    /**
+     * Gets the opacity used when rendering the relationship.
+     *
+     * @return  the opacity, as an integer between 0 and 100.
+     */
+    public Integer getOpacity() {
+        return opacity;
+    }
+
+    public void setOpacity(Integer opacity) {
+        if (opacity != null) {
+            if (opacity < 0) {
+                this.opacity = 0;
+            } else if (opacity > 100) {
+                this.opacity = 100;
+            } else {
+                this.opacity = opacity;
+            }
+        }
+    }
+
+    public RelationshipStyle opacity(int opacity) {
+        setOpacity(opacity);
         return this;
     }
 
