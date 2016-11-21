@@ -68,8 +68,8 @@ public class WidgetsLimited {
         styles.addElementStyle(Tags.PERSON).shape(Shape.Person);
 
         styles.addElementStyle(Tags.ELEMENT).color("#ffffff");
-        styles.addElementStyle(EXTERNAL_PERSON_TAG).background("#EC5381");
-        styles.addElementStyle(EXTERNAL_SOFTWARE_SYSTEM_TAG).background("#EC5381");
+        styles.addElementStyle(EXTERNAL_PERSON_TAG).background("#EC5381").border(Border.Dashed);
+        styles.addElementStyle(EXTERNAL_SOFTWARE_SYSTEM_TAG).background("#EC5381").border(Border.Dashed);
 
         styles.addElementStyle(INTERNAL_PERSON_TAG).background("#B60037");
         styles.addElementStyle(INTERNAL_SOFTWARE_SYSTEM_TAG).background("#B60037");
