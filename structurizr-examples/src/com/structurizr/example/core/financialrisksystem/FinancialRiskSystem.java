@@ -6,10 +6,7 @@ import com.structurizr.documentation.Documentation;
 import com.structurizr.documentation.Format;
 import com.structurizr.documentation.Type;
 import com.structurizr.model.*;
-import com.structurizr.view.Shape;
-import com.structurizr.view.Styles;
-import com.structurizr.view.SystemContextView;
-import com.structurizr.view.ViewSet;
+import com.structurizr.view.*;
 
 import java.io.File;
 
@@ -28,29 +25,33 @@ public class FinancialRiskSystem {
         Model model = workspace.getModel();
 
         // create the basic model
-        SoftwareSystem financialRiskSystem = model.addSoftwareSystem("Financial Risk System", "Calculates the bank's exposure to risk for product X");
+        SoftwareSystem financialRiskSystem = model.addSoftwareSystem("Financial Risk System", "Calculates the bank's exposure to risk for product X.");
 
-        Person businessUser = model.addPerson("Business User", "A regular business user");
+        Person businessUser = model.addPerson("Business User", "A regular business user.");
         businessUser.uses(financialRiskSystem, "Views reports using");
 
-        Person configurationUser = model.addPerson("Configuration User", "A regular business user who can also configure the parameters used in the risk calculations");
+        Person configurationUser = model.addPerson("Configuration User", "A regular business user who can also configure the parameters used in the risk calculations.");
         configurationUser.uses(financialRiskSystem, "Configures parameters using");
 
-        SoftwareSystem tradeDataSystem = model.addSoftwareSystem("Trade Data System", "The system of record for trades of type X");
+        SoftwareSystem tradeDataSystem = model.addSoftwareSystem("Trade Data System", "The system of record for trades of type X.");
         financialRiskSystem.uses(tradeDataSystem, "Gets trade data from");
 
-        SoftwareSystem referenceDataSystem = model.addSoftwareSystem("Reference Data System", "Manages reference data for all counterparties the bank interacts with");
+        SoftwareSystem referenceDataSystem = model.addSoftwareSystem("Reference Data System", "Manages reference data for all counterparties the bank interacts with.");
         financialRiskSystem.uses(referenceDataSystem, "Gets counterparty data from");
 
-        SoftwareSystem emailSystem = model.addSoftwareSystem("E-mail system", "Microsoft Exchange");
+        SoftwareSystem referenceDataSystemV2 = model.addSoftwareSystem("Reference Data System v2.0", "Manages reference data for all counterparties the bank interacts with.");
+        referenceDataSystemV2.addTags("Future State");
+        financialRiskSystem.uses(referenceDataSystemV2, "Gets counterparty data from").addTags("Future State");
+
+        SoftwareSystem emailSystem = model.addSoftwareSystem("E-mail system", "The bank's Microsoft Exchange system.");
         financialRiskSystem.uses(emailSystem, "Sends a notification that a report is ready to");
         emailSystem.delivers(businessUser, "Sends a notification that a report is ready to", "E-mail message", InteractionStyle.Asynchronous);
 
-        SoftwareSystem centralMonitoringService = model.addSoftwareSystem("Central Monitoring Service", "The bank-wide monitoring and alerting dashboard");
+        SoftwareSystem centralMonitoringService = model.addSoftwareSystem("Central Monitoring Service", "The bank's central monitoring and alerting dashboard.");
         financialRiskSystem.uses(centralMonitoringService, "Sends critical failure alerts to", "SNMP", InteractionStyle.Asynchronous).addTags(TAG_ALERT);
 
-        SoftwareSystem activeDirectory = model.addSoftwareSystem("Active Directory", "Manages users and security roles across the bank");
-        financialRiskSystem.uses(activeDirectory, "Uses for authentication and authorisation");
+        SoftwareSystem activeDirectory = model.addSoftwareSystem("Active Directory", "The bank's authentication and authorisation system.");
+        financialRiskSystem.uses(activeDirectory, "Uses for user authentication and authorisation");
 
         // create some views
         ViewSet viewSet = workspace.getViews();
@@ -71,6 +72,9 @@ public class FinancialRiskSystem {
         styles.addRelationshipStyle(Tags.SYNCHRONOUS).dashed(false);
         styles.addRelationshipStyle(Tags.ASYNCHRONOUS).dashed(true);
         styles.addRelationshipStyle(TAG_ALERT).color("#ff0000");
+
+        styles.addElementStyle("Future State").opacity(30).border(Border.Dashed);
+        styles.addRelationshipStyle("Future State").opacity(30).dashed(true);
 
         Documentation documentation = workspace.getDocumentation();
         File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/core/financialrisksystem");
