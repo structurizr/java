@@ -2,7 +2,7 @@ package com.structurizr;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.documentation.Documentation;
-import com.structurizr.model.Model;
+import com.structurizr.model.*;
 import com.structurizr.view.ViewSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -93,23 +93,35 @@ public final class Workspace extends AbstractWorkspace {
         // find elements with a missing description
         getModel().getElements().stream()
                 .filter(e -> e.getDescription() == null || e.getDescription().trim().length() == 0)
-                .forEach(e -> warnings.add(e.getClass().getSimpleName() + " " + e.getCanonicalName() + ": Missing description"));
+                .forEach(e -> warnings.add("The " + typeof(e) + " \"" + e.getCanonicalName().substring(1) + "\" is missing a description."));
 
         // find containers with a missing technology
-        getModel().getSoftwareSystems()
-                .forEach(s -> s.getContainers().stream()
-                        .filter(c -> c.getTechnology() == null || c.getTechnology().trim().length() == 0)
-                        .forEach(c -> warnings.add("Container " + c.getCanonicalName() + ": Missing technology")));
+        getModel().getElements().stream()
+                .filter(e -> e instanceof Container)
+                .map(e -> (Container)e)
+                .filter(c -> c.getTechnology() == null || c.getTechnology().trim().length() == 0)
+                .forEach(c -> warnings.add("The container \"" + c.getCanonicalName().substring(1) + "\" is missing a technology."));
 
-        // find relationships with a missing description
-        getModel().getRelationships().stream()
-                .filter(e -> e.getDescription() == null || e.getDescription().trim().length() == 0)
-                .forEach(e -> warnings.add(e.getClass().getSimpleName() + " " + e.toString() + ": Missing description"));
+        // find components with a missing technology
+        getModel().getElements().stream()
+                .filter(e -> e instanceof Component)
+                .map(e -> (Component)e)
+                .filter(c -> c.getTechnology() == null || c.getTechnology().trim().length() == 0)
+                .forEach(c -> warnings.add("The component \"" + c.getCanonicalName().substring(1) + "\" is missing a technology."));
 
-        // find relationships with a missing technology
-        getModel().getRelationships().stream()
-                .filter(e -> e.getTechnology() == null || e.getTechnology().trim().length() == 0)
-                .forEach(e -> warnings.add(e.getClass().getSimpleName() + " " + e.toString() + ": Missing technology"));
+        // find component relationships with a missing description
+        for (Relationship relationship : getModel().getRelationships()) {
+            if (relationship.getSource() instanceof Component && relationship.getDestination() instanceof Component &&
+                    relationship.getSource().getParent().equals(relationship.getDestination().getParent())) {
+                // ignore component-component relationships inside the same container because these are
+                // often identified using reflection and won't have a description
+                // (i.e. let's not flood the user with warnings)
+            } else {
+                if (relationship.getDescription() == null || relationship.getDescription().trim().length() == 0) {
+                    warnings.add("The relationship between " + typeof(relationship.getSource()) + " \"" + relationship.getSource().getCanonicalName().substring(1) + "\" and " + typeof(relationship.getDestination()) + " \"" + relationship.getDestination().getCanonicalName().substring(1) + "\" is missing a description.");
+                }
+            }
+        }
 
         // diagram keys have not been specified
         getViews().getEnterpriseContextViews().stream()
@@ -131,6 +143,14 @@ public final class Workspace extends AbstractWorkspace {
         warnings.forEach(log::warn);
 
         return warnings.size();
+    }
+
+    private String typeof(Element element) {
+        if (element instanceof SoftwareSystem) {
+            return "software system";
+        } else {
+            return element.getClass().getSimpleName().toLowerCase();
+        }
     }
 
 }
