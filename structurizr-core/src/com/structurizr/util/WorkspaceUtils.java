@@ -1,12 +1,14 @@
 package com.structurizr.util;
 
 import com.structurizr.Workspace;
+import com.structurizr.io.WorkspaceWriterException;
 import com.structurizr.io.json.JsonReader;
 import com.structurizr.io.json.JsonWriter;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.StringWriter;
 
 /**
  * Some utility methods related to workspaces.
@@ -47,6 +49,17 @@ public final class WorkspaceUtils {
         new JsonWriter(true).write(workspace, writer);
         writer.flush();
         writer.close();
+    }
+
+    public static void printWorkspaceAsJson(Workspace workspace) {
+        try {
+            JsonWriter jsonWriter = new JsonWriter(true);
+            StringWriter stringWriter = new StringWriter();
+            jsonWriter.write(workspace, stringWriter);
+            System.out.println(stringWriter.toString());
+        } catch (WorkspaceWriterException e) {
+            e.printStackTrace();
+        }
     }
 
 }
