@@ -1,5 +1,6 @@
 package com.structurizr;
 
+import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 import com.structurizr.model.SoftwareSystem;
 import org.junit.Test;
@@ -137,7 +138,12 @@ public class WorkspaceTests {
         container1.uses(container2, null, null);
         container2.uses(container1, " ", " ");
 
-        assertEquals(8, workspace.countAndLogWarnings());
+        Component component1A = container1.addComponent("A", null, null);
+        Component component1B = container1.addComponent("B", "", "");
+        component1A.uses(component1B, null);
+        component1B.uses(component1A, "");
+
+        assertEquals(10, workspace.countAndLogWarnings());
     }
 
 }
