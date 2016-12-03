@@ -30,6 +30,22 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
+    public void write(View view, Writer writer) {
+        if (view != null && writer != null) {
+            if (EnterpriseContextView.class.isAssignableFrom(view.getClass())) {
+                write((EnterpriseContextView) view, writer);
+            } else if (SystemContextView.class.isAssignableFrom(view.getClass())) {
+                write((SystemContextView) view, writer);
+            } else if (ContainerView.class.isAssignableFrom(view.getClass())) {
+                write((ContainerView) view, writer);
+            } else if (ComponentView.class.isAssignableFrom(view.getClass())) {
+                write((ComponentView) view, writer);
+            } else if (DynamicView.class.isAssignableFrom(view.getClass())) {
+                write((DynamicView) view, writer);
+            }
+        }
+    }
+
     private void write(EnterpriseContextView view, Writer writer) {
         try {
             writer.write("@startuml");
