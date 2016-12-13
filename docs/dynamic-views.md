@@ -53,4 +53,4 @@ In order to add a relationship between two elements to a dynamic view, that rela
 
 ## Parallel behaviour
 
-Showing parallel behaviour is also possible using the ```startParallelSequence()``` and ```endParallelSequence()``` methods on the ```DynamicView``` class. See [MicroservicesExample.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/MicroservicesExample.java#L55) and the [live diagrams](https://structurizr.com/public/4241#CustomerUpdateEvent) for an example.
+Showing parallel behaviour is also possible using the ```startParallelSequence()``` and ```endParallelSequence()``` methods on the ```DynamicView``` class. See [MicroservicesExample.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/MicroservicesExample.java) and the [live diagrams](https://structurizr.com/public/4241#CustomerUpdateEvent) for an example.
