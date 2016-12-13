@@ -5,6 +5,12 @@ import com.structurizr.api.StructurizrClient;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
+/**
+ * A simple example of what a microservices architecture might look like. This workspace also
+ * includes a dynamic view that demonstrates parallel sequences of events.
+ *
+ * The live version of the diagrams can be found at https://structurizr.com/public/4241
+ */
 public class MicroservicesExample {
 
     private static final String MICROSERVICE_TAG = "Microservice";
@@ -68,8 +74,6 @@ public class MicroservicesExample {
         dynamicView.add(messageBus, auditService);
         dynamicView.add(auditService, auditStore);
         dynamicView.endParallelSequence();
-
-        //dynamicView.endParallelSequences();
 
         dynamicView.add(customerService, "Confirms update to", customerApplication);
 
