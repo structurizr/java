@@ -43,11 +43,11 @@ public class ComponentFinder {
         return componentsFound;
     }
 
-    Container getContainer() {
+    public Container getContainer() {
         return this.container;
     }
 
-    String getPackageToScan() {
+    public String getPackageToScan() {
         return packageToScan;
     }
 
