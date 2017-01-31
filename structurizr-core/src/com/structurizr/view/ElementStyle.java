@@ -1,6 +1,7 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.structurizr.util.StringUtils;
 
 /**
  * A definition of an element style.
@@ -51,8 +52,8 @@ public class ElementStyle {
         this.tag = tag;
         this.width = width;
         this.height = height;
-        this.background = background;
-        this.color = color;
+        setBackground(background);
+        setColor(color);
         this.fontSize = fontSize;
         this.shape = shape;
     }
@@ -116,7 +117,11 @@ public class ElementStyle {
     }
 
     public void setBackground(String background) {
-        this.background = background;
+        if (StringUtils.isHexColourCode(background)) {
+            this.background = background;
+        } else {
+            throw new IllegalArgumentException(background + " is not a valid hex colour code.");
+        }
     }
 
     public ElementStyle background(String background) {
@@ -134,7 +139,11 @@ public class ElementStyle {
     }
 
     public void setColor(String color) {
-        this.color = color;
+        if (StringUtils.isHexColourCode(color)) {
+            this.color = color;
+        } else {
+            throw new IllegalArgumentException(color + " is not a valid hex colour code.");
+        }
     }
 
     public ElementStyle color(String color) {

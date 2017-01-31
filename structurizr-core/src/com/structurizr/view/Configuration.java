@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 /**
- * The configuration associated with a set of views.
+ * Configuration associated with how information in the workspace is rendered.
  */
 public class Configuration {
 
+    private Branding branding = new Branding();
     private Styles styles = new Styles();
 
     private String defaultView;
@@ -59,6 +60,24 @@ public class Configuration {
 
     public void copyConfigurationFrom(Configuration configuration) {
         setLastSavedView(configuration.getLastSavedView());
+    }
+
+    /**
+     * Gets the Branding object associated with this workspace.
+     *
+     * @return  a Branding object
+     */
+    public Branding getBranding() {
+        return branding;
+    }
+
+    /**
+     * Sets the Branding object associated with this workspace.
+     *
+     * @param branding      a Branding object
+     */
+    void setBranding(Branding branding) {
+        this.branding = branding;
     }
 
 }

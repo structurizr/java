@@ -83,6 +83,16 @@ public class FinancialRiskSystem {
         documentation.add(financialRiskSystem, Type.QualityAttributes, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));
         documentation.addImages(documentationRoot);
 
+        // add some example corporate branding
+        Branding branding = viewSet.getConfiguration().getBranding();
+        branding.setFont(new Font("Trebuchet MS", null));
+        branding.setColor1(new ColorPair("#550000", "#ffffff"));
+        branding.setColor2(new ColorPair("#801515", "#ffffff"));
+        branding.setColor3(new ColorPair("#d46a6a", "#ffffff"));
+        branding.setColor4(new ColorPair("#d46a6a", "#ffffff"));
+        branding.setColor5(new ColorPair("#d46a6a", "#ffffff"));
+        branding.setLogo("http://www.codingthearchitecture.com/images/coding-the-architecture-bw.png");
+
         // and upload the model to structurizr.com
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.putWorkspace(31, workspace);
