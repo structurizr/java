@@ -45,10 +45,12 @@ public class Font {
      * @param url   a URL as a String
      */
     public void setUrl(String url) {
-        if (StringUtils.isUrl(url)) {
-            this.url = url;
-        } else {
-            throw new IllegalArgumentException(url + " is not a valid URL.");
+        if (url != null) {
+            if (StringUtils.isUrl(url)) {
+                this.url = url;
+            } else {
+                throw new IllegalArgumentException(url + " is not a valid URL.");
+            }
         }
     }
 

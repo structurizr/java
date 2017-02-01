@@ -2,15 +2,11 @@ package com.structurizr.documentation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.*;
+import com.structurizr.util.ImageUtils;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.URLConnection;
 import java.nio.file.Files;
-import java.util.Base64;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -203,17 +199,9 @@ public final class Documentation {
             throw new IllegalArgumentException(file.getCanonicalPath() + " is not a file.");
         }
 
-        String contentType = URLConnection.guessContentTypeFromName(file.getName());
-        if (contentType == null || !contentType.startsWith("image/")) {
-            throw new IllegalArgumentException(file.getCanonicalPath() + " is not a supported image file.");
-        }
+        String contentType = ImageUtils.getContentType(file);
+        String base64Content = ImageUtils.getImageAsBase64(file);
 
-        BufferedImage bufferedImage = ImageIO.read(file);
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ImageIO.write(bufferedImage, contentType.split("/")[1], bos);
-        byte[] imageBytes = bos.toByteArray();
-
-        String base64Content = Base64.getEncoder().encodeToString(imageBytes);
         Image image = new Image(file.getName(), contentType, base64Content);
         images.add(image);
 

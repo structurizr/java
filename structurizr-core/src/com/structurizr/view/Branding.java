@@ -30,10 +30,12 @@ public class Branding {
      * @param url   a URL as a String
      */
     public void setLogo(String url) {
-        if (StringUtils.isUrl(url)) {
-            this.logo = url;
-        } else {
-            throw new IllegalArgumentException(url + " is not a valid URL.");
+        if (url != null) {
+            if (StringUtils.isUrl(url) || url.startsWith("data:image/")) {
+                this.logo = url;
+            } else {
+                throw new IllegalArgumentException(url + " is not a valid URL.");
+            }
         }
     }
 

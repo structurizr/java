@@ -6,6 +6,7 @@ import com.structurizr.documentation.Documentation;
 import com.structurizr.documentation.Format;
 import com.structurizr.documentation.Type;
 import com.structurizr.model.*;
+import com.structurizr.util.ImageUtils;
 import com.structurizr.view.*;
 
 import java.io.File;
@@ -91,7 +92,7 @@ public class FinancialRiskSystem {
         branding.setColor3(new ColorPair("#d46a6a", "#ffffff"));
         branding.setColor4(new ColorPair("#d46a6a", "#ffffff"));
         branding.setColor5(new ColorPair("#d46a6a", "#ffffff"));
-        branding.setLogo("http://www.codingthearchitecture.com/images/coding-the-architecture-bw.png");
+        branding.setLogo(ImageUtils.getImageAsDataUri(new File(documentationRoot, "codingthearchitecture.png")));
 
         // and upload the model to structurizr.com
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
