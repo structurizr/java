@@ -1,6 +1,6 @@
 # Graphviz and DOT
 
-Structurizr for Java also includes the ```structurizr-dot``` library, which in turn uses Cyrille Martraire's [dot-diagram library](https://github.com/cyriux/dot-diagram) to create DOT (graph description language) files that can be imported into the [graphviz tool](http://www.graphviz.org).
+Structurizr for Java also includes the ```structurizr-dot``` library, which in turn uses Cyrille Martraire's [dot-diagram library](https://github.com/LivingDocumentation/dot-diagram) to create DOT (graph description language) files that can be imported into the [graphviz tool](http://www.graphviz.org).
 
 The [DotWriter](https://github.com/structurizr/java/blob/master/structurizr-dot/src/com/structurizr/io/dot/DotWriter.java) class takes a workspace and creates a graph for each view in that workspace. For example:
 

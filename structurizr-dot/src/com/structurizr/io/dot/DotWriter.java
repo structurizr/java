@@ -7,7 +7,7 @@ import com.structurizr.model.Relationship;
 import com.structurizr.view.ElementView;
 import com.structurizr.view.RelationshipView;
 import com.structurizr.view.View;
-import org.livingdocumentation.dotdiagram.DotGraph;
+import io.github.livingdocumentation.dotdiagram.DotGraph;
 
 import java.io.IOException;
 import java.io.Writer;
