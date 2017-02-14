@@ -19,6 +19,7 @@ This GitHub repository is a Java library to create software architecture models 
 1. [API Client](docs/api-client.md)
 1. [Styling elements](docs/styling-elements.md)
 1. [Styling relationships](docs/styling-relationships.md)
+1. [Corporate branding](docs/corporate-branding.md)
 1. [Hiding relationships](docs/hiding-relationships.md)
 1. [Extracting components from your codebase](docs/extracting-components.md)
 1. [The Spring PetClinic example](docs/spring-petclinic.md)

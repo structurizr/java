@@ -86,7 +86,7 @@ public class FinancialRiskSystem {
 
         // add some example corporate branding
         Branding branding = viewSet.getConfiguration().getBranding();
-        branding.setFont(new Font("Trebuchet MS", null));
+        branding.setFont(new Font("Trebuchet MS"));
         branding.setColor1(new ColorPair("#550000", "#ffffff"));
         branding.setColor2(new ColorPair("#801515", "#ffffff"));
         branding.setColor3(new ColorPair("#d46a6a", "#ffffff"));

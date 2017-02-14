@@ -24,9 +24,9 @@ public class ColorPair {
 
     public void setBackground(String background) {
         if (StringUtils.isHexColourCode(background)) {
-            this.background = background;
+            this.background = background.toLowerCase();
         } else {
-            throw new IllegalArgumentException(background + " is not a valid hex colour code.");
+            throw new IllegalArgumentException("'" + background + "' is not a valid hex colour code.");
         }
     }
 
@@ -36,9 +36,9 @@ public class ColorPair {
 
     public void setForeground(String foreground) {
         if (StringUtils.isHexColourCode(foreground)) {
-            this.foreground = foreground;
+            this.foreground = foreground.toLowerCase();
         } else {
-            throw new IllegalArgumentException(foreground + " is not a valid hex colour code.");
+            throw new IllegalArgumentException("'" + foreground + "' is not a valid hex colour code.");
         }
     }
 

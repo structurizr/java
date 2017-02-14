@@ -18,7 +18,7 @@ public class Font {
     }
 
     public Font(String name, String url) {
-        this.name = name;
+        setName(name);
         setUrl(url);
     }
 
@@ -45,7 +45,7 @@ public class Font {
      * @param url   a URL as a String
      */
     public void setUrl(String url) {
-        if (url != null) {
+        if (url != null && url.trim().length() > 0) {
             if (StringUtils.isUrl(url)) {
                 this.url = url;
             } else {

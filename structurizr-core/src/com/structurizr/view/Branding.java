@@ -30,7 +30,7 @@ public class Branding {
      * @param url   a URL as a String
      */
     public void setLogo(String url) {
-        if (url != null) {
+        if (url != null && url.trim().length() > 0) {
             if (StringUtils.isUrl(url) || url.startsWith("data:image/")) {
                 this.logo = url;
             } else {
