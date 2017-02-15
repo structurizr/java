@@ -2,9 +2,8 @@ package com.structurizr.example.core.financialrisksystem;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.documentation.Documentation;
 import com.structurizr.documentation.Format;
-import com.structurizr.documentation.Type;
+import com.structurizr.documentation.StructurizrDocumentation;
 import com.structurizr.model.*;
 import com.structurizr.util.ImageUtils;
 import com.structurizr.view.*;
@@ -77,11 +76,12 @@ public class FinancialRiskSystem {
         styles.addElementStyle("Future State").opacity(30).border(Border.Dashed);
         styles.addRelationshipStyle("Future State").opacity(30).dashed(true);
 
-        Documentation documentation = workspace.getDocumentation();
+        StructurizrDocumentation documentation = new StructurizrDocumentation(model);
+        workspace.setDocumentation(documentation);
         File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/core/financialrisksystem");
-        documentation.add(financialRiskSystem, Type.Context, Format.AsciiDoc, new File(documentationRoot, "context.adoc"));
-        documentation.add(financialRiskSystem, Type.FunctionalOverview, Format.Markdown, new File(documentationRoot, "functional-overview.md"));
-        documentation.add(financialRiskSystem, Type.QualityAttributes, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));
+        documentation.addContextSection(financialRiskSystem, Format.AsciiDoc, new File(documentationRoot, "context.adoc"));
+        documentation.addFunctionalOverviewSection(financialRiskSystem, Format.Markdown, new File(documentationRoot, "functional-overview.md"));
+        documentation.addQualityAttributesSection(financialRiskSystem, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));
         documentation.addImages(documentationRoot);
 
         // add some example corporate branding

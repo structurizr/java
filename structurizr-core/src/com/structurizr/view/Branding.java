@@ -1,6 +1,6 @@
 package com.structurizr.view;
 
-import com.structurizr.util.StringUtils;
+import com.structurizr.util.Url;
 
 /**
  * A wrapper for the font, logo and color scheme associated with a corporate branding.
@@ -31,7 +31,7 @@ public class Branding {
      */
     public void setLogo(String url) {
         if (url != null && url.trim().length() > 0) {
-            if (StringUtils.isUrl(url) || url.startsWith("data:image/")) {
+            if (Url.isUrl(url) || url.startsWith("data:image/")) {
                 this.logo = url;
             } else {
                 throw new IllegalArgumentException(url + " is not a valid URL.");

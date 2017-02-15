@@ -1,7 +1,10 @@
 package com.structurizr.documentation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.structurizr.model.*;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.structurizr.model.Element;
+import com.structurizr.model.Model;
 import com.structurizr.util.ImageUtils;
 
 import java.io.File;
@@ -17,7 +20,12 @@ import java.util.Set;
  * See <a href="https://structurizr.com/help/documentation">Documentation</a>
  * on the Structurizr website for more details.
  */
-public final class Documentation {
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", defaultImpl = StructurizrDocumentation.class)
+@JsonSubTypes({
+        @JsonSubTypes.Type(value=StructurizrDocumentation.class, name="structurizr"),
+        @JsonSubTypes.Type(value=Arc42Documentation.class, name="arc42")
+})
+public abstract class Documentation {
 
     private Model model;
     private Set<Section> sections = new HashSet<>();
@@ -39,98 +47,22 @@ public final class Documentation {
         this.model = model;
     }
 
-    /**
-     * Adds documentation content relating to a {@link SoftwareSystem} from a file.
-     *
-     * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param type  the {@link Type} of the documentation content
-     * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
-     */
-    public Section add(SoftwareSystem softwareSystem, Type type, Format format, File file) throws IOException {
-        String content = new String(Files.readAllBytes(file.toPath()), "UTF-8");
-        return add(softwareSystem, type, format, content);
+    protected String readFile(File file) throws IOException {
+        return new String(Files.readAllBytes(file.toPath()), "UTF-8");
     }
 
-    /**
-     * Adds documentation content related to a {@link SoftwareSystem} from a String.
-     *
-     * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param type  the {@link Type} of the documentation content
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
-     */
-    public Section add(SoftwareSystem softwareSystem, Type type, Format format, String content) {
-        return addSection(softwareSystem, type, format, content);
-    }
-
-    /**
-     * Adds documentation content related to a {@link Container} from a file.
-     *
-     * @param container the {@link Container} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
-     */
-    public Section add(Container container, Format format, File file) throws IOException {
-        String content = new String(Files.readAllBytes(file.toPath()), "UTF-8");
-        return add(container, format, content);
-    }
-
-    /**
-     * Adds documentation content related to a {@link Container} from a String.
-     *
-     * @param container the {@link Container} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
-     */
-    public Section add(Container container, Format format, String content) {
-        return addSection(container, Type.Components, format, content);
-    }
-
-    /**
-     * Adds documentation content related to a {@link Component} from a file.
-     *
-     * @param component the {@link Component} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
-     */
-    public Section add(Component component, Format format, File file) throws IOException {
-        String content = new String(Files.readAllBytes(file.toPath()), "UTF-8");
-        return add(component, format, content);
-    }
-
-    /**
-     * Adds documentation content related to a {@link Component} from a String.
-     *
-     * @param component the {@link Component} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
-     */
-    public Section add(Component component, Format format, String content) {
-        return addSection(component, Type.Code, format, content);
-    }
-
-    private Section addSection(Element element, Type type, Format format, String content) {
-        if (!(element instanceof Container) && type == Type.Components) {
-            throw new IllegalArgumentException("Sections of type Components must be related to a container rather than a software system.");
-        }
-
-        Section section = new Section(element, type, format, content);
+    public final Section addSection(Element element, String type, int group, Format format, String content) {
+        Section section = new Section(element, type, calculateOrder(), group, format, content);
         if (!sections.contains(section)) {
             sections.add(section);
             return section;
         } else {
             throw new IllegalArgumentException("A section of type " + type + " for " + element.getName() + " already exists.");
         }
+    }
+
+    private int calculateOrder() {
+        return sections.size()+1;
     }
 
     /**

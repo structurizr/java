@@ -2,9 +2,8 @@ package com.structurizr.example.core.clientsideencrypted;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.documentation.Documentation;
 import com.structurizr.documentation.Format;
-import com.structurizr.documentation.Type;
+import com.structurizr.documentation.StructurizrDocumentation;
 import com.structurizr.encryption.AesEncryptionStrategy;
 import com.structurizr.encryption.EncryptionStrategy;
 import com.structurizr.model.Model;
@@ -39,12 +38,13 @@ public class ClientSideEncryptedWorkspace {
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
-        Documentation documentation = workspace.getDocumentation();
+        StructurizrDocumentation documentation = new StructurizrDocumentation(model);
+        workspace.setDocumentation(documentation);
         File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/core/clientsideencrypted");
-        documentation.add(softwareSystem, Type.Context, Format.Markdown, new File(documentationRoot, "context.md"));
-        documentation.add(softwareSystem, Type.QualityAttributes, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));
-        documentation.add(softwareSystem, Type.Constraints, Format.Markdown, new File(documentationRoot, "constraints.md"));
-        documentation.add(softwareSystem, Type.Principles, Format.Markdown, new File(documentationRoot, "principles.md"));
+        documentation.addContextSection(softwareSystem, Format.Markdown, new File(documentationRoot, "context.md"));
+        documentation.addQualityAttributesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));
+        documentation.addConstraintsSection(softwareSystem, Format.Markdown, new File(documentationRoot, "constraints.md"));
+        documentation.addPrinciplesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "principles.md"));
 
         Styles styles = viewSet.getConfiguration().getStyles();
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#d34407").color("#ffffff");

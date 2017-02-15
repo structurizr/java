@@ -1,7 +1,7 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.structurizr.util.StringUtils;
+import com.structurizr.util.Colour;
 
 public class RelationshipStyle {
 
@@ -87,7 +87,7 @@ public class RelationshipStyle {
     }
 
     public void setColor(String color) {
-        if (StringUtils.isHexColourCode(color)) {
+        if (Colour.isHexColourCode(color)) {
             this.color = color;
         } else {
             throw new IllegalArgumentException(color + " is not a valid hex colour code.");

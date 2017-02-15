@@ -1,8 +1,6 @@
 package com.structurizr.documentation;
 
 import com.structurizr.Workspace;
-import com.structurizr.model.Component;
-import com.structurizr.model.Container;
 import com.structurizr.model.SoftwareSystem;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,222 +13,27 @@ import static org.junit.Assert.*;
 public class DocumentationTests {
 
     private SoftwareSystem softwareSystem;
-    private Container container;
-    private Component component;
-    private Documentation documentation;
+    private StructurizrDocumentation documentation;
 
     @Before
     public void setUp() {
         Workspace workspace = new Workspace("Name", "Description");
         softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
-        container = softwareSystem.addContainer("Name", "Description", "Technology");
-        component = container.addComponent("Name", "Description", "Technology");
 
-        documentation = workspace.getDocumentation();
+        documentation = new StructurizrDocumentation(workspace.getModel());
     }
 
     @Test
-    public void test_construction() {
-        assertTrue(documentation.getSections().isEmpty());
-        assertTrue(documentation.getImages().isEmpty());
-    }
-
-    @Test
-    public void test_addWithContentForSoftwareSystem_AddsASectionWithTheSpecifiedContent_WhenThatSectionDoesNotExist() {
-        documentation.add(softwareSystem, Type.Context, Format.Markdown, "Some Markdown content");
-        Section section = documentation.add(softwareSystem, Type.FunctionalOverview, Format.Markdown, "Some more Markdown content");
-
-        assertEquals(softwareSystem, section.getElement());
-        assertEquals(softwareSystem.getId(), section.getElementId());
-        assertEquals(Type.FunctionalOverview, section.getType());
-        assertEquals(Format.Markdown, section.getFormat());
-        assertEquals("Some more Markdown content", section.getContent());
-
-        assertEquals(2, documentation.getSections().size());
-        assertTrue(documentation.getSections().contains(section));
-    }
-
-    @Test
-    public void test_addWithContentForSoftwareSystem_ThrowsAnException_WhenThatSectionAlreadyExists() {
-        documentation.add(softwareSystem, Type.Context, Format.Markdown, "Some Markdown content");
+    public void test_addSection_ThrowsAnException_WhenThatSectionAlreadyExists() {
+        documentation.addContextSection(softwareSystem, Format.Markdown, "Some Markdown content");
         assertEquals(1, documentation.getSections().size());
 
         try {
-            documentation.add(softwareSystem, Type.Context, Format.Markdown, "Some Markdown content");
+            documentation.addContextSection(softwareSystem, Format.Markdown, "Some Markdown content");
             fail();
         } catch (IllegalArgumentException iae) {
             // this is the expected exception
             assertEquals("A section of type Context for Name already exists.", iae.getMessage());
-            assertEquals(1, documentation.getSections().size());
-        }
-    }
-
-    @Test
-    public void test_addFromFileForSoftwareSystem_AddsASectionWithTheSpecifiedContent_WhenThatSectionDoesNotExist() throws IOException {
-        documentation.add(softwareSystem, Type.Context, Format.Markdown, "Some Markdown content");
-
-        File file = new File(".//test/unit/com/structurizr/documentation/example.md");
-        Section section = documentation.add(softwareSystem, Type.FunctionalOverview, Format.Markdown, file);
-
-        assertEquals(softwareSystem, section.getElement());
-        assertEquals(softwareSystem.getId(), section.getElementId());
-        assertEquals(Type.FunctionalOverview, section.getType());
-        assertEquals(Format.Markdown, section.getFormat());
-        assertEquals(String.format("## Heading%n%nHere is a paragraph."), section.getContent());
-
-        assertEquals(2, documentation.getSections().size());
-        assertTrue(documentation.getSections().contains(section));
-    }
-
-    @Test
-    public void test_addFromFileForSoftwareSystem_ThrowsAnException_WhenThatSectionAlreadyExists() throws IOException {
-        documentation.add(softwareSystem, Type.Context, Format.Markdown, "Some Markdown content");
-        assertEquals(1, documentation.getSections().size());
-
-        try {
-            File file = new File(".//test/unit/com/structurizr/documentation/example.md");
-            documentation.add(softwareSystem, Type.Context, Format.Markdown, file);
-            fail();
-        } catch (IllegalArgumentException iae) {
-            // this is the expected exception
-            assertEquals("A section of type Context for Name already exists.", iae.getMessage());
-            assertEquals(1, documentation.getSections().size());
-        }
-    }
-
-    @Test
-    public void test_addWithContentForSoftwareSystem_ThrowsAnException_WhenAContainerIsNotSpecifiedForTheComponentType() {
-        try {
-            documentation.add(softwareSystem, Type.Components, Format.Markdown, "Some Markdown content");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            // this is the expected exception
-            assertEquals("Sections of type Components must be related to a container rather than a software system.", iae.getMessage());
-        }
-    }
-
-    @Test
-    public void test_addWithContentForContainer_AddsASectionWithTheSpecifiedContent_WhenThatSectionDoesNotExist() {
-        documentation.add(softwareSystem, Type.Context, Format.Markdown, "Some Markdown content");
-        Section section = documentation.add(container, Format.Markdown, "Some more Markdown content");
-
-        assertEquals(container, section.getElement());
-        assertEquals(container.getId(), section.getElementId());
-        assertEquals(Type.Components, section.getType());
-        assertEquals(Format.Markdown, section.getFormat());
-        assertEquals("Some more Markdown content", section.getContent());
-
-        assertEquals(2, documentation.getSections().size());
-        assertTrue(documentation.getSections().contains(section));
-    }
-
-    @Test
-    public void test_addWithContentForContainer_ThrowsAnException_WhenThatSectionAlreadyExists() {
-        documentation.add(container, Format.Markdown, "Some Markdown content");
-        assertEquals(1, documentation.getSections().size());
-
-        try {
-            documentation.add(container, Format.Markdown, "Some Markdown content");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            // this is the expected exception
-            assertEquals("A section of type Components for Name already exists.", iae.getMessage());
-            assertEquals(1, documentation.getSections().size());
-        }
-    }
-
-    @Test
-    public void test_addFromFileForContainer_AddsASectionWithTheSpecifiedContent_WhenThatSectionDoesNotExist() throws IOException {
-        documentation.add(softwareSystem, Type.Context, Format.Markdown, "Some Markdown content");
-
-        File file = new File(".//test/unit/com/structurizr/documentation/example.md");
-        Section section = documentation.add(container, Format.Markdown, file);
-
-        assertEquals(container, section.getElement());
-        assertEquals(container.getId(), section.getElementId());
-        assertEquals(Type.Components, section.getType());
-        assertEquals(Format.Markdown, section.getFormat());
-        assertEquals(String.format("## Heading%n%nHere is a paragraph."), section.getContent());
-
-        assertEquals(2, documentation.getSections().size());
-        assertTrue(documentation.getSections().contains(section));
-    }
-
-    @Test
-    public void test_addFromFileForContainer_ThrowsAnException_WhenThatSectionAlreadyExists() throws IOException {
-        documentation.add(container, Format.Markdown, "Some Markdown content");
-        assertEquals(1, documentation.getSections().size());
-
-        try {
-            File file = new File(".//test/unit/com/structurizr/documentation/example.md");
-            documentation.add(container, Format.Markdown, file);
-            fail();
-        } catch (IllegalArgumentException iae) {
-            // this is the expected exception
-            assertEquals("A section of type Components for Name already exists.", iae.getMessage());
-            assertEquals(1, documentation.getSections().size());
-        }
-    }
-
-    @Test
-    public void test_addWithContentForComponent_AddsASectionWithTheSpecifiedContent_WhenThatSectionDoesNotExist() {
-        documentation.add(softwareSystem, Type.Context, Format.Markdown, "Some Markdown content");
-        Section section = documentation.add(component, Format.Markdown, "Some more Markdown content");
-
-        assertEquals(component, section.getElement());
-        assertEquals(component.getId(), section.getElementId());
-        assertEquals(Type.Code, section.getType());
-        assertEquals(Format.Markdown, section.getFormat());
-        assertEquals("Some more Markdown content", section.getContent());
-
-        assertEquals(2, documentation.getSections().size());
-        assertTrue(documentation.getSections().contains(section));
-    }
-
-    @Test
-    public void test_addWithContentForComponent_ThrowsAnException_WhenThatSectionAlreadyExists() {
-        documentation.add(component, Format.Markdown, "Some Markdown content");
-        assertEquals(1, documentation.getSections().size());
-
-        try {
-            documentation.add(component, Format.Markdown, "Some Markdown content");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            // this is the expected exception
-            assertEquals("A section of type Code for Name already exists.", iae.getMessage());
-            assertEquals(1, documentation.getSections().size());
-        }
-    }
-
-    @Test
-    public void test_addFromFileForComponent_AddsASectionWithTheSpecifiedContent_WhenThatSectionDoesNotExist() throws IOException {
-        documentation.add(softwareSystem, Type.Context, Format.Markdown, "Some Markdown content");
-
-        File file = new File(".//test/unit/com/structurizr/documentation/example.md");
-        Section section = documentation.add(component, Format.Markdown, file);
-
-        assertEquals(component, section.getElement());
-        assertEquals(component.getId(), section.getElementId());
-        assertEquals(Type.Code, section.getType());
-        assertEquals(Format.Markdown, section.getFormat());
-        assertEquals(String.format("## Heading%n%nHere is a paragraph."), section.getContent());
-
-        assertEquals(2, documentation.getSections().size());
-        assertTrue(documentation.getSections().contains(section));
-    }
-
-    @Test
-    public void test_addFromFileForComponent_ThrowsAnException_WhenThatSectionAlreadyExists() throws IOException {
-        documentation.add(component, Format.Markdown, "Some Markdown content");
-        assertEquals(1, documentation.getSections().size());
-
-        try {
-            File file = new File(".//test/unit/com/structurizr/documentation/example.md");
-            documentation.add(component, Format.Markdown, file);
-            fail();
-        } catch (IllegalArgumentException iae) {
-            // this is the expected exception
-            assertEquals("A section of type Code for Name already exists.", iae.getMessage());
             assertEquals(1, documentation.getSections().size());
         }
     }
@@ -254,10 +57,10 @@ public class DocumentationTests {
     @Test
     public void test_addImages_ThrowsAnException_WhenTheSpecifiedDirectoryIsNotADirectory() throws IOException {
         try {
-            documentation.addImages(new File(".//test/unit/com/structurizr/documentation/example.md"));
+            documentation.addImages(new File(".//test/unit/com/structurizr/documentation/structurizr/context.md"));
             fail();
         } catch (IllegalArgumentException iae) {
-            assertTrue(iae.getMessage().endsWith("example.md is not a directory."));
+            assertTrue(iae.getMessage().endsWith("context.md is not a directory."));
         }
     }
 
@@ -378,10 +181,10 @@ public class DocumentationTests {
     @Test
     public void test_addImage_ThrowsAnException_WhenTheSpecifiedFileIsNotAnImage() throws IOException {
         try {
-            documentation.addImage(new File(".//test/unit/com/structurizr/documentation/example.md"));
+            documentation.addImage(new File(".//test/unit/com/structurizr/documentation/structurizr/context.md"));
             fail();
         } catch (IllegalArgumentException iae) {
-            assertTrue(iae.getMessage().endsWith("example.md is not a supported image file."));
+            assertTrue(iae.getMessage().endsWith("context.md is not a supported image file."));
         }
     }
 

@@ -11,36 +11,22 @@ The following [example code](https://github.com/structurizr/java/blob/master/str
 ```java
 SoftwareSystem financialRiskSystem = model.addSoftwareSystem("Financial Risk System", "Calculates the bank's exposure to risk for product X");
 
-Documentation documentation = workspace.getDocumentation();
-File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/core/financialrisksystem");
+StructurizrDocumentation documentation = new StructurizrDocumentation(model);
+workspace.setDocumentation(documentation);
 
-documentation.add(financialRiskSystem, Type.Context, Format.AsciiDoc, new File(documentationRoot, "context.adoc"));
-documentation.add(financialRiskSystem, Type.FunctionalOverview, Format.Markdown, new File(documentationRoot, "functional-overview.md"));
-documentation.add(financialRiskSystem, Type.QualityAttributes, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));
+File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/core/financialrisksystem");
+documentation.addContextSection(financialRiskSystem, Format.AsciiDoc, new File(documentationRoot, "context.adoc"));
+documentation.addFunctionalOverviewSection(financialRiskSystem, Format.Markdown, new File(documentationRoot, "functional-overview.md"));
+documentation.addQualityAttributesSection(financialRiskSystem, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));
+documentation.addImages(documentationRoot);
 ```
 
 In this example, three sections (Context, Functional Overview and Quality Attributes) are added to the workspace, each of which is associated with the "Financial Risk System" software system that exists in the model. The content for the sections is pulled from the specified file and included into the workspace.
 
-The documentation is broken up into a number of sections as follows, which are represented by the [Type enum](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/Type.java).
+The documentation is broken up into a number of sections, as defined by the implementation, the following of which are included:
 
-- Context
-- Functional Overview
-- Quality Attributes
-- Constraints
-- Principles
-- Software Architecture
-- Containers
-- Components
-- Code
-- Data
-- Infrastructure Architecture
-- Deployment
-- Development Environment
-- Operation and Support
-- Usage
-- Decision Log
-
-All sections must be associated with a software system in the model, except for "Components" (which needs to be associated with a container) and "Code" (which needs to be associated with a component).
+- [Structurizr](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/StructurizrDocumentation.java)
+- [arc42](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/Arc42Documentation.java)
 
 ### Images
 

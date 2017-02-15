@@ -2,7 +2,7 @@ package com.structurizr.example;
 
 import com.structurizr.Workspace;
 import com.structurizr.documentation.Format;
-import com.structurizr.documentation.Type;
+import com.structurizr.documentation.StructurizrDocumentation;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
@@ -68,10 +68,22 @@ public class ExampleWorkspace {
         styles.addElementStyle(DATABASE_TAG).shape(Shape.Cylinder);
 
         // add some documentation
-        workspace.getDocumentation().add(softwareSystem, Type.Context, Format.Markdown,
+        StructurizrDocumentation documentation = new StructurizrDocumentation(model);
+        workspace.setDocumentation(documentation);
+        documentation.addContextSection(softwareSystem, Format.Markdown,
                 "Here is some context about the software system...\n" +
                 "\n" +
                 "![](embed:Context)");
+        documentation.addContainersSection(softwareSystem, Format.Markdown,
+                "Here is some information about the containers...\n" +
+                        "\n" +
+                        "![](embed:Containers)");
+        documentation.addComponentsSection(backendForFrontend, Format.Markdown,
+                "Here is some information about the Backend for Frontend...\n" +
+                        "\n" +
+                        "![](embed:Components)");
+        documentation.addCodeSection(someController, Format.Markdown,
+                "Here is some information about the SomeController component...");
 
         return workspace;
     }

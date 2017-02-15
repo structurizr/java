@@ -1,6 +1,6 @@
 package com.structurizr.view;
 
-import com.structurizr.util.StringUtils;
+import com.structurizr.util.Url;
 
 /**
  * Represents a font, including a name and an optional URL for web fonts.
@@ -46,7 +46,7 @@ public class Font {
      */
     public void setUrl(String url) {
         if (url != null && url.trim().length() > 0) {
-            if (StringUtils.isUrl(url)) {
+            if (Url.isUrl(url)) {
                 this.url = url;
             } else {
                 throw new IllegalArgumentException(url + " is not a valid URL.");

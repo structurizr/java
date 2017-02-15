@@ -1,0 +1,1 @@
+Code section for component A2
