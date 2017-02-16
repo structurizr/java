@@ -31,12 +31,12 @@ public final class Arc42Documentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addIntroductionAndGoalsSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addIntroductionAndGoalsSection(softwareSystem, format, readFile(file));
+    public Section addIntroductionAndGoalsSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addIntroductionAndGoalsSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -56,12 +56,12 @@ public final class Arc42Documentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addConstraintsSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addConstraintsSection(softwareSystem, format, readFile(file));
+    public Section addConstraintsSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addConstraintsSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -81,12 +81,12 @@ public final class Arc42Documentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addContextAndScopeSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addContextAndScopeSection(softwareSystem, format, readFile(file));
+    public Section addContextAndScopeSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addContextAndScopeSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -106,12 +106,12 @@ public final class Arc42Documentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addSolutionStrategySection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addSolutionStrategySection(softwareSystem, format, readFile(file));
+    public Section addSolutionStrategySection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addSolutionStrategySection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -131,12 +131,12 @@ public final class Arc42Documentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addBuildingBlockViewSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addBuildingBlockViewSection(softwareSystem, format, readFile(file));
+    public Section addBuildingBlockViewSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addBuildingBlockViewSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -156,12 +156,12 @@ public final class Arc42Documentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addRuntimeViewSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addRuntimeViewSection(softwareSystem, format, readFile(file));
+    public Section addRuntimeViewSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addRuntimeViewSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -181,12 +181,12 @@ public final class Arc42Documentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addDeploymentViewSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addDeploymentViewSection(softwareSystem, format, readFile(file));
+    public Section addDeploymentViewSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addDeploymentViewSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -206,12 +206,12 @@ public final class Arc42Documentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addCrosscuttingConceptsSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addCrosscuttingConceptsSection(softwareSystem, format, readFile(file));
+    public Section addCrosscuttingConceptsSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addCrosscuttingConceptsSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -231,12 +231,12 @@ public final class Arc42Documentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addArchitecturalDecisionsSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addArchitecturalDecisionsSection(softwareSystem, format, readFile(file));
+    public Section addArchitecturalDecisionsSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addArchitecturalDecisionsSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -256,12 +256,12 @@ public final class Arc42Documentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addQualityRequirementsSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addQualityRequirementsSection(softwareSystem, format, readFile(file));
+    public Section addQualityRequirementsSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addQualityRequirementsSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -281,12 +281,12 @@ public final class Arc42Documentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addRisksAndTechnicalDebtSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addRisksAndTechnicalDebtSection(softwareSystem, format, readFile(file));
+    public Section addRisksAndTechnicalDebtSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addRisksAndTechnicalDebtSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -306,12 +306,12 @@ public final class Arc42Documentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addGlossarySection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addGlossarySection(softwareSystem, format, readFile(file));
+    public Section addGlossarySection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addGlossarySection(softwareSystem, format, readFiles(files));
     }
 
     /**

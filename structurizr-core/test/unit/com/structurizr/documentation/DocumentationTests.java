@@ -188,4 +188,17 @@ public class DocumentationTests {
         }
     }
 
+    @Test
+    public void test_readFiles_ReturnsAnEmptyString_WhenPassedNull() throws IOException {
+        Section section = documentation.addContextSection(softwareSystem, Format.Markdown, (File)null);
+        assertEquals("", section.getContent());
+    }
+
+    @Test
+    public void test_readFiles_AddsAllFiles_WhenPassedADirectory() throws IOException {
+        Section section = documentation.addContextSection(softwareSystem, Format.Markdown, new File(".//test/unit/com/structurizr/documentation/markdown"));
+        assertEquals("File 1\n" +
+                "File 2\n", section.getContent());
+    }
+
 }

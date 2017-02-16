@@ -32,12 +32,12 @@ public final class StructurizrDocumentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addContextSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addContextSection(softwareSystem, format, readFile(file));
+    public Section addContextSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addContextSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -57,12 +57,12 @@ public final class StructurizrDocumentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addFunctionalOverviewSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addFunctionalOverviewSection(softwareSystem, format, readFile(file));
+    public Section addFunctionalOverviewSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addFunctionalOverviewSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -82,12 +82,12 @@ public final class StructurizrDocumentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addQualityAttributesSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addQualityAttributesSection(softwareSystem, format, readFile(file));
+    public Section addQualityAttributesSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addQualityAttributesSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -107,12 +107,12 @@ public final class StructurizrDocumentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addConstraintsSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addConstraintsSection(softwareSystem, format, readFile(file));
+    public Section addConstraintsSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addConstraintsSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -132,12 +132,12 @@ public final class StructurizrDocumentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addPrinciplesSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addPrinciplesSection(softwareSystem, format, readFile(file));
+    public Section addPrinciplesSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addPrinciplesSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -157,12 +157,12 @@ public final class StructurizrDocumentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addSoftwareArchitectureSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addSoftwareArchitectureSection(softwareSystem, format, readFile(file));
+    public Section addSoftwareArchitectureSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addSoftwareArchitectureSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -182,12 +182,12 @@ public final class StructurizrDocumentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addContainersSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addContainersSection(softwareSystem, format, readFile(file));
+    public Section addContainersSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addContainersSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -207,12 +207,12 @@ public final class StructurizrDocumentation extends Documentation {
      *
      * @param container     the {@link Container} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addComponentsSection(Container container, Format format, File file) throws IOException {
-        return addComponentsSection(container, format, readFile(file));
+    public Section addComponentsSection(Container container, Format format, File... files) throws IOException {
+        return addComponentsSection(container, format, readFiles(files));
     }
 
     /**
@@ -232,12 +232,12 @@ public final class StructurizrDocumentation extends Documentation {
      *
      * @param component     the {@link Component} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addCodeSection(Component component, Format format, File file) throws IOException {
-        return addCodeSection(component, format, readFile(file));
+    public Section addCodeSection(Component component, Format format, File... files) throws IOException {
+        return addCodeSection(component, format, readFiles(files));
     }
 
     /**
@@ -257,12 +257,12 @@ public final class StructurizrDocumentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addDataSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addDataSection(softwareSystem, format, readFile(file));
+    public Section addDataSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addDataSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -282,12 +282,12 @@ public final class StructurizrDocumentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addInfrastructureArchitectureSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addInfrastructureArchitectureSection(softwareSystem, format, readFile(file));
+    public Section addInfrastructureArchitectureSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addInfrastructureArchitectureSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -307,12 +307,12 @@ public final class StructurizrDocumentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addDeploymentSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addDeploymentSection(softwareSystem, format, readFile(file));
+    public Section addDeploymentSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addDeploymentSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -332,12 +332,12 @@ public final class StructurizrDocumentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addDevelopmentEnvironmentSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addDevelopmentEnvironmentSection(softwareSystem, format, readFile(file));
+    public Section addDevelopmentEnvironmentSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addDevelopmentEnvironmentSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -357,12 +357,12 @@ public final class StructurizrDocumentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addOperationAndSupportSection(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addOperationAndSupportSection(softwareSystem, format, readFile(file));
+    public Section addOperationAndSupportSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addOperationAndSupportSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -382,12 +382,12 @@ public final class StructurizrDocumentation extends Documentation {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
-     * @param file  a File that points to the documentation content
+     * @param files  one or more File objects that point to the documentation content
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addDecisionLog(SoftwareSystem softwareSystem, Format format, File file) throws IOException {
-        return addDecisionLog(softwareSystem, format, readFile(file));
+    public Section addDecisionLog(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addDecisionLog(softwareSystem, format, readFiles(files));
     }
 
     /**

@@ -47,8 +47,21 @@ public abstract class Documentation {
         this.model = model;
     }
 
-    protected String readFile(File file) throws IOException {
-        return new String(Files.readAllBytes(file.toPath()), "UTF-8");
+    protected String readFiles(File... files) throws IOException {
+        StringBuilder content = new StringBuilder();
+        if (files != null) {
+            for (File file : files) {
+                if (file != null) {
+                    if (file.isFile()) {
+                        content.append(new String(Files.readAllBytes(file.toPath()), "UTF-8"));
+                    } else if (file.isDirectory()) {
+                        content.append(readFiles(file.listFiles()));
+                    }
+                }
+            }
+        }
+
+        return content.toString();
     }
 
     public final Section addSection(Element element, String type, int group, Format format, String content) {
