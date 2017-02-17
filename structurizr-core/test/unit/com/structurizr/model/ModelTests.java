@@ -43,13 +43,16 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addSoftwareSystem_DoesNotAddTheSoftwareSystem_WhenASoftwareSystemExistsWithTheSameName() {
+    public void test_addSoftwareSystem_ThrowsAnException_WhenASoftwareSystemExistsWithTheSameName() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "System A", "Some description");
         assertEquals(1, model.getSoftwareSystems().size());
 
-        softwareSystem = model.addSoftwareSystem(Location.External, "System A", "Description");
-        assertEquals(1, model.getSoftwareSystems().size());
-        assertNull(softwareSystem);
+        try {
+            model.addSoftwareSystem(Location.External, "System A", "Description");
+            fail();
+        } catch (Exception e) {
+            assertEquals("A software system named 'System A' already exists.", e.getMessage());
+        }
     }
 
     @Test
@@ -79,13 +82,16 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addPerson_DoesNotAddThePerson_WhenAPersonExistsWithTheSameName() {
+    public void test_addPerson_ThrowsAnException_WhenAPersonExistsWithTheSameName() {
         Person person = model.addPerson(Location.Internal, "Admin User", "Description");
         assertEquals(1, model.getPeople().size());
 
-        person = model.addPerson(Location.External, "Admin User", "Description");
-        assertEquals(1, model.getPeople().size());
-        assertNull(person);
+        try {
+            model.addPerson(Location.External, "Admin User", "Description");
+            fail();
+        } catch (Exception e) {
+            assertEquals("A person named 'Admin User' already exists.", e.getMessage());
+        }
     }
 
     @Test

@@ -33,13 +33,16 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addContainer_DoesNotAddAContainer_WhenAContainerWithTheSameNameAlreadyExists() {
+    public void test_addContainer_ThrowsAnException_WhenAContainerWithTheSameNameAlreadyExists() {
         Container container = softwareSystem.addContainer("Web Application", "Description", "Spring MVC");
         assertEquals(1, softwareSystem.getContainers().size());
 
-        container = softwareSystem.addContainer("Web Application", "Description", "Spring MVC");
-        assertEquals(1, softwareSystem.getContainers().size());
-        assertNull(container);
+        try {
+            softwareSystem.addContainer("Web Application", "Description", "Spring MVC");
+            fail();
+        } catch (Exception e) {
+            assertEquals("A container named 'Web Application' already exists for this software system.", e.getMessage());
+        }
     }
 
     @Test

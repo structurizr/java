@@ -65,7 +65,7 @@ public class Model {
 
             return softwareSystem;
         } else {
-            return null;
+            throw new IllegalArgumentException("A software system named '" + name + "' already exists.");
         }
     }
 
@@ -104,7 +104,7 @@ public class Model {
 
             return person;
         } else {
-            return null;
+            throw new IllegalArgumentException("A person named '" + name + "' already exists.");
         }
     }
 
@@ -123,7 +123,7 @@ public class Model {
 
             return container;
         } else {
-            return null;
+            throw new IllegalArgumentException("A container named '" + name + "' already exists for this software system.");
         }
     }
 
