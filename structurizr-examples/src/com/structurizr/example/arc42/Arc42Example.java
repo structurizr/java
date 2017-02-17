@@ -1,4 +1,4 @@
-package com.structurizr.example.core.arc42;
+package com.structurizr.example.arc42;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
@@ -26,7 +26,7 @@ public class Arc42Example {
 
         Arc42Documentation documentation = new Arc42Documentation(model);
         workspace.setDocumentation(documentation);
-        File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/core/arc42");
+        File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/arc42");
 
         documentation.addIntroductionAndGoalsSection(softwareSystem, Format.Markdown, "Introduction and goals section...");
         documentation.addConstraintsSection(softwareSystem, Format.Markdown, "Constraints section...");
