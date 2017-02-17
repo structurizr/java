@@ -52,6 +52,10 @@ public abstract class Documentation {
         if (files != null) {
             for (File file : files) {
                 if (file != null) {
+                    if (content.length() > 0) {
+                        content.append(System.lineSeparator());
+                    }
+
                     if (file.isFile()) {
                         content.append(new String(Files.readAllBytes(file.toPath()), "UTF-8"));
                     } else if (file.isDirectory()) {
