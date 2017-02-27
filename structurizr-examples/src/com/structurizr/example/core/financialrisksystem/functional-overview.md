@@ -1,4 +1,4 @@
-# Functional Overview
+## Functional Overview
 
 The high-level functional requirements for the new Risk System are as follows.
 
