@@ -403,78 +403,6 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addExternalDependencies() {
-        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
-        SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "Description");
-        Person userA = model.addPerson("User A", "Description");
-
-        Set<Element> expectedElementsInView = new HashSet<>();
-        Set<Relationship> expectedRelationshipsInView = new HashSet<>();
-
-        final Container containerA1 = softwareSystemA.addContainer("Container A1", "Description", "Tec");
-        final Component componentA1_1 = containerA1.addComponent("Component A1-1", "Description");
-        final Component componentA1_2 = containerA1.addComponent("Component A1-2", "Description");
-        final Component componentA1_3 = containerA1.addComponent("Component A1-3", "Description");
-
-        expectedElementsInView.add(componentA1_1);
-        expectedElementsInView.add(componentA1_2);
-        expectedElementsInView.add(componentA1_3);
-
-        expectedRelationshipsInView.add(componentA1_1.uses(componentA1_2, ""));
-        expectedRelationshipsInView.add(componentA1_1.uses(componentA1_3, ""));
-
-        final Container containerA2 = softwareSystemA.addContainer("Container A2", "Description", "Tec");
-        final Component componentA2_1 = containerA2.addComponent("Component A2-1", "Description");
-
-        expectedRelationshipsInView.add(componentA1_1.uses(containerA2, ""));
-        expectedElementsInView.add(containerA2);
-
-        componentA2_1.uses(componentA1_1, ""); // this relationship must not be part of the diagram as componentA2_1 is from another container
-
-        final Container containerA3 = softwareSystemA.addContainer("Container A3", "Description", "Tec");
-        containerA2.uses(containerA3, ""); // this relationship must not make it into the view as it is outside of our container
-
-        final Container containerA4 = softwareSystemA.addContainer("Container A4", "Description", "Tec");
-        final Component componentA4_1 = containerA4.addComponent("Component A3-1", "Description");
-        componentA4_1.uses(componentA1_1, ""); // this relationship must not be part of the diagram as componentA2_1 is from another container
-        expectedElementsInView.add(containerA4);
-
-
-        expectedRelationshipsInView.add(userA.uses(componentA1_1, ""));
-        expectedElementsInView.add(userA);
-
-        softwareSystemA.uses(softwareSystemB, "");// this relationship must not make it into the view as it is outside of our container
-
-        view = new ComponentView(containerA1, "components", "Description");
-        view.addAllComponents();
-        view.addExternalDependencies();
-
-        assertThat(view.getElements()).isEqualTo(expectedElementsInView.stream().map(e -> new ElementView(e)).collect(Collectors.toSet()));
-        assertThat(view.getRelationships()).isEqualTo(expectedRelationshipsInView.stream().map(e -> new RelationshipView(e)).collect(Collectors.toSet()));
-    }
-
-    @Test
-    public void test_addExternalDependencies_AddsTheParentContainer_WhenThereIsARelationshipToAComponentInADifferentContainer() {
-        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
-
-        final Container containerA1 = softwareSystemA.addContainer("Container A1", "Description", "Tec");
-        final Component componentA1_1 = containerA1.addComponent("Component A1-1", "Description");
-
-        final Container containerA2 = softwareSystemA.addContainer("Container A2", "Description", "Tec");
-        final Component componentA2_1 = containerA2.addComponent("Component A2-1", "Description");
-
-        componentA1_1.uses(componentA2_1, "Uses");
-
-        view = new ComponentView(containerA1, "components", "Description");
-        view.add(componentA1_1);
-        view.addExternalDependencies();
-
-        assertEquals(2, view.getElements().size());
-        assertThat(view.getElements()).contains(new ElementView(componentA1_1));
-        assertThat(view.getElements()).contains(new ElementView(containerA2)); // the parent container has been added
-    }
-
-    @Test
     public void test_addExternalDependencies_AddsOrphanedElements_WhenThereAreNoDirectRelationshipsWithAComponent() {
         SoftwareSystem source = model.addSoftwareSystem("Source", "");
         SoftwareSystem destination = model.addSoftwareSystem("Destination", "");
@@ -496,6 +424,150 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
 
         // but there are no relationships (because component AAA isn't directly related to anything)
         assertEquals(0, view.getRelationships().size());
+    }
+
+    @Test
+    public void test_addExternalDependencies_AddsTheContainer_WhenAComponentHasARelationshipToAContainerInTheSameSoftwareSystem() {
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("Software System A", "");
+        Container containerA = softwareSystemA.addContainer("Container A", "", "");
+        Component componentA = containerA.addComponent("Component A", "", "");
+        Container containerB = softwareSystemA.addContainer("Container B", "", "");
+
+        componentA.uses(containerB, "uses");
+
+        view = new ComponentView(containerA, "key", "description");
+        view.addAllComponents();
+        view.addExternalDependencies();
+        assertEquals(2, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(componentA)));
+        assertTrue(view.getElements().contains(new ElementView(containerB)));
+    }
+
+    @Test
+    public void test_addExternalDependencies_AddsTheContainer_WhenAComponentHasARelationshipFromAContainerInTheSameSoftwareSystem() {
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("Software System A", "");
+        Container containerA = softwareSystemA.addContainer("Container A", "", "");
+        Component componentA = containerA.addComponent("Component A", "", "");
+        Container containerB = softwareSystemA.addContainer("Container B", "", "");
+
+        containerB.uses(componentA, "uses");
+
+        view = new ComponentView(containerA, "key", "description");
+        view.addAllComponents();
+        view.addExternalDependencies();
+        assertEquals(2, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(componentA)));
+        assertTrue(view.getElements().contains(new ElementView(containerB)));
+    }
+
+    @Test
+    public void test_addExternalDependencies_AddsTheParentContainer_WhenAComponentHasARelationshipToAComponentInADifferentContainerInTheSameSoftwareSystem() {
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("Software System A", "");
+        Container containerA = softwareSystemA.addContainer("Container A", "", "");
+        Component componentA = containerA.addComponent("Component A", "", "");
+        Container containerB = softwareSystemA.addContainer("Container B", "", "");
+        Component componentB = containerB.addComponent("Component B", "", "");
+
+        componentA.uses(componentB, "uses");
+
+        view = new ComponentView(containerA, "key", "description");
+        view.addAllComponents();
+        view.addExternalDependencies();
+        assertEquals(2, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(componentA)));
+        assertTrue(view.getElements().contains(new ElementView(containerB)));
+    }
+
+    @Test
+    public void test_addExternalDependencies_AddsTheParentContainer_WhenAComponentHasARelationshipFromAComponentInADifferentContainerInTheSameSoftwareSystem() {
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("Software System A", "");
+        Container containerA = softwareSystemA.addContainer("Container A", "", "");
+        Component componentA = containerA.addComponent("Component A", "", "");
+        Container containerB = softwareSystemA.addContainer("Container B", "", "");
+        Component componentB = containerB.addComponent("Component B", "", "");
+
+        componentB.uses(componentA, "uses");
+
+        view = new ComponentView(containerA, "key", "description");
+        view.addAllComponents();
+        view.addExternalDependencies();
+        assertEquals(2, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(componentA)));
+        assertTrue(view.getElements().contains(new ElementView(containerB)));
+    }
+
+    @Test
+    public void test_addExternalDependencies_AddsTheParentSoftwareSystem_WhenAComponentHasARelationshipToAContainerInAnotherSoftwareSystem() {
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("Software System A", "");
+        Container containerA = softwareSystemA.addContainer("Container A", "", "");
+        Component componentA = containerA.addComponent("Component A", "", "");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("Software System B", "");
+        Container containerB = softwareSystemB.addContainer("Container B", "", "");
+
+        componentA.uses(containerB, "uses");
+
+        view = new ComponentView(containerA, "key", "description");
+        view.addAllComponents();
+        view.addExternalDependencies();
+        assertEquals(2, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(componentA)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
+    }
+
+    @Test
+    public void test_addExternalDependencies_AddsTheParentSoftwareSystem_WhenAComponentHasARelationshipFromAContainerInAnotherSoftwareSystem() {
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("Software System A", "");
+        Container containerA = softwareSystemA.addContainer("Container A", "", "");
+        Component componentA = containerA.addComponent("Component A", "", "");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("Software System B", "");
+        Container containerB = softwareSystemB.addContainer("Container B", "", "");
+
+        containerB.uses(componentA, "uses");
+
+        view = new ComponentView(containerA, "key", "description");
+        view.addAllComponents();
+        view.addExternalDependencies();
+        assertEquals(2, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(componentA)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
+    }
+
+    @Test
+    public void test_addExternalDependencies_AddsTheParentSoftwareSystem_WhenAComponentHasARelationshipToAComponentInAnotherSoftwareSystem() {
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("Software System A", "");
+        Container containerA = softwareSystemA.addContainer("Container A", "", "");
+        Component componentA = containerA.addComponent("Component A", "", "");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("Software System B", "");
+        Container containerB = softwareSystemB.addContainer("Container B", "", "");
+        Component componentB = containerB.addComponent("Component B", "", "");
+
+        componentA.uses(componentB, "uses");
+
+        view = new ComponentView(containerA, "key", "description");
+        view.addAllComponents();
+        view.addExternalDependencies();
+        assertEquals(2, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(componentA)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
+    }
+
+    @Test
+    public void test_addExternalDependencies_AddsTheParentSoftwareSystem_WhenAComponentHasARelationshipFromAComponentInAnotherSoftwareSystem() {
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("Software System A", "");
+        Container containerA = softwareSystemA.addContainer("Container A", "", "");
+        Component componentA = containerA.addComponent("Component A", "", "");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("Software System B", "");
+        Container containerB = softwareSystemB.addContainer("Container B", "", "");
+        Component componentB = containerB.addComponent("Component B", "", "");
+
+        componentB.uses(componentA, "uses");
+
+        view = new ComponentView(containerA, "key", "description");
+        view.addAllComponents();
+        view.addExternalDependencies();
+        assertEquals(2, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(componentA)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
     }
 
     @Test
