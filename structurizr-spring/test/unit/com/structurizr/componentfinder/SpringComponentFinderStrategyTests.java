@@ -33,14 +33,20 @@ public class SpringComponentFinderStrategyTests {
         );
         componentFinder.findComponents();
 
-        assertEquals(4, webApplication.getComponents().size());
+        assertEquals(5, webApplication.getComponents().size());
         assertEquals(0, webApplication.getComponents().stream().filter(c -> "SomeNonPublicRepository".equals(c.getName())).count());
 
-        Component someController = webApplication.getComponentWithName("SomeController");
-        assertNotNull(someController);
-        assertEquals("SomeController", someController.getName());
-        assertEquals("com.structurizr.componentfinder.myapp.web.SomeController", someController.getType());
-        assertEquals(1, someController.getCode().size());
+        Component someMvcController = webApplication.getComponentWithName("SomeController");
+        assertNotNull(someMvcController);
+        assertEquals("SomeController", someMvcController.getName());
+        assertEquals("com.structurizr.componentfinder.myapp.web.SomeController", someMvcController.getType());
+        assertEquals(1, someMvcController.getCode().size());
+
+        Component someRestController = webApplication.getComponentWithName("SomeApiController");
+        assertNotNull(someRestController);
+        assertEquals("SomeApiController", someRestController.getName());
+        assertEquals("com.structurizr.componentfinder.myapp.api.SomeApiController", someRestController.getType());
+        assertEquals(1, someRestController.getCode().size());
 
         Component someService = webApplication.getComponentWithName("SomeService");
         assertNotNull(someService);
@@ -64,9 +70,14 @@ public class SpringComponentFinderStrategyTests {
         assertEquals("SomeOtherRepository", someOtherRepository.getName());
         assertEquals("com.structurizr.componentfinder.myapp.data.SomeOtherRepository", someOtherRepository.getType());
 
-        assertEquals(1, someController.getRelationships().size());
-        Relationship relationship = someController.getRelationships().iterator().next();
-        assertEquals(someController, relationship.getSource());
+        assertEquals(1, someMvcController.getRelationships().size());
+        Relationship relationship = someMvcController.getRelationships().iterator().next();
+        assertEquals(someMvcController, relationship.getSource());
+        assertEquals(someService, relationship.getDestination());
+
+        assertEquals(1, someRestController.getRelationships().size());
+        relationship = someRestController.getRelationships().iterator().next();
+        assertEquals(someRestController, relationship.getSource());
         assertEquals(someService, relationship.getDestination());
 
         assertEquals(2, someService.getRelationships().size());

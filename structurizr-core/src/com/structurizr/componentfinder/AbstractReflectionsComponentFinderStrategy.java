@@ -5,6 +5,7 @@ import com.structurizr.model.CodeElement;
 import com.structurizr.model.Component;
 import javassist.ClassPool;
 import javassist.CtClass;
+import javassist.NotFoundException;
 import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
 import org.reflections.scanners.AbstractScanner;
@@ -107,13 +108,18 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
         Set<String> referencedTypeNames = new HashSet<>();
 
         ClassPool pool = ClassPool.getDefault();
-        CtClass cc = pool.get(type);
-        for (Object referencedType : cc.getRefClasses()) {
-            String referencedTypeName = (String)referencedType;
+        try {
+            CtClass cc = pool.get(type);
+            for (Object referencedType : cc.getRefClasses()) {
+                String referencedTypeName = (String)referencedType;
 
-            if (!isAJavaPlatformType(referencedTypeName)) {
-                referencedTypeNames.add(referencedTypeName);
+                if (!isAJavaPlatformType(referencedTypeName)) {
+                    referencedTypeNames.add(referencedTypeName);
+                }
             }
+        } catch (NotFoundException e) {
+            System.err.println("Could not find " + type + " ... ignoring.");
+            e.printStackTrace();
         }
 
         return referencedTypeNames;
@@ -160,17 +166,22 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
     }
 
     protected Collection<Component> findClassesWithAnnotation(Class<? extends Annotation> type, String technology) {
+        return findClassesWithAnnotation(type, technology, false);
+    }
+
+    protected Collection<Component> findClassesWithAnnotation(Class<? extends Annotation> type, String technology, boolean includePublicTypesOnly) {
         Collection<Component> components = new LinkedList<>();
         Set<Class<?>> componentTypes = getTypesAnnotatedWith(type);
         for (Class<?> componentType : componentTypes) {
-//            if (Modifier.isPublic(componentType.getModifiers())) {
-                components.add(getComponentFinder().getContainer().addComponent(
-                        componentType.getSimpleName(),
-                        componentType.getCanonicalName(),
-                        "",
-                        technology));
-//            }
+            if (!includePublicTypesOnly || Modifier.isPublic(componentType.getModifiers())) {
+            components.add(getComponentFinder().getContainer().addComponent(
+                    componentType.getSimpleName(),
+                    componentType.getCanonicalName(),
+                    "",
+                    technology));
+            }
         }
+
         return components;
     }
 
