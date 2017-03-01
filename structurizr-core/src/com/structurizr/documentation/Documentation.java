@@ -137,6 +137,7 @@ public abstract class Documentation {
      * Adds an image from the given file to the workspace.
      *
      * @param file  a File descriptor representing an image file on disk
+     * @return  an Image object representing the image added
      * @throws IOException  if the file can't be read
      */
     public Image addImage(File file) throws IOException {

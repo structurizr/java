@@ -59,6 +59,8 @@ public final class StructurizrClient {
      * - structurizr.api.url
      * - structurizr.api.key
      * - structurizr.api.secret
+     *
+     * @throws StructurizrClientException   if something goes wrong
      */
     public StructurizrClient() throws StructurizrClientException {
         try {

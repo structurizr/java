@@ -35,8 +35,9 @@ public final class WorkspaceUtils {
     /**
      * Saves a workspace to a JSON definition as a file.
      *
-     * @param file a File representing the JSON definition
-     * @throws Exception if something goes wrong
+     * @param workspace     a Workspace object
+     * @param file          a File representing the JSON definition
+     * @throws Exception    if something goes wrong
      */
     public static void saveWorkspaceToJson(Workspace workspace, File file) throws Exception {
         if (workspace == null) {
