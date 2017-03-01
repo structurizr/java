@@ -10,7 +10,14 @@ If you reverse-engineer some Java code using a UML tool, you'll typically get a 
 
 ## Purpose
 
-The purpose of the component finder is to find components in your codebase. Since every codebase is different (i.e. code structure, naming conventions, frameworks used, etc), different pluggable component finder strategies allow you to customize how components are found. 
+The purpose of the [component finder](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/componentfinder/ComponentFinder.java) is to find components in your codebase. Since every codebase is different (i.e. code structure, naming conventions, frameworks used, etc), different pluggable component finder strategies allow you to customize the rules that you use to find components.
+Some example rules that you might use to find components include:
+
+- All classes where the name ends with ```Component```.
+- All classes where the name ends with ```Controller```.
+- All classes that are annotated with the Spring ```@Repository``` annotation.
+- All classes that inherit from ```AbstractComponent```.
+- etc
 
 ## Basic usage
 
