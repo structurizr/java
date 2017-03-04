@@ -25,16 +25,16 @@ import java.util.Date;
 import java.util.Properties;
 
 /**
- * An implementation of a client for the Structurizr API, hosted at https://api.structurizr.com,
+ * A client for the Structurizr API (https://api.structurizr.com)
  * that allows you to get and put Structurizr workspaces in a JSON format.
  */
 public final class StructurizrClient {
 
     private static final Log log = LogFactory.getLog(StructurizrClient.class);
 
-    public static final String STRUCTURIZR_API_URL = "structurizr.api.url";
-    public static final String STRUCTURIZR_API_KEY = "structurizr.api.key";
-    public static final String STRUCTURIZR_API_SECRET = "structurizr.api.secret";
+    private static final String STRUCTURIZR_API_URL = "structurizr.api.url";
+    private static final String STRUCTURIZR_API_KEY = "structurizr.api.key";
+    private static final String STRUCTURIZR_API_SECRET = "structurizr.api.secret";
 
     private static final String WORKSPACE_PATH = "/workspace/";
 
@@ -47,10 +47,6 @@ public final class StructurizrClient {
     private EncryptionStrategy encryptionStrategy;
 
     private boolean mergeFromRemote = true;
-
-    /**
-     * The location where a copy of the workspace will be archived when it is retrieved from the server.
-     */
     private File workspaceArchiveLocation = new File(".");
 
     /**
@@ -82,15 +78,14 @@ public final class StructurizrClient {
     }
 
     /**
-     * Creates a new Structurizr client at https://api.structurizr.com with the specified API key and secret.
+     * Creates a new Structurizr API client with the specified API key and secret,
+     * for the default API URL (https://api.structurizr.com).
      *
      * @param apiKey    the API key of your workspace
      * @param apiSecret the API secret of your workspace
      */
     public StructurizrClient(String apiKey, String apiSecret) {
-        setUrl("https://api.structurizr.com");
-        this.apiKey = apiKey;
-        this.apiSecret = apiSecret;
+        this("https://api.structurizr.com", apiKey, apiSecret);
     }
 
     /**
@@ -214,7 +209,6 @@ public final class StructurizrClient {
      */
     public void putWorkspace(long workspaceId, Workspace workspace) throws StructurizrClientException {
         try {
-            log.info("Putting workspace with ID " + workspaceId);
             if (workspace == null) {
                 throw new IllegalArgumentException("A workspace must be supplied");
             } else if (workspaceId <= 0) {
@@ -252,6 +246,7 @@ public final class StructurizrClient {
 
             debugRequest(httpPut, EntityUtils.toString(stringEntity));
 
+            log.info("Putting workspace with ID " + workspaceId);
             try (CloseableHttpResponse response = httpClient.execute(httpPut)) {
                 String json = EntityUtils.toString(response.getEntity());
                 if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
