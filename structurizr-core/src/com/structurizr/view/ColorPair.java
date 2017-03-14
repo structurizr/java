@@ -1,7 +1,5 @@
 package com.structurizr.view;
 
-import com.structurizr.util.Colour;
-
 /**
  * Represents a pair of colours: background and foreground.
  */
@@ -23,10 +21,10 @@ public class ColorPair {
     }
 
     public void setBackground(String background) {
-        if (Colour.isHexColourCode(background)) {
+        if (Color.isHexColorCode(background)) {
             this.background = background.toLowerCase();
         } else {
-            throw new IllegalArgumentException("'" + background + "' is not a valid hex colour code.");
+            throw new IllegalArgumentException("'" + background + "' is not a valid hex color code.");
         }
     }
 
@@ -35,10 +33,10 @@ public class ColorPair {
     }
 
     public void setForeground(String foreground) {
-        if (Colour.isHexColourCode(foreground)) {
+        if (Color.isHexColorCode(foreground)) {
             this.foreground = foreground.toLowerCase();
         } else {
-            throw new IllegalArgumentException("'" + foreground + "' is not a valid hex colour code.");
+            throw new IllegalArgumentException("'" + foreground + "' is not a valid hex color code.");
         }
     }
 

@@ -28,7 +28,7 @@ public class ColorPairTests {
             colorPair.setBackground(null);
             fail();
         } catch (IllegalArgumentException iae) {
-            assertEquals("'null' is not a valid hex colour code.", iae.getMessage());
+            assertEquals("'null' is not a valid hex color code.", iae.getMessage());
         }
     }
 
@@ -39,7 +39,7 @@ public class ColorPairTests {
             colorPair.setBackground("");
             fail();
         } catch (IllegalArgumentException iae) {
-            assertEquals("'' is not a valid hex colour code.", iae.getMessage());
+            assertEquals("'' is not a valid hex color code.", iae.getMessage());
         }
     }
 
@@ -50,7 +50,7 @@ public class ColorPairTests {
             colorPair.setBackground("ffffff");
             fail();
         } catch (IllegalArgumentException iae) {
-            assertEquals("'ffffff' is not a valid hex colour code.", iae.getMessage());
+            assertEquals("'ffffff' is not a valid hex color code.", iae.getMessage());
         }
     }
 
@@ -68,7 +68,7 @@ public class ColorPairTests {
             colorPair.setForeground(null);
             fail();
         } catch (IllegalArgumentException iae) {
-            assertEquals("'null' is not a valid hex colour code.", iae.getMessage());
+            assertEquals("'null' is not a valid hex color code.", iae.getMessage());
         }
     }
 
@@ -79,7 +79,7 @@ public class ColorPairTests {
             colorPair.setForeground("");
             fail();
         } catch (IllegalArgumentException iae) {
-            assertEquals("'' is not a valid hex colour code.", iae.getMessage());
+            assertEquals("'' is not a valid hex color code.", iae.getMessage());
         }
     }
 
@@ -90,7 +90,7 @@ public class ColorPairTests {
             colorPair.setForeground("000000");
             fail();
         } catch (IllegalArgumentException iae) {
-            assertEquals("'000000' is not a valid hex colour code.", iae.getMessage());
+            assertEquals("'000000' is not a valid hex color code.", iae.getMessage());
         }
     }
 
