@@ -9,8 +9,35 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * A simple documentation template, based upon the "software guidebook" concept in
- * Simon Brown's "Software Architecture for Developers" book.
+ * <p>
+ * A simple documentation template, based upon the "software guidebook" concept in Simon Brown's
+ * <a href="https://leanpub.com/visualising-software-architecture">Software Architecture for Developers</a>
+ * book, with the following sections:
+ * </p>
+ *
+ * <ul>
+ *     <li>Context (1)</li>
+ *     <li>Functional Overview (2)</li>
+ *     <li>Quality Attributes (2)</li>
+ *     <li>Constraints (2)</li>
+ *     <li>Principles (2)</li>
+ *     <li>Software Architecture (3)</li>
+ *     <li>Containers (3)</li>
+ *     <li>Components (3)</li>
+ *     <li>Code (3)</li>
+ *     <li>Data (3)</li>
+ *     <li>Infrastructure Architecture (4)</li>
+ *     <li>Deployment (4)</li>
+ *     <li>Development Environment (4)</li>
+ *     <li>Operation and Support (4)</li>
+ *     <li>Decision Log (5)</li>
+ * </ul>
+ *
+ * <p>
+ * The number in parentheses () represents the grouping, which is simply used to colour code
+ * section navigation buttons when rendered. You can see an example of this at
+ * <a href="https://structurizr.com/share/18571/documentation">https://structurizr.com/share/18571/documentation</a>.
+ * </p>
  */
 public final class StructurizrDocumentation extends Documentation {
 
@@ -374,7 +401,7 @@ public final class StructurizrDocumentation extends Documentation {
      * @return  a documentation {@link Section}
      */
     public Section addOperationAndSupportSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Operation And Support", GROUP4, format, content);
+        return addSection(softwareSystem, "Operation and Support", GROUP4, format, content);
     }
 
     /**

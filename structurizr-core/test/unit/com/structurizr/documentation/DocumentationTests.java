@@ -201,4 +201,16 @@ public class DocumentationTests {
                 "File 2", section.getContent());
     }
 
+    @Test
+    public void test_addCustomSection_AddsASectionWithAGroupOf1_WhenAGroupLessThan1IsSpecified() {
+        Section section = documentation.addCustomSection(softwareSystem, "Custom Section", 0, Format.Markdown, "Custom content");
+        assertEquals(1, section.getGroup());
+    }
+
+    @Test
+    public void test_addCustomSection_AddsASectionWithAGroupOf5_WhenAGroupMoreThan5IsSpecified() {
+        Section section = documentation.addCustomSection(softwareSystem, "Custom Section", 6, Format.Markdown, "Custom content");
+        assertEquals(5, section.getGroup());
+    }
+
 }

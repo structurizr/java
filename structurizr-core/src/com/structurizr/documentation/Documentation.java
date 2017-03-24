@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.structurizr.model.Element;
 import com.structurizr.model.Model;
+import com.structurizr.model.SoftwareSystem;
 import com.structurizr.util.ImageUtils;
 
 import java.io.File;
@@ -68,7 +69,42 @@ public abstract class Documentation {
         return content.toString();
     }
 
-    public final Section addSection(Element element, String type, int group, Format format, String content) {
+    /**
+     * Adds a custom section relating to a {@link SoftwareSystem} from a file.
+     *
+     * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
+     * @param name              the name of the section
+     * @param group             the group of the section (an integer between 1 and 5)
+     * @param format    the {@link Format} of the documentation content
+     * @param files  one or more File objects that point to the documentation content
+     * @return  a documentation {@link Section}
+     * @throws IOException  if the file can't be read
+     */
+    public Section addCustomSection(SoftwareSystem softwareSystem, String name, int group, Format format, File... files) throws IOException {
+        return addCustomSection(softwareSystem, name, group, format, readFiles(files));
+    }
+
+    /**
+     * Adds a custom section relating to a {@link SoftwareSystem}.
+     *
+     * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
+     * @param name              the name of the section
+     * @param group             the group of the section (an integer between 1 and 5)
+     * @param format    the {@link Format} of the documentation content
+     * @param content   a String containing the documentation content
+     * @return  a documentation {@link Section}
+     */
+    public Section addCustomSection(SoftwareSystem softwareSystem, String name, int group, Format format, String content) {
+        return addSection(softwareSystem, name, group, format, content);
+    }
+
+    protected final Section addSection(Element element, String type, int group, Format format, String content) {
+        if (group < 1) {
+            group = 1;
+        } else if (group > 5) {
+            group = 5;
+        }
+
         Section section = new Section(element, type, calculateOrder(), group, format, content);
         if (!sections.contains(section)) {
             sections.add(section);

@@ -21,12 +21,18 @@ documentation.addQualityAttributesSection(financialRiskSystem, Format.Markdown, 
 documentation.addImages(documentationRoot);
 ```
 
-In this example, three sections (Context, Functional Overview and Quality Attributes) are added to the workspace, each of which is associated with the "Financial Risk System" software system that exists in the model. The content for the sections is pulled from the specified file and included into the workspace.
+In this example, three sections ("Context", "Functional Overview" and "Quality Attributes") are added to the workspace, each of which is associated with the "Financial Risk System" software system that exists in the model. The content for the sections is pulled from the specified file and included into the workspace.
 
 The documentation is broken up into a number of sections, as defined by the implementation, the following of which are included:
 
 - [Structurizr](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/StructurizrDocumentation.java)
 - [arc42](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/Arc42Documentation.java)
+
+You can add custom sections using the ```addCustomSection``` method, by specifying the section name (a String) and group (an integer, 1-5; this is used for colour coding section navigation buttons):
+
+```java
+documentation.addCustomSection(financialRiskSystem, "My other section", 3, Format.Markdown, new File(documentationRoot, "my-other-section.md"));
+```
 
 ### Images
 

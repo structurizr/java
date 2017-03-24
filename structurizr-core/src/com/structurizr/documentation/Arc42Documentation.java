@@ -7,9 +7,32 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * An implementation of the arc42 documentation template.
+ * <p>
+ * An implementation of the <a href="http://arc42.org">arc42 documentation template</a>,
+ * consisting of the following sections:
+ * </p>
  *
- * See http://arc42.org for more information.
+ * <ol>
+ *     <li>Introduction and Goals (1)</li>
+ *     <li>Constraints (2)</li>
+ *     <li>Context and Scope (2)</li>
+ *     <li>Solution Strategy (3)</li>
+ *     <li>Building Block View (3)</li>
+ *     <li>Runtime View (3)</li>
+ *     <li>Deployment View (3)</li>
+ *     <li>Crosscutting Concepts (3)</li>
+ *     <li>Architectural Decisions (3)</li>
+ *     <li>Quality Requirements (2)</li>
+ *     <li>Risks and Technical Debt (4)</li>
+ *     <li>Glossary (5)</li>
+ * </ol>
+ *
+ * <p>
+ * The number in parentheses () represents the grouping, which is simply used to colour code
+ * section navigation buttons when rendered. You can see an example of this at
+ * <a href="https://structurizr.com/share/27791/documentation">https://structurizr.com/share/27791/documentation</a>.
+ * </p>
+
  */
 public final class Arc42Documentation extends Documentation {
 
@@ -48,7 +71,7 @@ public final class Arc42Documentation extends Documentation {
      * @return  a documentation {@link Section}
      */
     public Section addIntroductionAndGoalsSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Introduction And Goals", GROUP1, format, content);
+        return addSection(softwareSystem, "Introduction and Goals", GROUP1, format, content);
     }
 
     /**
@@ -98,7 +121,7 @@ public final class Arc42Documentation extends Documentation {
      * @return  a documentation {@link Section}
      */
     public Section addContextAndScopeSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Context And Scope", GROUP2, format, content);
+        return addSection(softwareSystem, "Context and Scope", GROUP2, format, content);
     }
 
     /**
@@ -298,7 +321,7 @@ public final class Arc42Documentation extends Documentation {
      * @return  a documentation {@link Section}
      */
     public Section addRisksAndTechnicalDebtSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Risks And Technical Debt", GROUP4, format, content);
+        return addSection(softwareSystem, "Risks and Technical Debt", GROUP4, format, content);
     }
 
     /**
