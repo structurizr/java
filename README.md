@@ -2,13 +2,31 @@
 
 # Structurizr for Java
 
-This GitHub repository is a Java library to create software architecture models that are compatible with [Structurizr](https://structurizr.com), a SaaS to create web-based software architecture diagrams. In summary:
+This GitHub repository is a collection of tooling to help you visualise, document and explore the software architecture of a software system. In summary, it allows you to create a software architecture model based upon Simon Brown's "C4 model" using Java code, and then export that model to be visualised using tools such as:
 
-1. Create a software architecture model using Java code, either manually or by extracting information from an existing codebase.
-1. Upload the model (as a JSON document) to [Structurizr](https://structurizr.com) using the web API.
-1. Visualise and share the resulting software architecture diagrams ([examples](https://structurizr.com/help/examples)).
+1. [Structurizr](https://structurizr.com): a web-based service to render web-based software architecture diagrams and supplementary Markdown/AsciiDoc documentation.
+1. [PlantUML](docs/plantuml.md): a tool to create UML diagrams using a simple textual domain specific language.
+1. [graphviz](docs/graphviz-and-dot.md): a tool to render directed graphs using the DOT format.
 
-![An overview of Structurizr](docs/images/structurizr-overview.png)
+As a simple example, the following Java code can be used to create a software architecture model to describe a user using a software system.
+
+```java
+Workspace workspace = new Workspace("My model", "This is a model of my software system.");
+Model model = workspace.getModel();
+
+Person user = model.addPerson("User", "A user of my software system.");
+SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "My software system.");
+user.uses(softwareSystem, "Uses");
+
+ViewSet viewSet = workspace.getViews();
+SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "context", "A simple example of a System Context diagram.");
+contextView.addAllSoftwareSystems();
+contextView.addAllPeople();
+```
+
+If using [Structurizr](https://structurizr.com), the end-result, after adding some styling and positioning the diagram elements, is a system context diagram like this:
+
+![Getting Started with Structurizr for Java](docs/images/getting-started.png)
 
 ## Table of contents
 

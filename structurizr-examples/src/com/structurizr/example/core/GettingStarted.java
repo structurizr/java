@@ -6,6 +6,7 @@ import com.structurizr.model.Model;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
 import com.structurizr.model.Tags;
+import com.structurizr.view.Shape;
 import com.structurizr.view.Styles;
 import com.structurizr.view.SystemContextView;
 import com.structurizr.view.ViewSet;
@@ -30,7 +31,7 @@ public class GettingStarted {
 
         Styles styles = viewSet.getConfiguration().getStyles();
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd").color("#ffffff");
-        styles.addElementStyle(Tags.PERSON).background("#08427b").color("#ffffff");
+        styles.addElementStyle(Tags.PERSON).background("#08427b").color("#ffffff").shape(Shape.Person);
 
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.putWorkspace(1234, workspace);
