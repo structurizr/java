@@ -4,7 +4,7 @@
 
 This GitHub repository is a collection of tooling to help you visualise, document and explore the software architecture of a software system. In summary, it allows you to create a software architecture model based upon Simon Brown's "C4 model" using Java code, and then export that model to be visualised using tools such as:
 
-1. [Structurizr](https://structurizr.com): a web-based service to render web-based software architecture diagrams and supplementary Markdown/AsciiDoc documentation.
+1. [Structurizr](https://structurizr.com): a web-based service to render web-based software architecture diagrams and supplementary Markdown/AsciiDoc documentation. Diagrams can be viewed online directly or by [embedding them in Atlassian Confluence](https://structurizr.com/help/atlassian-confluence).
 1. [PlantUML](docs/plantuml.md): a tool to create UML diagrams using a simple textual domain specific language.
 1. [graphviz](docs/graphviz-and-dot.md): a tool to render directed graphs using the DOT format.
 
