@@ -90,7 +90,7 @@ componentFinder.findComponents();
 
 The ```SpringComponentFinderStrategy``` is a pre-built component finder strategy that understands how applications are built with Spring and how to identify Spring components, such as MVC controllers, REST controllers, services, repositories, JPA repositories, etc. The way that you identify supporting types (i.e. the Java classes and interfaces) that implement a component is also pluggable, and here we're looking for all types referenced by the component type(s).
 
-Once the components and their supporting types have been idenfied, the dependencies between components are also identified and extracted.
+Once the components and their supporting types have been identified, the dependencies between components are also identified and extracted.
 
 In addition, the ```SourceCodeComponentFinderStrategy``` will parse the top-level Javadoc comment from the source file for each component type for inclusion in the model. It will also calculate the size of each component based upon the number of lines of source code across all supporting types.
 
