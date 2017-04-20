@@ -449,4 +449,14 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertTrue(aa1.hasEfferentRelationshipWith(aa2));
     }
 
+    @Test(expected = IllegalArgumentException.class)
+    public void test_nullName() {
+        model.addSoftwareSystem(Location.External, null, null);
+    }
+
+    @Test
+    public void test_nullDescription() {
+        model.addSoftwareSystem(Location.External, "SoftwareSystem", null);
+    }
+
 }
