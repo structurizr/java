@@ -1,6 +1,6 @@
 # Styling elements
 
-By default, all model elements are rendered as grey boxes as shown in the example diagram below.
+By default, all model elements are rendered as grey boxes, as illustrated by the example diagram below.
 
 ![Default styling](images/styling-elements-1.png)
 
