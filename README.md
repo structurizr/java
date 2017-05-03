@@ -1,3 +1,6 @@
+[![Conference recommends](https://devternity.com/shields/recommends.svg)](https://devternity.com)
+
+
 ![Structurizr](docs/images/structurizr-banner.png)
 
 # Structurizr for Java
