@@ -73,17 +73,12 @@ public class SourceCodeComponentFinderStrategy extends ComponentFinderStrategy {
 
         for (Component component : getComponentFinder().getContainer().getComponents()) {
             long count = 0;
-            File sourceFile = typeToSourceFile.get(component.getType());
-            if (sourceFile != null) {
-                count += Files.lines(Paths.get(sourceFile.toURI())).count();
-            }
-
             component.setDescription(typeToDescription.getOrDefault(component.getType(), null));
 
             for (CodeElement codeElement : component.getCode()) {
                 codeElement.setDescription(typeToDescription.getOrDefault(codeElement.getType(), null));
 
-                sourceFile = typeToSourceFile.get(codeElement.getType());
+                File sourceFile = typeToSourceFile.get(codeElement.getType());
                 if (sourceFile != null) {
                     long numberOfLinesInFile = Files.lines(Paths.get(sourceFile.toURI())).count();
                     codeElement.setUrl(sourceFile.toURI().toString());

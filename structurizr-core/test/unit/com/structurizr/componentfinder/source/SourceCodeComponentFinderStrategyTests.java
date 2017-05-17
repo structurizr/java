@@ -32,16 +32,19 @@ public class SourceCodeComponentFinderStrategyTests {
                 "ComponentA",
                 "com.structurizr.componentfinder.source.componentA.ComponentA",
                 "", "");
+        componentA.addSupportingType("com.structurizr.componentfinder.source.componentA.ComponentAImpl");
 
         componentB = webApplication.addComponent(
                 "ComponentB",
                 "com.structurizr.componentfinder.source.componentB.ComponentB",
                 "", "");
+        componentB.addSupportingType("com.structurizr.componentfinder.source.componentB.ComponentBImpl");
 
         componentC = webApplication.addComponent(
                 "ComponentC",
                 "com.structurizr.componentfinder.source.componentC.ComponentC",
                 "", "");
+        componentC.addSupportingType("com.structurizr.componentfinder.source.componentC.ComponentCImpl");
     }
 
     @Test
@@ -57,10 +60,10 @@ public class SourceCodeComponentFinderStrategyTests {
         assertEquals(20, componentA.getSize());
 
         assertEquals("A component that does something else.", componentB.getDescription());
-        assertEquals(20, componentB.getSize());
+        assertEquals(29, componentB.getSize());
 
         assertEquals("A component that does something else too.", componentC.getDescription());
-        assertEquals(20, componentC.getSize());
+        assertEquals(31, componentC.getSize());
     }
 
     @Test
