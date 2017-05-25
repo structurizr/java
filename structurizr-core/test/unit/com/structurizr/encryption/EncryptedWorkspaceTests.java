@@ -19,6 +19,7 @@ public class EncryptedWorkspaceTests {
     @Before
     public void setUp() throws Exception {
         workspace = new Workspace("Name", "Description");
+        workspace.setVersion("1.2.3");
         workspace.setThumbnail("thumbnail data");
         workspace.setId(1234);
 
@@ -32,6 +33,7 @@ public class EncryptedWorkspaceTests {
 
         assertEquals("Name", encryptedWorkspace.getName());
         assertEquals("Description", encryptedWorkspace.getDescription());
+        assertEquals("1.2.3", encryptedWorkspace.getVersion());
         assertEquals("thumbnail data", encryptedWorkspace.getThumbnail());
         assertEquals(1234, encryptedWorkspace.getId());
 
@@ -56,6 +58,7 @@ public class EncryptedWorkspaceTests {
 
         assertEquals("Name", encryptedWorkspace.getName());
         assertEquals("Description", encryptedWorkspace.getDescription());
+        assertEquals("1.2.3", encryptedWorkspace.getVersion());
         assertEquals("thumbnail data", encryptedWorkspace.getThumbnail());
         assertEquals(1234, encryptedWorkspace.getId());
 
