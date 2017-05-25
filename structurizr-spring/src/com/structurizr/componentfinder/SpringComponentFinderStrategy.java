@@ -1,5 +1,10 @@
 package com.structurizr.componentfinder;
 
+import com.structurizr.model.Component;
+
+import java.util.Collection;
+import java.util.HashSet;
+
 /**
  * <p>
  *     This component finder strategy knows how to find the following Spring components:
@@ -27,6 +32,12 @@ package com.structurizr.componentfinder;
  */
 public class SpringComponentFinderStrategy extends AbstractSpringComponentFinderStrategy {
 
+    private SpringRestControllerComponentFinderStrategy springRestControllerComponentFinderStrategy;
+    private SpringMvcControllerComponentFinderStrategy springMvcControllerComponentFinderStrategy;
+    private SpringServiceComponentFinderStrategy springServiceComponentFinderStrategy;
+    private SpringComponentComponentFinderStrategy springComponentComponentFinderStrategy;
+    private SpringRepositoryComponentFinderStrategy springRepositoryComponentFinderStrategy;
+
     public SpringComponentFinderStrategy() {
     }
 
@@ -36,35 +47,56 @@ public class SpringComponentFinderStrategy extends AbstractSpringComponentFinder
 
     @Override
     public void findComponents() throws Exception {
-        SpringRestControllerComponentFinderStrategy springRestControllerComponentFinderStrategy = new SpringRestControllerComponentFinderStrategy();
+        springRestControllerComponentFinderStrategy = new SpringRestControllerComponentFinderStrategy();
         springRestControllerComponentFinderStrategy.setIncludePublicTypesOnly(includePublicTypesOnly);
         springRestControllerComponentFinderStrategy.setComponentFinder(getComponentFinder());
         supportingTypesStrategies.forEach(springRestControllerComponentFinderStrategy::addSupportingTypesStrategy);
         springRestControllerComponentFinderStrategy.findComponents();
 
-        SpringMvcControllerComponentFinderStrategy springMvcControllerComponentFinderStrategy = new SpringMvcControllerComponentFinderStrategy();
+        springMvcControllerComponentFinderStrategy = new SpringMvcControllerComponentFinderStrategy();
         springMvcControllerComponentFinderStrategy.setIncludePublicTypesOnly(includePublicTypesOnly);
         springMvcControllerComponentFinderStrategy.setComponentFinder(getComponentFinder());
         supportingTypesStrategies.forEach(springMvcControllerComponentFinderStrategy::addSupportingTypesStrategy);
         springMvcControllerComponentFinderStrategy.findComponents();
 
-        SpringServiceComponentFinderStrategy springServiceComponentFinderStrategy = new SpringServiceComponentFinderStrategy();
+        springServiceComponentFinderStrategy = new SpringServiceComponentFinderStrategy();
         springServiceComponentFinderStrategy.setIncludePublicTypesOnly(includePublicTypesOnly);
         springServiceComponentFinderStrategy.setComponentFinder(getComponentFinder());
         supportingTypesStrategies.forEach(springServiceComponentFinderStrategy::addSupportingTypesStrategy);
         springServiceComponentFinderStrategy.findComponents();
 
-        SpringComponentComponentFinderStrategy springComponentComponentFinderStrategy = new SpringComponentComponentFinderStrategy();
+        springComponentComponentFinderStrategy = new SpringComponentComponentFinderStrategy();
         springComponentComponentFinderStrategy.setIncludePublicTypesOnly(includePublicTypesOnly);
         springComponentComponentFinderStrategy.setComponentFinder(getComponentFinder());
         supportingTypesStrategies.forEach(springComponentComponentFinderStrategy::addSupportingTypesStrategy);
         springComponentComponentFinderStrategy.findComponents();
 
-        SpringRepositoryComponentFinderStrategy springRepositoryComponentFinderStrategy = new SpringRepositoryComponentFinderStrategy();
+        springRepositoryComponentFinderStrategy = new SpringRepositoryComponentFinderStrategy();
         springRepositoryComponentFinderStrategy.setIncludePublicTypesOnly(includePublicTypesOnly);
         springRepositoryComponentFinderStrategy.setComponentFinder(getComponentFinder());
         supportingTypesStrategies.forEach(springRepositoryComponentFinderStrategy::addSupportingTypesStrategy);
         springRepositoryComponentFinderStrategy.findComponents();
     }
 
+    @Override
+    public void findDependencies() throws Exception {
+        springRestControllerComponentFinderStrategy.findDependencies();
+        springMvcControllerComponentFinderStrategy.findDependencies();
+        springServiceComponentFinderStrategy.findDependencies();
+        springComponentComponentFinderStrategy.findDependencies();
+        springRepositoryComponentFinderStrategy.findDependencies();
+    }
+
+    @Override
+    public Collection<Component> getComponents() {
+        Collection<Component> components = new HashSet<>();
+
+        components.addAll(springRestControllerComponentFinderStrategy.getComponents());
+        components.addAll(springMvcControllerComponentFinderStrategy.getComponents());
+        components.addAll(springServiceComponentFinderStrategy.getComponents());
+        components.addAll(springComponentComponentFinderStrategy.getComponents());
+        components.addAll(springRepositoryComponentFinderStrategy.getComponents());
+
+        return components;
+    }
 }

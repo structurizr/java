@@ -119,7 +119,6 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
             }
         } catch (NotFoundException e) {
             System.err.println("Could not find " + type + " ... ignoring.");
-            e.printStackTrace();
         }
 
         return referencedTypeNames;
