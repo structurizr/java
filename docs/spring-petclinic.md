@@ -9,7 +9,7 @@ First of all, we need to download a copy of the [Spring PetClinic source code](h
 ```
 git clone https://github.com/spring-projects/spring-petclinic.git
 cd spring-petclinic
-git checkout 864580702f8ef4d2cdfd7fe4497fb8c9e86018d2
+git checkout 95de1d9f8bf63560915331664b27a4a75ce1f1f6
 ```
 
 Next we need to run the build.
