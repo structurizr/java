@@ -61,6 +61,6 @@ As the following image illustrates, we now have many more classes that are suppo
 
 This collection of classes may look confusing at first, but the ```JdbcVisitRepositoryImpl``` class references the ```Visit``` class, which in turn references the ```Pet``` class, which in turn references the ```Owner``` class, etc. The Structurizr tree exploration shows that these classes are shared between the ```VisitRepository``` and other components by rendering their names in grey.
 
-[Structurizr's component size exploration](https://structurizr.com/share/1/explore/component-size) allows you to easily see where types are used between components.
+[Structurizr's component size exploration](https://structurizr.com/share/1/explore/component-size) allows you to easily see where types are shared between components.
 
 ![](images/supporting-types-4.gif)
