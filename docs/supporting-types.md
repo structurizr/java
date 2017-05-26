@@ -2,7 +2,7 @@
 
 In Structurizr, a [Component](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/model/Component.java) is described by a number of properties and can have a number of [CodeElement](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/model/CodeElement.java)s associated with it that represent the Java classes and interfaces that implement and/or support that component.
 
-Because each codebase is different, the mechanism to find a component's supporting types is pluggable via a number of strategies ([SupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/componentfinder/SupportingTypesStrategy.java)), which can be used in combination. Let's look at the Spring PetClinic example to see how the various supporting types strategies affect the software architecture model.
+Because each codebase is different, the mechanism to find a component's supporting types is pluggable via a number of strategies ([SupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/componentfinder/SupportingTypesStrategy.java)), which can be used in combination. Let's look at the [Spring PetClinic example](spring-petclinic.md) to see how the various supporting types strategies affect the software architecture model.
 
 ## 1. No supporting types strategy
 
@@ -17,7 +17,7 @@ ComponentFinder componentFinder = new ComponentFinder(
 componentFinder.findComponents();
 ```
 
-When executed against the compiled version of the Spring PetClinic codebase, each component identified will be made up of only the types found by the component finder strategy. For example, the ```VisitRepository``` component will be made up of an interface (```VisitRepository```) and the implementation class (```JdbcVisitRepositoryImpl```). You can visualise this using Structurizr's tree exploration.
+When executed against the compiled version of the Spring PetClinic codebase, each component identified will be made up of only the types found by the component finder strategy. For example, the ```VisitRepository``` component will be made up of an interface (```VisitRepository```) and the implementation class (```JdbcVisitRepositoryImpl```). You can visualise this using [Structurizr's tree exploration](https://structurizr.com/help/explorations).
 
 ![](images/supporting-types-1.png)
  
