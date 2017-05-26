@@ -47,13 +47,3 @@ Name | Dependency | Description | Extracted from
 [SpringComponentFinderStrategy](https://github.com/structurizr/java/blob/master/structurizr-spring/src/com/structurizr/componentfinder/SpringComponentFinderStrategy.java) | structurizr-spring | Finds classes annotated ```@Controller```, ```@RestController```, ```@Component```, ```@Service``` and ```@Repository```, plus classes that extend ```JpaRepository```. | Compiled bytecode
 
 See the [Spring PetClinic example](spring-petclinic.md) for an illustration of how to use the component finder.
-
-## Component type and supporting types
-
-In Structurizr, a [Component](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/model/Component.java) is described by a number of properties and can have a number of [CodeElement](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/model/CodeElement.java)s associated with it that represent the Java classes and interfaces that implement that component.
-
-Again, because each codebase is different, the mechanism to find a component's supporting types is pluggable via a number of strategies, which can be used in combination.
-
-- [FirstImplementationOfInterfaceSupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/componentfinder/FirstImplementationOfInterfaceSupportingTypesStrategy.java): If the component type is an interface, this strategy finds the first implementation of that interface.
-- [ComponentPackageSupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/componentfinder/ComponentPackageSupportingTypesStrategy.java): This strategy finds all types in the same package as the component type, and is useful if each component resides in its own Java package.
-- [ReferencedTypesSupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/componentfinder/ReferencedTypesSupportingTypesStrategy.java): This strategy finds all types that are referenced by the component type and supporting types.
