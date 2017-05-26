@@ -40,6 +40,7 @@ If using [Structurizr](https://structurizr.com), the end-result, after adding so
 1. [Corporate branding](docs/corporate-branding.md)
 1. [Hiding relationships](docs/hiding-relationships.md)
 1. [Extracting components from your codebase](docs/extracting-components.md)
+1. [Components and supporting types](docs/supporting-types.md)
 1. [The Spring PetClinic example](docs/spring-petclinic.md)
 1. [Dynamic views](docs/dynamic-views.md)
 1. [Client-side encryption](docs/client-side-encryption.md)
