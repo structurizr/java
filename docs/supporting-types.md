@@ -61,6 +61,27 @@ As the following image illustrates, we now have many more classes that are suppo
 
 This collection of classes may look confusing at first, but the ```JdbcVisitRepositoryImpl``` class references the ```Visit``` class, which in turn references the ```Pet``` class, which in turn references the ```Owner``` class, etc. The Structurizr tree exploration shows that these classes are shared between the ```VisitRepository``` and other components by rendering their names in grey.
 
+## Excluding types
+
+The Structurizr ```ComponentFinder``` will also allow you to exclude types from the component scanning process using one or more regular expressions. If we wanted to exclude the ```BaseEntity``` and ```NamedEntity``` classes in the previous example, we could add the following line of code before calling ```componentFinder.findComponents()```.
+
+```
+componentFinder.exclude("org\\.springframework\\.samples\\.petclinic\\.model\\..*Entity");
+```
+
+The result is as follows.
+
+
+![](images/supporting-types-4.png)
+
+## Visualising shared code
+
 [Structurizr's component size exploration](https://structurizr.com/share/1/explore/component-size) allows you to easily see where types are shared between components.
 
-![](images/supporting-types-4.gif)
+![](images/supporting-types-5.gif)
+
+The component-code browser exploration (coming soon) also provides a way to easily see shared code.
+
+![](images/supporting-types-6.png)
+
+![](images/supporting-types-7.png)
