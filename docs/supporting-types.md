@@ -76,11 +76,11 @@ The result is as follows.
 
 ## Visualising shared code
 
-[Structurizr's component size exploration](https://structurizr.com/share/1/explore/component-size) allows you to easily see where types are shared between components.
+[Structurizr's component size exploration](https://structurizr.com/share/1/explore/size-circles) allows you to easily see where types are shared between components.
 
 ![](images/supporting-types-5.gif)
 
-The component-code browser exploration (coming soon) also provides a way to easily see shared code.
+The [component and code dependency exploration](https://structurizr.com/share/1/explore/component-and-code-dependencies) also provides a way to easily see shared code.
 
 ![](images/supporting-types-6.png)
 
