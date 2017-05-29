@@ -1,6 +1,6 @@
 # The Spring PetClinic example
 
-This is a step-by-step guide to recreating the [Spring PetClinic example diagrams](https://structurizr.com/public/1), which are based upon the original version of the application. It assumes that you have working Java, Maven and git installations plus a development environment to write code. The full source code for this example can be found in the [SpringPetClinic.java file](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/spring/petclinic/SpringPetClinic.java). 
+This is a step-by-step guide to recreating the [Spring PetClinic example diagrams](https://structurizr.com/share/1), which are based upon the original version of the application. It assumes that you have working Java, Maven and git installations plus a development environment to write code. The full source code for this example can be found in the [SpringPetClinic.java file](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/spring/petclinic/SpringPetClinic.java). 
 
 ## 1. Clone and build the Spring PetClinic code
 
@@ -81,14 +81,14 @@ Spring MVC uses Java annotations (```@Controller```, ```@Service``` and ```@Repo
 ComponentFinder componentFinder = new ComponentFinder(
     webApplication, "org.springframework.samples.petclinic",
     new SpringComponentFinderStrategy(
-            new ReferencedTypesSupportingTypesStrategy()
+            new ReferencedTypesSupportingTypesStrategy(false)
     ),
     new SourceCodeComponentFinderStrategy(new File(sourceRoot, "/src/main/java/"), 150));
 
 componentFinder.findComponents();
 ```
 
-The ```SpringComponentFinderStrategy``` is a pre-built component finder strategy that understands how applications are built with Spring and how to identify Spring components, such as MVC controllers, REST controllers, services, repositories, JPA repositories, etc. The way that you identify supporting types (i.e. the Java classes and interfaces) that implement a component is also pluggable, and here we're looking for all types referenced by the component type(s).
+The ```SpringComponentFinderStrategy``` is a pre-built component finder strategy that understands how applications are built with Spring and how to identify Spring components, such as MVC controllers, REST controllers, services, repositories, JPA repositories, etc. The way that you identify supporting types (i.e. the Java classes and interfaces) that implement a component is also pluggable. Here, with the ```ReferencedTypesSupportingTypesStrategy```, we're looking for all types directly referenced by the component type(s). See [Components and supporting types](supporting-types.md) for more details about this.
 
 Once the components and their supporting types have been identified, the dependencies between components are also identified and extracted.
 
@@ -201,6 +201,21 @@ target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/lib
 
 ## 10. View the diagrams and layout the elements
 
-If you sign in to Structurizr and open the workspace you just uploaded, you'll see something like this. Structurizr doesn't do any automatic layout of the elements on your diagrams, so you will need to drag the boxes around to create a layout that you like. You can save the position of the diagram elements though.
+If you sign in to Structurizr and open the workspace you just uploaded, you'll see something like this.
 
 ![The Spring PetClinic workspace](images/spring-petclinic-1.png)
+
+Structurizr doesn't do any automatic layout of the elements on your diagrams, so you will need to drag the boxes around to create a layout that you like. Here are the links to the live example diagrams:
+
+- [System Context diagram](https://structurizr.com/share/1#context)
+- [Container diagram](https://structurizr.com/share/1#containers)
+- [Component diagram](https://structurizr.com/share/1#components)
+
+## 11. Explore the model
+Once you have a model of your software system, you can explore it using a number of different visualisations. For example:
+
+- [Static structure, rendered as a tree](https://structurizr.com/share/1/explore/tree)
+- [Static structure, rendered as circles based upon size](https://structurizr.com/share/1/explore/size-circles)
+- [Component dependencies](https://structurizr.com/share/1/explore/component-dependencies)
+- [Component and code dependencies](https://structurizr.com/share/1/explore/component-and-code-dependencies)
+

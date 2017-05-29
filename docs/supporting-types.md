@@ -42,7 +42,7 @@ This strategy finds all of the supporting types that are referenced by the types
 
 ## 3. All referenced types
 
-Finally, let's use the [ReferencedTypesSupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/componentfinder/ReferencedTypesSupportingTypesStrategy.java) to find all of the referenced types, irrespective of which package they reside in, provided that package sits somewhere underneath ```org.springframework.samples.petclinic```.
+Next, let's use the [ReferencedTypesSupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/componentfinder/ReferencedTypesSupportingTypesStrategy.java) to find all of the referenced types, irrespective of which package they reside in, provided that package sits somewhere underneath ```org.springframework.samples.petclinic```.
 
 ```java
 ComponentFinder componentFinder = new ComponentFinder(
@@ -61,9 +61,15 @@ As the following image illustrates, we now have many more classes that are suppo
 
 This collection of classes may look confusing at first, but the ```JdbcVisitRepositoryImpl``` class references the ```Visit``` class, which in turn references the ```Pet``` class, which in turn references the ```Owner``` class, etc. The Structurizr tree exploration shows that these classes are shared between the ```VisitRepository``` and other components by rendering their names in grey.
 
+## 4. Directly referenced types only
+
+Of course, the ```JdbcVisitRepositoryImpl``` class may not actually use all of these classes, but they are certainly available to it. This is one of the drawbacks of using static analysis based upon compiled bytecode. You can modify this behaviour and find only those types directly referenced by the component by passing ```false``` to the constructor of the [ReferencedTypesSupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/componentfinder/ReferencedTypesSupportingTypesStrategy.java).
+
+![](images/supporting-types-4.png)
+
 ## Excluding types
 
-The Structurizr ```ComponentFinder``` will also allow you to exclude types from the component scanning process using one or more regular expressions. If we wanted to exclude the ```BaseEntity``` and ```NamedEntity``` classes in the previous example, we could add the following line of code before calling ```componentFinder.findComponents()```.
+The Structurizr ```ComponentFinder``` will also allow you to exclude types from the component scanning process using one or more regular expressions. If we wanted to exclude the ```BaseEntity``` and ```NamedEntity``` classes in one of the previous examples, we could add the following line of code before calling ```componentFinder.findComponents()```.
 
 ```
 componentFinder.exclude("org\\.springframework\\.samples\\.petclinic\\.model\\..*Entity");
@@ -71,17 +77,24 @@ componentFinder.exclude("org\\.springframework\\.samples\\.petclinic\\.model\\..
 
 The result is as follows.
 
-
-![](images/supporting-types-4.png)
+![](images/supporting-types-5.png)
 
 ## Visualising shared code
 
-[Structurizr's component size exploration](https://structurizr.com/share/1/explore/size-circles) allows you to easily see where types are shared between components.
+The easiest way to analyse the component-code relationships is to visualise them. Structurizr has a number of built-in explorations that can help with this.
 
-![](images/supporting-types-5.gif)
+### Component size
 
-The [component and code dependency exploration](https://structurizr.com/share/1/explore/component-and-code-dependencies) also provides a way to easily see shared code.
+[Structurizr's component size exploration](https://structurizr.com/share/1/explore/size-circles) renders components and code elements as a collection of nested circles, where the size of each circle is based upon the number of lines of code. Shared code elements are rendered using a different style, and hovering the mouse over a shared code element will highlight all other occurrences. This allows you to easily see where code elements (interfaces and classes) are shared between components.
 
-![](images/supporting-types-6.png)
+![](images/supporting-types-6.gif)
+
+### Component and code dependencies
+
+The [component and code dependency exploration](https://structurizr.com/share/1/explore/component-and-code-dependencies) renders a force-directed graph of the components and code elements, along with all of the relationships between them. Shared code elements are rendered in grey.
 
 ![](images/supporting-types-7.png)
+
+Clicking any node will allow you to easily see which other nodes are directly connected to it.
+
+![](images/supporting-types-8.png)

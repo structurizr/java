@@ -60,7 +60,7 @@ public class SpringPetClinic {
                 webApplication,
                 "org.springframework.samples.petclinic",
                 new SpringComponentFinderStrategy(
-                        new ReferencedTypesSupportingTypesStrategy()
+                        new ReferencedTypesSupportingTypesStrategy(false)
                 ),
                 new SourceCodeComponentFinderStrategy(new File(sourceRoot, "/src/main/java/"), 150));
         componentFinder.findComponents();
