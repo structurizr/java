@@ -73,10 +73,15 @@ public class SourceCodeComponentFinderStrategy extends ComponentFinderStrategy {
 
         for (Component component : getComponentFinder().getContainer().getComponents()) {
             long count = 0;
-            component.setDescription(typeToDescription.getOrDefault(component.getType(), null));
+
+            if (typeToDescription.containsKey(component.getType())) {
+                component.setDescription(typeToDescription.get(component.getType()));
+            }
 
             for (CodeElement codeElement : component.getCode()) {
-                codeElement.setDescription(typeToDescription.getOrDefault(codeElement.getType(), null));
+                if (typeToDescription.containsKey(codeElement.getType())) {
+                    codeElement.setDescription(typeToDescription.get(codeElement.getType()));
+                }
 
                 File sourceFile = typeToSourceFile.get(codeElement.getType());
                 if (sourceFile != null) {
