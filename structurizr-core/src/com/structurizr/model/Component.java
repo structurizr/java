@@ -71,10 +71,12 @@ public class Component extends Element {
         }
     }
 
-    public void setType(String type) {
+    public CodeElement setType(String type) {
         CodeElement codeElement = new CodeElement(type);
         codeElement.setRole(CodeElementRole.Primary);
         this.codeElements.add(codeElement);
+
+        return codeElement;
     }
 
     public Set<CodeElement> getCode() {
@@ -85,10 +87,12 @@ public class Component extends Element {
         this.codeElements = codeElements;
     }
 
-    public void addSupportingType(String type) {
+    public CodeElement addSupportingType(String type) {
         CodeElement codeElement = new CodeElement(type);
         codeElement.setRole(CodeElementRole.Supporting);
         this.codeElements.add(codeElement);
+
+        return codeElement;
     }
 
     public long getSize() {

@@ -34,6 +34,8 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
 
     private Map<String,Set<String>> referencedTypesCache = new HashMap<>();
 
+    private ClassPool classPool = ClassPool.getDefault();
+
     public AbstractReflectionsComponentFinderStrategy() {
     }
 
@@ -69,10 +71,15 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
     public void findDependencies() throws Exception {
         // before finding dependencies, let's find the types that are used to implement each component
         for (Component component : getComponents()) {
+            for (CodeElement codeElement : component.getCode()) {
+                codeElement.setVisibility(getVisibility(codeElement.getType()));
+            }
+
             for (SupportingTypesStrategy strategy : supportingTypesStrategies) {
                 for (String type : strategy.getSupportingTypes(component)) {
                     if (componentFinder.getContainer().getComponentOfType(type) == null) {
-                        component.addSupportingType(type);
+                        CodeElement codeElement = component.addSupportingType(type);
+                        codeElement.setVisibility(getVisibility(type));
                     }
                 }
             }
@@ -87,6 +94,21 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
                     addEfferentDependencies(component, codeElement.getType(), new HashSet<>());
                 }
             }
+        }
+    }
+
+    private String getVisibility(String type) throws Exception {
+        CtClass ctClass = classPool.get(type);
+
+        int modifiers = ctClass.getModifiers();
+        if (javassist.Modifier.isPrivate(modifiers)) {
+            return "private";
+        } else if (javassist.Modifier.isPackage(modifiers)) {
+            return "package";
+        } else if (javassist.Modifier.isProtected(modifiers)) {
+            return "protected";
+        } else {
+            return "public";
         }
     }
 
