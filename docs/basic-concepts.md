@@ -10,7 +10,7 @@ This is the definition of the software architecture model, consisting of people,
 
 ## Views
 
-This is the definition of the enterprise context, system context, container and component views of the software architecture model. Each view is rendered by [Structurizr](structurizr.com) as a diagram, with the client library providing control over which elements are included in the resulting diagram. Styling information (colours, shapes, font sizes, etc) is also included here.
+This is the definition of the enterprise context, system context, container and component views of the software architecture model. Each view is rendered by [Structurizr](https://structurizr.com) as a diagram, with the client library providing control over which elements are included in the resulting diagram. Styling information (colours, shapes, font sizes, etc) is also included here.
 
 ## Documentation
 
