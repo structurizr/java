@@ -79,6 +79,10 @@ The result is as follows.
 
 ![](images/supporting-types-5.png)
 
+## Type erasure
+
+The implementation of the various supporting types strategies above use reflection based upon Java bytecode. For this reason, the results are subject to the rules around Java's [type erasure](https://docs.oracle.com/javase/tutorial/java/generics/erasure.html). For example, if you have a component that references ```Collection<Customer>``` in method signatures, you may find ```Customer``` missing from the list of supporting types.
+
 ## Visualising shared code
 
 The easiest way to analyse the component-code relationships is to visualise them. Structurizr has a number of built-in explorations that can help with this.
