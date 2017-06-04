@@ -40,6 +40,7 @@ public class AesEncryptionStrategyTests {
         assertEquals("Hello world", strategy.decrypt(ciphertext));
     }
 
+    @Test
     public void test_decrypt_doesNotDecryptTheCiphertext_WhenTheIncorrectKeySizeIsUsed() throws Exception {
         try {
             strategy = new AesEncryptionStrategy(128, 1000, "password");
