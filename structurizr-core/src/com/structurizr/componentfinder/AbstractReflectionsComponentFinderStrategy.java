@@ -73,6 +73,7 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
         for (Component component : getComponents()) {
             for (CodeElement codeElement : component.getCode()) {
                 codeElement.setVisibility(getVisibility(codeElement.getType()));
+                codeElement.setCategory(getCategory(codeElement.getType()));
             }
 
             for (SupportingTypesStrategy strategy : supportingTypesStrategies) {
@@ -80,6 +81,7 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
                     if (componentFinder.getContainer().getComponentOfType(type) == null) {
                         CodeElement codeElement = component.addSupportingType(type);
                         codeElement.setVisibility(getVisibility(type));
+                        codeElement.setCategory(getCategory(type));
                     }
                 }
             }
@@ -109,6 +111,22 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
             return "protected";
         } else {
             return "public";
+        }
+    }
+
+    private String getCategory(String type) throws Exception {
+        CtClass ctClass = classPool.get(type);
+
+        if (ctClass.isInterface()) {
+            return "interface";
+        } else if (ctClass.isEnum()) {
+            return "enum";
+        } else {
+            if (javassist.Modifier.isAbstract(ctClass.getModifiers())) {
+                return "abstract class";
+            } else{
+                return "class";
+            }
         }
     }
 
