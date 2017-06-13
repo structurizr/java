@@ -19,6 +19,7 @@ import org.reflections.util.FilterBuilder;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
@@ -27,41 +28,60 @@ import java.util.stream.Collectors;
  */
 public abstract class AbstractReflectionsComponentFinderStrategy extends ComponentFinderStrategy {
 
-    protected Reflections reflections;
+    private static HashMap<ComponentFinder, Reflections> REFLECTIONS = new HashMap<>();
 
     protected List<SupportingTypesStrategy> supportingTypesStrategies = new ArrayList<>();
+
+    private Map<String,Set<String>> referencedTypesCache = new HashMap<>();
+
+    private ClassPool classPool = ClassPool.getDefault();
 
     public AbstractReflectionsComponentFinderStrategy() {
     }
 
     protected AbstractReflectionsComponentFinderStrategy(SupportingTypesStrategy... strategies) {
-        Arrays.asList(strategies).stream().forEach(this::addSupportingTypesStrategy);
+        Arrays.stream(strategies).forEach(this::addSupportingTypesStrategy);
     }
 
     @Override
     public void setComponentFinder(ComponentFinder componentFinder) {
         super.setComponentFinder(componentFinder);
 
-        this.reflections = new Reflections(new ConfigurationBuilder()
-                  .filterInputsBy(new FilterBuilder().includePackage(componentFinder.getPackageToScan()))
-                  .setUrls(ClasspathHelper.forJavaClassPath())
-                  .setScanners(
-                          new TypeAnnotationsScanner(),
-                          new SubTypesScanner(false),
-                          new FieldAnnotationsScanner(),
-                          new AllTypesScanner()
-                          )
-                  );
+        if (!REFLECTIONS.containsKey(componentFinder)) {
+            Reflections reflections = new Reflections(new ConfigurationBuilder()
+                    .filterInputsBy(new FilterBuilder().includePackage(componentFinder.getPackageToScan()))
+                    .setUrls(ClasspathHelper.forJavaClassPath())
+                    .setScanners(
+                            new TypeAnnotationsScanner(),
+                            new SubTypesScanner(false),
+                            new FieldAnnotationsScanner(),
+                            new AllTypesScanner()
+                    )
+            );
+
+            REFLECTIONS.put(componentFinder, reflections);
+        }
+    }
+
+    protected Reflections getReflections() {
+        return REFLECTIONS.get(componentFinder);
     }
 
     @Override
     public void findDependencies() throws Exception {
         // before finding dependencies, let's find the types that are used to implement each component
         for (Component component : getComponents()) {
+            for (CodeElement codeElement : component.getCode()) {
+                codeElement.setVisibility(getVisibility(codeElement.getType()));
+                codeElement.setCategory(getCategory(codeElement.getType()));
+            }
+
             for (SupportingTypesStrategy strategy : supportingTypesStrategies) {
                 for (String type : strategy.getSupportingTypes(component)) {
                     if (componentFinder.getContainer().getComponentOfType(type) == null) {
-                        component.addSupportingType(type);
+                        CodeElement codeElement = component.addSupportingType(type);
+                        codeElement.setVisibility(getVisibility(type));
+                        codeElement.setCategory(getCategory(type));
                     }
                 }
             }
@@ -75,6 +95,37 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
                 for (CodeElement codeElement : component.getCode()) {
                     addEfferentDependencies(component, codeElement.getType(), new HashSet<>());
                 }
+            }
+        }
+    }
+
+    private String getVisibility(String type) throws Exception {
+        CtClass ctClass = classPool.get(type);
+
+        int modifiers = ctClass.getModifiers();
+        if (javassist.Modifier.isPrivate(modifiers)) {
+            return "private";
+        } else if (javassist.Modifier.isPackage(modifiers)) {
+            return "package";
+        } else if (javassist.Modifier.isProtected(modifiers)) {
+            return "protected";
+        } else {
+            return "public";
+        }
+    }
+
+    private String getCategory(String type) throws Exception {
+        CtClass ctClass = classPool.get(type);
+
+        if (ctClass.isInterface()) {
+            return "interface";
+        } else if (ctClass.isEnum()) {
+            return "enum";
+        } else {
+            if (javassist.Modifier.isAbstract(ctClass.getModifiers())) {
+                return "abstract class";
+            } else{
+                return "class";
             }
         }
     }
@@ -107,44 +158,59 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
     protected Set<String> getReferencedTypes(String type) throws Exception {
         Set<String> referencedTypeNames = new HashSet<>();
 
+        // use the cached version if possible
+        if (referencedTypesCache.containsKey(type)) {
+            return referencedTypesCache.get(type);
+        }
+
         ClassPool pool = ClassPool.getDefault();
         try {
             CtClass cc = pool.get(type);
             for (Object referencedType : cc.getRefClasses()) {
                 String referencedTypeName = (String)referencedType;
 
-                if (!isAJavaPlatformType(referencedTypeName)) {
+                if (!isExcluded(referencedTypeName)) {
                     referencedTypeNames.add(referencedTypeName);
                 }
             }
         } catch (NotFoundException e) {
             System.err.println("Could not find " + type + " ... ignoring.");
-            e.printStackTrace();
         }
+
+        // cache for the next time
+        referencedTypesCache.put(type, referencedTypeNames);
 
         return referencedTypeNames;
     }
 
-    private boolean isAJavaPlatformType(String typeName) {
-        return  typeName.startsWith("java.") ||
-                typeName.startsWith("javax.") ||
-                typeName.startsWith("sun.");
+    private boolean isExcluded(String typeName) {
+        for (Pattern exclude : componentFinder.getExclusions()) {
+            if (exclude.matcher(typeName).matches()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private Set<Class<?>> filter(Set<Class<?>> types) {
+        return types.stream().filter(c -> !isExcluded(c.getCanonicalName())).collect(Collectors.toSet());
     }
 
     protected Set<Class<?>> getTypesAnnotatedWith(Class<? extends Annotation> annotation) {
-        return reflections.getTypesAnnotatedWith(annotation);
+        return filter(getReflections().getTypesAnnotatedWith(annotation));
     }
 
     protected Set<Class<?>> getAllTypes() {
-        return reflections.getSubTypesOf(Object.class);
+        return filter(getReflections().getSubTypesOf(Object.class));
     }
 
     protected Set<String> getAllTypeNames() {
-        return reflections.getStore().get(AllTypesScanner.class.getSimpleName()).keySet();
+        return getReflections().getStore().get(AllTypesScanner.class.getSimpleName()).keySet();
     }
 
     protected Set<Class> getInterfacesThatExtend(Class interfaceType) {
-        return reflections.getSubTypesOf(interfaceType);
+        return filter(getReflections().getSubTypesOf(interfaceType));
     }
 
     protected Class getFirstImplementationOfInterface(String interfaceTypeName) throws Exception {
@@ -152,7 +218,7 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
     }
 
     protected Class getFirstImplementationOfInterface(Class interfaceType) throws Exception {
-        Set<Class> implementationClasses = reflections.getSubTypesOf(interfaceType);
+        Set<Class> implementationClasses = filter(getReflections().getSubTypesOf(interfaceType));
 
         if (implementationClasses.isEmpty()) {
             return null;
@@ -162,7 +228,7 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
     }
 
     protected Set<Class<?>> findSuperTypesAnnotatedWith(Class<?> implementationType, Class annotation) {
-        return ReflectionUtils.getAllSuperTypes(implementationType, Predicates.and(ReflectionUtils.withAnnotation(annotation)));
+        return filter(ReflectionUtils.getAllSuperTypes(implementationType, Predicates.and(ReflectionUtils.withAnnotation(annotation))));
     }
 
     protected Collection<Component> findClassesWithAnnotation(Class<? extends Annotation> type, String technology) {
@@ -190,15 +256,20 @@ public abstract class AbstractReflectionsComponentFinderStrategy extends Compone
         supportingTypesStrategy.setComponentFinderStrategy(this);
     }
 
-}
+    class AllTypesScanner extends AbstractScanner {
 
-class AllTypesScanner extends AbstractScanner {
+        @Override
+        public boolean acceptResult(String fqn) {
+            return super.acceptResult(fqn) && !isExcluded(fqn);
+        }
 
-    @Override
-    public void scan(Object cls) {
-        String className = getMetadataAdapter().getClassName(cls);
+        @Override
+        public void scan(Object cls) {
+            String className = getMetadataAdapter().getClassName(cls);
 
-        getStore().put(className, className);
+            getStore().put(className, className);
+        }
+
     }
 
 }

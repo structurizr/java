@@ -8,6 +8,7 @@ public abstract class AbstractWorkspace {
     private long id;
     private String name;
     private String description;
+    private String version;
     private String thumbnail;
     private String source;
     private String api;
@@ -72,6 +73,24 @@ public abstract class AbstractWorkspace {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Gets the version of this workspace.
+     *
+     * @return  the version, as a String
+     */
+    public String getVersion() {
+        return version;
+    }
+
+    /**
+     * Sets the version of this workspace.
+     *
+     * @param version   the version, as a String (e.g. 1.0.1, a git hash, etc).
+     */
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     /**

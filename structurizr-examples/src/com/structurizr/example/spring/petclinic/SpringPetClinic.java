@@ -13,7 +13,7 @@ import java.io.File;
 
 /**
  * This is a C4 representation of the original Spring PetClinic sample app
- * (https://github.com/spring-projects/spring-petclinic/tree/864580702f8ef4d2cdfd7fe4497fb8c9e86018d2) and you can see
+ * (https://github.com/spring-projects/spring-petclinic/tree/95de1d9f8bf63560915331664b27a4a75ce1f1f6) and you can see
  * the resulting diagrams at https://www.structurizr.com/public/1
  *
  * Use the following command to run this example: ./gradlew :structurizr-example:springPetClinic
@@ -21,6 +21,8 @@ import java.io.File;
  * Please note, you will need to modify the paths specified in the structurizr-examples/build.gradle file.
  */
 public class SpringPetClinic {
+
+    private static final String VERSION = "95de1d9f8bf63560915331664b27a4a75ce1f1f6";
 
     public static void main(String[] args) throws Exception {
         if (args.length == 0) {
@@ -38,6 +40,7 @@ public class SpringPetClinic {
 
         Workspace workspace = new Workspace("Spring PetClinic",
                 "This is a C4 representation of the Spring PetClinic sample app (https://github.com/spring-projects/spring-petclinic/)");
+        workspace.setVersion(VERSION);
         Model model = workspace.getModel();
 
         // create the basic model (the stuff we can't get from the code)
@@ -57,7 +60,7 @@ public class SpringPetClinic {
                 webApplication,
                 "org.springframework.samples.petclinic",
                 new SpringComponentFinderStrategy(
-                        new ReferencedTypesSupportingTypesStrategy()
+                        new ReferencedTypesSupportingTypesStrategy(false)
                 ),
                 new SourceCodeComponentFinderStrategy(new File(sourceRoot, "/src/main/java/"), 150));
         componentFinder.findComponents();
@@ -95,14 +98,14 @@ public class SpringPetClinic {
                 if (sourcePath != null) {
                     codeElement.setUrl(sourcePath.replace(
                             sourceRoot.toURI().toString(),
-                            "https://github.com/spring-projects/spring-petclinic/tree/864580702f8ef4d2cdfd7fe4497fb8c9e86018d2/"));
+                            "https://github.com/spring-projects/spring-petclinic/tree/" + VERSION + "/"));
                 }
             }
         }
 
         // rather than creating a component model for the database, let's simply link to the DDL
         // (this is really just an example of linking an arbitrary element in the model to an external resource)
-        relationalDatabase.setUrl("https://github.com/spring-projects/spring-petclinic/tree/864580702f8ef4d2cdfd7fe4497fb8c9e86018d2/src/main/resources/db/hsqldb");
+        relationalDatabase.setUrl("https://github.com/spring-projects/spring-petclinic/tree/" + VERSION + "/src/main/resources/db/hsqldb");
 
         // tag and style some elements
         springPetClinic.addTags("Spring PetClinic");

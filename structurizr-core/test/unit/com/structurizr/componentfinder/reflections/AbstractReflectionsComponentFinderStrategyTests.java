@@ -189,12 +189,13 @@ public class AbstractReflectionsComponentFinderStrategyTests {
     }
 
     @Test
-    public void test_findComponents_CorrectlyFindsSupportingTypes_WhenTheComponentPackageStrategyIsUsed() throws Exception {
+    public void test_findComponents_CorrectlyFindsSupportingTypes_WhenTheReferencedTypesInSamePackageSupportingTypesStrategyIsUsed() throws Exception {
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
                 "com.structurizr.componentfinder.reflections.supportingTypes.myapp",
                 new StructurizrAnnotationsComponentFinderStrategy(
-                        new ComponentPackageSupportingTypesStrategy()
+                        new FirstImplementationOfInterfaceSupportingTypesStrategy(),
+                        new ReferencedTypesInSamePackageSupportingTypesStrategy()
                 )
         );
         componentFinder.findComponents();

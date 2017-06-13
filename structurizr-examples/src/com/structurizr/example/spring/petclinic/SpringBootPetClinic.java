@@ -13,10 +13,14 @@ import java.io.File;
 
 /**
  * This is a C4 representation of the Spring Boot version of the PetClinic sample app
- * (https://github.com/spring-projects/spring-petclinic/) and you can see
+ * (https://github.com/spring-projects/spring-petclinic/tree/ffa967c94b65a70ea6d3b44275632821838d9fd3) and you can see
  * the resulting diagrams at https://www.structurizr.com/public/6031
+ *
+ * Please note, you will need to modify the paths specified in the structurizr-examples/build.gradle file.
  */
 public class SpringBootPetClinic {
+
+    private static final String VERSION = "ffa967c94b65a70ea6d3b44275632821838d9fd3";
 
     public static void main(String[] args) throws Exception {
         if (args.length == 0) {
@@ -34,6 +38,7 @@ public class SpringBootPetClinic {
 
         Workspace workspace = new Workspace("Spring Boot PetClinic",
                 "This is a C4 representation of the Spring Boot PetClinic sample app (https://github.com/spring-projects/spring-petclinic/)");
+        workspace.setVersion(VERSION);
         Model model = workspace.getModel();
 
         // create the basic model (the stuff we can't get from the code)
@@ -42,20 +47,23 @@ public class SpringBootPetClinic {
         clinicEmployee.uses(springPetClinic, "Uses");
 
         Container webApplication = springPetClinic.addContainer(
-               "Web Application", "Allows employees to view and manage information regarding the veterinarians, the clients, and their pets.", "Apache Tomcat 7.x");
+                "Web Application", "Allows employees to view and manage information regarding the veterinarians, the clients, and their pets.", "Apache Tomcat 7.x");
         Container relationalDatabase = springPetClinic.addContainer(
-               "Relational Database", "Stores information regarding the veterinarians, the clients, and their pets.", "HSQLDB");
+                "Relational Database", "Stores information regarding the veterinarians, the clients, and their pets.", "HSQLDB");
         clinicEmployee.uses(webApplication, "Uses", "HTTP");
         webApplication.uses(relationalDatabase, "Reads from and writes to", "JDBC, port 9001");
+
+        SpringComponentFinderStrategy springComponentFinderStrategy = new SpringComponentFinderStrategy(new ReferencedTypesSupportingTypesStrategy(false));
+        springComponentFinderStrategy.setIncludePublicTypesOnly(false);
 
         // and now automatically find all Spring @Controller, @Component, @Service and @Repository components
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
                 "org.springframework.samples.petclinic",
-                new SpringComponentFinderStrategy(
-                        new ReferencedTypesSupportingTypesStrategy()
-                ),
+                springComponentFinderStrategy,
                 new SourceCodeComponentFinderStrategy(new File(sourceRoot, "/src/main/java/"), 150));
+
+        componentFinder.exclude(".*Formatter.*");
         componentFinder.findComponents();
 
         // connect the user to all of the Spring MVC controllers
@@ -83,7 +91,6 @@ public class SpringBootPetClinic {
         componentView.addAllComponents();
         componentView.addAllPeople();
         componentView.add(relationalDatabase);
-        componentView.remove(webApplication.getComponentWithName("Formatter")); // Formatter objects are used by DataBinders, and are marked with an @Component annotation, but they're not particularly interesting...
 
         // link the architecture model with the code
         for (Component component : webApplication.getComponents()) {
@@ -92,14 +99,14 @@ public class SpringBootPetClinic {
                 if (sourcePath != null) {
                     codeElement.setUrl(sourcePath.replace(
                             sourceRoot.toURI().toString(),
-                            "https://github.com/spring-projects/spring-petclinic/tree/195903bdf791164eab2f0b0f2436726277abec65/"));
+                            "https://github.com/spring-projects/spring-petclinic/tree/" + VERSION + "/"));
                 }
             }
         }
 
         // rather than creating a component model for the database, let's simply link to the DDL
         // (this is really just an example of linking an arbitrary element in the model to an external resource)
-        relationalDatabase.setUrl("https://github.com/spring-projects/spring-petclinic/tree/195903bdf791164eab2f0b0f2436726277abec65/src/main/resources/db/hsqldb");
+        relationalDatabase.setUrl("https://github.com/spring-projects/spring-petclinic/tree/" + VERSION + "/src/main/resources/db/hsqldb");
 
         // tag and style some elements
         springPetClinic.addTags("Spring PetClinic");

@@ -15,6 +15,8 @@ public class CodeElement {
     private String description;
     private String url;
     private String language = "Java";
+    private String category;
+    private String visibility;
     private long size;
 
     CodeElement() {
@@ -99,6 +101,22 @@ public class CodeElement {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
     }
 
     public long getSize() {

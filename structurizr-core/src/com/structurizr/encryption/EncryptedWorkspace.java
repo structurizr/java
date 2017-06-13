@@ -41,6 +41,7 @@ public final class EncryptedWorkspace extends AbstractWorkspace {
         setId(workspace.getId());
         setName(workspace.getName());
         setDescription(workspace.getDescription());
+        setVersion(workspace.getVersion());
         setThumbnail(workspace.getThumbnail());
         setSource(workspace.getSource());
         setApi(workspace.getApi());
