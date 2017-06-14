@@ -81,7 +81,7 @@ public class MicroservicesExample {
         styles.addElementStyle(Tags.ELEMENT).color("#000000");
         styles.addElementStyle(Tags.PERSON).background("#ffbf00").shape(Shape.Person);
         styles.addElementStyle(Tags.CONTAINER).background("#facc2E");
-        styles.addElementStyle(MESSAGE_BUS_TAG).width(1600).shape(Shape.RoundedBox);
+        styles.addElementStyle(MESSAGE_BUS_TAG).width(1600).shape(Shape.Pipe);
         styles.addElementStyle(MICROSERVICE_TAG).shape(Shape.Hexagon);
         styles.addElementStyle(DATASTORE_TAG).background("#f5da81").shape(Shape.Cylinder);
         styles.addRelationshipStyle(Tags.RELATIONSHIP).routing(Routing.Orthogonal);
