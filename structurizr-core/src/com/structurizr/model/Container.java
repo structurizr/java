@@ -98,12 +98,7 @@ public class Container extends Element {
         }
 
         Optional<Component> component = components.stream().filter(c -> name.equals(c.getName())).findFirst();
-
-        if (component.isPresent()) {
-            return component.get();
-        } else {
-            return null;
-        }
+        return component.orElse(null);
     }
 
     public Component getComponentOfType(String type) {
@@ -112,12 +107,7 @@ public class Container extends Element {
         }
 
         Optional<Component> component = components.stream().filter(c -> type.equals(c.getType())).findFirst();
-
-        if (component.isPresent()) {
-            return component.get();
-        } else {
-            return null;
-        }
+        return component.orElse(null);
     }
 
     @Override
