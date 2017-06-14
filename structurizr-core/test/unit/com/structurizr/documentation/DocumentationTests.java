@@ -213,4 +213,19 @@ public class DocumentationTests {
         assertEquals(5, section.getGroup());
     }
 
+    @Test
+    public void test_addCustomSection_ThrowsAnException_WhenThatSectionAlreadyExists() {
+        documentation.addCustomSection("Enterprise Context", 1, Format.Markdown, "");
+        assertEquals(1, documentation.getSections().size());
+
+        try {
+            documentation.addCustomSection("Enterprise Context", 1, Format.Markdown, "");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            // this is the expected exception
+            assertEquals("A section of type Enterprise Context already exists.", iae.getMessage());
+            assertEquals(1, documentation.getSections().size());
+        }
+    }
+
 }

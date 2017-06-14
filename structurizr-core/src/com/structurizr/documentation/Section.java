@@ -97,13 +97,17 @@ public final class Section {
 
         Section section = (Section) o;
 
-        return getElementId().equals(section.getElementId()) && type.equals(section.type);
+        if (getElementId() != null ? !getElementId().equals(section.getElementId()) : section.getElementId() != null) {
+            return false;
+        }
+
+        return getType().equals(section.getType());
     }
 
     @Override
     public int hashCode() {
-        int result = getElementId().hashCode();
-        result = 31 * result + type.hashCode();
+        int result = getElementId() != null ? getElementId().hashCode() : 0;
+        result = 31 * result + getType().hashCode();
         return result;
     }
 

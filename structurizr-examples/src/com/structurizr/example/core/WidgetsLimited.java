@@ -2,6 +2,8 @@ package com.structurizr.example.core;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
+import com.structurizr.documentation.Format;
+import com.structurizr.documentation.StructurizrDocumentation;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
@@ -63,6 +65,13 @@ public class WidgetsLimited {
         DynamicView dynamicView = views.createDynamicView("CustomerSupportCall", "A high-level overview of the customer support call process.");
         dynamicView.add(customer, customerServiceUser);
         dynamicView.add(customerServiceUser, ecommerceSystem);
+
+        StructurizrDocumentation documentation = new StructurizrDocumentation(model);
+        workspace.setDocumentation(documentation);
+
+        documentation.addCustomSection("Enterprise Context", 1, Format.Markdown, "Here is some information about the Widgets Limited enterprise context... ![](embed:EnterpriseContext)");
+        documentation.addContextSection(ecommerceSystem, Format.Markdown, "This is the context section for the E-commerce System... ![](embed:EcommerceSystemContext)");
+        documentation.addContextSection(fulfilmentSystem, Format.Markdown, "This is the context section for the Fulfilment System... ![](embed:FulfilmentSystemContext)");
 
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).shape(Shape.RoundedBox);
         styles.addElementStyle(Tags.PERSON).shape(Shape.Person);

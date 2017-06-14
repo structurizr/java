@@ -70,6 +70,33 @@ public abstract class Documentation {
     }
 
     /**
+     * Adds a custom section from a file, that isn't related to any element in the model.
+     *
+     * @param name              the name of the section
+     * @param group             the group of the section (an integer between 1 and 5)
+     * @param format    the {@link Format} of the documentation content
+     * @param files  one or more File objects that point to the documentation content
+     * @return  a documentation {@link Section}
+     * @throws IOException  if the file can't be read
+     */
+    public Section addCustomSection(String name, int group, Format format, File... files) throws IOException {
+        return addCustomSection(name, group, format, readFiles(files));
+    }
+
+    /**
+     * Adds a custom section, that isn't related to any element in the model.
+     *
+     * @param name              the name of the section
+     * @param group             the group of the section (an integer between 1 and 5)
+     * @param format    the {@link Format} of the documentation content
+     * @param content   a String containing the documentation content
+     * @return  a documentation {@link Section}
+     */
+    public Section addCustomSection(String name, int group, Format format, String content) {
+        return addSection(null, name, group, format, content);
+    }
+
+    /**
      * Adds a custom section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
@@ -110,7 +137,9 @@ public abstract class Documentation {
             sections.add(section);
             return section;
         } else {
-            throw new IllegalArgumentException("A section of type " + type + " for " + element.getName() + " already exists.");
+            throw new IllegalArgumentException("A section of type " + type +
+                    (element != null ? " for " + element.getName() : "")
+                    + " already exists.");
         }
     }
 
