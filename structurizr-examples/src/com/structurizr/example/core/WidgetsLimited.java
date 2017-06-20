@@ -14,11 +14,8 @@ import com.structurizr.view.*;
  */
 public class WidgetsLimited {
 
-    private static final String EXTERNAL_PERSON_TAG = "External Person";
-    private static final String EXTERNAL_SOFTWARE_SYSTEM_TAG = "External Software System";
-
-    private static final String INTERNAL_PERSON_TAG = "Internal Person";
-    private static final String INTERNAL_SOFTWARE_SYSTEM_TAG = "Internal Software System";
+    private static final String EXTERNAL_TAG = "External";
+    private static final String INTERNAL_TAG = "Internal";
 
     public static void main(String[] args) throws Exception {
         Workspace workspace = new Workspace("Widgets Limited", "Sells widgets to customers online.");
@@ -38,11 +35,11 @@ public class WidgetsLimited {
         braintreePayments.setUrl("https://www.braintreepayments.com");
         SoftwareSystem jerseyPost = model.addSoftwareSystem(Location.External, "Jersey Post", "Calculates worldwide shipping costs for packages.");
 
-        model.getPeople().stream().filter(p -> p.getLocation() == Location.External).forEach(p -> p.addTags(EXTERNAL_PERSON_TAG));
-        model.getPeople().stream().filter(p -> p.getLocation() == Location.Internal).forEach(p -> p.addTags(INTERNAL_PERSON_TAG));
+        model.getPeople().stream().filter(p -> p.getLocation() == Location.External).forEach(p -> p.addTags(EXTERNAL_TAG));
+        model.getPeople().stream().filter(p -> p.getLocation() == Location.Internal).forEach(p -> p.addTags(INTERNAL_TAG));
 
-        model.getSoftwareSystems().stream().filter(ss -> ss.getLocation() == Location.External).forEach(ss -> ss.addTags(EXTERNAL_SOFTWARE_SYSTEM_TAG));
-        model.getSoftwareSystems().stream().filter(ss -> ss.getLocation() == Location.Internal).forEach(ss -> ss.addTags(INTERNAL_SOFTWARE_SYSTEM_TAG));
+        model.getSoftwareSystems().stream().filter(ss -> ss.getLocation() == Location.External).forEach(ss -> ss.addTags(EXTERNAL_TAG));
+        model.getSoftwareSystems().stream().filter(ss -> ss.getLocation() == Location.Internal).forEach(ss -> ss.addTags(INTERNAL_TAG));
 
         customer.interactsWith(customerServiceUser, "Asks questions to", "Telephone");
         customerServiceUser.uses(ecommerceSystem, "Looks up order information using");
@@ -77,11 +74,9 @@ public class WidgetsLimited {
         styles.addElementStyle(Tags.PERSON).shape(Shape.Person);
 
         styles.addElementStyle(Tags.ELEMENT).color("#ffffff");
-        styles.addElementStyle(EXTERNAL_PERSON_TAG).background("#EC5381").border(Border.Dashed);
-        styles.addElementStyle(EXTERNAL_SOFTWARE_SYSTEM_TAG).background("#EC5381").border(Border.Dashed);
+        styles.addElementStyle(EXTERNAL_TAG).background("#EC5381").border(Border.Dashed);
+        styles.addElementStyle(INTERNAL_TAG).background("#B60037");
 
-        styles.addElementStyle(INTERNAL_PERSON_TAG).background("#B60037");
-        styles.addElementStyle(INTERNAL_SOFTWARE_SYSTEM_TAG).background("#B60037");
 
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.putWorkspace(14471, workspace);
