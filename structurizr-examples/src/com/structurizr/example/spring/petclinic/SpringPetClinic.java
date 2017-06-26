@@ -8,7 +8,6 @@ import com.structurizr.componentfinder.SourceCodeComponentFinderStrategy;
 import com.structurizr.componentfinder.SpringComponentFinderStrategy;
 import com.structurizr.documentation.Format;
 import com.structurizr.documentation.StructurizrDocumentation;
-import com.structurizr.example.core.Deployment;
 import com.structurizr.model.*;
 import com.structurizr.util.MapUtils;
 import com.structurizr.view.*;
