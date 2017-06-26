@@ -138,6 +138,12 @@ public class SpringPetClinic {
                 .addDeploymentNode("Database Server", "A development database.", "HSQLDB")
                 .add(relationalDatabase);
 
+        DeploymentNode stagingServer = model.addDeploymentNode("Staging Server", "A server hosted at Amazon AWS EC2", "Ubuntu 12.04 LTS", 1, MapUtils.create("AWS instance type=t2.medium", "AWS region=us-west-1"));
+        stagingServer.addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 7.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"))
+                .add(webApplication);
+        stagingServer.addDeploymentNode("MySQL", "The staging database server.", "MySQL 5.5.x", 1)
+                .add(relationalDatabase);;
+
         DeploymentNode liveWebServer = model.addDeploymentNode("Web Server", "A server hosted at Amazon AWS EC2, accessed via Elastic Load Balancing.", "Ubuntu 12.04 LTS", 2, MapUtils.create("AWS instance type=t2.small", "AWS region=us-west-1"));
         liveWebServer.addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 7.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"))
                 .add(webApplication);
@@ -156,6 +162,9 @@ public class SpringPetClinic {
 
         DeploymentView developmentDeploymentView = viewSet.createDeploymentView(springPetClinic, "developmentDeployment", "An example development deployment scenario for the Spring PetClinic software system.");
         developmentDeploymentView.add(developerLaptop);
+
+        DeploymentView stagingDeploymentView = viewSet.createDeploymentView(springPetClinic, "stagingDeployment", "An example staging deployment scenario for the Spring PetClinic software system.");
+        stagingDeploymentView.add(stagingServer);
 
         DeploymentView liveDeploymentView = viewSet.createDeploymentView(springPetClinic, "liveDeployment", "An example live deployment scenario for the Spring PetClinic software system.");
         liveDeploymentView.add(liveWebServer);
