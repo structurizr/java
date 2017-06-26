@@ -25,6 +25,7 @@ public class ViewSet {
     private Collection<ContainerView> containerViews = new HashSet<>();
     private Collection<ComponentView> componentViews = new HashSet<>();
     private Collection<DynamicView> dynamicViews = new HashSet<>();
+    private Collection<DeploymentView> deploymentViews = new HashSet<>();
 
     private Collection<FilteredView> filteredViews = new HashSet<>();
 
@@ -160,6 +161,16 @@ public class ViewSet {
         }
     }
 
+    public DeploymentView createDeploymentView(SoftwareSystem softwareSystem, String key, String description) {
+        if (getViewWithKey(key) != null) {
+            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
+        } else {
+            DeploymentView view = new DeploymentView(softwareSystem, key, description);
+            deploymentViews.add(view);
+            return view;
+        }
+    }
+
     /**
      * Creates a FilteredView on top of an existing view.
      *
@@ -251,6 +262,15 @@ public class ViewSet {
         return new HashSet<>(filteredViews);
     }
 
+    /**
+     * Gets the set of dynamic views.
+     *
+     * @return  a Collection of DynamicView objects
+     */
+    public Collection<DeploymentView> getDeploymentViews() {
+        return new HashSet<>(deploymentViews);
+    }
+
     public void hydrate() {
         for (EnterpriseContextView view : enterpriseContextViews) {
             view.setModel(model);
@@ -275,6 +295,11 @@ public class ViewSet {
 
         for (DynamicView view : dynamicViews) {
             view.setModel(model);
+            hydrateView(view);
+        }
+
+        for (DeploymentView view : deploymentViews) {
+            view.setSoftwareSystem(model.getSoftwareSystemWithId(view.getSoftwareSystemId()));
             hydrateView(view);
         }
 
@@ -340,6 +365,15 @@ public class ViewSet {
 
         for (DynamicView view : dynamicViews) {
             DynamicView sourceView = findView(source.getDynamicViews(), view);
+            if (sourceView != null) {
+                view.copyLayoutInformationFrom(sourceView);
+            } else {
+                log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+            }
+        }
+
+        for (DeploymentView view : deploymentViews) {
+            DeploymentView sourceView = findView(source.getDeploymentViews(), view);
             if (sourceView != null) {
                 view.copyLayoutInformationFrom(sourceView);
             } else {

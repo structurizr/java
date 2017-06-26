@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -12,17 +14,17 @@ import java.util.Set;
  */
 public abstract class Element extends Taggable {
 
-    public static final String CANONICAL_NAME_SEPARATOR = "/";
+    static final String CANONICAL_NAME_SEPARATOR = "/";
 
     private Model model;
 
-    protected String id = "";
+    private String id = "";
+    private String name;
+    private String description;
+    private String url;
+    private Map<String, String> properties = new HashMap<>();
 
-    protected String name;
-    protected String description;
-    protected String url;
-
-    protected Set<Relationship> relationships = new LinkedHashSet<>();
+    private Set<Relationship> relationships = new LinkedHashSet<>();
 
     protected Element() {
     }
@@ -97,10 +99,33 @@ public abstract class Element extends Taggable {
         }
     }
 
+    /**
+     * Gets the collection of name-value property pairs associated with this element, as a Map.
+     *
+     * @return  a Map<String, String> (empty if there are no properties)
+     */
+    public Map<String, String> getProperties() {
+        return new HashMap<>(properties);
+    }
+
+    /**
+     * Adds a name-value pair property to this element.
+     *
+     * @param name      the name of the property
+     * @param value     the value of the property
+     */
+    public void addProperty(String name, String value) {
+        properties.put(name, value);
+    }
+
+    void setProperties(Map<String, String> properties) {
+        this.properties = properties;
+    }
+
     @JsonIgnore
     public abstract String getCanonicalName();
 
-    protected String formatForCanonicalName(String name) {
+    String formatForCanonicalName(String name) {
         return name.replace(CANONICAL_NAME_SEPARATOR, "");
     }
 
@@ -136,150 +161,6 @@ public abstract class Element extends Taggable {
      */
     public Set<Relationship> getRelationships() {
         return new LinkedHashSet<>(relationships);
-    }
-
-    /**
-     * Adds a unidirectional "uses" style relationship between this element and software system.
-     *
-     * @param destination the target of the relationship
-     * @param description a description of the relationship (e.g. "uses", "gets data from", "sends data to")
-     * @return the relationship that has just been created and added to the model
-     */
-    public Relationship uses(SoftwareSystem destination, String description) {
-        return getModel().addRelationship(this, destination, description);
-    }
-
-    /**
-     * Adds a unidirectional "uses" style relationship between this element and a software system.
-     *
-     * @param destination the target of the relationship
-     * @param description a description of the relationship (e.g. "uses", "gets data from", "sends data to")
-     * @param technology  the technology details (e.g. JSON/HTTPS)
-     * @return the relationship that has just been created and added to the model
-     */
-    public Relationship uses(SoftwareSystem destination, String description, String technology) {
-        return getModel().addRelationship(this, destination, description, technology);
-    }
-
-    /**
-     * Adds a unidirectional "uses" style relationship between this element and a software system.
-     *
-     * @param destination      the target of the relationship
-     * @param description      a description of the relationship (e.g. "uses", "gets data from", "sends data to")
-     * @param technology       the technology details (e.g. JSON/HTTPS)
-     * @param interactionStyle the interaction style (sync vs async)
-     * @return the relationship that has just been created and added to the model
-     */
-    public Relationship uses(SoftwareSystem destination, String description, String technology, InteractionStyle interactionStyle) {
-        return getModel().addRelationship(this, destination, description, technology, interactionStyle);
-    }
-
-    /**
-     * Adds a unidirectional "uses" style relationship between this element and container.
-     *
-     * @param destination the target of the relationship
-     * @param description a description of the relationship (e.g. "uses", "gets data from", "sends data to")
-     * @return the relationship that has just been created and added to the model
-     */
-    public Relationship uses(Container destination, String description) {
-        return getModel().addRelationship(this, destination, description);
-    }
-
-    /**
-     * Adds a unidirectional "uses" style relationship between this element and a container.
-     *
-     * @param destination the target of the relationship
-     * @param description a description of the relationship (e.g. "uses", "gets data from", "sends data to")
-     * @param technology  the technology details (e.g. JSON/HTTPS)
-     * @return the relationship that has just been created and added to the model
-     */
-    public Relationship uses(Container destination, String description, String technology) {
-        return getModel().addRelationship(this, destination, description, technology);
-    }
-
-    /**
-     * Adds a unidirectional "uses" style relationship between this element and a container.
-     *
-     * @param destination      the target of the relationship
-     * @param description      a description of the relationship (e.g. "uses", "gets data from", "sends data to")
-     * @param technology       the technology details (e.g. JSON/HTTPS)
-     * @param interactionStyle the interaction style (sync vs async)
-     * @return the relationship that has just been created and added to the model
-     */
-    public Relationship uses(Container destination, String description, String technology, InteractionStyle interactionStyle) {
-        return getModel().addRelationship(this, destination, description, technology, interactionStyle);
-    }
-
-    /**
-     * Adds a unidirectional "uses" style relationship between this element and component.
-     *
-     * @param destination the target of the relationship
-     * @param description a description of the relationship (e.g. "uses", "gets data from", "sends data to")
-     * @return the relationship that has just been created and added to the model
-     */
-    public Relationship uses(Component destination, String description) {
-        return getModel().addRelationship(this, destination, description);
-    }
-
-    /**
-     * Adds a unidirectional "uses" style relationship between this element and a component.
-     *
-     * @param destination the target of the relationship
-     * @param description a description of the relationship (e.g. "uses", "gets data from", "sends data to")
-     * @param technology  the technology details (e.g. JSON/HTTPS)
-     * @return the relationship that has just been created and added to the model
-     */
-    public Relationship uses(Component destination, String description, String technology) {
-        return getModel().addRelationship(this, destination, description, technology);
-    }
-
-    /**
-     * Adds a unidirectional "uses" style relationship between this element and a component.
-     *
-     * @param destination      the target of the relationship
-     * @param description      a description of the relationship (e.g. "uses", "gets data from", "sends data to")
-     * @param technology       the technology details (e.g. JSON/HTTPS)
-     * @param interactionStyle the interaction style (sync vs async)
-     * @return the relationship that has just been created and added to the model
-     */
-    public Relationship uses(Component destination, String description, String technology, InteractionStyle interactionStyle) {
-        return getModel().addRelationship(this, destination, description, technology, interactionStyle);
-    }
-
-    /**
-     * Adds a unidirectional relationship between this element and a person.
-     *
-     * @param destination the target of the relationship
-     * @param description a description of the relationship (e.g. "sends e-mail to")
-     * @return the relationship that has just been created and added to the model
-     */
-    public Relationship delivers(Person destination, String description) {
-        return getModel().addRelationship(this, destination, description);
-    }
-
-    /**
-     * Adds a unidirectional relationship between this element and a person.
-     *
-     * @param destination the target of the relationship
-     * @param description a description of the relationship (e.g. "sends e-mail to")
-     * @param technology  the technology details (e.g. JSON/HTTPS)
-     * @return the relationship that has just been created and added to the model
-     */
-    public Relationship delivers(Person destination, String description, String technology) {
-        return getModel().addRelationship(this, destination, description, technology);
-    }
-
-    /**
-     * Adds a unidirectional relationship between this element and a person.
-     *
-     * @param destination      the target of the relationship
-     * @param description      a description of the relationship (e.g. "sends e-mail to")
-     * @param technology       the technology details (e.g. JSON/HTTPS)
-     * @param interactionStyle the interaction style (sync vs async)
-     * @return the relationship that has just been created and added to the model
-     */
-    public Relationship delivers(Person destination, String description, String technology, InteractionStyle interactionStyle) {
-        return getModel().addRelationship(this, destination, description, technology, interactionStyle);
     }
 
     /**

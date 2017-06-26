@@ -3,6 +3,7 @@ package com.structurizr.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A software architecture model.
@@ -18,6 +19,7 @@ public class Model {
 
     private Set<Person> people = new LinkedHashSet<>();
     private Set<SoftwareSystem> softwareSystems = new LinkedHashSet<>();
+    private Set<DeploymentNode> deploymentNodes = new LinkedHashSet<>();
 
     public Model() {
     }
@@ -245,6 +247,13 @@ public class Model {
         return new LinkedHashSet<>(softwareSystems);
     }
 
+    /**
+     * @return a collection containing all of the DeploymentNode instances in this model.
+     */
+    public Set<DeploymentNode> getDeploymentNodes() {
+        return new LinkedHashSet<>(deploymentNodes);
+    }
+
     public void hydrate() {
         // add all of the elements to the model
         people.forEach(this::addElementToInternalStructures);
@@ -262,6 +271,8 @@ public class Model {
             }
         }
 
+        deploymentNodes.forEach(dn -> hydrateDeploymentNode(dn, null));
+
         // now hydrate the relationships
         people.forEach(this::hydrateRelationships);
         for (SoftwareSystem softwareSystem : softwareSystems) {
@@ -272,6 +283,18 @@ public class Model {
                     hydrateRelationships(component);
                 }
             }
+        }
+    }
+
+    private void hydrateDeploymentNode(DeploymentNode deploymentNode, DeploymentNode parent) {
+        deploymentNode.setParent(parent);
+        addElementToInternalStructures(deploymentNode);
+
+        deploymentNode.getChildren().forEach(child -> hydrateDeploymentNode(child, deploymentNode));
+
+        for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
+            containerInstance.setContainer((Container)getElement(containerInstance.getContainerId()));
+            addElementToInternalStructures(containerInstance);
         }
     }
 
@@ -407,6 +430,89 @@ public class Model {
     @JsonIgnore
     public boolean isEmpty() {
         return people.isEmpty() && softwareSystems.isEmpty();
+    }
+
+    public DeploymentNode addDeploymentNode(String name, String description, String technology) {
+        return addDeploymentNode(name, description, technology, 1);
+    }
+
+    public DeploymentNode addDeploymentNode(String name, String description, String technology, int instances) {
+        return addDeploymentNode(name, description, technology, instances, null);
+    }
+
+    public DeploymentNode addDeploymentNode(String name, String description, String technology, int instances, Map<String, String> properties) {
+        return addDeploymentNode(null, name, description, technology, instances, properties);
+    }
+
+    public DeploymentNode addDeploymentNode(DeploymentNode parent, String name, String description, String technology, int instances, Map<String, String> properties) {
+        if ((parent == null && getDeploymentNodeWithName(name) == null) || (parent != null && parent.getDeploymentNodeWithName(name) == null)) {
+            DeploymentNode deploymentNode = new DeploymentNode();
+            deploymentNode.setName(name);
+            deploymentNode.setDescription(description);
+            deploymentNode.setTechnology(technology);
+            deploymentNode.setParent(parent);
+            deploymentNode.setInstances(instances);
+            if (properties != null) {
+                deploymentNode.setProperties(properties);
+            }
+
+            if (parent == null) {
+                deploymentNodes.add(deploymentNode);
+            }
+
+            deploymentNode.setId(idGenerator.generateId(deploymentNode));
+            addElementToInternalStructures(deploymentNode);
+
+            return deploymentNode;
+        } else {
+            throw new IllegalArgumentException("A deployment node named '" + name + "' already exists.");
+        }
+    }
+
+    /**
+     * @param name the name of the deployment node
+     * @return the DeploymentNode instance with the specified name (or null if it doesn't exist).
+     */
+    public DeploymentNode getDeploymentNodeWithName(String name) {
+        for (DeploymentNode deploymentNode : getDeploymentNodes()) {
+            if (deploymentNode.getName().equals(name)) {
+                return deploymentNode;
+            }
+        }
+
+        return null;
+    }
+
+    ContainerInstance addContainerInstance(Container container) {
+        long instanceNumber = getElements().stream().filter(e -> e instanceof ContainerInstance && ((ContainerInstance)e).getContainer().equals(container)).count();
+        ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber);
+        containerInstance.setId(idGenerator.generateId(containerInstance));
+
+        // find all ContainerInstance objects that have the same parent SoftwareSystem
+        Set<ContainerInstance> containerInstances = getElements().stream()
+                .filter(e -> e instanceof ContainerInstance && e.getParent().equals(container.getSoftwareSystem()))
+                .map(e -> (ContainerInstance)e)
+                .collect(Collectors.toSet());
+
+        for (ContainerInstance ci : containerInstances) {
+            Container c = ci.getContainer();
+
+            for (Relationship relationship : container.getRelationships()) {
+                if (relationship.getDestination().equals(c)) {
+                    addRelationship(containerInstance, ci, relationship.getDescription(), relationship.getTechnology(), relationship.getInteractionStyle());
+                }
+            }
+
+            for (Relationship relationship : c.getRelationships()) {
+                if (relationship.getDestination().equals(container)) {
+                    addRelationship(ci, containerInstance, relationship.getDescription(), relationship.getTechnology(), relationship.getInteractionStyle());
+                }
+            }
+        }
+
+        addElementToInternalStructures(containerInstance);
+
+        return containerInstance;
     }
 
 }

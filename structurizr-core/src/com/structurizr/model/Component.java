@@ -16,7 +16,7 @@ import java.util.*;
  * See <a href="https://structurizr.com/help/model#Component">Model - Component</a>
  * on the Structurizr website for more information.
  */
-public class Component extends Element {
+public class Component extends StaticStructureElement {
 
     private Container parent;
 

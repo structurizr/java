@@ -6,7 +6,11 @@ import com.structurizr.componentfinder.ComponentFinder;
 import com.structurizr.componentfinder.ReferencedTypesSupportingTypesStrategy;
 import com.structurizr.componentfinder.SourceCodeComponentFinderStrategy;
 import com.structurizr.componentfinder.SpringComponentFinderStrategy;
+import com.structurizr.documentation.Format;
+import com.structurizr.documentation.StructurizrDocumentation;
+import com.structurizr.example.core.Deployment;
 import com.structurizr.model.*;
+import com.structurizr.util.MapUtils;
 import com.structurizr.view.*;
 
 import java.io.File;
@@ -49,11 +53,12 @@ public class SpringPetClinic {
         clinicEmployee.uses(springPetClinic, "Uses");
 
         Container webApplication = springPetClinic.addContainer(
-               "Web Application", "Allows employees to view and manage information regarding the veterinarians, the clients, and their pets.", "Apache Tomcat 7.x");
+               "Web Application", "Allows employees to view and manage information regarding the veterinarians, the clients, and their pets.", "Java and Spring");
+        webApplication.addProperty("Deployable artifact name", "petclinic.war");
         Container relationalDatabase = springPetClinic.addContainer(
-               "Relational Database", "Stores information regarding the veterinarians, the clients, and their pets.", "HSQLDB");
-        clinicEmployee.uses(webApplication, "Uses", "HTTP");
-        webApplication.uses(relationalDatabase, "Reads from and writes to", "JDBC, port 9001");
+               "Database", "Stores information regarding the veterinarians, the clients, and their pets.", "Relational Database Schema");
+        clinicEmployee.uses(webApplication, "Uses", "HTTPS");
+        webApplication.uses(relationalDatabase, "Reads from and writes to", "JDBC");
 
         // and now automatically find all Spring @Controller, @Component, @Service and @Repository components
         ComponentFinder componentFinder = new ComponentFinder(
@@ -106,6 +111,7 @@ public class SpringPetClinic {
         // rather than creating a component model for the database, let's simply link to the DDL
         // (this is really just an example of linking an arbitrary element in the model to an external resource)
         relationalDatabase.setUrl("https://github.com/spring-projects/spring-petclinic/tree/" + VERSION + "/src/main/resources/db/hsqldb");
+        relationalDatabase.addProperty("Schema name", "petclinic");
 
         // tag and style some elements
         springPetClinic.addTags("Spring PetClinic");
@@ -124,6 +130,48 @@ public class SpringPetClinic {
         dynamicView.add(clinicService, "Calls findAll", vetRepository);
         dynamicView.add(vetRepository, "select * from vets", relationalDatabase);
 
+        DeploymentNode developerLaptop = model.addDeploymentNode("Developer Laptop", "A developer laptop.", "Windows 7+ or macOS");
+        developerLaptop.addDeploymentNode("Docker Container - Web Server", "A Docker container.", "Docker")
+                .addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 7.x", 1, MapUtils.create("Xmx=256", "Xms=512M", "Java Version=8"))
+                .add(webApplication);
+
+        developerLaptop.addDeploymentNode("Docker Container - Database Server", "A Docker container.", "Docker")
+                .addDeploymentNode("Database Server", "A development database.", "HSQLDB")
+                .add(relationalDatabase);
+
+        DeploymentNode liveWebServer = model.addDeploymentNode("Web Server", "A server hosted at Amazon AWS EC2, accessed via Elastic Load Balancing.", "Ubuntu 12.04 LTS", 2, MapUtils.create("AWS instance type=t2.small", "AWS region=us-west-1"));
+        liveWebServer.addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 7.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"))
+                .add(webApplication);
+
+        DeploymentNode primaryDatabaseServer = model.addDeploymentNode("Database Server - Primary", "A server hosted at Amazon AWS EC2.", "Ubuntu 12.04 LTS", 1, MapUtils.create("AWS instance type=t2.medium", "AWS region=us-west-1"))
+                .addDeploymentNode("MySQL - Primary", "The primary, live database server.", "MySQL 5.5.x");
+        primaryDatabaseServer.add(relationalDatabase);
+
+        DeploymentNode secondaryDatabaseServer = model.addDeploymentNode("Database Server - Secondary", "A server hosted at Amazon AWS EC2.", "Ubuntu 12.04 LTS", 1, MapUtils.create("AWS instance type=t2.small", "AWS region=us-east-1"))
+                .addDeploymentNode("MySQL - Secondary", "A secondary database server, used for failover purposes.", "MySQL 5.5.x");
+        ContainerInstance secondaryDatabase = secondaryDatabaseServer.add(relationalDatabase);
+
+        model.getRelationships().stream().filter(r -> r.getDestination().equals(secondaryDatabase)).forEach(r -> r.addTags("Failover"));
+        Relationship dataReplicationRelationship = primaryDatabaseServer.uses(secondaryDatabaseServer, "Replicates data to", "");
+        secondaryDatabase.addTags("Failover");
+
+        DeploymentView developmentDeploymentView = viewSet.createDeploymentView(springPetClinic, "developmentDeployment", "An example development deployment scenario for the Spring PetClinic software system.");
+        developmentDeploymentView.add(developerLaptop);
+
+        DeploymentView liveDeploymentView = viewSet.createDeploymentView(springPetClinic, "liveDeployment", "An example live deployment scenario for the Spring PetClinic software system.");
+        liveDeploymentView.add(liveWebServer);
+        liveDeploymentView.add(primaryDatabaseServer);
+        liveDeploymentView.add(secondaryDatabaseServer);
+        liveDeploymentView.add(dataReplicationRelationship);
+
+        StructurizrDocumentation documentation = new StructurizrDocumentation(model);
+        workspace.setDocumentation(documentation);
+        documentation.addContextSection(springPetClinic, Format.Markdown, "This is the context section for the Spring PetClinic System... ![](embed:context)");
+        documentation.addContainersSection(springPetClinic, Format.Markdown, "This is the containers section for the Spring PetClinic System... ![](embed:containers)");
+        documentation.addComponentsSection(webApplication, Format.Markdown, "This is the components section for the Spring PetClinic web application... ![](embed:components)");
+        documentation.addDeploymentSection(springPetClinic, Format.Markdown, "This is the deployment section for the Spring PetClinic web application... ![](embed:liveDeployment)");
+        documentation.addDevelopmentEnvironmentSection(springPetClinic, Format.Markdown, "This is the development environment section for the Spring PetClinic web application... ![](embed:developmentDeployment)");
+
         Styles styles = viewSet.getConfiguration().getStyles();
         styles.addElementStyle("Spring PetClinic").background("#6CB33E").color("#ffffff");
         styles.addElementStyle(Tags.PERSON).background("#519823").color("#ffffff").shape(Shape.Person);
@@ -132,6 +180,8 @@ public class SpringPetClinic {
         styles.addElementStyle("Spring MVC Controller").background("#D4F3C0").color("#000000");
         styles.addElementStyle("Spring Service").background("#6CB33E").color("#000000");
         styles.addElementStyle("Spring Repository").background("#95D46C").color("#000000");
+        styles.addElementStyle("Failover").opacity(25);
+        styles.addRelationshipStyle("Failover").opacity(25).position(70);
 
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.putWorkspace(1, workspace);

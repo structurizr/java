@@ -20,7 +20,7 @@ import java.util.Set;
  * See <a href="https://structurizr.com/help/model#Container">Model - Container</a>
  * on the Structurizr website for more information.
  */
-public class Container extends Element {
+public class Container extends StaticStructureElement {
 
     private SoftwareSystem parent;
     private String technology;

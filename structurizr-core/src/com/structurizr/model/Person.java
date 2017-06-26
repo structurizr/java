@@ -13,7 +13,7 @@ import java.util.Set;
  * See <a href="https://structurizr.com/help/model#Person">Model - Person</a>
  * on the Structurizr website for more information.
  */
-public class Person extends Element {
+public class Person extends StaticStructureElement {
 
     private Location location = Location.Unspecified;
 
