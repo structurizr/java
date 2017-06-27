@@ -131,7 +131,7 @@ public class SpringPetClinic {
 
         DeploymentNode developerLaptop = model.addDeploymentNode("Developer Laptop", "A developer laptop.", "Windows 7+ or macOS");
         developerLaptop.addDeploymentNode("Docker Container - Web Server", "A Docker container.", "Docker")
-                .addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 7.x", 1, MapUtils.create("Xmx=256", "Xms=512M", "Java Version=8"))
+                .addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 7.x", 1, MapUtils.create("Xmx=256M", "Xms=512M", "Java Version=8"))
                 .add(webApplication);
 
         developerLaptop.addDeploymentNode("Docker Container - Database Server", "A Docker container.", "Docker")
