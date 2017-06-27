@@ -484,7 +484,12 @@ public class Model {
     }
 
     ContainerInstance addContainerInstance(Container container) {
+        if (container == null) {
+            throw new IllegalArgumentException("A container must be specified.");
+        }
+
         long instanceNumber = getElements().stream().filter(e -> e instanceof ContainerInstance && ((ContainerInstance)e).getContainer().equals(container)).count();
+        instanceNumber++;
         ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber);
         containerInstance.setId(idGenerator.generateId(containerInstance));
 
@@ -494,6 +499,7 @@ public class Model {
                 .map(e -> (ContainerInstance)e)
                 .collect(Collectors.toSet());
 
+        // and replicate the container-container relationships
         for (ContainerInstance ci : containerInstances) {
             Container c = ci.getContainer();
 

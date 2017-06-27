@@ -449,4 +449,52 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertTrue(aa1.hasEfferentRelationshipWith(aa2));
     }
 
+    @Test
+    public void test_addContainerInstance_ThrowsAnException_WhenANullContainerIsSpecified() {
+        try {
+            model.addContainerInstance(null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("A container must be specified.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addContainerInstance_AddsAContainerInstance_WhenAContainerIsSpecified() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
+        Container container1 = softwareSystem.addContainer("Container 1", "Description", "Technology");
+        Container container2 = softwareSystem.addContainer("Container 2", "Description", "Technology");
+        Container container3 = softwareSystem.addContainer("Container 3", "Description", "Technology");
+
+        container1.uses(container2, "Uses 1", "Technology 1", InteractionStyle.Synchronous);
+        container2.uses(container3, "Uses 2", "Technology 2", InteractionStyle.Asynchronous);
+
+        DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+        ContainerInstance containerInstance1 = deploymentNode.add(container1);
+        ContainerInstance containerInstance2 = deploymentNode.add(container2);
+        ContainerInstance containerInstance3 = deploymentNode.add(container3);
+
+        assertSame(container2, containerInstance2.getContainer());
+        assertEquals(container2.getId(), containerInstance2.getContainerId());
+        assertSame(softwareSystem, containerInstance2.getParent());
+        assertEquals("/Software System/Container 2[1]", containerInstance2.getCanonicalName());
+        assertEquals("Element,Container,Container Instance", containerInstance2.getTags());
+
+        assertEquals(1, containerInstance1.getRelationships().size());
+        Relationship relationship = containerInstance1.getRelationships().iterator().next();
+        assertSame(containerInstance1, relationship.getSource());
+        assertSame(containerInstance2, relationship.getDestination());
+        assertEquals("Uses 1", relationship.getDescription());
+        assertEquals("Technology 1", relationship.getTechnology());
+        assertEquals(InteractionStyle.Synchronous, relationship.getInteractionStyle());
+
+        assertEquals(1, containerInstance2.getRelationships().size());
+        relationship = containerInstance2.getRelationships().iterator().next();
+        assertSame(containerInstance2, relationship.getSource());
+        assertSame(containerInstance3, relationship.getDestination());
+        assertEquals("Uses 2", relationship.getDescription());
+        assertEquals("Technology 2", relationship.getTechnology());
+        assertEquals(InteractionStyle.Asynchronous, relationship.getInteractionStyle());
+    }
+
 }

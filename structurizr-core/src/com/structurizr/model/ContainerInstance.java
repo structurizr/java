@@ -6,6 +6,9 @@ import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/**
+ * Represents a deployment instance of a Container, which can be added to a {@link DeploymentNode}.
+ */
 public class ContainerInstance extends Element {
 
     private Container container;
@@ -29,6 +32,11 @@ public class ContainerInstance extends Element {
         this.container = container;
     }
 
+    /**
+     * Gets the ID of the container that this object represents a deployment instance of.
+     *
+     * @return  the container ID, as a String
+     */
     public String getContainerId() {
         if (container != null) {
             return container.getId();
@@ -41,6 +49,11 @@ public class ContainerInstance extends Element {
         this.containerId = containerId;
     }
 
+    /**
+     * Gets the instance ID of this container.
+     *
+     * @return  the instance ID, an integer greater than zero
+     */
     public int getInstanceId() {
         return instanceId;
     }
