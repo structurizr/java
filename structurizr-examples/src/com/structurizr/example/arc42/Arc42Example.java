@@ -24,8 +24,7 @@ public class Arc42Example {
         Model model = workspace.getModel();
         SoftwareSystem softwareSystem = model.getSoftwareSystems().iterator().next();
 
-        Arc42Documentation documentation = new Arc42Documentation(model);
-        workspace.setDocumentation(documentation);
+        Arc42Documentation documentation = new Arc42Documentation(workspace);
         File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/arc42");
 
         documentation.addIntroductionAndGoalsSection(softwareSystem, Format.Markdown, "Introduction and goals section...");

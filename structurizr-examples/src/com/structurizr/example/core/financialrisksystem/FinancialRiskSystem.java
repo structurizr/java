@@ -76,8 +76,7 @@ public class FinancialRiskSystem {
         styles.addElementStyle("Future State").opacity(30).border(Border.Dashed);
         styles.addRelationshipStyle("Future State").opacity(30).dashed(true);
 
-        StructurizrDocumentation documentation = new StructurizrDocumentation(model);
-        workspace.setDocumentation(documentation);
+        StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
         File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/core/financialrisksystem");
         documentation.addContextSection(financialRiskSystem, Format.AsciiDoc, new File(documentationRoot, "context.adoc"));
         documentation.addFunctionalOverviewSection(financialRiskSystem, Format.Markdown, new File(documentationRoot, "functional-overview.md"));

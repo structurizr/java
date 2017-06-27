@@ -38,8 +38,7 @@ public class ClientSideEncryptedWorkspace {
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
-        StructurizrDocumentation documentation = new StructurizrDocumentation(model);
-        workspace.setDocumentation(documentation);
+        StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
         File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/core/clientsideencrypted");
         documentation.addContextSection(softwareSystem, Format.Markdown, new File(documentationRoot, "context.md"));
         documentation.addQualityAttributesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));

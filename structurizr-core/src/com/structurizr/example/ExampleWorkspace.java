@@ -68,8 +68,7 @@ public class ExampleWorkspace {
         styles.addElementStyle(DATABASE_TAG).shape(Shape.Cylinder);
 
         // add some documentation
-        StructurizrDocumentation documentation = new StructurizrDocumentation(model);
-        workspace.setDocumentation(documentation);
+        StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
         documentation.addContextSection(softwareSystem, Format.Markdown,
                 "Here is some context about the software system...\n" +
                 "\n" +

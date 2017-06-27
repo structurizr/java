@@ -63,9 +63,7 @@ public class WidgetsLimited {
         dynamicView.add(customer, customerServiceUser);
         dynamicView.add(customerServiceUser, ecommerceSystem);
 
-        StructurizrDocumentation documentation = new StructurizrDocumentation(model);
-        workspace.setDocumentation(documentation);
-
+        StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
         documentation.addCustomSection("Enterprise Context", 1, Format.Markdown, "Here is some information about the Widgets Limited enterprise context... ![](embed:EnterpriseContext)");
         documentation.addContextSection(ecommerceSystem, Format.Markdown, "This is the context section for the E-commerce System... ![](embed:EcommerceSystemContext)");
         documentation.addContextSection(fulfilmentSystem, Format.Markdown, "This is the context section for the Fulfilment System... ![](embed:FulfilmentSystemContext)");

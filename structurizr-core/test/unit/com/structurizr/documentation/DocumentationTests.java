@@ -20,7 +20,17 @@ public class DocumentationTests {
         Workspace workspace = new Workspace("Name", "Description");
         softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
 
-        documentation = new StructurizrDocumentation(workspace.getModel());
+        documentation = new StructurizrDocumentation(workspace);
+    }
+
+    @Test
+    public void test_construction_ThrowsAnException_WhenANullWorkspaceIsSpecified() {
+        try {
+            new StructurizrDocumentation(null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("A workspace must be specified.", e.getMessage());
+        }
     }
 
     @Test
