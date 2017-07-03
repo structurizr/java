@@ -32,20 +32,27 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
 
 ## Table of contents
 
-1. [Getting started](docs/getting-started.md)
-1. [Basic concepts](docs/basic-concepts.md)
-1. [Building from source](docs/building.md)
-1. [Binaries](docs/binaries.md)
-1. [API Client](docs/api-client.md)
-1. [Styling elements](docs/styling-elements.md)
-1. [Styling relationships](docs/styling-relationships.md)
-1. [Corporate branding](docs/corporate-branding.md)
-1. [Hiding relationships](docs/hiding-relationships.md)
-1. [Extracting components from your codebase](docs/extracting-components.md)
-1. [Components and supporting types](docs/supporting-types.md)
-1. [The Spring PetClinic example](docs/spring-petclinic.md)
-1. [Dynamic views](docs/dynamic-views.md)
-1. [Client-side encryption](docs/client-side-encryption.md)
-1. [Documentation](docs/documentation.md)
-1. [Graphviz and DOT](docs/graphviz-and-dot.md)
-1. [PlantUML](docs/plantuml.md)
+* Introduction
+    * [Getting started](docs/getting-started.md)
+    * [Basic concepts](docs/basic-concepts.md) (workspaces, models, views and documentation)
+    * [Binaries](docs/binaries.md)
+    * [API Client](docs/api-client.md)
+* Software architecture model
+    * [Extracting components from your codebase](docs/extracting-components.md)
+    * [Components and supporting types](docs/supporting-types.md)
+    * [The Spring PetClinic example](docs/spring-petclinic.md)
+* Diagrams
+    * [Styling elements](docs/styling-elements.md)
+    * [Styling relationships](docs/styling-relationships.md)
+    * [Hiding relationships](docs/hiding-relationships.md)
+    * [Dynamic views](docs/dynamic-views.md)
+    * Deployment views
+* Documentation
+    * [Documentation](docs/documentation.md)
+* Exporting and visualising with other tools
+    * [Graphviz and DOT](docs/graphviz-and-dot.md)
+    * [PlantUML](docs/plantuml.md)
+* Other
+    * [Client-side encryption](docs/client-side-encryption.md)
+    * [Corporate branding](docs/corporate-branding.md)
+    * [Building from source](docs/building.md)
