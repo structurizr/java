@@ -2,16 +2,16 @@
 
 # Structurizr for Java
 
-This GitHub repository is a collection of tooling to help you visualise, document and explore the software architecture of a software system. In summary, it allows you to create a software architecture model based upon Simon Brown's "C4 model" using Java code, and then export that model to be visualised using tools such as:
+This GitHub repository is a collection of tooling to help you visualise, document and explore the software architecture of a software system. In summary, it allows you to create a software architecture model based upon Simon Brown's [C4 model](https://structurizr.com/help/c4) using Java code, and then export that model to be visualised using tools such as:
 
-1. [Structurizr](https://structurizr.com): a web-based service to render web-based software architecture diagrams and supplementary Markdown/AsciiDoc documentation. Diagrams can be viewed online directly or by [embedding them in Atlassian Confluence](https://structurizr.com/help/atlassian-confluence).
+1. [Structurizr](https://structurizr.com): a web-based software as a service and on-premises product to render software architecture diagrams and supplementary Markdown/AsciiDoc documentation.
 1. [PlantUML](docs/plantuml.md): a tool to create UML diagrams using a simple textual domain specific language.
 1. [graphviz](docs/graphviz-and-dot.md): a tool to render directed graphs using the DOT format.
 
-As a simple example, the following Java code can be used to create a software architecture model to describe a user using a software system.
+As a simple example, the following Java code can be used to create a software architecture model that describes a user using a software system.
 
 ```java
-Workspace workspace = new Workspace("My model", "This is a model of my software system.");
+Workspace workspace = new Workspace("Getting Started", "This is a model of my software system.");
 Model model = workspace.getModel();
 
 Person user = model.addPerson("User", "A user of my software system.");
@@ -19,7 +19,7 @@ SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "My s
 user.uses(softwareSystem, "Uses");
 
 ViewSet viewSet = workspace.getViews();
-SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "context", "A simple example of a System Context diagram.");
+SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "context", "An example of a System Context diagram.");
 contextView.addAllSoftwareSystems();
 contextView.addAllPeople();
 ```
@@ -27,6 +27,8 @@ contextView.addAllPeople();
 If using [Structurizr](https://structurizr.com), the end-result, after adding some styling and positioning the diagram elements, is a system context diagram like this:
 
 ![Getting Started with Structurizr for Java](docs/images/getting-started.png)
+
+You can see the live workspace at [https://structurizr.com/share/25441](https://structurizr.com/share/25441).
 
 ## Table of contents
 
