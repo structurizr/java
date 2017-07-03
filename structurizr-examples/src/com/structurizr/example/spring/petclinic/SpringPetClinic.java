@@ -173,11 +173,11 @@ public class SpringPetClinic {
         liveDeploymentView.add(dataReplicationRelationship);
 
         StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
-        documentation.addContextSection(springPetClinic, Format.Markdown, "This is the context section for the Spring PetClinic System... ![](embed:context)");
-        documentation.addContainersSection(springPetClinic, Format.Markdown, "This is the containers section for the Spring PetClinic System... ![](embed:containers)");
-        documentation.addComponentsSection(webApplication, Format.Markdown, "This is the components section for the Spring PetClinic web application... ![](embed:components)");
-        documentation.addDeploymentSection(springPetClinic, Format.Markdown, "This is the deployment section for the Spring PetClinic web application... ![](embed:liveDeployment)");
-        documentation.addDevelopmentEnvironmentSection(springPetClinic, Format.Markdown, "This is the development environment section for the Spring PetClinic web application... ![](embed:developmentDeployment)");
+        documentation.addContextSection(springPetClinic, Format.Markdown, "This is the context section for the Spring PetClinic System...\n![](embed:context)");
+        documentation.addContainersSection(springPetClinic, Format.Markdown, "This is the containers section for the Spring PetClinic System...\n![](embed:containers)");
+        documentation.addComponentsSection(webApplication, Format.Markdown, "This is the components section for the Spring PetClinic web application...\n![](embed:components)");
+        documentation.addDeploymentSection(springPetClinic, Format.Markdown, "This is the deployment section for the Spring PetClinic web application...\n### Staging environment\n![](embed:stagingDeployment)\n### Live environment\n![](embed:liveDeployment)");
+        documentation.addDevelopmentEnvironmentSection(springPetClinic, Format.Markdown, "This is the development environment section for the Spring PetClinic web application...\n![](embed:developmentDeployment)");
 
         Styles styles = viewSet.getConfiguration().getStyles();
         styles.addElementStyle("Spring PetClinic").background("#6CB33E").color("#ffffff");
