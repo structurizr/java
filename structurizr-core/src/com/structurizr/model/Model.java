@@ -492,6 +492,7 @@ public class Model {
         instanceNumber++;
         ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber);
         containerInstance.setId(idGenerator.generateId(containerInstance));
+        containerInstance.setName(container.getName());
 
         // find all ContainerInstance objects that have the same parent SoftwareSystem
         Set<ContainerInstance> containerInstances = getElements().stream()
