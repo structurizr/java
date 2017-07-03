@@ -222,7 +222,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
             writer.write(
                     String.format("%snode \"%s\" <<%s>> as %s {",
                             calculateIndent(indent),
-                            deploymentNode.getName(),
+                            deploymentNode.getName() + (deploymentNode.getInstances() > 1 ? " (x" + deploymentNode.getInstances() + ")" : ""),
                             typeOf(deploymentNode),
                             idOf(deploymentNode)
                     )
