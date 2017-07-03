@@ -444,7 +444,7 @@ public class Model {
         return addDeploymentNode(null, name, description, technology, instances, properties);
     }
 
-    public DeploymentNode addDeploymentNode(DeploymentNode parent, String name, String description, String technology, int instances, Map<String, String> properties) {
+    DeploymentNode addDeploymentNode(DeploymentNode parent, String name, String description, String technology, int instances, Map<String, String> properties) {
         if ((parent == null && getDeploymentNodeWithName(name) == null) || (parent != null && parent.getDeploymentNodeWithName(name) == null)) {
             DeploymentNode deploymentNode = new DeploymentNode();
             deploymentNode.setName(name);
