@@ -14,19 +14,20 @@ import java.io.StringWriter;
  * A simple example of how to use the PlantUML writer. Run this program and copy/paste
  * the output into http://www.plantuml.com/plantuml/
  */
-public class PlantUMLExample {
+public class PlantUML {
 
     public static void main(String[] args) throws Exception {
-        Workspace workspace = new Workspace("PlantUML", "An example workspace that demonstrates the PlantUML writer.");
+        Workspace workspace = new Workspace("Getting Started", "This is a model of my software system.");
         Model model = workspace.getModel();
-        ViewSet views = workspace.getViews();
 
-        SoftwareSystem softwareSystem = model.addSoftwareSystem("My Software System", "");
-        Person user = model.addPerson("User", "");
+        Person user = model.addPerson("User", "A user of my software system.");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "My software system.");
         user.uses(softwareSystem, "Uses");
 
-        SystemContextView view = views.createSystemContextView(softwareSystem, "context", "A simple system context diagram.");
-        view.addAllElements();
+        ViewSet viewSet = workspace.getViews();
+        SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "context", "An example of a System Context diagram.");
+        contextView.addAllSoftwareSystems();
+        contextView.addAllPeople();
 
         StringWriter stringWriter = new StringWriter();
         PlantUMLWriter plantUMLWriter = new PlantUMLWriter();
