@@ -85,12 +85,12 @@ public class SpringPetClinic {
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
-        ContainerView containerView = viewSet.createContainerView(springPetClinic, "containers", "The Containers diagram for the Spring PetClinic system.");
+        ContainerView containerView = viewSet.createContainerView(springPetClinic, "containers", "The Container diagram for the Spring PetClinic system.");
         containerView.addAllPeople();
         containerView.addAllSoftwareSystems();
         containerView.addAllContainers();
 
-        ComponentView componentView = viewSet.createComponentView(webApplication, "components", "The Components diagram for the Spring PetClinic web application.");
+        ComponentView componentView = viewSet.createComponentView(webApplication, "components", "The Component diagram for the Spring PetClinic web application.");
         componentView.addAllComponents();
         componentView.addAllPeople();
         componentView.add(relationalDatabase);

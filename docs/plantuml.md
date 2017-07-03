@@ -7,20 +7,22 @@ Structurizr for Java also includes a simple exporter that can create diagram def
 - Container
 - Component
 - Dynamic
+- Deployment
 
-Simply create your software architecture model and views as usual, and use the [PlantUMLWriter](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/io/plantuml/PlantUMLWriter.java) class to export the views. For example:
+Simply create your software architecture model and views as usual, and use the [PlantUMLWriter](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/io/plantuml/PlantUMLWriter.java) class to export the views. [For example](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/plantuml/PlantUML.java):
 
 ```java
-Workspace workspace = new Workspace("PlantUML", "An example workspace that demonstrates the PlantUML writer.");
+Workspace workspace = new Workspace("Getting Started", "This is a model of my software system.");
 Model model = workspace.getModel();
-ViewSet views = workspace.getViews();
 
-SoftwareSystem softwareSystem = model.addSoftwareSystem("My Software System", "");
-Person user = model.addPerson("User", "");
+Person user = model.addPerson("User", "A user of my software system.");
+SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "My software system.");
 user.uses(softwareSystem, "Uses");
 
-SystemContextView view = views.createSystemContextView(softwareSystem, "context", "A simple system context diagram.");
-view.addAllElements();
+ViewSet viewSet = workspace.getViews();
+SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "context", "An example of a System Context diagram.");
+contextView.addAllSoftwareSystems();
+contextView.addAllPeople();
 
 StringWriter stringWriter = new StringWriter();
 PlantUMLWriter plantUMLWriter = new PlantUMLWriter();
@@ -32,16 +34,17 @@ This code will generate and output a PlantUML diagram definition that looks like
 
 ```
 @startuml
-title My Software System - System Context
-[My Software System] <<Software System>> as MySoftwareSystem
-actor User
-User ..> MySoftwareSystem : Uses
+title Software System - System Context
+caption An example of a System Context diagram.
+component "Software System" <<Software System>> as 2
+actor "User" <<Person>> as 1
+1 ..> 2 : Uses
 @enduml
 ```
 
 If you copy/paste this into [PlantUML online](http://www.plantuml.com/plantuml/), you will get something like this:
 
-![A simple PlantUML diagram](images/plantuml.png)
+![A simple PlantUML diagram](images/plantuml-getting-started.png)
 
 ## Benefits of using PlantUML with Structurizr
 
@@ -49,6 +52,22 @@ The key benefit of using PlantUML in conjunction with the Structurizr client lib
 
 1. Rather than looking after a collection of disjointed PlantUML diagram definitions, you can create many PlantUML diagrams from a single model and keep them all up to date easily, especially if integrated with your continous build server and build pipeline.
 1. The naming of elements and the definition of relationships between elements _remains consistent across diagrams_.
-1. The software architecture model at the component level can be created by extracting components from a codebase, using _static analysis and reflection techniques_. Here's a PlantUML version of the Spring PetClinic component diagram, the content of which has been [extracted from the code using the ComponentFinder](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/spring/petclinic/SpringPetClinic.java#L56).
+1. The software architecture model at the component level can be created by extracting components from a codebase, using _static analysis and reflection techniques_.
 
-![A PlantUML version of the Spring PetClinic component diagram](images/spring-petclinic-plantuml.png)
+### Example
+
+Here are the PlantUML versions of the diagrams from the [Spring PetClinic example](https://structurizr.com/share/1).
+
+![](images/plantuml-spring-petclinic-system-context.png)
+
+![](images/plantuml-spring-petclinic-containers.png)
+
+![](images/plantuml-spring-petclinic-components.png)
+
+![](images/plantuml-spring-petclinic-dynamic.png)
+
+![](images/plantuml-spring-petclinic-deployment-development.png)
+
+![](images/plantuml-spring-petclinic-deployment-staging.png)
+
+![](images/plantuml-spring-petclinic-deployment-live.png)

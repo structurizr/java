@@ -46,64 +46,82 @@ public class PlantUMLWriterTests {
         plantUMLWriter.write(workspace, stringWriter);
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Enterprise Context for Some Enterprise" + System.lineSeparator() +
-                "[E-mail System] <<Software System>> as EmailSystem" + System.lineSeparator() +
+                "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
                 "package SomeEnterprise {" + System.lineSeparator() +
-                "  actor User" + System.lineSeparator() +
-                "  [Software System] <<Software System>> as SoftwareSystem" + System.lineSeparator() +
+                "  actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "  component \"Software System\" <<Software System>> as 2" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
-                "EmailSystem ..> User : Delivers e-mails to" + System.lineSeparator() +
-                "SoftwareSystem ..> EmailSystem : Sends e-mail using" + System.lineSeparator() +
-                "User ..> SoftwareSystem : Uses" + System.lineSeparator() +
+                "4 ..> 1 : Delivers e-mails to" + System.lineSeparator() +
+                "2 ..> 4 : Sends e-mail using" + System.lineSeparator() +
+                "1 ..> 2 : Uses" + System.lineSeparator() +
                 "@enduml" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "@startuml" + System.lineSeparator() +
                 "title Software System - System Context" + System.lineSeparator() +
-                "[E-mail System] <<Software System>> as EmailSystem" + System.lineSeparator() +
-                "[Software System] <<Software System>> as SoftwareSystem" + System.lineSeparator() +
-                "actor User" + System.lineSeparator() +
-                "EmailSystem ..> User : Delivers e-mails to" + System.lineSeparator() +
-                "SoftwareSystem ..> EmailSystem : Sends e-mail using" + System.lineSeparator() +
-                "User ..> SoftwareSystem : Uses" + System.lineSeparator() +
+                "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
+                "component \"Software System\" <<Software System>> as 2" + System.lineSeparator() +
+                "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "4 ..> 1 : Delivers e-mails to" + System.lineSeparator() +
+                "2 ..> 4 : Sends e-mail using" + System.lineSeparator() +
+                "1 ..> 2 : Uses" + System.lineSeparator() +
                 "@enduml" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "@startuml" + System.lineSeparator() +
                 "title Software System - Containers" + System.lineSeparator() +
-                "[E-mail System] <<Software System>> as EmailSystem" + System.lineSeparator() +
-                "actor User" + System.lineSeparator() +
+                "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
+                "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
                 "package SoftwareSystem {" + System.lineSeparator() +
-                "  [Database] <<Container>> as Database" + System.lineSeparator() +
-                "  [Web Application] <<Container>> as WebApplication" + System.lineSeparator() +
+                "  component \"Database\" <<Container>> as 8" + System.lineSeparator() +
+                "  component \"Web Application\" <<Container>> as 7" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
-                "EmailSystem ..> User : Delivers e-mails to" + System.lineSeparator() +
-                "User ..> WebApplication : Uses <<HTTP>>" + System.lineSeparator() +
-                "WebApplication ..> Database : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
-                "WebApplication ..> EmailSystem : Sends e-mail using" + System.lineSeparator() +
+                "4 ..> 1 : Delivers e-mails to" + System.lineSeparator() +
+                "1 ..> 7 : Uses <<HTTP>>" + System.lineSeparator() +
+                "7 ..> 8 : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
+                "7 ..> 4 : Sends e-mail using" + System.lineSeparator() +
                 "@enduml" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "@startuml" + System.lineSeparator() +
                 "title Software System - Web Application - Components" + System.lineSeparator() +
-                "[Database] <<Container>> as Database" + System.lineSeparator() +
-                "[E-mail System] <<Software System>> as EmailSystem" + System.lineSeparator() +
-                "actor User" + System.lineSeparator() +
+                "component \"Database\" <<Container>> as 8" + System.lineSeparator() +
+                "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
+                "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
                 "package WebApplication {" + System.lineSeparator() +
-                "  [EmailComponent] <<Component>> as EmailComponent" + System.lineSeparator() +
-                "  [SomeController] <<Spring MVC Controller>> as SomeController" + System.lineSeparator() +
-                "  [SomeRepository] <<Spring Data>> as SomeRepository" + System.lineSeparator() +
+                "  component \"EmailComponent\" <<Component>> as 13" + System.lineSeparator() +
+                "  component \"SomeController\" <<Spring MVC Controller>> as 12" + System.lineSeparator() +
+                "  component \"SomeRepository\" <<Spring Data>> as 14" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
-                "EmailSystem ..> User : Delivers e-mails to" + System.lineSeparator() +
-                "EmailComponent ..> EmailSystem : Sends e-mails using <<SMTP>>" + System.lineSeparator() +
-                "SomeController ..> EmailComponent : Sends e-mail using" + System.lineSeparator() +
-                "SomeController ..> SomeRepository : Uses" + System.lineSeparator() +
-                "SomeRepository ..> Database : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
-                "User ..> SomeController : Uses <<HTTP>>" + System.lineSeparator() +
+                "4 ..> 1 : Delivers e-mails to" + System.lineSeparator() +
+                "13 ..> 4 : Sends e-mails using <<SMTP>>" + System.lineSeparator() +
+                "12 ..> 13 : Sends e-mail using" + System.lineSeparator() +
+                "12 ..> 14 : Uses" + System.lineSeparator() +
+                "14 ..> 8 : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
+                "1 ..> 12 : Uses <<HTTP>>" + System.lineSeparator() +
                 "@enduml" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "@startuml" + System.lineSeparator() +
                 "title Web Application - Dynamic" + System.lineSeparator() +
-                "actor User" + System.lineSeparator() +
-                "User -> SomeController : Requests /something" + System.lineSeparator() +
-                "SomeController -> SomeRepository : Uses" + System.lineSeparator() +
-                "SomeRepository -> Database : select * from something" + System.lineSeparator() +
+                "component \"Database\" <<Container>> as 8" + System.lineSeparator() +
+                "component \"SomeController\" <<Spring MVC Controller>> as 12" + System.lineSeparator() +
+                "component \"SomeRepository\" <<Spring Data>> as 14" + System.lineSeparator() +
+                "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "1 -> 12 : Requests /something" + System.lineSeparator() +
+                "12 -> 14 : Uses" + System.lineSeparator() +
+                "14 -> 8 : select * from something" + System.lineSeparator() +
+                "@enduml" + System.lineSeparator() +
+                "" + System.lineSeparator() +
+                "@startuml" + System.lineSeparator() +
+                "title Software System - Deployment" + System.lineSeparator() +
+                "node \"Database Server\" <<Ubuntu 12.04 LTS>> as 23 {" + System.lineSeparator() +
+                "  node \"MySQL\" <<MySQL 5.5.x>> as 24 {" + System.lineSeparator() +
+                "    artifact \"Database\" <<Container>> as 25" + System.lineSeparator() +
+                "  }" + System.lineSeparator() +
+                "}" + System.lineSeparator() +
+                "node \"Web Server\" <<Ubuntu 12.04 LTS>> as 20 {" + System.lineSeparator() +
+                "  node \"Apache Tomcat\" <<Apache Tomcat 8.x>> as 21 {" + System.lineSeparator() +
+                "    artifact \"Web Application\" <<Container>> as 22" + System.lineSeparator() +
+                "  }" + System.lineSeparator() +
+                "}" + System.lineSeparator() +
+                "22 ..> 25 : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
                 "@enduml" + System.lineSeparator() +
                 System.lineSeparator(), stringWriter.toString());
     }
@@ -117,17 +135,18 @@ public class PlantUMLWriterTests {
         plantUMLWriter.write(enterpriseContextView, stringWriter);
 
         assertEquals("@startuml" + System.lineSeparator() +
-            "title Enterprise Context for Some Enterprise" + System.lineSeparator() +
-            "[E-mail System] <<Software System>> as EmailSystem" + System.lineSeparator() +
-            "package SomeEnterprise {" + System.lineSeparator() +
-            "  actor User" + System.lineSeparator() +
-            "  [Software System] <<Software System>> as SoftwareSystem" + System.lineSeparator() +
-            "}" + System.lineSeparator() +
-            "EmailSystem ..> User : Delivers e-mails to" + System.lineSeparator() +
-            "SoftwareSystem ..> EmailSystem : Sends e-mail using" + System.lineSeparator() +
-            "User ..> SoftwareSystem : Uses" + System.lineSeparator() +
-            "@enduml" + System.lineSeparator() +
-            System.lineSeparator(), stringWriter.toString());
+                "title Enterprise Context for Some Enterprise" + System.lineSeparator() +
+                "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
+                "package SomeEnterprise {" + System.lineSeparator() +
+                "  actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "  component \"Software System\" <<Software System>> as 2" + System.lineSeparator() +
+                "}" + System.lineSeparator() +
+                "4 ..> 1 : Delivers e-mails to" + System.lineSeparator() +
+                "2 ..> 4 : Sends e-mail using" + System.lineSeparator() +
+                "1 ..> 2 : Uses" + System.lineSeparator() +
+                "@enduml" + System.lineSeparator() +
+                System.lineSeparator(), stringWriter.toString());
+
     }
 
     @Test
@@ -139,15 +158,15 @@ public class PlantUMLWriterTests {
         plantUMLWriter.write(systemContextView, stringWriter);
 
         assertEquals("@startuml" + System.lineSeparator() +
-            "title Software System - System Context" + System.lineSeparator() +
-            "[E-mail System] <<Software System>> as EmailSystem" + System.lineSeparator() +
-            "[Software System] <<Software System>> as SoftwareSystem" + System.lineSeparator() +
-            "actor User" + System.lineSeparator() +
-            "EmailSystem ..> User : Delivers e-mails to" + System.lineSeparator() +
-            "SoftwareSystem ..> EmailSystem : Sends e-mail using" + System.lineSeparator() +
-            "User ..> SoftwareSystem : Uses" + System.lineSeparator() +
-            "@enduml" + System.lineSeparator() +
-            "" + System.lineSeparator(), stringWriter.toString());
+                "title Software System - System Context" + System.lineSeparator() +
+                "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
+                "component \"Software System\" <<Software System>> as 2" + System.lineSeparator() +
+                "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "4 ..> 1 : Delivers e-mails to" + System.lineSeparator() +
+                "2 ..> 4 : Sends e-mail using" + System.lineSeparator() +
+                "1 ..> 2 : Uses" + System.lineSeparator() +
+                "@enduml" + System.lineSeparator() +
+                System.lineSeparator(), stringWriter.toString());
     }
 
     @Test
@@ -159,19 +178,19 @@ public class PlantUMLWriterTests {
         plantUMLWriter.write(containerView, stringWriter);
 
         assertEquals("@startuml" + System.lineSeparator() +
-            "title Software System - Containers" + System.lineSeparator() +
-            "[E-mail System] <<Software System>> as EmailSystem" + System.lineSeparator() +
-            "actor User" + System.lineSeparator() +
-            "package SoftwareSystem {" + System.lineSeparator() +
-            "  [Database] <<Container>> as Database" + System.lineSeparator() +
-            "  [Web Application] <<Container>> as WebApplication" + System.lineSeparator() +
-            "}" + System.lineSeparator() +
-            "EmailSystem ..> User : Delivers e-mails to" + System.lineSeparator() +
-            "User ..> WebApplication : Uses <<HTTP>>" + System.lineSeparator() +
-            "WebApplication ..> Database : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
-            "WebApplication ..> EmailSystem : Sends e-mail using" + System.lineSeparator() +
-            "@enduml" + System.lineSeparator() +
-            "" + System.lineSeparator(), stringWriter.toString());
+                "title Software System - Containers" + System.lineSeparator() +
+                "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
+                "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "package SoftwareSystem {" + System.lineSeparator() +
+                "  component \"Database\" <<Container>> as 8" + System.lineSeparator() +
+                "  component \"Web Application\" <<Container>> as 7" + System.lineSeparator() +
+                "}" + System.lineSeparator() +
+                "4 ..> 1 : Delivers e-mails to" + System.lineSeparator() +
+                "1 ..> 7 : Uses <<HTTP>>" + System.lineSeparator() +
+                "7 ..> 8 : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
+                "7 ..> 4 : Sends e-mail using" + System.lineSeparator() +
+                "@enduml" + System.lineSeparator() +
+                System.lineSeparator(), stringWriter.toString());
     }
 
     @Test
@@ -183,23 +202,23 @@ public class PlantUMLWriterTests {
         plantUMLWriter.write(componentView, stringWriter);
 
         assertEquals("@startuml" + System.lineSeparator() +
-            "title Software System - Web Application - Components" + System.lineSeparator() +
-            "[Database] <<Container>> as Database" + System.lineSeparator() +
-            "[E-mail System] <<Software System>> as EmailSystem" + System.lineSeparator() +
-            "actor User" + System.lineSeparator() +
-            "package WebApplication {" + System.lineSeparator() +
-            "  [EmailComponent] <<Component>> as EmailComponent" + System.lineSeparator() +
-            "  [SomeController] <<Spring MVC Controller>> as SomeController" + System.lineSeparator() +
-            "  [SomeRepository] <<Spring Data>> as SomeRepository" + System.lineSeparator() +
-            "}" + System.lineSeparator() +
-            "EmailSystem ..> User : Delivers e-mails to" + System.lineSeparator() +
-            "EmailComponent ..> EmailSystem : Sends e-mails using <<SMTP>>" + System.lineSeparator() +
-            "SomeController ..> EmailComponent : Sends e-mail using" + System.lineSeparator() +
-            "SomeController ..> SomeRepository : Uses" + System.lineSeparator() +
-            "SomeRepository ..> Database : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
-            "User ..> SomeController : Uses <<HTTP>>" + System.lineSeparator() +
-            "@enduml" + System.lineSeparator() +
-            "" + System.lineSeparator(), stringWriter.toString());
+                "title Software System - Web Application - Components" + System.lineSeparator() +
+                "component \"Database\" <<Container>> as 8" + System.lineSeparator() +
+                "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
+                "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "package WebApplication {" + System.lineSeparator() +
+                "  component \"EmailComponent\" <<Component>> as 13" + System.lineSeparator() +
+                "  component \"SomeController\" <<Spring MVC Controller>> as 12" + System.lineSeparator() +
+                "  component \"SomeRepository\" <<Spring Data>> as 14" + System.lineSeparator() +
+                "}" + System.lineSeparator() +
+                "4 ..> 1 : Delivers e-mails to" + System.lineSeparator() +
+                "13 ..> 4 : Sends e-mails using <<SMTP>>" + System.lineSeparator() +
+                "12 ..> 13 : Sends e-mail using" + System.lineSeparator() +
+                "12 ..> 14 : Uses" + System.lineSeparator() +
+                "14 ..> 8 : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
+                "1 ..> 12 : Uses <<HTTP>>" + System.lineSeparator() +
+                "@enduml" + System.lineSeparator() +
+                System.lineSeparator(), stringWriter.toString());
     }
 
     @Test
@@ -207,17 +226,45 @@ public class PlantUMLWriterTests {
         populateWorkspace();
 
         DynamicView dynamicView = workspace.getViews().getDynamicViews()
-            .stream().findFirst().get();
+                .stream().findFirst().get();
         plantUMLWriter.write(dynamicView, stringWriter);
 
         assertEquals("@startuml" + System.lineSeparator() +
-            "title Web Application - Dynamic" + System.lineSeparator() +
-            "actor User" + System.lineSeparator() +
-            "User -> SomeController : Requests /something" + System.lineSeparator() +
-            "SomeController -> SomeRepository : Uses" + System.lineSeparator() +
-            "SomeRepository -> Database : select * from something" + System.lineSeparator() +
-            "@enduml" + System.lineSeparator() +
-            System.lineSeparator(), stringWriter.toString());
+                "title Web Application - Dynamic" + System.lineSeparator() +
+                "component \"Database\" <<Container>> as 8" + System.lineSeparator() +
+                "component \"SomeController\" <<Spring MVC Controller>> as 12" + System.lineSeparator() +
+                "component \"SomeRepository\" <<Spring Data>> as 14" + System.lineSeparator() +
+                "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "1 -> 12 : Requests /something" + System.lineSeparator() +
+                "12 -> 14 : Uses" + System.lineSeparator() +
+                "14 -> 8 : select * from something" + System.lineSeparator() +
+                "@enduml" + System.lineSeparator() +
+                System.lineSeparator(), stringWriter.toString());
+    }
+
+    @Test
+    public void test_writeDeploymentView() throws Exception {
+        populateWorkspace();
+
+        DeploymentView deploymentView = workspace.getViews().getDeploymentViews()
+                .stream().findFirst().get();
+        plantUMLWriter.write(deploymentView, stringWriter);
+
+        assertEquals("@startuml" + System.lineSeparator() +
+                "title Software System - Deployment" + System.lineSeparator() +
+                "node \"Database Server\" <<Ubuntu 12.04 LTS>> as 23 {" + System.lineSeparator() +
+                "  node \"MySQL\" <<MySQL 5.5.x>> as 24 {" + System.lineSeparator() +
+                "    artifact \"Database\" <<Container>> as 25" + System.lineSeparator() +
+                "  }" + System.lineSeparator() +
+                "}" + System.lineSeparator() +
+                "node \"Web Server\" <<Ubuntu 12.04 LTS>> as 20 {" + System.lineSeparator() +
+                "  node \"Apache Tomcat\" <<Apache Tomcat 8.x>> as 21 {" + System.lineSeparator() +
+                "    artifact \"Web Application\" <<Container>> as 22" + System.lineSeparator() +
+                "  }" + System.lineSeparator() +
+                "}" + System.lineSeparator() +
+                "22 ..> 25 : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
+                "@enduml" + System.lineSeparator() +
+                System.lineSeparator(), stringWriter.toString());
     }
 
     private void populateWorkspace() {
@@ -247,6 +294,13 @@ public class PlantUMLWriterTests {
         repository.uses(database, "Reads from and writes to", "JDBC");
         emailComponent.uses(emailSystem, "Sends e-mails using", "SMTP");
 
+        DeploymentNode webServer = model.addDeploymentNode("Web Server", "A server hosted at AWS EC2.", "Ubuntu 12.04 LTS");
+        webServer.addDeploymentNode("Apache Tomcat", "The live web server", "Apache Tomcat 8.x")
+                .add(webApplication);
+        DeploymentNode databaseServer = model.addDeploymentNode("Database Server", "A server hosted at AWS EC2.", "Ubuntu 12.04 LTS");
+        databaseServer.addDeploymentNode("MySQL", "The live database server", "MySQL 5.5.x")
+                .add(database);
+
         EnterpriseContextView
             enterpriseContextView = workspace.getViews().createEnterpriseContextView("enterpriseContext", "");
         enterpriseContextView.addAllElements();
@@ -265,6 +319,9 @@ public class PlantUMLWriterTests {
         dynamicView.add(user, "Requests /something", controller);
         dynamicView.add(controller, repository);
         dynamicView.add(repository, "select * from something", database);
+
+        DeploymentView deploymentView = workspace.getViews().createDeploymentView(softwareSystem, "deployment", "");
+        deploymentView.addAllDeploymentNodes();
     }
 
 }
