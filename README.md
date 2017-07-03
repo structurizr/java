@@ -8,7 +8,7 @@ This GitHub repository is a collection of tooling to help you visualise, documen
 1. [PlantUML](docs/plantuml.md): a tool to create UML diagrams using a simple textual domain specific language.
 1. [graphviz](docs/graphviz-and-dot.md): a tool to render directed graphs using the DOT format.
 
-As a simple example, the following Java code can be used to create a software architecture model that describes a user using a software system.
+As an example, the following Java code can be used to create a software architecture model that describes a user using a software system.
 
 ```java
 Workspace workspace = new Workspace("Getting Started", "This is a model of my software system.");
