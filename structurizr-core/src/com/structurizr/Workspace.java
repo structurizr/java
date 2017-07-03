@@ -21,7 +21,7 @@ public final class Workspace extends AbstractWorkspace {
 
     private Model model = new Model();
     private ViewSet viewSet = new ViewSet(model);
-    private Documentation documentation = new StructurizrDocumentation(model);
+    private Documentation documentation = new StructurizrDocumentation(this);
 
     Workspace() {
     }
@@ -74,8 +74,14 @@ public final class Workspace extends AbstractWorkspace {
         return documentation;
     }
 
+    /**
+     * Sets the documentation associated with this workspace.
+     *
+     * @param documentation a Documentation object
+     */
     public void setDocumentation(Documentation documentation) {
         this.documentation = documentation;
+        documentation.setModel(getModel());
     }
 
     @JsonIgnore

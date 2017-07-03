@@ -172,8 +172,7 @@ public class SpringPetClinic {
         liveDeploymentView.add(secondaryDatabaseServer);
         liveDeploymentView.add(dataReplicationRelationship);
 
-        StructurizrDocumentation documentation = new StructurizrDocumentation(model);
-        workspace.setDocumentation(documentation);
+        StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
         documentation.addContextSection(springPetClinic, Format.Markdown, "This is the context section for the Spring PetClinic System... ![](embed:context)");
         documentation.addContainersSection(springPetClinic, Format.Markdown, "This is the containers section for the Spring PetClinic System... ![](embed:containers)");
         documentation.addComponentsSection(webApplication, Format.Markdown, "This is the components section for the Spring PetClinic web application... ![](embed:components)");

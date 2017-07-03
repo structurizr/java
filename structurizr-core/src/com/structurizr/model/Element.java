@@ -115,11 +115,21 @@ public abstract class Element extends Taggable {
      * @param value     the value of the property
      */
     public void addProperty(String name, String value) {
+        if (name == null || name.trim().length() == 0) {
+            throw new IllegalArgumentException("A property name must be specified.");
+        }
+
+        if (value == null || value.trim().length() == 0) {
+            throw new IllegalArgumentException("A property value must be specified.");
+        }
+
         properties.put(name, value);
     }
 
     void setProperties(Map<String, String> properties) {
-        this.properties = properties;
+        if (properties != null) {
+            this.properties = properties;
+        }
     }
 
     @JsonIgnore

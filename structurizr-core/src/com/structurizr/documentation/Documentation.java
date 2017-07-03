@@ -3,6 +3,7 @@ package com.structurizr.documentation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.structurizr.Workspace;
 import com.structurizr.model.Element;
 import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;
@@ -35,8 +36,12 @@ public abstract class Documentation {
     Documentation() {
     }
 
-    public Documentation(Model model) {
-        this.model = model;
+    public Documentation(Workspace workspace) {
+        if (workspace == null) {
+            throw new IllegalArgumentException("A workspace must be specified.");
+        }
+
+        this.model = workspace.getModel();
     }
 
     @JsonIgnore

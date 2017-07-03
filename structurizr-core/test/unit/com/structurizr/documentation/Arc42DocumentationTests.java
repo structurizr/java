@@ -22,7 +22,7 @@ public class Arc42DocumentationTests {
         Workspace workspace = new Workspace("Name", "Description");
         softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
 
-        documentation = new Arc42Documentation(workspace.getModel());
+        documentation = new Arc42Documentation(workspace);
     }
 
     @Test

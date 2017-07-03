@@ -32,7 +32,7 @@ public class StructurizrDocumentationTests {
         componentA1 = containerA.addComponent("Component A1", "Description", "Technology");
         componentA2 = containerA.addComponent("Component A2", "Description", "Technology");
 
-        documentation = new StructurizrDocumentation(workspace.getModel());
+        documentation = new StructurizrDocumentation(workspace);
     }
 
     @Test

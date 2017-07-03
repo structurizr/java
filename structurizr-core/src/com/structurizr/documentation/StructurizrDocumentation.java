@@ -1,8 +1,8 @@
 package com.structurizr.documentation;
 
+import com.structurizr.Workspace;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
-import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;
 
 import java.io.File;
@@ -50,8 +50,8 @@ public final class StructurizrDocumentation extends Documentation {
     StructurizrDocumentation() {
     }
 
-    public StructurizrDocumentation(Model model) {
-        super(model);
+    public StructurizrDocumentation(Workspace workspace) {
+        super(workspace);
     }
 
     /**

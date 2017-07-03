@@ -41,8 +41,7 @@ public class CorporateBranding {
         SystemContextView systemContextView = views.createSystemContextView(softwareSystem, "systemContext", "This is an example system context diagram.");
         systemContextView.addAllElements();
 
-        StructurizrDocumentation documentation = new StructurizrDocumentation(model);
-        workspace.setDocumentation(documentation);
+        StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
         documentation.addContextSection(softwareSystem, Format.Markdown, "Here is a diagram... ![](embed:systemContext)");
 
         Branding branding = views.getConfiguration().getBranding();

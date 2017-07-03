@@ -1,6 +1,6 @@
 package com.structurizr.documentation;
 
-import com.structurizr.model.Model;
+import com.structurizr.Workspace;
 import com.structurizr.model.SoftwareSystem;
 
 import java.io.File;
@@ -45,8 +45,8 @@ public final class Arc42Documentation extends Documentation {
     Arc42Documentation() {
     }
 
-    public Arc42Documentation(Model model) {
-        super(model);
+    public Arc42Documentation(Workspace workspace) {
+        super(workspace);
     }
 
     /**
