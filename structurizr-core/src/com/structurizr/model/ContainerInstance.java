@@ -7,7 +7,8 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * Represents a deployment instance of a Container, which can be added to a {@link DeploymentNode}.
+ * Represents a deployment instance of a {@link Container},
+ * which can be added to a {@link DeploymentNode}.
  */
 public class ContainerInstance extends Element {
 

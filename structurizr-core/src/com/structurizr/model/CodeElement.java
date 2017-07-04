@@ -1,5 +1,7 @@
 package com.structurizr.model;
 
+import com.structurizr.util.Url;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -9,14 +11,31 @@ import java.net.URL;
  */
 public class CodeElement {
 
+    /** the role of the code element ... Primary or Supporting */
     private CodeElementRole role = CodeElementRole.Supporting;
+
+    /** the name of the code element ... typically the simple class/interface name */
     private String name;
+
+    /** the fully qualified type of the code element **/
     private String type;
+
+    /** a short description of the code element */
     private String description;
+
+    /** a URL, perhaps to a copy of the code element in source code control */
     private String url;
+
+    /** the programming language used to create the code element */
     private String language = "Java";
+
+    /** the category of code element ... e.g. class, interface, etc */
     private String category;
+
+    /** the visibility of the code element ... e.g. public, package, private */
     private String visibility;
+
+    /** the size of the code element ... e.g. the number of lines */
     private long size;
 
     CodeElement() {
@@ -86,10 +105,9 @@ public class CodeElement {
      */
     public void setUrl(String url) {
         if (url != null && url.trim().length() > 0) {
-            try {
-                URL u = new URL(url);
+            if (Url.isUrl(url)) {
                 this.url = url;
-            } catch (MalformedURLException murle) {
+            } else {
                 throw new IllegalArgumentException(url + " is not a valid URL.");
             }
         }

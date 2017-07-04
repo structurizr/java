@@ -1,6 +1,7 @@
 package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.structurizr.util.Url;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -90,10 +91,9 @@ public abstract class Element extends Taggable {
      */
     public void setUrl(String url) {
         if (url != null && url.trim().length() > 0) {
-            try {
-                URL u = new URL(url);
+            if (Url.isUrl(url)) {
                 this.url = url;
-            } catch (MalformedURLException murle) {
+            } else {
                 throw new IllegalArgumentException(url + " is not a valid URL.");
             }
         }

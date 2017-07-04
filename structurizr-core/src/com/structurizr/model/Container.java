@@ -12,13 +12,10 @@ import java.util.Set;
  * something that needs to be running in order for the overall software system
  * to work. In real terms, a container is something like a server-side web application,
  * a client-side web application, client-side desktop application, a mobile app,
- * a microservice, a database scheme, a file system, etc.
+ * a microservice, a database schema, a file system, etc.
  *
  * A container is essentially a context or boundary inside which some code is executed
  * or some data is stored. And each container is a separately deployable thing.
- *
- * See <a href="https://structurizr.com/help/model#Container">Model - Container</a>
- * on the Structurizr website for more information.
  */
 public class Container extends StaticStructureElement {
 
