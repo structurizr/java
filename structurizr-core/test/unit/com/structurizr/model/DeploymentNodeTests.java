@@ -1,5 +1,7 @@
 package com.structurizr.model;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.Workspace;
@@ -21,6 +23,9 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
         node1.add(container1);
 
         ObjectMapper mapper = new ObjectMapper();
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        mapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+
         String json = mapper.writeValueAsString(workspace);
 
         Workspace deserializedWorkspace = mapper.readValue(json, Workspace.class);
