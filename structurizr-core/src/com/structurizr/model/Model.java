@@ -284,6 +284,8 @@ public class Model {
                 }
             }
         }
+
+        deploymentNodes.forEach(this::hydrateDeploymentNodeRelationships);
     }
 
     private void hydrateDeploymentNode(DeploymentNode deploymentNode, DeploymentNode parent) {
@@ -296,6 +298,12 @@ public class Model {
             containerInstance.setContainer((Container)getElement(containerInstance.getContainerId()));
             addElementToInternalStructures(containerInstance);
         }
+    }
+
+    private void hydrateDeploymentNodeRelationships(DeploymentNode deploymentNode) {
+        hydrateRelationships(deploymentNode);
+        deploymentNode.getChildren().forEach(this::hydrateDeploymentNodeRelationships);
+        deploymentNode.getContainerInstances().forEach(this::hydrateRelationships);
     }
 
     private void hydrateRelationships(Element element) {
