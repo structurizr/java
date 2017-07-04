@@ -97,4 +97,15 @@ public class ContainerInstance extends Element {
         }
     }
 
+    @Override
+    @JsonIgnore
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public void setName(String name) {
+        // no-op ... the name of a container instance is taken from the associated Container
+    }
+
 }
