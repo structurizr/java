@@ -201,6 +201,20 @@ public abstract class View {
     }
 
     /**
+     * Removes relationships that are not connected to the specified element.
+     *
+     * @param element       the Element to test against
+     */
+    public void removeRelationshipsNotConnectedToElement(Element element) {
+        if (element != null) {
+            getRelationships().stream()
+                    .map(RelationshipView::getRelationship)
+                    .filter(r -> !r.getSource().equals(element) && !r.getDestination().equals(element))
+                    .forEach(this::remove);
+        }
+    }
+
+    /**
      * Gets the set of elements in this view.
      *
      * @return a Set of ElementView objects

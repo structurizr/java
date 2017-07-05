@@ -44,7 +44,6 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
 * Diagrams
     * [Styling elements](docs/styling-elements.md)
     * [Styling relationships](docs/styling-relationships.md)
-    * [Hiding relationships](docs/hiding-relationships.md)
     * [Dynamic views](docs/dynamic-views.md)
     * Deployment views
 * Documentation
