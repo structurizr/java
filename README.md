@@ -37,15 +37,19 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Basic concepts](docs/basic-concepts.md) (workspaces, models, views and documentation)
     * [Binaries](docs/binaries.md)
     * [API Client](docs/api-client.md)
+* Diagrams
+    * [Styling elements](docs/styling-elements.md)
+    * [Styling relationships](docs/styling-relationships.md)
+    * Enterprise context view
+    * System context view
+    * Container view
+    * Component view
+    * [Dynamic views](docs/dynamic-views.md)
+    * Deployment views
 * Software architecture model
     * [Extracting components from your codebase](docs/extracting-components.md)
     * [Components and supporting types](docs/supporting-types.md)
     * [The Spring PetClinic example](docs/spring-petclinic.md)
-* Diagrams
-    * [Styling elements](docs/styling-elements.md)
-    * [Styling relationships](docs/styling-relationships.md)
-    * [Dynamic views](docs/dynamic-views.md)
-    * Deployment views
 * Documentation
     * [Documentation](docs/documentation.md)
 * Exporting and visualising with other tools

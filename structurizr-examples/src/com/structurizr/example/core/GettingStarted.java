@@ -44,7 +44,7 @@ public class GettingStarted {
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd").color("#ffffff");
         styles.addElementStyle(Tags.PERSON).background("#08427b").color("#ffffff").shape(Shape.Person);
 
-        // upload to structuriz.com (you'll need your own workspace ID, API key and API secret)
+        // upload to structurizr.com (you'll need your own workspace ID, API key and API secret)
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
     }

@@ -26,7 +26,7 @@ Person | "Element", "Person"
 Container | "Element", "Container"
 Component | "Element", "Component"
 
-All of these tags are defined as constants in the [Tags](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/model/Tags.java) class. You can add your own custom tags to elements using the ```addTags()``` method on the element.
+All of these tags are defined as constants in the [Tags](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/model/Tags.java) class. As we'll see shortly, you can also add your own custom tags to elements using the ```addTags()``` method on the element.
 
 ## Colour
 
@@ -59,8 +59,8 @@ You can also style elements using different shapes as follows.
 styles.addElementStyle(Tags.ELEMENT).color("#ffffff");
 styles.addElementStyle(Tags.PERSON).background("#08427b").shape(Shape.Person);
 styles.addElementStyle(Tags.CONTAINER).background("#438dd5");
-database.addTags(DATABASE_TAG);
-styles.addElementStyle(DATABASE_TAG).shape(Shape.Cylinder);
+database.addTags("Database");
+styles.addElementStyle("Database").shape(Shape.Cylinder);
 ```
 
 ![Adding some shapes](images/styling-elements-4.png)
@@ -69,6 +69,8 @@ As with CSS, styles cascade according to the order in which they are added. In t
 
 ## Diagram key
 
-[Structurizr](https://structurizr.com) will automatically add all element styles to a diagram key.
+Structurizr will automatically add all element styles to a diagram key, showing you which styles are associated with which tags.
 
 ![The diagram key](images/styling-elements-5.png)
+
+You can find the code for this example at [StylingElements.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/StylingElements.java) and the live example workspace at [https://structurizr.com/share/36111](https://structurizr.com/share/36111).
