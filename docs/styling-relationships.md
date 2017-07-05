@@ -8,8 +8,8 @@ However, the following characteristics of the relationships can be customized:
 
 - Line thickness (pixels)
 - Colour (HTML hex value)
-- Line style (dashed or solid)
-- Routing (direct or orthogonal)
+- Dashed (true or false)
+- Routing (Direct or Orthogonal; see the [Routing](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/view/Routing.java) enum)
 - Font size (pixels)
 - Width (of the description, in pixels)
 - Position (of the description along the line, as a percentage from start to end)
@@ -43,7 +43,7 @@ styles.addRelationshipStyle("JDBC").color("#0000ff");
 
 ## Diagram key
 
-[Structurizr](https://structurizr.com) will automatically add all relationship styles to a diagram key.
+Structurizr will automatically add all relationship styles to a diagram key.
 
 ![The diagram key](images/styling-relationships-4.png)
 

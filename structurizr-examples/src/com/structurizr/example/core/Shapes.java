@@ -4,16 +4,18 @@ import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
 import com.structurizr.model.Model;
 import com.structurizr.model.Tags;
-import com.structurizr.view.Shape;
-import com.structurizr.view.Styles;
-import com.structurizr.view.ViewSet;
+import com.structurizr.view.*;
 
 /**
- * A simple example of the shapes available in Structurizr.
+ * An example illustrating all of the shapes available in Structurizr.
  *
- * You can see the workspace online at https://structurizr.com/public/12541
+ * The live workspace is available to view at https://structurizr.com/share/12541
  */
-public class ShapesExample {
+public class Shapes {
+
+    private static final long WORKSPACE_ID = 12541;
+    private static final String API_KEY = "";
+    private static final String API_SECRET = "";
 
     public static void main(String[] args) throws Exception {
         Workspace workspace = new Workspace("Shapes", "An example of all shapes available in Structurizr.");
@@ -29,8 +31,11 @@ public class ShapesExample {
         model.addSoftwareSystem("Folder", "Description").addTags("Folder");
         model.addPerson("Person", "Description").addTags("Person");
 
-        // tag and style some elements
         ViewSet viewSet = workspace.getViews();
+        EnterpriseContextView view = viewSet.createEnterpriseContextView("shapes", "An example of all shapes available in Structurizr.");
+        view.addAllElements();
+        view.setPaperSize(PaperSize.A5_Landscape);
+
         Styles styles = viewSet.getConfiguration().getStyles();
 
         styles.addElementStyle(Tags.ELEMENT).color("#ffffff").background("#438dd5").fontSize(34).width(650).height(400);
@@ -44,12 +49,8 @@ public class ShapesExample {
         styles.addElementStyle("Hexagon").shape(Shape.Hexagon);
         styles.addElementStyle("Person").shape(Shape.Person).width(550);
 
-        // create some views
-        viewSet.createEnterpriseContextView("Diagram", "An example diagram.").addAllElements();
-
-        StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-        structurizrClient.putWorkspace(12541, workspace);
-
+        StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
+        structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
     }
 
 }

@@ -12,7 +12,7 @@ However, the following characteristics of the elements can be customized:
 - Text colour (HTML hex value)
 - Font size (pixels)
 - Shape (see the [Shape](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/view/Shape.java) enum)
-- Border (see the [Border](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/view/Border.java) enum)
+- Border (Solid or Dashed; see the [Border](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/view/Border.java) enum)
 - Opacity (an integer between 0 and 100)
 
 ## Tagging elements
@@ -67,10 +67,14 @@ styles.addElementStyle("Database").shape(Shape.Cylinder);
 
 As with CSS, styles cascade according to the order in which they are added. In the example above, the database element is coloured using the "Container" style, the shape of which is overriden by the "Database" style.
 
+The set of available shapes is as follows:
+
+![The shapes available in Structurizr](images/styling-elements-5.png)
+
 ## Diagram key
 
 Structurizr will automatically add all element styles to a diagram key, showing you which styles are associated with which tags.
 
-![The diagram key](images/styling-elements-5.png)
+![The diagram key](images/styling-elements-6.png)
 
 You can find the code for this example at [StylingElements.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/StylingElements.java) and the live example workspace at [https://structurizr.com/share/36111](https://structurizr.com/share/36111).
