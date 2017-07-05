@@ -42,6 +42,7 @@ public abstract class Documentation {
         }
 
         this.model = workspace.getModel();
+        workspace.setDocumentation(this);
     }
 
     @JsonIgnore
