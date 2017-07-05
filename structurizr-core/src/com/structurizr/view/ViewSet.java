@@ -47,66 +47,96 @@ public class ViewSet {
         this.model = model;
     }
 
+    /**
+     * Creates an enterprise context view.
+     *
+     * @param key           the key for the view (must be unique)
+     * @param description   a description of the view
+     * @return              an EnterpriseContextView object
+     * @throws              IllegalArgumentException if the key is not unique
+     */
     public EnterpriseContextView createEnterpriseContextView(String key, String description) {
-        if (getViewWithKey(key) != null) {
-            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            EnterpriseContextView view = new EnterpriseContextView(model, key, description);
-            enterpriseContextViews.add(view);
-            return view;
-        }
+        assertThatTheViewKeyIsUnique(key);
+
+        EnterpriseContextView view = new EnterpriseContextView(model, key, description);
+        enterpriseContextViews.add(view);
+        return view;
     }
 
+    /**
+     * Creates a system context view, where the scope of the view is the specified software system.
+     *
+     * @param softwareSystem    the SoftwareSystem object representing the scope of the view
+     * @param key               the key for the view (must be unique)
+     * @param description       a description of the view
+     * @return                  a SystemContextView object
+     * @throws                  IllegalArgumentException if the software system is null or the key is not unique
+     */
     public SystemContextView createSystemContextView(SoftwareSystem softwareSystem, String key, String description) {
-        if (getViewWithKey(key) != null) {
-            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            SystemContextView view = new SystemContextView(softwareSystem, key, description);
-            systemContextViews.add(view);
-            return view;
-        }
+        assertThatTheSoftwareSystemIsNotNull(softwareSystem);
+        assertThatTheViewKeyIsUnique(key);
+
+        SystemContextView view = new SystemContextView(softwareSystem, key, description);
+        systemContextViews.add(view);
+        return view;
     }
 
+    /**
+     * Creates a container view, where the scope of the view is the specified software system.
+     *
+     * @param softwareSystem    the SoftwareSystem object representing the scope of the view
+     * @param key               the key for the view (must be unique)
+     * @param description       a description of the view
+     * @return                  a ContainerView object
+     * @throws                  IllegalArgumentException if the software system is null or the key is not unique
+     */
     public ContainerView createContainerView(SoftwareSystem softwareSystem, String key, String description) {
-        if (getViewWithKey(key) != null) {
-            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            ContainerView view = new ContainerView(softwareSystem, key, description);
-            containerViews.add(view);
-            return view;
-        }
+        assertThatTheSoftwareSystemIsNotNull(softwareSystem);
+        assertThatTheViewKeyIsUnique(key);
+
+        ContainerView view = new ContainerView(softwareSystem, key, description);
+        containerViews.add(view);
+        return view;
     }
 
+    /**
+     * Creates a component view, where the scope of the view is the specified container.
+     *
+     * @param container         the Container object representing the scope of the view
+     * @param key               the key for the view (must be unique)
+     * @param description       a description of the view
+     * @return                  a ContainerView object
+     * @throws                  IllegalArgumentException if the container is null or the key is not unique
+     */
     public ComponentView createComponentView(Container container, String key, String description) {
-        if (getViewWithKey(key) != null) {
-            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            ComponentView view = new ComponentView(container, key, description);
-            componentViews.add(view);
-            return view;
-        }
+        assertThatTheContainerIsNotNull(container);
+        assertThatTheViewKeyIsUnique(key);
+
+        ComponentView view = new ComponentView(container, key, description);
+        componentViews.add(view);
+        return view;
     }
 
     /**
      * Creates a dynamic view.
      *
-     * @param key           the key for the dynamic view (must be unique)
-     * @param description   a description of the dynamic view
+     * @param key           the key for the view (must be unique)
+     * @param description   a description of the view
      * @return              a DynamicView object
+     * @throws              IllegalArgumentException if the key is not unique
      */
     public DynamicView createDynamicView(String key, String description) {
-        if (getViewWithKey(key) != null) {
-            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            DynamicView view = new DynamicView(getModel(), key, description);
-            dynamicViews.add(view);
-            return view;
-        }
+        assertThatTheViewKeyIsUnique(key);
+
+        DynamicView view = new DynamicView(getModel(), key, description);
+        dynamicViews.add(view);
+        return view;
     }
 
     /**
      * Creates a dynamic view, where the scope is the specified software system. The following
      * elements can be added to the resulting view:
+     *
      * <ul>
      * <li>People</li>
      * <li>Software systems</li>
@@ -114,27 +144,24 @@ public class ViewSet {
      * </ul>
      *
      * @param softwareSystem    the SoftwareSystem object representing the scope of the view
-     * @param key               the key for the dynamic view (must be unique)
-     * @param description       a description of the dynamic view
+     * @param key               the key for the view (must be unique)
+     * @param description       a description of the view
      * @return                  a DynamicView object
+     * @throws                  IllegalArgumentException if the software system is null or the key is not unique
      */
     public DynamicView createDynamicView(SoftwareSystem softwareSystem, String key, String description) {
-        if (softwareSystem == null) {
-            throw new IllegalArgumentException("Software system must not be null.");
-        }
+        assertThatTheSoftwareSystemIsNotNull(softwareSystem);
+        assertThatTheViewKeyIsUnique(key);
 
-        if (getViewWithKey(key) != null) {
-            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            DynamicView view = new DynamicView(softwareSystem, key, description);
-            dynamicViews.add(view);
-            return view;
-        }
+        DynamicView view = new DynamicView(softwareSystem, key, description);
+        dynamicViews.add(view);
+        return view;
     }
 
     /**
      * Creates a dynamic view, where the scope is the specified container. The following
      * elements can be added to the resulting view:
+     *
      * <ul>
      * <li>People</li>
      * <li>Software systems</li>
@@ -143,32 +170,52 @@ public class ViewSet {
      * </ul>
      *
      * @param container         the Container object representing the scope of the view
-     * @param key               the key for the dynamic view (must be unique)
-     * @param description       a description of the dynamic view
+     * @param key               the key for the view (must be unique)
+     * @param description       a description of the view
      * @return                  a DynamicView object
+     * @throws                  IllegalArgumentException if the container is null or the key is not unique
      */
     public DynamicView createDynamicView(Container container, String key, String description) {
-        if (container == null) {
-            throw new IllegalArgumentException("Container must not be null.");
-        }
+        assertThatTheContainerIsNotNull(container);
+        assertThatTheViewKeyIsUnique(key);
 
-        if (getViewWithKey(key) != null) {
-            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            DynamicView view = new DynamicView(container, key, description);
-            dynamicViews.add(view);
-            return view;
-        }
+        DynamicView view = new DynamicView(container, key, description);
+        dynamicViews.add(view);
+        return view;
     }
 
+    /**
+     * Creates a deployment view.
+     *
+     * @param key           the key for the deployment view (must be unique)
+     * @param description   a description of the  view
+     * @return              a DeploymentView object
+     * @throws              IllegalArgumentException if the key is not unique
+     */
+    public DeploymentView createDeploymentView(String key, String description) {
+        assertThatTheViewKeyIsUnique(key);
+
+        DeploymentView view = new DeploymentView(getModel(), key, description);
+        deploymentViews.add(view);
+        return view;
+    }
+
+    /**
+     * Creates a deployment view, where the scope of the view is the specified software system.
+     *
+     * @param softwareSystem    the SoftwareSystem object representing the scope of the view
+     * @param key               the key for the deployment view (must be unique)
+     * @param description       a description of the view
+     * @return                  a DeploymentView object
+     * @throws                  IllegalArgumentException if the software system is null or the key is not unique
+     */
     public DeploymentView createDeploymentView(SoftwareSystem softwareSystem, String key, String description) {
-        if (getViewWithKey(key) != null) {
-            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            DeploymentView view = new DeploymentView(softwareSystem, key, description);
-            deploymentViews.add(view);
-            return view;
-        }
+        assertThatTheSoftwareSystemIsNotNull(softwareSystem);
+        assertThatTheViewKeyIsUnique(key);
+
+        DeploymentView view = new DeploymentView(softwareSystem, key, description);
+        deploymentViews.add(view);
+        return view;
     }
 
     /**
@@ -182,12 +229,28 @@ public class ViewSet {
      * @return              a FilteredView object
      */
     public FilteredView createFilteredView(View view, String key, String description, FilterMode mode, String... tags) {
+        assertThatTheViewKeyIsUnique(key);
+
+        FilteredView filteredView = new FilteredView(view, key, description, mode, tags);
+        filteredViews.add(filteredView);
+        return filteredView;
+    }
+
+    private void assertThatTheViewKeyIsUnique(String key) {
         if (getViewWithKey(key) != null) {
             throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            FilteredView filteredView = new FilteredView(view, key, description, mode, tags);
-            filteredViews.add(filteredView);
-            return filteredView;
+        }
+    }
+
+    private void assertThatTheSoftwareSystemIsNotNull(SoftwareSystem softwareSystem) {
+        if (softwareSystem == null) {
+            throw new IllegalArgumentException("Software system must not be null.");
+        }
+    }
+
+    private void assertThatTheContainerIsNotNull(Container container) {
+        if (container == null) {
+            throw new IllegalArgumentException("Container must not be null.");
         }
     }
 
@@ -300,6 +363,7 @@ public class ViewSet {
 
         for (DeploymentView view : deploymentViews) {
             view.setSoftwareSystem(model.getSoftwareSystemWithId(view.getSoftwareSystemId()));
+            view.setModel(model);
             hydrateView(view);
         }
 
