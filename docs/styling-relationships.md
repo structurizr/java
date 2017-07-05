@@ -17,7 +17,7 @@ However, the following characteristics of the relationships can be customized:
 
 ## Tagging relationships
 
-All relationships within a software architecture model can have one or more tags associated with them. A tag is simply a free-format string. By default, the Java client library adds the ```"Relationship"``` tag to relationships. You can add your own custom tags to relationships using the ```addTags()``` method on the relationship.
+All relationships within a software architecture model can have one or more tags associated with them. A tag is simply a free-format string. By default, the Java client library adds the ```"Relationship"``` tag to relationships. As we'll see shortly, you can add your own custom tags to relationships using the ```addTags()``` method on the relationship.
 
 ## Colour
 
@@ -33,9 +33,10 @@ styles.addRelationshipStyle(Tags.RELATIONSHIP).color("#ff0000");
 You can also change the colour of specific relationships, based upon their tag, as follows.
 
 ```java
-user.getRelationships().forEach(r -> r.addTags("HTTPS"));
-styles.addRelationshipStyle(Tags.RELATIONSHIP).color("#3366ff");
-styles.addRelationshipStyle("HTTPS").color("#33cc33").dashed(false);
+model.getRelationships().stream().filter(r -> "HTTPS".equals(r.getTechnology())).forEach(r -> r.addTags("HTTPS"));
+model.getRelationships().stream().filter(r -> "JDBC".equals(r.getTechnology())).forEach(r -> r.addTags("JDBC"));
+styles.addRelationshipStyle("HTTPS").color("#ff0000");
+styles.addRelationshipStyle("JDBC").color("#0000ff");
 ```
 
 ![Colouring relationships based upon tag](images/styling-relationships-3.png)
@@ -45,3 +46,6 @@ styles.addRelationshipStyle("HTTPS").color("#33cc33").dashed(false);
 [Structurizr](https://structurizr.com) will automatically add all relationship styles to a diagram key.
 
 ![The diagram key](images/styling-relationships-4.png)
+
+
+You can find the code for this example at [StylingRelationships.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/StylingRelationships.java) and the live example workspace at [https://structurizr.com/share/36131](https://structurizr.com/share/36131).

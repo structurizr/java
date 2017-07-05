@@ -4,23 +4,22 @@ import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
 import com.structurizr.model.*;
 import com.structurizr.view.ContainerView;
-import com.structurizr.view.Shape;
 import com.structurizr.view.Styles;
 import com.structurizr.view.ViewSet;
 
 /**
- * An example of how to style elements on diagrams.
+ * An example of how to style relationships on diagrams.
  *
- * The live workspace is available to view at https://structurizr.com/share/36111
+ * The live workspace is available to view at https://structurizr.com/share/36131
  */
-public class StylingElements {
+public class StylingRelationships {
 
-    private static final long WORKSPACE_ID = 36111;
+    private static final long WORKSPACE_ID = 36131;
     private static final String API_KEY = "";
     private static final String API_SECRET = "";
 
     public static void main(String[] args) throws Exception {
-        Workspace workspace = new Workspace("Styling Elements", "This is a model of my software system.");
+        Workspace workspace = new Workspace("Styling Relationships", "This is a model of my software system.");
         Model model = workspace.getModel();
 
         Person user = model.addPerson("User", "A user of my software system.");
@@ -37,19 +36,13 @@ public class StylingElements {
         Styles styles = workspace.getViews().getConfiguration().getStyles();
 
         // example 1
-//        styles.addElementStyle(Tags.ELEMENT).background("#438dd5").color("#ffffff");
+//        styles.addRelationshipStyle(Tags.RELATIONSHIP).color("#ff0000");
 
         // example 2
-//        styles.addElementStyle(Tags.ELEMENT).color("#ffffff");
-//        styles.addElementStyle(Tags.PERSON).background("#08427b");
-//        styles.addElementStyle(Tags.CONTAINER).background("#438dd5");
-
-        // example 3
-//        styles.addElementStyle(Tags.ELEMENT).color("#ffffff");
-//        styles.addElementStyle(Tags.PERSON).background("#08427b").shape(Shape.Person);
-//        styles.addElementStyle(Tags.CONTAINER).background("#438dd5");
-//        database.addTags("Database");
-//        styles.addElementStyle("Database").shape(Shape.Cylinder);
+//        model.getRelationships().stream().filter(r -> "HTTPS".equals(r.getTechnology())).forEach(r -> r.addTags("HTTPS"));
+//        model.getRelationships().stream().filter(r -> "JDBC".equals(r.getTechnology())).forEach(r -> r.addTags("JDBC"));
+//        styles.addRelationshipStyle("HTTPS").color("#ff0000");
+//        styles.addRelationshipStyle("JDBC").color("#0000ff");
 
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
