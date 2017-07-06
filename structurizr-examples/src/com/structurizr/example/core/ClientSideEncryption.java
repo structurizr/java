@@ -18,7 +18,7 @@ import com.structurizr.view.ViewSet;
 /**
  * This is an example of how to use client-side encryption.
  *
- * You can see the workspace online at https://structurizr.com/public/41
+ * You can see the workspace online at https://structurizr.com/share/41
  * (the passphrase is "password").
  */
 public class ClientSideEncryption {
