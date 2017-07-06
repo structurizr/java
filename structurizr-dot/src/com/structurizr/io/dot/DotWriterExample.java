@@ -31,7 +31,6 @@ public class DotWriterExample {
         StringWriter stringWriter = new StringWriter();
         DotWriter dotWriter = new DotWriter();
         dotWriter.write(workspace, stringWriter);
-
         System.out.println(stringWriter);
     }
 

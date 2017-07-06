@@ -6,7 +6,7 @@ This GitHub repository is a collection of tooling to help you visualise, documen
 
 1. [Structurizr](https://structurizr.com): a web-based software as a service and on-premises product to render software architecture diagrams and supplementary Markdown/AsciiDoc documentation.
 1. [PlantUML](docs/plantuml.md): a tool to create UML diagrams using a simple textual domain specific language.
-1. [graphviz](docs/graphviz-and-dot.md): a tool to render directed graphs using the DOT format.
+1. [Graphviz](docs/graphviz-and-dot.md): a tool to render directed graphs using the DOT format.
 
 As an example, the following Java code can be used to create a software architecture model that describes a user using a software system.
 
@@ -54,8 +54,8 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
 * Documentation
     * [Documentation](docs/documentation.md)
 * Exporting and visualising with other tools
-    * [Graphviz and DOT](docs/graphviz-and-dot.md)
     * [PlantUML](docs/plantuml.md)
+    * [Graphviz and DOT](docs/graphviz-and-dot.md)
 * Other
     * [Client-side encryption](docs/client-side-encryption.md)
     * [Corporate branding](docs/corporate-branding.md)
