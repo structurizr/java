@@ -4,7 +4,7 @@ import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
 import com.structurizr.documentation.Arc42Documentation;
 import com.structurizr.documentation.Format;
-import com.structurizr.example.ExampleWorkspace;
+import com.structurizr.example.core.BigBankPlc;
 import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;
 
@@ -18,7 +18,7 @@ import java.io.File;
 public class Arc42Example {
 
     public static void main(String[] args) throws Exception {
-        Workspace workspace = ExampleWorkspace.create();
+        Workspace workspace = BigBankPlc.create(true);
         workspace.setName("arc42");
         workspace.setDescription("An example of the arc42 documentation template.");
         Model model = workspace.getModel();

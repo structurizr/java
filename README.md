@@ -2,7 +2,7 @@
 
 # Structurizr for Java
 
-This GitHub repository is a collection of tooling to help you visualise, document and explore the software architecture of a software system. In summary, it allows you to create a software architecture model based upon Simon Brown's [C4 model](https://structurizr.com/help/c4) using Java code, and then export that model to be visualised using tools such as:
+This GitHub repository is a collection of tooling to help you visualise, document and explore the software architecture of a software system. In summary, it allows you to create a software architecture model based upon Simon Brown's [C4 model](docs/c4.md) using Java code, and then export that model to be visualised using tools such as:
 
 1. [Structurizr](https://structurizr.com): a web-based software as a service and on-premises product to render software architecture diagrams and supplementary Markdown/AsciiDoc documentation.
 1. [PlantUML](docs/plantuml.md): a tool to create UML diagrams using a simple textual domain specific language.
@@ -35,17 +35,18 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
 * Introduction
     * [Getting started](docs/getting-started.md)
     * [Basic concepts](docs/basic-concepts.md) (workspaces, models, views and documentation)
+    * [C4 model](docs/c4.md)
     * [Binaries](docs/binaries.md)
     * [API Client](docs/api-client.md)
 * Diagrams
+    * [System Context diagram](docs/system-context-diagram.md)
+    * [Container diagram](docs/container-diagram.md)
+    * [Component diagram](docs/component-diagram.md)
+    * [Dynamic diagram](docs/dynamic-diagram.md)
+    * [Deployment diagram](docs/deployment-diagram.md)
+    * [Enterprise Context diagram](docs/enterprise-context-diagram.md)
     * [Styling elements](docs/styling-elements.md)
     * [Styling relationships](docs/styling-relationships.md)
-    * Enterprise context view
-    * System context view
-    * Container view
-    * Component view
-    * [Dynamic views](docs/dynamic-views.md)
-    * Deployment views
 * Software architecture model
     * [Extracting components from your codebase](docs/extracting-components.md)
     * [Components and supporting types](docs/supporting-types.md)
@@ -59,3 +60,5 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Client-side encryption](docs/client-side-encryption.md)
     * [Corporate branding](docs/corporate-branding.md)
     * [Building from source](docs/building.md)
+
+![A cheat sheet for visualising software architecture](images/visualising-software-architecture.png)

@@ -1,7 +1,6 @@
 package com.structurizr.util;
 
 import com.structurizr.Workspace;
-import com.structurizr.example.ExampleWorkspace;
 import org.junit.Test;
 
 import java.io.File;
@@ -12,7 +11,7 @@ import static org.junit.Assert.fail;
 public class WorkspaceUtilsTests {
 
     @Test
-    public void test_loadWorkspaceFromJson_ThrowsAnException_WhenANullFileIspecified() {
+    public void test_loadWorkspaceFromJson_ThrowsAnException_WhenANullFileIsSpecified() {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(null);
             fail();
@@ -32,7 +31,7 @@ public class WorkspaceUtilsTests {
     }
 
     @Test
-    public void test_saveWorkspaceToJson_ThrowsAnException_WhenANullWorkspaceIspecified() {
+    public void test_saveWorkspaceToJson_ThrowsAnException_WhenANullWorkspaceIsSpecified() {
         try {
             WorkspaceUtils.saveWorkspaceToJson(null, null);
             fail();
@@ -42,7 +41,7 @@ public class WorkspaceUtilsTests {
     }
 
     @Test
-    public void test_saveWorkspaceToJson_ThrowsAnException_WhenANullFileIspecified() {
+    public void test_saveWorkspaceToJson_ThrowsAnException_WhenANullFileIsSpecified() {
         try {
             WorkspaceUtils.saveWorkspaceToJson(new Workspace("Name", "Description"), null);
             fail();
@@ -54,10 +53,11 @@ public class WorkspaceUtilsTests {
     @Test
     public void test_saveWorkspaceToJson_and_loadWorkspaceFromJson() throws Exception {
         File file = new File("build/workspace-utils.json");
-        WorkspaceUtils.saveWorkspaceToJson(ExampleWorkspace.create(), file);
+        Workspace workspace = new Workspace("Name", "Description");
+        WorkspaceUtils.saveWorkspaceToJson(workspace, file);
 
-        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(file);
-        assertEquals("Example workspace", workspace.getName());
+        workspace = WorkspaceUtils.loadWorkspaceFromJson(file);
+        assertEquals("Name", workspace.getName());
     }
 
 }
