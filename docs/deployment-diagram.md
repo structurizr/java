@@ -11,23 +11,16 @@ As an example, a Deployment diagram for the live environment of a simplified, fi
 With Structurizr for Java, you can create this diagram with code like the following:
 
 ```java
-Container webApplication = internetBankingSystem.addContainer("Web Application", "Provides all of the Internet banking functionality to customers.", "Java and Spring MVC");
-Container database = internetBankingSystem.addContainer("Database", "Stores interesting data.", "Relational Database Schema");
-
-customer.uses(webApplication, "HTTPS");
-webApplication.uses(database, "Reads from and writes to", "JDBC");
-webApplication.uses(mainframeBankingSystem, "Uses", "XML/HTTPS");
-
 DeploymentNode liveWebServer = model.addDeploymentNode("bigbank-web***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 8, MapUtils.create("Location=London"));
 liveWebServer.addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"))
-.add(webApplication);
+    .add(webApplication);
 
 DeploymentNode primaryDatabaseServer = model.addDeploymentNode("bigbank-db01", "The primary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.create("Location=London"))
-.addDeploymentNode("Oracle - Primary", "The primary, live database server.", "Oracle 12c");
+    .addDeploymentNode("Oracle - Primary", "The primary, live database server.", "Oracle 12c");
 primaryDatabaseServer.add(database);
 
 DeploymentNode secondaryDatabaseServer = model.addDeploymentNode("bigbank-db02", "The secondary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.create("Location=Reading"))
-.addDeploymentNode("Oracle - Secondary", "A secondary, standby database server, used for failover purposes only.", "Oracle 12c");
+    .addDeploymentNode("Oracle - Secondary", "A secondary, standby database server, used for failover purposes only.", "Oracle 12c");
 ContainerInstance secondaryDatabase = secondaryDatabaseServer.add(database);
 
 model.getRelationships().stream().filter(r -> r.getDestination().equals(secondaryDatabase)).forEach(r -> r.addTags("Failover"));
