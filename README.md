@@ -61,4 +61,4 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Corporate branding](docs/corporate-branding.md)
     * [Building from source](docs/building.md)
 
-![A cheat sheet for visualising software architecture](images/visualising-software-architecture.png)
+![A cheat sheet for visualising software architecture](docs/images/visualising-software-architecture.png)
