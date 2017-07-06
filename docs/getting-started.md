@@ -38,7 +38,7 @@ With the model created, we need to create some views with which to visualise it.
 
 ```java
 ViewSet viewSet = workspace.getViews();
-SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "context", "An example of a System Context diagram.");
+SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
 contextView.addAllSoftwareSystems();
 contextView.addAllPeople();
 ```

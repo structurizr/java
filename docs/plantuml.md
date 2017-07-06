@@ -20,7 +20,7 @@ SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "My s
 user.uses(softwareSystem, "Uses");
 
 ViewSet viewSet = workspace.getViews();
-SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "context", "An example of a System Context diagram.");
+SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
 contextView.addAllSoftwareSystems();
 contextView.addAllPeople();
 

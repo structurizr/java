@@ -25,7 +25,7 @@ public class PlantUML {
         user.uses(softwareSystem, "Uses");
 
         ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "context", "An example of a System Context diagram.");
+        SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
