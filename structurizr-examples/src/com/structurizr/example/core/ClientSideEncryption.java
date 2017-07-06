@@ -35,8 +35,8 @@ public class ClientSideEncryption {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "My software system.");
         user.uses(softwareSystem, "Uses");
 
-        ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
+        ViewSet views = workspace.getViews();
+        SystemContextView contextView = views.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
@@ -46,7 +46,7 @@ public class ClientSideEncryption {
         documentation.addConstraintsSection(softwareSystem, Format.Markdown, "Here is some information about the constraints...");
         documentation.addPrinciplesSection(softwareSystem, Format.Markdown, "Here is some information about the principles...");
 
-        Styles styles = viewSet.getConfiguration().getStyles();
+        Styles styles = views.getConfiguration().getStyles();
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#d34407").color("#ffffff");
         styles.addElementStyle(Tags.PERSON).background("#f86628").color("#ffffff").shape(Shape.Person);
 

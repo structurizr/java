@@ -14,6 +14,10 @@ import com.structurizr.view.*;
  */
 public class WidgetsLimited {
 
+    private static final long WORKSPACE_ID = 14471;
+    private static final String API_KEY = "";
+    private static final String API_SECRET = "";
+
     private static final String EXTERNAL_TAG = "External";
     private static final String INTERNAL_TAG = "Internal";
 
@@ -75,9 +79,8 @@ public class WidgetsLimited {
         styles.addElementStyle(EXTERNAL_TAG).background("#EC5381").border(Border.Dashed);
         styles.addElementStyle(INTERNAL_TAG).background("#B60037");
 
-
-        StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-        structurizrClient.putWorkspace(14471, workspace);
+        StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
+        structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
     }
 
 }

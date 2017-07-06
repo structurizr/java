@@ -31,12 +31,12 @@ public class Shapes {
         model.addSoftwareSystem("Folder", "Description").addTags("Folder");
         model.addPerson("Person", "Description").addTags("Person");
 
-        ViewSet viewSet = workspace.getViews();
-        EnterpriseContextView view = viewSet.createEnterpriseContextView("shapes", "An example of all shapes available in Structurizr.");
+        ViewSet views = workspace.getViews();
+        EnterpriseContextView view = views.createEnterpriseContextView("shapes", "An example of all shapes available in Structurizr.");
         view.addAllElements();
         view.setPaperSize(PaperSize.A5_Landscape);
 
-        Styles styles = viewSet.getConfiguration().getStyles();
+        Styles styles = views.getConfiguration().getStyles();
 
         styles.addElementStyle(Tags.ELEMENT).color("#ffffff").background("#438dd5").fontSize(34).width(650).height(400);
         styles.addElementStyle("Box").shape(Shape.Box);

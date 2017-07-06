@@ -24,8 +24,8 @@ public class PlantUML {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "My software system.");
         user.uses(softwareSystem, "Uses");
 
-        ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
+        ViewSet views = workspace.getViews();
+        SystemContextView contextView = views.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 

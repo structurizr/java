@@ -37,8 +37,8 @@ user.uses(softwareSystem, "Uses");
 With the model created, we need to create some views with which to visualise it.
 
 ```java
-ViewSet viewSet = workspace.getViews();
-SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
+ViewSet views = workspace.getViews();
+SystemContextView contextView = views.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
 contextView.addAllSoftwareSystems();
 contextView.addAllPeople();
 ```
@@ -48,7 +48,7 @@ contextView.addAllPeople();
 Elements and relationships can be styled by specifying colours, sizes and shapes.
 
 ```java
-Styles styles = viewSet.getConfiguration().getStyles();
+Styles styles = views.getConfiguration().getStyles();
 styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd").color("#ffffff");
 styles.addElementStyle(Tags.PERSON).background("#08427b").color("#ffffff").shape(Shape.Person);
 ```

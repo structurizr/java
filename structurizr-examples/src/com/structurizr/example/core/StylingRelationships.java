@@ -29,8 +29,8 @@ public class StylingRelationships {
         user.uses(webApplication, "Uses", "HTTPS");
         webApplication.uses(database, "Reads from and writes to", "JDBC");
 
-        ViewSet viewSet = workspace.getViews();
-        ContainerView containerView = viewSet.createContainerView(softwareSystem, "containers", "An example of a container diagram.");
+        ViewSet views = workspace.getViews();
+        ContainerView containerView = views.createContainerView(softwareSystem, "containers", "An example of a container diagram.");
         containerView.addAllElements();
 
         Styles styles = workspace.getViews().getConfiguration().getStyles();

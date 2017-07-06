@@ -29,20 +29,32 @@ import java.io.File;
  */
 public class CorporateBranding {
 
+    private static final long WORKSPACE_ID = 35031;
+    private static final String API_KEY = "";
+    private static final String API_SECRET = "";
+
     public static void main(String[] args) throws Exception {
-        Workspace workspace = new Workspace("Corporate branding", "An example of the corporate branding features.");
+        Workspace workspace = new Workspace("Corporate Branding", "This is a model of my software system.");
         Model model = workspace.getModel();
+
+        Person user = model.addPerson("User", "A user of my software system.");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "My software system.");
+        user.uses(softwareSystem, "Uses");
+
         ViewSet views = workspace.getViews();
+        SystemContextView contextView = views.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
+        contextView.addAllSoftwareSystems();
+        contextView.addAllPeople();
 
-        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "A software system.");
-        Person user = model.addPerson("User", "A user.");
-        user.uses(softwareSystem, "uses");
-
-        SystemContextView systemContextView = views.createSystemContextView(softwareSystem, "systemContext", "This is an example system context diagram.");
-        systemContextView.addAllElements();
+        Styles styles = views.getConfiguration().getStyles();
+        styles.addElementStyle(Tags.PERSON).shape(Shape.Person);
 
         StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
-        documentation.addContextSection(softwareSystem, Format.Markdown, "Here is a diagram... ![](embed:systemContext)");
+        documentation.addContextSection(softwareSystem, Format.Markdown, "Here is some context about the software system...\n\n![](embed:SystemContext)");
+        documentation.addQualityAttributesSection(softwareSystem, Format.Markdown, "Here is some information about the quality attributes...");
+        documentation.addSoftwareArchitectureSection(softwareSystem, Format.Markdown, "Here is some information about the software architecture...");
+        documentation.addOperationAndSupportSection(softwareSystem, Format.Markdown, "Here is some information about how to operate and support the software...");
+        documentation.addDecisionLog(softwareSystem, Format.Markdown, "Here is some information about the decisions made...");
 
         Branding branding = views.getConfiguration().getBranding();
         branding.setColor1(new ColorPair("#02172C", "#ffffff"));
@@ -52,10 +64,8 @@ public class CorporateBranding {
         branding.setColor5(new ColorPair("#85BBF0", "#ffffff"));
         branding.setLogo(ImageUtils.getImageAsDataUri(new File("./structurizr-examples/src/com/structurizr/example/core/structurizr.png")));
 
-        views.getConfiguration().getStyles().addElementStyle(Tags.PERSON).shape(Shape.Person);
-
-        StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-        structurizrClient.putWorkspace(35031, workspace);
+        StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
+        structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
     }
 
 }
