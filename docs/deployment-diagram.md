@@ -2,6 +2,8 @@
 
 A Deployment diagram allows you to illustrate how containers in the static model are mapped to infrastructure at deployment time. It's based upon the [UML deployment diagram](https://en.wikipedia.org/wiki/Deployment_diagram).
 
+> Note: this page describes a feature that is not available to use with Structurizr's Free Plan. You can, however, render Deployment diagrams using the [PlantUMLWriter](plantuml.md).
+
 ## Example
 
 As an example, a Deployment diagram for the live environment of a simplified, fictional Internet Banking System might look something like this. In summary, it shows the deployment of the Web Application and the Database, with a secondary Database being used for failover purposes.

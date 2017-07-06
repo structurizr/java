@@ -4,6 +4,8 @@ In addition to the diagrams showing static structure, you can also create a simp
 
 The Dynamic diagram in Structurizr is based upon a [UML communication diagram](https://en.wikipedia.org/wiki/Communication_diagram) (previously known as a "UML collaboration diagram"). This is similar to a [UML sequence diagram](https://en.wikipedia.org/wiki/Sequence_diagram) although it allows a free-form arrangement of diagram elements with numbered interactions to indicate ordering.
 
+> Note: this page describes a feature that is not available to use with Structurizr's Free Plan. You can, however, render Dynamic diagrams using the [PlantUMLWriter](plantuml.md).
+
 ## Example
 
 As an example, a Dynamic diagram describing the customer sign in process for a simplified, fictional Internet Banking System might look something like this. In summary, it shows the components involved in the sign in process, and the interactions between them.
