@@ -501,9 +501,9 @@ public class Model {
         ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber);
         containerInstance.setId(idGenerator.generateId(containerInstance));
 
-        // find all ContainerInstance objects that have the same parent SoftwareSystem
+        // find all ContainerInstance objects
         Set<ContainerInstance> containerInstances = getElements().stream()
-                .filter(e -> e instanceof ContainerInstance && e.getParent().equals(container.getSoftwareSystem()))
+                .filter(e -> e instanceof ContainerInstance)
                 .map(e -> (ContainerInstance)e)
                 .collect(Collectors.toSet());
 
