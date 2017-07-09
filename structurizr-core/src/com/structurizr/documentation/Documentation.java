@@ -61,20 +61,28 @@ public abstract class Documentation {
     }
 
     protected String readFiles(File... files) throws IOException {
-        StringBuilder content = new StringBuilder();
-        if (files != null) {
-            for (File file : files) {
-                if (file != null) {
-                    if (content.length() > 0) {
-                        content.append(System.lineSeparator());
-                    }
+        if (files == null || files.length == 0) {
+            throw new IllegalArgumentException("One or more files must be specified.");
+        }
 
-                    if (file.isFile()) {
-                        content.append(new String(Files.readAllBytes(file.toPath()), "UTF-8"));
-                    } else if (file.isDirectory()) {
-                        content.append(readFiles(file.listFiles()));
-                    }
-                }
+        StringBuilder content = new StringBuilder();
+        for (File file : files) {
+            if (file == null) {
+                throw new IllegalArgumentException("One or more files must be specified.");
+            }
+
+            if (!file.exists()) {
+                throw new IllegalArgumentException(file.getCanonicalPath() + " does not exist.");
+            }
+
+            if (content.length() > 0) {
+                content.append(System.lineSeparator());
+            }
+
+            if (file.isFile()) {
+                content.append(new String(Files.readAllBytes(file.toPath()), "UTF-8"));
+            } else if (file.isDirectory()) {
+                content.append(readFiles(file.listFiles()));
             }
         }
 

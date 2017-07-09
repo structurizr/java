@@ -199,9 +199,33 @@ public class DocumentationTests {
     }
 
     @Test
-    public void test_readFiles_ReturnsAnEmptyString_WhenPassedNull() throws IOException {
-        Section section = documentation.addContextSection(softwareSystem, Format.Markdown, (File)null);
-        assertEquals("", section.getContent());
+    public void test_readFiles_ThrowsAnException_WhenPassedAFileThatDoesNotExist() throws IOException {
+        try {
+            documentation.addContextSection(softwareSystem, Format.Markdown, new File("./no-such-file.txt"));
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertTrue(iae.getMessage().endsWith("no-such-file.txt does not exist."));
+        }
+    }
+
+    @Test
+    public void test_readFiles_ThrowsAnException_WhenPassedANullFile() throws IOException {
+        try {
+            documentation.addContextSection(softwareSystem, Format.Markdown, (File)null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("One or more files must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_readFiles_ThrowsAnException_WhenPassedAnEmptyCollection() throws IOException {
+        try {
+            documentation.addContextSection(softwareSystem, Format.Markdown, new File[]{});
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("One or more files must be specified.", iae.getMessage());
+        }
     }
 
     @Test

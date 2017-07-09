@@ -1,4 +1,4 @@
-package com.structurizr.example.financialrisksystem;
+package com.structurizr.example;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
@@ -17,6 +17,10 @@ import java.io.File;
  * You can see the workspace online at https://structurizr.com/public/31
  */
 public class FinancialRiskSystem {
+
+    private static final long WORKSPACE_ID = 31;
+    private static final String API_KEY = "";
+    private static final String API_SECRET = "";
 
     private static final String TAG_ALERT = "Alert";
 
@@ -77,25 +81,15 @@ public class FinancialRiskSystem {
         styles.addRelationshipStyle("Future State").opacity(30).dashed(true);
 
         StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
-        File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/core/financialrisksystem");
+        File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/financialrisksystem");
         documentation.addContextSection(financialRiskSystem, Format.AsciiDoc, new File(documentationRoot, "context.adoc"));
         documentation.addFunctionalOverviewSection(financialRiskSystem, Format.Markdown, new File(documentationRoot, "functional-overview.md"));
         documentation.addQualityAttributesSection(financialRiskSystem, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));
         documentation.addImages(documentationRoot);
 
-        // add some example corporate branding
-        Branding branding = viewSet.getConfiguration().getBranding();
-        branding.setFont(new Font("Trebuchet MS"));
-        branding.setColor1(new ColorPair("#550000", "#ffffff"));
-        branding.setColor2(new ColorPair("#801515", "#ffffff"));
-        branding.setColor3(new ColorPair("#d46a6a", "#ffffff"));
-        branding.setColor4(new ColorPair("#d46a6a", "#ffffff"));
-        branding.setColor5(new ColorPair("#d46a6a", "#ffffff"));
-        branding.setLogo(ImageUtils.getImageAsDataUri(new File(documentationRoot, "codingthearchitecture.png")));
-
         // and upload the model to structurizr.com
-        StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-        structurizrClient.putWorkspace(31, workspace);
+        StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
+        structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
     }
 
 }

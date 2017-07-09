@@ -27,7 +27,7 @@ public class Arc42DocumentationExample {
     private static final String API_SECRET = "";
 
     public static void main(String[] args) throws Exception {
-        Workspace workspace = new Workspace("arc42", "An empty software architecture document using the arc42 template.");
+        Workspace workspace = new Workspace("Documentation - arc42", "An empty software architecture document using the arc42 template.");
         Model model = workspace.getModel();
         ViewSet viewSet = workspace.getViews();
 
@@ -45,7 +45,7 @@ public class Arc42DocumentationExample {
         Arc42Documentation documentation = new Arc42Documentation(workspace);
 
         // this is the Markdown version
-        File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/arc42/markdown");
+        File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/documentation/arc42/markdown");
         documentation.addIntroductionAndGoalsSection(softwareSystem, Format.Markdown, new File(documentationRoot, "01-introduction-and-goals.md"));
         documentation.addConstraintsSection(softwareSystem, Format.Markdown, new File(documentationRoot, "02-architecture-constraints.md"));
         documentation.addContextAndScopeSection(softwareSystem, Format.Markdown, new File(documentationRoot, "03-system-scope-and-context.md"));
@@ -60,7 +60,7 @@ public class Arc42DocumentationExample {
         documentation.addGlossarySection(softwareSystem, Format.Markdown, new File(documentationRoot, "12-glossary.md"));
 
         // this is the AsciiDoc version
-//        File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/arc42/asciidoc");
+//        File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/documentation/arc42/asciidoc");
 //        documentation.addIntroductionAndGoalsSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "01-introduction-and-goals.adoc"));
 //        documentation.addConstraintsSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "02-architecture-constraints.adoc"));
 //        documentation.addContextAndScopeSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "03-system-scope-and-context.adoc"));
