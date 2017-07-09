@@ -22,7 +22,7 @@ dynamicView.add(signinController, "Calls isAuthenticated() on", securityComponen
 dynamicView.add(securityComponent, "select * from users u where username = ?", database);
 ```
 
-See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/BigBankPlc.java) for the full code, and [https://structurizr.com/share/36141#SignIn](https://structurizr.com/share/36141#SignIn) for the diagram.
+See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/BigBankPlc.java) for the full code, and [https://structurizr.com/share/36141#SignIn](https://structurizr.com/share/36141#SignIn) for the diagram.
 
 ### Adding relationships
 
@@ -30,4 +30,4 @@ In order to add a relationship between two elements to a dynamic view, that rela
 
 ### Parallel behaviour
 
-Showing parallel behaviour is also possible using the ```startParallelSequence()``` and ```endParallelSequence()``` methods on the ```DynamicView``` class. See [MicroservicesExample.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/MicroservicesExample.java) and [https://structurizr.com/share/4241#CustomerUpdateEvent](https://structurizr.com/share/4241#CustomerUpdateEvent) for an example.
+Showing parallel behaviour is also possible using the ```startParallelSequence()``` and ```endParallelSequence()``` methods on the ```DynamicView``` class. See [MicroservicesExample.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/MicroservicesExample.java) and [https://structurizr.com/share/4241#CustomerUpdateEvent](https://structurizr.com/share/4241#CustomerUpdateEvent) for an example.

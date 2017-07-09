@@ -9,7 +9,7 @@ Structurizr for Java also includes a simple exporter that can create diagram def
 - Dynamic
 - Deployment
 
-Simply create your software architecture model and views as usual, and use the [PlantUMLWriter](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/io/plantuml/PlantUMLWriter.java) class to export the views. [For example](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/plantuml/PlantUML.java):
+Simply create your software architecture model and views as usual, and use the [PlantUMLWriter](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/io/plantuml/PlantUMLWriter.java) class to export the views. [For example](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/PlantUML.java):
 
 ```java
 Workspace workspace = new Workspace("Getting Started", "This is a model of my software system.");

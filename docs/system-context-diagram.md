@@ -25,4 +25,4 @@ SystemContextView systemContextView = views.createSystemContextView(internetBank
 systemContextView.addNearestNeighbours(internetBankingSystem);
 ```
 
-See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/BigBankPlc.java) for the full code, and [https://structurizr.com/share/36141#SystemContext](https://structurizr.com/share/36141#SystemContext) for the diagram.
+See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/BigBankPlc.java) for the full code, and [https://structurizr.com/share/36141#SystemContext](https://structurizr.com/share/36141#SystemContext) for the diagram.

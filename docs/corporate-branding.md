@@ -25,7 +25,7 @@ branding.setColor2(new ColorPair("#08427B", "#ffffff"));
 branding.setColor3(new ColorPair("#1168BD", "#ffffff"));
 branding.setColor4(new ColorPair("#438DD5", "#ffffff"));
 branding.setColor5(new ColorPair("#85BBF0", "#ffffff"));
-branding.setLogo(ImageUtils.getImageAsDataUri(new File("./structurizr-examples/src/com/structurizr/example/core/structurizr.png")));
+branding.setLogo(ImageUtils.getImageAsDataUri(new File("./docs/images/structurizr-logo.png")));
 ```
 
 ## Diagrams
@@ -40,4 +40,4 @@ With documentation, the colour pairs are mapped onto the navigation links at the
 
 ![Branded documentation](images/corporate-branding-4.png)
 
-See [CorporateBranding.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/CorporateBranding.java) for a full example, and [https://structurizr.com/share/35031](https://structurizr.com/share/35031) to access the workspace.
+See [CorporateBranding.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/CorporateBranding.java) for a full example, and [https://structurizr.com/share/35031](https://structurizr.com/share/35031) to access the workspace.

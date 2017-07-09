@@ -32,7 +32,7 @@ componentView.add(customer);
 componentView.add(mainframeBankingSystem);
 ```
 
-See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/BigBankPlc.java) for the full code, and [https://structurizr.com/share/36141#Components](https://structurizr.com/share/36141#Components) for the diagram.
+See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/BigBankPlc.java) for the full code, and [https://structurizr.com/share/36141#Components](https://structurizr.com/share/36141#Components) for the diagram.
 
 ### Extracting components automatically
 

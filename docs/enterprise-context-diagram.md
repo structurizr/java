@@ -30,4 +30,4 @@ EnterpriseContextView enterpriseContextView = views.createEnterpriseContextView(
 enterpriseContextView.addAllElements();
 ```
 
-See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/BigBankPlc.java) for the full code, and [https://structurizr.com/share/36141#EnterpriseContext](https://structurizr.com/share/36141#EnterpriseContext) for the diagram.
+See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/BigBankPlc.java) for the full code, and [https://structurizr.com/share/36141#EnterpriseContext](https://structurizr.com/share/36141#EnterpriseContext) for the diagram.

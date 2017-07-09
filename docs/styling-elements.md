@@ -77,4 +77,4 @@ Structurizr will automatically add all element styles to a diagram key, showing 
 
 ![The diagram key](images/styling-elements-6.png)
 
-You can find the code for this example at [StylingElements.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/StylingElements.java) and the live example workspace at [https://structurizr.com/share/36111](https://structurizr.com/share/36111).
+You can find the code for this example at [StylingElements.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/StylingElements.java) and the live example workspace at [https://structurizr.com/share/36111](https://structurizr.com/share/36111).
