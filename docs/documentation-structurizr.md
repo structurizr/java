@@ -4,7 +4,7 @@ Structurizr for Java includes an implementation of the "software guidebook" from
 
 ## Example
 
-To use this template, create an instance of the [StructurizrDocumentation](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/StructurizrDocumentation) class.
+To use this template, create an instance of the [StructurizrDocumentation](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/StructurizrDocumentation.java) class.
 You can then add documentation sections as needed, each associated with a software system in your software architecture model, using Markdown or AsciiDoc. For example:
 
 ```java
