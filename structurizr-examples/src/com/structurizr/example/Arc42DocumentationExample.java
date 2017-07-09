@@ -20,7 +20,7 @@ import java.io.File;
  *
  * See https://structurizr.com/share/27791/documentation for the live version.
  */
-public class Arc42 {
+public class Arc42DocumentationExample {
 
     private static final long WORKSPACE_ID = 27791;
     private static final String API_KEY = "";

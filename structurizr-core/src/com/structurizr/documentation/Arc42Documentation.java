@@ -36,12 +36,6 @@ import java.io.IOException;
  */
 public final class Arc42Documentation extends Documentation {
 
-    public static final int GROUP1 = 1;
-    public static final int GROUP2 = 2;
-    public static final int GROUP3 = 3;
-    public static final int GROUP4 = 4;
-    public static final int GROUP5 = 5;
-
     Arc42Documentation() {
     }
 

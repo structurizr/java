@@ -41,12 +41,6 @@ import java.io.IOException;
  */
 public final class StructurizrDocumentation extends Documentation {
 
-    public static final int GROUP1 = 1;
-    public static final int GROUP2 = 2;
-    public static final int GROUP3 = 3;
-    public static final int GROUP4 = 4;
-    public static final int GROUP5 = 5;
-
     StructurizrDocumentation() {
     }
 

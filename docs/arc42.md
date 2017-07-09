@@ -5,7 +5,7 @@ Structurizr for Java includes an implementation of the [arc42 documentation temp
 ## Example
 
 To use the arc42 template, create an instance of the [Arc42Documentation](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/Arc42Documentation.java) class.
-You can then add documentations sections as needed, using Markdown or AsciiDoc. For example:
+You can then add documentation sections as needed, each associated with a software system in your software architecture model, using Markdown or AsciiDoc. For example:
 
 ```java
 Arc42Documentation documentation = new Arc42Documentation(workspace);
@@ -25,4 +25,12 @@ documentation.addQualityRequirementsSection(softwareSystem, Format.Markdown, new
 documentation.addGlossarySection(softwareSystem, Format.Markdown, new File(documentationRoot, "12-glossary.md"));
 ```
 
-See [Arc42.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/Arc42.java) for the full code, and [https://structurizr.com/share/27791/documentation](https://structurizr.com/share/27791/documentation) to see the rendered documentation.
+Structurizr will create navigation controls based upon the the sections in the documentation, and the software systems they have been associated with. This particular example is rendered as follows: 
+
+![Documentation based upon the arc42 template](images/arc42-1.png)
+
+See [Arc42DocumentationExample.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/Arc42DocumentationExample.java.java) for the full code, and [https://structurizr.com/share/27791/documentation](https://structurizr.com/share/27791/documentation) to see the rendered documentation.
+
+## More information
+
+See [Help - Documentation](https://structurizr.com/help/documentation) for more information about how headings are rendered, and how to embed diagrams from you workspace into the documentation.
