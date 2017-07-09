@@ -461,10 +461,14 @@ public class ModelTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addContainerInstance_AddsAContainerInstance_WhenAContainerIsSpecified() {
-        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
-        Container container1 = softwareSystem.addContainer("Container 1", "Description", "Technology");
-        Container container2 = softwareSystem.addContainer("Container 2", "Description", "Technology");
-        Container container3 = softwareSystem.addContainer("Container 3", "Description", "Technology");
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
+        Container container1 = softwareSystem1.addContainer("Container 1", "Description", "Technology");
+
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
+        Container container2 = softwareSystem2.addContainer("Container 2", "Description", "Technology");
+
+        SoftwareSystem softwareSystem3 = model.addSoftwareSystem("Software System 3", "Description");
+        Container container3 = softwareSystem3.addContainer("Container 3", "Description", "Technology");
 
         container1.uses(container2, "Uses 1", "Technology 1", InteractionStyle.Synchronous);
         container2.uses(container3, "Uses 2", "Technology 2", InteractionStyle.Asynchronous);
@@ -476,8 +480,8 @@ public class ModelTests extends AbstractWorkspaceTestBase {
 
         assertSame(container2, containerInstance2.getContainer());
         assertEquals(container2.getId(), containerInstance2.getContainerId());
-        assertSame(softwareSystem, containerInstance2.getParent());
-        assertEquals("/Software System/Container 2[1]", containerInstance2.getCanonicalName());
+        assertSame(softwareSystem2, containerInstance2.getParent());
+        assertEquals("/Software System 2/Container 2[1]", containerInstance2.getCanonicalName());
         assertEquals("Element,Container,Container Instance", containerInstance2.getTags());
 
         assertEquals(1, containerInstance1.getRelationships().size());
