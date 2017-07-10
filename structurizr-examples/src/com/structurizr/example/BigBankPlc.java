@@ -5,8 +5,12 @@ import com.structurizr.api.StructurizrClient;
 import com.structurizr.documentation.Format;
 import com.structurizr.documentation.StructurizrDocumentation;
 import com.structurizr.model.*;
+import com.structurizr.util.ImageUtils;
 import com.structurizr.util.MapUtils;
 import com.structurizr.view.*;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * This is an example workspace to illustrate the key features of Structurizr,
@@ -137,8 +141,12 @@ public class BigBankPlc {
             liveDeploymentView.add(dataReplicationRelationship);
             liveDeploymentView.setPaperSize(PaperSize.A5_Landscape);
 
-            Branding branding = views.getConfiguration().getBranding();
-            branding.setLogo("https://structurizr.com/static/img/structurizr-logo.png");
+            try {
+                Branding branding = views.getConfiguration().getBranding();
+                branding.setLogo(ImageUtils.getImageAsDataUri(new File("./docs/images/structurizr-logo.png")));
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
         }
 
         // colours, shapes and other diagram styling
