@@ -12,6 +12,7 @@ The documentation is broken up into a number of sections, as defined by the temp
 
 - [Structurizr](documentation-structurizr.md)
 - [arc42](documentation-arc42.md)
+- [Viewpoints and Perspectives](documentation-viewpoints-and-perspectives.md)
 
 ## Custom sections
 
