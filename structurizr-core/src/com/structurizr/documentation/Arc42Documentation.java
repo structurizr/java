@@ -29,8 +29,7 @@ import java.io.IOException;
  *
  * <p>
  * The number in parentheses () represents the grouping, which is simply used to colour code
- * section navigation buttons when rendered. You can see an example of this at
- * <a href="https://structurizr.com/share/27791/documentation">https://structurizr.com/share/27791/documentation</a>.
+ * section navigation buttons when rendered.
  * </p>
 
  */

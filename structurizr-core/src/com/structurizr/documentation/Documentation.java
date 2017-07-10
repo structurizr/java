@@ -12,6 +12,7 @@ import com.structurizr.util.ImageUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -25,7 +26,8 @@ import java.util.Set;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "type", defaultImpl = StructurizrDocumentation.class)
 @JsonSubTypes({
         @JsonSubTypes.Type(value=StructurizrDocumentation.class, name="structurizr"),
-        @JsonSubTypes.Type(value=Arc42Documentation.class, name="arc42")
+        @JsonSubTypes.Type(value=Arc42Documentation.class, name="arc42"),
+        @JsonSubTypes.Type(value=ViewpointsAndPerspectivesDocumentation.class, name="viewpoints-and-perspectives")
 })
 public abstract class Documentation {
 
@@ -82,7 +84,11 @@ public abstract class Documentation {
             if (file.isFile()) {
                 content.append(new String(Files.readAllBytes(file.toPath()), "UTF-8"));
             } else if (file.isDirectory()) {
-                content.append(readFiles(file.listFiles()));
+                File[] filesInDirectory = file.listFiles();
+                if (filesInDirectory != null) {
+                    Arrays.sort(filesInDirectory);
+                    content.append(readFiles(filesInDirectory));
+                }
             }
         }
 

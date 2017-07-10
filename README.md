@@ -55,6 +55,7 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Documentation overview](docs/documentation.md)
     * [Structurizr](docs/documentation-structurizr.md)
     * [arc42](docs/documentation-arc42.md)
+    * [Viewpoints and Perspectives](docs/documentation-viewpoints-and-perspectives.md)
 * Exporting and visualising with other tools
     * [PlantUML](docs/plantuml.md)
     * [Graphviz and DOT](docs/graphviz-and-dot.md)
