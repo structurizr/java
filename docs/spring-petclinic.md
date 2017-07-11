@@ -1,6 +1,6 @@
 # The Spring PetClinic example
 
-This is a step-by-step guide to recreating the [Spring PetClinic example diagrams](https://structurizr.com/share/1), which are based upon the original version of the application. It assumes that you have working Java, Maven and git installations plus a development environment to write code. The full source code for this example can be found in the [SpringPetClinic.java file](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/spring/petclinic/SpringPetClinic.java). 
+This is a step-by-step guide to recreating the System Context, Container and Component diagrams from the [Spring PetClinic example](https://structurizr.com/share/1), which are based upon the original version of the application. It assumes that you have working Java, Maven and git installations plus a development environment to write code. The full source code for this example can be found in [SpringPetClinic.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/SpringPetClinic.java). 
 
 ## 1. Clone and build the Spring PetClinic code
 
@@ -31,8 +31,8 @@ With the Spring PetClinic application built, we now need to create a software ar
 
 Name                                          | Description
 -------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------
-com.structurizr:structurizr-core:1.0.0-RC3        | The core library that can used to create models and upload models to Structurizr.
-com.structurizr:structurizr-spring:1.0.0-RC3      | The Spring component finder.
+com.structurizr:structurizr-core:1.0.0-RC4        | The core library that can used to create models and upload models to Structurizr.
+com.structurizr:structurizr-spring:1.0.0-RC4      | The Spring component finder.
 
 First we need to create a little boilerplate code to create a workspace and a model.
 
@@ -62,13 +62,13 @@ Stepping down to containers, the Spring PetClinic system is made up of a Java we
 ```java
 Container webApplication = springPetClinic.addContainer("Web Application",
     "Allows employees to view and manage information regarding the veterinarians, the clients, and their pets.",
-    "Apache Tomcat 7.x");
+    "Java and Spring");
 Container relationalDatabase = springPetClinic.addContainer("Relational Database",
     "Stores information regarding the veterinarians, the clients, and their pets.",
-    "HSQLDB");
+    "Relational Database Schema");
 
-clinicEmployee.uses(webApplication, "Uses", "HTTP");
-webApplication.uses(relationalDatabase, "Reads from and writes to", "JDBC, port 9001");
+clinicEmployee.uses(webApplication, "Uses", "HTTPS");
+webApplication.uses(relationalDatabase, "Reads from and writes to", "JDBC");
 ```
 
 ## 5. Components
