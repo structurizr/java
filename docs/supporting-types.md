@@ -2,7 +2,7 @@
 
 In Structurizr, a [Component](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/model/Component.java) is described by a number of properties and can have a number of [CodeElement](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/model/CodeElement.java)s associated with it that represent the Java classes and interfaces that implement and/or support that component.
 
-Because each codebase is different, the mechanism to find a component's supporting types is pluggable via a number of strategies ([SupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/componentfinder/SupportingTypesStrategy.java)), which can be used in combination. Let's look at the [Spring PetClinic example](spring-petclinic.md) to see how the various supporting types strategies affect the software architecture model.
+Because each codebase is different, the mechanism to find a component's supporting types is pluggable via a number of strategies ([SupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/analysis/SupportingTypesStrategy.java)), which can be used in combination. Let's look at the [Spring PetClinic example](spring-petclinic.md) to see how the various supporting types strategies affect the software architecture model.
 
 ## 1. No supporting types strategy
 
@@ -23,7 +23,7 @@ When executed against the compiled version of the Spring PetClinic codebase, eac
  
 ## 2. Referenced types in the same package
 
-Next, let's use the [ReferencedTypesInSamePackageSupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/componentfinder/ReferencedTypesInSamePackageSupportingTypesStrategy.java) to find all supporting types in the same package as the component type. This is particularly useful when each component neatly resides in its own Java package, and you aren't interested in any other code outside of this package.
+Next, let's use the [ReferencedTypesInSamePackageSupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/analysis/ReferencedTypesInSamePackageSupportingTypesStrategy.java) to find all supporting types in the same package as the component type. This is particularly useful when each component neatly resides in its own Java package, and you aren't interested in any other code outside of this package.
 
 ```java
 ComponentFinder componentFinder = new ComponentFinder(
@@ -42,7 +42,7 @@ This strategy finds all of the supporting types that are referenced by the types
 
 ## 3. All referenced types
 
-Next, let's use the [ReferencedTypesSupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/componentfinder/ReferencedTypesSupportingTypesStrategy.java) to find all of the referenced types, irrespective of which package they reside in, provided that package sits somewhere underneath ```org.springframework.samples.petclinic```.
+Next, let's use the [ReferencedTypesSupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/analysis/ReferencedTypesSupportingTypesStrategy.java) to find all of the referenced types, irrespective of which package they reside in, provided that package sits somewhere underneath ```org.springframework.samples.petclinic```.
 
 ```java
 ComponentFinder componentFinder = new ComponentFinder(
@@ -63,7 +63,7 @@ This collection of classes may look confusing at first, but the ```JdbcVisitRepo
 
 ## 4. Directly referenced types only
 
-Of course, the ```JdbcVisitRepositoryImpl``` class may not actually use all of these classes, but they are certainly available to it. This is one of the drawbacks of using static analysis based upon compiled bytecode. You can modify this behaviour and find only those types directly referenced by the component by passing ```false``` to the constructor of the [ReferencedTypesSupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/componentfinder/ReferencedTypesSupportingTypesStrategy.java).
+Of course, the ```JdbcVisitRepositoryImpl``` class may not actually use all of these classes, but they are certainly available to it. This is one of the drawbacks of using static analysis based upon compiled bytecode. You can modify this behaviour and find only those types directly referenced by the component by passing ```false``` to the constructor of the [ReferencedTypesSupportingTypesStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/analysis/ReferencedTypesSupportingTypesStrategy.java).
 
 ![](images/supporting-types-4.png)
 
