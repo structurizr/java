@@ -99,7 +99,7 @@ public class Component extends StaticStructureElement {
         return new HashSet<>(codeElements);
     }
 
-    void setCodeElements(Set<CodeElement> codeElements) {
+    void setCode(Set<CodeElement> codeElements) {
         this.codeElements = codeElements;
     }
 
