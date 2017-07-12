@@ -89,22 +89,23 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         }
     }
 
-    private void addEfferentDependencies(Component component, String type, Set<String> typesVisited) {
+    private void addEfferentDependencies(Component component, String type, Set<String> typesVisited) throws Exception {
         typesVisited.add(type);
 
-        try {
-            for (Class<?> referencedType : getTypeRepository().findReferencedTypes(type)) {
-                Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedType.getCanonicalName());
+        for (Class<?> referencedType : getTypeRepository().findReferencedTypes(type)) {
+            try {
+                String referencedTypeName = referencedType.getCanonicalName();
+                Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedTypeName);
                 if (destinationComponent != null) {
                     if (component != destinationComponent) {
                         component.uses(destinationComponent, "");
                     }
-                } else if (!typesVisited.contains(referencedType.getCanonicalName())) {
-                    addEfferentDependencies(component, referencedType.getCanonicalName(), typesVisited);
+                } else if (!typesVisited.contains(referencedTypeName)) {
+                    addEfferentDependencies(component, referencedTypeName, typesVisited);
                 }
+            } catch (Throwable t) {
+                log.warn(t);
             }
-        } catch (Exception e) {
-            log.warn(e);
         }
     }
 

@@ -97,16 +97,20 @@ public class DefaultTypeRepository implements TypeRepository {
                 String referencedTypeName = (String)referencedType;
 
                 if (!isExcluded(referencedTypeName)) {
-                    referencedTypes.add(ClassLoader.getSystemClassLoader().loadClass(referencedTypeName));
+                    try {
+                        referencedTypes.add(ClassLoader.getSystemClassLoader().loadClass(referencedTypeName));
+                    } catch (Throwable t) {
+                        log.debug("Could not find " + referencedTypeName + " ... ignoring.");
+                    }
                 }
             }
 
             // remove the type itself
             referencedTypes.remove(ClassLoader.getSystemClassLoader().loadClass(typeName));
-        } catch (NotFoundException|ClassNotFoundException e) {
-            log.debug("Could not find " + typeName + " ... ignoring.");
+        } catch (Exception e) {
+            log.debug("Error finding referenced types for " + typeName + " ... ignoring.");
 
-            // since the class could not be loaded, we can't find the set of referenced types from it, so...
+            // since there was an error, we can't find the set of referenced types from it, so...
             referencedTypesCache.put(typeName, new HashSet<>());
         }
 
@@ -121,6 +125,10 @@ public class DefaultTypeRepository implements TypeRepository {
     }
 
     private boolean isExcluded(String typeName) {
+        if (typeName == null) {
+            return true;
+        }
+
         for (Pattern exclude : exclusions) {
             if (exclude.matcher(typeName).matches()) {
                 return true;
