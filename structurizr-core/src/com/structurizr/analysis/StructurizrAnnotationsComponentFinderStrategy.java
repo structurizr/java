@@ -3,6 +3,8 @@ package com.structurizr.analysis;
 import com.structurizr.annotation.*;
 import com.structurizr.model.Component;
 import com.structurizr.model.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.lang.reflect.Field;
 import java.util.HashSet;
@@ -16,6 +18,8 @@ import java.util.Set;
  *  - Afferent dependencies: @UsedByPerson, @UsedBySoftwareSystem, @UsedByContainer
  */
 public class StructurizrAnnotationsComponentFinderStrategy extends AbstractComponentFinderStrategy {
+
+    private static final Log log = LogFactory.getLog(StructurizrAnnotationsComponentFinderStrategy.class);
 
     public StructurizrAnnotationsComponentFinderStrategy() {
         super(new FirstImplementationOfInterfaceSupportingTypesStrategy());
@@ -91,10 +95,14 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
                 String description = field.getAnnotation(UsesComponent.class).description();
 
                 Component destination = componentFinder.getContainer().getComponentOfType(name);
-                for (Relationship relationship : component.getRelationships()) {
-                    if (relationship.getDestination() == destination) {
-                        relationship.setDescription(description);
+                if (destination != null) {
+                    for (Relationship relationship : component.getRelationships()) {
+                        if (relationship.getDestination() == destination) {
+                            relationship.setDescription(description);
+                        }
                     }
+                } else {
+                    log.warn("A component named \"" + name + "\" could not be found.");
                 }
             }
         }
@@ -113,6 +121,8 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
             SoftwareSystem softwareSystem = component.getModel().getSoftwareSystemWithName(name);
             if (softwareSystem != null) {
                 component.uses(softwareSystem, description);
+            } else {
+                log.warn("A software system named \"" + name + "\" could not be found.");
             }
         }
     }
@@ -130,6 +140,8 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
             Container container = component.getContainer().getSoftwareSystem().getContainerWithName(name);
             if (container != null) {
                 component.uses(container, description);
+            } else {
+                log.warn("A component named \"" + name + "\" could not be found.");
             }
         }
     }
@@ -147,6 +159,8 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
             Person person = component.getModel().getPersonWithName(name);
             if (person != null) {
                 person.uses(component, description);
+            } else {
+                log.warn("A person named \"" + name + "\" could not be found.");
             }
         }
     }
@@ -164,6 +178,8 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
             SoftwareSystem softwareSystem = component.getModel().getSoftwareSystemWithName(name);
             if (softwareSystem != null) {
                 softwareSystem.uses(component, description);
+            } else {
+                log.warn("A software system named \"" + name + "\" could not be found.");
             }
         }
     }
@@ -181,6 +197,8 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
             Container container = component.getContainer().getSoftwareSystem().getContainerWithName(name);
             if (container != null) {
                 container.uses(component, description);
+            } else {
+                log.warn("A container named \"" + name + "\" could not be found.");
             }
         }
     }

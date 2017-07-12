@@ -22,9 +22,6 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
 
     protected List<SupportingTypesStrategy> supportingTypesStrategies = new ArrayList<>();
 
-    protected AbstractComponentFinderStrategy() {
-    }
-
     protected AbstractComponentFinderStrategy(SupportingTypesStrategy... strategies) {
         Arrays.stream(strategies).forEach(this::addSupportingTypesStrategy);
     }
@@ -33,6 +30,11 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         return componentFinder;
     }
 
+    /**
+     * Sets a reference to the parent component finder.
+     *
+     * @param componentFinder   a ComponentFinder instance
+     */
     public void setComponentFinder(ComponentFinder componentFinder) {
         this.componentFinder = componentFinder;
         typeRepository = new DefaultTypeRepository(componentFinder.getPackageName(), componentFinder.getExclusions());
@@ -62,21 +64,7 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         }
     }
 
-    protected abstract Set<Component> doFindComponents() throws Exception;
-
-    private Set<Component> componentsFound = new HashSet<>();
-
-    @Override
-    public Set<Component> findComponents() throws Exception {
-        componentsFound.addAll(doFindComponents());
-
-        return componentsFound;
-    }
-
-    @Override
-    public void postFindComponents() throws Exception {
-        findSupportingTypes(componentsFound);
-
+    private void findDependencies() throws Exception {
         for (Component component : componentFinder.getContainer().getComponents()) {
             if (component.getType() != null) {
                 addEfferentDependencies(component, component.getType(), new HashSet<>());
@@ -87,6 +75,28 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
                 }
             }
         }
+    }
+
+    private Set<Component> componentsFound = new HashSet<>();
+
+    @Override
+    public Set<Component> findComponents() throws Exception {
+        componentsFound.addAll(doFindComponents());
+
+        return componentsFound;
+    }
+
+    /**
+     * A template method into which subclasses can put their component finding code.
+     *
+     * @return  the Set of Components found, or an empty set if no components were found
+     */
+    protected abstract Set<Component> doFindComponents() throws Exception;
+
+    @Override
+    public void postFindComponents() throws Exception {
+        findSupportingTypes(componentsFound);
+        findDependencies();
     }
 
     private void addEfferentDependencies(Component component, String type, Set<String> typesVisited) throws Exception {
@@ -109,6 +119,20 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         }
     }
 
+    /**
+     * Adds a supporting type strategy to this component finder strategy.
+     *
+     * @param supportingTypesStrategy   a SupportingTypesStrategy instance
+     */
+    public void addSupportingTypesStrategy(SupportingTypesStrategy supportingTypesStrategy) {
+        if (supportingTypesStrategy == null) {
+            throw new IllegalArgumentException("A supporting types strategy must be provided.");
+        }
+
+        supportingTypesStrategies.add(supportingTypesStrategy);
+        supportingTypesStrategy.setTypeRepository(getTypeRepository());
+    }
+
     protected Set<Class<?>> findTypesAnnotatedWith(Class<? extends Annotation> annotation) throws Exception {
         return TypeUtils.findTypesAnnotatedWith(annotation, getTypeRepository().getAllTypes());
     }
@@ -122,20 +146,15 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         Set<Class<?>> componentTypes = findTypesAnnotatedWith(type);
         for (Class<?> componentType : componentTypes) {
             if (!includePublicTypesOnly || Modifier.isPublic(componentType.getModifiers())) {
-            components.add(getComponentFinder().getContainer().addComponent(
-                    componentType.getSimpleName(),
-                    componentType.getCanonicalName(),
-                    "",
-                    technology));
+                components.add(getComponentFinder().getContainer().addComponent(
+                        componentType.getSimpleName(),
+                        componentType.getCanonicalName(),
+                        "",
+                        technology));
             }
         }
 
         return components;
-    }
-
-    public void addSupportingTypesStrategy(SupportingTypesStrategy supportingTypesStrategy) {
-        supportingTypesStrategies.add(supportingTypesStrategy);
-        supportingTypesStrategy.setTypeRepository(getTypeRepository());
     }
 
 }

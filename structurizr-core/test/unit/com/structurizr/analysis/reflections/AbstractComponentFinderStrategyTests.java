@@ -28,7 +28,7 @@ public class AbstractComponentFinderStrategyTests {
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
                 "com.structurizr.analysis.reflections.cyclicDependency",
-                new TypeBasedComponentFinderStrategy(
+                new TypeMatcherComponentFinderStrategy(
                         new NameSuffixTypeMatcher("Component", "", "")
                 )
         );
@@ -58,7 +58,7 @@ public class AbstractComponentFinderStrategyTests {
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
                 "com.structurizr.analysis.reflections.dependenciesFromSuperClass",
-                new TypeBasedComponentFinderStrategy(
+                new TypeMatcherComponentFinderStrategy(
                         new NameSuffixTypeMatcher("Component", "", "")
                 )
         );
@@ -85,7 +85,7 @@ public class AbstractComponentFinderStrategyTests {
         ComponentFinder componentFinder = new ComponentFinder(
                 webApplication,
                 "com.structurizr.analysis.reflections.featureinterface",
-                new TypeBasedComponentFinderStrategy(
+                new TypeMatcherComponentFinderStrategy(
                         new NameSuffixTypeMatcher("Component", "", "")
                 )
         );
@@ -112,7 +112,7 @@ public class AbstractComponentFinderStrategyTests {
         ComponentFinder componentFinder1 = new ComponentFinder(
                 webApplication,
                 "com.structurizr.analysis.reflections.multipleComponentFinders.package1",
-                new TypeBasedComponentFinderStrategy(
+                new TypeMatcherComponentFinderStrategy(
                         new NameSuffixTypeMatcher("Controller", "", "")
                 )
         );
@@ -120,7 +120,7 @@ public class AbstractComponentFinderStrategyTests {
         ComponentFinder componentFinder2 = new ComponentFinder(
                 webApplication,
                 "com.structurizr.analysis.reflections.multipleComponentFinders.package2",
-                new TypeBasedComponentFinderStrategy(
+                new TypeMatcherComponentFinderStrategy(
                         new NameSuffixTypeMatcher("Repository", "", "")
                 )
         );
@@ -140,7 +140,7 @@ public class AbstractComponentFinderStrategyTests {
         ComponentFinder componentFinder1 = new ComponentFinder(
                 webApplication,
                 "com.structurizr.analysis.reflections.multipleComponentFinders.package1",
-                new TypeBasedComponentFinderStrategy(
+                new TypeMatcherComponentFinderStrategy(
                         new NameSuffixTypeMatcher("Controller", "", "")
                 )
         );
@@ -148,7 +148,7 @@ public class AbstractComponentFinderStrategyTests {
         ComponentFinder componentFinder2 = new ComponentFinder(
                 webApplication,
                 "com.structurizr.analysis.reflections.multipleComponentFinders.package2",
-                new TypeBasedComponentFinderStrategy(
+                new TypeMatcherComponentFinderStrategy(
                         new NameSuffixTypeMatcher("Repository", "", "")
                 )
         );

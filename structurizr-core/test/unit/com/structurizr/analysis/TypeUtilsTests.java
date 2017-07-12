@@ -3,6 +3,8 @@ package com.structurizr.analysis;
 import com.structurizr.annotation.Component;
 import com.structurizr.annotation.UsedByPerson;
 import org.junit.Test;
+import test.TypeUtils.AnotherClass;
+import test.TypeUtils.SomeInterface;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -24,25 +26,25 @@ public class TypeUtilsTests {
 
     @Test
     public void test_getCategory_ReturnsInterface_WhenTheSpecifiedTypeIsAnInterface() throws Exception {
-        TypeCategory typeCategory = TypeUtils.getCategory("com.structurizr.analysis.defaultTypeRepository.SomeInterface");
+        TypeCategory typeCategory = TypeUtils.getCategory("test.TypeUtils.SomeInterface");
         assertSame(TypeCategory.INTERFACE, typeCategory);
     }
 
     @Test
     public void test_getCategory_ReturnsAbstractClass_WhenTheSpecifiedTypeIsAnAbstractClass() throws Exception {
-        TypeCategory typeCategory = TypeUtils.getCategory("com.structurizr.analysis.defaultTypeRepository.SomeAbstractClass");
+        TypeCategory typeCategory = TypeUtils.getCategory("test.TypeUtils.SomeAbstractClass");
         assertSame(TypeCategory.ABSTRACT_CLASS, typeCategory);
     }
 
     @Test
     public void test_getCategory_ReturnsAbstractClass_WhenTheSpecifiedTypeIsAClass() throws Exception {
-        TypeCategory typeCategory = TypeUtils.getCategory("com.structurizr.analysis.defaultTypeRepository.SomeClass");
+        TypeCategory typeCategory = TypeUtils.getCategory("test.TypeUtils.SomeClass");
         assertSame(TypeCategory.CLASS, typeCategory);
     }
 
     @Test
     public void test_getCategory_ReturnsEnum_WhenTheSpecifiedTypeIsAnEnum() throws Exception {
-        TypeCategory typeCategory = TypeUtils.getCategory("com.structurizr.analysis.defaultTypeRepository.SomeEnum");
+        TypeCategory typeCategory = TypeUtils.getCategory("test.TypeUtils.SomeEnum");
         assertSame(TypeCategory.ENUM, typeCategory);
     }
 
@@ -59,13 +61,13 @@ public class TypeUtilsTests {
 
     @Test
     public void test_getVisibility_ReturnsPublic_WhenTheSpecifiedTypeIsPublic() throws Exception {
-        TypeVisibility typeCategory= TypeUtils.getVisibility("com.structurizr.analysis.defaultTypeRepository.SomeInterface");
+        TypeVisibility typeCategory= TypeUtils.getVisibility("test.TypeUtils.SomeInterface");
         assertSame(TypeVisibility.PUBLIC, typeCategory);
     }
 
     @Test
     public void test_getVisibility_ReturnsPackage_WhenTheSpecifiedTypeIsPackageScoped() throws Exception {
-        TypeVisibility typeCategory= TypeUtils.getVisibility("com.structurizr.analysis.defaultTypeRepository.SomeClass");
+        TypeVisibility typeCategory= TypeUtils.getVisibility("test.TypeUtils.SomeClass");
         assertSame(TypeVisibility.PACKAGE, typeCategory);
     }
 
@@ -83,7 +85,7 @@ public class TypeUtilsTests {
     @Test
     public void test_findTypesAnnotatedWith_ReturnsAnEmptySet_WhenNoTypesWithTheSpecifiedAnnotationAreFound() throws Exception {
         Set<Class<?>> typesToSearch = new HashSet<>();
-        typesToSearch.add(ClassLoader.getSystemClassLoader().loadClass("com.structurizr.analysis.defaultTypeRepository.SomeClass"));
+        typesToSearch.add(ClassLoader.getSystemClassLoader().loadClass("test.TypeUtils.SomeClass"));
         Set<Class<?>> types = TypeUtils.findTypesAnnotatedWith(UsedByPerson.class, typesToSearch);
         assertTrue(types.isEmpty());
     }
@@ -91,10 +93,10 @@ public class TypeUtilsTests {
     @Test
     public void test_findTypesAnnotatedWith_ReturnsANonEmptySet_WhenTypesWithTheSpecifiedAnnotationAreFound() throws Exception {
         Set<Class<?>> typesToSearch = new HashSet<>();
-        typesToSearch.add(ClassLoader.getSystemClassLoader().loadClass("com.structurizr.analysis.defaultTypeRepository.SomeClass"));
+        typesToSearch.add(ClassLoader.getSystemClassLoader().loadClass("test.TypeUtils.SomeClass"));
         Set<Class<?>> types = TypeUtils.findTypesAnnotatedWith(Component.class, typesToSearch);
         assertEquals(1, types.size());
-        assertEquals("com.structurizr.analysis.defaultTypeRepository.SomeClass", types.iterator().next().getCanonicalName());
+        assertEquals("test.TypeUtils.SomeClass", types.iterator().next().getCanonicalName());
     }
 
     @Test
@@ -144,26 +146,21 @@ public class TypeUtilsTests {
     }
 
     @Test
-    public void test_getFirstImplementationOfInterface_ReturnsNull_WhenOnlyAnAbstractImplementationIsFound() {
+    public void test_getFirstImplementationOfInterface_ReturnsNull_WhenOnlyAnAbstractImplementationIsFound() throws Exception {
         Set<Class<?>> classes = new HashSet<>();
-        classes.add(SomeAbstractImplementationClass.class);
+        classes.add(Class.forName("test.TypeUtils.SomeAbstractClass"));
         Class implementationClass = TypeUtils.findFirstImplementationOfInterface(SomeInterface.class, classes);
         assertNull(implementationClass);
     }
 
     @Test
-    public void test_getFirstImplementationOfInterface_ReturnsAnImplementation_WhenAnConcreteImplementationIsFound() {
+    public void test_getFirstImplementationOfInterface_ReturnsAnImplementation_WhenAnConcreteImplementationIsFound() throws Exception {
         Set<Class<?>> classes = new HashSet<>();
         classes.add(SomeInterface.class);
-        classes.add(SomeAbstractImplementationClass.class);
-        classes.add(SomeImplementationClass.class);
+        classes.add(Class.forName("test.TypeUtils.SomeAbstractClass"));
+        classes.add(Class.forName("test.TypeUtils.SomeClass"));
         Class implementationClass = TypeUtils.findFirstImplementationOfInterface(SomeInterface.class, classes);
-        assertSame(SomeImplementationClass.class, implementationClass);
+        assertSame("test.TypeUtils.SomeClass", implementationClass.getCanonicalName());
     }
-
-    private interface SomeInterface {}
-    private abstract class SomeAbstractImplementationClass implements SomeInterface {}
-    private class SomeImplementationClass extends SomeAbstractImplementationClass {}
-    private class AnotherClass {}
 
 }

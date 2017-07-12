@@ -23,31 +23,31 @@ public class DefaultTypeRepositoryTests {
 
     @Test
     public void test_getAllTypes_ReturnsANonEmptySet_WhenTypesWereFound() {
-        typeRepository = new DefaultTypeRepository("com.structurizr.analysis.defaultTypeRepository", new HashSet<>());
+        typeRepository = new DefaultTypeRepository("test.DefaultTypeRepository", new HashSet<>());
         Set<String> types = typeRepository.getAllTypes().stream().map(Class::getCanonicalName).collect(Collectors.toSet());
         assertEquals(3, types.size()); // the enum is ignored
 
-        assertTrue(types.contains("com.structurizr.analysis.defaultTypeRepository.SomeAbstractClass"));
-        assertTrue(types.contains("com.structurizr.analysis.defaultTypeRepository.SomeClass"));
-        assertTrue(types.contains("com.structurizr.analysis.defaultTypeRepository.SomeInterface"));
+        assertTrue(types.contains("test.DefaultTypeRepository.SomeAbstractClass"));
+        assertTrue(types.contains("test.DefaultTypeRepository.SomeClass"));
+        assertTrue(types.contains("test.DefaultTypeRepository.SomeInterface"));
     }
 
     @Test
     public void test_getAllTypes_ReturnsANonEmptySet_WhenTypesAreFoundAndExclusionsHaveBeenSpecified() {
         Set<Pattern> exclusions = new HashSet<>();
         exclusions.add(Pattern.compile(".*Abstract.*"));
-        typeRepository = new DefaultTypeRepository("com.structurizr.analysis.defaultTypeRepository", exclusions);
+        typeRepository = new DefaultTypeRepository("test.DefaultTypeRepository", exclusions);
         Set<String> types = typeRepository.getAllTypes().stream().map(Class::getCanonicalName).collect(Collectors.toSet());
         assertEquals(2, types.size());
 
-        assertTrue(types.contains("com.structurizr.analysis.defaultTypeRepository.SomeClass"));
-        assertTrue(types.contains("com.structurizr.analysis.defaultTypeRepository.SomeInterface"));
+        assertTrue(types.contains("test.DefaultTypeRepository.SomeClass"));
+        assertTrue(types.contains("test.DefaultTypeRepository.SomeInterface"));
     }
 
     @Test
     public void test_findReferencedTypes_ReturnsASetOnlyContainingJavaLangObject_WhenThereAreNoTypesReferenced() throws Exception {
-        typeRepository = new DefaultTypeRepository("com.structurizr.analysis.defaultTypeRepository", new HashSet<>());
-        Set<String> types = typeRepository.findReferencedTypes("com.structurizr.analysis.defaultTypeRepository.SomeInterface").stream().map(Class::getCanonicalName).collect(Collectors.toSet());
+        typeRepository = new DefaultTypeRepository("test.DefaultTypeRepository", new HashSet<>());
+        Set<String> types = typeRepository.findReferencedTypes("test.DefaultTypeRepository.SomeInterface").stream().map(Class::getCanonicalName).collect(Collectors.toSet());
         assertEquals(1, types.size());
 
         assertTrue(types.contains("java.lang.Object"));
@@ -55,12 +55,12 @@ public class DefaultTypeRepositoryTests {
 
     @Test
     public void test_findReferencedTypes_ReturnsANonEmptySet_WhenThereAreTypesReferenced() throws Exception {
-        typeRepository = new DefaultTypeRepository("com.structurizr.analysis.defaultTypeRepository", new HashSet<>());
-        Set<String> types = typeRepository.findReferencedTypes("com.structurizr.analysis.defaultTypeRepository.SomeClass").stream().map(Class::getCanonicalName).collect(Collectors.toSet());
+        typeRepository = new DefaultTypeRepository("test.DefaultTypeRepository", new HashSet<>());
+        Set<String> types = typeRepository.findReferencedTypes("test.DefaultTypeRepository.SomeClass").stream().map(Class::getCanonicalName).collect(Collectors.toSet());
         assertEquals(3, types.size());
 
-        assertTrue(types.contains("com.structurizr.analysis.defaultTypeRepository.SomeEnum"));
-        assertTrue(types.contains("com.structurizr.analysis.defaultTypeRepository.SomeAbstractClass"));
+        assertTrue(types.contains("test.DefaultTypeRepository.SomeEnum"));
+        assertTrue(types.contains("test.DefaultTypeRepository.SomeAbstractClass"));
         assertTrue(types.contains("com.structurizr.annotation.Component"));
     }
 
