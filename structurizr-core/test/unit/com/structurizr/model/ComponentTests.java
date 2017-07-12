@@ -113,6 +113,21 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_setType_OverwritesThePrimaryCodeElement_WhenCalledMoreThanOnce() {
+        Component component = new Component();
+        component.setType("com.structurizr.web.HomePageController");
+        component.setType("com.structurizr.web.SomeOtherController");
+
+        Set<CodeElement> codeElements = component.getCode();
+        assertEquals(1, codeElements.size());
+        CodeElement codeElement = codeElements.iterator().next();
+        assertEquals("SomeOtherController", codeElement.getName());
+        assertEquals("com.structurizr.web.SomeOtherController", codeElement.getType());
+        assertEquals(CodeElementRole.Primary, codeElement.getRole());
+
+    }
+
+    @Test
     public void test_addSupportingType_ThrowsAnExceptionWhenPassedNull() {
         Component component = new Component();
         try {

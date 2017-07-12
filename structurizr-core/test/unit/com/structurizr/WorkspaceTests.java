@@ -124,7 +124,7 @@ public class WorkspaceTests {
     @Test
     public void test_isEmpty_ReturnsFalse_WhenThereIsDocumentation() throws Exception {
         workspace = new Workspace("Name", "Description");
-        workspace.getDocumentation().addImages(new File("../docs/images"));
+        workspace.getDocumentation().addImage(new File("../docs/images/structurizr-logo.png"));
         assertFalse(workspace.isEmpty());
     }
 

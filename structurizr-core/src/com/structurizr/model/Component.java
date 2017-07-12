@@ -80,6 +80,9 @@ public class Component extends StaticStructureElement {
      * @throws IllegalArgumentException if the specified type is null
      */
     public CodeElement setType(String type) {
+        Optional<CodeElement> optional = codeElements.stream().filter(ce -> ce.getRole() == CodeElementRole.Primary).findFirst();
+        optional.ifPresent(codeElement -> codeElements.remove(codeElement));
+
         CodeElement codeElement = new CodeElement(type);
         codeElement.setRole(CodeElementRole.Primary);
         this.codeElements.add(codeElement);
@@ -142,7 +145,7 @@ public class Component extends StaticStructureElement {
     public String getPackage() {
         if (getType() != null) {
             try {
-                return Class.forName(getType()).getPackage().getName();
+                return ClassLoader.getSystemClassLoader().loadClass(getType()).getPackage().getName();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }

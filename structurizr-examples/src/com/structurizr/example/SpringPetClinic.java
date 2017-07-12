@@ -2,10 +2,10 @@ package com.structurizr.example;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.componentfinder.ComponentFinder;
-import com.structurizr.componentfinder.ReferencedTypesSupportingTypesStrategy;
-import com.structurizr.componentfinder.SourceCodeComponentFinderStrategy;
-import com.structurizr.componentfinder.SpringComponentFinderStrategy;
+import com.structurizr.analysis.ComponentFinder;
+import com.structurizr.analysis.ReferencedTypesSupportingTypesStrategy;
+import com.structurizr.analysis.SourceCodeComponentFinderStrategy;
+import com.structurizr.analysis.SpringComponentFinderStrategy;
 import com.structurizr.documentation.Format;
 import com.structurizr.documentation.StructurizrDocumentation;
 import com.structurizr.model.*;
@@ -39,7 +39,7 @@ public class SpringPetClinic {
         File sourceRoot = new File(args[0]);
 
         try {
-            Class.forName("org.springframework.samples.petclinic.model.Vet");
+            ClassLoader.getSystemClassLoader().loadClass("org.springframework.samples.petclinic.model.Vet");
         } catch (ClassNotFoundException e) {
             System.err.println("Please check that the compiled version of the Spring PetClinic application is on the classpath");
             System.exit(-1);
