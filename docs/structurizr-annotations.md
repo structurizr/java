@@ -2,7 +2,7 @@
 
 Structurizr for Java includes some custom annotations that you can add to your code. These serve to either make it explicit how components should be extracted from your codebase, or they help supplement the software architecture model.
 
-The annotations can be found in the [structurizr-annotations](https://bintray.com/structurizr/maven/structurizr-java#files/com%2Fstructurizr%2Fstructurizr-annotations) artifact, which is a very small standalone JAR file containing only the Structurizr annotations. All annotations have a runtime retention policy, so they will be present in the compiled bytecode.
+The annotations can be found in the [structurizr-annotations](https://bintray.com/structurizr/maven/structurizr-java) artifact, which is a very small standalone JAR file containing only the Structurizr annotations. All annotations have a runtime retention policy, so they will be present in the compiled bytecode.
 
 ## @Component
 
