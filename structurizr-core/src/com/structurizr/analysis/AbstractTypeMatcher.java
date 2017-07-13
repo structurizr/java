@@ -1,5 +1,8 @@
 package com.structurizr.analysis;
 
+/**
+ * A superclass used for TypeMatcher implementations.
+ */
 public abstract class AbstractTypeMatcher implements TypeMatcher {
 
     private String description;
