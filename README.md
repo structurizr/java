@@ -51,6 +51,7 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Extracting components from your codebase](docs/extracting-components.md)
     * [Structurizr annotations](docs/structurizr-annotations.md)
     * [Type matchers](docs/type-matchers.md)
+    * [Spring component finder strategies](docs/spring-component-finder-strategies.md)
     * [Supplementing the model from source code](docs/supplementing-from-source-code.md)
     * [Components and supporting types](docs/supporting-types.md)
     * [The Spring PetClinic example](docs/spring-petclinic.md)

@@ -5,9 +5,7 @@ import com.structurizr.model.Component;
 import java.util.Set;
 
 /**
- * A component finder strategy for Spring REST Controllers (classes annotated @RestController).
- *
- * @author Simon Brown
+ * A component finder strategy that finds Spring REST controllers (classes annotated @RestController).
  */
 public final class SpringRestControllerComponentFinderStrategy extends AbstractSpringComponentFinderStrategy {
 

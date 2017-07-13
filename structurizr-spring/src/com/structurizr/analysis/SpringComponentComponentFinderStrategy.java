@@ -5,9 +5,7 @@ import com.structurizr.model.Component;
 import java.util.Set;
 
 /**
- * A component finder strategy for Spring Components (classes annotated @Component).
- *
- * @author Simon Brown
+ * A component finder strategy that finds Spring components (classes annotated @Component).
  */
 public final class SpringComponentComponentFinderStrategy extends AbstractSpringComponentFinderStrategy {
 

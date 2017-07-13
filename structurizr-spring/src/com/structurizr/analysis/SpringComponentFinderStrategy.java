@@ -24,13 +24,8 @@ import java.util.Set;
  *     By default, non-public types will be ignored so that, for example, you can
  *     hide repository implementations behind services, as described at
  *     <a href="http://olivergierke.de/2013/01/whoops-where-did-my-architecture-go/">Whoops! Where did my architecture go</a>.
- * </p>
-
- * <p>
  *     You can change this behaviour by passing false to {@link #setIncludePublicTypesOnly(boolean)}.
  * </p>
- *
- * @author Simon Brown
  */
 public class SpringComponentFinderStrategy extends AbstractSpringComponentFinderStrategy {
 

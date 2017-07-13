@@ -12,10 +12,8 @@ import java.util.LinkedList;
 import java.util.Set;
 
 /**
- * A component finder strategy for Spring Repositories (classes annotated @Repository,
+ * A component finder strategy for Spring repositories (classes annotated @Repository,
  * plus those that extend JpaRepository or CrudRepository).
- *
- * @author Simon Brown
  */
 public final class SpringRepositoryComponentFinderStrategy extends AbstractSpringComponentFinderStrategy {
 

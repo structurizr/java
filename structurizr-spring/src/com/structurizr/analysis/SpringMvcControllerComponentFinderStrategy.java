@@ -5,9 +5,7 @@ import com.structurizr.model.Component;
 import java.util.Set;
 
 /**
- * A component finder strategy for Spring MVC Controllers (classes annotated @Controller).
- *
- * @author Simon Brown
+ * A component finder strategy that finds Spring MVC controllers (classes annotated @Controller).
  */
 public final class SpringMvcControllerComponentFinderStrategy extends AbstractSpringComponentFinderStrategy {
 
