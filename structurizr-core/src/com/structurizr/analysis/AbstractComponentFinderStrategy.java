@@ -16,9 +16,11 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
 
     private static final Log log = LogFactory.getLog(AbstractComponentFinderStrategy.class);
 
-    protected ComponentFinder componentFinder;
-
     private TypeRepository typeRepository;
+
+    private Set<Component> componentsFound = new HashSet<>();
+
+    protected ComponentFinder componentFinder;
 
     protected List<SupportingTypesStrategy> supportingTypesStrategies = new ArrayList<>();
 
@@ -37,12 +39,36 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
      */
     public void setComponentFinder(ComponentFinder componentFinder) {
         this.componentFinder = componentFinder;
-        typeRepository = new DefaultTypeRepository(componentFinder.getPackageName(), componentFinder.getExclusions());
-        supportingTypesStrategies.forEach(sts -> sts.setTypeRepository(getTypeRepository()));
     }
 
     protected TypeRepository getTypeRepository() {
         return typeRepository;
+    }
+
+    @Override
+    public void beforeFindComponents() throws Exception {
+        typeRepository = new DefaultTypeRepository(componentFinder.getPackageName(), componentFinder.getExclusions());
+        supportingTypesStrategies.forEach(sts -> sts.setTypeRepository(typeRepository));
+    }
+
+    @Override
+    public Set<Component> findComponents() throws Exception {
+        componentsFound.addAll(doFindComponents());
+
+        return componentsFound;
+    }
+
+    /**
+     * A template method into which subclasses can put their component finding code.
+     *
+     * @return  the Set of Components found, or an empty set if no components were found
+     */
+    protected abstract Set<Component> doFindComponents() throws Exception;
+
+    @Override
+    public void afterFindComponents() throws Exception {
+        findSupportingTypes(componentsFound);
+        findDependencies();
     }
 
     private void findSupportingTypes(Set<Component> components) throws Exception {
@@ -77,28 +103,6 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         }
     }
 
-    private Set<Component> componentsFound = new HashSet<>();
-
-    @Override
-    public Set<Component> findComponents() throws Exception {
-        componentsFound.addAll(doFindComponents());
-
-        return componentsFound;
-    }
-
-    /**
-     * A template method into which subclasses can put their component finding code.
-     *
-     * @return  the Set of Components found, or an empty set if no components were found
-     */
-    protected abstract Set<Component> doFindComponents() throws Exception;
-
-    @Override
-    public void postFindComponents() throws Exception {
-        findSupportingTypes(componentsFound);
-        findDependencies();
-    }
-
     private void addEfferentDependencies(Component component, String type, Set<String> typesVisited) throws Exception {
         typesVisited.add(type);
 
@@ -130,7 +134,6 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         }
 
         supportingTypesStrategies.add(supportingTypesStrategy);
-        supportingTypesStrategy.setTypeRepository(getTypeRepository());
     }
 
     protected Set<Class<?>> findTypesAnnotatedWith(Class<? extends Annotation> annotation) throws Exception {

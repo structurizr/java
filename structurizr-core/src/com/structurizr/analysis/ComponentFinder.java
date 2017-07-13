@@ -65,11 +65,15 @@ public class ComponentFinder {
         Set<Component> componentsFound = new HashSet<>();
 
         for (ComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {
+            componentFinderStrategy.beforeFindComponents();
+        }
+
+        for (ComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {
             componentsFound.addAll(componentFinderStrategy.findComponents());
         }
 
         for (ComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {
-            componentFinderStrategy.postFindComponents();
+            componentFinderStrategy.afterFindComponents();
         }
 
         return componentsFound;

@@ -46,27 +46,16 @@ public class SourceCodeComponentFinderStrategy implements ComponentFinderStrateg
     }
 
     @Override
+    public void beforeFindComponents() throws Exception {
+    }
+
+    @Override
     public Set<Component> findComponents() throws Exception {
         return new HashSet<>(); // this component finder doesn't find components
     }
 
-    private void runJavaDoc() throws Exception {
-        com.sun.tools.javadoc.Main.execute("StructurizrDoclet",
-                this.getClass().getName(),
-                new String[]{
-                        "-sourcepath", sourcePath.getCanonicalPath(),
-                        "-subpackages", componentFinder.getPackageName(),
-                        "-private"
-                });
-    }
-
-    public static boolean start(RootDoc rootDoc) {
-        ROOTDOC = rootDoc;
-        return true;
-    }
-
     @Override
-    public void postFindComponents() throws Exception {
+    public void afterFindComponents() throws Exception {
         runJavaDoc();
 
         JavadocCommentFilter filter = new JavadocCommentFilter(maxDescriptionLength);
@@ -104,6 +93,21 @@ public class SourceCodeComponentFinderStrategy implements ComponentFinderStrateg
                 component.setSize(count);
             }
         }
+    }
+
+    private void runJavaDoc() throws Exception {
+        com.sun.tools.javadoc.Main.execute("StructurizrDoclet",
+                this.getClass().getName(),
+                new String[]{
+                        "-sourcepath", sourcePath.getCanonicalPath(),
+                        "-subpackages", componentFinder.getPackageName(),
+                        "-private"
+                });
+    }
+
+    public static boolean start(RootDoc rootDoc) {
+        ROOTDOC = rootDoc;
+        return true;
     }
 
 }

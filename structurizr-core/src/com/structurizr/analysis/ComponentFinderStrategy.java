@@ -17,6 +17,14 @@ public interface ComponentFinderStrategy {
     void setComponentFinder(ComponentFinder componentFinder);
 
     /**
+     * Called before all component finder strategies belonging to the
+     * same component finder are asked to find components.
+     *
+     * @throws Exception    if something goes wrong
+     */
+    void beforeFindComponents() throws Exception;
+
+    /**
      * Finds components.
      *
      * @return the set of components found
@@ -32,6 +40,6 @@ public interface ComponentFinderStrategy {
      *
      * @throws Exception    if something goes wrong
      */
-    void postFindComponents() throws Exception;
+    void afterFindComponents() throws Exception;
 
 }

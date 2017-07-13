@@ -3,6 +3,8 @@ package com.structurizr.analysis;
 import com.structurizr.model.Component;
 
 import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,60 +34,39 @@ import java.util.Set;
  */
 public class SpringComponentFinderStrategy extends AbstractSpringComponentFinderStrategy {
 
-    private SpringRestControllerComponentFinderStrategy springRestControllerComponentFinderStrategy;
-    private SpringMvcControllerComponentFinderStrategy springMvcControllerComponentFinderStrategy;
-    private SpringServiceComponentFinderStrategy springServiceComponentFinderStrategy;
-    private SpringComponentComponentFinderStrategy springComponentComponentFinderStrategy;
-    private SpringRepositoryComponentFinderStrategy springRepositoryComponentFinderStrategy;
+    private List<AbstractSpringComponentFinderStrategy> componentFinderStrategies = new LinkedList<>();
 
     public SpringComponentFinderStrategy(SupportingTypesStrategy... strategies) {
         super(strategies);
     }
 
     @Override
-    protected Set<Component> doFindComponents() throws Exception {
-        Set<Component> components = new HashSet<>();
+    public void beforeFindComponents() throws Exception {
+        super.beforeFindComponents();
 
-        springRestControllerComponentFinderStrategy = new SpringRestControllerComponentFinderStrategy();
-        springRestControllerComponentFinderStrategy.setIncludePublicTypesOnly(includePublicTypesOnly);
-        springRestControllerComponentFinderStrategy.setComponentFinder(getComponentFinder());
-        supportingTypesStrategies.forEach(springRestControllerComponentFinderStrategy::addSupportingTypesStrategy);
-        components.addAll(springRestControllerComponentFinderStrategy.findComponents());
+        componentFinderStrategies.add(new SpringRestControllerComponentFinderStrategy());
+        componentFinderStrategies.add(new SpringMvcControllerComponentFinderStrategy());
+        componentFinderStrategies.add(new SpringServiceComponentFinderStrategy());
+        componentFinderStrategies.add(new SpringComponentComponentFinderStrategy());
+        componentFinderStrategies.add(new SpringRepositoryComponentFinderStrategy());
 
-        springMvcControllerComponentFinderStrategy = new SpringMvcControllerComponentFinderStrategy();
-        springMvcControllerComponentFinderStrategy.setIncludePublicTypesOnly(includePublicTypesOnly);
-        springMvcControllerComponentFinderStrategy.setComponentFinder(getComponentFinder());
-        supportingTypesStrategies.forEach(springMvcControllerComponentFinderStrategy::addSupportingTypesStrategy);
-        components.addAll(springMvcControllerComponentFinderStrategy.findComponents());
-
-        springServiceComponentFinderStrategy = new SpringServiceComponentFinderStrategy();
-        springServiceComponentFinderStrategy.setIncludePublicTypesOnly(includePublicTypesOnly);
-        springServiceComponentFinderStrategy.setComponentFinder(getComponentFinder());
-        supportingTypesStrategies.forEach(springServiceComponentFinderStrategy::addSupportingTypesStrategy);
-        components.addAll(springServiceComponentFinderStrategy.findComponents());
-
-        springComponentComponentFinderStrategy = new SpringComponentComponentFinderStrategy();
-        springComponentComponentFinderStrategy.setIncludePublicTypesOnly(includePublicTypesOnly);
-        springComponentComponentFinderStrategy.setComponentFinder(getComponentFinder());
-        supportingTypesStrategies.forEach(springComponentComponentFinderStrategy::addSupportingTypesStrategy);
-        components.addAll(springComponentComponentFinderStrategy.findComponents());
-
-        springRepositoryComponentFinderStrategy = new SpringRepositoryComponentFinderStrategy();
-        springRepositoryComponentFinderStrategy.setIncludePublicTypesOnly(includePublicTypesOnly);
-        springRepositoryComponentFinderStrategy.setComponentFinder(getComponentFinder());
-        supportingTypesStrategies.forEach(springRepositoryComponentFinderStrategy::addSupportingTypesStrategy);
-        components.addAll(springRepositoryComponentFinderStrategy.findComponents());
-
-        return components;
+        for (AbstractSpringComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {
+            componentFinderStrategy.setIncludePublicTypesOnly(includePublicTypesOnly);
+            componentFinderStrategy.setComponentFinder(getComponentFinder());
+            supportingTypesStrategies.forEach(componentFinderStrategy::addSupportingTypesStrategy);
+            componentFinderStrategy.beforeFindComponents();
+        }
     }
 
     @Override
-    public void postFindComponents() throws Exception {
-        springRestControllerComponentFinderStrategy.postFindComponents();
-        springMvcControllerComponentFinderStrategy.postFindComponents();
-        springServiceComponentFinderStrategy.postFindComponents();
-        springComponentComponentFinderStrategy.postFindComponents();
-        springRepositoryComponentFinderStrategy.postFindComponents();
+    protected Set<Component> doFindComponents() throws Exception {
+        Set<Component> components = new HashSet<>();
+
+        for (AbstractComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {
+            components.addAll(componentFinderStrategy.findComponents());
+        }
+
+        return components;
     }
 
 }

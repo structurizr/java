@@ -49,10 +49,10 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
     }
 
     @Override
-    public void postFindComponents() throws Exception {
+    public void afterFindComponents() throws Exception {
         // this will find component dependencies, but the relationship descriptions
         // will be empty because we can't get that from the code
-        super.postFindComponents();
+        super.afterFindComponents();
 
         for (Component component : getComponentFinder().getContainer().getComponents()) {
             if (component.getType() != null) {
