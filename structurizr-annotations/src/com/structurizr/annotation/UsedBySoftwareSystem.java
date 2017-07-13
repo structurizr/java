@@ -3,7 +3,9 @@ package com.structurizr.annotation;
 import java.lang.annotation.*;
 
 /**
- * This annotation is used to signify a that a named software system uses this component.
+ * A type-level annotation that can be used to signify that the named
+ * software system uses the component on which this annotation is placed,
+ * creating a relationship from the software system to the component.
  */
 @Documented
 @Target({ElementType.TYPE})
@@ -12,6 +14,7 @@ import java.lang.annotation.*;
 public @interface UsedBySoftwareSystem {
 
     String name();
-    String description();
+    String description() default "";
+    String technology() default "";
 
 }

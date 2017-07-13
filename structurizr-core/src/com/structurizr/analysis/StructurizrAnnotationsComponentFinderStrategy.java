@@ -93,16 +93,18 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
             if (annotation != null) {
                 String name = field.getType().getCanonicalName();
                 String description = field.getAnnotation(UsesComponent.class).description();
+                String technology = annotation.technology();
 
                 Component destination = componentFinder.getContainer().getComponentOfType(name);
                 if (destination != null) {
                     for (Relationship relationship : component.getRelationships()) {
                         if (relationship.getDestination() == destination) {
                             relationship.setDescription(description);
+                            relationship.setTechnology(technology);
                         }
                     }
                 } else {
-                    log.warn("A component named \"" + name + "\" could not be found.");
+                    log.warn("A component of type \"" + name + "\" could not be found.");
                 }
             }
         }
@@ -117,10 +119,11 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
         for (UsesSoftwareSystem annotation : annotations) {
             String name = annotation.name();
             String description = annotation.description();
+            String technology = annotation.technology();
 
             SoftwareSystem softwareSystem = component.getModel().getSoftwareSystemWithName(name);
             if (softwareSystem != null) {
-                component.uses(softwareSystem, description);
+                component.uses(softwareSystem, description, technology);
             } else {
                 log.warn("A software system named \"" + name + "\" could not be found.");
             }
@@ -136,10 +139,11 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
         for (UsesContainer annotation : annotations) {
             String name = annotation.name();
             String description = annotation.description();
+            String technology = annotation.technology();
 
             Container container = findContainerByNameOrCanonicalName(component, name);
             if (container != null) {
-                component.uses(container, description);
+                component.uses(container, description, technology);
             } else {
                 log.warn("A container named \"" + name + "\" could not be found.");
             }
@@ -155,10 +159,11 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
         for (UsedByPerson annotation : annotations) {
             String name = annotation.name();
             String description = annotation.description();
+            String technology = annotation.technology();
 
             Person person = component.getModel().getPersonWithName(name);
             if (person != null) {
-                person.uses(component, description);
+                person.uses(component, description, technology);
             } else {
                 log.warn("A person named \"" + name + "\" could not be found.");
             }
@@ -174,10 +179,11 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
         for (UsedBySoftwareSystem annotation : annotations) {
             String name = annotation.name();
             String description = annotation.description();
+            String technology = annotation.technology();
 
             SoftwareSystem softwareSystem = component.getModel().getSoftwareSystemWithName(name);
             if (softwareSystem != null) {
-                softwareSystem.uses(component, description);
+                softwareSystem.uses(component, description, technology);
             } else {
                 log.warn("A software system named \"" + name + "\" could not be found.");
             }
@@ -193,10 +199,11 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
         for (UsedByContainer annotation : annotations) {
             String name = annotation.name();
             String description = annotation.description();
+            String technology = annotation.technology();
 
             Container container = findContainerByNameOrCanonicalName(component, name);
             if (container != null) {
-                container.uses(component, description);
+                container.uses(component, description, technology);
             } else {
                 log.warn("A container named \"" + name + "\" could not be found.");
             }

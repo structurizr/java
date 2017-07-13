@@ -81,10 +81,12 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
         assertEquals(1, anonymousUser.getRelationships().size());
         Relationship relationship = anonymousUser.getRelationships().stream().filter(r -> r.getDestination() == controller).findFirst().get();
         assertEquals("Uses to do something", relationship.getDescription());
+        assertEquals("HTTPS", relationship.getTechnology());
 
         assertEquals(1, authenticatedUser.getRelationships().size());
         relationship = authenticatedUser.getRelationships().stream().filter(r -> r.getDestination() == controller).findFirst().get();
         assertEquals("Uses to do something too", relationship.getDescription());
+        assertEquals("", relationship.getTechnology());
     }
 
     @Test
@@ -94,10 +96,12 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
         assertEquals(1, external1.getRelationships().size());
         Relationship relationship = external1.getRelationships().stream().filter(r -> r.getDestination() == controller).findFirst().get();
         assertEquals("Uses to do something", relationship.getDescription());
+        assertEquals("HTTPS", relationship.getTechnology());
 
         assertEquals(1, external2.getRelationships().size());
         relationship = external2.getRelationships().stream().filter(r -> r.getDestination() == controller).findFirst().get();
         assertEquals("Uses to do something too", relationship.getDescription());
+        assertEquals("", relationship.getTechnology());
     }
 
     @Test
@@ -107,10 +111,12 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
         assertEquals(1, webBrowser.getRelationships().size());
         Relationship relationship = webBrowser.getRelationships().stream().filter(r -> r.getDestination() == controller).findFirst().get();
         assertEquals("Makes calls to", relationship.getDescription());
+        assertEquals("HTTPS", relationship.getTechnology());
 
         assertEquals(1, apiClient.getRelationships().size());
         relationship = apiClient.getRelationships().stream().filter(r -> r.getDestination() == controller).findFirst().get();
         assertEquals("Makes API calls to", relationship.getDescription());
+        assertEquals("HTTPS", relationship.getTechnology());
     }
 
     @Test
@@ -121,6 +127,7 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
 
         Relationship relationship = controller.getRelationships().stream().filter(r -> r.getDestination() == repository).findFirst().get();
         assertEquals("Reads from and writes to", relationship.getDescription());
+        assertEquals("Just a method call", relationship.getTechnology());
     }
 
     @Test
@@ -131,6 +138,7 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
         assertEquals(1, repository.getRelationships().size());
         Relationship relationship = repository.getRelationships().stream().filter(r -> r.getDestination() == database).findFirst().get();
         assertEquals("Reads from and writes to", relationship.getDescription());
+        assertEquals("JDBC", relationship.getTechnology());
     }
 
     @Test
@@ -140,6 +148,7 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
 
         Relationship relationship = controller.getRelationships().stream().filter(r -> r.getDestination() == external1).findFirst().get();
         assertEquals("Sends information to", relationship.getDescription());
+        assertEquals("HTTPS", relationship.getTechnology());
     }
 
 }
