@@ -382,6 +382,10 @@ public class Model {
     public Set<Relationship> addImplicitRelationships() {
         Set<Relationship> implicitRelationships = new HashSet<>();
 
+        String descriptionKey = "D";
+        String technologyKey = "T";
+        Map<Element, Map<Element, Map<String, HashSet<String>>>> candidateRelationships = new HashMap<>();
+
         for (Relationship relationship : getRelationships()) {
             Element source = relationship.getSource();
             Element destination = relationship.getDestination();
@@ -390,9 +394,23 @@ public class Model {
                 while (destination != null) {
                     if (!source.hasEfferentRelationshipWith(destination)) {
                         if (propagatedRelationshipIsAllowed(source, destination)) {
-                            Relationship implicitRelationship = addRelationship(source, destination, "");
-                            if (implicitRelationship != null) {
-                                implicitRelationships.add(implicitRelationship);
+
+                            if (!candidateRelationships.containsKey(source)) {
+                                candidateRelationships.put(source, new HashMap<>());
+                            }
+
+                            if (!candidateRelationships.get(source).containsKey(destination)) {
+                                candidateRelationships.get(source).put(destination, new HashMap<>());
+                                candidateRelationships.get(source).get(destination).put(descriptionKey, new HashSet<>());
+                                candidateRelationships.get(source).get(destination).put(technologyKey, new HashSet<>());
+                            }
+
+                            if (relationship.getDescription() != null) {
+                                candidateRelationships.get(source).get(destination).get(descriptionKey).add(relationship.getDescription());
+                            }
+
+                            if (relationship.getTechnology() != null) {
+                                candidateRelationships.get(source).get(destination).get(technologyKey).add(relationship.getTechnology());
                             }
                         }
                     }
@@ -402,6 +420,28 @@ public class Model {
 
                 destination = relationship.getDestination();
                 source = source.getParent();
+            }
+        }
+
+        for (Element source : candidateRelationships.keySet()) {
+            for (Element destination : candidateRelationships.get(source).keySet()) {
+                Set<String> possibleDescriptions = candidateRelationships.get(source).get(destination).get(descriptionKey);
+                Set<String> possibleTechnologies = candidateRelationships.get(source).get(destination).get(technologyKey);
+
+                String description = "";
+                if (possibleDescriptions.size() == 1) {
+                    description = possibleDescriptions.iterator().next();
+                }
+
+                String technology = "";
+                if (possibleTechnologies.size() == 1) {
+                    technology = possibleTechnologies.iterator().next();
+                }
+
+                Relationship implicitRelationship = addRelationship(source, destination, description, technology);
+                if (implicitRelationship != null) {
+                    implicitRelationships.add(implicitRelationship);
+                }
             }
         }
 

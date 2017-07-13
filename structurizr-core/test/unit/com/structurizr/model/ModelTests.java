@@ -554,4 +554,66 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertSame(container, model.getElementWithCanonicalName("Software System/Web Application"));
     }
 
+    @Test
+    public void test_addImplicitRelationships_SetsTheDescriptionOfThePropagatedRelationship_WhenThereIsOnlyOnePossibleDescription() {
+        Person user = model.addPerson("Person", "Description");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
+        Container webApplication = softwareSystem.addContainer("Web Application", "Description", "Technology");
+
+        user.uses(webApplication, "Uses", "");
+        model.addImplicitRelationships();
+
+        assertEquals(2, user.getRelationships().size());
+
+        Relationship relationship = user.getRelationships().stream().filter(r -> r.getDestination() == softwareSystem).findFirst().get();
+        assertEquals("Uses", relationship.getDescription());
+    }
+
+    @Test
+    public void test_addImplicitRelationships_DoeNotSetTheDescriptionOfThePropagatedRelationship_WhenThereIsMoreThanOnePossibleDescription() {
+        Person user = model.addPerson("Person", "Description");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
+        Container webApplication = softwareSystem.addContainer("Web Application", "Description", "Technology");
+
+        user.uses(webApplication, "Does something", "");
+        user.uses(webApplication, "Does something else", "");
+        model.addImplicitRelationships();
+
+        assertEquals(3, user.getRelationships().size());
+
+        Relationship relationship = user.getRelationships().stream().filter(r -> r.getDestination() == softwareSystem).findFirst().get();
+        assertEquals("", relationship.getDescription());
+    }
+
+    @Test
+    public void test_addImplicitRelationships_SetsTheTechnologyOfThePropagatedRelationship_WhenThereIsOnlyOnePossibleTechnology() {
+        Person user = model.addPerson("Person", "Description");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
+        Container webApplication = softwareSystem.addContainer("Web Application", "Description", "Technology");
+
+        user.uses(webApplication, "Uses", "HTTPS");
+        model.addImplicitRelationships();
+
+        assertEquals(2, user.getRelationships().size());
+
+        Relationship relationship = user.getRelationships().stream().filter(r -> r.getDestination() == softwareSystem).findFirst().get();
+        assertEquals("HTTPS", relationship.getTechnology());
+    }
+
+    @Test
+    public void test_addImplicitRelationships_DoeNotSetTheTechnologyOfThePropagatedRelationship_WhenThereIsMoreThanOnePossibleTechnology() {
+        Person user = model.addPerson("Person", "Description");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
+        Container webApplication = softwareSystem.addContainer("Web Application", "Description", "Technology");
+
+        user.uses(webApplication, "Does something", "Some technology");
+        user.uses(webApplication, "Does something else", "Some other technology");
+        model.addImplicitRelationships();
+
+        assertEquals(3, user.getRelationships().size());
+
+        Relationship relationship = user.getRelationships().stream().filter(r -> r.getDestination() == softwareSystem).findFirst().get();
+        assertEquals("", relationship.getTechnology());
+    }
+
 }
