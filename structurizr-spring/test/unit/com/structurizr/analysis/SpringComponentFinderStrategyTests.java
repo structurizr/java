@@ -19,7 +19,6 @@ public class SpringComponentFinderStrategyTests {
     public void setUp() {
         Workspace workspace = new Workspace("Name", "Description");
         Model model = workspace.getModel();
-
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
         webApplication = softwareSystem.addContainer("Name", "Description", "Technology");
     }
