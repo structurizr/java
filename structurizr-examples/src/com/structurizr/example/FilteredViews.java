@@ -35,8 +35,8 @@ public class FilteredViews {
         softwareSystem.uses(softwareSystemB, "Gets even more data from");
 
         // tag and style some elements
-        ViewSet viewSet = workspace.getViews();
-        Styles styles = viewSet.getConfiguration().getStyles();
+        ViewSet views = workspace.getViews();
+        Styles styles = views.getConfiguration().getStyles();
 
         styles.addElementStyle(Tags.ELEMENT).color("#ffffff").fontSize(34);
         styles.addElementStyle("Software System under construction").background("#445200");
@@ -44,11 +44,11 @@ public class FilteredViews {
         styles.addElementStyle(Tags.PERSON).width(550).background("#6a7b15").shape(Shape.Person);
 
         // create some views
-        SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "Context", "An example System Context diagram.");
+        SystemContextView contextView = views.createSystemContextView(softwareSystem, "Context", "An example System Context diagram.");
         contextView.addAllElements();
 
-        viewSet.createFilteredView(contextView, "CurrentStateSystemContext", "The current system context", FilterMode.Exclude, "FutureState");
-        viewSet.createFilteredView(contextView, "FutureStateSystemContext", "The future state system context after Software System B is live.", FilterMode.Exclude, "CurrentState");
+        views.createFilteredView(contextView, "CurrentStateSystemContext", "The current system context", FilterMode.Exclude, "FutureState");
+        views.createFilteredView(contextView, "FutureStateSystemContext", "The future state system context after Software System B is live.", FilterMode.Exclude, "CurrentState");
 
         StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.putWorkspace(19911, workspace);

@@ -81,17 +81,17 @@ public class SpringBootPetClinic {
                 .forEach(c -> c.uses(relationalDatabase, "Reads from and writes to", "JDBC"));
 
         // finally create some views
-        ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createSystemContextView(springPetClinic, "context", "The System Context diagram for the Spring PetClinic system.");
+        ViewSet views = workspace.getViews();
+        SystemContextView contextView = views.createSystemContextView(springPetClinic, "context", "The System Context diagram for the Spring PetClinic system.");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
-        ContainerView containerView = viewSet.createContainerView(springPetClinic, "containers", "The Containers diagram for the Spring PetClinic system.");
+        ContainerView containerView = views.createContainerView(springPetClinic, "containers", "The Containers diagram for the Spring PetClinic system.");
         containerView.addAllPeople();
         containerView.addAllSoftwareSystems();
         containerView.addAllContainers();
 
-        ComponentView componentView = viewSet.createComponentView(webApplication, "components", "The Components diagram for the Spring PetClinic web application.");
+        ComponentView componentView = views.createComponentView(webApplication, "components", "The Components diagram for the Spring PetClinic web application.");
         componentView.addAllComponents();
         componentView.addAllPeople();
         componentView.add(relationalDatabase);
@@ -122,12 +122,12 @@ public class SpringBootPetClinic {
         Component vetController = webApplication.getComponentWithName("VetController");
         Component vetRepository = webApplication.getComponentWithName("VetRepository");
 
-        DynamicView dynamicView = viewSet.createDynamicView(webApplication, "viewListOfVets", "Shows how the \"view list of vets\" feature works.");
+        DynamicView dynamicView = views.createDynamicView(webApplication, "viewListOfVets", "Shows how the \"view list of vets\" feature works.");
         dynamicView.add(clinicEmployee, "Requests list of vets from /vets", vetController);
         dynamicView.add(vetController, "Calls findAll", vetRepository);
         dynamicView.add(vetRepository, "select * from vets", relationalDatabase);
 
-        Styles styles = viewSet.getConfiguration().getStyles();
+        Styles styles = views.getConfiguration().getStyles();
         styles.addElementStyle("Spring PetClinic").background("#6CB33E").color("#ffffff");
         styles.addElementStyle(Tags.PERSON).background("#519823").color("#ffffff").shape(Shape.Person);
         styles.addElementStyle(Tags.CONTAINER).background("#91D366").color("#ffffff");

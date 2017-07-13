@@ -58,13 +58,13 @@ public class FinancialRiskSystem {
         financialRiskSystem.uses(activeDirectory, "Uses for user authentication and authorisation");
 
         // create some views
-        ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createSystemContextView(financialRiskSystem, "Context", "An example System Context diagram for the Financial Risk System architecture kata.");
+        ViewSet views = workspace.getViews();
+        SystemContextView contextView = views.createSystemContextView(financialRiskSystem, "Context", "An example System Context diagram for the Financial Risk System architecture kata.");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
         // tag and style some elements
-        Styles styles = viewSet.getConfiguration().getStyles();
+        Styles styles = views.getConfiguration().getStyles();
         financialRiskSystem.addTags("Risk System");
 
         styles.addElementStyle(Tags.ELEMENT).color("#ffffff").fontSize(34);

@@ -29,17 +29,17 @@ public class StructurizrDocumentationExample {
     public static void main(String[] args) throws Exception {
         Workspace workspace = new Workspace("Documentation - Structurizr", "An empty software architecture document using the Structurizr template.");
         Model model = workspace.getModel();
-        ViewSet viewSet = workspace.getViews();
+        ViewSet views = workspace.getViews();
 
         Person user = model.addPerson("User", "A user of my software system.");
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "My software system.");
         user.uses(softwareSystem, "Uses");
 
-        SystemContextView contextView = viewSet.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
+        SystemContextView contextView = views.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
-        Styles styles = viewSet.getConfiguration().getStyles();
+        Styles styles = views.getConfiguration().getStyles();
         styles.addElementStyle(Tags.PERSON).shape(Shape.Person);
 
         StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);

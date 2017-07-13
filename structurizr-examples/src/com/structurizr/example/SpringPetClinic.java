@@ -84,17 +84,17 @@ public class SpringPetClinic {
                 .forEach(c -> c.uses(relationalDatabase, "Reads from and writes to", "JDBC"));
 
         // finally create some views
-        ViewSet viewSet = workspace.getViews();
-        SystemContextView contextView = viewSet.createSystemContextView(springPetClinic, "context", "The System Context diagram for the Spring PetClinic system.");
+        ViewSet views = workspace.getViews();
+        SystemContextView contextView = views.createSystemContextView(springPetClinic, "context", "The System Context diagram for the Spring PetClinic system.");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
-        ContainerView containerView = viewSet.createContainerView(springPetClinic, "containers", "The Container diagram for the Spring PetClinic system.");
+        ContainerView containerView = views.createContainerView(springPetClinic, "containers", "The Container diagram for the Spring PetClinic system.");
         containerView.addAllPeople();
         containerView.addAllSoftwareSystems();
         containerView.addAllContainers();
 
-        ComponentView componentView = viewSet.createComponentView(webApplication, "components", "The Component diagram for the Spring PetClinic web application.");
+        ComponentView componentView = views.createComponentView(webApplication, "components", "The Component diagram for the Spring PetClinic web application.");
         componentView.addAllComponents();
         componentView.addAllPeople();
         componentView.add(relationalDatabase);
@@ -127,7 +127,7 @@ public class SpringPetClinic {
         Component clinicService = webApplication.getComponentWithName("ClinicService");
         Component vetRepository = webApplication.getComponentWithName("VetRepository");
 
-        DynamicView dynamicView = viewSet.createDynamicView(webApplication, "viewListOfVets", "Shows how the \"view list of vets\" feature works.");
+        DynamicView dynamicView = views.createDynamicView(webApplication, "viewListOfVets", "Shows how the \"view list of vets\" feature works.");
         dynamicView.add(clinicEmployee, "Requests list of vets from /vets", vetController);
         dynamicView.add(vetController, "Calls findVets", clinicService);
         dynamicView.add(clinicService, "Calls findAll", vetRepository);
@@ -164,13 +164,13 @@ public class SpringPetClinic {
         Relationship dataReplicationRelationship = primaryDatabaseServer.uses(secondaryDatabaseServer, "Replicates data to", "");
         secondaryDatabase.addTags("Failover");
 
-        DeploymentView developmentDeploymentView = viewSet.createDeploymentView(springPetClinic, "developmentDeployment", "An example development deployment scenario for the Spring PetClinic software system.");
+        DeploymentView developmentDeploymentView = views.createDeploymentView(springPetClinic, "developmentDeployment", "An example development deployment scenario for the Spring PetClinic software system.");
         developmentDeploymentView.add(developerLaptop);
 
-        DeploymentView stagingDeploymentView = viewSet.createDeploymentView(springPetClinic, "stagingDeployment", "An example staging deployment scenario for the Spring PetClinic software system.");
+        DeploymentView stagingDeploymentView = views.createDeploymentView(springPetClinic, "stagingDeployment", "An example staging deployment scenario for the Spring PetClinic software system.");
         stagingDeploymentView.add(stagingServer);
 
-        DeploymentView liveDeploymentView = viewSet.createDeploymentView(springPetClinic, "liveDeployment", "An example live deployment scenario for the Spring PetClinic software system.");
+        DeploymentView liveDeploymentView = views.createDeploymentView(springPetClinic, "liveDeployment", "An example live deployment scenario for the Spring PetClinic software system.");
         liveDeploymentView.add(liveWebServer);
         liveDeploymentView.add(primaryDatabaseServer);
         liveDeploymentView.add(secondaryDatabaseServer);
@@ -183,7 +183,7 @@ public class SpringPetClinic {
         documentation.addDeploymentSection(springPetClinic, Format.Markdown, "This is the deployment section for the Spring PetClinic web application...\n### Staging environment\n![](embed:stagingDeployment)\n### Live environment\n![](embed:liveDeployment)");
         documentation.addDevelopmentEnvironmentSection(springPetClinic, Format.Markdown, "This is the development environment section for the Spring PetClinic web application...\n![](embed:developmentDeployment)");
 
-        Styles styles = viewSet.getConfiguration().getStyles();
+        Styles styles = views.getConfiguration().getStyles();
         styles.addElementStyle("Spring PetClinic").background("#6CB33E").color("#ffffff");
         styles.addElementStyle(Tags.PERSON).background("#519823").color("#ffffff").shape(Shape.Person);
         styles.addElementStyle(Tags.CONTAINER).background("#91D366").color("#ffffff");
