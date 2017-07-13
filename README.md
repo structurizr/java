@@ -50,6 +50,7 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
 * Software architecture model
     * [Extracting components from your codebase](docs/extracting-components.md)
     * [Structurizr annotations](docs/structurizr-annotations.md)
+    * [Type matchers](docs/type-matchers.md)
     * [Components and supporting types](docs/supporting-types.md)
     * [The Spring PetClinic example](docs/spring-petclinic.md)
 * Documentation

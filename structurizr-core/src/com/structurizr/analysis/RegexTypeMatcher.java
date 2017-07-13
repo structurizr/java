@@ -3,37 +3,35 @@ package com.structurizr.analysis;
 import java.util.regex.Pattern;
 
 /**
- * Matches types using a regex against the fully qualified name.
+ * Matches types using a regex against the fully qualified type name.
  */
-public class RegexTypeMatcher implements TypeMatcher {
+public class RegexTypeMatcher extends AbstractTypeMatcher {
 
     private Pattern regex;
-    private String description;
-    private String technology;
 
-    public RegexTypeMatcher(Pattern regex, String description, String technology) {
-        this.regex = regex;
-        this.description = description;
-        this.technology = technology;
+    public RegexTypeMatcher(String regex, String description, String technology) {
+        super(description, technology);
 
         if (regex == null) {
             throw new IllegalArgumentException("A regex must be supplied");
         }
+
+        this.regex = Pattern.compile(regex);
+    }
+
+    public RegexTypeMatcher(Pattern regex, String description, String technology) {
+        super(description, technology);
+
+        if (regex == null) {
+            throw new IllegalArgumentException("A regex must be supplied");
+        }
+
+        this.regex = regex;
     }
 
     @Override
     public boolean matches(Class type) {
         return Pattern.matches(regex.pattern(), type.getCanonicalName());
-    }
-
-    @Override
-    public String getDescription() {
-        return description;
-    }
-
-    @Override
-    public String getTechnology() {
-        return technology;
     }
 
 }

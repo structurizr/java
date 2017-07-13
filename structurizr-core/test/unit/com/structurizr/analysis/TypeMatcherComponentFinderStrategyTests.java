@@ -26,15 +26,13 @@ public class TypeMatcherComponentFinderStrategyTests {
 
     @Test
     public void test_basicUsage() throws Exception {
-        TypeMatcherComponentFinderStrategy typeMatcherComponentFinderStrategy = new TypeMatcherComponentFinderStrategy(
-                new NameSuffixTypeMatcher("Controller", "Controller description", "Controller technology"),
-                new NameSuffixTypeMatcher("Repository", "Repository description", "Repository technology")
-        );
-
         ComponentFinder componentFinder = new ComponentFinder(
                 container,
                 "test.TypeMatcherComponentFinderStrategy",
-                typeMatcherComponentFinderStrategy
+                new TypeMatcherComponentFinderStrategy(
+                        new NameSuffixTypeMatcher("Controller", "Controller description", "Controller technology"),
+                        new NameSuffixTypeMatcher("Repository", "Repository description", "Repository technology")
+                )
         );
         componentFinder.findComponents();
 
