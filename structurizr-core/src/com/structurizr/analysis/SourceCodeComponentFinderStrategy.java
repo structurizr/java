@@ -1,6 +1,7 @@
 package com.structurizr.analysis;
 
 import com.structurizr.model.CodeElement;
+import com.structurizr.model.CodeElementRole;
 import com.structurizr.model.Component;
 import com.sun.javadoc.ClassDoc;
 import com.sun.javadoc.RootDoc;
@@ -8,10 +9,7 @@ import com.sun.javadoc.RootDoc;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This component finder strategy doesn't really find components, it instead:
@@ -27,6 +25,7 @@ public class SourceCodeComponentFinderStrategy implements ComponentFinderStrateg
 
     private File sourcePath;
     private Integer maxDescriptionLength = null;
+    private String encoding = null;
 
     private Map<String,File> typeToSourceFile = new HashMap<>();
     private Map<String,String> typeToDescription = new HashMap<>();
@@ -43,6 +42,10 @@ public class SourceCodeComponentFinderStrategy implements ComponentFinderStrateg
     @Override
     public void setComponentFinder(ComponentFinder componentFinder) {
         this.componentFinder = componentFinder;
+    }
+
+    public void setEncoding(String encoding) {
+        this.encoding = encoding;
     }
 
     @Override
@@ -71,13 +74,16 @@ public class SourceCodeComponentFinderStrategy implements ComponentFinderStrateg
         for (Component component : componentFinder.getContainer().getComponents()) {
             long count = 0;
 
-            if (typeToDescription.containsKey(component.getType())) {
-                component.setDescription(typeToDescription.get(component.getType()));
-            }
-
             for (CodeElement codeElement : component.getCode()) {
                 if (typeToDescription.containsKey(codeElement.getType())) {
                     codeElement.setDescription(typeToDescription.get(codeElement.getType()));
+
+                    // additionally set the description on the component, if it's not already been set
+                    if (codeElement.getRole() == CodeElementRole.Primary) {
+                        if (component.getDescription() == null || component.getDescription().trim().length() == 0) {
+                            component.setDescription(typeToDescription.get(component.getType()));
+                        }
+                    }
                 }
 
                 File sourceFile = typeToSourceFile.get(codeElement.getType());
@@ -96,13 +102,24 @@ public class SourceCodeComponentFinderStrategy implements ComponentFinderStrateg
     }
 
     private void runJavaDoc() throws Exception {
-        com.sun.tools.javadoc.Main.execute("StructurizrDoclet",
+        List<String> parameters = new LinkedList<>();
+        parameters.add("-sourcepath");
+        parameters.add(sourcePath.getCanonicalPath());
+        parameters.add("-subpackages");
+        parameters.add(componentFinder.getPackageName());
+
+        if (encoding != null) {
+            parameters.add("-encoding");
+            parameters.add(encoding);
+        }
+
+        parameters.add("-private");
+
+        com.sun.tools.javadoc.Main.execute(
+                "StructurizrDoclet",
                 this.getClass().getName(),
-                new String[]{
-                        "-sourcepath", sourcePath.getCanonicalPath(),
-                        "-subpackages", componentFinder.getPackageName(),
-                        "-private"
-                });
+                parameters.toArray(new String[parameters.size()])
+        );
     }
 
     public static boolean start(RootDoc rootDoc) {

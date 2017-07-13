@@ -58,4 +58,17 @@ public class SourceCodeComponentFinderStrategyTests {
         assertEquals("A compo...", someComponent.getDescription());
     }
 
+    @Test
+    public void test_findComponents_DoesNotSetTheComponentDescription_WhenTheComponentAlreadyHasADescription() throws Exception {
+        someComponent.setDescription("An existing description.");
+        ComponentFinder componentFinder = new ComponentFinder(
+                webApplication,
+                "test.SourceCodeComponentFinderStrategy",
+                new SourceCodeComponentFinderStrategy(sourcePath, 10)
+        );
+        componentFinder.findComponents();
+
+        assertEquals("An existing description.", someComponent.getDescription());
+    }
+
 }
