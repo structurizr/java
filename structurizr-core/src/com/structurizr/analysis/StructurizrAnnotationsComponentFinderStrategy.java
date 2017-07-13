@@ -137,11 +137,11 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
             String name = annotation.name();
             String description = annotation.description();
 
-            Container container = component.getContainer().getSoftwareSystem().getContainerWithName(name);
+            Container container = findContainerByNameOrCanonicalName(component, name);
             if (container != null) {
                 component.uses(container, description);
             } else {
-                log.warn("A component named \"" + name + "\" could not be found.");
+                log.warn("A container named \"" + name + "\" could not be found.");
             }
         }
     }
@@ -194,13 +194,27 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
             String name = annotation.name();
             String description = annotation.description();
 
-            Container container = component.getContainer().getSoftwareSystem().getContainerWithName(name);
+            Container container = findContainerByNameOrCanonicalName(component, name);
             if (container != null) {
                 container.uses(component, description);
             } else {
                 log.warn("A container named \"" + name + "\" could not be found.");
             }
         }
+    }
+
+    private Container findContainerByNameOrCanonicalName(Component component, String name) {
+        // assume that the container resides in the same software system
+        Container container = component.getContainer().getSoftwareSystem().getContainerWithName(name);
+        if (container == null) {
+            // perhaps a canonical name has been specified
+            Element element = component.getModel().getElementWithCanonicalName(name);
+            if (element != null && element instanceof Container) {
+                container = (Container)element;
+            }
+        }
+
+        return container;
     }
 
 }

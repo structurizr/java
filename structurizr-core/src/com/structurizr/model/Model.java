@@ -213,6 +213,11 @@ public class Model {
      * @see Element#getId()
      */
     public Element getElement(String id) {
+        if (id == null || id.trim().length() == 0) {
+            throw new IllegalArgumentException("An ID must be specified.");
+        }
+
+
         return elementsById.get(id);
     }
 
@@ -527,6 +532,25 @@ public class Model {
         addElementToInternalStructures(containerInstance);
 
         return containerInstance;
+    }
+
+    public Element getElementWithCanonicalName(String canonicalName) {
+        if (canonicalName == null || canonicalName.trim().length() == 0) {
+            throw new IllegalArgumentException("A canonical name must be specified.");
+        }
+
+        // canonical names start with a leading slash, so add this if it's missing
+        if (!canonicalName.startsWith("/")) {
+            canonicalName = "/" + canonicalName;
+        }
+
+        for (Element element : getElements()) {
+            if (element.getCanonicalName().equals(canonicalName)) {
+                return element;
+            }
+        }
+
+        return null;
     }
 
 }

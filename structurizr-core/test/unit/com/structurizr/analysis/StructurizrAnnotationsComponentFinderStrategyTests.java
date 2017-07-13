@@ -24,7 +24,7 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
         external2 = model.addSoftwareSystem("External 2", "");
         anonymousUser = model.addPerson("Anonymous User", "");
         authenticatedUser = model.addPerson("Authenticated User", "");
-        softwareSystem = model.addSoftwareSystem(" Software System", "");
+        softwareSystem = model.addSoftwareSystem("Software System", "");
         webBrowser = softwareSystem.addContainer("Web Browser", "", "");
         apiClient = softwareSystem.addContainer("API Client", "", "");
         webApplication = softwareSystem.addContainer("Name", "", "");
@@ -126,18 +126,19 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
     @Test
     public void test_UsesContainer()
     {
-        Component Repository = webApplication.getComponentWithName("Repository");
+        Component repository = webApplication.getComponentWithName("Repository");
 
-        Relationship relationship = Repository.getRelationships().stream().filter(r -> r.getDestination() == database).findFirst().get();
+        assertEquals(1, repository.getRelationships().size());
+        Relationship relationship = repository.getRelationships().stream().filter(r -> r.getDestination() == database).findFirst().get();
         assertEquals("Reads from and writes to", relationship.getDescription());
     }
 
     @Test
     public void test_UsesSoftwareSystem()
     {
-        Component Repository = webApplication.getComponentWithName("Repository");
+        Component controller = webApplication.getComponentWithName("Controller");
 
-        Relationship relationship = Repository.getRelationships().stream().filter(r -> r.getDestination() == external1).findFirst().get();
+        Relationship relationship = controller.getRelationships().stream().filter(r -> r.getDestination() == external1).findFirst().get();
         assertEquals("Sends information to", relationship.getDescription());
     }
 

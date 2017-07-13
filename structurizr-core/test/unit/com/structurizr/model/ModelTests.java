@@ -501,4 +501,57 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertEquals(InteractionStyle.Asynchronous, relationship.getInteractionStyle());
     }
 
+    @Test
+    public void test_getElement_ThrowsAnException_WhenANullIdIsSpecified() {
+        try {
+            model.getElement(null);
+        } catch (IllegalArgumentException iae) {
+            assertEquals("An ID must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getElement_ThrowsAnException_WhenAnEmptyIdIsSpecified() {
+        try {
+            model.getElement(" ");
+        } catch (IllegalArgumentException iae) {
+            assertEquals("An ID must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getElementWithCanonicalName_ThrowsAnException_WhenANullCanonicalNameIsSpecified() {
+        try {
+            model.getElementWithCanonicalName(null);
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A canonical name must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getElementWithCanonicalName_ThrowsAnException_WhenAnEmptyCanonicalNameIsSpecified() {
+        try {
+            model.getElementWithCanonicalName(" ");
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A canonical name must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getElementWithCanonicalName_ReturnsNull_WhenAnElementWithTheSpecifiedCanonicalNameDoesNotExist() {
+        assertNull(model.getElementWithCanonicalName("Software System"));
+    }
+
+    @Test
+    public void test_getElementWithCanonicalName_ReturnsTheElement_WhenAnElementWithTheSpecifiedCanonicalNameExists() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
+
+        assertSame(model.getElementWithCanonicalName("/Software System"), softwareSystem);
+        assertSame(model.getElementWithCanonicalName("Software System"), softwareSystem);
+
+        Container container = softwareSystem.addContainer("Web Application", "Description", "Technology");
+        assertSame(container, model.getElementWithCanonicalName("/Software System/Web Application"));
+        assertSame(container, model.getElementWithCanonicalName("Software System/Web Application"));
+    }
+
 }
