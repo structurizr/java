@@ -49,6 +49,7 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Styling relationships](docs/styling-relationships.md)
 * Software architecture model
     * [Extracting components from your codebase](docs/extracting-components.md)
+    * [Structurizr annotations](docs/structurizr-annotations.md)
     * [Components and supporting types](docs/supporting-types.md)
     * [The Spring PetClinic example](docs/spring-petclinic.md)
 * Documentation
