@@ -72,5 +72,3 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [java-starter](https://github.com/structurizr/java-starter): A simple starting point for using Structurizr for Java
     * [structurizr-groovy](https://github.com/tidyjava/structurizr-groovy): An initial version of a Groovy wrapper around Structurizr for Java.
     * [structurizr-dotnet](https://github.com/structurizr/dotnet): Structurizr for .NET
-
-![A cheat sheet for visualising software architecture](docs/images/visualising-software-architecture.png)
