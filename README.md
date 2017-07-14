@@ -34,6 +34,7 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
 
 * Introduction
     * [Getting started](docs/getting-started.md)
+    * [About Structurizr and how it compares to other tooling](https://structurizr.com/help/about)
     * [Basic concepts](docs/basic-concepts.md) (workspaces, models, views and documentation)
     * [C4 model](docs/c4.md)
     * [Binaries](docs/binaries.md)
@@ -47,19 +48,19 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Enterprise Context diagram](docs/enterprise-context-diagram.md)
     * [Styling elements](docs/styling-elements.md)
     * [Styling relationships](docs/styling-relationships.md)
-* Software architecture model
-    * [Extracting components from your codebase](docs/extracting-components.md)
+* Documentation
+    * [Documentation overview](docs/documentation.md)
+    * [Structurizr](docs/documentation-structurizr.md)
+    * [arc42](docs/documentation-arc42.md)
+    * [Viewpoints and Perspectives](docs/documentation-viewpoints-and-perspectives.md)
+* Extracting software architecture information from code
+    * [Component finder](docs/component-finder.md)
     * [Structurizr annotations](docs/structurizr-annotations.md)
     * [Type matchers](docs/type-matchers.md)
     * [Spring component finder strategies](docs/spring-component-finder-strategies.md)
     * [Supplementing the model from source code](docs/supplementing-from-source-code.md)
     * [Components and supporting types](docs/supporting-types.md)
     * [The Spring PetClinic example](docs/spring-petclinic.md)
-* Documentation
-    * [Documentation overview](docs/documentation.md)
-    * [Structurizr](docs/documentation-structurizr.md)
-    * [arc42](docs/documentation-arc42.md)
-    * [Viewpoints and Perspectives](docs/documentation-viewpoints-and-perspectives.md)
 * Exporting and visualising with other tools
     * [PlantUML](docs/plantuml.md)
     * [Graphviz and DOT](docs/graphviz-and-dot.md)

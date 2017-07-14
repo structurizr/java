@@ -36,4 +36,4 @@ See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structuriz
 
 ### Extracting components automatically
 
-Please note that, in a real-world scenario, you would probably want to [extract components](extracting-components.md) automatically from a codebase, using static analysis and reflection techniques. 
+Please note that, in a real-world scenario, you would probably want to extract components automatically from a codebase with the [component finder](component-finder.md), using static analysis and reflection techniques. 
