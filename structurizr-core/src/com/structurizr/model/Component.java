@@ -77,6 +77,7 @@ public class Component extends StaticStructureElement {
      * Sets the type of this component (e.g. a fully qualified Java interface/class name).
      *
      * @param type  the fully qualified type name
+     * @return  the CodeElement that was created
      * @throws IllegalArgumentException if the specified type is null
      */
     public CodeElement setType(String type) {

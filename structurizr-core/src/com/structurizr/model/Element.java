@@ -102,7 +102,7 @@ public abstract class Element extends Taggable {
     /**
      * Gets the collection of name-value property pairs associated with this element, as a Map.
      *
-     * @return  a Map<String, String> (empty if there are no properties)
+     * @return  a Map (String, String) (empty if there are no properties)
      */
     public Map<String, String> getProperties() {
         return new HashMap<>(properties);

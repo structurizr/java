@@ -2,7 +2,6 @@ package com.structurizr.analysis;
 
 import javassist.ClassPool;
 import javassist.CtClass;
-import javassist.NotFoundException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.reflections.Reflections;
@@ -11,8 +10,6 @@ import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -71,7 +68,7 @@ public class DefaultTypeRepository implements TypeRepository {
     /**
      * Gets all of the types found by this type repository.
      *
-     * @return  a Set of Class<?> objects, or an empty set of no classes were found
+     * @return  a Set of Class objects, or an empty set of no classes were found
      */
     public Set<Class<?>> getAllTypes() {
         return new HashSet<>(types);
@@ -81,7 +78,7 @@ public class DefaultTypeRepository implements TypeRepository {
      * Finds the set of types referenced by the specified type.
      *
      * @param typeName  the starting type
-     * @return          a Set of Class<?> objects, or an empty set if none were found
+     * @return          a Set of Class objects, or an empty set if none were found
      */
     public Set<Class<?>> findReferencedTypes(String typeName) throws Exception {
         Set<Class<?>> referencedTypes = new HashSet<>();

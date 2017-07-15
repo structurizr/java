@@ -63,7 +63,7 @@ public class TypeUtils {
      * Finds the set of types that are annotated with the specified annotation.
      *
      * @param annotation        the Annotation to find
-     * @return                  a Set of Class<?> objects, or an empty set of none could be found
+     * @return                  a Set of Class objects, or an empty set of none could be found
      */
     public static Set<Class<?>> findTypesAnnotatedWith(Class<? extends Annotation> annotation, Set<Class<?>> types) {
         if (annotation == null) {
