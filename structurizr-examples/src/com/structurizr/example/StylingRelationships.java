@@ -2,7 +2,10 @@ package com.structurizr.example;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.model.*;
+import com.structurizr.model.Container;
+import com.structurizr.model.Model;
+import com.structurizr.model.Person;
+import com.structurizr.model.SoftwareSystem;
 import com.structurizr.view.ContainerView;
 import com.structurizr.view.Styles;
 import com.structurizr.view.ViewSet;

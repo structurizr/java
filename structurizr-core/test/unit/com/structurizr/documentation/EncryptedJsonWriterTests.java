@@ -4,7 +4,6 @@ import com.structurizr.Workspace;
 import com.structurizr.encryption.AesEncryptionStrategy;
 import com.structurizr.encryption.EncryptedJsonWriter;
 import com.structurizr.encryption.EncryptedWorkspace;
-import com.structurizr.io.WorkspaceWriterException;
 import org.junit.Test;
 
 import java.io.StringWriter;

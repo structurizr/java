@@ -4,9 +4,7 @@ import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.model.SoftwareSystem;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class FilteredViewTests extends AbstractWorkspaceTestBase {
 

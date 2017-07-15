@@ -3,7 +3,6 @@ package com.structurizr.encryption;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.structurizr.documentation.StructurizrDocumentation;
 
 /**
  * Superclass for all encryption strategies.

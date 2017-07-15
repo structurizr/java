@@ -2,9 +2,6 @@ package com.structurizr.model;
 
 import com.structurizr.util.Url;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 /**
  * Represents a code element, such as a Java class or interface,
  * that is part of the implementation of a component.

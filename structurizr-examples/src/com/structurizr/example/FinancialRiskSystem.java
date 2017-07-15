@@ -5,7 +5,6 @@ import com.structurizr.api.StructurizrClient;
 import com.structurizr.documentation.Format;
 import com.structurizr.documentation.StructurizrDocumentation;
 import com.structurizr.model.*;
-import com.structurizr.util.ImageUtils;
 import com.structurizr.view.*;
 
 import java.io.File;

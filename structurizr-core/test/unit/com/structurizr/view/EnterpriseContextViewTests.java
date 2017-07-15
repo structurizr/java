@@ -1,7 +1,10 @@
 package com.structurizr.view;
 
 import com.structurizr.AbstractWorkspaceTestBase;
-import com.structurizr.model.*;
+import com.structurizr.model.Enterprise;
+import com.structurizr.model.Location;
+import com.structurizr.model.Person;
+import com.structurizr.model.SoftwareSystem;
 import org.junit.Before;
 import org.junit.Test;
 

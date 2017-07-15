@@ -1,11 +1,11 @@
 package com.structurizr.example;
 
 import com.structurizr.Workspace;
-import com.structurizr.api.StructurizrClient;
 import com.structurizr.analysis.ComponentFinder;
 import com.structurizr.analysis.ReferencedTypesSupportingTypesStrategy;
 import com.structurizr.analysis.SourceCodeComponentFinderStrategy;
 import com.structurizr.analysis.SpringComponentFinderStrategy;
+import com.structurizr.api.StructurizrClient;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 

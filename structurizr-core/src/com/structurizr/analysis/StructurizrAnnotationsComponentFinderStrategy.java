@@ -1,8 +1,8 @@
 package com.structurizr.analysis;
 
 import com.structurizr.annotation.*;
-import com.structurizr.model.Component;
 import com.structurizr.model.*;
+import com.structurizr.model.Component;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
