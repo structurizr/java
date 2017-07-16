@@ -119,7 +119,7 @@ public class BigBankPlc {
         componentView.addAllComponents();
         componentView.add(customer);
         componentView.add(mainframeBankingSystem);
-        componentView.setPaperSize(PaperSize.A5_Portrait);
+        componentView.setPaperSize(PaperSize.A5_Landscape);
 
         if (usePaidFeatures) {
             // dynamic diagrams, deployment diagrams and corporate branding are not available with the Free Plan
