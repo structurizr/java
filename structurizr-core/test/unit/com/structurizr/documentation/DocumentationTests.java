@@ -231,7 +231,7 @@ public class DocumentationTests {
     @Test
     public void test_readFiles_AddsAllFiles_WhenPassedADirectory() throws IOException {
         Section section = documentation.addContextSection(softwareSystem, Format.Markdown, new File(".//test/unit/com/structurizr/documentation/markdown"));
-        assertEquals("File 1\n" +
+        assertEquals("File 1" + System.lineSeparator() +
                 "File 2", section.getContent());
     }
 
