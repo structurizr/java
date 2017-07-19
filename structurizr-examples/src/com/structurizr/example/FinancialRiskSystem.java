@@ -27,7 +27,6 @@ public class FinancialRiskSystem {
         Workspace workspace = new Workspace("Financial Risk System", "This is a simple (incomplete) example C4 model based upon the financial risk system architecture kata, which can be found at http://bit.ly/sa4d-risksystem");
         Model model = workspace.getModel();
 
-        // create the basic model
         SoftwareSystem financialRiskSystem = model.addSoftwareSystem("Financial Risk System", "Calculates the bank's exposure to risk for product X.");
 
         Person businessUser = model.addPerson("Business User", "A regular business user.");
@@ -56,13 +55,11 @@ public class FinancialRiskSystem {
         SoftwareSystem activeDirectory = model.addSoftwareSystem("Active Directory", "The bank's authentication and authorisation system.");
         financialRiskSystem.uses(activeDirectory, "Uses for user authentication and authorisation");
 
-        // create some views
         ViewSet views = workspace.getViews();
         SystemContextView contextView = views.createSystemContextView(financialRiskSystem, "Context", "An example System Context diagram for the Financial Risk System architecture kata.");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
-        // tag and style some elements
         Styles styles = views.getConfiguration().getStyles();
         financialRiskSystem.addTags("Risk System");
 
@@ -86,7 +83,6 @@ public class FinancialRiskSystem {
         documentation.addQualityAttributesSection(financialRiskSystem, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));
         documentation.addImages(documentationRoot);
 
-        // and upload the model to structurizr.com
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
     }
