@@ -26,6 +26,12 @@ public final class Workspace extends AbstractWorkspace {
     Workspace() {
     }
 
+    /**
+     * Creates a new workspace.
+     *
+     * @param name          the name of the workspace
+     * @param description   a short description
+     */
     public Workspace(String name, String description) {
         super(name, description);
     }
@@ -39,7 +45,7 @@ public final class Workspace extends AbstractWorkspace {
         return model;
     }
 
-    public void setModel(Model model) {
+    void setModel(Model model) {
         this.model = model;
     }
 
@@ -56,6 +62,10 @@ public final class Workspace extends AbstractWorkspace {
         this.viewSet = viewSet;
     }
 
+    /**
+     * Called when deserialising JSON, to re-create the object graph
+     * based upon element/relationship IDs.
+     */
     public void hydrate() {
         this.viewSet.setModel(model);
         this.documentation.setModel(model);
@@ -131,7 +141,8 @@ public final class Workspace extends AbstractWorkspace {
             }
         }
 
-        // diagram keys have not been specified
+        // diagram keys have not been specified - this is only applicable to
+        // workspaces created with the early versions of Structurizr for Java
         getViews().getEnterpriseContextViews().stream()
                 .filter(v -> v.getKey() == null)
                 .forEach(v -> warnings.add("Enterprise Context view \"" + v.getName() + "\": Missing key"));
@@ -147,6 +158,9 @@ public final class Workspace extends AbstractWorkspace {
         getViews().getDynamicViews().stream()
                 .filter(v -> v.getKey() == null)
                 .forEach(v -> warnings.add("Dynamic view \"" + v.getName() + "\": Missing key"));
+        getViews().getDeploymentViews().stream()
+                .filter(v -> v.getKey() == null)
+                .forEach(v -> warnings.add("Deployment view \"" + v.getName() + "\": Missing key"));
 
         warnings.forEach(log::warn);
 
