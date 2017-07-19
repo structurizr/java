@@ -8,8 +8,7 @@ To use client-side encryption, simply create an instance of ```AesEncryptionStra
 
 ```java
 StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-EncryptionStrategy encryptionStrategy = new AesEncryptionStrategy("password");
-structurizrClient.setEncryptionStrategy(encryptionStrategy);
+structurizrClient.setEncryptionStrategy(new AesEncryptionStrategy("password"));
 structurizrClient.putWorkspace(1234, workspace);
 ```
 

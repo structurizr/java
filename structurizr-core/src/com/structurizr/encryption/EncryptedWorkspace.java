@@ -23,6 +23,12 @@ public final class EncryptedWorkspace extends AbstractWorkspace {
     EncryptedWorkspace() {
     }
 
+    /**
+     * Creates an encrypted version of the specified workspace.
+     *
+     * @param workspace             the Workspace to encrypt
+     * @param encryptionStrategy    the encryption strategy
+     */
     public EncryptedWorkspace(Workspace workspace, EncryptionStrategy encryptionStrategy) throws Exception {
         JsonWriter jsonWriter = new JsonWriter(false);
         StringWriter stringWriter = new StringWriter();

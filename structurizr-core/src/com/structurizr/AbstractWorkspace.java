@@ -3,6 +3,9 @@ package com.structurizr;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * The superclass for regular and encrypted workspaces.
+ */
 public abstract class AbstractWorkspace {
 
     private long id;
