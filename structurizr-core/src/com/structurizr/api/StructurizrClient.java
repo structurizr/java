@@ -290,8 +290,11 @@ public final class StructurizrClient {
         httpRequest.addHeader(HttpHeaders.USER_AGENT, "structurizr-java/" + (VERSION != null ? VERSION : "dev"));
         httpRequest.addHeader(HttpHeaders.AUTHORIZATION, new HmacAuthorizationHeader(apiKey, hmac.generate(hmacContent.toString())).format());
         httpRequest.addHeader(HttpHeaders.NONCE, nonce);
-        httpRequest.addHeader(HttpHeaders.CONTENT_MD5, Base64.getEncoder().encodeToString(contentMd5.getBytes("UTF-8")));
-        httpRequest.addHeader(HttpHeaders.CONTENT_TYPE, contentType);
+
+        if (httpMethod.equals("PUT")) {
+            httpRequest.addHeader(HttpHeaders.CONTENT_MD5, Base64.getEncoder().encodeToString(contentMd5.getBytes("UTF-8")));
+            httpRequest.addHeader(HttpHeaders.CONTENT_TYPE, contentType);
+        }
     }
 
     private void archiveWorkspace(long workspaceId, String json) {
