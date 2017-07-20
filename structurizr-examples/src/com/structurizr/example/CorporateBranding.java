@@ -54,7 +54,7 @@ public class CorporateBranding {
         documentation.addQualityAttributesSection(softwareSystem, Format.Markdown, "Here is some information about the quality attributes...");
         documentation.addSoftwareArchitectureSection(softwareSystem, Format.Markdown, "Here is some information about the software architecture...");
         documentation.addOperationAndSupportSection(softwareSystem, Format.Markdown, "Here is some information about how to operate and support the software...");
-        documentation.addDecisionLog(softwareSystem, Format.Markdown, "Here is some information about the decisions made...");
+        documentation.addDecisionLogSection(softwareSystem, Format.Markdown, "Here is some information about the decisions made...");
 
         Branding branding = views.getConfiguration().getBranding();
         branding.setColor1(new ColorPair("#02172C", "#ffffff"));

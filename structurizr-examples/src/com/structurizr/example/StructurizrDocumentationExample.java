@@ -57,7 +57,7 @@ public class StructurizrDocumentationExample {
         documentation.addDeploymentSection(softwareSystem, Format.Markdown, new File(documentationRoot, "09-deployment.md"));
         documentation.addDevelopmentEnvironmentSection(softwareSystem, Format.Markdown, new File(documentationRoot, "10-development-environment.md"));
         documentation.addOperationAndSupportSection(softwareSystem, Format.Markdown, new File(documentationRoot, "11-operation-and-support.md"));
-        documentation.addDecisionLog(softwareSystem, Format.Markdown, new File(documentationRoot, "12-decision-log.md"));
+        documentation.addDecisionLogSection(softwareSystem, Format.Markdown, new File(documentationRoot, "12-decision-log.md"));
 
         // this is the AsciiDoc version
 //        File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/documentation/structurizr/asciidoc");
@@ -72,7 +72,7 @@ public class StructurizrDocumentationExample {
 //        documentation.addDeploymentSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "09-deployment.adoc"));
 //        documentation.addDevelopmentEnvironmentSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "10-development-environment.adoc"));
 //        documentation.addOperationAndSupportSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "11-operation-and-support.adoc"));
-//        documentation.addDecisionLog(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "12-decision-log.adoc"));
+//        documentation.addDecisionLogSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "12-decision-log.adoc"));
 
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);

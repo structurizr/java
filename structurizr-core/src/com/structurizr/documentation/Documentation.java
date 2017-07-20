@@ -123,7 +123,7 @@ public abstract class Documentation {
     }
 
     /**
-     * Adds a custom section relating to a {@link SoftwareSystem} from a file.
+     * Adds a custom section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param name              the name of the section
@@ -232,14 +232,6 @@ public abstract class Documentation {
      * @throws IOException  if the file can't be read
      */
     public Image addImage(File file) throws IOException {
-        if (file == null) {
-            throw new IllegalArgumentException("File must not be null.");
-        } else if (!file.exists()) {
-            throw new IllegalArgumentException("The file " + file.getCanonicalPath() + " does not exist.");
-        } else if (!file.isFile()) {
-            throw new IllegalArgumentException(file.getCanonicalPath() + " is not a file.");
-        }
-
         String contentType = ImageUtils.getContentType(file);
         String base64Content = ImageUtils.getImageAsBase64(file);
 

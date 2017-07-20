@@ -248,7 +248,7 @@ public final class StructurizrDocumentation extends Documentation {
     }
 
     /**
-     * Adds a "Code" section relating to a {@link Container} from a file.
+     * Adds a "Code" section relating to a {@link Component} from a file.
      *
      * @param component     the {@link Component} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
@@ -261,7 +261,7 @@ public final class StructurizrDocumentation extends Documentation {
     }
 
     /**
-     * Adds a "Code" section relating to a {@link Container}.
+     * Adds a "Code" section relating to a {@link Component}.
      *
      * @param component     the {@link Component} the documentation content relates to
      * @param format    the {@link Format} of the documentation content
@@ -406,8 +406,8 @@ public final class StructurizrDocumentation extends Documentation {
      * @return  a documentation {@link Section}
      * @throws IOException  if the file can't be read
      */
-    public Section addDecisionLog(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addDecisionLog(softwareSystem, format, readFiles(files));
+    public Section addDecisionLogSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
+        return addDecisionLogSection(softwareSystem, format, readFiles(files));
     }
 
     /**
@@ -418,7 +418,7 @@ public final class StructurizrDocumentation extends Documentation {
      * @param content   a String containing the documentation content
      * @return  a documentation {@link Section}
      */
-    public Section addDecisionLog(SoftwareSystem softwareSystem, Format format, String content) {
+    public Section addDecisionLogSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Decision Log", GROUP5, format, content);
     }
 

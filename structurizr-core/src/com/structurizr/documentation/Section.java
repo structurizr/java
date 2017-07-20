@@ -91,17 +91,21 @@ public final class Section {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
 
-        Section section = (Section) o;
-
-        if (getElementId() != null ? !getElementId().equals(section.getElementId()) : section.getElementId() != null) {
+        if (object == null || getClass() != object.getClass()) {
             return false;
         }
 
-        return getType().equals(section.getType());
+        Section section = (Section)object;
+        if (getElementId() != null) {
+            return getElementId().equals(section.getElementId()) && getType().equals(section.getType());
+        } else {
+            return getType().equals(section.getType());
+        }
     }
 
     @Override

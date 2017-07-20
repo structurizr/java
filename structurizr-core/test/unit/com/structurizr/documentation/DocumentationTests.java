@@ -164,7 +164,7 @@ public class DocumentationTests {
             documentation.addImage(null);
             fail();
         } catch (IllegalArgumentException iae) {
-            assertEquals("File must not be null.", iae.getMessage());
+            assertEquals("A file must be specified.", iae.getMessage());
         }
     }
 

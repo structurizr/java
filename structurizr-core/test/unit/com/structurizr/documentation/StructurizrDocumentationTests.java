@@ -93,7 +93,7 @@ public class StructurizrDocumentationTests {
         section = documentation.addOperationAndSupportSection(softwareSystem, Format.Markdown, "Operation and support section");
         assertSection(softwareSystem, "Operation and Support", 4, Format.Markdown, "Operation and support section", 16, section, documentation);
 
-        section = documentation.addDecisionLog(softwareSystem, Format.Markdown, "Decision log section");
+        section = documentation.addDecisionLogSection(softwareSystem, Format.Markdown, "Decision log section");
         assertSection(softwareSystem, "Decision Log", 5, Format.Markdown, "Decision log section", 17, section, documentation);
     }
 
@@ -150,7 +150,7 @@ public class StructurizrDocumentationTests {
         section = documentation.addOperationAndSupportSection(softwareSystem, Format.Markdown, new File(root, "operation-and-support.md"));
         assertSection(softwareSystem, "Operation and Support", 4, Format.Markdown, "Operation and support section", 16, section, documentation);
 
-        section = documentation.addDecisionLog(softwareSystem, Format.Markdown, new File(root, "decision-log.md"));
+        section = documentation.addDecisionLogSection(softwareSystem, Format.Markdown, new File(root, "decision-log.md"));
         assertSection(softwareSystem, "Decision Log", 5, Format.Markdown, "Decision log section", 17, section, documentation);
     }
 
