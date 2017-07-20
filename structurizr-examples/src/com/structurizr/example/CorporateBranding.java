@@ -57,11 +57,11 @@ public class CorporateBranding {
         documentation.addDecisionLogSection(softwareSystem, Format.Markdown, "Here is some information about the decisions made...");
 
         Branding branding = views.getConfiguration().getBranding();
-        branding.setColor1(new ColorPair("#02172C", "#ffffff"));
-        branding.setColor2(new ColorPair("#08427B", "#ffffff"));
-        branding.setColor3(new ColorPair("#1168BD", "#ffffff"));
-        branding.setColor4(new ColorPair("#438DD5", "#ffffff"));
-        branding.setColor5(new ColorPair("#85BBF0", "#ffffff"));
+        branding.setColor1(new ColorPair("#02172c", "#ffffff"));
+        branding.setColor2(new ColorPair("#08427b", "#ffffff"));
+        branding.setColor3(new ColorPair("#1168bd", "#ffffff"));
+        branding.setColor4(new ColorPair("#438dd5", "#ffffff"));
+        branding.setColor5(new ColorPair("#85bbf0", "#ffffff"));
         branding.setLogo(ImageUtils.getImageAsDataUri(new File("./docs/images/structurizr-logo.png")));
 
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
