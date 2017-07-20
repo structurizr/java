@@ -31,7 +31,6 @@ import java.io.IOException;
  * The number in parentheses () represents the grouping, which is simply used to colour code
  * section navigation buttons when rendered.
  * </p>
-
  */
 public final class Arc42Documentation extends Documentation {
 
