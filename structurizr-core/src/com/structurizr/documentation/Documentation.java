@@ -256,7 +256,9 @@ public abstract class Documentation {
 
     public void hydrate() {
         for (Section section : sections) {
-            section.setElement(model.getElement(section.getElementId()));
+            if (section.getElementId() != null && section.getElementId().trim().length() > 0) {
+                section.setElement(model.getElement(section.getElementId()));
+            }
         }
     }
 
