@@ -25,7 +25,7 @@ public final class FilteredView {
     FilteredView() {
     }
 
-    FilteredView(View view, String key, String description, FilterMode mode, String... tags) {
+    FilteredView(StaticView view, String key, String description, FilterMode mode, String... tags) {
         this.view = view;
         this.key = key;
         this.description = description;

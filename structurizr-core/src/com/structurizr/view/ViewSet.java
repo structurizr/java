@@ -219,16 +219,16 @@ public final class ViewSet {
     }
 
     /**
-     * Creates a FilteredView on top of an existing view.
+     * Creates a FilteredView on top of an existing static view.
      *
-     * @param view          the view to base the FilteredView upon
+     * @param view          the static view to base the FilteredView upon
      * @param key           the key for the filtered view (must be unique)
      * @param description   a description
      * @param mode          whether to Include or Exclude elements/relationships based upon their tag
      * @param tags          the tags to include or exclude
      * @return              a FilteredView object
      */
-    public FilteredView createFilteredView(View view, String key, String description, FilterMode mode, String... tags) {
+    public FilteredView createFilteredView(StaticView view, String key, String description, FilterMode mode, String... tags) {
         assertThatTheViewKeyIsUnique(key);
 
         FilteredView filteredView = new FilteredView(view, key, description, mode, tags);

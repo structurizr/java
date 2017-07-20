@@ -48,6 +48,7 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Enterprise Context diagram](docs/enterprise-context-diagram.md)
     * [Styling elements](docs/styling-elements.md)
     * [Styling relationships](docs/styling-relationships.md)
+    * [Filtered views](docs/filtered-views.md)
 * Documentation
     * [Documentation overview](docs/documentation.md)
     * [Structurizr](docs/documentation-structurizr.md)
