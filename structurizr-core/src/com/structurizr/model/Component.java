@@ -13,7 +13,7 @@ import java.util.*;
  * as how those components are packaged (e.g. one component vs many components
  * per JAR file, DLL, shared library, etc) is a separate and orthogonal concern.
  */
-public class Component extends StaticStructureElement {
+public final class Component extends StaticStructureElement {
 
     private Container parent;
 

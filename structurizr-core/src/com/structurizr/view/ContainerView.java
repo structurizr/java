@@ -5,7 +5,7 @@ import com.structurizr.model.Element;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
 
-public class ContainerView extends StaticView {
+public final class ContainerView extends StaticView {
 
     ContainerView() {
     }

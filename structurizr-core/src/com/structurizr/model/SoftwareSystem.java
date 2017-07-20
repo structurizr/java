@@ -16,7 +16,7 @@ import java.util.Set;
  * See <a href="https://structurizr.com/help/model#SoftwareSystem">Model - Software System</a>
  * on the Structurizr website for more information.
  */
-public class SoftwareSystem extends StaticStructureElement {
+public final class SoftwareSystem extends StaticStructureElement {
 
     private Location location = Location.Unspecified;
 

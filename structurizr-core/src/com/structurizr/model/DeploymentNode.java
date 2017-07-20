@@ -21,7 +21,7 @@ import java.util.Set;
  *     <li>etc</li>
  * </ul>
  */
-public class DeploymentNode extends Element {
+public final class DeploymentNode extends Element {
 
     private DeploymentNode parent;
     private Set<DeploymentNode> children = new HashSet<>();

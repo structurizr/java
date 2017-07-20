@@ -1,6 +1,6 @@
 package com.structurizr.model;
 
-public class Enterprise {
+public final class Enterprise {
 
     private String name;
 

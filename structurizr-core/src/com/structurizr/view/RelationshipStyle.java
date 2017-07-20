@@ -2,7 +2,7 @@ package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-public class RelationshipStyle {
+public final class RelationshipStyle {
 
     private static final int START_OF_LINE = 0;
     private static final int END_OF_LINE = 100;

@@ -11,7 +11,7 @@ import java.util.Set;
  * For example, perhaps you define a single System Context view and then create two filtered views
  * on top; one showing current state and the other showing future state.
  */
-public class FilteredView {
+public final class FilteredView {
 
     private View view;
     private String baseViewKey;

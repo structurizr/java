@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 /**
  * Configuration associated with how information in the workspace is rendered.
  */
-public class Configuration {
+public final class Configuration {
 
     private Branding branding = new Branding();
     private Styles styles = new Styles();

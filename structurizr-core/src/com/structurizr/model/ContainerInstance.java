@@ -10,7 +10,7 @@ import java.util.Set;
  * Represents a deployment instance of a {@link Container},
  * which can be added to a {@link DeploymentNode}.
  */
-public class ContainerInstance extends Element {
+public final class ContainerInstance extends Element {
 
     private Container container;
     private String containerId;

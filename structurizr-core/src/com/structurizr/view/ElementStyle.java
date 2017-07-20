@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 /**
  * A definition of an element style.
  */
-public class ElementStyle {
+public final class ElementStyle {
 
     public static final int DEFAULT_WIDTH = 450;
     public static final int DEFAULT_HEIGHT = 300;

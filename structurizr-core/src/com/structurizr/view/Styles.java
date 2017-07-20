@@ -3,7 +3,7 @@ package com.structurizr.view;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class Styles {
+public final class Styles {
 
     private Collection<ElementStyle> elements = new LinkedList<>();
     private Collection<RelationshipStyle> relationships = new LinkedList<>();

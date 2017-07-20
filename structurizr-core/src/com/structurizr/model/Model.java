@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 /**
  * A software architecture model.
  */
-public class Model {
+public final class Model {
 
     private SequentialIntegerIdGeneratorStrategy idGenerator = new SequentialIntegerIdGeneratorStrategy();
 

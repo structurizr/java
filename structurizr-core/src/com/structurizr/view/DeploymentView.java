@@ -6,7 +6,7 @@ import com.structurizr.model.*;
 /**
  * A deployment view, used to show the mapping of container instances to deployment nodes.
  */
-public class DeploymentView extends View {
+public final class DeploymentView extends View {
 
     private Model model;
 

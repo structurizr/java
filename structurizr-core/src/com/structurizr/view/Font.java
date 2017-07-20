@@ -5,7 +5,7 @@ import com.structurizr.util.Url;
 /**
  * Represents a font, including a name and an optional URL for web fonts.
  */
-public class Font {
+public final class Font {
 
     private String name;
     private String url;

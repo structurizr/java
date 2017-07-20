@@ -6,7 +6,7 @@ import com.structurizr.model.Relationship;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class RelationshipView {
+public final class RelationshipView {
 
     private Relationship relationship;
     private String id;

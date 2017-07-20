@@ -8,7 +8,7 @@ import com.structurizr.model.*;
  * showing the software systems and people in an given environment.
  * The permitted elements in this view are software systems and people.
  */
-public class EnterpriseContextView extends StaticView {
+public final class EnterpriseContextView extends StaticView {
 
     private Model model;
 

@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * A relationship between two elements.
  */
-public class Relationship extends Taggable {
+public final class Relationship extends Taggable {
 
     protected String id = "";
 

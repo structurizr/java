@@ -6,7 +6,7 @@ import com.structurizr.util.Url;
  * Represents a code element, such as a Java class or interface,
  * that is part of the implementation of a component.
  */
-public class CodeElement {
+public final class CodeElement {
 
     /** the role of the code element ... Primary or Supporting */
     private CodeElementRole role = CodeElementRole.Supporting;

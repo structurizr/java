@@ -3,7 +3,7 @@ package com.structurizr.view;
 /**
  * Represents a pair of colours: background and foreground.
  */
-public class ColorPair {
+public final class ColorPair {
 
     private String background;
     private String foreground;

@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * A set of views onto a software architecture model.
  */
-public class ViewSet {
+public final class ViewSet {
 
     private static final Log log = LogFactory.getLog(ViewSet.class);
 

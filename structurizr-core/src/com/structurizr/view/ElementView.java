@@ -6,7 +6,7 @@ import com.structurizr.model.Element;
 /**
  * Represents an instance of an Element in a View.
  */
-public class ElementView {
+public final class ElementView {
 
     private Element element;
     private String id;

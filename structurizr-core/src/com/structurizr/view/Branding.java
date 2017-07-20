@@ -5,7 +5,7 @@ import com.structurizr.util.Url;
 /**
  * A wrapper for the font, logo and color scheme associated with a corporate branding.
  */
-public class Branding {
+public final class Branding {
 
     private String logo;
 

@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * A dynamic view, used to describe behaviour between static elements at runtime.
  */
-public class DynamicView extends View {
+public final class DynamicView extends View {
 
     private Model model;
 
