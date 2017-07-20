@@ -22,7 +22,7 @@ documentation.addInfrastructureArchitectureSection(softwareSystem, Format.Markdo
 documentation.addDeploymentSection(softwareSystem, Format.Markdown, new File(documentationRoot, "09-deployment.md"));
 documentation.addDevelopmentEnvironmentSection(softwareSystem, Format.Markdown, new File(documentationRoot, "10-development-environment.md"));
 documentation.addOperationAndSupportSection(softwareSystem, Format.Markdown, new File(documentationRoot, "11-operation-and-support.md"));
-documentation.addDecisionLog(softwareSystem, Format.Markdown, new File(documentationRoot, "12-decision-log.md"));
+documentation.addDecisionLogSection(softwareSystem, Format.Markdown, new File(documentationRoot, "12-decision-log.md"));
 ```
 
 Structurizr will create navigation controls based upon the the sections in the documentation, and the software systems they have been associated with. This particular example is rendered as follows: 
