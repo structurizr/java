@@ -26,7 +26,7 @@ public class BigBankPlc {
 
     private static final String DATABASE_TAG = "Database";
 
-    public static Workspace create(boolean usePaidFeatures) {
+    private static Workspace create(boolean usePaidFeatures) {
         Workspace workspace = new Workspace("Big Bank plc", "This is an example workspace to illustrate the key features of Structurizr, based around a fictional online banking system.");
         Model model = workspace.getModel();
         ViewSet views = workspace.getViews();
