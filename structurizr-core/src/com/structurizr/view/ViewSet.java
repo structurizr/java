@@ -237,7 +237,7 @@ public final class ViewSet {
     }
 
     private void assertThatTheViewKeyIsUnique(String key) {
-        if (getViewWithKey(key) != null) {
+        if (getViewWithKey(key) != null || getFilteredViewWithKey(key) != null) {
             throw new IllegalArgumentException("A view with the key " + key + " already exists.");
         }
     }
@@ -261,19 +261,32 @@ public final class ViewSet {
      * @return  a View object, or null if a view with the specified key could not be found
      */
     public View getViewWithKey(String key) {
-        View view = null;
-
-        if (key != null) {
-            Set<View> views = new HashSet<>();
-            views.addAll(systemContextViews);
-            views.addAll(containerViews);
-            views.addAll(componentViews);
-            views.addAll(dynamicViews);
-
-            view = views.stream().filter(v -> key.equals(v.getKey())).findFirst().orElse(null);
+        if (key == null) {
+            throw new IllegalArgumentException("A key must be specified.");
         }
 
-        return view;
+        Set<View> views = new HashSet<>();
+        views.addAll(systemContextViews);
+        views.addAll(containerViews);
+        views.addAll(componentViews);
+        views.addAll(dynamicViews);
+        views.addAll(deploymentViews);
+
+        return views.stream().filter(v -> key.equals(v.getKey())).findFirst().orElse(null);
+    }
+
+    /**
+     * Finds the filtered view with the specified key, or null if the view does not exist.
+     *
+     * @param key   the key
+     * @return  a FilteredView object, or null if a view with the specified key could not be found
+     */
+    public FilteredView getFilteredViewWithKey(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException("A key must be specified.");
+        }
+
+        return filteredViews.stream().filter(v -> key.equals(v.getKey())).findFirst().orElse(null);
     }
 
     /**
