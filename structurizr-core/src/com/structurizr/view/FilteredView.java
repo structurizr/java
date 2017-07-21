@@ -8,8 +8,6 @@ import java.util.Set;
 
 /**
  * Represents a view on top of a view, which can be used to include or exclude specific elements.
- * For example, perhaps you define a single System Context view and then create two filtered views
- * on top; one showing current state and the other showing future state.
  */
 public final class FilteredView {
 
