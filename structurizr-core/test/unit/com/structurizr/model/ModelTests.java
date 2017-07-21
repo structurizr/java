@@ -473,10 +473,9 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         container1.uses(container2, "Uses 1", "Technology 1", InteractionStyle.Synchronous);
         container2.uses(container3, "Uses 2", "Technology 2", InteractionStyle.Asynchronous);
 
-        DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
-        ContainerInstance containerInstance1 = deploymentNode.add(container1);
-        ContainerInstance containerInstance2 = deploymentNode.add(container2);
-        ContainerInstance containerInstance3 = deploymentNode.add(container3);
+        ContainerInstance containerInstance1 = model.addContainerInstance(container1);
+        ContainerInstance containerInstance2 = model.addContainerInstance(container2);
+        ContainerInstance containerInstance3 = model.addContainerInstance(container3);
 
         assertSame(container2, containerInstance2.getContainer());
         assertEquals(container2.getId(), containerInstance2.getContainerId());
