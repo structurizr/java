@@ -11,7 +11,7 @@ import com.structurizr.view.ViewSet;
 import java.io.StringWriter;
 
 /**
- * A simple example of how to use the PlantUML writer. Run this program and copy/paste
+ * An example of how to use the PlantUML writer. Run this program and copy/paste
  * the output into http://www.plantuml.com/plantuml/
  */
 public class PlantUML {
