@@ -24,13 +24,131 @@ import java.util.Set;
 public final class DeploymentNode extends Element {
 
     private DeploymentNode parent;
-    private Set<DeploymentNode> children = new HashSet<>();
-
     private String technology;
     private int instances = 1;
 
+    private Set<DeploymentNode> children = new HashSet<>();
     private Set<ContainerInstance> containerInstances = new HashSet<>();
 
+    /**
+     * Adds a container instance to this deployment node.
+     *
+     * @param container     the Container to add an instance of
+     * @return  a ContainerInstance object
+     */
+    public ContainerInstance add(Container container) {
+        if (container == null) {
+            throw new IllegalArgumentException("A container must be specified.");
+        }
+
+        ContainerInstance containerInstance = getModel().addContainerInstance(container);
+        this.containerInstances.add(containerInstance);
+
+        return containerInstance;
+    }
+
+    /**
+     * Adds a child deployment node.
+     *
+     * @param name          the name of the deployment node
+     * @param description   a short description
+     * @param technology    the technology
+     * @return  a DeploymentNode object
+     */
+    public DeploymentNode addDeploymentNode(String name, String description, String technology) {
+        return addDeploymentNode(name, description, technology, 1);
+    }
+
+    /**
+     * Adds a child deployment node.
+     *
+     * @param name          the name of the deployment node
+     * @param description   a short description
+     * @param technology    the technology
+     * @param instances     the number of instances
+     * @return  a DeploymentNode object
+     */
+    public DeploymentNode addDeploymentNode(String name, String description, String technology, int instances) {
+        return addDeploymentNode(name, description, technology, instances, null);
+    }
+
+    /**
+     * Adds a child deployment node.
+     *
+     * @param name          the name of the deployment node
+     * @param description   a short description
+     * @param technology    the technology
+     * @param instances     the number of instances
+     * @param properties    a Map (String,String) describing name=value properties
+     * @return  a DeploymentNode object
+     */
+    public DeploymentNode addDeploymentNode(String name, String description, String technology, int instances, Map<String, String> properties) {
+        DeploymentNode deploymentNode = getModel().addDeploymentNode(this, name, description, technology, instances, properties);
+        if (deploymentNode != null) {
+            children.add(deploymentNode);
+        }
+        return deploymentNode;
+    }
+
+    /**
+     * Gets the DeploymentNode with the specified name.
+     *
+     * @param name the name of the deployment node
+     * @return the DeploymentNode instance with the specified name (or null if it doesn't exist).
+     */
+    public DeploymentNode getDeploymentNodeWithName(String name) {
+        if (name == null || name.trim().length() == 0) {
+            throw new IllegalArgumentException("A name must be specified.");
+        }
+
+        for (DeploymentNode deploymentNode : getChildren()) {
+            if (deploymentNode.getName().equals(name)) {
+                return deploymentNode;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Adds a relationship between this and another deployment node.
+     *
+     * @param destination   the destination DeploymentNode
+     * @param description   a short description of the relationship
+     * @param technology    the technology
+     * @return              a Relationship object
+     */
+    public Relationship uses(DeploymentNode destination, String description, String technology) {
+        return getModel().addRelationship(this, destination, description, technology);
+    }
+
+    /**
+     * Gets the set of child deployment nodes.
+     *
+     * @return  a Set of DeploymentNode objects
+     */
+    public Set<DeploymentNode> getChildren() {
+        return new HashSet<>(children);
+    }
+
+    /**
+     * Gets the set of container instances associated with this deployment node.
+     *
+     * @return  a Set of ContainerInstance objects
+     */
+    public Set<ContainerInstance> getContainerInstances() {
+        return new HashSet<>(containerInstances);
+    }
+
+    void setChildren(Set<DeploymentNode> children) {
+        this.children = children;
+    }
+
+    /**
+     * Gets the parent deployment node.
+     *
+     * @return  the parent DeploymentNode, or null if there is no parent
+     */
     @Override
     @JsonIgnore
     public Element getParent() {
@@ -59,11 +177,13 @@ public final class DeploymentNode extends Element {
 
     @JsonIgnore
     protected Set<String> getRequiredTags() {
-        return null;
+        // deployment nodes don't have any tags
+        return new HashSet<>();
     }
 
     @Override
     public String getTags() {
+        // deployment nodes don't have any tags
         return "";
     }
 
@@ -75,63 +195,5 @@ public final class DeploymentNode extends Element {
             return CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getName());
         }
     }
-
-    public ContainerInstance add(Container container) {
-        ContainerInstance containerInstance = getModel().addContainerInstance(container);
-        this.containerInstances.add(containerInstance);
-
-        return containerInstance;
-    }
-
-    public Set<ContainerInstance> getContainerInstances() {
-        return new HashSet<>(containerInstances);
-    }
-
-    public DeploymentNode addDeploymentNode(String name, String description, String technology) {
-        return addDeploymentNode(name, description, technology, 1);
-    }
-
-    public DeploymentNode addDeploymentNode(String name, String description, String technology, int instances) {
-        return addDeploymentNode(name, description, technology, instances, null);
-    }
-
-    public DeploymentNode addDeploymentNode(String name, String description, String technology, int instances, Map<String, String> properties) {
-        DeploymentNode deploymentNode = getModel().addDeploymentNode(this, name, description, technology, instances, properties);
-        if (deploymentNode != null) {
-            children.add(deploymentNode);
-        }
-        return deploymentNode;
-    }
-
-    public Set<DeploymentNode> getChildren() {
-        return new HashSet<>(children);
-    }
-
-    void setChildren(Set<DeploymentNode> children) {
-        this.children = children;
-    }
-
-    /**
-     * @param name the name of the deployment node
-     * @return the DeploymentNode instance with the specified name (or null if it doesn't exist).
-     */
-    public DeploymentNode getDeploymentNodeWithName(String name) {
-        for (DeploymentNode deploymentNode : getChildren()) {
-            if (deploymentNode.getName().equals(name)) {
-                return deploymentNode;
-            }
-        }
-
-        return null;
-    }
-
-    public Relationship uses(DeploymentNode destination, String description, String technology) {
-        if (destination != null) {
-            return getModel().addRelationship(this, destination, description, technology);
-        } else {
-            throw new IllegalArgumentException("");
-        }
-    }
-
 
 }

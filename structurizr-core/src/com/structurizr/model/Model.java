@@ -168,6 +168,11 @@ public final class Model {
     }
 
     Relationship addRelationship(Element source, Element destination, String description, String technology, InteractionStyle interactionStyle) {
+        if (destination == null) {
+            throw new IllegalArgumentException("The destination must be specified.");
+
+        }
+
         Relationship relationship = new Relationship(source, destination, description, technology, interactionStyle);
         if (addRelationship(relationship)) {
             return relationship;
@@ -498,6 +503,10 @@ public final class Model {
     }
 
     DeploymentNode addDeploymentNode(DeploymentNode parent, String name, String description, String technology, int instances, Map<String, String> properties) {
+        if (name == null || name.trim().length() == 0) {
+            throw new IllegalArgumentException("A name must be specified.");
+        }
+
         if ((parent == null && getDeploymentNodeWithName(name) == null) || (parent != null && parent.getDeploymentNodeWithName(name) == null)) {
             DeploymentNode deploymentNode = new DeploymentNode();
             deploymentNode.setName(name);
