@@ -45,12 +45,6 @@ public class StructurizrDocumentationTemplateTests extends AbstractWorkspaceTest
     }
 
     @Test
-    public void test_construction() {
-        assertTrue(workspace.getDocumentation().getSections().isEmpty());
-        assertTrue(workspace.getDocumentation().getImages().isEmpty());
-    }
-
-    @Test
     public void test_addAllSectionsWithContentAsStrings() {
         Section section;
 

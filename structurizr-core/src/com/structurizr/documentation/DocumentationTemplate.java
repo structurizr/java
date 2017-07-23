@@ -23,7 +23,7 @@ public abstract class DocumentationTemplate {
     public static final int GROUP4 = 4;
     public static final int GROUP5 = 5;
 
-    protected Documentation documentation;
+    private Documentation documentation;
 
     /**
      * Creates a new documentation template for the given workspace.

@@ -34,12 +34,6 @@ public class ViewpointsAndPerspectivesDocumentationTemplateTests extends Abstrac
     }
 
     @Test
-    public void test_construction() {
-        assertTrue(workspace.getDocumentation().getSections().isEmpty());
-        assertTrue(workspace.getDocumentation().getImages().isEmpty());
-    }
-
-    @Test
     public void test_addAllSectionsWithContentAsStrings() {
         Section section;
 
