@@ -3,7 +3,7 @@ package com.structurizr.example;
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
 import com.structurizr.documentation.Format;
-import com.structurizr.documentation.StructurizrDocumentation;
+import com.structurizr.documentation.StructurizrDocumentationTemplate;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
@@ -67,10 +67,10 @@ public class WidgetsLimited {
         dynamicView.add(customer, customerServiceUser);
         dynamicView.add(customerServiceUser, ecommerceSystem);
 
-        StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
-        documentation.addCustomSection("Enterprise Context", 1, Format.Markdown, "Here is some information about the Widgets Limited enterprise context... ![](embed:EnterpriseContext)");
-        documentation.addContextSection(ecommerceSystem, Format.Markdown, "This is the context section for the E-commerce System... ![](embed:EcommerceSystemContext)");
-        documentation.addContextSection(fulfilmentSystem, Format.Markdown, "This is the context section for the Fulfilment System... ![](embed:FulfilmentSystemContext)");
+        StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
+        template.addCustomSection("Enterprise Context", 1, Format.Markdown, "Here is some information about the Widgets Limited enterprise context... ![](embed:EnterpriseContext)");
+        template.addContextSection(ecommerceSystem, Format.Markdown, "This is the context section for the E-commerce System... ![](embed:EcommerceSystemContext)");
+        template.addContextSection(fulfilmentSystem, Format.Markdown, "This is the context section for the Fulfilment System... ![](embed:FulfilmentSystemContext)");
 
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).shape(Shape.RoundedBox);
         styles.addElementStyle(Tags.PERSON).shape(Shape.Person);

@@ -3,7 +3,7 @@ package com.structurizr.example;
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
 import com.structurizr.documentation.Format;
-import com.structurizr.documentation.StructurizrDocumentation;
+import com.structurizr.documentation.StructurizrDocumentationTemplate;
 import com.structurizr.model.*;
 import com.structurizr.util.ImageUtils;
 import com.structurizr.util.MapUtils;
@@ -162,28 +162,28 @@ public class BigBankPlc {
 
         // documentation
         // - usually the documentation would be included from separate Markdown/AsciiDoc files, but this is just an example
-        StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
-        documentation.addContextSection(internetBankingSystem, Format.Markdown,
+        StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
+        template.addContextSection(internetBankingSystem, Format.Markdown,
                 "Here is some context about the Internet Banking System...\n" +
                 "![](embed:EnterpriseContext)\n" +
                 "![](embed:SystemContext)\n" +
                 "### Internet Banking System\n...\n" +
                 "### Mainframe Banking System\n...\n");
-        documentation.addContainersSection(internetBankingSystem, Format.Markdown,
+        template.addContainersSection(internetBankingSystem, Format.Markdown,
                 "Here is some information about the containers within the Internet Banking System...\n" +
                 "![](embed:Containers)\n" +
                 "### Web Application\n...\n" +
                 "### Database\n...\n");
-        documentation.addComponentsSection(webApplication, Format.Markdown,
+        template.addComponentsSection(webApplication, Format.Markdown,
                 "Here is some information about the Web Application...\n" +
                 "![](embed:Components)\n" +
                 "### Sign in process\n" +
                 "Here is some information about the Sign In Controller, including how the sign in process works...\n" +
                 "![](embed:SignIn)");
-        documentation.addDevelopmentEnvironmentSection(internetBankingSystem, Format.AsciiDoc,
+        template.addDevelopmentEnvironmentSection(internetBankingSystem, Format.AsciiDoc,
                 "Here is some information about how to set up a development environment for the Internet Banking System...\n" +
                 "image::embed:DevelopmentDeployment[]");
-        documentation.addDeploymentSection(internetBankingSystem, Format.AsciiDoc,
+        template.addDeploymentSection(internetBankingSystem, Format.AsciiDoc,
                 "Here is some information about the live deployment environment for the Internet Banking System...\n" +
                 "image::embed:LiveDeployment[]");
 

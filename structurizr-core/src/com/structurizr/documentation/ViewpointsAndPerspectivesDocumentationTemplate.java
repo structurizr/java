@@ -27,12 +27,9 @@ import java.io.IOException;
  * section navigation buttons when rendered.
  * </p>
  */
-public final class ViewpointsAndPerspectivesDocumentation extends Documentation {
+public class ViewpointsAndPerspectivesDocumentationTemplate extends DocumentationTemplate {
 
-    ViewpointsAndPerspectivesDocumentation() {
-    }
-
-    public ViewpointsAndPerspectivesDocumentation(Workspace workspace) {
+    public ViewpointsAndPerspectivesDocumentationTemplate(Workspace workspace) {
         super(workspace);
     }
 
@@ -210,6 +207,5 @@ public final class ViewpointsAndPerspectivesDocumentation extends Documentation 
     public Section addAppendicesSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Appendices", GROUP5, format, content);
     }
-
 
 }

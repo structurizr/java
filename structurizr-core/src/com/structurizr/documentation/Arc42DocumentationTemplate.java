@@ -32,12 +32,9 @@ import java.io.IOException;
  * section navigation buttons when rendered.
  * </p>
  */
-public final class Arc42Documentation extends Documentation {
+public class Arc42DocumentationTemplate extends DocumentationTemplate {
 
-    Arc42Documentation() {
-    }
-
-    public Arc42Documentation(Workspace workspace) {
+    public Arc42DocumentationTemplate(Workspace workspace) {
         super(workspace);
     }
 

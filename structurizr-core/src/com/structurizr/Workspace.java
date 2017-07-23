@@ -2,7 +2,6 @@ package com.structurizr;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.documentation.Documentation;
-import com.structurizr.documentation.StructurizrDocumentation;
 import com.structurizr.model.*;
 import com.structurizr.view.ViewSet;
 import org.apache.commons.logging.Log;
@@ -21,7 +20,7 @@ public final class Workspace extends AbstractWorkspace {
 
     private Model model = new Model();
     private ViewSet viewSet = new ViewSet(model);
-    private Documentation documentation = new StructurizrDocumentation(this);
+    private Documentation documentation = new Documentation(model);
 
     Workspace() {
     }

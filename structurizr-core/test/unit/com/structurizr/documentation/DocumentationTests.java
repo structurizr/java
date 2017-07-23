@@ -1,5 +1,6 @@
 package com.structurizr.documentation;
 
+import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.Workspace;
 import com.structurizr.model.SoftwareSystem;
 import org.junit.Before;
@@ -10,36 +11,28 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
-public class DocumentationTests {
+public class DocumentationTests extends AbstractWorkspaceTestBase {
 
     private SoftwareSystem softwareSystem;
-    private StructurizrDocumentation documentation;
+    private StructurizrDocumentationTemplate template;
+    private Documentation documentation;
 
     @Before
     public void setUp() {
         Workspace workspace = new Workspace("Name", "Description");
         softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
 
-        documentation = new StructurizrDocumentation(workspace);
-    }
-
-    @Test
-    public void test_construction_ThrowsAnException_WhenANullWorkspaceIsSpecified() {
-        try {
-            new StructurizrDocumentation(null);
-            fail();
-        } catch (Exception e) {
-            assertEquals("A workspace must be specified.", e.getMessage());
-        }
+        template = new StructurizrDocumentationTemplate(workspace);
+        documentation = workspace.getDocumentation();
     }
 
     @Test
     public void test_addSection_ThrowsAnException_WhenThatSectionAlreadyExists() {
-        documentation.addContextSection(softwareSystem, Format.Markdown, "Some Markdown content");
+        template.addContextSection(softwareSystem, Format.Markdown, "Some Markdown content");
         assertEquals(1, documentation.getSections().size());
 
         try {
-            documentation.addContextSection(softwareSystem, Format.Markdown, "Some Markdown content");
+            template.addContextSection(softwareSystem, Format.Markdown, "Some Markdown content");
             fail();
         } catch (IllegalArgumentException iae) {
             // this is the expected exception
@@ -50,14 +43,14 @@ public class DocumentationTests {
 
     @Test
     public void test_addImages_DoesNothing_WhenThereAreNoImageFilesInTheSpecifiedDirectory() throws IOException {
-        documentation.addImages(new File(".//test/unit/com/structurizr/documentation/noimages"));
+        template.addImages(new File(".//test/unit/com/structurizr/documentation/noimages"));
         assertTrue(documentation.getImages().isEmpty());
     }
 
     @Test
     public void test_addImages_ThrowsAnException_WhenTheSpecifiedDirectoryIsNull() throws IOException {
         try {
-            documentation.addImages(null);
+            template.addImages(null);
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("Directory path must not be null.", iae.getMessage());
@@ -67,7 +60,7 @@ public class DocumentationTests {
     @Test
     public void test_addImages_ThrowsAnException_WhenTheSpecifiedDirectoryIsNotADirectory() throws IOException {
         try {
-            documentation.addImages(new File(".//test/unit/com/structurizr/documentation/structurizr/context.md"));
+            template.addImages(new File(".//test/unit/com/structurizr/documentation/structurizr/context.md"));
             fail();
         } catch (IllegalArgumentException iae) {
             assertTrue(iae.getMessage().endsWith("context.md is not a directory."));
@@ -77,7 +70,7 @@ public class DocumentationTests {
     @Test
     public void test_addImages_ThrowsAnException_WhenTheSpecifiedDirectoryDoesNotExist() throws IOException {
         try {
-            documentation.addImages(new File(".//test/unit/com/structurizr/documentation/blah"));
+            template.addImages(new File(".//test/unit/com/structurizr/documentation/blah"));
             fail();
         } catch (IllegalArgumentException iae) {
             assertTrue(iae.getMessage().endsWith("blah does not exist."));
@@ -87,7 +80,7 @@ public class DocumentationTests {
     @Test
     public void test_addImages_AddsAllImagesFromTheSpecifiedDirectory_WhenThereAreImageFilesInTheSpecifiedDirectory() throws IOException {
         assertTrue(documentation.getImages().isEmpty());
-        documentation.addImages(new File(".//test/unit/com/structurizr/documentation/images"));
+        template.addImages(new File(".//test/unit/com/structurizr/documentation/images"));
         assertEquals(4, documentation.getImages().size());
 
         Image png = documentation.getImages().stream().filter(i -> i.getName().equals("image.png")).findFirst().get();
@@ -110,7 +103,7 @@ public class DocumentationTests {
     @Test
     public void test_addImages_AddsAllImagesFromTheSpecifiedDirectory_WhenThereAreImageFilesInTheSpecifiedDirectoryAndSubDirectories() throws IOException {
         assertTrue(documentation.getImages().isEmpty());
-        documentation.addImages(new File(".//test/unit/com/structurizr/documentation"));
+        template.addImages(new File(".//test/unit/com/structurizr/documentation"));
         assertEquals(8, documentation.getImages().size());
 
         Image pngInDirectory = documentation.getImages().stream().filter(i -> i.getName().equals("image.png")).findFirst().get();
@@ -150,7 +143,7 @@ public class DocumentationTests {
     @Test
     public void test_addImage_AddsTheSpecifiedImage_WhenTheSpecifiedFileExists() throws IOException {
         assertTrue(documentation.getImages().isEmpty());
-        documentation.addImage(new File(".//test/unit/com/structurizr/documentation/image.png"));
+        template.addImage(new File(".//test/unit/com/structurizr/documentation/image.png"));
         assertEquals(1, documentation.getImages().size());
 
         Image png = documentation.getImages().stream().filter(i -> i.getName().equals("image.png")).findFirst().get();
@@ -161,7 +154,7 @@ public class DocumentationTests {
     @Test
     public void test_addImage_ThrowsAnException_WhenTheSpecifiedFileIsNull() throws IOException {
         try {
-            documentation.addImage(null);
+            template.addImage(null);
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A file must be specified.", iae.getMessage());
@@ -171,7 +164,7 @@ public class DocumentationTests {
     @Test
     public void test_addImage_ThrowsAnException_WhenTheSpecifiedFileIsNotAFile() throws IOException {
         try {
-            documentation.addImage(new File(".//test/unit/com/structurizr/documentation/"));
+            template.addImage(new File(".//test/unit/com/structurizr/documentation/"));
             fail();
         } catch (IllegalArgumentException iae) {
             assertTrue(iae.getMessage().endsWith("documentation is not a file."));
@@ -181,7 +174,7 @@ public class DocumentationTests {
     @Test
     public void test_addImage_ThrowsAnException_WhenTheSpecifiedFileDoesNotExist() throws IOException {
         try {
-            documentation.addImage(new File(".//test/unit/com/structurizr/documentation/some-other-image.png"));
+            template.addImage(new File(".//test/unit/com/structurizr/documentation/some-other-image.png"));
             fail();
         } catch (IllegalArgumentException iae) {
             assertTrue(iae.getMessage().endsWith("some-other-image.png does not exist."));
@@ -191,7 +184,7 @@ public class DocumentationTests {
     @Test
     public void test_addImage_ThrowsAnException_WhenTheSpecifiedFileIsNotAnImage() throws IOException {
         try {
-            documentation.addImage(new File(".//test/unit/com/structurizr/documentation/structurizr/context.md"));
+            template.addImage(new File(".//test/unit/com/structurizr/documentation/structurizr/context.md"));
             fail();
         } catch (IllegalArgumentException iae) {
             assertTrue(iae.getMessage().endsWith("context.md is not a supported image file."));
@@ -201,7 +194,7 @@ public class DocumentationTests {
     @Test
     public void test_readFiles_ThrowsAnException_WhenPassedAFileThatDoesNotExist() throws IOException {
         try {
-            documentation.addContextSection(softwareSystem, Format.Markdown, new File("./no-such-file.txt"));
+            template.addContextSection(softwareSystem, Format.Markdown, new File("./no-such-file.txt"));
             fail();
         } catch (IllegalArgumentException iae) {
             assertTrue(iae.getMessage().endsWith("no-such-file.txt does not exist."));
@@ -211,7 +204,7 @@ public class DocumentationTests {
     @Test
     public void test_readFiles_ThrowsAnException_WhenPassedANullFile() throws IOException {
         try {
-            documentation.addContextSection(softwareSystem, Format.Markdown, (File)null);
+            template.addContextSection(softwareSystem, Format.Markdown, (File)null);
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("One or more files must be specified.", iae.getMessage());
@@ -221,7 +214,7 @@ public class DocumentationTests {
     @Test
     public void test_readFiles_ThrowsAnException_WhenPassedAnEmptyCollection() throws IOException {
         try {
-            documentation.addContextSection(softwareSystem, Format.Markdown, new File[]{});
+            template.addContextSection(softwareSystem, Format.Markdown, new File[]{});
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("One or more files must be specified.", iae.getMessage());
@@ -230,30 +223,30 @@ public class DocumentationTests {
 
     @Test
     public void test_readFiles_AddsAllFiles_WhenPassedADirectory() throws IOException {
-        Section section = documentation.addContextSection(softwareSystem, Format.Markdown, new File(".//test/unit/com/structurizr/documentation/markdown"));
+        Section section = template.addContextSection(softwareSystem, Format.Markdown, new File(".//test/unit/com/structurizr/documentation/markdown"));
         assertEquals("File 1" + System.lineSeparator() +
                 "File 2", section.getContent());
     }
 
     @Test
     public void test_addCustomSection_AddsASectionWithAGroupOf1_WhenAGroupLessThan1IsSpecified() {
-        Section section = documentation.addCustomSection(softwareSystem, "Custom Section", 0, Format.Markdown, "Custom content");
+        Section section = template.addCustomSection(softwareSystem, "Custom Section", 0, Format.Markdown, "Custom content");
         assertEquals(1, section.getGroup());
     }
 
     @Test
     public void test_addCustomSection_AddsASectionWithAGroupOf5_WhenAGroupMoreThan5IsSpecified() {
-        Section section = documentation.addCustomSection(softwareSystem, "Custom Section", 6, Format.Markdown, "Custom content");
+        Section section = template.addCustomSection(softwareSystem, "Custom Section", 6, Format.Markdown, "Custom content");
         assertEquals(5, section.getGroup());
     }
 
     @Test
     public void test_addCustomSection_ThrowsAnException_WhenThatSectionAlreadyExists() {
-        documentation.addCustomSection("Enterprise Context", 1, Format.Markdown, "");
+        template.addCustomSection("Enterprise Context", 1, Format.Markdown, "");
         assertEquals(1, documentation.getSections().size());
 
         try {
-            documentation.addCustomSection("Enterprise Context", 1, Format.Markdown, "");
+            template.addCustomSection("Enterprise Context", 1, Format.Markdown, "");
             fail();
         } catch (IllegalArgumentException iae) {
             // this is the expected exception

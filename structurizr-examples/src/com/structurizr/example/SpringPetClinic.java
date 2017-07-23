@@ -7,7 +7,7 @@ import com.structurizr.analysis.ReferencedTypesSupportingTypesStrategy;
 import com.structurizr.analysis.SourceCodeComponentFinderStrategy;
 import com.structurizr.analysis.SpringComponentFinderStrategy;
 import com.structurizr.documentation.Format;
-import com.structurizr.documentation.StructurizrDocumentation;
+import com.structurizr.documentation.StructurizrDocumentationTemplate;
 import com.structurizr.model.*;
 import com.structurizr.util.MapUtils;
 import com.structurizr.view.*;
@@ -176,12 +176,12 @@ public class SpringPetClinic {
         liveDeploymentView.add(secondaryDatabaseServer);
         liveDeploymentView.add(dataReplicationRelationship);
 
-        StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
-        documentation.addContextSection(springPetClinic, Format.Markdown, "This is the context section for the Spring PetClinic System...\n![](embed:context)");
-        documentation.addContainersSection(springPetClinic, Format.Markdown, "This is the containers section for the Spring PetClinic System...\n![](embed:containers)");
-        documentation.addComponentsSection(webApplication, Format.Markdown, "This is the components section for the Spring PetClinic web application...\n![](embed:components)");
-        documentation.addDeploymentSection(springPetClinic, Format.Markdown, "This is the deployment section for the Spring PetClinic web application...\n### Staging environment\n![](embed:stagingDeployment)\n### Live environment\n![](embed:liveDeployment)");
-        documentation.addDevelopmentEnvironmentSection(springPetClinic, Format.Markdown, "This is the development environment section for the Spring PetClinic web application...\n![](embed:developmentDeployment)");
+        StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
+        template.addContextSection(springPetClinic, Format.Markdown, "This is the context section for the Spring PetClinic System...\n![](embed:context)");
+        template.addContainersSection(springPetClinic, Format.Markdown, "This is the containers section for the Spring PetClinic System...\n![](embed:containers)");
+        template.addComponentsSection(webApplication, Format.Markdown, "This is the components section for the Spring PetClinic web application...\n![](embed:components)");
+        template.addDeploymentSection(springPetClinic, Format.Markdown, "This is the deployment section for the Spring PetClinic web application...\n### Staging environment\n![](embed:stagingDeployment)\n### Live environment\n![](embed:liveDeployment)");
+        template.addDevelopmentEnvironmentSection(springPetClinic, Format.Markdown, "This is the development environment section for the Spring PetClinic web application...\n![](embed:developmentDeployment)");
 
         Styles styles = views.getConfiguration().getStyles();
         styles.addElementStyle("Spring PetClinic").background("#6CB33E").color("#ffffff");

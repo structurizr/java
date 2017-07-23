@@ -38,12 +38,9 @@ import java.io.IOException;
  * section navigation buttons when rendered.
  * </p>
  */
-public final class StructurizrDocumentation extends Documentation {
+public class StructurizrDocumentationTemplate extends DocumentationTemplate {
 
-    StructurizrDocumentation() {
-    }
-
-    public StructurizrDocumentation(Workspace workspace) {
+    public StructurizrDocumentationTemplate(Workspace workspace) {
         super(workspace);
     }
 

@@ -3,7 +3,7 @@ package com.structurizr.example;
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
 import com.structurizr.documentation.Format;
-import com.structurizr.documentation.StructurizrDocumentation;
+import com.structurizr.documentation.StructurizrDocumentationTemplate;
 import com.structurizr.model.Model;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
@@ -49,12 +49,12 @@ public class CorporateBranding {
         Styles styles = views.getConfiguration().getStyles();
         styles.addElementStyle(Tags.PERSON).shape(Shape.Person);
 
-        StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
-        documentation.addContextSection(softwareSystem, Format.Markdown, "Here is some context about the software system...\n\n![](embed:SystemContext)");
-        documentation.addQualityAttributesSection(softwareSystem, Format.Markdown, "Here is some information about the quality attributes...");
-        documentation.addSoftwareArchitectureSection(softwareSystem, Format.Markdown, "Here is some information about the software architecture...");
-        documentation.addOperationAndSupportSection(softwareSystem, Format.Markdown, "Here is some information about how to operate and support the software...");
-        documentation.addDecisionLogSection(softwareSystem, Format.Markdown, "Here is some information about the decisions made...");
+        StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
+        template.addContextSection(softwareSystem, Format.Markdown, "Here is some context about the software system...\n\n![](embed:SystemContext)");
+        template.addQualityAttributesSection(softwareSystem, Format.Markdown, "Here is some information about the quality attributes...");
+        template.addSoftwareArchitectureSection(softwareSystem, Format.Markdown, "Here is some information about the software architecture...");
+        template.addOperationAndSupportSection(softwareSystem, Format.Markdown, "Here is some information about how to operate and support the software...");
+        template.addDecisionLogSection(softwareSystem, Format.Markdown, "Here is some information about the decisions made...");
 
         Branding branding = views.getConfiguration().getBranding();
         branding.setColor1(new ColorPair("#02172c", "#ffffff"));

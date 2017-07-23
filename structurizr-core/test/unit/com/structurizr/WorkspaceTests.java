@@ -1,5 +1,6 @@
 package com.structurizr;
 
+import com.structurizr.documentation.StructurizrDocumentationTemplate;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 import com.structurizr.model.SoftwareSystem;
@@ -124,7 +125,8 @@ public class WorkspaceTests {
     @Test
     public void test_isEmpty_ReturnsFalse_WhenThereIsDocumentation() throws Exception {
         workspace = new Workspace("Name", "Description");
-        workspace.getDocumentation().addImage(new File("../docs/images/structurizr-logo.png"));
+        StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
+        template.addImage(new File("../docs/images/structurizr-logo.png"));
         assertFalse(workspace.isEmpty());
     }
 

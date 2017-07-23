@@ -16,10 +16,10 @@ The documentation is broken up into a number of sections, as defined by the temp
 
 ## Custom sections
 
-You can add custom sections using the ```addCustomSection``` method on the [Documentation](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/Documentation.java) class, by specifying the section name (a String) and group (an integer, 1-5; this is used for colour coding section navigation buttons):
+You can add custom sections using the ```addCustomSection``` method on the [DocumentationTemplate](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/DocumentationTemplate.java) class, by specifying the section name (a String) and group (an integer, 1-5; this is used for colour coding section navigation buttons):
 
 ```java
-documentation.addCustomSection(softwareSystem, "My custom section", 3, Format.Markdown, ...);
+template.addCustomSection(softwareSystem, "My custom section", 3, Format.Markdown, ...);
 ```
 
 ## Images
@@ -31,7 +31,7 @@ Images can be included using the regular Markdown/AsciiDoc syntax.
 For this to work, the image files must be hosted externally (e.g. on your own web server, ideally accessible via HTTPS) or uploaded with your workspace using the ```addImages()``` or ```addImage()``` methods on the [Documentation](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/Documentation.java) class.
 
 ```java
-documentation.addImages(new File("..."));
+template.addImages(new File("..."));
 ```
 
 See [functional-overview.md](https://raw.githubusercontent.com/structurizr/java/master/structurizr-examples/src/com/structurizr/example/financialrisksystem/functional-overview.md) and [FinancialRiskSystem](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/FinancialRiskSystem.java) for an example.

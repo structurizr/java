@@ -3,7 +3,7 @@ package com.structurizr.example;
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
 import com.structurizr.documentation.Format;
-import com.structurizr.documentation.ViewpointsAndPerspectivesDocumentation;
+import com.structurizr.documentation.ViewpointsAndPerspectivesDocumentationTemplate;
 import com.structurizr.model.Model;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
@@ -42,27 +42,27 @@ public class ViewpointsAndPerspectivesDocumentationExample {
         Styles styles = views.getConfiguration().getStyles();
         styles.addElementStyle(Tags.PERSON).shape(Shape.Person);
 
-        ViewpointsAndPerspectivesDocumentation documentation = new ViewpointsAndPerspectivesDocumentation(workspace);
+        ViewpointsAndPerspectivesDocumentationTemplate template = new ViewpointsAndPerspectivesDocumentationTemplate(workspace);
 
         // this is the Markdown version
         File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/documentation/viewpointsandperspectives/markdown");
-        documentation.addIntroductionSection(softwareSystem, Format.Markdown, new File(documentationRoot, "01-introduction.md"));
-        documentation.addGlossarySection(softwareSystem, Format.Markdown, new File(documentationRoot, "02-glossary.md"));
-        documentation.addSystemStakeholdersAndRequirementsSection(softwareSystem, Format.Markdown, new File(documentationRoot, "03-system-stakeholders-and-requirements.md"));
-        documentation.addArchitecturalForcesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "04-architectural-forces.md"));
-        documentation.addArchitecturalViewsSection(softwareSystem, Format.Markdown, new File(documentationRoot, "05-architectural-views"));
-        documentation.addSystemQualitiesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "06-system-qualities.md"));
-        documentation.addAppendicesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "07-appendices.md"));
+        template.addIntroductionSection(softwareSystem, Format.Markdown, new File(documentationRoot, "01-introduction.md"));
+        template.addGlossarySection(softwareSystem, Format.Markdown, new File(documentationRoot, "02-glossary.md"));
+        template.addSystemStakeholdersAndRequirementsSection(softwareSystem, Format.Markdown, new File(documentationRoot, "03-system-stakeholders-and-requirements.md"));
+        template.addArchitecturalForcesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "04-architectural-forces.md"));
+        template.addArchitecturalViewsSection(softwareSystem, Format.Markdown, new File(documentationRoot, "05-architectural-views"));
+        template.addSystemQualitiesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "06-system-qualities.md"));
+        template.addAppendicesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "07-appendices.md"));
 
         // this is the AsciiDoc version
 //        File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/documentation/viewpointsandperspectives/asciidoc");
-//        documentation.addIntroductionSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "01-introduction.adoc"));
-//        documentation.addGlossarySection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "02-glossary.adoc"));
-//        documentation.addSystemStakeholdersAndRequirementsSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "03-system-stakeholders-and-requirements.adoc"));
-//        documentation.addArchitecturalForcesSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "04-architectural-forces.adoc"));
-//        documentation.addArchitecturalViewsSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "05-architectural-views"));
-//        documentation.addSystemQualitiesSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "06-system-qualities.adoc"));
-//        documentation.addAppendicesSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "07-appendices.adoc"));
+//        template.addIntroductionSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "01-introduction.adoc"));
+//        template.addGlossarySection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "02-glossary.adoc"));
+//        template.addSystemStakeholdersAndRequirementsSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "03-system-stakeholders-and-requirements.adoc"));
+//        template.addArchitecturalForcesSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "04-architectural-forces.adoc"));
+//        template.addArchitecturalViewsSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "05-architectural-views"));
+//        template.addSystemQualitiesSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "06-system-qualities.adoc"));
+//        template.addAppendicesSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "07-appendices.adoc"));
 
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);

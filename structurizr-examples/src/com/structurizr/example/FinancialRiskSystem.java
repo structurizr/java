@@ -3,7 +3,7 @@ package com.structurizr.example;
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
 import com.structurizr.documentation.Format;
-import com.structurizr.documentation.StructurizrDocumentation;
+import com.structurizr.documentation.StructurizrDocumentationTemplate;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
@@ -76,12 +76,12 @@ public class FinancialRiskSystem {
         styles.addElementStyle("Future State").opacity(30).border(Border.Dashed);
         styles.addRelationshipStyle("Future State").opacity(30).dashed(true);
 
-        StructurizrDocumentation documentation = new StructurizrDocumentation(workspace);
+        StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
         File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/financialrisksystem");
-        documentation.addContextSection(financialRiskSystem, Format.AsciiDoc, new File(documentationRoot, "context.adoc"));
-        documentation.addFunctionalOverviewSection(financialRiskSystem, Format.Markdown, new File(documentationRoot, "functional-overview.md"));
-        documentation.addQualityAttributesSection(financialRiskSystem, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));
-        documentation.addImages(documentationRoot);
+        template.addContextSection(financialRiskSystem, Format.AsciiDoc, new File(documentationRoot, "context.adoc"));
+        template.addFunctionalOverviewSection(financialRiskSystem, Format.Markdown, new File(documentationRoot, "functional-overview.md"));
+        template.addQualityAttributesSection(financialRiskSystem, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));
+        template.addImages(documentationRoot);
 
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
