@@ -4,11 +4,11 @@ Structurizr for Java includes an implementation of the [arc42 documentation temp
 
 ## Example
 
-To use this template, create an instance of the [Arc42Documentation](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/Arc42Documentation.java) class.
+To use this template, create an instance of the [Arc42DocumentationTemplate](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/Arc42DocumentationTemplate.java) class.
 You can then add documentation sections as needed, each associated with a software system in your software architecture model, using Markdown or AsciiDoc. For example:
 
 ```java
-Arc42Documentation template = new Arc42Documentation(workspace);
+Arc42DocumentationTemplate template = new Arc42DocumentationTemplate(workspace);
 
 File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/documentation/arc42/markdown");
 template.addIntroductionAndGoalsSection(softwareSystem, Format.Markdown, new File(documentationRoot, "01-introduction-and-goals.md"));

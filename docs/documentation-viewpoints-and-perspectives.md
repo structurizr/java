@@ -4,11 +4,11 @@ Structurizr for Java includes an implementation of the [Viewpoints and Perspecti
 
 ## Example
 
-To use this template, create an instance of the [ViewpointsAndPerspectivesDocumentation](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/ViewpointsAndPerspectivesDocumentation.java) class.
+To use this template, create an instance of the [ViewpointsAndPerspectivesDocumentationTemplate](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/ViewpointsAndPerspectivesDocumentationTemplate.java) class.
 You can then add documentation sections as needed, each associated with a software system in your software architecture model, using Markdown or AsciiDoc. For example:
 
 ```java
-ViewpointsAndPerspectivesDocumentation template = new ViewpointsAndPerspectivesDocumentation(workspace);
+ViewpointsAndPerspectivesDocumentationTemplate template = new ViewpointsAndPerspectivesDocumentationTemplate(workspace);
 
 File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/documentation/viewpointsandperspectives/markdown");
 template.addIntroductionSection(softwareSystem, Format.Markdown, new File(documentationRoot, "01-introduction.md"));
