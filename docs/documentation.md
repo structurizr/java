@@ -28,7 +28,7 @@ Images can be included using the regular Markdown/AsciiDoc syntax.
 
 ![Including images](images/documentation-2.png)
 
-For this to work, the image files must be hosted externally (e.g. on your own web server, ideally accessible via HTTPS) or uploaded with your workspace using the ```addImages()``` or ```addImage()``` methods on the [Documentation](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/Documentation.java) class.
+For this to work, the image files must be hosted externally (e.g. on your own web server, ideally accessible via HTTPS) or uploaded with your workspace using the ```addImages()``` or ```addImage()``` methods on the [DocumentationTemplate](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/DocumentationTemplate.java) class.
 
 ```java
 template.addImages(new File("..."));
