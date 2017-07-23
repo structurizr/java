@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 
 /**
  * The superclass for all documentation templates.
@@ -135,7 +137,7 @@ public abstract class DocumentationTemplate {
      * @param path  a File descriptor representing a directory on disk
      * @throws IOException  if the path can't be accessed
      */
-    public void addImages(File path) throws IOException {
+    public Collection<Image> addImages(File path) throws IOException {
         if (path == null) {
             throw new IllegalArgumentException("Directory path must not be null.");
         } else if (!path.exists()) {
@@ -144,16 +146,18 @@ public abstract class DocumentationTemplate {
             throw new IllegalArgumentException(path.getCanonicalPath() + " is not a directory.");
         }
 
-        addImagesFromPath("", path);
+        return addImagesFromPath("", path);
     }
 
-    private void addImagesFromPath(String root, File path) throws IOException {
+    private Collection<Image> addImagesFromPath(String root, File path) throws IOException {
+        Collection<Image> images = new HashSet<>();
+
         File[] files = path.listFiles();
         if (files != null) {
             for (File file : files) {
                 String name = file.getName().toLowerCase();
                 if (file.isDirectory()) {
-                    addImagesFromPath(file.getName() + "/", file);
+                    images.addAll(addImagesFromPath(file.getName() + "/", file));
                 } else {
                     if (name.endsWith(".png") || name.endsWith(".jpg") || name.endsWith(".jpeg") || name.endsWith(".gif")) {
                         Image image = addImage(file);
@@ -161,10 +165,14 @@ public abstract class DocumentationTemplate {
                         if (!root.isEmpty()) {
                             image.setName(root + image.getName());
                         }
+
+                        images.add(image);
                     }
                 }
             }
         }
+
+        return images;
     }
 
     /**
