@@ -42,22 +42,20 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * Adds a "Introduction and Goals" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addIntroductionAndGoalsSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addIntroductionAndGoalsSection(softwareSystem, format, readFiles(files));
+    public Section addIntroductionAndGoalsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Introduction and Goals", GROUP1, files);
     }
 
     /**
      * Adds a "Introduction and Goals" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addIntroductionAndGoalsSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Introduction and Goals", GROUP1, format, content);
@@ -67,22 +65,20 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * Adds a "Constraints" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addConstraintsSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addConstraintsSection(softwareSystem, format, readFiles(files));
+    public Section addConstraintsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Constraints", GROUP2, files);
     }
 
     /**
      * Adds a "Constraints" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addConstraintsSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Constraints", GROUP2, format, content);
@@ -92,22 +88,20 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * Adds a "Context and Scope" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addContextAndScopeSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addContextAndScopeSection(softwareSystem, format, readFiles(files));
+    public Section addContextAndScopeSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Context and Scope", GROUP2, files);
     }
 
     /**
      * Adds a "Context and Scope" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addContextAndScopeSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Context and Scope", GROUP2, format, content);
@@ -117,22 +111,20 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * Adds a "Solution Strategy" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addSolutionStrategySection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addSolutionStrategySection(softwareSystem, format, readFiles(files));
+    public Section addSolutionStrategySection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Solution Strategy", GROUP3, files);
     }
 
     /**
      * Adds a "Solution Strategy" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addSolutionStrategySection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Solution Strategy", GROUP3, format, content);
@@ -142,22 +134,20 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * Adds a "Building Block View" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addBuildingBlockViewSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addBuildingBlockViewSection(softwareSystem, format, readFiles(files));
+    public Section addBuildingBlockViewSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Building Block View", GROUP3, files);
     }
 
     /**
      * Adds a "Building Block View" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addBuildingBlockViewSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Building Block View", GROUP3, format, content);
@@ -167,22 +157,20 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * Adds a "Runtime View" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addRuntimeViewSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addRuntimeViewSection(softwareSystem, format, readFiles(files));
+    public Section addRuntimeViewSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Runtime View", GROUP3, files);
     }
 
     /**
      * Adds a "Runtime View" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addRuntimeViewSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Runtime View", GROUP3, format, content);
@@ -192,22 +180,20 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * Adds a "Deployment View" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addDeploymentViewSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addDeploymentViewSection(softwareSystem, format, readFiles(files));
+    public Section addDeploymentViewSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Deployment View", GROUP3, files);
     }
 
     /**
      * Adds a "Deployment View" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addDeploymentViewSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Deployment View", GROUP3, format, content);
@@ -217,22 +203,20 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * Adds a "Crosscutting Concepts" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addCrosscuttingConceptsSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addCrosscuttingConceptsSection(softwareSystem, format, readFiles(files));
+    public Section addCrosscuttingConceptsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Crosscutting Concepts", GROUP3, files);
     }
 
     /**
      * Adds a "Crosscutting Concepts" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addCrosscuttingConceptsSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Crosscutting Concepts", GROUP3, format, content);
@@ -242,22 +226,20 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * Adds an "Architectural Decisions" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addArchitecturalDecisionsSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addArchitecturalDecisionsSection(softwareSystem, format, readFiles(files));
+    public Section addArchitecturalDecisionsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Architectural Decisions", GROUP3, files);
     }
 
     /**
      * Adds an "Architectural Decisions" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addArchitecturalDecisionsSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Architectural Decisions", GROUP3, format, content);
@@ -267,22 +249,20 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * Adds a "Quality Requirements" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addQualityRequirementsSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addQualityRequirementsSection(softwareSystem, format, readFiles(files));
+    public Section addQualityRequirementsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Quality Requirements", GROUP2, files);
     }
 
     /**
      * Adds a "Quality Requirements" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addQualityRequirementsSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Quality Requirements", GROUP2, format, content);
@@ -292,22 +272,20 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * Adds a "Risks and Technical Debt" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addRisksAndTechnicalDebtSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addRisksAndTechnicalDebtSection(softwareSystem, format, readFiles(files));
+    public Section addRisksAndTechnicalDebtSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Risks and Technical Debt", GROUP4, files);
     }
 
     /**
      * Adds a "Risks and Technical Debt" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addRisksAndTechnicalDebtSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Risks and Technical Debt", GROUP4, format, content);
@@ -317,22 +295,20 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * Adds a "Glossary" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addGlossarySection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addGlossarySection(softwareSystem, format, readFiles(files));
+    public Section addGlossarySection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Glossary", GROUP5, files);
     }
 
     /**
      * Adds a "Glossary" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addGlossarySection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Glossary", GROUP5, format, content);

@@ -46,23 +46,23 @@ public class ViewpointsAndPerspectivesDocumentationExample {
 
         // this is the Markdown version
         File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/documentation/viewpointsandperspectives/markdown");
-        template.addIntroductionSection(softwareSystem, Format.Markdown, new File(documentationRoot, "01-introduction.md"));
-        template.addGlossarySection(softwareSystem, Format.Markdown, new File(documentationRoot, "02-glossary.md"));
-        template.addSystemStakeholdersAndRequirementsSection(softwareSystem, Format.Markdown, new File(documentationRoot, "03-system-stakeholders-and-requirements.md"));
-        template.addArchitecturalForcesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "04-architectural-forces.md"));
-        template.addArchitecturalViewsSection(softwareSystem, Format.Markdown, new File(documentationRoot, "05-architectural-views"));
-        template.addSystemQualitiesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "06-system-qualities.md"));
-        template.addAppendicesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "07-appendices.md"));
+        template.addIntroductionSection(softwareSystem, new File(documentationRoot, "01-introduction.md"));
+        template.addGlossarySection(softwareSystem, new File(documentationRoot, "02-glossary.md"));
+        template.addSystemStakeholdersAndRequirementsSection(softwareSystem, new File(documentationRoot, "03-system-stakeholders-and-requirements.md"));
+        template.addArchitecturalForcesSection(softwareSystem, new File(documentationRoot, "04-architectural-forces.md"));
+        template.addArchitecturalViewsSection(softwareSystem, new File(documentationRoot, "05-architectural-views"));
+        template.addSystemQualitiesSection(softwareSystem, new File(documentationRoot, "06-system-qualities.md"));
+        template.addAppendicesSection(softwareSystem, new File(documentationRoot, "07-appendices.md"));
 
         // this is the AsciiDoc version
 //        File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/documentation/viewpointsandperspectives/asciidoc");
-//        template.addIntroductionSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "01-introduction.adoc"));
-//        template.addGlossarySection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "02-glossary.adoc"));
-//        template.addSystemStakeholdersAndRequirementsSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "03-system-stakeholders-and-requirements.adoc"));
-//        template.addArchitecturalForcesSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "04-architectural-forces.adoc"));
-//        template.addArchitecturalViewsSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "05-architectural-views"));
-//        template.addSystemQualitiesSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "06-system-qualities.adoc"));
-//        template.addAppendicesSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "07-appendices.adoc"));
+//        template.addIntroductionSection(softwareSystem, new File(documentationRoot, "01-introduction.adoc"));
+//        template.addGlossarySection(softwareSystem, new File(documentationRoot, "02-glossary.adoc"));
+//        template.addSystemStakeholdersAndRequirementsSection(softwareSystem, new File(documentationRoot, "03-system-stakeholders-and-requirements.adoc"));
+//        template.addArchitecturalForcesSection(softwareSystem, new File(documentationRoot, "04-architectural-forces.adoc"));
+//        template.addArchitecturalViewsSection(softwareSystem, new File(documentationRoot, "05-architectural-views"));
+//        template.addSystemQualitiesSection(softwareSystem, new File(documentationRoot, "06-system-qualities.adoc"));
+//        template.addAppendicesSection(softwareSystem, new File(documentationRoot, "07-appendices.adoc"));
 
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);

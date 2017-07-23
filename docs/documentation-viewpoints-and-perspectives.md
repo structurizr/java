@@ -11,13 +11,13 @@ You can then add documentation sections as needed, each associated with a softwa
 ViewpointsAndPerspectivesDocumentationTemplate template = new ViewpointsAndPerspectivesDocumentationTemplate(workspace);
 
 File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/documentation/viewpointsandperspectives/markdown");
-template.addIntroductionSection(softwareSystem, Format.Markdown, new File(documentationRoot, "01-introduction.md"));
-template.addGlossarySection(softwareSystem, Format.Markdown, new File(documentationRoot, "02-glossary.md"));
-template.addSystemStakeholdersAndRequirementsSection(softwareSystem, Format.Markdown, new File(documentationRoot, "03-system-stakeholders-and-requirements.md"));
-template.addArchitecturalForcesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "04-architectural-forces.md"));
-template.addArchitecturalViewsSection(softwareSystem, Format.Markdown, new File(documentationRoot, "05-architectural-views"));
-template.addSystemQualitiesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "06-system-qualities.md"));
-template.addAppendicesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "07-appendices.md"));
+template.addIntroductionSection(softwareSystem, new File(documentationRoot, "01-introduction.md"));
+template.addGlossarySection(softwareSystem, new File(documentationRoot, "02-glossary.md"));
+template.addSystemStakeholdersAndRequirementsSection(softwareSystem, new File(documentationRoot, "03-system-stakeholders-and-requirements.md"));
+template.addArchitecturalForcesSection(softwareSystem, new File(documentationRoot, "04-architectural-forces.md"));
+template.addArchitecturalViewsSection(softwareSystem, new File(documentationRoot, "05-architectural-views"));
+template.addSystemQualitiesSection(softwareSystem, new File(documentationRoot, "06-system-qualities.md"));
+template.addAppendicesSection(softwareSystem, new File(documentationRoot, "07-appendices.md"));
 ```
 
 Structurizr will create navigation controls based upon the the sections in the documentation, and the software systems they have been associated with. This particular example is rendered as follows: 

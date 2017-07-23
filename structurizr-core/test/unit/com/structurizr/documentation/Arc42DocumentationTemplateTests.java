@@ -78,40 +78,40 @@ public class Arc42DocumentationTemplateTests extends AbstractWorkspaceTestBase {
         Section section;
         File root = new File(".//test/unit/com/structurizr/documentation/arc42");
 
-        section = template.addIntroductionAndGoalsSection(softwareSystem, Format.Markdown, new File(root, "introduction-and-goals.md"));
+        section = template.addIntroductionAndGoalsSection(softwareSystem, new File(root, "introduction-and-goals.md"));
         assertSection(softwareSystem, "Introduction and Goals", Format.Markdown, "Section 1", 1, section);
 
-        section = template.addConstraintsSection(softwareSystem, Format.Markdown, new File(root, "constraints.md"));
+        section = template.addConstraintsSection(softwareSystem, new File(root, "constraints.md"));
         assertSection(softwareSystem, "Constraints", Format.Markdown, "Section 2", 2, section);
 
-        section = template.addContextAndScopeSection(softwareSystem, Format.Markdown, new File(root, "context-and-scope.md"));
+        section = template.addContextAndScopeSection(softwareSystem, new File(root, "context-and-scope.md"));
         assertSection(softwareSystem, "Context and Scope", Format.Markdown, "Section 3", 3, section);
 
-        section = template.addSolutionStrategySection(softwareSystem, Format.Markdown, new File(root, "solution-strategy.md"));
+        section = template.addSolutionStrategySection(softwareSystem, new File(root, "solution-strategy.md"));
         assertSection(softwareSystem, "Solution Strategy", Format.Markdown, "Section 4", 4, section);
 
-        section = template.addBuildingBlockViewSection(softwareSystem, Format.Markdown, new File(root, "building-block-view.md"));
+        section = template.addBuildingBlockViewSection(softwareSystem, new File(root, "building-block-view.md"));
         assertSection(softwareSystem, "Building Block View", Format.Markdown, "Section 5", 5, section);
 
-        section = template.addRuntimeViewSection(softwareSystem, Format.Markdown, new File(root, "runtime-view.md"));
+        section = template.addRuntimeViewSection(softwareSystem, new File(root, "runtime-view.md"));
         assertSection(softwareSystem, "Runtime View", Format.Markdown, "Section 6", 6, section);
 
-        section = template.addDeploymentViewSection(softwareSystem, Format.Markdown, new File(root, "deployment-view.md"));
+        section = template.addDeploymentViewSection(softwareSystem, new File(root, "deployment-view.md"));
         assertSection(softwareSystem, "Deployment View", Format.Markdown, "Section 7", 7, section);
 
-        section = template.addCrosscuttingConceptsSection(softwareSystem, Format.Markdown, new File(root, "crosscutting-concepts.md"));
+        section = template.addCrosscuttingConceptsSection(softwareSystem, new File(root, "crosscutting-concepts.md"));
         assertSection(softwareSystem, "Crosscutting Concepts", Format.Markdown, "Section 8", 8, section);
 
-        section = template.addArchitecturalDecisionsSection(softwareSystem, Format.Markdown, new File(root, "architectural-decisions.md"));
+        section = template.addArchitecturalDecisionsSection(softwareSystem, new File(root, "architectural-decisions.md"));
         assertSection(softwareSystem, "Architectural Decisions", Format.Markdown, "Section 9", 9, section);
 
-        section = template.addQualityRequirementsSection(softwareSystem, Format.Markdown, new File(root, "quality-requirements.md"));
+        section = template.addQualityRequirementsSection(softwareSystem, new File(root, "quality-requirements.md"));
         assertSection(softwareSystem, "Quality Requirements", Format.Markdown, "Section 10", 10, section);
 
-        section = template.addRisksAndTechnicalDebtSection(softwareSystem, Format.Markdown, new File(root, "risks-and-technical-debt.md"));
+        section = template.addRisksAndTechnicalDebtSection(softwareSystem, new File(root, "risks-and-technical-debt.md"));
         assertSection(softwareSystem, "Risks and Technical Debt", Format.Markdown, "Section 11", 11, section);
 
-        section = template.addGlossarySection(softwareSystem, Format.Markdown, new File(root, "glossary.md"));
+        section = template.addGlossarySection(softwareSystem, new File(root, "glossary.md"));
         assertSection(softwareSystem, "Glossary", Format.Markdown, "Section 12", 12, section);
     }
 

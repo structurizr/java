@@ -54,6 +54,7 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Structurizr](docs/documentation-structurizr.md)
     * [arc42](docs/documentation-arc42.md)
     * [Viewpoints and Perspectives](docs/documentation-viewpoints-and-perspectives.md)
+    * [Automatic template](docs/documentation-automatic.md)
 * Extracting software architecture information from code
     * [Component finder](docs/component-finder.md)
     * [Structurizr annotations](docs/structurizr-annotations.md)

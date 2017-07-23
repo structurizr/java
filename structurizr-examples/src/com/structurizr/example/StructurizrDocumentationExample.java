@@ -46,33 +46,33 @@ public class StructurizrDocumentationExample {
 
         // this is the Markdown version
         File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/documentation/structurizr/markdown");
-        template.addContextSection(softwareSystem, Format.Markdown, new File(documentationRoot, "01-context.md"));
-        template.addFunctionalOverviewSection(softwareSystem, Format.Markdown, new File(documentationRoot, "02-functional-overview.md"));
-        template.addQualityAttributesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "03-quality-attributes.md"));
-        template.addConstraintsSection(softwareSystem, Format.Markdown, new File(documentationRoot, "04-constraints.md"));
-        template.addPrinciplesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "05-principles.md"));
-        template.addSoftwareArchitectureSection(softwareSystem, Format.Markdown, new File(documentationRoot, "06-software-architecture.md"));
-        template.addDataSection(softwareSystem, Format.Markdown, new File(documentationRoot, "07-data.md"));
-        template.addInfrastructureArchitectureSection(softwareSystem, Format.Markdown, new File(documentationRoot, "08-infrastructure-architecture.md"));
-        template.addDeploymentSection(softwareSystem, Format.Markdown, new File(documentationRoot, "09-deployment.md"));
-        template.addDevelopmentEnvironmentSection(softwareSystem, Format.Markdown, new File(documentationRoot, "10-development-environment.md"));
-        template.addOperationAndSupportSection(softwareSystem, Format.Markdown, new File(documentationRoot, "11-operation-and-support.md"));
-        template.addDecisionLogSection(softwareSystem, Format.Markdown, new File(documentationRoot, "12-decision-log.md"));
+        template.addContextSection(softwareSystem, new File(documentationRoot, "01-context.md"));
+        template.addFunctionalOverviewSection(softwareSystem, new File(documentationRoot, "02-functional-overview.md"));
+        template.addQualityAttributesSection(softwareSystem, new File(documentationRoot, "03-quality-attributes.md"));
+        template.addConstraintsSection(softwareSystem, new File(documentationRoot, "04-constraints.md"));
+        template.addPrinciplesSection(softwareSystem, new File(documentationRoot, "05-principles.md"));
+        template.addSoftwareArchitectureSection(softwareSystem, new File(documentationRoot, "06-software-architecture.md"));
+        template.addDataSection(softwareSystem, new File(documentationRoot, "07-data.md"));
+        template.addInfrastructureArchitectureSection(softwareSystem, new File(documentationRoot, "08-infrastructure-architecture.md"));
+        template.addDeploymentSection(softwareSystem, new File(documentationRoot, "09-deployment.md"));
+        template.addDevelopmentEnvironmentSection(softwareSystem, new File(documentationRoot, "10-development-environment.md"));
+        template.addOperationAndSupportSection(softwareSystem, new File(documentationRoot, "11-operation-and-support.md"));
+        template.addDecisionLogSection(softwareSystem, new File(documentationRoot, "12-decision-log.md"));
 
         // this is the AsciiDoc version
 //        File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/documentation/structurizr/asciidoc");
-//        template.addContextSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "01-context.adoc"));
-//        template.addFunctionalOverviewSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "02-functional-overview.adoc"));
-//        template.addQualityAttributesSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "03-quality-attributes.adoc"));
-//        template.addConstraintsSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "04-constraints.adoc"));
-//        template.addPrinciplesSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "05-principles.adoc"));
-//        template.addSoftwareArchitectureSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "06-software-architecture.adoc"));
-//        template.addDataSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "07-data.adoc"));
-//        template.addInfrastructureArchitectureSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "08-infrastructure-architecture.adoc"));
-//        template.addDeploymentSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "09-deployment.adoc"));
-//        template.addDevelopmentEnvironmentSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "10-development-environment.adoc"));
-//        template.addOperationAndSupportSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "11-operation-and-support.adoc"));
-//        template.addDecisionLogSection(softwareSystem, Format.AsciiDoc, new File(documentationRoot, "12-decision-log.adoc"));
+//        template.addContextSection(softwareSystem, new File(documentationRoot, "01-context.adoc"));
+//        template.addFunctionalOverviewSection(softwareSystem, new File(documentationRoot, "02-functional-overview.adoc"));
+//        template.addQualityAttributesSection(softwareSystem, new File(documentationRoot, "03-quality-attributes.adoc"));
+//        template.addConstraintsSection(softwareSystem, new File(documentationRoot, "04-constraints.adoc"));
+//        template.addPrinciplesSection(softwareSystem, new File(documentationRoot, "05-principles.adoc"));
+//        template.addSoftwareArchitectureSection(softwareSystem, new File(documentationRoot, "06-software-architecture.adoc"));
+//        template.addDataSection(softwareSystem, new File(documentationRoot, "07-data.adoc"));
+//        template.addInfrastructureArchitectureSection(softwareSystem, new File(documentationRoot, "08-infrastructure-architecture.adoc"));
+//        template.addDeploymentSection(softwareSystem, new File(documentationRoot, "09-deployment.adoc"));
+//        template.addDevelopmentEnvironmentSection(softwareSystem, new File(documentationRoot, "10-development-environment.adoc"));
+//        template.addOperationAndSupportSection(softwareSystem, new File(documentationRoot, "11-operation-and-support.adoc"));
+//        template.addDecisionLogSection(softwareSystem, new File(documentationRoot, "12-decision-log.adoc"));
 
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);

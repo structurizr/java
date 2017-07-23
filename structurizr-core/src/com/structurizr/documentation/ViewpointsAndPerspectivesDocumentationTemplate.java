@@ -37,22 +37,20 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * Adds a "Introduction" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addIntroductionSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addIntroductionSection(softwareSystem, format, readFiles(files));
+    public Section addIntroductionSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Introduction", GROUP1, files);
     }
 
     /**
      * Adds a "Introduction" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addIntroductionSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Introduction", GROUP1, format, content);
@@ -62,22 +60,20 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * Adds a "Glossary" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addGlossarySection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addGlossarySection(softwareSystem, format, readFiles(files));
+    public Section addGlossarySection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Glossary", GROUP1, files);
     }
 
     /**
      * Adds a "Glossary" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addGlossarySection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Glossary", GROUP1, format, content);
@@ -87,22 +83,20 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * Adds a "System Stakeholders and Requirements" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addSystemStakeholdersAndRequirementsSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addSystemStakeholdersAndRequirementsSection(softwareSystem, format, readFiles(files));
+    public Section addSystemStakeholdersAndRequirementsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "System Stakeholders and Requirements", GROUP2, files);
     }
 
     /**
      * Adds a "System Stakeholders and Requirements" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addSystemStakeholdersAndRequirementsSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "System Stakeholders and Requirements", GROUP2, format, content);
@@ -112,22 +106,20 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * Adds an "Architectural Forces" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addArchitecturalForcesSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addArchitecturalForcesSection(softwareSystem, format, readFiles(files));
+    public Section addArchitecturalForcesSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Architectural Forces", GROUP2, files);
     }
 
     /**
      * Adds an "Architectural Forces" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addArchitecturalForcesSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Architectural Forces", GROUP2, format, content);
@@ -137,22 +129,20 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * Adds an "Architectural Views" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addArchitecturalViewsSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addArchitecturalViewsSection(softwareSystem, format, readFiles(files));
+    public Section addArchitecturalViewsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Architectural Views", GROUP3, files);
     }
 
     /**
      * Adds an "Architectural Views" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addArchitecturalViewsSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Architectural Views", GROUP3, format, content);
@@ -162,22 +152,20 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * Adds a "System Qualities" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addSystemQualitiesSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addSystemQualitiesSection(softwareSystem, format, readFiles(files));
+    public Section addSystemQualitiesSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "System Qualities", GROUP4, files);
     }
 
     /**
      * Adds a "System Qualities" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addSystemQualitiesSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "System Qualities", GROUP4, format, content);
@@ -187,22 +175,20 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * Adds an "Appendices" section relating to a {@link SoftwareSystem} from a file.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addAppendicesSection(SoftwareSystem softwareSystem, Format format, File... files) throws IOException {
-        return addAppendicesSection(softwareSystem, format, readFiles(files));
+    public Section addAppendicesSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+        return addSection(softwareSystem, "Appendices", GROUP5, files);
     }
 
     /**
      * Adds an "Appendices" section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
     public Section addAppendicesSection(SoftwareSystem softwareSystem, Format format, String content) {
         return addSection(softwareSystem, "Appendices", GROUP5, format, content);

@@ -78,9 +78,9 @@ public class FinancialRiskSystem {
 
         StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
         File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/financialrisksystem");
-        template.addContextSection(financialRiskSystem, Format.AsciiDoc, new File(documentationRoot, "context.adoc"));
-        template.addFunctionalOverviewSection(financialRiskSystem, Format.Markdown, new File(documentationRoot, "functional-overview.md"));
-        template.addQualityAttributesSection(financialRiskSystem, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));
+        template.addContextSection(financialRiskSystem, new File(documentationRoot, "context.adoc"));
+        template.addFunctionalOverviewSection(financialRiskSystem, new File(documentationRoot, "functional-overview.md"));
+        template.addQualityAttributesSection(financialRiskSystem, new File(documentationRoot, "quality-attributes.md"));
         template.addImages(documentationRoot);
 
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);

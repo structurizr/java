@@ -11,18 +11,18 @@ You can then add documentation sections as needed, each associated with a softwa
 StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
 
 File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/documentation/structurizr/markdown");
-template.addContextSection(softwareSystem, Format.Markdown, new File(documentationRoot, "01-context.md"));
-template.addFunctionalOverviewSection(softwareSystem, Format.Markdown, new File(documentationRoot, "02-functional-overview.md"));
-template.addQualityAttributesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "03-quality-attributes.md"));
-template.addConstraintsSection(softwareSystem, Format.Markdown, new File(documentationRoot, "04-constraints.md"));
-template.addPrinciplesSection(softwareSystem, Format.Markdown, new File(documentationRoot, "05-principles.md"));
-template.addSoftwareArchitectureSection(softwareSystem, Format.Markdown, new File(documentationRoot, "06-software-architecture.md"));
-template.addDataSection(softwareSystem, Format.Markdown, new File(documentationRoot, "07-data.md"));
-template.addInfrastructureArchitectureSection(softwareSystem, Format.Markdown, new File(documentationRoot, "08-infrastructure-architecture.md"));
-template.addDeploymentSection(softwareSystem, Format.Markdown, new File(documentationRoot, "09-deployment.md"));
-template.addDevelopmentEnvironmentSection(softwareSystem, Format.Markdown, new File(documentationRoot, "10-development-environment.md"));
-template.addOperationAndSupportSection(softwareSystem, Format.Markdown, new File(documentationRoot, "11-operation-and-support.md"));
-template.addDecisionLogSection(softwareSystem, Format.Markdown, new File(documentationRoot, "12-decision-log.md"));
+template.addContextSection(softwareSystem, new File(documentationRoot, "01-context.md"));
+template.addFunctionalOverviewSection(softwareSystem, new File(documentationRoot, "02-functional-overview.md"));
+template.addQualityAttributesSection(softwareSystem, new File(documentationRoot, "03-quality-attributes.md"));
+template.addConstraintsSection(softwareSystem, new File(documentationRoot, "04-constraints.md"));
+template.addPrinciplesSection(softwareSystem, new File(documentationRoot, "05-principles.md"));
+template.addSoftwareArchitectureSection(softwareSystem, new File(documentationRoot, "06-software-architecture.md"));
+template.addDataSection(softwareSystem, new File(documentationRoot, "07-data.md"));
+template.addInfrastructureArchitectureSection(softwareSystem, new File(documentationRoot, "08-infrastructure-architecture.md"));
+template.addDeploymentSection(softwareSystem, new File(documentationRoot, "09-deployment.md"));
+template.addDevelopmentEnvironmentSection(softwareSystem, new File(documentationRoot, "10-development-environment.md"));
+template.addOperationAndSupportSection(softwareSystem, new File(documentationRoot, "11-operation-and-support.md"));
+template.addDecisionLogSection(softwareSystem, new File(documentationRoot, "12-decision-log.md"));
 ```
 
 Structurizr will create navigation controls based upon the the sections in the documentation, and the software systems they have been associated with. This particular example is rendered as follows: 

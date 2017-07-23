@@ -200,7 +200,7 @@ public class DocumentationTemplateTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_readFiles_ThrowsAnException_WhenPassedAFileThatDoesNotExist() throws IOException {
         try {
-            template.addContextSection(softwareSystem, Format.Markdown, new File("./no-such-file.txt"));
+            template.addContextSection(softwareSystem, new File("./no-such-file.txt"));
             fail();
         } catch (IllegalArgumentException iae) {
             assertTrue(iae.getMessage().endsWith("no-such-file.txt does not exist."));
@@ -210,7 +210,7 @@ public class DocumentationTemplateTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_readFiles_ThrowsAnException_WhenPassedANullFile() throws IOException {
         try {
-            template.addContextSection(softwareSystem, Format.Markdown, (File)null);
+            template.addContextSection(softwareSystem, (File)null);
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("One or more files must be specified.", iae.getMessage());
@@ -220,7 +220,7 @@ public class DocumentationTemplateTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_readFiles_ThrowsAnException_WhenPassedAnEmptyCollection() throws IOException {
         try {
-            template.addContextSection(softwareSystem, Format.Markdown, new File[]{});
+            template.addContextSection(softwareSystem, new File[]{});
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("One or more files must be specified.", iae.getMessage());
@@ -229,36 +229,21 @@ public class DocumentationTemplateTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_readFiles_AddsAllFiles_WhenPassedADirectory() throws IOException {
-        Section section = template.addContextSection(softwareSystem, Format.Markdown, new File(".//test/unit/com/structurizr/documentation/markdown"));
+        Section section = template.addContextSection(softwareSystem, new File(".//test/unit/com/structurizr/documentation/markdown"));
         assertEquals("File 1" + System.lineSeparator() +
                 "File 2", section.getContent());
     }
 
     @Test
-    public void test_addCustomSection_AddsASectionWithAGroupOf1_WhenAGroupLessThan1IsSpecified() {
-        Section section = template.addCustomSection(softwareSystem, "Custom Section", 0, Format.Markdown, "Custom content");
+    public void test_addSection_AddsASectionWithAGroupOf1_WhenAGroupLessThan1IsSpecified() {
+        Section section = template.addSection(softwareSystem, "Custom Section", 0, Format.Markdown, "Custom content");
         assertEquals(1, section.getGroup());
     }
 
     @Test
-    public void test_addCustomSection_AddsASectionWithAGroupOf5_WhenAGroupMoreThan5IsSpecified() {
-        Section section = template.addCustomSection(softwareSystem, "Custom Section", 6, Format.Markdown, "Custom content");
+    public void test_addSection_AddsASectionWithAGroupOf5_WhenAGroupMoreThan5IsSpecified() {
+        Section section = template.addSection(softwareSystem, "Custom Section", 6, Format.Markdown, "Custom content");
         assertEquals(5, section.getGroup());
-    }
-
-    @Test
-    public void test_addCustomSection_ThrowsAnException_WhenThatSectionAlreadyExists() {
-        template.addCustomSection("Enterprise Context", 1, Format.Markdown, "");
-        assertEquals(1, documentation.getSections().size());
-
-        try {
-            template.addCustomSection("Enterprise Context", 1, Format.Markdown, "");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            // this is the expected exception
-            assertEquals("A section of type Enterprise Context already exists.", iae.getMessage());
-            assertEquals(1, documentation.getSections().size());
-        }
     }
 
 }

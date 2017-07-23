@@ -1,6 +1,8 @@
 package com.structurizr.documentation;
 
 import com.structurizr.Workspace;
+import com.structurizr.model.Component;
+import com.structurizr.model.Container;
 import com.structurizr.model.Element;
 import com.structurizr.model.SoftwareSystem;
 import com.structurizr.util.ImageUtils;
@@ -41,68 +43,124 @@ public abstract class DocumentationTemplate {
     /**
      * Adds a custom section from a file, that isn't related to any element in the model.
      *
-     * @param name              the name of the section
-     * @param group             the group of the section (an integer between 1 and 5)
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param name      the name of the section
+     * @param group     the group of the section (an integer between 1 and 5)
+     * @param files     one or more File objects that point to the documentation content
+     * @return          a documentation {@link Section}
      */
-    public Section addCustomSection(String name, int group, Format format, File... files) throws IOException {
-        return addCustomSection(name, group, format, readFiles(files));
+    public Section addSection(String name, int group, File... files) throws IOException {
+        return add(null, name, group, files);
     }
 
     /**
      * Adds a custom section, that isn't related to any element in the model.
      *
-     * @param name              the name of the section
-     * @param group             the group of the section (an integer between 1 and 5)
+     * @param name      the name of the section
+     * @param group     the group of the section (an integer between 1 and 5)
      * @param format    the {@link Format} of the documentation content
      * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @return           a documentation {@link Section}
      */
-    public Section addCustomSection(String name, int group, Format format, String content) {
-        return addSection(null, name, group, format, content);
+    public Section addSection(String name, int group, Format format, String content) {
+        return add(null, name, group, format, content);
     }
 
     /**
-     * Adds a custom section relating to a {@link SoftwareSystem} from one or more files.
+     * Adds a section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param name              the name of the section
      * @param group             the group of the section (an integer between 1 and 5)
-     * @param format    the {@link Format} of the documentation content
-     * @param files  one or more File objects that point to the documentation content
-     * @return  a documentation {@link Section}
-     * @throws IOException  if the file can't be read
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addCustomSection(SoftwareSystem softwareSystem, String name, int group, Format format, File... files) throws IOException {
-        return addCustomSection(softwareSystem, name, group, format, readFiles(files));
+    public Section addSection(SoftwareSystem softwareSystem, String name, int group, File... files) throws IOException {
+        return add(softwareSystem, name, group, files);
     }
 
     /**
-     * Adds a custom section relating to a {@link SoftwareSystem}.
+     * Adds a section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param name              the name of the section
      * @param group             the group of the section (an integer between 1 and 5)
-     * @param format    the {@link Format} of the documentation content
-     * @param content   a String containing the documentation content
-     * @return  a documentation {@link Section}
+     * @param format            the {@link Format} of the documentation content
+     * @param content           a String containing the documentation content
+     * @return                  a documentation {@link Section}
      */
-    public Section addCustomSection(SoftwareSystem softwareSystem, String name, int group, Format format, String content) {
-        return addSection(softwareSystem, name, group, format, content);
+    public Section addSection(SoftwareSystem softwareSystem, String name, int group, Format format, String content) {
+        return add(softwareSystem, name, group, format, content);
     }
 
-    protected final Section addSection(Element element, String type, int group, Format format, String content) {
+    /**
+     * Adds a section relating to a {@link Container} from one or more files.
+     *
+     * @param container     the {@link Container} the documentation content relates to
+     * @param name          the name of the section
+     * @param group         the group of the section (an integer between 1 and 5)
+     * @param files         one or more File objects that point to the documentation content
+     * @return              a documentation {@link Section}
+     */
+    public Section addSection(Container container, String name, int group, File... files) throws IOException {
+        return add(container, name, group, files);
+    }
+
+    /**
+     * Adds a section relating to a {@link Container}.
+     *
+     * @param container     the {@link Container} the documentation content relates to
+     * @param name          the name of the section
+     * @param group         the group of the section (an integer between 1 and 5)
+     * @param format        the {@link Format} of the documentation content
+     * @param content       a String containing the documentation content
+     * @return              a documentation {@link Section}
+     */
+    public Section addSection(Container container, String name, int group, Format format, String content) {
+        return add(container, name, group, format, content);
+    }
+
+    /**
+     * Adds a section relating to a {@link Component} from one or more files.
+     *
+     * @param component     the {@link Component} the documentation content relates to
+     * @param name          the name of the section
+     * @param group         the group of the section (an integer between 1 and 5)
+     * @param files         one or more File objects that point to the documentation content
+     * @return              a documentation {@link Section}
+     */
+    public Section addSection(Component component, String name, int group, File... files) throws IOException {
+        return add(component, name, group, files);
+    }
+
+    /**
+     * Adds a section relating to a {@link Component}.
+     *
+     * @param component     the {@link Component} the documentation content relates to
+     * @param name          the name of the section
+     * @param group         the group of the section (an integer between 1 and 5)
+     * @param format        the {@link Format} of the documentation content
+     * @param content       a String containing the documentation content
+     * @return              a documentation {@link Section}
+     */
+    public Section addSection(Component component, String name, int group, Format format, String content) {
+        return add(component, name, group, format, content);
+    }
+
+    private Section add(Element element, String type, int group, Format format, String content) {
         return documentation.addSection(element, type, group, format, content);
     }
 
-    protected String readFiles(File... files) throws IOException {
+    private Section add(Element element, String type, int group, File... files) throws IOException {
+        FormattedContent content = readFiles(files);
+        return documentation.addSection(element, type, group, content.getFormat(), content.getContent());
+    }
+
+    private FormattedContent readFiles(File... files) throws IOException {
         if (files == null || files.length == 0) {
             throw new IllegalArgumentException("One or more files must be specified.");
         }
 
+        Format format = Format.Markdown;
         StringBuilder content = new StringBuilder();
         for (File file : files) {
             if (file == null) {
@@ -118,17 +176,18 @@ public abstract class DocumentationTemplate {
             }
 
             if (file.isFile()) {
+                format = FormatFinder.findFormat(file);
                 content.append(new String(Files.readAllBytes(file.toPath()), "UTF-8"));
             } else if (file.isDirectory()) {
                 File[] filesInDirectory = file.listFiles();
                 if (filesInDirectory != null) {
                     Arrays.sort(filesInDirectory);
-                    content.append(readFiles(filesInDirectory));
+                    content.append(readFiles(filesInDirectory).getContent());
                 }
             }
         }
 
-        return content.toString();
+        return new FormattedContent(content.toString(), format);
     }
 
     /**
@@ -178,9 +237,8 @@ public abstract class DocumentationTemplate {
     /**
      * Adds an image from the given file to the workspace.
      *
-     * @param file  a File descriptor representing an image file on disk
-     * @return  an Image object representing the image added
-     * @throws IOException  if the file can't be read
+     * @param file      a File descriptor representing an image file on disk
+     * @return          an Image object representing the image added
      */
     public Image addImage(File file) throws IOException {
         String contentType = ImageUtils.getContentType(file);
