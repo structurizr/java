@@ -194,4 +194,9 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
         return addSection(softwareSystem, "Appendices", GROUP5, format, content);
     }
 
+    @Override
+    protected TemplateMetadata getMetadata() {
+        return new TemplateMetadata("Viewpoints and Perspectives", "Nick Rozanski and Eoin Woods", "https://www.viewpoints-and-perspectives.info");
+    }
+
 }

@@ -389,4 +389,9 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
         return addSection(softwareSystem, "Decision Log", GROUP5, format, content);
     }
 
+    @Override
+    protected TemplateMetadata getMetadata() {
+        return new TemplateMetadata("Software Guidebook", "Simon Brown", "https://leanpub.com/visualising-software-architecture");
+    }
+
 }

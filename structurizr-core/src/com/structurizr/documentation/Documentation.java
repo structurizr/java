@@ -25,6 +25,7 @@ public final class Documentation {
     private Model model;
     private Set<Section> sections = new HashSet<>();
     private Set<Image> images = new HashSet<>();
+    private TemplateMetadata template;
 
     Documentation() {
     }
@@ -109,6 +110,19 @@ public final class Documentation {
     @JsonIgnore
     public boolean isEmpty() {
         return sections.isEmpty() && images.isEmpty();
+    }
+
+    /**
+     * Gets the template metadata associated with this documentation.
+     *
+     * @return  a TemplateMetadata object, or null if there is none
+     */
+    public TemplateMetadata getTemplate() {
+        return template;
+    }
+
+    void setTemplate(TemplateMetadata template) {
+        this.template = template;
     }
 
 }

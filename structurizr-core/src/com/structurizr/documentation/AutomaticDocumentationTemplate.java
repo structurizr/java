@@ -89,4 +89,9 @@ public class AutomaticDocumentationTemplate extends DocumentationTemplate {
         return sections;
     }
 
+    @Override
+    protected TemplateMetadata getMetadata() {
+        return null;
+    }
+
 }

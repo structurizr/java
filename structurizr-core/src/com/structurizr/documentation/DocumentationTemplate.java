@@ -38,6 +38,7 @@ public abstract class DocumentationTemplate {
         }
 
         this.documentation = workspace.getDocumentation();
+        documentation.setTemplate(getMetadata());
     }
 
     /**
@@ -249,5 +250,12 @@ public abstract class DocumentationTemplate {
 
         return image;
     }
+
+    /**
+     * Gets the metadata associated with this template.
+     *
+     * @return  a TemplateMetadata object, or null if there is none
+     */
+    protected abstract TemplateMetadata getMetadata();
 
 }

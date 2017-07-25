@@ -314,4 +314,9 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
         return addSection(softwareSystem, "Glossary", GROUP5, format, content);
     }
 
+    @Override
+    protected TemplateMetadata getMetadata() {
+        return new TemplateMetadata("arc42", "Dr. Gernot Starke and Dr. Peter Hruschka", "http://arc42.org");
+    }
+
 }
