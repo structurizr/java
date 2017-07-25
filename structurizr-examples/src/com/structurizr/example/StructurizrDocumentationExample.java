@@ -23,8 +23,8 @@ import java.io.File;
 public class StructurizrDocumentationExample {
 
     private static final long WORKSPACE_ID = 14181;
-    private static final String API_KEY = "";
-    private static final String API_SECRET = "";
+    private static final String API_KEY = "key";
+    private static final String API_SECRET = "secret";
 
     public static void main(String[] args) throws Exception {
         Workspace workspace = new Workspace("Documentation - Structurizr", "An empty software architecture document using the Structurizr template.");

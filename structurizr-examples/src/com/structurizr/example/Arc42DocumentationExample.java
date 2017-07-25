@@ -23,8 +23,8 @@ import java.io.File;
 public class Arc42DocumentationExample {
 
     private static final long WORKSPACE_ID = 27791;
-    private static final String API_KEY = "e27a6027-6aed-47e6-ac6a-bc10d4de9865";
-    private static final String API_SECRET = "7433a164-8b64-4b40-a495-148d733cb931";
+    private static final String API_KEY = "key";
+    private static final String API_SECRET = "secret";
 
     public static void main(String[] args) throws Exception {
         Workspace workspace = new Workspace("Documentation - arc42", "An empty software architecture document using the arc42 template.");
