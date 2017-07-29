@@ -116,41 +116,6 @@ public abstract class AbstractWorkspace {
     }
 
     /**
-     * Gets the URL where the content of this workspace can be found.
-     *
-     * @return  a URL (as a String)
-     */
-    public String getSource() {
-        return source;
-    }
-
-    /**
-     * Sets the URL where the content of this workspace can be found.
-     *
-     * @param source    a URL, as a String
-     * @throws          IllegalArgumentException if the URL is not a valid URL
-     */
-    public void setSource(String source) {
-        if (source != null && source.trim().length() > 0) {
-            try {
-                URL url = new URL(source);
-                this.source = source;
-            } catch (MalformedURLException murle) {
-                throw new IllegalArgumentException(source + " is not a valid URL.");
-            }
-        }
-    }
-
-    /**
-     * Determines whether this workspace has a source URL set.
-     *
-     * @return  true if a source URL has been set, false otherwise
-     */
-    public boolean hasSource() {
-        return this.source != null && this.source.trim().length() > 0;
-    }
-
-    /**
      * Gets the URL of the API where the content of this workspace can be found.
      *
      * @return  the URL, as a String
