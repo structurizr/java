@@ -5,10 +5,8 @@ import com.structurizr.io.WorkspaceWriterException;
 import com.structurizr.io.json.JsonReader;
 import com.structurizr.io.json.JsonWriter;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.StringWriter;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 
 /**
  * Some utility methods related to workspaces.
@@ -46,7 +44,7 @@ public final class WorkspaceUtils {
             throw new IllegalArgumentException("The path to a JSON file must be specified.");
         }
 
-        FileWriter writer = new FileWriter(file);
+        OutputStreamWriter writer = new OutputStreamWriter(new FileOutputStream(file), StandardCharsets.UTF_8);
         new JsonWriter(true).write(workspace, writer);
         writer.flush();
         writer.close();
