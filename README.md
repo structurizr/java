@@ -30,6 +30,8 @@ If using [Structurizr](https://structurizr.com), the end-result, after adding so
 
 You can see the live workspace at [https://structurizr.com/share/25441](https://structurizr.com/share/25441).
 
+[![Build Status](https://travis-ci.org/structurizr/java.svg?branch=master)](https://travis-ci.org/structurizr/java)
+
 ## Table of contents
 
 * Introduction
