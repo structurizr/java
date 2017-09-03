@@ -4,7 +4,7 @@
 
 In addition to [styling diagram elements](styling-elements.md) and [relationships](styling-relationships.md), some corporate branding can be added to diagrams and documentation. This includes:
 
-- A font (font name and optional web font URL).
+- A font (font name and optional web font stylesheet URL).
 - A logo (a URL to an image file or a data URI).
 - 5 foreground/background colour pairs.
 
