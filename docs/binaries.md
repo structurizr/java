@@ -1,6 +1,5 @@
 # Binaries
-The "Structurizr for Java" binaries are hosted on [Bintray](https://bintray.com/structurizr/maven/structurizr-java) and the JCenter repository.
-The dependencies for use with Maven, Ivy, Gradle, etc are as follows.
+The "Structurizr for Java" binaries are hosted on [Maven Central](https://repo1.maven.org/maven2/com/structurizr/) and the dependencies for use with Maven, Ivy, Gradle, etc are as follows.
 
 Name                                          | Description
 -------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------

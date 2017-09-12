@@ -6,14 +6,11 @@ For more examples, please see [structurizr-examples](https://github.com/structur
 
 ## 1. Dependencies
 
-The Structurizr for Java binaries are hosted on [Bintray](https://bintray.com/structurizr/maven/structurizr-java) and the JCenter repository.
-The dependencies for use with Maven, Ivy, Gradle, etc are as follows.
+The Structurizr for Java binaries are hosted on [Maven Central](https://repo1.maven.org/maven2/com/structurizr/) and the dependencies for use with Maven, Ivy, Gradle, etc are as follows.
 
 Name                                          | Description
 -------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------
 com.structurizr:structurizr-core:1.0.0-RC4        | The core library that can used to create models and upload models to Structurizr.
-
-> Please note that you will need to add "http://jcenter.bintray.com" as an additional repository to your build configuration.
 
 ## 2. Create a model
 
