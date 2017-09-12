@@ -11,17 +11,19 @@ This GitHub repository is a collection of tooling to help you visualise, documen
 As an example, the following Java code can be used to create a software architecture model that describes a user using a software system.
 
 ```java
-Workspace workspace = new Workspace("Getting Started", "This is a model of my software system.");
-Model model = workspace.getModel();
-
-Person user = model.addPerson("User", "A user of my software system.");
-SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "My software system.");
-user.uses(softwareSystem, "Uses");
-
-ViewSet views = workspace.getViews();
-SystemContextView contextView = views.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
-contextView.addAllSoftwareSystems();
-contextView.addAllPeople();
+public static void main(String[] args) throws Exception {
+    Workspace workspace = new Workspace("Getting Started", "This is a model of my software system.");
+    Model model = workspace.getModel();
+    
+    Person user = model.addPerson("User", "A user of my software system.");
+    SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "My software system.");
+    user.uses(softwareSystem, "Uses");
+    
+    ViewSet views = workspace.getViews();
+    SystemContextView contextView = views.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
+    contextView.addAllSoftwareSystems();
+    contextView.addAllPeople();
+}
 ```
 
 If using [Structurizr](https://structurizr.com), the end-result, after adding some styling and positioning the diagram elements, is a system context diagram like this:
