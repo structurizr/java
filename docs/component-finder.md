@@ -4,7 +4,7 @@ The Structurizr for Java library includes a component finder and a number of pre
 
 ## Background
 
-The idea behind the [C4 model](c4.md) and Structurizr is that there are a number of levels of abstraction sitting above the code. Although we write Java code using interfaces and classes in packages, it's often useful to think about how that code is organised into "components". In its simplest form, a "component" is just a grouping of classes and interfaces.
+The idea behind the [C4 model](https://c4model.com) and Structurizr is that there are a number of levels of abstraction sitting above the code. Although we write Java code using interfaces and classes in packages, it's often useful to think about how that code is organised into "components". In its simplest form, a "component" is just a grouping of classes and interfaces.
 
 If you reverse-engineer some Java code using a UML tool, you'll typically get a UML class diagram showing all of the classes and interfaces. The component diagram in the C4 model is about hiding some of this complexity and implementation detail. You can read more about this at [Components vs classes](https://structurizr.com/help/components-vs-classes).
 

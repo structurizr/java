@@ -2,7 +2,7 @@
 
 # Structurizr for Java
 
-This GitHub repository is a collection of tooling to help you visualise, document and explore the software architecture of a software system. In summary, it allows you to create a software architecture model based upon Simon Brown's [C4 model](docs/c4.md) using Java code, and then export that model to be visualised using tools such as:
+This GitHub repository is a collection of tooling to help you visualise, document and explore the software architecture of a software system. In summary, it allows you to create a software architecture model based upon Simon Brown's [C4 model](https://c4model.com) using Java code, and then export that model to be visualised using tools such as:
 
 1. [Structurizr](https://structurizr.com): a web-based software as a service and on-premises product to render software architecture diagrams and supplementary Markdown/AsciiDoc documentation.
 1. [PlantUML](docs/plantuml.md): a tool to create UML diagrams using a simple textual domain specific language.
