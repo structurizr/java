@@ -40,7 +40,7 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Getting started](docs/getting-started.md)
     * [About Structurizr and how it compares to other tooling](https://structurizr.com/help/about)
     * [Basic concepts](https://structurizr.com/help/concepts) (workspaces, models, views and documentation)
-    * [C4 model](https://structurizr.com/help/c4)
+    * [C4 model](https://c4model.com)
     * [Binaries](docs/binaries.md)
     * [API Client](docs/api-client.md)
 * Diagrams
