@@ -50,7 +50,7 @@ public class BigBankPlc {
         Container database = internetBankingSystem.addContainer("Database", "Stores interesting data.", "Relational Database Schema");
         database.addTags(DATABASE_TAG);
 
-        customer.uses(webApplication, "HTTPS");
+        customer.uses(webApplication, "Uses", "HTTPS");
         webApplication.uses(database, "Reads from and writes to", "JDBC");
         webApplication.uses(mainframeBankingSystem, "Uses", "XML/HTTPS");
 
@@ -96,7 +96,7 @@ public class BigBankPlc {
         secondaryDatabase.addTags("Failover");
 
         // views/diagrams
-        EnterpriseContextView enterpriseContextView = views.createEnterpriseContextView("EnterpriseContext", "The system context diagram for the Internet Banking System.");
+        EnterpriseContextView enterpriseContextView = views.createEnterpriseContextView("EnterpriseContext", "The enterprise context diagram for the Internet Banking System.");
         enterpriseContextView.addAllElements();
         enterpriseContextView.setPaperSize(PaperSize.A5_Landscape);
 
@@ -110,7 +110,7 @@ public class BigBankPlc {
         containerView.add(mainframeBankingSystem);
         containerView.setPaperSize(PaperSize.A5_Landscape);
 
-        ComponentView componentView = views.createComponentView(webApplication, "Components", "The components diagram for the Web Application");
+        ComponentView componentView = views.createComponentView(webApplication, "Components", "The component diagram for the Web Application.");
         componentView.addAllContainers();
         componentView.addAllComponents();
         componentView.add(customer);
