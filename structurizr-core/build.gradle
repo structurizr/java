@@ -6,11 +6,14 @@ dependencies {
     compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'
 
     compile 'org.reflections:reflections:0.9.10'
+    compile 'org.javassist:javassist:3.22.0-CR2'
 
     compile 'commons-logging:commons-logging:1.1.3'
 
     compile 'org.apache.httpcomponents:httpclient:4.3.6'
     compile 'org.apache.httpcomponents:httpcore:4.3.3'
+
+    compile 'javax.xml.bind:jaxb-api:2.3.0'
 
     compile files("${System.getProperty('java.home')}/../lib/tools.jar")
 
