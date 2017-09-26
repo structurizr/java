@@ -5,7 +5,7 @@ Most of the component finder strategies included in Structurizr for Java find co
 * The type-level doc comment (```/** ... */```, typically extracted using the javadoc tool). This can be used to populate the description property of components.
 * The number of lines of source code. This can be a used to calculate the "size" of a component.
 
-A pre-built [SourceCodeComponentFinderStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/analysis/SourceCodeComponentFinderStrategy.java) is provided to do this.
+A pre-built [SourceCodeComponentFinderStrategy](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/analysis/SourceCodeComponentFinderStrategy.java) is provided to do this, which uses the standard ```javadoc``` tool. You will need to include ```JAVA_HOME/lib/tools.jar``` on your classpath.
 
 ## Example
 
