@@ -79,7 +79,7 @@ subprojects { proj ->
                 }
 
                 pom.project {
-                    name 'Example Application'
+                    name 'Structurizr for Java'
                     packaging 'jar'
                     description 'Structurizr for Java'
                     url 'https://github.com/structurizr/java'
@@ -105,6 +105,23 @@ subprojects { proj ->
                         }
                     }
                 }
+            }
+        }
+    }
+
+    def pomConfig = {
+        licenses {
+            license {
+                name "The Apache Software License, Version 2.0"
+                url "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                distribution "repo"
+            }
+        }
+        developers {
+            developer {
+                id "simon"
+                name "Simon Brown"
+                email "simon@structurizr.com"
             }
         }
     }
