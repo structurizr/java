@@ -30,6 +30,7 @@ public class ViewSetTests {
         view1.setKey(null); // this simulates views created by previous versions of the client library
         view1.addAllElements();
         view1.getElements().iterator().next().setX(100);
+        view1.setPaperSize(PaperSize.A3_Landscape);
 
         Workspace workspace2 = createWorkspace();
         SoftwareSystem softwareSystem2 = workspace2.getModel().getSoftwareSystemWithName("Software System");
@@ -39,6 +40,7 @@ public class ViewSetTests {
 
         workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
         assertEquals(100, view2.getElements().iterator().next().getX());
+        assertEquals(PaperSize.A3_Landscape, view2.getPaperSize());
     }
 
     @Test
@@ -49,6 +51,7 @@ public class ViewSetTests {
         view1.setKey(null); // this simulates views created by previous versions of the client library
         view1.addAllElements();
         view1.getElements().iterator().next().setX(100);
+        view1.setPaperSize(PaperSize.A3_Landscape);
 
         Workspace workspace2 = createWorkspace();
         SoftwareSystem softwareSystem2 = workspace2.getModel().getSoftwareSystemWithName("Software System");
@@ -57,6 +60,7 @@ public class ViewSetTests {
 
         workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
         assertEquals(100, view2.getElements().iterator().next().getX());
+        assertEquals(PaperSize.A3_Landscape, view2.getPaperSize());
     }
 
     @Test
@@ -66,6 +70,7 @@ public class ViewSetTests {
         SystemContextView view1 = workspace1.getViews().createSystemContextView(softwareSystem1, "context", "Description");
         view1.addAllElements();
         view1.getElements().iterator().next().setX(100);
+        view1.setPaperSize(PaperSize.A3_Landscape);
 
         Workspace workspace2 = createWorkspace();
         SoftwareSystem softwareSystem2 = workspace2.getModel().getSoftwareSystemWithName("Software System");
@@ -74,6 +79,7 @@ public class ViewSetTests {
 
         workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
         assertEquals(100, view2.getElements().iterator().next().getX());
+        assertEquals(PaperSize.A3_Landscape, view2.getPaperSize());
     }
 
     @Test
@@ -97,6 +103,7 @@ public class ViewSetTests {
         ContainerView view1 = workspace1.getViews().createContainerView(softwareSystem1, "containers", "Description");
         view1.addAllElements();
         view1.getElements().iterator().next().setX(100);
+        view1.setPaperSize(PaperSize.A3_Landscape);
 
         Workspace workspace2 = createWorkspace();
         SoftwareSystem softwareSystem2 = workspace2.getModel().getSoftwareSystemWithName("Software System");
@@ -105,6 +112,7 @@ public class ViewSetTests {
 
         workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
         assertEquals(100, view2.getElements().iterator().next().getX());
+        assertEquals(PaperSize.A3_Landscape, view2.getPaperSize());
     }
 
     @Test
@@ -128,6 +136,7 @@ public class ViewSetTests {
         ComponentView view1 = workspace1.getViews().createComponentView(container1, "containers", "Description");
         view1.addAllElements();
         view1.getElements().iterator().next().setX(100);
+        view1.setPaperSize(PaperSize.A3_Landscape);
 
         Workspace workspace2 = createWorkspace();
         Container container2 = workspace2.getModel().getSoftwareSystemWithName("Software System").getContainerWithName("Container");
@@ -136,6 +145,7 @@ public class ViewSetTests {
 
         workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
         assertEquals(100, view2.getElements().iterator().next().getX());
+        assertEquals(PaperSize.A3_Landscape, view2.getPaperSize());
     }
 
     @Test
@@ -160,6 +170,7 @@ public class ViewSetTests {
         DynamicView view1 = workspace1.getViews().createDynamicView("context", "Description");
         view1.add(person1, softwareSystem1);
         view1.getElements().iterator().next().setX(100);
+        view1.setPaperSize(PaperSize.A3_Landscape);
 
         Workspace workspace2 = createWorkspace();
         Person person2 = workspace2.getModel().getPersonWithName("Person");
@@ -169,6 +180,7 @@ public class ViewSetTests {
 
         workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
         assertEquals(100, view2.getElements().iterator().next().getX());
+        assertEquals(PaperSize.A3_Landscape, view2.getPaperSize());
     }
 
     @Test
@@ -183,6 +195,7 @@ public class ViewSetTests {
 
         workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
         assertEquals(0, view2.getElements().iterator().next().getX()); // default
+        assertEquals(PaperSize.A4_Portrait, view2.getPaperSize()); // default
     }
 
     @Test

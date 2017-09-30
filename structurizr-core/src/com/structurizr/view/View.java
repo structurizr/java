@@ -259,6 +259,8 @@ public abstract class View {
     }
 
     public void copyLayoutInformationFrom(View source) {
+        this.setPaperSize(source.getPaperSize());
+
         for (ElementView sourceElementView : source.getElements()) {
             ElementView destinationElementView = findElementView(sourceElementView);
             if (destinationElementView != null) {
