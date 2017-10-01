@@ -21,7 +21,7 @@ public abstract class View {
     private String softwareSystemId;
     private String description = "";
     private String key;
-    private PaperSize paperSize = PaperSize.A4_Portrait;
+    private PaperSize paperSize = null;
 
     private Set<ElementView> elementViews = new LinkedHashSet<>();
 
@@ -259,7 +259,9 @@ public abstract class View {
     }
 
     public void copyLayoutInformationFrom(View source) {
-        this.setPaperSize(source.getPaperSize());
+        if (this.getPaperSize() == null) {
+            this.setPaperSize(source.getPaperSize());
+        }
 
         for (ElementView sourceElementView : source.getElements()) {
             ElementView destinationElementView = findElementView(sourceElementView);
