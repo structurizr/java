@@ -43,6 +43,7 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [C4 model](https://c4model.com)
     * [Binaries](docs/binaries.md)
     * [API Client](docs/api-client.md)
+    * [Usage patterns](docs/usage-patterns.md)
 * Diagrams
     * [System Context diagram](docs/system-context-diagram.md)
     * [Container diagram](docs/container-diagram.md)
