@@ -7,7 +7,7 @@ To build "Structurizr for Java" from the sources (you'll need Java 8)...
 ```
 git clone https://github.com/structurizr/java.git
 cd java
-./gradlew build
+./gradlew compileJava test
 ```
 
 If necessary, after building, you can install "Structurizr for Java" into your local Maven repo using:
