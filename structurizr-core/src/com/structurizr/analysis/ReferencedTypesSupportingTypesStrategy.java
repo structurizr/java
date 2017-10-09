@@ -55,7 +55,7 @@ public class ReferencedTypesSupportingTypesStrategy extends SupportingTypesStrat
             }
         }
 
-        return referencedTypes.stream().map(Class::getCanonicalName).collect(Collectors.toSet());
+        return referencedTypes.stream().map(Class::getName).collect(Collectors.toSet());
     }
 
 }

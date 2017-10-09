@@ -43,6 +43,14 @@ public class RegexTypeMatcherTests {
         assertTrue(matcher.matches(MyController.class));
     }
 
+    @Test
+    public void test_matches_ReturnsFalse_WhenPassedANullType() {
+        String regex = ".*\\.analysis\\..*Controller";
+
+        RegexTypeMatcher matcher = new RegexTypeMatcher(Pattern.compile(regex), "", "");
+        assertFalse(matcher.matches(null));
+    }
+
     private class MyController {
     }
 

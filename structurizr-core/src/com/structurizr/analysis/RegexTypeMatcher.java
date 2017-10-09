@@ -31,7 +31,11 @@ public class RegexTypeMatcher extends AbstractTypeMatcher {
 
     @Override
     public boolean matches(Class type) {
-        return Pattern.matches(regex.pattern(), type.getCanonicalName());
+        if (type != null && type.getCanonicalName() != null) {
+            return Pattern.matches(regex.pattern(), type.getCanonicalName());
+        } else {
+            return false;
+        }
     }
 
 }

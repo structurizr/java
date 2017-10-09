@@ -80,7 +80,7 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
 
             for (SupportingTypesStrategy strategy : supportingTypesStrategies) {
                 for (String type : strategy.findSupportingTypes(component)) {
-                    if (componentFinder.getContainer().getComponentOfType(type) == null) {
+                    if (!isNestedClass(type) && componentFinder.getContainer().getComponentOfType(type) == null) {
                         CodeElement codeElement = component.addSupportingType(type);
                         codeElement.setVisibility(TypeUtils.getVisibility(type).getName());
                         codeElement.setCategory(TypeUtils.getCategory(type).getName());
@@ -88,6 +88,10 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
                 }
             }
         }
+    }
+
+    private boolean isNestedClass(String type) {
+        return type != null && type.indexOf('$') > -1;
     }
 
     private void findDependencies() throws Exception {
