@@ -25,10 +25,11 @@ public class DefaultTypeRepositoryTests {
     public void test_getAllTypes_ReturnsANonEmptySet_WhenTypesWereFound() {
         typeRepository = new DefaultTypeRepository("test.DefaultTypeRepository", new HashSet<>());
         Set<String> types = typeRepository.getAllTypes().stream().map(Class::getCanonicalName).collect(Collectors.toSet());
-        assertEquals(3, types.size()); // the enum is ignored
+        assertEquals(4, types.size());
 
         assertTrue(types.contains("test.DefaultTypeRepository.SomeAbstractClass"));
         assertTrue(types.contains("test.DefaultTypeRepository.SomeClass"));
+        assertTrue(types.contains("test.DefaultTypeRepository.SomeEnum"));
         assertTrue(types.contains("test.DefaultTypeRepository.SomeInterface"));
     }
 
@@ -38,8 +39,9 @@ public class DefaultTypeRepositoryTests {
         exclusions.add(Pattern.compile(".*Abstract.*"));
         typeRepository = new DefaultTypeRepository("test.DefaultTypeRepository", exclusions);
         Set<String> types = typeRepository.getAllTypes().stream().map(Class::getCanonicalName).collect(Collectors.toSet());
-        assertEquals(2, types.size());
+        assertEquals(3, types.size());
 
+        assertTrue(types.contains("test.DefaultTypeRepository.SomeEnum"));
         assertTrue(types.contains("test.DefaultTypeRepository.SomeClass"));
         assertTrue(types.contains("test.DefaultTypeRepository.SomeInterface"));
     }

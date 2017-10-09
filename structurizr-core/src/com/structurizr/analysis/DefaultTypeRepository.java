@@ -4,7 +4,9 @@ import javassist.ClassPool;
 import javassist.CtClass;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.reflections.ReflectionUtils;
 import org.reflections.Reflections;
+import org.reflections.scanners.AbstractScanner;
 import org.reflections.scanners.SubTypesScanner;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
@@ -41,19 +43,25 @@ public class DefaultTypeRepository implements TypeRepository {
      * @param packageToScan     the fully qualified package name
      * @param exclusions        a Set of Pattern objects
      */
-    public DefaultTypeRepository(String packageToScan, Set<Pattern> exclusions) {
+    DefaultTypeRepository(String packageToScan, Set<Pattern> exclusions) {
         this.packageToScan = packageToScan;
         if (exclusions != null) {
             this.exclusions.addAll(exclusions);
         }
 
+        AllTypesScanner allTypesScanner = new AllTypesScanner();
         Reflections reflections = new Reflections(new ConfigurationBuilder()
                 .setUrls(ClasspathHelper.forJavaClassPath())
                 .filterInputsBy(new FilterBuilder().includePackage(packageToScan))
-                .setScanners(new SubTypesScanner(false))
+                .setScanners(new SubTypesScanner(false), allTypesScanner)
         );
 
-        types = filter(reflections.getSubTypesOf(Object.class));
+        types = new HashSet<>();
+        types.addAll(ReflectionUtils.forNames(allTypesScanner.types, reflections.getConfiguration().getClassLoaders()));
+
+        for (Class<?> c : types) {
+            System.out.println("+ " + c);
+        }
     }
 
     /**
@@ -133,6 +141,20 @@ public class DefaultTypeRepository implements TypeRepository {
         }
 
         return false;
+    }
+
+    class AllTypesScanner extends AbstractScanner {
+
+        Set<String> types = new HashSet<>();
+
+        @Override
+        public void scan(Object cls) {
+            String typeName = getMetadataAdapter().getClassName(cls);
+
+            if (!isExcluded(typeName)) {
+                types.add(typeName);
+            }
+        }
     }
 
 }
