@@ -14,14 +14,8 @@ import static org.junit.Assert.*;
 public class TypeUtilsTests {
 
     @Test
-    public void test_getCategory_ThrowsAnException_WhenTheSpecifiedTypeCouldNotBeFound() throws Exception {
-        try {
-            TypeUtils.getCategory("com.company.app.Class");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            iae.printStackTrace();
-            assertEquals("The specified type could not be found.", iae.getMessage());
-        }
+    public void test_getCategory_ReturnsNull_WhenTheSpecifiedTypeCouldNotBeFound() throws Exception {
+        assertNull(TypeUtils.getCategory("com.company.app.Class"));
     }
 
     @Test
@@ -49,14 +43,8 @@ public class TypeUtilsTests {
     }
 
     @Test
-    public void test_getVisibility_ThrowsAnException_WhenTheSpecifiedTypeCouldNotBeFound() throws Exception {
-        try {
-            TypeUtils.getVisibility("com.company.app.Class");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            iae.printStackTrace();
-            assertEquals("The specified type could not be found.", iae.getMessage());
-        }
+    public void test_getVisibility_ReturnsNull_WhenTheSpecifiedTypeCouldNotBeFound() throws Exception {
+        assertNull(TypeUtils.getVisibility("com.company.app.Class"));
     }
 
     @Test

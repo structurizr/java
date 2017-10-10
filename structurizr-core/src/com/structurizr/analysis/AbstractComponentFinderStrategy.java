@@ -74,16 +74,31 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
     private void findSupportingTypes(Set<Component> components) throws Exception {
         for (Component component : components) {
             for (CodeElement codeElement : component.getCode()) {
-                codeElement.setVisibility(TypeUtils.getVisibility(codeElement.getType()).getName());
-                codeElement.setCategory(TypeUtils.getCategory(codeElement.getType()).getName());
+                TypeVisibility visibility = TypeUtils.getVisibility(codeElement.getType());
+                if (visibility != null) {
+                    codeElement.setVisibility(visibility.getName());
+                }
+
+                TypeCategory category = TypeUtils.getCategory(codeElement.getType());
+                if (category != null) {
+                    codeElement.setCategory(category.getName());
+                }
             }
 
             for (SupportingTypesStrategy strategy : supportingTypesStrategies) {
                 for (String type : strategy.findSupportingTypes(component)) {
                     if (!isNestedClass(type) && componentFinder.getContainer().getComponentOfType(type) == null) {
                         CodeElement codeElement = component.addSupportingType(type);
-                        codeElement.setVisibility(TypeUtils.getVisibility(type).getName());
-                        codeElement.setCategory(TypeUtils.getCategory(type).getName());
+
+                        TypeVisibility visibility = TypeUtils.getVisibility(codeElement.getType());
+                        if (visibility != null) {
+                            codeElement.setVisibility(visibility.getName());
+                        }
+
+                        TypeCategory category = TypeUtils.getCategory(codeElement.getType());
+                        if (category != null) {
+                            codeElement.setCategory(category.getName());
+                        }
                     }
                 }
             }

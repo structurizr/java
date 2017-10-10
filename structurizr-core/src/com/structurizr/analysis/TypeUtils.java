@@ -1,5 +1,8 @@
 package com.structurizr.analysis;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.util.Set;
@@ -9,6 +12,8 @@ import java.util.stream.Collectors;
  * Some utility methods for working with types.
  */
 public class TypeUtils {
+
+    private static final Log log = LogFactory.getLog(TypeUtils.class);
 
     /**
      * Finds the visibility of a given type.
@@ -30,7 +35,8 @@ public class TypeUtils {
                 return TypeVisibility.PACKAGE;
             }
         } catch (ClassNotFoundException e) {
-            throw new IllegalArgumentException("The specified type could not be found.");
+            log.warn("Visibility for type " + typeName + " could not be found.");
+            return null;
         }
     }
 
@@ -55,7 +61,8 @@ public class TypeUtils {
                 }
             }
         } catch (ClassNotFoundException e) {
-            throw new IllegalArgumentException("The specified type could not be found.");
+            log.warn("Category for type " + typeName + " could not be found.");
+            return null;
         }
     }
 
