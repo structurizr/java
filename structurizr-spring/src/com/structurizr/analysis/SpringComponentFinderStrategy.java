@@ -36,7 +36,7 @@ public class SpringComponentFinderStrategy extends AbstractSpringComponentFinder
     }
 
     @Override
-    public void beforeFindComponents() throws Exception {
+    public void beforeFindComponents() {
         super.beforeFindComponents();
 
         componentFinderStrategies.add(new SpringRestControllerComponentFinderStrategy());
@@ -54,7 +54,7 @@ public class SpringComponentFinderStrategy extends AbstractSpringComponentFinder
     }
 
     @Override
-    protected Set<Component> doFindComponents() throws Exception {
+    protected Set<Component> doFindComponents() {
         Set<Component> components = new HashSet<>();
 
         for (AbstractComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {

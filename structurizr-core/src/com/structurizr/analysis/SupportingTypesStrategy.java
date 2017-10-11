@@ -19,6 +19,6 @@ public abstract class SupportingTypesStrategy {
         this.typeRepository = typeRepository;
     }
 
-    public abstract Set<String> findSupportingTypes(Component component) throws Exception;
+    public abstract Set<String> findSupportingTypes(Component component);
 
 }

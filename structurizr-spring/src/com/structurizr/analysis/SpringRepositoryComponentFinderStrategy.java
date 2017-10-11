@@ -20,7 +20,7 @@ public final class SpringRepositoryComponentFinderStrategy extends AbstractSprin
     }
 
     @Override
-    protected Set<Component> doFindComponents() throws Exception {
+    protected Set<Component> doFindComponents() {
         Set<Component> components = new HashSet<>();
 
         components.addAll(findAnnotatedSpringRepositories());
@@ -29,7 +29,7 @@ public final class SpringRepositoryComponentFinderStrategy extends AbstractSprin
         return components;
     }
 
-    private Set<Component> findSpringRepositoryInterfaces() throws Exception {
+    private Set<Component> findSpringRepositoryInterfaces() {
         Set<Component> componentsFound = new HashSet<>();
         Set<Class<?>> componentTypes = new HashSet<>();
 
@@ -59,7 +59,7 @@ public final class SpringRepositoryComponentFinderStrategy extends AbstractSprin
         return componentsFound;
     }
 
-    private Set<Component> findAnnotatedSpringRepositories() throws Exception {
+    private Set<Component> findAnnotatedSpringRepositories() {
         return findInterfacesForImplementationClassesWithAnnotation(
                 org.springframework.stereotype.Repository.class, SPRING_REPOSITORY);
     }

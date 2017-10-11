@@ -14,7 +14,7 @@ public final class SpringComponentComponentFinderStrategy extends AbstractSpring
     }
 
     @Override
-    protected Set<Component> doFindComponents() throws Exception {
+    protected Set<Component> doFindComponents() {
         return findInterfacesForImplementationClassesWithAnnotation(
                 org.springframework.stereotype.Component.class,
                 SPRING_COMPONENT

@@ -14,7 +14,7 @@ public final class SpringMvcControllerComponentFinderStrategy extends AbstractSp
     }
 
     @Override
-    protected Set<Component> doFindComponents() throws Exception {
+    protected Set<Component> doFindComponents() {
         return findClassesWithAnnotation(
                 org.springframework.stereotype.Controller.class,
                 SPRING_MVC_CONTROLLER,

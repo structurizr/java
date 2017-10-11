@@ -22,7 +22,7 @@ public class ReferencedTypesInSamePackageSupportingTypesStrategy extends Support
     }
 
     @Override
-    public Set<String> findSupportingTypes(Component component) throws Exception {
+    public Set<String> findSupportingTypes(Component component) {
         ReferencedTypesSupportingTypesStrategy referencedTypesSupportingTypesStrategy = new ReferencedTypesSupportingTypesStrategy(includeIndirectlyReferencedTypes);
         referencedTypesSupportingTypesStrategy.setTypeRepository(getTypeRepository());
         Set<String> supportingTypes = referencedTypesSupportingTypesStrategy.findSupportingTypes(component);
