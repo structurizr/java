@@ -29,6 +29,7 @@ public class AutomaticDocumentationTemplate extends DocumentationTemplate {
      *
      * @param directory     the directory to scan
      * @return              a List of Section objects
+     * @throws IOException  if there is an error reading the files in the directory
      */
     public List<Section> addSections(File directory) throws IOException {
         return add(null, directory);
@@ -40,6 +41,7 @@ public class AutomaticDocumentationTemplate extends DocumentationTemplate {
      * @param directory         the directory to scan
      * @param softwareSystem    the SoftwareSystem to associate the documentation with
      * @return                  a List of Section objects
+     * @throws IOException      if there is an error reading the files in the directory
      */
     public List<Section> addSections(SoftwareSystem softwareSystem, File directory) throws IOException {
         if (softwareSystem == null) {

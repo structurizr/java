@@ -88,7 +88,7 @@ public class DefaultTypeRepository implements TypeRepository {
      * @param typeName  the starting type
      * @return          a Set of Class objects, or an empty set if none were found
      */
-    public Set<Class<?>> findReferencedTypes(String typeName) throws Exception {
+    public Set<Class<?>> findReferencedTypes(String typeName) {
         Set<Class<?>> referencedTypes = new HashSet<>();
 
         // use the cached version if possible

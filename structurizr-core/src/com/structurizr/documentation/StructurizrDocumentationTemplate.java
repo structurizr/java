@@ -45,11 +45,12 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Context" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Context" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addContextSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Context", GROUP1, files);
@@ -68,11 +69,12 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Functional Overview" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Functional Overview" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addFunctionalOverviewSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Functional Overview", GROUP2, files);
@@ -91,11 +93,12 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Quality Attributes" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Quality Attributes" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addQualityAttributesSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Quality Attributes", GROUP2, files);
@@ -114,11 +117,12 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Constraints" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Constraints" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addConstraintsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Constraints", GROUP2, files);
@@ -137,11 +141,12 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Principles" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Principles" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addPrinciplesSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Principles", GROUP2, files);
@@ -160,11 +165,12 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Software Architecture" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Software Architecture" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addSoftwareArchitectureSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Software Architecture", GROUP3, files);
@@ -183,11 +189,12 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Containers" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Containers" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addContainersSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Containers", GROUP3, files);
@@ -206,11 +213,12 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Components" section relating to a {@link Container} from a file.
+     * Adds a "Components" section relating to a {@link Container} from one or more files.
      *
      * @param container     the {@link Container} the documentation content relates to
      * @param files         one or more File objects that point to the documentation content
      * @return              a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addComponentsSection(Container container, File... files) throws IOException {
         return addSection(container, "Components", GROUP3, files);
@@ -229,11 +237,12 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Code" section relating to a {@link Component} from a file.
+     * Adds a "Code" section relating to a {@link Component} from one or more files.
      *
      * @param component     the {@link Component} the documentation content relates to
      * @param files         one or more File objects that point to the documentation content
      * @return              a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addCodeSection(Component component, File... files) throws IOException {
         return addSection(component, "Code", GROUP3, files);
@@ -252,11 +261,12 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Data" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Data" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addDataSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Data", GROUP3, files);
@@ -275,11 +285,12 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds an "Infrastructure Architecture" section relating to a {@link SoftwareSystem} from a file.
+     * Adds an "Infrastructure Architecture" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addInfrastructureArchitectureSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Infrastructure Architecture", GROUP4, files);
@@ -298,11 +309,12 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Deployment" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Deployment" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addDeploymentSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Deployment", GROUP4, files);
@@ -321,11 +333,12 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Development Environment" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Development Environment" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addDevelopmentEnvironmentSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Development Environment", GROUP4, files);
@@ -344,11 +357,12 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds an "Operation and Support" section relating to a {@link SoftwareSystem} from a file.
+     * Adds an "Operation and Support" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addOperationAndSupportSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Operation and Support", GROUP4, files);
@@ -367,11 +381,12 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Decision Log" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Decision Log" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addDecisionLogSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Decision Log", GROUP5, files);

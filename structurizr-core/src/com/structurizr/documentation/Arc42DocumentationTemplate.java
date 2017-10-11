@@ -39,11 +39,12 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Introduction and Goals" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Introduction and Goals" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addIntroductionAndGoalsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Introduction and Goals", GROUP1, files);
@@ -62,11 +63,12 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Constraints" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Constraints" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addConstraintsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Constraints", GROUP2, files);
@@ -85,11 +87,12 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Context and Scope" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Context and Scope" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addContextAndScopeSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Context and Scope", GROUP2, files);
@@ -108,11 +111,12 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Solution Strategy" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Solution Strategy" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addSolutionStrategySection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Solution Strategy", GROUP3, files);
@@ -131,11 +135,12 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Building Block View" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Building Block View" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addBuildingBlockViewSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Building Block View", GROUP3, files);
@@ -154,11 +159,12 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Runtime View" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Runtime View" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addRuntimeViewSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Runtime View", GROUP3, files);
@@ -177,11 +183,12 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Deployment View" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Deployment View" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addDeploymentViewSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Deployment View", GROUP3, files);
@@ -200,11 +207,12 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Crosscutting Concepts" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Crosscutting Concepts" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addCrosscuttingConceptsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Crosscutting Concepts", GROUP3, files);
@@ -223,11 +231,12 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds an "Architectural Decisions" section relating to a {@link SoftwareSystem} from a file.
+     * Adds an "Architectural Decisions" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addArchitecturalDecisionsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Architectural Decisions", GROUP3, files);
@@ -246,11 +255,12 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Quality Requirements" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Quality Requirements" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addQualityRequirementsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Quality Requirements", GROUP2, files);
@@ -269,11 +279,12 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Risks and Technical Debt" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Risks and Technical Debt" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addRisksAndTechnicalDebtSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Risks and Technical Debt", GROUP4, files);
@@ -292,11 +303,12 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
     }
 
     /**
-     * Adds a "Glossary" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Glossary" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addGlossarySection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Glossary", GROUP5, files);

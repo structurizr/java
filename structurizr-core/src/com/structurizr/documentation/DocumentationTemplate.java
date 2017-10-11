@@ -42,12 +42,13 @@ public abstract class DocumentationTemplate {
     }
 
     /**
-     * Adds a custom section from a file, that isn't related to any element in the model.
+     * Adds a custom section from one or more files, that isn't related to any element in the model.
      *
-     * @param name      the name of the section
-     * @param group     the group of the section (an integer between 1 and 5)
-     * @param files     one or more File objects that point to the documentation content
-     * @return          a documentation {@link Section}
+     * @param name              the name of the section
+     * @param group             the group of the section (an integer between 1 and 5)
+     * @param files             one or more File objects that point to the documentation content
+     * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addSection(String name, int group, File... files) throws IOException {
         return add(null, name, group, files);
@@ -74,6 +75,7 @@ public abstract class DocumentationTemplate {
      * @param group             the group of the section (an integer between 1 and 5)
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addSection(SoftwareSystem softwareSystem, String name, int group, File... files) throws IOException {
         return add(softwareSystem, name, group, files);
@@ -101,6 +103,7 @@ public abstract class DocumentationTemplate {
      * @param group         the group of the section (an integer between 1 and 5)
      * @param files         one or more File objects that point to the documentation content
      * @return              a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addSection(Container container, String name, int group, File... files) throws IOException {
         return add(container, name, group, files);
@@ -128,6 +131,7 @@ public abstract class DocumentationTemplate {
      * @param group         the group of the section (an integer between 1 and 5)
      * @param files         one or more File objects that point to the documentation content
      * @return              a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addSection(Component component, String name, int group, File... files) throws IOException {
         return add(component, name, group, files);
@@ -194,7 +198,8 @@ public abstract class DocumentationTemplate {
     /**
      * Adds png/jpg/jpeg/gif images in the given directory to the workspace.
      *
-     * @param path  a File descriptor representing a directory on disk
+     * @param path          a File descriptor representing a directory on disk
+     * @return  a Collection of Image objects
      * @throws IOException  if the path can't be accessed
      */
     public Collection<Image> addImages(File path) throws IOException {
@@ -238,8 +243,9 @@ public abstract class DocumentationTemplate {
     /**
      * Adds an image from the given file to the workspace.
      *
-     * @param file      a File descriptor representing an image file on disk
-     * @return          an Image object representing the image added
+     * @param file              a File descriptor representing an image file on disk
+     * @return                  an Image object representing the image added
+     * @throws IOException      if there is an error reading the image
      */
     public Image addImage(File file) throws IOException {
         String contentType = ImageUtils.getContentType(file);

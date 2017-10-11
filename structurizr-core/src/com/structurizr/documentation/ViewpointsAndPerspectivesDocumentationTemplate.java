@@ -34,11 +34,12 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
     }
 
     /**
-     * Adds a "Introduction" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Introduction" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addIntroductionSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Introduction", GROUP1, files);
@@ -57,11 +58,12 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
     }
 
     /**
-     * Adds a "Glossary" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "Glossary" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addGlossarySection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Glossary", GROUP1, files);
@@ -80,11 +82,12 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
     }
 
     /**
-     * Adds a "System Stakeholders and Requirements" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "System Stakeholders and Requirements" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addSystemStakeholdersAndRequirementsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "System Stakeholders and Requirements", GROUP2, files);
@@ -103,11 +106,12 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
     }
 
     /**
-     * Adds an "Architectural Forces" section relating to a {@link SoftwareSystem} from a file.
+     * Adds an "Architectural Forces" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addArchitecturalForcesSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Architectural Forces", GROUP2, files);
@@ -126,11 +130,12 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
     }
 
     /**
-     * Adds an "Architectural Views" section relating to a {@link SoftwareSystem} from a file.
+     * Adds an "Architectural Views" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addArchitecturalViewsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Architectural Views", GROUP3, files);
@@ -149,11 +154,12 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
     }
 
     /**
-     * Adds a "System Qualities" section relating to a {@link SoftwareSystem} from a file.
+     * Adds a "System Qualities" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addSystemQualitiesSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "System Qualities", GROUP4, files);
@@ -172,11 +178,12 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
     }
 
     /**
-     * Adds an "Appendices" section relating to a {@link SoftwareSystem} from a file.
+     * Adds an "Appendices" section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
+     * @throws IOException      if there is an error reading the files
      */
     public Section addAppendicesSection(SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Appendices", GROUP5, files);

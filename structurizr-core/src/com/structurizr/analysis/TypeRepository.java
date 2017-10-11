@@ -19,14 +19,14 @@ interface TypeRepository {
      *
      * @return  a Set of Class objects, or an empty set of no classes were found
      */
-    Set<Class<?>> getAllTypes() throws Exception;
+    Set<Class<?>> getAllTypes();
 
     /**
      * Finds the set of types referenced by the specified type.
      *
-     * @param typeName  the starting type
-     * @return          a Set of Class objects, or an empty set if none were found
+     * @param typeName                      the starting type
+     * @return                              a Set of Class objects, or an empty set if none were found
      */
-    Set<Class<?>> findReferencedTypes(String typeName) throws Exception;
+    Set<Class<?>> findReferencedTypes(String typeName);
 
 }
