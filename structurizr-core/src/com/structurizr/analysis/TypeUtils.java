@@ -21,7 +21,7 @@ public class TypeUtils {
      * @param typeName  the fully qualified type name
      * @return          a TypeVisibility object representing the visibility (e.g. public, package, etc)
      */
-    public static TypeVisibility getVisibility(String typeName) throws Exception {
+    public static TypeVisibility getVisibility(String typeName) {
         try {
             Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
             int modifiers = type.getModifiers();
@@ -46,7 +46,7 @@ public class TypeUtils {
      * @param typeName  the fully qualified type name
      * @return          a TypeCategory object representing the category (e.g. class, interface, enum, etc)
      */
-    public static TypeCategory getCategory(String typeName) throws Exception {
+    public static TypeCategory getCategory(String typeName) {
         try {
             Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
             if (type.isInterface()) {
@@ -70,6 +70,7 @@ public class TypeUtils {
      * Finds the set of types that are annotated with the specified annotation.
      *
      * @param annotation        the Annotation to find
+     * @param types             the set of Class objects to search through
      * @return                  a Set of Class objects, or an empty set of none could be found
      */
     public static Set<Class<?>> findTypesAnnotatedWith(Class<? extends Annotation> annotation, Set<Class<?>> types) {

@@ -21,7 +21,7 @@ public abstract class AbstractSpringComponentFinderStrategy extends AbstractComp
         super(strategies);
     }
 
-    protected Set<Component> findInterfacesForImplementationClassesWithAnnotation(Class<? extends Annotation> type, String technology) throws Exception {
+    protected Set<Component> findInterfacesForImplementationClassesWithAnnotation(Class<? extends Annotation> type, String technology) {
         Set<Component> components = new HashSet<>();
 
         Set<Class<?>> annotatedTypes = findTypesAnnotatedWith(type);

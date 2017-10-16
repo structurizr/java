@@ -46,13 +46,13 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
     }
 
     @Override
-    public void beforeFindComponents() throws Exception {
+    public void beforeFindComponents() {
         typeRepository = new DefaultTypeRepository(componentFinder.getPackageName(), componentFinder.getExclusions());
         supportingTypesStrategies.forEach(sts -> sts.setTypeRepository(typeRepository));
     }
 
     @Override
-    public Set<Component> findComponents() throws Exception {
+    public Set<Component> findComponents() {
         componentsFound.addAll(doFindComponents());
 
         return componentsFound;
@@ -63,15 +63,15 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
      *
      * @return  the Set of Components found, or an empty set if no components were found
      */
-    protected abstract Set<Component> doFindComponents() throws Exception;
+    protected abstract Set<Component> doFindComponents();
 
     @Override
-    public void afterFindComponents() throws Exception {
+    public void afterFindComponents() {
         findSupportingTypes(componentsFound);
         findDependencies();
     }
 
-    private void findSupportingTypes(Set<Component> components) throws Exception {
+    private void findSupportingTypes(Set<Component> components) {
         for (Component component : components) {
             for (CodeElement codeElement : component.getCode()) {
                 TypeVisibility visibility = TypeUtils.getVisibility(codeElement.getType());
@@ -109,7 +109,7 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         return type != null && type.indexOf('$') > -1;
     }
 
-    private void findDependencies() throws Exception {
+    private void findDependencies() {
         for (Component component : componentFinder.getContainer().getComponents()) {
             if (component.getType() != null) {
                 addEfferentDependencies(component, component.getType(), new HashSet<>());
@@ -122,7 +122,7 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         }
     }
 
-    private void addEfferentDependencies(Component component, String type, Set<String> typesVisited) throws Exception {
+    private void addEfferentDependencies(Component component, String type, Set<String> typesVisited) {
         typesVisited.add(type);
 
         for (Class<?> referencedType : getTypeRepository().findReferencedTypes(type)) {
@@ -155,15 +155,15 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         supportingTypesStrategies.add(supportingTypesStrategy);
     }
 
-    protected Set<Class<?>> findTypesAnnotatedWith(Class<? extends Annotation> annotation) throws Exception {
+    protected Set<Class<?>> findTypesAnnotatedWith(Class<? extends Annotation> annotation) {
         return TypeUtils.findTypesAnnotatedWith(annotation, getTypeRepository().getAllTypes());
     }
 
-    protected Set<Component> findClassesWithAnnotation(Class<? extends Annotation> type, String technology) throws Exception {
+    protected Set<Component> findClassesWithAnnotation(Class<? extends Annotation> type, String technology) {
         return findClassesWithAnnotation(type, technology, false);
     }
 
-    protected Set<Component> findClassesWithAnnotation(Class<? extends Annotation> type, String technology, boolean includePublicTypesOnly) throws Exception {
+    protected Set<Component> findClassesWithAnnotation(Class<? extends Annotation> type, String technology, boolean includePublicTypesOnly) {
         Set<Component> components = new HashSet<>();
         Set<Class<?>> componentTypes = findTypesAnnotatedWith(type);
         for (Class<?> componentType : componentTypes) {

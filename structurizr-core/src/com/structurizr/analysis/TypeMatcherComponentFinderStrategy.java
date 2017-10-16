@@ -17,7 +17,7 @@ public class TypeMatcherComponentFinderStrategy extends AbstractComponentFinderS
     }
 
     @Override
-    protected Set<Component> doFindComponents() throws Exception {
+    protected Set<Component> doFindComponents() {
         Set<Component> components = new HashSet<>();
 
         Set<Class<?>> types = getTypeRepository().getAllTypes();

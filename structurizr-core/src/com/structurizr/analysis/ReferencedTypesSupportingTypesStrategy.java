@@ -23,12 +23,12 @@ public class ReferencedTypesSupportingTypesStrategy extends SupportingTypesStrat
         this.includeIndirectlyReferencedTypes = includeIndirectlyReferencedTypes;
     }
 
-    private Set<Class<?>> getReferencedTypesInPackage(String type) throws Exception {
+    private Set<Class<?>> getReferencedTypesInPackage(String type) {
         return getTypeRepository().findReferencedTypes(type).stream().filter(t -> t.getCanonicalName() != null && t.getCanonicalName().startsWith(getTypeRepository().getPackage())).collect(Collectors.toSet());
     }
 
     @Override
-    public Set<String> findSupportingTypes(Component component) throws Exception {
+    public Set<String> findSupportingTypes(Component component) {
         Set<Class<?>> referencedTypes = new HashSet<>();
         referencedTypes.addAll(getReferencedTypesInPackage(component.getType()));
 

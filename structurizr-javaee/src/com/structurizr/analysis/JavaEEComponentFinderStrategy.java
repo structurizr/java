@@ -22,7 +22,7 @@ public class JavaEEComponentFinderStrategy extends AbstractComponentFinderStrate
     }
 
     @Override
-    protected Set<Component> doFindComponents() throws Exception {
+    protected Set<Component> doFindComponents() {
         Set<Component> components = new HashSet<>();
 
         components.addAll(findClassesWithAnnotation(Path.class, "JAX-RS web service"));

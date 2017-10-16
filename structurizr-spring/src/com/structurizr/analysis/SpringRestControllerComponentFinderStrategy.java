@@ -14,7 +14,7 @@ public final class SpringRestControllerComponentFinderStrategy extends AbstractS
     }
 
     @Override
-    protected Set<Component> doFindComponents() throws Exception {
+    protected Set<Component> doFindComponents() {
         return findClassesWithAnnotation(
                 org.springframework.web.bind.annotation.RestController.class,
                 SPRING_REST_CONTROLLER,

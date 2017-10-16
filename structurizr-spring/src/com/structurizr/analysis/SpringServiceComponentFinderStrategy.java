@@ -14,7 +14,7 @@ public final class SpringServiceComponentFinderStrategy extends AbstractSpringCo
     }
 
     @Override
-    protected Set<Component> doFindComponents() throws Exception {
+    protected Set<Component> doFindComponents() {
         return findInterfacesForImplementationClassesWithAnnotation(
                 org.springframework.stereotype.Service.class,
                 SPRING_SERVICE

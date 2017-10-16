@@ -30,7 +30,7 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
     }
 
     @Override
-    protected Set<Component> doFindComponents() throws Exception {
+    protected Set<Component> doFindComponents() {
         Set<Component> components = new HashSet<>();
 
         // find all types that have been annotated @Component
@@ -49,7 +49,7 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
     }
 
     @Override
-    public void afterFindComponents() throws Exception {
+    public void afterFindComponents() {
         // this will find component dependencies, but the relationship descriptions
         // will be empty because we can't get that from the code
         super.afterFindComponents();
@@ -86,127 +86,151 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
      * This will add a description to existing component dependencies, where they have
      * been annotated @UsesComponent.
      */
-    private void findUsesComponentAnnotations(Component component, String typeName) throws Exception {
-        Class type = ClassLoader.getSystemClassLoader().loadClass(typeName);
-        for (Field field : type.getDeclaredFields()) {
-            UsesComponent annotation = field.getAnnotation(UsesComponent.class);
-            if (annotation != null) {
-                String name = field.getType().getCanonicalName();
-                String description = field.getAnnotation(UsesComponent.class).description();
-                String technology = annotation.technology();
+    private void findUsesComponentAnnotations(Component component, String typeName) {
+        try {
+            Class type = ClassLoader.getSystemClassLoader().loadClass(typeName);
+            for (Field field : type.getDeclaredFields()) {
+                UsesComponent annotation = field.getAnnotation(UsesComponent.class);
+                if (annotation != null) {
+                    String name = field.getType().getCanonicalName();
+                    String description = field.getAnnotation(UsesComponent.class).description();
+                    String technology = annotation.technology();
 
-                Component destination = componentFinder.getContainer().getComponentOfType(name);
-                if (destination != null) {
-                    for (Relationship relationship : component.getRelationships()) {
-                        if (relationship.getDestination() == destination) {
-                            relationship.setDescription(description);
-                            relationship.setTechnology(technology);
+                    Component destination = componentFinder.getContainer().getComponentOfType(name);
+                    if (destination != null) {
+                        for (Relationship relationship : component.getRelationships()) {
+                            if (relationship.getDestination() == destination) {
+                                relationship.setDescription(description);
+                                relationship.setTechnology(technology);
+                            }
                         }
+                    } else {
+                        log.warn("A component of type \"" + name + "\" could not be found.");
                     }
-                } else {
-                    log.warn("A component of type \"" + name + "\" could not be found.");
                 }
             }
+        } catch (ClassNotFoundException e) {
+            log.warn("Could not load type " + typeName);
         }
     }
 
     /**
      * Find the @UsesSoftwareSystem annotations.
      */
-    private void findUsesSoftwareSystemsAnnotations(Component component, String typeName) throws Exception {
-        Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
-        UsesSoftwareSystem[] annotations = type.getAnnotationsByType(UsesSoftwareSystem.class);
-        for (UsesSoftwareSystem annotation : annotations) {
-            String name = annotation.name();
-            String description = annotation.description();
-            String technology = annotation.technology();
+    private void findUsesSoftwareSystemsAnnotations(Component component, String typeName) {
+        try {
+            Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
+            UsesSoftwareSystem[] annotations = type.getAnnotationsByType(UsesSoftwareSystem.class);
+            for (UsesSoftwareSystem annotation : annotations) {
+                String name = annotation.name();
+                String description = annotation.description();
+                String technology = annotation.technology();
 
-            SoftwareSystem softwareSystem = component.getModel().getSoftwareSystemWithName(name);
-            if (softwareSystem != null) {
-                component.uses(softwareSystem, description, technology);
-            } else {
-                log.warn("A software system named \"" + name + "\" could not be found.");
+                SoftwareSystem softwareSystem = component.getModel().getSoftwareSystemWithName(name);
+                if (softwareSystem != null) {
+                    component.uses(softwareSystem, description, technology);
+                } else {
+                    log.warn("A software system named \"" + name + "\" could not be found.");
+                }
             }
+        } catch (ClassNotFoundException e) {
+            log.warn("Could not load type " + typeName);
         }
     }
 
     /**
      * Find the @UsesContainer annotations.
      */
-    private void findUsesContainerAnnotations(Component component, String typeName) throws Exception {
-        Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
-        UsesContainer[] annotations = type.getAnnotationsByType(UsesContainer.class);
-        for (UsesContainer annotation : annotations) {
-            String name = annotation.name();
-            String description = annotation.description();
-            String technology = annotation.technology();
+    private void findUsesContainerAnnotations(Component component, String typeName) {
+        try {
+            Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
+            UsesContainer[] annotations = type.getAnnotationsByType(UsesContainer.class);
+            for (UsesContainer annotation : annotations) {
+                String name = annotation.name();
+                String description = annotation.description();
+                String technology = annotation.technology();
 
-            Container container = findContainerByNameOrCanonicalName(component, name);
-            if (container != null) {
-                component.uses(container, description, technology);
-            } else {
-                log.warn("A container named \"" + name + "\" could not be found.");
+                Container container = findContainerByNameOrCanonicalName(component, name);
+                if (container != null) {
+                    component.uses(container, description, technology);
+                } else {
+                    log.warn("A container named \"" + name + "\" could not be found.");
+                }
             }
+        } catch (ClassNotFoundException e) {
+            log.warn("Could not load type " + typeName);
         }
     }
 
     /**
      * Finds @UsedByPerson annotations.
      */
-    private void findUsedByPersonAnnotations(Component component, String typeName) throws Exception {
-        Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
-        UsedByPerson[] annotations = type.getAnnotationsByType(UsedByPerson.class);
-        for (UsedByPerson annotation : annotations) {
-            String name = annotation.name();
-            String description = annotation.description();
-            String technology = annotation.technology();
+    private void findUsedByPersonAnnotations(Component component, String typeName) {
+        try {
+            Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
+            UsedByPerson[] annotations = type.getAnnotationsByType(UsedByPerson.class);
+            for (UsedByPerson annotation : annotations) {
+                String name = annotation.name();
+                String description = annotation.description();
+                String technology = annotation.technology();
 
-            Person person = component.getModel().getPersonWithName(name);
-            if (person != null) {
-                person.uses(component, description, technology);
-            } else {
-                log.warn("A person named \"" + name + "\" could not be found.");
+                Person person = component.getModel().getPersonWithName(name);
+                if (person != null) {
+                    person.uses(component, description, technology);
+                } else {
+                    log.warn("A person named \"" + name + "\" could not be found.");
+                }
             }
+        } catch (ClassNotFoundException e) {
+            log.warn("Could not load type " + typeName);
         }
     }
 
     /**
      * Finds @UsedBySoftwareSystem annotations.
      */
-    private void findUsedBySoftwareSystemAnnotations(Component component, String typeName) throws Exception {
-        Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
-        UsedBySoftwareSystem[] annotations = type.getAnnotationsByType(UsedBySoftwareSystem.class);
-        for (UsedBySoftwareSystem annotation : annotations) {
-            String name = annotation.name();
-            String description = annotation.description();
-            String technology = annotation.technology();
+    private void findUsedBySoftwareSystemAnnotations(Component component, String typeName) {
+        try {
+            Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
+            UsedBySoftwareSystem[] annotations = type.getAnnotationsByType(UsedBySoftwareSystem.class);
+            for (UsedBySoftwareSystem annotation : annotations) {
+                String name = annotation.name();
+                String description = annotation.description();
+                String technology = annotation.technology();
 
-            SoftwareSystem softwareSystem = component.getModel().getSoftwareSystemWithName(name);
-            if (softwareSystem != null) {
-                softwareSystem.uses(component, description, technology);
-            } else {
-                log.warn("A software system named \"" + name + "\" could not be found.");
+                SoftwareSystem softwareSystem = component.getModel().getSoftwareSystemWithName(name);
+                if (softwareSystem != null) {
+                    softwareSystem.uses(component, description, technology);
+                } else {
+                    log.warn("A software system named \"" + name + "\" could not be found.");
+                }
             }
+        } catch (ClassNotFoundException e) {
+            log.warn("Could not load type " + typeName);
         }
     }
 
     /**
      * Finds @UsedByContainer annotations.
      */
-    private void findUsedByContainerAnnotations(Component component, String typeName) throws Exception {
-        Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
-        UsedByContainer[] annotations = type.getAnnotationsByType(UsedByContainer.class);
-        for (UsedByContainer annotation : annotations) {
-            String name = annotation.name();
-            String description = annotation.description();
-            String technology = annotation.technology();
+    private void findUsedByContainerAnnotations(Component component, String typeName) {
+        try {
+            Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
+            UsedByContainer[] annotations = type.getAnnotationsByType(UsedByContainer.class);
+            for (UsedByContainer annotation : annotations) {
+                String name = annotation.name();
+                String description = annotation.description();
+                String technology = annotation.technology();
 
-            Container container = findContainerByNameOrCanonicalName(component, name);
-            if (container != null) {
-                container.uses(component, description, technology);
-            } else {
-                log.warn("A container named \"" + name + "\" could not be found.");
+                Container container = findContainerByNameOrCanonicalName(component, name);
+                if (container != null) {
+                    container.uses(component, description, technology);
+                } else {
+                    log.warn("A container named \"" + name + "\" could not be found.");
+                }
             }
+        } catch (ClassNotFoundException e) {
+            log.warn("Could not load type " + typeName);
         }
     }
 
