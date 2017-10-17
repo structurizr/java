@@ -112,7 +112,7 @@ With the software architecture model in place, we now need to create some views 
 
 ```java
 ViewSet viewSet = workspace.getViews();
-SystemContextView contextView = viewSet.createContextView(springPetClinic, "context", "Context view for Spring PetClinic");
+SystemContextView contextView = viewSet.createSystemContextView(springPetClinic, "context", "Context view for Spring PetClinic");
 contextView.addAllSoftwareSystems();
 contextView.addAllPeople();
 ```
