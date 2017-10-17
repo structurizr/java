@@ -4,7 +4,7 @@ This is a step-by-step guide to recreating the System Context, Container and Com
 
 ## 1. Clone and build the Spring PetClinic code
 
-First of all, we need to download a copy of the [Spring PetClinic source code](https://github.com/spring-projects/spring-petclinic/).
+First of all, we need to download a copy of the [Spring PetClinic source code](https://github.com/spring-projects/spring-petclinic/). Please note that this example was created with a specific version of the Spring PetClinic codebase, so please be sure to perform the ```git checkout``` step too.
 
 ```
 git clone https://github.com/spring-projects/spring-petclinic.git
