@@ -11,6 +11,7 @@ import java.io.StringWriter;
 import static org.junit.Assert.assertEquals;
 
 public class PlantUMLWriterTests {
+    private static final String DATASTORE = "DataStore";
 
     private PlantUMLWriter plantUMLWriter;
     private Workspace workspace;
@@ -34,9 +35,9 @@ public class PlantUMLWriterTests {
     public void test_writeView_DoesNotThrowAnExceptionWhenPassedNullParameters() throws Exception {
         populateWorkspace();
 
-        plantUMLWriter.write((View) null, null);
-        plantUMLWriter.write(workspace.getViews().getEnterpriseContextViews().stream().findFirst().get(), null);
-        plantUMLWriter.write((View) null, stringWriter);
+        plantUMLWriter.write(workspace, (View) null, null);
+        plantUMLWriter.write(workspace, workspace.getViews().getEnterpriseContextViews().stream().findFirst().get(), null);
+        plantUMLWriter.write(workspace, (View) null, stringWriter);
     }
 
     @Test
@@ -71,7 +72,7 @@ public class PlantUMLWriterTests {
                 "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
                 "package SoftwareSystem {" + System.lineSeparator() +
-                "  component \"Database\" <<Container>> as 8" + System.lineSeparator() +
+                "  database \"Database\" <<Container>> as 8" + System.lineSeparator() +
                 "  component \"Web Application\" <<Container>> as 7" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "4 ..> 1 : Delivers e-mails to" + System.lineSeparator() +
@@ -82,7 +83,7 @@ public class PlantUMLWriterTests {
                 "" + System.lineSeparator() +
                 "@startuml" + System.lineSeparator() +
                 "title Software System - Web Application - Components" + System.lineSeparator() +
-                "component \"Database\" <<Container>> as 8" + System.lineSeparator() +
+                "database \"Database\" <<Container>> as 8" + System.lineSeparator() +
                 "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
                 "package WebApplication {" + System.lineSeparator() +
@@ -100,7 +101,7 @@ public class PlantUMLWriterTests {
                 "" + System.lineSeparator() +
                 "@startuml" + System.lineSeparator() +
                 "title Web Application - Dynamic" + System.lineSeparator() +
-                "component \"Database\" <<Container>> as 8" + System.lineSeparator() +
+                "database \"Database\" <<Container>> as 8" + System.lineSeparator() +
                 "component \"SomeController\" <<Spring MVC Controller>> as 12" + System.lineSeparator() +
                 "component \"SomeRepository\" <<Spring Data>> as 14" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
@@ -132,7 +133,7 @@ public class PlantUMLWriterTests {
 
         EnterpriseContextView enterpriseContextView = workspace.getViews().getEnterpriseContextViews()
             .stream().findFirst().get();
-        plantUMLWriter.write(enterpriseContextView, stringWriter);
+        plantUMLWriter.write(workspace, enterpriseContextView, stringWriter);
 
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Enterprise Context for Some Enterprise" + System.lineSeparator() +
@@ -155,7 +156,7 @@ public class PlantUMLWriterTests {
 
         SystemContextView systemContextView = workspace.getViews().getSystemContextViews()
             .stream().findFirst().get();
-        plantUMLWriter.write(systemContextView, stringWriter);
+        plantUMLWriter.write(workspace, systemContextView, stringWriter);
 
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Software System - System Context" + System.lineSeparator() +
@@ -175,14 +176,14 @@ public class PlantUMLWriterTests {
 
         ContainerView containerView = workspace.getViews().getContainerViews()
             .stream().findFirst().get();
-        plantUMLWriter.write(containerView, stringWriter);
+        plantUMLWriter.write(workspace, containerView, stringWriter);
 
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Software System - Containers" + System.lineSeparator() +
                 "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
                 "package SoftwareSystem {" + System.lineSeparator() +
-                "  component \"Database\" <<Container>> as 8" + System.lineSeparator() +
+                "  database \"Database\" <<Container>> as 8" + System.lineSeparator() +
                 "  component \"Web Application\" <<Container>> as 7" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "4 ..> 1 : Delivers e-mails to" + System.lineSeparator() +
@@ -199,11 +200,13 @@ public class PlantUMLWriterTests {
 
         ComponentView componentView = workspace.getViews().getComponentViews()
             .stream().findFirst().get();
-        plantUMLWriter.write(componentView, stringWriter);
+        plantUMLWriter.write(workspace, componentView, stringWriter);
+
+        System.out.println(stringWriter.toString());
 
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Software System - Web Application - Components" + System.lineSeparator() +
-                "component \"Database\" <<Container>> as 8" + System.lineSeparator() +
+                "database \"Database\" <<Container>> as 8" + System.lineSeparator() +
                 "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
                 "package WebApplication {" + System.lineSeparator() +
@@ -227,11 +230,11 @@ public class PlantUMLWriterTests {
 
         DynamicView dynamicView = workspace.getViews().getDynamicViews()
                 .stream().findFirst().get();
-        plantUMLWriter.write(dynamicView, stringWriter);
+        plantUMLWriter.write(workspace, dynamicView, stringWriter);
 
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Web Application - Dynamic" + System.lineSeparator() +
-                "component \"Database\" <<Container>> as 8" + System.lineSeparator() +
+                "database \"Database\" <<Container>> as 8" + System.lineSeparator() +
                 "component \"SomeController\" <<Spring MVC Controller>> as 12" + System.lineSeparator() +
                 "component \"SomeRepository\" <<Spring Data>> as 14" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
@@ -248,7 +251,7 @@ public class PlantUMLWriterTests {
 
         DeploymentView deploymentView = workspace.getViews().getDeploymentViews()
                 .stream().findFirst().get();
-        plantUMLWriter.write(deploymentView, stringWriter);
+        plantUMLWriter.write(workspace, deploymentView, stringWriter);
 
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Software System - Deployment" + System.lineSeparator() +
@@ -281,6 +284,7 @@ public class PlantUMLWriterTests {
 
         Container webApplication = softwareSystem.addContainer("Web Application", "", "");
         Container database = softwareSystem.addContainer("Database", "", "");
+        database.addTags(DATASTORE);
         user.uses(webApplication, "Uses", "HTTP");
         webApplication.uses(database, "Reads from and writes to", "JDBC");
         webApplication.uses(emailSystem, "Sends e-mail using");
@@ -322,6 +326,9 @@ public class PlantUMLWriterTests {
 
         DeploymentView deploymentView = workspace.getViews().createDeploymentView(softwareSystem, "deployment", "");
         deploymentView.addAllDeploymentNodes();
+
+        Styles styles = workspace.getViews().getConfiguration().getStyles();
+        styles.addElementStyle(DATASTORE).shape(Shape.Cylinder);
     }
 
 }

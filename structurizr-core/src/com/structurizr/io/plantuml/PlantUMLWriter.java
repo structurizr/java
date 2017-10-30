@@ -8,6 +8,8 @@ import com.structurizr.view.*;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -22,34 +24,34 @@ public final class PlantUMLWriter implements WorkspaceWriter {
     @Override
     public void write(Workspace workspace, Writer writer) throws WorkspaceWriterException {
         if (workspace != null && writer != null) {
-            workspace.getViews().getEnterpriseContextViews().forEach(v -> write(v, writer));
-            workspace.getViews().getSystemContextViews().forEach(v -> write(v, writer));
-            workspace.getViews().getContainerViews().forEach(v -> write(v, writer));
-            workspace.getViews().getComponentViews().forEach(v -> write(v, writer));
-            workspace.getViews().getDynamicViews().forEach(v -> write(v, writer));
-            workspace.getViews().getDeploymentViews().forEach(v -> write(v, writer));
+            workspace.getViews().getEnterpriseContextViews().forEach(v -> write(workspace, v, writer));
+            workspace.getViews().getSystemContextViews().forEach(v -> write(workspace, v, writer));
+            workspace.getViews().getContainerViews().forEach(v -> write(workspace, v, writer));
+            workspace.getViews().getComponentViews().forEach(v -> write(workspace, v, writer));
+            workspace.getViews().getDynamicViews().forEach(v -> write(workspace, v, writer));
+            workspace.getViews().getDeploymentViews().forEach(v -> write(workspace, v, writer));
         }
     }
 
-    public void write(View view, Writer writer) {
+    public void write(Workspace workspace, View view, Writer writer) {
         if (view != null && writer != null) {
             if (EnterpriseContextView.class.isAssignableFrom(view.getClass())) {
-                write((EnterpriseContextView) view, writer);
+                write(workspace, (EnterpriseContextView) view, writer);
             } else if (SystemContextView.class.isAssignableFrom(view.getClass())) {
-                write((SystemContextView) view, writer);
+                write(workspace, (SystemContextView) view, writer);
             } else if (ContainerView.class.isAssignableFrom(view.getClass())) {
-                write((ContainerView) view, writer);
+                write(workspace, (ContainerView) view, writer);
             } else if (ComponentView.class.isAssignableFrom(view.getClass())) {
-                write((ComponentView) view, writer);
+                write(workspace, (ComponentView) view, writer);
             } else if (DynamicView.class.isAssignableFrom(view.getClass())) {
-                write((DynamicView) view, writer);
+                write(workspace, (DynamicView) view, writer);
             } else if (DeploymentView.class.isAssignableFrom(view.getClass())) {
                 write((DeploymentView) view, writer);
             }
         }
     }
 
-    private void write(EnterpriseContextView view, Writer writer) {
+    private void write(Workspace workspace, EnterpriseContextView view, Writer writer) {
         try {
             writeHeader(view, writer);
 
@@ -57,13 +59,13 @@ public final class PlantUMLWriter implements WorkspaceWriter {
                     .map(ElementView::getElement)
                     .filter(e -> e instanceof Person && ((Person)e).getLocation() == Location.External)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, false));
+                    .forEach(e -> write(workspace, e, writer, false));
 
             view.getElements().stream()
                     .map(ElementView::getElement)
                     .filter(e -> e instanceof SoftwareSystem && ((SoftwareSystem)e).getLocation() == Location.External)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, false));
+                    .forEach(e -> write(workspace, e, writer, false));
 
             writer.write("package " + nameOf(view.getModel().getEnterprise().getName()) + " {");
             writer.write(System.lineSeparator());
@@ -72,13 +74,13 @@ public final class PlantUMLWriter implements WorkspaceWriter {
                     .map(ElementView::getElement)
                     .filter(e -> e instanceof Person && ((Person)e).getLocation() == Location.Internal)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, true));
+                    .forEach(e -> write(workspace, e, writer, true));
 
             view.getElements().stream()
                     .map(ElementView::getElement)
                     .filter(e -> e instanceof SoftwareSystem && ((SoftwareSystem)e).getLocation() == Location.Internal)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, true));
+                    .forEach(e -> write(workspace, e, writer, true));
 
             writer.write("}");
             writer.write(System.lineSeparator());
@@ -91,14 +93,14 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    private void write(SystemContextView view, Writer writer) {
+    private void write(Workspace workspace, SystemContextView view, Writer writer) {
         try {
             writeHeader(view, writer);
 
             view.getElements().stream()
                     .map(ElementView::getElement)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, false));
+                    .forEach(e -> write(workspace, e, writer, false));
             write(view.getRelationships(), writer);
 
             writeFooter(writer);
@@ -107,7 +109,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    private void write(ContainerView view, Writer writer) {
+    private void write(Workspace workspace, ContainerView view, Writer writer) {
         try {
             writeHeader(view, writer);
 
@@ -115,7 +117,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
                     .filter(ev -> !(ev.getElement() instanceof Container))
                     .map(ElementView::getElement)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, false));
+                    .forEach(e -> write(workspace, e, writer, false));
 
             writer.write("package " + nameOf(view.getSoftwareSystem()) + " {");
             writer.write(System.lineSeparator());
@@ -124,7 +126,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
                     .filter(ev -> ev.getElement() instanceof Container)
                     .map(ElementView::getElement)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, true));
+                    .forEach(e -> write(workspace, e, writer, true));
 
             writer.write("}");
             writer.write(System.lineSeparator());
@@ -137,7 +139,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    private void write(ComponentView view, Writer writer) {
+    private void write(Workspace workspace, ComponentView view, Writer writer) {
         try {
             writeHeader(view, writer);
 
@@ -145,7 +147,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
                     .filter(ev -> !(ev.getElement() instanceof Component))
                     .map(ElementView::getElement)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, false));
+                    .forEach(e -> write(workspace, e, writer, false));
 
             writer.write("package " + nameOf(view.getContainer()) + " {");
             writer.write(System.lineSeparator());
@@ -154,7 +156,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
                     .filter(ev -> ev.getElement() instanceof Component)
                     .map(ElementView::getElement)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, true));
+                    .forEach(e -> write(workspace, e, writer, true));
 
             writer.write("}");
             writer.write(System.lineSeparator());
@@ -167,14 +169,14 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    private void write(DynamicView view, Writer writer) {
+    private void write(Workspace workspace, DynamicView view, Writer writer) {
         try {
             writeHeader(view, writer);
 
             view.getElements().stream()
                     .map(ElementView::getElement)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, false));
+                    .forEach(e -> write(workspace, e, writer, false));
 
             view.getRelationships().stream()
                     .sorted((rv1, rv2) -> (rv1.getOrder().compareTo(rv2.getOrder())))
@@ -274,12 +276,12 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         return buf.toString();
     }
 
-    private void write(Element element, Writer writer, boolean indent) {
+    private void write(Workspace workspace, Element element, Writer writer, boolean indent) {
         try {
             writer.write(
                     String.format("%s%s \"%s\" <<%s>> as %s",
                             indent ? "  " : "",
-                            element instanceof Person ? "actor" : "component",
+                            plantumlType(workspace, element),
                             element.getName(),
                             typeOf(element),
                             idOf(element)
@@ -289,6 +291,35 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private String plantumlType(Workspace workspace, Element element) {
+        final Optional<Shape> shape = workspace.getViews()
+                .getConfiguration()
+                .getStyles()
+                .getElements()
+                .stream()
+                .filter(es -> element.getTags().contains(es.getTag()))
+                .map(ElementStyle::getShape)
+                .filter(Objects::nonNull)
+                .findFirst();
+
+        if(shape.isPresent()) {
+            switch(shape.get()) {
+                case Box:
+                    return "rectangle";
+                case Person:
+                    return "actor";
+                case Cylinder:
+                    return "database";
+                case Folder:
+                    return "folder";
+                case Ellipse:
+                case Circle:
+                    return "storage";
+            }
+        }
+        return element instanceof Person ? "actor" : "component";
     }
 
     private void write(Set<RelationshipView> relationships, Writer writer) {
