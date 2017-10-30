@@ -50,6 +50,11 @@ public class PlantUMLWriterTests {
                 "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
                 "package SomeEnterprise {" + System.lineSeparator() +
                 "  actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "  note right of 1" + System.lineSeparator() +
+                "    A detailed description of the" + System.lineSeparator() +
+                "    user to be displayed on the" + System.lineSeparator() +
+                "    diagrams" + System.lineSeparator() +
+                "  end note" + System.lineSeparator() +
                 "  component \"Software System\" <<Software System>> as 2" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "4 ..> 1 : Delivers e-mails to" + System.lineSeparator() +
@@ -62,6 +67,11 @@ public class PlantUMLWriterTests {
                 "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
                 "component \"Software System\" <<Software System>> as 2" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "note right of 1" + System.lineSeparator() +
+                "  A detailed description of the" + System.lineSeparator() +
+                "  user to be displayed on the" + System.lineSeparator() +
+                "  diagrams" + System.lineSeparator() +
+                "end note" + System.lineSeparator() +
                 "4 ..> 1 : Delivers e-mails to" + System.lineSeparator() +
                 "2 ..> 4 : Sends e-mail using" + System.lineSeparator() +
                 "1 ..> 2 : Uses" + System.lineSeparator() +
@@ -71,6 +81,11 @@ public class PlantUMLWriterTests {
                 "title Software System - Containers" + System.lineSeparator() +
                 "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "note right of 1" + System.lineSeparator() +
+                "  A detailed description of the" + System.lineSeparator() +
+                "  user to be displayed on the" + System.lineSeparator() +
+                "  diagrams" + System.lineSeparator() +
+                "end note" + System.lineSeparator() +
                 "package SoftwareSystem {" + System.lineSeparator() +
                 "  database \"Database\" <<Container>> as 8" + System.lineSeparator() +
                 "  component \"Web Application\" <<Container>> as 7" + System.lineSeparator() +
@@ -86,6 +101,11 @@ public class PlantUMLWriterTests {
                 "database \"Database\" <<Container>> as 8" + System.lineSeparator() +
                 "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "note right of 1" + System.lineSeparator() +
+                "  A detailed description of the" + System.lineSeparator() +
+                "  user to be displayed on the" + System.lineSeparator() +
+                "  diagrams" + System.lineSeparator() +
+                "end note" + System.lineSeparator() +
                 "package WebApplication {" + System.lineSeparator() +
                 "  component \"EmailComponent\" <<Component>> as 13" + System.lineSeparator() +
                 "  component \"SomeController\" <<Spring MVC Controller>> as 12" + System.lineSeparator() +
@@ -105,6 +125,11 @@ public class PlantUMLWriterTests {
                 "component \"SomeController\" <<Spring MVC Controller>> as 12" + System.lineSeparator() +
                 "component \"SomeRepository\" <<Spring Data>> as 14" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "note right of 1" + System.lineSeparator() +
+                "  A detailed description of the" + System.lineSeparator() +
+                "  user to be displayed on the" + System.lineSeparator() +
+                "  diagrams" + System.lineSeparator() +
+                "end note" + System.lineSeparator() +
                 "1 -> 12 : Requests /something" + System.lineSeparator() +
                 "12 -> 14 : Uses" + System.lineSeparator() +
                 "14 -> 8 : select * from something" + System.lineSeparator() +
@@ -140,6 +165,11 @@ public class PlantUMLWriterTests {
                 "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
                 "package SomeEnterprise {" + System.lineSeparator() +
                 "  actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "  note right of 1" + System.lineSeparator() +
+                "    A detailed description of the" + System.lineSeparator() +
+                "    user to be displayed on the" + System.lineSeparator() +
+                "    diagrams" + System.lineSeparator() +
+                "  end note" + System.lineSeparator() +
                 "  component \"Software System\" <<Software System>> as 2" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "4 ..> 1 : Delivers e-mails to" + System.lineSeparator() +
@@ -163,6 +193,11 @@ public class PlantUMLWriterTests {
                 "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
                 "component \"Software System\" <<Software System>> as 2" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "note right of 1" + System.lineSeparator() +
+                "  A detailed description of the" + System.lineSeparator() +
+                "  user to be displayed on the" + System.lineSeparator() +
+                "  diagrams" + System.lineSeparator() +
+                "end note" + System.lineSeparator() +
                 "4 ..> 1 : Delivers e-mails to" + System.lineSeparator() +
                 "2 ..> 4 : Sends e-mail using" + System.lineSeparator() +
                 "1 ..> 2 : Uses" + System.lineSeparator() +
@@ -182,6 +217,11 @@ public class PlantUMLWriterTests {
                 "title Software System - Containers" + System.lineSeparator() +
                 "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "note right of 1" + System.lineSeparator() +
+                "  A detailed description of the" + System.lineSeparator() +
+                "  user to be displayed on the" + System.lineSeparator() +
+                "  diagrams" + System.lineSeparator() +
+                "end note" + System.lineSeparator() +
                 "package SoftwareSystem {" + System.lineSeparator() +
                 "  database \"Database\" <<Container>> as 8" + System.lineSeparator() +
                 "  component \"Web Application\" <<Container>> as 7" + System.lineSeparator() +
@@ -209,6 +249,11 @@ public class PlantUMLWriterTests {
                 "database \"Database\" <<Container>> as 8" + System.lineSeparator() +
                 "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "note right of 1" + System.lineSeparator() +
+                "  A detailed description of the" + System.lineSeparator() +
+                "  user to be displayed on the" + System.lineSeparator() +
+                "  diagrams" + System.lineSeparator() +
+                "end note" + System.lineSeparator() +
                 "package WebApplication {" + System.lineSeparator() +
                 "  component \"EmailComponent\" <<Component>> as 13" + System.lineSeparator() +
                 "  component \"SomeController\" <<Spring MVC Controller>> as 12" + System.lineSeparator() +
@@ -238,6 +283,11 @@ public class PlantUMLWriterTests {
                 "component \"SomeController\" <<Spring MVC Controller>> as 12" + System.lineSeparator() +
                 "component \"SomeRepository\" <<Spring Data>> as 14" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
+                "note right of 1" + System.lineSeparator() +
+                "  A detailed description of the" + System.lineSeparator() +
+                "  user to be displayed on the" + System.lineSeparator() +
+                "  diagrams" + System.lineSeparator() +
+                "end note" + System.lineSeparator() +
                 "1 -> 12 : Requests /something" + System.lineSeparator() +
                 "12 -> 14 : Uses" + System.lineSeparator() +
                 "14 -> 8 : select * from something" + System.lineSeparator() +
@@ -274,7 +324,8 @@ public class PlantUMLWriterTests {
         Model model = workspace.getModel();
         model.setEnterprise(new Enterprise("Some Enterprise"));
 
-        Person user = model.addPerson(Location.Internal, "User", "");
+        Person user = model.addPerson(Location.Internal, "User",
+                "A detailed description of the user to be displayed on the diagrams");
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "Software System", "");
         user.uses(softwareSystem, "Uses");
 

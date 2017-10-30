@@ -3,14 +3,37 @@ package com.structurizr.io.plantuml;
 import com.structurizr.Workspace;
 import com.structurizr.io.WorkspaceWriter;
 import com.structurizr.io.WorkspaceWriterException;
-import com.structurizr.model.*;
-import com.structurizr.view.*;
+import com.structurizr.model.Component;
+import com.structurizr.model.Container;
+import com.structurizr.model.ContainerInstance;
+import com.structurizr.model.DeploymentNode;
+import com.structurizr.model.Element;
+import com.structurizr.model.Location;
+import com.structurizr.model.Person;
+import com.structurizr.model.Relationship;
+import com.structurizr.model.SoftwareSystem;
+import com.structurizr.view.ComponentView;
+import com.structurizr.view.ContainerView;
+import com.structurizr.view.DeploymentView;
+import com.structurizr.view.DynamicView;
+import com.structurizr.view.ElementStyle;
+import com.structurizr.view.ElementView;
+import com.structurizr.view.EnterpriseContextView;
+import com.structurizr.view.RelationshipView;
+import com.structurizr.view.Shape;
+import com.structurizr.view.SystemContextView;
+import com.structurizr.view.View;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+
+import static java.lang.String.format;
+import static java.util.Collections.emptyList;
 
 /**
  * A simple PlantUML writer that outputs diagram definitions that can be copy-pasted
@@ -183,7 +206,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
                     .forEach(relationship -> {
                         try {
                             writer.write(
-                                    String.format("%s -> %s : %s",
+                                    format("%s -> %s : %s",
                                             idOf(relationship.getRelationship().getSource()),
                                             idOf(relationship.getRelationship().getDestination()),
                                             hasValue(relationship.getDescription()) ? relationship.getDescription() : hasValue(relationship.getRelationship().getDescription()) ? relationship.getRelationship().getDescription() : ""
@@ -222,7 +245,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
     private void write(DeploymentNode deploymentNode, Writer writer, int indent) {
         try {
             writer.write(
-                    String.format("%snode \"%s\" <<%s>> as %s {",
+                    format("%snode \"%s\" <<%s>> as %s {",
                             calculateIndent(indent),
                             deploymentNode.getName() + (deploymentNode.getInstances() > 1 ? " (x" + deploymentNode.getInstances() + ")" : ""),
                             typeOf(deploymentNode),
@@ -241,7 +264,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
             }
 
             writer.write(
-                    String.format("%s}", calculateIndent(indent))
+                    format("%s}", calculateIndent(indent))
             );
             writer.write(System.lineSeparator());
         } catch (IOException e) {
@@ -252,7 +275,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
     private void write(ContainerInstance containerInstance, Writer writer, int indent) {
         try {
             writer.write(
-                    String.format("%sartifact \"%s\" <<%s>> as %s",
+                    format("%sartifact \"%s\" <<%s>> as %s",
                             calculateIndent(indent),
                             containerInstance.getContainer().getName(),
                             typeOf(containerInstance),
@@ -278,19 +301,56 @@ public final class PlantUMLWriter implements WorkspaceWriter {
 
     private void write(Workspace workspace, Element element, Writer writer, boolean indent) {
         try {
-            writer.write(
-                    String.format("%s%s \"%s\" <<%s>> as %s",
-                            indent ? "  " : "",
-                            plantumlType(workspace, element),
-                            element.getName(),
-                            typeOf(element),
-                            idOf(element)
-                    )
-            );
-            writer.write(System.lineSeparator());
+            final String type = plantumlType(workspace, element);
+
+            final String prefix = indent ? "  " : "";
+            final String id = idOf(element);
+            final String separator = System.lineSeparator();
+            writer.write(format("%s%s \"%s\" <<%s>> as %s%s",
+                    prefix,
+                    type,
+                    element.getName(),
+                    typeOf(element),
+                    id,
+                    separator));
+
+            final List<String> description = lines(element.getDescription());
+            if (!description.isEmpty()) {
+                writer.write(format("%snote right of %s%s", prefix, id, separator));
+                for (final String line : description) {
+                    writer.write(format("%s  %s%s", prefix, line, separator));
+                }
+                writer.write(format("%send note%s", prefix, separator));
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private List<String> lines(final String text) {
+        if(text==null) {
+            return emptyList();
+        }
+        final String[] words = text.trim().split("\\s+");
+        final List<String> lines = new ArrayList<>();
+        final StringBuilder line = new StringBuilder();
+        for (final String word : words) {
+            if(line.length()==0) {
+                line.append(word);
+            }
+            else if(line.length() + word.length() + 1 < 30) {
+                line.append(' ').append(word);
+            }
+            else {
+                lines.add(line.toString());
+                line.setLength(0);
+                line.append(word);
+            }
+        }
+        if(line.length()>0) {
+            lines.add(line.toString());
+        }
+        return lines;
     }
 
     private String plantumlType(Workspace workspace, Element element) {
@@ -332,7 +392,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
     private void write(Relationship relationship, Writer writer) {
         try {
             writer.write(
-                    String.format("%s ..> %s %s%s",
+                    format("%s ..> %s %s%s",
                             idOf(relationship.getSource()),
                             idOf(relationship.getDestination()),
                             hasValue(relationship.getDescription()) ? ": " + relationship.getDescription() : "",
