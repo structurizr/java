@@ -44,6 +44,12 @@ import static java.util.Collections.emptyList;
  */
 public final class PlantUMLWriter implements WorkspaceWriter {
 
+    private final List<String> skinParams = new ArrayList<>();
+
+    public void addSkinParam(final String skinParam) {
+        skinParams.add(skinParam);
+    }
+
     @Override
     public void write(Workspace workspace, Writer writer) throws WorkspaceWriterException {
         if (workspace != null && writer != null) {
@@ -475,6 +481,14 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         if (view.getDescription() != null && view.getDescription().trim().length() > 0) {
             writer.write("caption " + view.getDescription());
             writer.write(System.lineSeparator());
+        }
+
+        if (!skinParams.isEmpty()) {
+            writer.write(format("skinparam {%s", System.lineSeparator()));
+            for (final String skinParam : skinParams) {
+                writer.write(format("  %s%s", skinParam, System.lineSeparator()));
+            }
+            writer.write(format("}%s", System.lineSeparator()));
         }
     }
 

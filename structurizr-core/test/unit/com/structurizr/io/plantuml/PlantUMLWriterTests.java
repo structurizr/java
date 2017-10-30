@@ -309,8 +309,6 @@ public class PlantUMLWriterTests {
             .stream().findFirst().get();
         plantUMLWriter.write(workspace, componentView, stringWriter);
 
-        System.out.println(stringWriter.toString());
-
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Software System - Web Application - Components" + System.lineSeparator() +
                 "database 8 <<Container>> [" + System.lineSeparator() +
@@ -389,10 +387,20 @@ public class PlantUMLWriterTests {
 
         DeploymentView deploymentView = workspace.getViews().getDeploymentViews()
                 .stream().findFirst().get();
+        plantUMLWriter.addSkinParam("handWritten true");
+        plantUMLWriter.addSkinParam("nodeBackgroundColor GhostWhite");
+        plantUMLWriter.addSkinParam("artifactBackgroundColor GhostWhite");
         plantUMLWriter.write(workspace, deploymentView, stringWriter);
+
+        System.out.println(stringWriter.toString());
 
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Software System - Deployment" + System.lineSeparator() +
+                "skinparam {" + System.lineSeparator() +
+                "  handWritten true" + System.lineSeparator() +
+                "  nodeBackgroundColor GhostWhite" + System.lineSeparator() +
+                "  artifactBackgroundColor GhostWhite" + System.lineSeparator() +
+                "}" + System.lineSeparator() +
                 "node \"Database Server\" <<Ubuntu 12.04 LTS>> as 23 {" + System.lineSeparator() +
                 "  node \"MySQL\" <<MySQL 5.5.x>> as 24 {" + System.lineSeparator() +
                 "    artifact \"Database\" <<Container>> as 25" + System.lineSeparator() +
