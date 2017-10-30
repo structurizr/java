@@ -47,7 +47,12 @@ public class PlantUMLWriterTests {
         plantUMLWriter.write(workspace, stringWriter);
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Enterprise Context for Some Enterprise" + System.lineSeparator() +
-                "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
+                "component 4 <<Software System>> [" + System.lineSeparator() +
+                "  E-mail System" + System.lineSeparator() +
+                "  --" + System.lineSeparator() +
+                "  An SMTP relay configured to" + System.lineSeparator() +
+                "  send emails to the users." + System.lineSeparator() +
+                "]" + System.lineSeparator() +
                 "package SomeEnterprise {" + System.lineSeparator() +
                 "  actor \"User\" <<Person>> as 1" + System.lineSeparator() +
                 "  note right of 1" + System.lineSeparator() +
@@ -64,7 +69,12 @@ public class PlantUMLWriterTests {
                 "" + System.lineSeparator() +
                 "@startuml" + System.lineSeparator() +
                 "title Software System - System Context" + System.lineSeparator() +
-                "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
+                "component 4 <<Software System>> [" + System.lineSeparator() +
+                "  E-mail System" + System.lineSeparator() +
+                "  --" + System.lineSeparator() +
+                "  An SMTP relay configured to" + System.lineSeparator() +
+                "  send emails to the users." + System.lineSeparator() +
+                "]" + System.lineSeparator() +
                 "component \"Software System\" <<Software System>> as 2" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
                 "note right of 1" + System.lineSeparator() +
@@ -79,7 +89,12 @@ public class PlantUMLWriterTests {
                 "" + System.lineSeparator() +
                 "@startuml" + System.lineSeparator() +
                 "title Software System - Containers" + System.lineSeparator() +
-                "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
+                "component 4 <<Software System>> [" + System.lineSeparator() +
+                "  E-mail System" + System.lineSeparator() +
+                "  --" + System.lineSeparator() +
+                "  An SMTP relay configured to" + System.lineSeparator() +
+                "  send emails to the users." + System.lineSeparator() +
+                "]" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
                 "note right of 1" + System.lineSeparator() +
                 "  A detailed description of the" + System.lineSeparator() +
@@ -87,7 +102,15 @@ public class PlantUMLWriterTests {
                 "  diagrams" + System.lineSeparator() +
                 "end note" + System.lineSeparator() +
                 "package SoftwareSystem {" + System.lineSeparator() +
-                "  database \"Database\" <<Container>> as 8" + System.lineSeparator() +
+                "  database 8 <<Container>> [" + System.lineSeparator() +
+                "    Database" + System.lineSeparator() +
+                "    --" + System.lineSeparator() +
+                "    A relational database" + System.lineSeparator() +
+                "    management system, likely" + System.lineSeparator() +
+                "    PostgreSQL or MySQL but" + System.lineSeparator() +
+                "    anything with JDBC drivers" + System.lineSeparator() +
+                "    would be suitable." + System.lineSeparator() +
+                "  ]" + System.lineSeparator() +
                 "  component \"Web Application\" <<Container>> as 7" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "4 ..> 1 : Delivers e-mails to" + System.lineSeparator() +
@@ -98,8 +121,21 @@ public class PlantUMLWriterTests {
                 "" + System.lineSeparator() +
                 "@startuml" + System.lineSeparator() +
                 "title Software System - Web Application - Components" + System.lineSeparator() +
-                "database \"Database\" <<Container>> as 8" + System.lineSeparator() +
-                "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
+                "database 8 <<Container>> [" + System.lineSeparator() +
+                "  Database" + System.lineSeparator() +
+                "  --" + System.lineSeparator() +
+                "  A relational database" + System.lineSeparator() +
+                "  management system, likely" + System.lineSeparator() +
+                "  PostgreSQL or MySQL but" + System.lineSeparator() +
+                "  anything with JDBC drivers" + System.lineSeparator() +
+                "  would be suitable." + System.lineSeparator() +
+                "]" + System.lineSeparator() +
+                "component 4 <<Software System>> [" + System.lineSeparator() +
+                "  E-mail System" + System.lineSeparator() +
+                "  --" + System.lineSeparator() +
+                "  An SMTP relay configured to" + System.lineSeparator() +
+                "  send emails to the users." + System.lineSeparator() +
+                "]" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
                 "note right of 1" + System.lineSeparator() +
                 "  A detailed description of the" + System.lineSeparator() +
@@ -121,7 +157,15 @@ public class PlantUMLWriterTests {
                 "" + System.lineSeparator() +
                 "@startuml" + System.lineSeparator() +
                 "title Web Application - Dynamic" + System.lineSeparator() +
-                "database \"Database\" <<Container>> as 8" + System.lineSeparator() +
+                "database 8 <<Container>> [" + System.lineSeparator() +
+                "  Database" + System.lineSeparator() +
+                "  --" + System.lineSeparator() +
+                "  A relational database" + System.lineSeparator() +
+                "  management system, likely" + System.lineSeparator() +
+                "  PostgreSQL or MySQL but" + System.lineSeparator() +
+                "  anything with JDBC drivers" + System.lineSeparator() +
+                "  would be suitable." + System.lineSeparator() +
+                "]" + System.lineSeparator() +
                 "component \"SomeController\" <<Spring MVC Controller>> as 12" + System.lineSeparator() +
                 "component \"SomeRepository\" <<Spring Data>> as 14" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
@@ -162,7 +206,12 @@ public class PlantUMLWriterTests {
 
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Enterprise Context for Some Enterprise" + System.lineSeparator() +
-                "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
+                "component 4 <<Software System>> [" + System.lineSeparator() +
+                "  E-mail System" + System.lineSeparator() +
+                "  --" + System.lineSeparator() +
+                "  An SMTP relay configured to" + System.lineSeparator() +
+                "  send emails to the users." + System.lineSeparator() +
+                "]" + System.lineSeparator() +
                 "package SomeEnterprise {" + System.lineSeparator() +
                 "  actor \"User\" <<Person>> as 1" + System.lineSeparator() +
                 "  note right of 1" + System.lineSeparator() +
@@ -190,7 +239,12 @@ public class PlantUMLWriterTests {
 
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Software System - System Context" + System.lineSeparator() +
-                "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
+                "component 4 <<Software System>> [" + System.lineSeparator() +
+                "  E-mail System" + System.lineSeparator() +
+                "  --" + System.lineSeparator() +
+                "  An SMTP relay configured to" + System.lineSeparator() +
+                "  send emails to the users." + System.lineSeparator() +
+                "]" + System.lineSeparator() +
                 "component \"Software System\" <<Software System>> as 2" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
                 "note right of 1" + System.lineSeparator() +
@@ -215,7 +269,12 @@ public class PlantUMLWriterTests {
 
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Software System - Containers" + System.lineSeparator() +
-                "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
+                "component 4 <<Software System>> [" + System.lineSeparator() +
+                "  E-mail System" + System.lineSeparator() +
+                "  --" + System.lineSeparator() +
+                "  An SMTP relay configured to" + System.lineSeparator() +
+                "  send emails to the users." + System.lineSeparator() +
+                "]" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
                 "note right of 1" + System.lineSeparator() +
                 "  A detailed description of the" + System.lineSeparator() +
@@ -223,7 +282,15 @@ public class PlantUMLWriterTests {
                 "  diagrams" + System.lineSeparator() +
                 "end note" + System.lineSeparator() +
                 "package SoftwareSystem {" + System.lineSeparator() +
-                "  database \"Database\" <<Container>> as 8" + System.lineSeparator() +
+                "  database 8 <<Container>> [" + System.lineSeparator() +
+                "    Database" + System.lineSeparator() +
+                "    --" + System.lineSeparator() +
+                "    A relational database" + System.lineSeparator() +
+                "    management system, likely" + System.lineSeparator() +
+                "    PostgreSQL or MySQL but" + System.lineSeparator() +
+                "    anything with JDBC drivers" + System.lineSeparator() +
+                "    would be suitable." + System.lineSeparator() +
+                "  ]" + System.lineSeparator() +
                 "  component \"Web Application\" <<Container>> as 7" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "4 ..> 1 : Delivers e-mails to" + System.lineSeparator() +
@@ -246,8 +313,21 @@ public class PlantUMLWriterTests {
 
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Software System - Web Application - Components" + System.lineSeparator() +
-                "database \"Database\" <<Container>> as 8" + System.lineSeparator() +
-                "component \"E-mail System\" <<Software System>> as 4" + System.lineSeparator() +
+                "database 8 <<Container>> [" + System.lineSeparator() +
+                "  Database" + System.lineSeparator() +
+                "  --" + System.lineSeparator() +
+                "  A relational database" + System.lineSeparator() +
+                "  management system, likely" + System.lineSeparator() +
+                "  PostgreSQL or MySQL but" + System.lineSeparator() +
+                "  anything with JDBC drivers" + System.lineSeparator() +
+                "  would be suitable." + System.lineSeparator() +
+                "]" + System.lineSeparator() +
+                "component 4 <<Software System>> [" + System.lineSeparator() +
+                "  E-mail System" + System.lineSeparator() +
+                "  --" + System.lineSeparator() +
+                "  An SMTP relay configured to" + System.lineSeparator() +
+                "  send emails to the users." + System.lineSeparator() +
+                "]" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
                 "note right of 1" + System.lineSeparator() +
                 "  A detailed description of the" + System.lineSeparator() +
@@ -279,7 +359,15 @@ public class PlantUMLWriterTests {
 
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Web Application - Dynamic" + System.lineSeparator() +
-                "database \"Database\" <<Container>> as 8" + System.lineSeparator() +
+                "database 8 <<Container>> [" + System.lineSeparator() +
+                "  Database" + System.lineSeparator() +
+                "  --" + System.lineSeparator() +
+                "  A relational database" + System.lineSeparator() +
+                "  management system, likely" + System.lineSeparator() +
+                "  PostgreSQL or MySQL but" + System.lineSeparator() +
+                "  anything with JDBC drivers" + System.lineSeparator() +
+                "  would be suitable." + System.lineSeparator() +
+                "]" + System.lineSeparator() +
                 "component \"SomeController\" <<Spring MVC Controller>> as 12" + System.lineSeparator() +
                 "component \"SomeRepository\" <<Spring Data>> as 14" + System.lineSeparator() +
                 "actor \"User\" <<Person>> as 1" + System.lineSeparator() +
@@ -329,12 +417,12 @@ public class PlantUMLWriterTests {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "Software System", "");
         user.uses(softwareSystem, "Uses");
 
-        SoftwareSystem emailSystem = model.addSoftwareSystem(Location.External, "E-mail System", "");
+        SoftwareSystem emailSystem = model.addSoftwareSystem(Location.External, "E-mail System", "An SMTP relay configured to send emails to the users.");
         softwareSystem.uses(emailSystem, "Sends e-mail using");
         emailSystem.delivers(user, "Delivers e-mails to");
 
         Container webApplication = softwareSystem.addContainer("Web Application", "", "");
-        Container database = softwareSystem.addContainer("Database", "", "");
+        Container database = softwareSystem.addContainer("Database", "A relational database management system, likely PostgreSQL or MySQL but anything with JDBC drivers would be suitable.", "");
         database.addTags(DATASTORE);
         user.uses(webApplication, "Uses", "HTTP");
         webApplication.uses(database, "Reads from and writes to", "JDBC");

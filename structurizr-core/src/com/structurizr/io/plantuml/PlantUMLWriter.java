@@ -302,28 +302,51 @@ public final class PlantUMLWriter implements WorkspaceWriter {
     private void write(Workspace workspace, Element element, Writer writer, boolean indent) {
         try {
             final String type = plantumlType(workspace, element);
-
-            final String prefix = indent ? "  " : "";
-            final String id = idOf(element);
-            final String separator = System.lineSeparator();
-            writer.write(format("%s%s \"%s\" <<%s>> as %s%s",
-                    prefix,
-                    type,
-                    element.getName(),
-                    typeOf(element),
-                    id,
-                    separator));
-
             final List<String> description = lines(element.getDescription());
-            if (!description.isEmpty()) {
-                writer.write(format("%snote right of %s%s", prefix, id, separator));
+
+            if(description.isEmpty() || "actor".equals(type)) {
+                writeSimpleElement(element, writer, indent, type);
+                writeDescriptionAsNote(element, writer, indent, description);
+            }
+            else {
+                final String prefix = indent ? "  " : "";
+                final String separator = System.lineSeparator();
+                final String id = idOf(element);
+
+                writer.write(format("%s%s %s <<%s>> [%s", prefix, type, id, typeOf(element), separator));
+                writer.write(format("%s  %s%s", prefix, element.getName(), separator));
+                writer.write(format("%s  --%s", prefix, separator));
                 for (final String line : description) {
                     writer.write(format("%s  %s%s", prefix, line, separator));
                 }
-                writer.write(format("%send note%s", prefix, separator));
+                writer.write(format("%s]%s", prefix, separator));
             }
+
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void writeSimpleElement(Element element, Writer writer, boolean indent, String type) throws IOException {
+        writer.write(format("%s%s \"%s\" <<%s>> as %s%s",
+                indent ? "  " : "",
+                type,
+                element.getName(),
+                typeOf(element),
+                idOf(element),
+                System.lineSeparator()));
+    }
+
+    private void writeDescriptionAsNote(Element element, Writer writer, boolean indent, List<String> description) throws IOException {
+        if (!description.isEmpty()) {
+            final String prefix = indent ? "  " : "";
+            final String separator = System.lineSeparator();
+            final String id = idOf(element);
+            writer.write(format("%snote right of %s%s", prefix, id, separator));
+            for (final String line : description) {
+                writer.write(format("%s  %s%s", prefix, line, separator));
+            }
+            writer.write(format("%send note%s", prefix, separator));
         }
     }
 
