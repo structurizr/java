@@ -12,6 +12,8 @@ import com.structurizr.model.Location;
 import com.structurizr.model.Person;
 import com.structurizr.model.Relationship;
 import com.structurizr.model.SoftwareSystem;
+import com.structurizr.view.Branding;
+import com.structurizr.view.ColorPair;
 import com.structurizr.view.ComponentView;
 import com.structurizr.view.ContainerView;
 import com.structurizr.view.DeploymentView;
@@ -82,7 +84,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
 
     private void write(Workspace workspace, EnterpriseContextView view, Writer writer) {
         try {
-            writeHeader(view, writer);
+            writeHeader(workspace, view, writer);
 
             view.getElements().stream()
                     .map(ElementView::getElement)
@@ -124,7 +126,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
 
     private void write(Workspace workspace, SystemContextView view, Writer writer) {
         try {
-            writeHeader(view, writer);
+            writeHeader(workspace, view, writer);
 
             view.getElements().stream()
                     .map(ElementView::getElement)
@@ -140,7 +142,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
 
     private void write(Workspace workspace, ContainerView view, Writer writer) {
         try {
-            writeHeader(view, writer);
+            writeHeader(workspace, view, writer);
 
             view.getElements().stream()
                     .filter(ev -> !(ev.getElement() instanceof Container))
@@ -148,7 +150,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
                     .forEach(e -> write(workspace, e, writer, false));
 
-            writer.write("package " + nameOf(view.getSoftwareSystem()) + " " + colorOf(workspace, view.getSoftwareSystem()) + " {");
+            writer.write("package " + nameOf(view.getSoftwareSystem()) + " <<" + typeOf(view.getSoftwareSystem()) + ">> " + colorOf(workspace, view.getSoftwareSystem()) + " {");
             writer.write(System.lineSeparator());
 
             view.getElements().stream()
@@ -170,7 +172,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
 
     private void write(Workspace workspace, ComponentView view, Writer writer) {
         try {
-            writeHeader(view, writer);
+            writeHeader(workspace, view, writer);
 
             view.getElements().stream()
                     .filter(ev -> !(ev.getElement() instanceof Component))
@@ -178,7 +180,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
                     .forEach(e -> write(workspace, e, writer, false));
 
-            writer.write("package " + nameOf(view.getContainer()) + " " + colorOf(workspace, view.getContainer()) +" {");
+            writer.write("package " + nameOf(view.getContainer()) + " <<" + typeOf(view.getContainer()) + ">> " + colorOf(workspace, view.getContainer()) +" {");
             writer.write(System.lineSeparator());
 
             view.getElements().stream()
@@ -200,7 +202,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
 
     private void write(Workspace workspace, DynamicView view, Writer writer) {
         try {
-            writeHeader(view, writer);
+            writeHeader(workspace, view, writer);
 
             view.getElements().stream()
                     .map(ElementView::getElement)
@@ -232,7 +234,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
 
     private void write(Workspace workspace, DeploymentView view, Writer writer) {
         try {
-            writeHeader(view, writer);
+            writeHeader(workspace, view, writer);
 
             view.getElements().stream()
                     .filter(ev -> ev.getElement() instanceof DeploymentNode && ev.getElement().getParent() == null)
@@ -491,7 +493,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         return s != null && s.trim().length() > 0;
     }
 
-    private void writeHeader(View view, Writer writer) throws IOException {
+    private void writeHeader(Workspace workspace, View view, Writer writer) throws IOException {
         writer.write("@startuml");
         writer.write(System.lineSeparator());
 
@@ -503,12 +505,68 @@ public final class PlantUMLWriter implements WorkspaceWriter {
             writer.write(System.lineSeparator());
         }
 
-        if (!skinParams.isEmpty()) {
+        final Branding branding = workspace.getViews().getConfiguration().getBranding();
+        final ColorPair color1 = branding.getColor1();
+        final ColorPair color2 = branding.getColor2();
+        final ColorPair color3 = branding.getColor3();
+        final ColorPair color4 = branding.getColor4();
+        final ColorPair color5 = branding.getColor5();
+
+        final List<String> brandParams = new ArrayList<>();
+
+        if (color1!=null) {
+            addColorParams(brandParams, color1, null,"actor");
+        }
+
+        if (color2!=null) {
+            addColorParams(brandParams, color2, "Software System",
+                    "component", "database", "package", "folder", "rectangle", "artifact", "storage");
+        }
+
+        if (color3!=null) {
+            addColorParams(brandParams, color3, "Container",
+                    "component", "database", "package", "folder", "rectangle", "artifact", "storage");
+        }
+
+        if (color4!=null) {
+            addColorParams(brandParams, color4, null,
+                    "component", "database", "package", "folder", "rectangle", "artifact", "storage");
+        }
+
+        if (color5!=null) {
+            brandParams.add("arrowColor " + color5.getForeground());
+            brandParams.add("arrowFontColor " + color5.getForeground());
+            brandParams.add("noteBackgroundColor " + color5.getBackground());
+            brandParams.add("noteBorderColor " + color5.getForeground());
+            brandParams.add("noteFontColor " + color5.getForeground());
+        }
+
+        if (!skinParams.isEmpty() || !brandParams.isEmpty()) {
             writer.write(format("skinparam {%s", System.lineSeparator()));
+
+            for (final String skinParam : brandParams) {
+                writer.write(format("  %s%s", skinParam, System.lineSeparator()));
+            }
+
             for (final String skinParam : skinParams) {
                 writer.write(format("  %s%s", skinParam, System.lineSeparator()));
             }
             writer.write(format("}%s", System.lineSeparator()));
+        }
+    }
+
+    private void addColorParams(List<String> params, ColorPair pair, String stereotype, String... types) {
+        if(stereotype==null) {
+            stereotype = "";
+        }
+        else {
+            stereotype = "<<" + stereotype + ">>";
+        }
+        for(final String type : types) {
+            params.add(type + stereotype + "BackgroundColor " + pair.getBackground());
+            params.add(type + stereotype + "BorderColor " + pair.getForeground());
+            params.add(type + stereotype + "FontColor " + pair.getForeground());
+            params.add(type + stereotype + "StereotypeFontColor " + pair.getForeground());
         }
     }
 

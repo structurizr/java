@@ -102,7 +102,7 @@ public class PlantUMLWriterTests {
                 "  user to be displayed on the" + System.lineSeparator() +
                 "  diagrams" + System.lineSeparator() +
                 "end note" + System.lineSeparator() +
-                "package SoftwareSystem  {" + System.lineSeparator() +
+                "package SoftwareSystem <<Software System>>  {" + System.lineSeparator() +
                 "  database 8 <<Container>>  [" + System.lineSeparator() +
                 "    Database" + System.lineSeparator() +
                 "    --" + System.lineSeparator() +
@@ -143,7 +143,7 @@ public class PlantUMLWriterTests {
                 "  user to be displayed on the" + System.lineSeparator() +
                 "  diagrams" + System.lineSeparator() +
                 "end note" + System.lineSeparator() +
-                "package WebApplication  {" + System.lineSeparator() +
+                "package WebApplication <<Container>>  {" + System.lineSeparator() +
                 "  component \"EmailComponent\" <<Component>> as 13 " + System.lineSeparator() +
                 "  component \"SomeController\" <<Spring MVC Controller>> as 12 " + System.lineSeparator() +
                 "  component \"SomeRepository\" <<Spring Data>> as 14 " + System.lineSeparator() +
@@ -282,7 +282,7 @@ public class PlantUMLWriterTests {
                 "  user to be displayed on the" + System.lineSeparator() +
                 "  diagrams" + System.lineSeparator() +
                 "end note" + System.lineSeparator() +
-                "package SoftwareSystem  {" + System.lineSeparator() +
+                "package SoftwareSystem <<Software System>>  {" + System.lineSeparator() +
                 "  database 8 <<Container>>  [" + System.lineSeparator() +
                 "    Database" + System.lineSeparator() +
                 "    --" + System.lineSeparator() +
@@ -306,6 +306,13 @@ public class PlantUMLWriterTests {
     public void test_writeComponentsView() throws Exception {
         populateWorkspace();
 
+        final Branding branding = workspace.getViews().getConfiguration().getBranding();
+        branding.setColor1(new ColorPair("#85bbf0", "#000000"));
+        branding.setColor2(new ColorPair("#08427b", "#000000"));
+        branding.setColor3(new ColorPair("#1168bd", "#000000"));
+        branding.setColor4(new ColorPair("#438dd5", "#000000"));
+        branding.setColor5(new ColorPair("#85bbf0", "#000000"));
+
         final Styles styles = workspace.getViews().getConfiguration().getStyles();
         styles.addElementStyle(DATASTORE).background("#cccccc");
         styles.addElementStyle(SOME).background("#ffff00");
@@ -314,10 +321,103 @@ public class PlantUMLWriterTests {
             .stream().findFirst().get();
         plantUMLWriter.write(workspace, componentView, stringWriter);
 
-        System.out.println(stringWriter.toString());
-
         assertEquals("@startuml" + System.lineSeparator() +
                 "title Software System - Web Application - Components" + System.lineSeparator() +
+                "skinparam {" + System.lineSeparator() +
+                "  actorBackgroundColor #85bbf0" + System.lineSeparator() +
+                "  actorBorderColor #000000" + System.lineSeparator() +
+                "  actorFontColor #000000" + System.lineSeparator() +
+                "  actorStereotypeFontColor #000000" + System.lineSeparator() +
+                "  component<<Software System>>BackgroundColor #08427b" + System.lineSeparator() +
+                "  component<<Software System>>BorderColor #000000" + System.lineSeparator() +
+                "  component<<Software System>>FontColor #000000" + System.lineSeparator() +
+                "  component<<Software System>>StereotypeFontColor #000000" + System.lineSeparator() +
+                "  database<<Software System>>BackgroundColor #08427b" + System.lineSeparator() +
+                "  database<<Software System>>BorderColor #000000" + System.lineSeparator() +
+                "  database<<Software System>>FontColor #000000" + System.lineSeparator() +
+                "  database<<Software System>>StereotypeFontColor #000000" + System.lineSeparator() +
+                "  package<<Software System>>BackgroundColor #08427b" + System.lineSeparator() +
+                "  package<<Software System>>BorderColor #000000" + System.lineSeparator() +
+                "  package<<Software System>>FontColor #000000" + System.lineSeparator() +
+                "  package<<Software System>>StereotypeFontColor #000000" + System.lineSeparator() +
+                "  folder<<Software System>>BackgroundColor #08427b" + System.lineSeparator() +
+                "  folder<<Software System>>BorderColor #000000" + System.lineSeparator() +
+                "  folder<<Software System>>FontColor #000000" + System.lineSeparator() +
+                "  folder<<Software System>>StereotypeFontColor #000000" + System.lineSeparator() +
+                "  rectangle<<Software System>>BackgroundColor #08427b" + System.lineSeparator() +
+                "  rectangle<<Software System>>BorderColor #000000" + System.lineSeparator() +
+                "  rectangle<<Software System>>FontColor #000000" + System.lineSeparator() +
+                "  rectangle<<Software System>>StereotypeFontColor #000000" + System.lineSeparator() +
+                "  artifact<<Software System>>BackgroundColor #08427b" + System.lineSeparator() +
+                "  artifact<<Software System>>BorderColor #000000" + System.lineSeparator() +
+                "  artifact<<Software System>>FontColor #000000" + System.lineSeparator() +
+                "  artifact<<Software System>>StereotypeFontColor #000000" + System.lineSeparator() +
+                "  storage<<Software System>>BackgroundColor #08427b" + System.lineSeparator() +
+                "  storage<<Software System>>BorderColor #000000" + System.lineSeparator() +
+                "  storage<<Software System>>FontColor #000000" + System.lineSeparator() +
+                "  storage<<Software System>>StereotypeFontColor #000000" + System.lineSeparator() +
+                "  component<<Container>>BackgroundColor #1168bd" + System.lineSeparator() +
+                "  component<<Container>>BorderColor #000000" + System.lineSeparator() +
+                "  component<<Container>>FontColor #000000" + System.lineSeparator() +
+                "  component<<Container>>StereotypeFontColor #000000" + System.lineSeparator() +
+                "  database<<Container>>BackgroundColor #1168bd" + System.lineSeparator() +
+                "  database<<Container>>BorderColor #000000" + System.lineSeparator() +
+                "  database<<Container>>FontColor #000000" + System.lineSeparator() +
+                "  database<<Container>>StereotypeFontColor #000000" + System.lineSeparator() +
+                "  package<<Container>>BackgroundColor #1168bd" + System.lineSeparator() +
+                "  package<<Container>>BorderColor #000000" + System.lineSeparator() +
+                "  package<<Container>>FontColor #000000" + System.lineSeparator() +
+                "  package<<Container>>StereotypeFontColor #000000" + System.lineSeparator() +
+                "  folder<<Container>>BackgroundColor #1168bd" + System.lineSeparator() +
+                "  folder<<Container>>BorderColor #000000" + System.lineSeparator() +
+                "  folder<<Container>>FontColor #000000" + System.lineSeparator() +
+                "  folder<<Container>>StereotypeFontColor #000000" + System.lineSeparator() +
+                "  rectangle<<Container>>BackgroundColor #1168bd" + System.lineSeparator() +
+                "  rectangle<<Container>>BorderColor #000000" + System.lineSeparator() +
+                "  rectangle<<Container>>FontColor #000000" + System.lineSeparator() +
+                "  rectangle<<Container>>StereotypeFontColor #000000" + System.lineSeparator() +
+                "  artifact<<Container>>BackgroundColor #1168bd" + System.lineSeparator() +
+                "  artifact<<Container>>BorderColor #000000" + System.lineSeparator() +
+                "  artifact<<Container>>FontColor #000000" + System.lineSeparator() +
+                "  artifact<<Container>>StereotypeFontColor #000000" + System.lineSeparator() +
+                "  storage<<Container>>BackgroundColor #1168bd" + System.lineSeparator() +
+                "  storage<<Container>>BorderColor #000000" + System.lineSeparator() +
+                "  storage<<Container>>FontColor #000000" + System.lineSeparator() +
+                "  storage<<Container>>StereotypeFontColor #000000" + System.lineSeparator() +
+                "  componentBackgroundColor #438dd5" + System.lineSeparator() +
+                "  componentBorderColor #000000" + System.lineSeparator() +
+                "  componentFontColor #000000" + System.lineSeparator() +
+                "  componentStereotypeFontColor #000000" + System.lineSeparator() +
+                "  databaseBackgroundColor #438dd5" + System.lineSeparator() +
+                "  databaseBorderColor #000000" + System.lineSeparator() +
+                "  databaseFontColor #000000" + System.lineSeparator() +
+                "  databaseStereotypeFontColor #000000" + System.lineSeparator() +
+                "  packageBackgroundColor #438dd5" + System.lineSeparator() +
+                "  packageBorderColor #000000" + System.lineSeparator() +
+                "  packageFontColor #000000" + System.lineSeparator() +
+                "  packageStereotypeFontColor #000000" + System.lineSeparator() +
+                "  folderBackgroundColor #438dd5" + System.lineSeparator() +
+                "  folderBorderColor #000000" + System.lineSeparator() +
+                "  folderFontColor #000000" + System.lineSeparator() +
+                "  folderStereotypeFontColor #000000" + System.lineSeparator() +
+                "  rectangleBackgroundColor #438dd5" + System.lineSeparator() +
+                "  rectangleBorderColor #000000" + System.lineSeparator() +
+                "  rectangleFontColor #000000" + System.lineSeparator() +
+                "  rectangleStereotypeFontColor #000000" + System.lineSeparator() +
+                "  artifactBackgroundColor #438dd5" + System.lineSeparator() +
+                "  artifactBorderColor #000000" + System.lineSeparator() +
+                "  artifactFontColor #000000" + System.lineSeparator() +
+                "  artifactStereotypeFontColor #000000" + System.lineSeparator() +
+                "  storageBackgroundColor #438dd5" + System.lineSeparator() +
+                "  storageBorderColor #000000" + System.lineSeparator() +
+                "  storageFontColor #000000" + System.lineSeparator() +
+                "  storageStereotypeFontColor #000000" + System.lineSeparator() +
+                "  arrowColor #000000" + System.lineSeparator() +
+                "  arrowFontColor #000000" + System.lineSeparator() +
+                "  noteBackgroundColor #85bbf0" + System.lineSeparator() +
+                "  noteBorderColor #000000" + System.lineSeparator() +
+                "  noteFontColor #000000" + System.lineSeparator() +
+                "}" + System.lineSeparator() +
                 "database 8 <<Container>> #cccccc [" + System.lineSeparator() +
                 "  Database" + System.lineSeparator() +
                 "  --" + System.lineSeparator() +
@@ -339,7 +439,7 @@ public class PlantUMLWriterTests {
                 "  user to be displayed on the" + System.lineSeparator() +
                 "  diagrams" + System.lineSeparator() +
                 "end note" + System.lineSeparator() +
-                "package WebApplication  {" + System.lineSeparator() +
+                "package WebApplication <<Container>>  {" + System.lineSeparator() +
                 "  component \"EmailComponent\" <<Component>> as 13 " + System.lineSeparator() +
                 "  component \"SomeController\" <<Spring MVC Controller>> as 12 #ffff00" + System.lineSeparator() +
                 "  component \"SomeRepository\" <<Spring Data>> as 14 #ffff00" + System.lineSeparator() +
