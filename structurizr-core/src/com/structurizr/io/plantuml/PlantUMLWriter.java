@@ -75,7 +75,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
             } else if (DynamicView.class.isAssignableFrom(view.getClass())) {
                 write(workspace, (DynamicView) view, writer);
             } else if (DeploymentView.class.isAssignableFrom(view.getClass())) {
-                write((DeploymentView) view, writer);
+                write(workspace, (DeploymentView) view, writer);
             }
         }
     }
@@ -148,7 +148,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
                     .forEach(e -> write(workspace, e, writer, false));
 
-            writer.write("package " + nameOf(view.getSoftwareSystem()) + " {");
+            writer.write("package " + nameOf(view.getSoftwareSystem()) + " " + colorOf(workspace, view.getSoftwareSystem()) + " {");
             writer.write(System.lineSeparator());
 
             view.getElements().stream()
@@ -178,7 +178,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
                     .forEach(e -> write(workspace, e, writer, false));
 
-            writer.write("package " + nameOf(view.getContainer()) + " {");
+            writer.write("package " + nameOf(view.getContainer()) + " " + colorOf(workspace, view.getContainer()) +" {");
             writer.write(System.lineSeparator());
 
             view.getElements().stream()
@@ -230,7 +230,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    private void write(DeploymentView view, Writer writer) {
+    private void write(Workspace workspace, DeploymentView view, Writer writer) {
         try {
             writeHeader(view, writer);
 
@@ -238,7 +238,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
                     .filter(ev -> ev.getElement() instanceof DeploymentNode && ev.getElement().getParent() == null)
                     .map(ev -> (DeploymentNode)ev.getElement())
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, 0));
+                    .forEach(e -> write(workspace, e, writer, 0));
 
             write(view.getRelationships(), writer);
 
@@ -248,25 +248,26 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    private void write(DeploymentNode deploymentNode, Writer writer, int indent) {
+    private void write(Workspace workspace, DeploymentNode deploymentNode, Writer writer, int indent) {
         try {
             writer.write(
-                    format("%snode \"%s\" <<%s>> as %s {",
+                    format("%snode \"%s\" <<%s>> as %s %s {",
                             calculateIndent(indent),
                             deploymentNode.getName() + (deploymentNode.getInstances() > 1 ? " (x" + deploymentNode.getInstances() + ")" : ""),
                             typeOf(deploymentNode),
-                            idOf(deploymentNode)
+                            idOf(deploymentNode),
+                            colorOf(workspace, deploymentNode)
                     )
             );
 
             writer.write(System.lineSeparator());
 
             for (DeploymentNode child : deploymentNode.getChildren()) {
-                write(child, writer, indent+1);
+                write(workspace, child, writer, indent+1);
             }
 
             for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
-                write(containerInstance, writer, indent+1);
+                write(workspace, containerInstance, writer, indent+1);
             }
 
             writer.write(
@@ -278,16 +279,18 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    private void write(ContainerInstance containerInstance, Writer writer, int indent) {
+    private void write(Workspace workspace, ContainerInstance containerInstance, Writer writer, int indent) {
         try {
             writer.write(
-                    format("%sartifact \"%s\" <<%s>> as %s",
+                    format("%sartifact \"%s\" <<%s>> as %s %s",
                             calculateIndent(indent),
                             containerInstance.getContainer().getName(),
                             typeOf(containerInstance),
-                            idOf(containerInstance)
+                            idOf(containerInstance),
+                            colorOf(workspace, containerInstance.getContainer())
                     )
             );
+
 
             writer.write(System.lineSeparator());
         } catch (IOException e) {
@@ -311,7 +314,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
             final List<String> description = lines(element.getDescription());
 
             if(description.isEmpty() || "actor".equals(type)) {
-                writeSimpleElement(element, writer, indent, type);
+                writeSimpleElement(workspace, element, writer, indent, type);
                 writeDescriptionAsNote(element, writer, indent, description);
             }
             else {
@@ -319,7 +322,8 @@ public final class PlantUMLWriter implements WorkspaceWriter {
                 final String separator = System.lineSeparator();
                 final String id = idOf(element);
 
-                writer.write(format("%s%s %s <<%s>> [%s", prefix, type, id, typeOf(element), separator));
+                writer.write(format("%s%s %s <<%s>> %s [%s",
+                        prefix, type, id, typeOf(element), colorOf(workspace, element), separator));
                 writer.write(format("%s  %s%s", prefix, element.getName(), separator));
                 writer.write(format("%s  --%s", prefix, separator));
                 for (final String line : description) {
@@ -333,13 +337,14 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    private void writeSimpleElement(Element element, Writer writer, boolean indent, String type) throws IOException {
-        writer.write(format("%s%s \"%s\" <<%s>> as %s%s",
+    private void writeSimpleElement(Workspace workspace, Element element, Writer writer, boolean indent, String type) throws IOException {
+        writer.write(format("%s%s \"%s\" <<%s>> as %s %s%s",
                 indent ? "  " : "",
                 type,
                 element.getName(),
                 typeOf(element),
                 idOf(element),
+                colorOf(workspace, element),
                 System.lineSeparator()));
     }
 
@@ -382,8 +387,23 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         return lines;
     }
 
+    private Object colorOf(Workspace workspace, Element element) {
+        return workspace
+                .getViews()
+                .getConfiguration()
+                .getStyles()
+                .getElements()
+                .stream()
+                .filter(es -> element.getTags().contains(es.getTag()))
+                .map(ElementStyle::getBackground)
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElse("");
+    }
+
     private String plantumlType(Workspace workspace, Element element) {
-        final Optional<Shape> shape = workspace.getViews()
+        final Optional<Shape> shape = workspace
+                .getViews()
                 .getConfiguration()
                 .getStyles()
                 .getElements()
