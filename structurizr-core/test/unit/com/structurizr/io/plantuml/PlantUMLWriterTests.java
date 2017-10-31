@@ -11,8 +11,8 @@ import java.io.StringWriter;
 import static org.junit.Assert.assertEquals;
 
 public class PlantUMLWriterTests {
-    private static final String DATASTORE = "DataStore";
-    private static final String SOME = "Some";
+    private static final String DATA_STORE_TAG = "DataStore";
+    private static final String SOME_TAG = "Some";
 
     private PlantUMLWriter plantUMLWriter;
     private Workspace workspace;
@@ -314,8 +314,8 @@ public class PlantUMLWriterTests {
         branding.setColor5(new ColorPair("#85bbf0", "#000000"));
 
         final Styles styles = workspace.getViews().getConfiguration().getStyles();
-        styles.addElementStyle(DATASTORE).background("#cccccc");
-        styles.addElementStyle(SOME).background("#ffff00");
+        styles.addElementStyle(DATA_STORE_TAG).background("#cccccc");
+        styles.addElementStyle(SOME_TAG).background("#ffff00");
 
         ComponentView componentView = workspace.getViews().getComponentViews()
             .stream().findFirst().get();
@@ -536,16 +536,16 @@ public class PlantUMLWriterTests {
 
         Container webApplication = softwareSystem.addContainer("Web Application", "", "");
         Container database = softwareSystem.addContainer("Database", "A relational database management system, likely PostgreSQL or MySQL but anything with JDBC drivers would be suitable.", "");
-        database.addTags(DATASTORE);
+        database.addTags(DATA_STORE_TAG);
         user.uses(webApplication, "Uses", "HTTP");
         webApplication.uses(database, "Reads from and writes to", "JDBC");
         webApplication.uses(emailSystem, "Sends e-mail using");
 
         Component controller = webApplication.addComponent("SomeController", "", "Spring MVC Controller");
-        controller.addTags(SOME);
+        controller.addTags(SOME_TAG);
         Component emailComponent = webApplication.addComponent("EmailComponent", "");
         Component repository = webApplication.addComponent("SomeRepository", "", "Spring Data");
-        repository.addTags(SOME);
+        repository.addTags(SOME_TAG);
         user.uses(controller, "Uses", "HTTP");
         controller.uses(repository, "Uses");
         controller.uses(emailComponent, "Sends e-mail using");
@@ -582,7 +582,7 @@ public class PlantUMLWriterTests {
         deploymentView.addAllDeploymentNodes();
 
         Styles styles = workspace.getViews().getConfiguration().getStyles();
-        styles.addElementStyle(DATASTORE).shape(Shape.Cylinder);
+        styles.addElementStyle(DATA_STORE_TAG).shape(Shape.Cylinder);
     }
 
 }
