@@ -3,12 +3,39 @@ package com.structurizr.io.plantuml;
 import com.structurizr.Workspace;
 import com.structurizr.io.WorkspaceWriter;
 import com.structurizr.io.WorkspaceWriterException;
-import com.structurizr.model.*;
-import com.structurizr.view.*;
+import com.structurizr.model.Component;
+import com.structurizr.model.Container;
+import com.structurizr.model.ContainerInstance;
+import com.structurizr.model.DeploymentNode;
+import com.structurizr.model.Element;
+import com.structurizr.model.Location;
+import com.structurizr.model.Person;
+import com.structurizr.model.Relationship;
+import com.structurizr.model.SoftwareSystem;
+import com.structurizr.view.Branding;
+import com.structurizr.view.ColorPair;
+import com.structurizr.view.ComponentView;
+import com.structurizr.view.ContainerView;
+import com.structurizr.view.DeploymentView;
+import com.structurizr.view.DynamicView;
+import com.structurizr.view.ElementStyle;
+import com.structurizr.view.ElementView;
+import com.structurizr.view.EnterpriseContextView;
+import com.structurizr.view.RelationshipView;
+import com.structurizr.view.Shape;
+import com.structurizr.view.SystemContextView;
+import com.structurizr.view.View;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
+
+import static java.lang.String.format;
+import static java.util.Collections.emptyList;
 
 /**
  * A simple PlantUML writer that outputs diagram definitions that can be copy-pasted
@@ -19,51 +46,57 @@ import java.util.Set;
  */
 public final class PlantUMLWriter implements WorkspaceWriter {
 
+    private final List<String> skinParams = new ArrayList<>();
+
+    public void addSkinParam(final String skinParam) {
+        skinParams.add(skinParam);
+    }
+
     @Override
     public void write(Workspace workspace, Writer writer) throws WorkspaceWriterException {
         if (workspace != null && writer != null) {
-            workspace.getViews().getEnterpriseContextViews().forEach(v -> write(v, writer));
-            workspace.getViews().getSystemContextViews().forEach(v -> write(v, writer));
-            workspace.getViews().getContainerViews().forEach(v -> write(v, writer));
-            workspace.getViews().getComponentViews().forEach(v -> write(v, writer));
-            workspace.getViews().getDynamicViews().forEach(v -> write(v, writer));
-            workspace.getViews().getDeploymentViews().forEach(v -> write(v, writer));
+            workspace.getViews().getEnterpriseContextViews().forEach(v -> write(workspace, v, writer));
+            workspace.getViews().getSystemContextViews().forEach(v -> write(workspace, v, writer));
+            workspace.getViews().getContainerViews().forEach(v -> write(workspace, v, writer));
+            workspace.getViews().getComponentViews().forEach(v -> write(workspace, v, writer));
+            workspace.getViews().getDynamicViews().forEach(v -> write(workspace, v, writer));
+            workspace.getViews().getDeploymentViews().forEach(v -> write(workspace, v, writer));
         }
     }
 
-    public void write(View view, Writer writer) {
+    public void write(Workspace workspace, View view, Writer writer) {
         if (view != null && writer != null) {
             if (EnterpriseContextView.class.isAssignableFrom(view.getClass())) {
-                write((EnterpriseContextView) view, writer);
+                write(workspace, (EnterpriseContextView) view, writer);
             } else if (SystemContextView.class.isAssignableFrom(view.getClass())) {
-                write((SystemContextView) view, writer);
+                write(workspace, (SystemContextView) view, writer);
             } else if (ContainerView.class.isAssignableFrom(view.getClass())) {
-                write((ContainerView) view, writer);
+                write(workspace, (ContainerView) view, writer);
             } else if (ComponentView.class.isAssignableFrom(view.getClass())) {
-                write((ComponentView) view, writer);
+                write(workspace, (ComponentView) view, writer);
             } else if (DynamicView.class.isAssignableFrom(view.getClass())) {
-                write((DynamicView) view, writer);
+                write(workspace, (DynamicView) view, writer);
             } else if (DeploymentView.class.isAssignableFrom(view.getClass())) {
-                write((DeploymentView) view, writer);
+                write(workspace, (DeploymentView) view, writer);
             }
         }
     }
 
-    private void write(EnterpriseContextView view, Writer writer) {
+    private void write(Workspace workspace, EnterpriseContextView view, Writer writer) {
         try {
-            writeHeader(view, writer);
+            writeHeader(workspace, view, writer);
 
             view.getElements().stream()
                     .map(ElementView::getElement)
                     .filter(e -> e instanceof Person && ((Person)e).getLocation() == Location.External)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, false));
+                    .forEach(e -> write(workspace, e, writer, false));
 
             view.getElements().stream()
                     .map(ElementView::getElement)
                     .filter(e -> e instanceof SoftwareSystem && ((SoftwareSystem)e).getLocation() == Location.External)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, false));
+                    .forEach(e -> write(workspace, e, writer, false));
 
             writer.write("package " + nameOf(view.getModel().getEnterprise().getName()) + " {");
             writer.write(System.lineSeparator());
@@ -72,13 +105,13 @@ public final class PlantUMLWriter implements WorkspaceWriter {
                     .map(ElementView::getElement)
                     .filter(e -> e instanceof Person && ((Person)e).getLocation() == Location.Internal)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, true));
+                    .forEach(e -> write(workspace, e, writer, true));
 
             view.getElements().stream()
                     .map(ElementView::getElement)
                     .filter(e -> e instanceof SoftwareSystem && ((SoftwareSystem)e).getLocation() == Location.Internal)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, true));
+                    .forEach(e -> write(workspace, e, writer, true));
 
             writer.write("}");
             writer.write(System.lineSeparator());
@@ -91,14 +124,14 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    private void write(SystemContextView view, Writer writer) {
+    private void write(Workspace workspace, SystemContextView view, Writer writer) {
         try {
-            writeHeader(view, writer);
+            writeHeader(workspace, view, writer);
 
             view.getElements().stream()
                     .map(ElementView::getElement)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, false));
+                    .forEach(e -> write(workspace, e, writer, false));
             write(view.getRelationships(), writer);
 
             writeFooter(writer);
@@ -107,24 +140,24 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    private void write(ContainerView view, Writer writer) {
+    private void write(Workspace workspace, ContainerView view, Writer writer) {
         try {
-            writeHeader(view, writer);
+            writeHeader(workspace, view, writer);
 
             view.getElements().stream()
                     .filter(ev -> !(ev.getElement() instanceof Container))
                     .map(ElementView::getElement)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, false));
+                    .forEach(e -> write(workspace, e, writer, false));
 
-            writer.write("package " + nameOf(view.getSoftwareSystem()) + " {");
+            writer.write("package " + nameOf(view.getSoftwareSystem()) + " <<" + typeOf(view.getSoftwareSystem()) + ">> " + colorOf(workspace, view.getSoftwareSystem()) + " {");
             writer.write(System.lineSeparator());
 
             view.getElements().stream()
                     .filter(ev -> ev.getElement() instanceof Container)
                     .map(ElementView::getElement)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, true));
+                    .forEach(e -> write(workspace, e, writer, true));
 
             writer.write("}");
             writer.write(System.lineSeparator());
@@ -137,24 +170,24 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    private void write(ComponentView view, Writer writer) {
+    private void write(Workspace workspace, ComponentView view, Writer writer) {
         try {
-            writeHeader(view, writer);
+            writeHeader(workspace, view, writer);
 
             view.getElements().stream()
                     .filter(ev -> !(ev.getElement() instanceof Component))
                     .map(ElementView::getElement)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, false));
+                    .forEach(e -> write(workspace, e, writer, false));
 
-            writer.write("package " + nameOf(view.getContainer()) + " {");
+            writer.write("package " + nameOf(view.getContainer()) + " <<" + typeOf(view.getContainer()) + ">> " + colorOf(workspace, view.getContainer()) +" {");
             writer.write(System.lineSeparator());
 
             view.getElements().stream()
                     .filter(ev -> ev.getElement() instanceof Component)
                     .map(ElementView::getElement)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, true));
+                    .forEach(e -> write(workspace, e, writer, true));
 
             writer.write("}");
             writer.write(System.lineSeparator());
@@ -167,21 +200,21 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    private void write(DynamicView view, Writer writer) {
+    private void write(Workspace workspace, DynamicView view, Writer writer) {
         try {
-            writeHeader(view, writer);
+            writeHeader(workspace, view, writer);
 
             view.getElements().stream()
                     .map(ElementView::getElement)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, false));
+                    .forEach(e -> write(workspace, e, writer, false));
 
             view.getRelationships().stream()
                     .sorted((rv1, rv2) -> (rv1.getOrder().compareTo(rv2.getOrder())))
                     .forEach(relationship -> {
                         try {
                             writer.write(
-                                    String.format("%s -> %s : %s",
+                                    format("%s -> %s : %s",
                                             idOf(relationship.getRelationship().getSource()),
                                             idOf(relationship.getRelationship().getDestination()),
                                             hasValue(relationship.getDescription()) ? relationship.getDescription() : hasValue(relationship.getRelationship().getDescription()) ? relationship.getRelationship().getDescription() : ""
@@ -199,15 +232,15 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    private void write(DeploymentView view, Writer writer) {
+    private void write(Workspace workspace, DeploymentView view, Writer writer) {
         try {
-            writeHeader(view, writer);
+            writeHeader(workspace, view, writer);
 
             view.getElements().stream()
                     .filter(ev -> ev.getElement() instanceof DeploymentNode && ev.getElement().getParent() == null)
                     .map(ev -> (DeploymentNode)ev.getElement())
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(e, writer, 0));
+                    .forEach(e -> write(workspace, e, writer, 0));
 
             write(view.getRelationships(), writer);
 
@@ -217,29 +250,30 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    private void write(DeploymentNode deploymentNode, Writer writer, int indent) {
+    private void write(Workspace workspace, DeploymentNode deploymentNode, Writer writer, int indent) {
         try {
             writer.write(
-                    String.format("%snode \"%s\" <<%s>> as %s {",
+                    format("%snode \"%s\" <<%s>> as %s %s {",
                             calculateIndent(indent),
                             deploymentNode.getName() + (deploymentNode.getInstances() > 1 ? " (x" + deploymentNode.getInstances() + ")" : ""),
                             typeOf(deploymentNode),
-                            idOf(deploymentNode)
+                            idOf(deploymentNode),
+                            colorOf(workspace, deploymentNode)
                     )
             );
 
             writer.write(System.lineSeparator());
 
             for (DeploymentNode child : deploymentNode.getChildren()) {
-                write(child, writer, indent+1);
+                write(workspace, child, writer, indent+1);
             }
 
             for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
-                write(containerInstance, writer, indent+1);
+                write(workspace, containerInstance, writer, indent+1);
             }
 
             writer.write(
-                    String.format("%s}", calculateIndent(indent))
+                    format("%s}", calculateIndent(indent))
             );
             writer.write(System.lineSeparator());
         } catch (IOException e) {
@@ -247,16 +281,18 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    private void write(ContainerInstance containerInstance, Writer writer, int indent) {
+    private void write(Workspace workspace, ContainerInstance containerInstance, Writer writer, int indent) {
         try {
             writer.write(
-                    String.format("%sartifact \"%s\" <<%s>> as %s",
+                    format("%sartifact \"%s\" <<%s>> as %s %s",
                             calculateIndent(indent),
                             containerInstance.getContainer().getName(),
                             typeOf(containerInstance),
-                            idOf(containerInstance)
+                            idOf(containerInstance),
+                            colorOf(workspace, containerInstance.getContainer())
                     )
             );
+
 
             writer.write(System.lineSeparator());
         } catch (IOException e) {
@@ -274,21 +310,127 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         return buf.toString();
     }
 
-    private void write(Element element, Writer writer, boolean indent) {
+    private void write(Workspace workspace, Element element, Writer writer, boolean indent) {
         try {
-            writer.write(
-                    String.format("%s%s \"%s\" <<%s>> as %s",
-                            indent ? "  " : "",
-                            element instanceof Person ? "actor" : "component",
-                            element.getName(),
-                            typeOf(element),
-                            idOf(element)
-                    )
-            );
-            writer.write(System.lineSeparator());
+            final String type = plantumlType(workspace, element);
+            final List<String> description = lines(element.getDescription());
+
+            if(description.isEmpty() || "actor".equals(type)) {
+                writeSimpleElement(workspace, element, writer, indent, type);
+                writeDescriptionAsNote(element, writer, indent, description);
+            }
+            else {
+                final String prefix = indent ? "  " : "";
+                final String separator = System.lineSeparator();
+                final String id = idOf(element);
+
+                writer.write(format("%s%s %s <<%s>> %s [%s",
+                        prefix, type, id, typeOf(element), colorOf(workspace, element), separator));
+                writer.write(format("%s  %s%s", prefix, element.getName(), separator));
+                writer.write(format("%s  --%s", prefix, separator));
+                for (final String line : description) {
+                    writer.write(format("%s  %s%s", prefix, line, separator));
+                }
+                writer.write(format("%s]%s", prefix, separator));
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void writeSimpleElement(Workspace workspace, Element element, Writer writer, boolean indent, String type) throws IOException {
+        writer.write(format("%s%s \"%s\" <<%s>> as %s %s%s",
+                indent ? "  " : "",
+                type,
+                element.getName(),
+                typeOf(element),
+                idOf(element),
+                colorOf(workspace, element),
+                System.lineSeparator()));
+    }
+
+    private void writeDescriptionAsNote(Element element, Writer writer, boolean indent, List<String> description) throws IOException {
+        if (!description.isEmpty()) {
+            final String prefix = indent ? "  " : "";
+            final String separator = System.lineSeparator();
+            final String id = idOf(element);
+            writer.write(format("%snote right of %s%s", prefix, id, separator));
+            for (final String line : description) {
+                writer.write(format("%s  %s%s", prefix, line, separator));
+            }
+            writer.write(format("%send note%s", prefix, separator));
+        }
+    }
+
+    private List<String> lines(final String text) {
+        if(text==null) {
+            return emptyList();
+        }
+        final String[] words = text.trim().split("\\s+");
+        final List<String> lines = new ArrayList<>();
+        final StringBuilder line = new StringBuilder();
+        for (final String word : words) {
+            if(line.length()==0) {
+                line.append(word);
+            }
+            else if(line.length() + word.length() + 1 < 30) {
+                line.append(' ').append(word);
+            }
+            else {
+                lines.add(line.toString());
+                line.setLength(0);
+                line.append(word);
+            }
+        }
+        if(line.length()>0) {
+            lines.add(line.toString());
+        }
+        return lines;
+    }
+
+    private Object colorOf(Workspace workspace, Element element) {
+        return workspace
+                .getViews()
+                .getConfiguration()
+                .getStyles()
+                .getElements()
+                .stream()
+                .filter(es -> element.getTags().contains(es.getTag()))
+                .map(ElementStyle::getBackground)
+                .filter(Objects::nonNull)
+                .findFirst()
+                .orElse("");
+    }
+
+    private String plantumlType(Workspace workspace, Element element) {
+        final Optional<Shape> shape = workspace
+                .getViews()
+                .getConfiguration()
+                .getStyles()
+                .getElements()
+                .stream()
+                .filter(es -> element.getTags().contains(es.getTag()))
+                .map(ElementStyle::getShape)
+                .filter(Objects::nonNull)
+                .findFirst();
+
+        if(shape.isPresent()) {
+            switch(shape.get()) {
+                case Box:
+                    return "rectangle";
+                case Person:
+                    return "actor";
+                case Cylinder:
+                    return "database";
+                case Folder:
+                    return "folder";
+                case Ellipse:
+                case Circle:
+                    return "storage";
+            }
+        }
+        return element instanceof Person ? "actor" : "component";
     }
 
     private void write(Set<RelationshipView> relationships, Writer writer) {
@@ -301,7 +443,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
     private void write(Relationship relationship, Writer writer) {
         try {
             writer.write(
-                    String.format("%s ..> %s %s%s",
+                    format("%s ..> %s %s%s",
                             idOf(relationship.getSource()),
                             idOf(relationship.getDestination()),
                             hasValue(relationship.getDescription()) ? ": " + relationship.getDescription() : "",
@@ -351,7 +493,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         return s != null && s.trim().length() > 0;
     }
 
-    private void writeHeader(View view, Writer writer) throws IOException {
+    private void writeHeader(Workspace workspace, View view, Writer writer) throws IOException {
         writer.write("@startuml");
         writer.write(System.lineSeparator());
 
@@ -361,6 +503,70 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         if (view.getDescription() != null && view.getDescription().trim().length() > 0) {
             writer.write("caption " + view.getDescription());
             writer.write(System.lineSeparator());
+        }
+
+        final Branding branding = workspace.getViews().getConfiguration().getBranding();
+        final ColorPair color1 = branding.getColor1();
+        final ColorPair color2 = branding.getColor2();
+        final ColorPair color3 = branding.getColor3();
+        final ColorPair color4 = branding.getColor4();
+        final ColorPair color5 = branding.getColor5();
+
+        final List<String> brandParams = new ArrayList<>();
+
+        if (color1!=null) {
+            addColorParams(brandParams, color1, null,"actor");
+        }
+
+        if (color2!=null) {
+            addColorParams(brandParams, color2, "Software System",
+                    "component", "database", "package", "folder", "rectangle", "artifact", "storage");
+        }
+
+        if (color3!=null) {
+            addColorParams(brandParams, color3, "Container",
+                    "component", "database", "package", "folder", "rectangle", "artifact", "storage");
+        }
+
+        if (color4!=null) {
+            addColorParams(brandParams, color4, null,
+                    "component", "database", "package", "folder", "rectangle", "artifact", "storage");
+        }
+
+        if (color5!=null) {
+            brandParams.add("arrowColor " + color5.getForeground());
+            brandParams.add("arrowFontColor " + color5.getForeground());
+            brandParams.add("noteBackgroundColor " + color5.getBackground());
+            brandParams.add("noteBorderColor " + color5.getForeground());
+            brandParams.add("noteFontColor " + color5.getForeground());
+        }
+
+        if (!skinParams.isEmpty() || !brandParams.isEmpty()) {
+            writer.write(format("skinparam {%s", System.lineSeparator()));
+
+            for (final String skinParam : brandParams) {
+                writer.write(format("  %s%s", skinParam, System.lineSeparator()));
+            }
+
+            for (final String skinParam : skinParams) {
+                writer.write(format("  %s%s", skinParam, System.lineSeparator()));
+            }
+            writer.write(format("}%s", System.lineSeparator()));
+        }
+    }
+
+    private void addColorParams(List<String> params, ColorPair pair, String stereotype, String... types) {
+        if(stereotype==null) {
+            stereotype = "";
+        }
+        else {
+            stereotype = "<<" + stereotype + ">>";
+        }
+        for(final String type : types) {
+            params.add(type + stereotype + "BackgroundColor " + pair.getBackground());
+            params.add(type + stereotype + "BorderColor " + pair.getForeground());
+            params.add(type + stereotype + "FontColor " + pair.getForeground());
+            params.add(type + stereotype + "StereotypeFontColor " + pair.getForeground());
         }
     }
 
