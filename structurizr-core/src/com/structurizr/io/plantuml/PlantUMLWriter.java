@@ -24,13 +24,14 @@ import static java.util.Collections.emptyList;
 public final class PlantUMLWriter implements WorkspaceWriter {
 
     private boolean includeNotesForActors = true;
-    private final Map<String, String> skinParams = new HashMap<>();
+    private final Map<String, String> skinParams = new LinkedHashMap<>();
 
     public PlantUMLWriter() {
         // add some default skin params
         addSkinParam("shadowing", "false");
         addSkinParam("arrowColor", "#707070");
         addSkinParam("actorBorderColor", "#707070");
+        addSkinParam("componentBorderColor", "#707070");
         addSkinParam("rectangleBorderColor", "#707070");
         addSkinParam("noteBackgroundColor", "#ffffff");
         addSkinParam("noteBorderColor", "#707070");

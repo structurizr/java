@@ -50,12 +50,13 @@ public class PlantUMLWriterTests {
                 "title Enterprise Context for Some Enterprise" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "skinparam {" + System.lineSeparator() +
-                "  arrowColor #707070" + System.lineSeparator() +
-                "  noteBorderColor #707070" + System.lineSeparator() +
-                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
-                "  rectangleBorderColor #707070" + System.lineSeparator() +
-                "  actorBorderColor #707070" + System.lineSeparator() +
                 "  shadowing false" + System.lineSeparator() +
+                "  arrowColor #707070" + System.lineSeparator() +
+                "  actorBorderColor #707070" + System.lineSeparator() +
+                "  componentBorderColor #707070" + System.lineSeparator() +
+                "  rectangleBorderColor #707070" + System.lineSeparator() +
+                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
+                "  noteBorderColor #707070" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "rectangle 4 <<Software System>> #dddddd [" + System.lineSeparator() +
                 "  E-mail System" + System.lineSeparator() +
@@ -81,12 +82,13 @@ public class PlantUMLWriterTests {
                 "title Software System - System Context" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "skinparam {" + System.lineSeparator() +
-                "  arrowColor #707070" + System.lineSeparator() +
-                "  noteBorderColor #707070" + System.lineSeparator() +
-                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
-                "  rectangleBorderColor #707070" + System.lineSeparator() +
-                "  actorBorderColor #707070" + System.lineSeparator() +
                 "  shadowing false" + System.lineSeparator() +
+                "  arrowColor #707070" + System.lineSeparator() +
+                "  actorBorderColor #707070" + System.lineSeparator() +
+                "  componentBorderColor #707070" + System.lineSeparator() +
+                "  rectangleBorderColor #707070" + System.lineSeparator() +
+                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
+                "  noteBorderColor #707070" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "rectangle 4 <<Software System>> #dddddd [" + System.lineSeparator() +
                 "  E-mail System" + System.lineSeparator() +
@@ -110,12 +112,13 @@ public class PlantUMLWriterTests {
                 "title Software System - Containers" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "skinparam {" + System.lineSeparator() +
-                "  arrowColor #707070" + System.lineSeparator() +
-                "  noteBorderColor #707070" + System.lineSeparator() +
-                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
-                "  rectangleBorderColor #707070" + System.lineSeparator() +
-                "  actorBorderColor #707070" + System.lineSeparator() +
                 "  shadowing false" + System.lineSeparator() +
+                "  arrowColor #707070" + System.lineSeparator() +
+                "  actorBorderColor #707070" + System.lineSeparator() +
+                "  componentBorderColor #707070" + System.lineSeparator() +
+                "  rectangleBorderColor #707070" + System.lineSeparator() +
+                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
+                "  noteBorderColor #707070" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "rectangle 4 <<Software System>> #dddddd [" + System.lineSeparator() +
                 "  E-mail System" + System.lineSeparator() +
@@ -151,12 +154,13 @@ public class PlantUMLWriterTests {
                 "title Software System - Web Application - Components" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "skinparam {" + System.lineSeparator() +
-                "  arrowColor #707070" + System.lineSeparator() +
-                "  noteBorderColor #707070" + System.lineSeparator() +
-                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
-                "  rectangleBorderColor #707070" + System.lineSeparator() +
-                "  actorBorderColor #707070" + System.lineSeparator() +
                 "  shadowing false" + System.lineSeparator() +
+                "  arrowColor #707070" + System.lineSeparator() +
+                "  actorBorderColor #707070" + System.lineSeparator() +
+                "  componentBorderColor #707070" + System.lineSeparator() +
+                "  rectangleBorderColor #707070" + System.lineSeparator() +
+                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
+                "  noteBorderColor #707070" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "database 8 <<Container>> #dddddd [" + System.lineSeparator() +
                 "  Database" + System.lineSeparator() +
@@ -196,12 +200,13 @@ public class PlantUMLWriterTests {
                 "title Web Application - Dynamic" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "skinparam {" + System.lineSeparator() +
-                "  arrowColor #707070" + System.lineSeparator() +
-                "  noteBorderColor #707070" + System.lineSeparator() +
-                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
-                "  rectangleBorderColor #707070" + System.lineSeparator() +
-                "  actorBorderColor #707070" + System.lineSeparator() +
                 "  shadowing false" + System.lineSeparator() +
+                "  arrowColor #707070" + System.lineSeparator() +
+                "  actorBorderColor #707070" + System.lineSeparator() +
+                "  componentBorderColor #707070" + System.lineSeparator() +
+                "  rectangleBorderColor #707070" + System.lineSeparator() +
+                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
+                "  noteBorderColor #707070" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "database 8 <<Container>> #dddddd [" + System.lineSeparator() +
                 "  Database" + System.lineSeparator() +
@@ -229,12 +234,13 @@ public class PlantUMLWriterTests {
                 "title Software System - Deployment" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "skinparam {" + System.lineSeparator() +
-                "  arrowColor #707070" + System.lineSeparator() +
-                "  noteBorderColor #707070" + System.lineSeparator() +
-                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
-                "  rectangleBorderColor #707070" + System.lineSeparator() +
-                "  actorBorderColor #707070" + System.lineSeparator() +
                 "  shadowing false" + System.lineSeparator() +
+                "  arrowColor #707070" + System.lineSeparator() +
+                "  actorBorderColor #707070" + System.lineSeparator() +
+                "  componentBorderColor #707070" + System.lineSeparator() +
+                "  rectangleBorderColor #707070" + System.lineSeparator() +
+                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
+                "  noteBorderColor #707070" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "node \"Database Server\" <<Ubuntu 12.04 LTS>> as 23 {" + System.lineSeparator() +
                 "  node \"MySQL\" <<MySQL 5.5.x>> as 24 {" + System.lineSeparator() +
@@ -262,12 +268,13 @@ public class PlantUMLWriterTests {
                 "title Enterprise Context for Some Enterprise" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "skinparam {" + System.lineSeparator() +
-                "  arrowColor #707070" + System.lineSeparator() +
-                "  noteBorderColor #707070" + System.lineSeparator() +
-                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
-                "  rectangleBorderColor #707070" + System.lineSeparator() +
-                "  actorBorderColor #707070" + System.lineSeparator() +
                 "  shadowing false" + System.lineSeparator() +
+                "  arrowColor #707070" + System.lineSeparator() +
+                "  actorBorderColor #707070" + System.lineSeparator() +
+                "  componentBorderColor #707070" + System.lineSeparator() +
+                "  rectangleBorderColor #707070" + System.lineSeparator() +
+                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
+                "  noteBorderColor #707070" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "rectangle 4 <<Software System>> #dddddd [" + System.lineSeparator() +
                 "  E-mail System" + System.lineSeparator() +
@@ -304,12 +311,13 @@ public class PlantUMLWriterTests {
                 "title Software System - System Context" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "skinparam {" + System.lineSeparator() +
-                "  arrowColor #707070" + System.lineSeparator() +
-                "  noteBorderColor #707070" + System.lineSeparator() +
-                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
-                "  rectangleBorderColor #707070" + System.lineSeparator() +
-                "  actorBorderColor #707070" + System.lineSeparator() +
                 "  shadowing false" + System.lineSeparator() +
+                "  arrowColor #707070" + System.lineSeparator() +
+                "  actorBorderColor #707070" + System.lineSeparator() +
+                "  componentBorderColor #707070" + System.lineSeparator() +
+                "  rectangleBorderColor #707070" + System.lineSeparator() +
+                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
+                "  noteBorderColor #707070" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "rectangle 4 <<Software System>> #dddddd [" + System.lineSeparator() +
                 "  E-mail System" + System.lineSeparator() +
@@ -343,12 +351,13 @@ public class PlantUMLWriterTests {
                 "title Software System - Containers" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "skinparam {" + System.lineSeparator() +
-                "  arrowColor #707070" + System.lineSeparator() +
-                "  noteBorderColor #707070" + System.lineSeparator() +
-                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
-                "  rectangleBorderColor #707070" + System.lineSeparator() +
-                "  actorBorderColor #707070" + System.lineSeparator() +
                 "  shadowing false" + System.lineSeparator() +
+                "  arrowColor #707070" + System.lineSeparator() +
+                "  actorBorderColor #707070" + System.lineSeparator() +
+                "  componentBorderColor #707070" + System.lineSeparator() +
+                "  rectangleBorderColor #707070" + System.lineSeparator() +
+                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
+                "  noteBorderColor #707070" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "rectangle 4 <<Software System>> #dddddd [" + System.lineSeparator() +
                 "  E-mail System" + System.lineSeparator() +
@@ -405,12 +414,13 @@ public class PlantUMLWriterTests {
                 "title Software System - Web Application - Components" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "skinparam {" + System.lineSeparator() +
-                "  arrowColor #707070" + System.lineSeparator() +
-                "  noteBorderColor #707070" + System.lineSeparator() +
-                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
-                "  rectangleBorderColor #707070" + System.lineSeparator() +
-                "  actorBorderColor #707070" + System.lineSeparator() +
                 "  shadowing false" + System.lineSeparator() +
+                "  arrowColor #707070" + System.lineSeparator() +
+                "  actorBorderColor #707070" + System.lineSeparator() +
+                "  componentBorderColor #707070" + System.lineSeparator() +
+                "  rectangleBorderColor #707070" + System.lineSeparator() +
+                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
+                "  noteBorderColor #707070" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "database 8 <<Container>> #dddddd [" + System.lineSeparator() +
                 "  Database" + System.lineSeparator() +
@@ -460,12 +470,13 @@ public class PlantUMLWriterTests {
                 "title Web Application - Dynamic" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "skinparam {" + System.lineSeparator() +
-                "  arrowColor #707070" + System.lineSeparator() +
-                "  noteBorderColor #707070" + System.lineSeparator() +
-                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
-                "  rectangleBorderColor #707070" + System.lineSeparator() +
-                "  actorBorderColor #707070" + System.lineSeparator() +
                 "  shadowing false" + System.lineSeparator() +
+                "  arrowColor #707070" + System.lineSeparator() +
+                "  actorBorderColor #707070" + System.lineSeparator() +
+                "  componentBorderColor #707070" + System.lineSeparator() +
+                "  rectangleBorderColor #707070" + System.lineSeparator() +
+                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
+                "  noteBorderColor #707070" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "database 8 <<Container>> #dddddd [" + System.lineSeparator() +
                 "  Database" + System.lineSeparator() +
@@ -504,13 +515,14 @@ public class PlantUMLWriterTests {
                 "title Software System - Deployment" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "skinparam {" + System.lineSeparator() +
-                "  arrowColor #707070" + System.lineSeparator() +
-                "  noteBorderColor #707070" + System.lineSeparator() +
-                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
-                "  handWritten true" + System.lineSeparator() +
-                "  rectangleBorderColor #707070" + System.lineSeparator() +
-                "  actorBorderColor #707070" + System.lineSeparator() +
                 "  shadowing false" + System.lineSeparator() +
+                "  arrowColor #707070" + System.lineSeparator() +
+                "  actorBorderColor #707070" + System.lineSeparator() +
+                "  componentBorderColor #707070" + System.lineSeparator() +
+                "  rectangleBorderColor #707070" + System.lineSeparator() +
+                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
+                "  noteBorderColor #707070" + System.lineSeparator() +
+                "  handWritten true" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "node \"Database Server\" <<Ubuntu 12.04 LTS>> as 23 {" + System.lineSeparator() +
                 "  node \"MySQL\" <<MySQL 5.5.x>> as 24 {" + System.lineSeparator() +
