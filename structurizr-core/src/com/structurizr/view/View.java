@@ -26,6 +26,7 @@ public abstract class View {
     private Set<ElementView> elementViews = new LinkedHashSet<>();
 
     private Set<RelationshipView> relationshipViews = new LinkedHashSet<>();
+    private ViewSet viewSet;
 
     View() {
     }
@@ -306,6 +307,15 @@ public abstract class View {
     public RelationshipView getRelationshipView(Relationship relationship) {
         Optional<RelationshipView> relationshipView = this.relationshipViews.stream().filter(rv -> rv.getRelationship().equals(relationship)).findFirst();
         return relationshipView.isPresent() ? relationshipView.get() : null;
+    }
+
+    void setViewSet(ViewSet viewSet) {
+        this.viewSet = viewSet;
+    }
+
+    @JsonIgnore
+    public ViewSet getViewSet() {
+        return viewSet;
     }
 
 }

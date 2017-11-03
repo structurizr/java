@@ -5,6 +5,9 @@ import com.structurizr.io.plantuml.PlantUMLWriter;
 import com.structurizr.model.Model;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
+import com.structurizr.model.Tags;
+import com.structurizr.view.Shape;
+import com.structurizr.view.Styles;
 import com.structurizr.view.SystemContextView;
 import com.structurizr.view.ViewSet;
 
@@ -29,8 +32,18 @@ public class PlantUML {
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
 
+        Styles styles = views.getConfiguration().getStyles();
+        styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd").color("#ffffff");
+        styles.addElementStyle(Tags.PERSON).background("#08427b").color("#ffffff").shape(Shape.Person);
+
         StringWriter stringWriter = new StringWriter();
         PlantUMLWriter plantUMLWriter = new PlantUMLWriter();
+
+        // if you're using dark background colours, you might need to explicitly set the foreground colour using skin params
+        // e.g. rectangleFontColor, rectangleFontColor<<Software System>>, etc
+        plantUMLWriter.addSkinParam("rectangleFontColor", "#ffffff");
+        plantUMLWriter.addSkinParam("rectangleStereotypeFontColor", "#ffffff");
+
         plantUMLWriter.write(workspace, stringWriter);
         System.out.println(stringWriter.toString());
     }

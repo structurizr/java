@@ -59,6 +59,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsUnique(key);
 
         EnterpriseContextView view = new EnterpriseContextView(model, key, description);
+        view.setViewSet(this);
         enterpriseContextViews.add(view);
         return view;
     }
@@ -77,6 +78,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsUnique(key);
 
         SystemContextView view = new SystemContextView(softwareSystem, key, description);
+        view.setViewSet(this);
         systemContextViews.add(view);
         return view;
     }
@@ -95,6 +97,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsUnique(key);
 
         ContainerView view = new ContainerView(softwareSystem, key, description);
+        view.setViewSet(this);
         containerViews.add(view);
         return view;
     }
@@ -113,6 +116,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsUnique(key);
 
         ComponentView view = new ComponentView(container, key, description);
+        view.setViewSet(this);
         componentViews.add(view);
         return view;
     }
@@ -129,6 +133,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsUnique(key);
 
         DynamicView view = new DynamicView(getModel(), key, description);
+        view.setViewSet(this);
         dynamicViews.add(view);
         return view;
     }
@@ -154,6 +159,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsUnique(key);
 
         DynamicView view = new DynamicView(softwareSystem, key, description);
+        view.setViewSet(this);
         dynamicViews.add(view);
         return view;
     }
@@ -180,6 +186,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsUnique(key);
 
         DynamicView view = new DynamicView(container, key, description);
+        view.setViewSet(this);
         dynamicViews.add(view);
         return view;
     }
@@ -196,6 +203,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsUnique(key);
 
         DeploymentView view = new DeploymentView(getModel(), key, description);
+        view.setViewSet(this);
         deploymentViews.add(view);
         return view;
     }
@@ -214,6 +222,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsUnique(key);
 
         DeploymentView view = new DeploymentView(softwareSystem, key, description);
+        view.setViewSet(this);
         deploymentViews.add(view);
         return view;
     }
@@ -386,9 +395,12 @@ public final class ViewSet {
     }
 
     private void hydrateView(View view) {
+        view.setViewSet(this);
+
         for (ElementView elementView : view.getElements()) {
             elementView.setElement(model.getElement(elementView.getId()));
         }
+
         for (RelationshipView relationshipView : view.getRelationships()) {
             relationshipView.setRelationship(model.getRelationship(relationshipView.getId()));
         }
