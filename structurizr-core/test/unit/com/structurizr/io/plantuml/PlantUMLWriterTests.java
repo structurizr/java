@@ -181,9 +181,9 @@ public class PlantUMLWriterTests {
                 "  diagrams" + System.lineSeparator() +
                 "]" + System.lineSeparator() +
                 "package \"Web Application\" <<Container>> {" + System.lineSeparator() +
-                "  rectangle \"EmailComponent\" <<Component>> as 13 #dddddd" + System.lineSeparator() +
-                "  rectangle \"SomeController\" <<Spring MVC Controller>> as 12 #dddddd" + System.lineSeparator() +
-                "  rectangle \"SomeRepository\" <<Spring Data>> as 14 #dddddd" + System.lineSeparator() +
+                "  component \"EmailComponent\" <<Component>> as 13 #dddddd" + System.lineSeparator() +
+                "  component \"SomeController\" <<Spring MVC Controller>> as 12 #dddddd" + System.lineSeparator() +
+                "  component \"SomeRepository\" <<Spring Data>> as 14 #dddddd" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "4 .[#707070].> 1 : Delivers e-mails to" + System.lineSeparator() +
                 "13 .[#707070].> 4 : Sends e-mails using <<SMTP>>" + System.lineSeparator() +
@@ -212,8 +212,8 @@ public class PlantUMLWriterTests {
                 "  anything with JDBC drivers" + System.lineSeparator() +
                 "  would be suitable." + System.lineSeparator() +
                 "]" + System.lineSeparator() +
-                "rectangle \"SomeController\" <<Spring MVC Controller>> as 12 #dddddd" + System.lineSeparator() +
-                "rectangle \"SomeRepository\" <<Spring Data>> as 14 #dddddd" + System.lineSeparator() +
+                "component \"SomeController\" <<Spring MVC Controller>> as 12 #dddddd" + System.lineSeparator() +
+                "component \"SomeRepository\" <<Spring Data>> as 14 #dddddd" + System.lineSeparator() +
                 "rectangle 1 <<Person>> #dddddd [" + System.lineSeparator() +
                 "  User" + System.lineSeparator() +
                 "  --" + System.lineSeparator() +
@@ -435,9 +435,9 @@ public class PlantUMLWriterTests {
                 "  diagrams" + System.lineSeparator() +
                 "]" + System.lineSeparator() +
                 "package \"Web Application\" <<Container>> {" + System.lineSeparator() +
-                "  rectangle \"EmailComponent\" <<Component>> as 13 #dddddd" + System.lineSeparator() +
-                "  rectangle \"SomeController\" <<Spring MVC Controller>> as 12 #ffff00" + System.lineSeparator() +
-                "  rectangle \"SomeRepository\" <<Spring Data>> as 14 #ffff00" + System.lineSeparator() +
+                "  component \"EmailComponent\" <<Component>> as 13 #dddddd" + System.lineSeparator() +
+                "  component \"SomeController\" <<Spring MVC Controller>> as 12 #ffff00" + System.lineSeparator() +
+                "  component \"SomeRepository\" <<Spring Data>> as 14 #ffff00" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "4 .[#707070].> 1 : Delivers e-mails to" + System.lineSeparator() +
                 "13 .[#707070].> 4 : Sends e-mails using <<SMTP>>" + System.lineSeparator() +
@@ -476,8 +476,8 @@ public class PlantUMLWriterTests {
                 "  anything with JDBC drivers" + System.lineSeparator() +
                 "  would be suitable." + System.lineSeparator() +
                 "]" + System.lineSeparator() +
-                "rectangle \"SomeController\" <<Spring MVC Controller>> as 12 #dddddd" + System.lineSeparator() +
-                "rectangle \"SomeRepository\" <<Spring Data>> as 14 #dddddd" + System.lineSeparator() +
+                "component \"SomeController\" <<Spring MVC Controller>> as 12 #dddddd" + System.lineSeparator() +
+                "component \"SomeRepository\" <<Spring Data>> as 14 #dddddd" + System.lineSeparator() +
                 "rectangle 1 <<Person>> #dddddd [" + System.lineSeparator() +
                 "  User" + System.lineSeparator() +
                 "  --" + System.lineSeparator() +

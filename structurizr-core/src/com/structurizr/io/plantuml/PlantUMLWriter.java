@@ -439,7 +439,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
 
         switch(shape) {
             case Box:
-                return "rectangle";
+                return element instanceof Component ? "component" : "rectangle";
             case Person:
                 return "actor";
             case Cylinder:
