@@ -24,8 +24,14 @@ SystemContextView contextView = views.createSystemContextView(softwareSystem, "S
 contextView.addAllSoftwareSystems();
 contextView.addAllPeople();
 
+Styles styles = views.getConfiguration().getStyles();
+styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd").color("#ffffff");
+styles.addElementStyle(Tags.PERSON).background("#08427b").color("#ffffff").shape(Shape.Person);
+
 StringWriter stringWriter = new StringWriter();
 PlantUMLWriter plantUMLWriter = new PlantUMLWriter();
+plantUMLWriter.addSkinParam("rectangleFontColor", "#ffffff");
+plantUMLWriter.addSkinParam("rectangleStereotypeFontColor", "#ffffff");
 plantUMLWriter.write(workspace, stringWriter);
 System.out.println(stringWriter.toString());
 ```
@@ -36,9 +42,28 @@ This code will generate and output a PlantUML diagram definition that looks like
 @startuml
 title Software System - System Context
 caption An example of a System Context diagram.
-component "Software System" <<Software System>> as 2
-actor "User" <<Person>> as 1
-1 ..> 2 : Uses
+
+skinparam {
+  shadowing false
+  arrowColor #707070
+  actorBorderColor #707070
+  componentBorderColor #707070
+  rectangleBorderColor #707070
+  noteBackgroundColor #ffffff
+  noteBorderColor #707070
+  rectangleFontColor #ffffff
+  rectangleStereotypeFontColor #ffffff
+}
+rectangle 2 <<Software System>> #1168bd [
+  Software System
+  --
+  My software system.
+]
+actor "User" <<Person>> as 1 #08427b
+note right of 1
+  A user of my software system.
+end note
+1 .[#707070].> 2 : Uses
 @enduml
 ```
 
