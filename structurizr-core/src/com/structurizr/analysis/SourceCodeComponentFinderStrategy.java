@@ -7,9 +7,18 @@ import com.sun.javadoc.ClassDoc;
 import com.sun.javadoc.RootDoc;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * This component finder strategy doesn't really find components, it instead:
@@ -72,32 +81,72 @@ public class SourceCodeComponentFinderStrategy implements ComponentFinderStrateg
         }
 
         for (Component component : componentFinder.getContainer().getComponents()) {
-            long count = 0;
+            afterFindComponentsSetDescription(component);
+            afterFindComponentsSetSize(component);
+        }
+    }
 
-            for (CodeElement codeElement : component.getCode()) {
-                if (typeToDescription.containsKey(codeElement.getType())) {
-                    codeElement.setDescription(typeToDescription.get(codeElement.getType()));
-
-                    // additionally set the description on the component, if it's not already been set
-                    if (codeElement.getRole() == CodeElementRole.Primary) {
-                        if (component.getDescription() == null || component.getDescription().trim().length() == 0) {
-                            component.setDescription(typeToDescription.get(component.getType()));
-                        }
-                    }
-                }
-
-                File sourceFile = typeToSourceFile.get(codeElement.getType());
-                if (sourceFile != null) {
-                    long numberOfLinesInFile = Files.lines(Paths.get(sourceFile.toURI())).count();
-                    codeElement.setUrl(sourceFile.toURI().toString());
-                    codeElement.setSize(numberOfLinesInFile);
-                    count += numberOfLinesInFile;
-                }
+    private void afterFindComponentsSetDescription(Component component) {
+        // populate CodeElement descriptions from javadoc
+        for (final CodeElement codeElement : component.getCode()) {
+            if (typeToDescription.containsKey(codeElement.getType())) {
+                codeElement.setDescription(typeToDescription.get(codeElement.getType()));
             }
+        }
 
-            if (count > 0) {
-                component.setSize(count);
+        // if the Component has a description then nothing more to do
+        if (isNonEmpty(component.getDescription())) {
+            return;
+        }
+
+        // identify any primary CodeElement description
+        final Optional<String> primaryDescription = component.getCode()
+                .stream()
+                .filter(ce -> ce.getRole() == CodeElementRole.Primary)
+                .map(CodeElement::getDescription)
+                .filter(SourceCodeComponentFinderStrategy::isNonEmpty)
+                .findAny();
+
+        // if there's a primary description then use it
+        if (primaryDescription.isPresent()) {
+            component.setDescription(primaryDescription.get());
+            return;
+        }
+
+        // identify any supporting CodeElement descriptions
+        final List<String> supportingDescriptions = component.getCode()
+                .stream()
+                .filter(ce -> ce.getRole() == CodeElementRole.Supporting)
+                .map(CodeElement::getDescription)
+                .filter(SourceCodeComponentFinderStrategy::isNonEmpty)
+                .collect(toList());
+
+        // if there's just one supporting then let's use it
+        if (supportingDescriptions.size() == 1) {
+            component.setDescription(supportingDescriptions.get(0));
+            return;
+        }
+    }
+
+    private static boolean isNonEmpty(String description) {
+        return description!=null && !description.trim().isEmpty();
+    }
+
+    private void afterFindComponentsSetSize(Component component) throws IOException {
+        long count = 0;
+
+        for (CodeElement codeElement : component.getCode()) {
+            File sourceFile = typeToSourceFile.get(codeElement.getType());
+            if (sourceFile != null) {
+                long numberOfLinesInFile = Files.lines(Paths.get(sourceFile.toURI())).count();
+                codeElement.setUrl(sourceFile.toURI().toString());
+                codeElement.setSize(numberOfLinesInFile);
+                count += numberOfLinesInFile;
             }
+        }
+
+        if (count > 0) {
+            component.setSize(count);
         }
     }
 
