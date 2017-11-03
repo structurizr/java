@@ -146,8 +146,8 @@ public class PlantUMLWriterTests {
                 "  rectangle \"Web Application\" <<Container>> as 7 #dddddd" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "4 .[#707070].> 1 : Delivers e-mails to" + System.lineSeparator() +
-                "1 .[#707070].> 7 : Uses <<HTTP>>" + System.lineSeparator() +
-                "7 .[#707070].> 8 : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
+                "1 .[#707070].> 7 : <<HTTP>>\\nUses" + System.lineSeparator() +
+                "7 .[#707070].> 8 : <<JDBC>>\\nReads from and writes to" + System.lineSeparator() +
                 "7 .[#707070].> 4 : Sends e-mail using" + System.lineSeparator() +
                 "@enduml" + System.lineSeparator() +
                 "@startuml" + System.lineSeparator() +
@@ -190,11 +190,11 @@ public class PlantUMLWriterTests {
                 "  component \"SomeRepository\" <<Spring Data>> as 14 #dddddd" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "4 .[#707070].> 1 : Delivers e-mails to" + System.lineSeparator() +
-                "13 .[#707070].> 4 : Sends e-mails using <<SMTP>>" + System.lineSeparator() +
+                "13 .[#707070].> 4 : <<SMTP>>\\nSends e-mails using" + System.lineSeparator() +
                 "12 .[#707070].> 13 : Sends e-mail using" + System.lineSeparator() +
                 "12 .[#707070].> 14 : Uses" + System.lineSeparator() +
-                "14 .[#707070].> 8 : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
-                "1 .[#707070].> 12 : Uses <<HTTP>>" + System.lineSeparator() +
+                "14 .[#707070].> 8 : <<JDBC>>\\nReads from and writes to" + System.lineSeparator() +
+                "1 .[#707070].> 12 : <<HTTP>>\\nUses" + System.lineSeparator() +
                 "@enduml" + System.lineSeparator() +
                 "@startuml" + System.lineSeparator() +
                 "title Web Application - Dynamic" + System.lineSeparator() +
@@ -252,7 +252,7 @@ public class PlantUMLWriterTests {
                 "    rectangle \"Web Application\" <<Container>> as 22 #dddddd" + System.lineSeparator() +
                 "  }" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
-                "22 .[#707070].> 25 : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
+                "22 .[#707070].> 25 : <<JDBC>>\\nReads from and writes to" + System.lineSeparator() +
                 "@enduml" + System.lineSeparator(), stringWriter.toString());
     }
 
@@ -385,8 +385,8 @@ public class PlantUMLWriterTests {
                 "  rectangle \"Web Application\" <<Container>> as 7 #dddddd" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "4 .[#707070].> 1 : Delivers e-mails to" + System.lineSeparator() +
-                "1 .[#707070].> 7 : Uses <<HTTP>>" + System.lineSeparator() +
-                "7 .[#707070].> 8 : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
+                "1 .[#707070].> 7 : <<HTTP>>\\nUses" + System.lineSeparator() +
+                "7 .[#707070].> 8 : <<JDBC>>\\nReads from and writes to" + System.lineSeparator() +
                 "7 .[#707070].> 4 : Sends e-mail using" + System.lineSeparator() +
                 "@enduml" + System.lineSeparator(), stringWriter.toString());
     }
@@ -450,11 +450,11 @@ public class PlantUMLWriterTests {
                 "  component \"SomeRepository\" <<Spring Data>> as 14 #ffff00" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "4 .[#707070].> 1 : Delivers e-mails to" + System.lineSeparator() +
-                "13 .[#707070].> 4 : Sends e-mails using <<SMTP>>" + System.lineSeparator() +
+                "13 .[#707070].> 4 : <<SMTP>>\\nSends e-mails using" + System.lineSeparator() +
                 "12 .[#707070].> 13 : Sends e-mail using" + System.lineSeparator() +
                 "12 .[#707070].> 14 : Uses" + System.lineSeparator() +
-                "14 .[#707070].> 8 : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
-                "1 .[#707070].> 12 : Uses <<HTTP>>" + System.lineSeparator() +
+                "14 .[#707070].> 8 : <<JDBC>>\\nReads from and writes to" + System.lineSeparator() +
+                "1 .[#707070].> 12 : <<HTTP>>\\nUses" + System.lineSeparator() +
                 "@enduml" + System.lineSeparator(), stringWriter.toString());
     }
 
@@ -534,7 +534,7 @@ public class PlantUMLWriterTests {
                 "    rectangle \"Web Application\" <<Container>> as 22 #dddddd" + System.lineSeparator() +
                 "  }" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
-                "22 .[#707070].> 25 : Reads from and writes to <<JDBC>>" + System.lineSeparator() +
+                "22 .[#707070].> 25 : <<JDBC>>\\nReads from and writes to" + System.lineSeparator() +
                 "@enduml" + System.lineSeparator(), stringWriter.toString());
     }
 

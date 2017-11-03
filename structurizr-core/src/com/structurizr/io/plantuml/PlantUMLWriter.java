@@ -464,13 +464,16 @@ public final class PlantUMLWriter implements WorkspaceWriter {
 
     private void writeRelationship(View view, Relationship relationship, Writer writer) {
         try {
+            String stereotypeAndDescription =
+                (hasValue(relationship.getTechnology()) ? "<<" + relationship.getTechnology() + ">>\\n" : "") +
+                (hasValue(relationship.getDescription()) ? relationship.getDescription() : "");
+
             writer.write(
-                    format("%s .[%s].> %s %s%s",
+                    format("%s .[%s].> %s %s",
                             idOf(relationship.getSource()),
                             view.getViewSet().getConfiguration().getStyles().findRelationshipStyle(relationship).getColor(),
                             idOf(relationship.getDestination()),
-                            hasValue(relationship.getDescription()) ? ": " + relationship.getDescription() : "",
-                            hasValue(relationship.getTechnology()) ? " <<" + relationship.getTechnology() + ">>" : ""
+                            hasValue(stereotypeAndDescription) ? ": " + stereotypeAndDescription : ""
                     )
             );
             writer.write(System.lineSeparator());
