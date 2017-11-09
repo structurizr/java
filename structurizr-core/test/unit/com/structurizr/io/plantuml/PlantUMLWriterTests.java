@@ -21,6 +21,11 @@ public class PlantUMLWriterTests {
     @Before
     public void setUp() {
         plantUMLWriter = new PlantUMLWriter();
+
+        // Public plantuml.com/plantuml server limits dimensions to 2000, but local servers can be configured
+        // differently. Setting limit here to 1999 to be provably different to plantuml.com AND still usable at the
+        // public server AND bigger than A6 so that we can ensure smaller paper sizes are respected correctly.
+        plantUMLWriter.setSizeLimit(1999);
         workspace = new Workspace("Name", "Description");
         stringWriter = new StringWriter();
     }
@@ -169,9 +174,11 @@ public class PlantUMLWriterTests {
         systemContextView.addAllElements();
 
         ContainerView containerView = workspace.getViews().createContainerView(softwareSystem, "containers", "");
+        containerView.setPaperSize(PaperSize.A2_Landscape);
         containerView.addAllElements();
 
         ComponentView componentView = workspace.getViews().createComponentView(webApplication, "components", "");
+        componentView.setPaperSize(PaperSize.A6_Portrait);
         componentView.addAllElements();
 
         DynamicView dynamicView = workspace.getViews().createDynamicView(webApplication, "dynamic", "");
@@ -219,6 +226,7 @@ public class PlantUMLWriterTests {
         plantUMLWriter.write(workspace, stringWriter);
 
         assertEquals("@startuml" + System.lineSeparator() +
+                "scale max 1999x1999" + System.lineSeparator() +
                 "title Enterprise Context" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "skinparam {" + System.lineSeparator() +
@@ -251,6 +259,7 @@ public class PlantUMLWriterTests {
         plantUMLWriter.write(workspace, stringWriter);
 
         assertEquals("@startuml" + System.lineSeparator() +
+                "scale max 1999x1999" + System.lineSeparator() +
                 "title My software system - System Context" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "skinparam {" + System.lineSeparator() +
@@ -269,6 +278,7 @@ public class PlantUMLWriterTests {
     }
 
     private static final String ENTERPRISE_CONTEXT_VIEW = "@startuml" + System.lineSeparator() +
+            "scale max 1999x1999" + System.lineSeparator() +
             "title Enterprise Context for Some Enterprise" + System.lineSeparator() +
             "" + System.lineSeparator() +
             "skinparam {" + System.lineSeparator() +
@@ -302,6 +312,7 @@ public class PlantUMLWriterTests {
             "@enduml" + System.lineSeparator();
 
     private static final String SYSTEM_CONTEXT_VIEW = "@startuml" + System.lineSeparator() +
+            "scale max 1999x1999" + System.lineSeparator() +
             "title Software System - System Context" + System.lineSeparator() +
             "" + System.lineSeparator() +
             "skinparam {" + System.lineSeparator() +
@@ -333,6 +344,7 @@ public class PlantUMLWriterTests {
             "@enduml" + System.lineSeparator();
 
     private static final String CONTAINER_VIEW = "@startuml" + System.lineSeparator() +
+            "scale max 1999x1413" + System.lineSeparator() +
             "title Software System - Containers" + System.lineSeparator() +
             "" + System.lineSeparator() +
             "skinparam {" + System.lineSeparator() +
@@ -376,6 +388,7 @@ public class PlantUMLWriterTests {
             "@enduml" + System.lineSeparator();
 
     private static final String COMPONENT_VIEW = "@startuml" + System.lineSeparator() +
+            "scale max 1240x1748" + System.lineSeparator() +
             "title Software System - Web Application - Components" + System.lineSeparator() +
             "" + System.lineSeparator() +
             "skinparam {" + System.lineSeparator() +
@@ -423,6 +436,7 @@ public class PlantUMLWriterTests {
             "@enduml" + System.lineSeparator();
 
     private static final String DYNAMIC_VIEW = "@startuml" + System.lineSeparator() +
+            "scale max 1999x1999" + System.lineSeparator() +
             "title Web Application - Dynamic" + System.lineSeparator() +
             "" + System.lineSeparator() +
             "skinparam {" + System.lineSeparator() +
@@ -458,6 +472,7 @@ public class PlantUMLWriterTests {
             "@enduml" + System.lineSeparator();
 
     private static final String DEPLOYMENT_VIEW = "@startuml" + System.lineSeparator() +
+            "scale max 1999x1999" + System.lineSeparator() +
             "title Software System - Deployment" + System.lineSeparator() +
             "" + System.lineSeparator() +
             "skinparam {" + System.lineSeparator() +
