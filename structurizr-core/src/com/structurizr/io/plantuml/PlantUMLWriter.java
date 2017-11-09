@@ -9,7 +9,10 @@ import com.structurizr.view.*;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import static java.lang.String.format;
 import static java.util.Collections.emptyList;
@@ -57,48 +60,23 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    public Collection<String> toPlantUML(Workspace workspace) {
-        Collection<String> diagrams = new ArrayList<>();
+    /**
+     * Creates PlantUML diagram definitions based upon the specified workspace.
+     *
+     * @param workspace     a Workspace instance
+     * @return  an array of PlantUML diagram definitions, one per view
+     * @throws WorkspaceWriterException     if something goes wrong
+     */
+    public String[] toPlantUML(Workspace workspace) throws WorkspaceWriterException {
+        StringWriter stringWriter = new StringWriter();
+        write(workspace, stringWriter);
 
-        if (workspace != null) {
-            for (View view : workspace.getViews().getEnterpriseContextViews()) {
-                StringWriter stringWriter = new StringWriter();
-                write(view, stringWriter);
-                diagrams.add(stringWriter.toString());
-            }
-
-            for (View view : workspace.getViews().getSystemContextViews()) {
-                StringWriter stringWriter = new StringWriter();
-                write(view, stringWriter);
-                diagrams.add(stringWriter.toString());
-            }
-
-            for (View view : workspace.getViews().getContainerViews()) {
-                StringWriter stringWriter = new StringWriter();
-                write(view, stringWriter);
-                diagrams.add(stringWriter.toString());
-            }
-
-            for (View view : workspace.getViews().getComponentViews()) {
-                StringWriter stringWriter = new StringWriter();
-                write(view, stringWriter);
-                diagrams.add(stringWriter.toString());
-            }
-
-            for (View view : workspace.getViews().getDynamicViews()) {
-                StringWriter stringWriter = new StringWriter();
-                write(view, stringWriter);
-                diagrams.add(stringWriter.toString());
-            }
-
-            for (View view : workspace.getViews().getDeploymentViews()) {
-                StringWriter stringWriter = new StringWriter();
-                write(view, stringWriter);
-                diagrams.add(stringWriter.toString());
-            }
+        String diagrams = stringWriter.toString();
+        if (diagrams != null && diagrams.contains("@startuml")) {
+            return stringWriter.toString().split("(?=@startuml)");
+        } else {
+            return new String[0];
         }
-
-        return diagrams;
     }
 
     public void write(View view, Writer writer) {
