@@ -135,7 +135,8 @@ public final class PlantUMLWriter implements WorkspaceWriter {
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
                     .forEach(e -> write(view, e, writer, false));
 
-            writer.write("package \"" + view.getModel().getEnterprise().getName() + "\" {");
+            String name = view.getModel().getEnterprise() != null ? view.getModel().getEnterprise().getName() : "Enterprise";
+            writer.write("package \"" + name + "\" {");
             writer.write(System.lineSeparator());
 
             view.getElements().stream()
