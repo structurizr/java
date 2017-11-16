@@ -26,6 +26,8 @@ import static java.util.Collections.emptyList;
  */
 public final class PlantUMLWriter implements WorkspaceWriter {
 
+    /** Maximum diagram width or height. Defaults to 2000 to match public plantuml.com installation */
+    private int sizeLimit = 2000;
     private boolean includeNotesForActors = true;
     private final Map<String, String> skinParams = new LinkedHashMap<>();
 
@@ -46,6 +48,10 @@ public final class PlantUMLWriter implements WorkspaceWriter {
 
     public void setIncludeNotesForActors(boolean includeNotesForActors) {
         this.includeNotesForActors = includeNotesForActors;
+    }
+
+    public void setSizeLimit(int sizeLimit) {
+        this.sizeLimit = sizeLimit;
     }
 
     @Override
@@ -500,6 +506,27 @@ public final class PlantUMLWriter implements WorkspaceWriter {
 
     private void writeHeader(View view, Writer writer) throws IOException {
         writer.write("@startuml");
+        writer.write(System.lineSeparator());
+
+        PaperSize size = view.getPaperSize();
+        int width;
+        int height;
+        if(size==null) {
+            width = height = sizeLimit;
+        }
+        else {
+            width = size.getWidth();
+            height = size.getHeight();
+            if(width>sizeLimit || height>sizeLimit) {
+                int max = Math.max(width, height);
+                width = (width * sizeLimit) / max;
+                height = (height * sizeLimit) / max;
+            }
+        }
+        writer.write("scale max ");
+        writer.write(Integer.toString(width));
+        writer.write("x");
+        writer.write(Integer.toString(height));
         writer.write(System.lineSeparator());
 
         writer.write("title " + view.getName());
