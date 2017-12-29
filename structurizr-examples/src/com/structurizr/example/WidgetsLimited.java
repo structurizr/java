@@ -53,7 +53,7 @@ public class WidgetsLimited {
         ecommerceSystem.uses(taxamo, "Delegates credit card processing to");
         taxamo.uses(braintreePayments, "Uses for credit card processing");
 
-        EnterpriseContextView enterpriseContextView = views.createEnterpriseContextView("EnterpriseContext", "The enterprise context for Widgets Limited.");
+        EnterpriseContextView enterpriseContextView = views.createEnterpriseContextView("SystemLandscape", "The system landscape for Widgets Limited.");
         enterpriseContextView.addAllElements();
 
         SystemContextView ecommerceSystemContext = views.createSystemContextView(ecommerceSystem, "EcommerceSystemContext", "The system context diagram for the Widgets Limited e-commerce system.");
@@ -68,7 +68,7 @@ public class WidgetsLimited {
         dynamicView.add(customerServiceUser, ecommerceSystem);
 
         StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
-        template.addSection("Enterprise Context", 1, Format.Markdown, "Here is some information about the Widgets Limited enterprise context... ![](embed:EnterpriseContext)");
+        template.addSection("System Landscape", 1, Format.Markdown, "Here is some information about the Widgets Limited system landscape... ![](embed:SystemLandscape)");
         template.addContextSection(ecommerceSystem, Format.Markdown, "This is the context section for the E-commerce System... ![](embed:EcommerceSystemContext)");
         template.addContextSection(fulfilmentSystem, Format.Markdown, "This is the context section for the Fulfilment System... ![](embed:FulfilmentSystemContext)");
 

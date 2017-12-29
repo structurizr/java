@@ -96,7 +96,7 @@ public class BigBankPlc {
         secondaryDatabase.addTags("Failover");
 
         // views/diagrams
-        EnterpriseContextView enterpriseContextView = views.createEnterpriseContextView("EnterpriseContext", "The enterprise context diagram for the Internet Banking System.");
+        EnterpriseContextView enterpriseContextView = views.createEnterpriseContextView("SystemLandscape", "The system landscape diagram for Big Bank plc.");
         enterpriseContextView.addAllElements();
         enterpriseContextView.setPaperSize(PaperSize.A5_Landscape);
 
