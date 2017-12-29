@@ -6,6 +6,7 @@ import com.structurizr.model.Model;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
 import com.structurizr.model.Tags;
+import com.structurizr.view.PaperSize;
 import com.structurizr.view.Shape;
 import com.structurizr.view.Styles;
 import com.structurizr.view.SystemContextView;
@@ -31,6 +32,7 @@ public class PlantUML {
         SystemContextView contextView = views.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
+        contextView.setPaperSize(PaperSize.Slide_16_9);
 
         Styles styles = views.getConfiguration().getStyles();
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd").color("#ffffff");

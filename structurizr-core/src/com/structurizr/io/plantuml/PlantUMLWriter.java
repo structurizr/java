@@ -9,7 +9,10 @@ import com.structurizr.view.*;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import static java.lang.String.format;
 import static java.util.Collections.emptyList;
@@ -23,6 +26,8 @@ import static java.util.Collections.emptyList;
  */
 public final class PlantUMLWriter implements WorkspaceWriter {
 
+    /** Maximum diagram width or height. Defaults to 2000 to match public plantuml.com installation */
+    private int sizeLimit = 2000;
     private boolean includeNotesForActors = true;
     private final Map<String, String> skinParams = new LinkedHashMap<>();
 
@@ -45,6 +50,10 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         this.includeNotesForActors = includeNotesForActors;
     }
 
+    public void setSizeLimit(int sizeLimit) {
+        this.sizeLimit = sizeLimit;
+    }
+
     @Override
     public void write(Workspace workspace, Writer writer) throws WorkspaceWriterException {
         if (workspace != null && writer != null) {
@@ -57,48 +66,23 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    public Collection<String> toPlantUML(Workspace workspace) {
-        Collection<String> diagrams = new ArrayList<>();
+    /**
+     * Creates PlantUML diagram definitions based upon the specified workspace.
+     *
+     * @param workspace     a Workspace instance
+     * @return  an array of PlantUML diagram definitions, one per view
+     * @throws WorkspaceWriterException     if something goes wrong
+     */
+    public String[] toPlantUML(Workspace workspace) throws WorkspaceWriterException {
+        StringWriter stringWriter = new StringWriter();
+        write(workspace, stringWriter);
 
-        if (workspace != null) {
-            for (View view : workspace.getViews().getEnterpriseContextViews()) {
-                StringWriter stringWriter = new StringWriter();
-                write(view, stringWriter);
-                diagrams.add(stringWriter.toString());
-            }
-
-            for (View view : workspace.getViews().getSystemContextViews()) {
-                StringWriter stringWriter = new StringWriter();
-                write(view, stringWriter);
-                diagrams.add(stringWriter.toString());
-            }
-
-            for (View view : workspace.getViews().getContainerViews()) {
-                StringWriter stringWriter = new StringWriter();
-                write(view, stringWriter);
-                diagrams.add(stringWriter.toString());
-            }
-
-            for (View view : workspace.getViews().getComponentViews()) {
-                StringWriter stringWriter = new StringWriter();
-                write(view, stringWriter);
-                diagrams.add(stringWriter.toString());
-            }
-
-            for (View view : workspace.getViews().getDynamicViews()) {
-                StringWriter stringWriter = new StringWriter();
-                write(view, stringWriter);
-                diagrams.add(stringWriter.toString());
-            }
-
-            for (View view : workspace.getViews().getDeploymentViews()) {
-                StringWriter stringWriter = new StringWriter();
-                write(view, stringWriter);
-                diagrams.add(stringWriter.toString());
-            }
+        String diagrams = stringWriter.toString();
+        if (diagrams != null && diagrams.contains("@startuml")) {
+            return stringWriter.toString().split("(?=@startuml)");
+        } else {
+            return new String[0];
         }
-
-        return diagrams;
     }
 
     public void write(View view, Writer writer) {
@@ -135,7 +119,8 @@ public final class PlantUMLWriter implements WorkspaceWriter {
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
                     .forEach(e -> write(view, e, writer, false));
 
-            writer.write("package \"" + view.getModel().getEnterprise().getName() + "\" {");
+            String name = view.getModel().getEnterprise() != null ? view.getModel().getEnterprise().getName() : "Enterprise";
+            writer.write("package \"" + name + "\" {");
             writer.write(System.lineSeparator());
 
             view.getElements().stream()
@@ -521,6 +506,27 @@ public final class PlantUMLWriter implements WorkspaceWriter {
 
     private void writeHeader(View view, Writer writer) throws IOException {
         writer.write("@startuml");
+        writer.write(System.lineSeparator());
+
+        PaperSize size = view.getPaperSize();
+        int width;
+        int height;
+        if(size==null) {
+            width = height = sizeLimit;
+        }
+        else {
+            width = size.getWidth();
+            height = size.getHeight();
+            if(width>sizeLimit || height>sizeLimit) {
+                int max = Math.max(width, height);
+                width = (width * sizeLimit) / max;
+                height = (height * sizeLimit) / max;
+            }
+        }
+        writer.write("scale max ");
+        writer.write(Integer.toString(width));
+        writer.write("x");
+        writer.write(Integer.toString(height));
         writer.write(System.lineSeparator());
 
         writer.write("title " + view.getName());
