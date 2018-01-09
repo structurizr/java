@@ -57,23 +57,20 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     public void test_getRequiredTags() {
         ContainerInstance containerInstance = model.addContainerInstance(database);
 
-        assertEquals(1, containerInstance.getRequiredTags().size());
-        assertTrue(containerInstance.getTags().contains(Tags.CONTAINER_INSTANCE));
+        assertTrue(containerInstance.getRequiredTags().isEmpty());
     }
 
     @Test
     public void test_getTags() {
-        ContainerInstance containerInstance = model.addContainerInstance(database);
-
-        assertEquals("Element,Container,Container Instance", containerInstance.getTags());
-
         database.addTags("Database");
+        ContainerInstance containerInstance = model.addContainerInstance(database);
         containerInstance.addTags("Primary Instance");
+
         assertEquals("Element,Container,Database,Container Instance,Primary Instance", containerInstance.getTags());
     }
 
     @Test
-    public void test_removeTags_DoesNotRemoveRequiredTags() {
+    public void test_removeTags_DoesNotRemoveAnyTags() {
         ContainerInstance containerInstance = model.addContainerInstance(database);
 
         assertTrue(containerInstance.getTags().contains(Tags.ELEMENT));

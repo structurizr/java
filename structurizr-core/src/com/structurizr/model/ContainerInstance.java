@@ -2,9 +2,7 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Represents a deployment instance of a {@link Container}, which can be added to a {@link DeploymentNode}.
@@ -20,6 +18,8 @@ public final class ContainerInstance extends Element {
 
     ContainerInstance(Container container, int instanceId) {
         this.container = container;
+        this.setTags(container.getTags());
+        this.addTags(Tags.CONTAINER_INSTANCE);
         this.instanceId = instanceId;
     }
 
@@ -65,12 +65,12 @@ public final class ContainerInstance extends Element {
     @Override
     @JsonIgnore
     protected Set<String> getRequiredTags() {
-        return new LinkedHashSet<>(Arrays.asList(Tags.CONTAINER_INSTANCE));
+        return Collections.emptySet();
     }
 
     @Override
-    public String getTags() {
-        return container.getTags() + "," + super.getTags();
+    public void removeTag(String tag) {
+        // do nothing ... tags cannot be removed from container instances (they should reflect the container they are based upon)
     }
 
     @Override
