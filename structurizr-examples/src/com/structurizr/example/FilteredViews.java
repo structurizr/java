@@ -36,11 +36,11 @@ public class FilteredViews {
         user.uses(softwareSystemB, "Uses for task 2").addTags(FUTURE_STATE);
 
         ViewSet views = workspace.getViews();
-        EnterpriseContextView enterpriseContextView = views.createEnterpriseContextView("EnterpriseContext", "An example Enterprise Context diagram.");
-        enterpriseContextView.addAllElements();
+        SystemLandscapeView systemLandscapeView = views.createSystemLandscapeView("EnterpriseContext", "An example Enterprise Context diagram.");
+        systemLandscapeView.addAllElements();
 
-        views.createFilteredView(enterpriseContextView, "CurrentState", "The current context.", FilterMode.Exclude, FUTURE_STATE);
-        views.createFilteredView(enterpriseContextView, "FutureState", "The future state context after Software System B is live.", FilterMode.Exclude, CURRENT_STATE);
+        views.createFilteredView(systemLandscapeView, "CurrentState", "The current context.", FilterMode.Exclude, FUTURE_STATE);
+        views.createFilteredView(systemLandscapeView, "FutureState", "The future state context after Software System B is live.", FilterMode.Exclude, CURRENT_STATE);
 
         Styles styles = views.getConfiguration().getStyles();
         styles.addElementStyle(Tags.ELEMENT).color("#ffffff");

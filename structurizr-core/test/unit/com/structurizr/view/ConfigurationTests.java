@@ -17,7 +17,7 @@ public class ConfigurationTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_defaultView() {
-        EnterpriseContextView view = views.createEnterpriseContextView("key", "Description");
+        SystemLandscapeView view = views.createSystemLandscapeView("key", "Description");
         Configuration configuration = new Configuration();
         configuration.setDefaultView(view);
         assertEquals("key", configuration.getDefaultView());

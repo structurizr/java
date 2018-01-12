@@ -4,15 +4,15 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.*;
 
 /**
- * Represents an Enterprise Context view that sits above the C4 model. This is the "big picture" view,
+ * Represents a System Landscape view that sits "above" the C4 model. This is the "big picture" view,
  * showing the software systems and people in an given environment.
  * The permitted elements in this view are software systems and people.
  */
-public final class EnterpriseContextView extends StaticView {
+public final class SystemLandscapeView extends StaticView {
 
     private Model model;
 
-    EnterpriseContextView() {
+    SystemLandscapeView() {
     }
 
     /**
@@ -21,7 +21,7 @@ public final class EnterpriseContextView extends StaticView {
      * @param key                   the key for the view
      * @param description           the description for the view
      */
-    EnterpriseContextView(Model model, String key, String description) {
+    SystemLandscapeView(Model model, String key, String description) {
         super(null, key, description);
 
         this.model = model;
@@ -30,7 +30,7 @@ public final class EnterpriseContextView extends StaticView {
     @Override
     public String getName() {
         Enterprise enterprise = model.getEnterprise();
-        return "Enterprise Context" + (enterprise != null && enterprise.getName().trim().length() > 0 ? " for " + enterprise.getName() : "");
+        return "System Landscape" + (enterprise != null && enterprise.getName().trim().length() > 0 ? " for " + enterprise.getName() : "");
     }
 
     @JsonIgnore

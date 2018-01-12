@@ -74,7 +74,7 @@ public class WorkspaceTests {
     @Test
     public void test_isEmpty_ReturnsFalse_WhenThereAreViews() {
         workspace = new Workspace("Name", "Description");
-        workspace.getViews().createEnterpriseContextView("key", "Description");
+        workspace.getViews().createSystemLandscapeView("key", "Description");
         assertFalse(workspace.isEmpty());
     }
 

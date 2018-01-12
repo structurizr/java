@@ -10,31 +10,31 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class EnterpriseContextViewTests extends AbstractWorkspaceTestBase {
+public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
 
-    private EnterpriseContextView view;
+    private SystemLandscapeView view;
 
     @Before
     public void setUp() {
-        view = new EnterpriseContextView(model, "context", "Description");
+        view = new SystemLandscapeView(model, "context", "Description");
     }
 
     @Test
     public void test_construction() {
-        assertEquals("Enterprise Context", view.getName());
+        assertEquals("System Landscape", view.getName());
         assertEquals(0, view.getElements().size());
         assertSame(model, view.getModel());
     }
 
     @Test
     public void test_getName_WhenNoEnterpriseIsSpecified() {
-        assertEquals("Enterprise Context", view.getName());
+        assertEquals("System Landscape", view.getName());
     }
 
     @Test
     public void test_getName_WhenAnEnterpriseIsSpecified() {
         model.setEnterprise(new Enterprise("Widgets Limited"));
-        assertEquals("Enterprise Context for Widgets Limited", view.getName());
+        assertEquals("System Landscape for Widgets Limited", view.getName());
     }
 
     @Test(expected = IllegalArgumentException.class)

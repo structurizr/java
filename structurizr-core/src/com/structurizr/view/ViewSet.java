@@ -1,6 +1,7 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.structurizr.model.Container;
 import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;
@@ -20,7 +21,7 @@ public final class ViewSet {
 
     private Model model;
 
-    private Collection<EnterpriseContextView> enterpriseContextViews = new HashSet<>();
+    private Collection<SystemLandscapeView> systemLandscapeViews = new HashSet<>();
     private Collection<SystemContextView> systemContextViews = new HashSet<>();
     private Collection<ContainerView> containerViews = new HashSet<>();
     private Collection<ComponentView> componentViews = new HashSet<>();
@@ -48,19 +49,19 @@ public final class ViewSet {
     }
 
     /**
-     * Creates an enterprise context view.
+     * Creates a system landscape view.
      *
      * @param key           the key for the view (must be unique)
      * @param description   a description of the view
-     * @return              an EnterpriseContextView object
+     * @return              an SystemLandscapeView object
      * @throws              IllegalArgumentException if the key is not unique
      */
-    public EnterpriseContextView createEnterpriseContextView(String key, String description) {
+    public SystemLandscapeView createSystemLandscapeView(String key, String description) {
         assertThatTheViewKeyIsUnique(key);
 
-        EnterpriseContextView view = new EnterpriseContextView(model, key, description);
+        SystemLandscapeView view = new SystemLandscapeView(model, key, description);
         view.setViewSet(this);
-        enterpriseContextViews.add(view);
+        systemLandscapeViews.add(view);
         return view;
     }
 
@@ -299,12 +300,17 @@ public final class ViewSet {
     }
 
     /**
-     * Gets the set of enterprise context views.
+     * Gets the set of system landscape views.
      *
-     * @return  a Collection of EnterpriseContextView objects
+     * @return  a Collection of SystemLandscapeView objects
      */
-    public Collection<EnterpriseContextView> getEnterpriseContextViews() {
-        return new HashSet<>(enterpriseContextViews);
+    public Collection<SystemLandscapeView> getSystemLandscapeViews() {
+        return new HashSet<>(systemLandscapeViews);
+    }
+
+    @JsonSetter("enterpriseContextViews")
+    private void setEnterpriseContextViews(Collection<SystemLandscapeView> enterpriseContextViews) {
+        systemLandscapeViews.addAll(enterpriseContextViews);
     }
 
     /**
@@ -357,7 +363,7 @@ public final class ViewSet {
     }
 
     public void hydrate() {
-        for (EnterpriseContextView view : enterpriseContextViews) {
+        for (SystemLandscapeView view : getSystemLandscapeViews()) {
             view.setModel(model);
             hydrateView(view);
         }
@@ -416,8 +422,8 @@ public final class ViewSet {
     }
 
     public void copyLayoutInformationFrom(ViewSet source) {
-        for (EnterpriseContextView view : enterpriseContextViews) {
-            EnterpriseContextView sourceView = findView(source.getEnterpriseContextViews(), view);
+        for (SystemLandscapeView view : getSystemLandscapeViews()) {
+            SystemLandscapeView sourceView = findView(source.getSystemLandscapeViews(), view);
             if (sourceView != null) {
                 view.copyLayoutInformationFrom(sourceView);
             } else {
@@ -495,7 +501,7 @@ public final class ViewSet {
 
     @JsonIgnore
     public boolean isEmpty() {
-        return enterpriseContextViews.isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && filteredViews.isEmpty();
+        return getSystemLandscapeViews().isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && filteredViews.isEmpty();
     }
 
 }

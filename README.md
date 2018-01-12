@@ -50,7 +50,7 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [Component diagram](docs/component-diagram.md)
     * [Dynamic diagram](docs/dynamic-diagram.md)
     * [Deployment diagram](docs/deployment-diagram.md)
-    * [Enterprise Context diagram](docs/enterprise-context-diagram.md)
+    * [System Landscape diagram](docs/system-landscape-diagram.md)
     * [Styling elements](docs/styling-elements.md)
     * [Styling relationships](docs/styling-relationships.md)
     * [Filtered views](docs/filtered-views.md)

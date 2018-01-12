@@ -96,9 +96,9 @@ public class BigBankPlc {
         secondaryDatabase.addTags("Failover");
 
         // views/diagrams
-        EnterpriseContextView enterpriseContextView = views.createEnterpriseContextView("SystemLandscape", "The system landscape diagram for Big Bank plc.");
-        enterpriseContextView.addAllElements();
-        enterpriseContextView.setPaperSize(PaperSize.A5_Landscape);
+        SystemLandscapeView systemLandscapeView = views.createSystemLandscapeView("SystemLandscape", "The system landscape diagram for Big Bank plc.");
+        systemLandscapeView.addAllElements();
+        systemLandscapeView.setPaperSize(PaperSize.A5_Landscape);
 
         SystemContextView systemContextView = views.createSystemContextView(internetBankingSystem, "SystemContext", "The system context diagram for the Internet Banking System.");
         systemContextView.addNearestNeighbours(internetBankingSystem);
@@ -154,7 +154,7 @@ public class BigBankPlc {
         StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
         template.addContextSection(internetBankingSystem, Format.Markdown,
                 "Here is some context about the Internet Banking System...\n" +
-                "![](embed:EnterpriseContext)\n" +
+                "![](embed:SystemLandscape)\n" +
                 "![](embed:SystemContext)\n" +
                 "### Internet Banking System\n...\n" +
                 "### Mainframe Banking System\n...\n");

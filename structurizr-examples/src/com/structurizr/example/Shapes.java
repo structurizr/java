@@ -32,7 +32,7 @@ public class Shapes {
         model.addPerson("Person", "Description").addTags("Person");
 
         ViewSet views = workspace.getViews();
-        EnterpriseContextView view = views.createEnterpriseContextView("shapes", "An example of all shapes available in Structurizr.");
+        SystemLandscapeView view = views.createSystemLandscapeView("shapes", "An example of all shapes available in Structurizr.");
         view.addAllElements();
         view.setPaperSize(PaperSize.A5_Landscape);
 

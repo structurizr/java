@@ -53,8 +53,8 @@ public class WidgetsLimited {
         ecommerceSystem.uses(taxamo, "Delegates credit card processing to");
         taxamo.uses(braintreePayments, "Uses for credit card processing");
 
-        EnterpriseContextView enterpriseContextView = views.createEnterpriseContextView("SystemLandscape", "The system landscape for Widgets Limited.");
-        enterpriseContextView.addAllElements();
+        SystemLandscapeView systemLandscapeView = views.createSystemLandscapeView("SystemLandscape", "The system landscape for Widgets Limited.");
+        systemLandscapeView.addAllElements();
 
         SystemContextView ecommerceSystemContext = views.createSystemContextView(ecommerceSystem, "EcommerceSystemContext", "The system context diagram for the Widgets Limited e-commerce system.");
         ecommerceSystemContext.addNearestNeighbours(ecommerceSystem);

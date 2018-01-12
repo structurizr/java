@@ -142,7 +142,7 @@ public final class Workspace extends AbstractWorkspace {
 
         // diagram keys have not been specified - this is only applicable to
         // workspaces created with the early versions of Structurizr for Java
-        getViews().getEnterpriseContextViews().stream()
+        getViews().getSystemLandscapeViews().stream()
                 .filter(v -> v.getKey() == null)
                 .forEach(v -> warnings.add("Enterprise Context view \"" + v.getName() + "\": Missing key"));
         getViews().getSystemContextViews().stream()

@@ -42,7 +42,7 @@ public class PlantUMLWriterTests {
         populateWorkspace();
 
         plantUMLWriter.write((View) null, null);
-        plantUMLWriter.write(workspace.getViews().getEnterpriseContextViews().stream().findFirst().get(), null);
+        plantUMLWriter.write(workspace.getViews().getSystemLandscapeViews().stream().findFirst().get(), null);
         plantUMLWriter.write((View) null, stringWriter);
     }
 
@@ -52,7 +52,7 @@ public class PlantUMLWriterTests {
 
         plantUMLWriter.write(workspace, stringWriter);
         assertEquals(
-                ENTERPRISE_CONTEXT_VIEW +
+                SYSTEM_LANDSCAPE_VIEW +
                 SYSTEM_CONTEXT_VIEW +
                 CONTAINER_VIEW +
                 COMPONENT_VIEW +
@@ -64,11 +64,11 @@ public class PlantUMLWriterTests {
     public void test_writeEnterpriseContextView() throws Exception {
         populateWorkspace();
 
-        EnterpriseContextView enterpriseContextView = workspace.getViews().getEnterpriseContextViews()
+        SystemLandscapeView systemLandscapeView = workspace.getViews().getSystemLandscapeViews()
             .stream().findFirst().get();
-        plantUMLWriter.write(enterpriseContextView, stringWriter);
+        plantUMLWriter.write(systemLandscapeView, stringWriter);
 
-        assertEquals(ENTERPRISE_CONTEXT_VIEW, stringWriter.toString());
+        assertEquals(SYSTEM_LANDSCAPE_VIEW, stringWriter.toString());
 
     }
 
@@ -165,9 +165,9 @@ public class PlantUMLWriterTests {
         databaseServer.addDeploymentNode("MySQL", "The live database server", "MySQL 5.5.x")
                 .add(database);
 
-        EnterpriseContextView
-            enterpriseContextView = workspace.getViews().createEnterpriseContextView("enterpriseContext", "");
-        enterpriseContextView.addAllElements();
+        SystemLandscapeView
+                systemLandscapeView = workspace.getViews().createSystemLandscapeView("enterpriseContext", "");
+        systemLandscapeView.addAllElements();
 
         SystemContextView
             systemContextView = workspace.getViews().createSystemContextView(softwareSystem, "systemContext", "");
@@ -208,7 +208,7 @@ public class PlantUMLWriterTests {
         populateWorkspace();
         String diagrams[] = plantUMLWriter.toPlantUML(workspace);
         assertEquals(6, diagrams.length);
-        assertEquals(ENTERPRISE_CONTEXT_VIEW, diagrams[0]);
+        assertEquals(SYSTEM_LANDSCAPE_VIEW, diagrams[0]);
         assertEquals(SYSTEM_CONTEXT_VIEW, diagrams[1]);
         assertEquals(CONTAINER_VIEW, diagrams[2]);
         assertEquals(COMPONENT_VIEW, diagrams[3]);
@@ -220,14 +220,14 @@ public class PlantUMLWriterTests {
     public void test_writeView_IncludesSkinParams_WhenSkinParamsAreAdded() throws Exception {
         workspace = new Workspace("", "");
         workspace.getModel().addSoftwareSystem("My software system", "").setLocation(Location.Internal);
-        workspace.getViews().createEnterpriseContextView("key", "").addAllElements();
+        workspace.getViews().createSystemLandscapeView("key", "").addAllElements();
         plantUMLWriter.addSkinParam("handwritten", "true");
 
         plantUMLWriter.write(workspace, stringWriter);
 
         assertEquals("@startuml" + System.lineSeparator() +
                 "scale max 1999x1999" + System.lineSeparator() +
-                "title Enterprise Context" + System.lineSeparator() +
+                "title System Landscape" + System.lineSeparator() +
                 "" + System.lineSeparator() +
                 "skinparam {" + System.lineSeparator() +
                 "  shadowing false" + System.lineSeparator() +
@@ -277,9 +277,9 @@ public class PlantUMLWriterTests {
                 "@enduml" + System.lineSeparator(), stringWriter.toString());
     }
 
-    private static final String ENTERPRISE_CONTEXT_VIEW = "@startuml" + System.lineSeparator() +
+    private static final String SYSTEM_LANDSCAPE_VIEW = "@startuml" + System.lineSeparator() +
             "scale max 1999x1999" + System.lineSeparator() +
-            "title Enterprise Context for Some Enterprise" + System.lineSeparator() +
+            "title System Landscape for Some Enterprise" + System.lineSeparator() +
             "" + System.lineSeparator() +
             "skinparam {" + System.lineSeparator() +
             "  shadowing false" + System.lineSeparator() +

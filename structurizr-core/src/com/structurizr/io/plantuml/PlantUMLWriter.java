@@ -57,7 +57,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
     @Override
     public void write(Workspace workspace, Writer writer) throws WorkspaceWriterException {
         if (workspace != null && writer != null) {
-            workspace.getViews().getEnterpriseContextViews().forEach(v -> write(v, writer));
+            workspace.getViews().getSystemLandscapeViews().forEach(v -> write(v, writer));
             workspace.getViews().getSystemContextViews().forEach(v -> write(v, writer));
             workspace.getViews().getContainerViews().forEach(v -> write(v, writer));
             workspace.getViews().getComponentViews().forEach(v -> write(v, writer));
@@ -87,8 +87,8 @@ public final class PlantUMLWriter implements WorkspaceWriter {
 
     public void write(View view, Writer writer) {
         if (view != null && writer != null) {
-            if (EnterpriseContextView.class.isAssignableFrom(view.getClass())) {
-                write((EnterpriseContextView) view, writer);
+            if (SystemLandscapeView.class.isAssignableFrom(view.getClass())) {
+                write((SystemLandscapeView) view, writer);
             } else if (SystemContextView.class.isAssignableFrom(view.getClass())) {
                 write((SystemContextView) view, writer);
             } else if (ContainerView.class.isAssignableFrom(view.getClass())) {
@@ -103,7 +103,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         }
     }
 
-    private void write(EnterpriseContextView view, Writer writer) {
+    private void write(SystemLandscapeView view, Writer writer) {
         try {
             writeHeader(view, writer);
 
