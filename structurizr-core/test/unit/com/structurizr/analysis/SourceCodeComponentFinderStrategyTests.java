@@ -16,6 +16,7 @@ public class SourceCodeComponentFinderStrategyTests {
 
     private Container webApplication;
     private Component someComponent;
+    private Component otherComponent;
     private File sourcePath = new File("test/unit");
 
     @Before
@@ -31,6 +32,12 @@ public class SourceCodeComponentFinderStrategyTests {
                 "test.SourceCodeComponentFinderStrategy.SomeComponent",
                 "", "");
         someComponent.addSupportingType("test.SourceCodeComponentFinderStrategy.SomeComponentImpl");
+
+        otherComponent = webApplication.addComponent(
+                "OtherComponent",
+                "test.SourceCodeComponentFinderStrategy.OtherComponent",
+                "", "");
+        otherComponent.addSupportingType("test.SourceCodeComponentFinderStrategy.OtherComponentImpl");
     }
 
     @Test
@@ -71,4 +78,15 @@ public class SourceCodeComponentFinderStrategyTests {
         assertEquals("An existing description.", someComponent.getDescription());
     }
 
+    @Test
+    public void test_findComponents_UsesImplementationDescription_WhenOneImplementationAndNoBetterOption() throws Exception {
+        ComponentFinder componentFinder = new ComponentFinder(
+                webApplication,
+                "test.SourceCodeComponentFinderStrategy",
+                new SourceCodeComponentFinderStrategy(sourcePath)
+        );
+        componentFinder.findComponents();
+
+        assertEquals("Implementation description", otherComponent.getDescription());
+    }
 }
