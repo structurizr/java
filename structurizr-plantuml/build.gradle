@@ -1,0 +1,21 @@
+dependencies {
+
+    compile project(':structurizr-core')
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.assertj:assertj-core:3.4.0'
+
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+    test {
+        java {
+            srcDir 'test/unit'
+        }
+    }
+}

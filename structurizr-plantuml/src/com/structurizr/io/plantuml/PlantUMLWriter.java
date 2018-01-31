@@ -19,7 +19,7 @@ import static java.util.Collections.emptyList;
 
 /**
  * A simple PlantUML writer that outputs diagram definitions that can be copy-pasted
- * into http://plantuml.com/plantuml/ ... it supports enterprise context, system context,
+ * into http://plantuml.com/plantuml/ ... it supports system landscape, system context,
  * container, component and dynamic diagrams.
  *
  * Note: This won't work if you have two elements named the same on a diagram.
