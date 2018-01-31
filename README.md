@@ -2,7 +2,9 @@
 
 # Structurizr for Java
 
-This GitHub repository is primarily a client library for [Structurizr](https://structurizr.com), a web-based publishing platform for software architecture models. It can also be used to create software architecture models and views that can be rendered with tools such as  [PlantUML](docs/plantuml.md) and [Graphviz](docs/graphviz-and-dot.md).
+This GitHub repository is primarily a client library for [Structurizr](https://structurizr.com), a web-based publishing platform for software architecture models based upon the [C4 model](https://c4model.com). It can also be used to create software architecture diagrams that can be rendered with tools such as  [PlantUML](docs/plantuml.md), [Graphviz](docs/graphviz-and-dot.md) and [WebSequenceDiagrams](docs/websequencediagrams.md).
+
+In essence, Structurizr for Java is an implementation of an __executable architecture description language__; a domain-specific language to describe software architecture, using code. The key benefit of using code to create a software architecture model is that you can use the static analysis and reflection features of Java to help you extract components from the codebase you are modelling. Integration of this tooling with your continuous integration/build process helps your software architecture diagrams stay up to date.
 
 ## A quick example
 
