@@ -16,7 +16,7 @@ public final class SystemLandscapeView extends StaticView {
     }
 
     /**
-     * Creates an enterprise context view.
+     * Creates an system landscape view.
      *
      * @param key                   the key for the view
      * @param description           the description for the view

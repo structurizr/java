@@ -144,7 +144,7 @@ public final class Workspace extends AbstractWorkspace {
         // workspaces created with the early versions of Structurizr for Java
         getViews().getSystemLandscapeViews().stream()
                 .filter(v -> v.getKey() == null)
-                .forEach(v -> warnings.add("Enterprise Context view \"" + v.getName() + "\": Missing key"));
+                .forEach(v -> warnings.add("System Landscape view \"" + v.getName() + "\": Missing key"));
         getViews().getSystemContextViews().stream()
                 .filter(v -> v.getKey() == null)
                 .forEach(v -> warnings.add("System Context view \"" + v.getName() + "\": Missing key"));
