@@ -2,6 +2,8 @@ task wrapper(type: Wrapper) {
     gradleVersion = '4.0'
 }
 
+defaultTasks 'clean', 'compileJava', 'test'
+
 subprojects { proj ->
 
     apply plugin: 'idea'
