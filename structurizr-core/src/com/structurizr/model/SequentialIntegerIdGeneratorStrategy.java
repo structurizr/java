@@ -5,9 +5,14 @@ class SequentialIntegerIdGeneratorStrategy implements IdGenerator {
     private int ID = 0;
 
     public void found(String id) {
-        int idAsInt = Integer.parseInt(id);
-        if (idAsInt > ID) {
-            ID = idAsInt;
+        try {
+            int idAsInt = Integer.parseInt(id);
+            if (idAsInt > ID) {
+                ID = idAsInt;
+            }
+        }
+        catch(NumberFormatException e) {
+            // ignore non-numeric ids
         }
     }
 

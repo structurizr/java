@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  */
 public final class Model {
 
-    private SequentialIntegerIdGeneratorStrategy idGenerator = new SequentialIntegerIdGeneratorStrategy();
+    private IdGenerator idGenerator = new SequentialIntegerIdGeneratorStrategy();
 
     private final Map<String, Element> elementsById = new HashMap<>();
     private final Map<String, Relationship> relationshipsById = new HashMap<>();
@@ -602,4 +602,7 @@ public final class Model {
         return null;
     }
 
+    public void setIdGenerator(IdGenerator idGenerator) {
+        this.idGenerator = idGenerator;
+    }
 }
