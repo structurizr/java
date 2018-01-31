@@ -123,7 +123,7 @@ public class BigBankPlc {
             dynamicView.add(customer, "Requests /signin from", signinController);
             dynamicView.add(customer, "Submits credentials to", signinController);
             dynamicView.add(signinController, "Calls isAuthenticated() on", securityComponent);
-            dynamicView.add(securityComponent, "select * from users u where username = ?", database);
+            dynamicView.add(securityComponent, "select * from users where username = ?", database);
             dynamicView.setPaperSize(PaperSize.A5_Landscape);
 
             DeploymentView developmentDeploymentView = views.createDeploymentView(internetBankingSystem, "DevelopmentDeployment", "An example development deployment scenario for the Internet Banking System.");
