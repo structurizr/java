@@ -32,7 +32,6 @@ public class PlantUML {
         SystemContextView contextView = views.createSystemContextView(softwareSystem, "SystemContext", "An example of a System Context diagram.");
         contextView.addAllSoftwareSystems();
         contextView.addAllPeople();
-        contextView.setPaperSize(PaperSize.Slide_16_9);
 
         Styles styles = views.getConfiguration().getStyles();
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd").color("#ffffff");
