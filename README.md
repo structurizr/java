@@ -2,13 +2,11 @@
 
 # Structurizr for Java
 
-This GitHub repository is a collection of tooling to help you visualise, document and explore the software architecture of a software system. In summary, it allows you to create a software architecture model based upon Simon Brown's [C4 model](https://c4model.com) using Java code, and then export that model to be visualised using tools such as:
+This GitHub repository is primarily a client library for [Structurizr](https://structurizr.com), a web-based publishing platform for software architecture models. It can also be used to create software architecture models and views that can be rendered with tools such as  [PlantUML](docs/plantuml.md) and [Graphviz](docs/graphviz-and-dot.md).
 
-1. [Structurizr](https://structurizr.com): a web-based software as a service and on-premises product to render software architecture diagrams and supplementary Markdown/AsciiDoc documentation.
-1. [PlantUML](docs/plantuml.md): a tool to create UML diagrams using a simple textual domain specific language.
-1. [Graphviz](docs/graphviz-and-dot.md): a tool to render directed graphs using the DOT format.
+## A quick example
 
-As an example, the following Java code can be used to create a software architecture model that describes a user using a software system.
+As an example, the following Java code can be used to create a software architecture __model__ and an associated __view__ that describes a user using a software system.
 
 ```java
 public static void main(String[] args) throws Exception {
@@ -26,19 +24,16 @@ public static void main(String[] args) throws Exception {
 }
 ```
 
-If using [Structurizr](https://structurizr.com), the end-result, after adding some styling and positioning the diagram elements, is a system context diagram like this:
+The view can then be exported to be visualised in a number of different ways; e.g. PlantUML, Structurizr and Graphviz:
 
-![Getting Started with Structurizr for Java](docs/images/getting-started.png)
-
-You can see the live workspace at [https://structurizr.com/share/25441](https://structurizr.com/share/25441).
-
-[![Build Status](https://travis-ci.org/structurizr/java.svg?branch=master)](https://travis-ci.org/structurizr/java)
+![Views can be exported and visualised in many ways; e.g. PlantUML, Structurizr and Graphviz](docs/images/readme-1.png)
 
 ## Table of contents
 
 * Introduction
     * [Getting started](docs/getting-started.md)
     * [About Structurizr and how it compares to other tooling](https://structurizr.com/help/about)
+    * [Why use code?](https://structurizr.com/help/why-use-code)
     * [Basic concepts](https://structurizr.com/help/concepts) (workspaces, models, views and documentation)
     * [C4 model](https://c4model.com)
     * [Binaries](docs/binaries.md)
@@ -80,3 +75,6 @@ You can see the live workspace at [https://structurizr.com/share/25441](https://
     * [java-quickstart](https://github.com/structurizr/java-quickstart): A simple starting point for using Structurizr for Java
     * [structurizr-groovy](https://github.com/tidyjava/structurizr-groovy): An initial version of a Groovy wrapper around Structurizr for Java.
     * [structurizr-dotnet](https://github.com/structurizr/dotnet): Structurizr for .NET
+
+[![Build Status](https://travis-ci.org/structurizr/java.svg?branch=master)](https://travis-ci.org/structurizr/java)
+
