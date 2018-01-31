@@ -36,6 +36,7 @@ The view can then be exported to be visualised in a number of different ways; e.
     * [Why use code?](https://structurizr.com/help/why-use-code)
     * [Basic concepts](https://structurizr.com/help/concepts) (workspaces, models, views and documentation)
     * [C4 model](https://c4model.com)
+    * [Examples](https://structurizr.com/help/examples)
     * [Binaries](docs/binaries.md)
     * [API Client](docs/api-client.md)
     * [Usage patterns](docs/usage-patterns.md)
