@@ -67,6 +67,7 @@ The view can then be exported to be visualised in a number of different ways; e.
 * Exporting and visualising with other tools
     * [PlantUML](docs/plantuml.md)
     * [Graphviz and DOT](docs/graphviz-and-dot.md)
+    * [WebSequenceDiagrams](docs/websequencediagrams.md)
 * Other
     * [Client-side encryption](docs/client-side-encryption.md)
     * [Corporate branding](docs/corporate-branding.md)
