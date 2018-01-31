@@ -2,7 +2,7 @@
 
 Structurizr for Java also includes a simple exporter that can create diagram definitions compatible with [PlantUML](http://www.plantuml.com). The following diagram types are supported:
 
-- Enterprise Context
+- System Landscape
 - System Context
 - Container
 - Component
