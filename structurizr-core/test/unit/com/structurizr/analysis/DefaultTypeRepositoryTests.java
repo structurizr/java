@@ -16,14 +16,14 @@ public class DefaultTypeRepositoryTests {
 
     @Test
     public void test_getAllTypes_ReturnsAnEmptySet_WhenNoTypesWereFound() {
-        typeRepository = new DefaultTypeRepository("com.structurizr.analysis.foo", new HashSet<>());
+        typeRepository = new DefaultTypeRepository("com.structurizr.analysis.foo", new HashSet<>(), null);
         Set<Class<?>> types = typeRepository.getAllTypes();
         assertTrue(types.isEmpty());
     }
 
     @Test
     public void test_getAllTypes_ReturnsANonEmptySet_WhenTypesWereFound() {
-        typeRepository = new DefaultTypeRepository("test.DefaultTypeRepository", new HashSet<>());
+        typeRepository = new DefaultTypeRepository("test.DefaultTypeRepository", new HashSet<>(), null);
         Set<String> types = typeRepository.getAllTypes().stream().map(Class::getCanonicalName).collect(Collectors.toSet());
         assertEquals(4, types.size());
 
@@ -37,7 +37,7 @@ public class DefaultTypeRepositoryTests {
     public void test_getAllTypes_ReturnsANonEmptySet_WhenTypesAreFoundAndExclusionsHaveBeenSpecified() {
         Set<Pattern> exclusions = new HashSet<>();
         exclusions.add(Pattern.compile(".*Abstract.*"));
-        typeRepository = new DefaultTypeRepository("test.DefaultTypeRepository", exclusions);
+        typeRepository = new DefaultTypeRepository("test.DefaultTypeRepository", exclusions, null);
         Set<String> types = typeRepository.getAllTypes().stream().map(Class::getCanonicalName).collect(Collectors.toSet());
         assertEquals(3, types.size());
 
@@ -48,7 +48,7 @@ public class DefaultTypeRepositoryTests {
 
     @Test
     public void test_findReferencedTypes_ReturnsASetOnlyContainingJavaLangObject_WhenThereAreNoTypesReferenced() throws Exception {
-        typeRepository = new DefaultTypeRepository("test.DefaultTypeRepository", new HashSet<>());
+        typeRepository = new DefaultTypeRepository("test.DefaultTypeRepository", new HashSet<>(), null);
         Set<String> types = typeRepository.findReferencedTypes("test.DefaultTypeRepository.SomeInterface").stream().map(Class::getCanonicalName).collect(Collectors.toSet());
         assertEquals(1, types.size());
 
@@ -57,7 +57,7 @@ public class DefaultTypeRepositoryTests {
 
     @Test
     public void test_findReferencedTypes_ReturnsANonEmptySet_WhenThereAreTypesReferenced() throws Exception {
-        typeRepository = new DefaultTypeRepository("test.DefaultTypeRepository", new HashSet<>());
+        typeRepository = new DefaultTypeRepository("test.DefaultTypeRepository", new HashSet<>(), null);
         Set<String> types = typeRepository.findReferencedTypes("test.DefaultTypeRepository.SomeClass").stream().map(Class::getCanonicalName).collect(Collectors.toSet());
         assertEquals(3, types.size());
 

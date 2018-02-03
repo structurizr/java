@@ -19,7 +19,7 @@ public class FirstImplementationOfInterfaceSupportingTypesStrategy extends Suppo
         Set<String> set = new HashSet<>();
 
         try {
-            Class componentType = ClassLoader.getSystemClassLoader().loadClass(component.getType());
+            Class componentType = getTypeRepository().loadClass(component.getType());
             if (componentType.isInterface()) {
                 Class type = TypeUtils.findFirstImplementationOfInterface(componentType, getTypeRepository().getAllTypes());
                 if (type != null) {

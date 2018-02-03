@@ -47,7 +47,7 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
 
     @Override
     public void beforeFindComponents() {
-        typeRepository = new DefaultTypeRepository(componentFinder.getPackageName(), componentFinder.getExclusions());
+        typeRepository = new DefaultTypeRepository(componentFinder.getPackageName(), componentFinder.getExclusions(), componentFinder.getUrlClassLoader());
         supportingTypesStrategies.forEach(sts -> sts.setTypeRepository(typeRepository));
     }
 
@@ -74,12 +74,12 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
     private void findSupportingTypes(Set<Component> components) {
         for (Component component : components) {
             for (CodeElement codeElement : component.getCode()) {
-                TypeVisibility visibility = TypeUtils.getVisibility(codeElement.getType());
+                TypeVisibility visibility = TypeUtils.getVisibility(getTypeRepository(), codeElement.getType());
                 if (visibility != null) {
                     codeElement.setVisibility(visibility.getName());
                 }
 
-                TypeCategory category = TypeUtils.getCategory(codeElement.getType());
+                TypeCategory category = TypeUtils.getCategory(getTypeRepository(), codeElement.getType());
                 if (category != null) {
                     codeElement.setCategory(category.getName());
                 }
@@ -90,12 +90,12 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
                     if (!isNestedClass(type) && componentFinder.getContainer().getComponentOfType(type) == null) {
                         CodeElement codeElement = component.addSupportingType(type);
 
-                        TypeVisibility visibility = TypeUtils.getVisibility(codeElement.getType());
+                        TypeVisibility visibility = TypeUtils.getVisibility(getTypeRepository(), codeElement.getType());
                         if (visibility != null) {
                             codeElement.setVisibility(visibility.getName());
                         }
 
-                        TypeCategory category = TypeUtils.getCategory(codeElement.getType());
+                        TypeCategory category = TypeUtils.getCategory(getTypeRepository(), codeElement.getType());
                         if (category != null) {
                             codeElement.setCategory(category.getName());
                         }

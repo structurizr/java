@@ -29,4 +29,11 @@ interface TypeRepository {
      */
     Set<Class<?>> findReferencedTypes(String typeName);
 
+    /**
+     * Loads the specified type.
+     * @param typeName the type to load
+     * @return a Class object
+     */
+    Class<?> loadClass(String typeName) throws ClassNotFoundException;
+
 }

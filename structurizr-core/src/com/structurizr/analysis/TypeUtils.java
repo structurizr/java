@@ -18,12 +18,13 @@ public class TypeUtils {
     /**
      * Finds the visibility of a given type.
      *
-     * @param typeName  the fully qualified type name
-     * @return          a TypeVisibility object representing the visibility (e.g. public, package, etc)
+     * @param typeRepository the repository where types should be loaded from
+     * @param typeName       the fully qualified type name
+     * @return               a TypeVisibility object representing the visibility (e.g. public, package, etc)
      */
-    public static TypeVisibility getVisibility(String typeName) {
+    public static TypeVisibility getVisibility(TypeRepository typeRepository, String typeName) {
         try {
-            Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
+            Class<?> type = typeRepository.loadClass(typeName);
             int modifiers = type.getModifiers();
             if (Modifier.isPrivate(modifiers)) {
                 return TypeVisibility.PRIVATE;
@@ -43,12 +44,13 @@ public class TypeUtils {
     /**
      * Finds the category of a given type.
      *
-     * @param typeName  the fully qualified type name
-     * @return          a TypeCategory object representing the category (e.g. class, interface, enum, etc)
+     * @param typeRepository the repository where types should be loaded from
+     * @param typeName       the fully qualified type name
+     * @return               a TypeCategory object representing the category (e.g. class, interface, enum, etc)
      */
-    public static TypeCategory getCategory(String typeName) {
+    public static TypeCategory getCategory(TypeRepository typeRepository, String typeName) {
         try {
-            Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
+            Class<?> type = typeRepository.loadClass(typeName);
             if (type.isInterface()) {
                 return TypeCategory.INTERFACE;
             } else if (type.isEnum()) {
