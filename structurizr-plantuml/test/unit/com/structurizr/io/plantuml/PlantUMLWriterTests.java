@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.StringWriter;
+import java.net.URI;
 
 import static org.junit.Assert.assertEquals;
 
@@ -275,6 +276,46 @@ public class PlantUMLWriterTests {
                 "rectangle \"My software system\" <<Software System>> as 1 #ff0000" + System.lineSeparator() +
                 "2 .[#0000ff].> 1 : Uses" + System.lineSeparator() +
                 "@enduml" + System.lineSeparator(), stringWriter.toString());
+    }
+
+    @Test
+    public void test_writeView_IncludesIncludes_WhenIncludesAreAdded() throws Exception {
+        workspace = new Workspace("", "");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("My software system", "");
+        Person user = workspace.getModel().addPerson("A user", "");
+        user.uses(softwareSystem, "Uses");
+        workspace.getViews().createSystemContextView(softwareSystem, "key", "").addAllElements();
+        workspace.getViews().getConfiguration().getStyles().addElementStyle(Tags.SOFTWARE_SYSTEM).background("#ff0000");
+        workspace.getViews().getConfiguration().getStyles().addElementStyle(Tags.PERSON).background("#00ff00");
+        workspace.getViews().getConfiguration().getStyles().addRelationshipStyle(Tags.RELATIONSHIP).color("#0000ff");
+
+        plantUMLWriter.addIncludeFile("do-not-include-me.puml");
+        plantUMLWriter.clearIncludes();
+        plantUMLWriter.addIncludeFile("whole-file.puml");
+        plantUMLWriter.addIncludeFile("unnamed-diagrams.puml", 0);
+        plantUMLWriter.addIncludeFile("named-diagrams.puml", "diagram-name");
+        plantUMLWriter.addIncludeURL(URI.create("http://example.com/whole-file.puml"));
+        plantUMLWriter.addIncludeURL(URI.create("http://example.com/unnamed-diagrams.puml"), 0);
+        plantUMLWriter.addIncludeURL(URI.create("http://example.com/named-diagrams.puml"), "diagram-name");
+
+        plantUMLWriter.clearSkinParams();
+
+        plantUMLWriter.write(workspace, stringWriter);
+
+        assertEquals("@startuml" + System.lineSeparator() +
+            "!include whole-file.puml" + System.lineSeparator() +
+            "!include unnamed-diagrams.puml!0" + System.lineSeparator() +
+            "!include named-diagrams.puml!diagram-name" + System.lineSeparator() +
+            "!includeurl http://example.com/whole-file.puml" + System.lineSeparator() +
+            "!includeurl http://example.com/unnamed-diagrams.puml!0" + System.lineSeparator() +
+            "!includeurl http://example.com/named-diagrams.puml!diagram-name" + System.lineSeparator() +
+            "scale max 1999x1999" + System.lineSeparator() +
+            "title My software system - System Context" + System.lineSeparator() +
+            "" + System.lineSeparator() +
+            "rectangle \"A user\" <<Person>> as 2 #00ff00" + System.lineSeparator() +
+            "rectangle \"My software system\" <<Software System>> as 1 #ff0000" + System.lineSeparator() +
+            "2 .[#0000ff].> 1 : Uses" + System.lineSeparator() +
+            "@enduml" + System.lineSeparator(), stringWriter.toString());
     }
 
     private static final String SYSTEM_LANDSCAPE_VIEW = "@startuml" + System.lineSeparator() +

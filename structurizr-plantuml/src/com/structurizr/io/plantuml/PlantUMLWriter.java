@@ -9,6 +9,7 @@ import com.structurizr.view.*;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -30,6 +31,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
     private int sizeLimit = 2000;
     private boolean includeNotesForActors = true;
     private final Map<String, String> skinParams = new LinkedHashMap<>();
+    private final List<String> includes = new ArrayList<>();
 
     public PlantUMLWriter() {
         // add some default skin params
@@ -42,8 +44,49 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         addSkinParam("noteBorderColor", "#707070");
     }
 
+
+    public void addIncludeFile(String file) {
+        addIncludeFile(file, null);
+    }
+
+    public void addIncludeFile(String file, int id) {
+        addIncludeFile(file, String.valueOf(id));
+    }
+
+    public void addIncludeFile(String file, String id) {
+        if (id==null) {
+            includes.add(format("!include %s", file));
+        } else {
+            includes.add(format("!include %s!%s", file, id));
+        }
+    }
+
+    public void addIncludeURL(URI file) {
+        addIncludeURL(file, null);
+    }
+
+    public void addIncludeURL(URI file, int id) {
+        addIncludeURL(file, String.valueOf(id));
+    }
+
+    public void addIncludeURL(URI file, String id) {
+        if (id==null) {
+            includes.add(format("!includeurl %s", file));
+        } else {
+            includes.add(format("!includeurl %s!%s", file, id));
+        }
+    }
+
+    public void clearIncludes() {
+        includes.clear();
+    }
+
     public void addSkinParam(String name, String value) {
         skinParams.put(name, value);
+    }
+
+    public void clearSkinParams() {
+        skinParams.clear();
     }
 
     public void setIncludeNotesForActors(boolean includeNotesForActors) {
@@ -508,6 +551,11 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         writer.write("@startuml");
         writer.write(System.lineSeparator());
 
+        for (String include : includes) {
+            writer.write(include);
+            writer.write(System.lineSeparator());
+        }
+
         PaperSize size = view.getPaperSize();
         int width;
         int height;
@@ -539,16 +587,17 @@ public final class PlantUMLWriter implements WorkspaceWriter {
 
         writer.write(System.lineSeparator());
 
-        writer.write(format("skinparam {%s", System.lineSeparator()));
-        for (final String name : skinParams.keySet()) {
-            writer.write(format("  %s %s%s", name, skinParams.get(name), System.lineSeparator()));
+        if (!skinParams.isEmpty()) {
+            writer.write(format("skinparam {%s", System.lineSeparator()));
+            for (final String name : skinParams.keySet()) {
+                writer.write(format("  %s %s%s", name, skinParams.get(name), System.lineSeparator()));
+            }
+            writer.write(format("}%s", System.lineSeparator()));
         }
-        writer.write(format("}%s", System.lineSeparator()));
     }
 
     private void writeFooter(Writer writer) throws IOException {
         writer.write("@enduml");
         writer.write(System.lineSeparator());
     }
-
 }
