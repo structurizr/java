@@ -33,6 +33,7 @@ interface TypeRepository {
      * Loads the specified type.
      * @param typeName the type to load
      * @return a Class object
+     * @throws ClassNotFoundException if the class cannot be found and created
      */
     Class<?> loadClass(String typeName) throws ClassNotFoundException;
 
