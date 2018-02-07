@@ -28,7 +28,7 @@ public class ReferencedTypesSupportingTypesStrategy extends SupportingTypesStrat
     }
 
     @Override
-    public Set<String> findSupportingTypes(Component component) {
+    public Set<Class<?>> findSupportingTypes(Component component) {
         Set<Class<?>> referencedTypes = new HashSet<>();
         referencedTypes.addAll(getReferencedTypesInPackage(component.getType()));
 
@@ -55,7 +55,7 @@ public class ReferencedTypesSupportingTypesStrategy extends SupportingTypesStrat
             }
         }
 
-        return referencedTypes.stream().map(Class::getName).collect(Collectors.toSet());
+        return referencedTypes;
     }
 
 }

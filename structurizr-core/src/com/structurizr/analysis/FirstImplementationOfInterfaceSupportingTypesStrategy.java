@@ -15,15 +15,15 @@ public class FirstImplementationOfInterfaceSupportingTypesStrategy extends Suppo
     private static final Log log = LogFactory.getLog(FirstImplementationOfInterfaceSupportingTypesStrategy.class);
 
     @Override
-    public Set<String> findSupportingTypes(Component component) {
-        Set<String> set = new HashSet<>();
+    public Set<Class<?>> findSupportingTypes(Component component) {
+        Set<Class<?>> set = new HashSet<>();
 
         try {
             Class componentType = getTypeRepository().loadClass(component.getType());
             if (componentType.isInterface()) {
                 Class type = TypeUtils.findFirstImplementationOfInterface(componentType, getTypeRepository().getAllTypes());
                 if (type != null) {
-                    set.add(type.getCanonicalName());
+                    set.add(type);
                 }
             }
         } catch (ClassNotFoundException e) {

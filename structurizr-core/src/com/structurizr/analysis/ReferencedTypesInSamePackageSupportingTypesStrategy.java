@@ -22,13 +22,13 @@ public class ReferencedTypesInSamePackageSupportingTypesStrategy extends Support
     }
 
     @Override
-    public Set<String> findSupportingTypes(Component component) {
+    public Set<Class<?>> findSupportingTypes(Component component) {
         ReferencedTypesSupportingTypesStrategy referencedTypesSupportingTypesStrategy = new ReferencedTypesSupportingTypesStrategy(includeIndirectlyReferencedTypes);
         referencedTypesSupportingTypesStrategy.setTypeRepository(getTypeRepository());
-        Set<String> supportingTypes = referencedTypesSupportingTypesStrategy.findSupportingTypes(component);
+        Set<Class<?>> supportingTypes = referencedTypesSupportingTypesStrategy.findSupportingTypes(component);
 
         return supportingTypes.stream()
-                    .filter(s -> s.startsWith(component.getPackage()))
+                    .filter(type -> type.getPackage().getName().equals(component.getPackage()))
                     .collect(Collectors.toSet());
     }
 
