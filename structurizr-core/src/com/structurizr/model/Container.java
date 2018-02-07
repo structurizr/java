@@ -66,12 +66,12 @@ public final class Container extends StaticStructureElement {
         return c;
     }
 
-    public Component addComponent(String name, Class type, String description, String technology) {
-        return this.addComponent(name, type.getCanonicalName(), description, technology);
+    public Component addComponentAndCode(Class type, String description, String technology) {
+        return getModel().addComponentAndCode(this, type, description, technology);
     }
 
-    public Component addComponent(String name, String type, String description, String technology) {
-        return getModel().addComponentOfType(this, name, type, description, technology);
+    public Component addComponentAndCode(String name, String type, String namespace, String description, String technology) {
+        return getModel().addComponentAndCode(this, name, type, namespace, description, technology);
     }
 
     void add(Component component) {

@@ -42,7 +42,12 @@ public class JsonTests {
         webApplicationToDatabase.addTags("JDBC");
 
         Component componentA = webApplication.addComponent("ComponentA", "Description", "Technology A");
-        Component componentB = webApplication.addComponent("com.somecompany.system.ComponentB", "com.somecompany.system.ComponentBImpl", "Description", "Technology B");
+        Component componentB = webApplication.addComponentAndCode(
+                "ComponentB",
+                "com.somecompany.system.ComponentBImpl",
+                "com.somecompany.system",
+                "Description",
+                "Technology B");
         person.uses(componentA, "Uses");
         componentA.uses(componentB, "Uses");
         componentB.uses(database, "Reads from and writes to");

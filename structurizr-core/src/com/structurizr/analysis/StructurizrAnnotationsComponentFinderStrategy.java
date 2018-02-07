@@ -36,8 +36,7 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
         // find all types that have been annotated @Component
         Set<Class<?>> componentTypes = findTypesAnnotatedWith(com.structurizr.annotation.Component.class);
         for (Class<?> componentType : componentTypes) {
-            Component component = getComponentFinder().getContainer().addComponent(
-                    componentType.getSimpleName(),
+            Component component = getComponentFinder().getContainer().addComponentAndCode(
                     componentType,
                     componentType.getAnnotation(com.structurizr.annotation.Component.class).description(),
                     componentType.getAnnotation(com.structurizr.annotation.Component.class).technology()

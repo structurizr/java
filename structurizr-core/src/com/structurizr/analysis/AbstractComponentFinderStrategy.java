@@ -88,7 +88,7 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
             for (SupportingTypesStrategy strategy : supportingTypesStrategies) {
                 for (Class<?> type : strategy.findSupportingTypes(component)) {
                     if (!isNestedClass(type) && componentFinder.getContainer().getComponentOfType(type.getCanonicalName()) == null) {
-                        CodeElement codeElement = component.addSupportingType(type.getCanonicalName());
+                        CodeElement codeElement = component.addSupportingType(type);
 
                         TypeVisibility visibility = TypeUtils.getVisibility(getTypeRepository(), codeElement.getType());
                         if (visibility != null) {
@@ -168,9 +168,8 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         Set<Class<?>> componentTypes = findTypesAnnotatedWith(type);
         for (Class<?> componentType : componentTypes) {
             if (!includePublicTypesOnly || Modifier.isPublic(componentType.getModifiers())) {
-                components.add(getComponentFinder().getContainer().addComponent(
-                        componentType.getSimpleName(),
-                        componentType.getCanonicalName(),
+                components.add(getComponentFinder().getContainer().addComponentAndCode(
+                        componentType,
                         "",
                         technology));
             }

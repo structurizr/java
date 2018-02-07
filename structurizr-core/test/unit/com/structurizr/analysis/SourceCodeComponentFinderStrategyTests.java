@@ -26,11 +26,15 @@ public class SourceCodeComponentFinderStrategyTests {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
         webApplication = softwareSystem.addContainer("Name", "Description", "Technology");
 
-        someComponent = webApplication.addComponent(
+        someComponent = webApplication.addComponentAndCode(
                 "SomeComponent",
                 "test.SourceCodeComponentFinderStrategy.SomeComponent",
+                "test.SourceCodeComponentFinderStrategy",
                 "", "");
-        someComponent.addSupportingType("test.SourceCodeComponentFinderStrategy.SomeComponentImpl");
+        someComponent.addSupportingType(
+                "SomeComponentImpl",
+                "test.SourceCodeComponentFinderStrategy.SomeComponentImpl",
+                "test.SourceCodeComponentFinderStrategy");
     }
 
     @Test

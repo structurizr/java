@@ -76,19 +76,42 @@ public final class Component extends StaticStructureElement {
     /**
      * Sets the type of this component (e.g. a fully qualified Java interface/class name).
      *
-     * @param type  the fully qualified type name
+     * @param type the primary class for this component
      * @return  the CodeElement that was created
      * @throws IllegalArgumentException if the specified type is null
      */
-    public CodeElement setType(String type) {
+    public CodeElement setType(Class<?> type) {
+        return setType(new CodeElement(type));
+    }
+
+    /**
+     * Sets the type of this component (e.g. a fully qualified Java interface/class name).
+     *
+     * @param name  the name
+     * @param type  the fully qualified type name
+     * @param namespace  the namespace
+     * @return  the CodeElement that was created
+     * @throws IllegalArgumentException if the specified type is null
+     */
+    public CodeElement setType(String name, String type, String namespace) {
+        return setType(new CodeElement(name, type, namespace));
+    }
+
+    /**
+     * Sets the type of this component (e.g. a fully qualified Java interface/class name).
+     *
+     * @param code the primary CodeElement for this component
+     * @return the CodeElement that was created
+     * @throws IllegalArgumentException if the specified type is null
+     */
+    public CodeElement setType(CodeElement code) {
         Optional<CodeElement> optional = codeElements.stream().filter(ce -> ce.getRole() == CodeElementRole.Primary).findFirst();
-        optional.ifPresent(codeElement -> codeElements.remove(codeElement));
+        optional.ifPresent(existing -> codeElements.remove(existing));
 
-        CodeElement codeElement = new CodeElement(type);
-        codeElement.setRole(CodeElementRole.Primary);
-        this.codeElements.add(codeElement);
+        code.setRole(CodeElementRole.Primary);
+        this.codeElements.add(code);
 
-        return codeElement;
+        return code;
     }
 
     /**
@@ -107,16 +130,39 @@ public final class Component extends StaticStructureElement {
     /**
      * Adds a supporting type to this Component.
      *
+     * @param type  a class representing the supporting type
+     * @return  a CodeElement representing the supporting type
+     * @throws IllegalArgumentException if the specified type is null
+     */
+    public CodeElement addSupportingType(Class<?> type) {
+        CodeElement codeElement = new CodeElement(type);
+        return addSupportingType(codeElement);
+    }
+
+    /**
+     * Adds a supporting type to this Component.
+     *
      * @param type  the fully qualified type name
      * @return  a CodeElement representing the supporting type
      * @throws IllegalArgumentException if the specified type is null
      */
-    public CodeElement addSupportingType(String type) {
-        CodeElement codeElement = new CodeElement(type);
-        codeElement.setRole(CodeElementRole.Supporting);
-        this.codeElements.add(codeElement);
+    public CodeElement addSupportingType(String name, String type, String namespace) {
+        CodeElement codeElement = new CodeElement(name, type, namespace);
+        return addSupportingType(codeElement);
+    }
 
-        return codeElement;
+    /**
+     * Adds a supporting type to this Component.
+     *
+     * @param code a CodeElement representing the supporting type
+     * @return  a CodeElement representing the supporting type
+     * @throws IllegalArgumentException if the specified type is null
+     */
+    public CodeElement addSupportingType(CodeElement code) {
+        code.setRole(CodeElementRole.Supporting);
+        this.codeElements.add(code);
+
+        return code;
     }
 
     /**

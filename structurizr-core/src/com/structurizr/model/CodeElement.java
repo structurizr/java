@@ -8,6 +8,13 @@ import com.structurizr.util.Url;
  */
 public final class CodeElement {
 
+    private static String requireNonBlank(String value, String message) {
+        if (value == null || value.trim().isEmpty()) {
+            throw new IllegalArgumentException(message);
+        }
+        return value;
+    }
+
     /** the role of the code element ... Primary or Supporting */
     private CodeElementRole role = CodeElementRole.Supporting;
 
@@ -16,6 +23,9 @@ public final class CodeElement {
 
     /** the fully qualified type of the code element **/
     private String type;
+
+    /** the namespace of the code element ... typically the package name */
+    private String namespace;
 
     /** a short description of the code element */
     private String description;
@@ -38,19 +48,18 @@ public final class CodeElement {
     CodeElement() {
     }
 
-    CodeElement(String fullyQualifiedTypeName) {
-        if (fullyQualifiedTypeName == null || fullyQualifiedTypeName.trim().isEmpty()) {
-            throw new IllegalArgumentException("A fully qualified name must be provided.");
-        }
+    CodeElement(Class<?> type) {
+        this(
+                type.getSimpleName(),
+                type.getCanonicalName(),
+                type.getPackage() != null ? type.getPackage().getName() : null);
 
-        int dot = fullyQualifiedTypeName.lastIndexOf('.');
-        if (dot > -1) {
-            this.name = fullyQualifiedTypeName.substring(dot+1, fullyQualifiedTypeName.length());
-            this.type = fullyQualifiedTypeName;
-        } else {
-            this.name = fullyQualifiedTypeName;
-            this.type = fullyQualifiedTypeName;
-        }
+    }
+
+    CodeElement(String name, String type, String namespace) {
+        this.name = requireNonBlank(name, "A name must be provided.");
+        this.type = requireNonBlank(type, "A type must be provided.");
+        this.namespace = namespace;
     }
 
     /**
@@ -77,6 +86,19 @@ public final class CodeElement {
 
     void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * Gets the namespace of this code element.
+     *
+     * @return  the namespace, as a String
+     */
+    public String getNamespace() {
+        return namespace;
+    }
+
+    public void setNamespace(String namespace) {
+        this.namespace = namespace;
     }
 
     /**
