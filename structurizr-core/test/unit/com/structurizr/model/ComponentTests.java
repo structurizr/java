@@ -66,10 +66,7 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_getPackage_ReturnsThePackageName_WhenATypeHasBeenSet() {
         Component component = new Component();
-        component.setType(
-                ComponentTests.class.getSimpleName(),
-                ComponentTests.class.getCanonicalName(),
-                ComponentTests.class.getPackage().getName());
+        component.setPrimaryCode(new CodeElement(ComponentTests.class.getSimpleName(), ComponentTests.class.getCanonicalName(), ComponentTests.class.getPackage().getName()));
         assertEquals("com.structurizr.model", component.getPrimaryCode().getNamespace());
     }
 
@@ -92,7 +89,7 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     public void test_setType_ThrowsAnExceptionWhenPassedNull() {
         Component component = new Component();
         try {
-            component.setType(null, null, null);
+            component.setPrimaryCode(new CodeElement(null, null, null));
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A name must be provided.", iae.getMessage());
@@ -102,10 +99,7 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_setType_AddsAPrimaryCodeElement_WhenPassedAFullyQualifiedTypeName() {
         Component component = new Component();
-        component.setType(
-                "HomePageController",
-                "com.structurizr.web.HomePageController",
-                "com.structurizr.web");
+        component.setPrimaryCode(new CodeElement("HomePageController", "com.structurizr.web.HomePageController", "com.structurizr.web"));
 
         Set<CodeElement> codeElements = component.getCode();
         assertEquals(1, codeElements.size());
@@ -118,14 +112,8 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_setType_OverwritesThePrimaryCodeElement_WhenCalledMoreThanOnce() {
         Component component = new Component();
-        component.setType(
-                "HomePageController",
-                "com.structurizr.web.HomePageController",
-                "com.structurizr.web");
-        component.setType(
-                "SomeOtherController",
-                "com.structurizr.web.SomeOtherController",
-                "com.structurizr.web");
+        component.setPrimaryCode(new CodeElement("HomePageController", "com.structurizr.web.HomePageController", "com.structurizr.web"));
+        component.setPrimaryCode(new CodeElement("SomeOtherController", "com.structurizr.web.SomeOtherController", "com.structurizr.web"));
 
         Set<CodeElement> codeElements = component.getCode();
         assertEquals(1, codeElements.size());

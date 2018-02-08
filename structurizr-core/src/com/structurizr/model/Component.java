@@ -61,38 +61,12 @@ public final class Component extends StaticStructureElement {
     /**
      * Sets the type of this component (e.g. a fully qualified Java interface/class name).
      *
-     * @param type the primary class for this component
-     * @return  the CodeElement that was created
-     * @throws IllegalArgumentException if the specified type is null
-     */
-    @JsonIgnore
-    public CodeElement setType(Class<?> type) {
-        return setType(new CodeElement(type));
-    }
-
-    /**
-     * Sets the type of this component (e.g. a fully qualified Java interface/class name).
-     *
-     * @param name  the name
-     * @param type  the fully qualified type name
-     * @param namespace  the namespace
-     * @return  the CodeElement that was created
-     * @throws IllegalArgumentException if the specified type is null
-     */
-    @JsonIgnore
-    public CodeElement setType(String name, String type, String namespace) {
-        return setType(new CodeElement(name, type, namespace));
-    }
-
-    /**
-     * Sets the type of this component (e.g. a fully qualified Java interface/class name).
-     *
      * @param code the primary CodeElement for this component
      * @return the CodeElement that was created
      * @throws IllegalArgumentException if the specified type is null
      */
     @JsonIgnore
-    public CodeElement setType(CodeElement code) {
+    public CodeElement setPrimaryCode(CodeElement code) {
         Optional.ofNullable(getPrimaryCode())
                 .ifPresent(existing -> codeElements.remove(existing));
 

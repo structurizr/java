@@ -140,7 +140,7 @@ public final class Model {
     Component addComponentAndCode(Container parent, CodeElement code, String description, String technology) {
         Component component = new Component();
         component.setName(code.getName());
-        component.setType(code);
+        component.setPrimaryCode(code);
         component.setDescription(description);
         component.setTechnology(technology);
 
