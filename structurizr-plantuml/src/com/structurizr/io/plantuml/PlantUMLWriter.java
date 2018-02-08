@@ -548,7 +548,7 @@ public final class PlantUMLWriter implements WorkspaceWriter {
     }
 
     private void writeHeader(View view, Writer writer) throws IOException {
-        writer.write("@startuml");
+        writer.write(format("@startuml(id=%s)", view.getKey()));
         writer.write(System.lineSeparator());
 
         for (String include : includes) {
