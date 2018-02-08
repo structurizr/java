@@ -54,29 +54,27 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
         super.afterFindComponents();
 
         for (Component component : getComponentFinder().getContainer().getComponents()) {
-            if (component.getType() != null) {
 
-                // find the efferent dependencies
-                for (CodeElement codeElement : component.getCode()) {
-                    findUsesComponentAnnotations(component, codeElement.getType());
-                }
-                for (CodeElement codeElement : component.getCode()) {
-                    findUsesSoftwareSystemsAnnotations(component, codeElement.getType());
-                }
-                for (CodeElement codeElement : component.getCode()) {
-                    findUsesContainerAnnotations(component, codeElement.getType());
-                }
+            // find the efferent dependencies
+            for (CodeElement codeElement : component.getCode()) {
+                findUsesComponentAnnotations(component, codeElement.getType());
+            }
+            for (CodeElement codeElement : component.getCode()) {
+                findUsesSoftwareSystemsAnnotations(component, codeElement.getType());
+            }
+            for (CodeElement codeElement : component.getCode()) {
+                findUsesContainerAnnotations(component, codeElement.getType());
+            }
 
-                // and also the afferent dependencies
-                for (CodeElement codeElement : component.getCode()) {
-                    findUsedByPersonAnnotations(component, codeElement.getType());
-                }
-                for (CodeElement codeElement : component.getCode()) {
-                    findUsedBySoftwareSystemAnnotations(component, codeElement.getType());
-                }
-                for (CodeElement codeElement : component.getCode()) {
-                    findUsedByContainerAnnotations(component, codeElement.getType());
-                }
+            // and also the afferent dependencies
+            for (CodeElement codeElement : component.getCode()) {
+                findUsedByPersonAnnotations(component, codeElement.getType());
+            }
+            for (CodeElement codeElement : component.getCode()) {
+                findUsedBySoftwareSystemAnnotations(component, codeElement.getType());
+            }
+            for (CodeElement codeElement : component.getCode()) {
+                findUsedByContainerAnnotations(component, codeElement.getType());
             }
         }
     }
@@ -95,7 +93,7 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
                     String description = field.getAnnotation(UsesComponent.class).description();
                     String technology = annotation.technology();
 
-                    Component destination = componentFinder.getContainer().getComponentOfType(name);
+                    Component destination = componentFinder.getContainer().getComponentWithCode(field.getType());
                     if (destination != null) {
                         for (Relationship relationship : component.getRelationships()) {
                             if (relationship.getDestination() == destination) {

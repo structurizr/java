@@ -27,7 +27,7 @@ public class SpringMvcControllerComponentFinderStrategyTests {
 
         assertEquals(1, container.getComponents().size());
         Component component = container.getComponentWithName("SomeController");
-        assertEquals("test.SpringMvcControllerComponentFinderStrategy.SomeController", component.getType());
+        assertEquals("test.SpringMvcControllerComponentFinderStrategy.SomeController", component.getPrimaryCode().getType());
         assertEquals("", component.getDescription());
         assertEquals("Spring MVC Controller", component.getTechnology());
     }

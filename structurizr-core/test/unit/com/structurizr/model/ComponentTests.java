@@ -60,7 +60,6 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_getPackage_ReturnsNull_WhenNoTypeHasBeenSet() {
         Component component = new Component();
-        assertNull(component.getType());
         assertNull(component.getPrimaryCode());
     }
 

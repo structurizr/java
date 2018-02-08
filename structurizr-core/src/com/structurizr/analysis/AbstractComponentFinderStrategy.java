@@ -75,7 +75,7 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         for (Component component : components) {
             for (SupportingTypesStrategy strategy : supportingTypesStrategies) {
                 for (Class<?> type : strategy.findSupportingTypes(component)) {
-                    if (!isNestedClass(type) && componentFinder.getContainer().getComponentOfType(type.getCanonicalName()) == null) {
+                    if (!isNestedClass(type) && componentFinder.getContainer().getComponentWithCode(type) == null) {
                         component.addSupportingType(type);
                     }
                 }
@@ -89,13 +89,9 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
 
     private void findDependencies() {
         for (Component component : componentFinder.getContainer().getComponents()) {
-            if (component.getType() != null) {
-                addEfferentDependencies(component, component.getType(), new HashSet<>());
-
-                // and repeat for the supporting types
-                for (CodeElement codeElement : component.getCode()) {
-                    addEfferentDependencies(component, codeElement.getType(), new HashSet<>());
-                }
+            // and repeat for the supporting types
+            for (CodeElement codeElement : component.getCode()) {
+                addEfferentDependencies(component, codeElement.getType(), new HashSet<>());
             }
         }
     }
@@ -106,7 +102,7 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         for (Class<?> referencedType : getTypeRepository().findReferencedTypes(type)) {
             try {
                 String referencedTypeName = referencedType.getCanonicalName();
-                Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedTypeName);
+                Component destinationComponent = componentFinder.getContainer().getComponentWithCode(referencedType);
                 if (destinationComponent != null) {
                     if (component != destinationComponent) {
                         component.uses(destinationComponent, "");

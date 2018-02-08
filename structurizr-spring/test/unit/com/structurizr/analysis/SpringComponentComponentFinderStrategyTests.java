@@ -27,7 +27,7 @@ public class SpringComponentComponentFinderStrategyTests {
 
         assertEquals(1, container.getComponents().size());
         Component component = container.getComponentWithName("SomeComponent");
-        assertEquals("test.SpringComponentComponentFinderStrategy.SomeComponent", component.getType());
+        assertEquals("test.SpringComponentComponentFinderStrategy.SomeComponent", component.getPrimaryCode().getType());
         assertEquals("", component.getDescription());
         assertEquals("Spring Component", component.getTechnology());
     }

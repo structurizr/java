@@ -47,7 +47,7 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
         Component controller = webApplication.getComponentWithName("Controller");
         assertNotNull(controller);
         assertEquals("Controller", controller.getName());
-        assertEquals("test.StructurizrAnnotationsComponentFinderStrategy.Controller", controller.getType());
+        assertEquals("test.StructurizrAnnotationsComponentFinderStrategy.Controller", controller.getPrimaryCode().getType());
         assertEquals("Does something.", controller.getDescription());
         assertEquals(1, controller.getCode().size());
         assertCodeElementInComponent(controller, "test.StructurizrAnnotationsComponentFinderStrategy.Controller", CodeElementRole.Primary);
@@ -55,7 +55,7 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
         Component repository = webApplication.getComponentWithName("Repository");
         assertNotNull(repository);
         assertEquals("Repository", repository.getName());
-        assertEquals("test.StructurizrAnnotationsComponentFinderStrategy.Repository", repository.getType());
+        assertEquals("test.StructurizrAnnotationsComponentFinderStrategy.Repository", repository.getPrimaryCode().getType());
         assertEquals("Manages some data.", repository.getDescription());
         assertEquals(2, repository.getCode().size());
         assertCodeElementInComponent(repository, "test.StructurizrAnnotationsComponentFinderStrategy.Repository", CodeElementRole.Primary);

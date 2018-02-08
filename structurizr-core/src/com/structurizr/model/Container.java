@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * A container represents something that hosts code or data. A container is
@@ -98,13 +100,29 @@ public final class Container extends StaticStructureElement {
         return component.orElse(null);
     }
 
-    public Component getComponentOfType(String type) {
-        if (type == null) {
-            return null;
-        }
+    public Component getComponentWithCode(Class<?> type) {
+        return getComponentWithCode(new CodeElement(type));
+    }
 
-        Optional<Component> component = components.stream().filter(c -> type.equals(c.getType())).findFirst();
-        return component.orElse(null);
+    public Component getComponentWithCode(String name, String type, String namespace) {
+        return getComponentWithCode(new CodeElement(name, type, namespace));
+    }
+
+    private Component getComponentWithCode(CodeElement filter) {
+        return getComponent(component -> {
+            final CodeElement code = component.getPrimaryCode();
+            return  Objects.equals(filter.getName(), code.getName()) &&
+                    Objects.equals(filter.getType(), code.getType()) &&
+                    Objects.equals(filter.getNamespace(), code.getNamespace());
+        });
+    }
+
+    private Component getComponent(Predicate<Component> filter) {
+        return components
+                .stream()
+                .filter(filter)
+                .findFirst()
+                .orElse(null);
     }
 
     @Override
