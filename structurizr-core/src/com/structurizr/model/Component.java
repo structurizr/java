@@ -65,9 +65,9 @@ public final class Component extends StaticStructureElement {
      */
     @JsonIgnore
     public String getType() {
-        Optional<CodeElement> optional = codeElements.stream().filter(ce -> ce.getRole() == CodeElementRole.Primary).findFirst();
-        if (optional.isPresent()) {
-            return optional.get().getType();
+        final CodeElement code = getPrimaryCode();
+        if (code != null) {
+            return code.getType();
         } else {
             return null;
         }
@@ -105,13 +105,21 @@ public final class Component extends StaticStructureElement {
      * @throws IllegalArgumentException if the specified type is null
      */
     public CodeElement setType(CodeElement code) {
-        Optional<CodeElement> optional = codeElements.stream().filter(ce -> ce.getRole() == CodeElementRole.Primary).findFirst();
-        optional.ifPresent(existing -> codeElements.remove(existing));
+        Optional.ofNullable(getPrimaryCode())
+                .ifPresent(existing -> codeElements.remove(existing));
 
         code.setRole(CodeElementRole.Primary);
         this.codeElements.add(code);
 
         return code;
+    }
+
+    public CodeElement getPrimaryCode() {
+        return codeElements
+                .stream()
+                .filter(ce -> ce.getRole() == CodeElementRole.Primary)
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -181,24 +189,6 @@ public final class Component extends StaticStructureElement {
      */
     public void setSize(long size) {
         this.size = size;
-    }
-
-    /**
-     * Gets the Java package of this component (i.e. the package of the primary code element).
-     *
-     * @return  the package name, as a String
-     */
-    @JsonIgnore
-    public String getPackage() {
-        if (getType() != null) {
-            try {
-                return ClassLoader.getSystemClassLoader().loadClass(getType()).getPackage().getName();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return null;
     }
 
     @Override

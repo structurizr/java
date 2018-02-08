@@ -61,7 +61,7 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     public void test_getPackage_ReturnsNull_WhenNoTypeHasBeenSet() {
         Component component = new Component();
         assertNull(component.getType());
-        assertNull(component.getPackage());
+        assertNull(component.getPrimaryCode());
     }
 
     @Test
@@ -71,13 +71,13 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
                 ComponentTests.class.getSimpleName(),
                 ComponentTests.class.getCanonicalName(),
                 ComponentTests.class.getPackage().getName());
-        assertEquals("com.structurizr.model", component.getPackage());
+        assertEquals("com.structurizr.model", component.getPrimaryCode().getNamespace());
     }
 
     @Test
     public void test_getPackage_ReturnsThePackageName_WhenATypeHasNotBeenSet() {
         Component component = new Component();
-        assertNull(component.getPackage());
+        assertNull(component.getPrimaryCode());
     }
 
     @Test
