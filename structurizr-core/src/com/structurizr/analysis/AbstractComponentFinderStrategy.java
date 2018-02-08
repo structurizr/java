@@ -73,32 +73,10 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
 
     private void findSupportingTypes(Set<Component> components) {
         for (Component component : components) {
-            for (CodeElement codeElement : component.getCode()) {
-                TypeVisibility visibility = TypeUtils.getVisibility(getTypeRepository(), codeElement.getType());
-                if (visibility != null) {
-                    codeElement.setVisibility(visibility.getName());
-                }
-
-                TypeCategory category = TypeUtils.getCategory(getTypeRepository(), codeElement.getType());
-                if (category != null) {
-                    codeElement.setCategory(category.getName());
-                }
-            }
-
             for (SupportingTypesStrategy strategy : supportingTypesStrategies) {
                 for (Class<?> type : strategy.findSupportingTypes(component)) {
                     if (!isNestedClass(type) && componentFinder.getContainer().getComponentOfType(type.getCanonicalName()) == null) {
-                        CodeElement codeElement = component.addSupportingType(type);
-
-                        TypeVisibility visibility = TypeUtils.getVisibility(getTypeRepository(), codeElement.getType());
-                        if (visibility != null) {
-                            codeElement.setVisibility(visibility.getName());
-                        }
-
-                        TypeCategory category = TypeUtils.getCategory(getTypeRepository(), codeElement.getType());
-                        if (category != null) {
-                            codeElement.setCategory(category.getName());
-                        }
+                        component.addSupportingType(type);
                     }
                 }
             }

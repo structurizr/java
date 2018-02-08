@@ -18,51 +18,39 @@ import static org.junit.Assert.fail;
 
 public class TypeUtilsTests {
 
-    private static final TypeRepository types = new DefaultTypeRepository("", emptySet(), null);
-
-    @Test
-    public void test_getCategory_ReturnsNull_WhenTheSpecifiedTypeCouldNotBeFound() throws Exception {
-        assertNull(TypeUtils.getCategory(types, "com.company.app.Class"));
-    }
-
     @Test
     public void test_getCategory_ReturnsInterface_WhenTheSpecifiedTypeIsAnInterface() throws Exception {
-        TypeCategory typeCategory = TypeUtils.getCategory(types, "test.TypeUtils.SomeInterface");
+        TypeCategory typeCategory = TypeCategory.valueOf(Class.forName("test.TypeUtils.SomeInterface"));
         assertSame(TypeCategory.INTERFACE, typeCategory);
     }
 
     @Test
     public void test_getCategory_ReturnsAbstractClass_WhenTheSpecifiedTypeIsAnAbstractClass() throws Exception {
-        TypeCategory typeCategory = TypeUtils.getCategory(types, "test.TypeUtils.SomeAbstractClass");
+        TypeCategory typeCategory = TypeCategory.valueOf(Class.forName("test.TypeUtils.SomeAbstractClass"));
         assertSame(TypeCategory.ABSTRACT_CLASS, typeCategory);
     }
 
     @Test
     public void test_getCategory_ReturnsAbstractClass_WhenTheSpecifiedTypeIsAClass() throws Exception {
-        TypeCategory typeCategory = TypeUtils.getCategory(types, "test.TypeUtils.SomeClass");
+        TypeCategory typeCategory = TypeCategory.valueOf(Class.forName("test.TypeUtils.SomeClass"));
         assertSame(TypeCategory.CLASS, typeCategory);
     }
 
     @Test
     public void test_getCategory_ReturnsEnum_WhenTheSpecifiedTypeIsAnEnum() throws Exception {
-        TypeCategory typeCategory = TypeUtils.getCategory(types, "test.TypeUtils.SomeEnum");
+        TypeCategory typeCategory = TypeCategory.valueOf(Class.forName("test.TypeUtils.SomeEnum"));
         assertSame(TypeCategory.ENUM, typeCategory);
     }
 
     @Test
-    public void test_getVisibility_ReturnsNull_WhenTheSpecifiedTypeCouldNotBeFound() throws Exception {
-        assertNull(TypeUtils.getVisibility(types, "com.company.app.Class"));
-    }
-
-    @Test
     public void test_getVisibility_ReturnsPublic_WhenTheSpecifiedTypeIsPublic() throws Exception {
-        TypeVisibility typeCategory= TypeUtils.getVisibility(types, "test.TypeUtils.SomeInterface");
+        TypeVisibility typeCategory= TypeVisibility.valueOf(Class.forName("test.TypeUtils.SomeInterface"));
         assertSame(TypeVisibility.PUBLIC, typeCategory);
     }
 
     @Test
     public void test_getVisibility_ReturnsPackage_WhenTheSpecifiedTypeIsPackageScoped() throws Exception {
-        TypeVisibility typeCategory= TypeUtils.getVisibility(types, "test.TypeUtils.SomeClass");
+        TypeVisibility typeCategory= TypeVisibility.valueOf(Class.forName("test.TypeUtils.SomeClass"));
         assertSame(TypeVisibility.PACKAGE, typeCategory);
     }
 

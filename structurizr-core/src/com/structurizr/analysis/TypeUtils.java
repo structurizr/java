@@ -16,59 +16,6 @@ public class TypeUtils {
     private static final Log log = LogFactory.getLog(TypeUtils.class);
 
     /**
-     * Finds the visibility of a given type.
-     *
-     * @param typeRepository the repository where types should be loaded from
-     * @param typeName       the fully qualified type name
-     * @return               a TypeVisibility object representing the visibility (e.g. public, package, etc)
-     */
-    public static TypeVisibility getVisibility(TypeRepository typeRepository, String typeName) {
-        try {
-            Class<?> type = typeRepository.loadClass(typeName);
-            int modifiers = type.getModifiers();
-            if (Modifier.isPrivate(modifiers)) {
-                return TypeVisibility.PRIVATE;
-            } else if (Modifier.isPublic(modifiers)) {
-                return TypeVisibility.PUBLIC;
-            } else if (Modifier.isProtected(modifiers)) {
-                return TypeVisibility.PROTECTED;
-            } else {
-                return TypeVisibility.PACKAGE;
-            }
-        } catch (ClassNotFoundException e) {
-            log.warn("Visibility for type " + typeName + " could not be found.");
-            return null;
-        }
-    }
-
-    /**
-     * Finds the category of a given type.
-     *
-     * @param typeRepository the repository where types should be loaded from
-     * @param typeName       the fully qualified type name
-     * @return               a TypeCategory object representing the category (e.g. class, interface, enum, etc)
-     */
-    public static TypeCategory getCategory(TypeRepository typeRepository, String typeName) {
-        try {
-            Class<?> type = typeRepository.loadClass(typeName);
-            if (type.isInterface()) {
-                return TypeCategory.INTERFACE;
-            } else if (type.isEnum()) {
-                return TypeCategory.ENUM;
-            } else {
-                if (Modifier.isAbstract(type.getModifiers())) {
-                    return TypeCategory.ABSTRACT_CLASS;
-                } else{
-                    return TypeCategory.CLASS;
-                }
-            }
-        } catch (ClassNotFoundException e) {
-            log.warn("Category for type " + typeName + " could not be found.");
-            return null;
-        }
-    }
-
-    /**
      * Finds the set of types that are annotated with the specified annotation.
      *
      * @param annotation        the Annotation to find

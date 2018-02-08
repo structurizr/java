@@ -1,5 +1,7 @@
 package com.structurizr.model;
 
+import com.structurizr.analysis.TypeCategory;
+import com.structurizr.analysis.TypeVisibility;
 import com.structurizr.util.Url;
 
 /**
@@ -53,6 +55,8 @@ public final class CodeElement {
                 type.getSimpleName(),
                 type.getCanonicalName(),
                 type.getPackage() != null ? type.getPackage().getName() : null);
+        this.category = TypeCategory.valueOf(type).getName();
+        this.visibility = TypeVisibility.valueOf(type).getName();
 
     }
 
