@@ -128,7 +128,7 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     public void test_addSupportingType_ThrowsAnExceptionWhenPassedNull() {
         Component component = new Component();
         try {
-            component.addSupportingType(null, null, null);
+            component.addSupportingCode(null, null, null);
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A name must be provided.", iae.getMessage());
@@ -138,7 +138,7 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_addSupportingType_AddsASupportingCodeElement_WhenPassedAFullyQualifiedTypeName() {
         Component component = new Component();
-        component.addSupportingType(
+        component.addSupportingCode(
                 "HomePageViewModel",
                 "com.structurizr.web.HomePageViewModel",
                 "com.structurizr.web");

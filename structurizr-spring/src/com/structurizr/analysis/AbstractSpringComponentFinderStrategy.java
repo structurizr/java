@@ -61,7 +61,7 @@ public abstract class AbstractSpringComponentFinderStrategy extends AbstractComp
 
                     if (foundInterface) {
                         // the primary component type is now an interface, so add the type we originally found as a supporting type
-                        component.addSupportingType(annotatedType);
+                        component.addSupportingCode(annotatedType);
                     }
                 }
             }

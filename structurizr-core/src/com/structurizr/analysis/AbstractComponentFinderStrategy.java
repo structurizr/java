@@ -76,7 +76,7 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
             for (SupportingTypesStrategy strategy : supportingTypesStrategies) {
                 for (Class<?> type : strategy.findSupportingTypes(component)) {
                     if (!isNestedClass(type) && componentFinder.getContainer().getComponentWithCode(type) == null) {
-                        component.addSupportingType(type);
+                        component.addSupportingCode(type);
                     }
                 }
             }

@@ -104,9 +104,9 @@ public final class Component extends StaticStructureElement {
      * @return  a CodeElement representing the supporting type
      * @throws IllegalArgumentException if the specified type is null
      */
-    public CodeElement addSupportingType(Class<?> type) {
+    public CodeElement addSupportingCode(Class<?> type) {
         CodeElement codeElement = new CodeElement(type);
-        return addSupportingType(codeElement);
+        return addSupportingCode(codeElement);
     }
 
     /**
@@ -116,9 +116,9 @@ public final class Component extends StaticStructureElement {
      * @return  a CodeElement representing the supporting type
      * @throws IllegalArgumentException if the specified type is null
      */
-    public CodeElement addSupportingType(String name, String type, String namespace) {
+    public CodeElement addSupportingCode(String name, String type, String namespace) {
         CodeElement codeElement = new CodeElement(name, type, namespace);
-        return addSupportingType(codeElement);
+        return addSupportingCode(codeElement);
     }
 
     /**
@@ -128,10 +128,9 @@ public final class Component extends StaticStructureElement {
      * @return  a CodeElement representing the supporting type
      * @throws IllegalArgumentException if the specified type is null
      */
-    public CodeElement addSupportingType(CodeElement code) {
+    public CodeElement addSupportingCode(CodeElement code) {
         code.setRole(CodeElementRole.Supporting);
         this.codeElements.add(code);
-
         return code;
     }
 

@@ -31,7 +31,7 @@ public class SourceCodeComponentFinderStrategyTests {
                 "test.SourceCodeComponentFinderStrategy.SomeComponent",
                 "test.SourceCodeComponentFinderStrategy",
                 "", "");
-        someComponent.addSupportingType(
+        someComponent.addSupportingCode(
                 "SomeComponentImpl",
                 "test.SourceCodeComponentFinderStrategy.SomeComponentImpl",
                 "test.SourceCodeComponentFinderStrategy");
