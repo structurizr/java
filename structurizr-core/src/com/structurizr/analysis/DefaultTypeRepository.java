@@ -2,6 +2,7 @@ package com.structurizr.analysis;
 
 import javassist.ClassPool;
 import javassist.CtClass;
+import javassist.LoaderClassPath;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.reflections.ReflectionUtils;
@@ -12,12 +13,17 @@ import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 import org.reflections.util.FilterBuilder;
 
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import static java.util.Arrays.asList;
 
 /**
  * This is an implementation of a TypeRepository that uses a combination of:
@@ -30,11 +36,12 @@ public class DefaultTypeRepository implements TypeRepository {
     private static final Log log = LogFactory.getLog(DefaultTypeRepository.class);
 
     private final Set<Class<?>> types;
+    private final ClassLoader classLoader;
 
     private String packageToScan;
     private Set<Pattern> exclusions = new HashSet<>();
 
-    private ClassPool classPool = ClassPool.getDefault();
+    private ClassPool classPool;
     private Map<String, Set<Class<?>>> referencedTypesCache = new HashMap<>();
 
     /**
@@ -43,7 +50,20 @@ public class DefaultTypeRepository implements TypeRepository {
      * @param packageToScan     the fully qualified package name
      * @param exclusions        a Set of Pattern objects
      */
-    DefaultTypeRepository(String packageToScan, Set<Pattern> exclusions) {
+    DefaultTypeRepository(String packageToScan, Set<Pattern> exclusions, URLClassLoader urlClassLoader) {
+        final Collection<URL> urls;
+        if (urlClassLoader==null) {
+            classLoader = ClassLoader.getSystemClassLoader();
+            urls = ClasspathHelper.forJavaClassPath();
+            classPool = ClassPool.getDefault();
+        }
+        else {
+            classLoader = urlClassLoader;
+            urls = asList(urlClassLoader.getURLs());
+            classPool = new ClassPool();
+            classPool.insertClassPath(new LoaderClassPath(urlClassLoader));
+        }
+
         this.packageToScan = packageToScan;
         if (exclusions != null) {
             this.exclusions.addAll(exclusions);
@@ -51,17 +71,22 @@ public class DefaultTypeRepository implements TypeRepository {
 
         AllTypesScanner allTypesScanner = new AllTypesScanner();
         Reflections reflections = new Reflections(new ConfigurationBuilder()
-                .setUrls(ClasspathHelper.forJavaClassPath())
+                .setUrls(urls)
                 .filterInputsBy(new FilterBuilder().includePackage(packageToScan))
                 .setScanners(new SubTypesScanner(false), allTypesScanner)
         );
 
         types = new HashSet<>();
-        types.addAll(ReflectionUtils.forNames(allTypesScanner.types, reflections.getConfiguration().getClassLoaders()));
+        types.addAll(ReflectionUtils.forNames(allTypesScanner.types, classLoader));
 
         for (Class<?> c : types) {
             System.out.println("+ " + c);
         }
+    }
+
+    @Override
+    public Class<?> loadClass(String typeName) throws ClassNotFoundException {
+        return classLoader.loadClass(typeName);
     }
 
     /**
@@ -103,7 +128,7 @@ public class DefaultTypeRepository implements TypeRepository {
 
                 if (!isExcluded(referencedTypeName)) {
                     try {
-                        referencedTypes.add(ClassLoader.getSystemClassLoader().loadClass(referencedTypeName));
+                        referencedTypes.add(loadClass(referencedTypeName));
                     } catch (Throwable t) {
                         log.debug("Could not find " + referencedTypeName + " ... ignoring.");
                     }
@@ -111,7 +136,7 @@ public class DefaultTypeRepository implements TypeRepository {
             }
 
             // remove the type itself
-            referencedTypes.remove(ClassLoader.getSystemClassLoader().loadClass(typeName));
+            referencedTypes.remove(loadClass(typeName));
         } catch (Exception e) {
             log.debug("Error finding referenced types for " + typeName + " ... ignoring.");
 

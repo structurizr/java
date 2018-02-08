@@ -3,6 +3,7 @@ package com.structurizr.analysis;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 
+import java.net.URLClassLoader;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -12,6 +13,7 @@ import java.util.regex.Pattern;
  */
 public class ComponentFinder {
 
+    private URLClassLoader urlClassLoader;
     private Container container;
     private String packageName;
 
@@ -126,4 +128,19 @@ public class ComponentFinder {
         this.exclusions.clear();
     }
 
+    /**
+     * Sets a classloader to load classes from instead of the system classloader
+     * @param urlClassLoader the classloader to use
+     */
+    public void setUrlClassLoader(URLClassLoader urlClassLoader) {
+        this.urlClassLoader = urlClassLoader;
+    }
+
+    /**
+     * Gets the classloader used to load classes
+     * @return the classloader to use, or null if system classloader
+     */
+    public URLClassLoader getUrlClassLoader() {
+        return urlClassLoader;
+    }
 }

@@ -88,7 +88,7 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
      */
     private void findUsesComponentAnnotations(Component component, String typeName) {
         try {
-            Class type = ClassLoader.getSystemClassLoader().loadClass(typeName);
+            Class type = getTypeRepository().loadClass(typeName);
             for (Field field : type.getDeclaredFields()) {
                 UsesComponent annotation = field.getAnnotation(UsesComponent.class);
                 if (annotation != null) {
@@ -119,7 +119,7 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
      */
     private void findUsesSoftwareSystemsAnnotations(Component component, String typeName) {
         try {
-            Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
+            Class<?> type = getTypeRepository().loadClass(typeName);
             UsesSoftwareSystem[] annotations = type.getAnnotationsByType(UsesSoftwareSystem.class);
             for (UsesSoftwareSystem annotation : annotations) {
                 String name = annotation.name();
@@ -143,7 +143,7 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
      */
     private void findUsesContainerAnnotations(Component component, String typeName) {
         try {
-            Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
+            Class<?> type = getTypeRepository().loadClass(typeName);
             UsesContainer[] annotations = type.getAnnotationsByType(UsesContainer.class);
             for (UsesContainer annotation : annotations) {
                 String name = annotation.name();
@@ -167,7 +167,7 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
      */
     private void findUsedByPersonAnnotations(Component component, String typeName) {
         try {
-            Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
+            Class<?> type = getTypeRepository().loadClass(typeName);
             UsedByPerson[] annotations = type.getAnnotationsByType(UsedByPerson.class);
             for (UsedByPerson annotation : annotations) {
                 String name = annotation.name();
@@ -191,7 +191,7 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
      */
     private void findUsedBySoftwareSystemAnnotations(Component component, String typeName) {
         try {
-            Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
+            Class<?> type = getTypeRepository().loadClass(typeName);
             UsedBySoftwareSystem[] annotations = type.getAnnotationsByType(UsedBySoftwareSystem.class);
             for (UsedBySoftwareSystem annotation : annotations) {
                 String name = annotation.name();
@@ -215,7 +215,7 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
      */
     private void findUsedByContainerAnnotations(Component component, String typeName) {
         try {
-            Class<?> type = ClassLoader.getSystemClassLoader().loadClass(typeName);
+            Class<?> type = getTypeRepository().loadClass(typeName);
             UsedByContainer[] annotations = type.getAnnotationsByType(UsedByContainer.class);
             for (UsedByContainer annotation : annotations) {
                 String name = annotation.name();
