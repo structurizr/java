@@ -10,30 +10,25 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_getCanonicalName_WhenTheDeploymentNodeHasNoParent() {
-        DeploymentNode deploymentNode = new DeploymentNode();
-        deploymentNode.setName("Ubuntu Server");
+        DeploymentNode deploymentNode = model.addDeploymentNode("Ubuntu Server", "", "");
 
         assertEquals("/Ubuntu Server", deploymentNode.getCanonicalName());
     }
 
     @Test
     public void test_getCanonicalName_WhenTheDeploymentNodeHasAParent() {
-        DeploymentNode parent = new DeploymentNode();
-        parent.setName("Ubuntu Server");
+        DeploymentNode parent = model.addDeploymentNode("Windows Server", "", "");
+        DeploymentNode child = parent.addDeploymentNode("Apache Tomcat", "", "");
 
-        DeploymentNode child = new DeploymentNode();
-        child.setName("Apache Tomcat");
-        child.setParent(parent);
-
-        assertEquals("/Ubuntu Server/Apache Tomcat", child.getCanonicalName());
+        assertEquals("/Windows Server/Apache Tomcat", child.getCanonicalName());
     }
 
     @Test
     public void test_getParent_ReturnsTheParentDeploymentNode() {
-        DeploymentNode parent = new DeploymentNode();
+        DeploymentNode parent = model.addDeploymentNode("Parent", "", "");
         assertNull(parent.getParent());
 
-        DeploymentNode child = new DeploymentNode();
+        DeploymentNode child = parent.addDeploymentNode("Child", "", "");
         child.setParent(parent);
         assertSame(parent, child.getParent());
     }
