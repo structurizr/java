@@ -28,8 +28,9 @@ public abstract class AbstractSpringComponentFinderStrategy extends AbstractComp
         for (Class<?> annotatedType : annotatedTypes) {
             if (annotatedType.isInterface()) {
                 // the annotated type is an interface, so we're done
-                components.add(getComponentFinder().getContainer().addComponent(
-                        annotatedType.getSimpleName(), annotatedType.getCanonicalName(), "", technology));
+                components.add(getComponentFinder()
+                        .getContainer()
+                        .addComponentAndCode(annotatedType, "", technology));
             } else {
                 // The Spring @Component, @Service and @Repository annotations are typically used to annotate implementation
                 // classes, but we really want to find the interface type and use that to represent the component. Why?
@@ -47,7 +48,6 @@ public abstract class AbstractSpringComponentFinderStrategy extends AbstractComp
                         if (componentName.startsWith(interfaceName) || // <InterfaceName><***>
                                 componentName.endsWith(interfaceName) ||   // <***><InterfaceName>
                                 componentName.contains(interfaceName)) {   // <***><InterfaceName><***>
-                            componentName = interfaceName;
                             componentType = interfaceType;
                             foundInterface = true;
                             break;
@@ -56,12 +56,12 @@ public abstract class AbstractSpringComponentFinderStrategy extends AbstractComp
                 }
 
                 if (!includePublicTypesOnly || Modifier.isPublic(componentType.getModifiers())) {
-                    Component component = getComponentFinder().getContainer().addComponent(componentName, componentType, "", technology);
+                    Component component = getComponentFinder().getContainer().addComponentAndCode(componentType, "", technology);
                     components.add(component);
 
                     if (foundInterface) {
                         // the primary component type is now an interface, so add the type we originally found as a supporting type
-                        component.addSupportingType(annotatedType.getCanonicalName());
+                        component.addSupportingCode(annotatedType);
                     }
                 }
             }

@@ -19,6 +19,6 @@ public abstract class SupportingTypesStrategy {
         this.typeRepository = typeRepository;
     }
 
-    public abstract Set<String> findSupportingTypes(Component component);
+    public abstract Set<Class<?>> findSupportingTypes(Component component);
 
 }

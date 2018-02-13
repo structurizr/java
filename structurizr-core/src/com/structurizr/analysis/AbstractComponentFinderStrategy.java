@@ -73,51 +73,25 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
 
     private void findSupportingTypes(Set<Component> components) {
         for (Component component : components) {
-            for (CodeElement codeElement : component.getCode()) {
-                TypeVisibility visibility = TypeUtils.getVisibility(getTypeRepository(), codeElement.getType());
-                if (visibility != null) {
-                    codeElement.setVisibility(visibility.getName());
-                }
-
-                TypeCategory category = TypeUtils.getCategory(getTypeRepository(), codeElement.getType());
-                if (category != null) {
-                    codeElement.setCategory(category.getName());
-                }
-            }
-
             for (SupportingTypesStrategy strategy : supportingTypesStrategies) {
-                for (String type : strategy.findSupportingTypes(component)) {
-                    if (!isNestedClass(type) && componentFinder.getContainer().getComponentOfType(type) == null) {
-                        CodeElement codeElement = component.addSupportingType(type);
-
-                        TypeVisibility visibility = TypeUtils.getVisibility(getTypeRepository(), codeElement.getType());
-                        if (visibility != null) {
-                            codeElement.setVisibility(visibility.getName());
-                        }
-
-                        TypeCategory category = TypeUtils.getCategory(getTypeRepository(), codeElement.getType());
-                        if (category != null) {
-                            codeElement.setCategory(category.getName());
-                        }
+                for (Class<?> type : strategy.findSupportingTypes(component)) {
+                    if (!isNestedClass(type) && componentFinder.getContainer().getComponentWithCode(type) == null) {
+                        component.addSupportingCode(type);
                     }
                 }
             }
         }
     }
 
-    private boolean isNestedClass(String type) {
-        return type != null && type.indexOf('$') > -1;
+    private boolean isNestedClass(Class<?> type) {
+        return type != null && type.getName().indexOf('$') > -1;
     }
 
     private void findDependencies() {
         for (Component component : componentFinder.getContainer().getComponents()) {
-            if (component.getType() != null) {
-                addEfferentDependencies(component, component.getType(), new HashSet<>());
-
-                // and repeat for the supporting types
-                for (CodeElement codeElement : component.getCode()) {
-                    addEfferentDependencies(component, codeElement.getType(), new HashSet<>());
-                }
+            // and repeat for the supporting types
+            for (CodeElement codeElement : component.getCode()) {
+                addEfferentDependencies(component, codeElement.getType(), new HashSet<>());
             }
         }
     }
@@ -128,7 +102,7 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         for (Class<?> referencedType : getTypeRepository().findReferencedTypes(type)) {
             try {
                 String referencedTypeName = referencedType.getCanonicalName();
-                Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedTypeName);
+                Component destinationComponent = componentFinder.getContainer().getComponentWithCode(referencedType);
                 if (destinationComponent != null) {
                     if (component != destinationComponent) {
                         component.uses(destinationComponent, "");
@@ -168,9 +142,8 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         Set<Class<?>> componentTypes = findTypesAnnotatedWith(type);
         for (Class<?> componentType : componentTypes) {
             if (!includePublicTypesOnly || Modifier.isPublic(componentType.getModifiers())) {
-                components.add(getComponentFinder().getContainer().addComponent(
-                        componentType.getSimpleName(),
-                        componentType.getCanonicalName(),
+                components.add(getComponentFinder().getContainer().addComponentAndCode(
+                        componentType,
                         "",
                         technology));
             }

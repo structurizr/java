@@ -24,9 +24,8 @@ public class TypeMatcherComponentFinderStrategy extends AbstractComponentFinderS
         for (Class type : types) {
             for (TypeMatcher typeMatcher : typeMatchers) {
                 if (typeMatcher.matches(type)) {
-                    Component component = getComponentFinder().getContainer().addComponent(
-                            type.getSimpleName(),
-                            type.getCanonicalName(),
+                    Component component = getComponentFinder().getContainer().addComponentAndCode(
+                            type,
                             typeMatcher.getDescription(),
                             typeMatcher.getTechnology());
                     components.add(component);

@@ -37,19 +37,19 @@ public class SpringComponentFinderStrategyTests {
         Component someMvcController = webApplication.getComponentWithName("SomeController");
         assertNotNull(someMvcController);
         assertEquals("SomeController", someMvcController.getName());
-        assertEquals("com.structurizr.analysis.myapp.web.SomeController", someMvcController.getType());
+        assertEquals("com.structurizr.analysis.myapp.web.SomeController", someMvcController.getPrimaryCode().getType());
         assertEquals(1, someMvcController.getCode().size());
 
         Component someRestController = webApplication.getComponentWithName("SomeApiController");
         assertNotNull(someRestController);
         assertEquals("SomeApiController", someRestController.getName());
-        assertEquals("com.structurizr.analysis.myapp.api.SomeApiController", someRestController.getType());
+        assertEquals("com.structurizr.analysis.myapp.api.SomeApiController", someRestController.getPrimaryCode().getType());
         assertEquals(1, someRestController.getCode().size());
 
         Component someService = webApplication.getComponentWithName("SomeService");
         assertNotNull(someService);
         assertEquals("SomeService", someService.getName());
-        assertEquals("com.structurizr.analysis.myapp.service.SomeService", someService.getType());
+        assertEquals("com.structurizr.analysis.myapp.service.SomeService", someService.getPrimaryCode().getType());
         assertEquals(2, someService.getCode().size());
         assertCodeElementInComponent(someService, "com.structurizr.analysis.myapp.service.SomeService", CodeElementRole.Primary);
         assertCodeElementInComponent(someService, "com.structurizr.analysis.myapp.service.SomeServiceImpl", CodeElementRole.Supporting);
@@ -57,7 +57,7 @@ public class SpringComponentFinderStrategyTests {
         Component someRepository = webApplication.getComponentWithName("SomeRepository");
         assertNotNull(someRepository);
         assertEquals("SomeRepository", someRepository.getName());
-        assertEquals("com.structurizr.analysis.myapp.data.SomeRepository", someRepository.getType());
+        assertEquals("com.structurizr.analysis.myapp.data.SomeRepository", someRepository.getPrimaryCode().getType());
         assertEquals(2, someRepository.getCode().size());
         assertCodeElementInComponent(someService, "com.structurizr.analysis.myapp.data.SomeRepository", CodeElementRole.Primary);
         assertCodeElementInComponent(someService, "com.structurizr.analysis.myapp.data.JdbcSomeRepository", CodeElementRole.Supporting);
@@ -66,7 +66,7 @@ public class SpringComponentFinderStrategyTests {
         Component someOtherRepository = webApplication.getComponentWithName("SomeOtherRepository");
         assertNotNull(someOtherRepository);
         assertEquals("SomeOtherRepository", someOtherRepository.getName());
-        assertEquals("com.structurizr.analysis.myapp.data.SomeOtherRepository", someOtherRepository.getType());
+        assertEquals("com.structurizr.analysis.myapp.data.SomeOtherRepository", someOtherRepository.getPrimaryCode().getType());
 
         assertEquals(1, someMvcController.getRelationships().size());
         Relationship relationship = someMvcController.getRelationships().iterator().next();

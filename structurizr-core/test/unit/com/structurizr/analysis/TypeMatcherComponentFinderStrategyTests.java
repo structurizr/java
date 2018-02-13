@@ -41,14 +41,14 @@ public class TypeMatcherComponentFinderStrategyTests {
         Component myController = container.getComponentWithName("MyController");
         assertNotNull(myController);
         assertEquals("MyController", myController.getName());
-        assertEquals("test.TypeMatcherComponentFinderStrategy.MyController", myController.getType());
+        assertEquals("test.TypeMatcherComponentFinderStrategy.MyController", myController.getPrimaryCode().getType());
         assertEquals("Controller description", myController.getDescription());
         assertEquals("Controller technology", myController.getTechnology());
 
         Component myRepository = container.getComponentWithName("MyRepository");
         assertNotNull(myRepository);
         assertEquals("MyRepository", myRepository.getName());
-        assertEquals("test.TypeMatcherComponentFinderStrategy.MyRepository", myRepository.getType());
+        assertEquals("test.TypeMatcherComponentFinderStrategy.MyRepository", myRepository.getPrimaryCode().getType());
         assertEquals("Repository description", myRepository.getDescription());
         assertEquals("Repository technology", myRepository.getTechnology());
 

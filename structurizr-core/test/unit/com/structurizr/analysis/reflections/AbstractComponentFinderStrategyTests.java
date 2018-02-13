@@ -38,12 +38,12 @@ public class AbstractComponentFinderStrategyTests {
         Component aComponent = webApplication.getComponentWithName("AComponent");
         assertNotNull(aComponent);
         assertEquals("AComponent", aComponent.getName());
-        assertEquals("com.structurizr.analysis.reflections.cyclicDependency.AComponent", aComponent.getType());
+        assertEquals("com.structurizr.analysis.reflections.cyclicDependency.AComponent", aComponent.getPrimaryCode().getType());
 
         Component bComponent = webApplication.getComponentWithName("BComponent");
         assertNotNull(bComponent);
         assertEquals("BComponent", bComponent.getName());
-        assertEquals("com.structurizr.analysis.reflections.cyclicDependency.BComponent", bComponent.getType());
+        assertEquals("com.structurizr.analysis.reflections.cyclicDependency.BComponent", bComponent.getPrimaryCode().getType());
 
         assertEquals(1, aComponent.getRelationships().size());
         assertNotNull(aComponent.getRelationships().stream().filter(r -> r.getDestination() == bComponent).findFirst().get());
@@ -68,12 +68,12 @@ public class AbstractComponentFinderStrategyTests {
         Component someComponent = webApplication.getComponentWithName("SomeComponent");
         assertNotNull(someComponent);
         assertEquals("SomeComponent", someComponent.getName());
-        assertEquals("com.structurizr.analysis.reflections.dependenciesFromSuperClass.SomeComponent", someComponent.getType());
+        assertEquals("com.structurizr.analysis.reflections.dependenciesFromSuperClass.SomeComponent", someComponent.getPrimaryCode().getType());
 
         Component loggingComponent = webApplication.getComponentWithName("LoggingComponent");
         assertNotNull(loggingComponent);
         assertEquals("LoggingComponent", loggingComponent.getName());
-        assertEquals("com.structurizr.analysis.reflections.dependenciesFromSuperClass.LoggingComponent", loggingComponent.getType());
+        assertEquals("com.structurizr.analysis.reflections.dependenciesFromSuperClass.LoggingComponent", loggingComponent.getPrimaryCode().getType());
 
         assertEquals(1, someComponent.getRelationships().size());
         assertNotNull(someComponent.getRelationships().stream().filter(r -> r.getDestination() == loggingComponent).findFirst().get());
@@ -95,12 +95,12 @@ public class AbstractComponentFinderStrategyTests {
         Component someComponent = webApplication.getComponentWithName("SomeComponent");
         assertNotNull(someComponent);
         assertEquals("SomeComponent", someComponent.getName());
-        assertEquals("com.structurizr.analysis.reflections.featureinterface.SomeComponent", someComponent.getType());
+        assertEquals("com.structurizr.analysis.reflections.featureinterface.SomeComponent", someComponent.getPrimaryCode().getType());
 
         Component otherComponent = webApplication.getComponentWithName("OtherComponent");
         assertNotNull(otherComponent);
         assertEquals("OtherComponent", otherComponent.getName());
-        assertEquals("com.structurizr.analysis.reflections.featureinterface.OtherComponent", otherComponent.getType());
+        assertEquals("com.structurizr.analysis.reflections.featureinterface.OtherComponent", otherComponent.getPrimaryCode().getType());
 
         assertEquals(0, someComponent.getRelationships().size());
         assertEquals(0, otherComponent.getRelationships().size());

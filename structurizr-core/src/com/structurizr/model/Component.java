@@ -59,36 +59,29 @@ public final class Component extends StaticStructureElement {
     }
 
     /**
-     * Gets the type of this component (e.g. a fully qualified Java interface/class name).
-     *
-     * @return  the type, as a String
-     */
-    @JsonIgnore
-    public String getType() {
-        Optional<CodeElement> optional = codeElements.stream().filter(ce -> ce.getRole() == CodeElementRole.Primary).findFirst();
-        if (optional.isPresent()) {
-            return optional.get().getType();
-        } else {
-            return null;
-        }
-    }
-
-    /**
      * Sets the type of this component (e.g. a fully qualified Java interface/class name).
      *
-     * @param type  the fully qualified type name
-     * @return  the CodeElement that was created
+     * @param code the primary CodeElement for this component
+     * @return the CodeElement that was created
      * @throws IllegalArgumentException if the specified type is null
      */
-    public CodeElement setType(String type) {
-        Optional<CodeElement> optional = codeElements.stream().filter(ce -> ce.getRole() == CodeElementRole.Primary).findFirst();
-        optional.ifPresent(codeElement -> codeElements.remove(codeElement));
+    @JsonIgnore
+    public CodeElement setPrimaryCode(CodeElement code) {
+        Optional.ofNullable(getPrimaryCode())
+                .ifPresent(existing -> codeElements.remove(existing));
 
-        CodeElement codeElement = new CodeElement(type);
-        codeElement.setRole(CodeElementRole.Primary);
-        this.codeElements.add(codeElement);
+        code.setRole(CodeElementRole.Primary);
+        this.codeElements.add(code);
 
-        return codeElement;
+        return code;
+    }
+
+    public CodeElement getPrimaryCode() {
+        return codeElements
+                .stream()
+                .filter(ce -> ce.getRole() == CodeElementRole.Primary)
+                .findFirst()
+                .orElse(null);
     }
 
     /**
@@ -107,16 +100,38 @@ public final class Component extends StaticStructureElement {
     /**
      * Adds a supporting type to this Component.
      *
+     * @param type  a class representing the supporting type
+     * @return  a CodeElement representing the supporting type
+     * @throws IllegalArgumentException if the specified type is null
+     */
+    public CodeElement addSupportingCode(Class<?> type) {
+        CodeElement codeElement = new CodeElement(type);
+        return addSupportingCode(codeElement);
+    }
+
+    /**
+     * Adds a supporting type to this Component.
+     *
      * @param type  the fully qualified type name
      * @return  a CodeElement representing the supporting type
      * @throws IllegalArgumentException if the specified type is null
      */
-    public CodeElement addSupportingType(String type) {
-        CodeElement codeElement = new CodeElement(type);
-        codeElement.setRole(CodeElementRole.Supporting);
-        this.codeElements.add(codeElement);
+    public CodeElement addSupportingCode(String name, String type, String namespace) {
+        CodeElement codeElement = new CodeElement(name, type, namespace);
+        return addSupportingCode(codeElement);
+    }
 
-        return codeElement;
+    /**
+     * Adds a supporting type to this Component.
+     *
+     * @param code a CodeElement representing the supporting type
+     * @return  a CodeElement representing the supporting type
+     * @throws IllegalArgumentException if the specified type is null
+     */
+    public CodeElement addSupportingCode(CodeElement code) {
+        code.setRole(CodeElementRole.Supporting);
+        this.codeElements.add(code);
+        return code;
     }
 
     /**
@@ -135,24 +150,6 @@ public final class Component extends StaticStructureElement {
      */
     public void setSize(long size) {
         this.size = size;
-    }
-
-    /**
-     * Gets the Java package of this component (i.e. the package of the primary code element).
-     *
-     * @return  the package name, as a String
-     */
-    @JsonIgnore
-    public String getPackage() {
-        if (getType() != null) {
-            try {
-                return ClassLoader.getSystemClassLoader().loadClass(getType()).getPackage().getName();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return null;
     }
 
     @Override

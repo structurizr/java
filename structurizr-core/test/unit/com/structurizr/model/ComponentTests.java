@@ -60,21 +60,20 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_getPackage_ReturnsNull_WhenNoTypeHasBeenSet() {
         Component component = new Component();
-        assertNull(component.getType());
-        assertNull(component.getPackage());
+        assertNull(component.getPrimaryCode());
     }
 
     @Test
     public void test_getPackage_ReturnsThePackageName_WhenATypeHasBeenSet() {
         Component component = new Component();
-        component.setType(ComponentTests.class.getCanonicalName());
-        assertEquals("com.structurizr.model", component.getPackage());
+        component.setPrimaryCode(new CodeElement(ComponentTests.class.getSimpleName(), ComponentTests.class.getCanonicalName(), ComponentTests.class.getPackage().getName()));
+        assertEquals("com.structurizr.model", component.getPrimaryCode().getNamespace());
     }
 
     @Test
     public void test_getPackage_ReturnsThePackageName_WhenATypeHasNotBeenSet() {
         Component component = new Component();
-        assertNull(component.getPackage());
+        assertNull(component.getPrimaryCode());
     }
 
     @Test
@@ -90,17 +89,17 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     public void test_setType_ThrowsAnExceptionWhenPassedNull() {
         Component component = new Component();
         try {
-            component.setType(null);
+            component.setPrimaryCode(new CodeElement(null, null, null));
             fail();
         } catch (IllegalArgumentException iae) {
-            assertEquals("A fully qualified name must be provided.", iae.getMessage());
+            assertEquals("A name must be provided.", iae.getMessage());
         }
     }
 
     @Test
     public void test_setType_AddsAPrimaryCodeElement_WhenPassedAFullyQualifiedTypeName() {
         Component component = new Component();
-        component.setType("com.structurizr.web.HomePageController");
+        component.setPrimaryCode(new CodeElement("HomePageController", "com.structurizr.web.HomePageController", "com.structurizr.web"));
 
         Set<CodeElement> codeElements = component.getCode();
         assertEquals(1, codeElements.size());
@@ -113,8 +112,8 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_setType_OverwritesThePrimaryCodeElement_WhenCalledMoreThanOnce() {
         Component component = new Component();
-        component.setType("com.structurizr.web.HomePageController");
-        component.setType("com.structurizr.web.SomeOtherController");
+        component.setPrimaryCode(new CodeElement("HomePageController", "com.structurizr.web.HomePageController", "com.structurizr.web"));
+        component.setPrimaryCode(new CodeElement("SomeOtherController", "com.structurizr.web.SomeOtherController", "com.structurizr.web"));
 
         Set<CodeElement> codeElements = component.getCode();
         assertEquals(1, codeElements.size());
@@ -129,17 +128,20 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     public void test_addSupportingType_ThrowsAnExceptionWhenPassedNull() {
         Component component = new Component();
         try {
-            component.addSupportingType(null);
+            component.addSupportingCode(null, null, null);
             fail();
         } catch (IllegalArgumentException iae) {
-            assertEquals("A fully qualified name must be provided.", iae.getMessage());
+            assertEquals("A name must be provided.", iae.getMessage());
         }
     }
 
     @Test
     public void test_addSupportingType_AddsASupportingCodeElement_WhenPassedAFullyQualifiedTypeName() {
         Component component = new Component();
-        component.addSupportingType("com.structurizr.web.HomePageViewModel");
+        component.addSupportingCode(
+                "HomePageViewModel",
+                "com.structurizr.web.HomePageViewModel",
+                "com.structurizr.web");
 
         Set<CodeElement> codeElements = component.getCode();
         assertEquals(1, codeElements.size());

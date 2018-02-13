@@ -18,10 +18,10 @@ import org.junit.Test;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
 
 public class MessageDigestIdGeneratorTests {
 
@@ -57,7 +57,7 @@ public class MessageDigestIdGeneratorTests {
     public void writeAndRead() throws WorkspaceWriterException, WorkspaceReaderException {
         final MessageDigestIdGenerator ids = MessageDigestIdGenerator.getInstance("SHA-512");
 
-        final String specificId = "80cccbdd44024c1497a546b84b34be72da3829bf19818ce81b94dc6ecd59328b6b675679f952d95c8b402832306d1b9cbb754bd810759619c8b73b378a676609";
+        final String specificId = "a5341244d7a6fa9cde9edb2794587877704edeae985ca56bd9b3c71404ecb37d148a61eb69be4c113f516f04f5ecff7f936487880277b03d79e8689daae3c262";
 
         Workspace workspace1 = createWorkspace(ids);
 
@@ -74,7 +74,7 @@ public class MessageDigestIdGeneratorTests {
         Workspace workspace2 = jsonReader.read(stringReader);
 
         assertEquals(
-                "/My Software System/Web Application/com.somecompany.system.ComponentB",
+                "/My Software System/Web Application/ComponentB",
                 workspace2.getModel().getElement(specificId).getCanonicalName());
     }
 
@@ -114,7 +114,11 @@ public class MessageDigestIdGeneratorTests {
         webApplicationToDatabase.addTags("JDBC");
 
         Component componentA = webApplication.addComponent("ComponentA", "Description", "Technology A");
-        Component componentB = webApplication.addComponent("com.somecompany.system.ComponentB", "com.somecompany.system.ComponentBImpl", "Description", "Technology B");
+        Component componentB = webApplication.addComponentAndCode(
+                "ComponentB",
+                "com.somecompany.system.ComponentBImpl",
+                "com.somecompany.system",
+                "Description", "Technology B");
         person.uses(componentA, "Uses");
         componentA.uses(componentB, "Uses");
         componentB.uses(database, "Reads from and writes to");

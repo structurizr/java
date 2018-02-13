@@ -129,10 +129,18 @@ public final class Model {
         }
     }
 
-    Component addComponentOfType(Container parent, String name, String type, String description, String technology) {
+    Component addComponentAndCode(Container parent, Class<?> type, String description, String technology) {
+        return addComponentAndCode(parent, new CodeElement(type), description, technology);
+    }
+
+    Component addComponentAndCode(Container parent, String name, String type, String namespace, String description, String technology) {
+        return addComponentAndCode(parent, new CodeElement(name, type, namespace), description, technology);
+    }
+
+    Component addComponentAndCode(Container parent, CodeElement code, String description, String technology) {
         Component component = new Component();
-        component.setName(name);
-        component.setType(type);
+        component.setName(code.getName());
+        component.setPrimaryCode(code);
         component.setDescription(description);
         component.setTechnology(technology);
 

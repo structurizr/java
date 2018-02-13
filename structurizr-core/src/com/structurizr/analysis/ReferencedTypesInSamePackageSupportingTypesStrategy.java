@@ -1,9 +1,12 @@
 package com.structurizr.analysis;
 
+import com.structurizr.model.CodeElement;
 import com.structurizr.model.Component;
 
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static java.util.Collections.emptySet;
 
 /**
  * This strategy finds all referenced types in the same package as the component type,
@@ -22,13 +25,18 @@ public class ReferencedTypesInSamePackageSupportingTypesStrategy extends Support
     }
 
     @Override
-    public Set<String> findSupportingTypes(Component component) {
+    public Set<Class<?>> findSupportingTypes(Component component) {
+        final CodeElement code = component.getPrimaryCode();
+        if (code == null) {
+            return emptySet();
+        }
+
         ReferencedTypesSupportingTypesStrategy referencedTypesSupportingTypesStrategy = new ReferencedTypesSupportingTypesStrategy(includeIndirectlyReferencedTypes);
         referencedTypesSupportingTypesStrategy.setTypeRepository(getTypeRepository());
-        Set<String> supportingTypes = referencedTypesSupportingTypesStrategy.findSupportingTypes(component);
+        Set<Class<?>> supportingTypes = referencedTypesSupportingTypesStrategy.findSupportingTypes(component);
 
         return supportingTypes.stream()
-                    .filter(s -> s.startsWith(component.getPackage()))
+                    .filter(type -> type.getPackage().getName().equals(code.getNamespace()))
                     .collect(Collectors.toSet());
     }
 
