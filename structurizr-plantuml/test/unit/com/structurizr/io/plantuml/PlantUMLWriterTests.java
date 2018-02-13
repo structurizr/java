@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.StringWriter;
+import java.net.URI;
 
 import static org.junit.Assert.assertEquals;
 
@@ -220,12 +221,12 @@ public class PlantUMLWriterTests {
     public void test_writeView_IncludesSkinParams_WhenSkinParamsAreAdded() throws Exception {
         workspace = new Workspace("", "");
         workspace.getModel().addSoftwareSystem("My software system", "").setLocation(Location.Internal);
-        workspace.getViews().createSystemLandscapeView("key", "").addAllElements();
+        workspace.getViews().createSystemLandscapeView("thekey", "").addAllElements();
         plantUMLWriter.addSkinParam("handwritten", "true");
 
         plantUMLWriter.write(workspace, stringWriter);
 
-        assertEquals("@startuml" + System.lineSeparator() +
+        assertEquals("@startuml(id=thekey)" + System.lineSeparator() +
                 "scale max 1999x1999" + System.lineSeparator() +
                 "title System Landscape" + System.lineSeparator() +
                 "" + System.lineSeparator() +
@@ -258,7 +259,7 @@ public class PlantUMLWriterTests {
 
         plantUMLWriter.write(workspace, stringWriter);
 
-        assertEquals("@startuml" + System.lineSeparator() +
+        assertEquals("@startuml(id=key)" + System.lineSeparator() +
                 "scale max 1999x1999" + System.lineSeparator() +
                 "title My software system - System Context" + System.lineSeparator() +
                 "" + System.lineSeparator() +
@@ -277,7 +278,47 @@ public class PlantUMLWriterTests {
                 "@enduml" + System.lineSeparator(), stringWriter.toString());
     }
 
-    private static final String SYSTEM_LANDSCAPE_VIEW = "@startuml" + System.lineSeparator() +
+    @Test
+    public void test_writeView_IncludesIncludes_WhenIncludesAreAdded() throws Exception {
+        workspace = new Workspace("", "");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("My software system", "");
+        Person user = workspace.getModel().addPerson("A user", "");
+        user.uses(softwareSystem, "Uses");
+        workspace.getViews().createSystemContextView(softwareSystem, "thekey", "").addAllElements();
+        workspace.getViews().getConfiguration().getStyles().addElementStyle(Tags.SOFTWARE_SYSTEM).background("#ff0000");
+        workspace.getViews().getConfiguration().getStyles().addElementStyle(Tags.PERSON).background("#00ff00");
+        workspace.getViews().getConfiguration().getStyles().addRelationshipStyle(Tags.RELATIONSHIP).color("#0000ff");
+
+        plantUMLWriter.addIncludeFile("do-not-include-me.puml");
+        plantUMLWriter.clearIncludes();
+        plantUMLWriter.addIncludeFile("whole-file.puml");
+        plantUMLWriter.addIncludeFile("unnamed-diagrams.puml", 0);
+        plantUMLWriter.addIncludeFile("named-diagrams.puml", "diagram-name");
+        plantUMLWriter.addIncludeURL(URI.create("http://example.com/whole-file.puml"));
+        plantUMLWriter.addIncludeURL(URI.create("http://example.com/unnamed-diagrams.puml"), 0);
+        plantUMLWriter.addIncludeURL(URI.create("http://example.com/named-diagrams.puml"), "diagram-name");
+
+        plantUMLWriter.clearSkinParams();
+
+        plantUMLWriter.write(workspace, stringWriter);
+
+        assertEquals("@startuml(id=thekey)" + System.lineSeparator() +
+            "!include whole-file.puml" + System.lineSeparator() +
+            "!include unnamed-diagrams.puml!0" + System.lineSeparator() +
+            "!include named-diagrams.puml!diagram-name" + System.lineSeparator() +
+            "!includeurl http://example.com/whole-file.puml" + System.lineSeparator() +
+            "!includeurl http://example.com/unnamed-diagrams.puml!0" + System.lineSeparator() +
+            "!includeurl http://example.com/named-diagrams.puml!diagram-name" + System.lineSeparator() +
+            "scale max 1999x1999" + System.lineSeparator() +
+            "title My software system - System Context" + System.lineSeparator() +
+            "" + System.lineSeparator() +
+            "rectangle \"A user\" <<Person>> as 2 #00ff00" + System.lineSeparator() +
+            "rectangle \"My software system\" <<Software System>> as 1 #ff0000" + System.lineSeparator() +
+            "2 .[#0000ff].> 1 : Uses" + System.lineSeparator() +
+            "@enduml" + System.lineSeparator(), stringWriter.toString());
+    }
+
+    private static final String SYSTEM_LANDSCAPE_VIEW = "@startuml(id=enterpriseContext)" + System.lineSeparator() +
             "scale max 1999x1999" + System.lineSeparator() +
             "title System Landscape for Some Enterprise" + System.lineSeparator() +
             "" + System.lineSeparator() +
@@ -311,7 +352,7 @@ public class PlantUMLWriterTests {
             "1 .[#707070].> 2 : Uses" + System.lineSeparator() +
             "@enduml" + System.lineSeparator();
 
-    private static final String SYSTEM_CONTEXT_VIEW = "@startuml" + System.lineSeparator() +
+    private static final String SYSTEM_CONTEXT_VIEW = "@startuml(id=systemContext)" + System.lineSeparator() +
             "scale max 1999x1999" + System.lineSeparator() +
             "title Software System - System Context" + System.lineSeparator() +
             "" + System.lineSeparator() +
@@ -343,7 +384,7 @@ public class PlantUMLWriterTests {
             "1 .[#707070].> 2 : Uses" + System.lineSeparator() +
             "@enduml" + System.lineSeparator();
 
-    private static final String CONTAINER_VIEW = "@startuml" + System.lineSeparator() +
+    private static final String CONTAINER_VIEW = "@startuml(id=containers)" + System.lineSeparator() +
             "scale max 1999x1413" + System.lineSeparator() +
             "title Software System - Containers" + System.lineSeparator() +
             "" + System.lineSeparator() +
@@ -387,7 +428,7 @@ public class PlantUMLWriterTests {
             "7 .[#707070].> 4 : Sends e-mail using" + System.lineSeparator() +
             "@enduml" + System.lineSeparator();
 
-    private static final String COMPONENT_VIEW = "@startuml" + System.lineSeparator() +
+    private static final String COMPONENT_VIEW = "@startuml(id=components)" + System.lineSeparator() +
             "scale max 1240x1748" + System.lineSeparator() +
             "title Software System - Web Application - Components" + System.lineSeparator() +
             "" + System.lineSeparator() +
@@ -435,7 +476,7 @@ public class PlantUMLWriterTests {
             "1 .[#707070].> 12 : <<HTTP>>\\nUses" + System.lineSeparator() +
             "@enduml" + System.lineSeparator();
 
-    private static final String DYNAMIC_VIEW = "@startuml" + System.lineSeparator() +
+    private static final String DYNAMIC_VIEW = "@startuml(id=dynamic)" + System.lineSeparator() +
             "scale max 1999x1999" + System.lineSeparator() +
             "title Web Application - Dynamic" + System.lineSeparator() +
             "" + System.lineSeparator() +
@@ -471,7 +512,7 @@ public class PlantUMLWriterTests {
             "14 -[#707070]> 8 : 3. select * from something" + System.lineSeparator() +
             "@enduml" + System.lineSeparator();
 
-    private static final String DEPLOYMENT_VIEW = "@startuml" + System.lineSeparator() +
+    private static final String DEPLOYMENT_VIEW = "@startuml(id=deployment)" + System.lineSeparator() +
             "scale max 1999x1999" + System.lineSeparator() +
             "title Software System - Deployment" + System.lineSeparator() +
             "" + System.lineSeparator() +
