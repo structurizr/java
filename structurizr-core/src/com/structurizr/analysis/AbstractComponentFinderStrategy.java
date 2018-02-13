@@ -86,9 +86,9 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
             }
 
             for (SupportingTypesStrategy strategy : supportingTypesStrategies) {
-                for (String type : strategy.findSupportingTypes(component)) {
-                    if (!isNestedClass(type) && componentFinder.getContainer().getComponentOfType(type) == null) {
-                        CodeElement codeElement = component.addSupportingType(type);
+                for (Class<?> type : strategy.findSupportingTypes(component)) {
+                    if (!isNestedClass(type) && componentFinder.getContainer().getComponentOfType(type.getCanonicalName()) == null) {
+                        CodeElement codeElement = component.addSupportingType(type.getCanonicalName());
 
                         TypeVisibility visibility = TypeUtils.getVisibility(getTypeRepository(), codeElement.getType());
                         if (visibility != null) {
@@ -105,8 +105,8 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         }
     }
 
-    private boolean isNestedClass(String type) {
-        return type != null && type.indexOf('$') > -1;
+    private boolean isNestedClass(Class<?> type) {
+        return type != null && type.getName().indexOf('$') > -1;
     }
 
     private void findDependencies() {
