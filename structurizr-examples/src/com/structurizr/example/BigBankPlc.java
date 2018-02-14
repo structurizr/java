@@ -127,10 +127,12 @@ public class BigBankPlc {
             dynamicView.setPaperSize(PaperSize.A5_Landscape);
 
             DeploymentView developmentDeploymentView = views.createDeploymentView(internetBankingSystem, "DevelopmentDeployment", "An example development deployment scenario for the Internet Banking System.");
+            developmentDeploymentView.setEnvironment("Development");
             developmentDeploymentView.add(developerLaptop);
             developmentDeploymentView.setPaperSize(PaperSize.A5_Landscape);
 
             DeploymentView liveDeploymentView = views.createDeploymentView(internetBankingSystem, "LiveDeployment", "An example live deployment scenario for the Internet Banking System.");
+            liveDeploymentView.setEnvironment("Live");
             liveDeploymentView.add(liveWebServer);
             liveDeploymentView.add(primaryDatabaseServer);
             liveDeploymentView.add(secondaryDatabaseServer);
