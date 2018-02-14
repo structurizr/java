@@ -1,5 +1,6 @@
 dependencies {
     compile project(':structurizr-core')
+    compile project(':structurizr-analysis')
 
     compile 'org.springframework:spring-web:4.2.5.RELEASE'
     compile 'org.springframework.data:spring-data-jpa:1.9.4.RELEASE'

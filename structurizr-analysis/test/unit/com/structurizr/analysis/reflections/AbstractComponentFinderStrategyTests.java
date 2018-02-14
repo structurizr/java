@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 public class AbstractComponentFinderStrategyTests {
 
@@ -38,12 +39,12 @@ public class AbstractComponentFinderStrategyTests {
         Component aComponent = webApplication.getComponentWithName("AComponent");
         assertNotNull(aComponent);
         assertEquals("AComponent", aComponent.getName());
-        assertEquals("com.structurizr.analysis.reflections.cyclicDependency.AComponent", aComponent.getType());
+        assertEquals("com.structurizr.analysis.reflections.cyclicDependency.AComponent", aComponent.getType().getType());
 
         Component bComponent = webApplication.getComponentWithName("BComponent");
         assertNotNull(bComponent);
         assertEquals("BComponent", bComponent.getName());
-        assertEquals("com.structurizr.analysis.reflections.cyclicDependency.BComponent", bComponent.getType());
+        assertEquals("com.structurizr.analysis.reflections.cyclicDependency.BComponent", bComponent.getType().getType());
 
         assertEquals(1, aComponent.getRelationships().size());
         assertNotNull(aComponent.getRelationships().stream().filter(r -> r.getDestination() == bComponent).findFirst().get());
@@ -68,12 +69,12 @@ public class AbstractComponentFinderStrategyTests {
         Component someComponent = webApplication.getComponentWithName("SomeComponent");
         assertNotNull(someComponent);
         assertEquals("SomeComponent", someComponent.getName());
-        assertEquals("com.structurizr.analysis.reflections.dependenciesFromSuperClass.SomeComponent", someComponent.getType());
+        assertEquals("com.structurizr.analysis.reflections.dependenciesFromSuperClass.SomeComponent", someComponent.getType().getType());
 
         Component loggingComponent = webApplication.getComponentWithName("LoggingComponent");
         assertNotNull(loggingComponent);
         assertEquals("LoggingComponent", loggingComponent.getName());
-        assertEquals("com.structurizr.analysis.reflections.dependenciesFromSuperClass.LoggingComponent", loggingComponent.getType());
+        assertEquals("com.structurizr.analysis.reflections.dependenciesFromSuperClass.LoggingComponent", loggingComponent.getType().getType());
 
         assertEquals(1, someComponent.getRelationships().size());
         assertNotNull(someComponent.getRelationships().stream().filter(r -> r.getDestination() == loggingComponent).findFirst().get());
@@ -95,12 +96,12 @@ public class AbstractComponentFinderStrategyTests {
         Component someComponent = webApplication.getComponentWithName("SomeComponent");
         assertNotNull(someComponent);
         assertEquals("SomeComponent", someComponent.getName());
-        assertEquals("com.structurizr.analysis.reflections.featureinterface.SomeComponent", someComponent.getType());
+        assertEquals("com.structurizr.analysis.reflections.featureinterface.SomeComponent", someComponent.getType().getType());
 
         Component otherComponent = webApplication.getComponentWithName("OtherComponent");
         assertNotNull(otherComponent);
         assertEquals("OtherComponent", otherComponent.getName());
-        assertEquals("com.structurizr.analysis.reflections.featureinterface.OtherComponent", otherComponent.getType());
+        assertEquals("com.structurizr.analysis.reflections.featureinterface.OtherComponent", otherComponent.getType().getType());
 
         assertEquals(0, someComponent.getRelationships().size());
         assertEquals(0, otherComponent.getRelationships().size());
@@ -183,8 +184,8 @@ public class AbstractComponentFinderStrategyTests {
         assertCodeElementInComponent(myController, "com.structurizr.analysis.reflections.supportingTypes.myapp.web.MyController", CodeElementRole.Primary);
 
         assertEquals(2, myRepository.getCode().size());
-        assertCodeElementInComponent(myRepository, "com.structurizr.analysis.reflections.supportingTypes.data.MyRepository", CodeElementRole.Primary);
-        assertCodeElementInComponent(myRepository, "com.structurizr.analysis.reflections.supportingTypes.data.MyRepositoryImpl", CodeElementRole.Supporting);
+        assertCodeElementInComponent(myRepository, "com.structurizr.analysis.reflections.supportingTypes.myapp.data.MyRepository", CodeElementRole.Primary);
+        assertCodeElementInComponent(myRepository, "com.structurizr.analysis.reflections.supportingTypes.myapp.data.MyRepositoryImpl", CodeElementRole.Supporting);
     }
 
     @Test
@@ -231,15 +232,15 @@ public class AbstractComponentFinderStrategyTests {
         assertNotNull(myController.getRelationships().stream().filter(r -> r.getDestination() == myRepository).findFirst().get());
 
         assertEquals(2, myController.getCode().size());
-        assertCodeElementInComponent(myController, "com.structurizr.analysis.reflections.supportingTypes.myapp.MyController", CodeElementRole.Primary);
+        assertCodeElementInComponent(myController, "com.structurizr.analysis.reflections.supportingTypes.myapp.web.MyController", CodeElementRole.Primary);
         assertCodeElementInComponent(myController, "com.structurizr.analysis.reflections.supportingTypes.myapp.AbstractComponent", CodeElementRole.Supporting);
 
         assertEquals(5, myRepository.getCode().size());
-        assertCodeElementInComponent(myController, "com.structurizr.analysis.reflections.supportingTypes.myapp.data.MyRepository", CodeElementRole.Primary);
-        assertCodeElementInComponent(myController, "com.structurizr.analysis.reflections.supportingTypes.myapp.AbstractComponent", CodeElementRole.Supporting);
-        assertCodeElementInComponent(myController, "com.structurizr.analysis.reflections.supportingTypes.myapp.data.MyRepositoryImpl", CodeElementRole.Supporting);
-        assertCodeElementInComponent(myController, "com.structurizr.analysis.reflections.supportingTypes.myapp.data.MyRepositoryRowMapper", CodeElementRole.Supporting);
-        assertCodeElementInComponent(myController, "com.structurizr.analysis.reflections.supportingTypes.myapp.util.RowMapperHelper", CodeElementRole.Supporting);
+        assertCodeElementInComponent(myRepository, "com.structurizr.analysis.reflections.supportingTypes.myapp.data.MyRepository", CodeElementRole.Primary);
+        assertCodeElementInComponent(myRepository, "com.structurizr.analysis.reflections.supportingTypes.myapp.AbstractComponent", CodeElementRole.Supporting);
+        assertCodeElementInComponent(myRepository, "com.structurizr.analysis.reflections.supportingTypes.myapp.data.MyRepositoryImpl", CodeElementRole.Supporting);
+        assertCodeElementInComponent(myRepository, "com.structurizr.analysis.reflections.supportingTypes.myapp.data.MyRepositoryRowMapper", CodeElementRole.Supporting);
+        assertCodeElementInComponent(myRepository, "com.structurizr.analysis.reflections.supportingTypes.myapp.util.RowMapperHelper", CodeElementRole.Supporting);
     }
 
     @Test
@@ -261,24 +262,24 @@ public class AbstractComponentFinderStrategyTests {
         assertNotNull(myController.getRelationships().stream().filter(r -> r.getDestination() == myRepository).findFirst().get());
 
         assertEquals(2, myController.getCode().size());
-        assertCodeElementInComponent(myController, "com.structurizr.analysis.reflections.supportingTypes.myapp.MyController", CodeElementRole.Primary);
+        assertCodeElementInComponent(myController, "com.structurizr.analysis.reflections.supportingTypes.myapp.web.MyController", CodeElementRole.Primary);
         assertCodeElementInComponent(myController, "com.structurizr.analysis.reflections.supportingTypes.myapp.AbstractComponent", CodeElementRole.Supporting);
 
         assertEquals(4, myRepository.getCode().size());
-        assertCodeElementInComponent(myController, "com.structurizr.analysis.reflections.supportingTypes.myapp.data.MyRepository", CodeElementRole.Primary);
-        assertCodeElementInComponent(myController, "com.structurizr.analysis.reflections.supportingTypes.myapp.AbstractComponent", CodeElementRole.Supporting);
-        assertCodeElementInComponent(myController, "com.structurizr.analysis.reflections.supportingTypes.myapp.data.MyRepositoryImpl", CodeElementRole.Supporting);
-        assertCodeElementInComponent(myController, "com.structurizr.analysis.reflections.supportingTypes.myapp.data.MyRepositoryRowMapper", CodeElementRole.Supporting);
+        assertCodeElementInComponent(myRepository, "com.structurizr.analysis.reflections.supportingTypes.myapp.data.MyRepository", CodeElementRole.Primary);
+        assertCodeElementInComponent(myRepository, "com.structurizr.analysis.reflections.supportingTypes.myapp.AbstractComponent", CodeElementRole.Supporting);
+        assertCodeElementInComponent(myRepository, "com.structurizr.analysis.reflections.supportingTypes.myapp.data.MyRepositoryImpl", CodeElementRole.Supporting);
+        assertCodeElementInComponent(myRepository, "com.structurizr.analysis.reflections.supportingTypes.myapp.data.MyRepositoryRowMapper", CodeElementRole.Supporting);
     }
 
-    private boolean assertCodeElementInComponent(Component component, String type, CodeElementRole role) {
+    private void assertCodeElementInComponent(Component component, String type, CodeElementRole role) {
         for (CodeElement codeElement : component.getCode()) {
-            if (codeElement.getType().equals(type)) {
-                return codeElement.getRole() == role;
+            if (codeElement.getType().equals(type) && codeElement.getRole() == role) {
+                return;
             }
         }
 
-        return false;
+        fail("Component " + component.getName() + " does not have a " + role + " code element of type " + type);
     }
 
 }

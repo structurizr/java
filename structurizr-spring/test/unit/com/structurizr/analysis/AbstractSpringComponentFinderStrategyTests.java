@@ -28,10 +28,10 @@ public class AbstractSpringComponentFinderStrategyTests {
         assertEquals(2, container.getComponents().size());
 
         Component component = container.getComponentWithName("SomeController");
-        assertEquals("test.AbstractSpringComponentFinderStrategy.SomeController", component.getType());
+        assertEquals("test.AbstractSpringComponentFinderStrategy.SomeController", component.getType().getType());
 
         component = container.getComponentWithName("SomePublicRepository");
-        assertEquals("test.AbstractSpringComponentFinderStrategy.SomePublicRepository", component.getType());
+        assertEquals("test.AbstractSpringComponentFinderStrategy.SomePublicRepository", component.getType().getType());
     }
 
     @Test
@@ -53,13 +53,13 @@ public class AbstractSpringComponentFinderStrategyTests {
         assertEquals(3, container.getComponents().size());
 
         Component component = container.getComponentWithName("SomeController");
-        assertEquals("test.AbstractSpringComponentFinderStrategy.SomeController", component.getType());
+        assertEquals("test.AbstractSpringComponentFinderStrategy.SomeController", component.getType().getType());
 
         component = container.getComponentWithName("SomePublicRepository");
-        assertEquals("test.AbstractSpringComponentFinderStrategy.SomePublicRepository", component.getType());
+        assertEquals("test.AbstractSpringComponentFinderStrategy.SomePublicRepository", component.getType().getType());
 
         component = container.getComponentWithName("SomeNonPublicRepository");
-        assertEquals("test.AbstractSpringComponentFinderStrategy.SomeNonPublicRepository", component.getType());
+        assertEquals("test.AbstractSpringComponentFinderStrategy.SomeNonPublicRepository", component.getType().getType());
     }
 
 }

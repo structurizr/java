@@ -1,7 +1,9 @@
 package com.structurizr.analysis;
 
+import com.structurizr.model.CodeElement;
 import com.structurizr.model.Component;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,13 +25,18 @@ public class ReferencedTypesInSamePackageSupportingTypesStrategy extends Support
 
     @Override
     public Set<Class<?>> findSupportingTypes(Component component) {
-        ReferencedTypesSupportingTypesStrategy referencedTypesSupportingTypesStrategy = new ReferencedTypesSupportingTypesStrategy(includeIndirectlyReferencedTypes);
-        referencedTypesSupportingTypesStrategy.setTypeRepository(getTypeRepository());
-        Set<Class<?>> supportingTypes = referencedTypesSupportingTypesStrategy.findSupportingTypes(component);
+        CodeElement codeElement = component.getType();
+        if (codeElement != null) {
+            ReferencedTypesSupportingTypesStrategy referencedTypesSupportingTypesStrategy = new ReferencedTypesSupportingTypesStrategy(includeIndirectlyReferencedTypes);
+            referencedTypesSupportingTypesStrategy.setTypeRepository(getTypeRepository());
+            Set<Class<?>> supportingTypes = referencedTypesSupportingTypesStrategy.findSupportingTypes(component);
 
-        return supportingTypes.stream()
-                    .filter(type -> type.getPackage().getName().startsWith(component.getPackage()))
+            return supportingTypes.stream()
+                    .filter(type -> type.getPackage().getName().startsWith(codeElement.getPackage()))
                     .collect(Collectors.toSet());
+        } else {
+            return new HashSet<>();
+        }
     }
 
 }

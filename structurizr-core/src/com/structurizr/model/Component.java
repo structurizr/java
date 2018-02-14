@@ -64,13 +64,8 @@ public final class Component extends StaticStructureElement {
      * @return  the type, as a String
      */
     @JsonIgnore
-    public String getType() {
-        Optional<CodeElement> optional = codeElements.stream().filter(ce -> ce.getRole() == CodeElementRole.Primary).findFirst();
-        if (optional.isPresent()) {
-            return optional.get().getType();
-        } else {
-            return null;
-        }
+    public CodeElement getType() {
+        return codeElements.stream().filter(ce -> ce.getRole() == CodeElementRole.Primary).findFirst().orElse(null);
     }
 
     /**
@@ -135,24 +130,6 @@ public final class Component extends StaticStructureElement {
      */
     public void setSize(long size) {
         this.size = size;
-    }
-
-    /**
-     * Gets the Java package of this component (i.e. the package of the primary code element).
-     *
-     * @return  the package name, as a String
-     */
-    @JsonIgnore
-    public String getPackage() {
-        if (getType() != null) {
-            try {
-                return ClassLoader.getSystemClassLoader().loadClass(getType()).getPackage().getName();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return null;
     }
 
     @Override

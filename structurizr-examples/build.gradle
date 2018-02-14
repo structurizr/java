@@ -2,7 +2,6 @@ dependencies {
     compile project(':structurizr-annotations')
     compile project(':structurizr-core')
     compile project(':structurizr-dot')
-    compile project(':structurizr-javaee')
     compile project(':structurizr-plantuml')
     compile project(':structurizr-spring')
 

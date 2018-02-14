@@ -27,7 +27,7 @@ public class SpringRepositoryComponentFinderStrategyTests {
 
         assertEquals(1, container.getComponents().size());
         Component component = container.getComponentWithName("SomeRepository");
-        assertEquals("test.SpringRepositoryComponentFinderStrategy.annotation.SomeRepository", component.getType());
+        assertEquals("test.SpringRepositoryComponentFinderStrategy.annotation.SomeRepository", component.getType().getType());
         assertEquals("", component.getDescription());
         assertEquals("Spring Repository", component.getTechnology());
     }
@@ -48,7 +48,7 @@ public class SpringRepositoryComponentFinderStrategyTests {
 
         assertEquals(1, container.getComponents().size());
         Component component = container.getComponentWithName("SomeJpaRepository");
-        assertEquals("test.SpringRepositoryComponentFinderStrategy.jpaRepository.SomeJpaRepository", component.getType());
+        assertEquals("test.SpringRepositoryComponentFinderStrategy.jpaRepository.SomeJpaRepository", component.getType().getType());
         assertEquals("", component.getDescription());
         assertEquals("Spring Repository", component.getTechnology());
     }
@@ -69,7 +69,7 @@ public class SpringRepositoryComponentFinderStrategyTests {
 
         assertEquals(1, container.getComponents().size());
         Component component = container.getComponentWithName("SomeCrudRepository");
-        assertEquals("test.SpringRepositoryComponentFinderStrategy.crudRepository.SomeCrudRepository", component.getType());
+        assertEquals("test.SpringRepositoryComponentFinderStrategy.crudRepository.SomeCrudRepository", component.getType().getType());
         assertEquals("", component.getDescription());
         assertEquals("Spring Repository", component.getTechnology());
     }

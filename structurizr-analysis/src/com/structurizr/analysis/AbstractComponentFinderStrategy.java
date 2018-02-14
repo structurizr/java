@@ -111,13 +111,8 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
 
     private void findDependencies() {
         for (Component component : componentFinder.getContainer().getComponents()) {
-            if (component.getType() != null) {
-                addEfferentDependencies(component, component.getType(), new HashSet<>());
-
-                // and repeat for the supporting types
-                for (CodeElement codeElement : component.getCode()) {
-                    addEfferentDependencies(component, codeElement.getType(), new HashSet<>());
-                }
+            for (CodeElement codeElement : component.getCode()) {
+                addEfferentDependencies(component, codeElement.getType(), new HashSet<>());
             }
         }
     }

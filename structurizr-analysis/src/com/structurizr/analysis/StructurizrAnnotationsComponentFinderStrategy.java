@@ -55,29 +55,16 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
         super.afterFindComponents();
 
         for (Component component : getComponentFinder().getContainer().getComponents()) {
-            if (component.getType() != null) {
-
+            for (CodeElement codeElement : component.getCode()) {
                 // find the efferent dependencies
-                for (CodeElement codeElement : component.getCode()) {
-                    findUsesComponentAnnotations(component, codeElement.getType());
-                }
-                for (CodeElement codeElement : component.getCode()) {
-                    findUsesSoftwareSystemsAnnotations(component, codeElement.getType());
-                }
-                for (CodeElement codeElement : component.getCode()) {
-                    findUsesContainerAnnotations(component, codeElement.getType());
-                }
+                findUsesComponentAnnotations(component, codeElement.getType());
+                findUsesSoftwareSystemsAnnotations(component, codeElement.getType());
+                findUsesContainerAnnotations(component, codeElement.getType());
 
                 // and also the afferent dependencies
-                for (CodeElement codeElement : component.getCode()) {
-                    findUsedByPersonAnnotations(component, codeElement.getType());
-                }
-                for (CodeElement codeElement : component.getCode()) {
-                    findUsedBySoftwareSystemAnnotations(component, codeElement.getType());
-                }
-                for (CodeElement codeElement : component.getCode()) {
-                    findUsedByContainerAnnotations(component, codeElement.getType());
-                }
+                findUsedByPersonAnnotations(component, codeElement.getType());
+                findUsedBySoftwareSystemAnnotations(component, codeElement.getType());
+                findUsedByContainerAnnotations(component, codeElement.getType());
             }
         }
     }

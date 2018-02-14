@@ -19,7 +19,7 @@ public class FirstImplementationOfInterfaceSupportingTypesStrategy extends Suppo
         Set<Class<?>> set = new HashSet<>();
 
         try {
-            Class componentType = getTypeRepository().loadClass(component.getType());
+            Class componentType = getTypeRepository().loadClass(component.getType().getType());
             if (componentType.isInterface()) {
                 Class type = TypeUtils.findFirstImplementationOfInterface(componentType, getTypeRepository().getAllTypes());
                 if (type != null) {
@@ -27,7 +27,7 @@ public class FirstImplementationOfInterfaceSupportingTypesStrategy extends Suppo
                 }
             }
         } catch (ClassNotFoundException e) {
-            log.warn("Could not load type " + component.getType());
+            log.warn("Could not load type " + component.getType().getType());
         }
 
         return set;

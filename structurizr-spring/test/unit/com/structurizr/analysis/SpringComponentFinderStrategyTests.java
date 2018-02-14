@@ -9,6 +9,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 public class SpringComponentFinderStrategyTests {
 
@@ -37,19 +38,19 @@ public class SpringComponentFinderStrategyTests {
         Component someMvcController = webApplication.getComponentWithName("SomeController");
         assertNotNull(someMvcController);
         assertEquals("SomeController", someMvcController.getName());
-        assertEquals("com.structurizr.analysis.myapp.web.SomeController", someMvcController.getType());
+        assertEquals("com.structurizr.analysis.myapp.web.SomeController", someMvcController.getType().getType());
         assertEquals(1, someMvcController.getCode().size());
 
         Component someRestController = webApplication.getComponentWithName("SomeApiController");
         assertNotNull(someRestController);
         assertEquals("SomeApiController", someRestController.getName());
-        assertEquals("com.structurizr.analysis.myapp.api.SomeApiController", someRestController.getType());
+        assertEquals("com.structurizr.analysis.myapp.api.SomeApiController", someRestController.getType().getType());
         assertEquals(1, someRestController.getCode().size());
 
         Component someService = webApplication.getComponentWithName("SomeService");
         assertNotNull(someService);
         assertEquals("SomeService", someService.getName());
-        assertEquals("com.structurizr.analysis.myapp.service.SomeService", someService.getType());
+        assertEquals("com.structurizr.analysis.myapp.service.SomeService", someService.getType().getType());
         assertEquals(2, someService.getCode().size());
         assertCodeElementInComponent(someService, "com.structurizr.analysis.myapp.service.SomeService", CodeElementRole.Primary);
         assertCodeElementInComponent(someService, "com.structurizr.analysis.myapp.service.SomeServiceImpl", CodeElementRole.Supporting);
@@ -57,16 +58,16 @@ public class SpringComponentFinderStrategyTests {
         Component someRepository = webApplication.getComponentWithName("SomeRepository");
         assertNotNull(someRepository);
         assertEquals("SomeRepository", someRepository.getName());
-        assertEquals("com.structurizr.analysis.myapp.data.SomeRepository", someRepository.getType());
+        assertEquals("com.structurizr.analysis.myapp.data.SomeRepository", someRepository.getType().getType());
         assertEquals(2, someRepository.getCode().size());
-        assertCodeElementInComponent(someService, "com.structurizr.analysis.myapp.data.SomeRepository", CodeElementRole.Primary);
-        assertCodeElementInComponent(someService, "com.structurizr.analysis.myapp.data.JdbcSomeRepository", CodeElementRole.Supporting);
+        assertCodeElementInComponent(someRepository, "com.structurizr.analysis.myapp.data.SomeRepository", CodeElementRole.Primary);
+        assertCodeElementInComponent(someRepository, "com.structurizr.analysis.myapp.data.JdbcSomeRepository", CodeElementRole.Supporting);
 
 
         Component someOtherRepository = webApplication.getComponentWithName("SomeOtherRepository");
         assertNotNull(someOtherRepository);
         assertEquals("SomeOtherRepository", someOtherRepository.getName());
-        assertEquals("com.structurizr.analysis.myapp.data.SomeOtherRepository", someOtherRepository.getType());
+        assertEquals("com.structurizr.analysis.myapp.data.SomeOtherRepository", someOtherRepository.getType().getType());
 
         assertEquals(1, someMvcController.getRelationships().size());
         Relationship relationship = someMvcController.getRelationships().iterator().next();
@@ -85,14 +86,14 @@ public class SpringComponentFinderStrategyTests {
         assertNotNull(relationships.stream().filter(r -> r.getDestination() == someOtherRepository).findFirst().get());
     }
 
-    private boolean assertCodeElementInComponent(Component component, String type, CodeElementRole role) {
+    private void assertCodeElementInComponent(Component component, String type, CodeElementRole role) {
         for (CodeElement codeElement : component.getCode()) {
-            if (codeElement.getType().equals(type)) {
-                return codeElement.getRole() == role;
+            if (codeElement.getType().equals(type) && codeElement.getRole() == role) {
+                return;
             }
         }
 
-        return false;
+        fail("Component " + component.getName() + " does not have a " + role + " code element of type " + type);
     }
 
 }

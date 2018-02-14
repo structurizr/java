@@ -30,7 +30,7 @@ public class ReferencedTypesSupportingTypesStrategy extends SupportingTypesStrat
     @Override
     public Set<Class<?>> findSupportingTypes(Component component) {
         Set<Class<?>> referencedTypes = new HashSet<>();
-        referencedTypes.addAll(getReferencedTypesInPackage(component.getType()));
+        referencedTypes.addAll(getReferencedTypesInPackage(component.getType().getType()));
 
         for (CodeElement codeElement : component.getCode()) {
             referencedTypes.addAll(getReferencedTypesInPackage(codeElement.getType()));

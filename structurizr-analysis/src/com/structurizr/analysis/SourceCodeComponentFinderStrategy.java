@@ -81,7 +81,7 @@ public class SourceCodeComponentFinderStrategy implements ComponentFinderStrateg
                     // additionally set the description on the component, if it's not already been set
                     if (codeElement.getRole() == CodeElementRole.Primary) {
                         if (component.getDescription() == null || component.getDescription().trim().length() == 0) {
-                            component.setDescription(typeToDescription.get(component.getType()));
+                            component.setDescription(typeToDescription.get(component.getType().getType()));
                         }
                     }
                 }
