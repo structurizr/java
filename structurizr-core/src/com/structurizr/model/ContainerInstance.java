@@ -12,6 +12,7 @@ public final class ContainerInstance extends Element {
     private Container container;
     private String containerId;
     private int instanceId;
+    private Set<HttpHealthCheck> healthChecks = new HashSet<>();
 
     ContainerInstance() {
     }
@@ -123,6 +124,33 @@ public final class ContainerInstance extends Element {
         } else {
             throw new IllegalArgumentException("The destination of a relationship must be specified.");
         }
+    }
+
+    /**
+     * Gets the set of health checks associated with this container instance.
+     *
+     * @return  a Set of HttpHealthCheck instances
+     */
+    public Set<HttpHealthCheck> getHealthChecks() {
+        return new HashSet<>(healthChecks);
+    }
+
+    void setHealthChecks(Set<HttpHealthCheck> healthChecks) {
+        this.healthChecks = healthChecks;
+    }
+
+    /**
+     * Adds a new health check.
+     *
+     * @param name      the name of the health check
+     * @param url       the URL of the health check
+     * @return  a HttpHealthCheck instance representing the health check that has been added
+     */
+    public HttpHealthCheck addHealthCheck(String name, String url) {
+        HttpHealthCheck healthCheck = new HttpHealthCheck(name, url);
+        healthChecks.add(healthCheck);
+
+        return healthCheck;
     }
 
 }

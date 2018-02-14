@@ -110,4 +110,16 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
         assertEquals("Some technology", relationship.getTechnology());
     }
 
+    @Test
+    public void test_addHealthCheck() {
+        Container webApplication = softwareSystem.addContainer("Web Application", "", "");
+        ContainerInstance instance = model.addContainerInstance(webApplication);
+        assertTrue(instance.getHealthChecks().isEmpty());
+
+        HttpHealthCheck healthCheck = instance.addHealthCheck("Test web application is working", "http://localhost:8080");
+        assertEquals("Test web application is working", healthCheck.getName());
+        assertEquals("http://localhost:8080", healthCheck.getUrl());
+        assertEquals(1, instance.getHealthChecks().size());
+    }
+
 }
