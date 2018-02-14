@@ -112,6 +112,7 @@ public final class ContainerView extends StaticView {
         return false;
     }
 
+    /*
      * Adds all {@link SoftwareSystem}s that have efferent {@link com.structurizr.model.Relationship}s with the
      * {@link SoftwareSystem} of this {@link ContainerView}.
      */
@@ -120,6 +121,5 @@ public final class ContainerView extends StaticView {
                 .filter(softwareSystem -> softwareSystem.hasEfferentRelationshipWith(this.getSoftwareSystem()))
                 .forEach(this::add);
     }
-
-
+    
 }
