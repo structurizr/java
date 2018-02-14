@@ -1,8 +1,9 @@
-package com.structurizr.encryption;
+package com.structurizr.io.json;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.structurizr.encryption.EncryptedWorkspace;
 import com.structurizr.io.WorkspaceWriterException;
 
 import java.io.Writer;

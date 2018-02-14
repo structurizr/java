@@ -1,7 +1,8 @@
-package com.structurizr.encryption;
+package com.structurizr.io.json;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.structurizr.encryption.EncryptedWorkspace;
 import com.structurizr.io.WorkspaceReaderException;
 
 import java.io.IOException;

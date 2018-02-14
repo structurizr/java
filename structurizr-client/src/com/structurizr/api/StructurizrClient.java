@@ -1,7 +1,11 @@
 package com.structurizr.api;
 
 import com.structurizr.Workspace;
-import com.structurizr.encryption.*;
+import com.structurizr.encryption.EncryptedWorkspace;
+import com.structurizr.encryption.EncryptionLocation;
+import com.structurizr.encryption.EncryptionStrategy;
+import com.structurizr.io.json.EncryptedJsonReader;
+import com.structurizr.io.json.EncryptedJsonWriter;
 import com.structurizr.io.json.JsonReader;
 import com.structurizr.io.json.JsonWriter;
 import org.apache.commons.logging.Log;
