@@ -1,0 +1,27 @@
+dependencies {
+
+    compile project(':structurizr-core')
+
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'
+
+    compile 'org.apache.httpcomponents:httpclient:4.3.6'
+    compile 'org.apache.httpcomponents:httpcore:4.3.3'
+
+    compile 'javax.xml.bind:jaxb-api:2.3.0'
+
+    testCompile 'junit:junit:4.12'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+    test {
+        java {
+            srcDir 'test/unit'
+            srcDir 'test/integration'
+        }
+    }
+}

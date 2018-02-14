@@ -1,9 +1,6 @@
-package com.structurizr.documentation;
+package com.structurizr.encryption;
 
 import com.structurizr.Workspace;
-import com.structurizr.encryption.AesEncryptionStrategy;
-import com.structurizr.encryption.EncryptedJsonWriter;
-import com.structurizr.encryption.EncryptedWorkspace;
 import org.junit.Test;
 
 import java.io.StringWriter;

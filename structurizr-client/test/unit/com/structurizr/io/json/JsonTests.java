@@ -8,6 +8,8 @@ import org.junit.Test;
 import java.io.StringReader;
 import java.io.StringWriter;
 
+import static org.junit.Assert.assertEquals;
+
 public class JsonTests {
 
     @Test
@@ -69,6 +71,23 @@ public class JsonTests {
         views.getConfiguration().getStyles().add(new RelationshipStyle("JDBC", 4, "#ff0000", true, Routing.Direct, 25, 300, null));
 
         return workspace;
+    }
+
+    @Test
+    public void test_backwardsCompatibilityOfRenamingEnterpriseContextViewsToSystemLandscapeViews() throws Exception {
+        Workspace workspace = new Workspace("Name", "Description");
+        workspace.getViews().createSystemLandscapeView("key", "description");
+
+        JsonWriter jsonWriter = new JsonWriter(false);
+        StringWriter stringWriter = new StringWriter();
+        jsonWriter.write(workspace, stringWriter);
+        String workspaceAsJson = stringWriter.toString();
+        workspaceAsJson = workspaceAsJson.replaceAll("systemLandscapeViews", "enterpriseContextViews");
+
+        JsonReader jsonReader = new JsonReader();
+        StringReader stringReader = new StringReader(workspaceAsJson);
+        workspace = jsonReader.read(stringReader);
+        assertEquals(1, workspace.getViews().getSystemLandscapeViews().size());
     }
 
 }

@@ -1,8 +1,6 @@
 package com.structurizr.io.plantuml;
 
 import com.structurizr.Workspace;
-import com.structurizr.io.WorkspaceWriter;
-import com.structurizr.io.WorkspaceWriterException;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
@@ -25,7 +23,7 @@ import static java.util.Collections.emptyList;
  *
  * Note: This won't work if you have two elements named the same on a diagram.
  */
-public final class PlantUMLWriter implements WorkspaceWriter {
+public final class PlantUMLWriter {
 
     /** Maximum diagram width or height. Defaults to 2000 to match public plantuml.com installation */
     private int sizeLimit = 2000;
@@ -97,8 +95,13 @@ public final class PlantUMLWriter implements WorkspaceWriter {
         this.sizeLimit = sizeLimit;
     }
 
-    @Override
-    public void write(Workspace workspace, Writer writer) throws WorkspaceWriterException {
+    /**
+     * Writes the views in the given workspace as PlantUML definitions, to the specified writer.
+     *
+     * @param workspace     the workspace containing the views to be written
+     * @param writer        the Writer to write to
+     */
+    public void write(Workspace workspace, Writer writer) {
         if (workspace != null && writer != null) {
             workspace.getViews().getSystemLandscapeViews().forEach(v -> write(v, writer));
             workspace.getViews().getSystemContextViews().forEach(v -> write(v, writer));
@@ -110,13 +113,23 @@ public final class PlantUMLWriter implements WorkspaceWriter {
     }
 
     /**
+     * Write the views in the given workspace as PlantUML definitions, to stdout.
+     *
+     * @param workspace     the workspace containing the views to be written
+     */
+    public void write(Workspace workspace) {
+        StringWriter stringWriter = new StringWriter();
+        write(workspace, stringWriter);
+        System.out.println(stringWriter.toString());
+    }
+
+    /**
      * Creates PlantUML diagram definitions based upon the specified workspace.
      *
-     * @param workspace     a Workspace instance
+     * @param workspace     the workspace containing the views to be written
      * @return  an array of PlantUML diagram definitions, one per view
-     * @throws WorkspaceWriterException     if something goes wrong
      */
-    public String[] toPlantUML(Workspace workspace) throws WorkspaceWriterException {
+    public String[] toPlantUML(Workspace workspace) {
         StringWriter stringWriter = new StringWriter();
         write(workspace, stringWriter);
 

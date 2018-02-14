@@ -2,8 +2,6 @@ package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,8 +10,6 @@ public class ComponentView extends StaticView {
 
     private Container container;
     private String containerId;
-
-    private static final Log LOG = LogFactory.getLog(ComponentView.class);
 
     ComponentView() {
     }

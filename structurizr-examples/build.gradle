@@ -1,6 +1,6 @@
 dependencies {
     compile project(':structurizr-annotations')
-    compile project(':structurizr-core')
+    compile project(':structurizr-client')
     compile project(':structurizr-dot')
     compile project(':structurizr-plantuml')
     compile project(':structurizr-spring')

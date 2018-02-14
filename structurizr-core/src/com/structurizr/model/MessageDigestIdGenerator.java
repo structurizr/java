@@ -6,13 +6,19 @@ import java.security.NoSuchAlgorithmException;
 
 import static java.lang.Math.min;
 
+/**
+ * An ID generator that uses a digest function when generating IDs for model elements and relationships.
+ * This allows IDs to be more stable than a sequential number, and allows models to be merged more easily.
+ */
 public class MessageDigestIdGenerator implements IdGenerator {
+
     private static final Charset UTF8 = Charset.forName("UTF-8");
     private static final char[] HEX_CHARS = "0123456789abcdef".toCharArray();
 
     public static MessageDigestIdGenerator getInstance(final String algorithm) {
         return getInstance(algorithm, Integer.MAX_VALUE);
     }
+
     public static MessageDigestIdGenerator getInstance(final String algorithm, final int length) {
         try {
             return new MessageDigestIdGenerator(MessageDigest.getInstance(algorithm), length);
