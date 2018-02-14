@@ -89,6 +89,21 @@ public final class DeploymentView extends View {
         removeElement(deploymentNode);
     }
 
+    /**
+     * Adds a Relationship to this view.
+     *
+     * @param relationship  the Relationship to be added
+     * @return  a RelationshipView object representing the relationship added
+     */
+    public RelationshipView add(Relationship relationship) {
+        return addRelationship(relationship);
+    }
+
+    /**
+     * Gets the (computed) name of this view.
+     *
+     * @return  the name, as a String
+     */
     @Override
     public String getName() {
         if (getSoftwareSystem() != null) {

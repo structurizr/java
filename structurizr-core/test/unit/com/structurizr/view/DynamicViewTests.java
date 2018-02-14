@@ -130,13 +130,6 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addRelationshipDirectly() {
-        final DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
-        dynamicView.add(relationship);
-        assertEquals(2, dynamicView.getElements().size());
-    }
-
-    @Test
     public void test_add_AddsTheSourceAndDestinationElements_WhenARelationshipBetweenThemExistsAndTheDestinationIsAnExternalSoftwareSystem() {
         DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
         containerA2.uses(softwareSystemB, "", "");

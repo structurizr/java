@@ -13,7 +13,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * The superclass for all views.
+ * The superclass for all views (static views, dynamic views and deployment views).
  */
 public abstract class View {
 
@@ -24,8 +24,8 @@ public abstract class View {
     private PaperSize paperSize = null;
 
     private Set<ElementView> elementViews = new LinkedHashSet<>();
-
     private Set<RelationshipView> relationshipViews = new LinkedHashSet<>();
+
     private ViewSet viewSet;
 
     View() {
@@ -41,24 +41,34 @@ public abstract class View {
         setDescription(description);
     }
 
+    /**
+     * Gets the model that this view belongs to.
+     *
+     * @return  a Model object
+     */
     @JsonIgnore
     public Model getModel() {
         return softwareSystem.getModel();
     }
 
+    /**
+     * Gets the software system that this view is associated with.
+     *
+     * @return  a SoftwareSystem object, or null if this view is not associated with a software system (e.g. it's a system landscape view)
+     */
     @JsonIgnore
     public SoftwareSystem getSoftwareSystem() {
         return softwareSystem;
     }
 
-    public void setSoftwareSystem(SoftwareSystem softwareSystem) {
+    void setSoftwareSystem(SoftwareSystem softwareSystem) {
         this.softwareSystem = softwareSystem;
     }
 
     /**
      * Gets the ID of the software system this view is associated with.
      *
-     * @return the ID, as a String
+     * @return the ID, as a String, or null if this view is not associated with a software system (e.g. it's a system landscape view)
      */
     public String getSoftwareSystemId() {
         if (this.softwareSystem != null) {
@@ -72,6 +82,11 @@ public abstract class View {
         this.softwareSystemId = softwareSystemId;
     }
 
+    /**
+     * Gets the description of this view.
+     *
+     * @return  the description, as a String
+     */
     public String getDescription() {
         return description;
     }
@@ -85,10 +100,9 @@ public abstract class View {
     }
 
     /**
-     * Gets the identifer for this view.
+     * Gets the identifier for this view.
      *
-     * @return the identifier, as a String,
-     * or null if no key has been specified
+     * @return the identifier, as a String
      */
     public String getKey() {
         return key;
@@ -101,7 +115,7 @@ public abstract class View {
     /**
      * Gets the paper size that should be used to render this view.
      *
-     * @return a PaperSize (A4_Portrait by default)
+     * @return a PaperSize
      */
     public PaperSize getPaperSize() {
         return paperSize;
@@ -112,7 +126,7 @@ public abstract class View {
     }
 
     /**
-     * Gets the name of this view.
+     * Gets the (computed) name of this view.
      *
      * @return the name, as a String
      */
@@ -167,7 +181,7 @@ public abstract class View {
         }
     }
 
-    public RelationshipView add(Relationship relationship) {
+    protected RelationshipView addRelationship(Relationship relationship) {
         if (relationship != null) {
             if (isElementInView(relationship.getSource()) && isElementInView(relationship.getDestination())) {
                 RelationshipView relationshipView = new RelationshipView(relationship);
@@ -185,7 +199,7 @@ public abstract class View {
     }
 
     protected RelationshipView addRelationship(Relationship relationship, String description, String order) {
-        RelationshipView relationshipView = add(relationship);
+        RelationshipView relationshipView = addRelationship(relationship);
         if (relationshipView != null) {
             relationshipView.setDescription(description);
             relationshipView.setOrder(order);
@@ -194,6 +208,11 @@ public abstract class View {
         return relationshipView;
     }
 
+    /**
+     * Removes a relationship from this view.
+     *
+     * @param relationship      the Relationship to remove
+     */
     public void remove(Relationship relationship) {
         if (relationship != null) {
             RelationshipView relationshipView = new RelationshipView(relationship);
@@ -242,8 +261,7 @@ public abstract class View {
     }
 
     /**
-     * Removes all elements that have no relationships
-     * to other elements in this view.
+     * Removes all elements that have no relationships to other elements in this view.
      */
     public void removeElementsWithNoRelationships() {
         Set<RelationshipView> relationships = getRelationships();
@@ -259,6 +277,12 @@ public abstract class View {
         }
     }
 
+    /**
+     * Attempts to copy the visual layout information (e.g. x,y coordinates) of elements and relationships
+     * from the specified source view into this view.
+     *
+     * @param source    the source View
+     */
     public void copyLayoutInformationFrom(View source) {
         if (this.getPaperSize() == null) {
             this.setPaperSize(source.getPaperSize());
@@ -289,9 +313,15 @@ public abstract class View {
         return null;
     }
 
+    /**
+     * Gets the element view for the given element.
+     *
+     * @param element   the Element to find the ElementView for
+     * @return  an ElementView object, or null if the element doesn't exist in the view
+     */
     public ElementView getElementView(Element element) {
         Optional<ElementView> elementView = this.elementViews.stream().filter(ev -> ev.getElement().equals(element)).findFirst();
-        return elementView.isPresent() ? elementView.get() : null;
+        return elementView.orElse(null);
     }
 
     protected RelationshipView findRelationshipView(RelationshipView sourceRelationshipView) {
@@ -304,15 +334,26 @@ public abstract class View {
         return null;
     }
 
+    /**
+     * Gets the relationship view for the given relationship.
+     *
+     * @param relationship  the Relationship to find the RelationshipView for
+     * @return  an RelationshipView object, or null if the relationship doesn't exist in the view
+     */
     public RelationshipView getRelationshipView(Relationship relationship) {
         Optional<RelationshipView> relationshipView = this.relationshipViews.stream().filter(rv -> rv.getRelationship().equals(relationship)).findFirst();
-        return relationshipView.isPresent() ? relationshipView.get() : null;
+        return relationshipView.orElse(null);
     }
 
     void setViewSet(ViewSet viewSet) {
         this.viewSet = viewSet;
     }
 
+    /**
+     * Gets the view set that this view belongs to.
+     *
+     * @return  a ViewSet object
+     */
     @JsonIgnore
     public ViewSet getViewSet() {
         return viewSet;

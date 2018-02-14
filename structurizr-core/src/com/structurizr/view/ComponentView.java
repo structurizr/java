@@ -6,7 +6,10 @@ import com.structurizr.model.*;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ComponentView extends StaticView {
+/**
+ * Represents a Component view from the C4 model, showing the components within a given container.
+ */
+public final class ComponentView extends StaticView {
 
     private Container container;
     private String containerId;
@@ -37,15 +40,26 @@ public class ComponentView extends StaticView {
         this.containerId = containerId;
     }
 
+    /**
+     * Gets the container associated with this view.
+     *
+     * @return  a Container object
+     */
     @JsonIgnore
     public Container getContainer() {
         return container;
     }
 
-    public void setContainer(Container container) {
+    void setContainer(Container container) {
         this.container = container;
     }
 
+    /**
+     * Adds the specified software system. Please note that the parent software system of the container in scope
+     * cannot be added to this view.
+     *
+     * @param softwareSystem    the SoftwareSystem to add to this view
+     */
     @Override
     public void add(SoftwareSystem softwareSystem) {
         if (softwareSystem != null && !softwareSystem.equals(getSoftwareSystem())) {
@@ -54,11 +68,10 @@ public class ComponentView extends StaticView {
     }
 
     /**
-     * Adds all containers in the software system to this view.
+     * Adds all other containers in the software system to this view.
      */
     public void addAllContainers() {
-        getSoftwareSystem().getContainers().stream()
-                .forEach(this::add);
+        getSoftwareSystem().getContainers().forEach(this::add);
     }
 
     /**
@@ -68,11 +81,7 @@ public class ComponentView extends StaticView {
      */
     public void add(Container container) {
         if (container != null && !container.equals(getContainer())) {
-            if (container.getParent().equals(getSoftwareSystem())) {
-                addElement(container, true);
-            } else {
-                throw new IllegalArgumentException("Only containers belonging to " + getSoftwareSystem().getName() + " can be added to this view.");
-            }
+            addElement(container, true);
         }
     }
 
@@ -116,11 +125,19 @@ public class ComponentView extends StaticView {
         removeElement(component);
     }
 
+    /**
+     * Gets the (computed) name of this view.
+     *
+     * @return  the name, as a String
+     */
     @Override
     public String getName() {
         return getSoftwareSystem().getName() + " - " + getContainer().getName() + " - Components";
     }
 
+    /**
+     * Adds all people, software systems, sibling containers and components belonging to the container in scope.
+     */
     @Override
     public void addAllElements() {
         addAllSoftwareSystems();
@@ -129,6 +146,11 @@ public class ComponentView extends StaticView {
         addAllComponents();
     }
 
+    /**
+     * Adds all people, software systems, sibling containers and components that are directly connected to the specified element.
+     *
+     * @param element   an Element
+     */
     @Override
     public void addNearestNeighbours(Element element) {
         super.addNearestNeighbours(element, SoftwareSystem.class);

@@ -234,14 +234,14 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_removeElementsThatCantBeReachedFrom_DoesNothing_WhenANullElementIsSpecified() {
+    public void test_removeElementsThatAreUnreachableFrom_DoesNothing_WhenANullElementIsSpecified() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         StaticView view = new SystemContextView(softwareSystem, "context", "Description");
-        view.removeElementsThatCantBeReachedFrom(null);
+        view.removeElementsThatAreUnreachableFrom(null);
     }
 
     @Test
-    public void test_removeElementsThatCantBeReachedFrom_DoesNothing_WhenAllElementsCanBeReached() {
+    public void test_removeElementsThatAreUnreachableFrom_DoesNothing_WhenAllElementsCanBeReached() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("The System", "Description");
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "");
@@ -253,12 +253,12 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         view.addAllElements();
         assertEquals(3, view.getElements().size());
 
-        view.removeElementsThatCantBeReachedFrom(softwareSystem);
+        view.removeElementsThatAreUnreachableFrom(softwareSystem);
         assertEquals(3, view.getElements().size());
     }
 
     @Test
-    public void test_removeElementsThatCantBeReachedFrom_RemovesOrphanedElements_WhenThereAreSomeOrphanedElements() {
+    public void test_removeElementsThatAreUnreachableFrom_RemovesOrphanedElements_WhenThereAreSomeOrphanedElements() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("The System", "Description");
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "");
@@ -271,13 +271,13 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         view.addAllElements();
         assertEquals(4, view.getElements().size());
 
-        view.removeElementsThatCantBeReachedFrom(softwareSystem);
+        view.removeElementsThatAreUnreachableFrom(softwareSystem);
         assertEquals(3, view.getElements().size());
         assertFalse(view.getElements().contains(new ElementView(softwareSystemC)));
     }
 
     @Test
-    public void test_removeElementsThatCantBeReachedFrom_RemovesUnreachableElements_WhenThereAreSomeUnreachableElements() {
+    public void test_removeElementsThatAreUnreachableFrom_RemovesUnreachableElements_WhenThereAreSomeUnreachableElements() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("The System", "Description");
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "");
@@ -289,13 +289,13 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         view.addAllElements();
         assertEquals(3, view.getElements().size());
 
-        view.removeElementsThatCantBeReachedFrom(softwareSystemA);
+        view.removeElementsThatAreUnreachableFrom(softwareSystemA);
         assertEquals(2, view.getElements().size());
         assertFalse(view.getElements().contains(new ElementView(softwareSystem)));
     }
 
     @Test
-    public void test_removeElementsThatCantBeReachedFrom_DoesntIncludeAllElements_WhenThereIsACyclicGraph() {
+    public void test_removeElementsThatAreUnreachableFrom_DoesntIncludeAllElements_WhenThereIsACyclicGraph() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
         Person user = model.addPerson("User", "");
@@ -309,7 +309,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         assertEquals(3, view.getElements().size());
 
         // this should remove software system 2
-        view.removeElementsThatCantBeReachedFrom(softwareSystem1);
+        view.removeElementsThatAreUnreachableFrom(softwareSystem1);
         assertEquals(2, view.getElements().size());
         assertTrue(view.getElements().contains(new ElementView(softwareSystem1)));
         assertTrue(view.getElements().contains(new ElementView(user)));

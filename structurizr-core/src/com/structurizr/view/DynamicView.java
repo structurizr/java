@@ -150,14 +150,6 @@ public final class DynamicView extends View {
     }
 
     @Override
-    public RelationshipView add(Relationship relationship) {
-        // when adding a relationship to a DynamicView we suppose the user really wants to also see both elements
-        addElement(relationship.getSource(), false);
-        addElement(relationship.getDestination(), false);
-        return super.add(relationship);
-    }
-
-    @Override
     protected RelationshipView findRelationshipView(RelationshipView sourceRelationshipView) {
         for (RelationshipView relationshipView : getRelationships()) {
             if (relationshipView.getRelationship().equals(sourceRelationshipView.getRelationship())) {
@@ -171,6 +163,11 @@ public final class DynamicView extends View {
         return null;
     }
 
+    /**
+     * Gets the (computed) name of this view.
+     *
+     * @return  the name, as a String
+     */
     @Override
     public String getName() {
         if (element != null) {

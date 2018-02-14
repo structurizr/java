@@ -5,6 +5,9 @@ import com.structurizr.model.Element;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
 
+/**
+ * Represents a Container view from the C4 model, showing the containers within a given software system.
+ */
 public final class ContainerView extends StaticView {
 
     ContainerView() {
@@ -14,6 +17,12 @@ public final class ContainerView extends StaticView {
         super(softwareSystem, key, description);
     }
 
+    /**
+     * Adds a software system to this view. Please note that you cannot add the software system
+     * that is the scope of this view.
+     *
+     * @param softwareSystem the SoftwareSystem to add
+     */
     @Override
     public void add(SoftwareSystem softwareSystem) {
         if (softwareSystem != null && !softwareSystem.equals(getSoftwareSystem())) {
@@ -22,14 +31,14 @@ public final class ContainerView extends StaticView {
     }
 
     /**
-     * Adds all containers in the software system to this view.
+     * Adds all containers within the software system in scope to this view.
      */
     public void addAllContainers() {
         getSoftwareSystem().getContainers().forEach(this::add);
     }
 
     /**
-     * Adds an individual container to this view.
+     * Adds an individual container (belonging to any software system) to this view.
      *
      * @param container the Container to add
      */
@@ -46,11 +55,19 @@ public final class ContainerView extends StaticView {
         removeElement(container);
     }
 
+    /**
+     * Gets the (computed) name of this view.
+     *
+     * @return  the name, as a String
+     */
     @Override
     public String getName() {
         return getSoftwareSystem().getName() + " - Containers";
     }
 
+    /**
+     * Adds all people, software systems and containers that belong to the software system in scope.
+     */
     @Override
     public void addAllElements() {
         addAllSoftwareSystems();
@@ -58,10 +75,15 @@ public final class ContainerView extends StaticView {
         addAllContainers();
     }
 
+    /**
+     * Adds all people, software systems and containers that are directly connected to the specified element.
+     *
+     * @param element   an Element
+     */
     @Override
     public void addNearestNeighbours(Element element) {
-        super.addNearestNeighbours(element, SoftwareSystem.class);
         super.addNearestNeighbours(element, Person.class);
+        super.addNearestNeighbours(element, SoftwareSystem.class);
         super.addNearestNeighbours(element, Container.class);
     }
 

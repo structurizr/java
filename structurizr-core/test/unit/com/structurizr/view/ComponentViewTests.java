@@ -568,18 +568,4 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
     }
 
-    @Test
-    public void test_add_ThrowsAnExceptionWhenAddingAContainerThatBelongsToAnotherSoftwareSystem() {
-        try {
-            Container containerInADifferentSoftwareSystem = model.addSoftwareSystem("Other software system", "").addContainer("Other container", "", "");
-
-            ComponentView componentView = views.createComponentView(webApplication, "components", "");
-            componentView.add(webApplication);
-            componentView.add(containerInADifferentSoftwareSystem);
-            fail();
-        } catch (Exception e) {
-            assertEquals("Only containers belonging to The System can be added to this view.", e.getMessage());
-        }
-    }
-
 }

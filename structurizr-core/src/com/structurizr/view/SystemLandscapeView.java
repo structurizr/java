@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.*;
 
 /**
- * Represents a System Landscape view that sits "above" the C4 model. This is the "big picture" view,
- * showing the software systems and people in an given environment.
- * The permitted elements in this view are software systems and people.
+ * Represents a System Landscape view that sits "above" the C4 model,
+ * showing the software systems and people in a given environment.
  */
 public final class SystemLandscapeView extends StaticView {
 
@@ -15,24 +14,28 @@ public final class SystemLandscapeView extends StaticView {
     SystemLandscapeView() {
     }
 
-    /**
-     * Creates an system landscape view.
-     *
-     * @param key                   the key for the view
-     * @param description           the description for the view
-     */
     SystemLandscapeView(Model model, String key, String description) {
         super(null, key, description);
 
         this.model = model;
     }
 
+    /**
+     * Gets the (computed) name of this view.
+     *
+     * @return  the name, as a String
+     */
     @Override
     public String getName() {
         Enterprise enterprise = model.getEnterprise();
         return "System Landscape" + (enterprise != null && enterprise.getName().trim().length() > 0 ? " for " + enterprise.getName() : "");
     }
 
+    /**
+     * Gets the model that this view belongs to.
+     *
+     * @return  a Model object
+     */
     @JsonIgnore
     @Override
     public Model getModel() {
@@ -52,10 +55,15 @@ public final class SystemLandscapeView extends StaticView {
         addAllPeople();
     }
 
+    /**
+     * Adds all software systems and people that are directly connected to the specified element.
+     *
+     * @param element   an Element
+     */
     @Override
     public void addNearestNeighbours(Element element) {
-        super.addNearestNeighbours(element, SoftwareSystem.class);
         super.addNearestNeighbours(element, Person.class);
+        super.addNearestNeighbours(element, SoftwareSystem.class);
     }
 
 }

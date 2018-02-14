@@ -8,6 +8,9 @@ import com.structurizr.model.SoftwareSystem;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * The superclass for all static views (system landscape, system context, container and component views).
+ */
 public abstract class StaticView extends View {
 
     StaticView() {
@@ -67,8 +70,26 @@ public abstract class StaticView extends View {
         removeElement(person);
     }
 
+    /**
+     * Adds a specific relationship to this view.
+     *
+     * @param relationship  the Relationship to be added
+     * @return  a RelationshipView object representing the relationship added
+     */
+    public RelationshipView add(Relationship relationship) {
+        return addRelationship(relationship);
+    }
+
+    /**
+     * Adds all of the permitted elements to this view.
+     */
     public abstract void addAllElements();
 
+    /**
+     * Adds all of the permitted elements, which are directly connected to the specified element, to this view.
+     *
+     * @param element   an Element
+     */
     public abstract void addNearestNeighbours(Element element);
 
     protected <T extends Element> void addNearestNeighbours(Element element, Class<T> typeOfElement) {
@@ -94,7 +115,7 @@ public abstract class StaticView extends View {
      *
      * @param element the starting element
      */
-    public void removeElementsThatCantBeReachedFrom(Element element) {
+    public void removeElementsThatAreUnreachableFrom(Element element) {
         if (element != null) {
             Set<Element> elementsToShow = new HashSet<>();
             Set<Element> elementsVisited = new HashSet<>();
@@ -143,4 +164,5 @@ public abstract class StaticView extends View {
                 .filter(r -> r.hasTag(tag))
                 .forEach(this::remove);
     }
+
 }
