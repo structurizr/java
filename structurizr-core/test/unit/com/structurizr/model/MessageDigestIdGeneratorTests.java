@@ -1,27 +1,10 @@
 package com.structurizr.model;
 
 import com.structurizr.Workspace;
-import com.structurizr.io.WorkspaceReaderException;
-import com.structurizr.io.WorkspaceWriterException;
-import com.structurizr.io.json.JsonReader;
-import com.structurizr.io.json.JsonWriter;
-import com.structurizr.view.ComponentView;
-import com.structurizr.view.ContainerView;
-import com.structurizr.view.ElementStyle;
-import com.structurizr.view.RelationshipStyle;
-import com.structurizr.view.Routing;
-import com.structurizr.view.SystemContextView;
-import com.structurizr.view.ViewSet;
-import org.hamcrest.CoreMatchers;
+import com.structurizr.view.*;
 import org.junit.Test;
 
-import java.io.StringReader;
-import java.io.StringWriter;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class MessageDigestIdGeneratorTests {
 
@@ -51,31 +34,6 @@ public class MessageDigestIdGeneratorTests {
         final String databaseId = "f056f58";
         final String relationshipId = "63a3048";
         createWorkspaceWithExpectedIds(ids, webappId, databaseId, relationshipId);
-    }
-
-    @Test
-    public void writeAndRead() throws WorkspaceWriterException, WorkspaceReaderException {
-        final MessageDigestIdGenerator ids = MessageDigestIdGenerator.getInstance("SHA-512");
-
-        final String specificId = "80cccbdd44024c1497a546b84b34be72da3829bf19818ce81b94dc6ecd59328b6b675679f952d95c8b402832306d1b9cbb754bd810759619c8b73b378a676609";
-
-        Workspace workspace1 = createWorkspace(ids);
-
-        // output the model as JSON
-        JsonWriter jsonWriter = new JsonWriter(true);
-        StringWriter stringWriter = new StringWriter();
-        jsonWriter.write(workspace1, stringWriter);
-
-        final String json = stringWriter.toString();
-        assertThat(json, CoreMatchers.containsString(specificId));
-
-        JsonReader jsonReader = new JsonReader();
-        StringReader stringReader = new StringReader(json);
-        Workspace workspace2 = jsonReader.read(stringReader);
-
-        assertEquals(
-                "/My Software System/Web Application/com.somecompany.system.ComponentB",
-                workspace2.getModel().getElement(specificId).getCanonicalName());
     }
 
     private void createWorkspaceWithExpectedIds(MessageDigestIdGenerator ids, String webappId, String databaseId, String relationshipId) {

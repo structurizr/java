@@ -1,13 +1,8 @@
 package com.structurizr.view;
 
 import com.structurizr.Workspace;
-import com.structurizr.io.json.JsonReader;
-import com.structurizr.io.json.JsonWriter;
 import com.structurizr.model.*;
 import org.junit.Test;
-
-import java.io.StringReader;
-import java.io.StringWriter;
 
 import static org.junit.Assert.*;
 
@@ -339,23 +334,6 @@ public class ViewSetTests {
         } catch (IllegalArgumentException iae) {
             assertEquals("A view with the key dynamic already exists.", iae.getMessage());
         }
-    }
-
-    @Test
-    public void test_backwardsCompatibilityOfRenamingEnterpriseContextViewsToSystemLandscapeViews() throws Exception {
-        Workspace workspace = new Workspace("Name", "Description");
-        workspace.getViews().createSystemLandscapeView("key", "description");
-
-        JsonWriter jsonWriter = new JsonWriter(false);
-        StringWriter stringWriter = new StringWriter();
-        jsonWriter.write(workspace, stringWriter);
-        String workspaceAsJson = stringWriter.toString();
-        workspaceAsJson = workspaceAsJson.replaceAll("systemLandscapeViews", "enterpriseContextViews");
-
-        JsonReader jsonReader = new JsonReader();
-        StringReader stringReader = new StringReader(workspaceAsJson);
-        workspace = jsonReader.read(stringReader);
-        assertEquals(1, workspace.getViews().getSystemLandscapeViews().size());
     }
 
 }

@@ -18,7 +18,8 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_getCanonicalName_WhenNameContainsASlashCharacter() {
-        container.setName("Name1/Name2");
+        container = softwareSystem.addContainer("Name1/Name2", "Description", "Some technology");
+
         assertEquals("/System/Name1Name2", container.getCanonicalName());
     }
 

@@ -2,6 +2,7 @@ package com.structurizr.model;
 
 import org.junit.Test;
 
+import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.*;
 
 public class CodeElementTests {
@@ -108,6 +109,12 @@ public class CodeElementTests {
         CodeElement codeElement1 = new CodeElement("com.structurizr.component.SomeComponent1");
         CodeElement codeElement2 = new CodeElement("com.structurizr.component.SomeComponent1");
         assertTrue(codeElement1.equals(codeElement2));
+    }
+
+    @Test
+    public void test_getPackage_ReturnsThePackageName() {
+        CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
+        assertEquals("com.structurizr.component", codeElement.getPackage());
     }
 
 }

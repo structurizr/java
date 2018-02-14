@@ -27,7 +27,7 @@ public class SpringRestControllerComponentFinderStrategyTests {
 
         assertEquals(1, container.getComponents().size());
         Component component = container.getComponentWithName("SomeController");
-        assertEquals("test.SpringRestControllerComponentFinderStrategy.SomeController", component.getType());
+        assertEquals("test.SpringRestControllerComponentFinderStrategy.SomeController", component.getType().getType());
         assertEquals("", component.getDescription());
         assertEquals("Spring REST Controller", component.getTechnology());
     }

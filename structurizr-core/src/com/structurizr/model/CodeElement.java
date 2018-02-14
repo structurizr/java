@@ -1,5 +1,6 @@
 package com.structurizr.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.util.Url;
 
 /**
@@ -90,6 +91,16 @@ public final class CodeElement {
 
     void setType(String type) {
         this.type = type;
+    }
+
+    /**
+     * Gets the Java package of this component (i.e. the package of the primary code element).
+     *
+     * @return  the package name, as a String
+     */
+    @JsonIgnore
+    public String getPackage() {
+        return type.substring(0, type.lastIndexOf('.'));
     }
 
     /**

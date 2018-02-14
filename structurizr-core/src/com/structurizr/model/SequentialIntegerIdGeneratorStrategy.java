@@ -1,5 +1,8 @@
 package com.structurizr.model;
 
+/**
+ * An ID generator that simply uses a sequential number when generating IDs for model elements and relationships.
+ */
 class SequentialIntegerIdGeneratorStrategy implements IdGenerator {
 
     private int ID = 0;

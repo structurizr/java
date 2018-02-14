@@ -64,7 +64,7 @@ public abstract class Element extends Taggable {
      *
      * @param name  the name, as a String
      */
-    public void setName(String name) {
+    void setName(String name) {
         if (name == null || name.trim().length() == 0) {
             throw new IllegalArgumentException("The name of an element must not be null or empty.");
         }
@@ -223,6 +223,15 @@ public abstract class Element extends Taggable {
     @Override
     public String toString() {
         return "{" + getId() + " | " + getName() + " | " + getDescription() + "}";
+    }
+
+    @Override
+    public int hashCode() {
+        if (name != null) {
+            return name.hashCode();
+        } else {
+            return super.hashCode();
+        }
     }
 
     @Override

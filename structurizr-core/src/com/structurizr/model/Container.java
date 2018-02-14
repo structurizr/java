@@ -103,7 +103,7 @@ public final class Container extends StaticStructureElement {
             return null;
         }
 
-        Optional<Component> component = components.stream().filter(c -> type.equals(c.getType())).findFirst();
+        Optional<Component> component = components.stream().filter(c -> type.equals(c.getType().getType())).findFirst();
         return component.orElse(null);
     }
 
