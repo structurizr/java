@@ -6,7 +6,7 @@ import com.structurizr.model.Relationship;
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class RelationshipView {
+public final class RelationshipView {
 
     private Relationship relationship;
     private String id;
@@ -112,7 +112,10 @@ public class RelationshipView {
 
     @Override
     public String toString() {
-        return relationship != null ? relationship.toString() : "";
+        if (relationship != null) {
+            return (order != null ? order + ": " : "") + (description != null ? description + " " : "") + relationship.toString();
+        }
+        return "";
     }
 
 }

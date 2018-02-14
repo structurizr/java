@@ -3,19 +3,23 @@ package com.structurizr;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/**
+ * The superclass for regular and encrypted workspaces.
+ */
 public abstract class AbstractWorkspace {
 
     private long id;
     private String name;
     private String description;
+    private String version;
     private String thumbnail;
     private String source;
     private String api;
 
-    public AbstractWorkspace() {
+    protected AbstractWorkspace() {
     }
 
-    public AbstractWorkspace(String name, String description) {
+    AbstractWorkspace(String name, String description) {
         this.name = name;
         this.description = description;
     }
@@ -23,12 +27,17 @@ public abstract class AbstractWorkspace {
     /**
      * Gets the ID of this workspace.
      *
-     * @return  the ID
+     * @return  the ID (a positive integer)
      */
     public long getId() {
         return this.id;
     }
 
+    /**
+     * Sets the ID of this workspace.
+     *
+     * @param id    the ID (a positive integer)
+     */
     public void setId(long id) {
         this.id = id;
     }
@@ -42,6 +51,11 @@ public abstract class AbstractWorkspace {
         return name;
     }
 
+    /**
+     * Sets the name of this workspace.
+     *
+     * @param name      the name, as a String
+     */
     public void setName(String name) {
         this.name = name;
     }
@@ -55,8 +69,31 @@ public abstract class AbstractWorkspace {
         return description;
     }
 
+    /**
+     * Sets the description of this workspace.
+     *
+     * @param description       the description, as a String
+     */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Gets the version of this workspace.
+     *
+     * @return  the version, as a String
+     */
+    public String getVersion() {
+        return version;
+    }
+
+    /**
+     * Sets the version of this workspace.
+     *
+     * @param version   the version, as a String (e.g. 1.0.1, a git hash, etc).
+     */
+    public void setVersion(String version) {
+        this.version = version;
     }
 
     /**
@@ -69,38 +106,30 @@ public abstract class AbstractWorkspace {
         return thumbnail;
     }
 
+    /**
+     * Sets the thumbnail associated with this workspace.
+     *
+     * @param thumbnail     a Base64 encoded PNG file as a Data URI (data:image/png;base64)
+     */
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
 
     /**
-     * Gets the source of this workspace.
+     * Gets the URL of the API where the content of this workspace can be found.
      *
-     * @return  a URL (as a String)
+     * @return  the URL, as a String
      */
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        if (source != null && source.trim().length() > 0) {
-            try {
-                URL url = new URL(source);
-                this.source = source;
-            } catch (MalformedURLException murle) {
-                throw new IllegalArgumentException(source + " is not a valid URL.");
-            }
-        }
-    }
-
-    public boolean hasSource() {
-        return this.source != null && this.source.trim().length() > 0;
-    }
-
     public String getApi() {
         return api;
     }
 
+    /**
+     * Sets the URL of the API where the content of this workspace can be found.
+     *
+     * @param api   a URL, as a String
+     * @throws      IllegalArgumentException if the URL is not a valid URL
+     */
     public void setApi(String api) {
         if (api != null && api.trim().length() > 0) {
             try {
@@ -112,6 +141,11 @@ public abstract class AbstractWorkspace {
         }
     }
 
+    /**
+     * Determines whether this workspace has an API set.
+     *
+     * @return  true if an API URL has been specified, false otherwise
+     */
     public boolean hasApi() {
         return this.api != null && this.api.trim().length() > 0;
     }

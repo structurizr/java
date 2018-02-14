@@ -1,55 +1,53 @@
 # Documentation
 
-In addition to diagrams, Structurizr lets you create supplementary documentation using the Markdown or AsciiDoc formats. See [Documentation](https://structurizr.com/help/documentation) on the Structurizr website for more information about this feature.
+In addition to diagrams, Structurizr lets you create supplementary documentation using the Markdown or AsciiDoc formats.
 
 ![Example documentation](images/documentation-1.png)
 
-## Adding documentation to your workspace
+See [https://structurizr.com/share/31/documentation](https://structurizr.com/share/31/documentation) for an example.
 
-The following [example code](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/financialrisksystem/FinancialRiskSystem.java) shows how to add documentation to your workspace.
+## Documentation templates
 
-```java
-SoftwareSystem financialRiskSystem = model.addSoftwareSystem("Financial Risk System", "Calculates the bank's exposure to risk for product X");
+The documentation is broken up into a number of sections, as defined by the template you are using, the following of which are included:
 
-Documentation documentation = workspace.getDocumentation();
-File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/core/financialrisksystem");
+- [Structurizr](documentation-structurizr.md)
+- [arc42](documentation-arc42.md)
+- [Viewpoints and Perspectives](documentation-viewpoints-and-perspectives.md)
+- [Automatic template](documentation-automatic.md)
 
-documentation.add(financialRiskSystem, Type.Context, Format.AsciiDoc, new File(documentationRoot, "context.adoc"));
-documentation.add(financialRiskSystem, Type.FunctionalOverview, Format.Markdown, new File(documentationRoot, "functional-overview.md"));
-documentation.add(financialRiskSystem, Type.QualityAttributes, Format.Markdown, new File(documentationRoot, "quality-attributes.md"));
-```
+## Custom sections
 
-In this example, three sections (Context, Functional Overview and Quality Attributes) are added to the workspace, each of which is associated with the "Financial Risk System" software system that exists in the model. The content for the sections is pulled from the specified file and included into the workspace.
-
-The documentation is broken up into a number of sections as follows, which are represented by the [Type enum](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/Type.java).
-
-- Context
-- Functional Overview
-- Quality Attributes
-- Constraints
-- Principles
-- Software Architecture
-- Containers
-- Components
-- Code
-- Data
-- Infrastructure Architecture
-- Deployment
-- Development Environment
-- Operation and Support
-- Usage
-- Decision Log
-
-All sections must be associated with a software system in the model, except for "Components" (which needs to be associated with a container) and "Code" (which needs to be associated with a component).
-
-### Images
-
-As shown in [this example Markdown file](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/core/financialrisksystem/functional-overview.md), images can be included using the regular Markdown syntax. For this to work, the image files must be hosted externally (e.g. on your own web server) or uploaded with your workspace using the ```addImages()``` or ```addImage()``` methods on the [Documentation class](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/Documentation.java).
+You can add custom sections using the ```addSection``` method on the [DocumentationTemplate](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/DocumentationTemplate.java) class, by specifying the section name (a String) and group (an integer, 1-5; this is used for colour coding section navigation buttons):
 
 ```java
-documentation.addImages(documentationRoot);
+template.addSection(softwareSystem, "My custom section", 3, Format.Markdown, ...);
 ```
 
-### Software architecture diagrams
+## Images
 
-Software architecture diagrams from the workspace can be embedded within the documentation sections using an additional special syntax. See [Documentation](https://structurizr.com/help/documentation) on the Structurizr website for more information.
+Images can be included using the regular Markdown/AsciiDoc syntax.
+
+![Including images](images/documentation-2.png)
+
+For this to work, the image files must be hosted externally (e.g. on your own web server, ideally accessible via HTTPS) or uploaded with your workspace using the ```addImages()``` or ```addImage()``` methods on the [DocumentationTemplate](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/DocumentationTemplate.java) class.
+
+```java
+template.addImages(new File("..."));
+```
+
+See [functional-overview.md](https://raw.githubusercontent.com/structurizr/java/master/structurizr-examples/src/com/structurizr/example/financialrisksystem/functional-overview.md) and [FinancialRiskSystem](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/FinancialRiskSystem.java) for an example.
+
+## Embedding diagrams
+
+Software architecture diagrams from your workspace can be embedded within the documentation sections using an additional special syntax.
+
+![Embedding diagrams](images/documentation-3.png)
+
+The syntax is similar to that used for including images, for example:
+
+```
+Markdown - ![](embed:DiagramKey)
+AsciiDoc - image::embed:DiagramKey[]
+```
+
+See [context.md](https://raw.githubusercontent.com/structurizr/java/master/structurizr-examples/src/com/structurizr/example/financialrisksystem/context.md), [context.adoc](https://raw.githubusercontent.com/structurizr/java/master/structurizr-examples/src/com/structurizr/example/financialrisksystem/context.adoc) and [FinancialRiskSystem](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/FinancialRiskSystem.java) for an example.

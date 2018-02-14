@@ -8,9 +8,16 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * A container (something that can execute code or host data).
+ * A container represents something that hosts code or data. A container is
+ * something that needs to be running in order for the overall software system
+ * to work. In real terms, a container is something like a server-side web application,
+ * a client-side web application, client-side desktop application, a mobile app,
+ * a microservice, a database schema, a file system, etc.
+ *
+ * A container is essentially a context or boundary inside which some code is executed
+ * or some data is stored. And each container is a separately deployable thing.
  */
-public class Container extends Element {
+public final class Container extends StaticStructureElement {
 
     private SoftwareSystem parent;
     private String technology;
@@ -88,12 +95,7 @@ public class Container extends Element {
         }
 
         Optional<Component> component = components.stream().filter(c -> name.equals(c.getName())).findFirst();
-
-        if (component.isPresent()) {
-            return component.get();
-        } else {
-            return null;
-        }
+        return component.orElse(null);
     }
 
     public Component getComponentOfType(String type) {
@@ -101,13 +103,8 @@ public class Container extends Element {
             return null;
         }
 
-        Optional<Component> component = components.stream().filter(c -> type.equals(c.getType())).findFirst();
-
-        if (component.isPresent()) {
-            return component.get();
-        } else {
-            return null;
-        }
+        Optional<Component> component = components.stream().filter(c -> type.equals(c.getType().getType())).findFirst();
+        return component.orElse(null);
     }
 
     @Override

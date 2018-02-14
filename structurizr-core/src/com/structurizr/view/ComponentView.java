@@ -2,8 +2,6 @@ package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -12,8 +10,6 @@ public class ComponentView extends StaticView {
 
     private Container container;
     private String containerId;
-
-    private static final Log LOG = LogFactory.getLog(ComponentView.class);
 
     ComponentView() {
     }
@@ -72,7 +68,11 @@ public class ComponentView extends StaticView {
      */
     public void add(Container container) {
         if (container != null && !container.equals(getContainer())) {
-            addElement(container, true);
+            if (container.getParent().equals(getSoftwareSystem())) {
+                addElement(container, true);
+            } else {
+                throw new IllegalArgumentException("Only containers belonging to " + getSoftwareSystem().getName() + " can be added to this view.");
+            }
         }
     }
 
@@ -90,11 +90,11 @@ public class ComponentView extends StaticView {
      */
     public void add(Component component) {
         if (component != null) {
-            if (component.getContainer().equals(getContainer())) {
-                addElement(component, true);
-            } else {
-                LOG.warn(String.format("Component %s is not component of %s and thus cannot be added to its ComponentView", component, getContainer()));
+            if (!component.getContainer().equals(getContainer())) {
+                throw new IllegalArgumentException("Only components belonging to " + container.getName() + " can be added to this view.");
             }
+
+            addElement(component, true);
         }
     }
 
@@ -158,10 +158,10 @@ public class ComponentView extends StaticView {
         // add relationships of all other elements to or from our inside components
         for (Relationship relationship : getContainer().getModel().getRelationships()) {
             if (components.contains(relationship.getSource())) {
-                addDependency(relationship.getDestination(), components);
+                addExternalDependency(relationship.getDestination(), components);
             }
             if (components.contains(relationship.getDestination())) {
-                addDependency(relationship.getSource(), components);
+                addExternalDependency(relationship.getSource(), components);
             }
         }
 
@@ -172,21 +172,29 @@ public class ComponentView extends StaticView {
                 .forEach(this::remove);
     }
 
-    private void addDependency(Element element, Set<Element> components) {
-        if (element instanceof Component && !element.getParent().equals(getContainer())) {
-            final Container container = ((Component) element).getContainer();
-            // in case there is a dependency from a component of another dependency to one of our elements,
-            // we add its parent container instead
-            addElement(container, true);
-
-            if (!hasAnyRelationship(container, components)) {
-                LOG.warn(String.format("Container %s was added to the ComponentView '%s' because its component %s has a relationship " +
-                        "with one of the elements inside this diagram. Nevertheless, the container does not have any relationship " +
-                        "to the elements of this diagram. You might add one manually or call Model#addImplicitRelationships() " +
-                        "to add all implicit relationships automatically", container, getName(), element));
+    private void addExternalDependency(Element element, Set<Element> components) {
+        if (element instanceof Component) {
+            if (element.getParent().equals(getContainer())) {
+                // the component is in the same container, so we'll ignore it since we're only interested in external dependencies
+                return;
+            } else {
+                // the component is in a different container, so let's try to add that instead
+                element = element.getParent();
             }
+        }
 
-        } else {
+        if (element instanceof Container) {
+            if (element.getParent().equals(this.getContainer().getParent())) {
+                // the container is in the same software system
+                addElement(element, true);
+                return;
+            } else {
+                // the container is in a different software system, so add that instead
+                element = element.getParent();
+            }
+        }
+
+        if (element instanceof SoftwareSystem || element instanceof Person) {
             addElement(element, true);
         }
     }

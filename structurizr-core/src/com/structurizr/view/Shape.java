@@ -8,6 +8,7 @@ public enum Shape {
     Ellipse,
     Hexagon,
     Cylinder,
+    Pipe,
     Person,
     Folder
 

@@ -1,24 +1,46 @@
 package com.structurizr.io.dot;
 
 import com.structurizr.Workspace;
-import com.structurizr.io.WorkspaceWriter;
 import com.structurizr.model.Element;
 import com.structurizr.model.Relationship;
 import com.structurizr.view.ElementView;
 import com.structurizr.view.RelationshipView;
 import com.structurizr.view.View;
-import org.livingdocumentation.dotdiagram.DotGraph;
+import io.github.livingdocumentation.dotdiagram.DotGraph;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.io.Writer;
 
-public class DotWriter implements WorkspaceWriter {
+/**
+ * This is a simple implementation of a workspace writer that outputs
+ * to the Graphviz DOT format. You will need graphviz installed and
+ * correctly configured. See https://github.com/cyriux/dot-diagram
+ * for more information.
+ */
+public class DotWriter {
 
-    @Override
+    /**
+     * Writes the views in the given workspace as DOT notation, to the specified Writer.
+     *
+     * @param workspace     the workspace containing the views to be written
+     * @param writer        the Writer to write to
+     */
     public void write(Workspace workspace, Writer writer) {
         workspace.getViews().getSystemContextViews().forEach(v -> write(v, null, writer));
         workspace.getViews().getContainerViews().forEach(v -> write(v, v.getSoftwareSystem(), writer));
         workspace.getViews().getComponentViews().forEach(v -> write(v, v.getContainer(), writer));
+    }
+
+    /**
+     * Write the views in the given workspace as DOT notation, to stdout.
+     *
+     * @param workspace     the workspace containing the views to be written
+     */
+    public void write(Workspace workspace) {
+        StringWriter stringWriter = new StringWriter();
+        write(workspace, stringWriter);
+        System.out.println(stringWriter.toString());
     }
 
     private void write(View view, Element clusterElement, Writer writer)  {

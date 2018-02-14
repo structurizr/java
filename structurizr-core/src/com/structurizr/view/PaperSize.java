@@ -5,6 +5,9 @@ package com.structurizr.view;
  */
 public enum PaperSize {
 
+    A6_Portrait("A6", Orientation.Portrait, 1240, 1748),
+    A6_Landscape("A6", Orientation.Landscape, 1748, 1240),
+
     A5_Portrait("A5", Orientation.Portrait, 1748, 2480),
     A5_Landscape("A5", Orientation.Landscape, 2480, 1748),
 
@@ -19,6 +22,9 @@ public enum PaperSize {
 
     Letter_Portrait("Letter", Orientation.Portrait, 2550, 3300),
     Letter_Landscape("Letter", Orientation.Landscape, 3300, 2550),
+
+    Legal_Portrait("Legal", Orientation.Portrait, 2550, 4200),
+    Legal_Landscape("Legal", Orientation.Landscape, 4200, 2550),
 
     Slide_4_3("Slide 4:3", Orientation.Landscape, 3306, 2480),
     Slide_16_9("Slide 16:9", Orientation.Landscape, 3508, 1973);

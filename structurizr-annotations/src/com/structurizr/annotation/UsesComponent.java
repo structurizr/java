@@ -3,8 +3,8 @@ package com.structurizr.annotation;
 import java.lang.annotation.*;
 
 /**
- * This annotation is used to signify a dependency on the component, which is
- * based upon the type of the field this annotation is present on.
+ * A field-level annotation that can be used to supplement the existing relationship
+ * (i.e. add a description and/or technology) between two components.
  */
 @Documented
 @Target({ElementType.FIELD})
@@ -12,5 +12,6 @@ import java.lang.annotation.*;
 public @interface UsesComponent {
 
     String description();
+    String technology() default "";
 
 }

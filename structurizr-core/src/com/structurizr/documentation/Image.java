@@ -3,7 +3,7 @@ package com.structurizr.documentation;
 /**
  * Represents a base64 encoded image (png/jpg/gif).
  */
-public class Image {
+public final class Image {
 
     private String name;
     private String content;

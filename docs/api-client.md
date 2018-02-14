@@ -1,6 +1,6 @@
 # API client
 
-This page provides a quick overview of how to use the API client.
+The Structurizr for Java library includes a client for the [Structurizr web API](https://api.structurizr.com), which allows you to get and put workspaces using JSON over HTTPS. This page provides a quick overview of how to use the API client.
 
 ## Configuration
 
@@ -8,10 +8,16 @@ The are two ways to configure the API client.
 
 ### 1. Programmatically
 
-The easiest way to configure the API client is to provide values for the API key and API secret programmatically. Each workspace has its own API key and secret, the values for which can be found on [your dashboard](https://structurizr.com/dashboard).
+The easiest way to configure the API client is to provide values for the API key and API secret programmatically. Each workspace has its own API key and secret, the values for which can be found on [your Structurizr dashboard](https://structurizr.com/dashboard).
 
 ```java
 StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
+```
+
+If you're using the [on-premises installation](https://structurizr.com/help/on-premises-ui), there is a three argument version of the constructor where you can also specify the API URL.
+
+```java
+StructurizrClient structurizrClient = new StructurizrClient("url", "key", "secret");
 ```
 
 ### 2. Properties file
@@ -36,28 +42,18 @@ The following operations are available on the API client.
 
 ### 1. getWorkspace
 
-This allows you to get the content of a workspace.
+This allows you to get the content of a remote workspace.
 
 ```java
 Workspace workspace = structurizrClient.getWorkspace(1234);
 ```
 
-By default, a copy of the workspace (as JSON) is archived to the current working directory. You can modify this behaviour by calling ```setWorkspaceArchiveLocation```. A ```null``` value will disable archiving.
+By default, a copy of the workspace (as a JSON document) is archived to the current working directory. You can modify this behaviour by calling ```setWorkspaceArchiveLocation```. A ```null``` value will disable archiving.
 
 ### 2. putWorkspace
 
-This allows you to overwrite an existing workspace.
+This allows you to overwrite an existing remote workspace. If the ```mergeFromRemote``` property (on the ```StructurizrClient``` instance) is set to ```true``` (this is the default), any layout information (i.e. the location of boxes on diagrams) is preserved where possible (i.e. where diagram elements haven't been renamed).
 
 ```java
 structurizrClient.putWorkspace(1234, workspace);
 ```
-
-### 3. mergeWorkspace
-
-This is the same as ```putWorkspace``` except that any layout information (i.e. the location of boxes on diagrams) is preserved where possible (i.e. where diagram elements haven't been renamed).
-
-```java
-structurizrClient.mergeWorkspace(1234, workspace);
-```
-
-Under the covers, this operation calls ```getWorkspace``` followed by ```putWorkspace```. Views from the new version and the version retrieved from Structurizr are matched based upon their key or title. If the merge doesn't work as expected, you still have the previous version of the workspace (as JSON) in the archive location.

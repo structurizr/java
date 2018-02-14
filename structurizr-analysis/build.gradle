@@ -1,0 +1,26 @@
+dependencies {
+
+    compile project(':structurizr-annotations')
+    compile project(':structurizr-core')
+
+    compile 'org.reflections:reflections:0.9.10'
+    compile 'org.javassist:javassist:3.22.0-CR2'
+
+    compile files("${System.getProperty('java.home')}/../lib/tools.jar")
+
+    testCompile 'junit:junit:4.12'
+
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+    test {
+        java {
+            srcDir 'test/unit'
+        }
+    }
+}

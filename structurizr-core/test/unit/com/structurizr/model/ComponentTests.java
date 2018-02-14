@@ -3,9 +3,10 @@ package com.structurizr.model;
 import com.structurizr.AbstractWorkspaceTestBase;
 import org.junit.Test;
 
+import java.util.Set;
+
 import static junit.framework.TestCase.assertNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class ComponentTests extends AbstractWorkspaceTestBase {
 
@@ -57,17 +58,75 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getPackage_ReturnsNull_WhenNoTypeHasBeenSet() {
+    public void test_technologyProperty() {
         Component component = new Component();
-        assertNull(component.getType());
-        assertNull(component.getPackage());
+        assertNull(component.getTechnology());
+
+        component.setTechnology("Spring Bean");
+        assertEquals("Spring Bean", component.getTechnology());
     }
 
     @Test
-    public void test_getPackage_ReturnsThePackageName_WhenATypeHasBeenSet() {
+    public void test_setType_ThrowsAnExceptionWhenPassedNull() {
         Component component = new Component();
-        component.setType(ComponentTests.class.getCanonicalName());
-        assertEquals("com.structurizr.model", component.getPackage());
+        try {
+            component.setType(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A fully qualified name must be provided.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_setType_AddsAPrimaryCodeElement_WhenPassedAFullyQualifiedTypeName() {
+        Component component = new Component();
+        component.setType("com.structurizr.web.HomePageController");
+
+        Set<CodeElement> codeElements = component.getCode();
+        assertEquals(1, codeElements.size());
+        CodeElement codeElement = codeElements.iterator().next();
+        assertEquals("HomePageController", codeElement.getName());
+        assertEquals("com.structurizr.web.HomePageController", codeElement.getType());
+        assertEquals(CodeElementRole.Primary, codeElement.getRole());
+    }
+
+    @Test
+    public void test_setType_OverwritesThePrimaryCodeElement_WhenCalledMoreThanOnce() {
+        Component component = new Component();
+        component.setType("com.structurizr.web.HomePageController");
+        component.setType("com.structurizr.web.SomeOtherController");
+
+        Set<CodeElement> codeElements = component.getCode();
+        assertEquals(1, codeElements.size());
+        CodeElement codeElement = codeElements.iterator().next();
+        assertEquals("SomeOtherController", codeElement.getName());
+        assertEquals("com.structurizr.web.SomeOtherController", codeElement.getType());
+        assertEquals(CodeElementRole.Primary, codeElement.getRole());
+
+    }
+
+    @Test
+    public void test_addSupportingType_ThrowsAnExceptionWhenPassedNull() {
+        Component component = new Component();
+        try {
+            component.addSupportingType(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A fully qualified name must be provided.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addSupportingType_AddsASupportingCodeElement_WhenPassedAFullyQualifiedTypeName() {
+        Component component = new Component();
+        component.addSupportingType("com.structurizr.web.HomePageViewModel");
+
+        Set<CodeElement> codeElements = component.getCode();
+        assertEquals(1, codeElements.size());
+        CodeElement codeElement = codeElements.iterator().next();
+        assertEquals("HomePageViewModel", codeElement.getName());
+        assertEquals("com.structurizr.web.HomePageViewModel", codeElement.getType());
+        assertEquals(CodeElementRole.Supporting, codeElement.getRole());
     }
 
 }

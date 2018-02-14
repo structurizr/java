@@ -1,19 +1,20 @@
 # The Spring PetClinic example
 
-This is a step-by-step guide to recreating the [Spring PetClinic example diagrams](https://structurizr.com/public/1). It assumes that you have working Java, Maven and git installations plus a development environment to write code.
+This is a step-by-step guide to recreating the System Context, Container and Component diagrams from the [Spring PetClinic example](https://structurizr.com/share/1), which are based upon the original version of the application. It assumes that you have working Java, Maven and git installations plus a development environment to write code. The full source code for this example can be found in [SpringPetClinic.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/SpringPetClinic.java). 
 
 ## 1. Clone and build the Spring PetClinic code
 
-First of all, we need to download a copy of the [Spring PetClinic source code](https://github.com/spring-projects/spring-petclinic/)
+First of all, we need to download a copy of the [Spring PetClinic source code](https://github.com/spring-projects/spring-petclinic/). Please note that this example was created with a specific version of the Spring PetClinic codebase, so please be sure to perform the ```git checkout``` step too.
 
 ```
 git clone https://github.com/spring-projects/spring-petclinic.git
+cd spring-petclinic
+git checkout 95de1d9f8bf63560915331664b27a4a75ce1f1f6
 ```
 
 Next we need to run the build.
 
 ```
-cd spring-petclinic
 mvn
 ```
 
@@ -30,8 +31,8 @@ With the Spring PetClinic application built, we now need to create a software ar
 
 Name                                          | Description
 -------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------
-com.structurizr:structurizr-core:0.8.1        | The core library that can used to create models and upload models to Structurizr.
-com.structurizr:structurizr-spring:0.8.1      | The Spring component finder.
+com.structurizr:structurizr-core:1.0.0-RC4        | The core library that can used to create models and upload models to Structurizr.
+com.structurizr:structurizr-spring:1.0.0-RC4      | The Spring component finder.
 
 First we need to create a little boilerplate code to create a workspace and a model.
 
@@ -61,13 +62,13 @@ Stepping down to containers, the Spring PetClinic system is made up of a Java we
 ```java
 Container webApplication = springPetClinic.addContainer("Web Application",
     "Allows employees to view and manage information regarding the veterinarians, the clients, and their pets.",
-    "Apache Tomcat 7.x");
+    "Java and Spring");
 Container relationalDatabase = springPetClinic.addContainer("Relational Database",
     "Stores information regarding the veterinarians, the clients, and their pets.",
-    "HSQLDB");
+    "Relational Database Schema");
 
-clinicEmployee.uses(webApplication, "Uses", "HTTP");
-webApplication.uses(relationalDatabase, "Reads from and writes to", "JDBC, port 9001");
+clinicEmployee.uses(webApplication, "Uses", "HTTPS");
+webApplication.uses(relationalDatabase, "Reads from and writes to", "JDBC");
 ```
 
 ## 5. Components
@@ -80,16 +81,16 @@ Spring MVC uses Java annotations (```@Controller```, ```@Service``` and ```@Repo
 ComponentFinder componentFinder = new ComponentFinder(
     webApplication, "org.springframework.samples.petclinic",
     new SpringComponentFinderStrategy(
-            new ReferencedTypesSupportingTypesStrategy()
+            new ReferencedTypesSupportingTypesStrategy(false)
     ),
     new SourceCodeComponentFinderStrategy(new File(sourceRoot, "/src/main/java/"), 150));
 
 componentFinder.findComponents();
 ```
 
-The ```SpringComponentFinderStrategy``` is a pre-built component finder strategy that understands how applications are built with Spring and how to identify Spring components, such as MVC controllers, REST controllers, services, repositories, JPA repositories, etc. The way that you identify supporting types (i.e. the Java classes and interfaces) that implement a component is also pluggable, and here we're looking for all types referenced by the component type(s).
+The ```SpringComponentFinderStrategy``` is a pre-built component finder strategy that understands how applications are built with Spring and how to identify Spring components, such as MVC controllers, REST controllers, services, repositories, JPA repositories, etc. The way that you identify supporting types (i.e. the Java classes and interfaces) that implement a component is also pluggable. Here, with the ```ReferencedTypesSupportingTypesStrategy```, we're looking for all types directly referenced by the component type(s). See [Components and supporting types](supporting-types.md) for more details about this.
 
-Once the components and their supporting types have been idenfied, the dependencies between components are also identified and extracted.
+Once the components and their supporting types have been identified, the dependencies between components are also identified and extracted.
 
 In addition, the ```SourceCodeComponentFinderStrategy``` will parse the top-level Javadoc comment from the source file for each component type for inclusion in the model. It will also calculate the size of each component based upon the number of lines of source code across all supporting types.
 
@@ -111,7 +112,7 @@ With the software architecture model in place, we now need to create some views 
 
 ```java
 ViewSet viewSet = workspace.getViews();
-SystemContextView contextView = viewSet.createContextView(springPetClinic, "context", "Context view for Spring PetClinic");
+SystemContextView contextView = viewSet.createSystemContextView(springPetClinic, "context", "Context view for Spring PetClinic");
 contextView.addAllSoftwareSystems();
 contextView.addAllPeople();
 ```
@@ -134,21 +135,27 @@ componentView.addAllPeople();
 componentView.add(relationalDatabase);
 ```
 
-## 7. Link the components to the source code
+## 7. Linking elements to external resources
 
 In order to create a set of maps for the Spring PetClinic system that reflect reality, we can link the components on the component diagram to the source code. This isn't necessary, but doing so means that we can [navigate from the diagrams to the code](https://structurizr.com/help/diagram-navigation).
  
 ```java
 for (Component component : webApplication.getComponents()) {
-    for (CodeElement codeElement : component.getCode()) {
-        String sourcePath = codeElement.getSource();
-        if (sourcePath != null) {
-            codeElement.setSource(sourcePath.replace(
-                    sourceRoot,
-                    "https://github.com/spring-projects/spring-petclinic/tree/master"));
-        }
-    }
+	for (CodeElement codeElement : component.getCode()) {
+    	String sourcePath = codeElement.getUrl();
+       	if (sourcePath != null) {
+           	codeElement.setUrl(sourcePath.replace(
+               	sourceRoot.toURI().toString(),
+               	"https://github.com/spring-projects/spring-petclinic/tree/864580702f8ef4d2cdfd7fe4497fb8c9e86018d2/"));
+		}
+	}
 }
+```
+
+Since we don't have a component model for the database, let's instead simply link the database element to the data definition language in GitHub.
+
+```java
+relationalDatabase.setUrl("https://github.com/spring-projects/spring-petclinic/tree/master/src/main/resources/db/hsqldb");
 ```
 
 ## 8. Styling the diagrams
@@ -175,20 +182,17 @@ styles.addElementStyle("Spring Service").background("#6CB33E").color("#000000");
 styles.addElementStyle("Spring Repository").background("#95D46C").color("#000000");
 ```
 
-> Please note: shapes will only be seen if you are a [Structurizr paid plan](https://structurizr.com/pricing) customer.
-
 ## 9. Upload the model and views to Structurizr
 
 The code we've just seen simply creates an in-memory representation of the software architecture model, in this case as a collection of Java objects. The open source Structurizr for Java library also includes a way to export this model to an intermediate JSON representation, which can then be imported into some tooling that is able to visualise it. This is what Structurizr does.
 
 ```java
 StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
-structurizrClient.mergeWorkspace(1234, workspace);
+structurizrClient.putWorkspace(1234, workspace);
 ```
 
 In order to upload your model to Structurizr using the web API, you'll need to [sign up](https://structurizr.com/signup) to get your own API key and secret.
-Also, when you run the Structurizr program you just created, you'll need to ensure that the compiled version of the Spring PetClinic application is on your classpath;
-specifically these directories:
+Also, when you run the Structurizr program you just created, you'll need to ensure that the compiled version of the Spring PetClinic application is on your classpath; specifically these directories:
 
 ```
 target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/classes
@@ -201,4 +205,17 @@ If you sign in to Structurizr and open the workspace you just uploaded, you'll s
 
 ![The Spring PetClinic workspace](images/spring-petclinic-1.png)
 
-Structurizr doesn't do any automatic layout of the elements on your diagrams, so you will need to drag the boxes around to create a layout that you like. You can save the position of the diagram elements though. And that's it!
+Structurizr doesn't do any automatic layout of the elements on your diagrams, so you will need to drag the boxes around to create a layout that you like. Here are the links to the live example diagrams:
+
+- [System Context diagram](https://structurizr.com/share/1#context)
+- [Container diagram](https://structurizr.com/share/1#containers)
+- [Component diagram](https://structurizr.com/share/1#components)
+
+## 11. Explore the model
+Once you have a model of your software system, you can explore it using a number of different visualisations. For example:
+
+- [Static structure, rendered as a tree](https://structurizr.com/share/1/explore/tree)
+- [Static structure, rendered as circles based upon size](https://structurizr.com/share/1/explore/size-circles)
+- [Component dependencies](https://structurizr.com/share/1/explore/component-dependencies)
+- [Component and code dependencies](https://structurizr.com/share/1/explore/component-and-code-dependencies)
+

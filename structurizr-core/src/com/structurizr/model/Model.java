@@ -3,13 +3,14 @@ package com.structurizr.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A software architecture model.
  */
-public class Model {
+public final class Model {
 
-    private SequentialIntegerIdGeneratorStrategy idGenerator = new SequentialIntegerIdGeneratorStrategy();
+    private IdGenerator idGenerator = new SequentialIntegerIdGeneratorStrategy();
 
     private final Map<String, Element> elementsById = new HashMap<>();
     private final Map<String, Relationship> relationshipsById = new HashMap<>();
@@ -18,6 +19,7 @@ public class Model {
 
     private Set<Person> people = new LinkedHashSet<>();
     private Set<SoftwareSystem> softwareSystems = new LinkedHashSet<>();
+    private Set<DeploymentNode> deploymentNodes = new LinkedHashSet<>();
 
     public Model() {
     }
@@ -65,7 +67,7 @@ public class Model {
 
             return softwareSystem;
         } else {
-            return null;
+            throw new IllegalArgumentException("A software system named '" + name + "' already exists.");
         }
     }
 
@@ -104,7 +106,7 @@ public class Model {
 
             return person;
         } else {
-            return null;
+            throw new IllegalArgumentException("A person named '" + name + "' already exists.");
         }
     }
 
@@ -123,7 +125,7 @@ public class Model {
 
             return container;
         } else {
-            return null;
+            throw new IllegalArgumentException("A container named '" + name + "' already exists for this software system.");
         }
     }
 
@@ -166,6 +168,11 @@ public class Model {
     }
 
     Relationship addRelationship(Element source, Element destination, String description, String technology, InteractionStyle interactionStyle) {
+        if (destination == null) {
+            throw new IllegalArgumentException("The destination must be specified.");
+
+        }
+
         Relationship relationship = new Relationship(source, destination, description, technology, interactionStyle);
         if (addRelationship(relationship)) {
             return relationship;
@@ -211,6 +218,11 @@ public class Model {
      * @see Element#getId()
      */
     public Element getElement(String id) {
+        if (id == null || id.trim().length() == 0) {
+            throw new IllegalArgumentException("An ID must be specified.");
+        }
+
+
         return elementsById.get(id);
     }
 
@@ -245,6 +257,13 @@ public class Model {
         return new LinkedHashSet<>(softwareSystems);
     }
 
+    /**
+     * @return a collection containing all of the DeploymentNode instances in this model.
+     */
+    public Set<DeploymentNode> getDeploymentNodes() {
+        return new LinkedHashSet<>(deploymentNodes);
+    }
+
     public void hydrate() {
         // add all of the elements to the model
         people.forEach(this::addElementToInternalStructures);
@@ -262,6 +281,8 @@ public class Model {
             }
         }
 
+        deploymentNodes.forEach(dn -> hydrateDeploymentNode(dn, null));
+
         // now hydrate the relationships
         people.forEach(this::hydrateRelationships);
         for (SoftwareSystem softwareSystem : softwareSystems) {
@@ -273,6 +294,26 @@ public class Model {
                 }
             }
         }
+
+        deploymentNodes.forEach(this::hydrateDeploymentNodeRelationships);
+    }
+
+    private void hydrateDeploymentNode(DeploymentNode deploymentNode, DeploymentNode parent) {
+        deploymentNode.setParent(parent);
+        addElementToInternalStructures(deploymentNode);
+
+        deploymentNode.getChildren().forEach(child -> hydrateDeploymentNode(child, deploymentNode));
+
+        for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
+            containerInstance.setContainer((Container)getElement(containerInstance.getContainerId()));
+            addElementToInternalStructures(containerInstance);
+        }
+    }
+
+    private void hydrateDeploymentNodeRelationships(DeploymentNode deploymentNode) {
+        hydrateRelationships(deploymentNode);
+        deploymentNode.getChildren().forEach(this::hydrateDeploymentNodeRelationships);
+        deploymentNode.getContainerInstances().forEach(this::hydrateRelationships);
     }
 
     private void hydrateRelationships(Element element) {
@@ -346,6 +387,10 @@ public class Model {
     public Set<Relationship> addImplicitRelationships() {
         Set<Relationship> implicitRelationships = new HashSet<>();
 
+        String descriptionKey = "D";
+        String technologyKey = "T";
+        Map<Element, Map<Element, Map<String, HashSet<String>>>> candidateRelationships = new HashMap<>();
+
         for (Relationship relationship : getRelationships()) {
             Element source = relationship.getSource();
             Element destination = relationship.getDestination();
@@ -354,9 +399,23 @@ public class Model {
                 while (destination != null) {
                     if (!source.hasEfferentRelationshipWith(destination)) {
                         if (propagatedRelationshipIsAllowed(source, destination)) {
-                            Relationship implicitRelationship = addRelationship(source, destination, "");
-                            if (implicitRelationship != null) {
-                                implicitRelationships.add(implicitRelationship);
+
+                            if (!candidateRelationships.containsKey(source)) {
+                                candidateRelationships.put(source, new HashMap<>());
+                            }
+
+                            if (!candidateRelationships.get(source).containsKey(destination)) {
+                                candidateRelationships.get(source).put(destination, new HashMap<>());
+                                candidateRelationships.get(source).get(destination).put(descriptionKey, new HashSet<>());
+                                candidateRelationships.get(source).get(destination).put(technologyKey, new HashSet<>());
+                            }
+
+                            if (relationship.getDescription() != null) {
+                                candidateRelationships.get(source).get(destination).get(descriptionKey).add(relationship.getDescription());
+                            }
+
+                            if (relationship.getTechnology() != null) {
+                                candidateRelationships.get(source).get(destination).get(technologyKey).add(relationship.getTechnology());
                             }
                         }
                     }
@@ -366,6 +425,28 @@ public class Model {
 
                 destination = relationship.getDestination();
                 source = source.getParent();
+            }
+        }
+
+        for (Element source : candidateRelationships.keySet()) {
+            for (Element destination : candidateRelationships.get(source).keySet()) {
+                Set<String> possibleDescriptions = candidateRelationships.get(source).get(destination).get(descriptionKey);
+                Set<String> possibleTechnologies = candidateRelationships.get(source).get(destination).get(technologyKey);
+
+                String description = "";
+                if (possibleDescriptions.size() == 1) {
+                    description = possibleDescriptions.iterator().next();
+                }
+
+                String technology = "";
+                if (possibleTechnologies.size() == 1) {
+                    technology = possibleTechnologies.iterator().next();
+                }
+
+                Relationship implicitRelationship = addRelationship(source, destination, description, technology);
+                if (implicitRelationship != null) {
+                    implicitRelationships.add(implicitRelationship);
+                }
             }
         }
 
@@ -409,4 +490,119 @@ public class Model {
         return people.isEmpty() && softwareSystems.isEmpty();
     }
 
+    public DeploymentNode addDeploymentNode(String name, String description, String technology) {
+        return addDeploymentNode(name, description, technology, 1);
+    }
+
+    public DeploymentNode addDeploymentNode(String name, String description, String technology, int instances) {
+        return addDeploymentNode(name, description, technology, instances, null);
+    }
+
+    public DeploymentNode addDeploymentNode(String name, String description, String technology, int instances, Map<String, String> properties) {
+        return addDeploymentNode(null, name, description, technology, instances, properties);
+    }
+
+    DeploymentNode addDeploymentNode(DeploymentNode parent, String name, String description, String technology, int instances, Map<String, String> properties) {
+        if (name == null || name.trim().length() == 0) {
+            throw new IllegalArgumentException("A name must be specified.");
+        }
+
+        if ((parent == null && getDeploymentNodeWithName(name) == null) || (parent != null && parent.getDeploymentNodeWithName(name) == null)) {
+            DeploymentNode deploymentNode = new DeploymentNode();
+            deploymentNode.setName(name);
+            deploymentNode.setDescription(description);
+            deploymentNode.setTechnology(technology);
+            deploymentNode.setParent(parent);
+            deploymentNode.setInstances(instances);
+            if (properties != null) {
+                deploymentNode.setProperties(properties);
+            }
+
+            if (parent == null) {
+                deploymentNodes.add(deploymentNode);
+            }
+
+            deploymentNode.setId(idGenerator.generateId(deploymentNode));
+            addElementToInternalStructures(deploymentNode);
+
+            return deploymentNode;
+        } else {
+            throw new IllegalArgumentException("A deployment node named '" + name + "' already exists.");
+        }
+    }
+
+    /**
+     * @param name the name of the deployment node
+     * @return the DeploymentNode instance with the specified name (or null if it doesn't exist).
+     */
+    public DeploymentNode getDeploymentNodeWithName(String name) {
+        for (DeploymentNode deploymentNode : getDeploymentNodes()) {
+            if (deploymentNode.getName().equals(name)) {
+                return deploymentNode;
+            }
+        }
+
+        return null;
+    }
+
+    ContainerInstance addContainerInstance(Container container) {
+        if (container == null) {
+            throw new IllegalArgumentException("A container must be specified.");
+        }
+
+        long instanceNumber = getElements().stream().filter(e -> e instanceof ContainerInstance && ((ContainerInstance)e).getContainer().equals(container)).count();
+        instanceNumber++;
+        ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber);
+        containerInstance.setId(idGenerator.generateId(containerInstance));
+
+        // find all ContainerInstance objects
+        Set<ContainerInstance> containerInstances = getElements().stream()
+                .filter(e -> e instanceof ContainerInstance)
+                .map(e -> (ContainerInstance)e)
+                .collect(Collectors.toSet());
+
+        // and replicate the container-container relationships
+        for (ContainerInstance ci : containerInstances) {
+            Container c = ci.getContainer();
+
+            for (Relationship relationship : container.getRelationships()) {
+                if (relationship.getDestination().equals(c)) {
+                    addRelationship(containerInstance, ci, relationship.getDescription(), relationship.getTechnology(), relationship.getInteractionStyle());
+                }
+            }
+
+            for (Relationship relationship : c.getRelationships()) {
+                if (relationship.getDestination().equals(container)) {
+                    addRelationship(ci, containerInstance, relationship.getDescription(), relationship.getTechnology(), relationship.getInteractionStyle());
+                }
+            }
+        }
+
+        addElementToInternalStructures(containerInstance);
+
+        return containerInstance;
+    }
+
+    public Element getElementWithCanonicalName(String canonicalName) {
+        if (canonicalName == null || canonicalName.trim().length() == 0) {
+            throw new IllegalArgumentException("A canonical name must be specified.");
+        }
+
+        // canonical names start with a leading slash, so add this if it's missing
+        if (!canonicalName.startsWith("/")) {
+            canonicalName = "/" + canonicalName;
+        }
+
+        for (Element element : getElements()) {
+            if (element.getCanonicalName().equals(canonicalName)) {
+                return element;
+            }
+        }
+
+        return null;
+    }
+
+    public void setIdGenerator(IdGenerator idGenerator) {
+        this.idGenerator = idGenerator;
+    }
 }

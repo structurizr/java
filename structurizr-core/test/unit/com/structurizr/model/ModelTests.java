@@ -9,6 +9,26 @@ import static org.junit.Assert.*;
 
 public class ModelTests extends AbstractWorkspaceTestBase {
 
+    @Test(expected = IllegalArgumentException.class)
+    public void test_addSoftwareSystem_ThrowsAnException_WhenANullNameIsSpecified() {
+        model.addSoftwareSystem(null, "");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_addSoftwareSystem_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
+        model.addSoftwareSystem(" ", "");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_addPerson_ThrowsAnException_WhenANullNameIsSpecified() {
+        model.addPerson(null, "");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_addPerson_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
+        model.addPerson(" ", "");
+    }
+
     @Test
     public void test_addSoftwareSystem_AddsTheSoftwareSystem_WhenASoftwareSystemDoesNotExistWithTheSameName() {
         assertTrue(model.getSoftwareSystems().isEmpty());
@@ -23,13 +43,16 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addSoftwareSystem_DoesNotAddTheSoftwareSystem_WhenASoftwareSystemExistsWithTheSameName() {
+    public void test_addSoftwareSystem_ThrowsAnException_WhenASoftwareSystemExistsWithTheSameName() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "System A", "Some description");
         assertEquals(1, model.getSoftwareSystems().size());
 
-        softwareSystem = model.addSoftwareSystem(Location.External, "System A", "Description");
-        assertEquals(1, model.getSoftwareSystems().size());
-        assertNull(softwareSystem);
+        try {
+            model.addSoftwareSystem(Location.External, "System A", "Description");
+            fail();
+        } catch (Exception e) {
+            assertEquals("A software system named 'System A' already exists.", e.getMessage());
+        }
     }
 
     @Test
@@ -59,13 +82,16 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addPerson_DoesNotAddThePerson_WhenAPersonExistsWithTheSameName() {
+    public void test_addPerson_ThrowsAnException_WhenAPersonExistsWithTheSameName() {
         Person person = model.addPerson(Location.Internal, "Admin User", "Description");
         assertEquals(1, model.getPeople().size());
 
-        person = model.addPerson(Location.External, "Admin User", "Description");
-        assertEquals(1, model.getPeople().size());
-        assertNull(person);
+        try {
+            model.addPerson(Location.External, "Admin User", "Description");
+            fail();
+        } catch (Exception e) {
+            assertEquals("A person named 'Admin User' already exists.", e.getMessage());
+        }
     }
 
     @Test
@@ -421,6 +447,172 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertTrue(aaa1.hasEfferentRelationshipWith(aa2));
         assertTrue(aa1.hasEfferentRelationshipWith(aaa2));
         assertTrue(aa1.hasEfferentRelationshipWith(aa2));
+    }
+
+    @Test
+    public void test_addContainerInstance_ThrowsAnException_WhenANullContainerIsSpecified() {
+        try {
+            model.addContainerInstance(null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("A container must be specified.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addContainerInstance_AddsAContainerInstance_WhenAContainerIsSpecified() {
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
+        Container container1 = softwareSystem1.addContainer("Container 1", "Description", "Technology");
+
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
+        Container container2 = softwareSystem2.addContainer("Container 2", "Description", "Technology");
+
+        SoftwareSystem softwareSystem3 = model.addSoftwareSystem("Software System 3", "Description");
+        Container container3 = softwareSystem3.addContainer("Container 3", "Description", "Technology");
+
+        container1.uses(container2, "Uses 1", "Technology 1", InteractionStyle.Synchronous);
+        container2.uses(container3, "Uses 2", "Technology 2", InteractionStyle.Asynchronous);
+
+        ContainerInstance containerInstance1 = model.addContainerInstance(container1);
+        ContainerInstance containerInstance2 = model.addContainerInstance(container2);
+        ContainerInstance containerInstance3 = model.addContainerInstance(container3);
+
+        assertSame(container2, containerInstance2.getContainer());
+        assertEquals(container2.getId(), containerInstance2.getContainerId());
+        assertSame(softwareSystem2, containerInstance2.getParent());
+        assertEquals("/Software System 2/Container 2[1]", containerInstance2.getCanonicalName());
+        assertEquals("Element,Container,Container Instance", containerInstance2.getTags());
+
+        assertEquals(1, containerInstance1.getRelationships().size());
+        Relationship relationship = containerInstance1.getRelationships().iterator().next();
+        assertSame(containerInstance1, relationship.getSource());
+        assertSame(containerInstance2, relationship.getDestination());
+        assertEquals("Uses 1", relationship.getDescription());
+        assertEquals("Technology 1", relationship.getTechnology());
+        assertEquals(InteractionStyle.Synchronous, relationship.getInteractionStyle());
+
+        assertEquals(1, containerInstance2.getRelationships().size());
+        relationship = containerInstance2.getRelationships().iterator().next();
+        assertSame(containerInstance2, relationship.getSource());
+        assertSame(containerInstance3, relationship.getDestination());
+        assertEquals("Uses 2", relationship.getDescription());
+        assertEquals("Technology 2", relationship.getTechnology());
+        assertEquals(InteractionStyle.Asynchronous, relationship.getInteractionStyle());
+    }
+
+    @Test
+    public void test_getElement_ThrowsAnException_WhenANullIdIsSpecified() {
+        try {
+            model.getElement(null);
+        } catch (IllegalArgumentException iae) {
+            assertEquals("An ID must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getElement_ThrowsAnException_WhenAnEmptyIdIsSpecified() {
+        try {
+            model.getElement(" ");
+        } catch (IllegalArgumentException iae) {
+            assertEquals("An ID must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getElementWithCanonicalName_ThrowsAnException_WhenANullCanonicalNameIsSpecified() {
+        try {
+            model.getElementWithCanonicalName(null);
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A canonical name must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getElementWithCanonicalName_ThrowsAnException_WhenAnEmptyCanonicalNameIsSpecified() {
+        try {
+            model.getElementWithCanonicalName(" ");
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A canonical name must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getElementWithCanonicalName_ReturnsNull_WhenAnElementWithTheSpecifiedCanonicalNameDoesNotExist() {
+        assertNull(model.getElementWithCanonicalName("Software System"));
+    }
+
+    @Test
+    public void test_getElementWithCanonicalName_ReturnsTheElement_WhenAnElementWithTheSpecifiedCanonicalNameExists() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
+
+        assertSame(model.getElementWithCanonicalName("/Software System"), softwareSystem);
+        assertSame(model.getElementWithCanonicalName("Software System"), softwareSystem);
+
+        Container container = softwareSystem.addContainer("Web Application", "Description", "Technology");
+        assertSame(container, model.getElementWithCanonicalName("/Software System/Web Application"));
+        assertSame(container, model.getElementWithCanonicalName("Software System/Web Application"));
+    }
+
+    @Test
+    public void test_addImplicitRelationships_SetsTheDescriptionOfThePropagatedRelationship_WhenThereIsOnlyOnePossibleDescription() {
+        Person user = model.addPerson("Person", "Description");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
+        Container webApplication = softwareSystem.addContainer("Web Application", "Description", "Technology");
+
+        user.uses(webApplication, "Uses", "");
+        model.addImplicitRelationships();
+
+        assertEquals(2, user.getRelationships().size());
+
+        Relationship relationship = user.getRelationships().stream().filter(r -> r.getDestination() == softwareSystem).findFirst().get();
+        assertEquals("Uses", relationship.getDescription());
+    }
+
+    @Test
+    public void test_addImplicitRelationships_DoeNotSetTheDescriptionOfThePropagatedRelationship_WhenThereIsMoreThanOnePossibleDescription() {
+        Person user = model.addPerson("Person", "Description");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
+        Container webApplication = softwareSystem.addContainer("Web Application", "Description", "Technology");
+
+        user.uses(webApplication, "Does something", "");
+        user.uses(webApplication, "Does something else", "");
+        model.addImplicitRelationships();
+
+        assertEquals(3, user.getRelationships().size());
+
+        Relationship relationship = user.getRelationships().stream().filter(r -> r.getDestination() == softwareSystem).findFirst().get();
+        assertEquals("", relationship.getDescription());
+    }
+
+    @Test
+    public void test_addImplicitRelationships_SetsTheTechnologyOfThePropagatedRelationship_WhenThereIsOnlyOnePossibleTechnology() {
+        Person user = model.addPerson("Person", "Description");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
+        Container webApplication = softwareSystem.addContainer("Web Application", "Description", "Technology");
+
+        user.uses(webApplication, "Uses", "HTTPS");
+        model.addImplicitRelationships();
+
+        assertEquals(2, user.getRelationships().size());
+
+        Relationship relationship = user.getRelationships().stream().filter(r -> r.getDestination() == softwareSystem).findFirst().get();
+        assertEquals("HTTPS", relationship.getTechnology());
+    }
+
+    @Test
+    public void test_addImplicitRelationships_DoeNotSetTheTechnologyOfThePropagatedRelationship_WhenThereIsMoreThanOnePossibleTechnology() {
+        Person user = model.addPerson("Person", "Description");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
+        Container webApplication = softwareSystem.addContainer("Web Application", "Description", "Technology");
+
+        user.uses(webApplication, "Does something", "Some technology");
+        user.uses(webApplication, "Does something else", "Some other technology");
+        model.addImplicitRelationships();
+
+        assertEquals(3, user.getRelationships().size());
+
+        Relationship relationship = user.getRelationships().stream().filter(r -> r.getDestination() == softwareSystem).findFirst().get();
+        assertEquals("", relationship.getTechnology());
     }
 
 }

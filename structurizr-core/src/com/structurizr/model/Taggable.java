@@ -1,7 +1,8 @@
 package com.structurizr.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -18,8 +19,7 @@ abstract class Taggable {
      *          or an empty string if there are no tags
      */
     public String getTags() {
-        Set<String> setOfTags = new LinkedHashSet<>(getRequiredTags());
-        setOfTags.addAll(tags);
+        Set<String> setOfTags = getTagsAsSet();
 
         if (setOfTags.isEmpty()) {
             return "";
@@ -33,6 +33,14 @@ abstract class Taggable {
 
         String tagsAsString = buf.toString();
         return tagsAsString.substring(0, tagsAsString.length()-1);
+    }
+
+    @JsonIgnore
+    public Set<String> getTagsAsSet() {
+        Set<String> setOfTags = new LinkedHashSet<>(getRequiredTags());
+        setOfTags.addAll(tags);
+
+        return setOfTags;
     }
 
     void setTags(String tags) {

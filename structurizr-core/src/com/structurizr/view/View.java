@@ -21,11 +21,12 @@ public abstract class View {
     private String softwareSystemId;
     private String description = "";
     private String key;
-    private PaperSize paperSize = PaperSize.A4_Portrait;
+    private PaperSize paperSize = null;
 
     private Set<ElementView> elementViews = new LinkedHashSet<>();
 
     private Set<RelationshipView> relationshipViews = new LinkedHashSet<>();
+    private ViewSet viewSet;
 
     View() {
     }
@@ -160,7 +161,7 @@ public abstract class View {
             for (RelationshipView relationshipView : getRelationships()) {
                 if (relationshipView.getRelationship().getSource().equals(element) ||
                         relationshipView.getRelationship().getDestination().equals(element)) {
-                    removeRelationship(relationshipView.getRelationship());
+                    remove(relationshipView.getRelationship());
                 }
             }
         }
@@ -183,27 +184,34 @@ public abstract class View {
         return this.elementViews.stream().filter(ev -> ev.getElement().equals(element)).count() > 0;
     }
 
-    protected void addRelationship(Relationship relationship, String description, String order) {
+    protected RelationshipView addRelationship(Relationship relationship, String description, String order) {
         RelationshipView relationshipView = add(relationship);
         if (relationshipView != null) {
             relationshipView.setDescription(description);
             relationshipView.setOrder(order);
         }
-    }
 
-    /**
-     * @param relationship the relationship to be removed
-     * @deprecated use {@link View#remove(com.structurizr.model.Relationship)}
-     */
-    @Deprecated
-    public void removeRelationship(Relationship relationship) {
-        remove(relationship);
+        return relationshipView;
     }
 
     public void remove(Relationship relationship) {
         if (relationship != null) {
             RelationshipView relationshipView = new RelationshipView(relationship);
             relationshipViews.remove(relationshipView);
+        }
+    }
+
+    /**
+     * Removes relationships that are not connected to the specified element.
+     *
+     * @param element       the Element to test against
+     */
+    public void removeRelationshipsNotConnectedToElement(Element element) {
+        if (element != null) {
+            getRelationships().stream()
+                    .map(RelationshipView::getRelationship)
+                    .filter(r -> !r.getSource().equals(element) && !r.getDestination().equals(element))
+                    .forEach(this::remove);
         }
     }
 
@@ -252,7 +260,9 @@ public abstract class View {
     }
 
     public void copyLayoutInformationFrom(View source) {
-        this.setPaperSize(source.getPaperSize());
+        if (this.getPaperSize() == null) {
+            this.setPaperSize(source.getPaperSize());
+        }
 
         for (ElementView sourceElementView : source.getElements()) {
             ElementView destinationElementView = findElementView(sourceElementView);
@@ -297,6 +307,15 @@ public abstract class View {
     public RelationshipView getRelationshipView(Relationship relationship) {
         Optional<RelationshipView> relationshipView = this.relationshipViews.stream().filter(rv -> rv.getRelationship().equals(relationship)).findFirst();
         return relationshipView.isPresent() ? relationshipView.get() : null;
+    }
+
+    void setViewSet(ViewSet viewSet) {
+        this.viewSet = viewSet;
+    }
+
+    @JsonIgnore
+    public ViewSet getViewSet() {
+        return viewSet;
     }
 
 }

@@ -2,7 +2,7 @@ package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-public class RelationshipStyle {
+public final class RelationshipStyle {
 
     private static final int START_OF_LINE = 0;
     private static final int END_OF_LINE = 100;
@@ -38,17 +38,21 @@ public class RelationshipStyle {
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Integer position;
 
-    public RelationshipStyle() {
+    /** the opacity of the line/text; 0 to 100 */
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private Integer opacity;
+
+    RelationshipStyle() {
     }
 
-    public RelationshipStyle(String tag) {
+    RelationshipStyle(String tag) {
         this.tag = tag;
     }
 
     public RelationshipStyle(String tag, Integer thickness, String color, Boolean dashed, Routing routing, Integer fontSize, Integer width, Integer position) {
         this.tag = tag;
         this.thickness = thickness;
-        this.color = color;
+        setColor(color);
         this.dashed = dashed;
         this.routing = routing;
         this.fontSize = fontSize;
@@ -82,7 +86,11 @@ public class RelationshipStyle {
     }
 
     public void setColor(String color) {
-        this.color = color;
+        if (Color.isHexColorCode(color)) {
+            this.color = color;
+        } else {
+            throw new IllegalArgumentException(color + " is not a valid hex colour code.");
+        }
     }
 
     public RelationshipStyle color(String color) {
@@ -160,6 +168,32 @@ public class RelationshipStyle {
 
     public RelationshipStyle position(int position) {
         setPosition(position);
+        return this;
+    }
+
+    /**
+     * Gets the opacity used when rendering the relationship.
+     *
+     * @return  the opacity, as an integer between 0 and 100.
+     */
+    public Integer getOpacity() {
+        return opacity;
+    }
+
+    public void setOpacity(Integer opacity) {
+        if (opacity != null) {
+            if (opacity < 0) {
+                this.opacity = 0;
+            } else if (opacity > 100) {
+                this.opacity = 100;
+            } else {
+                this.opacity = opacity;
+            }
+        }
+    }
+
+    public RelationshipStyle opacity(int opacity) {
+        setOpacity(opacity);
         return this;
     }
 

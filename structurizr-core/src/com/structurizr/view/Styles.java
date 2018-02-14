@@ -1,9 +1,12 @@
 package com.structurizr.view;
 
+import com.structurizr.model.Element;
+import com.structurizr.model.Relationship;
+
 import java.util.Collection;
 import java.util.LinkedList;
 
-public class Styles {
+public final class Styles {
 
     private Collection<ElementStyle> elements = new LinkedList<>();
     private Collection<RelationshipStyle> relationships = new LinkedList<>();
@@ -50,6 +53,72 @@ public class Styles {
         }
 
         return relationshipStyle;
+    }
+
+    private ElementStyle findElementStyle(String tag) {
+        if (tag != null) {
+            for (ElementStyle elementStyle : elements) {
+                if (elementStyle != null && elementStyle.getTag().equals(tag)) {
+                    return elementStyle;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    private RelationshipStyle findRelationshipStyle(String tag) {
+        if (tag != null) {
+            for (RelationshipStyle relationshipStyle : relationships) {
+                if (relationshipStyle != null && relationshipStyle.getTag().equals(tag)) {
+                    return relationshipStyle;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public ElementStyle findElementStyle(Element element) {
+        ElementStyle style = new ElementStyle("").background("#dddddd").color("#000000").shape(Shape.Box);
+
+        if (element != null) {
+            for (String tag : element.getTagsAsSet()) {
+                ElementStyle elementStyle = findElementStyle(tag);
+                if (elementStyle != null) {
+                    if (elementStyle.getBackground() != null && elementStyle.getBackground().trim().length() > 0) {
+                        style.setBackground(elementStyle.getBackground());
+                    }
+
+                    if (elementStyle.getColor() != null && elementStyle.getColor().trim().length() > 0) {
+                        style.setColor(elementStyle.getColor());
+                    }
+
+                    if (elementStyle.getShape() != null) {
+                        style.setShape(elementStyle.getShape());
+                    }
+                }
+            }
+        }
+
+        return style;
+    }
+
+    public RelationshipStyle findRelationshipStyle(Relationship relationship) {
+        RelationshipStyle style = new RelationshipStyle("").color("#707070");
+
+        if (relationship != null) {
+            for (String tag : relationship.getTagsAsSet()) {
+                RelationshipStyle relationshipStyle = findRelationshipStyle(tag);
+                if (relationshipStyle != null) {
+                    if (relationshipStyle.getColor() != null && relationshipStyle.getColor().trim().length() > 0) {
+                        style.setColor(relationshipStyle.getColor());
+                    }
+                }
+            }
+        }
+
+        return style;
     }
 
 }

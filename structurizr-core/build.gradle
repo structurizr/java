@@ -1,19 +1,23 @@
 dependencies {
 
-    compile project(':structurizr-annotations')
-
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.4.0'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.4.0'
-
-    compile 'org.reflections:reflections:0.9.10'
 
     compile 'commons-logging:commons-logging:1.1.3'
 
-    compile 'org.apache.httpcomponents:httpclient:4.3.6'
-    compile 'org.apache.httpcomponents:httpcore:4.3.3'
-
-    compile files("${System.getProperty('java.home')}/../lib/tools.jar")
-
     testCompile 'junit:junit:4.12'
     testCompile 'org.assertj:assertj-core:3.4.0'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+    test {
+        java {
+            srcDir 'test/unit'
+            srcDir 'test/integration'
+        }
+    }
 }

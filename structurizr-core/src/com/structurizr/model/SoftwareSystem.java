@@ -8,9 +8,15 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * A software system, which itself can be made up of a number of containers.
+ * A software system is the highest level of abstraction and describes something
+ * that delivers value to its users, whether they are human or not. This includes
+ * the software system you are modelling, and the other software systems upon
+ * which your software system depends.
+ *
+ * See <a href="https://structurizr.com/help/model#SoftwareSystem">Model - Software System</a>
+ * on the Structurizr website for more information.
  */
-public class SoftwareSystem extends Element {
+public final class SoftwareSystem extends StaticStructureElement {
 
     private Location location = Location.Unspecified;
 

@@ -6,21 +6,25 @@ import com.structurizr.model.Element;
 /**
  * A documentation section.
  */
-public class Section {
+public final class Section {
 
     private Element element;
     private String elementId;
 
-    private Type type;
+    private String type;
+    private int order;
+    private int group;
     private Format format;
     private String content;
 
     Section() {
     }
 
-    Section(Element element, Type type, Format format, String content) {
+    Section(Element element, String type, int order, int group, Format format, String content) {
         this.element = element;
         this.type = type;
+        this.order = order;
+        this.group = group;
         this.format = format;
         this.content = content;
     }
@@ -46,12 +50,28 @@ public class Section {
         this.elementId = elementId;
     }
 
-    public Type getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Type type) {
+    void setType(String type) {
         this.type = type;
+    }
+
+    public int getOrder() {
+        return order;
+    }
+
+    public void setOrder(int order) {
+        this.order = order;
+    }
+
+    public int getGroup() {
+        return group;
+    }
+
+    void setGroup(int group) {
+        this.group = group;
     }
 
     public Format getFormat() {
@@ -71,19 +91,27 @@ public class Section {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public boolean equals(Object object) {
+        if (this == object) {
+            return true;
+        }
 
-        Section section = (Section) o;
+        if (object == null || getClass() != object.getClass()) {
+            return false;
+        }
 
-        return getElementId().equals(section.getElementId()) && type == section.type;
+        Section section = (Section)object;
+        if (getElementId() != null) {
+            return getElementId().equals(section.getElementId()) && getType().equals(section.getType());
+        } else {
+            return getType().equals(section.getType());
+        }
     }
 
     @Override
     public int hashCode() {
-        int result = getElementId().hashCode();
-        result = 31 * result + type.hashCode();
+        int result = getElementId() != null ? getElementId().hashCode() : 0;
+        result = 31 * result + getType().hashCode();
         return result;
     }
 

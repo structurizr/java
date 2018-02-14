@@ -1,6 +1,7 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.structurizr.model.Container;
 import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;
@@ -14,17 +15,18 @@ import java.util.Set;
 /**
  * A set of views onto a software architecture model.
  */
-public class ViewSet {
+public final class ViewSet {
 
     private static final Log log = LogFactory.getLog(ViewSet.class);
 
     private Model model;
 
-    private Collection<EnterpriseContextView> enterpriseContextViews = new HashSet<>();
+    private Collection<SystemLandscapeView> systemLandscapeViews = new HashSet<>();
     private Collection<SystemContextView> systemContextViews = new HashSet<>();
     private Collection<ContainerView> containerViews = new HashSet<>();
     private Collection<ComponentView> componentViews = new HashSet<>();
     private Collection<DynamicView> dynamicViews = new HashSet<>();
+    private Collection<DeploymentView> deploymentViews = new HashSet<>();
 
     private Collection<FilteredView> filteredViews = new HashSet<>();
 
@@ -46,133 +48,101 @@ public class ViewSet {
         this.model = model;
     }
 
-    public EnterpriseContextView createEnterpriseContextView(String key, String description) {
-        EnterpriseContextView view = new EnterpriseContextView(model, key, description);
+    /**
+     * Creates a system landscape view.
+     *
+     * @param key           the key for the view (must be unique)
+     * @param description   a description of the view
+     * @return              an SystemLandscapeView object
+     * @throws              IllegalArgumentException if the key is not unique
+     */
+    public SystemLandscapeView createSystemLandscapeView(String key, String description) {
+        assertThatTheViewKeyIsUnique(key);
 
-        if (getViewWithKey(key) != null) {
-            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            enterpriseContextViews.add(view);
-            return view;
-        }
+        SystemLandscapeView view = new SystemLandscapeView(model, key, description);
+        view.setViewSet(this);
+        systemLandscapeViews.add(view);
+        return view;
     }
 
     /**
-     * Please use {@link #createSystemContextView(com.structurizr.model.SoftwareSystem, String, String)} instead.
-     * @deprecated
+     * Creates a system context view, where the scope of the view is the specified software system.
+     *
+     * @param softwareSystem    the SoftwareSystem object representing the scope of the view
+     * @param key               the key for the view (must be unique)
+     * @param description       a description of the view
+     * @return                  a SystemContextView object
+     * @throws                  IllegalArgumentException if the software system is null or the key is not unique
      */
-    @Deprecated
-    public SystemContextView createContextView(SoftwareSystem softwareSystem) {
-        return createSystemContextView(softwareSystem, null, null);
-    }
-
-    /**
-     * Please use {@link #createSystemContextView(com.structurizr.model.SoftwareSystem, String, String)} instead.
-     * @deprecated
-     */
-    @Deprecated
-    public SystemContextView createContextView(SoftwareSystem softwareSystem, String description) {
-        return createSystemContextView(softwareSystem, null, description);
-    }
-
     public SystemContextView createSystemContextView(SoftwareSystem softwareSystem, String key, String description) {
+        assertThatTheSoftwareSystemIsNotNull(softwareSystem);
+        assertThatTheViewKeyIsUnique(key);
+
         SystemContextView view = new SystemContextView(softwareSystem, key, description);
-
-        if (getViewWithKey(key) != null) {
-            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            systemContextViews.add(view);
-            return view;
-        }
+        view.setViewSet(this);
+        systemContextViews.add(view);
+        return view;
     }
 
     /**
-     * Please use {@link #createContainerView(com.structurizr.model.SoftwareSystem, String, String)} instead.
-     * @deprecated
+     * Creates a container view, where the scope of the view is the specified software system.
+     *
+     * @param softwareSystem    the SoftwareSystem object representing the scope of the view
+     * @param key               the key for the view (must be unique)
+     * @param description       a description of the view
+     * @return                  a ContainerView object
+     * @throws                  IllegalArgumentException if the software system is null or the key is not unique
      */
-    public ContainerView createContainerView(SoftwareSystem softwareSystem) {
-        return createContainerView(softwareSystem, null, null);
-    }
-
-    /**
-     * Please use {@link #createContainerView(com.structurizr.model.SoftwareSystem, String, String)} instead.
-     * @deprecated
-     */
-    @Deprecated
-    public ContainerView createContainerView(SoftwareSystem softwareSystem, String description) {
-        return createContainerView(softwareSystem, null, description);
-    }
-
     public ContainerView createContainerView(SoftwareSystem softwareSystem, String key, String description) {
+        assertThatTheSoftwareSystemIsNotNull(softwareSystem);
+        assertThatTheViewKeyIsUnique(key);
+
         ContainerView view = new ContainerView(softwareSystem, key, description);
-
-        if (getViewWithKey(key) != null) {
-            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            containerViews.add(view);
-            return view;
-        }
+        view.setViewSet(this);
+        containerViews.add(view);
+        return view;
     }
 
     /**
-     * Please use {@link #createComponentView(com.structurizr.model.Container, String, String)} instead.
-     * @deprecated
+     * Creates a component view, where the scope of the view is the specified container.
+     *
+     * @param container         the Container object representing the scope of the view
+     * @param key               the key for the view (must be unique)
+     * @param description       a description of the view
+     * @return                  a ContainerView object
+     * @throws                  IllegalArgumentException if the container is null or the key is not unique
      */
-    @Deprecated
-    public ComponentView createComponentView(Container container) {
-        return createComponentView(container, null);
-    }
-
-    /**
-     * Please use {@link #createComponentView(com.structurizr.model.Container, String, String)} instead.
-     * @deprecated
-     */
-    @Deprecated
-    public ComponentView createComponentView(Container container, String description) {
-        return createComponentView(container, null, description);
-    }
-
     public ComponentView createComponentView(Container container, String key, String description) {
+        assertThatTheContainerIsNotNull(container);
+        assertThatTheViewKeyIsUnique(key);
+
         ComponentView view = new ComponentView(container, key, description);
-
-        if (getViewWithKey(key) != null) {
-            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            componentViews.add(view);
-            return view;
-        }
-    }
-
-    /**
-     * Please use {@link #createDynamicView(com.structurizr.model.SoftwareSystem, String, String)} instead.
-     * @deprecated
-     */
-    @Deprecated
-    public DynamicView createDynamicView(SoftwareSystem softwareSystem, String description) {
-        return createDynamicView(softwareSystem, null, description);
+        view.setViewSet(this);
+        componentViews.add(view);
+        return view;
     }
 
     /**
      * Creates a dynamic view.
      *
-     * @param key           the key for the dynamic view (must be unique)
-     * @param description   a description of the dynamic view
+     * @param key           the key for the view (must be unique)
+     * @param description   a description of the view
      * @return              a DynamicView object
+     * @throws              IllegalArgumentException if the key is not unique
      */
     public DynamicView createDynamicView(String key, String description) {
-        DynamicView view = new DynamicView(getModel(), key, description);
+        assertThatTheViewKeyIsUnique(key);
 
-        if (getViewWithKey(key) != null) {
-            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            dynamicViews.add(view);
-            return view;
-        }
+        DynamicView view = new DynamicView(getModel(), key, description);
+        view.setViewSet(this);
+        dynamicViews.add(view);
+        return view;
     }
 
     /**
      * Creates a dynamic view, where the scope is the specified software system. The following
      * elements can be added to the resulting view:
+     *
      * <ul>
      * <li>People</li>
      * <li>Software systems</li>
@@ -180,28 +150,25 @@ public class ViewSet {
      * </ul>
      *
      * @param softwareSystem    the SoftwareSystem object representing the scope of the view
-     * @param key               the key for the dynamic view (must be unique)
-     * @param description       a description of the dynamic view
+     * @param key               the key for the view (must be unique)
+     * @param description       a description of the view
      * @return                  a DynamicView object
+     * @throws                  IllegalArgumentException if the software system is null or the key is not unique
      */
     public DynamicView createDynamicView(SoftwareSystem softwareSystem, String key, String description) {
-        if (softwareSystem == null) {
-            throw new IllegalArgumentException("Software system must not be null.");
-        }
+        assertThatTheSoftwareSystemIsNotNull(softwareSystem);
+        assertThatTheViewKeyIsUnique(key);
 
         DynamicView view = new DynamicView(softwareSystem, key, description);
-
-        if (getViewWithKey(key) != null) {
-            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            dynamicViews.add(view);
-            return view;
-        }
+        view.setViewSet(this);
+        dynamicViews.add(view);
+        return view;
     }
 
     /**
      * Creates a dynamic view, where the scope is the specified container. The following
      * elements can be added to the resulting view:
+     *
      * <ul>
      * <li>People</li>
      * <li>Software systems</li>
@@ -210,43 +177,90 @@ public class ViewSet {
      * </ul>
      *
      * @param container         the Container object representing the scope of the view
-     * @param key               the key for the dynamic view (must be unique)
-     * @param description       a description of the dynamic view
+     * @param key               the key for the view (must be unique)
+     * @param description       a description of the view
      * @return                  a DynamicView object
+     * @throws                  IllegalArgumentException if the container is null or the key is not unique
      */
     public DynamicView createDynamicView(Container container, String key, String description) {
-        if (container == null) {
-            throw new IllegalArgumentException("Container must not be null.");
-        }
+        assertThatTheContainerIsNotNull(container);
+        assertThatTheViewKeyIsUnique(key);
 
         DynamicView view = new DynamicView(container, key, description);
-
-        if (getViewWithKey(key) != null) {
-            throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            dynamicViews.add(view);
-            return view;
-        }
+        view.setViewSet(this);
+        dynamicViews.add(view);
+        return view;
     }
 
     /**
-     * Creates a FilteredView on top of an existing view.
+     * Creates a deployment view.
      *
-     * @param view          the view to base the FilteredView upon
+     * @param key           the key for the deployment view (must be unique)
+     * @param description   a description of the  view
+     * @return              a DeploymentView object
+     * @throws              IllegalArgumentException if the key is not unique
+     */
+    public DeploymentView createDeploymentView(String key, String description) {
+        assertThatTheViewKeyIsUnique(key);
+
+        DeploymentView view = new DeploymentView(getModel(), key, description);
+        view.setViewSet(this);
+        deploymentViews.add(view);
+        return view;
+    }
+
+    /**
+     * Creates a deployment view, where the scope of the view is the specified software system.
+     *
+     * @param softwareSystem    the SoftwareSystem object representing the scope of the view
+     * @param key               the key for the deployment view (must be unique)
+     * @param description       a description of the view
+     * @return                  a DeploymentView object
+     * @throws                  IllegalArgumentException if the software system is null or the key is not unique
+     */
+    public DeploymentView createDeploymentView(SoftwareSystem softwareSystem, String key, String description) {
+        assertThatTheSoftwareSystemIsNotNull(softwareSystem);
+        assertThatTheViewKeyIsUnique(key);
+
+        DeploymentView view = new DeploymentView(softwareSystem, key, description);
+        view.setViewSet(this);
+        deploymentViews.add(view);
+        return view;
+    }
+
+    /**
+     * Creates a FilteredView on top of an existing static view.
+     *
+     * @param view          the static view to base the FilteredView upon
      * @param key           the key for the filtered view (must be unique)
      * @param description   a description
      * @param mode          whether to Include or Exclude elements/relationships based upon their tag
      * @param tags          the tags to include or exclude
      * @return              a FilteredView object
      */
-    public FilteredView createFilteredView(View view, String key, String description, FilterMode mode, String... tags) {
-        FilteredView filteredView = new FilteredView(view, key, description, mode, tags);
+    public FilteredView createFilteredView(StaticView view, String key, String description, FilterMode mode, String... tags) {
+        assertThatTheViewKeyIsUnique(key);
 
-        if (getViewWithKey(key) != null) {
+        FilteredView filteredView = new FilteredView(view, key, description, mode, tags);
+        filteredViews.add(filteredView);
+        return filteredView;
+    }
+
+    private void assertThatTheViewKeyIsUnique(String key) {
+        if (getViewWithKey(key) != null || getFilteredViewWithKey(key) != null) {
             throw new IllegalArgumentException("A view with the key " + key + " already exists.");
-        } else {
-            filteredViews.add(filteredView);
-            return filteredView;
+        }
+    }
+
+    private void assertThatTheSoftwareSystemIsNotNull(SoftwareSystem softwareSystem) {
+        if (softwareSystem == null) {
+            throw new IllegalArgumentException("Software system must not be null.");
+        }
+    }
+
+    private void assertThatTheContainerIsNotNull(Container container) {
+        if (container == null) {
+            throw new IllegalArgumentException("Container must not be null.");
         }
     }
 
@@ -257,28 +271,46 @@ public class ViewSet {
      * @return  a View object, or null if a view with the specified key could not be found
      */
     public View getViewWithKey(String key) {
-        View view = null;
-
-        if (key != null) {
-            Set<View> views = new HashSet<>();
-            views.addAll(systemContextViews);
-            views.addAll(containerViews);
-            views.addAll(componentViews);
-            views.addAll(dynamicViews);
-
-            view = views.stream().filter(v -> key.equals(v.getKey())).findFirst().orElse(null);
+        if (key == null) {
+            throw new IllegalArgumentException("A key must be specified.");
         }
 
-        return view;
+        Set<View> views = new HashSet<>();
+        views.addAll(systemContextViews);
+        views.addAll(containerViews);
+        views.addAll(componentViews);
+        views.addAll(dynamicViews);
+        views.addAll(deploymentViews);
+
+        return views.stream().filter(v -> key.equals(v.getKey())).findFirst().orElse(null);
     }
 
     /**
-     * Gets the set of enterprise context views.
+     * Finds the filtered view with the specified key, or null if the view does not exist.
      *
-     * @return  a Collection of EnterpriseContextView objects
+     * @param key   the key
+     * @return  a FilteredView object, or null if a view with the specified key could not be found
      */
-    public Collection<EnterpriseContextView> getEnterpriseContextViews() {
-        return new HashSet<>(enterpriseContextViews);
+    public FilteredView getFilteredViewWithKey(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException("A key must be specified.");
+        }
+
+        return filteredViews.stream().filter(v -> key.equals(v.getKey())).findFirst().orElse(null);
+    }
+
+    /**
+     * Gets the set of system landscape views.
+     *
+     * @return  a Collection of SystemLandscapeView objects
+     */
+    public Collection<SystemLandscapeView> getSystemLandscapeViews() {
+        return new HashSet<>(systemLandscapeViews);
+    }
+
+    @JsonSetter("enterpriseContextViews")
+    private void setEnterpriseContextViews(Collection<SystemLandscapeView> enterpriseContextViews) {
+        systemLandscapeViews.addAll(enterpriseContextViews);
     }
 
     /**
@@ -321,8 +353,17 @@ public class ViewSet {
         return new HashSet<>(filteredViews);
     }
 
+    /**
+     * Gets the set of dynamic views.
+     *
+     * @return  a Collection of DynamicView objects
+     */
+    public Collection<DeploymentView> getDeploymentViews() {
+        return new HashSet<>(deploymentViews);
+    }
+
     public void hydrate() {
-        for (EnterpriseContextView view : enterpriseContextViews) {
+        for (SystemLandscapeView view : getSystemLandscapeViews()) {
             view.setModel(model);
             hydrateView(view);
         }
@@ -348,15 +389,24 @@ public class ViewSet {
             hydrateView(view);
         }
 
+        for (DeploymentView view : deploymentViews) {
+            view.setSoftwareSystem(model.getSoftwareSystemWithId(view.getSoftwareSystemId()));
+            view.setModel(model);
+            hydrateView(view);
+        }
+
         for (FilteredView filteredView : filteredViews) {
             filteredView.setView(getViewWithKey(filteredView.getBaseViewKey()));
         }
     }
 
     private void hydrateView(View view) {
+        view.setViewSet(this);
+
         for (ElementView elementView : view.getElements()) {
             elementView.setElement(model.getElement(elementView.getId()));
         }
+
         for (RelationshipView relationshipView : view.getRelationships()) {
             relationshipView.setRelationship(model.getRelationship(relationshipView.getId()));
         }
@@ -372,8 +422,8 @@ public class ViewSet {
     }
 
     public void copyLayoutInformationFrom(ViewSet source) {
-        for (EnterpriseContextView view : enterpriseContextViews) {
-            EnterpriseContextView sourceView = findView(source.getEnterpriseContextViews(), view);
+        for (SystemLandscapeView view : getSystemLandscapeViews()) {
+            SystemLandscapeView sourceView = findView(source.getSystemLandscapeViews(), view);
             if (sourceView != null) {
                 view.copyLayoutInformationFrom(sourceView);
             } else {
@@ -416,6 +466,15 @@ public class ViewSet {
                 log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
             }
         }
+
+        for (DeploymentView view : deploymentViews) {
+            DeploymentView sourceView = findView(source.getDeploymentViews(), view);
+            if (sourceView != null) {
+                view.copyLayoutInformationFrom(sourceView);
+            } else {
+                log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+            }
+        }
     }
 
     private <T extends View> T findView(Collection<T> views, T sourceView) {
@@ -442,7 +501,7 @@ public class ViewSet {
 
     @JsonIgnore
     public boolean isEmpty() {
-        return enterpriseContextViews.isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && filteredViews.isEmpty();
+        return getSystemLandscapeViews().isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && filteredViews.isEmpty();
     }
 
 }

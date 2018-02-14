@@ -5,17 +5,23 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.*;
 
 /**
- * A component (a grouping of related functionality behind an interface that runs inside a container).
+ * The word "component" is a hugely overloaded term in the software development
+ * industry, but in this context a component is simply a grouping of related
+ * functionality encapsulated behind a well-defined interface. If you're using a
+ * language like Java or C#, the simplest way to think of a component is that
+ * it's a collection of implementation classes behind an interface. Aspects such
+ * as how those components are packaged (e.g. one component vs many components
+ * per JAR file, DLL, shared library, etc) is a separate and orthogonal concern.
  */
-public class Component extends Element {
+public final class Component extends StaticStructureElement {
 
     private Container parent;
 
-    private String technology = "";
+    private String technology;
     private Set<CodeElement> codeElements = new HashSet<>();
     private long size;
 
-    public Component() {
+    Component() {
     }
 
     @Override
@@ -29,12 +35,12 @@ public class Component extends Element {
         return parent;
     }
 
-    public void setParent(Container parent) {
+    void setParent(Container parent) {
         this.parent = parent;
     }
 
     /**
-     * Gets the technology associated with this component (e.g. Spring Bean).
+     * Gets the technology associated with this component (e.g. "Spring Bean").
      *
      * @return  the technology, as a String,
      *          or null if no technology has been specified
@@ -43,6 +49,11 @@ public class Component extends Element {
         return technology;
     }
 
+    /**
+     * Sets the technology associated with this component (e.g. "Spring Bean").
+     *
+     * @param technology    the technology, as a String
+     */
     public void setTechnology(String technology) {
         this.technology = technology;
     }
@@ -53,54 +64,72 @@ public class Component extends Element {
      * @return  the type, as a String
      */
     @JsonIgnore
-    public String getType() {
-        Optional<CodeElement> optional = codeElements.stream().filter(ce -> ce.getRole() == CodeElementRole.Primary).findFirst();
-        if (optional.isPresent()) {
-            return optional.get().getType();
-        } else {
-            return null;
-        }
+    public CodeElement getType() {
+        return codeElements.stream().filter(ce -> ce.getRole() == CodeElementRole.Primary).findFirst().orElse(null);
     }
 
-    public void setType(String type) {
+    /**
+     * Sets the type of this component (e.g. a fully qualified Java interface/class name).
+     *
+     * @param type  the fully qualified type name
+     * @return  the CodeElement that was created
+     * @throws IllegalArgumentException if the specified type is null
+     */
+    public CodeElement setType(String type) {
+        Optional<CodeElement> optional = codeElements.stream().filter(ce -> ce.getRole() == CodeElementRole.Primary).findFirst();
+        optional.ifPresent(codeElement -> codeElements.remove(codeElement));
+
         CodeElement codeElement = new CodeElement(type);
         codeElement.setRole(CodeElementRole.Primary);
         this.codeElements.add(codeElement);
+
+        return codeElement;
     }
 
+    /**
+     * Gets the set of CodeElement objects.
+     *
+     * @return  a Set, which could be empty
+     */
     public Set<CodeElement> getCode() {
-        return codeElements;
+        return new HashSet<>(codeElements);
     }
 
-    void setCodeElements(Set<CodeElement> codeElements) {
+    void setCode(Set<CodeElement> codeElements) {
         this.codeElements = codeElements;
     }
 
-    public void addSupportingType(String type) {
+    /**
+     * Adds a supporting type to this Component.
+     *
+     * @param type  the fully qualified type name
+     * @return  a CodeElement representing the supporting type
+     * @throws IllegalArgumentException if the specified type is null
+     */
+    public CodeElement addSupportingType(String type) {
         CodeElement codeElement = new CodeElement(type);
         codeElement.setRole(CodeElementRole.Supporting);
         this.codeElements.add(codeElement);
+
+        return codeElement;
     }
 
+    /**
+     * Gets the size of this Component (e.g. number of lines).
+     *
+     * @return  the size of this component, as a long
+     */
     public long getSize() {
         return size;
     }
 
+    /**
+     * Sets the size of this component (e.g. number of lines).
+     *
+     * @param size  the size
+     */
     public void setSize(long size) {
         this.size = size;
-    }
-
-    @JsonIgnore
-    public String getPackage() {
-        if (getType() != null) {
-            try {
-                return Class.forName(getType()).getPackage().getName();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return null;
     }
 
     @Override

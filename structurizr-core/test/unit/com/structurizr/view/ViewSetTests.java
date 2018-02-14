@@ -4,8 +4,7 @@ import com.structurizr.Workspace;
 import com.structurizr.model.*;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class ViewSetTests {
 
@@ -64,6 +63,37 @@ public class ViewSetTests {
     }
 
     @Test
+    public void test_copyLayoutInformationFrom_IgnoresThePaperSize_WhenThePaperSizeIsSet() {
+        Workspace workspace1 = createWorkspace();
+        SoftwareSystem softwareSystem1 = workspace1.getModel().getSoftwareSystemWithName("Software System");
+        SystemContextView view1 = workspace1.getViews().createSystemContextView(softwareSystem1, "context", "Description");
+        view1.setPaperSize(PaperSize.A3_Landscape);
+
+        Workspace workspace2 = createWorkspace();
+        SoftwareSystem softwareSystem2 = workspace2.getModel().getSoftwareSystemWithName("Software System");
+        SystemContextView view2 = workspace2.getViews().createSystemContextView(softwareSystem2, "context", "Description");
+        view2.setPaperSize(PaperSize.A5_Portrait);
+
+        workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
+        assertEquals(PaperSize.A5_Portrait, view2.getPaperSize());
+    }
+
+    @Test
+    public void test_copyLayoutInformationFrom_CopiesThePaperSize_WhenThePaperSizeIsNotSet() {
+        Workspace workspace1 = createWorkspace();
+        SoftwareSystem softwareSystem1 = workspace1.getModel().getSoftwareSystemWithName("Software System");
+        SystemContextView view1 = workspace1.getViews().createSystemContextView(softwareSystem1, "context", "Description");
+        view1.setPaperSize(PaperSize.A3_Landscape);
+
+        Workspace workspace2 = createWorkspace();
+        SoftwareSystem softwareSystem2 = workspace2.getModel().getSoftwareSystemWithName("Software System");
+        SystemContextView view2 = workspace2.getViews().createSystemContextView(softwareSystem2, "context", "Description");
+
+        workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
+        assertEquals(PaperSize.A3_Landscape, view2.getPaperSize());
+    }
+
+    @Test
     public void test_copyLayoutInformationFrom_WhenTheSystemContextViewKeysMatch() {
         Workspace workspace1 = createWorkspace();
         SoftwareSystem softwareSystem1 = workspace1.getModel().getSoftwareSystemWithName("Software System");
@@ -93,7 +123,7 @@ public class ViewSetTests {
 
         workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
         assertEquals(0, view2.getElements().iterator().next().getX()); // default
-        assertEquals(PaperSize.A4_Portrait, view2.getPaperSize()); // default
+        assertNull(view2.getPaperSize()); // default
     }
 
     @Test
@@ -126,7 +156,7 @@ public class ViewSetTests {
 
         workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
         assertEquals(0, view2.getElements().iterator().next().getX()); // default
-        assertEquals(PaperSize.A4_Portrait, view2.getPaperSize()); // default
+        assertNull(view2.getPaperSize()); // default
     }
 
     @Test
@@ -159,7 +189,7 @@ public class ViewSetTests {
 
         workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
         assertEquals(0, view2.getElements().iterator().next().getX()); // default
-        assertEquals(PaperSize.A4_Portrait, view2.getPaperSize()); // default
+        assertNull(view2.getPaperSize()); // default
     }
 
     @Test
@@ -195,7 +225,7 @@ public class ViewSetTests {
 
         workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
         assertEquals(0, view2.getElements().iterator().next().getX()); // default
-        assertEquals(PaperSize.A4_Portrait, view2.getPaperSize()); // default
+        assertNull(view2.getPaperSize()); // default
     }
 
     @Test

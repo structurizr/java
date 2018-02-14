@@ -3,7 +3,7 @@ package com.structurizr.view;
 /**
  * The X, Y coordinate of a bend in a line.
  */
-public class Vertex {
+public final class Vertex {
 
     private int x;
     private int y;

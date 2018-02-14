@@ -4,9 +4,7 @@ import com.structurizr.AbstractWorkspaceTestBase;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class RelationshipTests extends AbstractWorkspaceTestBase {
 
@@ -16,6 +14,13 @@ public class RelationshipTests extends AbstractWorkspaceTestBase {
     public void setUp() {
         softwareSystem1 = model.addSoftwareSystem(Location.Internal, "Name1", "Description");
         softwareSystem2 = model.addSoftwareSystem(Location.Internal, "Name2", "Description");
+    }
+
+    @Test
+    public void test_getDescription_NeverReturnsNull() {
+        Relationship relationship = softwareSystem1.uses(softwareSystem2, "Uses");
+        relationship.setDescription(null);
+        assertEquals("", relationship.getDescription());
     }
 
     @Test
