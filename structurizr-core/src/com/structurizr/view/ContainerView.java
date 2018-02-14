@@ -31,7 +31,7 @@ public final class ContainerView extends StaticView {
     /**
      * Adds an individual container to this view.
      *
-     * @param container     the Container to add
+     * @param container the Container to add
      */
     public void add(Container container) {
         addElement(container, true);
@@ -63,6 +63,16 @@ public final class ContainerView extends StaticView {
         super.addNearestNeighbours(element, SoftwareSystem.class);
         super.addNearestNeighbours(element, Person.class);
         super.addNearestNeighbours(element, Container.class);
+    }
+
+    /**
+     * Adds all {@link SoftwareSystem}s that have efferent {@link com.structurizr.model.Relationship}s with the
+     * {@link SoftwareSystem} of this {@link ContainerView}.
+     */
+    public final void addDependentSoftwareSystems() {
+        getModel().getSoftwareSystems().stream()
+                .filter(softwareSystem -> softwareSystem.hasEfferentRelationshipWith(this.getSoftwareSystem()))
+                .forEach(this::add);
     }
 
 }
