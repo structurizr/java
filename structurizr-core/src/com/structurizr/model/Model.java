@@ -159,14 +159,6 @@ public final class Model {
         return component;
     }
 
-    Relationship addRelationship(Element source, Element destination, String description) {
-        return addRelationship(source, destination, description, null);
-    }
-
-    Relationship addRelationship(Element source, Element destination, String description, String technology) {
-        return addRelationship(source, destination, description, technology, InteractionStyle.Synchronous);
-    }
-
     Relationship addRelationship(Element source, Element destination, String description, String technology, InteractionStyle interactionStyle) {
         if (destination == null) {
             throw new IllegalArgumentException("The destination must be specified.");
@@ -443,7 +435,8 @@ public final class Model {
                     technology = possibleTechnologies.iterator().next();
                 }
 
-                Relationship implicitRelationship = addRelationship(source, destination, description, technology);
+                // todo ... this defaults to being a synchronous relationship
+                Relationship implicitRelationship = addRelationship(source, destination, description, technology, InteractionStyle.Synchronous);
                 if (implicitRelationship != null) {
                     implicitRelationships.add(implicitRelationship);
                 }

@@ -105,8 +105,21 @@ public final class ContainerInstance extends Element {
      * @return  a Relationship object
      */
     public Relationship uses(ContainerInstance destination, String description, String technology) {
+        return uses(destination, description, technology, InteractionStyle.Synchronous);
+    }
+
+    /**
+     * Adds a relationship between this container instance and another.
+     *
+     * @param destination       the destination of the relationship (a ContainerInstance)
+     * @param description       a description of the relationship
+     * @param technology        the technology of the relationship
+     * @param interactionStyle  the interaction style (Synchronous vs Asynchronous)
+     * @return  a Relationship object
+     */
+    public Relationship uses(ContainerInstance destination, String description, String technology, InteractionStyle interactionStyle) {
         if (destination != null) {
-            return getModel().addRelationship(this, destination, description, technology);
+            return getModel().addRelationship(this, destination, description, technology, interactionStyle);
         } else {
             throw new IllegalArgumentException("The destination of a relationship must be specified.");
         }

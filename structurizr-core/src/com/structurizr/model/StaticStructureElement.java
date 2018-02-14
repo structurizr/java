@@ -4,7 +4,7 @@ package com.structurizr.model;
  * This is the superclass for model elements that describe the static structure
  * of a software system, namely Person, SoftwareSystem, Container and Component.
  */
-abstract class StaticStructureElement extends Element {
+public abstract class StaticStructureElement extends Element {
 
     protected StaticStructureElement() {
     }
@@ -17,7 +17,7 @@ abstract class StaticStructureElement extends Element {
      * @return the relationship that has just been created and added to the model
      */
     public Relationship uses(SoftwareSystem destination, String description) {
-        return getModel().addRelationship(this, destination, description);
+        return uses(destination, description, null);
     }
 
     /**
@@ -29,7 +29,7 @@ abstract class StaticStructureElement extends Element {
      * @return the relationship that has just been created and added to the model
      */
     public Relationship uses(SoftwareSystem destination, String description, String technology) {
-        return getModel().addRelationship(this, destination, description, technology);
+        return uses(destination, description, technology, InteractionStyle.Synchronous);
     }
 
     /**
@@ -42,7 +42,7 @@ abstract class StaticStructureElement extends Element {
      * @return the relationship that has just been created and added to the model
      */
     public Relationship uses(SoftwareSystem destination, String description, String technology, InteractionStyle interactionStyle) {
-        return getModel().addRelationship(this, destination, description, technology, interactionStyle);
+        return uses((StaticStructureElement)destination, description, technology, interactionStyle);
     }
 
     /**
@@ -53,7 +53,7 @@ abstract class StaticStructureElement extends Element {
      * @return the relationship that has just been created and added to the model
      */
     public Relationship uses(Container destination, String description) {
-        return getModel().addRelationship(this, destination, description);
+        return uses(destination, description, null);
     }
 
     /**
@@ -65,7 +65,7 @@ abstract class StaticStructureElement extends Element {
      * @return the relationship that has just been created and added to the model
      */
     public Relationship uses(Container destination, String description, String technology) {
-        return getModel().addRelationship(this, destination, description, technology);
+        return uses(destination, description, technology, InteractionStyle.Synchronous);
     }
 
     /**
@@ -78,7 +78,7 @@ abstract class StaticStructureElement extends Element {
      * @return the relationship that has just been created and added to the model
      */
     public Relationship uses(Container destination, String description, String technology, InteractionStyle interactionStyle) {
-        return getModel().addRelationship(this, destination, description, technology, interactionStyle);
+        return uses((StaticStructureElement)destination, description, technology, interactionStyle);
     }
 
     /**
@@ -89,7 +89,7 @@ abstract class StaticStructureElement extends Element {
      * @return the relationship that has just been created and added to the model
      */
     public Relationship uses(Component destination, String description) {
-        return getModel().addRelationship(this, destination, description);
+        return uses(destination, description, null);
     }
 
     /**
@@ -101,7 +101,7 @@ abstract class StaticStructureElement extends Element {
      * @return the relationship that has just been created and added to the model
      */
     public Relationship uses(Component destination, String description, String technology) {
-        return getModel().addRelationship(this, destination, description, technology);
+        return uses(destination, description, technology, InteractionStyle.Synchronous);
     }
 
     /**
@@ -114,7 +114,7 @@ abstract class StaticStructureElement extends Element {
      * @return the relationship that has just been created and added to the model
      */
     public Relationship uses(Component destination, String description, String technology, InteractionStyle interactionStyle) {
-        return getModel().addRelationship(this, destination, description, technology, interactionStyle);
+        return uses((StaticStructureElement)destination, description, technology, interactionStyle);
     }
 
     /**
@@ -125,7 +125,7 @@ abstract class StaticStructureElement extends Element {
      * @return the relationship that has just been created and added to the model
      */
     public Relationship delivers(Person destination, String description) {
-        return getModel().addRelationship(this, destination, description);
+        return delivers(destination, description, null);
     }
 
     /**
@@ -137,7 +137,7 @@ abstract class StaticStructureElement extends Element {
      * @return the relationship that has just been created and added to the model
      */
     public Relationship delivers(Person destination, String description, String technology) {
-        return getModel().addRelationship(this, destination, description, technology);
+        return delivers(destination, description, technology, InteractionStyle.Synchronous);
     }
 
     /**
@@ -150,6 +150,17 @@ abstract class StaticStructureElement extends Element {
      * @return the relationship that has just been created and added to the model
      */
     public Relationship delivers(Person destination, String description, String technology, InteractionStyle interactionStyle) {
+        return uses(destination, description, technology, interactionStyle);
+    }
+
+    /**
+     * Adds a unidirectional "uses" style relationship between this element and the specified element.
+     *
+     * @param destination the target of the relationship
+     * @param description a description of the relationship (e.g. "uses", "gets data from", "sends data to")
+     * @return the relationship that has just been created and added to the model
+     */
+    public Relationship uses(StaticStructureElement destination, String description, String technology, InteractionStyle interactionStyle) {
         return getModel().addRelationship(this, destination, description, technology, interactionStyle);
     }
 

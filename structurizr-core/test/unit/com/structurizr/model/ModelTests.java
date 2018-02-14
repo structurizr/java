@@ -165,36 +165,6 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addRelationship_AddsARelationshipWithTheSpecifiedDescription() {
-        SoftwareSystem a = model.addSoftwareSystem("A", "");
-        SoftwareSystem b = model.addSoftwareSystem("B", "");
-        Relationship relationship = model.addRelationship(a, b, "Uses");
-
-        assertSame(a, relationship.getSource());
-        assertSame(b, relationship.getDestination());
-        assertEquals("Uses", relationship.getDescription());
-        assertNull(relationship.getTechnology());
-        assertEquals(InteractionStyle.Synchronous, relationship.getInteractionStyle());
-
-        assertTrue(model.getRelationships().contains(relationship));
-    }
-
-    @Test
-    public void test_addRelationship_AddsARelationshipWithTheSpecifiedDescriptionAndTechnology() {
-        SoftwareSystem a = model.addSoftwareSystem("A", "");
-        SoftwareSystem b = model.addSoftwareSystem("B", "");
-        Relationship relationship = model.addRelationship(a, b, "Uses", "HTTPS");
-
-        assertSame(a, relationship.getSource());
-        assertSame(b, relationship.getDestination());
-        assertEquals("Uses", relationship.getDescription());
-        assertEquals("HTTPS", relationship.getTechnology());
-        assertEquals(InteractionStyle.Synchronous, relationship.getInteractionStyle());
-
-        assertTrue(model.getRelationships().contains(relationship));
-    }
-
-    @Test
     public void test_addRelationship_AddsARelationshipWithTheSpecifiedDescriptionAndTechnologyAndInteractionStyle() {
         SoftwareSystem a = model.addSoftwareSystem("A", "");
         SoftwareSystem b = model.addSoftwareSystem("B", "");

@@ -68,14 +68,38 @@ public final class Person extends StaticStructureElement {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Adds an interaction between this person and another.
+     *
+     * @param destination       the Person being interacted with
+     * @param description       a description of the interaction
+     * @return                  the resulting Relatioship
+     */
     public Relationship interactsWith(Person destination, String description) {
-        return getModel().addRelationship(this, destination, description);
+        return interactsWith(destination, description, null);
     }
 
+    /**
+     * Adds an interaction between this person and another.
+     *
+     * @param destination       the Person being interacted with
+     * @param description       a description of the interaction
+     * @param technology        the technology of the interaction (e.g. Telephone)
+     * @return                  the resulting Relatioship
+     */
     public Relationship interactsWith(Person destination, String description, String technology) {
-        return getModel().addRelationship(this, destination, description, technology);
+        return interactsWith(destination, description, technology, InteractionStyle.Synchronous);
     }
 
+    /**
+     * Adds an interaction between this person and another.
+     *
+     * @param destination       the Person being interacted with
+     * @param description       a description of the interaction
+     * @param technology        the technology of the interaction (e.g. Telephone)
+     * @param interactionStyle  the interaction style (e.g. Synchronous or Asynchronous)
+     * @return                  the resulting Relatioship
+     */
     public Relationship interactsWith(Person destination, String description, String technology, InteractionStyle interactionStyle) {
         return getModel().addRelationship(this, destination, description, technology, interactionStyle);
     }
