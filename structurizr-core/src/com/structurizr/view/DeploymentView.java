@@ -9,6 +9,7 @@ import com.structurizr.model.*;
 public final class DeploymentView extends View {
 
     private Model model;
+    private String environment;
 
     DeploymentView() {
     }
@@ -111,6 +112,14 @@ public final class DeploymentView extends View {
         } else {
             return "Deployment";
         }
+    }
+
+    public String getEnvironment() {
+        return environment;
+    }
+
+    public void setEnvironment(String environment) {
+        this.environment = environment;
     }
 
 }
