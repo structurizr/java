@@ -36,6 +36,8 @@ public final class StructurizrClient {
 
     private static final Log log = LogFactory.getLog(StructurizrClient.class);
 
+    private static final String STRUCTURIZR_CLOUD_API_URL = "https://api.structurizr.com";
+
     private static final String STRUCTURIZR_API_URL = "structurizr.api.url";
     private static final String STRUCTURIZR_API_KEY = "structurizr.api.key";
     private static final String STRUCTURIZR_API_SECRET = "structurizr.api.secret";
@@ -68,9 +70,11 @@ public final class StructurizrClient {
             InputStream in = StructurizrClient.class.getClassLoader().getResourceAsStream("structurizr.properties");
             if (in != null) {
                 properties.load(in);
+
                 setUrl(properties.getProperty(STRUCTURIZR_API_URL));
-                this.apiKey = properties.getProperty(STRUCTURIZR_API_KEY);
-                this.apiSecret = properties.getProperty(STRUCTURIZR_API_SECRET);
+                setApiKey(properties.getProperty(STRUCTURIZR_API_KEY));
+                setApiSecret(properties.getProperty(STRUCTURIZR_API_SECRET));
+
                 in.close();
             } else {
                 throw new StructurizrClientException("Could not find a structurizr.properties file on the classpath.");
@@ -89,7 +93,7 @@ public final class StructurizrClient {
      * @param apiSecret the API secret of your workspace
      */
     public StructurizrClient(String apiKey, String apiSecret) {
-        this("https://api.structurizr.com", apiKey, apiSecret);
+        this(STRUCTURIZR_CLOUD_API_URL, apiKey, apiSecret);
     }
 
     /**
@@ -101,27 +105,48 @@ public final class StructurizrClient {
      */
     public StructurizrClient(String url, String apiKey, String apiSecret) {
         setUrl(url);
-        this.apiKey = apiKey;
-        this.apiSecret = apiSecret;
+        setApiKey(apiKey);
+        setApiSecret(apiSecret);
     }
 
-    /**
-     * Gets the URL of the Structurizr API that this client is using.
-     *
-     * @return  the URL, as a String
-     */
-    public String getUrl() {
-        return url;
+    String getUrl() {
+        return this.url;
     }
 
-    void setUrl(String url) {
-        if (url != null) {
-            if (url.endsWith("/")) {
-                this.url = url.substring(0, url.length() - 1);
-            } else {
-                this.url = url;
-            }
+    private void setUrl(String url) {
+        if (url == null || url.trim().length() == 0) {
+            throw new IllegalArgumentException("The API URL must not be null or empty.");
         }
+
+        if (url.endsWith("/")) {
+            this.url = url.substring(0, url.length() - 1);
+        } else {
+            this.url = url;
+        }
+    }
+
+    String getApiKey() {
+        return apiKey;
+    }
+
+    private void setApiKey(String apiKey) {
+        if (apiKey == null || apiKey.trim().length() == 0) {
+            throw new IllegalArgumentException("The API key must not be null or empty.");
+        }
+
+        this.apiKey = apiKey;
+    }
+
+    String getApiSecret() {
+        return apiSecret;
+    }
+
+    private void setApiSecret(String apiSecret) {
+        if (apiSecret == null || apiSecret.trim().length() == 0) {
+            throw new IllegalArgumentException("The API secret must not be null or empty.");
+        }
+
+        this.apiSecret = apiSecret;
     }
 
     /**
@@ -171,6 +196,10 @@ public final class StructurizrClient {
      * @throws StructurizrClientException   if there are problems related to the network, authorization, JSON deserialization, etc
      */
     public Workspace getWorkspace(long workspaceId) throws StructurizrClientException {
+        if (workspaceId <= 0) {
+            throw new IllegalArgumentException("The workspace ID must be a positive integer.");
+        }
+
         try {
             log.info("Getting workspace with ID " + workspaceId);
 
@@ -212,13 +241,13 @@ public final class StructurizrClient {
      * @throws StructurizrClientException   if there are problems related to the network, authorization, JSON serialization, etc
      */
     public void putWorkspace(long workspaceId, Workspace workspace) throws StructurizrClientException {
-        try {
-            if (workspace == null) {
-                throw new IllegalArgumentException("A workspace must be supplied");
-            } else if (workspaceId <= 0) {
-                throw new IllegalArgumentException("The workspace ID must be set");
-            }
+        if (workspace == null) {
+            throw new IllegalArgumentException("The workspace must not be null.");
+        } else if (workspaceId <= 0) {
+            throw new IllegalArgumentException("The workspace ID must be a positive integer.");
+        }
 
+        try {
             if (mergeFromRemote) {
                 Workspace remoteWorkspace = getWorkspace(workspaceId);
                 if (remoteWorkspace != null) {
