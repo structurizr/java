@@ -11,19 +11,19 @@ A type-level annotation that can be used to signify that the annotated type (an 
 - description: The description of the component (optional).
 - technology: The technology of component (optional).
 
-## @UsedBySoftwareSystem
-
-A type-level annotation that can be used to signify that the named software system uses the component on which this annotation is placed, creating a relationship from the software system to the component. The properties are as follows:
-
-- name: The name of the software system (required).
-- description: The description of the relationship (optional).
-- technology: The technology of relationship (optional).
-
 ## @UsedByPerson
 
 A type-level annotation that can be used to signify that the named person uses the component on which this annotation is placed, creating a relationship form the person to the component. The properties are as follows:
 
 - name: The name of the person (required).
+- description: The description of the relationship (optional).
+- technology: The technology of relationship (optional).
+
+## @UsedBySoftwareSystem
+
+A type-level annotation that can be used to signify that the named software system uses the component on which this annotation is placed, creating a relationship from the software system to the component. The properties are as follows:
+
+- name: The name of the software system (required).
 - description: The description of the relationship (optional).
 - technology: The technology of relationship (optional).
 
