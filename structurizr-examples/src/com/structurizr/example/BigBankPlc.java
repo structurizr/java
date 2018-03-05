@@ -20,6 +20,8 @@ public class BigBankPlc {
     private static final String API_KEY = "key";
     private static final String API_SECRET = "secret";
 
+    private static final String EXISTING_SYSTEM_TAG = "Existing System";
+    private static final String BANK_STAFF_TAG = "Bank Staff";
     private static final String DATABASE_TAG = "Database";
 
     private static Workspace create(boolean usePaidFeatures) {
@@ -30,64 +32,100 @@ public class BigBankPlc {
         model.setEnterprise(new Enterprise("Big Bank plc"));
 
         // people and software systems
-        Person customer = model.addPerson(Location.External, "Customer", "A customer of the bank.");
+        Person customer = model.addPerson(Location.External, "Personal Banking Customer", "A customer of the bank, with personal bank accounts.");
 
-        SoftwareSystem internetBankingSystem = model.addSoftwareSystem(Location.Internal, "Internet Banking System", "Allows customers to view information about their bank accounts and make payments.");
+        SoftwareSystem internetBankingSystem = model.addSoftwareSystem(Location.Internal, "Internet Banking System", "Allows customers to view information about their bank accounts, and make payments.");
         customer.uses(internetBankingSystem, "Uses");
 
         SoftwareSystem mainframeBankingSystem = model.addSoftwareSystem(Location.Internal, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.");
+        mainframeBankingSystem.addTags(EXISTING_SYSTEM_TAG);
         internetBankingSystem.uses(mainframeBankingSystem, "Uses");
 
+        SoftwareSystem emailSystem = model.addSoftwareSystem(Location.Internal, "E-mail System", "The internal Microsoft Exchange e-mail system.");
+        emailSystem.addTags(EXISTING_SYSTEM_TAG);
+        emailSystem.delivers(customer, "Sends e-mails to");
+
         SoftwareSystem atm = model.addSoftwareSystem(Location.Internal, "ATM", "Allows customers to withdraw cash.");
+        atm.addTags(EXISTING_SYSTEM_TAG);
         atm.uses(mainframeBankingSystem, "Uses");
         customer.uses(atm, "Withdraws cash using");
 
-        Person bankStaff = model.addPerson(Location.Internal, "Bank Staff", "Staff within the bank.");
-        bankStaff.uses(mainframeBankingSystem, "Uses");
+        Person customerServiceStaff = model.addPerson(Location.Internal, "Customer Service Staff", "Customer service staff within the bank.");
+        customerServiceStaff.addTags(BANK_STAFF_TAG);
+        customerServiceStaff.uses(mainframeBankingSystem, "Uses");
+        customer.interactsWith(customerServiceStaff, "Asks questions to", "Telephone");
+
+        Person backOfficeStaff = model.addPerson(Location.Internal, "Back Office Staff", "Administration and support staff within the bank.");
+        backOfficeStaff.addTags(BANK_STAFF_TAG);
+        backOfficeStaff.uses(mainframeBankingSystem, "Uses");
 
         // containers
-        Container webApplication = internetBankingSystem.addContainer("Web Application", "Provides all of the Internet banking functionality to customers.", "Java and Spring MVC");
-        Container database = internetBankingSystem.addContainer("Database", "Stores interesting data.", "Relational Database Schema");
+        Container singlePageApplication = internetBankingSystem.addContainer("Single-Page Application", "Provides all of the Internet banking functionality to customers via their web browser.", "JavaScript and Angular");
+        Container mobileApp = internetBankingSystem.addContainer("Mobile App", "Provides a limited subset of the Internet banking functionality to customers via their mobile device.", "Xamarin");
+        Container webApplication = internetBankingSystem.addContainer("Web Application", "Delivers the static content and the Internet banking single page application.", "Java and Spring MVC");
+        Container apiApplication = internetBankingSystem.addContainer("API Application", "Provides Internet banking functionality via a JSON/HTTPS API.", "Java and Spring MVC");
+        Container database = internetBankingSystem.addContainer("Database", "Stores user registration information, hashed authentication credentials, access logs, etc.", "Relational Database Schema");
         database.addTags(DATABASE_TAG);
 
         customer.uses(webApplication, "Uses", "HTTPS");
-        webApplication.uses(database, "Reads from and writes to", "JDBC");
-        webApplication.uses(mainframeBankingSystem, "Uses", "XML/HTTPS");
+        customer.uses(singlePageApplication, "Uses", "");
+        customer.uses(mobileApp, "Uses", "");
+        webApplication.uses(singlePageApplication, "Delivers", "");
+        apiApplication.uses(database, "Reads from and writes to", "JDBC");
+        apiApplication.uses(mainframeBankingSystem, "Uses", "XML/HTTPS");
+        apiApplication.uses(emailSystem, "Sends e-mail using", "SMTP");
 
         // components
         // - for a real-world software system, you would probably want to extract the components using
         // - static analysis/reflection rather than manually specifying them all
-        Component homePageController = webApplication.addComponent("Home Page Controller", "Serves up the home page.", "Spring MVC Controller");
-        Component signinController = webApplication.addComponent("Sign In Controller", "Allows users to sign in to the Internet Banking System.", "Spring MVC Controller");
-        Component accountsSummaryController = webApplication.addComponent("Accounts Summary Controller", "Provides customers with an summary of their bank accounts.", "Spring MVC Controller");
-        Component securityComponent = webApplication.addComponent("Security Component", "Provides functionality related to signing in, changing passwords, etc.", "Spring Bean");
-        Component mainframeBankingSystemFacade = webApplication.addComponent("Mainframe Banking System Facade", "A facade onto the mainframe banking system.", "Spring Bean");
+        Component signinController = apiApplication.addComponent("Sign In Controller", "Allows users to sign in to the Internet Banking System.", "Spring MVC Rest Controller");
+        Component accountsSummaryController = apiApplication.addComponent("Accounts Summary Controller", "Provides customers with a summary of their bank accounts.", "Spring MVC Rest Controller");
+        Component securityComponent = apiApplication.addComponent("Security Component", "Provides functionality related to signing in, changing passwords, etc.", "Spring Bean");
+        Component mainframeBankingSystemFacade = apiApplication.addComponent("Mainframe Banking System Facade", "A facade onto the mainframe banking system.", "Spring Bean");
 
-        webApplication.getComponents().stream().filter(c -> "Spring MVC Controller".equals(c.getTechnology())).forEach(c -> customer.uses(c, "Uses", "HTTPS"));
+        apiApplication.getComponents().stream().filter(c -> "Spring MVC Rest Controller".equals(c.getTechnology())).forEach(c -> singlePageApplication.uses(c, "Uses", "JSON/HTTPS"));
+        apiApplication.getComponents().stream().filter(c -> "Spring MVC Rest Controller".equals(c.getTechnology())).forEach(c -> mobileApp.uses(c, "Uses", "JSON/HTTPS"));
         signinController.uses(securityComponent, "Uses");
         accountsSummaryController.uses(mainframeBankingSystemFacade, "Uses");
         securityComponent.uses(database, "Reads from and writes to", "JDBC");
         mainframeBankingSystemFacade.uses(mainframeBankingSystem, "Uses", "XML/HTTPS");
 
+        model.addImplicitRelationships();
+
         // deployment nodes and container instances
-        DeploymentNode developerLaptop = model.addDeploymentNode("Developer Laptop", "A developer laptop.", "Windows 7 or 10");
-        developerLaptop.addDeploymentNode("Docker Container - Web Server", "A Docker container.", "Docker")
-            .addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"))
-            .add(webApplication);
+        DeploymentNode developerLaptop = model.addDeploymentNode("Developer Laptop", "A developer laptop.", "Microsoft Windows 10 or Apple macOS");
+        DeploymentNode apacheTomcat = developerLaptop.addDeploymentNode("Docker Container - Web Server", "A Docker container.", "Docker")
+                .addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"));
+        apacheTomcat.add(webApplication);
+        apacheTomcat.add(apiApplication);
 
         developerLaptop.addDeploymentNode("Docker Container - Database Server", "A Docker container.", "Docker")
-            .addDeploymentNode("Database Server", "A development database.", "Oracle 12c")
-            .add(database);
+                .addDeploymentNode("Database Server", "A development database.", "Oracle 12c")
+                .add(database);
 
-        DeploymentNode liveWebServer = model.addDeploymentNode("bigbank-web***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 8, MapUtils.create("Location=London"));
+        developerLaptop.addDeploymentNode("Web Browser", "", "Google Chrome, Mozilla Firefox, Apple Safari or Microsoft Edge").add(singlePageApplication);
+
+        DeploymentNode customerMobileDevice = model.addDeploymentNode("Customer's mobile device", "", "Apple iOS or Android");
+        customerMobileDevice.add(mobileApp);
+
+        DeploymentNode customerComputer = model.addDeploymentNode("Customer's computer", "", "Microsoft Windows or Apple macOS");
+        customerComputer.addDeploymentNode("Web Browser", "", "Google Chrome, Mozilla Firefox, Apple Safari or Microsoft Edge").add(singlePageApplication);
+
+        DeploymentNode bigBankDataCenter = model.addDeploymentNode("Big Bank plc", "", "Big Bank plc data center");
+
+        DeploymentNode liveWebServer = bigBankDataCenter.addDeploymentNode("bigbank-web***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 4, MapUtils.create("Location=London and Reading"));
         liveWebServer.addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"))
                 .add(webApplication);
 
-        DeploymentNode primaryDatabaseServer = model.addDeploymentNode("bigbank-db01", "The primary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.create("Location=London"))
+        DeploymentNode liveApiServer = bigBankDataCenter.addDeploymentNode("bigbank-api***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 8, MapUtils.create("Location=London and Reading"));
+        liveApiServer.addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"))
+                .add(apiApplication);
+
+        DeploymentNode primaryDatabaseServer = bigBankDataCenter.addDeploymentNode("bigbank-db01", "The primary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.create("Location=London"))
                 .addDeploymentNode("Oracle - Primary", "The primary, live database server.", "Oracle 12c");
         primaryDatabaseServer.add(database);
 
-        DeploymentNode secondaryDatabaseServer = model.addDeploymentNode("bigbank-db02", "The secondary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.create("Location=Reading"))
+        DeploymentNode secondaryDatabaseServer = bigBankDataCenter.addDeploymentNode("bigbank-db02", "The secondary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.create("Location=Reading"))
                 .addDeploymentNode("Oracle - Secondary", "A secondary, standby database server, used for failover purposes only.", "Oracle 12c");
         ContainerInstance secondaryDatabase = secondaryDatabaseServer.add(database);
 
@@ -108,20 +146,21 @@ public class BigBankPlc {
         containerView.add(customer);
         containerView.addAllContainers();
         containerView.add(mainframeBankingSystem);
+        containerView.add(emailSystem);
         containerView.setPaperSize(PaperSize.A5_Landscape);
 
-        ComponentView componentView = views.createComponentView(webApplication, "Components", "The component diagram for the Web Application.");
-        componentView.addAllContainers();
+        ComponentView componentView = views.createComponentView(apiApplication, "Components", "The component diagram for the API Application.");
+        componentView.add(mobileApp);
+        componentView.add(singlePageApplication);
+        componentView.add(database);
         componentView.addAllComponents();
-        componentView.add(customer);
         componentView.add(mainframeBankingSystem);
         componentView.setPaperSize(PaperSize.A5_Landscape);
 
         if (usePaidFeatures) {
             // dynamic diagrams, deployment diagrams and corporate branding are not available with the Free Plan
-            DynamicView dynamicView = views.createDynamicView(webApplication, "SignIn", "Summarises how the sign in feature works.");
-            dynamicView.add(customer, "Requests /signin from", signinController);
-            dynamicView.add(customer, "Submits credentials to", signinController);
+            DynamicView dynamicView = views.createDynamicView(apiApplication, "SignIn", "Summarises how the sign in feature works in the single-page application.");
+            dynamicView.add(singlePageApplication, "Submits credentials to", signinController);
             dynamicView.add(signinController, "Calls isAuthenticated() on", securityComponent);
             dynamicView.add(securityComponent, "select * from users where username = ?", database);
             dynamicView.setPaperSize(PaperSize.A5_Landscape);
@@ -133,9 +172,9 @@ public class BigBankPlc {
 
             DeploymentView liveDeploymentView = views.createDeploymentView(internetBankingSystem, "LiveDeployment", "An example live deployment scenario for the Internet Banking System.");
             liveDeploymentView.setEnvironment("Live");
-            liveDeploymentView.add(liveWebServer);
-            liveDeploymentView.add(primaryDatabaseServer);
-            liveDeploymentView.add(secondaryDatabaseServer);
+            liveDeploymentView.add(bigBankDataCenter);
+            liveDeploymentView.add(customerMobileDevice);
+            liveDeploymentView.add(customerComputer);
             liveDeploymentView.add(dataReplicationRelationship);
             liveDeploymentView.setPaperSize(PaperSize.A5_Landscape);
         }
@@ -146,7 +185,9 @@ public class BigBankPlc {
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd");
         styles.addElementStyle(Tags.CONTAINER).background("#438dd5");
         styles.addElementStyle(Tags.COMPONENT).background("#85bbf0").color("#000000");
-        styles.addElementStyle(Tags.PERSON).background("#08427b").shape(Shape.Person);
+        styles.addElementStyle(Tags.PERSON).background("#08427b").shape(Shape.Person).fontSize(22);
+        styles.addElementStyle(EXISTING_SYSTEM_TAG).background("#999999");
+        styles.addElementStyle(BANK_STAFF_TAG).background("#999999");
         styles.addElementStyle(DATABASE_TAG).shape(Shape.Cylinder);
         styles.addElementStyle("Failover").opacity(25);
         styles.addRelationshipStyle("Failover").opacity(25).position(70);
@@ -156,27 +197,27 @@ public class BigBankPlc {
         StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
         template.addContextSection(internetBankingSystem, Format.Markdown,
                 "Here is some context about the Internet Banking System...\n" +
-                "![](embed:SystemLandscape)\n" +
-                "![](embed:SystemContext)\n" +
-                "### Internet Banking System\n...\n" +
-                "### Mainframe Banking System\n...\n");
+                        "![](embed:SystemLandscape)\n" +
+                        "![](embed:SystemContext)\n" +
+                        "### Internet Banking System\n...\n" +
+                        "### Mainframe Banking System\n...\n");
         template.addContainersSection(internetBankingSystem, Format.Markdown,
                 "Here is some information about the containers within the Internet Banking System...\n" +
-                "![](embed:Containers)\n" +
-                "### Web Application\n...\n" +
-                "### Database\n...\n");
+                        "![](embed:Containers)\n" +
+                        "### Web Application\n...\n" +
+                        "### Database\n...\n");
         template.addComponentsSection(webApplication, Format.Markdown,
                 "Here is some information about the Web Application...\n" +
-                "![](embed:Components)\n" +
-                "### Sign in process\n" +
-                "Here is some information about the Sign In Controller, including how the sign in process works...\n" +
-                "![](embed:SignIn)");
+                        "![](embed:Components)\n" +
+                        "### Sign in process\n" +
+                        "Here is some information about the Sign In Controller, including how the sign in process works...\n" +
+                        "![](embed:SignIn)");
         template.addDevelopmentEnvironmentSection(internetBankingSystem, Format.AsciiDoc,
                 "Here is some information about how to set up a development environment for the Internet Banking System...\n" +
-                "image::embed:DevelopmentDeployment[]");
+                        "image::embed:DevelopmentDeployment[]");
         template.addDeploymentSection(internetBankingSystem, Format.AsciiDoc,
                 "Here is some information about the live deployment environment for the Internet Banking System...\n" +
-                "image::embed:LiveDeployment[]");
+                        "image::embed:LiveDeployment[]");
 
         return workspace;
     }
