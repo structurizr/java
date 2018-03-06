@@ -1,6 +1,8 @@
 # System Landscape diagram
 
-A System Landscape diagram is really the same as the [System Context diagram](system-context-diagram.md), without a focus on a specific software system. It can help to provide a broader view of the people and software systems that are related to and reside within a given enterprise context (e.g. a business or organisation).
+The C4 model provides a static view of a single software system but, in the real-world, software systems never live in isolation. For this reason, and particularly if you are responsible for a collection of software systems, it's often useful to understand how all of these software systems fit together within the bounds of an enterprise. To do this, simply add another diagram that sits "on top" of the C4 diagrams, to show the system landscape from an IT perspective. Like the System Context diagram, this diagram can show the organisational boundary, internal/external users and internal/external systems.
+
+Essentially this is a high-level map of the software systems at the enterprise level, with a C4 drill-down for each software system of interest. From a practical perspective, a system landscape diagram is really just a system context diagram without a specific focus on a particular software system.
 
 ## Example
 
@@ -8,26 +10,4 @@ As an example, a System Landscape diagram for a simplified, fictional bank might
 
 ![An example System Landscape diagram](images/system-landscape-diagram-1.png)
 
-With Structurizr for Java, you can create this diagram with code like the following:
-
-```java
-Person customer = model.addPerson(Location.External, "Customer", "A customer of the bank.");
-
-SoftwareSystem internetBankingSystem = model.addSoftwareSystem(Location.Internal, "Internet Banking System", "Allows customers to view information about their bank accounts and make payments.");
-customer.uses(internetBankingSystem, "Uses");
-
-SoftwareSystem mainframeBankingSystem = model.addSoftwareSystem(Location.Internal, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.");
-internetBankingSystem.uses(mainframeBankingSystem, "Uses");
-
-SoftwareSystem atm = model.addSoftwareSystem(Location.Internal, "ATM", "Allows customers to withdraw cash.");
-atm.uses(mainframeBankingSystem, "Uses");
-customer.uses(atm, "Withdraws cash using");
-
-Person bankStaff = model.addPerson(Location.Internal, "Bank Staff", "Staff within the bank.");
-bankStaff.uses(mainframeBankingSystem, "Uses");
-
-EnterpriseContextView enterpriseContextView = views.createEnterpriseContextView("EnterpriseContext", "The system context diagram for the Internet Banking System.");
-enterpriseContextView.addAllElements();
-```
-
-See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/BigBankPlc.java) for the full code, and [https://structurizr.com/share/36141#SystemLandscape](https://structurizr.com/share/36141#SystemLandscape) for the diagram.
+See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/BigBankPlc.java) for the code, and [https://structurizr.com/share/36141#SystemLandscape](https://structurizr.com/share/36141#SystemLandscape) for the diagram.

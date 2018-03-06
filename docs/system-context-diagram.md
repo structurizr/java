@@ -6,23 +6,8 @@ Detail isn't important here as this is your zoomed out view showing a big pictur
 
 ## Example
 
-As an example, a System Context diagram for a simplified, fictional Internet Banking System might look something like this. In summary, it shows that customers of the bank use the Internet Banking System, which itself uses the internal Mainframe Banking System.
+This is an example System Context diagram for a fictional Internet Banking System. It shows the people who use it, and the other software systems that the Internet Banking System has a relationship with. Personal Customers of the bank use the Internet Banking System to view information about their bank accounts, and to make payments. The Internet Banking System itself uses the bank's existing Mainframe Banking System to do this, and uses the bank's existing E-mail System to send e-mails to customers.
 
 ![An example System Context diagram](images/system-context-diagram-1.png)
 
-With Structurizr for Java, you can create this diagram with code like the following:
-
-```java
-Person customer = model.addPerson(Location.External, "Customer", "A customer of the bank.");
-
-SoftwareSystem internetBankingSystem = model.addSoftwareSystem(Location.Internal, "Internet Banking System", "Allows customers to view information about their bank accounts and make payments.");
-customer.uses(internetBankingSystem, "Uses");
-
-SoftwareSystem mainframeBankingSystem = model.addSoftwareSystem(Location.Internal, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.");
-internetBankingSystem.uses(mainframeBankingSystem, "Uses");
-
-SystemContextView systemContextView = views.createSystemContextView(internetBankingSystem, "SystemContext", "The system context diagram for the Internet Banking System.");
-systemContextView.addNearestNeighbours(internetBankingSystem);
-```
-
-See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/BigBankPlc.java) for the full code, and [https://structurizr.com/share/36141#SystemContext](https://structurizr.com/share/36141#SystemContext) for the diagram.
+See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/BigBankPlc.java) for the code, and [https://structurizr.com/share/36141#SystemContext](https://structurizr.com/share/36141#SystemContext) for the diagram.

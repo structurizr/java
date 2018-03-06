@@ -1,29 +1,15 @@
 # Container diagram
 
-Once you understand how your system fits in to the overall IT environment, a really useful next step is to illustrate the high-level technology choices with a Container diagram. A "container" is something like a web application, desktop application, mobile app, database, file system, etc. Essentially, a container is a separately deployable unit that executes code or stores data.
+Once you understand how your system fits in to the overall IT environment, a really useful next step is to zoom-in to the system boundary with a Container diagram. A "container" is something like a web application, desktop application, mobile app, database, file system, etc. Essentially, a container is a separately runnable/deployable unit that executes code or stores data.
 
 The Container diagram shows the high-level shape of the software architecture and how responsibilities are distributed across it. It also shows the major technology choices and how the containers communicate with one another. It's a simple, high-level technology focussed diagram that is useful for software developers and support/operations staff alike.
 
 ## Example
 
-As an example, a Container diagram for a simplified, fictional Internet Banking System might look something like this. In summary, it shows that the Internet Banking System is made up a Web Application and a Database. It also shows the relationship between the Web Application and the Mainframe Banking System.
+This is an example Container diagram for a fictional Internet Banking System. It shows that the Internet Banking System is made up of five containers: a server-side Web Application, a Single-Page Application, a Mobile App, a server-side API Application, and a Database. The Web Application is a Java/Spring MVC web application that simply serves static content (HTML, CSS and JavaScript), including the content that makes up the Single-Page Application. The Single-Page Application is an Angular application that runs in the customer's web browser, providing all of the Internet banking features. Alternatively, customers can use the cross-platform Xamarin Mobile App, to access a subset of the Internet banking functionality.
+
+Both the Single-Page Application and Mobile App use a JSON/HTTPS API, which is provided by another Java/Spring MVC application running on the server. The API Application gets user information from the Database (a relational database schema). The API Application also communicates with the existing Mainframe Banking System, using a propreitary XML/HTTPS interface, to get information about bank accounts or make transactions. The API Application also uses the existing E-mail System if it needs to send e-mails to customers.
 
 ![An example Container diagram](images/container-diagram-1.png)
 
-With Structurizr for Java, you can create this diagram with code like the following:
-
-```java
-Container webApplication = internetBankingSystem.addContainer("Web Application", "Provides all of the Internet banking functionality to customers.", "Java and Spring MVC");
-Container database = internetBankingSystem.addContainer("Database", "Stores interesting data.", "Relational Database Schema");
-
-customer.uses(webApplication, "HTTPS");
-webApplication.uses(database, "Reads from and writes to", "JDBC");
-webApplication.uses(mainframeBankingSystem, "Uses", "XML/HTTPS");
-
-ContainerView containerView = views.createContainerView(internetBankingSystem, "Containers", "The container diagram for the Internet Banking System.");
-containerView.add(customer);
-containerView.addAllContainers();
-containerView.add(mainframeBankingSystem);
-```
-
-See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/BigBankPlc.java) for the full code, and [https://structurizr.com/share/36141#Containers](https://structurizr.com/share/36141#Containers) for the diagram.
+See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/BigBankPlc.java) for the code, and [https://structurizr.com/share/36141#Containers](https://structurizr.com/share/36141#Containers) for the diagram.
