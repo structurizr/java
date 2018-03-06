@@ -49,6 +49,8 @@ The view can then be exported to be visualised in a number of different ways; e.
     * [Dynamic diagram](docs/dynamic-diagram.md)
     * [Deployment diagram](docs/deployment-diagram.md)
     * [System Landscape diagram](docs/system-landscape-diagram.md)
+* Model
+	* [Creating your model](docs/model.md)
     * [Styling elements](docs/styling-elements.md)
     * [Styling relationships](docs/styling-relationships.md)
     * [Filtered views](docs/filtered-views.md)

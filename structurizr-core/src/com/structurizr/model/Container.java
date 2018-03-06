@@ -8,14 +8,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * A container represents something that hosts code or data. A container is
- * something that needs to be running in order for the overall software system
- * to work. In real terms, a container is something like a server-side web application,
- * a client-side web application, client-side desktop application, a mobile app,
- * a microservice, a database schema, a file system, etc.
- *
- * A container is essentially a context or boundary inside which some code is executed
- * or some data is stored. And each container is a separately deployable thing.
+ * Represents a "container" in the C4 model.
  */
 public final class Container extends StaticStructureElement {
 

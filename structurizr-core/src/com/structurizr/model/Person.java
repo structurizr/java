@@ -7,11 +7,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * However you think about your users (as actors, roles, personas, etc),
- * people are the various human users of your software system.
- *
- * See <a href="https://structurizr.com/help/model#Person">Model - Person</a>
- * on the Structurizr website for more information.
+ * Represents a "person" in the C4 model.
  */
 public final class Person extends StaticStructureElement {
 

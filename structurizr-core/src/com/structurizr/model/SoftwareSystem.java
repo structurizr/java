@@ -8,13 +8,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * A software system is the highest level of abstraction and describes something
- * that delivers value to its users, whether they are human or not. This includes
- * the software system you are modelling, and the other software systems upon
- * which your software system depends.
- *
- * See <a href="https://structurizr.com/help/model#SoftwareSystem">Model - Software System</a>
- * on the Structurizr website for more information.
+ * Represents a "software system" in the C4 model.
  */
 public final class SoftwareSystem extends StaticStructureElement {
 
