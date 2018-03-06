@@ -2,7 +2,7 @@
 
 This is the definition of the software architecture model, consisting of people, software systems, containers, components, code elements and deployment nodes, plus the relationships between them.
 
-All of the Java classes representing people, software systems, containers, components, etc, and the functionality related to creating a software architecture model can be found in the [com.structurizr.model package](https://github.com/structurizr/java/tree/master/structurizr-core/src/com/structurizr/model).
+All of the Java classes representing people, software systems, containers, components, etc, and the functionality related to creating a software architecture model can be found in the [com.structurizr.model](https://github.com/structurizr/java/tree/master/structurizr-core/src/com/structurizr/model) package.
 
 An empty model is created for you when you create a workspace.
 

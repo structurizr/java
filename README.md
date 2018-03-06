@@ -42,15 +42,16 @@ The view can then be exported to be visualised in a number of different ways; e.
     * [Binaries](docs/binaries.md)
     * [API Client](docs/api-client.md)
     * [Usage patterns](docs/usage-patterns.md)
-* Diagrams
+* Model
+	* [Creating your model](docs/model.md)
+* Views
+	* [Creating views](docs/views.md)
     * [System Context diagram](docs/system-context-diagram.md)
     * [Container diagram](docs/container-diagram.md)
     * [Component diagram](docs/component-diagram.md)
     * [Dynamic diagram](docs/dynamic-diagram.md)
     * [Deployment diagram](docs/deployment-diagram.md)
     * [System Landscape diagram](docs/system-landscape-diagram.md)
-* Model
-	* [Creating your model](docs/model.md)
     * [Styling elements](docs/styling-elements.md)
     * [Styling relationships](docs/styling-relationships.md)
     * [Filtered views](docs/filtered-views.md)
