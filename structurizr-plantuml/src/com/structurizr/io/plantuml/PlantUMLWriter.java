@@ -17,20 +17,24 @@ import static java.lang.String.format;
 import static java.util.Collections.emptyList;
 
 /**
- * A simple PlantUML writer that outputs diagram definitions that can be copy-pasted
- * into http://plantuml.com/plantuml/ ... it supports system landscape, system context,
- * container, component and dynamic diagrams.
+ * A writer that outputs diagram definitions that can be used to create diagrams
+ * using PlantUML (http://plantuml.com/plantuml/).
+ *
+ * System landscape, system context, container, component, dynamic and deployment diagrams are supported.
  *
  * Note: This won't work if you have two elements named the same on a diagram.
  */
-public final class PlantUMLWriter {
+public class PlantUMLWriter {
 
-    /** Maximum diagram width or height. Defaults to 2000 to match public plantuml.com installation */
+    /** maximum diagram width or height; defaults to 2000px to match public plantuml.com installation */
     private int sizeLimit = 2000;
     private boolean includeNotesForActors = true;
     private final Map<String, String> skinParams = new LinkedHashMap<>();
     private final List<String> includes = new ArrayList<>();
 
+    /**
+     * Creates a new PlantUMLWriter, with some default skin params.
+     */
     public PlantUMLWriter() {
         // add some default skin params
         addSkinParam("shadowing", "false");
@@ -41,7 +45,6 @@ public final class PlantUMLWriter {
         addSkinParam("noteBackgroundColor", "#ffffff");
         addSkinParam("noteBorderColor", "#707070");
     }
-
 
     public void addIncludeFile(String file) {
         addIncludeFile(file, null);
@@ -102,14 +105,20 @@ public final class PlantUMLWriter {
      * @param writer        the Writer to write to
      */
     public void write(Workspace workspace, Writer writer) {
-        if (workspace != null && writer != null) {
-            workspace.getViews().getSystemLandscapeViews().forEach(v -> write(v, writer));
-            workspace.getViews().getSystemContextViews().forEach(v -> write(v, writer));
-            workspace.getViews().getContainerViews().forEach(v -> write(v, writer));
-            workspace.getViews().getComponentViews().forEach(v -> write(v, writer));
-            workspace.getViews().getDynamicViews().forEach(v -> write(v, writer));
-            workspace.getViews().getDeploymentViews().forEach(v -> write(v, writer));
+        if (workspace == null) {
+            throw new IllegalArgumentException("A workspace must be provided.");
         }
+
+        if (writer == null) {
+            throw new IllegalArgumentException("A writer must be provided.");
+        }
+
+        workspace.getViews().getSystemLandscapeViews().forEach(v -> write(v, writer));
+        workspace.getViews().getSystemContextViews().forEach(v -> write(v, writer));
+        workspace.getViews().getContainerViews().forEach(v -> write(v, writer));
+        workspace.getViews().getComponentViews().forEach(v -> write(v, writer));
+        workspace.getViews().getDynamicViews().forEach(v -> write(v, writer));
+        workspace.getViews().getDeploymentViews().forEach(v -> write(v, writer));
     }
 
     /**
@@ -117,19 +126,27 @@ public final class PlantUMLWriter {
      *
      * @param workspace     the workspace containing the views to be written
      */
-    public void write(Workspace workspace) {
+    public void toStdOut(Workspace workspace) {
+        if (workspace == null) {
+            throw new IllegalArgumentException("A workspace must be provided.");
+        }
+
         StringWriter stringWriter = new StringWriter();
         write(workspace, stringWriter);
         System.out.println(stringWriter.toString());
     }
 
     /**
-     * Creates PlantUML diagram definitions based upon the specified workspace.
+     * Creates PlantUML diagram definitions based upon the specified workspace, returning them as strings.
      *
      * @param workspace     the workspace containing the views to be written
      * @return  an array of PlantUML diagram definitions, one per view
      */
-    public String[] toPlantUML(Workspace workspace) {
+    public String[] toString(Workspace workspace) {
+        if (workspace == null) {
+            throw new IllegalArgumentException("A workspace must be provided.");
+        }
+
         StringWriter stringWriter = new StringWriter();
         write(workspace, stringWriter);
 
@@ -141,21 +158,33 @@ public final class PlantUMLWriter {
         }
     }
 
+    /**
+     * Writes a single view as a PlantUML diagram definition, to the specified writer.
+     *
+     * @param view      the view to write
+     * @param writer    the Writer to write the PlantUML definition to
+     */
     public void write(View view, Writer writer) {
-        if (view != null && writer != null) {
-            if (SystemLandscapeView.class.isAssignableFrom(view.getClass())) {
-                write((SystemLandscapeView) view, writer);
-            } else if (SystemContextView.class.isAssignableFrom(view.getClass())) {
-                write((SystemContextView) view, writer);
-            } else if (ContainerView.class.isAssignableFrom(view.getClass())) {
-                write((ContainerView) view, writer);
-            } else if (ComponentView.class.isAssignableFrom(view.getClass())) {
-                write((ComponentView) view, writer);
-            } else if (DynamicView.class.isAssignableFrom(view.getClass())) {
-                write((DynamicView) view, writer);
-            } else if (DeploymentView.class.isAssignableFrom(view.getClass())) {
-                write((DeploymentView) view, writer);
-            }
+        if (view == null) {
+            throw new IllegalArgumentException("A view must be provided.");
+        }
+
+        if (writer == null) {
+            throw new IllegalArgumentException("A writer must be provided.");
+        }
+
+        if (SystemLandscapeView.class.isAssignableFrom(view.getClass())) {
+            write((SystemLandscapeView) view, writer);
+        } else if (SystemContextView.class.isAssignableFrom(view.getClass())) {
+            write((SystemContextView) view, writer);
+        } else if (ContainerView.class.isAssignableFrom(view.getClass())) {
+            write((ContainerView) view, writer);
+        } else if (ComponentView.class.isAssignableFrom(view.getClass())) {
+            write((ComponentView) view, writer);
+        } else if (DynamicView.class.isAssignableFrom(view.getClass())) {
+            write((DynamicView) view, writer);
+        } else if (DeploymentView.class.isAssignableFrom(view.getClass())) {
+            write((DeploymentView) view, writer);
         }
     }
 
@@ -527,19 +556,6 @@ public final class PlantUMLWriter {
         return e.getId();
     }
 
-    private String nameOf(Element e) {
-        return nameOf(e.getName());
-    }
-
-    private String nameOf(String s) {
-        if (s != null) {
-            return s.replaceAll(" ", "")
-                    .replaceAll("-", "");
-        } else {
-            return "";
-        }
-    }
-
     private String typeOf(Element e) {
         if (e instanceof SoftwareSystem) {
             return "Software System";
@@ -613,4 +629,5 @@ public final class PlantUMLWriter {
         writer.write("@enduml");
         writer.write(System.lineSeparator());
     }
+
 }

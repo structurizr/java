@@ -10,6 +10,7 @@ import java.io.StringWriter;
 import java.net.URI;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class PlantUMLWriterTests {
     private static final String DATA_STORE_TAG = "DataStore";
@@ -32,19 +33,45 @@ public class PlantUMLWriterTests {
     }
 
     @Test
-    public void test_writeWorkspace_DoesNotThrowAnExceptionWhenPassedNullParameters() throws Exception {
-        plantUMLWriter.write((Workspace) null, null);
-        plantUMLWriter.write(workspace, null);
-        plantUMLWriter.write((Workspace) null, stringWriter);
+    public void test_writeWorkspace_ThrowsAnExceptionWhenPassedANullWorkspace() throws Exception {
+        try {
+            plantUMLWriter.write((Workspace)null, null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("A workspace must be provided.", e.getMessage());
+        }
     }
 
     @Test
-    public void test_writeView_DoesNotThrowAnExceptionWhenPassedNullParameters() throws Exception {
+    public void test_writeWorkspace_ThrowsAnExceptionWhenPassedANullWriter() throws Exception {
+        try {
+            plantUMLWriter.write(workspace, null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("A writer must be provided.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_writeView_ThrowsAnExceptionWhenPassedANullView() throws Exception {
+        try {
+            plantUMLWriter.write((View)null, null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("A view must be provided.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_writeView_ThrowsAnExceptionWhenPassedANullWriter() throws Exception {
         populateWorkspace();
 
-        plantUMLWriter.write((View) null, null);
-        plantUMLWriter.write(workspace.getViews().getSystemLandscapeViews().stream().findFirst().get(), null);
-        plantUMLWriter.write((View) null, stringWriter);
+        try {
+            plantUMLWriter.write(workspace.getViews().getSystemLandscapeViews().stream().findFirst().get(), null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("A writer must be provided.", e.getMessage());
+        }
     }
 
     @Test
@@ -195,19 +222,34 @@ public class PlantUMLWriterTests {
     }
 
     @Test
-    public void test_toPlantUML_ReturnsAnEmptyArray_WhenPassedANullWorkspace() throws Exception {
-        assertEquals(0, plantUMLWriter.toPlantUML(null).length);
+    public void test_toString_ThrowsAnException_WhenPassedANullWorkspace() throws Exception {
+        try {
+            assertEquals(0, plantUMLWriter.toString(null).length);
+            fail();
+        } catch (Exception e) {
+            assertEquals("A workspace must be provided.", e.getMessage());
+        }
     }
 
     @Test
-    public void test_toPlantUML_ReturnsAnEmptyArray_WhenTheWorkspaceContainsNoDiagrams() throws Exception {
-        assertEquals(0, plantUMLWriter.toPlantUML(new Workspace("", "")).length);
+    public void test_toStdOut_ThrowsAnException_WhenPassedANullWorkspace() throws Exception {
+        try {
+            plantUMLWriter.toStdOut(null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("A workspace must be provided.", e.getMessage());
+        }
     }
 
     @Test
-    public void test_toPlantUML_ReturnsAnArrayOfDiagramsWhenThereAreDiagrams() throws Exception {
+    public void test_toString_ReturnsAnEmptyArray_WhenTheWorkspaceContainsNoDiagrams() throws Exception {
+        assertEquals(0, plantUMLWriter.toString(new Workspace("", "")).length);
+    }
+
+    @Test
+    public void test_toString_ReturnsAnArrayOfDiagramsWhenThereAreDiagrams() throws Exception {
         populateWorkspace();
-        String diagrams[] = plantUMLWriter.toPlantUML(workspace);
+        String diagrams[] = plantUMLWriter.toString(workspace);
         assertEquals(6, diagrams.length);
         assertEquals(SYSTEM_LANDSCAPE_VIEW, diagrams[0]);
         assertEquals(SYSTEM_CONTEXT_VIEW, diagrams[1]);

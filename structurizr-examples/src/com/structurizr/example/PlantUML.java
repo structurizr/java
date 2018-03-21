@@ -37,7 +37,6 @@ public class PlantUML {
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd").color("#ffffff");
         styles.addElementStyle(Tags.PERSON).background("#08427b").color("#ffffff").shape(Shape.Person);
 
-        StringWriter stringWriter = new StringWriter();
         PlantUMLWriter plantUMLWriter = new PlantUMLWriter();
 
         // if you're using dark background colours, you might need to explicitly set the foreground colour using skin params
@@ -45,8 +44,13 @@ public class PlantUML {
         plantUMLWriter.addSkinParam("rectangleFontColor", "#ffffff");
         plantUMLWriter.addSkinParam("rectangleStereotypeFontColor", "#ffffff");
 
+        // write to a specific writer
+        StringWriter stringWriter = new StringWriter();
         plantUMLWriter.write(workspace, stringWriter);
         System.out.println(stringWriter.toString());
+
+        // or just output directly to stdout
+        // plantUMLWriter.toStdOut(workspace);
     }
 
 }
