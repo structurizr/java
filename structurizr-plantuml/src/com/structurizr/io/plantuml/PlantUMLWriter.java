@@ -46,6 +46,10 @@ public class PlantUMLWriter {
         addSkinParam("noteBorderColor", "#707070");
     }
 
+    protected List<String> getIncludes() {
+        return includes;
+    }
+
     public void addIncludeFile(String file) {
         addIncludeFile(file, null);
     }
@@ -82,6 +86,10 @@ public class PlantUMLWriter {
         includes.clear();
     }
 
+    protected Map<String, String> getSkinParams() {
+        return skinParams;
+    }
+
     public void addSkinParam(String name, String value) {
         skinParams.put(name, value);
     }
@@ -90,8 +98,16 @@ public class PlantUMLWriter {
         skinParams.clear();
     }
 
+    protected boolean isIncludeNotesForActors() {
+        return includeNotesForActors;
+    }
+
     public void setIncludeNotesForActors(boolean includeNotesForActors) {
         this.includeNotesForActors = includeNotesForActors;
+    }
+
+    protected int getSizeLimit() {
+        return sizeLimit;
     }
 
     public void setSizeLimit(int sizeLimit) {
@@ -188,7 +204,7 @@ public class PlantUMLWriter {
         }
     }
 
-    private void write(SystemLandscapeView view, Writer writer) {
+    protected void write(SystemLandscapeView view, Writer writer) {
         try {
             writeHeader(view, writer);
 
@@ -231,7 +247,7 @@ public class PlantUMLWriter {
         }
     }
 
-    private void write(SystemContextView view, Writer writer) {
+    protected void write(SystemContextView view, Writer writer) {
         try {
             writeHeader(view, writer);
 
@@ -247,7 +263,7 @@ public class PlantUMLWriter {
         }
     }
 
-    private void write(ContainerView view, Writer writer) {
+    protected void write(ContainerView view, Writer writer) {
         try {
             writeHeader(view, writer);
 
@@ -277,7 +293,7 @@ public class PlantUMLWriter {
         }
     }
 
-    private void write(ComponentView view, Writer writer) {
+    protected void write(ComponentView view, Writer writer) {
         try {
             writeHeader(view, writer);
 
@@ -307,7 +323,7 @@ public class PlantUMLWriter {
         }
     }
 
-    private void write(DynamicView view, Writer writer) {
+    protected void write(DynamicView view, Writer writer) {
         try {
             writeHeader(view, writer);
 
@@ -341,7 +357,7 @@ public class PlantUMLWriter {
         }
     }
 
-    private void write(DeploymentView view, Writer writer) {
+    protected void write(DeploymentView view, Writer writer) {
         try {
             writeHeader(view, writer);
 
@@ -359,7 +375,7 @@ public class PlantUMLWriter {
         }
     }
 
-    private void write(View view, DeploymentNode deploymentNode, Writer writer, int indent) {
+    protected void write(View view, DeploymentNode deploymentNode, Writer writer, int indent) {
         try {
             writer.write(
                     format("%snode \"%s\" <<%s>> as %s {",
@@ -389,7 +405,7 @@ public class PlantUMLWriter {
         }
     }
 
-    private void write(View view, ContainerInstance containerInstance, Writer writer, int indent) {
+    protected void write(View view, ContainerInstance containerInstance, Writer writer, int indent) {
         try {
             writer.write(
                     format("%s%s \"%s\" <<%s>> as %s %s",
@@ -409,7 +425,7 @@ public class PlantUMLWriter {
         }
     }
 
-    private String calculateIndent(int indent) {
+    protected String calculateIndent(int indent) {
         StringBuilder buf = new StringBuilder();
 
         for (int i = 0; i < indent; i++) {
@@ -419,7 +435,7 @@ public class PlantUMLWriter {
         return buf.toString();
     }
 
-    private void write(View view, Element element, Writer writer, boolean indent) {
+    protected void write(View view, Element element, Writer writer, boolean indent) {
         try {
             final String type = plantumlType(view, element);
             final List<String> description = lines(element.getDescription());
@@ -451,7 +467,7 @@ public class PlantUMLWriter {
         }
     }
 
-    private void writeSimpleElement(View view, Element element, Writer writer, boolean indent, String type) throws IOException {
+    protected void writeSimpleElement(View view, Element element, Writer writer, boolean indent, String type) throws IOException {
         writer.write(format("%s%s \"%s\" <<%s>> as %s %s%s",
                 indent ? "  " : "",
                 type,
@@ -462,7 +478,7 @@ public class PlantUMLWriter {
                 System.lineSeparator()));
     }
 
-    private void writeDescriptionAsNote(Element element, Writer writer, boolean indent, List<String> description) throws IOException {
+    protected void writeDescriptionAsNote(Element element, Writer writer, boolean indent, List<String> description) throws IOException {
         if (!description.isEmpty()) {
             final String prefix = indent ? "  " : "";
             final String separator = System.lineSeparator();
@@ -475,7 +491,7 @@ public class PlantUMLWriter {
         }
     }
 
-    private List<String> lines(final String text) {
+    protected List<String> lines(final String text) {
         if(text==null) {
             return emptyList();
         }
@@ -501,11 +517,11 @@ public class PlantUMLWriter {
         return lines;
     }
 
-    private String backgroundOf(View view, Element element) {
+    protected String backgroundOf(View view, Element element) {
         return view.getViewSet().getConfiguration().getStyles().findElementStyle(element).getBackground();
     }
 
-    private String plantumlType(View view, Element element) {
+    protected String plantumlType(View view, Element element) {
         Shape shape = view.getViewSet().getConfiguration().getStyles().findElementStyle(element).getShape();
 
         switch(shape) {
@@ -525,14 +541,14 @@ public class PlantUMLWriter {
         }
     }
 
-    private void writeRelationships(View view, Writer writer) {
+    protected void writeRelationships(View view, Writer writer) {
         view.getRelationships().stream()
                 .map(RelationshipView::getRelationship)
                 .sorted((r1, r2) -> (r1.getSource().getName() + r1.getDestination().getName()).compareTo(r2.getSource().getName() + r2.getDestination().getName()))
                 .forEach(r -> writeRelationship(view, r, writer));
     }
 
-    private void writeRelationship(View view, Relationship relationship, Writer writer) {
+    protected void writeRelationship(View view, Relationship relationship, Writer writer) {
         try {
             String stereotypeAndDescription =
                 (hasValue(relationship.getTechnology()) ? "<<" + relationship.getTechnology() + ">>\\n" : "") +
@@ -552,11 +568,11 @@ public class PlantUMLWriter {
         }
     }
 
-    private String idOf(Element e) {
+    protected String idOf(Element e) {
         return e.getId();
     }
 
-    private String typeOf(Element e) {
+    protected String typeOf(Element e) {
         if (e instanceof SoftwareSystem) {
             return "Software System";
         } else if (e instanceof Component) {
@@ -572,11 +588,11 @@ public class PlantUMLWriter {
         }
     }
 
-    private boolean hasValue(String s) {
+    protected boolean hasValue(String s) {
         return s != null && s.trim().length() > 0;
     }
 
-    private void writeHeader(View view, Writer writer) throws IOException {
+    protected void writeHeader(View view, Writer writer) throws IOException {
         writer.write(format("@startuml(id=%s)", view.getKey()));
         writer.write(System.lineSeparator());
 
@@ -625,7 +641,7 @@ public class PlantUMLWriter {
         }
     }
 
-    private void writeFooter(Writer writer) throws IOException {
+    protected void writeFooter(Writer writer) throws IOException {
         writer.write("@enduml");
         writer.write(System.lineSeparator());
     }

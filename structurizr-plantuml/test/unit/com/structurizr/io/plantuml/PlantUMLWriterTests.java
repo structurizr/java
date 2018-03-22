@@ -67,7 +67,7 @@ public class PlantUMLWriterTests {
         populateWorkspace();
 
         try {
-            plantUMLWriter.write(workspace.getViews().getSystemLandscapeViews().stream().findFirst().get(), null);
+            plantUMLWriter.write((View) workspace.getViews().getSystemLandscapeViews().stream().findFirst().get(), null);
             fail();
         } catch (Exception e) {
             assertEquals("A writer must be provided.", e.getMessage());
