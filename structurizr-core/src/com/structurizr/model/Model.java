@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Represents a software architecture model into which all model elements are added.
+ * Represents a software architecture model, into which all model elements are added.
  */
 public final class Model {
 
@@ -24,34 +24,44 @@ public final class Model {
     public Model() {
     }
 
+    /**
+     * Gets the enterprise associated with this model.
+     *
+     * @return  an Enterprise instance, or null if one has not been set
+     */
     public Enterprise getEnterprise() {
         return enterprise;
     }
 
+    /**
+     * Sets the enterprise associated with this model.
+     *
+     * @param enterprise    an Enterprise instance
+     */
     public void setEnterprise(Enterprise enterprise) {
         this.enterprise = enterprise;
     }
 
     /**
-     * Creates a software system (location is unspecified) and adds it to the model
-     * (unless one exists with the same name already).
+     * Creates a software system (with an unspecified location) and adds it to the model.
      *
      * @param name        the name of the software system
      * @param description a short description of the software system
      * @return the SoftwareSystem instance created and added to the model (or null)
+     * @throws  IllegalArgumentException    if a software system with the same name already exists
      */
     public SoftwareSystem addSoftwareSystem(String name, String description) {
         return addSoftwareSystem(Location.Unspecified, name, description);
     }
 
     /**
-     * Creates a software system and adds it to the model
-     * (unless one exists with the same name already).
+     * Creates a software system and adds it to the model.
      *
      * @param location    the location of the software system (e.g. internal, external, etc)
      * @param name        the name of the software system
      * @param description a short description of the software system
      * @return the SoftwareSystem instance created and added to the model (or null)
+     * @throws  IllegalArgumentException    if a software system with the same name already exists
      */
     public SoftwareSystem addSoftwareSystem(Location location, String name, String description) {
         if (getSoftwareSystemWithName(name) == null) {
@@ -72,25 +82,25 @@ public final class Model {
     }
 
     /**
-     * Creates a person (location is unspecified) and adds it to the model
-     * (unless one exists with the same name already).
+     * Creates a person (with an unspecified location) and adds it to the model.
      *
      * @param name        the name of the person (e.g. "Admin User" or "Bob the Business User")
      * @param description a short description of the person
      * @return the Person instance created and added to the model (or null)
+     * @throws  IllegalArgumentException    if a person with the same name already exists
      */
     public Person addPerson(String name, String description) {
         return addPerson(Location.Unspecified, name, description);
     }
 
     /**
-     * Creates a person and adds it to the model
-     * (unless one exists with the same name already).
+     * Creates a person and adds it to the model.
      *
      * @param location    the location of the person (e.g. internal, external, etc)
      * @param name        the name of the person (e.g. "Admin User" or "Bob the Business User")
      * @param description a short description of the person
      * @return the Person instance created and added to the model (or null)
+     * @throws  IllegalArgumentException    if a person with the same name already exists
      */
     public Person addPerson(Location location, String name, String description) {
         if (getPersonWithName(name) == null) {
@@ -130,33 +140,26 @@ public final class Model {
     }
 
     Component addComponentOfType(Container parent, String name, String type, String description, String technology) {
-        Component component = new Component();
-        component.setName(name);
-        component.setType(type);
-        component.setDescription(description);
-        component.setTechnology(technology);
+        if (parent.getComponentWithName(name) == null) {
+            Component component = new Component();
+            component.setName(name);
+            component.setDescription(description);
+            component.setTechnology(technology);
 
-        component.setParent(parent);
-        parent.add(component);
+            if (type != null && type.trim().length() > 0) {
+                component.setType(type);
+            }
 
-        component.setId(idGenerator.generateId(component));
-        addElementToInternalStructures(component);
+            component.setParent(parent);
+            parent.add(component);
 
-        return component;
-    }
+            component.setId(idGenerator.generateId(component));
+            addElementToInternalStructures(component);
 
-    Component addComponent(Container parent, String name, String description) {
-        Component component = new Component();
-        component.setName(name);
-        component.setDescription(description);
-
-        component.setParent(parent);
-        parent.add(component);
-
-        component.setId(idGenerator.generateId(component));
-        addElementToInternalStructures(component);
-
-        return component;
+            return component;
+        } else {
+            throw new IllegalArgumentException("A component named '" + name + "' already exists for this container.");
+        }
     }
 
     Relationship addRelationship(Element source, Element destination, String description, String technology, InteractionStyle interactionStyle) {
@@ -197,7 +200,9 @@ public final class Model {
     }
 
     /**
-     * @return a set containing all elements in this model.
+     * Gets the set of all elements in this model.
+     *
+     * @return a Set of Element instances
      */
     @JsonIgnore
     public Set<Element> getElements() {
@@ -205,21 +210,24 @@ public final class Model {
     }
 
     /**
-     * @param id the {@link Element#getId()} of the element
-     * @return the element in this model with the specified ID (or null if it doesn't exist).
+     * Gets the element with the specified ID.
+     *
+     * @param id    the {@link Element#getId()} of the element
+     * @return the element in this model with the specified ID (or null if it doesn't exist)
      * @see Element#getId()
      */
     public Element getElement(String id) {
         if (id == null || id.trim().length() == 0) {
-            throw new IllegalArgumentException("An ID must be specified.");
+            throw new IllegalArgumentException("An element ID must be specified.");
         }
-
 
         return elementsById.get(id);
     }
 
     /**
-     * @return a set containing all relationships in this model.
+     * Gets the set of all relationships in this model.
+     *
+     * @return a Set of Relationship objects
      */
     @JsonIgnore
     public Set<Relationship> getRelationships() {
@@ -227,30 +235,42 @@ public final class Model {
     }
 
     /**
-     * @param id the {@link Relationship#getId()} of the relationship
+     * Gets the relationship with the specified ID.
+     *
+     * @param id    the {@link Relationship#getId()} of the relationship
      * @return the relationship in this model with the specified ID (or null if it doesn't exist).
      * @see Relationship#getId()
      */
     public Relationship getRelationship(String id) {
+        if (id == null || id.trim().length() == 0) {
+            throw new IllegalArgumentException("An relationship ID must be specified.");
+        }
+
         return relationshipsById.get(id);
     }
 
     /**
-     * @return a collection containing all of the Person instances in this model.
+     * Gets the set of all people in this model.
+     *
+     * @return a Set of Person instances
      */
-    public Collection<Person> getPeople() {
+    public Set<Person> getPeople() {
         return new LinkedHashSet<>(people);
     }
 
     /**
-     * @return a collection containing all of the SoftwareSystem instances in this model.
+     * Gets the set of all software systems in this model.
+     *
+     * @return a Set of SoftwareSystem instances
      */
     public Set<SoftwareSystem> getSoftwareSystems() {
         return new LinkedHashSet<>(softwareSystems);
     }
 
     /**
-     * @return a collection containing all of the DeploymentNode instances in this model.
+     * Gets the set of all top-level deployment nodes in this model.
+     *
+     * @return a Set of DeploymentNode instances
      */
     public Set<DeploymentNode> getDeploymentNodes() {
         return new LinkedHashSet<>(deploymentNodes);
@@ -327,10 +347,17 @@ public final class Model {
     }
 
     /**
-     * @param name the name of a {@link SoftwareSystem}
-     * @return the SoftwareSystem instance with the specified name (or null if it doesn't exist).
+     * Gets the software system with the specified name.
+     *
+     * @param name  the name of a {@link SoftwareSystem}
+     * @return the SoftwareSystem instance with the specified name (or null if it doesn't exist)
+     * @throws IllegalArgumentException     if the name is null or empty
      */
     public SoftwareSystem getSoftwareSystemWithName(String name) {
+        if (name == null || name.trim().length() == 0) {
+            throw new IllegalArgumentException("A software system name must be specified.");
+        }
+
         for (SoftwareSystem softwareSystem : getSoftwareSystems()) {
             if (softwareSystem.getName().equals(name)) {
                 return softwareSystem;
@@ -341,11 +368,18 @@ public final class Model {
     }
 
     /**
-     * @param id the {@link SoftwareSystem#getId()} of the softwaresystem
-     * @return Gets the SoftwareSystem instance with the specified ID (or null if it doesn't exist).
+     * Gets the software system with the specified ID.
+     *
+     * @param id    the {@link SoftwareSystem#getId()} of the software system
+     * @return the SoftwareSystem instance with the specified ID (or null if it doesn't exist).
      * @see SoftwareSystem#getId()
+     * @throws IllegalArgumentException     if the id is null or empty
      */
     public SoftwareSystem getSoftwareSystemWithId(String id) {
+        if (id == null || id.trim().length() == 0) {
+            throw new IllegalArgumentException("A software system ID must be specified.");
+        }
+
         for (SoftwareSystem softwareSystem : getSoftwareSystems()) {
             if (softwareSystem.getId().equals(id)) {
                 return softwareSystem;
@@ -356,10 +390,17 @@ public final class Model {
     }
 
     /**
-     * @param name the name of the person
-     * @return the Person instance with the specified name (or null if it doesn't exist).
+     * Gets the person with the specified name.
+     *
+     * @param name  the name of the person
+     * @return the Person instance with the specified name (or null if it doesn't exist)
+     * @throws IllegalArgumentException     if the name is null or empty
      */
     public Person getPersonWithName(String name) {
+        if (name == null || name.trim().length() == 0) {
+            throw new IllegalArgumentException("A person name must be specified.");
+        }
+
         for (Person person : getPeople()) {
             if (person.getName().equals(name)) {
                 return person;
@@ -374,7 +415,7 @@ public final class Model {
      * in different software systems that have a relationship, calling this method will add the following
      * additional implied relationships to the model: AAA-&gt;BB AAA--&gt;B AA-&gt;BBB AA-&gt;BB AA-&gt;B A-&gt;BBB A-&gt;BB A-&gt;B.</p>
      *
-     * @return a set of all implicit relationships
+     * @return a set of all implicit relationships that were added to the model
      */
     public Set<Relationship> addImplicitRelationships() {
         Set<Relationship> implicitRelationships = new HashSet<>();
@@ -478,19 +519,54 @@ public final class Model {
         return true;
     }
 
+    /**
+     * Determines whether this model is empty.
+     *
+     * @return  true if the model contains no people, software systems or deployment nodes; false otherwise
+     */
     @JsonIgnore
     public boolean isEmpty() {
-        return people.isEmpty() && softwareSystems.isEmpty();
+        return people.isEmpty() && softwareSystems.isEmpty() && deploymentNodes.isEmpty();
     }
 
+    /**
+     * Adds a top-level deployment node to this model.
+     *
+     * @param name          the name of the deployment node
+     * @param description   the description of the deployment node
+     * @param technology    the technology associated with the deployment node
+     * @return  a DeploymentNode instance
+     * @throws  IllegalArgumentException    if the name is not specified, or a top-level deployment node with the same name already exists in the model
+     */
     public DeploymentNode addDeploymentNode(String name, String description, String technology) {
         return addDeploymentNode(name, description, technology, 1);
     }
 
+    /**
+     * Adds a top-level deployment node to this model.
+     *
+     * @param name          the name of the deployment node
+     * @param description   the description of the deployment node
+     * @param technology    the technology associated with the deployment node
+     * @param instances     the number of instances of the deployment node
+     * @return  a DeploymentNode instance
+     * @throws  IllegalArgumentException    if the name is not specified, or a top-level deployment node with the same name already exists in the model
+     */
     public DeploymentNode addDeploymentNode(String name, String description, String technology, int instances) {
         return addDeploymentNode(name, description, technology, instances, null);
     }
 
+    /**
+     * Adds a top-level deployment node to this model.
+     *
+     * @param name          the name of the deployment node
+     * @param description   the description of the deployment node
+     * @param technology    the technology associated with the deployment node
+     * @param instances     the number of instances of the deployment node
+     * @param properties    a map of name/value properties associated with the deployment node
+     * @return  a DeploymentNode instance
+     * @throws  IllegalArgumentException    if the name is not specified, or a top-level deployment node with the same name already exists in the model
+     */
     public DeploymentNode addDeploymentNode(String name, String description, String technology, int instances, Map<String, String> properties) {
         return addDeploymentNode(null, name, description, technology, instances, properties);
     }
@@ -576,6 +652,13 @@ public final class Model {
         return containerInstance;
     }
 
+    /**
+     * Gets the element with the specified canonical name.
+     *
+     * @param canonicalName     the canonical name (e.g. /SoftwareSystem/Container)
+     * @return  the Element with the given canonical name, or null if one doesn't exist
+     * @throws IllegalArgumentException     if the canonical name is null or empty
+     */
     public Element getElementWithCanonicalName(String canonicalName) {
         if (canonicalName == null || canonicalName.trim().length() == 0) {
             throw new IllegalArgumentException("A canonical name must be specified.");
@@ -595,7 +678,18 @@ public final class Model {
         return null;
     }
 
+    /**
+     * Sets the ID generator associated with this model.
+     *
+     * @param idGenerator   an IdGenerate instance
+     * @throws IllegalArgumentException     if the ID generator is null
+     */
     public void setIdGenerator(IdGenerator idGenerator) {
+        if (idGenerator == null) {
+            throw new IllegalArgumentException("An ID generator must be provided.");
+        }
+
         this.idGenerator = idGenerator;
     }
+
 }

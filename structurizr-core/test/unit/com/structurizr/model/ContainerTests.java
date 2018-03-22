@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class ContainerTests extends AbstractWorkspaceTestBase {
 
@@ -53,6 +54,57 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
     @Test(expected = IllegalArgumentException.class)
     public void test_addComponent_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
         container.addComponent(" ", "");
+    }
+
+    @Test
+    public void test_addComponent_ThrowsAnException_WhenAComponentWithTheSameNameAlreadyExists() {
+        container.addComponent("Component 1", "");
+        try {
+            container.addComponent("Component 1", "");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A component named 'Component 1' already exists for this container.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getComponentWithName_ThrowsAnException_WhenANullNameIsSpecified() {
+        try {
+            container.getComponentWithName(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A component name must be provided.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getComponentWithName_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
+        try {
+            container.getComponentWithName(" ");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A component name must be provided.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getComponentOfType_ThrowsAnException_WhenANullTypeIsSpecified() {
+        try {
+            container.getComponentOfType(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A component type must be provided.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getComponentOfType_ThrowsAnException_WhenAnEmptyTypeIsSpecified() {
+        try {
+            container.getComponentOfType(" ");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A component type must be provided.", iae.getMessage());
+        }
     }
 
 }

@@ -126,6 +126,11 @@ public final class Component extends StaticStructureElement {
         this.size = size;
     }
 
+    /**
+     * Gets the canonical name of this component, in the form "/Software System/Container/Component".
+     *
+     * @return  the canonical name, as a String
+     */
     @Override
     public String getCanonicalName() {
         return getParent().getCanonicalName() + CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getName());

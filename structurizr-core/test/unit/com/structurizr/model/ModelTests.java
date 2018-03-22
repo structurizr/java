@@ -475,7 +475,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         try {
             model.getElement(null);
         } catch (IllegalArgumentException iae) {
-            assertEquals("An ID must be specified.", iae.getMessage());
+            assertEquals("An element ID must be specified.", iae.getMessage());
         }
     }
 
@@ -484,7 +484,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         try {
             model.getElement(" ");
         } catch (IllegalArgumentException iae) {
-            assertEquals("An ID must be specified.", iae.getMessage());
+            assertEquals("An element ID must be specified.", iae.getMessage());
         }
     }
 
@@ -583,6 +583,27 @@ public class ModelTests extends AbstractWorkspaceTestBase {
 
         Relationship relationship = user.getRelationships().stream().filter(r -> r.getDestination() == softwareSystem).findFirst().get();
         assertEquals("", relationship.getTechnology());
+    }
+
+    @Test
+    public void test_addDeploymentNode_ThrowsAnException_WhenADeploymentNodeWithTheSameNameAlreadyExists() {
+        model.addDeploymentNode("Amazon AWS", "Description", "Technology");
+        try {
+            model.addDeploymentNode("Amazon AWS", "Description", "Technology");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A deployment node named 'Amazon AWS' already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_setIdGenerator_ThrowsAnException_WhenANullIdGeneratorIsSpecified() {
+        try {
+            model.setIdGenerator(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("An ID generator must be provided.", iae.getMessage());
+        }
     }
 
 }

@@ -191,4 +191,44 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
         assertTrue(softwareSystem.getTags().contains(Tags.SOFTWARE_SYSTEM));
     }
 
+    @Test
+    public void test_getContainerWithName_ThrowsAnException_WhenANullNameIsSpecified() {
+        try {
+            softwareSystem.getContainerWithName(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A container name must be provided.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getContainerWithName_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
+        try {
+            softwareSystem.getContainerWithName(" ");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A container name must be provided.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getContainerWithId_ThrowsAnException_WhenANullIdIsSpecified() {
+        try {
+            softwareSystem.getContainerWithId(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A container ID must be provided.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getContainerWithId_ThrowsAnException_WhenAnEmptyIdIsSpecified() {
+        try {
+            softwareSystem.getContainerWithId(" ");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A container ID must be provided.", iae.getMessage());
+        }
+    }
+
 }
