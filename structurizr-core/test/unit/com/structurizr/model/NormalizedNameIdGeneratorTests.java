@@ -32,7 +32,8 @@ public class NormalizedNameIdGeneratorTests {
         assertEquals("MySoftwareSystemWebApplicationReadsfromandwritestoMySoftwareSystemDatabase", 
             webApplication.uses(database, "Reads from and writes to").getId());
 
-        assertEquals("MySoftwareSystemWebApplication1", model.addContainerInstance(webApplication).getId());
+        DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+        assertEquals("MySoftwareSystemWebApplication1", deploymentNode.add(webApplication).getId());
 
         assertEquals("MySoftwareSystemWebApplicationComponentA", 
             webApplication.addComponent("ComponentA", "Description", "Technology A").getId());
@@ -56,7 +57,8 @@ public class NormalizedNameIdGeneratorTests {
         assertEquals("WebApplicationReadsfromandwritestoDatabase", 
             webApplication.uses(database, "Reads from and writes to").getId());
 
-        assertEquals("WebApplication1", model.addContainerInstance(webApplication).getId());
+        DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+        assertEquals("WebApplication1", deploymentNode.add(webApplication).getId());
 
         assertEquals("ComponentA", 
             webApplication.addComponent("ComponentA", "Description", "Technology A").getId());

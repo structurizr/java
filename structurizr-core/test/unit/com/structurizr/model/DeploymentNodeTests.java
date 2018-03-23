@@ -48,7 +48,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_add_ThrowsAnException_WhenAContainerIsNotSpecified() {
         try {
-            DeploymentNode deploymentNode = new DeploymentNode();
+            DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
             deploymentNode.add(null);
             fail();
         } catch (IllegalArgumentException iae) {

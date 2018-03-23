@@ -422,7 +422,8 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_addContainerInstance_ThrowsAnException_WhenANullContainerIsSpecified() {
         try {
-            model.addContainerInstance(null);
+            DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+            deploymentNode.add(null);
             fail();
         } catch (Exception e) {
             assertEquals("A container must be specified.", e.getMessage());
@@ -430,7 +431,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addContainerInstance_AddsAContainerInstance_WhenAContainerIsSpecified() {
+    public void test_addContainerInstance_AddsAContainerInstanceAndReplicatesRelationships_WhenAContainerIsSpecified() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
         Container container1 = softwareSystem1.addContainer("Container 1", "Description", "Technology");
 
@@ -443,9 +444,10 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         container1.uses(container2, "Uses 1", "Technology 1", InteractionStyle.Synchronous);
         container2.uses(container3, "Uses 2", "Technology 2", InteractionStyle.Asynchronous);
 
-        ContainerInstance containerInstance1 = model.addContainerInstance(container1);
-        ContainerInstance containerInstance2 = model.addContainerInstance(container2);
-        ContainerInstance containerInstance3 = model.addContainerInstance(container3);
+        DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+        ContainerInstance containerInstance1 = deploymentNode.add(container1);
+        ContainerInstance containerInstance2 = deploymentNode.add(container2);
+        ContainerInstance containerInstance3 = deploymentNode.add(container3);
 
         assertSame(container2, containerInstance2.getContainer());
         assertEquals(container2.getId(), containerInstance2.getContainerId());
@@ -468,6 +470,35 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertEquals("Uses 2", relationship.getDescription());
         assertEquals("Technology 2", relationship.getTechnology());
         assertEquals(InteractionStyle.Asynchronous, relationship.getInteractionStyle());
+    }
+
+    @Test
+    public void test_addContainerInstance_AddsAContainerInstanceAndDoesNotReplicateRelationships_WhenAContainerIsSpecified() {
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
+        Container container1 = softwareSystem1.addContainer("Container 1", "Description", "Technology");
+
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
+        Container container2 = softwareSystem2.addContainer("Container 2", "Description", "Technology");
+
+        SoftwareSystem softwareSystem3 = model.addSoftwareSystem("Software System 3", "Description");
+        Container container3 = softwareSystem3.addContainer("Container 3", "Description", "Technology");
+
+        container1.uses(container2, "Uses 1", "Technology 1", InteractionStyle.Synchronous);
+        container2.uses(container3, "Uses 2", "Technology 2", InteractionStyle.Asynchronous);
+
+        DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+        ContainerInstance containerInstance1 = deploymentNode.add(container1, false);
+        ContainerInstance containerInstance2 = deploymentNode.add(container2, false);
+        ContainerInstance containerInstance3 = deploymentNode.add(container3, false);
+
+        assertSame(container2, containerInstance2.getContainer());
+        assertEquals(container2.getId(), containerInstance2.getContainerId());
+        assertSame(softwareSystem2, containerInstance2.getParent());
+        assertEquals("/Software System 2/Container 2[1]", containerInstance2.getCanonicalName());
+        assertEquals("Element,Container,Container Instance", containerInstance2.getTags());
+
+        assertEquals(0, containerInstance1.getRelationships().size());
+        assertEquals(0, containerInstance2.getRelationships().size());
     }
 
     @Test

@@ -31,17 +31,24 @@ public final class DeploymentNode extends Element {
     private Set<ContainerInstance> containerInstances = new HashSet<>();
 
     /**
-     * Adds a container instance to this deployment node.
+     * Adds a container instance to this deployment node, replicating all of the container-container relationships.
      *
      * @param container     the Container to add an instance of
      * @return  a ContainerInstance object
      */
     public ContainerInstance add(Container container) {
-        if (container == null) {
-            throw new IllegalArgumentException("A container must be specified.");
-        }
+        return add(container, true);
+    }
 
-        ContainerInstance containerInstance = getModel().addContainerInstance(container);
+    /**
+     * Adds a container instance to this deployment node, optionally replicating all of the container-container relationships.
+     *
+     * @param container                         the Container to add an instance of
+     * @param replicateContainerRelationships   true if the container-container relationships should be replicated between the container instances, false otherwise
+     * @return  a ContainerInstance object
+     */
+    public ContainerInstance add(Container container, boolean replicateContainerRelationships) {
+        ContainerInstance containerInstance = getModel().addContainerInstance(container, replicateContainerRelationships);
         this.containerInstances.add(containerInstance);
 
         return containerInstance;

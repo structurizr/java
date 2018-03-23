@@ -9,10 +9,11 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
 
     private SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "System", "Description");
     private Container database = softwareSystem.addContainer("Database Schema", "Stores data", "MySQL");
+    private DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
 
     @Test
     public void test_construction() {
-        ContainerInstance containerInstance = model.addContainerInstance(database);
+        ContainerInstance containerInstance = deploymentNode.add(database);
 
         assertSame(database, containerInstance.getContainer());
         assertEquals(database.getId(), containerInstance.getContainerId());
@@ -21,7 +22,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_getContainerId() {
-        ContainerInstance containerInstance = model.addContainerInstance(database);
+        ContainerInstance containerInstance = deploymentNode.add(database);
 
         assertEquals(database.getId(), containerInstance.getContainerId());
         containerInstance.setContainer(null);
@@ -31,7 +32,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_getName() {
-        ContainerInstance containerInstance = model.addContainerInstance(database);
+        ContainerInstance containerInstance = deploymentNode.add(database);
 
         assertNull(containerInstance.getName());
 
@@ -41,21 +42,21 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_getCanonicalName() {
-        ContainerInstance containerInstance = model.addContainerInstance(database);
+        ContainerInstance containerInstance = deploymentNode.add(database);
 
         assertEquals("/System/Database Schema[1]", containerInstance.getCanonicalName());
     }
 
     @Test
     public void test_getParent_ReturnsTheParentSoftwareSystem() {
-        ContainerInstance containerInstance = model.addContainerInstance(database);
+        ContainerInstance containerInstance = deploymentNode.add(database);
 
         assertEquals(softwareSystem, containerInstance.getParent());
     }
 
     @Test
     public void test_getRequiredTags() {
-        ContainerInstance containerInstance = model.addContainerInstance(database);
+        ContainerInstance containerInstance = deploymentNode.add(database);
 
         assertTrue(containerInstance.getRequiredTags().isEmpty());
     }
@@ -63,7 +64,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_getTags() {
         database.addTags("Database");
-        ContainerInstance containerInstance = model.addContainerInstance(database);
+        ContainerInstance containerInstance = deploymentNode.add(database);
         containerInstance.addTags("Primary Instance");
 
         assertEquals("Element,Container,Database,Container Instance,Primary Instance", containerInstance.getTags());
@@ -71,7 +72,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_removeTags_DoesNotRemoveAnyTags() {
-        ContainerInstance containerInstance = model.addContainerInstance(database);
+        ContainerInstance containerInstance = deploymentNode.add(database);
 
         assertTrue(containerInstance.getTags().contains(Tags.ELEMENT));
         assertTrue(containerInstance.getTags().contains(Tags.CONTAINER));
@@ -88,7 +89,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_uses_ThrowsAnException_WhenADestinationIsNotSpecified() {
-        ContainerInstance containerInstance = model.addContainerInstance(database);
+        ContainerInstance containerInstance = deploymentNode.add(database);
 
         try {
             containerInstance.uses(null, "", "");
@@ -100,8 +101,8 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_uses_AddsARelationship_WhenADestinationIsSpecified() {
         Container database = softwareSystem.addContainer("Database", "", "");
-        ContainerInstance primaryDatabase = model.addContainerInstance(database);
-        ContainerInstance secondaryDatabase = model.addContainerInstance(database);
+        ContainerInstance primaryDatabase =  deploymentNode.add(database);
+        ContainerInstance secondaryDatabase = deploymentNode.add(database);
 
         Relationship relationship = primaryDatabase.uses(secondaryDatabase, "Replicates data to", "Some technology");
         assertSame(primaryDatabase, relationship.getSource());
@@ -113,7 +114,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_addHealthCheck() {
         Container webApplication = softwareSystem.addContainer("Web Application", "", "");
-        ContainerInstance instance = model.addContainerInstance(webApplication);
+        ContainerInstance instance = deploymentNode.add(webApplication);
         assertTrue(instance.getHealthChecks().isEmpty());
 
         HttpHealthCheck healthCheck = instance.addHealthCheck("Test web application is working", "http://localhost:8080");

@@ -614,7 +614,7 @@ public final class Model {
         return null;
     }
 
-    ContainerInstance addContainerInstance(Container container) {
+    ContainerInstance addContainerInstance(Container container, boolean replicateContainerRelationships) {
         if (container == null) {
             throw new IllegalArgumentException("A container must be specified.");
         }
@@ -624,25 +624,27 @@ public final class Model {
         ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber);
         containerInstance.setId(idGenerator.generateId(containerInstance));
 
-        // find all ContainerInstance objects
-        Set<ContainerInstance> containerInstances = getElements().stream()
-                .filter(e -> e instanceof ContainerInstance)
-                .map(e -> (ContainerInstance)e)
-                .collect(Collectors.toSet());
+        if (replicateContainerRelationships) {
+            // find all ContainerInstance objects
+            Set<ContainerInstance> containerInstances = getElements().stream()
+                    .filter(e -> e instanceof ContainerInstance)
+                    .map(e -> (ContainerInstance) e)
+                    .collect(Collectors.toSet());
 
-        // and replicate the container-container relationships
-        for (ContainerInstance ci : containerInstances) {
-            Container c = ci.getContainer();
+            // and replicate the container-container relationships
+            for (ContainerInstance ci : containerInstances) {
+                Container c = ci.getContainer();
 
-            for (Relationship relationship : container.getRelationships()) {
-                if (relationship.getDestination().equals(c)) {
-                    addRelationship(containerInstance, ci, relationship.getDescription(), relationship.getTechnology(), relationship.getInteractionStyle());
+                for (Relationship relationship : container.getRelationships()) {
+                    if (relationship.getDestination().equals(c)) {
+                        addRelationship(containerInstance, ci, relationship.getDescription(), relationship.getTechnology(), relationship.getInteractionStyle());
+                    }
                 }
-            }
 
-            for (Relationship relationship : c.getRelationships()) {
-                if (relationship.getDestination().equals(container)) {
-                    addRelationship(ci, containerInstance, relationship.getDescription(), relationship.getTechnology(), relationship.getInteractionStyle());
+                for (Relationship relationship : c.getRelationships()) {
+                    if (relationship.getDestination().equals(container)) {
+                        addRelationship(ci, containerInstance, relationship.getDescription(), relationship.getTechnology(), relationship.getInteractionStyle());
+                    }
                 }
             }
         }
