@@ -13,15 +13,17 @@ public class NormalizedNameIdGenerator implements IdGenerator {
 
     private Set<String> usedIds = new HashSet<>();
 
-    /** 
-     * Use the {@link Element#getCanonicalName()}.
+    /**
+     * Creates a new ID generator, where element IDs are based upon the canonical name of the element.
      */
     public NormalizedNameIdGenerator() {
         this(true);
     }
 
-    /** 
-     * @param canonical {@code true} will use the {@link Element#getCanonicalName()}, {@code false} will use {@link Element#getName()}
+    /**
+     * Creates a new ID generator.
+     *
+     * @param canonical     {@code true} will use the {@link Element#getCanonicalName()}, {@code false} will use {@link Element#getName()}
      */
     public NormalizedNameIdGenerator(boolean canonical) {
         this.canonical = canonical;
@@ -34,12 +36,12 @@ public class NormalizedNameIdGenerator implements IdGenerator {
 
     @Override
     public String generateId(Element element) {
-        if(! canonical && element instanceof ContainerInstance) { // Special treatment
+        if (!canonical && element instanceof ContainerInstance) { // Special treatment
             ContainerInstance containerInstance = (ContainerInstance) element;
             return generateId(containerInstance.getContainerId() + containerInstance.getInstanceId());
-        }
-        else 
+        } else {
             return generateId(canonical ? element.getCanonicalName() : element.getName());
+        }
     }
 
     @Override
@@ -53,14 +55,17 @@ public class NormalizedNameIdGenerator implements IdGenerator {
     private String generateId(final String...terms) {
         final StringBuilder sb = new StringBuilder();
         for (final String term : terms) {
-            if(term!=null) {
+            if (term != null) {
                 sb.append(term.replaceAll("[^a-zA-Z0-9]", ""));
             }
         }
 
         final String id = sb.toString();
-        if(! usedIds.add(id))
+        if (usedIds.contains(id)) {
             throw new IllegalArgumentException("Non-unique ID generated: " + id);
-        return id;
+        } else {
+            usedIds.add(id);
+            return id;
+        }
     }
 }
