@@ -219,6 +219,10 @@ public abstract class Element extends Taggable {
     void addRelationship(Relationship relationship) {
         relationships.add(relationship);
     }
+    
+    void removeRelationship(Relationship relationship) {
+        relationships.remove(relationship);
+    }
 
     @Override
     public String toString() {

@@ -125,6 +125,19 @@ public final class ContainerInstance extends Element {
             throw new IllegalArgumentException("The destination of a relationship must be specified.");
         }
     }
+    
+    /**
+     * Remove the efferent (outgoing) relationship with the specified {@link ContainerInstance}.
+     *
+     * @param destination the {@link ContainerInstance} to which the relationship should be removed
+     * @return a Relationship object if an efferent relationship existed, null otherwise
+     */
+    public Relationship removeEfferentRelationshipWith(ContainerInstance destination) {
+        final Relationship relationship = getEfferentRelationshipWith(destination);
+        if(relationship != null)
+            getModel().removeRelationship(relationship);
+        return relationship;
+    }
 
     /**
      * Gets the set of health checks associated with this container instance.
