@@ -121,5 +121,19 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
         assertEquals("http://localhost:8080", healthCheck.getUrl());
         assertEquals(1, instance.getHealthChecks().size());
     }
+    
+    @Test
+    public void test_removeEfferentRelationshipWith() {
+        Container frontEnd = softwareSystem.addContainer("Frontend", "", "");
+        Container backend = softwareSystem.addContainer("Backend", "Multi instance backend", "");
+        frontEnd.uses(backend, "");
+
+        final ContainerInstance backend1 = model.addContainerInstance(backend);
+        final ContainerInstance backend2 = model.addContainerInstance(backend);
+        final ContainerInstance instance = model.addContainerInstance(frontEnd);
+        assertEquals(2, instance.getRelationships().size());
+        instance.removeEfferentRelationshipWith(backend2);
+        assertEquals(1, instance.getRelationships().size());
+    }
 
 }

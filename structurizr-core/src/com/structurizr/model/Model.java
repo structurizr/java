@@ -199,6 +199,12 @@ public final class Model {
         idGenerator.found(relationship.getId());
     }
 
+    /** Remove existing {@link Relationship} */
+    public void removeRelationship(Relationship relationship) {
+        relationshipsById.remove(relationship.getId());
+        relationship.getSource().removeRelationship(relationship);
+    }
+
     /**
      * Gets the set of all elements in this model.
      *
