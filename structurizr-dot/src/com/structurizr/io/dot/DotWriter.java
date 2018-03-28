@@ -15,8 +15,9 @@ import java.io.Writer;
 /**
  * This is a simple implementation of a workspace writer that outputs
  * to the Graphviz DOT format. You will need graphviz installed and
- * correctly configured. See https://github.com/cyriux/dot-diagram
- * for more information.
+ * correctly configured.
+ *
+ * See https://github.com/LivingDocumentation/dot-diagram for more information.
  */
 public class DotWriter {
 
