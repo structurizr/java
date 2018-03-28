@@ -1,6 +1,7 @@
 package com.structurizr.analysis;
 
 import com.structurizr.model.Component;
+import com.structurizr.model.Container;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.Repository;
@@ -48,11 +49,14 @@ public final class SpringRepositoryComponentFinderStrategy extends AbstractSprin
 
         for (Class<?> componentType : componentTypes) {
             if (!includePublicTypesOnly || Modifier.isPublic(componentType.getModifiers())) {
-                componentsFound.add(getComponentFinder().getContainer().addComponent(
+                final Container container = getComponentFinder().getContainer();
+                if (container.getComponentWithName(componentType.getSimpleName()) == null) {
+                    componentsFound.add(container.addComponent(
                         componentType.getSimpleName(),
                         componentType.getCanonicalName(),
                         "",
                         SPRING_REPOSITORY));
+                }
             }
         }
 

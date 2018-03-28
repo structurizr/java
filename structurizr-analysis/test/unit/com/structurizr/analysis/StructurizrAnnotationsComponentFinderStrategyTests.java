@@ -38,6 +38,9 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
                 new StructurizrAnnotationsComponentFinderStrategy()
         );
         componentFinder.findComponents();
+
+        // finding the components again should be idempotent
+        componentFinder.findComponents();
     }
 
     @Test
