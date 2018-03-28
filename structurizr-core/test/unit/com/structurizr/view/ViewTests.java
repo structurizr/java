@@ -193,6 +193,8 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         view1.getElementView(person1).setX(456);
         view1.getElementView(person1).setY(654);
         view1.getRelationshipView(personUsesSoftwareSystem1).setVertices(Arrays.asList(new Vertex(123, 456)));
+        view1.getRelationshipView(personUsesSoftwareSystem1).setPosition(70);
+        view1.getRelationshipView(personUsesSoftwareSystem1).setRouting(Routing.Orthogonal);
 
         Workspace workspace2 = new Workspace("", "");
         Model model2 = workspace2.getModel();
@@ -224,6 +226,8 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         Vertex vertex = view2.getRelationshipView(personUsesSoftwareSystem2).getVertices().iterator().next();
         assertEquals(123, vertex.getX());
         assertEquals(456, vertex.getY());
+        assertEquals(70, view2.getRelationshipView(personUsesSoftwareSystem2).getPosition().intValue());
+        assertEquals(Routing.Orthogonal, view2.getRelationshipView(personUsesSoftwareSystem2).getRouting());
     }
 
     @Test
