@@ -25,6 +25,9 @@ public class SpringRepositoryComponentFinderStrategyTests {
         );
         componentFinder.findComponents();
 
+        // finding the components again should be idempotent
+        componentFinder.findComponents();
+
         assertEquals(1, container.getComponents().size());
         Component component = container.getComponentWithName("SomeRepository");
         assertEquals("test.SpringRepositoryComponentFinderStrategy.annotation.SomeRepository", component.getType().getType());
