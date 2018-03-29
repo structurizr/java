@@ -28,13 +28,12 @@ public abstract class AbstractSpringComponentFinderStrategy extends AbstractComp
         Container container = getComponentFinder().getContainer();
         Set<Class<?>> annotatedTypes = findTypesAnnotatedWith(type);
         for (Class<?> annotatedType : annotatedTypes) {
-            if (container.getComponentWithName(annotatedType.getSimpleName()) != null) {
-              continue;
-            }
-            else if (annotatedType.isInterface()) {
+            if (annotatedType.isInterface()) {
                 // the annotated type is an interface, so we're done
-                components.add(container.addComponent(
-                    annotatedType.getSimpleName(), annotatedType.getCanonicalName(), "", technology));
+                if (container.getComponentWithName(annotatedType.getSimpleName()) == null) {
+                    components.add(container.addComponent(
+                        annotatedType.getSimpleName(), annotatedType.getCanonicalName(), "", technology));
+                }
             } else {
                 // The Spring @Component, @Service and @Repository annotations are typically used to annotate implementation
                 // classes, but we really want to find the interface type and use that to represent the component. Why?
@@ -61,8 +60,12 @@ public abstract class AbstractSpringComponentFinderStrategy extends AbstractComp
                 }
 
                 if (!includePublicTypesOnly || Modifier.isPublic(componentType.getModifiers())) {
-                  Component component = container.addComponent(componentName, componentType, "", technology);
-                  components.add(component);
+                    Component component = container.getComponentWithName(componentName);
+
+                    if (component == null) {
+                        component = container.addComponent(componentName, componentType, "", technology);
+                        components.add(component);
+                    }
 
                     if (foundInterface) {
                         // the primary component type is now an interface, so add the type we originally found as a supporting type

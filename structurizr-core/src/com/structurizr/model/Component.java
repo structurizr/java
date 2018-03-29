@@ -2,7 +2,11 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Optional;
+import java.util.Set;
 
 /**
  * Represents a "component" in the C4 model.
@@ -101,11 +105,17 @@ public final class Component extends StaticStructureElement {
      * @throws IllegalArgumentException if the specified type is null
      */
     public CodeElement addSupportingType(String type) {
-        CodeElement codeElement = new CodeElement(type);
-        codeElement.setRole(CodeElementRole.Supporting);
-        this.codeElements.add(codeElement);
-
-        return codeElement;
+        return
+            codeElements
+                .stream()
+                .filter(c -> type.equals(c.getType()))
+                .findAny()
+                .orElseGet(() -> {
+                    CodeElement codeElement = new CodeElement(type);
+                    codeElement.setRole(CodeElementRole.Supporting);
+                    this.codeElements.add(codeElement);
+                    return codeElement;
+                });
     }
 
     /**

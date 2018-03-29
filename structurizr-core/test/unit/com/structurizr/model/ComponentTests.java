@@ -129,4 +129,14 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
         assertEquals(CodeElementRole.Supporting, codeElement.getRole());
     }
 
+    @Test
+    public void test_addSupportingType_ReturnsSameCodeElement_WhenPassedSameFullyQualifiedType() {
+        Component component = new Component();
+        CodeElement code1 = component.addSupportingType("com.structurizr.web.HomePageViewModel");
+        CodeElement code2 = component.addSupportingType("com.structurizr.web.HomePageViewModel");
+
+        assertTrue(code1 == code2);
+        assertEquals(1, component.getCode().size());
+    }
+
 }

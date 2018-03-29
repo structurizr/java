@@ -1,13 +1,18 @@
 package com.structurizr.analysis;
 
 import com.structurizr.Workspace;
+import com.structurizr.model.CodeElement;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;
 import org.junit.Test;
 
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class SpringServiceComponentFinderStrategyTests {
 
@@ -30,6 +35,10 @@ public class SpringServiceComponentFinderStrategyTests {
         assertEquals("test.SpringServiceComponentFinderStrategy.SomeService", component.getType().getType());
         assertEquals("", component.getDescription());
         assertEquals("Spring Service", component.getTechnology());
+
+        final Set<CodeElement> code = component.getCode();
+        assertTrue(code.stream().anyMatch(c -> "SomeServiceDefaultImpl".equals(c.getName())));
+        assertTrue(code.stream().anyMatch(c -> "SomeServiceAlternateImpl".equals(c.getName())));
     }
 
 }
