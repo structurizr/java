@@ -158,6 +158,8 @@ public abstract class StaticStructureElement extends Element {
      *
      * @param destination the target of the relationship
      * @param description a description of the relationship (e.g. "uses", "gets data from", "sends data to")
+     * @param technology       the technology details (e.g. JSON/HTTPS)
+     * @param interactionStyle the interaction style (sync vs async)
      * @return the relationship that has just been created and added to the model
      */
     public Relationship uses(StaticStructureElement destination, String description, String technology, InteractionStyle interactionStyle) {
