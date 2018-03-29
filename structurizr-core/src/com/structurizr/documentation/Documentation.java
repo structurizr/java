@@ -3,13 +3,7 @@ package com.structurizr.documentation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.Element;
 import com.structurizr.model.Model;
-import com.structurizr.model.SoftwareSystem;
-import com.structurizr.util.ImageUtils;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 

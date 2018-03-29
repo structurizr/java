@@ -62,8 +62,8 @@ public class ImageUtils {
      * @throws IOException  if there is an error reading the file
      */
     public static String getImageAsDataUri(File file) throws IOException {
-        String contentType = ImageUtils.getContentType(file);
-        String base64Content = ImageUtils.getImageAsBase64(file);
+        String contentType = getContentType(file);
+        String base64Content = getImageAsBase64(file);
 
         return "data:" + contentType + ";base64," + base64Content;
     }

@@ -7,13 +7,9 @@ import java.util.Set;
 
 class FormatFinder {
 
-    private static Set<String> MARKDOWN_EXTENSIONS = new HashSet<>(Arrays.asList(new String[] {
-            ".md", ".markdown", ".text"
-    }));
+    private static Set<String> MARKDOWN_EXTENSIONS = new HashSet<>(Arrays.asList(".md", ".markdown", ".text"));
 
-    private static Set<String> ASCIIDOC_EXTENSIONS = new HashSet<>(Arrays.asList(new String[] {
-            ".asciidoc", ".adoc", ".asc"
-    }));
+    private static Set<String> ASCIIDOC_EXTENSIONS = new HashSet<>(Arrays.asList(".asciidoc", ".adoc", ".asc"));
 
     static Format findFormat(File file) {
         if (file == null) {

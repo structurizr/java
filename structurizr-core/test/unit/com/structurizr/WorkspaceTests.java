@@ -15,50 +15,6 @@ public class WorkspaceTests {
     private Workspace workspace = new Workspace("Name", "Description");
 
     @Test
-    public void test_setApi_DoesNotThrowAnException_WhenANullUrlIsSpecified() {
-        workspace.setApi(null);
-    }
-
-    @Test
-    public void test_setApi_DoesNotThrowAnException_WhenAnEmptyUrlIsSpecified() {
-        workspace.setApi("");
-    }
-
-    @Test
-    public void test_setApi_ThrowsAnException_WhenAnInvalidUrlIsSpecified() {
-        try {
-            workspace.setApi("www.somedomain.com");
-            fail();
-        } catch (Exception e) {
-            assertEquals("www.somedomain.com is not a valid URL.", e.getMessage());
-        }
-    }
-
-    @Test
-    public void test_setApi_DoesNotThrowAnException_WhenAnValidUrlIsSpecified() {
-        workspace.setApi("https://www.somedomain.com");
-        assertEquals("https://www.somedomain.com", workspace.getApi());
-    }
-
-    @Test
-    public void test_hasApi_ReturnsFalse_WhenANullApiIsSpecified() {
-        workspace.setApi(null);
-        assertFalse(workspace.hasApi());
-    }
-
-    @Test
-    public void test_hasApi_ReturnsFalse_WhenAnEmptyApiIsSpecified() {
-        workspace.setApi(" ");
-        assertFalse(workspace.hasApi());
-    }
-
-    @Test
-    public void test_hasApi_ReturnsTrue_WhenAUrlIsSpecified() {
-        workspace.setApi("https://www.somedomain.com");
-        assertTrue(workspace.hasApi());
-    }
-
-    @Test
     public void test_isEmpty_ReturnsTrue_WhenThereAreNoElementsViewsOrDocumentation() {
         workspace = new Workspace("Name", "Description");
         assertTrue(workspace.isEmpty());

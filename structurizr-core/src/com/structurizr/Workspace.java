@@ -93,6 +93,11 @@ public final class Workspace extends AbstractWorkspace {
         documentation.setModel(getModel());
     }
 
+    /**
+     * Determines whether this model is empty.
+     *
+     * @return  true if the model has no elements, views or documentation; false otherwise
+     */
     @JsonIgnore
     public boolean isEmpty() {
         return model.isEmpty() && viewSet.isEmpty() && documentation.isEmpty();

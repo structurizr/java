@@ -1,8 +1,5 @@
 package com.structurizr;
 
-import java.net.MalformedURLException;
-import java.net.URL;
-
 /**
  * The superclass for regular and encrypted workspaces.
  */
@@ -13,8 +10,6 @@ public abstract class AbstractWorkspace {
     private String description;
     private String version;
     private String thumbnail;
-    private String source;
-    private String api;
 
     protected AbstractWorkspace() {
     }
@@ -113,41 +108,6 @@ public abstract class AbstractWorkspace {
      */
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
-    }
-
-    /**
-     * Gets the URL of the API where the content of this workspace can be found.
-     *
-     * @return  the URL, as a String
-     */
-    public String getApi() {
-        return api;
-    }
-
-    /**
-     * Sets the URL of the API where the content of this workspace can be found.
-     *
-     * @param api   a URL, as a String
-     * @throws      IllegalArgumentException if the URL is not a valid URL
-     */
-    public void setApi(String api) {
-        if (api != null && api.trim().length() > 0) {
-            try {
-                URL url = new URL(api);
-                this.api = api;
-            } catch (MalformedURLException murle) {
-                throw new IllegalArgumentException(api + " is not a valid URL.");
-            }
-        }
-    }
-
-    /**
-     * Determines whether this workspace has an API set.
-     *
-     * @return  true if an API URL has been specified, false otherwise
-     */
-    public boolean hasApi() {
-        return this.api != null && this.api.trim().length() > 0;
     }
 
 }

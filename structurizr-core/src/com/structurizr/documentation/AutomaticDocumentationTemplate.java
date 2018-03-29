@@ -1,7 +1,6 @@
 package com.structurizr.documentation;
 
 import com.structurizr.Workspace;
-import com.structurizr.model.Element;
 import com.structurizr.model.SoftwareSystem;
 
 import java.io.File;

@@ -2,7 +2,9 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a deployment instance of a {@link Container}, which can be added to a {@link DeploymentNode}.

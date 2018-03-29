@@ -5,6 +5,13 @@ import java.util.Map;
 
 public final class MapUtils {
 
+    /**
+     * A helper method to create a Map from an array of Strings ("name=value").
+     *
+     * @param nameValuePairs    one or more "name=value" pairs
+     *
+     * @return  a Map
+     */
     public static Map<String, String> create(String... nameValuePairs) {
         Map<String, String> map = new HashMap<>();
 
