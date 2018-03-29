@@ -10,7 +10,7 @@ The Structurizr for Java binaries are hosted on [Maven Central](https://repo1.ma
 
 Name                                          | Description
 -------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------
-com.structurizr:structurizr-core:1.0.0-RC4        | The core library that can used to create models and upload models to Structurizr.
+com.structurizr:structurizr-client:1.0.0-RC5        | The Structurizr API client library.
 
 ## 2. Create a model
 
