@@ -32,17 +32,20 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
     @Override
     protected Set<Component> doFindComponents() {
         Set<Component> components = new HashSet<>();
+        Container container = getComponentFinder().getContainer();
 
         // find all types that have been annotated @Component
         Set<Class<?>> componentTypes = findTypesAnnotatedWith(com.structurizr.annotation.Component.class);
         for (Class<?> componentType : componentTypes) {
-            Component component = getComponentFinder().getContainer().addComponent(
-                    componentType.getSimpleName(),
-                    componentType,
-                    componentType.getAnnotation(com.structurizr.annotation.Component.class).description(),
-                    componentType.getAnnotation(com.structurizr.annotation.Component.class).technology()
-            );
-            components.add(component);
+            if (container.getComponentWithName(componentType.getSimpleName()) == null) {
+                Component component = container.addComponent(
+                        componentType.getSimpleName(),
+                        componentType,
+                        componentType.getAnnotation(com.structurizr.annotation.Component.class).description(),
+                        componentType.getAnnotation(com.structurizr.annotation.Component.class).technology()
+                );
+                components.add(component);
+            }
         }
 
         return components;

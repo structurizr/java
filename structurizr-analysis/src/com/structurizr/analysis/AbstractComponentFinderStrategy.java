@@ -2,6 +2,7 @@ package com.structurizr.analysis;
 
 import com.structurizr.model.CodeElement;
 import com.structurizr.model.Component;
+import com.structurizr.model.Container;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -163,11 +164,14 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         Set<Class<?>> componentTypes = findTypesAnnotatedWith(type);
         for (Class<?> componentType : componentTypes) {
             if (!includePublicTypesOnly || Modifier.isPublic(componentType.getModifiers())) {
-                components.add(getComponentFinder().getContainer().addComponent(
+                final Container container = getComponentFinder().getContainer();
+                if (container.getComponentWithName(componentType.getSimpleName()) == null) {
+                    components.add(container.addComponent(
                         componentType.getSimpleName(),
                         componentType.getCanonicalName(),
                         "",
                         technology));
+                }
             }
         }
 

@@ -1,6 +1,7 @@
 package com.structurizr.analysis;
 
 import com.structurizr.model.Component;
+import com.structurizr.model.Container;
 
 import java.util.*;
 
@@ -24,12 +25,15 @@ public class TypeMatcherComponentFinderStrategy extends AbstractComponentFinderS
         for (Class type : types) {
             for (TypeMatcher typeMatcher : typeMatchers) {
                 if (typeMatcher.matches(type)) {
-                    Component component = getComponentFinder().getContainer().addComponent(
+                    final Container container = getComponentFinder().getContainer();
+                    if (container.getComponentWithName(type.getSimpleName()) == null) {
+                        Component component = container.addComponent(
                             type.getSimpleName(),
                             type.getCanonicalName(),
                             typeMatcher.getDescription(),
                             typeMatcher.getTechnology());
-                    components.add(component);
+                        components.add(component);
+                    }
                 }
             }
         }

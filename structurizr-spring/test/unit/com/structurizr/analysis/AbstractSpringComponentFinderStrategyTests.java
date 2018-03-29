@@ -27,6 +27,11 @@ public class AbstractSpringComponentFinderStrategyTests {
 
         assertEquals(2, container.getComponents().size());
 
+        // finding the components again should be idempotent
+        componentFinder.findComponents();
+
+        assertEquals(2, container.getComponents().size());
+
         Component component = container.getComponentWithName("SomeController");
         assertEquals("test.AbstractSpringComponentFinderStrategy.SomeController", component.getType().getType());
 
@@ -48,6 +53,11 @@ public class AbstractSpringComponentFinderStrategyTests {
                 "test.AbstractSpringComponentFinderStrategy",
                 springComponentFinderStrategy
         );
+        componentFinder.findComponents();
+
+        assertEquals(3, container.getComponents().size());
+
+        // finding the components again should be idempotent
         componentFinder.findComponents();
 
         assertEquals(3, container.getComponents().size());
