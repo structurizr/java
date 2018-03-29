@@ -50,7 +50,16 @@ public final class WorkspaceUtils {
         writer.close();
     }
 
+    /**
+     * Prints a workspace as JSON to stdout - useful for debugging purposes.
+     *
+     * @param workspace     the workspace to print
+     */
     public static void printWorkspaceAsJson(Workspace workspace) {
+        if (workspace == null) {
+            throw new IllegalArgumentException("A workspace must be provided.");
+        }
+
         try {
             JsonWriter jsonWriter = new JsonWriter(true);
             StringWriter stringWriter = new StringWriter();

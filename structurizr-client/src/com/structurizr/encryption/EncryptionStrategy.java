@@ -45,4 +45,3 @@ public abstract class EncryptionStrategy {
     public abstract String decrypt(String ciphertext) throws Exception;
 
 }
-

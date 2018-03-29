@@ -1,5 +1,8 @@
 package com.structurizr.api;
 
+/**
+ * Wraps up and combines a number of separate strings.
+ */
 final class HmacContent {
 
     private String[] strings;

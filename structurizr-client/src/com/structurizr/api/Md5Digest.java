@@ -3,6 +3,9 @@ package com.structurizr.api;
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 
+/**
+ * Creates an MD5 digest of content.
+ */
 final class Md5Digest {
 
     private static final String ALGORITHM = "MD5";

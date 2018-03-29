@@ -1,5 +1,8 @@
 package com.structurizr.api;
 
+/**
+ * Constants representing the HTTP header names used in the Structurizr API.
+ */
 final class HttpHeaders {
 
     static final String USER_AGENT = "User-Agent";

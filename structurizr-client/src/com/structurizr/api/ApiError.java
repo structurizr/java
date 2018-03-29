@@ -3,6 +3,9 @@ package com.structurizr.api;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ * Represents an error returned by the Structurizr API.
+ */
 final class ApiError {
 
     private String message;

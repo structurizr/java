@@ -2,6 +2,9 @@ package com.structurizr.api;
 
 import java.util.Base64;
 
+/**
+ * Represents the header used for authorization purposes.
+ */
 final class HmacAuthorizationHeader {
 
     private String apiKey;

@@ -109,7 +109,12 @@ public final class StructurizrClient {
         setApiSecret(apiSecret);
     }
 
-    String getUrl() {
+    /**
+     * Gets the API URL that this client is for.
+     *
+     * @return  the API URL, as a String
+     */
+    public String getUrl() {
         return this.url;
     }
 
