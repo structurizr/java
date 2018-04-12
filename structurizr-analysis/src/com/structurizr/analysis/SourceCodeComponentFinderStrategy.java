@@ -6,7 +6,9 @@ import com.structurizr.model.Component;
 import com.sun.javadoc.ClassDoc;
 import com.sun.javadoc.RootDoc;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
@@ -115,11 +117,27 @@ public class SourceCodeComponentFinderStrategy implements ComponentFinderStrateg
 
         parameters.add("-private");
 
-        com.sun.tools.javadoc.Main.execute(
-                "StructurizrDoclet",
-                this.getClass().getName(),
-                parameters.toArray(new String[parameters.size()])
-        );
+        final PrintStream outOriginal = System.out;
+        final PrintStream errOriginal = System.err;
+        final ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(bytes));
+        System.setErr(System.out);
+        try {
+            com.sun.tools.javadoc.Main.execute(
+                    "StructurizrDoclet",
+                    this.getClass().getName(),
+                    parameters.toArray(new String[parameters.size()])
+            );
+        }
+        catch (Throwable t) {
+            outOriginal.write(bytes.toByteArray());
+            outOriginal.flush();
+            throw t;
+        }
+        finally {
+            System.setOut(outOriginal);
+            System.setOut(errOriginal);
+        }
     }
 
     public static boolean start(RootDoc rootDoc) {
