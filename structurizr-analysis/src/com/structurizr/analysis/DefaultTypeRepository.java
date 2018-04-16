@@ -78,10 +78,6 @@ public class DefaultTypeRepository implements TypeRepository {
 
         types = new HashSet<>();
         types.addAll(ReflectionUtils.forNames(allTypesScanner.types, classLoader));
-
-        for (Class<?> c : types) {
-            System.out.println("+ " + c);
-        }
     }
 
     @Override
