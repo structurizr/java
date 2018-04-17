@@ -15,6 +15,7 @@ public abstract class AbstractSpringComponentFinderStrategy extends AbstractComp
     public static final String SPRING_REPOSITORY = "Spring Repository";
     public static final String SPRING_COMPONENT = "Spring Component";
     public static final String SPRING_REST_CONTROLLER = "Spring REST Controller";
+    public static final String SPRING_WEB_SERVICE_ENDPOINT = "Spring Web Service";
 
     protected boolean includePublicTypesOnly = true;
 
