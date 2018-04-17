@@ -12,6 +12,8 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import static com.structurizr.util.StringUtils.isNullOrEmpty;
+
 /**
  * A set of views onto a software architecture model.
  */
@@ -390,7 +392,10 @@ public final class ViewSet {
         }
 
         for (DeploymentView view : deploymentViews) {
-            view.setSoftwareSystem(model.getSoftwareSystemWithId(view.getSoftwareSystemId()));
+            if (!isNullOrEmpty(view.getSoftwareSystemId())) {
+                view.setSoftwareSystem(model.getSoftwareSystemWithId(view.getSoftwareSystemId()));
+            }
+
             view.setModel(model);
             hydrateView(view);
         }

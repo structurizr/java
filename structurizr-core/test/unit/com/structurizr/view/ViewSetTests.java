@@ -336,4 +336,11 @@ public class ViewSetTests {
         }
     }
 
+    @Test
+    public void test_hydrate_DoesNotThrowAnException_WhenADeploymentViewIsNotRelatedToASoftwareSystem() {
+        Workspace workspace = new Workspace("Name", "Description");
+        workspace.getViews().createDeploymentView("deployment", ""); // no associated software system
+        workspace.getViews().hydrate();
+    }
+
 }
