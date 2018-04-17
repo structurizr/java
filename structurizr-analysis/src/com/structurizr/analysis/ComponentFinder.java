@@ -139,37 +139,42 @@ public class ComponentFinder {
     }
 
     /**
-     * Sets a classloader to load classes from instead of the system classloader
-     * @param urlClassLoader the classloader to use
+     * Sets a classloader to load classes from instead of the system classloader.
+     *
+     * @param urlClassLoader    the classloader to use
      */
     public void setUrlClassLoader(URLClassLoader urlClassLoader) {
         this.urlClassLoader = urlClassLoader;
     }
 
     /**
-     * Gets the classloader used to load classes
-     * @return the classloader to use, or null if system classloader
+     * Gets the classloader used to load classes.
+     * 
+     * @return  the classloader to use, or null if system classloader
      */
     public URLClassLoader getUrlClassLoader() {
         return urlClassLoader;
     }
 
     /**
-     * Gets the type repository used to analyse java classes
-     * @param typeRepository the type repository to use when analysing
+     * Sets the type repository used to analyse java classes.
+     *
+     * @param typeRepository    the type repository to use when analysing
      */
     public void setTypeRepository(TypeRepository typeRepository) {
         this.typeRepository = typeRepository;
     }
 
     /**
-     * Gets the type repository used to analyse java classes
-     * @return the type supplied type repository, or a default implementation
+     * Gets the type repository used to analyse java classes.
+     *
+     * @return  the type supplied type repository, or a default implementation
      */
     public TypeRepository getTypeRepository() {
         if (typeRepository == null) {
-            typeRepository = new DefaultTypeRepository(getPackageName(), getExclusions(), getUrlClassLoader());
+            typeRepository = new DefaultTypeRepository(getPackageNames(), getExclusions(), getUrlClassLoader());
         }
         return typeRepository;
     }
+
 }
