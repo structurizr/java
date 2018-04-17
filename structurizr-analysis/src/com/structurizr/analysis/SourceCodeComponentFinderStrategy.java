@@ -108,7 +108,7 @@ public class SourceCodeComponentFinderStrategy implements ComponentFinderStrateg
         parameters.add("-sourcepath");
         parameters.add(sourcePath.getCanonicalPath());
         parameters.add("-subpackages");
-        parameters.add(componentFinder.getPackageName());
+        parameters.add(String.join(":", componentFinder.getPackageNames()));
 
         if (encoding != null) {
             parameters.add("-encoding");

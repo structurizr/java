@@ -16,7 +16,7 @@ public class ComponentFinder {
     private URLClassLoader urlClassLoader;
     private TypeRepository typeRepository;
     private Container container;
-    private String packageName;
+    private List<String> packageNames;
 
     // this is a default of regexes representing types we're probably not interested in */
     private Set<Pattern> exclusions = new HashSet<>(Arrays.asList(
@@ -49,7 +49,7 @@ public class ComponentFinder {
         }
 
         this.container = container;
-        this.packageName = packageName;
+        this.packageNames = new ArrayList<String>(Collections.singletonList(packageName));
 
         for (ComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {
             this.componentFinderStrategies.add(componentFinderStrategy);
@@ -92,12 +92,21 @@ public class ComponentFinder {
     }
 
     /**
-     * Gets the name of the package to be scanned.
+     * Adds a package name to be scanned
      *
-     * @return  the package name, as a String
+     * @param packageName the package name as a String
      */
-    public String getPackageName() {
-        return packageName;
+    public void addPackagesName(String packageName) {
+        packageNames.add(packageName);
+    }
+
+    /**
+     * Gets the names of the packages to be scanned.
+     *
+     * @return  the package names, as a List of String
+     */
+    public List<String> getPackageNames() {
+        return new ArrayList<>(packageNames);
     }
 
     /**
