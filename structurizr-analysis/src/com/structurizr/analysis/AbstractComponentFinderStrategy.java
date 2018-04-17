@@ -48,7 +48,7 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
 
     @Override
     public void beforeFindComponents() {
-        typeRepository = new DefaultTypeRepository(componentFinder.getPackageName(), componentFinder.getExclusions(), componentFinder.getUrlClassLoader());
+        typeRepository = new DefaultTypeRepository(componentFinder.getPackageNames(), componentFinder.getExclusions(), componentFinder.getUrlClassLoader());
         supportingTypesStrategies.forEach(sts -> sts.setTypeRepository(typeRepository));
     }
 

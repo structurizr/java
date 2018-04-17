@@ -5,7 +5,8 @@ import com.structurizr.model.Component;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toSet;
 
 /**
  * This strategy finds all types that are referenced by the component type
@@ -24,7 +25,25 @@ public class ReferencedTypesSupportingTypesStrategy extends SupportingTypesStrat
     }
 
     private Set<Class<?>> getReferencedTypesInPackage(String type) {
-        return getTypeRepository().findReferencedTypes(type).stream().filter(t -> t.getCanonicalName() != null && t.getCanonicalName().startsWith(getTypeRepository().getPackage())).collect(Collectors.toSet());
+        return getTypeRepository()
+                .findReferencedTypes(type)
+                .stream()
+                .filter(this::accepts)
+                .collect(toSet());
+    }
+
+    private boolean accepts(final Class<?> clazz) {
+        final String type = clazz.getCanonicalName();
+
+        if (type != null) {
+            for (final String packageName : getTypeRepository().getPackages()) {
+                if (type.startsWith(packageName)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     @Override

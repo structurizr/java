@@ -18,6 +18,7 @@ import java.net.URLClassLoader;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -38,7 +39,7 @@ public class DefaultTypeRepository implements TypeRepository {
     private final Set<Class<?>> types;
     private final ClassLoader classLoader;
 
-    private String packageToScan;
+    private List<String> packagesToScan;
     private Set<Pattern> exclusions = new HashSet<>();
 
     private ClassPool classPool;
@@ -47,10 +48,10 @@ public class DefaultTypeRepository implements TypeRepository {
     /**
      * Creates a new instance based upon a package to scan and a set of exclusions.
      *
-     * @param packageToScan     the fully qualified package name
+     * @param packagesToScan    the fully qualified package names
      * @param exclusions        a Set of Pattern objects
      */
-    DefaultTypeRepository(String packageToScan, Set<Pattern> exclusions, URLClassLoader urlClassLoader) {
+    DefaultTypeRepository(List<String> packagesToScan, Set<Pattern> exclusions, URLClassLoader urlClassLoader) {
         final Collection<URL> urls;
         if (urlClassLoader==null) {
             classLoader = ClassLoader.getSystemClassLoader();
@@ -64,7 +65,7 @@ public class DefaultTypeRepository implements TypeRepository {
             classPool.insertClassPath(new LoaderClassPath(urlClassLoader));
         }
 
-        this.packageToScan = packageToScan;
+        this.packagesToScan = packagesToScan;
         if (exclusions != null) {
             this.exclusions.addAll(exclusions);
         }
@@ -72,7 +73,7 @@ public class DefaultTypeRepository implements TypeRepository {
         AllTypesScanner allTypesScanner = new AllTypesScanner();
         Reflections reflections = new Reflections(new ConfigurationBuilder()
                 .setUrls(urls)
-                .filterInputsBy(new FilterBuilder().includePackage(packageToScan))
+                .filterInputsBy(new FilterBuilder().includePackage(packagesToScan.toArray(new String[packagesToScan.size()])))
                 .setScanners(new SubTypesScanner(false), allTypesScanner)
         );
 
@@ -86,12 +87,12 @@ public class DefaultTypeRepository implements TypeRepository {
     }
 
     /**
-     * Gets the package that this type repository is associated with scanning.
+     * Gets the packages that this type repository is associated with scanning.
      *
-     * @return  a fully qualified package name
+     * @return the fully qualified package names
      */
-    public String getPackage() {
-        return packageToScan;
+    public List<String> getPackages() {
+        return packagesToScan;
     }
 
     /**

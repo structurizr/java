@@ -9,6 +9,7 @@ import test.TypeUtils.SomeInterface;
 import java.util.HashSet;
 import java.util.Set;
 
+import static java.util.Collections.emptyList;
 import static java.util.Collections.emptySet;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -18,7 +19,7 @@ import static org.junit.Assert.fail;
 
 public class TypeUtilsTests {
 
-    private static final TypeRepository types = new DefaultTypeRepository("", emptySet(), null);
+    private static final TypeRepository types = new DefaultTypeRepository(emptyList(), emptySet(), null);
 
     @Test
     public void test_getCategory_ReturnsNull_WhenTheSpecifiedTypeCouldNotBeFound() throws Exception {

@@ -1,5 +1,6 @@
 package com.structurizr.analysis;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -8,11 +9,11 @@ import java.util.Set;
 public interface TypeRepository {
 
     /**
-     * Gets the package that this type repository is associated with scanning.
+     * Gets the packages that this type repository is associated with scanning.
      *
-     * @return  a fully qualified package name
+     * @return  the fully qualified package names
      */
-    String getPackage();
+    List<String> getPackages();
 
     /**
      * Gets all of the types found by this type repository.
