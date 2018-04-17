@@ -168,7 +168,7 @@ public class ComponentFinder {
      */
     public TypeRepository getTypeRepository() {
         if (typeRepository == null) {
-            typeRepository = new DefaultTypeRepository(getPackageName(), getExclusions(), getUrlClassLoader());
+            typeRepository = new DefaultTypeRepository(getPackageNames(), getExclusions(), getUrlClassLoader());
         }
         return typeRepository;
     }
