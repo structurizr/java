@@ -21,7 +21,7 @@ public class SpringWebServiceEndpointComponentFinderStrategyTests {
         ComponentFinder componentFinder = new ComponentFinder(
                 container,
                 "test.SpringWebServiceEndpointComponentFinderStrategy",
-                new SpringWebserviceEndpointComponentFinderStrategy()
+                new SpringWebServiceEndpointComponentFinderStrategy()
         );
         componentFinder.findComponents();
 

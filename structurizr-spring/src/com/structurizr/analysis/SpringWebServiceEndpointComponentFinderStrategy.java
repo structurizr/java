@@ -7,9 +7,9 @@ import java.util.Set;
 /**
  * A component finder strategy that finds Spring web service endpoints (classes annotated @Endpoint).
  */
-public final class SpringWebserviceEndpointComponentFinderStrategy extends AbstractSpringComponentFinderStrategy {
+public final class SpringWebServiceEndpointComponentFinderStrategy extends AbstractSpringComponentFinderStrategy {
 
-    public SpringWebserviceEndpointComponentFinderStrategy(SupportingTypesStrategy... strategies) {
+    public SpringWebServiceEndpointComponentFinderStrategy(SupportingTypesStrategy... strategies) {
         super(strategies);
     }
 
