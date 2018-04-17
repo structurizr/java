@@ -15,12 +15,7 @@ import org.reflections.util.FilterBuilder;
 
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -46,19 +41,29 @@ public class DefaultTypeRepository implements TypeRepository {
     private Map<String, Set<Class<?>>> referencedTypesCache = new HashMap<>();
 
     /**
-     * Creates a new instance based upon a package to scan and a set of exclusions.
+     * Creates a new instance based upon a package to scan, and a set of exclusions.
+     *
+     * @param packageToScan     a fully qualified package name
+     * @param exclusions        a Set of Pattern objects
+     */
+    DefaultTypeRepository(String packageToScan, Set<Pattern> exclusions, URLClassLoader urlClassLoader) {
+        this(asList(packageToScan), exclusions, urlClassLoader);
+    }
+
+    /**
+     * Creates a new instance based upon a list of packages to scan, and a set of exclusions.
      *
      * @param packagesToScan    the fully qualified package names
      * @param exclusions        a Set of Pattern objects
      */
     DefaultTypeRepository(List<String> packagesToScan, Set<Pattern> exclusions, URLClassLoader urlClassLoader) {
         final Collection<URL> urls;
-        if (urlClassLoader==null) {
+
+        if (urlClassLoader == null) {
             classLoader = ClassLoader.getSystemClassLoader();
             urls = ClasspathHelper.forJavaClassPath();
             classPool = ClassPool.getDefault();
-        }
-        else {
+        } else {
             classLoader = urlClassLoader;
             urls = asList(urlClassLoader.getURLs());
             classPool = new ClassPool();
