@@ -7,6 +7,8 @@ import java.net.URLClassLoader;
 import java.util.*;
 import java.util.regex.Pattern;
 
+import static com.structurizr.util.StringUtils.isNullOrEmpty;
+
 /**
  * This class allows you to find components in a Java codebase, when used in conjunction
  * with a number of pluggable component finder strategies.
@@ -16,7 +18,7 @@ public class ComponentFinder {
     private URLClassLoader urlClassLoader;
     private TypeRepository typeRepository;
     private Container container;
-    private List<String> packageNames;
+    private List<String> packageNames = new ArrayList<>();
 
     // this is a default of regexes representing types we're probably not interested in */
     private Set<Pattern> exclusions = new HashSet<>(Arrays.asList(
@@ -40,7 +42,7 @@ public class ComponentFinder {
             throw new IllegalArgumentException("A container must be specified.");
         }
 
-        if (packageName == null || packageName.trim().length() == 0) {
+        if (isNullOrEmpty(packageName)) {
             throw new IllegalArgumentException("A package name must be specified.");
         }
 
@@ -49,7 +51,7 @@ public class ComponentFinder {
         }
 
         this.container = container;
-        this.packageNames = new ArrayList<String>(Collections.singletonList(packageName));
+        this.packageNames.add(packageName);
 
         for (ComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {
             this.componentFinderStrategies.add(componentFinderStrategy);
@@ -92,11 +94,15 @@ public class ComponentFinder {
     }
 
     /**
-     * Adds a package name to be scanned
+     * Adds a package name to be scanned.
      *
-     * @param packageName the package name as a String
+     * @param packageName   the package name as a String
      */
-    public void addPackagesName(String packageName) {
+    public void addPackageName(String packageName) {
+        if (isNullOrEmpty(packageName)) {
+            throw new IllegalArgumentException("A package name must be specified.");
+        }
+
         packageNames.add(packageName);
     }
 

@@ -41,4 +41,28 @@ public class ComponentFinderTests extends AbstractWorkspaceTestBase {
         }
     }
 
+    @Test
+    public void test_addPackageName_ThrowsAnException_WhenANullPackageNameIsSpecified() {
+        try {
+            Container container = model.addSoftwareSystem("Software System", "").addContainer("Container", "", "");
+            ComponentFinder componentFinder = new ComponentFinder(container, "com.mycompany.myapp", new TypeMatcherComponentFinderStrategy(new NameSuffixTypeMatcher("Component", "", "")));
+            componentFinder.addPackageName(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A package name must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addPackageName_ThrowsAnException_WhenAnEmptyPackageNameIsSpecified() {
+        try {
+            Container container = model.addSoftwareSystem("Software System", "").addContainer("Container", "", "");
+            ComponentFinder componentFinder = new ComponentFinder(container, "com.mycompany.myapp", new TypeMatcherComponentFinderStrategy(new NameSuffixTypeMatcher("Component", "", "")));
+            componentFinder.addPackageName(" ");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A package name must be specified.", iae.getMessage());
+        }
+    }
+
 }
