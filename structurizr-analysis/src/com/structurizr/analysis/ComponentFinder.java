@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 public class ComponentFinder {
 
     private URLClassLoader urlClassLoader;
+    private TypeRepository typeRepository;
     private Container container;
     private List<String> packageNames;
 
@@ -151,5 +152,24 @@ public class ComponentFinder {
      */
     public URLClassLoader getUrlClassLoader() {
         return urlClassLoader;
+    }
+
+    /**
+     * Gets the type repository used to analyse java classes
+     * @param typeRepository the type repository to use when analysing
+     */
+    public void setTypeRepository(TypeRepository typeRepository) {
+        this.typeRepository = typeRepository;
+    }
+
+    /**
+     * Gets the type repository used to analyse java classes
+     * @return the type supplied type repository, or a default implementation
+     */
+    public TypeRepository getTypeRepository() {
+        if (typeRepository == null) {
+            typeRepository = new DefaultTypeRepository(getPackageName(), getExclusions(), getUrlClassLoader());
+        }
+        return typeRepository;
     }
 }
