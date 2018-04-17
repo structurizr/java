@@ -17,8 +17,6 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
 
     private static final Log log = LogFactory.getLog(AbstractComponentFinderStrategy.class);
 
-    private TypeRepository typeRepository;
-
     private Set<Component> componentsFound = new HashSet<>();
 
     protected ComponentFinder componentFinder;
