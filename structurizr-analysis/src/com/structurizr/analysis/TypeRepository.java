@@ -5,7 +5,7 @@ import java.util.Set;
 /**
  * This represents an abstraction for a repository of type information.
  */
-interface TypeRepository {
+public interface TypeRepository {
 
     /**
      * Gets the package that this type repository is associated with scanning.
