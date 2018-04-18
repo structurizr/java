@@ -27,6 +27,7 @@ public class Shapes {
         model.addSoftwareSystem("Circle", "Description").addTags("Circle");
         model.addSoftwareSystem("Hexagon", "Description").addTags("Hexagon");
         model.addSoftwareSystem("Cylinder", "Description").addTags("Cylinder");
+        model.addSoftwareSystem("WebBrowser", "Description").addTags("Web Browser");
         model.addSoftwareSystem("Pipe", "Description").addTags("Pipe");
         model.addSoftwareSystem("Folder", "Description").addTags("Folder");
         model.addPerson("Person", "Description").addTags("Person");
@@ -44,6 +45,7 @@ public class Shapes {
         styles.addElementStyle("Ellipse").shape(Shape.Ellipse);
         styles.addElementStyle("Circle").shape(Shape.Circle);
         styles.addElementStyle("Cylinder").shape(Shape.Cylinder);
+        styles.addElementStyle("Web Browser").shape(Shape.WebBrowser);
         styles.addElementStyle("Pipe").shape(Shape.Pipe);
         styles.addElementStyle("Folder").shape(Shape.Folder);
         styles.addElementStyle("Hexagon").shape(Shape.Hexagon);
