@@ -5,6 +5,7 @@ import com.structurizr.model.Person;
 import com.structurizr.model.Relationship;
 import com.structurizr.model.SoftwareSystem;
 
+import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,7 +33,7 @@ public abstract class StaticView extends View {
      *
      * @param softwareSystem the SoftwareSystem to add
      */
-    public void add(SoftwareSystem softwareSystem) {
+    public void add(@Nonnull SoftwareSystem softwareSystem) {
         addElement(softwareSystem, true);
     }
 
@@ -41,7 +42,7 @@ public abstract class StaticView extends View {
      *
      * @param softwareSystem the SoftwareSystem to remove
      */
-    public void remove(SoftwareSystem softwareSystem) {
+    public void remove(@Nonnull SoftwareSystem softwareSystem) {
         removeElement(softwareSystem);
     }
 
@@ -57,7 +58,7 @@ public abstract class StaticView extends View {
      *
      * @param person the Person to add
      */
-    public void add(Person person) {
+    public void add(@Nonnull Person person) {
         addElement(person, true);
     }
 
@@ -66,7 +67,7 @@ public abstract class StaticView extends View {
      *
      * @param person the Person to add
      */
-    public void remove(Person person) {
+    public void remove(@Nonnull Person person) {
         removeElement(person);
     }
 
@@ -76,7 +77,7 @@ public abstract class StaticView extends View {
      * @param relationship  the Relationship to be added
      * @return  a RelationshipView object representing the relationship added
      */
-    public RelationshipView add(Relationship relationship) {
+    public RelationshipView add(@Nonnull Relationship relationship) {
         return addRelationship(relationship);
     }
 
@@ -90,7 +91,7 @@ public abstract class StaticView extends View {
      *
      * @param element   an Element
      */
-    public abstract void addNearestNeighbours(Element element);
+    public abstract void addNearestNeighbours(@Nonnull Element element);
 
     protected <T extends Element> void addNearestNeighbours(Element element, Class<T> typeOfElement) {
         if (element == null) {
@@ -146,7 +147,7 @@ public abstract class StaticView extends View {
      *
      * @param tag a tag
      */
-    public final void removeElementsWithTag(String tag) {
+    public final void removeElementsWithTag(@Nonnull String tag) {
         getElements().stream()
                 .map(ElementView::getElement)
                 .filter(e -> e.hasTag(tag))
@@ -158,7 +159,7 @@ public abstract class StaticView extends View {
      *
      * @param tag a tag
      */
-    public final void removeRelationshipsWithTag(String tag) {
+    public final void removeRelationshipsWithTag(@Nonnull String tag) {
         getRelationships().stream()
                 .map(RelationshipView::getRelationship)
                 .filter(r -> r.hasTag(tag))

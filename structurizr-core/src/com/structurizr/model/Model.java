@@ -2,6 +2,8 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,7 +29,7 @@ public final class Model {
     /**
      * Gets the enterprise associated with this model.
      *
-     * @return  an Enterprise instance, or null if one has not been set
+     * @return an Enterprise instance, or null if one has not been set
      */
     public Enterprise getEnterprise() {
         return enterprise;
@@ -36,7 +38,7 @@ public final class Model {
     /**
      * Sets the enterprise associated with this model.
      *
-     * @param enterprise    an Enterprise instance
+     * @param enterprise an Enterprise instance
      */
     public void setEnterprise(Enterprise enterprise) {
         this.enterprise = enterprise;
@@ -48,9 +50,9 @@ public final class Model {
      * @param name        the name of the software system
      * @param description a short description of the software system
      * @return the SoftwareSystem instance created and added to the model (or null)
-     * @throws  IllegalArgumentException    if a software system with the same name already exists
+     * @throws IllegalArgumentException if a software system with the same name already exists
      */
-    public SoftwareSystem addSoftwareSystem(String name, String description) {
+    public SoftwareSystem addSoftwareSystem(@Nonnull String name, @Nullable String description) {
         return addSoftwareSystem(Location.Unspecified, name, description);
     }
 
@@ -61,9 +63,10 @@ public final class Model {
      * @param name        the name of the software system
      * @param description a short description of the software system
      * @return the SoftwareSystem instance created and added to the model (or null)
-     * @throws  IllegalArgumentException    if a software system with the same name already exists
+     * @throws IllegalArgumentException if a software system with the same name already exists
      */
-    public SoftwareSystem addSoftwareSystem(Location location, String name, String description) {
+    @Nonnull
+    public SoftwareSystem addSoftwareSystem(@Nullable Location location, @Nonnull String name, @Nullable String description) {
         if (getSoftwareSystemWithName(name) == null) {
             SoftwareSystem softwareSystem = new SoftwareSystem();
             softwareSystem.setLocation(location);
@@ -87,9 +90,10 @@ public final class Model {
      * @param name        the name of the person (e.g. "Admin User" or "Bob the Business User")
      * @param description a short description of the person
      * @return the Person instance created and added to the model (or null)
-     * @throws  IllegalArgumentException    if a person with the same name already exists
+     * @throws IllegalArgumentException if a person with the same name already exists
      */
-    public Person addPerson(String name, String description) {
+    @Nonnull
+    public Person addPerson(@Nonnull String name, @Nullable String description) {
         return addPerson(Location.Unspecified, name, description);
     }
 
@@ -100,9 +104,10 @@ public final class Model {
      * @param name        the name of the person (e.g. "Admin User" or "Bob the Business User")
      * @param description a short description of the person
      * @return the Person instance created and added to the model (or null)
-     * @throws  IllegalArgumentException    if a person with the same name already exists
+     * @throws IllegalArgumentException if a person with the same name already exists
      */
-    public Person addPerson(Location location, String name, String description) {
+    @Nonnull
+    public Person addPerson(Location location, @Nonnull String name, @Nullable String description) {
         if (getPersonWithName(name) == null) {
             Person person = new Person();
             person.setLocation(location);
@@ -120,7 +125,8 @@ public final class Model {
         }
     }
 
-    Container addContainer(SoftwareSystem parent, String name, String description, String technology) {
+    @Nonnull
+    Container addContainer(SoftwareSystem parent, @Nonnull String name, @Nullable String description, @Nullable String technology) {
         if (parent.getContainerWithName(name) == null) {
             Container container = new Container();
             container.setName(name);
@@ -162,7 +168,8 @@ public final class Model {
         }
     }
 
-    Relationship addRelationship(Element source, Element destination, String description, String technology, InteractionStyle interactionStyle) {
+    @Nullable
+    Relationship addRelationship(Element source, @Nonnull Element destination, String description, String technology, InteractionStyle interactionStyle) {
         if (destination == null) {
             throw new IllegalArgumentException("The destination must be specified.");
 
@@ -205,6 +212,7 @@ public final class Model {
      * @return a Set of Element instances
      */
     @JsonIgnore
+    @Nonnull
     public Set<Element> getElements() {
         return new HashSet<>(this.elementsById.values());
     }
@@ -212,11 +220,12 @@ public final class Model {
     /**
      * Gets the element with the specified ID.
      *
-     * @param id    the {@link Element#getId()} of the element
+     * @param id the {@link Element#getId()} of the element
      * @return the element in this model with the specified ID (or null if it doesn't exist)
      * @see Element#getId()
      */
-    public Element getElement(String id) {
+    @Nullable
+    public Element getElement(@Nonnull String id) {
         if (id == null || id.trim().length() == 0) {
             throw new IllegalArgumentException("An element ID must be specified.");
         }
@@ -230,6 +239,7 @@ public final class Model {
      * @return a Set of Relationship objects
      */
     @JsonIgnore
+    @Nonnull
     public Set<Relationship> getRelationships() {
         return new HashSet<>(this.relationshipsById.values());
     }
@@ -237,11 +247,12 @@ public final class Model {
     /**
      * Gets the relationship with the specified ID.
      *
-     * @param id    the {@link Relationship#getId()} of the relationship
+     * @param id the {@link Relationship#getId()} of the relationship
      * @return the relationship in this model with the specified ID (or null if it doesn't exist).
      * @see Relationship#getId()
      */
-    public Relationship getRelationship(String id) {
+    @Nullable
+    public Relationship getRelationship(@Nonnull String id) {
         if (id == null || id.trim().length() == 0) {
             throw new IllegalArgumentException("An relationship ID must be specified.");
         }
@@ -254,6 +265,7 @@ public final class Model {
      *
      * @return a Set of Person instances
      */
+    @Nonnull
     public Set<Person> getPeople() {
         return new LinkedHashSet<>(people);
     }
@@ -263,6 +275,7 @@ public final class Model {
      *
      * @return a Set of SoftwareSystem instances
      */
+    @Nonnull
     public Set<SoftwareSystem> getSoftwareSystems() {
         return new LinkedHashSet<>(softwareSystems);
     }
@@ -272,6 +285,7 @@ public final class Model {
      *
      * @return a Set of DeploymentNode instances
      */
+    @Nonnull
     public Set<DeploymentNode> getDeploymentNodes() {
         return new LinkedHashSet<>(deploymentNodes);
     }
@@ -317,7 +331,7 @@ public final class Model {
         deploymentNode.getChildren().forEach(child -> hydrateDeploymentNode(child, deploymentNode));
 
         for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
-            containerInstance.setContainer((Container)getElement(containerInstance.getContainerId()));
+            containerInstance.setContainer((Container) getElement(containerInstance.getContainerId()));
             addElementToInternalStructures(containerInstance);
         }
     }
@@ -349,11 +363,12 @@ public final class Model {
     /**
      * Gets the software system with the specified name.
      *
-     * @param name  the name of a {@link SoftwareSystem}
+     * @param name the name of a {@link SoftwareSystem}
      * @return the SoftwareSystem instance with the specified name (or null if it doesn't exist)
-     * @throws IllegalArgumentException     if the name is null or empty
+     * @throws IllegalArgumentException if the name is null or empty
      */
-    public SoftwareSystem getSoftwareSystemWithName(String name) {
+    @Nullable
+    public SoftwareSystem getSoftwareSystemWithName(@Nonnull String name) {
         if (name == null || name.trim().length() == 0) {
             throw new IllegalArgumentException("A software system name must be specified.");
         }
@@ -370,12 +385,13 @@ public final class Model {
     /**
      * Gets the software system with the specified ID.
      *
-     * @param id    the {@link SoftwareSystem#getId()} of the software system
+     * @param id the {@link SoftwareSystem#getId()} of the software system
      * @return the SoftwareSystem instance with the specified ID (or null if it doesn't exist).
+     * @throws IllegalArgumentException if the id is null or empty
      * @see SoftwareSystem#getId()
-     * @throws IllegalArgumentException     if the id is null or empty
      */
-    public SoftwareSystem getSoftwareSystemWithId(String id) {
+    @Nullable
+    public SoftwareSystem getSoftwareSystemWithId(@Nonnull String id) {
         if (id == null || id.trim().length() == 0) {
             throw new IllegalArgumentException("A software system ID must be specified.");
         }
@@ -392,11 +408,12 @@ public final class Model {
     /**
      * Gets the person with the specified name.
      *
-     * @param name  the name of the person
+     * @param name the name of the person
      * @return the Person instance with the specified name (or null if it doesn't exist)
-     * @throws IllegalArgumentException     if the name is null or empty
+     * @throws IllegalArgumentException if the name is null or empty
      */
-    public Person getPersonWithName(String name) {
+    @Nullable
+    public Person getPersonWithName(@Nonnull String name) {
         if (name == null || name.trim().length() == 0) {
             throw new IllegalArgumentException("A person name must be specified.");
         }
@@ -417,6 +434,7 @@ public final class Model {
      *
      * @return a set of all implicit relationships that were added to the model
      */
+    @Nonnull
     public Set<Relationship> addImplicitRelationships() {
         Set<Relationship> implicitRelationships = new HashSet<>();
 
@@ -522,7 +540,7 @@ public final class Model {
     /**
      * Determines whether this model is empty.
      *
-     * @return  true if the model contains no people, software systems or deployment nodes; false otherwise
+     * @return true if the model contains no people, software systems or deployment nodes; false otherwise
      */
     @JsonIgnore
     public boolean isEmpty() {
@@ -532,46 +550,50 @@ public final class Model {
     /**
      * Adds a top-level deployment node to this model.
      *
-     * @param name          the name of the deployment node
-     * @param description   the description of the deployment node
-     * @param technology    the technology associated with the deployment node
-     * @return  a DeploymentNode instance
-     * @throws  IllegalArgumentException    if the name is not specified, or a top-level deployment node with the same name already exists in the model
+     * @param name        the name of the deployment node
+     * @param description the description of the deployment node
+     * @param technology  the technology associated with the deployment node
+     * @return a DeploymentNode instance
+     * @throws IllegalArgumentException if the name is not specified, or a top-level deployment node with the same name already exists in the model
      */
-    public DeploymentNode addDeploymentNode(String name, String description, String technology) {
+    @Nonnull
+    public DeploymentNode addDeploymentNode(@Nonnull String name, @Nullable String description, @Nullable String technology) {
         return addDeploymentNode(name, description, technology, 1);
     }
 
     /**
      * Adds a top-level deployment node to this model.
      *
-     * @param name          the name of the deployment node
-     * @param description   the description of the deployment node
-     * @param technology    the technology associated with the deployment node
-     * @param instances     the number of instances of the deployment node
-     * @return  a DeploymentNode instance
-     * @throws  IllegalArgumentException    if the name is not specified, or a top-level deployment node with the same name already exists in the model
+     * @param name        the name of the deployment node
+     * @param description the description of the deployment node
+     * @param technology  the technology associated with the deployment node
+     * @param instances   the number of instances of the deployment node
+     * @return a DeploymentNode instance
+     * @throws IllegalArgumentException if the name is not specified, or a top-level deployment node with the same name already exists in the model
      */
-    public DeploymentNode addDeploymentNode(String name, String description, String technology, int instances) {
+    @Nonnull
+    public DeploymentNode addDeploymentNode(@Nonnull String name, @Nullable String description, @Nullable String technology, int instances) {
         return addDeploymentNode(name, description, technology, instances, null);
     }
 
     /**
      * Adds a top-level deployment node to this model.
      *
-     * @param name          the name of the deployment node
-     * @param description   the description of the deployment node
-     * @param technology    the technology associated with the deployment node
-     * @param instances     the number of instances of the deployment node
-     * @param properties    a map of name/value properties associated with the deployment node
-     * @return  a DeploymentNode instance
-     * @throws  IllegalArgumentException    if the name is not specified, or a top-level deployment node with the same name already exists in the model
+     * @param name        the name of the deployment node
+     * @param description the description of the deployment node
+     * @param technology  the technology associated with the deployment node
+     * @param instances   the number of instances of the deployment node
+     * @param properties  a map of name/value properties associated with the deployment node
+     * @return a DeploymentNode instance
+     * @throws IllegalArgumentException if the name is not specified, or a top-level deployment node with the same name already exists in the model
      */
-    public DeploymentNode addDeploymentNode(String name, String description, String technology, int instances, Map<String, String> properties) {
+    @Nonnull
+    public DeploymentNode addDeploymentNode(@Nonnull String name, String description, String technology, int instances, Map<String, String> properties) {
         return addDeploymentNode(null, name, description, technology, instances, properties);
     }
 
-    DeploymentNode addDeploymentNode(DeploymentNode parent, String name, String description, String technology, int instances, Map<String, String> properties) {
+    @Nonnull
+    DeploymentNode addDeploymentNode(DeploymentNode parent, @Nonnull String name, String description, String technology, int instances, Map<String, String> properties) {
         if (name == null || name.trim().length() == 0) {
             throw new IllegalArgumentException("A name must be specified.");
         }
@@ -619,9 +641,9 @@ public final class Model {
             throw new IllegalArgumentException("A container must be specified.");
         }
 
-        long instanceNumber = getElements().stream().filter(e -> e instanceof ContainerInstance && ((ContainerInstance)e).getContainer().equals(container)).count();
+        long instanceNumber = getElements().stream().filter(e -> e instanceof ContainerInstance && ((ContainerInstance) e).getContainer().equals(container)).count();
         instanceNumber++;
-        ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber);
+        ContainerInstance containerInstance = new ContainerInstance(container, (int) instanceNumber);
         containerInstance.setId(idGenerator.generateId(containerInstance));
 
         if (replicateContainerRelationships) {
@@ -657,9 +679,9 @@ public final class Model {
     /**
      * Gets the element with the specified canonical name.
      *
-     * @param canonicalName     the canonical name (e.g. /SoftwareSystem/Container)
-     * @return  the Element with the given canonical name, or null if one doesn't exist
-     * @throws IllegalArgumentException     if the canonical name is null or empty
+     * @param canonicalName the canonical name (e.g. /SoftwareSystem/Container)
+     * @return the Element with the given canonical name, or null if one doesn't exist
+     * @throws IllegalArgumentException if the canonical name is null or empty
      */
     public Element getElementWithCanonicalName(String canonicalName) {
         if (canonicalName == null || canonicalName.trim().length() == 0) {
@@ -683,8 +705,8 @@ public final class Model {
     /**
      * Sets the ID generator associated with this model.
      *
-     * @param idGenerator   an IdGenerate instance
-     * @throws IllegalArgumentException     if the ID generator is null
+     * @param idGenerator an IdGenerate instance
+     * @throws IllegalArgumentException if the ID generator is null
      */
     public void setIdGenerator(IdGenerator idGenerator) {
         if (idGenerator == null) {

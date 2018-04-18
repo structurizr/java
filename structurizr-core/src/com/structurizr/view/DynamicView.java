@@ -3,6 +3,7 @@ package com.structurizr.view;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.*;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -85,11 +86,11 @@ public final class DynamicView extends View {
         this.element = element;
     }
 
-    public RelationshipView add(Element source, Element destination) {
+    public RelationshipView add(@Nonnull Element source, @Nonnull Element destination) {
         return add(source, "", destination);
     }
 
-    public RelationshipView add(Element source, String description, Element destination) {
+    public RelationshipView add(@Nonnull Element source, String description, @Nonnull Element destination) {
         if (source != null && destination != null) {
             checkElement(source);
             checkElement(destination);
@@ -150,7 +151,7 @@ public final class DynamicView extends View {
     }
 
     @Override
-    protected RelationshipView findRelationshipView(RelationshipView sourceRelationshipView) {
+    protected RelationshipView findRelationshipView(@Nonnull RelationshipView sourceRelationshipView) {
         for (RelationshipView relationshipView : getRelationships()) {
             if (relationshipView.getRelationship().equals(sourceRelationshipView.getRelationship())) {
                 if ((relationshipView.getDescription() != null && relationshipView.getDescription().equals(sourceRelationshipView.getDescription())) &&

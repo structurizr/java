@@ -2,6 +2,8 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -120,7 +122,8 @@ public final class ContainerInstance extends Element {
      * @param interactionStyle  the interaction style (Synchronous vs Asynchronous)
      * @return  a Relationship object
      */
-    public Relationship uses(ContainerInstance destination, String description, String technology, InteractionStyle interactionStyle) {
+    @Nullable
+    public Relationship uses(@Nonnull ContainerInstance destination, String description, String technology, InteractionStyle interactionStyle) {
         if (destination != null) {
             return getModel().addRelationship(this, destination, description, technology, interactionStyle);
         } else {
@@ -133,6 +136,7 @@ public final class ContainerInstance extends Element {
      *
      * @return  a Set of HttpHealthCheck instances
      */
+    @Nonnull
     public Set<HttpHealthCheck> getHealthChecks() {
         return new HashSet<>(healthChecks);
     }
@@ -148,6 +152,7 @@ public final class ContainerInstance extends Element {
      * @param url       the URL of the health check
      * @return  a HttpHealthCheck instance representing the health check that has been added
      */
+    @Nonnull
     public HttpHealthCheck addHealthCheck(String name, String url) {
         HttpHealthCheck healthCheck = new HttpHealthCheck(name, url);
         healthChecks.add(healthCheck);

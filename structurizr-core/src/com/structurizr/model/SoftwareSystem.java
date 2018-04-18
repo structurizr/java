@@ -2,6 +2,8 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -61,6 +63,7 @@ public final class SoftwareSystem extends StaticStructureElement {
      *
      * @return a Set of Container objects
      */
+    @Nonnull
     public Set<Container> getContainers() {
         return new HashSet<>(containers);
     }
@@ -74,7 +77,8 @@ public final class SoftwareSystem extends StaticStructureElement {
      * @return the newly created Container instance added to the model (or null)
      * @throws IllegalArgumentException     if a container with the same name exists already
      */
-    public Container addContainer(String name, String description, String technology) {
+    @Nonnull
+    public Container addContainer(@Nonnull String name, String description, String technology) {
         return getModel().addContainer(this, name, description, technology);
     }
 
@@ -85,7 +89,8 @@ public final class SoftwareSystem extends StaticStructureElement {
      * @return the Container instance with the specified name, or null if it doesn't exist
      * @throws IllegalArgumentException     if the name is null or empty
      */
-    public Container getContainerWithName(String name) {
+    @Nullable
+    public Container getContainerWithName(@Nonnull String name) {
         if (name == null || name.trim().length() == 0) {
             throw new IllegalArgumentException("A container name must be provided.");
         }
@@ -106,7 +111,8 @@ public final class SoftwareSystem extends StaticStructureElement {
      * @return  the Container instance with the specified ID, or null if it doesn't exist
      * @throws IllegalArgumentException     if the ID is null or empty
      */
-    public Container getContainerWithId(String id) {
+    @Nullable
+    public Container getContainerWithId(@Nonnull String id) {
         if (id == null || id.trim().length() == 0) {
             throw new IllegalArgumentException("A container ID must be provided.");
         }

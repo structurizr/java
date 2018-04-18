@@ -6,6 +6,7 @@ import com.structurizr.model.Model;
 import com.structurizr.model.Relationship;
 import com.structurizr.model.SoftwareSystem;
 
+import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Optional;
@@ -283,7 +284,7 @@ public abstract class View {
      *
      * @param source    the source View
      */
-    public void copyLayoutInformationFrom(View source) {
+    public void copyLayoutInformationFrom(@Nonnull View source) {
         if (this.getPaperSize() == null) {
             this.setPaperSize(source.getPaperSize());
         }
@@ -319,12 +320,12 @@ public abstract class View {
      * @param element   the Element to find the ElementView for
      * @return  an ElementView object, or null if the element doesn't exist in the view
      */
-    public ElementView getElementView(Element element) {
+    public ElementView getElementView(@Nonnull Element element) {
         Optional<ElementView> elementView = this.elementViews.stream().filter(ev -> ev.getElement().equals(element)).findFirst();
         return elementView.orElse(null);
     }
 
-    protected RelationshipView findRelationshipView(RelationshipView sourceRelationshipView) {
+    protected RelationshipView findRelationshipView(@Nonnull RelationshipView sourceRelationshipView) {
         for (RelationshipView relationshipView : getRelationships()) {
             if (relationshipView.getRelationship().equals(sourceRelationshipView.getRelationship())) {
                 return relationshipView;
@@ -340,12 +341,12 @@ public abstract class View {
      * @param relationship  the Relationship to find the RelationshipView for
      * @return  an RelationshipView object, or null if the relationship doesn't exist in the view
      */
-    public RelationshipView getRelationshipView(Relationship relationship) {
+    public RelationshipView getRelationshipView(@Nonnull Relationship relationship) {
         Optional<RelationshipView> relationshipView = this.relationshipViews.stream().filter(rv -> rv.getRelationship().equals(relationship)).findFirst();
         return relationshipView.orElse(null);
     }
 
-    void setViewSet(ViewSet viewSet) {
+    void setViewSet(@Nonnull ViewSet viewSet) {
         this.viewSet = viewSet;
     }
 

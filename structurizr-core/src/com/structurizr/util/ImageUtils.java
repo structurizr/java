@@ -1,5 +1,6 @@
 package com.structurizr.util;
 
+import javax.annotation.Nonnull;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -20,7 +21,7 @@ public class ImageUtils {
      * @return  a content type (e.g. "image/png")
      * @throws IOException      if there is an error reading the file
      */
-    public static String getContentType(File file) throws IOException {
+    public static String getContentType(@Nonnull File file) throws IOException {
         if (file == null) {
             throw new IllegalArgumentException("A file must be specified.");
         } else if (!file.exists()) {
@@ -44,7 +45,7 @@ public class ImageUtils {
      * @return  a Base64 encoded version of that image
      * @throws IOException      if there is an error reading the file
      */
-    public static String getImageAsBase64(File file) throws IOException {
+    public static String getImageAsBase64(@Nonnull File file) throws IOException {
         String contentType = getContentType(file);
         BufferedImage bufferedImage = ImageIO.read(file);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();

@@ -3,6 +3,7 @@ package com.structurizr.view;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.*;
 
+import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -61,7 +62,7 @@ public final class ComponentView extends StaticView {
      * @param softwareSystem    the SoftwareSystem to add to this view
      */
     @Override
-    public void add(SoftwareSystem softwareSystem) {
+    public void add(@Nonnull SoftwareSystem softwareSystem) {
         if (softwareSystem != null && !softwareSystem.equals(getSoftwareSystem())) {
             addElement(softwareSystem, true);
         }
@@ -152,7 +153,7 @@ public final class ComponentView extends StaticView {
      * @param element   an Element
      */
     @Override
-    public void addNearestNeighbours(Element element) {
+    public void addNearestNeighbours(@Nonnull Element element) {
         super.addNearestNeighbours(element, SoftwareSystem.class);
         super.addNearestNeighbours(element, Person.class);
         super.addNearestNeighbours(element, Container.class);
