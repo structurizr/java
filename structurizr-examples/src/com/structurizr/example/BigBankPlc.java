@@ -23,6 +23,7 @@ public class BigBankPlc {
     private static final String EXISTING_SYSTEM_TAG = "Existing System";
     private static final String BANK_STAFF_TAG = "Bank Staff";
     private static final String WEB_BROWSER_TAG = "Web Browser";
+    private static final String MOBILE_APP_TAG = "Mobile App";
     private static final String DATABASE_TAG = "Database";
 
     private static Workspace create(boolean usePaidFeatures) {
@@ -64,6 +65,7 @@ public class BigBankPlc {
         Container singlePageApplication = internetBankingSystem.addContainer("Single-Page Application", "Provides all of the Internet banking functionality to customers via their web browser.", "JavaScript and Angular");
         singlePageApplication.addTags(WEB_BROWSER_TAG);
         Container mobileApp = internetBankingSystem.addContainer("Mobile App", "Provides a limited subset of the Internet banking functionality to customers via their mobile device.", "Xamarin");
+        mobileApp.addTags(MOBILE_APP_TAG);
         Container webApplication = internetBankingSystem.addContainer("Web Application", "Delivers the static content and the Internet banking single page application.", "Java and Spring MVC");
         Container apiApplication = internetBankingSystem.addContainer("API Application", "Provides Internet banking functionality via a JSON/HTTPS API.", "Java and Spring MVC");
         Container database = internetBankingSystem.addContainer("Database", "Stores user registration information, hashed authentication credentials, access logs, etc.", "Relational Database Schema");
@@ -191,6 +193,7 @@ public class BigBankPlc {
         styles.addElementStyle(EXISTING_SYSTEM_TAG).background("#999999");
         styles.addElementStyle(BANK_STAFF_TAG).background("#999999");
         styles.addElementStyle(WEB_BROWSER_TAG).shape(Shape.WebBrowser);
+        styles.addElementStyle(MOBILE_APP_TAG).shape(Shape.MobileDeviceLandscape);
         styles.addElementStyle(DATABASE_TAG).shape(Shape.Cylinder);
         styles.addElementStyle("Failover").opacity(25);
         styles.addRelationshipStyle("Failover").opacity(25).position(70);

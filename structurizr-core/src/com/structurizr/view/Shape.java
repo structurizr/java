@@ -11,6 +11,8 @@ public enum Shape {
     Pipe,
     Person,
     Folder,
-    WebBrowser
+    WebBrowser,
+    MobileDevicePortrait,
+    MobileDeviceLandscape
 
 }
