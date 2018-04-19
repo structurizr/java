@@ -180,6 +180,28 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_addRelationship_DisallowsTheSameRelationshipToBeAddedMoreThanOnce() {
+        SoftwareSystem element1 = model.addSoftwareSystem("Element 1", "Description");
+        SoftwareSystem element2 = model.addSoftwareSystem("Element 2", "Description");
+        Relationship relationship1 = element1.uses(element2, "Uses", "");
+        Relationship relationship2 = element1.uses(element2, "Uses", "");
+        assertTrue(element1.has(relationship1));
+        assertNull(relationship2);
+        assertEquals(1, element1.getRelationships().size());
+    }
+
+    @Test
+    public void test_addRelationship_AllowsMultipleRelationshipsBetweenElements() {
+        SoftwareSystem element1 = model.addSoftwareSystem("Element 1", "Description");
+        SoftwareSystem element2 = model.addSoftwareSystem("Element 2", "Description");
+        Relationship relationship1 = element1.uses(element2, "Uses in some way", "");
+        Relationship relationship2 = element1.uses(element2, "Uses in another way", "");
+        assertTrue(element1.has(relationship1));
+        assertTrue(element1.has(relationship2));
+        assertEquals(2, element1.getRelationships().size());
+    }
+
+    @Test
     public void test_addImplicitRelationships_WhenSourceAndDestinationAreComponentsInDifferentSoftwareSystems() {
         SoftwareSystem a = model.addSoftwareSystem("A", "");
         Container aa = a.addContainer("AA", "", "");
