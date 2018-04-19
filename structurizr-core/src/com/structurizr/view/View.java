@@ -22,6 +22,7 @@ public abstract class View {
     private String description = "";
     private String key;
     private PaperSize paperSize = null;
+    private String title;
 
     private Set<ElementView> elementViews = new LinkedHashSet<>();
     private Set<RelationshipView> relationshipViews = new LinkedHashSet<>();
@@ -123,6 +124,24 @@ public abstract class View {
 
     public void setPaperSize(PaperSize paperSize) {
         this.paperSize = paperSize;
+    }
+
+    /**
+     * Gets the title of this view, if one has been set.
+     *
+     * @return  the title, as a String
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Sets the title for this view.
+     *
+     * @param title     the title, as a String
+     */
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     /**
