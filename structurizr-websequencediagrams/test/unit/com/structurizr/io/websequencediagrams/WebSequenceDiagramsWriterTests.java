@@ -41,9 +41,7 @@ public class WebSequenceDiagramsWriterTests {
         SoftwareSystem c = model.addSoftwareSystem("System C", "");
 
         a.uses(b, "");
-        Relationship bc = b.uses(c, "");
-        bc.setInteractionStyle(InteractionStyle.Asynchronous);
-
+        b.uses(c, "", "", InteractionStyle.Asynchronous);
         DynamicView view = workspace.getViews().createDynamicView("Some Key", "A description of the diagram");
         view.add(a, "Does something using", b);
         view.add(b, "Does something then using", c);
