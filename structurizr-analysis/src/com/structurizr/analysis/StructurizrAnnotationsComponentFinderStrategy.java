@@ -3,6 +3,7 @@ package com.structurizr.analysis;
 import com.structurizr.annotation.*;
 import com.structurizr.model.*;
 import com.structurizr.model.Component;
+import com.structurizr.util.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -89,9 +90,9 @@ public class StructurizrAnnotationsComponentFinderStrategy extends AbstractCompo
                     Component destination = componentFinder.getContainer().getComponentOfType(name);
                     if (destination != null) {
                         for (Relationship relationship : component.getRelationships()) {
-                            if (relationship.getDestination() == destination) {
-                                relationship.setDescription(description);
-                                relationship.setTechnology(technology);
+                            if (relationship.getDestination() == destination && StringUtils.isNullOrEmpty(relationship.getDescription())) {
+                                // only change the details of relationships that have no description
+                                component.getModel().modifyRelationship(relationship, description, technology);
                             }
                         }
                     } else {

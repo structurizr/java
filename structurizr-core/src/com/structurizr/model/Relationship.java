@@ -103,7 +103,7 @@ public final class Relationship extends Taggable {
         return description != null ? description : "";
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = description;
     }
 
@@ -117,7 +117,7 @@ public final class Relationship extends Taggable {
         return technology;
     }
 
-    public void setTechnology(String technology) {
+    void setTechnology(String technology) {
         this.technology = technology;
     }
 
@@ -131,7 +131,7 @@ public final class Relationship extends Taggable {
         return interactionStyle;
     }
 
-    public void setInteractionStyle(InteractionStyle interactionStyle) {
+    void setInteractionStyle(InteractionStyle interactionStyle) {
         this.interactionStyle = interactionStyle;
 
         if (interactionStyle == InteractionStyle.Synchronous) {

@@ -694,4 +694,25 @@ public final class Model {
         this.idGenerator = idGenerator;
     }
 
+    /**
+     * Provides a way for the description and technology to be modified on an existing relationship.
+     *
+     * @param relationship  a Relationship instance
+     * @param description   the new description
+     * @param technology    the new technology
+     */
+    public void modifyRelationship(Relationship relationship, String description, String technology) {
+        if (relationship == null) {
+            throw new IllegalArgumentException("A relationship must be specified.");
+        }
+
+        Relationship newRelationship = new Relationship(relationship.getSource(), relationship.getDestination(), description, technology, relationship.getInteractionStyle());
+        if (!relationship.getSource().has(newRelationship)) {
+            relationship.setDescription(description);
+            relationship.setTechnology(technology);
+        } else {
+            throw new IllegalArgumentException("This relationship exists already: " + newRelationship);
+        }
+    }
+
 }

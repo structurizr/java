@@ -202,6 +202,41 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_modifyRelationship_ThrowsAnException_WhenARelationshipIsNotSpecified() {
+        try {
+            model.modifyRelationship(null, "Uses", "Technology");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A relationship must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_modifyRelationship_ModifiesAnExistingRelationship_WhenThatRelationshipDoesNotAlreadyExist() {
+        SoftwareSystem element1 = model.addSoftwareSystem("Element 1", "Description");
+        SoftwareSystem element2 = model.addSoftwareSystem("Element 2", "Description");
+        Relationship relationship = element1.uses(element2, "", "");
+
+        model.modifyRelationship(relationship, "Uses", "Technology");
+        assertEquals("Uses", relationship.getDescription());
+        assertEquals("Technology", relationship.getTechnology());
+    }
+
+    @Test
+    public void test_modifyRelationship_ThrowsAnException_WhenThatRelationshipDoesAlreadyExist() {
+        SoftwareSystem element1 = model.addSoftwareSystem("Element 1", "Description");
+        SoftwareSystem element2 = model.addSoftwareSystem("Element 2", "Description");
+        Relationship relationship = element1.uses(element2, "Uses", "Technology");
+
+        try {
+            model.modifyRelationship(relationship, "Uses", "Technology");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("This relationship exists already: {1 | Element 1 | Description} ---[Uses]---> {2 | Element 2 | Description}", iae.getMessage());
+        }
+    }
+
+    @Test
     public void test_addImplicitRelationships_WhenSourceAndDestinationAreComponentsInDifferentSoftwareSystems() {
         SoftwareSystem a = model.addSoftwareSystem("A", "");
         Container aa = a.addContainer("AA", "", "");

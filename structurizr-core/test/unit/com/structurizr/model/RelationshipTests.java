@@ -18,8 +18,7 @@ public class RelationshipTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_getDescription_NeverReturnsNull() {
-        Relationship relationship = softwareSystem1.uses(softwareSystem2, "Uses");
-        relationship.setDescription(null);
+        Relationship relationship = softwareSystem1.uses(softwareSystem2, null);
         assertEquals("", relationship.getDescription());
     }
 
