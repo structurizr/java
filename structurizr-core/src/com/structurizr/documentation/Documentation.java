@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.Element;
 import com.structurizr.model.Model;
 
+import javax.annotation.Nonnull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,7 +25,7 @@ public final class Documentation {
     Documentation() {
     }
 
-    public Documentation(Model model) {
+    public Documentation(@Nonnull Model model) {
         if (model == null) {
             throw new IllegalArgumentException("A model must be specified.");
         }
@@ -41,6 +42,7 @@ public final class Documentation {
         this.model = model;
     }
 
+    @Nonnull
     final Section addSection(Element element, String type, int group, Format format, String content) {
         if (group < 1) {
             group = 1;
