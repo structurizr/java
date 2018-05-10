@@ -593,7 +593,8 @@ public class PlantUMLWriter {
     }
 
     protected void writeHeader(View view, Writer writer) throws IOException {
-        writer.write(format("@startuml(id=%s)", view.getKey()));
+        // Spaces in PlantUML ids can cause issues. Alternatively, id can be surrounded with double quotes
+        writer.write(format("@startuml(id=%s)", view.getKey().replace(' ', '_')));
         writer.write(System.lineSeparator());
 
         for (String include : includes) {
