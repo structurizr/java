@@ -3,6 +3,8 @@ package com.structurizr.view;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * A deployment view, used to show the mapping of container instances to deployment nodes.
  */
@@ -48,7 +50,7 @@ public final class DeploymentView extends View {
      *
      * @param deploymentNode        the DeploymentNode to add
      */
-    public void add(DeploymentNode deploymentNode) {
+    public void add(@Nonnull DeploymentNode deploymentNode) {
         if (deploymentNode != null) {
             if (addContainerInstancesAndDeploymentNodes(deploymentNode)) {
                 Element parent = deploymentNode.getParent();
@@ -86,7 +88,7 @@ public final class DeploymentView extends View {
      *
      * @param   deploymentNode      the DeploymentNode to remove
      */
-    public void remove(DeploymentNode deploymentNode) {
+    public void remove(@Nonnull DeploymentNode deploymentNode) {
         removeElement(deploymentNode);
     }
 
@@ -96,7 +98,7 @@ public final class DeploymentView extends View {
      * @param relationship  the Relationship to be added
      * @return  a RelationshipView object representing the relationship added
      */
-    public RelationshipView add(Relationship relationship) {
+    public RelationshipView add(@Nonnull Relationship relationship) {
         return addRelationship(relationship);
     }
 

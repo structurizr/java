@@ -5,6 +5,8 @@ import com.structurizr.model.Element;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
 
+import javax.annotation.Nonnull;
+
 /**
  * Represents a Container view from the C4 model, showing the containers within a given software system.
  */
@@ -24,7 +26,7 @@ public final class ContainerView extends StaticView {
      * @param softwareSystem the SoftwareSystem to add
      */
     @Override
-    public void add(SoftwareSystem softwareSystem) {
+    public void add(@Nonnull SoftwareSystem softwareSystem) {
         if (softwareSystem != null && !softwareSystem.equals(getSoftwareSystem())) {
             addElement(softwareSystem, true);
         }
@@ -81,7 +83,7 @@ public final class ContainerView extends StaticView {
      * @param element   an Element
      */
     @Override
-    public void addNearestNeighbours(Element element) {
+    public void addNearestNeighbours(@Nonnull Element element) {
         super.addNearestNeighbours(element, Person.class);
         super.addNearestNeighbours(element, SoftwareSystem.class);
         super.addNearestNeighbours(element, Container.class);

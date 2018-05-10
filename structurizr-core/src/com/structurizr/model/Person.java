@@ -2,6 +2,7 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -50,7 +51,7 @@ public final class Person extends StaticStructureElement {
     }
 
     @Override
-    public Relationship delivers(Person destination, String description) {
+    public Relationship delivers(@Nonnull Person destination, String description) {
         throw new UnsupportedOperationException();
     }
 

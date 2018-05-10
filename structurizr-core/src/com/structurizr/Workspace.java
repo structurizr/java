@@ -7,6 +7,7 @@ import com.structurizr.view.ViewSet;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.annotation.Nonnull;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -88,7 +89,7 @@ public final class Workspace extends AbstractWorkspace {
      *
      * @param documentation a Documentation object
      */
-    public void setDocumentation(Documentation documentation) {
+    public void setDocumentation(@Nonnull Documentation documentation) {
         this.documentation = documentation;
         documentation.setModel(getModel());
     }

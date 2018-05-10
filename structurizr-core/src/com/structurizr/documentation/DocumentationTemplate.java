@@ -7,6 +7,7 @@ import com.structurizr.model.Element;
 import com.structurizr.model.SoftwareSystem;
 import com.structurizr.util.ImageUtils;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,7 +33,7 @@ public abstract class DocumentationTemplate {
      *
      * @param workspace     the Workspace instance to create documentation for
      */
-    public DocumentationTemplate(Workspace workspace) {
+    public DocumentationTemplate(@Nonnull Workspace workspace) {
         if (workspace == null) {
             throw new IllegalArgumentException("A workspace must be specified.");
         }
@@ -63,6 +64,7 @@ public abstract class DocumentationTemplate {
      * @param content   a String containing the documentation content
      * @return           a documentation {@link Section}
      */
+    @Nonnull
     public Section addSection(String name, int group, Format format, String content) {
         return add(null, name, group, format, content);
     }
@@ -77,6 +79,7 @@ public abstract class DocumentationTemplate {
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
+    @Nonnull
     public Section addSection(SoftwareSystem softwareSystem, String name, int group, File... files) throws IOException {
         return add(softwareSystem, name, group, files);
     }
@@ -151,11 +154,12 @@ public abstract class DocumentationTemplate {
         return add(component, name, group, format, content);
     }
 
-    private Section add(Element element, String type, int group, Format format, String content) {
+    private Section add(Element element, @Nonnull String type, int group, @Nonnull Format format, @Nonnull String content) {
         return documentation.addSection(element, type, group, format, content);
     }
 
-    private Section add(Element element, String type, int group, File... files) throws IOException {
+    @Nonnull
+    private Section add(Element element, @Nonnull String type, int group, File... files) throws IOException {
         FormattedContent content = readFiles(files);
         return documentation.addSection(element, type, group, content.getFormat(), content.getContent());
     }

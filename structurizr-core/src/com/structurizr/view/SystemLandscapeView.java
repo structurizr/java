@@ -3,6 +3,8 @@ package com.structurizr.view;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * Represents a System Landscape view that sits "above" the C4 model,
  * showing the software systems and people in a given environment.
@@ -61,7 +63,7 @@ public final class SystemLandscapeView extends StaticView {
      * @param element   an Element
      */
     @Override
-    public void addNearestNeighbours(Element element) {
+    public void addNearestNeighbours(@Nonnull Element element) {
         super.addNearestNeighbours(element, Person.class);
         super.addNearestNeighbours(element, SoftwareSystem.class);
     }

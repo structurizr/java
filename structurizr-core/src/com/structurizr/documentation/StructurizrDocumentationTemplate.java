@@ -5,6 +5,8 @@ import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 import com.structurizr.model.SoftwareSystem;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 
@@ -47,12 +49,13 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
     /**
      * Adds a "Context" section relating to a {@link SoftwareSystem} from one or more files.
      *
-     * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
+     * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to, or null if it relates to the whole workspace
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addContextSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+    @Nonnull
+    public Section addContextSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Context", GROUP1, files);
     }
 
@@ -64,7 +67,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @param content           a String containing the documentation content
      * @return                  a documentation {@link Section}
      */
-    public Section addContextSection(SoftwareSystem softwareSystem, Format format, String content) {
+    @Nonnull
+    public Section addContextSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
         return addSection(softwareSystem, "Context", GROUP1, format, content);
     }
 
@@ -76,7 +80,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addFunctionalOverviewSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+    @Nonnull
+    public Section addFunctionalOverviewSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Functional Overview", GROUP2, files);
     }
 
@@ -88,7 +93,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @param content           a String containing the documentation content
      * @return                  a documentation {@link Section}
      */
-    public Section addFunctionalOverviewSection(SoftwareSystem softwareSystem, Format format, String content) {
+    @Nonnull
+    public Section addFunctionalOverviewSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
         return addSection(softwareSystem, "Functional Overview", GROUP2, format, content);
     }
 
@@ -100,7 +106,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addQualityAttributesSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+    @Nonnull
+    public Section addQualityAttributesSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Quality Attributes", GROUP2, files);
     }
 
@@ -112,7 +119,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @param content           a String containing the documentation content
      * @return                  a documentation {@link Section}
      */
-    public Section addQualityAttributesSection(SoftwareSystem softwareSystem, Format format, String content) {
+    @Nonnull
+    public Section addQualityAttributesSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
         return addSection(softwareSystem, "Quality Attributes", GROUP2, format, content);
     }
 
@@ -124,7 +132,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addConstraintsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+    @Nonnull
+    public Section addConstraintsSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Constraints", GROUP2, files);
     }
 
@@ -136,7 +145,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @param content           a String containing the documentation content
      * @return                  a documentation {@link Section}
      */
-    public Section addConstraintsSection(SoftwareSystem softwareSystem, Format format, String content) {
+    @Nonnull
+    public Section addConstraintsSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
         return addSection(softwareSystem, "Constraints", GROUP2, format, content);
     }
 
@@ -148,7 +158,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addPrinciplesSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+    @Nonnull
+    public Section addPrinciplesSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Principles", GROUP2, files);
     }
 
@@ -160,7 +171,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @param content           a String containing the documentation content
      * @return                  a documentation {@link Section}
      */
-    public Section addPrinciplesSection(SoftwareSystem softwareSystem, Format format, String content) {
+    @Nonnull
+    public Section addPrinciplesSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
         return addSection(softwareSystem, "Principles", GROUP2, format, content);
     }
 
@@ -172,7 +184,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addSoftwareArchitectureSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+    @Nonnull
+    public Section addSoftwareArchitectureSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Software Architecture", GROUP3, files);
     }
 
@@ -184,7 +197,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @param content           a String containing the documentation content
      * @return                  a documentation {@link Section}
      */
-    public Section addSoftwareArchitectureSection(SoftwareSystem softwareSystem, Format format, String content) {
+    @Nonnull
+    public Section addSoftwareArchitectureSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
         return addSection(softwareSystem, "Software Architecture", GROUP3, format, content);
     }
 
@@ -196,7 +210,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addContainersSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+    @Nonnull
+    public Section addContainersSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Containers", GROUP3, files);
     }
 
@@ -208,7 +223,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @param content           a String containing the documentation content
      * @return                  a documentation {@link Section}
      */
-    public Section addContainersSection(SoftwareSystem softwareSystem, Format format, String content) {
+    @Nonnull
+    public Section addContainersSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
         return addSection(softwareSystem, "Containers", GROUP3, format, content);
     }
 
@@ -220,7 +236,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @return              a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addComponentsSection(Container container, File... files) throws IOException {
+    @Nonnull
+    public Section addComponentsSection(@Nullable Container container, File... files) throws IOException {
         return addSection(container, "Components", GROUP3, files);
     }
 
@@ -232,7 +249,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @param content       a String containing the documentation content
      * @return              a documentation {@link Section}
      */
-    public Section addComponentsSection(Container container, Format format, String content) {
+    @Nonnull
+    public Section addComponentsSection(@Nullable Container container, @Nonnull Format format, @Nonnull String content) {
         return addSection(container, "Components", GROUP3, format, content);
     }
 
@@ -244,7 +262,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @return              a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addCodeSection(Component component, File... files) throws IOException {
+    @Nonnull
+    public Section addCodeSection(@Nullable Component component, File... files) throws IOException {
         return addSection(component, "Code", GROUP3, files);
     }
 
@@ -256,7 +275,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @param content       a String containing the documentation content
      * @return              a documentation {@link Section}
      */
-    public Section addCodeSection(Component component, Format format, String content) {
+    @Nonnull
+    public Section addCodeSection(@Nullable Component component, @Nonnull Format format, @Nonnull String content) {
         return addSection(component, "Code", GROUP3, format, content);
     }
 
@@ -268,7 +288,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addDataSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+    @Nonnull
+    public Section addDataSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Data", GROUP3, files);
     }
 
@@ -280,7 +301,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @param content           a String containing the documentation content
      * @return                  a documentation {@link Section}
      */
-    public Section addDataSection(SoftwareSystem softwareSystem, Format format, String content) {
+    @Nonnull
+    public Section addDataSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
         return addSection(softwareSystem, "Data", GROUP3, format, content);
     }
 
@@ -292,7 +314,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addInfrastructureArchitectureSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+    @Nonnull
+    public Section addInfrastructureArchitectureSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Infrastructure Architecture", GROUP4, files);
     }
 
@@ -304,7 +327,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @param content           a String containing the documentation content
      * @return                  a documentation {@link Section}
      */
-    public Section addInfrastructureArchitectureSection(SoftwareSystem softwareSystem, Format format, String content) {
+    @Nonnull
+    public Section addInfrastructureArchitectureSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
         return addSection(softwareSystem, "Infrastructure Architecture", GROUP4, format, content);
     }
 
@@ -316,7 +340,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addDeploymentSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+    @Nonnull
+    public Section addDeploymentSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Deployment", GROUP4, files);
     }
 
@@ -328,7 +353,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @param content           a String containing the documentation content
      * @return                  a documentation {@link Section}
      */
-    public Section addDeploymentSection(SoftwareSystem softwareSystem, Format format, String content) {
+    @Nonnull
+    public Section addDeploymentSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
         return addSection(softwareSystem, "Deployment", GROUP4, format, content);
     }
 
@@ -340,7 +366,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addDevelopmentEnvironmentSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+    @Nonnull
+    public Section addDevelopmentEnvironmentSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Development Environment", GROUP4, files);
     }
 
@@ -352,7 +379,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @param content           a String containing the documentation content
      * @return                  a documentation {@link Section}
      */
-    public Section addDevelopmentEnvironmentSection(SoftwareSystem softwareSystem, Format format, String content) {
+    @Nonnull
+    public Section addDevelopmentEnvironmentSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
         return addSection(softwareSystem, "Development Environment", GROUP4, format, content);
     }
 
@@ -364,7 +392,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addOperationAndSupportSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+    @Nonnull
+    public Section addOperationAndSupportSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Operation and Support", GROUP4, files);
     }
 
@@ -376,7 +405,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @param content           a String containing the documentation content
      * @return                  a documentation {@link Section}
      */
-    public Section addOperationAndSupportSection(SoftwareSystem softwareSystem, Format format, String content) {
+    @Nonnull
+    public Section addOperationAndSupportSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
         return addSection(softwareSystem, "Operation and Support", GROUP4, format, content);
     }
 
@@ -388,7 +418,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addDecisionLogSection(SoftwareSystem softwareSystem, File... files) throws IOException {
+    @Nonnull
+    public Section addDecisionLogSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
         return addSection(softwareSystem, "Decision Log", GROUP5, files);
     }
 
@@ -400,7 +431,8 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      * @param content           a String containing the documentation content
      * @return                  a documentation {@link Section}
      */
-    public Section addDecisionLogSection(SoftwareSystem softwareSystem, Format format, String content) {
+    @Nonnull
+    public Section addDecisionLogSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
         return addSection(softwareSystem, "Decision Log", GROUP5, format, content);
     }
 

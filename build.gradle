@@ -34,6 +34,10 @@ subprojects { proj ->
         }
     }
 
+    dependencies {
+        compile 'com.google.code.findbugs:jsr305:3.0.2'
+    }
+
     compileJava.options.encoding = 'UTF-8'
     compileTestJava.options.encoding = 'UTF-8'
 
