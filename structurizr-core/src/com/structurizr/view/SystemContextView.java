@@ -12,6 +12,8 @@ import javax.annotation.Nonnull;
  */
 public final class SystemContextView extends StaticView {
 
+    private boolean enterpriseBoundaryVisible = true;
+
     SystemContextView() {
     }
 
@@ -49,6 +51,24 @@ public final class SystemContextView extends StaticView {
     public void addNearestNeighbours(@Nonnull Element element) {
         super.addNearestNeighbours(element, Person.class);
         super.addNearestNeighbours(element, SoftwareSystem.class);
+    }
+
+    /**
+     * Determines whether the enterprise boundary (to differentiate "internal" elements from "external" elements") should be visible on the resulting diagram.
+     *
+     * @return  true if the enterprise boundary is visible, false otherwise
+     */
+    public boolean isEnterpriseBoundaryVisible() {
+        return enterpriseBoundaryVisible;
+    }
+
+    /**
+     * Sets whether the enterprise boundary (to differentiate "internal" elements from "external" elements") should be visible on the resulting diagram.
+     *
+     * @param enterpriseBoundaryVisible     true if the enterprise boundary should be visible, false otherwise
+     */
+    public void setEnterpriseBoundaryVisible(boolean enterpriseBoundaryVisible) {
+        this.enterpriseBoundaryVisible = enterpriseBoundaryVisible;
     }
 
 }

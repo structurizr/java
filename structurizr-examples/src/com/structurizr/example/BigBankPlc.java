@@ -143,6 +143,7 @@ public class BigBankPlc {
         systemLandscapeView.setPaperSize(PaperSize.A5_Landscape);
 
         SystemContextView systemContextView = views.createSystemContextView(internetBankingSystem, "SystemContext", "The system context diagram for the Internet Banking System.");
+        systemContextView.setEnterpriseBoundaryVisible(false);
         systemContextView.addNearestNeighbours(internetBankingSystem);
         systemContextView.setPaperSize(PaperSize.A5_Landscape);
 
