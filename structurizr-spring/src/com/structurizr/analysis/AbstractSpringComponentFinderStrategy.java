@@ -31,8 +31,7 @@ public abstract class AbstractSpringComponentFinderStrategy extends AbstractComp
         for (Class<?> annotatedType : annotatedTypes) {
             if (container.getComponentWithName(annotatedType.getSimpleName()) != null) {
               continue;
-            }
-            else if (annotatedType.isInterface()) {
+            } else if (annotatedType.isInterface()) {
                 // the annotated type is an interface, so we're done
                 components.add(container.addComponent(
                     annotatedType.getSimpleName(), annotatedType.getCanonicalName(), "", technology));
