@@ -8,25 +8,23 @@ import com.structurizr.model.SoftwareSystem;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class TypeMatcherComponentFinderStrategyTests {
 
     private Container container;
+    private ComponentFinder componentFinder;
 
     @Before
-    public void setUp() {
+    public void setUp() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
         Model model = workspace.getModel();
 
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
         container = softwareSystem.addContainer("Name", "Description", "Technology");
-    }
 
-    @Test
-    public void test_basicUsage() throws Exception {
-        ComponentFinder componentFinder = new ComponentFinder(
+        componentFinder = new ComponentFinder(
                 container,
                 "test.TypeMatcherComponentFinderStrategy",
                 new TypeMatcherComponentFinderStrategy(
@@ -35,7 +33,10 @@ public class TypeMatcherComponentFinderStrategyTests {
                 )
         );
         componentFinder.findComponents();
+    }
 
+    @Test
+    public void test_basicUsage() throws Exception {
         assertEquals(2, container.getComponents().size());
 
         Component myController = container.getComponentWithName("MyController");
@@ -55,5 +56,17 @@ public class TypeMatcherComponentFinderStrategyTests {
         assertEquals(1, myController.getRelationships().size());
         assertNotNull(myController.getRelationships().stream().filter(r -> r.getDestination() == myRepository).findFirst().get());
     }
+
+    @Test
+    public void test_findingDuplicateComponentsThrowsAnException() throws Exception {
+        try {
+            componentFinder.findComponents();
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertTrue(iae.getMessage().startsWith("A component named '"));
+            assertTrue(iae.getMessage().endsWith("' already exists for this container."));
+        }
+    }
+
 
 }

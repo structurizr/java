@@ -14,6 +14,7 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
     private Container webBrowser, apiClient;
     private Container webApplication;
     private Container database;
+    private ComponentFinder componentFinder;
 
     @Before
     public void setUp() throws Exception {
@@ -32,14 +33,11 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
 
         // the default usage of the StructurizrAnnotationsComponentFinderStrategy
         // just has the FirstImplementationOfInterfaceSupportingTypesStrategy included
-        ComponentFinder componentFinder = new ComponentFinder(
+        componentFinder = new ComponentFinder(
                 webApplication,
                 "test.StructurizrAnnotationsComponentFinderStrategy",
                 new StructurizrAnnotationsComponentFinderStrategy()
         );
-        componentFinder.findComponents();
-
-        // finding the components again should be idempotent
         componentFinder.findComponents();
     }
 
@@ -152,6 +150,17 @@ public class StructurizrAnnotationsComponentFinderStrategyTests {
         Relationship relationship = controller.getRelationships().stream().filter(r -> r.getDestination() == external1).findFirst().get();
         assertEquals("Sends information to", relationship.getDescription());
         assertEquals("HTTPS", relationship.getTechnology());
+    }
+
+    @Test
+    public void test_findingDuplicateComponentsThrowsAnException() throws Exception {
+        try {
+            componentFinder.findComponents();
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertTrue(iae.getMessage().startsWith("A component named '"));
+            assertTrue(iae.getMessage().endsWith("' already exists for this container."));
+        }
     }
 
 }

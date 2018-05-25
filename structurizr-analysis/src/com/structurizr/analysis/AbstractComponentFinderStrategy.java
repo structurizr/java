@@ -162,13 +162,11 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         for (Class<?> componentType : componentTypes) {
             if (!includePublicTypesOnly || Modifier.isPublic(componentType.getModifiers())) {
                 final Container container = getComponentFinder().getContainer();
-                if (container.getComponentWithName(componentType.getSimpleName()) == null) {
-                    components.add(container.addComponent(
-                        componentType.getSimpleName(),
-                        componentType.getCanonicalName(),
-                        "",
-                        technology));
-                }
+                components.add(container.addComponent(
+                    componentType.getSimpleName(),
+                    componentType.getCanonicalName(),
+                    "",
+                    technology));
             }
         }
 
