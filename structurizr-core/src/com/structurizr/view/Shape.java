@@ -10,6 +10,7 @@ public enum Shape {
     Cylinder,
     Pipe,
     Person,
+    Robot,
     Folder,
     WebBrowser,
     MobileDevicePortrait,
