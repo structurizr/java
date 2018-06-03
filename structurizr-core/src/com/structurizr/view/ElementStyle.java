@@ -36,6 +36,12 @@ public final class ElementStyle {
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Integer opacity;
 
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private Boolean metadata;
+
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private Boolean description;
+
     ElementStyle() {
     }
 
@@ -228,6 +234,22 @@ public final class ElementStyle {
     public ElementStyle opacity(int opacity) {
         setOpacity(opacity);
         return this;
+    }
+
+    public Boolean getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(Boolean metadata) {
+        this.metadata = metadata;
+    }
+
+    public Boolean getDescription() {
+        return description;
+    }
+
+    public void setDescription(Boolean description) {
+        this.description = description;
     }
 
 }
