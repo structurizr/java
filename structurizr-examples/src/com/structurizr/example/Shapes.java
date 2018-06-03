@@ -32,6 +32,7 @@ public class Shapes {
         model.addSoftwareSystem("Mobile Device Landscape", "Description").addTags("Mobile Device Landscape");
         model.addSoftwareSystem("Pipe", "Description").addTags("Pipe");
         model.addSoftwareSystem("Folder", "Description").addTags("Folder");
+        model.addSoftwareSystem("Robot", "Description").addTags("Robot");
         model.addPerson("Person", "Description").addTags("Person");
 
         ViewSet views = workspace.getViews();
@@ -53,6 +54,7 @@ public class Shapes {
         styles.addElementStyle("Pipe").shape(Shape.Pipe);
         styles.addElementStyle("Folder").shape(Shape.Folder);
         styles.addElementStyle("Hexagon").shape(Shape.Hexagon);
+        styles.addElementStyle("Robot").shape(Shape.Robot).width(550);
         styles.addElementStyle("Person").shape(Shape.Person).width(550);
 
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
