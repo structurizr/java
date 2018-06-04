@@ -236,20 +236,50 @@ public final class ElementStyle {
         return this;
     }
 
+    /**
+     * Determines whether the element metadata should be shown or not.
+     *
+     * @return  true (shown), false (hidden) or null (not set)
+     */
     public Boolean getMetadata() {
         return metadata;
     }
 
+    /**
+     * Sets whether the element metadata should be shown or not.
+     *
+     * @param metadata  true (shown), false (hidden) or null (not set)
+     */
     public void setMetadata(Boolean metadata) {
         this.metadata = metadata;
     }
 
+    public ElementStyle metadata(boolean metadata) {
+        setMetadata(metadata);
+        return this;
+    }
+
+    /**
+     * Determines whether the element description should be shown or not.
+     *
+     * @return  true (shown), false (hidden) or null (not set)
+     */
     public Boolean getDescription() {
         return description;
     }
 
+    /**
+     * Sets whether the element description should be shown or not.
+     *
+     * @param description   true (shown), false (hidden) or null (not set)
+     */
     public void setDescription(Boolean description) {
         this.description = description;
+    }
+
+    public ElementStyle description(boolean description) {
+        setDescription(description);
+        return this;
     }
 
 }
