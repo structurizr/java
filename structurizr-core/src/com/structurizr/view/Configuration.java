@@ -10,6 +10,7 @@ public final class Configuration {
 
     private Branding branding = new Branding();
     private Styles styles = new Styles();
+    private Terminology terminology = new Terminology();
 
     private String defaultView;
     private String lastSavedView;
@@ -78,6 +79,24 @@ public final class Configuration {
      */
     void setBranding(Branding branding) {
         this.branding = branding;
+    }
+
+    /**
+     * Gets the Terminology object associated with this workspace.
+     *
+     * @return  a Terminology object
+     */
+    public Terminology getTerminology() {
+        return terminology;
+    }
+
+    /**
+     * Sets the Terminology object associated with this workspace.
+     *
+     * @param terminology       a Terminology object
+     */
+    void setTerminology(Terminology terminology) {
+        this.terminology = terminology;
     }
 
 }
