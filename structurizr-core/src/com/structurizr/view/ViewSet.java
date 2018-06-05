@@ -278,6 +278,7 @@ public final class ViewSet {
         }
 
         Set<View> views = new HashSet<>();
+        views.addAll(systemLandscapeViews);
         views.addAll(systemContextViews);
         views.addAll(containerViews);
         views.addAll(componentViews);
