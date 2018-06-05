@@ -116,10 +116,20 @@ public final class DeploymentView extends View {
         }
     }
 
+    /**
+     * Gets the name of the environment that this deployment view is for (e.g. "Development", "Live", etc).
+     *
+     * @return  the environment name, as a String
+     */
     public String getEnvironment() {
         return environment;
     }
 
+    /**
+     * Sets the name of the environment that this deployment view is for (e.g. "Development", "Live", etc).
+     *
+     * @param environment       the environment name, as a String
+     */
     public void setEnvironment(String environment) {
         this.environment = environment;
     }
