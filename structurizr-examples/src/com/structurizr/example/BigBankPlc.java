@@ -25,6 +25,7 @@ public class BigBankPlc {
     private static final String WEB_BROWSER_TAG = "Web Browser";
     private static final String MOBILE_APP_TAG = "Mobile App";
     private static final String DATABASE_TAG = "Database";
+    private static final String FAILOVER_TAG = "Failover";
 
     private static Workspace create(boolean usePaidFeatures) {
         Workspace workspace = new Workspace("Big Bank plc", "This is an example workspace to illustrate the key features of Structurizr, based around a fictional online banking system.");
@@ -133,9 +134,9 @@ public class BigBankPlc {
                 .addDeploymentNode("Oracle - Secondary", "A secondary, standby database server, used for failover purposes only.", "Oracle 12c");
         ContainerInstance secondaryDatabase = secondaryDatabaseServer.add(database);
 
-        model.getRelationships().stream().filter(r -> r.getDestination().equals(secondaryDatabase)).forEach(r -> r.addTags("Failover"));
+        model.getRelationships().stream().filter(r -> r.getDestination().equals(secondaryDatabase)).forEach(r -> r.addTags(FAILOVER_TAG));
         Relationship dataReplicationRelationship = primaryDatabaseServer.uses(secondaryDatabaseServer, "Replicates data to", "");
-        secondaryDatabase.addTags("Failover");
+        secondaryDatabase.addTags(FAILOVER_TAG);
 
         // views/diagrams
         SystemLandscapeView systemLandscapeView = views.createSystemLandscapeView("SystemLandscape", "The system landscape diagram for Big Bank plc.");
@@ -163,7 +164,7 @@ public class BigBankPlc {
         componentView.setPaperSize(PaperSize.A5_Landscape);
 
         if (usePaidFeatures) {
-            // dynamic diagrams, deployment diagrams and corporate branding are not available with the Free Plan
+            // dynamic diagrams and deployment diagrams are not available with the Free Plan
             DynamicView dynamicView = views.createDynamicView(apiApplication, "SignIn", "Summarises how the sign in feature works in the single-page application.");
             dynamicView.add(singlePageApplication, "Submits credentials to", signinController);
             dynamicView.add(signinController, "Calls isAuthenticated() on", securityComponent);
@@ -196,8 +197,8 @@ public class BigBankPlc {
         styles.addElementStyle(WEB_BROWSER_TAG).shape(Shape.WebBrowser);
         styles.addElementStyle(MOBILE_APP_TAG).shape(Shape.MobileDeviceLandscape);
         styles.addElementStyle(DATABASE_TAG).shape(Shape.Cylinder);
-        styles.addElementStyle("Failover").opacity(25);
-        styles.addRelationshipStyle("Failover").opacity(25).position(70);
+        styles.addElementStyle(FAILOVER_TAG).opacity(25);
+        styles.addRelationshipStyle(FAILOVER_TAG).opacity(25).position(70);
 
         // documentation
         // - usually the documentation would be included from separate Markdown/AsciiDoc files, but this is just an example
@@ -214,7 +215,7 @@ public class BigBankPlc {
                         "### Web Application\n...\n" +
                         "### Database\n...\n");
         template.addComponentsSection(webApplication, Format.Markdown,
-                "Here is some information about the Web Application...\n" +
+                "Here is some information about the API Application...\n" +
                         "![](embed:Components)\n" +
                         "### Sign in process\n" +
                         "Here is some information about the Sign In Controller, including how the sign in process works...\n" +
