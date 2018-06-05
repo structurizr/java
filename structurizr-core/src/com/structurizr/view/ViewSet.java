@@ -311,6 +311,9 @@ public final class ViewSet {
         return new HashSet<>(systemLandscapeViews);
     }
 
+    /**
+     * (this is for backwards compatibility)
+     */
     @JsonSetter("enterpriseContextViews")
     private void setEnterpriseContextViews(Collection<SystemLandscapeView> enterpriseContextViews) {
         systemLandscapeViews.addAll(enterpriseContextViews);
@@ -366,7 +369,7 @@ public final class ViewSet {
     }
 
     public void hydrate() {
-        for (SystemLandscapeView view : getSystemLandscapeViews()) {
+        for (SystemLandscapeView view : systemLandscapeViews) {
             view.setModel(model);
             hydrateView(view);
         }
@@ -428,7 +431,7 @@ public final class ViewSet {
     }
 
     public void copyLayoutInformationFrom(ViewSet source) {
-        for (SystemLandscapeView view : getSystemLandscapeViews()) {
+        for (SystemLandscapeView view : systemLandscapeViews) {
             SystemLandscapeView sourceView = findView(source.getSystemLandscapeViews(), view);
             if (sourceView != null) {
                 view.copyLayoutInformationFrom(sourceView);
@@ -507,7 +510,7 @@ public final class ViewSet {
 
     @JsonIgnore
     public boolean isEmpty() {
-        return getSystemLandscapeViews().isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && filteredViews.isEmpty();
+        return systemLandscapeViews.isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && filteredViews.isEmpty();
     }
 
 }
