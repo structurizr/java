@@ -234,16 +234,4 @@ public class DocumentationTemplateTests extends AbstractWorkspaceTestBase {
                 "File 2", section.getContent());
     }
 
-    @Test
-    public void test_addSection_AddsASectionWithAGroupOf1_WhenAGroupLessThan1IsSpecified() {
-        Section section = template.addSection(softwareSystem, "Custom Section", 0, Format.Markdown, "Custom content");
-        assertEquals(1, section.getGroup());
-    }
-
-    @Test
-    public void test_addSection_AddsASectionWithAGroupOf5_WhenAGroupMoreThan5IsSpecified() {
-        Section section = template.addSection(softwareSystem, "Custom Section", 6, Format.Markdown, "Custom content");
-        assertEquals(5, section.getGroup());
-    }
-
 }

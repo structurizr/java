@@ -47,7 +47,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @throws IOException      if there is an error reading the files
      */
     public Section addIntroductionAndGoalsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Introduction and Goals", GROUP1, files);
+        return addSection(softwareSystem, "Introduction and Goals", files);
     }
 
     /**
@@ -59,7 +59,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      */
     public Section addIntroductionAndGoalsSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Introduction and Goals", GROUP1, format, content);
+        return addSection(softwareSystem, "Introduction and Goals", format, content);
     }
 
     /**
@@ -71,7 +71,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @throws IOException      if there is an error reading the files
      */
     public Section addConstraintsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Constraints", GROUP2, files);
+        return addSection(softwareSystem, "Constraints", files);
     }
 
     /**
@@ -83,7 +83,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      */
     public Section addConstraintsSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Constraints", GROUP2, format, content);
+        return addSection(softwareSystem, "Constraints", format, content);
     }
 
     /**
@@ -95,7 +95,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @throws IOException      if there is an error reading the files
      */
     public Section addContextAndScopeSection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Context and Scope", GROUP2, files);
+        return addSection(softwareSystem, "Context and Scope", files);
     }
 
     /**
@@ -107,7 +107,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      */
     public Section addContextAndScopeSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Context and Scope", GROUP2, format, content);
+        return addSection(softwareSystem, "Context and Scope", format, content);
     }
 
     /**
@@ -119,7 +119,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @throws IOException      if there is an error reading the files
      */
     public Section addSolutionStrategySection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Solution Strategy", GROUP3, files);
+        return addSection(softwareSystem, "Solution Strategy", files);
     }
 
     /**
@@ -131,7 +131,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      */
     public Section addSolutionStrategySection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Solution Strategy", GROUP3, format, content);
+        return addSection(softwareSystem, "Solution Strategy", format, content);
     }
 
     /**
@@ -143,7 +143,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @throws IOException      if there is an error reading the files
      */
     public Section addBuildingBlockViewSection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Building Block View", GROUP3, files);
+        return addSection(softwareSystem, "Building Block View", files);
     }
 
     /**
@@ -155,7 +155,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      */
     public Section addBuildingBlockViewSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Building Block View", GROUP3, format, content);
+        return addSection(softwareSystem, "Building Block View", format, content);
     }
 
     /**
@@ -167,7 +167,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @throws IOException      if there is an error reading the files
      */
     public Section addRuntimeViewSection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Runtime View", GROUP3, files);
+        return addSection(softwareSystem, "Runtime View", files);
     }
 
     /**
@@ -179,7 +179,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      */
     public Section addRuntimeViewSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Runtime View", GROUP3, format, content);
+        return addSection(softwareSystem, "Runtime View", format, content);
     }
 
     /**
@@ -191,7 +191,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @throws IOException      if there is an error reading the files
      */
     public Section addDeploymentViewSection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Deployment View", GROUP3, files);
+        return addSection(softwareSystem, "Deployment View", files);
     }
 
     /**
@@ -203,7 +203,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      */
     public Section addDeploymentViewSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Deployment View", GROUP3, format, content);
+        return addSection(softwareSystem, "Deployment View", format, content);
     }
 
     /**
@@ -215,7 +215,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @throws IOException      if there is an error reading the files
      */
     public Section addCrosscuttingConceptsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Crosscutting Concepts", GROUP3, files);
+        return addSection(softwareSystem, "Crosscutting Concepts", files);
     }
 
     /**
@@ -227,7 +227,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      */
     public Section addCrosscuttingConceptsSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Crosscutting Concepts", GROUP3, format, content);
+        return addSection(softwareSystem, "Crosscutting Concepts", format, content);
     }
 
     /**
@@ -239,7 +239,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @throws IOException      if there is an error reading the files
      */
     public Section addArchitecturalDecisionsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Architectural Decisions", GROUP3, files);
+        return addSection(softwareSystem, "Architectural Decisions", files);
     }
 
     /**
@@ -251,7 +251,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      */
     public Section addArchitecturalDecisionsSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Architectural Decisions", GROUP3, format, content);
+        return addSection(softwareSystem, "Architectural Decisions", format, content);
     }
 
     /**
@@ -263,7 +263,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @throws IOException      if there is an error reading the files
      */
     public Section addQualityRequirementsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Quality Requirements", GROUP2, files);
+        return addSection(softwareSystem, "Quality Requirements", files);
     }
 
     /**
@@ -275,7 +275,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      */
     public Section addQualityRequirementsSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Quality Requirements", GROUP2, format, content);
+        return addSection(softwareSystem, "Quality Requirements", format, content);
     }
 
     /**
@@ -287,7 +287,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @throws IOException      if there is an error reading the files
      */
     public Section addRisksAndTechnicalDebtSection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Risks and Technical Debt", GROUP4, files);
+        return addSection(softwareSystem, "Risks and Technical Debt", files);
     }
 
     /**
@@ -299,7 +299,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      */
     public Section addRisksAndTechnicalDebtSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Risks and Technical Debt", GROUP4, format, content);
+        return addSection(softwareSystem, "Risks and Technical Debt", format, content);
     }
 
     /**
@@ -311,7 +311,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @throws IOException      if there is an error reading the files
      */
     public Section addGlossarySection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Glossary", GROUP5, files);
+        return addSection(softwareSystem, "Glossary", files);
     }
 
     /**
@@ -323,7 +323,7 @@ public class Arc42DocumentationTemplate extends DocumentationTemplate {
      * @return                  a documentation {@link Section}
      */
     public Section addGlossarySection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Glossary", GROUP5, format, content);
+        return addSection(softwareSystem, "Glossary", format, content);
     }
 
     @Override

@@ -25,11 +25,7 @@ template.addOperationAndSupportSection(softwareSystem, new File(documentationRoo
 template.addDecisionLogSection(softwareSystem, new File(documentationRoot, "12-decision-log.md"));
 ```
 
-Structurizr will create navigation controls based upon the the sections in the documentation, and the software systems they have been associated with. This particular example is rendered as follows: 
-
-![Documentation based upon the Structurizr template](images/documentation-structurizr-1.png)
-
-See [StructurizrDocumentationExample.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/StructurizrDocumentationExample.java) for the full code, and [https://structurizr.com/share/14181/documentation](https://structurizr.com/share/14181/documentation) to see the rendered documentation.
+Structurizr will create navigation controls based upon the the sections in the documentation, and the software systems they have been associated with. See [StructurizrDocumentationExample.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/StructurizrDocumentationExample.java) for the full code, and [https://structurizr.com/share/14181/documentation](https://structurizr.com/share/14181/documentation) to see the rendered documentation.
 
 ## More information
 

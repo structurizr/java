@@ -17,10 +17,10 @@ The documentation is broken up into a number of sections, as defined by the temp
 
 ## Custom sections
 
-You can add custom sections using the ```addSection``` method on the [DocumentationTemplate](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/DocumentationTemplate.java) class, by specifying the section name (a String) and group (an integer, 1-5; this is used for colour coding section navigation buttons):
+You can add custom sections using the ```addSection``` method on the [DocumentationTemplate](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/documentation/DocumentationTemplate.java) class:
 
 ```java
-template.addSection(softwareSystem, "My custom section", 3, Format.Markdown, ...);
+template.addSection(softwareSystem, "My custom section", Format.Markdown, ...);
 ```
 
 ## Images

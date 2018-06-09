@@ -25,11 +25,7 @@ template.addQualityRequirementsSection(softwareSystem, new File(documentationRoo
 template.addGlossarySection(softwareSystem, new File(documentationRoot, "12-glossary.md"));
 ```
 
-Structurizr will create navigation controls based upon the the sections in the documentation, and the software systems they have been associated with. This particular example is rendered as follows: 
-
-![Documentation based upon the arc42 template](images/documentation-arc42-1.png)
-
-See [Arc42DocumentationExample.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/Arc42DocumentationExample.java) for the full code, and [https://structurizr.com/share/27791/documentation](https://structurizr.com/share/27791/documentation) to see the rendered documentation.
+Structurizr will create navigation controls based upon the the sections in the documentation, and the software systems they have been associated with. See [Arc42DocumentationExample.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/Arc42DocumentationExample.java) for the full code, and [https://structurizr.com/share/27791/documentation](https://structurizr.com/share/27791/documentation) to see the rendered documentation.
 
 ## More information
 

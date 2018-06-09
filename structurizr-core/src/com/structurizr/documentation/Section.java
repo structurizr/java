@@ -13,18 +13,16 @@ public final class Section {
 
     private String type;
     private int order;
-    private int group;
     private Format format;
     private String content;
 
     Section() {
     }
 
-    Section(Element element, String type, int order, int group, Format format, String content) {
+    Section(Element element, String type, int order, Format format, String content) {
         this.element = element;
         this.type = type;
         this.order = order;
-        this.group = group;
         this.format = format;
         this.content = content;
     }
@@ -64,14 +62,6 @@ public final class Section {
 
     public void setOrder(int order) {
         this.order = order;
-    }
-
-    public int getGroup() {
-        return group;
-    }
-
-    void setGroup(int group) {
-        this.group = group;
     }
 
     public Format getFormat() {

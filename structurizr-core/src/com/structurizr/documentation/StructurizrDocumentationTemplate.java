@@ -56,7 +56,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addContextSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Context", GROUP1, files);
+        return addSection(softwareSystem, "Context", files);
     }
 
     /**
@@ -69,7 +69,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addContextSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
-        return addSection(softwareSystem, "Context", GROUP1, format, content);
+        return addSection(softwareSystem, "Context", format, content);
     }
 
     /**
@@ -82,7 +82,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addFunctionalOverviewSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Functional Overview", GROUP2, files);
+        return addSection(softwareSystem, "Functional Overview", files);
     }
 
     /**
@@ -95,7 +95,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addFunctionalOverviewSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
-        return addSection(softwareSystem, "Functional Overview", GROUP2, format, content);
+        return addSection(softwareSystem, "Functional Overview", format, content);
     }
 
     /**
@@ -108,7 +108,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addQualityAttributesSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Quality Attributes", GROUP2, files);
+        return addSection(softwareSystem, "Quality Attributes", files);
     }
 
     /**
@@ -121,7 +121,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addQualityAttributesSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
-        return addSection(softwareSystem, "Quality Attributes", GROUP2, format, content);
+        return addSection(softwareSystem, "Quality Attributes", format, content);
     }
 
     /**
@@ -134,7 +134,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addConstraintsSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Constraints", GROUP2, files);
+        return addSection(softwareSystem, "Constraints", files);
     }
 
     /**
@@ -147,7 +147,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addConstraintsSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
-        return addSection(softwareSystem, "Constraints", GROUP2, format, content);
+        return addSection(softwareSystem, "Constraints", format, content);
     }
 
     /**
@@ -160,7 +160,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addPrinciplesSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Principles", GROUP2, files);
+        return addSection(softwareSystem, "Principles", files);
     }
 
     /**
@@ -173,7 +173,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addPrinciplesSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
-        return addSection(softwareSystem, "Principles", GROUP2, format, content);
+        return addSection(softwareSystem, "Principles", format, content);
     }
 
     /**
@@ -186,7 +186,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addSoftwareArchitectureSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Software Architecture", GROUP3, files);
+        return addSection(softwareSystem, "Software Architecture", files);
     }
 
     /**
@@ -199,7 +199,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addSoftwareArchitectureSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
-        return addSection(softwareSystem, "Software Architecture", GROUP3, format, content);
+        return addSection(softwareSystem, "Software Architecture", format, content);
     }
 
     /**
@@ -212,7 +212,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addContainersSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Containers", GROUP3, files);
+        return addSection(softwareSystem, "Containers", files);
     }
 
     /**
@@ -225,7 +225,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addContainersSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
-        return addSection(softwareSystem, "Containers", GROUP3, format, content);
+        return addSection(softwareSystem, "Containers", format, content);
     }
 
     /**
@@ -238,7 +238,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addComponentsSection(@Nullable Container container, File... files) throws IOException {
-        return addSection(container, "Components", GROUP3, files);
+        return addSection(container, "Components", files);
     }
 
     /**
@@ -251,7 +251,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addComponentsSection(@Nullable Container container, @Nonnull Format format, @Nonnull String content) {
-        return addSection(container, "Components", GROUP3, format, content);
+        return addSection(container, "Components", format, content);
     }
 
     /**
@@ -264,7 +264,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addCodeSection(@Nullable Component component, File... files) throws IOException {
-        return addSection(component, "Code", GROUP3, files);
+        return addSection(component, "Code", files);
     }
 
     /**
@@ -277,7 +277,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addCodeSection(@Nullable Component component, @Nonnull Format format, @Nonnull String content) {
-        return addSection(component, "Code", GROUP3, format, content);
+        return addSection(component, "Code", format, content);
     }
 
     /**
@@ -290,7 +290,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addDataSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Data", GROUP3, files);
+        return addSection(softwareSystem, "Data", files);
     }
 
     /**
@@ -303,7 +303,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addDataSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
-        return addSection(softwareSystem, "Data", GROUP3, format, content);
+        return addSection(softwareSystem, "Data", format, content);
     }
 
     /**
@@ -316,7 +316,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addInfrastructureArchitectureSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Infrastructure Architecture", GROUP4, files);
+        return addSection(softwareSystem, "Infrastructure Architecture", files);
     }
 
     /**
@@ -329,7 +329,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addInfrastructureArchitectureSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
-        return addSection(softwareSystem, "Infrastructure Architecture", GROUP4, format, content);
+        return addSection(softwareSystem, "Infrastructure Architecture", format, content);
     }
 
     /**
@@ -342,7 +342,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addDeploymentSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Deployment", GROUP4, files);
+        return addSection(softwareSystem, "Deployment", files);
     }
 
     /**
@@ -355,7 +355,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addDeploymentSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
-        return addSection(softwareSystem, "Deployment", GROUP4, format, content);
+        return addSection(softwareSystem, "Deployment", format, content);
     }
 
     /**
@@ -368,7 +368,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addDevelopmentEnvironmentSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Development Environment", GROUP4, files);
+        return addSection(softwareSystem, "Development Environment", files);
     }
 
     /**
@@ -381,7 +381,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addDevelopmentEnvironmentSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
-        return addSection(softwareSystem, "Development Environment", GROUP4, format, content);
+        return addSection(softwareSystem, "Development Environment", format, content);
     }
 
     /**
@@ -394,7 +394,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addOperationAndSupportSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Operation and Support", GROUP4, files);
+        return addSection(softwareSystem, "Operation and Support", files);
     }
 
     /**
@@ -407,7 +407,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addOperationAndSupportSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
-        return addSection(softwareSystem, "Operation and Support", GROUP4, format, content);
+        return addSection(softwareSystem, "Operation and Support", format, content);
     }
 
     /**
@@ -420,7 +420,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addDecisionLogSection(@Nullable SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Decision Log", GROUP5, files);
+        return addSection(softwareSystem, "Decision Log", files);
     }
 
     /**
@@ -433,7 +433,7 @@ public class StructurizrDocumentationTemplate extends DocumentationTemplate {
      */
     @Nonnull
     public Section addDecisionLogSection(@Nullable SoftwareSystem softwareSystem, @Nonnull Format format, @Nonnull String content) {
-        return addSection(softwareSystem, "Decision Log", GROUP5, format, content);
+        return addSection(softwareSystem, "Decision Log", format, content);
     }
 
     @Override

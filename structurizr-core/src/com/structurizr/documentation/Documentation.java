@@ -43,14 +43,8 @@ public final class Documentation {
     }
 
     @Nonnull
-    final Section addSection(Element element, String type, int group, Format format, String content) {
-        if (group < 1) {
-            group = 1;
-        } else if (group > 5) {
-            group = 5;
-        }
-
-        Section section = new Section(element, type, calculateOrder(), group, format, content);
+    final Section addSection(Element element, String type, Format format, String content) {
+        Section section = new Section(element, type, calculateOrder(), format, content);
         if (!sections.contains(section)) {
             sections.add(section);
             return section;

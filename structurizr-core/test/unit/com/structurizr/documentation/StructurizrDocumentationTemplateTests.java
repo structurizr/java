@@ -49,55 +49,55 @@ public class StructurizrDocumentationTemplateTests extends AbstractWorkspaceTest
         Section section;
 
         section = template.addContextSection(softwareSystem, Format.Markdown, "Context section");
-        assertSection(softwareSystem, "Context", 1, Format.Markdown, "Context section", 1, section);
+        assertSection(softwareSystem, "Context", Format.Markdown, "Context section", 1, section);
 
         section = template.addFunctionalOverviewSection(softwareSystem, Format.Markdown, "Functional overview section");
-        assertSection(softwareSystem, "Functional Overview", 2, Format.Markdown, "Functional overview section", 2, section);
+        assertSection(softwareSystem, "Functional Overview", Format.Markdown, "Functional overview section", 2, section);
 
         section = template.addQualityAttributesSection(softwareSystem, Format.Markdown, "Quality attributes section");
-        assertSection(softwareSystem, "Quality Attributes", 2, Format.Markdown, "Quality attributes section", 3, section);
+        assertSection(softwareSystem, "Quality Attributes", Format.Markdown, "Quality attributes section", 3, section);
 
         section = template.addConstraintsSection(softwareSystem, Format.Markdown, "Constraints section");
-        assertSection(softwareSystem, "Constraints", 2, Format.Markdown, "Constraints section", 4, section);
+        assertSection(softwareSystem, "Constraints", Format.Markdown, "Constraints section", 4, section);
 
         section = template.addPrinciplesSection(softwareSystem, Format.Markdown, "Principles section");
-        assertSection(softwareSystem, "Principles", 2, Format.Markdown, "Principles section", 5, section);
+        assertSection(softwareSystem, "Principles", Format.Markdown, "Principles section", 5, section);
 
         section = template.addSoftwareArchitectureSection(softwareSystem, Format.Markdown, "Software architecture section");
-        assertSection(softwareSystem, "Software Architecture", 3, Format.Markdown, "Software architecture section", 6, section);
+        assertSection(softwareSystem, "Software Architecture", Format.Markdown, "Software architecture section", 6, section);
 
         section = template.addContainersSection(softwareSystem, Format.Markdown, "Containers section");
-        assertSection(softwareSystem, "Containers", 3, Format.Markdown, "Containers section", 7, section);
+        assertSection(softwareSystem, "Containers", Format.Markdown, "Containers section", 7, section);
 
         section = template.addComponentsSection(containerA, Format.Markdown, "Components section for container A");
-        assertSection(containerA, "Components", 3, Format.Markdown, "Components section for container A", 8, section);
+        assertSection(containerA, "Components", Format.Markdown, "Components section for container A", 8, section);
 
         section = template.addComponentsSection(containerB, Format.Markdown, "Components section for container B");
-        assertSection(containerB, "Components", 3, Format.Markdown, "Components section for container B", 9, section);
+        assertSection(containerB, "Components", Format.Markdown, "Components section for container B", 9, section);
 
         section = template.addCodeSection(componentA1, Format.Markdown, "Code section for component A1");
-        assertSection(componentA1, "Code", 3, Format.Markdown, "Code section for component A1", 10, section);
+        assertSection(componentA1, "Code", Format.Markdown, "Code section for component A1", 10, section);
 
         section = template.addCodeSection(componentA2, Format.Markdown, "Code section for component A2");
-        assertSection(componentA2, "Code", 3, Format.Markdown, "Code section for component A2", 11, section);
+        assertSection(componentA2, "Code", Format.Markdown, "Code section for component A2", 11, section);
 
         section = template.addDataSection(softwareSystem, Format.Markdown, "Data section");
-        assertSection(softwareSystem, "Data", 3, Format.Markdown, "Data section", 12, section);
+        assertSection(softwareSystem, "Data", Format.Markdown, "Data section", 12, section);
 
         section = template.addInfrastructureArchitectureSection(softwareSystem, Format.Markdown, "Infrastructure architecture section");
-        assertSection(softwareSystem, "Infrastructure Architecture", 4, Format.Markdown, "Infrastructure architecture section", 13, section);
+        assertSection(softwareSystem, "Infrastructure Architecture", Format.Markdown, "Infrastructure architecture section", 13, section);
 
         section = template.addDeploymentSection(softwareSystem, Format.Markdown, "Deployment section");
-        assertSection(softwareSystem, "Deployment", 4, Format.Markdown, "Deployment section", 14, section);
+        assertSection(softwareSystem, "Deployment", Format.Markdown, "Deployment section", 14, section);
 
         section = template.addDevelopmentEnvironmentSection(softwareSystem, Format.Markdown, "Development environment section");
-        assertSection(softwareSystem, "Development Environment", 4, Format.Markdown, "Development environment section", 15, section);
+        assertSection(softwareSystem, "Development Environment", Format.Markdown, "Development environment section", 15, section);
 
         section = template.addOperationAndSupportSection(softwareSystem, Format.Markdown, "Operation and support section");
-        assertSection(softwareSystem, "Operation and Support", 4, Format.Markdown, "Operation and support section", 16, section);
+        assertSection(softwareSystem, "Operation and Support", Format.Markdown, "Operation and support section", 16, section);
 
         section = template.addDecisionLogSection(softwareSystem, Format.Markdown, "Decision log section");
-        assertSection(softwareSystem, "Decision Log", 5, Format.Markdown, "Decision log section", 17, section);
+        assertSection(softwareSystem, "Decision Log", Format.Markdown, "Decision log section", 17, section);
     }
 
     @Test
@@ -106,63 +106,62 @@ public class StructurizrDocumentationTemplateTests extends AbstractWorkspaceTest
         File root = new File(".//test/unit/com/structurizr/documentation/structurizr");
 
         section = template.addContextSection(softwareSystem, new File(root, "context.md"));
-        assertSection(softwareSystem, "Context", 1, Format.Markdown, "Context section", 1, section);
+        assertSection(softwareSystem, "Context", Format.Markdown, "Context section", 1, section);
 
         section = template.addFunctionalOverviewSection(softwareSystem, new File(root, "functional-overview.md"));
-        assertSection(softwareSystem, "Functional Overview", 2, Format.Markdown, "Functional overview section", 2, section);
+        assertSection(softwareSystem, "Functional Overview", Format.Markdown, "Functional overview section", 2, section);
 
         section = template.addQualityAttributesSection(softwareSystem, new File(root, "quality-attributes.md"));
-        assertSection(softwareSystem, "Quality Attributes", 2, Format.Markdown, "Quality attributes section", 3, section);
+        assertSection(softwareSystem, "Quality Attributes", Format.Markdown, "Quality attributes section", 3, section);
 
         section = template.addConstraintsSection(softwareSystem, new File(root, "constraints.md"));
-        assertSection(softwareSystem, "Constraints", 2, Format.Markdown, "Constraints section", 4, section);
+        assertSection(softwareSystem, "Constraints", Format.Markdown, "Constraints section", 4, section);
 
         section = template.addPrinciplesSection(softwareSystem, new File(root, "principles.md"));
-        assertSection(softwareSystem, "Principles", 2, Format.Markdown, "Principles section", 5, section);
+        assertSection(softwareSystem, "Principles", Format.Markdown, "Principles section", 5, section);
 
         section = template.addSoftwareArchitectureSection(softwareSystem, new File(root, "software-architecture.md"));
-        assertSection(softwareSystem, "Software Architecture", 3, Format.Markdown, "Software architecture section", 6, section);
+        assertSection(softwareSystem, "Software Architecture", Format.Markdown, "Software architecture section", 6, section);
 
         section = template.addContainersSection(softwareSystem, new File(root, "containers.md"));
-        assertSection(softwareSystem, "Containers", 3, Format.Markdown, "Containers section", 7, section);
+        assertSection(softwareSystem, "Containers", Format.Markdown, "Containers section", 7, section);
 
         section = template.addComponentsSection(containerA, new File(root, "components-for-containerA.md"));
-        assertSection(containerA, "Components", 3, Format.Markdown, "Components section for container A", 8, section);
+        assertSection(containerA, "Components", Format.Markdown, "Components section for container A", 8, section);
 
         section = template.addComponentsSection(containerB, new File(root, "components-for-containerB.md"));
-        assertSection(containerB, "Components", 3, Format.Markdown, "Components section for container B", 9, section);
+        assertSection(containerB, "Components", Format.Markdown, "Components section for container B", 9, section);
 
         section = template.addCodeSection(componentA1, new File(root, "code-for-componentA1.md"));
-        assertSection(componentA1, "Code", 3, Format.Markdown, "Code section for component A1", 10, section);
+        assertSection(componentA1, "Code", Format.Markdown, "Code section for component A1", 10, section);
 
         section = template.addCodeSection(componentA2, new File(root, "code-for-componentA2.md"));
-        assertSection(componentA2, "Code", 3, Format.Markdown, "Code section for component A2", 11, section);
+        assertSection(componentA2, "Code", Format.Markdown, "Code section for component A2", 11, section);
 
         section = template.addDataSection(softwareSystem, new File(root, "data.md"));
-        assertSection(softwareSystem, "Data", 3, Format.Markdown, "Data section", 12, section);
+        assertSection(softwareSystem, "Data", Format.Markdown, "Data section", 12, section);
 
         section = template.addInfrastructureArchitectureSection(softwareSystem, new File(root, "infrastructure-architecture.md"));
-        assertSection(softwareSystem, "Infrastructure Architecture", 4, Format.Markdown, "Infrastructure architecture section", 13, section);
+        assertSection(softwareSystem, "Infrastructure Architecture", Format.Markdown, "Infrastructure architecture section", 13, section);
 
         section = template.addDeploymentSection(softwareSystem, new File(root, "deployment.md"));
-        assertSection(softwareSystem, "Deployment", 4, Format.Markdown, "Deployment section", 14, section);
+        assertSection(softwareSystem, "Deployment", Format.Markdown, "Deployment section", 14, section);
 
         section = template.addDevelopmentEnvironmentSection(softwareSystem, new File(root, "development-environment.md"));
-        assertSection(softwareSystem, "Development Environment", 4, Format.Markdown, "Development environment section", 15, section);
+        assertSection(softwareSystem, "Development Environment", Format.Markdown, "Development environment section", 15, section);
 
         section = template.addOperationAndSupportSection(softwareSystem, new File(root, "operation-and-support.md"));
-        assertSection(softwareSystem, "Operation and Support", 4, Format.Markdown, "Operation and support section", 16, section);
+        assertSection(softwareSystem, "Operation and Support", Format.Markdown, "Operation and support section", 16, section);
 
         section = template.addDecisionLogSection(softwareSystem, new File(root, "decision-log.md"));
-        assertSection(softwareSystem, "Decision Log", 5, Format.Markdown, "Decision log section", 17, section);
+        assertSection(softwareSystem, "Decision Log", Format.Markdown, "Decision log section", 17, section);
     }
 
-    private void assertSection(Element element, String type, int group, Format format, String content, int order, Section section) {
+    private void assertSection(Element element, String type, Format format, String content, int order, Section section) {
         assertTrue(workspace.getDocumentation().getSections().contains(section));
         assertEquals(element, section.getElement());
         assertEquals(element.getId(), section.getElementId());
         assertEquals(type, section.getType());
-        assertEquals(group, section.getGroup());
         assertEquals(format, section.getFormat());
         assertEquals(content, section.getContent());
         assertEquals(order, section.getOrder());

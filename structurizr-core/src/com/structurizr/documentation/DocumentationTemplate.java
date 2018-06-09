@@ -20,12 +20,6 @@ import java.util.HashSet;
  */
 public abstract class DocumentationTemplate {
 
-    public static final int GROUP1 = 1;
-    public static final int GROUP2 = 2;
-    public static final int GROUP3 = 3;
-    public static final int GROUP4 = 4;
-    public static final int GROUP5 = 5;
-
     private Documentation documentation;
 
     /**
@@ -46,27 +40,25 @@ public abstract class DocumentationTemplate {
      * Adds a custom section from one or more files, that isn't related to any element in the model.
      *
      * @param name              the name of the section
-     * @param group             the group of the section (an integer between 1 and 5)
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addSection(String name, int group, File... files) throws IOException {
-        return add(null, name, group, files);
+    public Section addSection(String name, File... files) throws IOException {
+        return add(null, name, files);
     }
 
     /**
      * Adds a custom section, that isn't related to any element in the model.
      *
      * @param name      the name of the section
-     * @param group     the group of the section (an integer between 1 and 5)
      * @param format    the {@link Format} of the documentation content
      * @param content   a String containing the documentation content
      * @return           a documentation {@link Section}
      */
     @Nonnull
-    public Section addSection(String name, int group, Format format, String content) {
-        return add(null, name, group, format, content);
+    public Section addSection(String name, Format format, String content) {
+        return add(null, name, format, content);
     }
 
     /**
@@ -74,14 +66,13 @@ public abstract class DocumentationTemplate {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param name              the name of the section
-     * @param group             the group of the section (an integer between 1 and 5)
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
     @Nonnull
-    public Section addSection(SoftwareSystem softwareSystem, String name, int group, File... files) throws IOException {
-        return add(softwareSystem, name, group, files);
+    public Section addSection(SoftwareSystem softwareSystem, String name, File... files) throws IOException {
+        return add(softwareSystem, name, files);
     }
 
     /**
@@ -89,13 +80,12 @@ public abstract class DocumentationTemplate {
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
      * @param name              the name of the section
-     * @param group             the group of the section (an integer between 1 and 5)
      * @param format            the {@link Format} of the documentation content
      * @param content           a String containing the documentation content
      * @return                  a documentation {@link Section}
      */
-    public Section addSection(SoftwareSystem softwareSystem, String name, int group, Format format, String content) {
-        return add(softwareSystem, name, group, format, content);
+    public Section addSection(SoftwareSystem softwareSystem, String name, Format format, String content) {
+        return add(softwareSystem, name, format, content);
     }
 
     /**
@@ -103,13 +93,12 @@ public abstract class DocumentationTemplate {
      *
      * @param container     the {@link Container} the documentation content relates to
      * @param name          the name of the section
-     * @param group         the group of the section (an integer between 1 and 5)
      * @param files         one or more File objects that point to the documentation content
      * @return              a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addSection(Container container, String name, int group, File... files) throws IOException {
-        return add(container, name, group, files);
+    public Section addSection(Container container, String name, File... files) throws IOException {
+        return add(container, name, files);
     }
 
     /**
@@ -117,13 +106,12 @@ public abstract class DocumentationTemplate {
      *
      * @param container     the {@link Container} the documentation content relates to
      * @param name          the name of the section
-     * @param group         the group of the section (an integer between 1 and 5)
      * @param format        the {@link Format} of the documentation content
      * @param content       a String containing the documentation content
      * @return              a documentation {@link Section}
      */
-    public Section addSection(Container container, String name, int group, Format format, String content) {
-        return add(container, name, group, format, content);
+    public Section addSection(Container container, String name, Format format, String content) {
+        return add(container, name, format, content);
     }
 
     /**
@@ -131,13 +119,12 @@ public abstract class DocumentationTemplate {
      *
      * @param component     the {@link Component} the documentation content relates to
      * @param name          the name of the section
-     * @param group         the group of the section (an integer between 1 and 5)
      * @param files         one or more File objects that point to the documentation content
      * @return              a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addSection(Component component, String name, int group, File... files) throws IOException {
-        return add(component, name, group, files);
+    public Section addSection(Component component, String name, File... files) throws IOException {
+        return add(component, name, files);
     }
 
     /**
@@ -145,23 +132,22 @@ public abstract class DocumentationTemplate {
      *
      * @param component     the {@link Component} the documentation content relates to
      * @param name          the name of the section
-     * @param group         the group of the section (an integer between 1 and 5)
      * @param format        the {@link Format} of the documentation content
      * @param content       a String containing the documentation content
      * @return              a documentation {@link Section}
      */
-    public Section addSection(Component component, String name, int group, Format format, String content) {
-        return add(component, name, group, format, content);
+    public Section addSection(Component component, String name, Format format, String content) {
+        return add(component, name, format, content);
     }
 
-    private Section add(Element element, @Nonnull String type, int group, @Nonnull Format format, @Nonnull String content) {
-        return documentation.addSection(element, type, group, format, content);
+    private Section add(Element element, @Nonnull String type, @Nonnull Format format, @Nonnull String content) {
+        return documentation.addSection(element, type, format, content);
     }
 
     @Nonnull
-    private Section add(Element element, @Nonnull String type, int group, File... files) throws IOException {
+    private Section add(Element element, @Nonnull String type, File... files) throws IOException {
         FormattedContent content = readFiles(files);
-        return documentation.addSection(element, type, group, content.getFormat(), content.getContent());
+        return documentation.addSection(element, type, content.getFormat(), content.getContent());
     }
 
     private FormattedContent readFiles(File... files) throws IOException {

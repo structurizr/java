@@ -20,11 +20,7 @@ template.addSystemQualitiesSection(softwareSystem, new File(documentationRoot, "
 template.addAppendicesSection(softwareSystem, new File(documentationRoot, "07-appendices.md"));
 ```
 
-Structurizr will create navigation controls based upon the the sections in the documentation, and the software systems they have been associated with. This particular example is rendered as follows: 
-
-![Documentation based upon the Viewpoints and Perspectives template](images/documentation-viewpoints-and-perspectives-1.png)
-
-See [ViewpointsAndPerspectivesDocumentationExample.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/ViewpointsAndPerspectivesDocumentationExample.java) for the full code, and [https://structurizr.com/share/36371/documentation](https://structurizr.com/share/36371/documentation) to see the rendered documentation.
+Structurizr will create navigation controls based upon the the sections in the documentation, and the software systems they have been associated with. See [ViewpointsAndPerspectivesDocumentationExample.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/ViewpointsAndPerspectivesDocumentationExample.java) for the full code, and [https://structurizr.com/share/36371/documentation](https://structurizr.com/share/36371/documentation) to see the rendered documentation.
 
 ## More information
 

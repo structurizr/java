@@ -68,7 +68,7 @@ public class WidgetsLimited {
         dynamicView.add(customerServiceUser, ecommerceSystem);
 
         StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
-        template.addSection("System Landscape", 1, Format.Markdown, "Here is some information about the Widgets Limited system landscape... ![](embed:SystemLandscape)");
+        template.addSection("System Landscape", Format.Markdown, "Here is some information about the Widgets Limited system landscape... ![](embed:SystemLandscape)");
         template.addContextSection(ecommerceSystem, Format.Markdown, "This is the context section for the E-commerce System... ![](embed:EcommerceSystemContext)");
         template.addContextSection(fulfilmentSystem, Format.Markdown, "This is the context section for the Fulfilment System... ![](embed:FulfilmentSystemContext)");
 

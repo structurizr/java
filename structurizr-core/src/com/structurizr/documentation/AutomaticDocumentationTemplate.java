@@ -82,7 +82,7 @@ public class AutomaticDocumentationTemplate extends DocumentationTemplate {
                     sectionName = matcher.group(1);
                 }
 
-                Section section = addSection(softwareSystem, sectionName, GROUP1, format, content);
+                Section section = addSection(softwareSystem, sectionName, format, content);
                 sections.add(section);
             }
         }

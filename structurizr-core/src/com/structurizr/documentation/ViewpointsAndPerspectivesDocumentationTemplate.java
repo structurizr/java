@@ -42,7 +42,7 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * @throws IOException      if there is an error reading the files
      */
     public Section addIntroductionSection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Introduction", GROUP1, files);
+        return addSection(softwareSystem, "Introduction", files);
     }
 
     /**
@@ -54,7 +54,7 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * @return                  a documentation {@link Section}
      */
     public Section addIntroductionSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Introduction", GROUP1, format, content);
+        return addSection(softwareSystem, "Introduction", format, content);
     }
 
     /**
@@ -66,7 +66,7 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * @throws IOException      if there is an error reading the files
      */
     public Section addGlossarySection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Glossary", GROUP1, files);
+        return addSection(softwareSystem, "Glossary", files);
     }
 
     /**
@@ -78,7 +78,7 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * @return                  a documentation {@link Section}
      */
     public Section addGlossarySection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Glossary", GROUP1, format, content);
+        return addSection(softwareSystem, "Glossary", format, content);
     }
 
     /**
@@ -90,7 +90,7 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * @throws IOException      if there is an error reading the files
      */
     public Section addSystemStakeholdersAndRequirementsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "System Stakeholders and Requirements", GROUP2, files);
+        return addSection(softwareSystem, "System Stakeholders and Requirements", files);
     }
 
     /**
@@ -102,7 +102,7 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * @return                  a documentation {@link Section}
      */
     public Section addSystemStakeholdersAndRequirementsSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "System Stakeholders and Requirements", GROUP2, format, content);
+        return addSection(softwareSystem, "System Stakeholders and Requirements", format, content);
     }
 
     /**
@@ -114,7 +114,7 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * @throws IOException      if there is an error reading the files
      */
     public Section addArchitecturalForcesSection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Architectural Forces", GROUP2, files);
+        return addSection(softwareSystem, "Architectural Forces", files);
     }
 
     /**
@@ -126,7 +126,7 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * @return                  a documentation {@link Section}
      */
     public Section addArchitecturalForcesSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Architectural Forces", GROUP2, format, content);
+        return addSection(softwareSystem, "Architectural Forces", format, content);
     }
 
     /**
@@ -138,7 +138,7 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * @throws IOException      if there is an error reading the files
      */
     public Section addArchitecturalViewsSection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Architectural Views", GROUP3, files);
+        return addSection(softwareSystem, "Architectural Views", files);
     }
 
     /**
@@ -150,7 +150,7 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * @return                  a documentation {@link Section}
      */
     public Section addArchitecturalViewsSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Architectural Views", GROUP3, format, content);
+        return addSection(softwareSystem, "Architectural Views", format, content);
     }
 
     /**
@@ -162,7 +162,7 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * @throws IOException      if there is an error reading the files
      */
     public Section addSystemQualitiesSection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "System Qualities", GROUP4, files);
+        return addSection(softwareSystem, "System Qualities", files);
     }
 
     /**
@@ -174,7 +174,7 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * @return                  a documentation {@link Section}
      */
     public Section addSystemQualitiesSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "System Qualities", GROUP4, format, content);
+        return addSection(softwareSystem, "System Qualities", format, content);
     }
 
     /**
@@ -186,7 +186,7 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * @throws IOException      if there is an error reading the files
      */
     public Section addAppendicesSection(SoftwareSystem softwareSystem, File... files) throws IOException {
-        return addSection(softwareSystem, "Appendices", GROUP5, files);
+        return addSection(softwareSystem, "Appendices", files);
     }
 
     /**
@@ -198,7 +198,7 @@ public class ViewpointsAndPerspectivesDocumentationTemplate extends Documentatio
      * @return                  a documentation {@link Section}
      */
     public Section addAppendicesSection(SoftwareSystem softwareSystem, Format format, String content) {
-        return addSection(softwareSystem, "Appendices", GROUP5, format, content);
+        return addSection(softwareSystem, "Appendices", format, content);
     }
 
     @Override

@@ -15,11 +15,7 @@ AutomaticDocumentationTemplate template = new AutomaticDocumentationTemplate(wor
 template.addSections(softwareSystem, documentationRoot);
 ```
 
-Structurizr will create navigation controls based upon the the sections in the documentation, and the software systems they have been associated with. This particular example is rendered as follows: 
-
-![Documentation based upon the Structurizr template](images/documentation-automatic-1.png)
-
-See [AutomaticDocumentationTemplateExample.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/AutomaticDocumentationTemplateExample.java) for the full code, and [https://structurizr.com/share/35971/documentation](https://structurizr.com/share/35971/documentation) to see the rendered documentation.
+Structurizr will create navigation controls based upon the the sections in the documentation, and the software systems they have been associated with. See [AutomaticDocumentationTemplateExample.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/AutomaticDocumentationTemplateExample.java) for the full code, and [https://structurizr.com/share/35971/documentation](https://structurizr.com/share/35971/documentation) to see the rendered documentation.
 
 ## More information
 
