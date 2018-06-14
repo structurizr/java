@@ -6,7 +6,7 @@ The simplest way to create a software architecture model is to write a single Ja
 
 ## Multiple programs
 
-Another approach is to write a collection of Java programs, that are each responsible for creating a different part of the software architecture model. This is especially useful if you need to use the component finder with different classpaths. You can then write a script, or use your build script, to run these Java programs in sequence. Intermediate versions of the workspace can be saved to and loaded from disk using the [WorkspaceUtils](https://github.com/structurizr/java/blob/master/structurizr-core/src/com/structurizr/util/WorkspaceUtils.java) class. For example:
+Another approach is to write a collection of Java programs, that are each responsible for creating a different part of the software architecture model. This is especially useful if you need to use the component finder with different classpaths. You can then write a script, or use your build script, to run these Java programs in sequence. Intermediate versions of the workspace can be saved to and loaded from disk using the [WorkspaceUtils](https://github.com/structurizr/java/blob/master/structurizr-client/src/com/structurizr/util/WorkspaceUtils.java) class. For example:
 
 1. Program 1: Create the basic model elements (people, software systems and containers) and the relationships between them.
 2. Program 2: Add components for container 1 (e.g. run the component finder).
