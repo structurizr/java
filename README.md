@@ -82,6 +82,7 @@ The view can then be exported to be visualised in a number of different ways; e.
     * [java-quickstart](https://github.com/structurizr/java-quickstart): A simple starting point for using Structurizr for Java
     * [structurizr-groovy](https://github.com/tidyjava/structurizr-groovy): An initial version of a Groovy wrapper around Structurizr for Java.
     * [structurizr-dotnet](https://github.com/structurizr/dotnet): Structurizr for .NET
+* [changelog](docs/changelog.md)
 
 [![Build Status](https://travis-ci.org/structurizr/java.svg?branch=master)](https://travis-ci.org/structurizr/java)
 
