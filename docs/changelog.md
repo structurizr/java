@@ -10,5 +10,4 @@
 - Added the ability to customise the terminology used when rendering views.
 - Added the ability to hide element metadata and/or descriptions.
 - The Spring component finder now supports the @Endpoint annotation.
-
 - Bug fixes and performance enhancements.
