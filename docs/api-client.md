@@ -14,7 +14,7 @@ The easiest way to configure the API client is to provide values for the API key
 StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
 ```
 
-If you're using the [on-premises installation](https://structurizr.com/help/on-premises-ui), there is a three argument version of the constructor where you can also specify the API URL.
+If you're using the [on-premises installation](https://structurizr.com/help/on-premises), there is a three argument version of the constructor where you can also specify the API URL.
 
 ```java
 StructurizrClient structurizrClient = new StructurizrClient("url", "key", "secret");

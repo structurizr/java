@@ -2,7 +2,7 @@
 
 ## Single program
 
-The simplest way to create a software architecture model is to write a single Java program that first creates the model elements (people, software systems, containers and components) before subsequently creating the required views and uploading the workspace to Structurizr. If you have a particularly large model, or you'd like to share common elements between models, then one approach is to modularise your program appropriately, perhaps using something like [Cat Boot Structurizr](https://github.com/Catalysts/cat-boot/tree/master/cat-boot-structurizr).
+The simplest way to create a software architecture model is to write a single Java program that first creates the model elements (people, software systems, containers and components) before subsequently creating the required views and uploading the workspace to Structurizr. If you have a particularly large model, or you'd like to share common elements between models, then one approach is to modularise your program appropriately, perhaps using something like [Structurizr Extensions](https://github.com/Catalysts/structurizr-extensions).
 
 ## Multiple programs
 
