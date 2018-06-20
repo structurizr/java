@@ -87,7 +87,7 @@ public final class RelationshipStyle {
 
     public void setColor(String color) {
         if (Color.isHexColorCode(color)) {
-            this.color = color;
+            this.color = color.toLowerCase();
         } else {
             throw new IllegalArgumentException(color + " is not a valid hex colour code.");
         }

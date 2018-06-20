@@ -90,12 +90,12 @@ public class RelationshipStyleTests {
 
     @Test
     public void test_setColor_SetsTheColorProperty_WhenAValidHexColorCodeIsSpecified() {
-        ElementStyle style = new ElementStyle();
+        RelationshipStyle style = new RelationshipStyle();
         style.setColor("#ffffff");
         assertEquals("#ffffff", style.getColor());
 
         style.setColor("#FFFFFF");
-        assertEquals("#FFFFFF", style.getColor());
+        assertEquals("#ffffff", style.getColor());
 
         style.setColor("#123456");
         assertEquals("#123456", style.getColor());
@@ -103,12 +103,12 @@ public class RelationshipStyleTests {
 
     @Test
     public void test_color_SetsTheColorProperty_WhenAValidHexColorCodeIsSpecified() {
-        ElementStyle style = new ElementStyle();
+        RelationshipStyle style = new RelationshipStyle();
         style.color("#ffffff");
         assertEquals("#ffffff", style.getColor());
 
         style.color("#FFFFFF");
-        assertEquals("#FFFFFF", style.getColor());
+        assertEquals("#ffffff", style.getColor());
 
         style.color("#123456");
         assertEquals("#123456", style.getColor());
@@ -116,13 +116,13 @@ public class RelationshipStyleTests {
 
     @Test(expected = IllegalArgumentException.class)
     public void test_setColor_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
-        ElementStyle style = new ElementStyle();
+        RelationshipStyle style = new RelationshipStyle();
         style.setColor("white");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void test_color_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
-        ElementStyle style = new ElementStyle();
+        RelationshipStyle style = new RelationshipStyle();
         style.color("white");
     }
 

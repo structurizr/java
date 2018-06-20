@@ -123,7 +123,7 @@ public final class ElementStyle {
 
     public void setBackground(String background) {
         if (Color.isHexColorCode(background)) {
-            this.background = background;
+            this.background = background.toLowerCase();
         } else {
             throw new IllegalArgumentException(background + " is not a valid hex colour code.");
         }
@@ -145,7 +145,7 @@ public final class ElementStyle {
 
     public void setColor(String color) {
         if (Color.isHexColorCode(color)) {
-            this.color = color;
+            this.color = color.toLowerCase();
         } else {
             throw new IllegalArgumentException(color + " is not a valid hex colour code.");
         }

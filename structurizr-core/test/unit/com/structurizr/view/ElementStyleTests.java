@@ -56,7 +56,7 @@ public class ElementStyleTests {
         assertEquals("#ffffff", style.getColor());
 
         style.setColor("#FFFFFF");
-        assertEquals("#FFFFFF", style.getColor());
+        assertEquals("#ffffff", style.getColor());
 
         style.setColor("#123456");
         assertEquals("#123456", style.getColor());
@@ -69,7 +69,7 @@ public class ElementStyleTests {
         assertEquals("#ffffff", style.getColor());
 
         style.color("#FFFFFF");
-        assertEquals("#FFFFFF", style.getColor());
+        assertEquals("#ffffff", style.getColor());
 
         style.color("#123456");
         assertEquals("#123456", style.getColor());
@@ -94,7 +94,7 @@ public class ElementStyleTests {
         assertEquals("#ffffff", style.getBackground());
 
         style.setBackground("#FFFFFF");
-        assertEquals("#FFFFFF", style.getBackground());
+        assertEquals("#ffffff", style.getBackground());
 
         style.setBackground("#123456");
         assertEquals("#123456", style.getBackground());
@@ -107,7 +107,7 @@ public class ElementStyleTests {
         assertEquals("#ffffff", style.getBackground());
 
         style.background("#FFFFFF");
-        assertEquals("#FFFFFF", style.getBackground());
+        assertEquals("#ffffff", style.getBackground());
 
         style.background("#123456");
         assertEquals("#123456", style.getBackground());
