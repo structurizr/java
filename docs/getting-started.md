@@ -56,7 +56,7 @@ contextView.addAllSoftwareSystems();
 contextView.addAllPeople();
 ```
 
-## 5. Add some colour
+## 5. Add some colour and shapes
 
 Optionally, elements and relationships can be styled by specifying colours, sizes and shapes.
 
@@ -68,7 +68,7 @@ styles.addElementStyle(Tags.PERSON).background("#08427b").color("#ffffff").shape
 
 ## 6. Upload to Structurizr
 
-Structurizr provides a web API to get and put workspaces.
+Structurizr provides a web API to get and put workspaces, and an API client is provided by the ```StructurizrClient``` class.
 
 ```java
 StructurizrClient structurizrClient = new StructurizrClient("key", "secret");
@@ -79,7 +79,7 @@ structurizrClient.putWorkspace(25441, workspace);
 
 ## 7. Open the workspace in Structurizr
 
-Once you've run your program to create and upload the workspace, you can now sign in to your Structurizr account, and open the workspace from your dashboard. The result should be a diagram like this:
+Once you've run your program to create and upload the workspace, you can now sign in to your Structurizr account, and open the workspace from [your dashboard](https://structurizr.com/dashboard). The result should be a diagram like this:
 
 ![Getting Started with Structurizr for Java](images/getting-started.png)
 
