@@ -57,3 +57,19 @@ This allows you to overwrite an existing remote workspace. If the ```mergeFromRe
 ```java
 structurizrClient.putWorkspace(1234, workspace);
 ```
+
+## SSL handshake errors
+
+SSL handshake errors are likely if using a self-signed certificate with the on-premises installation, because the Structurizr client program runtime won't trust a self-signed certificate by default.
+
+If this happens, you can use the ```javax.net.ssl.trustStore``` JVM option to point to your keystore. For example:
+
+```
+java -Djavax.net.ssl.trustStore=/some/path/to/keystore.jks YourJavaProgram
+```
+
+Alternatively, you can specify this property in your Java program:
+
+```
+System.setProperty("javax.net.ssl.trustStore", "/some/path/to/keystore.jks");
+```
