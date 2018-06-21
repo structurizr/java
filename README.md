@@ -74,6 +74,7 @@ The view can then be exported to be visualised in a number of different ways; e.
     * [Graphviz and DOT](docs/graphviz-and-dot.md)
     * [WebSequenceDiagrams](docs/websequencediagrams.md)
 * Other
+	* [HTTP-based health checks](docs/health-checks.md)
     * [Client-side encryption](docs/client-side-encryption.md)
     * [Corporate branding](docs/corporate-branding.md)
     * [Building from source](docs/building.md)

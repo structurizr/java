@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.0 (not released)
+
+- HTTP-based health check interval and timeout can be specified via the factory method now (__breaking change__). Also added some documentation and an example.
+
 ## 1.0.0-RC6
 
 - Component finders are no longer idempotent, and an exception will be thrown if the same component is discovered more than once (__breaking change__).

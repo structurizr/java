@@ -113,14 +113,99 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addHealthCheck() {
-        Container webApplication = softwareSystem.addContainer("Web Application", "", "");
-        ContainerInstance instance = deploymentNode.add(webApplication);
-        assertTrue(instance.getHealthChecks().isEmpty());
+        ContainerInstance containerInstance = deploymentNode.add(database);
+        assertTrue(containerInstance.getHealthChecks().isEmpty());
 
-        HttpHealthCheck healthCheck = instance.addHealthCheck("Test web application is working", "http://localhost:8080");
+        HttpHealthCheck healthCheck = containerInstance.addHealthCheck("Test web application is working", "http://localhost:8080");
         assertEquals("Test web application is working", healthCheck.getName());
         assertEquals("http://localhost:8080", healthCheck.getUrl());
-        assertEquals(1, instance.getHealthChecks().size());
+        assertEquals(60, healthCheck.getInterval());
+        assertEquals(0, healthCheck.getTimeout());
+        assertEquals(1, containerInstance.getHealthChecks().size());
+    }
+
+    @Test
+    public void test_addHealthCheck_ThrowsAnException_WhenTheNameIsNull() {
+        ContainerInstance containerInstance = deploymentNode.add(database);
+
+        try {
+            containerInstance.addHealthCheck(null, "http://localhost");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("The name must not be null or empty.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addHealthCheck_ThrowsAnException_WhenTheNameIsEmpty() {
+        ContainerInstance containerInstance = deploymentNode.add(database);
+
+        try {
+            containerInstance.addHealthCheck(" ", "http://localhost");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("The name must not be null or empty.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsNull() {
+        ContainerInstance containerInstance = deploymentNode.add(database);
+
+        try {
+            containerInstance.addHealthCheck("Name", null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("The URL must not be null or empty.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsEmpty() {
+        ContainerInstance containerInstance = deploymentNode.add(database);
+
+        try {
+            containerInstance.addHealthCheck("Name", " ");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("The URL must not be null or empty.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsInvalid() {
+        ContainerInstance containerInstance = deploymentNode.add(database);
+
+        try {
+            containerInstance.addHealthCheck("Name", "localhost");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("localhost is not a valid URL.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addHealthCheck_ThrowsAnException_WhenTheIntervalIsLessThanZero() {
+        ContainerInstance containerInstance = deploymentNode.add(database);
+
+        try {
+            containerInstance.addHealthCheck("Name", "https://localhost", -1, 0);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("The polling interval must be zero or a positive integer.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addHealthCheck_ThrowsAnException_WhenTheTimeoutIsLessThanZero() {
+        ContainerInstance containerInstance = deploymentNode.add(database);
+
+        try {
+            containerInstance.addHealthCheck("Name", "https://localhost", 60, -1);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("The timeout must be zero or a positive integer.", iae.getMessage());
+        }
     }
 
 }

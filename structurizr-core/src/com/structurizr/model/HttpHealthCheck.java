@@ -1,7 +1,5 @@
 package com.structurizr.model;
 
-import com.structurizr.util.Url;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,17 +18,19 @@ public final class HttpHealthCheck {
     private Map<String,String> headers = new HashMap<>();
 
     /** the polling interval, in seconds */
-    private int interval = 60;
+    private int interval;
 
     /** the timeout after which a health check is deemed as failed, in milliseconds */
-    private long timeout = 0;
+    private long timeout;
 
     HttpHealthCheck() {
     }
 
-    HttpHealthCheck(String name, String url) {
-        setName(name);
-        setUrl(url);
+    HttpHealthCheck(String name, String url, int interval, long timeout) {
+        this.name = name;
+        this.url = url;
+        this.interval = interval;
+        this.timeout = timeout;
     }
 
     /**
@@ -42,11 +42,7 @@ public final class HttpHealthCheck {
         return name;
     }
 
-    void setName(String name) {
-        if (name == null || name.trim().length() == 0) {
-            throw new IllegalArgumentException("The name must not be null or empty.");
-        }
-
+    private void setName(String name) {
         this.name = name;
     }
 
@@ -59,22 +55,8 @@ public final class HttpHealthCheck {
         return url;
     }
 
-    /**
-     * Sets the URL for this health check.
-     *
-     * @param url   the URL as a String
-     * @throws IllegalArgumentException     if the URL is not a well-formed URL
-     */
-    void setUrl(String url) {
-        if (url == null || url.trim().length() == 0) {
-            throw new IllegalArgumentException("The URL must not be null or empty.");
-        }
-
-        if (Url.isUrl(url)) {
-            this.url = url;
-        } else {
-            throw new IllegalArgumentException(url + " is not a valid URL.");
-        }
+    private void setUrl(String url) {
+        this.url = url;
     }
 
     /**
@@ -113,16 +95,7 @@ public final class HttpHealthCheck {
         return interval;
     }
 
-    /**
-     * Sets the polling interval, in seconds.
-     *
-     * @param interval      the polling interval, in seconds
-     */
-    public void setInterval(int interval) {
-        if (interval < 0) {
-            throw new IllegalArgumentException("The polling interval must be zero or a positive integer.");
-        }
-
+    private void setInterval(int interval) {
         this.interval = interval;
     }
 
@@ -135,16 +108,7 @@ public final class HttpHealthCheck {
         return timeout;
     }
 
-    /**
-     * Sets the timeout associated with this health check, in milliseconds.
-     *
-     * @param timeout       the timeout, in milliseconds
-     */
-    public void setTimeout(long timeout) {
-        if (timeout < 0) {
-            throw new IllegalArgumentException("The timeout must be zero or a positive integer.");
-        }
-
+    private void setTimeout(long timeout) {
         this.timeout = timeout;
     }
 
