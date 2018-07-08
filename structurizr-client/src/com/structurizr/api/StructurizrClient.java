@@ -224,8 +224,14 @@ public final class StructurizrClient {
                         return new JsonReader().read(new StringReader(json));
                     } else {
                         EncryptedWorkspace encryptedWorkspace = new EncryptedJsonReader().read(new StringReader(json));
-                        encryptedWorkspace.getEncryptionStrategy().setPassphrase(encryptionStrategy.getPassphrase());
-                        return encryptedWorkspace.getWorkspace();
+
+                        if (encryptedWorkspace.getEncryptionStrategy() != null) {
+                            encryptedWorkspace.getEncryptionStrategy().setPassphrase(encryptionStrategy.getPassphrase());
+                            return encryptedWorkspace.getWorkspace();
+                        } else {
+                            // this workspace isn't encrypted, even though the client has an encryption strategy set
+                            return new JsonReader().read(new StringReader(json));
+                        }
                     }
                 } else {
                     ApiError apiError = ApiError.parse(json);
