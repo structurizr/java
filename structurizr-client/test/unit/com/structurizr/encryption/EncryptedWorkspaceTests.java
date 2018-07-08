@@ -57,7 +57,6 @@ public class EncryptedWorkspaceTests {
         assertEquals("Name", encryptedWorkspace.getName());
         assertEquals("Description", encryptedWorkspace.getDescription());
         assertEquals("1.2.3", encryptedWorkspace.getVersion());
-        assertEquals("thumbnail data", encryptedWorkspace.getThumbnail());
         assertEquals(1234, encryptedWorkspace.getId());
 
         assertSame(workspace, encryptedWorkspace.getWorkspace());
