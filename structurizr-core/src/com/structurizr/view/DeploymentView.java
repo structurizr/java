@@ -2,6 +2,7 @@ package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.*;
+import com.structurizr.util.StringUtils;
 
 import javax.annotation.Nonnull;
 
@@ -109,11 +110,18 @@ public final class DeploymentView extends View {
      */
     @Override
     public String getName() {
+        String name;
         if (getSoftwareSystem() != null) {
-            return getSoftwareSystem().getName() + " - Deployment";
+            name = getSoftwareSystem().getName() + " - Deployment";
         } else {
-            return "Deployment";
+            name = "Deployment";
         }
+
+        if (!StringUtils.isNullOrEmpty(environment)) {
+            name = name + " - " + environment;
+        }
+
+        return name;
     }
 
     /**
