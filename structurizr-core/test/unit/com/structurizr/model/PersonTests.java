@@ -7,26 +7,28 @@ import static org.junit.Assert.*;
 
 public class PersonTests extends AbstractWorkspaceTestBase {
 
-    private Person person = model.addPerson("Person", "Description");
-
     @Test
     public void test_getCanonicalName() {
+        Person person = model.addPerson("Person", "Description");
         assertEquals("/Person", person.getCanonicalName());
     }
 
     @Test
     public void test_getCanonicalName_WhenNameContainsASlashCharacter() {
+        Person person = model.addPerson("Person", "Description");
         person.setName("Name1/Name2");
         assertEquals("/Name1Name2", person.getCanonicalName());
     }
 
     @Test
     public void test_getParent_ReturnsNull() {
+        Person person = model.addPerson("Person", "Description");
         assertNull(person.getParent());
     }
 
     @Test
     public void test_removeTags_DoesNotRemoveRequiredTags() {
+        Person person = model.addPerson("Person", "Description");
         assertTrue(person.getTags().contains(Tags.ELEMENT));
         assertTrue(person.getTags().contains(Tags.PERSON));
 
@@ -83,6 +85,13 @@ public class PersonTests extends AbstractWorkspaceTestBase {
         assertEquals("Sends a message to", relationship.getDescription());
         assertEquals("E-mail", relationship.getTechnology());
         assertEquals(InteractionStyle.Asynchronous, relationship.getInteractionStyle());
+    }
+
+    @Test
+    public void test_setLocation_SetsTheLocationToUnspecified_WhenNullIsPassed() {
+        Person person = model.addPerson("Person", "Description");
+        person.setLocation(null);
+        assertEquals(Location.Unspecified, person.getLocation());
     }
 
 }
