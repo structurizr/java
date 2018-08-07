@@ -69,7 +69,7 @@ public final class Relationship extends Taggable {
         this.sourceId = sourceId;
     }
 
-    public void setSource(Element source) {
+    void setSource(Element source) {
         this.source = source;
     }
 
@@ -95,7 +95,7 @@ public final class Relationship extends Taggable {
         this.destinationId = destinationId;
     }
 
-    public void setDestination(Element destination) {
+    void setDestination(Element destination) {
         this.destination = destination;
     }
 
