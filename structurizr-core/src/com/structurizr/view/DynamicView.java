@@ -82,7 +82,7 @@ public final class DynamicView extends View {
         return element;
     }
 
-    public void setElement(Element element) {
+    void setElement(Element element) {
         this.element = element;
     }
 
@@ -198,6 +198,11 @@ public final class DynamicView extends View {
 
     public void endParallelSequence(boolean endAllParallelSequencesAndContinueNumbering) {
         sequenceNumber.endParallelSequence(endAllParallelSequencesAndContinueNumbering);
+    }
+
+    @Override
+    protected boolean canBeRemoved(Element element) {
+        return true;
     }
 
 }

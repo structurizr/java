@@ -123,7 +123,7 @@ public abstract class StaticView extends View {
             findElementsToShow(element, element, elementsToShow, elementsVisited);
 
             for (ElementView elementView : getElements()) {
-                if (!elementsToShow.contains(elementView.getElement())) {
+                if (!elementsToShow.contains(elementView.getElement()) && canBeRemoved(elementView.getElement())) {
                     removeElement(elementView.getElement());
                 }
             }

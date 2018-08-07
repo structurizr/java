@@ -222,13 +222,9 @@ public final class ComponentView extends StaticView {
         }
     }
 
-    private boolean hasAnyRelationship(Container container, Set<Element> components) {
-        for (Element component : components) {
-            if (component.hasEfferentRelationshipWith(container) || container.hasEfferentRelationshipWith(component)) {
-                return true;
-            }
-        }
-        return false;
+    @Override
+    protected boolean canBeRemoved(Element element) {
+        return true;
     }
 
 }

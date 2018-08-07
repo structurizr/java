@@ -168,10 +168,13 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_remove_DoesNothing_WhenANullContainerIsPassed() {
-        assertEquals(0, view.getElements().size());
-        view.remove((Container) null);
-        assertEquals(0, view.getElements().size());
+    public void test_remove_ThrowsAndException_WhenANullContainerIsPassed() {
+        try {
+            view.remove((Container)null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("An element must be specified.", iae.getMessage());
+        }
     }
 
     @Test
@@ -264,9 +267,12 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_remove_DoesNothing_WhenANullComponentIsPassed() {
-        assertEquals(0, view.getElements().size());
-        view.remove((Component) null);
-        assertEquals(0, view.getElements().size());
+        try {
+            view.remove((Component)null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("An element must be specified.", iae.getMessage());
+        }
     }
 
     @Test

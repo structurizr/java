@@ -154,13 +154,15 @@ public abstract class View {
     public abstract String getName();
 
     protected final void addElement(Element element, boolean addRelationships) {
-        if (element != null) {
-            if (getModel().contains(element)) {
-                elementViews.add(new ElementView(element));
+        if (element == null) {
+            throw new IllegalArgumentException("An element must be specified.");
+        }
 
-                if (addRelationships) {
-                    addRelationships(element);
-                }
+        if (getModel().contains(element)) {
+            elementViews.add(new ElementView(element));
+
+            if (addRelationships) {
+                addRelationships(element);
             }
         }
     }
@@ -188,15 +190,21 @@ public abstract class View {
     }
 
     protected void removeElement(Element element) {
-        if (element != null) {
-            ElementView elementView = new ElementView(element);
-            elementViews.remove(elementView);
+        if (element == null) {
+            throw new IllegalArgumentException("An element must be specified.");
+        }
 
-            for (RelationshipView relationshipView : getRelationships()) {
-                if (relationshipView.getRelationship().getSource().equals(element) ||
-                        relationshipView.getRelationship().getDestination().equals(element)) {
-                    remove(relationshipView.getRelationship());
-                }
+        if (!canBeRemoved(element)) {
+            throw new IllegalArgumentException("The element named '" + element.getName() + "' cannot be removed from this view.");
+        }
+
+        ElementView elementView = new ElementView(element);
+        elementViews.remove(elementView);
+
+        for (RelationshipView relationshipView : getRelationships()) {
+            if (relationshipView.getRelationship().getSource().equals(element) ||
+                    relationshipView.getRelationship().getDestination().equals(element)) {
+                remove(relationshipView.getRelationship());
             }
         }
     }
@@ -378,5 +386,7 @@ public abstract class View {
     public ViewSet getViewSet() {
         return viewSet;
     }
+
+    protected abstract boolean canBeRemoved(Element element);
 
 }

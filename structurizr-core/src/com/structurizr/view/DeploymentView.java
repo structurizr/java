@@ -142,4 +142,9 @@ public final class DeploymentView extends View {
         this.environment = environment;
     }
 
+    @Override
+    protected boolean canBeRemoved(Element element) {
+        return true;
+    }
+
 }

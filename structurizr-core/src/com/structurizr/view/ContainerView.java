@@ -145,5 +145,10 @@ public final class ContainerView extends StaticView {
                 .filter(softwareSystem -> softwareSystem.hasEfferentRelationshipWith(this.getSoftwareSystem()))
                 .forEach(this::add);
     }
-    
+
+    @Override
+    protected boolean canBeRemoved(Element element) {
+        return true;
+    }
+
 }

@@ -49,8 +49,16 @@ public final class SystemContextView extends StaticView {
      */
     @Override
     public void addNearestNeighbours(@Nonnull Element element) {
-        super.addNearestNeighbours(element, Person.class);
-        super.addNearestNeighbours(element, SoftwareSystem.class);
+        if (element == null) {
+            throw new IllegalArgumentException("An element must be specified.");
+        }
+
+        if (element instanceof Person || element instanceof SoftwareSystem) {
+            super.addNearestNeighbours(element, Person.class);
+            super.addNearestNeighbours(element, SoftwareSystem.class);
+        } else {
+            throw new IllegalArgumentException("A person or software system must be specified.");
+        }
     }
 
     /**
@@ -69,6 +77,11 @@ public final class SystemContextView extends StaticView {
      */
     public void setEnterpriseBoundaryVisible(boolean enterpriseBoundaryVisible) {
         this.enterpriseBoundaryVisible = enterpriseBoundaryVisible;
+    }
+
+    @Override
+    protected boolean canBeRemoved(Element element) {
+        return !getSoftwareSystem().equals(element);
     }
 
 }

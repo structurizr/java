@@ -93,10 +93,24 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addNearestNeightbours_DoesNothing_WhenANullElementIsSpecified() {
-        view.addNearestNeighbours(null);
+    public void test_addNearestNeighbours_ThrowsAnException_WhenANullElementIsSpecified() {
+        try {
+            view.addNearestNeighbours(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("An element must be specified.", iae.getMessage());
+        }
+    }
 
-        assertEquals(1, view.getElements().size());
+    @Test
+    public void test_addNearestNeighbours_ThrowsAnException_WhenAnElementThatIsNotAPersonOrSoftwareSystemIsSpecified() {
+        Container container = softwareSystem.addContainer("Container", "Description", "Technology");
+        try {
+            view.addNearestNeighbours(container);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A person or software system must be specified.", iae.getMessage());
+        }
     }
 
     @Test
@@ -108,8 +122,8 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addNearestNeighbours_AddsNearestNeighbours_WhenThereAreSomeNearestNeighbours() {
-        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
-        SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "Description");
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("A", "Description");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("B", "Description");
         Person userA = model.addPerson("User A", "Description");
         Person userB = model.addPerson("User B", "Description");
 
@@ -153,6 +167,93 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(userA)));
         assertTrue(view.getElements().contains(new ElementView(softwareSystemA)));
         assertTrue(view.getElements().contains(new ElementView(softwareSystem)));
+    }
+
+    @Test
+    public void test_removeSoftwareSystem_ThrowsAnException_WhenPassedNull() {
+        try {
+            view.remove((SoftwareSystem)null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("An element must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_removeSoftwareSystem_DoesNothing_WhenTheSoftwareSystemIsNotInTheView() {
+        SoftwareSystem anotherSoftwareSystem = model.addSoftwareSystem("Another software system", "");
+        assertEquals(1, view.getElements().size());
+
+        view.remove(anotherSoftwareSystem);
+        assertEquals(1, view.getElements().size());
+    }
+
+    @Test
+    public void test_removeSoftwareSystem_DoesNotRemoveTheSoftwareSystemInFocus() {
+        try {
+            view.remove(softwareSystem);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("The element named 'The System' cannot be removed from this view.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_removeSoftwareSystem_RemovesTheSoftwareSystemAndRelationshipsFromTheView() {
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software system 1", "");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software system 2", "");
+        softwareSystem1.uses(softwareSystem2, "uses");
+        softwareSystem2.uses(softwareSystem1, "uses");
+        view = views.createSystemContextView(softwareSystem1, "key", "description");
+        view.add(softwareSystem2);
+        assertEquals(2, view.getElements().size());
+        assertEquals(2, view.getRelationships().size());
+
+        view.remove(softwareSystem2);
+        assertEquals(1, view.getElements().size());
+        assertEquals(0, view.getRelationships().size());
+    }
+
+    @Test
+    public void test_removePerson_ThrowsAnException_WhenPassedNull() {
+        try {
+            view.remove((Person)null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("An element must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_removePerson_DoesNothing_WhenThePersonIsNotInTheView() {
+        Person person = model.addPerson("Person", "");
+        assertEquals(1, view.getElements().size());
+
+        view.remove(person);
+        assertEquals(1, view.getElements().size());
+    }
+
+    @Test
+    public void test_removePerson_RemovesThePersonAndRelationshipsFromTheView() {
+        Person person = model.addPerson("Person", "");
+        person.uses(softwareSystem, "uses");
+        softwareSystem.delivers(person, "delivers something to");
+        view = views.createSystemContextView(softwareSystem, "key", "description");
+        view.add(person);
+        assertEquals(2, view.getElements().size());
+        assertEquals(2, view.getRelationships().size());
+
+        view.remove(person);
+        assertEquals(1, view.getElements().size());
+        assertEquals(0, view.getRelationships().size());
+    }
+
+    @Test
+    public void test_isEnterpriseBoundaryVisible() {
+        assertTrue(view.isEnterpriseBoundaryVisible()); // default is true
+
+        view.setEnterpriseBoundaryVisible(false);
+        assertFalse(view.isEnterpriseBoundaryVisible());
     }
 
 }

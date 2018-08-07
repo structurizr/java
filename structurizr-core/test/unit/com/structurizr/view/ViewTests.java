@@ -48,11 +48,16 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addSoftwareSystem_DoesNothing_WhenGivenNull() {
+    public void test_addSoftwareSystem_ThrowsAnException_WhenGivenNull() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         StaticView view = new SystemContextView(softwareSystem, "context", "Description");
-        view.add((SoftwareSystem)null);
-        assertEquals(1, view.getElements().size());
+
+        try {
+            view.add((SoftwareSystem)null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("An element must be specified.", iae.getMessage());
+        }
     }
 
     @Test
@@ -109,11 +114,15 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addPerson_DoesNothing_WhenGivenNull() {
+    public void test_addPerson_ThrowsAnException_WhenGivenNull() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         StaticView view = new SystemContextView(softwareSystem, "context", "Description");
-        view.add((Person)null);
-        assertEquals(1, view.getElements().size());
+        try {
+            view.add((Person)null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("An element must be specified.", iae.getMessage());
+        }
     }
 
     @Test
@@ -143,11 +152,10 @@ public class ViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_removeElementsWithNoRelationships_RemovesAllElements_WhenTheViewHasNoRelationshipsBetweenElements() {
-        SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
-        SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.Unspecified, "System A", "Description");
-        Person person1 = model.addPerson(Location.Unspecified, "Person 1", "Description");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "Software System", "Description");
+        Person person = model.addPerson(Location.Unspecified, "Person", "Description");
 
-        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
+        StaticView view = views.createSystemLandscapeView("context", "Description");
         view.addAllSoftwareSystems();
         view.addAllPeople();
         view.removeElementsWithNoRelationships();
@@ -293,9 +301,9 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         view.addAllElements();
         assertEquals(3, view.getElements().size());
 
-        view.removeElementsThatAreUnreachableFrom(softwareSystemA);
+        view.removeElementsThatAreUnreachableFrom(softwareSystemB);
         assertEquals(2, view.getElements().size());
-        assertFalse(view.getElements().contains(new ElementView(softwareSystem)));
+        assertFalse(view.getElements().contains(new ElementView(softwareSystemA)));
     }
 
     @Test
