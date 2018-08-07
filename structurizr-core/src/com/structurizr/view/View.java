@@ -303,7 +303,7 @@ public abstract class View {
      *
      * @param source    the source View
      */
-    public void copyLayoutInformationFrom(@Nonnull View source) {
+    void copyLayoutInformationFrom(@Nonnull View source) {
         if (this.getPaperSize() == null) {
             this.setPaperSize(source.getPaperSize());
         }

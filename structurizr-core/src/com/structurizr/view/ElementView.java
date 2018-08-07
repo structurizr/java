@@ -25,7 +25,7 @@ public final class ElementView {
         return element;
     }
 
-    public void setElement(Element element) {
+    void setElement(Element element) {
         this.element = element;
     }
 
