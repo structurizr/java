@@ -3,6 +3,7 @@
 ## 1.0.0 (not released)
 
 - HTTP-based health check interval and timeout can be specified via the factory method now (__breaking change__). Also added some documentation and an example.
+- Added an ```endParallelSequence(boolean)``` method to the ```DynamicView``` class, which allows sequence numbering to continue.
 
 ## 1.0.0-RC6
 

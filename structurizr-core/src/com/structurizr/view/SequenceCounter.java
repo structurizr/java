@@ -30,22 +30,7 @@ class SequenceCounter implements Cloneable {
 
     @Override
     public String toString() {
-        if (getParent() == null) {
-            return "" + getSequence();
-        } else {
-            return getParent().toString() + "." + getSequence();
-        }
-    }
-
-    @Override
-    protected Object clone() {
-        SequenceCounter counter = new SequenceCounter();
-        counter.sequence = this.sequence;
-        if (this.parent != null) {
-            counter.parent = (SequenceCounter) this.parent.clone();
-        }
-
-        return counter;
+        return "" + getSequence();
     }
 
 }

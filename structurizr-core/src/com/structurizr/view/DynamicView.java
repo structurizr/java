@@ -193,7 +193,11 @@ public final class DynamicView extends View {
     }
 
     public void endParallelSequence() {
-        sequenceNumber.endParallelSequence();
+        endParallelSequence(false);
+    }
+
+    public void endParallelSequence(boolean endAllParallelSequencesAndContinueNumbering) {
+        sequenceNumber.endParallelSequence(endAllParallelSequencesAndContinueNumbering);
     }
 
 }

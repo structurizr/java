@@ -163,54 +163,39 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     public void test_parallelSequence() {
         workspace = new Workspace("Name", "Description");
         model = workspace.getModel();
-        SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
-        Person user = model.addPerson("User", "Description");
-        Container microservice1 = softwareSystem.addContainer("Microservice 1", "", "");
-        Container database1 = softwareSystem.addContainer("Database 1", "", "");
-        Container microservice2 = softwareSystem.addContainer("Microservice 2", "", "");
-        Container database2 = softwareSystem.addContainer("Database 2", "", "");
-        Container microservice3 = softwareSystem.addContainer("Microservice 3", "", "");
-        Container database3 = softwareSystem.addContainer("Database 3", "", "");
-        Container messageBus = softwareSystem.addContainer("Message Bus", "", "");
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("A", "");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("B", "");
+        SoftwareSystem softwareSystemC1 = model.addSoftwareSystem("C1", "");
+        SoftwareSystem softwareSystemC2 = model.addSoftwareSystem("C2", "");
+        SoftwareSystem softwareSystemD = model.addSoftwareSystem("D", "");
+        SoftwareSystem softwareSystemE = model.addSoftwareSystem("E", "");
 
-        user.uses(microservice1, "Updates using");
-        microservice1.delivers(user, "Sends updates to");
+        // A -> B -> C1 -> D -> E
+        // A -> B -> C2 -> D -> E
+        softwareSystemA.uses(softwareSystemB, "uses");
+        softwareSystemB.uses(softwareSystemC1, "uses");
+        softwareSystemC1.uses(softwareSystemD, "uses");
+        softwareSystemB.uses(softwareSystemC2, "uses");
+        softwareSystemC2.uses(softwareSystemD, "uses");
+        softwareSystemD.uses(softwareSystemE, "uses");
 
-        microservice1.uses(database1, "Stores data in");
-        microservice1.uses(messageBus, "Sends messages to");
-        microservice1.uses(messageBus, "Sends messages to");
+        DynamicView view = workspace.getViews().createDynamicView("key", "Description");
 
-        messageBus.uses(microservice2, "Sends messages to");
-        messageBus.uses(microservice3, "Sends messages to");
-
-        microservice2.uses(database2, "Stores data in");
-        microservice3.uses(database3, "Stores data in");
-
-        DynamicView view = workspace.getViews().createDynamicView(softwareSystem, "key", "Description");
-
-        view.add(user, "1", microservice1);
-        view.add(microservice1, "2", database1);
-        view.add(microservice1, "3", messageBus);
-
+        view.add(softwareSystemA, softwareSystemB);
         view.startParallelSequence();
-        view.add(messageBus, "4", microservice2);
-        view.add(microservice2, "5", database2);
+        view.add(softwareSystemB, softwareSystemC1);
+        view.add(softwareSystemC1, softwareSystemD);
         view.endParallelSequence();
-
         view.startParallelSequence();
-        view.add(messageBus, "4", microservice3);
-        view.add(microservice3, "5", database3);
-        view.endParallelSequence();
-
-        view.add(microservice1, "5", database1);
-
-        System.out.println(view.toString());
+        view.add(softwareSystemB, softwareSystemC2);
+        view.add(softwareSystemC2, softwareSystemD);
+        view.endParallelSequence(true);
+        view.add(softwareSystemD, softwareSystemE);
 
         assertEquals(1, view.getRelationships().stream().filter(r -> r.getOrder().equals("1")).count());
-        assertEquals(1, view.getRelationships().stream().filter(r -> r.getOrder().equals("2")).count());
-        assertEquals(1, view.getRelationships().stream().filter(r -> r.getOrder().equals("3")).count());
-        assertEquals(3, view.getRelationships().stream().filter(r -> r.getOrder().equals("4")).count());
-        assertEquals(2, view.getRelationships().stream().filter(r -> r.getOrder().equals("5")).count());
+        assertEquals(2, view.getRelationships().stream().filter(r -> r.getOrder().equals("2")).count());
+        assertEquals(2, view.getRelationships().stream().filter(r -> r.getOrder().equals("3")).count());
+        assertEquals(1, view.getRelationships().stream().filter(r -> r.getOrder().equals("4")).count());
     }
 
 }

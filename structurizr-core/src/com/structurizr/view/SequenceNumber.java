@@ -12,20 +12,18 @@ class SequenceNumber {
         return counter.toString();
     }
 
-    void startChildSequence() {
-        this.counter = new SequenceCounter(counter);
-    }
-
-    void endChildSequence() {
-        counter = this.counter.getParent();
-    }
-
     void startParallelSequence() {
         this.counter = new ParallelSequenceCounter(this.counter);
     }
 
-    void endParallelSequence() {
-        this.counter = ((ParallelSequenceCounter)this.counter).getRoot();
+    void endParallelSequence(boolean endAllParallelSequencesAndContinueNumbering) {
+        if (endAllParallelSequencesAndContinueNumbering) {
+            int sequence = this.counter.getSequence();
+            this.counter = this.counter.getParent();
+            this.counter.setSequence(sequence);
+        } else {
+            this.counter = this.counter.getParent();
+        }
     }
 
 }

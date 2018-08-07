@@ -75,7 +75,9 @@ public class MicroservicesExample {
         dynamicView.add(auditService, auditStore);
         dynamicView.endParallelSequence();
 
+        dynamicView.startParallelSequence();
         dynamicView.add(customerService, "Confirms update to", customerApplication);
+        dynamicView.endParallelSequence();
 
         Styles styles = views.getConfiguration().getStyles();
         styles.addElementStyle(Tags.ELEMENT).color("#000000");
