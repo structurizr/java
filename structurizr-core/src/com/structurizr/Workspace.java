@@ -76,18 +76,20 @@ public final class Workspace extends AbstractWorkspace {
     private void hydrateViewSet() {
         try {
             Method hydrateMethod = ViewSet.class.getDeclaredMethod("hydrate", Model.class);
+            hydrateMethod.setAccessible(true);
             hydrateMethod.invoke(viewSet, model);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
     private void hydrateDocumentation() {
         try {
             Method hydrateMethod = Documentation.class.getDeclaredMethod("hydrate", Model.class);
+            hydrateMethod.setAccessible(true);
             hydrateMethod.invoke(documentation, model);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

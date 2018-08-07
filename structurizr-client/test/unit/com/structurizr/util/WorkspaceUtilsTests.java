@@ -4,8 +4,10 @@ import com.structurizr.Workspace;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FilenameFilter;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class WorkspaceUtilsTests {
@@ -58,6 +60,22 @@ public class WorkspaceUtilsTests {
 
         workspace = WorkspaceUtils.loadWorkspaceFromJson(file);
         assertEquals("Name", workspace.getName());
+    }
+
+    @Test
+    public void test_loadWorkspaceFromJson_WorksWithSomeWorkspaceExamples() throws Exception {
+        File[] files = new File("test/integration/workspaces").listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return name.endsWith(".json");
+            }
+        });
+
+        assertTrue(files.length > 0);
+
+        for (File file : files) {
+            WorkspaceUtils.loadWorkspaceFromJson(file);
+        }
     }
 
 }
