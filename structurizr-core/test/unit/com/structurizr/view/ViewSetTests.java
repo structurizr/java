@@ -94,6 +94,39 @@ public class ViewSetTests {
     }
 
     @Test
+    public void test_copyLayoutInformationFrom_WhenTheSystemLandscapeViewKeysMatch() {
+        Workspace workspace1 = createWorkspace();
+        SoftwareSystem softwareSystem1 = workspace1.getModel().getSoftwareSystemWithName("Software System");
+        SystemLandscapeView view1 = workspace1.getViews().createSystemLandscapeView("landscape", "Description");
+        view1.addAllElements();
+        view1.getElements().iterator().next().setX(100);
+        view1.setPaperSize(PaperSize.A3_Landscape);
+
+        Workspace workspace2 = createWorkspace();
+        SoftwareSystem softwareSystem2 = workspace2.getModel().getSoftwareSystemWithName("Software System");
+        SystemLandscapeView view2 = workspace2.getViews().createSystemLandscapeView("context", "Description");
+        view2.addAllElements();
+
+        workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
+        assertEquals(100, view2.getElements().iterator().next().getX());
+        assertEquals(PaperSize.A3_Landscape, view2.getPaperSize());
+    }
+
+    @Test
+    public void test_copyLayoutInformationFrom_DoesNotDoAnythingIfThereIsNoSystemLandscapeViewToCopyInformationFrom() {
+        Workspace workspace1 = createWorkspace();
+
+        Workspace workspace2 = createWorkspace();
+        SoftwareSystem softwareSystem2 = workspace2.getModel().getSoftwareSystemWithName("Software System");
+        SystemLandscapeView view2 = workspace2.getViews().createSystemLandscapeView("landscape", "Description");
+        view2.addAllElements();
+
+        workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
+        assertEquals(0, view2.getElements().iterator().next().getX()); // default
+        assertNull(view2.getPaperSize()); // default
+    }
+
+    @Test
     public void test_copyLayoutInformationFrom_WhenTheSystemContextViewKeysMatch() {
         Workspace workspace1 = createWorkspace();
         SoftwareSystem softwareSystem1 = workspace1.getModel().getSoftwareSystemWithName("Software System");
