@@ -71,7 +71,7 @@ public class WorkspaceUtilsTests {
             }
         });
 
-        assertTrue(files.length > 0);
+        assertTrue(files != null && files.length > 0);
 
         for (File file : files) {
             WorkspaceUtils.loadWorkspaceFromJson(file);
