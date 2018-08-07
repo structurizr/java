@@ -129,4 +129,26 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
         assertEquals(CodeElementRole.Supporting, codeElement.getRole());
     }
 
+    @Test
+    public void test_getType_ReturnsNull_WhenThereAreNoCodeElements() {
+        Component component = new Component();
+        assertNull(component.getType());
+    }
+
+    @Test
+    public void test_getType_ReturnsNull_WhenThereAreNoPrimaryCodeElements() {
+        Component component = new Component();
+        component.addSupportingType("com.structurizr.SomeType");
+        assertNull(component.getType());
+    }
+
+    @Test
+    public void test_getType_ReturnsThePrimaryCodeElement_WhenThereIsAPrimaryCodeElement() {
+        Component component = new Component();
+        component.setType("com.structurizr.SomeType");
+        CodeElement codeElement = component.getType();
+        assertEquals(CodeElementRole.Primary, codeElement.getRole());
+        assertEquals("com.structurizr.SomeType", codeElement.getType());
+    }
+
 }
