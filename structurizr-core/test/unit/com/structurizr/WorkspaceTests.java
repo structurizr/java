@@ -60,4 +60,14 @@ public class WorkspaceTests {
         assertEquals(10, workspace.countAndLogWarnings());
     }
 
+    @Test
+    public void test_hydrate_DoesNotCrash() {
+        Workspace workspace = new Workspace("Name", "Description");
+        assertNotNull(workspace.getViews());
+        assertNotNull(workspace.getDocumentation());
+
+        // check that the hydrate method doesn't crash (it includes some method calls via reflection)
+        workspace.hydrate();
+    }
+
 }

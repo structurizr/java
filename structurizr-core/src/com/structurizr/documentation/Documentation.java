@@ -33,15 +33,6 @@ public final class Documentation {
         this.model = model;
     }
 
-    @JsonIgnore
-    Model getModel() {
-        return model;
-    }
-
-    public void setModel(Model model) {
-        this.model = model;
-    }
-
     @Nonnull
     final Section addSection(Element element, String type, Format format, String content) {
         Section section = new Section(element, type, calculateOrder(), format, content);
@@ -89,7 +80,9 @@ public final class Documentation {
         this.images = images;
     }
 
-    public void hydrate() {
+    void hydrate(Model model) {
+        this.model = model;
+
         for (Section section : sections) {
             if (section.getElementId() != null && section.getElementId().trim().length() > 0) {
                 section.setElement(model.getElement(section.getElementId()));

@@ -41,15 +41,6 @@ public final class ViewSet {
         this.model = model;
     }
 
-    @JsonIgnore
-    public Model getModel() {
-        return model;
-    }
-
-    public void setModel(Model model) {
-        this.model = model;
-    }
-
     /**
      * Creates a system landscape view.
      *
@@ -135,7 +126,7 @@ public final class ViewSet {
     public DynamicView createDynamicView(String key, String description) {
         assertThatTheViewKeyIsUnique(key);
 
-        DynamicView view = new DynamicView(getModel(), key, description);
+        DynamicView view = new DynamicView(model, key, description);
         view.setViewSet(this);
         dynamicViews.add(view);
         return view;
@@ -205,7 +196,7 @@ public final class ViewSet {
     public DeploymentView createDeploymentView(String key, String description) {
         assertThatTheViewKeyIsUnique(key);
 
-        DeploymentView view = new DeploymentView(getModel(), key, description);
+        DeploymentView view = new DeploymentView(model, key, description);
         view.setViewSet(this);
         deploymentViews.add(view);
         return view;
@@ -368,7 +359,9 @@ public final class ViewSet {
         return new HashSet<>(deploymentViews);
     }
 
-    public void hydrate() {
+    void hydrate(Model model) {
+        this.model = model;
+
         for (SystemLandscapeView view : systemLandscapeViews) {
             view.setModel(model);
             hydrateView(view);

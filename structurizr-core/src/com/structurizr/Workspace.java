@@ -8,6 +8,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.annotation.Nonnull;
+import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -67,12 +68,27 @@ public final class Workspace extends AbstractWorkspace {
      * based upon element/relationship IDs.
      */
     public void hydrate() {
-        this.viewSet.setModel(model);
-        this.documentation.setModel(model);
-
         this.model.hydrate();
-        this.viewSet.hydrate();
-        this.documentation.hydrate();
+        hydrateViewSet();
+        hydrateDocumentation();
+    }
+
+    private void hydrateViewSet() {
+        try {
+            Method hydrateMethod = ViewSet.class.getDeclaredMethod("hydrate", Model.class);
+            hydrateMethod.invoke(viewSet, model);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void hydrateDocumentation() {
+        try {
+            Method hydrateMethod = Documentation.class.getDeclaredMethod("hydrate", Model.class);
+            hydrateMethod.invoke(documentation, model);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -89,9 +105,8 @@ public final class Workspace extends AbstractWorkspace {
      *
      * @param documentation a Documentation object
      */
-    public void setDocumentation(@Nonnull Documentation documentation) {
+    void setDocumentation(@Nonnull Documentation documentation) {
         this.documentation = documentation;
-        documentation.setModel(getModel());
     }
 
     /**
