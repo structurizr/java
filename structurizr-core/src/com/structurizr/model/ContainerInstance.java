@@ -26,10 +26,10 @@ public final class ContainerInstance extends Element {
     }
 
     ContainerInstance(Container container, int instanceId) {
-        this.container = container;
-        this.setTags(container.getTags());
-        this.addTags(Tags.CONTAINER_INSTANCE);
-        this.instanceId = instanceId;
+        setContainer(container);
+        setTags(container.getTags());
+        addTags(Tags.CONTAINER_INSTANCE);
+        setInstanceId(instanceId);
     }
 
     @JsonIgnore

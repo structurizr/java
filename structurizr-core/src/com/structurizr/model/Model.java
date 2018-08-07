@@ -254,7 +254,7 @@ public final class Model {
     @Nullable
     public Relationship getRelationship(@Nonnull String id) {
         if (id == null || id.trim().length() == 0) {
-            throw new IllegalArgumentException("An relationship ID must be specified.");
+            throw new IllegalArgumentException("A relationship ID must be specified.");
         }
 
         return relationshipsById.get(id);

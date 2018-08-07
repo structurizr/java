@@ -143,6 +143,26 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_getSoftwareSystemWithId_ThrowsAnException_WhenPassedANullId() {
+        try {
+            model.getSoftwareSystemWithId(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A software system ID must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getSoftwareSystemWithId_ThrowsAnException_WhenPassedAnEmptyId() {
+        try {
+            model.getSoftwareSystemWithId(" ");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A software system ID must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
     public void test_getSoftwareSystemWithId_ReturnsNull_WhenASoftwareSystemWithTheSpecifiedIdDoesNotExist() {
         assertNull(model.getSoftwareSystemWithId("100"));
     }
@@ -162,6 +182,26 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     public void test_getPersonWithName_ReturnsAPerson_WhenAPersonWithTheSpecifiedNameExists() {
         Person person = model.addPerson(Location.External, "Admin User", "Description");
         assertSame(person, model.getPersonWithName("Admin User"));
+    }
+
+    @Test
+    public void test_getRelationship_ThrowsAnException_WhenPassedANullId() {
+        try {
+            model.getRelationship(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A relationship ID must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getRelationship_ThrowsAnException_WhenPassedAnEmptyId() {
+        try {
+            model.getRelationship(" ");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A relationship ID must be specified.", iae.getMessage());
+        }
     }
 
     @Test

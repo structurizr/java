@@ -27,10 +27,10 @@ public final class HttpHealthCheck {
     }
 
     HttpHealthCheck(String name, String url, int interval, long timeout) {
-        this.name = name;
-        this.url = url;
-        this.interval = interval;
-        this.timeout = timeout;
+        setName(name);
+        setUrl(url);
+        setInterval(interval);
+        setTimeout(timeout);
     }
 
     /**
@@ -42,7 +42,7 @@ public final class HttpHealthCheck {
         return name;
     }
 
-    private void setName(String name) {
+    void setName(String name) {
         this.name = name;
     }
 
@@ -55,7 +55,7 @@ public final class HttpHealthCheck {
         return url;
     }
 
-    private void setUrl(String url) {
+    void setUrl(String url) {
         this.url = url;
     }
 
@@ -95,7 +95,7 @@ public final class HttpHealthCheck {
         return interval;
     }
 
-    private void setInterval(int interval) {
+    void setInterval(int interval) {
         this.interval = interval;
     }
 
@@ -108,7 +108,7 @@ public final class HttpHealthCheck {
         return timeout;
     }
 
-    private void setTimeout(long timeout) {
+    void setTimeout(long timeout) {
         this.timeout = timeout;
     }
 
