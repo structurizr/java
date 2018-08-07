@@ -67,6 +67,15 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_sizeProperty() {
+        Component component = new Component();
+        assertEquals(0, component.getSize());
+
+        component.setSize(123456);
+        assertEquals(123456, component.getSize());
+    }
+
+    @Test
     public void test_setType_ThrowsAnExceptionWhenPassedNull() {
         Component component = new Component();
         try {

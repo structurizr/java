@@ -22,6 +22,24 @@ public class CodeElementTests {
     }
 
     @Test
+    public void test_descriptionProperty() {
+        CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
+        assertNull(codeElement.getDescription());
+
+        codeElement.setDescription("Description");
+        assertEquals("Description", codeElement.getDescription());
+    }
+
+    @Test
+    public void test_sizeProperty() {
+        CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
+        assertEquals(0, codeElement.getSize());
+
+        codeElement.setSize(123456);
+        assertEquals(123456, codeElement.getSize());
+    }
+
+    @Test
     public void test_languageProperty() {
         CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
         assertEquals("Java", codeElement.getLanguage());

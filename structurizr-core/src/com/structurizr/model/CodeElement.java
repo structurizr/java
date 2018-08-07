@@ -46,11 +46,11 @@ public final class CodeElement {
 
         int dot = fullyQualifiedTypeName.lastIndexOf('.');
         if (dot > -1) {
-            this.name = fullyQualifiedTypeName.substring(dot+1, fullyQualifiedTypeName.length());
-            this.type = fullyQualifiedTypeName;
+            setName(fullyQualifiedTypeName.substring(dot+1, fullyQualifiedTypeName.length()));
+            setType(fullyQualifiedTypeName);
         } else {
-            this.name = fullyQualifiedTypeName;
-            this.type = fullyQualifiedTypeName;
+            setName(fullyQualifiedTypeName);
+            setType(fullyQualifiedTypeName);
         }
     }
 

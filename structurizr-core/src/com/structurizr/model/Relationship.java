@@ -3,6 +3,7 @@ package com.structurizr.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -27,10 +28,10 @@ public final class Relationship extends Taggable {
     Relationship(Element source, Element destination, String description, String technology, InteractionStyle interactionStyle) {
         this();
 
-        this.source = source;
-        this.destination = destination;
-        this.description = description;
-        this.technology = technology;
+        setSource(source);
+        setDestination(destination);
+        setDescription(description);
+        setTechnology(technology);
         setInteractionStyle(interactionStyle);
     }
 
@@ -145,7 +146,7 @@ public final class Relationship extends Taggable {
 
     @Override
     protected Set<String> getRequiredTags() {
-        return new LinkedHashSet<String>(Arrays.asList(Tags.RELATIONSHIP));
+        return new LinkedHashSet<>(Collections.singletonList(Tags.RELATIONSHIP));
     }
 
     @Override

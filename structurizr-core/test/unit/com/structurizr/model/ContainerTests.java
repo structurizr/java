@@ -3,14 +3,20 @@ package com.structurizr.model;
 import com.structurizr.AbstractWorkspaceTestBase;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class ContainerTests extends AbstractWorkspaceTestBase {
 
     private SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "System", "Description");
     private Container container = softwareSystem.addContainer("Container", "Description", "Some technology");
+
+    @Test
+    public void test_technologyProperty() {
+        assertEquals("Some technology", container.getTechnology());
+
+        container.setTechnology("Some other technology");
+        assertEquals("Some other technology", container.getTechnology());
+    }
 
     @Test
     public void test_getCanonicalName() {
@@ -68,6 +74,54 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_addComponent_AddsAComponentWithTheSpecifiedNameAndDescription() {
+        Component component = container.addComponent("Name", "Description");
+        assertTrue(container.getComponents().contains(component));
+        assertEquals("Name", component.getName());
+        assertEquals("Description", component.getDescription());
+        assertNull(component.getTechnology());
+        assertNull(component.getType());
+        assertEquals(0, component.getCode().size());
+        assertSame(container, component.getParent());
+    }
+
+    @Test
+    public void test_addComponent_AddsAComponentWithTheSpecifiedNameAndDescriptionAndTechnology() {
+        Component component = container.addComponent("Name", "Description", "Technology");
+        assertTrue(container.getComponents().contains(component));
+        assertEquals("Name", component.getName());
+        assertEquals("Description", component.getDescription());
+        assertEquals("Technology", component.getTechnology());
+        assertNull(component.getType());
+        assertEquals(0, component.getCode().size());
+        assertSame(container, component.getParent());
+    }
+
+    @Test
+    public void test_addComponent_AddsAComponentWithTheSpecifiedNameAndDescriptionAndTechnologyAndStringType() {
+        Component component = container.addComponent("Name", "SomeType", "Description", "Technology");
+        assertTrue(container.getComponents().contains(component));
+        assertEquals("Name", component.getName());
+        assertEquals("Description", component.getDescription());
+        assertEquals("Technology", component.getTechnology());
+        assertEquals("SomeType", component.getType().getType());
+        assertEquals(1, component.getCode().size());
+        assertSame(container, component.getParent());
+    }
+
+    @Test
+    public void test_addComponent_AddsAComponentWithTheSpecifiedNameAndDescriptionAndTechnologyAndClassType() {
+        Component component = container.addComponent("Name", this.getClass(), "Description", "Technology");
+        assertTrue(container.getComponents().contains(component));
+        assertEquals("Name", component.getName());
+        assertEquals("Description", component.getDescription());
+        assertEquals("Technology", component.getTechnology());
+        assertEquals("com.structurizr.model.ContainerTests", component.getType().getType());
+        assertEquals(1, component.getCode().size());
+        assertSame(container, component.getParent());
+    }
+
+    @Test
     public void test_getComponentWithName_ThrowsAnException_WhenANullNameIsSpecified() {
         try {
             container.getComponentWithName(null);
@@ -105,6 +159,20 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
         } catch (IllegalArgumentException iae) {
             assertEquals("A component type must be provided.", iae.getMessage());
         }
+    }
+
+    @Test
+    public void test_getComponentOfType_ReturnsNull_WhenNoComponentWithTheSpecifiedTypeExists() {
+        assertNull(container.getComponentOfType("SomeType"));
+    }
+
+    @Test
+    public void test_getComponentOfType_ReturnsAComponent_WhenAComponentWithTheSpecifiedTypeExists() {
+        container.addComponent("Name", "SomeType", "Description", "Technology");
+        Component component = container.getComponentOfType("SomeType");
+
+        assertNotNull(component);
+        assertEquals("SomeType", component.getType().getType());
     }
 
 }
