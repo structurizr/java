@@ -68,9 +68,19 @@ public final class Workspace extends AbstractWorkspace {
      * based upon element/relationship IDs.
      */
     public void hydrate() {
-        this.model.hydrate();
+        hydrateModel();
         hydrateViewSet();
         hydrateDocumentation();
+    }
+
+    private void hydrateModel() {
+        try {
+            Method hydrateMethod = Model.class.getDeclaredMethod("hydrate");
+            hydrateMethod.setAccessible(true);
+            hydrateMethod.invoke(model);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void hydrateViewSet() {

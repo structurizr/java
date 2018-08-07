@@ -151,6 +151,12 @@ public final class DeploymentNode extends Element {
         return new HashSet<>(children);
     }
 
+    void setChildren(Set<DeploymentNode> children) {
+        if (children != null) {
+            this.children.addAll(children);
+        }
+    }
+
     /**
      * Gets the set of container instances associated with this deployment node.
      *
@@ -160,8 +166,10 @@ public final class DeploymentNode extends Element {
         return new HashSet<>(containerInstances);
     }
 
-    void setChildren(Set<DeploymentNode> children) {
-        this.children = children;
+    void setContainerInstances(Set<ContainerInstance> containerInstances) {
+        if (containerInstances != null) {
+            this.containerInstances.addAll(containerInstances);
+        }
     }
 
     /**

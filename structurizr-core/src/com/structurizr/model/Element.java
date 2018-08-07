@@ -171,6 +171,12 @@ public abstract class Element extends Taggable {
         return new LinkedHashSet<>(relationships);
     }
 
+    void setRelationships(Set<Relationship> relationships) {
+        if (relationships != null) {
+            this.relationships.addAll(relationships);
+        }
+    }
+
     /**
      * Determines whether this element has afferent (incoming) relationships.
      *

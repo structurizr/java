@@ -132,6 +132,12 @@ public final class Container extends StaticStructureElement {
         return components;
     }
 
+    void setComponents(Set<Component> components) {
+        if (components != null) {
+            this.components.addAll(components);
+        }
+    }
+
     /**
      * Gets the component with the specified name.
      *

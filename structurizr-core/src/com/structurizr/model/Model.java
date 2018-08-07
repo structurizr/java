@@ -270,6 +270,12 @@ public final class Model {
         return new LinkedHashSet<>(people);
     }
 
+    void setPeople(Set<Person> people) {
+        if (people != null) {
+            this.people.addAll(people);
+        }
+    }
+
     /**
      * Gets the set of all software systems in this model.
      *
@@ -278,6 +284,12 @@ public final class Model {
     @Nonnull
     public Set<SoftwareSystem> getSoftwareSystems() {
         return new LinkedHashSet<>(softwareSystems);
+    }
+
+    void setSoftwareSystems(Set<SoftwareSystem> softwareSystems) {
+        if (softwareSystems != null) {
+            this.softwareSystems.addAll(softwareSystems);
+        }
     }
 
     /**
@@ -290,17 +302,21 @@ public final class Model {
         return new LinkedHashSet<>(deploymentNodes);
     }
 
-    public void hydrate() {
+    void setDeploymentNodes(Set<DeploymentNode> deploymentNodes) {
+        if (deploymentNodes != null) {
+            this.deploymentNodes.addAll(deploymentNodes);
+        }
+    }
+
+    void hydrate() {
         // add all of the elements to the model
         people.forEach(this::addElementToInternalStructures);
         for (SoftwareSystem softwareSystem : softwareSystems) {
             addElementToInternalStructures(softwareSystem);
             for (Container container : softwareSystem.getContainers()) {
-                softwareSystem.add(container);
                 addElementToInternalStructures(container);
                 container.setParent(softwareSystem);
                 for (Component component : container.getComponents()) {
-                    container.add(component);
                     addElementToInternalStructures(component);
                     component.setParent(container);
                 }
@@ -310,18 +326,7 @@ public final class Model {
         deploymentNodes.forEach(dn -> hydrateDeploymentNode(dn, null));
 
         // now hydrate the relationships
-        people.forEach(this::hydrateRelationships);
-        for (SoftwareSystem softwareSystem : softwareSystems) {
-            hydrateRelationships(softwareSystem);
-            for (Container container : softwareSystem.getContainers()) {
-                hydrateRelationships(container);
-                for (Component component : container.getComponents()) {
-                    hydrateRelationships(component);
-                }
-            }
-        }
-
-        deploymentNodes.forEach(this::hydrateDeploymentNodeRelationships);
+        getElements().forEach(this::hydrateRelationships);
     }
 
     private void hydrateDeploymentNode(DeploymentNode deploymentNode, DeploymentNode parent) {
@@ -331,15 +336,9 @@ public final class Model {
         deploymentNode.getChildren().forEach(child -> hydrateDeploymentNode(child, deploymentNode));
 
         for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
-            containerInstance.setContainer((Container) getElement(containerInstance.getContainerId()));
+            containerInstance.setContainer((Container)getElement(containerInstance.getContainerId()));
             addElementToInternalStructures(containerInstance);
         }
-    }
-
-    private void hydrateDeploymentNodeRelationships(DeploymentNode deploymentNode) {
-        hydrateRelationships(deploymentNode);
-        deploymentNode.getChildren().forEach(this::hydrateDeploymentNodeRelationships);
-        deploymentNode.getContainerInstances().forEach(this::hydrateRelationships);
     }
 
     private void hydrateRelationships(Element element) {

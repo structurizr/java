@@ -3,6 +3,7 @@ package com.structurizr.model;
 import com.structurizr.AbstractWorkspaceTestBase;
 import org.junit.Test;
 
+import java.util.Collections;
 import java.util.Set;
 
 import static org.junit.Assert.*;
@@ -732,6 +733,86 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         } catch (IllegalArgumentException iae) {
             assertEquals("An ID generator must be provided.", iae.getMessage());
         }
+    }
+
+    @Test
+    public void test_hydrate() {
+        Person person = new Person();
+        person.setId("1");
+        person.setName("Person");
+        model.setPeople(Collections.singleton(person));
+
+        SoftwareSystem softwareSystem = new SoftwareSystem();
+        softwareSystem.setId("2");
+        softwareSystem.setName("Software System");
+        model.setSoftwareSystems(Collections.singleton(softwareSystem));
+
+        Container container = new Container();
+        container.setId("3");
+        container.setName("Container");
+        softwareSystem.setContainers(Collections.singleton(container));
+
+        Component component = new Component();
+        component.setId("4");
+        component.setName("Component");
+        container.setComponents(Collections.singleton(component));
+
+        DeploymentNode deploymentNodeParent = new DeploymentNode();
+        deploymentNodeParent.setId("5");
+        deploymentNodeParent.setName("Deployment Node - Parent");
+        model.setDeploymentNodes(Collections.singleton(deploymentNodeParent));
+
+        DeploymentNode deploymentNodeChild = new DeploymentNode();
+        deploymentNodeChild.setId("6");
+        deploymentNodeChild.setName("Deployment Node - Child");
+        deploymentNodeParent.setChildren(Collections.singleton(deploymentNodeChild));
+
+        ContainerInstance containerInstance = new ContainerInstance();
+        containerInstance.setId("7");
+        containerInstance.setContainerId("3");
+        deploymentNodeChild.setContainerInstances(Collections.singleton(containerInstance));
+
+        Relationship relationship = new Relationship();
+        relationship.setId("8");
+        relationship.setSourceId("1");
+        relationship.setDestinationId("2");
+        person.setRelationships(Collections.singleton(relationship));
+
+        model.hydrate();
+
+        assertSame(person, model.getElement("1"));
+        assertSame(model, person.getModel());
+
+        assertSame(softwareSystem, model.getElement("2"));
+        assertSame(model, softwareSystem.getModel());
+
+        assertSame(container, model.getElement("3"));
+        assertSame(model, container.getModel());
+        assertSame(softwareSystem, container.getParent());
+
+        assertSame(component, model.getElement("4"));
+        assertSame(model, component.getModel());
+        assertSame(container, component.getParent());
+
+        assertSame(deploymentNodeParent, model.getElement("5"));
+        assertSame(model, deploymentNodeParent.getModel());
+        assertNull(deploymentNodeParent.getParent());
+
+        assertSame(deploymentNodeChild, model.getElement("6"));
+        assertSame(model, deploymentNodeChild.getModel());
+        assertSame(deploymentNodeParent, deploymentNodeChild.getParent());
+
+        assertSame(containerInstance, model.getElement("7"));
+        assertSame(model, containerInstance.getModel());
+        assertSame(container, containerInstance.getContainer());
+
+        assertSame(relationship, model.getRelationship("8"));
+        assertSame(person, relationship.getSource());
+        assertSame(softwareSystem, relationship.getDestination());
+
+        // test that new elements take the next ID
+        Element element = model.addPerson("New element", "Description");
+        assertEquals("9", element.getId());
     }
 
 }

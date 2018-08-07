@@ -68,6 +68,12 @@ public final class SoftwareSystem extends StaticStructureElement {
         return new HashSet<>(containers);
     }
 
+    void setContainers(Set<Container> containers) {
+        if (containers != null) {
+            this.containers.addAll(containers);
+        }
+    }
+
     /**
      * Adds a container with the specified name, description and technology
      *
