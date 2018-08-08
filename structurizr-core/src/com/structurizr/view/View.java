@@ -272,7 +272,9 @@ public abstract class View {
     }
 
     void setElements(Set<ElementView> elementViews) {
-        this.elementViews = elementViews;
+        if (elementViews != null) {
+            this.elementViews.addAll(elementViews);
+        }
     }
 
     /**
@@ -284,8 +286,10 @@ public abstract class View {
         return new HashSet<>(this.relationshipViews);
     }
 
-    public void setRelationships(Set<RelationshipView> relationships) {
-        this.relationshipViews = relationships;
+    void setRelationships(Set<RelationshipView> relationshipViews) {
+        if (relationshipViews != null) {
+            this.relationshipViews.addAll(relationshipViews);
+        }
     }
 
     /**
@@ -348,7 +352,7 @@ public abstract class View {
      * @return  an ElementView object, or null if the element doesn't exist in the view
      */
     public ElementView getElementView(@Nonnull Element element) {
-        Optional<ElementView> elementView = this.elementViews.stream().filter(ev -> ev.getElement().equals(element)).findFirst();
+        Optional<ElementView> elementView = this.elementViews.stream().filter(ev -> ev.getId().equals(element.getId())).findFirst();
         return elementView.orElse(null);
     }
 
@@ -369,7 +373,7 @@ public abstract class View {
      * @return  an RelationshipView object, or null if the relationship doesn't exist in the view
      */
     public RelationshipView getRelationshipView(@Nonnull Relationship relationship) {
-        Optional<RelationshipView> relationshipView = this.relationshipViews.stream().filter(rv -> rv.getRelationship().equals(relationship)).findFirst();
+        Optional<RelationshipView> relationshipView = this.relationshipViews.stream().filter(rv -> rv.getId().equals(relationship.getId())).findFirst();
         return relationshipView.orElse(null);
     }
 

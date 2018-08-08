@@ -4,6 +4,9 @@ import com.structurizr.Workspace;
 import com.structurizr.model.*;
 import org.junit.Test;
 
+import java.util.Collections;
+import java.util.HashSet;
+
 import static org.junit.Assert.*;
 
 public class ViewSetTests {
@@ -369,11 +372,89 @@ public class ViewSetTests {
         }
     }
 
+    private HashSet<ElementView> elementViewsFor(Element... elements) {
+        HashSet<ElementView> set = new HashSet<>();
+
+        for (Element element : elements) {
+            ElementView elementView = new ElementView();
+            elementView.setId(element.getId());
+            set.add(elementView);
+        }
+
+        return set;
+    }
+
+    private HashSet<RelationshipView> relationshipViewsFor(Relationship... relationships) {
+        HashSet<RelationshipView> set = new HashSet<>();
+
+        for (Relationship relationship : relationships) {
+            RelationshipView relationshipView = new RelationshipView();
+            relationshipView.setId(relationship.getId());
+            set.add(relationshipView);
+        }
+
+        return set;
+    }
+
     @Test
-    public void test_hydrate_DoesNotThrowAnException_WhenADeploymentViewIsNotRelatedToASoftwareSystem() {
+    public void test_hydrate() {
         Workspace workspace = new Workspace("Name", "Description");
-        workspace.getViews().createDeploymentView("deployment", ""); // no associated software system
-        workspace.getViews().hydrate(workspace.getModel());
+        Model model = workspace.getModel();
+        ViewSet views = workspace.getViews();
+        Person person = model.addPerson("Person", "Description");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
+        Container container = softwareSystem.addContainer("Container", "Description", "Technology");
+        Component component = container.addComponent("Component", "Description", "Technology");
+        Relationship personUsesSoftwareSystemRelationship = person.uses(softwareSystem, "uses");
+
+        SystemLandscapeView systemLandscapeView = new SystemLandscapeView();
+        systemLandscapeView.setElements(elementViewsFor(person, softwareSystem));
+        systemLandscapeView.setRelationships(relationshipViewsFor(personUsesSoftwareSystemRelationship));
+        views.setSystemLandscapeViews(Collections.singleton(systemLandscapeView));
+
+        SystemContextView systemContextView = new SystemContextView();
+        systemContextView.setSoftwareSystemId(softwareSystem.getId());
+        systemContextView.setElements(elementViewsFor(softwareSystem));
+        views.setSystemContextViews(Collections.singleton(systemContextView));
+
+        ContainerView containerView = new ContainerView();
+        containerView.setSoftwareSystemId(softwareSystem.getId());
+        containerView.setElements(elementViewsFor(container));
+        views.setContainerViews(Collections.singleton(containerView));
+
+        ComponentView componentView = new ComponentView();
+        componentView.setSoftwareSystemId(softwareSystem.getId());
+        componentView.setContainerId(container.getId());
+        componentView.setElements(elementViewsFor(component));
+        views.setComponentViews(Collections.singleton(componentView));
+
+        workspace.getViews().hydrate(model);
+
+        assertSame(model, systemLandscapeView.getModel());
+        assertSame(views, systemLandscapeView.getViewSet());
+        assertSame(person, systemLandscapeView.getElementView(person).getElement());
+        assertSame(softwareSystem, systemLandscapeView.getElementView(softwareSystem).getElement());
+        assertSame(personUsesSoftwareSystemRelationship, systemLandscapeView.getRelationshipView(personUsesSoftwareSystemRelationship).getRelationship());
+
+        assertSame(model, systemContextView.getModel());
+        assertSame(views, systemContextView.getViewSet());
+        assertSame(softwareSystem, systemContextView.getSoftwareSystem());
+        assertSame(softwareSystem, systemContextView.getElementView(softwareSystem).getElement());
+
+        assertSame(model, containerView.getModel());
+        assertSame(views, containerView.getViewSet());
+        assertSame(softwareSystem, containerView.getSoftwareSystem());
+        assertSame(container, containerView.getElementView(container).getElement());
+
+        assertSame(model, componentView.getModel());
+        assertSame(views, componentView.getViewSet());
+        assertSame(softwareSystem, componentView.getSoftwareSystem());
+        assertSame(container, componentView.getContainer());
+        assertSame(component, componentView.getElementView(component).getElement());
+
+        // todo
+//        workspace.getViews().createDeploymentView("deployment", ""); // no associated software system
+//        workspace.getViews().hydrate(workspace.getModel());
     }
 
 }

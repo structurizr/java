@@ -302,6 +302,12 @@ public final class ViewSet {
         return new HashSet<>(systemLandscapeViews);
     }
 
+    void setSystemLandscapeViews(Set<SystemLandscapeView> systemLandscapeViews) {
+        if (systemLandscapeViews != null) {
+            this.systemLandscapeViews.addAll(systemLandscapeViews);
+        }
+    }
+
     /**
      * (this is for backwards compatibility)
      */
@@ -319,6 +325,12 @@ public final class ViewSet {
         return new HashSet<>(systemContextViews);
     }
 
+    void setSystemContextViews(Set<SystemContextView> systemContextViews) {
+        if (systemContextViews != null) {
+            this.systemContextViews.addAll(systemContextViews);
+        }
+    }
+
     /**
      * Gets the set of container views.
      *
@@ -328,6 +340,12 @@ public final class ViewSet {
         return new HashSet<>(containerViews);
     }
 
+    void setContainerViews(Set<ContainerView> containerViews) {
+        if (containerViews != null) {
+            this.containerViews.addAll(containerViews);
+        }
+    }
+
     /**
      * Gets the set of component views.
      *
@@ -335,6 +353,12 @@ public final class ViewSet {
      */
     public Collection<ComponentView> getComponentViews() {
         return new HashSet<>(componentViews);
+    }
+
+    void setComponentViews(Set<ComponentView> componentViews) {
+        if (componentViews != null) {
+            this.componentViews.addAll(componentViews);
+        }
     }
 
     /**
