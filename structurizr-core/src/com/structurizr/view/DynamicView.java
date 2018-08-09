@@ -26,22 +26,22 @@ public final class DynamicView extends View {
     DynamicView(Model model, String key, String description) {
         super(null, key, description);
 
-        this.model = model;
-        this.element = null;
+        setModel(model);
+        setElement(null);
     }
 
     DynamicView(SoftwareSystem softwareSystem, String key, String description) {
         super(softwareSystem, key, description);
 
-        this.model = softwareSystem.getModel();
-        this.element = softwareSystem;
+        setModel(softwareSystem.getModel());
+        setElement(softwareSystem);
     }
 
     DynamicView(Container container, String key, String description) {
         super(container.getSoftwareSystem(), key, description);
 
-        this.model = container.getModel();
-        this.element = container;
+        setModel(container.getModel());
+        setElement(container);
     }
 
     @JsonIgnore
@@ -61,9 +61,9 @@ public final class DynamicView extends View {
     }
 
     /**
-     * Gets the ID of the container associated with this view.
+     * Gets the ID of the software system or container associated with this view.
      *
-     * @return the ID, as a String
+     * @return the ID, as a String, or null if not set
      */
     public String getElementId() {
         if (this.element != null) {
@@ -84,6 +84,10 @@ public final class DynamicView extends View {
 
     void setElement(Element element) {
         this.element = element;
+
+        if (element instanceof SoftwareSystem) {
+            setSoftwareSystem((SoftwareSystem)element);
+        }
     }
 
     public RelationshipView add(@Nonnull Element source, @Nonnull Element destination) {
@@ -91,45 +95,52 @@ public final class DynamicView extends View {
     }
 
     public RelationshipView add(@Nonnull Element source, String description, @Nonnull Element destination) {
-        if (source != null && destination != null) {
-            checkElement(source);
-            checkElement(destination);
+        if (source == null) {
+            throw new IllegalArgumentException("A source element must be specified.");
+        }
 
-            // check that the relationship is in the model before adding it
-            Relationship relationship = source.getEfferentRelationshipWith(destination);
-            if (relationship != null) {
-                addElement(source, false);
-                addElement(destination, false);
-                RelationshipView relationshipView = addRelationship(relationship, description, sequenceNumber.getNext());
-                return relationshipView;
-            } else {
-                throw new IllegalArgumentException("Relationship does not exist in model");
-            }
+        if (destination == null) {
+            throw new IllegalArgumentException("A destination element must be specified.");
+        }
+
+        checkElement(source);
+        checkElement(destination);
+
+        // check that the relationship is in the model before adding it
+        Relationship relationship = source.getEfferentRelationshipWith(destination);
+        if (relationship != null) {
+            addElement(source, false);
+            addElement(destination, false);
+            return addRelationship(relationship, description, sequenceNumber.getNext());
         } else {
-            throw new IllegalArgumentException("Source and destination must not be null");
+            throw new IllegalArgumentException("A relationship between " + source.getName() + " and " + destination.getName() + " does not exist in model.");
         }
     }
 
     /**
      * This checks that only appropriate elements can be added to the view.
      */
-    private void checkElement(Element e) {
+    private void checkElement(Element elementToBeAdded) {
+        if (!(elementToBeAdded instanceof Person) && !(elementToBeAdded instanceof SoftwareSystem) && !(elementToBeAdded instanceof Container) && !(elementToBeAdded instanceof Component)) {
+            throw new IllegalArgumentException("Only people, software systems, containers and components can be added to dynamic views.");
+        }
+
         // people can always be added
-        if (e instanceof Person) {
+        if (elementToBeAdded instanceof Person) {
             return;
         }
 
-        // if the scope of this dynamic is a software system, we only want:
+        // if the scope of this dynamic view is a software system, we only want:
         //  - containers inside that software system
         //  - other software systems
         if (element instanceof SoftwareSystem) {
-            if (e.equals(element)) {
-                throw new IllegalArgumentException(e.getName() + " is already the scope of this view and cannot be added to it.");
+            if (elementToBeAdded.equals(element)) {
+                throw new IllegalArgumentException(elementToBeAdded.getName() + " is already the scope of this view and cannot be added to it.");
             }
-            if (e instanceof Container && !e.getParent().equals(element)) {
+            if (elementToBeAdded instanceof Container && !elementToBeAdded.getParent().equals(element)) {
                 throw new IllegalArgumentException("Only containers that reside inside " + element.getName() + " can be added to this view.");
             }
-            if (e instanceof Component) {
+            if (elementToBeAdded instanceof Component) {
                 throw new IllegalArgumentException("Components can't be added to a dynamic view when the scope is a software system.");
             }
         }
@@ -137,15 +148,21 @@ public final class DynamicView extends View {
         // if the scope of this dynamic view is a container, we only want other containers inside the same software system
         // and other components inside the container
         if (element instanceof Container) {
-            if (e.equals(element) || e.equals(element.getParent())) {
-                throw new IllegalArgumentException(e.getName() + " is already the scope of this view and cannot be added to it.");
+            if (elementToBeAdded.equals(element) || elementToBeAdded.equals(element.getParent())) {
+                throw new IllegalArgumentException(elementToBeAdded.getName() + " is already the scope of this view and cannot be added to it.");
             }
-            if (e instanceof Container && !e.getParent().equals(element.getParent())) {
+            if (elementToBeAdded instanceof Container && !elementToBeAdded.getParent().equals(element.getParent())) {
                 throw new IllegalArgumentException("Only containers that reside inside " + element.getParent().getName() + " can be added to this view.");
             }
 
-            if (e instanceof Component && !e.getParent().equals(element)) {
+            if (elementToBeAdded instanceof Component && !elementToBeAdded.getParent().equals(element)) {
                 throw new IllegalArgumentException("Only components that reside inside " + element.getName() + " can be added to this view.");
+            }
+        }
+
+        if (element == null) {
+            if (!(elementToBeAdded instanceof SoftwareSystem)) {
+                throw new IllegalArgumentException("Only people and software systems can be added to this dynamic view.");
             }
         }
     }

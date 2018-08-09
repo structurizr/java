@@ -370,6 +370,12 @@ public final class ViewSet {
         return new HashSet<>(dynamicViews);
     }
 
+    void setDynamicViews(Set<DynamicView> dynamicViews) {
+        if (dynamicViews != null) {
+            this.dynamicViews.addAll(dynamicViews);
+        }
+    }
+
     public Collection<FilteredView> getFilteredViews() {
         return new HashSet<>(filteredViews);
     }
@@ -408,6 +414,10 @@ public final class ViewSet {
         }
 
         for (DynamicView view : dynamicViews) {
+            if (!isNullOrEmpty(view.getElementId())) {
+                view.setElement(model.getElement(view.getElementId()));
+            }
+
             view.setModel(model);
             hydrateView(view);
         }

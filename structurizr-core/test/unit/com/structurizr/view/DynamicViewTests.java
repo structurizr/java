@@ -40,6 +40,77 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_add_ThrowsAnException_WhenPassedANullSouceElement() {
+        try {
+            DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
+            dynamicView.add(null, softwareSystemA);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A source element must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_add_ThrowsAnException_WhenPassedANullDestinationElement() {
+        try {
+            DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
+            dynamicView.add(person, null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A destination element must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_add_ThrowsAnException_WhenADeploymentNodeIsAdded() {
+        try {
+            DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
+            DeploymentNode deploymentNode = workspace.getModel().addDeploymentNode("Deployment node", "Description", "Technology");
+            dynamicView.add(deploymentNode, softwareSystemA);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Only people, software systems, containers and components can be added to dynamic views.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_add_ThrowsAnException_WhenAContainerInstanceIsAdded() {
+        try {
+            DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
+            DeploymentNode deploymentNode = workspace.getModel().addDeploymentNode("Deployment node", "Description", "Technology");
+            ContainerInstance containerInstance = deploymentNode.add(containerA1);
+            dynamicView.add(containerInstance, softwareSystemA);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Only people, software systems, containers and components can be added to dynamic views.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsNotSpecifiedButAContainerIsAdded() {
+        try {
+            DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
+            DeploymentNode deploymentNode = workspace.getModel().addDeploymentNode("Deployment node", "Description", "Technology");
+            dynamicView.add(containerA1, containerA1);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Only people and software systems can be added to this dynamic view.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsNotSpecifiedButAComponentIsAdded() {
+        try {
+            DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
+            DeploymentNode deploymentNode = workspace.getModel().addDeploymentNode("Deployment node", "Description", "Technology");
+            dynamicView.add(componentA1, componentA1);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Only people and software systems can be added to this dynamic view.", iae.getMessage());
+        }
+    }
+
+    @Test
     public void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsASoftwareSystemButAContainerInAnotherSoftwareSystemIsAdded() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
@@ -117,16 +188,23 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_add_ThrowsAnException_WhenARelationshipBetweenTheSourceAndDestinationElementsDoesNotExist() {
+        try {
+            DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
+            SoftwareSystem ss1 = workspace.getModel().addSoftwareSystem("Software System 1", "");
+            SoftwareSystem ss2 = workspace.getModel().addSoftwareSystem("Software System 2", "");
+            dynamicView.add(ss1, ss2);
+            fail();
+        } catch (Exception e) {
+            assertEquals("A relationship between Software System 1 and Software System 2 does not exist in model.", e.getMessage());
+        }
+    }
+
+    @Test
     public void test_add_AddsTheSourceAndDestinationElements_WhenARelationshipBetweenThemExists() {
         final DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
         dynamicView.add(containerA1, containerA2);
         assertEquals(2, dynamicView.getElements().size());
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void test_add_ThrowsAnException_WhenThereIsNoRelationshipBetweenTheSourceAndDestinationElements() {
-        final DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
-        dynamicView.add(containerA1, containerA3);
     }
 
     @Test

@@ -428,6 +428,11 @@ public class ViewSetTests {
         componentView.setElements(elementViewsFor(component));
         views.setComponentViews(Collections.singleton(componentView));
 
+        DynamicView dynamicView = new DynamicView();
+        dynamicView.setElementId(softwareSystem.getId());
+        dynamicView.setElements(elementViewsFor(component));
+        views.setDynamicViews(Collections.singleton(dynamicView));
+
         workspace.getViews().hydrate(model);
 
         assertSame(model, systemLandscapeView.getModel());
@@ -451,6 +456,12 @@ public class ViewSetTests {
         assertSame(softwareSystem, componentView.getSoftwareSystem());
         assertSame(container, componentView.getContainer());
         assertSame(component, componentView.getElementView(component).getElement());
+
+        assertSame(model, dynamicView.getModel());
+        assertSame(views, dynamicView.getViewSet());
+        assertSame(softwareSystem, dynamicView.getSoftwareSystem());
+        assertSame(softwareSystem, dynamicView.getElement());
+        assertSame(component, dynamicView.getElementView(component).getElement());
 
         // todo
 //        workspace.getViews().createDeploymentView("deployment", ""); // no associated software system
