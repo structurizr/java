@@ -35,6 +35,10 @@ public final class Documentation {
 
     @Nonnull
     final Section addSection(Element element, String type, Format format, String content) {
+        if (!model.contains(element)) {
+            throw new IllegalArgumentException("The element named " + element.getName() + " does not exist in the model associated with this documentation.");
+        }
+
         Section section = new Section(element, type, calculateOrder(), format, content);
         if (!sections.contains(section)) {
             sections.add(section);
@@ -47,20 +51,23 @@ public final class Documentation {
     }
 
     private int calculateOrder() {
-        return sections.size()+1;
+        return sections.size() + 1;
     }
 
     /**
      * Gets the set of {@link Section}s.
      *
-     * @return  a Set of {@link Section} objects
+     * @return a Set of {@link Section} objects
      */
     public Set<Section> getSections() {
         return new HashSet<>(sections);
     }
 
     void setSections(Set<Section> sections) {
-        this.sections = sections;
+        if (sections != null) {
+            this.sections.addAll(sections);
+        }
+    }
     }
 
     void addImage(Image image) {
