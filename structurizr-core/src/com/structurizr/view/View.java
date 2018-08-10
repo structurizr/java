@@ -213,13 +213,15 @@ public abstract class View {
     }
 
     protected RelationshipView addRelationship(Relationship relationship) {
-        if (relationship != null) {
-            if (isElementInView(relationship.getSource()) && isElementInView(relationship.getDestination())) {
-                RelationshipView relationshipView = new RelationshipView(relationship);
-                relationshipViews.add(relationshipView);
+        if (relationship == null) {
+            throw new IllegalArgumentException("A relationship must be specified.");
+        }
 
-                return relationshipView;
-            }
+        if (isElementInView(relationship.getSource()) && isElementInView(relationship.getDestination())) {
+            RelationshipView relationshipView = new RelationshipView(relationship);
+            relationshipViews.add(relationshipView);
+
+            return relationshipView;
         }
 
         return null;

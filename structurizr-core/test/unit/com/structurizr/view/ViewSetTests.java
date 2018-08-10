@@ -21,6 +21,9 @@ public class ViewSetTests {
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         Component component = container.addComponent("Component", "Description", "Technology");
 
+        DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+        ContainerInstance containerInstance = deploymentNode.add(container);
+
         return workspace;
     }
 
@@ -493,7 +496,69 @@ public class ViewSetTests {
         assertEquals("Description", deploymentView.getDescription());
         assertSame(softwareSystem, deploymentView.getSoftwareSystem());
     }
-    
+
+    @Test
+    public void test_createFilteredView_ThrowsAnException_WhenANullViewIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            workspace.getViews().createFilteredView(null, "key", "Description", FilterMode.Include, "tag1", "tag2");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A view must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createFilteredView_ThrowsAnException_WhenANullKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("systemLandscape", "Description");
+            workspace.getViews().createFilteredView(view, null, "Description", FilterMode.Include, "tag1", "tag2");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A key must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createFilteredView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("systemLandscape", "Description");
+            workspace.getViews().createFilteredView(view, " ", "Description", FilterMode.Include, "tag1", "tag2");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A key must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createFilteredView_ThrowsAnException_WhenADuplicateKeyIsUsed() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("systemLandscape", "Description");
+        workspace.getViews().createFilteredView(view, "filtered", "Description", FilterMode.Include, "tag1", "tag2");
+        try {
+            workspace.getViews().createFilteredView(view, "filtered", "Description", FilterMode.Include, "tag1", "tag2");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A view with the key filtered already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createFilteredView() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("systemLandscape", "Description");
+        FilteredView filteredView = workspace.getViews().createFilteredView(view, "key", "Description", FilterMode.Include, "tag1", "tag2");
+
+        assertEquals("key", filteredView.getKey());
+        assertEquals("Description", filteredView.getDescription());
+        assertEquals(FilterMode.Include, filteredView.getMode());
+        assertEquals(2, filteredView.getTags().size());
+        assertTrue(filteredView.getTags().contains("tag1"));
+        assertTrue(filteredView.getTags().contains("tag2"));
+    }
+
     @Test
     public void test_copyLayoutInformationFrom_WhenAViewKeyIsNotSetButTheViewTitlesMatch() {
         Workspace workspace1 = createWorkspace();
@@ -734,6 +799,42 @@ public class ViewSetTests {
         assertNull(view2.getPaperSize()); // default
     }
 
+    @Test
+    public void test_copyLayoutInformationFrom_WhenTheDeploymentViewKeysMatch() {
+        Workspace workspace1 = createWorkspace();
+        DeploymentNode deploymentNode1 = workspace1.getModel().getDeploymentNodeWithName("Deployment Node");
+        DeploymentView view1 = workspace1.getViews().createDeploymentView("key", "Description");
+        view1.add(deploymentNode1);
+        view1.getElements().stream().filter(ev -> ev.getElement() instanceof ContainerInstance).findFirst().get().setX(100);
+        view1.getElements().stream().filter(ev -> ev.getElement() instanceof ContainerInstance).findFirst().get().setY(200);
+        view1.setPaperSize(PaperSize.A3_Landscape);
+
+        Workspace workspace2 = createWorkspace();
+        DeploymentNode deploymentNode2 = workspace2.getModel().getDeploymentNodeWithName("Deployment Node");
+        DeploymentView view2 = workspace2.getViews().createDeploymentView("key", "Description");
+        view2.add(deploymentNode2);
+
+        workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
+        assertEquals(100, view2.getElements().stream().filter(ev -> ev.getElement() instanceof ContainerInstance).findFirst().get().getX());
+        assertEquals(200, view2.getElements().stream().filter(ev -> ev.getElement() instanceof ContainerInstance).findFirst().get().getY());
+        assertEquals(PaperSize.A3_Landscape, view2.getPaperSize());
+    }
+
+    @Test
+    public void test_copyLayoutInformationFrom_DoesNotDoAnythingIfThereIsNoDeploymentViewToCopyInformationFrom() {
+        Workspace workspace1 = createWorkspace();
+
+        Workspace workspace2 = createWorkspace();
+        DeploymentNode deploymentNode2 = workspace2.getModel().getDeploymentNodeWithName("Deployment Node");
+        DeploymentView view2 = workspace2.getViews().createDeploymentView("key", "Description");
+        view2.add(deploymentNode2);
+
+        workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
+        assertEquals(0, view2.getElements().stream().filter(ev -> ev.getElement() instanceof ContainerInstance).findFirst().get().getX()); // default
+        assertEquals(0, view2.getElements().stream().filter(ev -> ev.getElement() instanceof ContainerInstance).findFirst().get().getY()); // default
+        assertNull(view2.getPaperSize()); // default
+    }
+
     private HashSet<ElementView> elementViewsFor(Element... elements) {
         HashSet<ElementView> set = new HashSet<>();
 
@@ -844,6 +945,15 @@ public class ViewSetTests {
         assertSame(containerInstance, deploymentView.getElementView(containerInstance).getElement());
 
         assertSame(systemLandscapeView, filteredView.getView());
+    }
+
+    @Test
+    public void test_setEnterpriseContextViews_IsSupportedForOlderWorkspaces() {
+        ViewSet views = new Workspace("", "").getViews();
+        SystemLandscapeView systemLandscapeView = views.createSystemLandscapeView("key", "Description");
+        views.setEnterpriseContextViews(Collections.singleton(systemLandscapeView));
+        assertEquals(1, views.getSystemLandscapeViews().size());
+        assertSame(systemLandscapeView, views.getSystemLandscapeViews().iterator().next());
     }
 
 }

@@ -275,7 +275,7 @@ public final class ViewSet {
      * @param key   the key
      * @return  a View object, or null if a view with the specified key could not be found
      */
-    public View getViewWithKey(String key) {
+    View getViewWithKey(String key) {
         if (key == null) {
             throw new IllegalArgumentException("A key must be specified.");
         }
@@ -297,7 +297,7 @@ public final class ViewSet {
      * @param key   the key
      * @return  a FilteredView object, or null if a view with the specified key could not be found
      */
-    public FilteredView getFilteredViewWithKey(String key) {
+    FilteredView getFilteredViewWithKey(String key) {
         if (key == null) {
             throw new IllegalArgumentException("A key must be specified.");
         }
@@ -324,8 +324,10 @@ public final class ViewSet {
      * (this is for backwards compatibility)
      */
     @JsonSetter("enterpriseContextViews")
-    private void setEnterpriseContextViews(Collection<SystemLandscapeView> enterpriseContextViews) {
-        systemLandscapeViews.addAll(enterpriseContextViews);
+    void setEnterpriseContextViews(Collection<SystemLandscapeView> enterpriseContextViews) {
+        if (enterpriseContextViews != null) {
+            this.systemLandscapeViews.addAll(enterpriseContextViews);
+        }
     }
 
     /**
@@ -561,7 +563,7 @@ public final class ViewSet {
 
     @JsonIgnore
     public boolean isEmpty() {
-        return systemLandscapeViews.isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && filteredViews.isEmpty();
+        return systemLandscapeViews.isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && dynamicViews.isEmpty() && deploymentViews.isEmpty() && filteredViews.isEmpty();
     }
 
 }

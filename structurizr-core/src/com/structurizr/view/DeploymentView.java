@@ -52,13 +52,15 @@ public final class DeploymentView extends View {
      * @param deploymentNode        the DeploymentNode to add
      */
     public void add(@Nonnull DeploymentNode deploymentNode) {
-        if (deploymentNode != null) {
-            if (addContainerInstancesAndDeploymentNodes(deploymentNode)) {
-                Element parent = deploymentNode.getParent();
-                while (parent != null) {
-                    addElement(parent, false);
-                    parent = parent.getParent();
-                }
+        if (deploymentNode == null) {
+            throw new IllegalArgumentException("A deployment node must be specified.");
+        }
+
+        if (addContainerInstancesAndDeploymentNodes(deploymentNode)) {
+            Element parent = deploymentNode.getParent();
+            while (parent != null) {
+                addElement(parent, false);
+                parent = parent.getParent();
             }
         }
     }
@@ -85,15 +87,6 @@ public final class DeploymentView extends View {
     }
 
     /**
-     * Removes a deployment node from this view.
-     *
-     * @param   deploymentNode      the DeploymentNode to remove
-     */
-    public void remove(@Nonnull DeploymentNode deploymentNode) {
-        removeElement(deploymentNode);
-    }
-
-    /**
      * Adds a Relationship to this view.
      *
      * @param relationship  the Relationship to be added
@@ -117,8 +110,8 @@ public final class DeploymentView extends View {
             name = "Deployment";
         }
 
-        if (!StringUtils.isNullOrEmpty(environment)) {
-            name = name + " - " + environment;
+        if (!StringUtils.isNullOrEmpty(getEnvironment())) {
+            name = name + " - " + getEnvironment();
         }
 
         return name;
