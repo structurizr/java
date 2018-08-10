@@ -5,6 +5,7 @@ import com.structurizr.model.Element;
 import com.structurizr.model.Model;
 import com.structurizr.model.Relationship;
 import com.structurizr.model.SoftwareSystem;
+import com.structurizr.util.StringUtils;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
@@ -35,7 +36,7 @@ public abstract class View {
 
     View(SoftwareSystem softwareSystem, String key, String description) {
         this.softwareSystem = softwareSystem;
-        if (key != null && key.trim().length() > 0) {
+        if (!StringUtils.isNullOrEmpty(key)) {
             setKey(key);
         } else {
             throw new IllegalArgumentException("A key must be specified.");
@@ -164,6 +165,8 @@ public abstract class View {
             if (addRelationships) {
                 addRelationships(element);
             }
+        } else {
+            throw new IllegalArgumentException("The element named " + element.getName() + " does not exist in the model associated with this view.");
         }
     }
 

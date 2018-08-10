@@ -2,6 +2,7 @@ package com.structurizr.view;
 
 import com.structurizr.Workspace;
 import com.structurizr.model.*;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -24,6 +25,322 @@ public class ViewSetTests {
         return workspace;
     }
 
+    @Test
+    public void test_createSystemLandscapeView_ThrowsAnException_WhenANullKeyIsSpecified() {
+        try {
+            new Workspace("", "").getViews().createSystemLandscapeView(null, "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A key must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createSystemLandscapeView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+        try {
+            new Workspace("", "").getViews().createSystemLandscapeView(" ", "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A key must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createSystemLandscapeView_ThrowsAnException_WhenADuplicateKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            workspace.getViews().createSystemLandscapeView("key", "Description");
+            workspace.getViews().createSystemLandscapeView("key", "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A view with the key key already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createSystemLandscapeView_DoesNotThrowAnException_WhenUniqueKeysAreSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        workspace.getViews().createSystemLandscapeView("key1", "Description");
+        workspace.getViews().createSystemLandscapeView("key2", "Description");
+    }
+
+    @Test
+    public void test_createSystemLandscapeView() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SystemLandscapeView systemLandscapeView = workspace.getViews().createSystemLandscapeView("key", "Description");
+        assertEquals("key", systemLandscapeView.getKey());
+        assertEquals("Description", systemLandscapeView.getDescription());
+    }
+
+    @Test
+    public void test_createSystemContextView_ThrowsAnException_WhenASoftwareSystemIsSpecified() {
+        try {
+            new Workspace("", "").getViews().createSystemContextView(null, null, "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A software system must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createSystemContextView_ThrowsAnException_WhenANullKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+            workspace.getViews().createSystemContextView(softwareSystem, null, "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A key must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createSystemContextView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+            workspace.getViews().createSystemContextView(softwareSystem, " ", "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A key must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createSystemContextView_ThrowsAnException_WhenADuplicateKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+            workspace.getViews().createSystemContextView(softwareSystem, "key", "Description");
+            workspace.getViews().createSystemContextView(softwareSystem, "key", "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A view with the key key already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createSystemContextView() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+        SystemContextView systemContextView = workspace.getViews().createSystemContextView(softwareSystem, "key", "Description");
+        assertEquals("key", systemContextView.getKey());
+        assertEquals("Description", systemContextView.getDescription());
+        assertSame(softwareSystem, systemContextView.getSoftwareSystem());
+    }
+
+    @Test
+    public void test_createContainerView_ThrowsAnException_WhenASoftwareSystemIsSpecified() {
+        try {
+            new Workspace("", "").getViews().createContainerView(null, null, "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A software system must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createContainerView_ThrowsAnException_WhenANullKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+            workspace.getViews().createContainerView(softwareSystem, null, "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A key must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createContainerView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+            workspace.getViews().createContainerView(softwareSystem, " ", "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A key must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createContainerView_ThrowsAnException_WhenADuplicateKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+            workspace.getViews().createContainerView(softwareSystem, "key", "Description");
+            workspace.getViews().createContainerView(softwareSystem, "key", "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A view with the key key already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createContainerView() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+        ContainerView containerView = workspace.getViews().createContainerView(softwareSystem, "key", "Description");
+        assertEquals("key", containerView.getKey());
+        assertEquals("Description", containerView.getDescription());
+        assertSame(softwareSystem, containerView.getSoftwareSystem());
+    }
+
+    @Test
+    public void test_createComponentView_ThrowsAnException_WhenASoftwareSystemIsSpecified() {
+        try {
+            new Workspace("", "").getViews().createComponentView(null, null, "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A container must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createComponentView_ThrowsAnException_WhenANullKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+            Container container = softwareSystem.addContainer("Container", "Description", "Technology");
+            workspace.getViews().createComponentView(container, null, "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A key must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createComponentView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+            Container container = softwareSystem.addContainer("Container", "Description", "Technology");
+            workspace.getViews().createComponentView(container, " ", "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A key must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createComponentView_ThrowsAnException_WhenADuplicateKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+            Container container = softwareSystem.addContainer("Container", "Description", "Technology");
+            workspace.getViews().createComponentView(container, "key", "Description");
+            workspace.getViews().createComponentView(container, "key", "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A view with the key key already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createComponentView() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+        Container container = softwareSystem.addContainer("Container", "Description", "Technology");
+        ComponentView componentView = workspace.getViews().createComponentView(container, "key", "Description");
+        assertEquals("key", componentView.getKey());
+        assertEquals("Description", componentView.getDescription());
+        assertSame(softwareSystem, componentView.getSoftwareSystem());
+        assertSame(container, componentView.getContainer());
+    }
+    
+    @Test
+    public void test_createDynamicViewForASoftwareSystem_ThrowsAnException_WhenANullSoftwareSystemIsSpecified() {
+        try {
+            new Workspace("", "").getViews().createDynamicView((SoftwareSystem)null, "key", "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A software system must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createDynamicViewForASoftwareSystem_ThrowsAnException_WhenANullKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+            workspace.getViews().createDynamicView(softwareSystem, null, "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A key must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createDynamicViewForASoftwareSystem_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+            workspace.getViews().createDynamicView(softwareSystem, " ", "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A key must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createDynamicViewForAContainer_ThrowsAnException_WhenANullContainerIsSpecified() {
+        try {
+            new Workspace("", "").getViews().createDynamicView((Container)null, "key", "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A container must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createDynamicViewForAContainer_ThrowsAnException_WhenANullKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+            Container container = softwareSystem.addContainer("Container", "Description", "Technology");
+            workspace.getViews().createDynamicView(container, null, "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A key must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createDynamicViewForAContainer_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+            Container container = softwareSystem.addContainer("Container", "Description", "Technology");
+            workspace.getViews().createDynamicView(container, " ", "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A key must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createDynamicView_DoesNotThrowAnException_WhenEveryViewHasADifferentKey() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
+
+        workspace.getViews().createDynamicView(softwareSystem, "dynamic1", "Description");
+        workspace.getViews().createDynamicView(softwareSystem, "dynamic2", "Description");
+    }
+
+    @Test
+    public void test_createDynamicView_ThrowsAnException_WhenADuplicateKeyIsUsed() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
+
+        workspace.getViews().createDynamicView(softwareSystem, "dynamic", "Description");
+        try {
+            workspace.getViews().createDynamicView(softwareSystem, "dynamic", "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A view with the key dynamic already exists.", iae.getMessage());
+        }
+    }
+    
     @Test
     public void test_copyLayoutInformationFrom_WhenAViewKeyIsNotSetButTheViewTitlesMatch() {
         Workspace workspace1 = createWorkspace();
@@ -264,114 +581,6 @@ public class ViewSetTests {
         assertNull(view2.getPaperSize()); // default
     }
 
-    @Test
-    public void test_createSystemContextView_DoesNotThrowAnException_WhenEveryViewHasADifferentKey() {
-        Workspace workspace = new Workspace("Name", "Description");
-        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
-
-        workspace.getViews().createSystemContextView(softwareSystem, "context1", "Description");
-        workspace.getViews().createSystemContextView(softwareSystem, "context2", "Description");
-    }
-
-    @Test
-    public void test_createSystemContextView_ThrowsAnException_WhenADuplicateKeyIsUsed() {
-        Workspace workspace = new Workspace("Name", "Description");
-        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
-
-        workspace.getViews().createSystemContextView(softwareSystem, "context", "Description");
-        try {
-            workspace.getViews().createSystemContextView(softwareSystem, "context", "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A view with the key context already exists.", iae.getMessage());
-        }
-    }
-
-    @Test
-    public void test_createContainerView_DoesNotThrowAnException_WhenEveryViewHasADifferentKey() {
-        Workspace workspace = new Workspace("Name", "Description");
-        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
-        Container container = softwareSystem.addContainer("Name", "Description", "Technology");
-
-        workspace.getViews().createContainerView(softwareSystem, "containers1", "Description");
-        workspace.getViews().createContainerView(softwareSystem, "containers2", "Description");
-    }
-
-    @Test
-    public void test_createContainerView_ThrowsAnException_WhenADuplicateKeyIsUsed() {
-        Workspace workspace = new Workspace("Name", "Description");
-        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
-        Container container = softwareSystem.addContainer("Name", "Description", "Technology");
-
-        workspace.getViews().createContainerView(softwareSystem, "containers", "Description");
-        try {
-            workspace.getViews().createContainerView(softwareSystem, "containers", "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A view with the key containers already exists.", iae.getMessage());
-        }
-    }
-
-    @Test
-    public void test_createComponentView_DoesNotThrowAnException_WhenEveryViewHasADifferentKey() {
-        Workspace workspace = new Workspace("Name", "Description");
-        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
-        Container container = softwareSystem.addContainer("Name", "Description", "Technology");
-        Component component = container.addComponent("Name", "Description", "Technology");
-
-        workspace.getViews().createComponentView(container, "components1", "Description");
-        workspace.getViews().createComponentView(container, "components2", "Description");
-    }
-
-    @Test
-    public void test_createComponentView_ThrowsAnException_WhenADuplicateKeyIsUsed() {
-        Workspace workspace = new Workspace("Name", "Description");
-        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
-        Container container = softwareSystem.addContainer("Name", "Description", "Technology");
-        Component component = container.addComponent("Name", "Description", "Technology");
-
-        workspace.getViews().createComponentView(container, "components", "Description");
-        try {
-            workspace.getViews().createComponentView(container, "components", "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A view with the key components already exists.", iae.getMessage());
-        }
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void test_createDynamicView_ThrowsAnException_WhenANullSoftwareSystemIsSpecified() {
-        new Workspace("Name", "Description").getViews().createDynamicView((SoftwareSystem)null, "key", "Description");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void test_createDynamicView_ThrowsAnException_WhenANullContainerIsSpecified() {
-        new Workspace("Name", "Description").getViews().createDynamicView((Container)null, "key", "Description");
-    }
-
-    @Test
-    public void test_createDynamicView_DoesNotThrowAnException_WhenEveryViewHasADifferentKey() {
-        Workspace workspace = new Workspace("Name", "Description");
-        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
-
-        workspace.getViews().createDynamicView(softwareSystem, "dynamic1", "Description");
-        workspace.getViews().createDynamicView(softwareSystem, "dynamic2", "Description");
-    }
-
-    @Test
-    public void test_createDynamicView_ThrowsAnException_WhenADuplicateKeyIsUsed() {
-        Workspace workspace = new Workspace("Name", "Description");
-        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
-
-        workspace.getViews().createDynamicView(softwareSystem, "dynamic", "Description");
-        try {
-            workspace.getViews().createDynamicView(softwareSystem, "dynamic", "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A view with the key dynamic already exists.", iae.getMessage());
-        }
-    }
-
     private HashSet<ElementView> elementViewsFor(Element... elements) {
         HashSet<ElementView> set = new HashSet<>();
 
@@ -406,8 +615,11 @@ public class ViewSetTests {
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         Component component = container.addComponent("Component", "Description", "Technology");
         Relationship personUsesSoftwareSystemRelationship = person.uses(softwareSystem, "uses");
+        DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+        ContainerInstance containerInstance = deploymentNode.add(container);
 
         SystemLandscapeView systemLandscapeView = new SystemLandscapeView();
+        systemLandscapeView.setKey("systemLandscape"); // this is used for the filtered view below
         systemLandscapeView.setElements(elementViewsFor(person, softwareSystem));
         systemLandscapeView.setRelationships(relationshipViewsFor(personUsesSoftwareSystemRelationship));
         views.setSystemLandscapeViews(Collections.singleton(systemLandscapeView));
@@ -432,6 +644,15 @@ public class ViewSetTests {
         dynamicView.setElementId(softwareSystem.getId());
         dynamicView.setElements(elementViewsFor(component));
         views.setDynamicViews(Collections.singleton(dynamicView));
+
+        DeploymentView deploymentView = new DeploymentView();
+        deploymentView.setSoftwareSystemId(softwareSystem.getId());
+        deploymentView.setElements(elementViewsFor(deploymentNode, containerInstance));
+        views.setDeploymentViews(Collections.singleton(deploymentView));
+
+        FilteredView filteredView = new FilteredView();
+        filteredView.setBaseViewKey(systemLandscapeView.getKey());
+        views.setFilteredViews(Collections.singleton(filteredView));
 
         workspace.getViews().hydrate(model);
 
@@ -463,9 +684,13 @@ public class ViewSetTests {
         assertSame(softwareSystem, dynamicView.getElement());
         assertSame(component, dynamicView.getElementView(component).getElement());
 
-        // todo
-//        workspace.getViews().createDeploymentView("deployment", ""); // no associated software system
-//        workspace.getViews().hydrate(workspace.getModel());
+        assertSame(model, deploymentView.getModel());
+        assertSame(views, deploymentView.getViewSet());
+        assertSame(softwareSystem, deploymentView.getSoftwareSystem());
+        assertSame(deploymentNode, deploymentView.getElementView(deploymentNode).getElement());
+        assertSame(containerInstance, deploymentView.getElementView(containerInstance).getElement());
+
+        assertSame(systemLandscapeView, filteredView.getView());
     }
 
 }

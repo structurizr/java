@@ -61,17 +61,6 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addSoftwareSystem_DoesNothing_WhenTheSoftwareSystemIsNotInTheModel() {
-        SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
-        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
-
-        Model model2 = new Model();
-        SoftwareSystem softwareSystemA = model2.addSoftwareSystem(Location.Unspecified, "System A", "Description");
-        view.add(softwareSystemA);
-        assertEquals(1, view.getElements().size());
-    }
-
-    @Test
     public void test_addSoftwareSystem_AddsTheSoftwareSystem_WhenTheSoftwareSystemIsInTheModel() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.Unspecified, "System A", "Description");
@@ -123,17 +112,6 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         } catch (IllegalArgumentException iae) {
             assertEquals("An element must be specified.", iae.getMessage());
         }
-    }
-
-    @Test
-    public void test_addPerson_DoesNothing_WhenThePersonIsNotInTheModel() {
-        SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
-        StaticView view = new SystemContextView(softwareSystem, "context", "Description");
-
-        Model model2 = new Model();
-        Person person1 = model2.addPerson(Location.Unspecified, "Person 1", "Description");
-        view.add(person1);
-        assertEquals(1, view.getElements().size());
     }
 
     @Test
@@ -375,6 +353,20 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     public void test_setKey_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
         new SystemContextView(softwareSystem, " ", "Description");
+    }
+
+    @Test
+    public void test_addElement_ThrowsAnException_WhenTheSpecifiedElementDoesNotExistInTheModel() {
+        try {
+            Workspace workspace = new Workspace("1", "");
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+
+            SystemLandscapeView view = new Workspace("", "").getViews().createSystemLandscapeView("key", "Description");
+            view.add(softwareSystem);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("The element named Software System does not exist in the model associated with this view.", iae.getMessage());
+        }
     }
 
 }

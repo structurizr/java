@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.structurizr.model.Container;
 import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;
+import com.structurizr.util.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -50,7 +51,7 @@ public final class ViewSet {
      * @throws              IllegalArgumentException if the key is not unique
      */
     public SystemLandscapeView createSystemLandscapeView(String key, String description) {
-        assertThatTheViewKeyIsUnique(key);
+        assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         SystemLandscapeView view = new SystemLandscapeView(model, key, description);
         view.setViewSet(this);
@@ -69,7 +70,7 @@ public final class ViewSet {
      */
     public SystemContextView createSystemContextView(SoftwareSystem softwareSystem, String key, String description) {
         assertThatTheSoftwareSystemIsNotNull(softwareSystem);
-        assertThatTheViewKeyIsUnique(key);
+        assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         SystemContextView view = new SystemContextView(softwareSystem, key, description);
         view.setViewSet(this);
@@ -88,7 +89,7 @@ public final class ViewSet {
      */
     public ContainerView createContainerView(SoftwareSystem softwareSystem, String key, String description) {
         assertThatTheSoftwareSystemIsNotNull(softwareSystem);
-        assertThatTheViewKeyIsUnique(key);
+        assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         ContainerView view = new ContainerView(softwareSystem, key, description);
         view.setViewSet(this);
@@ -107,7 +108,7 @@ public final class ViewSet {
      */
     public ComponentView createComponentView(Container container, String key, String description) {
         assertThatTheContainerIsNotNull(container);
-        assertThatTheViewKeyIsUnique(key);
+        assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         ComponentView view = new ComponentView(container, key, description);
         view.setViewSet(this);
@@ -124,7 +125,7 @@ public final class ViewSet {
      * @throws              IllegalArgumentException if the key is not unique
      */
     public DynamicView createDynamicView(String key, String description) {
-        assertThatTheViewKeyIsUnique(key);
+        assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         DynamicView view = new DynamicView(model, key, description);
         view.setViewSet(this);
@@ -150,7 +151,7 @@ public final class ViewSet {
      */
     public DynamicView createDynamicView(SoftwareSystem softwareSystem, String key, String description) {
         assertThatTheSoftwareSystemIsNotNull(softwareSystem);
-        assertThatTheViewKeyIsUnique(key);
+        assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         DynamicView view = new DynamicView(softwareSystem, key, description);
         view.setViewSet(this);
@@ -177,7 +178,7 @@ public final class ViewSet {
      */
     public DynamicView createDynamicView(Container container, String key, String description) {
         assertThatTheContainerIsNotNull(container);
-        assertThatTheViewKeyIsUnique(key);
+        assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         DynamicView view = new DynamicView(container, key, description);
         view.setViewSet(this);
@@ -194,7 +195,7 @@ public final class ViewSet {
      * @throws              IllegalArgumentException if the key is not unique
      */
     public DeploymentView createDeploymentView(String key, String description) {
-        assertThatTheViewKeyIsUnique(key);
+        assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         DeploymentView view = new DeploymentView(model, key, description);
         view.setViewSet(this);
@@ -213,7 +214,7 @@ public final class ViewSet {
      */
     public DeploymentView createDeploymentView(SoftwareSystem softwareSystem, String key, String description) {
         assertThatTheSoftwareSystemIsNotNull(softwareSystem);
-        assertThatTheViewKeyIsUnique(key);
+        assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         DeploymentView view = new DeploymentView(softwareSystem, key, description);
         view.setViewSet(this);
@@ -232,14 +233,19 @@ public final class ViewSet {
      * @return              a FilteredView object
      */
     public FilteredView createFilteredView(StaticView view, String key, String description, FilterMode mode, String... tags) {
-        assertThatTheViewKeyIsUnique(key);
+        assertThatTheViewIsNotNull(view);
+        assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         FilteredView filteredView = new FilteredView(view, key, description, mode, tags);
         filteredViews.add(filteredView);
         return filteredView;
     }
 
-    private void assertThatTheViewKeyIsUnique(String key) {
+    private void assertThatTheViewKeyIsSpecifiedAndUnique(String key) {
+        if (StringUtils.isNullOrEmpty(key)) {
+            throw new IllegalArgumentException("A key must be specified.");
+        }
+
         if (getViewWithKey(key) != null || getFilteredViewWithKey(key) != null) {
             throw new IllegalArgumentException("A view with the key " + key + " already exists.");
         }
@@ -247,13 +253,19 @@ public final class ViewSet {
 
     private void assertThatTheSoftwareSystemIsNotNull(SoftwareSystem softwareSystem) {
         if (softwareSystem == null) {
-            throw new IllegalArgumentException("Software system must not be null.");
+            throw new IllegalArgumentException("A software system must be specified.");
         }
     }
 
     private void assertThatTheContainerIsNotNull(Container container) {
         if (container == null) {
-            throw new IllegalArgumentException("Container must not be null.");
+            throw new IllegalArgumentException("A container must be specified.");
+        }
+    }
+
+    private void assertThatTheViewIsNotNull(View view) {
+        if (view == null) {
+            throw new IllegalArgumentException("A view must be specified.");
         }
     }
 
@@ -380,6 +392,12 @@ public final class ViewSet {
         return new HashSet<>(filteredViews);
     }
 
+    void setFilteredViews(Set<FilteredView> filteredViews) {
+        if (filteredViews != null) {
+            this.filteredViews.addAll(filteredViews);
+        }
+    }
+
     /**
      * Gets the set of dynamic views.
      *
@@ -387,6 +405,12 @@ public final class ViewSet {
      */
     public Collection<DeploymentView> getDeploymentViews() {
         return new HashSet<>(deploymentViews);
+    }
+
+    void setDeploymentViews(Set<DeploymentView> deploymentViews) {
+        if (deploymentViews != null) {
+            this.deploymentViews.addAll(deploymentViews);
+        }
     }
 
     void hydrate(Model model) {
