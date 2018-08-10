@@ -68,7 +68,6 @@ public final class Documentation {
             this.sections.addAll(sections);
         }
     }
-    }
 
     void addImage(Image image) {
         images.add(image);
