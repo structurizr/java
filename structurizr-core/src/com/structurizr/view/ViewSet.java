@@ -38,7 +38,7 @@ public final class ViewSet {
     ViewSet() {
     }
 
-    public ViewSet(Model model) {
+    ViewSet(Model model) {
         this.model = model;
     }
 

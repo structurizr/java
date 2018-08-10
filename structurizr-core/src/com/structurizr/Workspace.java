@@ -8,6 +8,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.annotation.Nonnull;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,8 +22,8 @@ public final class Workspace extends AbstractWorkspace {
     private static final Log log = LogFactory.getLog(Workspace.class);
 
     private Model model = new Model();
-    private ViewSet viewSet = new ViewSet(model);
-    private Documentation documentation = new Documentation(model);
+    private ViewSet viewSet;
+    private Documentation documentation;
 
     Workspace() {
     }
@@ -35,6 +36,9 @@ public final class Workspace extends AbstractWorkspace {
      */
     public Workspace(String name, String description) {
         super(name, description);
+
+        viewSet = createViewSet();
+        documentation = createDocumentation();
     }
 
     /**
@@ -61,6 +65,26 @@ public final class Workspace extends AbstractWorkspace {
 
     void setViews(ViewSet viewSet) {
         this.viewSet = viewSet;
+    }
+
+    private ViewSet createViewSet() {
+        try {
+            Constructor constructor = ViewSet.class.getDeclaredConstructor(Model.class);
+            constructor.setAccessible(true);
+            return (ViewSet)constructor.newInstance(model);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private Documentation createDocumentation() {
+        try {
+            Constructor constructor = Documentation.class.getDeclaredConstructor(Model.class);
+            constructor.setAccessible(true);
+            return (Documentation)constructor.newInstance(model);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

@@ -25,7 +25,7 @@ public final class Documentation {
     Documentation() {
     }
 
-    public Documentation(@Nonnull Model model) {
+    Documentation(@Nonnull Model model) {
         if (model == null) {
             throw new IllegalArgumentException("A model must be specified.");
         }
