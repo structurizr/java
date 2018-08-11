@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 import static org.junit.Assert.*;
 
@@ -48,7 +50,6 @@ public class AdrToolsImporterTests {
             new AdrToolsImporter(workspace, new File("some-random-path"));
             fail();
         } catch (IllegalArgumentException iae) {
-            iae.printStackTrace();
             assertTrue(iae.getMessage().endsWith("structurizr-adr-tools/some-random-path does not exist."));
         }
     }
@@ -59,7 +60,6 @@ public class AdrToolsImporterTests {
             new AdrToolsImporter(workspace, new File("build.gradle"));
             fail();
         } catch (IllegalArgumentException iae) {
-            iae.printStackTrace();
             assertTrue(iae.getMessage().endsWith("structurizr-adr-tools/build.gradle is not a directory."));
         }
     }
@@ -74,7 +74,9 @@ public class AdrToolsImporterTests {
         Decision decision1 = documentation.getDecisions().stream().filter(d -> d.getId().equals("1")).findFirst().get();
         assertEquals("1", decision1.getId());
         assertEquals("Record architecture decisions", decision1.getTitle());
-        assertEquals("Fri Feb 12 00:00:00 GMT 2016", decision1.getDate().toString());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss ZZZ");
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        assertEquals("12-Feb-2016 00:00:00 +0000", sdf.format(decision1.getDate()));
         assertEquals(DecisionStatus.Accepted, decision1.getStatus());
         assertEquals(Format.Markdown, decision1.getFormat());
         assertEquals("# 1. Record architecture decisions\n" +
