@@ -49,7 +49,7 @@ public class AdrToolsImporterTests {
             fail();
         } catch (IllegalArgumentException iae) {
             iae.printStackTrace();
-            assertTrue(iae.getMessage().endsWith("/structurizr-java/structurizr-adr-tools/some-random-path does not exist."));
+            assertTrue(iae.getMessage().endsWith("structurizr-adr-tools/some-random-path does not exist."));
         }
     }
 
@@ -60,7 +60,7 @@ public class AdrToolsImporterTests {
             fail();
         } catch (IllegalArgumentException iae) {
             iae.printStackTrace();
-            assertTrue(iae.getMessage().endsWith("/structurizr-java/structurizr-adr-tools/build.gradle is not a directory."));
+            assertTrue(iae.getMessage().endsWith("structurizr-adr-tools/build.gradle is not a directory."));
         }
     }
 
