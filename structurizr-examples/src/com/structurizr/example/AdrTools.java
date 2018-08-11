@@ -44,7 +44,9 @@ public class AdrTools {
         ContainerView containerView = views.createContainerView(adrTools, "Containers", "The container diagram for adr-tools.");
         containerView.addAllElements();
 
-        AdrToolsImporter adrToolsImporter = new AdrToolsImporter(workspace, new File("/Users/simon/sandbox/adr-tools/doc/adr"));
+        File adrDirectory = new File("./structurizr-examples/src/com/structurizr/example/documentation/adr");
+
+        AdrToolsImporter adrToolsImporter = new AdrToolsImporter(workspace, adrDirectory);
         adrToolsImporter.importArchitectureDecisionRecords(adrTools);
 
         Styles styles = views.getConfiguration().getStyles();
