@@ -128,12 +128,13 @@ public final class Documentation {
     /**
      * Adds a new decision to this workspace.
      *
-     * @param id        the ID of the decision
-     * @param date      the date of the decision
-     * @param title     the title of the decision
-     * @param status    the status of the decision
-     * @param format    the format of the decision content
-     * @param content   the content of the decision
+     * @param softwareSystem    the SoftwareSystem to associate the decision with
+     * @param id                the ID of the decision
+     * @param date              the date of the decision
+     * @param title             the title of the decision
+     * @param status            the status of the decision
+     * @param format            the format of the decision content
+     * @param content           the content of the decision
      * @return  a Decision object
      */
     public Decision addDecision(SoftwareSystem softwareSystem, String id, Date date, String title, DecisionStatus status, Format format, String content) {
