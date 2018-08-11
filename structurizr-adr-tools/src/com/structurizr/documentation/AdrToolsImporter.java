@@ -26,19 +26,23 @@ public class AdrToolsImporter {
 
     private Workspace workspace;
     private File path;
-    private String timeZone = "UTC";
+    private TimeZone timeZone = TimeZone.getTimeZone("UTC");
 
     public AdrToolsImporter(Workspace workspace, File path) {
         if (workspace == null) {
-            throw new IllegalArgumentException("A workspace must be specified");
+            throw new IllegalArgumentException("A workspace must be specified.");
         }
 
         if (path == null) {
-            throw new IllegalArgumentException("The path to the architecture decision records must be specified");
+            throw new IllegalArgumentException("The path to the architecture decision records must be specified.");
         }
 
         if (!path.exists()) {
-            throw new IllegalArgumentException(path.getAbsolutePath() + " does not exist");
+            throw new IllegalArgumentException(path.getAbsolutePath() + " does not exist.");
+        }
+
+        if (!path.isDirectory()) {
+            throw new IllegalArgumentException(path.getAbsolutePath() + " is not a directory.");
         }
 
         this.workspace = workspace;
@@ -46,6 +50,10 @@ public class AdrToolsImporter {
     }
 
     public void setTimeZone(String timeZone) {
+        this.timeZone = TimeZone.getTimeZone(timeZone);
+    }
+
+    public void setTimeZone(TimeZone timeZone) {
         this.timeZone = timeZone;
     }
 
@@ -122,7 +130,7 @@ public class AdrToolsImporter {
     private Date extractDate(String content) throws Exception {
         Matcher matcher = dateRegex.matcher(content);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        sdf.setTimeZone(TimeZone.getTimeZone(timeZone));
+        sdf.setTimeZone(timeZone);
 
         if (matcher.find()) {
             return sdf.parse(matcher.group(1));
