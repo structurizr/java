@@ -39,115 +39,115 @@ public abstract class DocumentationTemplate {
     /**
      * Adds a custom section from one or more files, that isn't related to any element in the model.
      *
-     * @param name              the name of the section
+     * @param title             the section title
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addSection(String name, File... files) throws IOException {
-        return add(null, name, files);
+    public Section addSection(String title, File... files) throws IOException {
+        return add(null, title, files);
     }
 
     /**
      * Adds a custom section, that isn't related to any element in the model.
      *
-     * @param name      the name of the section
+     * @param title             the section title
      * @param format    the {@link Format} of the documentation content
      * @param content   a String containing the documentation content
      * @return           a documentation {@link Section}
      */
     @Nonnull
-    public Section addSection(String name, Format format, String content) {
-        return add(null, name, format, content);
+    public Section addSection(String title, Format format, String content) {
+        return add(null, title, format, content);
     }
 
     /**
      * Adds a section relating to a {@link SoftwareSystem} from one or more files.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param name              the name of the section
+     * @param title             the section title
      * @param files             one or more File objects that point to the documentation content
      * @return                  a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
     @Nonnull
-    public Section addSection(SoftwareSystem softwareSystem, String name, File... files) throws IOException {
-        return add(softwareSystem, name, files);
+    public Section addSection(SoftwareSystem softwareSystem, String title, File... files) throws IOException {
+        return add(softwareSystem, title, files);
     }
 
     /**
      * Adds a section relating to a {@link SoftwareSystem}.
      *
      * @param softwareSystem    the {@link SoftwareSystem} the documentation content relates to
-     * @param name              the name of the section
+     * @param title             the section title
      * @param format            the {@link Format} of the documentation content
      * @param content           a String containing the documentation content
      * @return                  a documentation {@link Section}
      */
-    public Section addSection(SoftwareSystem softwareSystem, String name, Format format, String content) {
-        return add(softwareSystem, name, format, content);
+    public Section addSection(SoftwareSystem softwareSystem, String title, Format format, String content) {
+        return add(softwareSystem, title, format, content);
     }
 
     /**
      * Adds a section relating to a {@link Container} from one or more files.
      *
      * @param container     the {@link Container} the documentation content relates to
-     * @param name          the name of the section
+     * @param title             the section title
      * @param files         one or more File objects that point to the documentation content
      * @return              a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addSection(Container container, String name, File... files) throws IOException {
-        return add(container, name, files);
+    public Section addSection(Container container, String title, File... files) throws IOException {
+        return add(container, title, files);
     }
 
     /**
      * Adds a section relating to a {@link Container}.
      *
      * @param container     the {@link Container} the documentation content relates to
-     * @param name          the name of the section
+     * @param title             the section title
      * @param format        the {@link Format} of the documentation content
      * @param content       a String containing the documentation content
      * @return              a documentation {@link Section}
      */
-    public Section addSection(Container container, String name, Format format, String content) {
-        return add(container, name, format, content);
+    public Section addSection(Container container, String tite, Format format, String content) {
+        return add(container, tite, format, content);
     }
 
     /**
      * Adds a section relating to a {@link Component} from one or more files.
      *
      * @param component     the {@link Component} the documentation content relates to
-     * @param name          the name of the section
+     * @param title             the section title
      * @param files         one or more File objects that point to the documentation content
      * @return              a documentation {@link Section}
      * @throws IOException      if there is an error reading the files
      */
-    public Section addSection(Component component, String name, File... files) throws IOException {
-        return add(component, name, files);
+    public Section addSection(Component component, String title, File... files) throws IOException {
+        return add(component, title, files);
     }
 
     /**
      * Adds a section relating to a {@link Component}.
      *
      * @param component     the {@link Component} the documentation content relates to
-     * @param name          the name of the section
+     * @param title             the section title
      * @param format        the {@link Format} of the documentation content
      * @param content       a String containing the documentation content
      * @return              a documentation {@link Section}
      */
-    public Section addSection(Component component, String name, Format format, String content) {
-        return add(component, name, format, content);
+    public Section addSection(Component component, String title, Format format, String content) {
+        return add(component, title, format, content);
     }
 
-    private Section add(Element element, @Nonnull String type, @Nonnull Format format, @Nonnull String content) {
-        return documentation.addSection(element, type, format, content);
+    private Section add(Element element, @Nonnull String title, @Nonnull Format format, @Nonnull String content) {
+        return documentation.addSection(element, title, format, content);
     }
 
     @Nonnull
-    private Section add(Element element, @Nonnull String type, File... files) throws IOException {
+    private Section add(Element element, @Nonnull String title, File... files) throws IOException {
         FormattedContent content = readFiles(files);
-        return documentation.addSection(element, type, content.getFormat(), content.getContent());
+        return documentation.addSection(element, title, content.getFormat(), content.getContent());
     }
 
     private FormattedContent readFiles(File... files) throws IOException {

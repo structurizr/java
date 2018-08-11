@@ -115,11 +115,11 @@ public class Arc42DocumentationTemplateTests extends AbstractWorkspaceTestBase {
         assertSection(softwareSystem, "Glossary", Format.Markdown, "Section 12", 12, section);
     }
 
-    private void assertSection(Element element, String type, Format format, String content, int order, Section section) {
+    private void assertSection(Element element, String title, Format format, String content, int order, Section section) {
         assertTrue(workspace.getDocumentation().getSections().contains(section));
         assertEquals(element, section.getElement());
         assertEquals(element.getId(), section.getElementId());
-        assertEquals(type, section.getType());
+        assertEquals(title, section.getTitle());
         assertEquals(format, section.getFormat());
         assertEquals(content, section.getContent());
         assertEquals(order, section.getOrder());

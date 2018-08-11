@@ -37,7 +37,7 @@ public class DocumentationTemplateTests extends AbstractWorkspaceTestBase {
             fail();
         } catch (IllegalArgumentException iae) {
             // this is the expected exception
-            assertEquals("A section of type Context for Name already exists.", iae.getMessage());
+            assertEquals("A section with a title of Context already exists for the element named Name.", iae.getMessage());
             assertEquals(1, documentation.getSections().size());
         }
     }

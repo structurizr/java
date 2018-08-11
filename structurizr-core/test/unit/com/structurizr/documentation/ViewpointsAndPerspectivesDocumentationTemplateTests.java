@@ -86,11 +86,11 @@ public class ViewpointsAndPerspectivesDocumentationTemplateTests extends Abstrac
         assertSection(softwareSystem, "Appendices", Format.AsciiDoc, "Section 7", 7, section);
     }
 
-    private void assertSection(Element element, String type, Format format, String content, int order, Section section) {
+    private void assertSection(Element element, String title, Format format, String content, int order, Section section) {
         assertTrue(workspace.getDocumentation().getSections().contains(section));
         assertEquals(element, section.getElement());
         assertEquals(element.getId(), section.getElementId());
-        assertEquals(type, section.getType());
+        assertEquals(title, section.getTitle());
         assertEquals(format, section.getFormat());
         assertEquals(content, section.getContent());
         assertEquals(order, section.getOrder());

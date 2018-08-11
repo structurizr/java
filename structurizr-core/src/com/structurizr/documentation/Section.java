@@ -11,7 +11,7 @@ public final class Section {
     private Element element;
     private String elementId;
 
-    private String type;
+    private String title;
     private int order;
     private Format format;
     private String content;
@@ -19,9 +19,9 @@ public final class Section {
     Section() {
     }
 
-    Section(Element element, String type, int order, Format format, String content) {
+    Section(Element element, String title, int order, Format format, String content) {
         this.element = element;
-        this.type = type;
+        this.title = title;
         this.order = order;
         this.format = format;
         this.content = content;
@@ -48,12 +48,16 @@ public final class Section {
         this.elementId = elementId;
     }
 
-    public String getType() {
-        return type;
+    public String getTitle() {
+        return title;
+    }
+
+    void setTitle(String title) {
+        this.title = title;
     }
 
     void setType(String type) {
-        this.type = type;
+        setTitle(type); // backwards compatibility for older clients
     }
 
     public int getOrder() {
@@ -92,16 +96,16 @@ public final class Section {
 
         Section section = (Section)object;
         if (getElementId() != null) {
-            return getElementId().equals(section.getElementId()) && getType().equals(section.getType());
+            return getElementId().equals(section.getElementId()) && getTitle().equals(section.getTitle());
         } else {
-            return getType().equals(section.getType());
+            return getTitle().equals(section.getTitle());
         }
     }
 
     @Override
     public int hashCode() {
         int result = getElementId() != null ? getElementId().hashCode() : 0;
-        result = 31 * result + getType().hashCode();
+        result = 31 * result + getTitle().hashCode();
         return result;
     }
 

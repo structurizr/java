@@ -1,5 +1,6 @@
 rootProject.name = 'structurizr'
 
+include 'structurizr-adr-tools'
 include 'structurizr-analysis'
 include 'structurizr-annotations'
 include 'structurizr-client'

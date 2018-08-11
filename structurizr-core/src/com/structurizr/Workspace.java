@@ -92,6 +92,14 @@ public final class Workspace extends AbstractWorkspace {
      * based upon element/relationship IDs.
      */
     public void hydrate() {
+        if (viewSet == null) {
+            viewSet = createViewSet();
+        }
+
+        if (documentation == null) {
+            documentation = createDocumentation();
+        }
+
         hydrateModel();
         hydrateViewSet();
         hydrateDocumentation();

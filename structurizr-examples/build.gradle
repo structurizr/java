@@ -1,4 +1,5 @@
 dependencies {
+    compile project(':structurizr-adr-tools')
     compile project(':structurizr-annotations')
     compile project(':structurizr-client')
     compile project(':structurizr-dot')
