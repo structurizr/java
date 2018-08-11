@@ -61,6 +61,7 @@ The view can then be exported to be visualised in a number of different ways; e.
     * [arc42](docs/documentation-arc42.md)
     * [Viewpoints and Perspectives](docs/documentation-viewpoints-and-perspectives.md)
     * [Automatic template](docs/documentation-automatic.md)
+    * [Architecture decision records](docs/decisions.md)
 * Extracting software architecture information from code
     * [Component finder](docs/component-finder.md)
     * [Structurizr annotations](docs/structurizr-annotations.md)
