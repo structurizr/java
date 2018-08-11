@@ -110,8 +110,8 @@ public abstract class DocumentationTemplate {
      * @param content       a String containing the documentation content
      * @return              a documentation {@link Section}
      */
-    public Section addSection(Container container, String tite, Format format, String content) {
-        return add(container, tite, format, content);
+    public Section addSection(Container container, String title, Format format, String content) {
+        return add(container, title, format, content);
     }
 
     /**
