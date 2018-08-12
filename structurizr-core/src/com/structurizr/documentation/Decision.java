@@ -1,6 +1,5 @@
 package com.structurizr.documentation;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.Element;
 
@@ -14,8 +13,6 @@ public final class Decision {
     private Element element;
     private String elementId;
     private String id;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date date;
     private String title;
     private DecisionStatus status;
