@@ -80,8 +80,9 @@ The view can then be exported to be visualised in a number of different ways; e.
     * [Corporate branding](docs/corporate-branding.md)
     * [Building from source](docs/building.md)
 * Related projects
-    * [cat-boot-structurizr](https://github.com/Catalysts/cat-boot/tree/master/cat-boot-structurizr): A way to apply dependency management to help modularise Structurizr code.
     * [java-quickstart](https://github.com/structurizr/java-quickstart): A simple starting point for using Structurizr for Java
+    * [structurizr-kotlin](https://github.com/Catalysts/structurizr-extensions/tree/master/structurizr-kotlin): An extension for Structurizr that lets you create your models in a fluent way.
+    * [structurizr-spring-boot](https://github.com/Catalysts/structurizr-extensions/tree/master/structurizr-spring-boot): A way to apply dependency management to help modularise Structurizr code.
     * [structurizr-groovy](https://github.com/tidyjava/structurizr-groovy): An initial version of a Groovy wrapper around Structurizr for Java.
     * [structurizr-dotnet](https://github.com/structurizr/dotnet): Structurizr for .NET
 * [changelog](docs/changelog.md)
