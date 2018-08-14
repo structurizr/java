@@ -20,7 +20,7 @@ public class AdrToolsImporter {
 
     private static final Pattern titleRegex = Pattern.compile("^# \\d*\\. (.*)$", Pattern.MULTILINE);
     private static final Pattern dateRegex = Pattern.compile("^Date: (\\d\\d\\d\\d-\\d\\d-\\d\\d)$",Pattern.MULTILINE);
-    private static final Pattern statusRegex = Pattern.compile("## Status[\\n\\r][\\n\\r](\\w*)");
+    private static final Pattern statusRegex = Pattern.compile("## Status\\n\\n(\\w*)");
 
     private static final String SUPERCEDED_ALTERNATIVE_SPELLING = "Superceded";
 
@@ -84,6 +84,7 @@ public class AdrToolsImporter {
                 String title = "";
                 DecisionStatus status = DecisionStatus.Proposed;
                 String content = new String(Files.readAllBytes(file.toPath()), "UTF-8");
+                content = content.replace("\r", "");
                 Format format = Format.Markdown;
 
                 title = extractTitle(content);
