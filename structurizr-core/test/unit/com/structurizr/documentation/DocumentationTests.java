@@ -42,6 +42,16 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_addSection_ThrowsAnException_WhenTheContentIsNotSpecified() {
+        try {
+            documentation.addSection(null, "Title", Format.Markdown, null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Content must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
     public void test_addSection_ThrowsAnException_WhenTheFormatIsNotSpecified() {
         try {
             documentation.addSection(null, "Title", null, "Content");
@@ -117,6 +127,16 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A title must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addDecision_ThrowsAnException_WhenTheContentIsNotSpecified() {
+        try {
+            documentation.addDecision("1", new Date(), "Title", DecisionStatus.Accepted, Format.Markdown, null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Content must be specified.", iae.getMessage());
         }
     }
 

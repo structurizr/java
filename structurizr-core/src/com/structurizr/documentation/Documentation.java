@@ -40,6 +40,7 @@ public final class Documentation {
         }
 
         checkTitleIsSpecified(title);
+        checkContentIsSpecified(content);
         checkSectionIsUnique(element, title);
         checkFormatIsSpecified(format);
 
@@ -51,6 +52,12 @@ public final class Documentation {
     private void checkTitleIsSpecified(String title) {
         if (StringUtils.isNullOrEmpty(title)) {
             throw new IllegalArgumentException("A title must be specified.");
+        }
+    }
+
+    private void checkContentIsSpecified(String content) {
+        if (StringUtils.isNullOrEmpty(content)) {
+            throw new IllegalArgumentException("Content must be specified.");
         }
     }
 
@@ -140,6 +147,7 @@ public final class Documentation {
     public Decision addDecision(SoftwareSystem softwareSystem, String id, Date date, String title, DecisionStatus status, Format format, String content) {
         checkIdIsSpecified(id);
         checkTitleIsSpecified(title);
+        checkContentIsSpecified(content);
         checkDecisionStatusIsSpecified(status);
         checkFormatIsSpecified(format);
         checkDecisionIsUnique(softwareSystem, id);
