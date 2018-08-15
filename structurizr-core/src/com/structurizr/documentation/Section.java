@@ -1,5 +1,6 @@
 package com.structurizr.documentation;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.Element;
 
@@ -11,6 +12,7 @@ public final class Section {
     private Element element;
     private String elementId;
 
+    private String type;
     private String title;
     private int order;
     private Format format;
@@ -56,7 +58,13 @@ public final class Section {
         this.title = title;
     }
 
+    @JsonGetter
+    String getType() {
+        return this.type;
+    }
+
     void setType(String type) {
+        this.type = type;
         setTitle(type); // backwards compatibility for older clients
     }
 
