@@ -1,5 +1,7 @@
 package com.structurizr;
 
+import java.util.Date;
+
 /**
  * The superclass for regular and encrypted workspaces.
  */
@@ -9,6 +11,7 @@ public abstract class AbstractWorkspace {
     private String name;
     private String description;
     private String version;
+    private Date lastModifiedDate;
     private String thumbnail;
 
     protected AbstractWorkspace() {
@@ -89,6 +92,24 @@ public abstract class AbstractWorkspace {
      */
     public void setVersion(String version) {
         this.version = version;
+    }
+
+    /**
+     * Gets the last modified date of this workspace.
+     *
+     * @return  a Date object
+     */
+    public Date getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    /**
+     * Sets the last modified date of this workspace.
+     *
+     * @param lastModifiedDate  a Date object
+     */
+    public void setLastModifiedDate(Date lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 
     /**

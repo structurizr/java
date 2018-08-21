@@ -269,6 +269,7 @@ public final class StructurizrClient {
 
             workspace.setId(workspaceId);
             workspace.setThumbnail(null);
+            workspace.setLastModifiedDate(new Date());
             workspace.countAndLogWarnings();
 
             CloseableHttpClient httpClient = HttpClients.createSystem();
