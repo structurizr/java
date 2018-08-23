@@ -108,7 +108,7 @@ public final class RelationshipView {
      * @return  a collection of Vertex objects
      */
     public Collection<Vertex> getVertices() {
-        return vertices;
+        return new LinkedList<>(vertices);
     }
 
     /**
@@ -117,10 +117,8 @@ public final class RelationshipView {
      * @param vertices  a Collection of Vertex instances
      */
     public void setVertices(Collection<Vertex> vertices) {
-        this.vertices.clear();
-
         if (vertices != null) {
-            this.vertices.addAll(vertices);
+            this.vertices = new LinkedList<>(vertices);
         }
     }
 

@@ -153,7 +153,7 @@ public final class DeploymentNode extends Element {
 
     void setChildren(Set<DeploymentNode> children) {
         if (children != null) {
-            this.children.addAll(children);
+            this.children = new HashSet<>(children);
         }
     }
 
@@ -168,7 +168,7 @@ public final class DeploymentNode extends Element {
 
     void setContainerInstances(Set<ContainerInstance> containerInstances) {
         if (containerInstances != null) {
-            this.containerInstances.addAll(containerInstances);
+            this.containerInstances = new HashSet<>(containerInstances);
         }
     }
 

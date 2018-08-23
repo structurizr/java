@@ -122,7 +122,7 @@ public abstract class Element extends ModelItem {
 
     void setRelationships(Set<Relationship> relationships) {
         if (relationships != null) {
-            this.relationships.addAll(relationships);
+            this.relationships = new LinkedHashSet<>(relationships);
         }
     }
 

@@ -70,7 +70,7 @@ public final class SoftwareSystem extends StaticStructureElement {
 
     void setContainers(Set<Container> containers) {
         if (containers != null) {
-            this.containers.addAll(containers);
+            this.containers = new HashSet<>(containers);
         }
     }
 

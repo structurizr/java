@@ -278,7 +278,7 @@ public abstract class View {
 
     void setElements(Set<ElementView> elementViews) {
         if (elementViews != null) {
-            this.elementViews.addAll(elementViews);
+            this.elementViews = new HashSet<>(elementViews);
         }
     }
 
@@ -293,7 +293,7 @@ public abstract class View {
 
     void setRelationships(Set<RelationshipView> relationshipViews) {
         if (relationshipViews != null) {
-            this.relationshipViews.addAll(relationshipViews);
+            this.relationshipViews = new HashSet<>(relationshipViews);
         }
     }
 

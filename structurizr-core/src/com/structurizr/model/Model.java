@@ -272,7 +272,7 @@ public final class Model {
 
     void setPeople(Set<Person> people) {
         if (people != null) {
-            this.people.addAll(people);
+            this.people = new LinkedHashSet<>(people);
         }
     }
 
@@ -288,7 +288,7 @@ public final class Model {
 
     void setSoftwareSystems(Set<SoftwareSystem> softwareSystems) {
         if (softwareSystems != null) {
-            this.softwareSystems.addAll(softwareSystems);
+            this.softwareSystems = new LinkedHashSet<>(softwareSystems);
         }
     }
 
@@ -304,7 +304,7 @@ public final class Model {
 
     void setDeploymentNodes(Set<DeploymentNode> deploymentNodes) {
         if (deploymentNodes != null) {
-            this.deploymentNodes.addAll(deploymentNodes);
+            this.deploymentNodes = new LinkedHashSet<>(deploymentNodes);
         }
     }
 

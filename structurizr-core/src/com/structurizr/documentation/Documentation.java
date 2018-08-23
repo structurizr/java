@@ -98,7 +98,7 @@ public final class Documentation {
 
     void setSections(Set<Section> sections) {
         if (sections != null) {
-            this.sections.addAll(sections);
+            this.sections = new HashSet<>(sections);
         }
     }
 
@@ -113,7 +113,7 @@ public final class Documentation {
 
     void setDecisions(Set<Decision> decisions) {
         if (decisions != null) {
-            this.decisions.addAll(decisions);
+            this.decisions = new HashSet<>(decisions);
         }
     }
 
@@ -201,7 +201,7 @@ public final class Documentation {
 
     void setImages(Set<Image> images) {
         if (images != null) {
-            this.images.addAll(images);
+            this.images = new HashSet<>(images);
         }
     }
 

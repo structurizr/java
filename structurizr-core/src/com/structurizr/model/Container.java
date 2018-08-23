@@ -2,10 +2,7 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Arrays;
-import java.util.LinkedHashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Represents a "container" in the C4 model.
@@ -129,12 +126,12 @@ public final class Container extends StaticStructureElement {
      * @return  a Set of Component objects
      */
     public Set<Component> getComponents() {
-        return components;
+        return new HashSet<>(components);
     }
 
     void setComponents(Set<Component> components) {
         if (components != null) {
-            this.components.addAll(components);
+            this.components = new HashSet<>(components);
         }
     }
 

@@ -316,7 +316,7 @@ public final class ViewSet {
 
     void setSystemLandscapeViews(Set<SystemLandscapeView> systemLandscapeViews) {
         if (systemLandscapeViews != null) {
-            this.systemLandscapeViews.addAll(systemLandscapeViews);
+            this.systemLandscapeViews = new HashSet<>(systemLandscapeViews);
         }
     }
 
@@ -326,7 +326,7 @@ public final class ViewSet {
     @JsonSetter("enterpriseContextViews")
     void setEnterpriseContextViews(Collection<SystemLandscapeView> enterpriseContextViews) {
         if (enterpriseContextViews != null) {
-            this.systemLandscapeViews.addAll(enterpriseContextViews);
+            this.systemLandscapeViews = new HashSet<>(enterpriseContextViews);
         }
     }
 
@@ -341,7 +341,7 @@ public final class ViewSet {
 
     void setSystemContextViews(Set<SystemContextView> systemContextViews) {
         if (systemContextViews != null) {
-            this.systemContextViews.addAll(systemContextViews);
+            this.systemContextViews = new HashSet<>(systemContextViews);
         }
     }
 
@@ -356,7 +356,7 @@ public final class ViewSet {
 
     void setContainerViews(Set<ContainerView> containerViews) {
         if (containerViews != null) {
-            this.containerViews.addAll(containerViews);
+            this.containerViews = new HashSet<>(containerViews);
         }
     }
 
@@ -371,7 +371,7 @@ public final class ViewSet {
 
     void setComponentViews(Set<ComponentView> componentViews) {
         if (componentViews != null) {
-            this.componentViews.addAll(componentViews);
+            this.componentViews = new HashSet<>(componentViews);
         }
     }
 
@@ -386,7 +386,7 @@ public final class ViewSet {
 
     void setDynamicViews(Set<DynamicView> dynamicViews) {
         if (dynamicViews != null) {
-            this.dynamicViews.addAll(dynamicViews);
+            this.dynamicViews = new HashSet<>(dynamicViews);
         }
     }
 
@@ -396,7 +396,7 @@ public final class ViewSet {
 
     void setFilteredViews(Set<FilteredView> filteredViews) {
         if (filteredViews != null) {
-            this.filteredViews.addAll(filteredViews);
+            this.filteredViews = new HashSet<>(filteredViews);
         }
     }
 
@@ -411,7 +411,7 @@ public final class ViewSet {
 
     void setDeploymentViews(Set<DeploymentView> deploymentViews) {
         if (deploymentViews != null) {
-            this.deploymentViews.addAll(deploymentViews);
+            this.deploymentViews = new HashSet<>(deploymentViews);
         }
     }
 
