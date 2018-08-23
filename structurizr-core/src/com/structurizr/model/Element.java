@@ -3,25 +3,20 @@ package com.structurizr.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.util.Url;
 
-import java.util.HashMap;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This is the superclass for all model elements.
  */
-public abstract class Element extends Taggable {
+public abstract class Element extends ModelItem {
 
     static final String CANONICAL_NAME_SEPARATOR = "/";
 
     private Model model;
 
-    private String id = "";
     private String name;
     private String description;
     private String url;
-    private Map<String, String> properties = new HashMap<>();
 
     private Set<Relationship> relationships = new LinkedHashSet<>();
 
@@ -35,19 +30,6 @@ public abstract class Element extends Taggable {
 
     protected void setModel(Model model) {
         this.model = model;
-    }
-
-    /**
-     * Gets the ID of this element in the model.
-     *
-     * @return the ID, as a String
-     */
-    public String getId() {
-        return id;
-    }
-
-    void setId(String id) {
-        this.id = id;
     }
 
     /**
@@ -94,39 +76,6 @@ public abstract class Element extends Taggable {
             } else {
                 throw new IllegalArgumentException(url + " is not a valid URL.");
             }
-        }
-    }
-
-    /**
-     * Gets the collection of name-value property pairs associated with this element, as a Map.
-     *
-     * @return  a Map (String, String) (empty if there are no properties)
-     */
-    public Map<String, String> getProperties() {
-        return new HashMap<>(properties);
-    }
-
-    /**
-     * Adds a name-value pair property to this element.
-     *
-     * @param name      the name of the property
-     * @param value     the value of the property
-     */
-    public void addProperty(String name, String value) {
-        if (name == null || name.trim().length() == 0) {
-            throw new IllegalArgumentException("A property name must be specified.");
-        }
-
-        if (value == null || value.trim().length() == 0) {
-            throw new IllegalArgumentException("A property value must be specified.");
-        }
-
-        properties.put(name, value);
-    }
-
-    void setProperties(Map<String, String> properties) {
-        if (properties != null) {
-            this.properties = properties;
         }
     }
 

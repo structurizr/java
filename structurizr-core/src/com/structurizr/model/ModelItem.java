@@ -2,15 +2,31 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
-abstract class Taggable {
+/**
+ * The base class for elements and relationships.
+ */
+abstract class ModelItem {
 
+    private String id = "";
     private Set<String> tags = new LinkedHashSet<>();
+    private Map<String, String> properties = new HashMap<>();
 
     protected abstract Set<String> getRequiredTags();
+
+    /**
+     * Gets the ID of this item in the model.
+     *
+     * @return the ID, as a String
+     */
+    public String getId() {
+        return id;
+    }
+
+    void setId(String id) {
+        this.id = id;
+    }
 
     /**
      * Gets the comma separated list of tags.
@@ -73,4 +89,38 @@ abstract class Taggable {
     public boolean hasTag(String tag) {
         return this.tags.contains(tag);
     }
+
+    /**
+     * Gets the collection of name-value property pairs associated with this element, as a Map.
+     *
+     * @return  a Map (String, String) (empty if there are no properties)
+     */
+    public Map<String, String> getProperties() {
+        return new HashMap<>(properties);
+    }
+
+    /**
+     * Adds a name-value pair property to this element.
+     *
+     * @param name      the name of the property
+     * @param value     the value of the property
+     */
+    public void addProperty(String name, String value) {
+        if (name == null || name.trim().length() == 0) {
+            throw new IllegalArgumentException("A property name must be specified.");
+        }
+
+        if (value == null || value.trim().length() == 0) {
+            throw new IllegalArgumentException("A property value must be specified.");
+        }
+
+        properties.put(name, value);
+    }
+
+    void setProperties(Map<String, String> properties) {
+        if (properties != null) {
+            this.properties = new HashMap<>(properties);
+        }
+    }
+
 }

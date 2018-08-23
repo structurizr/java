@@ -2,7 +2,6 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -10,9 +9,7 @@ import java.util.Set;
 /**
  * A relationship between two elements.
  */
-public final class Relationship extends Taggable {
-
-    protected String id = "";
+public final class Relationship extends ModelItem {
 
     private Element source;
     private String sourceId;
@@ -51,19 +48,6 @@ public final class Relationship extends Taggable {
         } else {
             return this.sourceId;
         }
-    }
-
-    /**
-     * Gets the ID of this relationship in the model.
-     *
-     * @return  the ID, as a String
-     */
-    public String getId() {
-        return id;
-    }
-
-    void setId(String id) {
-        this.id = id;
     }
 
     void setSourceId(String sourceId) {
