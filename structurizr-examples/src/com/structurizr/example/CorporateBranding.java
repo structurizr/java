@@ -19,7 +19,6 @@ import java.io.File;
  * </p>
  *
  * <ul>
- *   <li>A colour scheme, which is applied to model elements and documentation navigation.</li>
  *   <li>A logo, which is included in diagrams and documentation.</li>
  * </ul>
  *
@@ -51,17 +50,8 @@ public class CorporateBranding {
 
         StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
         template.addContextSection(softwareSystem, Format.Markdown, "Here is some context about the software system...\n\n![](embed:SystemContext)");
-        template.addQualityAttributesSection(softwareSystem, Format.Markdown, "Here is some information about the quality attributes...");
-        template.addSoftwareArchitectureSection(softwareSystem, Format.Markdown, "Here is some information about the software architecture...");
-        template.addOperationAndSupportSection(softwareSystem, Format.Markdown, "Here is some information about how to operate and support the software...");
-        template.addDecisionLogSection(softwareSystem, Format.Markdown, "Here is some information about the decisions made...");
 
         Branding branding = views.getConfiguration().getBranding();
-        branding.setColor1(new ColorPair("#02172c", "#ffffff"));
-        branding.setColor2(new ColorPair("#08427b", "#ffffff"));
-        branding.setColor3(new ColorPair("#1168bd", "#ffffff"));
-        branding.setColor4(new ColorPair("#438dd5", "#ffffff"));
-        branding.setColor5(new ColorPair("#85bbf0", "#ffffff"));
         branding.setLogo(ImageUtils.getImageAsDataUri(new File("./docs/images/structurizr-logo.png")));
 
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);

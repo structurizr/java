@@ -4,6 +4,7 @@
 
  - Added name-value properties to relationships.
  - Added the ability to define animations on the static structure diagrams.
+ - Removed support for colours in the corporate branding feature.
 
 ## 1.0.0-RC7
 
