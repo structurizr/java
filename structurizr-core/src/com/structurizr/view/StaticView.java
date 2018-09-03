@@ -6,13 +6,17 @@ import com.structurizr.model.Relationship;
 import com.structurizr.model.SoftwareSystem;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
  * The superclass for all static views (system landscape, system context, container and component views).
  */
 public abstract class StaticView extends View {
+
+    private List<Animation> animations = new ArrayList<>();
 
     StaticView() {
     }
@@ -164,6 +168,59 @@ public abstract class StaticView extends View {
                 .map(RelationshipView::getRelationship)
                 .filter(r -> r.hasTag(tag))
                 .forEach(this::remove);
+    }
+
+    /**
+     * Adds an animation step, with the specified elements.
+     *
+     * @param elements      the elements that should be shown in the animation step
+     */
+    public void addAnimation(Element... elements) {
+        if (elements == null || elements.length == 0) {
+            throw new IllegalArgumentException("One or more elements must be specified.");
+        }
+
+        Set<String> elementIdsInPreviousAnimationSteps = new HashSet<>();
+        Set<Element> elementsInThisAnimationStep = new HashSet<>();
+        Set<Relationship> relationshipsInThisAnimationStep = new HashSet<>();
+
+        for (Element element : elements) {
+            if (isElementInView(element)) {
+                elementIdsInPreviousAnimationSteps.add(element.getId());
+                elementsInThisAnimationStep.add(element);
+            }
+        }
+
+        if (elementsInThisAnimationStep.size() == 0) {
+            throw new IllegalArgumentException("None of the specified elements exist in this view.");
+        }
+
+        for (Animation animationStep : animations) {
+            elementIdsInPreviousAnimationSteps.addAll(animationStep.getElements());
+        }
+
+        for (RelationshipView relationshipView : this.getRelationships()) {
+            if (
+                    (elementsInThisAnimationStep.contains(relationshipView.getRelationship().getSource()) && elementIdsInPreviousAnimationSteps.contains(relationshipView.getRelationship().getDestination().getId())) ||
+                    (elementIdsInPreviousAnimationSteps.contains(relationshipView.getRelationship().getSource().getId()) && elementsInThisAnimationStep.contains(relationshipView.getRelationship().getDestination()))
+               ) {
+                relationshipsInThisAnimationStep.add(relationshipView.getRelationship());
+            }
+        }
+
+        animations.add(new Animation(animations.size() + 1, elementsInThisAnimationStep, relationshipsInThisAnimationStep));
+    }
+
+    public List<Animation> getAnimations() {
+        return new ArrayList<>(animations);
+    }
+
+    void setAnimations(List<Animation> animations) {
+        if (animations != null) {
+            this.animations = new ArrayList<>(animations);
+        } else {
+            this.animations = new ArrayList<>();
+        }
     }
 
 }

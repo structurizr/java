@@ -2,7 +2,8 @@
 
 ## 1.0.0 (unreleased)
 
-Added name-value properties to relationships.
+ - Added name-value properties to relationships.
+ - Added the ability to define animations on the static structure diagrams.
 
 ## 1.0.0-RC7
 

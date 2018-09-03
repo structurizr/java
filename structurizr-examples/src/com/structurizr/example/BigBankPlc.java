@@ -164,6 +164,27 @@ public class BigBankPlc {
         componentView.setPaperSize(PaperSize.A5_Landscape);
 
         if (usePaidFeatures) {
+            // animations are not available with the Free Plan
+            systemLandscapeView.addAnimation(internetBankingSystem, customer, mainframeBankingSystem, emailSystem);
+            systemLandscapeView.addAnimation(atm);
+            systemLandscapeView.addAnimation(customerServiceStaff, backOfficeStaff);
+
+            systemContextView.addAnimation(internetBankingSystem);
+            systemContextView.addAnimation(customer);
+            systemContextView.addAnimation(mainframeBankingSystem);
+            systemContextView.addAnimation(emailSystem);
+
+            containerView.addAnimation(customer, mainframeBankingSystem, emailSystem);
+            containerView.addAnimation(webApplication);
+            containerView.addAnimation(singlePageApplication);
+            containerView.addAnimation(mobileApp);
+            containerView.addAnimation(apiApplication);
+            containerView.addAnimation(database);
+
+            componentView.addAnimation(singlePageApplication, mobileApp);
+            componentView.addAnimation(signinController, securityComponent, database);
+            componentView.addAnimation(accountsSummaryController, mainframeBankingSystemFacade, mainframeBankingSystem);
+
             // dynamic diagrams and deployment diagrams are not available with the Free Plan
             DynamicView dynamicView = views.createDynamicView(apiApplication, "SignIn", "Summarises how the sign in feature works in the single-page application.");
             dynamicView.add(singlePageApplication, "Submits credentials to", signinController);

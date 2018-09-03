@@ -227,7 +227,7 @@ public abstract class View {
         return null;
     }
 
-    private boolean isElementInView(Element element) {
+    protected boolean isElementInView(Element element) {
         return this.elementViews.stream().filter(ev -> ev.getElement().equals(element)).count() > 0;
     }
 
