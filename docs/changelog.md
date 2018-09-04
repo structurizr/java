@@ -4,7 +4,7 @@
 
  - Added name-value properties to relationships.
  - Added the ability to define animations on the static structure diagrams.
- - Removed support for colours in the corporate branding feature.
+ - Removed support for colours in the corporate branding feature (__breaking change__).
  - The PlantUML writer can now export sequence diagrams.
 
 ## 1.0.0-RC7
