@@ -29,6 +29,7 @@ public class PlantUMLWriter {
     /** maximum diagram width or height; defaults to 2000px to match public plantuml.com installation */
     private int sizeLimit = 2000;
     private boolean includeNotesForActors = true;
+    private boolean useSequenceDiagrams = false;
     private final Map<String, String> skinParams = new LinkedHashMap<>();
     private final List<String> includes = new ArrayList<>();
 
@@ -104,6 +105,14 @@ public class PlantUMLWriter {
 
     public void setIncludeNotesForActors(boolean includeNotesForActors) {
         this.includeNotesForActors = includeNotesForActors;
+    }
+
+    public boolean isUseSequenceDiagrams() {
+        return useSequenceDiagrams;
+    }
+
+    public void setUseSequenceDiagrams(boolean useSequenceDiagrams) {
+        this.useSequenceDiagrams = useSequenceDiagrams;
     }
 
     protected int getSizeLimit() {
@@ -327,11 +336,23 @@ public class PlantUMLWriter {
         try {
             writeHeader(view, writer);
 
-            view.getElements().stream()
+            if (useSequenceDiagrams) {
+                view.getElements().stream()
                     .map(ElementView::getElement)
-                    .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(view, e, writer, false));
-
+                    .sorted((e1, e2) -> e1.getId().compareTo(e2.getId()))
+                    .forEach(e -> {
+                                   try {
+                                       writeSequenceElement(view, e, writer, false, plantumlSequenceType(view, e));
+                                   } catch (IOException e3) {
+                                       e3.printStackTrace();
+                                   }
+                             });
+            } else {
+                view.getElements().stream()
+                    .map(ElementView::getElement)
+                    .sorted((e1, e2) -> e1.getName().compareTo(e2.getName())).
+                    forEach(e -> write(view, e, writer, false));
+            }
             view.getRelationships().stream()
                     .sorted((rv1, rv2) -> (rv1.getOrder().compareTo(rv2.getOrder())))
                     .forEach(relationship -> {
@@ -478,6 +499,17 @@ public class PlantUMLWriter {
                 System.lineSeparator()));
     }
 
+    protected void writeSequenceElement(View view, Element element, Writer writer, boolean indent, String type) throws IOException {
+        writer.write(format("%s%s \"%s\" as %s <<%s>> %s%s",
+                indent ? "  " : "",
+                type,
+                element.getName(),
+                idOf(element),
+                typeOf(element),
+                backgroundOf(view, element),
+                System.lineSeparator()));
+    }
+
     protected void writeDescriptionAsNote(Element element, Writer writer, boolean indent, List<String> description) throws IOException {
         if (!description.isEmpty()) {
             final String prefix = indent ? "  " : "";
@@ -538,6 +570,26 @@ public class PlantUMLWriter {
                 return "storage";
             default:
                 return "rectangle";
+        }
+    }
+
+    protected String plantumlSequenceType(View view, Element element) {
+        Shape shape = view.getViewSet().getConfiguration().getStyles().findElementStyle(element).getShape();
+
+        switch(shape) {
+            case Box:
+                return "participant";
+            case Person:
+                return "actor";
+            case Cylinder:
+                return "database";
+            case Folder:
+                return "collections";
+            case Ellipse:
+            case Circle:
+                return "entity";
+            default:
+                return "participant";
         }
     }
 

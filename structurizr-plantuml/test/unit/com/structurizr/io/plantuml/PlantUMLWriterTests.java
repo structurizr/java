@@ -145,6 +145,21 @@ public class PlantUMLWriterTests {
     }
 
     @Test
+    public void test_writeDynamicViewSequence() throws Exception {
+        populateWorkspace();
+
+        DynamicView dynamicView = workspace.getViews().getDynamicViews()
+                 .stream().findFirst().get();
+        plantUMLWriter.setUseSequenceDiagrams(true);
+        plantUMLWriter.write(dynamicView, stringWriter);
+        plantUMLWriter.setUseSequenceDiagrams(false);
+
+        System.out.print(stringWriter.toString());
+
+        assertEquals(DYNAMIC_VIEW_SEQUENCE, stringWriter.toString());
+    }
+
+    @Test
     public void test_writeDeploymentView() throws Exception {
         populateWorkspace();
 
@@ -575,6 +590,29 @@ public class PlantUMLWriterTests {
             "12 -[#707070]> 14 : 2. Uses" + System.lineSeparator() +
             "14 -[#707070]> 8 : 3. select * from something" + System.lineSeparator() +
             "@enduml" + System.lineSeparator();
+
+    private static final String DYNAMIC_VIEW_SEQUENCE = "@startuml(id=dynamic)" + System.lineSeparator() +
+            "scale max 1999x1999" + System.lineSeparator() +
+            "title Web Application - Dynamic" + System.lineSeparator() +
+            "" + System.lineSeparator() +
+            "skinparam {" + System.lineSeparator() +
+            "  shadowing false" + System.lineSeparator() +
+            "  arrowColor #707070" + System.lineSeparator() +
+            "  actorBorderColor #707070" + System.lineSeparator() +
+            "  componentBorderColor #707070" + System.lineSeparator() +
+            "  rectangleBorderColor #707070" + System.lineSeparator() +
+            "  noteBackgroundColor #ffffff" + System.lineSeparator() +
+            "  noteBorderColor #707070" + System.lineSeparator() +
+            "}" + System.lineSeparator() +
+            "participant \"User\" as 1 <<Person>> #dddddd" + System.lineSeparator() +
+            "participant \"SomeController\" as 12 <<Spring MVC Controller>> #dddddd" + System.lineSeparator() +
+            "participant \"SomeRepository\" as 14 <<Spring Data>> #dddddd" + System.lineSeparator() +
+            "database \"Database\" as 8 <<Container>> #dddddd" + System.lineSeparator() +
+            "1 -[#707070]> 12 : 1. Requests /something" + System.lineSeparator() +
+            "12 -[#707070]> 14 : 2. Uses" + System.lineSeparator() +
+            "14 -[#707070]> 8 : 3. select * from something" + System.lineSeparator() +
+            "@enduml" + System.lineSeparator();
+
 
     private static final String DEPLOYMENT_VIEW = "@startuml(id=deployment)" + System.lineSeparator() +
             "scale max 1999x1999" + System.lineSeparator() +
