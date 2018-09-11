@@ -78,4 +78,64 @@ public class WorkspaceUtilsTests {
         }
     }
 
+    @Test
+    public void test_toJson_ThrowsAnException_WhenANullWorkspaceIsProvided() throws Exception {
+        try {
+            WorkspaceUtils.toJson(null, true);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A workspace must be provided.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_toJson() throws Exception {
+        Workspace workspace = new Workspace("Name", "Description");
+        String indentedOutput = WorkspaceUtils.toJson(workspace, true);
+        String unindentedOutput = WorkspaceUtils.toJson(workspace, false);
+
+        assertEquals("{\n" +
+                "  \"id\" : 0,\n" +
+                "  \"name\" : \"Name\",\n" +
+                "  \"description\" : \"Description\",\n" +
+                "  \"model\" : { },\n" +
+                "  \"documentation\" : { },\n" +
+                "  \"views\" : {\n" +
+                "    \"configuration\" : {\n" +
+                "      \"branding\" : { },\n" +
+                "      \"styles\" : { },\n" +
+                "      \"terminology\" : { }\n" +
+                "    }\n" +
+                "  }\n" +
+                "}", indentedOutput);
+        assertEquals("{\"id\":0,\"name\":\"Name\",\"description\":\"Description\",\"model\":{},\"documentation\":{},\"views\":{\"configuration\":{\"branding\":{},\"styles\":{},\"terminology\":{}}}}", unindentedOutput);
+    }
+
+    @Test
+    public void test_fromJson_ThrowsAnException_WhenANullJsonStringIsProvided() throws Exception {
+        try {
+            WorkspaceUtils.fromJson(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A JSON string must be provided.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_fromJson_ThrowsAnException_WhenAnEmptyJsonStringIsProvided() throws Exception {
+        try {
+            WorkspaceUtils.fromJson(" ");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A JSON string must be provided.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_fromJson() throws Exception {
+        Workspace workspace = WorkspaceUtils.fromJson("{\"id\":0,\"name\":\"Name\",\"description\":\"Description\",\"model\":{},\"documentation\":{},\"views\":{\"configuration\":{\"branding\":{},\"styles\":{},\"terminology\":{}}}}");
+        assertEquals("Name", workspace.getName());
+        assertEquals("Description", workspace.getDescription());
+    }
+
 }
