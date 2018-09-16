@@ -62,9 +62,9 @@ public class TypeMatcherComponentFinderStrategyTests {
         try {
             componentFinder.findComponents();
             fail();
-        } catch (IllegalArgumentException iae) {
-            assertTrue(iae.getMessage().startsWith("A component named '"));
-            assertTrue(iae.getMessage().endsWith("' already exists for this container."));
+        } catch (DuplicateComponentException dce) {
+            assertTrue(dce.getMessage().startsWith("A component named \""));
+            assertTrue(dce.getMessage().endsWith("\" already exists in the container named \"Name\"."));
         }
     }
 

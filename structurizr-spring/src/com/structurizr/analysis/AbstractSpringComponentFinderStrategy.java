@@ -33,8 +33,11 @@ public abstract class AbstractSpringComponentFinderStrategy extends AbstractComp
               continue;
             } else if (annotatedType.isInterface()) {
                 // the annotated type is an interface, so we're done
-                components.add(container.addComponent(
-                    annotatedType.getSimpleName(), annotatedType.getCanonicalName(), "", technology));
+                Component newComponent = addComponent(container, annotatedType.getSimpleName(), annotatedType.getCanonicalName(), "", technology);
+
+                if (newComponent != null) {
+                    components.add(newComponent);
+                }
             } else {
                 // The Spring @Component, @Service and @Repository annotations are typically used to annotate implementation
                 // classes, but we really want to find the interface type and use that to represent the component. Why?

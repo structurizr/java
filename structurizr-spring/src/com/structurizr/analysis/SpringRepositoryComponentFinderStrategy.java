@@ -50,11 +50,17 @@ public final class SpringRepositoryComponentFinderStrategy extends AbstractSprin
         for (Class<?> componentType : componentTypes) {
             if (!includePublicTypesOnly || Modifier.isPublic(componentType.getModifiers())) {
                 final Container container = getComponentFinder().getContainer();
-                componentsFound.add(container.addComponent(
+                Component newComponent = addComponent(
+                    container,
                     componentType.getSimpleName(),
                     componentType.getCanonicalName(),
                     "",
-                    SPRING_REPOSITORY));
+                    SPRING_REPOSITORY);
+
+
+                if (newComponent != null) {
+                    componentsFound.add(newComponent);
+                }
             }
         }
 

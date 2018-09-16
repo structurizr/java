@@ -23,6 +23,8 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
 
     protected List<SupportingTypesStrategy> supportingTypesStrategies = new ArrayList<>();
 
+    private DuplicateComponentStrategy duplicateComponentStrategy = new ThrowExceptionDuplicateComponentStrategy();
+
     protected AbstractComponentFinderStrategy(SupportingTypesStrategy... strategies) {
         Arrays.stream(strategies).forEach(this::addSupportingTypesStrategy);
     }
@@ -162,15 +164,36 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         for (Class<?> componentType : componentTypes) {
             if (!includePublicTypesOnly || Modifier.isPublic(componentType.getModifiers())) {
                 final Container container = getComponentFinder().getContainer();
-                components.add(container.addComponent(
-                    componentType.getSimpleName(),
-                    componentType.getCanonicalName(),
-                    "",
-                    technology));
+                Component newComponent = addComponent(
+                        container,
+                        componentType.getSimpleName(),
+                        componentType.getCanonicalName(),
+                        "",
+                        technology);
+
+                if (newComponent != null) {
+                    components.add(newComponent);
+                }
             }
         }
 
         return components;
+    }
+
+    public void setDuplicateComponentStrategy(DuplicateComponentStrategy duplicateComponentStrategy) {
+        if (duplicateComponentStrategy != null) {
+            this.duplicateComponentStrategy = duplicateComponentStrategy;
+        } else {
+            this.duplicateComponentStrategy = new ThrowExceptionDuplicateComponentStrategy();
+        }
+    }
+
+    protected Component addComponent(Container container, String name, String type, String description, String technology) {
+        if (container.getComponentWithName(name) == null) {
+            return container.addComponent(name, type, description, technology);
+        } else {
+            return duplicateComponentStrategy.duplicateComponentFound(container.getComponentWithName(name), name, type, description, technology);
+        }
     }
 
 }
