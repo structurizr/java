@@ -45,6 +45,7 @@ public class BigBankPlc {
         internetBankingSystem.uses(mainframeBankingSystem, "Uses");
 
         SoftwareSystem emailSystem = model.addSoftwareSystem(Location.Internal, "E-mail System", "The internal Microsoft Exchange e-mail system.");
+        internetBankingSystem.uses(emailSystem, "Sends e-mail using");
         emailSystem.addTags(EXISTING_SYSTEM_TAG);
         emailSystem.delivers(customer, "Sends e-mails to");
 
