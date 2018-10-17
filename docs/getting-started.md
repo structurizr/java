@@ -10,9 +10,9 @@ For more examples, please see [structurizr-examples](https://github.com/structur
 
 The Structurizr for Java binaries are hosted on [Maven Central](https://repo1.maven.org/maven2/com/structurizr/) and the dependencies for use with Maven, Ivy, Gradle, etc are as follows.
 
-Name                                          | Description
--------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------
-com.structurizr:structurizr-client:1.0.0-RC7        | The Structurizr API client library.
+Name                                     | Description
+---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------
+com.structurizr:structurizr-client:1.0.0 | The Structurizr API client library.
 
 ## 2. Create a Java program
 

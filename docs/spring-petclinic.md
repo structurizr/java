@@ -29,10 +29,10 @@ rm -r target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/classes/org/springframework
 
 With the Spring PetClinic application built, we now need to create a software architecture model using the [extract and supplement](https://structurizr.com/help/extract-and-supplement) approach. We will do this by creating a simple Java program to create the model. The Maven, Gradle, etc dependencies you will need are as follows:
 
-Name                                          | Description
--------------------------------------------   | ---------------------------------------------------------------------------------------------------------------------------
-com.structurizr:structurizr-client:1.0.0-RC7        | The Structurizr API client library.
-com.structurizr:structurizr-spring:1.0.0-RC7      | The Spring component finder.
+Name                                     | Description
+---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------
+com.structurizr:structurizr-client:1.0.0 | The Structurizr API client library.
+com.structurizr:structurizr-spring:1.0.0 | The Spring component finder.
 
 First we need to create a little boilerplate code to create a workspace and a model.
 
