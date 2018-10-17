@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.0 (unreleased)
+## 1.0.0 (17th Oct 2018)
 
  - Added name-value properties to relationships.
  - Added the ability to define animations on the static structure diagrams.
