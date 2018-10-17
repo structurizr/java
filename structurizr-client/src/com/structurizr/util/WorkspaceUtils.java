@@ -72,6 +72,7 @@ public final class WorkspaceUtils {
      * @param workspace     a Workspace instance
      * @param indentOutput  whether to indent the output (prettify)
      * @return  a JSON string
+     * @throws Exception if something goes wrong
      */
     public static String toJson(Workspace workspace, boolean indentOutput) throws Exception {
         if (workspace == null) {
