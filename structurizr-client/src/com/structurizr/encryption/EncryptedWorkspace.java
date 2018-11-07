@@ -31,6 +31,9 @@ public final class EncryptedWorkspace extends AbstractWorkspace {
      * @throws Exception            if an error occurs while creating the encrypted workspace
      */
     public EncryptedWorkspace(Workspace workspace, EncryptionStrategy encryptionStrategy) throws Exception {
+        setConfiguration(workspace.getConfiguration());
+        workspace.clearConfiguration();
+
         JsonWriter jsonWriter = new JsonWriter(false);
         StringWriter stringWriter = new StringWriter();
         jsonWriter.write(workspace, stringWriter);
@@ -39,6 +42,9 @@ public final class EncryptedWorkspace extends AbstractWorkspace {
     }
 
     public EncryptedWorkspace(Workspace workspace, String plaintext, EncryptionStrategy encryptionStrategy) throws Exception {
+        setConfiguration(workspace.getConfiguration());
+        workspace.clearConfiguration();
+
         init(workspace, plaintext, encryptionStrategy);
     }
 

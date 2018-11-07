@@ -1,6 +1,7 @@
 package com.structurizr.encryption;
 
 import com.structurizr.Workspace;
+import com.structurizr.configuration.Role;
 import com.structurizr.io.json.JsonWriter;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +10,7 @@ import java.io.StringWriter;
 
 import static junit.framework.TestCase.assertSame;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 public class EncryptedWorkspaceTests {
 
@@ -21,9 +23,9 @@ public class EncryptedWorkspaceTests {
         workspace = new Workspace("Name", "Description");
         workspace.setVersion("1.2.3");
         workspace.setId(1234);
+        workspace.getConfiguration().addUser("user@domain.com", Role.ReadOnly);
 
         encryptionStrategy = new MockEncryptionStrategy();
-        encryptedWorkspace = new EncryptedWorkspace(workspace, encryptionStrategy);
     }
 
     @Test
@@ -34,6 +36,8 @@ public class EncryptedWorkspaceTests {
         assertEquals("Description", encryptedWorkspace.getDescription());
         assertEquals("1.2.3", encryptedWorkspace.getVersion());
         assertEquals(1234, encryptedWorkspace.getId());
+        assertEquals("user@domain.com", encryptedWorkspace.getConfiguration().getUsers().iterator().next().getUsername());
+        assertNull(workspace.getConfiguration());
 
         assertSame(workspace, encryptedWorkspace.getWorkspace());
         assertSame(encryptionStrategy, encryptedWorkspace.getEncryptionStrategy());
@@ -68,6 +72,7 @@ public class EncryptedWorkspaceTests {
 
     @Test
     public void test_getPlaintext_ReturnsTheDecryptedVersionOfTheCiphertext() throws Exception {
+        encryptedWorkspace = new EncryptedWorkspace(workspace, encryptionStrategy);
         String cipherText = encryptedWorkspace.getCiphertext();
 
         encryptedWorkspace = new EncryptedWorkspace();

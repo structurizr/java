@@ -98,6 +98,7 @@ public class WorkspaceUtilsTests {
                 "  \"id\" : 0,\n" +
                 "  \"name\" : \"Name\",\n" +
                 "  \"description\" : \"Description\",\n" +
+                "  \"configuration\" : { },\n" +
                 "  \"model\" : { },\n" +
                 "  \"documentation\" : { },\n" +
                 "  \"views\" : {\n" +
@@ -108,7 +109,7 @@ public class WorkspaceUtilsTests {
                 "    }\n" +
                 "  }\n" +
                 "}", indentedOutput);
-        assertEquals("{\"id\":0,\"name\":\"Name\",\"description\":\"Description\",\"model\":{},\"documentation\":{},\"views\":{\"configuration\":{\"branding\":{},\"styles\":{},\"terminology\":{}}}}", unindentedOutput);
+        assertEquals("{\"id\":0,\"name\":\"Name\",\"description\":\"Description\",\"configuration\":{},\"model\":{},\"documentation\":{},\"views\":{\"configuration\":{\"branding\":{},\"styles\":{},\"terminology\":{}}}}", unindentedOutput);
     }
 
     @Test

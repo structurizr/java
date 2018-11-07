@@ -1,11 +1,15 @@
 # Changelog
 
+## 1.1.0 (unreleased)
+
+- Added the ability to specify users who should have read-write or read-only workspace access, via the ```workspace.getConfiguration().addUser(username, role)``` method. 
+
 ## 1.0.0 (17th Oct 2018)
 
- - Added name-value properties to relationships.
- - Added the ability to define animations on the static structure diagrams.
- - Removed support for colours in the corporate branding feature (__breaking change__).
- - The PlantUML writer can now export sequence diagrams.
+- Added name-value properties to relationships.
+- Added the ability to define animations on the static structure diagrams.
+- Removed support for colours in the corporate branding feature (__breaking change__).
+- The PlantUML writer can now export sequence diagrams.
 
 ## 1.0.0-RC7
 
