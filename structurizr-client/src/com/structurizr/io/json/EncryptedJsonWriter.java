@@ -3,6 +3,7 @@ package com.structurizr.io.json;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import com.structurizr.encryption.EncryptedWorkspace;
 import com.structurizr.io.WorkspaceWriterException;
 
@@ -38,6 +39,9 @@ public final class EncryptedJsonWriter {
             }
             objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
             objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+
+            objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+            objectMapper.setDateFormat(new ISO8601DateFormat());
 
             writer.write(objectMapper.writeValueAsString(workspace));
         } catch (Exception e) {
