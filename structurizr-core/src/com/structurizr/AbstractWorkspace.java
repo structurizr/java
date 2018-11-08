@@ -1,6 +1,6 @@
 package com.structurizr;
 
-import com.structurizr.configuration.Configuration;
+import com.structurizr.configuration.WorkspaceConfiguration;
 
 import java.lang.reflect.Constructor;
 import java.util.Date;
@@ -17,10 +17,10 @@ public abstract class AbstractWorkspace {
     private Date lastModifiedDate;
     private String thumbnail;
 
-    private Configuration configuration;
+    private WorkspaceConfiguration configuration;
 
     protected AbstractWorkspace() {
-        configuration = createConfiguration();
+        configuration = createWorkspaceConfiguration();
     }
 
     AbstractWorkspace(String name, String description) {
@@ -144,19 +144,19 @@ public abstract class AbstractWorkspace {
      *
      * @return  a Configuration object
      */
-    public Configuration getConfiguration() {
+    public WorkspaceConfiguration getConfiguration() {
         return configuration;
     }
 
-    protected void setConfiguration(Configuration configuration) {
+    protected void setConfiguration(WorkspaceConfiguration configuration) {
         this.configuration = configuration;
     }
 
-    private Configuration createConfiguration() {
+    private WorkspaceConfiguration createWorkspaceConfiguration() {
         try {
-            Constructor constructor = Configuration.class.getDeclaredConstructor();
+            Constructor constructor = WorkspaceConfiguration.class.getDeclaredConstructor();
             constructor.setAccessible(true);
-            return (Configuration)constructor.newInstance();
+            return (WorkspaceConfiguration)constructor.newInstance();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

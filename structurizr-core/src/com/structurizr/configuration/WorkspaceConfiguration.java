@@ -8,11 +8,11 @@ import java.util.Set;
 /**
  * A wrapper for configuration options related to the workspace.
  */
-public final class Configuration {
+public final class WorkspaceConfiguration {
 
     private Set<User> users = new HashSet<>();
 
-    Configuration() {
+    WorkspaceConfiguration() {
     }
 
     /**

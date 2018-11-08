@@ -5,12 +5,12 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-public class ConfigurationTests {
+public class WorkspaceConfigurationTests {
 
     @Test
     public void test_addUser_ThrowsAnException_WhenANullUsernameIsSpecified() {
         try {
-            Configuration configuration = new Configuration();
+            WorkspaceConfiguration configuration = new WorkspaceConfiguration();
             configuration.addUser(null, Role.ReadWrite);
             fail();
         } catch (IllegalArgumentException iae) {
@@ -21,7 +21,7 @@ public class ConfigurationTests {
     @Test
     public void test_addUser_ThrowsAnException_WhenAnEmptyUsernameIsSpecified() {
         try {
-            Configuration configuration = new Configuration();
+            WorkspaceConfiguration configuration = new WorkspaceConfiguration();
             configuration.addUser(" ", Role.ReadWrite);
             fail();
         } catch (IllegalArgumentException iae) {
@@ -32,7 +32,7 @@ public class ConfigurationTests {
     @Test
     public void test_addUser_ThrowsAnException_WhenANullRoleIsSpecified() {
         try {
-            Configuration configuration = new Configuration();
+            WorkspaceConfiguration configuration = new WorkspaceConfiguration();
             configuration.addUser("user@domain.com", null);
             fail();
         } catch (IllegalArgumentException iae) {
@@ -42,7 +42,7 @@ public class ConfigurationTests {
 
     @Test
     public void test_addUser_AddsAUser() {
-        Configuration configuration = new Configuration();
+        WorkspaceConfiguration configuration = new WorkspaceConfiguration();
         configuration.addUser("user@domain.com", Role.ReadOnly);
 
         assertEquals(1, configuration.getUsers().size());
