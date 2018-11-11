@@ -27,7 +27,7 @@ public class BigBankPlc {
     private static final String DATABASE_TAG = "Database";
     private static final String FAILOVER_TAG = "Failover";
 
-    private static Workspace create(boolean usePaidFeatures) {
+    private static Workspace create() {
         Workspace workspace = new Workspace("Big Bank plc", "This is an example workspace to illustrate the key features of Structurizr, based around a fictional online banking system.");
         Model model = workspace.getModel();
         ViewSet views = workspace.getViews();
@@ -164,48 +164,45 @@ public class BigBankPlc {
         componentView.add(mainframeBankingSystem);
         componentView.setPaperSize(PaperSize.A5_Landscape);
 
-        if (usePaidFeatures) {
-            // animations are not available with the Free Plan
-            systemLandscapeView.addAnimation(internetBankingSystem, customer, mainframeBankingSystem, emailSystem);
-            systemLandscapeView.addAnimation(atm);
-            systemLandscapeView.addAnimation(customerServiceStaff, backOfficeStaff);
+        systemLandscapeView.addAnimation(internetBankingSystem, customer, mainframeBankingSystem, emailSystem);
+        systemLandscapeView.addAnimation(atm);
+        systemLandscapeView.addAnimation(customerServiceStaff, backOfficeStaff);
 
-            systemContextView.addAnimation(internetBankingSystem);
-            systemContextView.addAnimation(customer);
-            systemContextView.addAnimation(mainframeBankingSystem);
-            systemContextView.addAnimation(emailSystem);
+        systemContextView.addAnimation(internetBankingSystem);
+        systemContextView.addAnimation(customer);
+        systemContextView.addAnimation(mainframeBankingSystem);
+        systemContextView.addAnimation(emailSystem);
 
-            containerView.addAnimation(customer, mainframeBankingSystem, emailSystem);
-            containerView.addAnimation(webApplication);
-            containerView.addAnimation(singlePageApplication);
-            containerView.addAnimation(mobileApp);
-            containerView.addAnimation(apiApplication);
-            containerView.addAnimation(database);
+        containerView.addAnimation(customer, mainframeBankingSystem, emailSystem);
+        containerView.addAnimation(webApplication);
+        containerView.addAnimation(singlePageApplication);
+        containerView.addAnimation(mobileApp);
+        containerView.addAnimation(apiApplication);
+        containerView.addAnimation(database);
 
-            componentView.addAnimation(singlePageApplication, mobileApp);
-            componentView.addAnimation(signinController, securityComponent, database);
-            componentView.addAnimation(accountsSummaryController, mainframeBankingSystemFacade, mainframeBankingSystem);
+        componentView.addAnimation(singlePageApplication, mobileApp);
+        componentView.addAnimation(signinController, securityComponent, database);
+        componentView.addAnimation(accountsSummaryController, mainframeBankingSystemFacade, mainframeBankingSystem);
 
-            // dynamic diagrams and deployment diagrams are not available with the Free Plan
-            DynamicView dynamicView = views.createDynamicView(apiApplication, "SignIn", "Summarises how the sign in feature works in the single-page application.");
-            dynamicView.add(singlePageApplication, "Submits credentials to", signinController);
-            dynamicView.add(signinController, "Calls isAuthenticated() on", securityComponent);
-            dynamicView.add(securityComponent, "select * from users where username = ?", database);
-            dynamicView.setPaperSize(PaperSize.A5_Landscape);
+        // dynamic diagrams and deployment diagrams are not available with the Free Plan
+        DynamicView dynamicView = views.createDynamicView(apiApplication, "SignIn", "Summarises how the sign in feature works in the single-page application.");
+        dynamicView.add(singlePageApplication, "Submits credentials to", signinController);
+        dynamicView.add(signinController, "Calls isAuthenticated() on", securityComponent);
+        dynamicView.add(securityComponent, "select * from users where username = ?", database);
+        dynamicView.setPaperSize(PaperSize.A5_Landscape);
 
-            DeploymentView developmentDeploymentView = views.createDeploymentView(internetBankingSystem, "DevelopmentDeployment", "An example development deployment scenario for the Internet Banking System.");
-            developmentDeploymentView.setEnvironment("Development");
-            developmentDeploymentView.add(developerLaptop);
-            developmentDeploymentView.setPaperSize(PaperSize.A5_Landscape);
+        DeploymentView developmentDeploymentView = views.createDeploymentView(internetBankingSystem, "DevelopmentDeployment", "An example development deployment scenario for the Internet Banking System.");
+        developmentDeploymentView.setEnvironment("Development");
+        developmentDeploymentView.add(developerLaptop);
+        developmentDeploymentView.setPaperSize(PaperSize.A5_Landscape);
 
-            DeploymentView liveDeploymentView = views.createDeploymentView(internetBankingSystem, "LiveDeployment", "An example live deployment scenario for the Internet Banking System.");
-            liveDeploymentView.setEnvironment("Live");
-            liveDeploymentView.add(bigBankDataCenter);
-            liveDeploymentView.add(customerMobileDevice);
-            liveDeploymentView.add(customerComputer);
-            liveDeploymentView.add(dataReplicationRelationship);
-            liveDeploymentView.setPaperSize(PaperSize.A5_Landscape);
-        }
+        DeploymentView liveDeploymentView = views.createDeploymentView(internetBankingSystem, "LiveDeployment", "An example live deployment scenario for the Internet Banking System.");
+        liveDeploymentView.setEnvironment("Live");
+        liveDeploymentView.add(bigBankDataCenter);
+        liveDeploymentView.add(customerMobileDevice);
+        liveDeploymentView.add(customerComputer);
+        liveDeploymentView.add(dataReplicationRelationship);
+        liveDeploymentView.setPaperSize(PaperSize.A5_Landscape);
 
         // colours, shapes and other diagram styling
         Styles styles = views.getConfiguration().getStyles();
@@ -254,7 +251,7 @@ public class BigBankPlc {
 
     public static void main(String[] args) throws Exception {
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
-        structurizrClient.putWorkspace(WORKSPACE_ID, create(true));
+        structurizrClient.putWorkspace(WORKSPACE_ID, create());
     }
 
 }
