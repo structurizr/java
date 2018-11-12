@@ -49,6 +49,7 @@ public class SpringComponentFinderStrategy extends AbstractSpringComponentFinder
             componentFinderStrategy.setIncludePublicTypesOnly(includePublicTypesOnly);
             componentFinderStrategy.setComponentFinder(getComponentFinder());
             supportingTypesStrategies.forEach(componentFinderStrategy::addSupportingTypesStrategy);
+            componentFinderStrategy.setDuplicateComponentStrategy(getDuplicateComponentStrategy());
             componentFinderStrategy.beforeFindComponents();
         }
     }

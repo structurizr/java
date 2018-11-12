@@ -180,6 +180,10 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
         return components;
     }
 
+    public DuplicateComponentStrategy getDuplicateComponentStrategy() {
+        return duplicateComponentStrategy;
+    }
+
     public void setDuplicateComponentStrategy(DuplicateComponentStrategy duplicateComponentStrategy) {
         if (duplicateComponentStrategy != null) {
             this.duplicateComponentStrategy = duplicateComponentStrategy;

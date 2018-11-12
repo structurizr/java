@@ -64,12 +64,14 @@ public abstract class AbstractSpringComponentFinderStrategy extends AbstractComp
                 }
 
                 if (!includePublicTypesOnly || Modifier.isPublic(componentType.getModifiers())) {
-                  Component component = container.addComponent(componentName, componentType, "", technology);
-                  components.add(component);
+                    Component newComponent = addComponent(container, componentName, componentType.getCanonicalName(), "", technology);
+                    if (newComponent != null) {
+                        components.add(newComponent);
 
-                    if (foundInterface) {
-                        // the primary component type is now an interface, so add the type we originally found as a supporting type
-                        component.addSupportingType(annotatedType.getCanonicalName());
+                        if (foundInterface) {
+                            // the primary component type is now an interface, so add the type we originally found as a supporting type
+                            newComponent.addSupportingType(annotatedType.getCanonicalName());
+                        }
                     }
                 }
             }

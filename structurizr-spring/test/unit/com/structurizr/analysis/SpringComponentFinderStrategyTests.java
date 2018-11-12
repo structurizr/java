@@ -96,4 +96,28 @@ public class SpringComponentFinderStrategyTests {
         fail("Component " + component.getName() + " does not have a " + role + " code element of type " + type);
     }
 
+    @Test
+    public void test_findComponents_UsesTheConfiguredDuplicateComponentFinderStrategy() throws Exception {
+        try {
+            SpringComponentFinderStrategy springComponentFinderStrategy = new SpringComponentFinderStrategy();
+            springComponentFinderStrategy.setDuplicateComponentStrategy(new DuplicateComponentStrategy() {
+                @Override
+                public Component duplicateComponentFound(Component component, String name, String type, String description, String technology) {
+                    return null;
+                }
+            });
+
+            ComponentFinder componentFinder = new ComponentFinder(
+                    webApplication,
+                    "com.structurizr.analysis.myapp",
+                    springComponentFinderStrategy
+            );
+
+            componentFinder.findComponents();
+            componentFinder.findComponents();
+        } catch (DuplicateComponentException dce) {
+            fail();
+        }
+    }
+
 }
