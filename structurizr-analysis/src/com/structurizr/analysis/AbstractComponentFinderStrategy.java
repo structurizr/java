@@ -122,14 +122,16 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
 
         for (Class<?> referencedType : getTypeRepository().findReferencedTypes(type)) {
             try {
-                String referencedTypeName = referencedType.getCanonicalName();
-                Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedTypeName);
-                if (destinationComponent != null) {
-                    if (component != destinationComponent) {
-                        component.uses(destinationComponent, "");
+                if (!isNestedClass(referencedType)) {
+                    String referencedTypeName = referencedType.getCanonicalName();
+                    Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedTypeName);
+                    if (destinationComponent != null) {
+                        if (component != destinationComponent) {
+                            component.uses(destinationComponent, "");
+                        }
+                    } else if (!typesVisited.contains(referencedTypeName)) {
+                        addEfferentDependencies(component, referencedTypeName, typesVisited);
                     }
-                } else if (!typesVisited.contains(referencedTypeName)) {
-                    addEfferentDependencies(component, referencedTypeName, typesVisited);
                 }
             } catch (Throwable t) {
                 log.warn(t);
