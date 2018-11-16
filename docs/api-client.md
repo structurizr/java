@@ -73,3 +73,7 @@ Alternatively, you can specify this property in your Java program:
 ```
 System.setProperty("javax.net.ssl.trustStore", "/some/path/to/keystore.jks");
 ```
+
+### Java 11
+
+There is also a known issue with Java 11; see [issue 111](https://github.com/structurizr/java/issues/111) for more details.
