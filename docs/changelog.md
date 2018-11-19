@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1 (not released)
+
+- Fixes an issue with Java 11 and SSL handshaking.
+
 ## 1.1.0 (8th November 2018)
 
 - Added the ability to specify users who should have read-write or read-only workspace access, via the ```workspace.getConfiguration().addUser(username, role)``` method. 
