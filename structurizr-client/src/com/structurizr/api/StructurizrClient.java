@@ -10,19 +10,24 @@ import com.structurizr.io.json.JsonReader;
 import com.structurizr.io.json.JsonWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.http.Header;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.classic.methods.HttpPut;
+import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
+import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.core5.http.ContentType;
+import org.apache.hc.core5.http.Header;
+import org.apache.hc.core5.http.HttpStatus;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
+import org.apache.hc.core5.http.io.entity.StringEntity;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
@@ -65,17 +70,15 @@ public final class StructurizrClient {
      * @throws StructurizrClientException   if something goes wrong
      */
     public StructurizrClient() throws StructurizrClientException {
-        try {
+        try (InputStream in =
+                     StructurizrClient.class.getClassLoader().getResourceAsStream("structurizr.properties")) {
             Properties properties = new Properties();
-            InputStream in = StructurizrClient.class.getClassLoader().getResourceAsStream("structurizr.properties");
             if (in != null) {
                 properties.load(in);
 
                 setUrl(properties.getProperty(STRUCTURIZR_API_URL));
                 setApiKey(properties.getProperty(STRUCTURIZR_API_KEY));
                 setApiSecret(properties.getProperty(STRUCTURIZR_API_SECRET));
-
-                in.close();
             } else {
                 throw new StructurizrClientException("Could not find a structurizr.properties file on the classpath.");
             }
@@ -205,10 +208,8 @@ public final class StructurizrClient {
             throw new IllegalArgumentException("The workspace ID must be a positive integer.");
         }
 
-        try {
+        try (CloseableHttpClient httpClient = HttpClients.createSystem()) {
             log.info("Getting workspace with ID " + workspaceId);
-
-            CloseableHttpClient httpClient = HttpClients.createSystem();
             HttpGet httpGet = new HttpGet(url + WORKSPACE_PATH + workspaceId);
             addHeaders(httpGet, "", "");
             debugRequest(httpGet, null);
@@ -217,7 +218,7 @@ public final class StructurizrClient {
                 debugResponse(response);
 
                 String json = EntityUtils.toString(response.getEntity());
-                if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                if (response.getCode() == HttpStatus.SC_OK) {
                     archiveWorkspace(workspaceId, json);
 
                     if (encryptionStrategy == null) {
@@ -258,7 +259,7 @@ public final class StructurizrClient {
             throw new IllegalArgumentException("The workspace ID must be a positive integer.");
         }
 
-        try {
+        try (CloseableHttpClient httpClient = HttpClients.createSystem()) {
             if (mergeFromRemote) {
                 Workspace remoteWorkspace = getWorkspace(workspaceId);
                 if (remoteWorkspace != null) {
@@ -272,7 +273,6 @@ public final class StructurizrClient {
             workspace.setLastModifiedDate(new Date());
             workspace.countAndLogWarnings();
 
-            CloseableHttpClient httpClient = HttpClients.createSystem();
             HttpPut httpPut = new HttpPut(url + WORKSPACE_PATH + workspaceId);
 
             StringWriter stringWriter = new StringWriter();
@@ -295,7 +295,7 @@ public final class StructurizrClient {
             log.info("Putting workspace with ID " + workspaceId);
             try (CloseableHttpResponse response = httpClient.execute(httpPut)) {
                 String json = EntityUtils.toString(response.getEntity());
-                if (response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+                if (response.getCode() == HttpStatus.SC_OK) {
                     debugResponse(response);
                     log.info(json);
                 } else {
@@ -309,25 +309,26 @@ public final class StructurizrClient {
         }
     }
 
-    private void debugRequest(HttpRequestBase httpRequest, String content) {
-        log.debug(httpRequest.getMethod() + " " + httpRequest.getURI().getPath());
-        Header[] headers = httpRequest.getAllHeaders();
-        for (Header header : headers) {
-            log.debug(header.getName() + ": " + header.getValue());
-        }
-
-        if (content != null) {
-            log.debug(content);
+    private void debugRequest(HttpUriRequestBase httpRequest, String content) {
+        if (log.isDebugEnabled()) {
+            log.debug(httpRequest.getMethod() + " " + httpRequest.getPath());
+            Header[] headers = httpRequest.getHeaders();
+            for (Header header : headers) {
+                log.debug(header.getName() + ": " + header.getValue());
+            }
+            if (content != null) {
+                log.debug(content);
+            }
         }
     }
 
     private void debugResponse(CloseableHttpResponse response) {
-        log.debug(response.getStatusLine());
+        log.debug(response.getCode());
     }
 
-    private void addHeaders(HttpRequestBase httpRequest, String content, String contentType) throws Exception {
+    private void addHeaders(HttpUriRequestBase httpRequest, String content, String contentType) throws Exception {
         String httpMethod = httpRequest.getMethod();
-        String path = httpRequest.getURI().getPath();
+        String path = httpRequest.getPath();
         String contentMd5 = new Md5Digest().generate(content);
         String nonce = "" + System.currentTimeMillis();
 
@@ -349,19 +350,23 @@ public final class StructurizrClient {
         }
 
         File archiveFile = new File(workspaceArchiveLocation, createArchiveFileName(workspaceId));
-        try {
-            FileWriter fileWriter = new FileWriter(archiveFile);
+        try (FileWriter fileWriter = new FileWriter(archiveFile)) {
             fileWriter.write(json);
             fileWriter.flush();
-            fileWriter.close();
 
+            debugArchivedWorkspaceLocation(archiveFile);
+        } catch (Exception e) {
+            log.warn("Could not archive JSON to " + archiveFile.getAbsolutePath());
+        }
+    }
+
+    private void debugArchivedWorkspaceLocation(File archiveFile) {
+        if (log.isDebugEnabled()) {
             try {
                 log.debug("Workspace from server archived to " + archiveFile.getCanonicalPath());
             } catch (IOException ioe) {
                 log.debug("Workspace from server archived to " + archiveFile.getAbsolutePath());
             }
-        } catch (Exception e) {
-            log.warn("Could not archive JSON to " + archiveFile.getAbsolutePath());
         }
     }
 
