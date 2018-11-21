@@ -4,6 +4,7 @@
 
 - Fixes an issue with Java 11 and SSL handshaking.
 - The terminology for relationships can now be customised.
+- Added support for icons on element styles.
 
 ## 1.1.0 (8th November 2018)
 

@@ -1,6 +1,7 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.structurizr.util.Url;
 
 /**
  * A definition of an element style.
@@ -29,6 +30,9 @@ public final class ElementStyle {
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Shape shape;
+
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private String icon;
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Border border;
@@ -189,6 +193,30 @@ public final class ElementStyle {
 
     public ElementStyle shape(Shape shape) {
         setShape(shape);
+        return this;
+    }
+
+    /**
+     * Gets the icon of the element (a URL, or a data URI representing a Base64 encoded PNG/JPG/GIF file).
+     *
+     * @return  the icon, or null if not specified
+     */
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        if (icon != null && icon.trim().length() > 0) {
+            if (Url.isUrl(icon) || icon.startsWith("data:image/")) {
+                this.icon = icon;
+            } else {
+                throw new IllegalArgumentException(icon + " is not a valid URL.");
+            }
+        }
+    }
+
+    public ElementStyle icon(String icon) {
+        setIcon(icon);
         return this;
     }
 
