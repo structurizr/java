@@ -551,7 +551,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertEquals(container2.getId(), containerInstance2.getContainerId());
         assertSame(softwareSystem2, containerInstance2.getParent());
         assertEquals("/Software System 2/Container 2[1]", containerInstance2.getCanonicalName());
-        assertEquals("Element,Container,Container Instance", containerInstance2.getTags());
+        assertEquals("Container Instance", containerInstance2.getTags());
 
         assertEquals(1, containerInstance1.getRelationships().size());
         Relationship relationship = containerInstance1.getRelationships().iterator().next();
@@ -593,7 +593,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertEquals(container2.getId(), containerInstance2.getContainerId());
         assertSame(softwareSystem2, containerInstance2.getParent());
         assertEquals("/Software System 2/Container 2[1]", containerInstance2.getCanonicalName());
-        assertEquals("Element,Container,Container Instance", containerInstance2.getTags());
+        assertEquals("Container Instance", containerInstance2.getTags());
 
         assertEquals(0, containerInstance1.getRelationships().size());
         assertEquals(0, containerInstance2.getRelationships().size());

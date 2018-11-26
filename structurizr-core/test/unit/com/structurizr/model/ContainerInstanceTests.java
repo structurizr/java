@@ -67,23 +67,17 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
         ContainerInstance containerInstance = deploymentNode.add(database);
         containerInstance.addTags("Primary Instance");
 
-        assertEquals("Element,Container,Database,Container Instance,Primary Instance", containerInstance.getTags());
+        assertEquals("Container Instance,Primary Instance", containerInstance.getTags());
     }
 
     @Test
     public void test_removeTags_DoesNotRemoveAnyTags() {
         ContainerInstance containerInstance = deploymentNode.add(database);
 
-        assertTrue(containerInstance.getTags().contains(Tags.ELEMENT));
-        assertTrue(containerInstance.getTags().contains(Tags.CONTAINER));
         assertTrue(containerInstance.getTags().contains(Tags.CONTAINER_INSTANCE));
 
         containerInstance.removeTag(Tags.CONTAINER_INSTANCE);
-        containerInstance.removeTag(Tags.CONTAINER);
-        containerInstance.removeTag(Tags.ELEMENT);
 
-        assertTrue(containerInstance.getTags().contains(Tags.ELEMENT));
-        assertTrue(containerInstance.getTags().contains(Tags.CONTAINER));
         assertTrue(containerInstance.getTags().contains(Tags.CONTAINER_INSTANCE));
     }
 

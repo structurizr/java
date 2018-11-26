@@ -27,7 +27,6 @@ public final class ContainerInstance extends Element {
 
     ContainerInstance(Container container, int instanceId) {
         setContainer(container);
-        setTags(container.getTags());
         addTags(Tags.CONTAINER_INSTANCE);
         setInstanceId(instanceId);
     }
