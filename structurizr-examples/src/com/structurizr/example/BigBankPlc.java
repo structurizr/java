@@ -86,15 +86,20 @@ public class BigBankPlc {
         // - static analysis/reflection rather than manually specifying them all
         Component signinController = apiApplication.addComponent("Sign In Controller", "Allows users to sign in to the Internet Banking System.", "Spring MVC Rest Controller");
         Component accountsSummaryController = apiApplication.addComponent("Accounts Summary Controller", "Provides customers with a summary of their bank accounts.", "Spring MVC Rest Controller");
+        Component resetPasswordController = apiApplication.addComponent("Reset Password Controller", "Allows users to reset their passwords with a single use URL.", "Spring MVC Rest Controller");
         Component securityComponent = apiApplication.addComponent("Security Component", "Provides functionality related to signing in, changing passwords, etc.", "Spring Bean");
         Component mainframeBankingSystemFacade = apiApplication.addComponent("Mainframe Banking System Facade", "A facade onto the mainframe banking system.", "Spring Bean");
+        Component emailComponent = apiApplication.addComponent("E-mail Component", "Sends e-mails to users.", "Spring Bean");
 
         apiApplication.getComponents().stream().filter(c -> "Spring MVC Rest Controller".equals(c.getTechnology())).forEach(c -> singlePageApplication.uses(c, "Uses", "JSON/HTTPS"));
         apiApplication.getComponents().stream().filter(c -> "Spring MVC Rest Controller".equals(c.getTechnology())).forEach(c -> mobileApp.uses(c, "Uses", "JSON/HTTPS"));
         signinController.uses(securityComponent, "Uses");
         accountsSummaryController.uses(mainframeBankingSystemFacade, "Uses");
+        resetPasswordController.uses(securityComponent, "Uses");
+        resetPasswordController.uses(emailComponent, "Uses");
         securityComponent.uses(database, "Reads from and writes to", "JDBC");
         mainframeBankingSystemFacade.uses(mainframeBankingSystem, "Uses", "XML/HTTPS");
+        emailComponent.uses(emailSystem, "Sends e-mail using");
 
         model.addImplicitRelationships();
 
@@ -162,6 +167,7 @@ public class BigBankPlc {
         componentView.add(database);
         componentView.addAllComponents();
         componentView.add(mainframeBankingSystem);
+        componentView.add(emailSystem);
         componentView.setPaperSize(PaperSize.A5_Landscape);
 
         systemLandscapeView.addAnimation(internetBankingSystem, customer, mainframeBankingSystem, emailSystem);
@@ -183,6 +189,7 @@ public class BigBankPlc {
         componentView.addAnimation(singlePageApplication, mobileApp);
         componentView.addAnimation(signinController, securityComponent, database);
         componentView.addAnimation(accountsSummaryController, mainframeBankingSystemFacade, mainframeBankingSystem);
+        componentView.addAnimation(resetPasswordController, emailComponent, database);
 
         // dynamic diagrams and deployment diagrams are not available with the Free Plan
         DynamicView dynamicView = views.createDynamicView(apiApplication, "SignIn", "Summarises how the sign in feature works in the single-page application.");
