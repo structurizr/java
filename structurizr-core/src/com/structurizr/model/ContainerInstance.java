@@ -12,7 +12,7 @@ import java.util.Set;
 /**
  * Represents a deployment instance of a {@link Container}, which can be added to a {@link DeploymentNode}.
  */
-public final class ContainerInstance extends Element {
+public final class ContainerInstance extends DeploymentElement {
 
     private static final int DEFAULT_HEALTH_CHECK_INTERVAL_IN_SECONDS = 60;
     private static final long DEFAULT_HEALTH_CHECK_TIMEOUT_IN_MILLISECONDS = 0;
@@ -25,10 +25,11 @@ public final class ContainerInstance extends Element {
     ContainerInstance() {
     }
 
-    ContainerInstance(Container container, int instanceId) {
+    ContainerInstance(Container container, int instanceId, String environment) {
         setContainer(container);
         addTags(Tags.CONTAINER_INSTANCE);
         setInstanceId(instanceId);
+        setEnvironment(environment);
     }
 
     @JsonIgnore
@@ -102,36 +103,6 @@ public final class ContainerInstance extends Element {
     @Override
     public void setName(String name) {
         // no-op ... the name of a container instance is taken from the associated Container
-    }
-
-    /**
-     * Adds a relationship between this container instance and another.
-     *
-     * @param destination   the destination of the relationship (a ContainerInstance)
-     * @param description   a description of the relationship
-     * @param technology    the technology of the relationship
-     * @return  a Relationship object
-     */
-    public Relationship uses(ContainerInstance destination, String description, String technology) {
-        return uses(destination, description, technology, InteractionStyle.Synchronous);
-    }
-
-    /**
-     * Adds a relationship between this container instance and another.
-     *
-     * @param destination       the destination of the relationship (a ContainerInstance)
-     * @param description       a description of the relationship
-     * @param technology        the technology of the relationship
-     * @param interactionStyle  the interaction style (Synchronous vs Asynchronous)
-     * @return  a Relationship object
-     */
-    @Nullable
-    public Relationship uses(@Nonnull ContainerInstance destination, String description, String technology, InteractionStyle interactionStyle) {
-        if (destination != null) {
-            return getModel().addRelationship(this, destination, description, technology, interactionStyle);
-        } else {
-            throw new IllegalArgumentException("The destination of a relationship must be specified.");
-        }
     }
 
     /**

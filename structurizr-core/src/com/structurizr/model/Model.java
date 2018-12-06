@@ -557,7 +557,22 @@ public final class Model {
      */
     @Nonnull
     public DeploymentNode addDeploymentNode(@Nonnull String name, @Nullable String description, @Nullable String technology) {
-        return addDeploymentNode(name, description, technology, 1);
+        return addDeploymentNode(DeploymentElement.DEFAULT_DEPLOYMENT_ENVIRONMENT, name, description, technology);
+    }
+
+    /**
+     * Adds a top-level deployment node to this model.
+     *
+     * @param environment   the name of the deployment environment
+     * @param name          the name of the deployment node
+     * @param description   the description of the deployment node
+     * @param technology    the technology associated with the deployment node
+     * @return a DeploymentNode instance
+     * @throws IllegalArgumentException if the name is not specified, or a top-level deployment node with the same name already exists in the model
+     */
+    @Nonnull
+    public DeploymentNode addDeploymentNode(@Nullable String environment, @Nonnull String name, @Nullable String description, @Nullable String technology) {
+        return addDeploymentNode(environment, name, description, technology, 1);
     }
 
     /**
@@ -572,7 +587,23 @@ public final class Model {
      */
     @Nonnull
     public DeploymentNode addDeploymentNode(@Nonnull String name, @Nullable String description, @Nullable String technology, int instances) {
-        return addDeploymentNode(name, description, technology, instances, null);
+        return addDeploymentNode(DeploymentElement.DEFAULT_DEPLOYMENT_ENVIRONMENT, name, description, technology, instances);
+    }
+
+    /**
+     * Adds a top-level deployment node to this model.
+     *
+     * @param environment   the name of the deployment environment
+     * @param name          the name of the deployment node
+     * @param description   the description of the deployment node
+     * @param technology    the technology associated with the deployment node
+     * @param instances     the number of instances of the deployment node
+     * @return a DeploymentNode instance
+     * @throws IllegalArgumentException if the name is not specified, or a top-level deployment node with the same name already exists in the model
+     */
+    @Nonnull
+    public DeploymentNode addDeploymentNode(@Nullable String environment, @Nonnull String name, @Nullable String description, @Nullable String technology, int instances) {
+        return addDeploymentNode(environment, name, description, technology, instances, null);
     }
 
     /**
@@ -588,22 +619,40 @@ public final class Model {
      */
     @Nonnull
     public DeploymentNode addDeploymentNode(@Nonnull String name, String description, String technology, int instances, Map<String, String> properties) {
-        return addDeploymentNode(null, name, description, technology, instances, properties);
+        return addDeploymentNode(DeploymentElement.DEFAULT_DEPLOYMENT_ENVIRONMENT, name, description, technology, instances, properties);
+    }
+
+    /**
+     * Adds a top-level deployment node to this model.
+     *
+     * @param environment   the name of the deployment environment
+     * @param name          the name of the deployment node
+     * @param description   the description of the deployment node
+     * @param technology    the technology associated with the deployment node
+     * @param instances     the number of instances of the deployment node
+     * @param properties    a map of name/value properties associated with the deployment node
+     * @return a DeploymentNode instance
+     * @throws IllegalArgumentException if the name is not specified, or a top-level deployment node with the same name already exists in the model
+     */
+    @Nonnull
+    public DeploymentNode addDeploymentNode(@Nullable String environment, @Nonnull String name, String description, String technology, int instances, Map<String, String> properties) {
+        return addDeploymentNode(null, environment, name, description, technology, instances, properties);
     }
 
     @Nonnull
-    DeploymentNode addDeploymentNode(DeploymentNode parent, @Nonnull String name, String description, String technology, int instances, Map<String, String> properties) {
+    DeploymentNode addDeploymentNode(DeploymentNode parent, @Nullable String environment, @Nonnull String name, String description, String technology, int instances, Map<String, String> properties) {
         if (name == null || name.trim().length() == 0) {
             throw new IllegalArgumentException("A name must be specified.");
         }
 
-        if ((parent == null && getDeploymentNodeWithName(name) == null) || (parent != null && parent.getDeploymentNodeWithName(name) == null)) {
+        if ((parent == null && getDeploymentNodeWithName(name, environment) == null) || (parent != null && parent.getDeploymentNodeWithName(name) == null)) {
             DeploymentNode deploymentNode = new DeploymentNode();
             deploymentNode.setName(name);
             deploymentNode.setDescription(description);
             deploymentNode.setTechnology(technology);
             deploymentNode.setParent(parent);
             deploymentNode.setInstances(instances);
+            deploymentNode.setEnvironment(environment);
             if (properties != null) {
                 deploymentNode.setProperties(properties);
             }
@@ -626,8 +675,16 @@ public final class Model {
      * @return the DeploymentNode instance with the specified name (or null if it doesn't exist).
      */
     public DeploymentNode getDeploymentNodeWithName(String name) {
+        return getDeploymentNodeWithName(name, DeploymentElement.DEFAULT_DEPLOYMENT_ENVIRONMENT);
+    }
+
+    /**
+     * @param name the name of the deployment node
+     * @return the DeploymentNode instance with the specified name (or null if it doesn't exist).
+     */
+    public DeploymentNode getDeploymentNodeWithName(String name, String environment) {
         for (DeploymentNode deploymentNode : getDeploymentNodes()) {
-            if (deploymentNode.getName().equals(name)) {
+            if (deploymentNode.getEnvironment().equals(environment) && deploymentNode.getName().equals(name)) {
                 return deploymentNode;
             }
         }
@@ -635,36 +692,44 @@ public final class Model {
         return null;
     }
 
-    ContainerInstance addContainerInstance(Container container, boolean replicateContainerRelationships) {
+    ContainerInstance addContainerInstance(DeploymentNode deploymentNode, Container container, boolean replicateContainerRelationships) {
         if (container == null) {
             throw new IllegalArgumentException("A container must be specified.");
         }
 
         long instanceNumber = getElements().stream().filter(e -> e instanceof ContainerInstance && ((ContainerInstance) e).getContainer().equals(container)).count();
         instanceNumber++;
-        ContainerInstance containerInstance = new ContainerInstance(container, (int) instanceNumber);
+        ContainerInstance containerInstance = new ContainerInstance(container, (int) instanceNumber, deploymentNode.getEnvironment());
         containerInstance.setId(idGenerator.generateId(containerInstance));
 
         if (replicateContainerRelationships) {
-            // find all ContainerInstance objects
+            // find all ContainerInstance objects in the same deployment environment
             Set<ContainerInstance> containerInstances = getElements().stream()
-                    .filter(e -> e instanceof ContainerInstance)
+                    .filter(e -> e instanceof ContainerInstance && ((ContainerInstance) e).getEnvironment().equals(deploymentNode.getEnvironment()))
                     .map(e -> (ContainerInstance) e)
                     .collect(Collectors.toSet());
 
-            // and replicate the container-container relationships
+            // and replicate the container-container relationships within the same deployment environment
             for (ContainerInstance ci : containerInstances) {
                 Container c = ci.getContainer();
 
                 for (Relationship relationship : container.getRelationships()) {
                     if (relationship.getDestination().equals(c)) {
-                        addRelationship(containerInstance, ci, relationship.getDescription(), relationship.getTechnology(), relationship.getInteractionStyle());
+                        Relationship newRelationship = addRelationship(containerInstance, ci, relationship.getDescription(), relationship.getTechnology(), relationship.getInteractionStyle());
+                        if (newRelationship != null) {
+                            newRelationship.setTags(null);
+                            newRelationship.setLinkedRelationshipId(relationship.getId());
+                        }
                     }
                 }
 
                 for (Relationship relationship : c.getRelationships()) {
                     if (relationship.getDestination().equals(container)) {
-                        addRelationship(ci, containerInstance, relationship.getDescription(), relationship.getTechnology(), relationship.getInteractionStyle());
+                        Relationship newRelationship = addRelationship(ci, containerInstance, relationship.getDescription(), relationship.getTechnology(), relationship.getInteractionStyle());
+                        if (newRelationship != null) {
+                            newRelationship.setTags(null);
+                            newRelationship.setLinkedRelationshipId(relationship.getId());
+                        }
                     }
                 }
             }

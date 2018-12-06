@@ -36,10 +36,12 @@ public class RelationshipTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_setTags_DoesNotDoAnything_WhenPassedNull() {
+    public void test_setTags_ClearsTheTags_WhenPassedNull() {
         Relationship relationship = softwareSystem1.uses(softwareSystem2, "uses");
+        relationship.addTags("Tag 1", "Tag 2");
+        assertEquals("Relationship,Synchronous,Tag 1,Tag 2", relationship.getTags());
         relationship.setTags(null);
-        assertEquals("Relationship,Synchronous", relationship.getTags());
+        assertEquals("Relationship", relationship.getTags());
     }
 
     @Test
@@ -67,11 +69,11 @@ public class RelationshipTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_getTags_IncludesTheInteractionStyleWhenSpecified() {
-        Relationship relationship = softwareSystem1.uses(softwareSystem2, "uses");
+        Relationship relationship = softwareSystem1.uses(softwareSystem2, "Uses 1", "Technology");
         assertTrue(relationship.getTags().contains(Tags.SYNCHRONOUS));
         assertFalse(relationship.getTags().contains(Tags.ASYNCHRONOUS));
 
-        relationship.setInteractionStyle(InteractionStyle.Asynchronous);
+        relationship = softwareSystem1.uses(softwareSystem2, "Uses 2", "Technology", InteractionStyle.Asynchronous);
         assertFalse(relationship.getTags().contains(Tags.SYNCHRONOUS));
         assertTrue(relationship.getTags().contains(Tags.ASYNCHRONOUS));
     }

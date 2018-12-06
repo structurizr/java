@@ -39,8 +39,8 @@ public class NormalizedNameIdGeneratorTests {
             webApplication.addComponent("ComponentA", "Description", "Technology A").getId());
 
         DeploymentNode awsVm = model.addDeploymentNode("VM @ AWS", "Description", "Technology");
-        assertEquals("VMAWS", awsVm.getId());
-        assertEquals("VMAWSJBossAS711", awsVm.addDeploymentNode("JBoss AS 7.1.1", "Description", "Technology").getId());
+        assertEquals("DeploymentDefaultVMAWS", awsVm.getId());
+        assertEquals("DeploymentDefaultVMAWSJBossAS711", awsVm.addDeploymentNode("JBoss AS 7.1.1", "Description", "Technology").getId());
     }
     
     @Test

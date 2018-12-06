@@ -1,10 +1,12 @@
 # Changelog
 
-## 1.1.1 (not released)
+## 1.2.0 (not released)
 
 - Fixes an issue with Java 11 and SSL handshaking.
 - The terminology for relationships can now be customised.
 - Added support for icons on element styles.
+- Top-level deployment nodes can now be given an environment property, to represent which deployment environment they belong to (e.g. "Development", "Live", etc).
+- Relationships can no longer be created between container instances (__breaking change__).
 
 ## 1.1.0 (8th November 2018)
 

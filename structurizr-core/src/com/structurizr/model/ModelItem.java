@@ -60,11 +60,12 @@ abstract class ModelItem {
     }
 
     void setTags(String tags) {
+        this.tags.clear();
+
         if (tags == null) {
             return;
         }
 
-        this.tags.clear();
         Collections.addAll(this.tags, tags.split(","));
     }
 

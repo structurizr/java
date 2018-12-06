@@ -529,7 +529,27 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addContainerInstance_AddsAContainerInstanceAndReplicatesRelationships_WhenAContainerIsSpecified() {
+    public void test_addDeploymentNode_AddsADeploymentNode_WhenADeploymentScenarioIsNotSpecified() {
+        DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+
+        assertEquals("Deployment Node", deploymentNode.getName());
+        assertEquals("Description", deploymentNode.getDescription());
+        assertEquals("Technology", deploymentNode.getTechnology());
+        assertEquals("Default", deploymentNode.getEnvironment());
+    }
+
+    @Test
+    public void test_addDeploymentNode_AddsADeploymentNode_WhenADeploymentScenarioIsSpecified() {
+        DeploymentNode deploymentNode = model.addDeploymentNode("Development", "Deployment Node", "Description", "Technology");
+
+        assertEquals("Deployment Node", deploymentNode.getName());
+        assertEquals("Description", deploymentNode.getDescription());
+        assertEquals("Technology", deploymentNode.getTechnology());
+        assertEquals("Development", deploymentNode.getEnvironment());
+    }
+
+    @Test
+    public void test_addContainerInstance_AddsAContainerInstanceAndReplicatesRelationshipsWithinTheDeploymentScenario_WhenAContainerIsSpecified() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
         Container container1 = softwareSystem1.addContainer("Container 1", "Description", "Technology");
 
@@ -542,16 +562,23 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         container1.uses(container2, "Uses 1", "Technology 1", InteractionStyle.Synchronous);
         container2.uses(container3, "Uses 2", "Technology 2", InteractionStyle.Asynchronous);
 
-        DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
-        ContainerInstance containerInstance1 = deploymentNode.add(container1);
-        ContainerInstance containerInstance2 = deploymentNode.add(container2);
-        ContainerInstance containerInstance3 = deploymentNode.add(container3);
+        DeploymentNode developmentDeploymentNode = model.addDeploymentNode("Development", "Deployment Node", "Description", "Technology");
+        ContainerInstance containerInstance1 = developmentDeploymentNode.add(container1);
+        ContainerInstance containerInstance2 = developmentDeploymentNode.add(container2);
+        ContainerInstance containerInstance3 = developmentDeploymentNode.add(container3);
+
+        // the following live container instances should not affect the relationships of the development container instances
+        DeploymentNode liveDeploymentNode = model.addDeploymentNode("Live", "Deployment Node", "Description", "Technology");
+        liveDeploymentNode.add(container1);
+        liveDeploymentNode.add(container2);
+        liveDeploymentNode.add(container3);
 
         assertSame(container2, containerInstance2.getContainer());
         assertEquals(container2.getId(), containerInstance2.getContainerId());
         assertSame(softwareSystem2, containerInstance2.getParent());
         assertEquals("/Software System 2/Container 2[1]", containerInstance2.getCanonicalName());
         assertEquals("Container Instance", containerInstance2.getTags());
+        assertEquals("Development", containerInstance2.getEnvironment());
 
         assertEquals(1, containerInstance1.getRelationships().size());
         Relationship relationship = containerInstance1.getRelationships().iterator().next();
@@ -560,6 +587,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertEquals("Uses 1", relationship.getDescription());
         assertEquals("Technology 1", relationship.getTechnology());
         assertEquals(InteractionStyle.Synchronous, relationship.getInteractionStyle());
+        assertEquals("", relationship.getTags());
 
         assertEquals(1, containerInstance2.getRelationships().size());
         relationship = containerInstance2.getRelationships().iterator().next();
@@ -568,6 +596,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertEquals("Uses 2", relationship.getDescription());
         assertEquals("Technology 2", relationship.getTechnology());
         assertEquals(InteractionStyle.Asynchronous, relationship.getInteractionStyle());
+        assertEquals("", relationship.getTags());
     }
 
     @Test

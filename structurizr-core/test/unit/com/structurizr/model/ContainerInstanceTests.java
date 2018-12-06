@@ -82,30 +82,6 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_uses_ThrowsAnException_WhenADestinationIsNotSpecified() {
-        ContainerInstance containerInstance = deploymentNode.add(database);
-
-        try {
-            containerInstance.uses(null, "", "");
-        } catch (IllegalArgumentException iae) {
-            assertEquals("The destination of a relationship must be specified.", iae.getMessage());
-        }
-    }
-
-    @Test
-    public void test_uses_AddsARelationship_WhenADestinationIsSpecified() {
-        Container database = softwareSystem.addContainer("Database", "", "");
-        ContainerInstance primaryDatabase =  deploymentNode.add(database);
-        ContainerInstance secondaryDatabase = deploymentNode.add(database);
-
-        Relationship relationship = primaryDatabase.uses(secondaryDatabase, "Replicates data to", "Some technology");
-        assertSame(primaryDatabase, relationship.getSource());
-        assertSame(secondaryDatabase, relationship.getDestination());
-        assertEquals("Replicates data to", relationship.getDescription());
-        assertEquals("Some technology", relationship.getTechnology());
-    }
-
-    @Test
     public void test_addHealthCheck() {
         ContainerInstance containerInstance = deploymentNode.add(database);
         assertTrue(containerInstance.getHealthChecks().isEmpty());

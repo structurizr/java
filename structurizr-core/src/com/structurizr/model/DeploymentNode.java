@@ -21,7 +21,7 @@ import java.util.Set;
  *     <li>etc</li>
  * </ul>
  */
-public final class DeploymentNode extends Element {
+public final class DeploymentNode extends DeploymentElement {
 
     private DeploymentNode parent;
     private String technology;
@@ -48,7 +48,7 @@ public final class DeploymentNode extends Element {
      * @return  a ContainerInstance object
      */
     public ContainerInstance add(Container container, boolean replicateContainerRelationships) {
-        ContainerInstance containerInstance = getModel().addContainerInstance(container, replicateContainerRelationships);
+        ContainerInstance containerInstance = getModel().addContainerInstance(this, container, replicateContainerRelationships);
         this.containerInstances.add(containerInstance);
 
         return containerInstance;
@@ -90,7 +90,7 @@ public final class DeploymentNode extends Element {
      * @return  a DeploymentNode object
      */
     public DeploymentNode addDeploymentNode(String name, String description, String technology, int instances, Map<String, String> properties) {
-        DeploymentNode deploymentNode = getModel().addDeploymentNode(this, name, description, technology, instances, properties);
+        DeploymentNode deploymentNode = getModel().addDeploymentNode(this, this.getEnvironment(), name, description, technology, instances, properties);
         if (deploymentNode != null) {
             children.add(deploymentNode);
         }
@@ -220,7 +220,7 @@ public final class DeploymentNode extends Element {
         if (getParent() != null) {
             return getParent().getCanonicalName() + CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getName());
         } else {
-            return CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getName());
+            return CANONICAL_NAME_SEPARATOR + "Deployment" + CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getEnvironment()) + CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getName());
         }
     }
 

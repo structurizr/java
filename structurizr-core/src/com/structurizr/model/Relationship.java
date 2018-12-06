@@ -19,6 +19,8 @@ public final class Relationship extends ModelItem {
     private String technology;
     private InteractionStyle interactionStyle = InteractionStyle.Synchronous;
 
+    private String linkedRelationshipId;
+
     Relationship() {
     }
 
@@ -30,6 +32,12 @@ public final class Relationship extends ModelItem {
         setDescription(description);
         setTechnology(technology);
         setInteractionStyle(interactionStyle);
+
+        if (interactionStyle == InteractionStyle.Synchronous) {
+            addTags(Tags.SYNCHRONOUS);
+        } else {
+            addTags(Tags.ASYNCHRONOUS);
+        }
     }
 
     @JsonIgnore
@@ -118,19 +126,23 @@ public final class Relationship extends ModelItem {
 
     void setInteractionStyle(InteractionStyle interactionStyle) {
         this.interactionStyle = interactionStyle;
+    }
 
-        if (interactionStyle == InteractionStyle.Synchronous) {
-            removeTag(Tags.ASYNCHRONOUS);
-            addTags(Tags.SYNCHRONOUS);
-        } else {
-            removeTag(Tags.SYNCHRONOUS);
-            addTags(Tags.ASYNCHRONOUS);
-        }
+    public String getLinkedRelationshipId() {
+        return linkedRelationshipId;
+    }
+
+    void setLinkedRelationshipId(String baseRelationshipId) {
+        this.linkedRelationshipId = baseRelationshipId;
     }
 
     @Override
     protected Set<String> getRequiredTags() {
-        return new LinkedHashSet<>(Collections.singletonList(Tags.RELATIONSHIP));
+        if (linkedRelationshipId == null) {
+            return new LinkedHashSet<>(Collections.singletonList(Tags.RELATIONSHIP));
+        } else {
+            return Collections.emptySet();
+        }
     }
 
     @Override

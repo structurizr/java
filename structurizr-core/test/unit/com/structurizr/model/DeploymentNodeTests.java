@@ -12,7 +12,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     public void test_getCanonicalName_WhenTheDeploymentNodeHasNoParent() {
         DeploymentNode deploymentNode = model.addDeploymentNode("Ubuntu Server", "", "");
 
-        assertEquals("/Ubuntu Server", deploymentNode.getCanonicalName());
+        assertEquals("/Deployment/Default/Ubuntu Server", deploymentNode.getCanonicalName());
     }
 
     @Test
@@ -20,7 +20,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
         DeploymentNode parent = model.addDeploymentNode("Windows Server", "", "");
         DeploymentNode child = parent.addDeploymentNode("Apache Tomcat", "", "");
 
-        assertEquals("/Windows Server/Apache Tomcat", child.getCanonicalName());
+        assertEquals("/Deployment/Default/Windows Server/Apache Tomcat", child.getCanonicalName());
     }
 
     @Test
@@ -66,6 +66,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
         assertNotNull(containerInstance);
         assertSame(container, containerInstance.getContainer());
         assertTrue(deploymentNode.getContainerInstances().contains(containerInstance));
+        assertEquals("Default", containerInstance.getEnvironment());
     }
 
     @Test
@@ -88,6 +89,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
         assertEquals("Child 1", child.getName());
         assertEquals("Description", child.getDescription());
         assertEquals("Technology", child.getTechnology());
+        assertEquals("Default", child.getEnvironment());
         assertEquals(1, child.getInstances());
         assertTrue(child.getProperties().isEmpty());
         assertTrue(parent.getChildren().contains(child));
@@ -97,6 +99,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
         assertEquals("Child 2", child.getName());
         assertEquals("Description", child.getDescription());
         assertEquals("Technology", child.getTechnology());
+        assertEquals("Default", child.getEnvironment());
         assertEquals(4, child.getInstances());
         assertTrue(child.getProperties().isEmpty());
         assertTrue(parent.getChildren().contains(child));
@@ -106,6 +109,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
         assertEquals("Child 3", child.getName());
         assertEquals("Description", child.getDescription());
         assertEquals("Technology", child.getTechnology());
+        assertEquals("Default", child.getEnvironment());
         assertEquals(4, child.getInstances());
         assertEquals(1, child.getProperties().size());
         assertEquals("value", child.getProperties().get("name"));
