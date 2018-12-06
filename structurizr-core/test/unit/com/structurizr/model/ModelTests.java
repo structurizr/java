@@ -529,7 +529,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addDeploymentNode_AddsADeploymentNode_WhenADeploymentScenarioIsNotSpecified() {
+    public void test_addDeploymentNode_AddsADeploymentNode_WhenADeploymentEnvironmentIsNotSpecified() {
         DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
 
         assertEquals("Deployment Node", deploymentNode.getName());
@@ -539,7 +539,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addDeploymentNode_AddsADeploymentNode_WhenADeploymentScenarioIsSpecified() {
+    public void test_addDeploymentNode_AddsADeploymentNode_WhenADeploymentEnvironmentIsSpecified() {
         DeploymentNode deploymentNode = model.addDeploymentNode("Development", "Deployment Node", "Description", "Technology");
 
         assertEquals("Deployment Node", deploymentNode.getName());
@@ -549,7 +549,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addContainerInstance_AddsAContainerInstanceAndReplicatesRelationshipsWithinTheDeploymentScenario_WhenAContainerIsSpecified() {
+    public void test_addContainerInstance_AddsAContainerInstanceAndReplicatesRelationshipsWithinTheDeploymentEnvironment_WhenAContainerIsSpecified() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
         Container container1 = softwareSystem1.addContainer("Container 1", "Description", "Technology");
 
