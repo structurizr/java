@@ -104,7 +104,7 @@ public class BigBankPlc {
         model.addImplicitRelationships();
 
         // deployment nodes and container instances
-        DeploymentNode developerLaptop = model.addDeploymentNode("Developer Laptop", "A developer laptop.", "Microsoft Windows 10 or Apple macOS");
+        DeploymentNode developerLaptop = model.addDeploymentNode("Development", "Developer Laptop", "A developer laptop.", "Microsoft Windows 10 or Apple macOS");
         DeploymentNode apacheTomcat = developerLaptop.addDeploymentNode("Docker Container - Web Server", "A Docker container.", "Docker")
                 .addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"));
         apacheTomcat.add(webApplication);
@@ -116,13 +116,13 @@ public class BigBankPlc {
 
         developerLaptop.addDeploymentNode("Web Browser", "", "Google Chrome, Mozilla Firefox, Apple Safari or Microsoft Edge").add(singlePageApplication);
 
-        DeploymentNode customerMobileDevice = model.addDeploymentNode("Customer's mobile device", "", "Apple iOS or Android");
+        DeploymentNode customerMobileDevice = model.addDeploymentNode("Live", "Customer's mobile device", "", "Apple iOS or Android");
         customerMobileDevice.add(mobileApp);
 
-        DeploymentNode customerComputer = model.addDeploymentNode("Customer's computer", "", "Microsoft Windows or Apple macOS");
+        DeploymentNode customerComputer = model.addDeploymentNode("Live", "Customer's computer", "", "Microsoft Windows or Apple macOS");
         customerComputer.addDeploymentNode("Web Browser", "", "Google Chrome, Mozilla Firefox, Apple Safari or Microsoft Edge").add(singlePageApplication);
 
-        DeploymentNode bigBankDataCenter = model.addDeploymentNode("Big Bank plc", "", "Big Bank plc data center");
+        DeploymentNode bigBankDataCenter = model.addDeploymentNode("Live", "Big Bank plc", "", "Big Bank plc data center");
 
         DeploymentNode liveWebServer = bigBankDataCenter.addDeploymentNode("bigbank-web***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 4, MapUtils.create("Location=London and Reading"));
         liveWebServer.addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"))
