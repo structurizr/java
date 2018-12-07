@@ -275,6 +275,32 @@ public class PlantUMLWriterTests {
     }
 
     @Test
+    public void test_writeView_UsesTheOverridableViewTitle_WhenTheViewTitleIsSet() throws Exception {
+        workspace = new Workspace("", "");
+        workspace.getModel().addSoftwareSystem("My software system", "").setLocation(Location.Internal);
+        workspace.getViews().createSystemLandscapeView("thekey", "").setTitle("A view title");
+
+        plantUMLWriter.write(workspace, stringWriter);
+
+        assertEquals("@startuml(id=thekey)" + System.lineSeparator() +
+                "scale max 1999x1999" + System.lineSeparator() +
+                "title A view title" + System.lineSeparator() +
+                "" + System.lineSeparator() +
+                "skinparam {" + System.lineSeparator() +
+                "  shadowing false" + System.lineSeparator() +
+                "  arrowColor #707070" + System.lineSeparator() +
+                "  actorBorderColor #707070" + System.lineSeparator() +
+                "  componentBorderColor #707070" + System.lineSeparator() +
+                "  rectangleBorderColor #707070" + System.lineSeparator() +
+                "  noteBackgroundColor #ffffff" + System.lineSeparator() +
+                "  noteBorderColor #707070" + System.lineSeparator() +
+                "}" + System.lineSeparator() +
+                "package \"Enterprise\" {" + System.lineSeparator() +
+                "}" + System.lineSeparator() +
+                "@enduml" + System.lineSeparator(), stringWriter.toString());
+    }
+
+    @Test
     public void test_writeView_IncludesSkinParams_WhenSkinParamsAreAdded() throws Exception {
         workspace = new Workspace("", "");
         workspace.getModel().addSoftwareSystem("My software system", "").setLocation(Location.Internal);

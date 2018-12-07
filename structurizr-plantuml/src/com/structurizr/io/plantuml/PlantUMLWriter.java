@@ -2,6 +2,7 @@ package com.structurizr.io.plantuml;
 
 import com.structurizr.Workspace;
 import com.structurizr.model.*;
+import com.structurizr.util.StringUtils;
 import com.structurizr.view.*;
 
 import java.io.IOException;
@@ -675,7 +676,11 @@ public class PlantUMLWriter {
         writer.write(Integer.toString(height));
         writer.write(System.lineSeparator());
 
-        writer.write("title " + view.getName());
+        String viewTitle = view.getTitle();
+        if (StringUtils.isNullOrEmpty(viewTitle)) {
+            viewTitle = view.getName();
+        }
+        writer.write("title " + viewTitle);
         writer.write(System.lineSeparator());
 
         if (view.getDescription() != null && view.getDescription().trim().length() > 0) {
