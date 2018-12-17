@@ -7,6 +7,7 @@
 - Added support for icons on element styles.
 - Top-level deployment nodes can now be given an environment property, to represent which deployment environment they belong to (e.g. "Development", "Live", etc).
 - Relationships can no longer be created between container instances (__breaking change__).
+- When adding elements to views, you can now optionally specify whether relationships to/from that element are added.
 
 ## 1.1.0 (8th November 2018)
 

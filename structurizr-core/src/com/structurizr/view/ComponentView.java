@@ -56,15 +56,27 @@ public final class ComponentView extends StaticView {
     }
 
     /**
-     * Adds the specified software system. Please note that the parent software system of the container in scope
-     * cannot be added to this view.
+     * Adds the specified software system, including relationships to/from that software system.
+     * Please note that the parent software system of the container in scope cannot be added to this view.
      *
      * @param softwareSystem    the SoftwareSystem to add to this view
      */
     @Override
     public void add(@Nonnull SoftwareSystem softwareSystem) {
+        add(softwareSystem, true);
+    }
+
+    /**
+     * Adds the specified software system.
+     * Please note that the parent software system of the container in scope cannot be added to this view.
+     *
+     * @param softwareSystem    the SoftwareSystem to add to this view
+     * @param addRelationships  whether to add relationships to/from the component
+     */
+    @Override
+    public void add(@Nonnull SoftwareSystem softwareSystem, boolean addRelationships) {
         if (softwareSystem != null && !softwareSystem.equals(getSoftwareSystem())) {
-            addElement(softwareSystem, true);
+            addElement(softwareSystem, addRelationships);
         }
     }
 
@@ -76,13 +88,23 @@ public final class ComponentView extends StaticView {
     }
 
     /**
-     * Adds an individual container to this view.
+     * Adds an individual container to this view, including relationships to/from that container.
      *
      * @param container the Container to add
      */
     public void add(Container container) {
+        add(container, true);
+    }
+
+    /**
+     * Adds an individual container to this view.
+     *
+     * @param container         the Container to add
+     * @param addRelationships  whether to add relationships to/from the container
+     */
+    public void add(Container container, boolean addRelationships) {
         if (container != null && !container.equals(getContainer())) {
-            addElement(container, true);
+            addElement(container, addRelationships);
         }
     }
 
@@ -94,17 +116,27 @@ public final class ComponentView extends StaticView {
     }
 
     /**
-     * Adds an individual component to this view.
+     * Adds an individual component to this view, including relationships to/from that component.
      *
      * @param component the Component to add
      */
     public void add(Component component) {
+        add(component, true);
+    }
+
+    /**
+     * Adds an individual component to this view.
+     *
+     * @param component         the Component to add
+     * @param addRelationships  whether to add relationships to/from the component
+     */
+    public void add(Component component, boolean addRelationships) {
         if (component != null) {
             if (!component.getContainer().equals(getContainer())) {
                 throw new IllegalArgumentException("Only components belonging to " + container.getName() + " can be added to this view.");
             }
 
-            addElement(component, true);
+            addElement(component, addRelationships);
         }
     }
 

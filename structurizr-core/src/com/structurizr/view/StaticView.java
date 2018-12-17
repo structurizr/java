@@ -33,12 +33,22 @@ public abstract class StaticView extends View {
     }
 
     /**
-     * Adds the given software system to this view.
+     * Adds the given software system to this view, including relationships to/from that software system.
      *
      * @param softwareSystem the SoftwareSystem to add
      */
     public void add(@Nonnull SoftwareSystem softwareSystem) {
-        addElement(softwareSystem, true);
+        add(softwareSystem, true);
+    }
+
+    /**
+     * Adds the given software system to this view.
+     *
+     * @param softwareSystem    the SoftwareSystem to add
+     * @param addRelationships  whether to add relationships to/from the software system
+     */
+    public void add(@Nonnull SoftwareSystem softwareSystem, boolean addRelationships) {
+        addElement(softwareSystem, addRelationships);
     }
 
     /**
@@ -58,12 +68,22 @@ public abstract class StaticView extends View {
     }
 
     /**
-     * Adds the given person to this view.
+     * Adds the given person to this view, including relationships to/from that person.
      *
      * @param person the Person to add
      */
     public void add(@Nonnull Person person) {
-        addElement(person, true);
+        add(person, true);
+    }
+
+    /**
+     * Adds the given person to this view.
+     *
+     * @param person the Person to add
+     * @param addRelationships  whether to add relationships to/from the person
+     */
+    public void add(@Nonnull Person person, boolean addRelationships) {
+        addElement(person, addRelationships);
     }
 
     /**

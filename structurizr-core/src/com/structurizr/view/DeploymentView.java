@@ -47,40 +47,50 @@ public final class DeploymentView extends View {
     }
 
     /**
-     * Adds a deployment node to this view.
+     * Adds a deployment node to this view, including relationships to/from that deployment node (and children).
      *
      * @param deploymentNode        the DeploymentNode to add
      */
     public void add(@Nonnull DeploymentNode deploymentNode) {
+        add(deploymentNode, true);
+    }
+
+    /**
+     * Adds a deployment node to this view.
+     *
+     * @param deploymentNode    the DeploymentNode to add
+     * @param addRelationships  whether to add relationships to/from the person
+     */
+    public void add(@Nonnull DeploymentNode deploymentNode, boolean addRelationships) {
         if (deploymentNode == null) {
             throw new IllegalArgumentException("A deployment node must be specified.");
         }
 
-        if (addContainerInstancesAndDeploymentNodes(deploymentNode)) {
+        if (addContainerInstancesAndDeploymentNodes(deploymentNode, addRelationships)) {
             Element parent = deploymentNode.getParent();
             while (parent != null) {
-                addElement(parent, false);
+                addElement(parent, addRelationships);
                 parent = parent.getParent();
             }
         }
     }
 
-    private boolean addContainerInstancesAndDeploymentNodes(DeploymentNode deploymentNode) {
+    private boolean addContainerInstancesAndDeploymentNodes(DeploymentNode deploymentNode, boolean addRelationships) {
         boolean hasContainers = false;
         for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
             Container container = containerInstance.getContainer();
             if (getSoftwareSystem() == null || container.getParent().equals(getSoftwareSystem())) {
-                addElement(containerInstance, true);
+                addElement(containerInstance, addRelationships);
                 hasContainers = true;
             }
         }
 
         for (DeploymentNode child : deploymentNode.getChildren()) {
-            hasContainers = hasContainers | addContainerInstancesAndDeploymentNodes(child);
+            hasContainers = hasContainers | addContainerInstancesAndDeploymentNodes(child, addRelationships);
         }
 
         if (hasContainers) {
-            addElement(deploymentNode, false);
+            addElement(deploymentNode, addRelationships);
         }
 
         return hasContainers;

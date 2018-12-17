@@ -20,15 +20,27 @@ public final class ContainerView extends StaticView {
     }
 
     /**
-     * Adds a software system to this view. Please note that you cannot add the software system
-     * that is the scope of this view.
+     * Adds a software system to this view, including relationships to/from that software system.
+     * Please note that you cannot add the software system that is the scope of this view.
      *
      * @param softwareSystem the SoftwareSystem to add
      */
     @Override
     public void add(@Nonnull SoftwareSystem softwareSystem) {
+        add(softwareSystem, true);
+    }
+
+    /**
+     * Adds a software system to this view. Please note that you cannot add the software system
+     * that is the scope of this view.
+     *
+     * @param softwareSystem    the SoftwareSystem to add
+     * @param addRelationships  whether to add relationships to/from the software system
+     */
+    @Override
+    public void add(@Nonnull SoftwareSystem softwareSystem, boolean addRelationships) {
         if (softwareSystem != null && !softwareSystem.equals(getSoftwareSystem())) {
-            addElement(softwareSystem, true);
+            addElement(softwareSystem, addRelationships);
         }
     }
 
@@ -40,12 +52,22 @@ public final class ContainerView extends StaticView {
     }
 
     /**
-     * Adds an individual container (belonging to any software system) to this view.
+     * Adds an individual container (belonging to any software system) to this view, including relationships to/from that container.
      *
      * @param container the Container to add
      */
     public void add(Container container) {
-        addElement(container, true);
+        add(container, true);
+    }
+
+    /**
+     * Adds an individual container (belonging to any software system) to this view.
+     *
+     * @param container         the Container to add
+     * @param addRelationships  whether to add relationships to/from the container
+     */
+    public void add(Container container, boolean addRelationships) {
+        addElement(container, addRelationships);
     }
 
     /**
