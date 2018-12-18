@@ -14,6 +14,7 @@ public final class Configuration {
 
     private String defaultView;
     private String lastSavedView;
+    private ViewSortOrder viewSortOrder;
 
     /**
      * Gets the styles associated with this set of views.
@@ -97,6 +98,24 @@ public final class Configuration {
      */
     void setTerminology(Terminology terminology) {
         this.terminology = terminology;
+    }
+
+    /**
+     * Gets the sort order used when displaying the list of views.
+     *
+     * @return  a ViewSortOrder enum
+     */
+    public ViewSortOrder getViewSortOrder() {
+        return viewSortOrder;
+    }
+
+    /**
+     * Sets the sort order used when displaying the list of views.
+     *
+     * @param viewSortOrder     a ViewSortOrder enum
+     */
+    public void setViewSortOrder(ViewSortOrder viewSortOrder) {
+        this.viewSortOrder = viewSortOrder;
     }
 
 }
