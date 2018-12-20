@@ -208,7 +208,7 @@ public final class ElementStyle {
     public void setIcon(String icon) {
         if (icon != null && icon.trim().length() > 0) {
             if (Url.isUrl(icon) || icon.startsWith("data:image/")) {
-                this.icon = icon;
+                this.icon = icon.trim();
             } else {
                 throw new IllegalArgumentException(icon + " is not a valid URL.");
             }

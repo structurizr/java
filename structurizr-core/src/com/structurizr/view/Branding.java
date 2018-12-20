@@ -26,7 +26,7 @@ public final class Branding {
     public void setLogo(String url) {
         if (url != null && url.trim().length() > 0) {
             if (Url.isUrl(url) || url.startsWith("data:image/")) {
-                this.logo = url;
+                this.logo = url.trim();
             } else {
                 throw new IllegalArgumentException(url + " is not a valid URL.");
             }
