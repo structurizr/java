@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.2.0 (not released)
+## 1.2.0 (3rd January 2019)
 
 - Fixes an issue with Java 11 and SSL handshaking.
 - The terminology for relationships can now be customised.
