@@ -671,7 +671,9 @@ public final class Model {
     }
 
     /**
-     * @param name the name of the deployment node
+     * Gets the deployment node with the specified name and default environment.
+     *
+     * @param name      the name of the deployment node
      * @return the DeploymentNode instance with the specified name (or null if it doesn't exist).
      */
     public DeploymentNode getDeploymentNodeWithName(String name) {
@@ -679,7 +681,10 @@ public final class Model {
     }
 
     /**
-     * @param name the name of the deployment node
+     * Gets the deployment node with the specified name and environment.
+     *
+     * @param name          the name of the deployment node
+     * @param environment   the name of the deployment environment
      * @return the DeploymentNode instance with the specified name (or null if it doesn't exist).
      */
     public DeploymentNode getDeploymentNodeWithName(String name, String environment) {
