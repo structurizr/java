@@ -1,6 +1,7 @@
 package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.structurizr.util.StringUtils;
 
 import java.util.*;
 
@@ -12,6 +13,7 @@ abstract class ModelItem {
     private String id = "";
     private Set<String> tags = new LinkedHashSet<>();
     private Map<String, String> properties = new HashMap<>();
+    private Set<Perspective> perspectives = new HashSet<>();
 
     protected abstract Set<String> getRequiredTags();
 
@@ -122,6 +124,52 @@ abstract class ModelItem {
         if (properties != null) {
             this.properties = new HashMap<>(properties);
         }
+    }
+
+    /**
+     * Gets the set of perspectives associated with this model item.
+     *
+     * @return  a Set of Perspective objects (empty if there are none)
+     */
+    public Set<Perspective> getPerspectives() {
+        return new HashSet<>(perspectives);
+    }
+
+    void setPerspectives(Set<Perspective> perspectives) {
+        this.perspectives.clear();
+
+        if (perspectives == null) {
+            return;
+        }
+
+        this.perspectives.addAll(perspectives);
+    }
+
+    /**
+     * Adds a perspective to this model item.
+     *
+     * @param name          the name of the perspective (e.g. "Security", must be unique)
+     * @param description   a description of the perspective
+     * @return              a Perspective object
+     * @throws IllegalArgumentException     if perspective details are not specified, or the named perspective exists already
+     */
+    public Perspective addPerspective(String name, String description) {
+        if (StringUtils.isNullOrEmpty(name)) {
+            throw new IllegalArgumentException("A name must be specified.");
+        }
+
+        if (StringUtils.isNullOrEmpty(description)) {
+            throw new IllegalArgumentException("A description must be specified.");
+        }
+
+        if (perspectives.stream().filter(p -> p.getName().equals(name)).count() > 0) {
+            throw new IllegalArgumentException("A perspective named \"" + name + "\" already exists.");
+        }
+
+        Perspective perspective = new Perspective(name, description);
+        perspectives.add(perspective);
+
+        return perspective;
     }
 
 }

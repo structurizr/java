@@ -1,13 +1,14 @@
 package com.structurizr.model;
 
 import com.structurizr.AbstractWorkspaceTestBase;
-import com.structurizr.Workspace;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 public class ModelItemTests extends AbstractWorkspaceTestBase {
 
@@ -134,6 +135,70 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
         element.setProperties(properties);
         assertEquals(1, element.getProperties().size());
         assertEquals("value", element.getProperties().get("name"));
+    }
+
+    @Test
+    public void test_addPerspective_ThrowsAnException_WhenANameIsNotSpecified() {
+        try {
+            Element element = model.addSoftwareSystem("Name", "Description");
+            element.addPerspective(null, null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A name must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addPerspective_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
+        try {
+            Element element = model.addSoftwareSystem("Name", "Description");
+            element.addPerspective(" ", null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A name must be specified.", iae.getMessage());
+        }
+    }
+    @Test
+    public void test_addPerspective_ThrowsAnException_WhenADescriptionIsNotSpecified() {
+        try {
+            Element element = model.addSoftwareSystem("Name", "Description");
+            element.addPerspective("Security", null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A description must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addPerspective_ThrowsAnException_WhenAnEmptyDescriptionIsSpecified() {
+        try {
+            Element element = model.addSoftwareSystem("Name", "Description");
+            element.addPerspective("Security", " ");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A description must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addPerspective_AddsAPerspective() {
+        Element element = model.addSoftwareSystem("Name", "Description");
+        Perspective perspective = element.addPerspective("Security", "Data is encrypted at rest.");
+        assertEquals("Security", perspective.getName());
+        assertEquals("Data is encrypted at rest.", perspective.getDescription());
+        assertTrue(element.getPerspectives().contains(perspective));
+    }
+
+    @Test
+    public void test_addPerspective_ThrowsAnException_WhenTheNamedPerspectiveAlreadyExists() {
+        try {
+            Element element = model.addSoftwareSystem("Name", "Description");
+            element.addPerspective("Security", "Data is encrypted at rest.");
+            element.addPerspective("Security", "Data is encrypted at rest.");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A perspective named \"Security\" already exists.", iae.getMessage());
+        }
     }
 
 }
