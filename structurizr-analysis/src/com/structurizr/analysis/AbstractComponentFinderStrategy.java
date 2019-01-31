@@ -3,6 +3,7 @@ package com.structurizr.analysis;
 import com.structurizr.model.CodeElement;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
+import com.structurizr.util.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -124,13 +125,15 @@ public abstract class AbstractComponentFinderStrategy implements ComponentFinder
             try {
                 if (!isNestedClass(referencedType)) {
                     String referencedTypeName = referencedType.getCanonicalName();
-                    Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedTypeName);
-                    if (destinationComponent != null) {
-                        if (component != destinationComponent) {
-                            component.uses(destinationComponent, "");
+                    if (!StringUtils.isNullOrEmpty(referencedTypeName)) {
+                        Component destinationComponent = componentFinder.getContainer().getComponentOfType(referencedTypeName);
+                        if (destinationComponent != null) {
+                            if (component != destinationComponent) {
+                                component.uses(destinationComponent, "");
+                            }
+                        } else if (!typesVisited.contains(referencedTypeName)) {
+                            addEfferentDependencies(component, referencedTypeName, typesVisited);
                         }
-                    } else if (!typesVisited.contains(referencedTypeName)) {
-                        addEfferentDependencies(component, referencedTypeName, typesVisited);
                     }
                 }
             } catch (Throwable t) {
