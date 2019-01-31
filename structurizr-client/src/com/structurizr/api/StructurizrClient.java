@@ -41,6 +41,9 @@ public final class StructurizrClient {
 
     private static final Log log = LogFactory.getLog(StructurizrClient.class);
 
+    private static final String VERSION = Package.getPackage("com.structurizr.api").getImplementationVersion();
+    private static final String STRUCTURIZR_FOR_JAVA_AGENT = "structurizr-java/" + VERSION;
+
     private static final String STRUCTURIZR_CLOUD_API_URL = "https://api.structurizr.com";
 
     private static final String STRUCTURIZR_API_URL = "structurizr.api.url";
@@ -48,8 +51,6 @@ public final class StructurizrClient {
     private static final String STRUCTURIZR_API_SECRET = "structurizr.api.secret";
 
     private static final String WORKSPACE_PATH = "/workspace/";
-
-    private static final String VERSION = Package.getPackage("com.structurizr.api").getImplementationVersion();
 
     private String url;
     private String apiKey;
@@ -271,6 +272,9 @@ public final class StructurizrClient {
             workspace.setId(workspaceId);
             workspace.setThumbnail(null);
             workspace.setLastModifiedDate(new Date());
+            workspace.setLastModifiedAgent(STRUCTURIZR_FOR_JAVA_AGENT);
+            workspace.setLastModifiedUser(System.getProperty("user.name"));
+
             workspace.countAndLogWarnings();
 
             HttpPut httpPut = new HttpPut(url + WORKSPACE_PATH + workspaceId);
@@ -334,7 +338,7 @@ public final class StructurizrClient {
 
         HashBasedMessageAuthenticationCode hmac = new HashBasedMessageAuthenticationCode(apiSecret);
         HmacContent hmacContent = new HmacContent(httpMethod, path, contentMd5, contentType, nonce);
-        httpRequest.addHeader(HttpHeaders.USER_AGENT, "structurizr-java/" + (VERSION != null ? VERSION : "dev"));
+        httpRequest.addHeader(HttpHeaders.USER_AGENT, STRUCTURIZR_FOR_JAVA_AGENT);
         httpRequest.addHeader(HttpHeaders.AUTHORIZATION, new HmacAuthorizationHeader(apiKey, hmac.generate(hmacContent.toString())).format());
         httpRequest.addHeader(HttpHeaders.NONCE, nonce);
 

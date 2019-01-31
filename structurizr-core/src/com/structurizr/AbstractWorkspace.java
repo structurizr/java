@@ -15,6 +15,8 @@ public abstract class AbstractWorkspace {
     private String description;
     private String version;
     private Date lastModifiedDate;
+    private String lastModifiedUser;
+    private String lastModifiedAgent;
     private String thumbnail;
 
     private WorkspaceConfiguration configuration;
@@ -118,6 +120,42 @@ public abstract class AbstractWorkspace {
      */
     public void setLastModifiedDate(Date lastModifiedDate) {
         this.lastModifiedDate = lastModifiedDate;
+    }
+
+    /**
+     * Gets the name of the user who last modified this workspace (e.g. a username).
+     *
+     * @return  the last modified user, as a String
+     */
+    public String getLastModifiedUser() {
+        return lastModifiedUser;
+    }
+
+    /**
+     * Sets the name of the user who last modified tihs workspace (e.g. a username).
+     *
+     * @param lastModifiedUser  the last modified user, as a String
+     */
+    public void setLastModifiedUser(String lastModifiedUser) {
+        this.lastModifiedUser = lastModifiedUser;
+    }
+
+    /**
+     * Gets the name of the agent that was used to last modify this workspace (e.g. "Structurizr for Java").
+     *
+     * @return  the last modified agent, as a String
+     */
+    public String getLastModifiedAgent() {
+        return lastModifiedAgent;
+    }
+
+    /**
+     * Sets the name of the agent that was used to last modify this workspace (e.g. "Structurizr for Java").
+     *
+     * @param lastModifiedAgent  the last modified user, as a String
+     */
+    public void setLastModifiedAgent(String lastModifiedAgent) {
+        this.lastModifiedAgent = lastModifiedAgent;
     }
 
     /**
