@@ -24,6 +24,8 @@ public class EncryptedWorkspaceTests {
         workspace.setVersion("1.2.3");
         workspace.setId(1234);
         workspace.getConfiguration().addUser("user@domain.com", Role.ReadOnly);
+        workspace.setLastModifiedUser("simon");
+        workspace.setLastModifiedAgent("structurizr-java");
 
         encryptionStrategy = new MockEncryptionStrategy();
     }
@@ -35,6 +37,8 @@ public class EncryptedWorkspaceTests {
         assertEquals("Name", encryptedWorkspace.getName());
         assertEquals("Description", encryptedWorkspace.getDescription());
         assertEquals("1.2.3", encryptedWorkspace.getVersion());
+        assertEquals("simon", encryptedWorkspace.getLastModifiedUser());
+        assertEquals("structurizr-java", encryptedWorkspace.getLastModifiedAgent());
         assertEquals(1234, encryptedWorkspace.getId());
         assertEquals("user@domain.com", encryptedWorkspace.getConfiguration().getUsers().iterator().next().getUsername());
         assertNull(workspace.getConfiguration());
@@ -61,6 +65,8 @@ public class EncryptedWorkspaceTests {
         assertEquals("Name", encryptedWorkspace.getName());
         assertEquals("Description", encryptedWorkspace.getDescription());
         assertEquals("1.2.3", encryptedWorkspace.getVersion());
+        assertEquals("simon", encryptedWorkspace.getLastModifiedUser());
+        assertEquals("structurizr-java", encryptedWorkspace.getLastModifiedAgent());
         assertEquals(1234, encryptedWorkspace.getId());
 
         assertSame(workspace, encryptedWorkspace.getWorkspace());

@@ -55,6 +55,8 @@ public final class EncryptedWorkspace extends AbstractWorkspace {
         setName(workspace.getName());
         setDescription(workspace.getDescription());
         setVersion(workspace.getVersion());
+        setLastModifiedUser(workspace.getLastModifiedUser());
+        setLastModifiedAgent(workspace.getLastModifiedAgent());
 
         this.plaintext = plaintext;
         this.ciphertext = encryptionStrategy.encrypt(plaintext);
