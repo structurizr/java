@@ -10,6 +10,7 @@ import com.structurizr.io.json.JsonReader;
 import com.structurizr.io.json.JsonWriter;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.hc.client5.http.classic.methods.HttpDelete;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.classic.methods.HttpPut;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
@@ -195,6 +196,66 @@ public final class StructurizrClient {
      */
     public void setMergeFromRemote(boolean mergeFromRemote) {
         this.mergeFromRemote = mergeFromRemote;
+    }
+
+    /**
+     * Locks the workspace with the given ID.
+     *
+     * @param   workspaceId     the ID of your workspace
+     * @return                  true if the workspace could be locked, false otherwise
+     * @throws StructurizrClientException   if there are problems related to the network, authorization, etc
+     */
+    public boolean lockWorkspace(long workspaceId) throws StructurizrClientException {
+        return manageLockForWorkspace(workspaceId, true);
+    }
+
+    /**
+     * Unlocks the workspace with the given ID.
+     *
+     * @param   workspaceId     the ID of your workspace
+     * @return                  true if the workspace could be unlocked, false otherwise
+     * @throws StructurizrClientException   if there are problems related to the network, authorization, etc
+     */
+    public boolean unlockWorkspace(long workspaceId) throws StructurizrClientException {
+        return manageLockForWorkspace(workspaceId, false);
+    }
+
+    private boolean manageLockForWorkspace(long workspaceId, boolean lock) throws StructurizrClientException {
+        if (workspaceId <= 0) {
+            throw new IllegalArgumentException("The workspace ID must be a positive integer.");
+        }
+
+        try (CloseableHttpClient httpClient = HttpClients.createSystem()) {
+            HttpUriRequestBase httpRequest;
+
+            if (lock) {
+                log.info("Locking workspace with ID " + workspaceId);
+                httpRequest = new HttpPut(url + WORKSPACE_PATH + workspaceId + "/lock?user=" + System.getProperty("user.name") + "&agent=" + STRUCTURIZR_FOR_JAVA_AGENT);
+            } else {
+                log.info("Unlocking workspace with ID " + workspaceId);
+                httpRequest = new HttpDelete(url + WORKSPACE_PATH + workspaceId + "/lock?user=" + System.getProperty("user.name") + "&agent=" + STRUCTURIZR_FOR_JAVA_AGENT);
+            }
+
+            addHeaders(httpRequest, "", "");
+            debugRequest(httpRequest, null);
+
+            try (CloseableHttpResponse response = httpClient.execute(httpRequest)) {
+                debugResponse(response);
+
+                String responseText = EntityUtils.toString(response.getEntity());
+                if (response.getCode() == HttpStatus.SC_OK) {
+                    ApiResponse apiResponse = ApiResponse.parse(responseText);
+                    log.info(responseText);
+                    return apiResponse.getMessage().equals("OK");
+                } else {
+                    ApiError apiError = ApiError.parse(responseText);
+                    throw new StructurizrClientException(apiError.getMessage());
+                }
+            }
+        } catch (Exception e) {
+            log.error(e);
+            throw new StructurizrClientException(e);
+        }
     }
 
     /**

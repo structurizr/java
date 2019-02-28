@@ -35,8 +35,6 @@ public class StructurizrClientIntegrationTests {
 
     @After
     public void tearDown() {
-        assertEquals(1, workspaceArchiveLocation.listFiles().length);
-
         clearWorkspaceArchive();
         workspaceArchiveLocation.delete();
     }
@@ -75,6 +73,8 @@ public class StructurizrClientIntegrationTests {
         assertEquals(20081, archivedWorkspace.getId());
         assertEquals("Structurizr client library tests - without encryption", archivedWorkspace.getName());
         assertEquals(1, archivedWorkspace.getModel().getSoftwareSystems().size());
+
+        assertEquals(1, workspaceArchiveLocation.listFiles().length);
     }
 
     @Test
@@ -100,6 +100,21 @@ public class StructurizrClientIntegrationTests {
         assertEquals(20081, archivedWorkspace.getId());
         assertEquals("Structurizr client library tests - with encryption", archivedWorkspace.getName());
         assertTrue(archivedWorkspace.getEncryptionStrategy() instanceof AesEncryptionStrategy);
+
+        assertEquals(1, workspaceArchiveLocation.listFiles().length);
+    }
+
+    @Test
+    public void test_lockWorkspace() throws Exception {
+        structurizrClient.unlockWorkspace(20081);
+        assertTrue(structurizrClient.lockWorkspace(20081));
+    }
+
+
+    @Test
+    public void test_unlockWorkspace() throws Exception {
+        structurizrClient.lockWorkspace(20081);
+        assertTrue(structurizrClient.unlockWorkspace(20081));
     }
 
 }

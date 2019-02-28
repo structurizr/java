@@ -58,6 +58,26 @@ This allows you to overwrite an existing remote workspace. If the ```mergeFromRe
 structurizrClient.putWorkspace(1234, workspace);
 ```
 
+### 3. lockWorkspace
+
+If your workspace supports sharing (not available with the Free Plan), you can optionally attempt to lock your workspace before writing to it, to prevent concurrent updates.
+
+```java
+structurizrClient.lockWorkspace(1234);
+```
+
+This method returns a boolean; ```true``` if the workspace could be locked, ```false``` otherwise.
+
+### 4. unlockWorkspace
+
+Similarly, you can unlock a workspace.
+
+```java
+structurizrClient.unlockWorkspace(1234);
+```
+
+This method also returns a boolean; ```true``` if the workspace could be unlocked, ```false``` otherwise.
+
 ## SSL handshake errors
 
 SSL handshake errors are likely if using a self-signed certificate with the on-premises installation, because the Structurizr client program runtime won't trust a self-signed certificate by default.

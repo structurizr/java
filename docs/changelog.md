@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.0 (unreleased)
+
+- Added the ability to lock and unlock workspaces, to prevent concurrent updates.
+
 ## 1.2.0 (3rd January 2019)
 
 - Fixes an issue with Java 11 and SSL handshaking.
