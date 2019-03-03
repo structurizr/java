@@ -246,10 +246,11 @@ public final class StructurizrClient {
                 if (response.getCode() == HttpStatus.SC_OK) {
                     ApiResponse apiResponse = ApiResponse.parse(responseText);
                     log.info(responseText);
-                    return apiResponse.getMessage().equals("OK");
+                    return apiResponse.isSuccess();
                 } else {
-                    ApiError apiError = ApiError.parse(responseText);
-                    throw new StructurizrClientException(apiError.getMessage());
+                    ApiResponse apiResponse = ApiResponse.parse(responseText);
+                    log.info(responseText);
+                    throw new StructurizrClientException(apiResponse.getMessage());
                 }
             }
         } catch (Exception e) {
@@ -297,8 +298,8 @@ public final class StructurizrClient {
                         }
                     }
                 } else {
-                    ApiError apiError = ApiError.parse(json);
-                    throw new StructurizrClientException(apiError.getMessage());
+                    ApiResponse apiResponse = ApiResponse.parse(json);
+                    throw new StructurizrClientException(apiResponse.getMessage());
                 }
             }
         } catch (Exception e) {
@@ -364,8 +365,8 @@ public final class StructurizrClient {
                     debugResponse(response);
                     log.info(json);
                 } else {
-                    ApiError apiError = ApiError.parse(json);
-                    throw new StructurizrClientException(apiError.getMessage());
+                    ApiResponse apiResponse = ApiResponse.parse(json);
+                    throw new StructurizrClientException(apiResponse.getMessage());
                 }
             }
         } catch (Exception e) {

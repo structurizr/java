@@ -8,9 +8,18 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 final class ApiResponse {
 
+    private boolean success;
     private String message;
 
     ApiResponse() {
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    void setSuccess(boolean success) {
+        this.success = success;
     }
 
     String getMessage() {

@@ -4,12 +4,12 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class ApiErrorTests {
+public class ApiResponseTests {
 
     @Test
     public void test_parse_createsAnApiErrorObjectWithTheSpecifiedErrorMessage() throws Exception {
-        ApiError apiError = ApiError.parse("{\"message\": \"Hello\"}");
-        assertEquals("Hello", apiError.getMessage());
+        ApiResponse apiResponse = ApiResponse.parse("{\"message\": \"Hello\"}");
+        assertEquals("Hello", apiResponse.getMessage());
     }
 
 }
