@@ -14,6 +14,7 @@ public abstract class AbstractWorkspace {
     private String name;
     private String description;
     private String version;
+    private Long revision;
     private Date lastModifiedDate;
     private String lastModifiedUser;
     private String lastModifiedAgent;
@@ -102,6 +103,25 @@ public abstract class AbstractWorkspace {
      */
     public void setVersion(String version) {
         this.version = version;
+    }
+
+
+    /**
+     * Gets the revision number of this workspace.
+     *
+     * @return      the revision number
+     */
+    public Long getRevision() {
+        return revision;
+    }
+
+    /**
+     * Sets the revision number of this workspace.
+     *
+     * @param revision      a number
+     */
+    public void setRevision(Long revision) {
+        this.revision = revision;
     }
 
     /**
