@@ -8,6 +8,7 @@ import com.structurizr.io.json.EncryptedJsonReader;
 import com.structurizr.io.json.EncryptedJsonWriter;
 import com.structurizr.io.json.JsonReader;
 import com.structurizr.io.json.JsonWriter;
+import com.structurizr.util.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.hc.client5.http.classic.methods.HttpDelete;
@@ -29,6 +30,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Date;
@@ -230,10 +233,10 @@ public final class StructurizrClient {
 
             if (lock) {
                 log.info("Locking workspace with ID " + workspaceId);
-                httpRequest = new HttpPut(url + WORKSPACE_PATH + workspaceId + "/lock?user=" + System.getProperty("user.name") + "&agent=" + STRUCTURIZR_FOR_JAVA_AGENT);
+                httpRequest = new HttpPut(url + WORKSPACE_PATH + workspaceId + "/lock?user=" + getUser() + "&agent=" + STRUCTURIZR_FOR_JAVA_AGENT);
             } else {
                 log.info("Unlocking workspace with ID " + workspaceId);
-                httpRequest = new HttpDelete(url + WORKSPACE_PATH + workspaceId + "/lock?user=" + System.getProperty("user.name") + "&agent=" + STRUCTURIZR_FOR_JAVA_AGENT);
+                httpRequest = new HttpDelete(url + WORKSPACE_PATH + workspaceId + "/lock?user=" + getUser() + "&agent=" + STRUCTURIZR_FOR_JAVA_AGENT);
             }
 
             addHeaders(httpRequest, "", "");
@@ -335,7 +338,7 @@ public final class StructurizrClient {
             workspace.setThumbnail(null);
             workspace.setLastModifiedDate(new Date());
             workspace.setLastModifiedAgent(STRUCTURIZR_FOR_JAVA_AGENT);
-            workspace.setLastModifiedUser(System.getProperty("user.name"));
+            workspace.setLastModifiedUser(getUser());
 
             workspace.countAndLogWarnings();
 
@@ -439,6 +442,23 @@ public final class StructurizrClient {
     private String createArchiveFileName(long workspaceId) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
         return "structurizr-" + workspaceId + "-" + sdf.format(new Date()) + ".json";
+    }
+
+    private String getUser() {
+        String username = System.getProperty("user.name");
+
+        if (username.contains("@")) {
+            return username;
+        } else {
+            String hostname = null;
+            try {
+                hostname = InetAddress.getLocalHost().getHostName();
+            } catch (UnknownHostException uhe) {
+                // ignore
+            }
+
+            return username + (!StringUtils.isNullOrEmpty(hostname) ? "@" + hostname : "");
+        }
     }
 
 }
