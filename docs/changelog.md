@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.3.0 (unreleased)
+## 1.3.0 (3rd March 2019)
 
 - Added the ability to lock and unlock workspaces, to prevent concurrent updates.
 
