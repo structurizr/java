@@ -27,12 +27,14 @@ import static java.util.Collections.emptyList;
  */
 public class PlantUMLWriter {
 
+    private final Map<String, String> skinParams = new LinkedHashMap<>();
+    private final List<String> includes = new ArrayList<>();
+
     /** maximum diagram width or height; defaults to 2000px to match public plantuml.com installation */
     private int sizeLimit = 2000;
     private boolean includeNotesForActors = true;
     private boolean useSequenceDiagrams = false;
-    private final Map<String, String> skinParams = new LinkedHashMap<>();
-    private final List<String> includes = new ArrayList<>();
+    private String direction;
 
     /**
      * Creates a new PlantUMLWriter, with some default skin params.
@@ -122,6 +124,10 @@ public class PlantUMLWriter {
 
     public void setSizeLimit(int sizeLimit) {
         this.sizeLimit = sizeLimit;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
     /**
@@ -675,6 +681,11 @@ public class PlantUMLWriter {
         writer.write("x");
         writer.write(Integer.toString(height));
         writer.write(System.lineSeparator());
+
+        if (direction != null && direction.trim().length() > 0) {
+            writer.write(direction);
+            writer.write(System.lineSeparator());
+        }
 
         String viewTitle = view.getTitle();
         if (StringUtils.isNullOrEmpty(viewTitle)) {

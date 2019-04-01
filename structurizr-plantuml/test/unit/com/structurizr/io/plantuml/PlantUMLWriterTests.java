@@ -423,6 +423,29 @@ public class PlantUMLWriterTests {
             "@enduml" + System.lineSeparator(), stringWriter.toString());
     }
 
+    @Test
+    public void test_writeView_changeDirection_whenSetDirectionAreChanged() throws Exception {
+        workspace = new Workspace("", "");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("My software system", "");
+        Person user = workspace.getModel().addPerson("A user", "");
+        user.uses(softwareSystem, "Uses");
+        workspace.getViews().createSystemContextView(softwareSystem, "the key", "").addAllElements(); // Space in key
+        plantUMLWriter.clearSkinParams();
+        plantUMLWriter.setDirection("left to right direction");
+
+        plantUMLWriter.write(workspace, stringWriter);
+
+        assertEquals("@startuml(id=the_key)" + System.lineSeparator() + // Quotes added
+                "scale max 1999x1999" + System.lineSeparator() +
+                "left to right direction" + System.lineSeparator() +
+                "title My software system - System Context" + System.lineSeparator() +
+                "" + System.lineSeparator() +
+                "rectangle \"A user\" <<Person>> as 2 #dddddd" + System.lineSeparator() +
+                "rectangle \"My software system\" <<Software System>> as 1 #dddddd" + System.lineSeparator() +
+                "2 .[#707070].> 1 : Uses" + System.lineSeparator() +
+                "@enduml" + System.lineSeparator(), stringWriter.toString());
+    }
+
     private static final String SYSTEM_LANDSCAPE_VIEW = "@startuml(id=enterpriseContext)" + System.lineSeparator() +
             "scale max 1999x1999" + System.lineSeparator() +
             "title System Landscape for Some Enterprise" + System.lineSeparator() +
