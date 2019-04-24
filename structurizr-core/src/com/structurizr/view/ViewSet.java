@@ -415,6 +415,25 @@ public final class ViewSet {
         }
     }
 
+    /**
+     * Gets the set of all views (except filtered views).
+     *
+     * @return      a Collection of View objects
+     */
+    @JsonIgnore
+    public Collection<View> getViews() {
+        HashSet<View> views = new HashSet<>();
+
+        views.addAll(getSystemLandscapeViews());
+        views.addAll(getSystemContextViews());
+        views.addAll(getContainerViews());
+        views.addAll(getComponentViews());
+        views.addAll(getDynamicViews());
+        views.addAll(getDeploymentViews());
+
+        return views;
+    }
+
     void hydrate(Model model) {
         this.model = model;
 
