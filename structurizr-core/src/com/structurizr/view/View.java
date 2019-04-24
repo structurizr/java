@@ -1,6 +1,7 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 import com.structurizr.model.Element;
 import com.structurizr.model.Model;
 import com.structurizr.model.Relationship;
@@ -24,6 +25,7 @@ public abstract class View {
     private String description = "";
     private String key;
     private PaperSize paperSize = null;
+    private AutomaticLayout automaticLayout = null;
     private String title;
 
     private Set<ElementView> elementViews = new LinkedHashSet<>();
@@ -126,6 +128,46 @@ public abstract class View {
 
     public void setPaperSize(PaperSize paperSize) {
         this.paperSize = paperSize;
+    }
+
+    /**
+     * Gets the automatic layout settings for this view.
+     *
+     * @return  an AutomaticLayout object, or null if not enabled
+     */
+    public AutomaticLayout getAutomaticLayout() {
+        return automaticLayout;
+    }
+
+    @JsonSetter
+    void setAutomaticLayout(AutomaticLayout automaticLayout) {
+        this.automaticLayout = automaticLayout;
+    }
+
+    /**
+     * Enables the automatic layout for this view, with some default settings.
+     *
+     * @param enable    a boolean
+     */
+    public void setAutomaticLayout(boolean enable) {
+        if (enable) {
+            this.setAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 600, 200, false);
+        } else {
+            this.automaticLayout = null;
+        }
+    }
+
+    /**
+     * Enables the automatic layout for this view, with the specified settings.
+     *
+     * @param rankDirection     the rank direction
+     * @param rankSeparation    the separation between ranks (in pixels, a positive integer)
+     * @param nodeSeparation    the separation between nodes within the same rank (in pixels, a positive integer)
+     * @param edgeSeparation    the separation between edges (in pixels, a positive integer)
+     * @param vertices          whether vertices should be created during automatic layout
+     */
+    public void setAutomaticLayout(AutomaticLayout.RankDirection rankDirection, int rankSeparation, int nodeSeparation, int edgeSeparation, boolean vertices) {
+        this.automaticLayout = new AutomaticLayout(rankDirection, rankSeparation, nodeSeparation, edgeSeparation, vertices);
     }
 
     /**

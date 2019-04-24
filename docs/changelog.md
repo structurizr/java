@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1 (unreleased)
+
+- The automatic layout algorithm can now be configured on individual views.
+
 ## 1.3.0 (3rd March 2019)
 
 - Added the ability to lock and unlock workspaces, to prevent concurrent updates.

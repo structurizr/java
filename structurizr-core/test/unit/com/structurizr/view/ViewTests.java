@@ -18,6 +18,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         StaticView view = new SystemContextView(softwareSystem, "key", "Description");
         assertEquals("key", view.getKey());
         assertEquals("Description", view.getDescription());
+        assertNull(view.getAutomaticLayout());
     }
 
     @Test
@@ -367,6 +368,42 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         } catch (IllegalArgumentException iae) {
             assertEquals("The element named Software System does not exist in the model associated with this view.", iae.getMessage());
         }
+    }
+
+    @Test
+    public void test_setAutomaticLayout_EnablesAutoLayoutWithSomeDefaultValues_WhenTrueIsSpecified() {
+        SystemLandscapeView view = new Workspace("", "").getViews().createSystemLandscapeView("key", "Description");
+        view.setAutomaticLayout(true);
+
+        assertNotNull(view.getAutomaticLayout());
+        assertEquals(AutomaticLayout.RankDirection.TopBottom, view.getAutomaticLayout().getRankDirection());
+        assertEquals(300, view.getAutomaticLayout().getRankSeparation());
+        assertEquals(600, view.getAutomaticLayout().getNodeSeparation());
+        assertEquals(200, view.getAutomaticLayout().getEdgeSeparation());
+        assertFalse(view.getAutomaticLayout().isVertices());
+    }
+
+    @Test
+    public void test_setAutomaticLayout_DisablesAutoLayout_WhenFalseIsSpecified() {
+        SystemLandscapeView view = new Workspace("", "").getViews().createSystemLandscapeView("key", "Description");
+        view.setAutomaticLayout(true);
+        assertNotNull(view.getAutomaticLayout());
+
+        view.setAutomaticLayout(false);
+        assertNull(view.getAutomaticLayout());
+    }
+
+    @Test
+    public void test_setAutomaticLayout() {
+        SystemLandscapeView view = new Workspace("", "").getViews().createSystemLandscapeView("key", "Description");
+        view.setAutomaticLayout(AutomaticLayout.RankDirection.LeftRight, 100, 200, 300, true);
+
+        assertNotNull(view.getAutomaticLayout());
+        assertEquals(AutomaticLayout.RankDirection.LeftRight, view.getAutomaticLayout().getRankDirection());
+        assertEquals(100, view.getAutomaticLayout().getRankSeparation());
+        assertEquals(200, view.getAutomaticLayout().getNodeSeparation());
+        assertEquals(300, view.getAutomaticLayout().getEdgeSeparation());
+        assertTrue(view.getAutomaticLayout().isVertices());
     }
 
 }
