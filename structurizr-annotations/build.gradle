@@ -1,0 +1,10 @@
+jar {
+    manifest {
+        attributes(
+                'Bundle-ManifestVersion': "2",
+                'Bundle-Name': "Structurizr for Java",
+                'Bundle-SymbolicName': "com.structurizr.annotations",
+                'Bundle-Version': version
+        )
+    }
+}
