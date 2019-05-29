@@ -44,6 +44,9 @@ public class PlantUML {
         plantUMLWriter.addSkinParam("rectangleFontColor", "#ffffff");
         plantUMLWriter.addSkinParam("rectangleStereotypeFontColor", "#ffffff");
 
+        // can set direction, default is "top to bottom direction"
+        // plantUMLWriter.setDirection("left to right direction");
+
         // write to a specific writer
         StringWriter stringWriter = new StringWriter();
         plantUMLWriter.write(workspace, stringWriter);
