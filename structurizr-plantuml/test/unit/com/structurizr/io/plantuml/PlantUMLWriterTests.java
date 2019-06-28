@@ -239,7 +239,7 @@ public class PlantUMLWriterTests {
     @Test
     public void test_toString_ThrowsAnException_WhenPassedANullWorkspace() throws Exception {
         try {
-            assertEquals(0, plantUMLWriter.toString(null).length);
+            assertEquals(0, plantUMLWriter.toString((Workspace)null).length);
             fail();
         } catch (Exception e) {
             assertEquals("A workspace must be provided.", e.getMessage());
@@ -294,8 +294,6 @@ public class PlantUMLWriterTests {
                 "  rectangleBorderColor #707070" + System.lineSeparator() +
                 "  noteBackgroundColor #ffffff" + System.lineSeparator() +
                 "  noteBorderColor #707070" + System.lineSeparator() +
-                "}" + System.lineSeparator() +
-                "package \"Enterprise\" {" + System.lineSeparator() +
                 "}" + System.lineSeparator() +
                 "@enduml" + System.lineSeparator(), stringWriter.toString());
     }
@@ -499,14 +497,16 @@ public class PlantUMLWriterTests {
             "  An SMTP relay configured to" + System.lineSeparator() +
             "  send emails to the users." + System.lineSeparator() +
             "]" + System.lineSeparator() +
-            "rectangle \"Software System\" <<Software System>> as 2 #dddddd" + System.lineSeparator() +
-            "rectangle 1 <<Person>> #dddddd [" + System.lineSeparator() +
-            "  User" + System.lineSeparator() +
-            "  --" + System.lineSeparator() +
-            "  A detailed description of the" + System.lineSeparator() +
-            "  user to be displayed on the" + System.lineSeparator() +
-            "  diagrams" + System.lineSeparator() +
-            "]" + System.lineSeparator() +
+            "package \"Some Enterprise\" {" + System.lineSeparator() +
+            "  rectangle 1 <<Person>> #dddddd [" + System.lineSeparator() +
+            "    User" + System.lineSeparator() +
+            "    --" + System.lineSeparator() +
+            "    A detailed description of the" + System.lineSeparator() +
+            "    user to be displayed on the" + System.lineSeparator() +
+            "    diagrams" + System.lineSeparator() +
+            "  ]" + System.lineSeparator() +
+            "  rectangle \"Software System\" <<Software System>> as 2 #dddddd" + System.lineSeparator() +
+            "}" + System.lineSeparator() +
             "4 .[#707070].> 1 : Delivers e-mails to" + System.lineSeparator() +
             "2 .[#707070].> 4 : Sends e-mail using" + System.lineSeparator() +
             "1 .[#707070].> 2 : Uses" + System.lineSeparator() +

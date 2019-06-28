@@ -221,24 +221,40 @@ public class PlantUMLWriter {
     }
 
     protected void write(SystemLandscapeView view, Writer writer) {
+        writeSystemLandscapeOrContextView(view, writer, view.isEnterpriseBoundaryVisible());
+    }
+
+    protected void write(SystemContextView view, Writer writer) {
+        writeSystemLandscapeOrContextView(view, writer, view.isEnterpriseBoundaryVisible());
+    }
+
+    private void writeSystemLandscapeOrContextView(View view, Writer writer, boolean showEnterpriseBoundary) {
         try {
             writeHeader(view, writer);
 
+            boolean enterpriseBoundaryVisible;
+            enterpriseBoundaryVisible =
+                    showEnterpriseBoundary &&
+                            (view.getElements().stream().map(ElementView::getElement).anyMatch(e -> e instanceof Person && ((Person)e).getLocation() == Location.Internal) ||
+                                    view.getElements().stream().map(ElementView::getElement).anyMatch(e -> e instanceof SoftwareSystem && ((SoftwareSystem)e).getLocation() == Location.Internal));
+
             view.getElements().stream()
                     .map(ElementView::getElement)
-                    .filter(e -> e instanceof Person && ((Person)e).getLocation() == Location.External)
+                    .filter(e -> e instanceof Person && ((Person)e).getLocation() != Location.Internal)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
                     .forEach(e -> write(view, e, writer, false));
 
             view.getElements().stream()
                     .map(ElementView::getElement)
-                    .filter(e -> e instanceof SoftwareSystem && ((SoftwareSystem)e).getLocation() == Location.External)
+                    .filter(e -> e instanceof SoftwareSystem && ((SoftwareSystem)e).getLocation() != Location.Internal)
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
                     .forEach(e -> write(view, e, writer, false));
 
-            String name = view.getModel().getEnterprise() != null ? view.getModel().getEnterprise().getName() : "Enterprise";
-            writer.write("package \"" + name + "\" {");
-            writer.write(System.lineSeparator());
+            if (enterpriseBoundaryVisible) {
+                String name = view.getModel().getEnterprise() != null ? view.getModel().getEnterprise().getName() : "Enterprise";
+                writer.write("package \"" + name + "\" {");
+                writer.write(System.lineSeparator());
+            }
 
             view.getElements().stream()
                     .map(ElementView::getElement)
@@ -252,25 +268,11 @@ public class PlantUMLWriter {
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
                     .forEach(e -> write(view, e, writer, true));
 
-            writer.write("}");
-            writer.write(System.lineSeparator());
+            if (enterpriseBoundaryVisible) {
+                writer.write("}");
+                writer.write(System.lineSeparator());
+            }
 
-            writeRelationships(view, writer);
-
-            writeFooter(writer);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    protected void write(SystemContextView view, Writer writer) {
-        try {
-            writeHeader(view, writer);
-
-            view.getElements().stream()
-                    .map(ElementView::getElement)
-                    .sorted((e1, e2) -> e1.getName().compareTo(e2.getName()))
-                    .forEach(e -> write(view, e, writer, false));
             writeRelationships(view, writer);
 
             writeFooter(writer);
