@@ -237,6 +237,16 @@ public class PlantUMLWriterTests {
     }
 
     @Test
+    public void test_toString_ThrowsAnException_WhenPassedANullView() throws Exception {
+        try {
+            plantUMLWriter.toString((View)null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("A view must be provided.", e.getMessage());
+        }
+    }
+
+    @Test
     public void test_toString_ThrowsAnException_WhenPassedANullWorkspace() throws Exception {
         try {
             assertEquals(0, plantUMLWriter.toString((Workspace)null).length);

@@ -191,6 +191,17 @@ public class PlantUMLWriter {
     }
 
     /**
+     * Gets a single view as a PlantUML diagram definition.
+     *
+     * @param view      the view to write
+     */
+    public String toString(View view) {
+        StringWriter stringWriter = new StringWriter();
+        write(view, stringWriter);
+        return stringWriter.toString();
+    }
+
+    /**
      * Writes a single view as a PlantUML diagram definition, to the specified writer.
      *
      * @param view      the view to write
