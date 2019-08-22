@@ -378,9 +378,11 @@ public class PlantUMLWriter {
                     .forEach(relationship -> {
                         try {
                             writer.write(
-                                    format("%s -[%s]> %s : %s. %s",
+                                    format("%s %s-[%s]%s %s : %s. %s",
                                             idOf(relationship.getRelationship().getSource()),
+                                            relationship.isReversed() ? "<" : "",
                                             view.getViewSet().getConfiguration().getStyles().findRelationshipStyle(relationship.getRelationship()).getColor(),
+                                            relationship.isReversed() ? "-" : ">",
                                             idOf(relationship.getRelationship().getDestination()),
                                             relationship.getOrder(),
                                             hasValue(relationship.getDescription()) ? relationship.getDescription() : hasValue(relationship.getRelationship().getDescription()) ? relationship.getRelationship().getDescription() : ""

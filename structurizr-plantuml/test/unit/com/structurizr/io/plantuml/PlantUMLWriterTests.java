@@ -228,6 +228,7 @@ public class PlantUMLWriterTests {
         dynamicView.add(user, "Requests /something", controller);
         dynamicView.add(controller, repository);
         dynamicView.add(repository, "select * from something", database);
+        dynamicView.add(repository, "Results from something", database).reverse();
 
         DeploymentView deploymentView = workspace.getViews().createDeploymentView(softwareSystem, "deployment", "");
         deploymentView.addAllDeploymentNodes();
@@ -648,6 +649,7 @@ public class PlantUMLWriterTests {
             "1 -[#707070]> 12 : 1. Requests /something" + System.lineSeparator() +
             "12 -[#707070]> 14 : 2. Uses" + System.lineSeparator() +
             "14 -[#707070]> 8 : 3. select * from something" + System.lineSeparator() +
+            "14 <-[#707070]- 8 : 4. Results from something" + System.lineSeparator() +
             "@enduml" + System.lineSeparator();
 
     private static final String DYNAMIC_VIEW_SEQUENCE = "@startuml(id=dynamic)" + System.lineSeparator() +
@@ -670,6 +672,7 @@ public class PlantUMLWriterTests {
             "1 -[#707070]> 12 : 1. Requests /something" + System.lineSeparator() +
             "12 -[#707070]> 14 : 2. Uses" + System.lineSeparator() +
             "14 -[#707070]> 8 : 3. select * from something" + System.lineSeparator() +
+            "14 <-[#707070]- 8 : 4. Results from something" + System.lineSeparator() +
             "@enduml" + System.lineSeparator();
 
 

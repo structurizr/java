@@ -27,6 +27,9 @@ public final class RelationshipView {
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Integer position;
 
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private boolean reversed;
+
     RelationshipView() {
     }
 
@@ -100,6 +103,23 @@ public final class RelationshipView {
      */
     public void setOrder(String order) {
         this.order = order;
+    }
+
+    /**
+     * @return  whether the relationship should be viewed in reverse
+     */
+    public boolean isReversed() {
+        return reversed;
+    }
+
+    /**
+     * Toggles whether the relationship should be viewed in reverse.
+     *
+     * @return  the relationship view
+     */
+    public RelationshipView reverse() {
+        reversed = !reversed;
+        return this;
     }
 
     /**
