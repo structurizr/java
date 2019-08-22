@@ -273,7 +273,7 @@ public abstract class View {
         return this.elementViews.stream().filter(ev -> ev.getElement().equals(element)).count() > 0;
     }
 
-    protected RelationshipView addRelationship(Relationship relationship, String description, String order) {
+    protected RelationshipView addRelationship(Relationship relationship, String description, int order) {
         RelationshipView relationshipView = addRelationship(relationship);
         if (relationshipView != null) {
             relationshipView.setDescription(description);

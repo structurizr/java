@@ -7,9 +7,9 @@ class SequenceNumber {
     SequenceNumber() {
     }
 
-    String getNext() {
+    int getNext() {
         counter.increment();
-        return counter.toString();
+        return counter.getSequence();
     }
 
     void startParallelSequence() {

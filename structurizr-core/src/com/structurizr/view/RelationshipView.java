@@ -18,7 +18,7 @@ public final class RelationshipView {
     private Relationship relationship;
     private String id;
     private String description;
-    private String order;
+    private Integer order;
     private Collection<Vertex> vertices = new LinkedList<>();
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
@@ -87,18 +87,18 @@ public final class RelationshipView {
     /**
      * Gets the order of this relationship (used in dynamic views only; e.g. 1.0, 1.1, 2.0, etc).
      *
-     * @return  the order, as a String
+     * @return  the order, as an Integer
      */
-    public String getOrder() {
+    public Integer getOrder() {
         return order;
     }
 
     /**
      * Sets the order of this relationship (used in dynamic views only; e.g. 1.0, 1.1, 2.0, etc).
      *
-     * @param order     the order, as a String
+     * @param order     the order, as an Integer
      */
-    public void setOrder(String order) {
+    public void setOrder(Integer order) {
         this.order = order;
     }
 

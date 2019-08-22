@@ -233,8 +233,8 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
         view.add(container1, container2);
         view.add(container1, container3);
 
-        assertSame(container2, view.getRelationships().stream().filter(r -> r.getOrder().equals("1")).findFirst().get().getRelationship().getDestination());
-        assertSame(container3, view.getRelationships().stream().filter(r -> r.getOrder().equals("2")).findFirst().get().getRelationship().getDestination());
+        assertSame(container2, view.getRelationships().stream().filter(r -> r.getOrder().equals(1)).findFirst().get().getRelationship().getDestination());
+        assertSame(container3, view.getRelationships().stream().filter(r -> r.getOrder().equals(2)).findFirst().get().getRelationship().getDestination());
     }
 
     @Test
@@ -270,10 +270,10 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
         view.endParallelSequence(true);
         view.add(softwareSystemD, softwareSystemE);
 
-        assertEquals(1, view.getRelationships().stream().filter(r -> r.getOrder().equals("1")).count());
-        assertEquals(2, view.getRelationships().stream().filter(r -> r.getOrder().equals("2")).count());
-        assertEquals(2, view.getRelationships().stream().filter(r -> r.getOrder().equals("3")).count());
-        assertEquals(1, view.getRelationships().stream().filter(r -> r.getOrder().equals("4")).count());
+        assertEquals(1, view.getRelationships().stream().filter(r -> r.getOrder().equals(1)).count());
+        assertEquals(2, view.getRelationships().stream().filter(r -> r.getOrder().equals(2)).count());
+        assertEquals(2, view.getRelationships().stream().filter(r -> r.getOrder().equals(3)).count());
+        assertEquals(1, view.getRelationships().stream().filter(r -> r.getOrder().equals(4)).count());
     }
 
 }
