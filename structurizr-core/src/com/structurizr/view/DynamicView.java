@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.*;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 /**
  * A dynamic view, used to describe behaviour between static elements at runtime.
@@ -220,6 +218,37 @@ public final class DynamicView extends View {
     @Override
     protected boolean canBeRemoved(Element element) {
         return true;
+    }
+
+    /**
+     * Gets the list of RelationshipView objects for this view, ordered by the order property.
+     *
+     * @return  a List of RelationshipView objects
+     */
+    public List<RelationshipView> getOrderedRelationships() {
+        List<RelationshipView> list = new LinkedList<>(getRelationships());
+        boolean ordersAreNumeric = true;
+
+        for (RelationshipView relationshipView : list) {
+            ordersAreNumeric = ordersAreNumeric && isNumeric(relationshipView.getOrder());
+        }
+
+        if (ordersAreNumeric) {
+            list.sort(Comparator.comparingDouble(o -> Double.parseDouble(o.getOrder())));
+        } else {
+            list.sort(Comparator.comparing(RelationshipView::getOrder));
+        }
+
+        return list;
+    }
+
+    private boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
     }
 
 }

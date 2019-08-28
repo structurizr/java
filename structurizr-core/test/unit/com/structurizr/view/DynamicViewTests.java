@@ -6,6 +6,8 @@ import com.structurizr.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class DynamicViewTests extends AbstractWorkspaceTestBase {
@@ -274,6 +276,72 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
         assertEquals(2, view.getRelationships().stream().filter(r -> r.getOrder().equals("2")).count());
         assertEquals(2, view.getRelationships().stream().filter(r -> r.getOrder().equals("3")).count());
         assertEquals(1, view.getRelationships().stream().filter(r -> r.getOrder().equals("4")).count());
+    }
+
+    @Test
+    public void test_getOrderedRelationships_WhenTheOrderPropertyIsAnInteger() {
+        containerA1.uses(containerA2, "uses");
+        DynamicView view = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
+        for (int i = 0; i < 10; i++) {
+            view.add(containerA1, containerA2);
+        }
+
+        List<RelationshipView> relationships = view.getOrderedRelationships();
+        assertEquals("1", relationships.get(0).getOrder());
+        assertEquals("2", relationships.get(1).getOrder());
+        assertEquals("3", relationships.get(2).getOrder());
+        assertEquals("4", relationships.get(3).getOrder());
+        assertEquals("5", relationships.get(4).getOrder());
+        assertEquals("6", relationships.get(5).getOrder());
+        assertEquals("7", relationships.get(6).getOrder());
+        assertEquals("8", relationships.get(7).getOrder());
+        assertEquals("9", relationships.get(8).getOrder());
+        assertEquals("10", relationships.get(9).getOrder());
+    }
+
+    @Test
+    public void test_getOrderedRelationships_WhenTheOrderPropertyIsADecimal() {
+        containerA1.uses(containerA2, "uses");
+        DynamicView view = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
+        for (int i = 0; i < 10; i++) {
+            RelationshipView relationshipView = view.add(containerA1, containerA2);
+            relationshipView.setOrder("1." + i);
+        }
+
+        List<RelationshipView> relationships = view.getOrderedRelationships();
+        assertEquals("1.0", relationships.get(0).getOrder());
+        assertEquals("1.1", relationships.get(1).getOrder());
+        assertEquals("1.2", relationships.get(2).getOrder());
+        assertEquals("1.3", relationships.get(3).getOrder());
+        assertEquals("1.4", relationships.get(4).getOrder());
+        assertEquals("1.5", relationships.get(5).getOrder());
+        assertEquals("1.6", relationships.get(6).getOrder());
+        assertEquals("1.7", relationships.get(7).getOrder());
+        assertEquals("1.8", relationships.get(8).getOrder());
+        assertEquals("1.9", relationships.get(9).getOrder());
+    }
+
+    @Test
+    public void test_getOrderedRelationships_WhenTheOrderPropertyIsAString() {
+        String characters = "abcdefghij";
+        containerA1.uses(containerA2, "uses");
+        DynamicView view = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
+        for (int i = 0; i < 10; i++) {
+            RelationshipView relationshipView = view.add(containerA1, containerA2);
+            relationshipView.setOrder("1" + characters.charAt(i));
+        }
+
+        List<RelationshipView> relationships = view.getOrderedRelationships();
+        assertEquals("1a", relationships.get(0).getOrder());
+        assertEquals("1b", relationships.get(1).getOrder());
+        assertEquals("1c", relationships.get(2).getOrder());
+        assertEquals("1d", relationships.get(3).getOrder());
+        assertEquals("1e", relationships.get(4).getOrder());
+        assertEquals("1f", relationships.get(5).getOrder());
+        assertEquals("1g", relationships.get(6).getOrder());
+        assertEquals("1h", relationships.get(7).getOrder());
+        assertEquals("1i", relationships.get(8).getOrder());
+        assertEquals("1j", relationships.get(9).getOrder());
     }
 
 }

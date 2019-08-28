@@ -9,6 +9,7 @@ import com.structurizr.view.RelationshipView;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -56,10 +57,7 @@ public final class WebSequenceDiagramsWriter {
             writer.write(System.lineSeparator());
             writer.write(System.lineSeparator());
 
-            Set<RelationshipView> relationships = new TreeSet<>((rv1, rv2) -> rv1.getOrder().compareTo(rv2.getOrder()));
-            relationships.addAll(view.getRelationships());
-
-            for (RelationshipView relationshipView : relationships) {
+            for (RelationshipView relationshipView : view.getOrderedRelationships()) {
                 Relationship r = relationshipView.getRelationship();
                 // Thing A->Thing B: Description
                 writer.write(String.format("%s%s%s: %s",
