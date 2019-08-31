@@ -373,7 +373,7 @@ public class PlantUMLWriter {
                     .sorted((e1, e2) -> e1.getName().compareTo(e2.getName())).
                     forEach(e -> write(view, e, writer, false));
             }
-            view.getOrderedRelationships()
+            view.getRelationships()
                     .forEach(relationship -> {
                         try {
                             writer.write(

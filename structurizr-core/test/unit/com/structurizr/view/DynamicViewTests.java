@@ -6,6 +6,7 @@ import com.structurizr.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -286,7 +287,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
             view.add(containerA1, containerA2);
         }
 
-        List<RelationshipView> relationships = view.getOrderedRelationships();
+        List<RelationshipView> relationships = new LinkedList<>(view.getRelationships());
         assertEquals("1", relationships.get(0).getOrder());
         assertEquals("2", relationships.get(1).getOrder());
         assertEquals("3", relationships.get(2).getOrder());
@@ -308,7 +309,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
             relationshipView.setOrder("1." + i);
         }
 
-        List<RelationshipView> relationships = view.getOrderedRelationships();
+        List<RelationshipView> relationships = new LinkedList<>(view.getRelationships());
         assertEquals("1.0", relationships.get(0).getOrder());
         assertEquals("1.1", relationships.get(1).getOrder());
         assertEquals("1.2", relationships.get(2).getOrder());
@@ -331,7 +332,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
             relationshipView.setOrder("1" + characters.charAt(i));
         }
 
-        List<RelationshipView> relationships = view.getOrderedRelationships();
+        List<RelationshipView> relationships = new LinkedList<>(view.getRelationships());
         assertEquals("1a", relationships.get(0).getOrder());
         assertEquals("1b", relationships.get(1).getOrder());
         assertEquals("1c", relationships.get(2).getOrder());

@@ -57,7 +57,7 @@ public final class WebSequenceDiagramsWriter {
             writer.write(System.lineSeparator());
             writer.write(System.lineSeparator());
 
-            for (RelationshipView relationshipView : view.getOrderedRelationships()) {
+            for (RelationshipView relationshipView : view.getRelationships()) {
                 Relationship r = relationshipView.getRelationship();
                 // Thing A->Thing B: Description
                 writer.write(String.format("%s%s%s: %s",

@@ -221,12 +221,13 @@ public final class DynamicView extends View {
     }
 
     /**
-     * Gets the list of RelationshipView objects for this view, ordered by the order property.
+     * Gets the set of RelationshipView objects for this view, ordered by the order property.
      *
-     * @return  a List of RelationshipView objects
+     * @return  an ordered set of RelationshipView objects
      */
-    public List<RelationshipView> getOrderedRelationships() {
-        List<RelationshipView> list = new LinkedList<>(getRelationships());
+    @Override
+    public Set<RelationshipView> getRelationships() {
+        List<RelationshipView> list = new LinkedList<>(super.getRelationships());
         boolean ordersAreNumeric = true;
 
         for (RelationshipView relationshipView : list) {
@@ -234,12 +235,12 @@ public final class DynamicView extends View {
         }
 
         if (ordersAreNumeric) {
-            list.sort(Comparator.comparingDouble(o -> Double.parseDouble(o.getOrder())));
+            list.sort(Comparator.comparingDouble(rv -> Double.parseDouble(rv.getOrder())));
         } else {
             list.sort(Comparator.comparing(RelationshipView::getOrder));
         }
 
-        return list;
+        return new LinkedHashSet<>(list);
     }
 
     private boolean isNumeric(String str) {
