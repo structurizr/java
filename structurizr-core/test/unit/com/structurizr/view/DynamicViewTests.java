@@ -280,7 +280,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getOrderedRelationships_WhenTheOrderPropertyIsAnInteger() {
+    public void test_getRelationships_WhenTheOrderPropertyIsAnInteger() {
         containerA1.uses(containerA2, "uses");
         DynamicView view = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
         for (int i = 0; i < 10; i++) {
@@ -301,7 +301,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getOrderedRelationships_WhenTheOrderPropertyIsADecimal() {
+    public void test_getRelationships_WhenTheOrderPropertyIsADecimal() {
         containerA1.uses(containerA2, "uses");
         DynamicView view = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
         for (int i = 0; i < 10; i++) {
@@ -323,7 +323,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getOrderedRelationships_WhenTheOrderPropertyIsAString() {
+    public void test_getRelationships_WhenTheOrderPropertyIsAString() {
         String characters = "abcdefghij";
         containerA1.uses(containerA2, "uses");
         DynamicView view = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
