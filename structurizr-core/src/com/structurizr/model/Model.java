@@ -175,12 +175,33 @@ public final class Model {
 
         }
 
+        if (isChildOf(source, destination) || isChildOf(destination, source)) {
+            throw new IllegalArgumentException("Relationships cannot be added between parents and children.");
+        }
+
         Relationship relationship = new Relationship(source, destination, description, technology, interactionStyle);
         if (addRelationship(relationship)) {
             return relationship;
         } else {
             return null;
         }
+    }
+
+    private boolean isChildOf(Element e1, Element e2) {
+        if (e1 instanceof Person || e2 instanceof Person) {
+            return false;
+        }
+
+        Element parent = e2.getParent();
+        while (parent != null) {
+            if (parent.getId().equals(e1.getId())) {
+                return true;
+            }
+
+            parent = parent.getParent();
+        }
+
+        return false;
     }
 
     private boolean addRelationship(Relationship relationship) {
@@ -509,31 +530,7 @@ public final class Model {
             return false;
         }
 
-        if (source.getParent() != null) {
-            if (destination.equals(source.getParent())) {
-                return false;
-            }
-
-            if (source.getParent().getParent() != null) {
-                if (destination.equals(source.getParent().getParent())) {
-                    return false;
-                }
-            }
-        }
-
-        if (destination.getParent() != null) {
-            if (source.equals(destination.getParent())) {
-                return false;
-            }
-
-            if (destination.getParent().getParent() != null) {
-                if (source.equals(destination.getParent().getParent())) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
+        return !(isChildOf(source, destination) || isChildOf(destination, source));
     }
 
     /**

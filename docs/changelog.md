@@ -5,6 +5,7 @@
 - The automatic layout algorithm can now be configured on individual views.
 - The structurizr-annotations library can now be more easily used with OSGi applications.
 - Fixes a bug with the PlantUML and WebSequenceDiagram writers, where relationships were sorted incorrectly (alphabetically, rather than numerically).
+- Fixes a bug that allows relationships to be created between parents and children.
 
 ## 1.3.0 (3rd March 2019)
 

@@ -243,6 +243,68 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_addRelationship_ThrowsAnException_WhenTheDestinationIsAChildOfTheSource() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
+        Container container = softwareSystem.addContainer("Container", "", "");
+        Component component = container.addComponent("Component", "", "");
+
+        try {
+            softwareSystem.uses(container, "Uses");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Relationships cannot be added between parents and children.", iae.getMessage());
+            assertEquals(0, softwareSystem.getRelationships().size());
+        }
+
+        try {
+            container.uses(component, "Uses");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Relationships cannot be added between parents and children.", iae.getMessage());
+            assertEquals(0, softwareSystem.getRelationships().size());
+        }
+
+        try {
+            softwareSystem.uses(component, "Uses");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Relationships cannot be added between parents and children.", iae.getMessage());
+            assertEquals(0, softwareSystem.getRelationships().size());
+        }
+    }
+
+    @Test
+    public void test_addRelationship_ThrowsAnException_WhenTheSourceIsAChildOfTheDestination() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
+        Container container = softwareSystem.addContainer("Container", "", "");
+        Component component = container.addComponent("Component", "", "");
+
+        try {
+            container.uses(softwareSystem, "Uses");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Relationships cannot be added between parents and children.", iae.getMessage());
+            assertEquals(0, softwareSystem.getRelationships().size());
+        }
+
+        try {
+            component.uses(container, "Uses");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Relationships cannot be added between parents and children.", iae.getMessage());
+            assertEquals(0, softwareSystem.getRelationships().size());
+        }
+
+        try {
+            component.uses(softwareSystem, "Uses");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Relationships cannot be added between parents and children.", iae.getMessage());
+            assertEquals(0, softwareSystem.getRelationships().size());
+        }
+    }
+
+    @Test
     public void test_modifyRelationship_ThrowsAnException_WhenARelationshipIsNotSpecified() {
         try {
             model.modifyRelationship(null, "Uses", "Technology");
