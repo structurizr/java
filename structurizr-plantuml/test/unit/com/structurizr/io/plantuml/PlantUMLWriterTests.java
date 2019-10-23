@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import java.io.StringWriter;
 import java.net.URI;
+import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -282,6 +283,20 @@ public class PlantUMLWriterTests {
         assertEquals(COMPONENT_VIEW, diagrams[3]);
         assertEquals(DYNAMIC_VIEW, diagrams[4]);
         assertEquals(DEPLOYMENT_VIEW, diagrams[5]);
+    }
+
+    @Test
+    public void test_toPlantUMLDiagrams_ReturnsAnCollectionOfDiagramsWhenThereAreDiagrams() throws Exception {
+        populateWorkspace();
+        Collection<PlantUMLDiagram> diagrams = plantUMLWriter.toPlantUMLDiagrams(workspace);
+        assertEquals(6, diagrams.size());
+
+        assertEquals(SYSTEM_LANDSCAPE_VIEW, diagrams.stream().filter(d -> d.getKey().equals("enterpriseContext")).findFirst().get().getDefinition());
+        assertEquals(SYSTEM_CONTEXT_VIEW, diagrams.stream().filter(d -> d.getKey().equals("systemContext")).findFirst().get().getDefinition());
+        assertEquals(CONTAINER_VIEW, diagrams.stream().filter(d -> d.getKey().equals("containers")).findFirst().get().getDefinition());
+        assertEquals(COMPONENT_VIEW, diagrams.stream().filter(d -> d.getKey().equals("components")).findFirst().get().getDefinition());
+        assertEquals(DYNAMIC_VIEW, diagrams.stream().filter(d -> d.getKey().equals("dynamic")).findFirst().get().getDefinition());
+        assertEquals(DEPLOYMENT_VIEW, diagrams.stream().filter(d -> d.getKey().equals("deployment")).findFirst().get().getDefinition());
     }
 
     @Test

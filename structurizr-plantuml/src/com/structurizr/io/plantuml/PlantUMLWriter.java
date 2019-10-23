@@ -9,10 +9,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.lang.String.format;
 import static java.util.Collections.emptyList;
@@ -199,6 +196,29 @@ public class PlantUMLWriter {
         StringWriter stringWriter = new StringWriter();
         write(view, stringWriter);
         return stringWriter.toString();
+    }
+
+    /**
+     * Creates PlantUML diagram definitions based upon the specified workspace.
+     *
+     * @param workspace     the workspace containing the views to be written
+     * @return  a collection of PlantUML diagram definitions, one per view
+     */
+    public Collection<PlantUMLDiagram> toPlantUMLDiagrams(Workspace workspace) {
+        if (workspace == null) {
+            throw new IllegalArgumentException("A workspace must be provided.");
+        }
+
+        Collection<PlantUMLDiagram> diagrams = new ArrayList<>();
+
+        for (View view : workspace.getViews().getViews()) {
+            StringWriter stringWriter = new StringWriter();
+            write(view, stringWriter);
+
+            diagrams.add(new PlantUMLDiagram(view.getKey(), view.getName(), stringWriter.toString()));
+        }
+
+        return diagrams;
     }
 
     /**
