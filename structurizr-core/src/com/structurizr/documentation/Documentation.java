@@ -1,6 +1,7 @@
 package com.structurizr.documentation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.structurizr.WorkspaceValidationException;
 import com.structurizr.model.Element;
 import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;
@@ -210,13 +211,31 @@ public final class Documentation {
 
         for (Section section : sections) {
             if (!StringUtils.isNullOrEmpty(section.getElementId())) {
-                section.setElement(model.getElement(section.getElementId()));
+                Element element = model.getElement(section.getElementId());
+
+                if (element == null) {
+                    throw new WorkspaceValidationException(
+                            String.format("The documentation section with title \"%s\" is associated with an element (id=%s), but that element does not exist in the model.",
+                                    section.getTitle(), section.getElementId())
+                    );
+                }
+
+                section.setElement(element);
             }
         }
 
         for (Decision decision : decisions) {
             if (!StringUtils.isNullOrEmpty(decision.getElementId())) {
-                decision.setElement(model.getElement(decision.getElementId()));
+                Element element = model.getElement(decision.getElementId());
+
+                if (element == null) {
+                    throw new WorkspaceValidationException(
+                            String.format("The decision record with title \"%s\" is associated with an element (id=%s), but that element does not exist in the model.",
+                                    decision.getTitle(), decision.getElementId())
+                    );
+                }
+
+                decision.setElement(element);
             }
         }
     }

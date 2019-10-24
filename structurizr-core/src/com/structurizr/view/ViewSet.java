@@ -451,7 +451,7 @@ public final class ViewSet {
             SoftwareSystem softwareSystem = model.getSoftwareSystemWithId(view.getSoftwareSystemId());
             if (softwareSystem == null) {
                 throw new WorkspaceValidationException(
-                        String.format("The system context view with key %s is associated with a software system (id=%s), but that element does not exist in the model.",
+                        String.format("The system context view with key \"%s\" is associated with a software system (id=%s), but that element does not exist in the model.",
                                 view.getKey(), view.getSoftwareSystemId())
                 );
             }
@@ -464,7 +464,7 @@ public final class ViewSet {
             SoftwareSystem softwareSystem = model.getSoftwareSystemWithId(view.getSoftwareSystemId());
             if (softwareSystem == null) {
                 throw new WorkspaceValidationException(
-                        String.format("The container view with key %s is associated with a software system (id=%s), but that element does not exist in the model.",
+                        String.format("The container view with key \"%s\" is associated with a software system (id=%s), but that element does not exist in the model.",
                                 view.getKey(), view.getSoftwareSystemId())
                 );
             }
@@ -477,7 +477,7 @@ public final class ViewSet {
             SoftwareSystem softwareSystem = model.getSoftwareSystemWithId(view.getSoftwareSystemId());
             if (softwareSystem == null) {
                 throw new WorkspaceValidationException(
-                        String.format("The component view with key %s is associated with a software system (id=%s), but that element does not exist in the model.",
+                        String.format("The component view with key \"%s\" is associated with a software system (id=%s), but that element does not exist in the model.",
                                 view.getKey(), view.getSoftwareSystemId())
                 );
             }
@@ -487,7 +487,7 @@ public final class ViewSet {
             Container container = softwareSystem.getContainerWithId(view.getContainerId());
             if (container == null) {
                 throw new WorkspaceValidationException(
-                        String.format("The component view with key %s is associated with a container (id=%s), but that element does not exist in the model.",
+                        String.format("The component view with key \"%s\" is associated with a container (id=%s), but that element does not exist in the model.",
                                 view.getKey(), view.getContainerId())
                 );
             }
@@ -501,7 +501,7 @@ public final class ViewSet {
                 Element element = model.getElement(view.getElementId());
                 if (element == null) {
                     throw new WorkspaceValidationException(
-                            String.format("The dynamic view with key %s is associated with an element (id=%s), but that element does not exist in the model.",
+                            String.format("The dynamic view with key \"%s\" is associated with an element (id=%s), but that element does not exist in the model.",
                                     view.getKey(), view.getElementId())
                     );
                 }
@@ -518,7 +518,7 @@ public final class ViewSet {
                 SoftwareSystem softwareSystem = model.getSoftwareSystemWithId(view.getSoftwareSystemId());
                 if (softwareSystem == null) {
                     throw new WorkspaceValidationException(
-                            String.format("The deployment view with key %s is associated with a software system (id=%s), but that element does not exist in the model.",
+                            String.format("The deployment view with key \"%s\" is associated with a software system (id=%s), but that element does not exist in the model.",
                                     view.getKey(), view.getSoftwareSystemId())
                     );
                 }
@@ -531,7 +531,15 @@ public final class ViewSet {
         }
 
         for (FilteredView filteredView : filteredViews) {
-            filteredView.setView(getViewWithKey(filteredView.getBaseViewKey()));
+            View view = getViewWithKey(filteredView.getBaseViewKey());
+            if (view == null) {
+                throw new WorkspaceValidationException(
+                        String.format("The filtered view with key \"%s\" is based upon a view (key=%s), but that view does not exist in the workspace.",
+                                filteredView.getKey(), filteredView.getBaseViewKey())
+                );
+            }
+
+            filteredView.setView(view);
         }
     }
 

@@ -1,0 +1,24 @@
+{
+  "id" : 0,
+  "name" : "Name",
+  "description" : "Description",
+  "configuration" : { },
+  "model" : { },
+  "documentation" : { },
+  "views" : {
+    "systemLandscapeViews" : [ {
+      "key" : "SystemLandscape",
+      "enterpriseBoundaryVisible" : true
+    } ],
+    "filteredViews" : [ {
+      "baseViewKey" : "SystemContext",
+      "key" : "Filtered",
+      "mode" : "Include"
+    } ],
+    "configuration" : {
+      "branding" : { },
+      "styles" : { },
+      "terminology" : { }
+    }
+  }
+}

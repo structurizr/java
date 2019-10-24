@@ -1,7 +1,14 @@
 package com.structurizr.api;
 
+import com.structurizr.Workspace;
 import com.structurizr.WorkspaceValidationException;
+import com.structurizr.documentation.Format;
+import com.structurizr.documentation.StructurizrDocumentationTemplate;
+import com.structurizr.model.Model;
+import com.structurizr.model.Person;
+import com.structurizr.model.SoftwareSystem;
 import com.structurizr.util.WorkspaceUtils;
+import com.structurizr.view.ViewSet;
 import org.junit.Test;
 
 import java.io.File;
@@ -29,7 +36,8 @@ public class WorkspaceRulesValidationTests {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "RelationshipIdsAreNotUnique.json"));
             fail();
         } catch (WorkspaceValidationException we) {
-            assertEquals("The relationship {1 | User | null} ---[Uses 2]---> {2 | Software System | null} has a non-unique ID of 3.", we.getMessage());
+            assertTrue(we.getMessage().startsWith("The relationship {1 | User | null} ---[Uses "));
+            assertTrue(we.getMessage().endsWith("]---> {2 | Software System | null} has a non-unique ID of 3."));
         }
     }
 
@@ -103,18 +111,94 @@ public class WorkspaceRulesValidationTests {
         }
     }
 
-//    public static void main(String[] args) throws Exception {
-//        Workspace workspace = new Workspace("Name", "Description");
-//        Model model = workspace.getModel();
-//        ViewSet views = workspace.getViews();
-//
-//        Person person = model.addPerson("User", "");
-//        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
-//
-//        person.uses(softwareSystem, "Uses");
-//        person.uses(softwareSystem, "Uses2");
-//
-//        WorkspaceUtils.saveWorkspaceToJson(workspace, new File(new File("./structurizr-client/" + PATH_TO_WORKSPACE_FILES), "RelationshipDescriptionsAreNotUnique.json"));
-//    }
+    @Test
+    public void test_exceptionThrown_WhenSoftwareSystemAssociatedWithSystemContextViewIsMissingFromTheModel() throws Exception {
+        try {
+            WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "SoftwareSystemAssociatedWithSystemContextViewIsMissingFromTheModel.json"));
+            fail();
+        } catch (WorkspaceValidationException we) {
+            assertEquals("The system context view with key \"SystemContext\" is associated with a software system (id=2), but that element does not exist in the model.", we.getMessage());
+        }
+    }
+
+    @Test
+    public void test_exceptionThrown_WhenSoftwareSystemAssociatedWithContainerViewIsMissingFromTheModel() throws Exception {
+        try {
+            WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "SoftwareSystemAssociatedWithContainerViewIsMissingFromTheModel.json"));
+            fail();
+        } catch (WorkspaceValidationException we) {
+            assertEquals("The container view with key \"Containers\" is associated with a software system (id=2), but that element does not exist in the model.", we.getMessage());
+        }
+    }
+
+    @Test
+    public void test_exceptionThrown_WhenSoftwareSystemAssociatedWithComponentViewIsMissingFromTheModel() throws Exception {
+        try {
+            WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "SoftwareSystemAssociatedWithComponentViewIsMissingFromTheModel.json"));
+            fail();
+        } catch (WorkspaceValidationException we) {
+            assertEquals("The component view with key \"Components\" is associated with a software system (id=3), but that element does not exist in the model.", we.getMessage());
+        }
+    }
+
+    @Test
+    public void test_exceptionThrown_WhenContainerAssociatedWithComponentViewIsMissingFromTheModel() throws Exception {
+        try {
+            WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ContainerAssociatedWithComponentViewIsMissingFromTheModel.json"));
+            fail();
+        } catch (WorkspaceValidationException we) {
+            assertEquals("The component view with key \"Components\" is associated with a container (id=3), but that element does not exist in the model.", we.getMessage());
+        }
+    }
+
+    @Test
+    public void test_exceptionThrown_WhenElementAssociatedWithDynamicViewIsMissingFromTheModel() throws Exception {
+        try {
+            WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ElementAssociatedWithDynamicViewIsMissingFromTheModel.json"));
+            fail();
+        } catch (WorkspaceValidationException we) {
+            assertEquals("The dynamic view with key \"Dynamic\" is associated with an element (id=2), but that element does not exist in the model.", we.getMessage());
+        }
+    }
+
+    @Test
+    public void test_exceptionThrown_WhenSoftwareSystemAssociatedWithDeploymentViewIsMissingFromTheModel() throws Exception {
+        try {
+            WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "SoftwareSystemAssociatedWithDeploymentViewIsMissingFromTheModel.json"));
+            fail();
+        } catch (WorkspaceValidationException we) {
+            assertEquals("The deployment view with key \"Deployment\" is associated with a software system (id=2), but that element does not exist in the model.", we.getMessage());
+        }
+    }
+
+    @Test
+    public void test_exceptionThrown_WhenViewAssociatedWithFilteredViewIsMissingFromTheWorkspace() throws Exception {
+        try {
+            WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ViewAssociatedWithFilteredViewIsMissingFromTheWorkspace.json"));
+            fail();
+        } catch (WorkspaceValidationException we) {
+            assertEquals("The filtered view with key \"Filtered\" is based upon a view (key=SystemContext), but that view does not exist in the workspace.", we.getMessage());
+        }
+    }
+
+    @Test
+    public void test_exceptionThrown_WhenElementAssociatedWithDocumentationSectionIsMissingFromTheModel() throws Exception {
+        try {
+            WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ElementAssociatedWithDocumentationSectionIsMissingFromTheModel.json"));
+            fail();
+        } catch (WorkspaceValidationException we) {
+            assertEquals("The documentation section with title \"Context\" is associated with an element (id=2), but that element does not exist in the model.", we.getMessage());
+        }
+    }
+
+    @Test
+    public void test_exceptionThrown_WhenElementAssociatedWithDecisionIsMissingFromTheModel() throws Exception {
+        try {
+            WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ElementAssociatedWithDecisionIsMissingFromTheModel.json"));
+            fail();
+        } catch (WorkspaceValidationException we) {
+            assertEquals("The decision record with title \"Use Java\" is associated with an element (id=2), but that element does not exist in the model.", we.getMessage());
+        }
+    }
 
 }

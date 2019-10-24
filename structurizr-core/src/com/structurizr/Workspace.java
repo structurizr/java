@@ -139,6 +139,10 @@ public final class Workspace extends AbstractWorkspace {
             Method hydrateMethod = Documentation.class.getDeclaredMethod("hydrate", Model.class);
             hydrateMethod.setAccessible(true);
             hydrateMethod.invoke(documentation, model);
+        } catch (InvocationTargetException ite) {
+            if (ite.getCause() != null && ite.getCause() instanceof WorkspaceValidationException) {
+                throw (WorkspaceValidationException)ite.getCause();
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
