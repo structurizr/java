@@ -40,15 +40,15 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
             }
         }
 
-        for (RelationshipView sourceRelationshipView : sourceView.getRelationships()) {
-            RelationshipView destinationRelationshipView;
+        for (RelationshipView destinationRelationshipView : destinationView.getRelationships()) {
+            RelationshipView sourceRelationshipView;
             if (destinationView instanceof DynamicView) {
-                destinationRelationshipView = findRelationshipView((DynamicView)destinationView, sourceRelationshipView);
+                sourceRelationshipView = findRelationshipView(sourceView, destinationRelationshipView);
             } else {
-                destinationRelationshipView = findRelationshipView(destinationView, sourceRelationshipView.getRelationship());
+                sourceRelationshipView = findRelationshipView(sourceView, destinationRelationshipView.getRelationship());
             }
 
-            if (destinationRelationshipView != null) {
+            if (sourceRelationshipView != null) {
                 destinationRelationshipView.copyLayoutInformationFrom(sourceRelationshipView);
             }
         }
@@ -73,7 +73,11 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
 
     protected RelationshipView findRelationshipView(View view, Relationship relationship) {
         for (RelationshipView rv : view.getRelationships()) {
-            if (rv.getRelationship().equals(relationship)) {
+            if (
+                rv.getRelationship().getSource().getCanonicalName().equals(relationship.getSource().getCanonicalName()) &&
+                rv.getRelationship().getDestination().getCanonicalName().equals(relationship.getDestination().getCanonicalName()) &&
+                rv.getRelationship().getDescription().equals(relationship.getDescription())
+            ) {
                 return rv;
             }
         }
@@ -81,13 +85,14 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
         return null;
     }
 
-    protected RelationshipView findRelationshipView(DynamicView view, RelationshipView sourceRelationshipView) {
-        for (RelationshipView relationshipView : view.getRelationships()) {
-            if (relationshipView.getRelationship().equals(sourceRelationshipView.getRelationship())) {
-                if ((relationshipView.getDescription() != null && relationshipView.getDescription().equals(sourceRelationshipView.getDescription())) &&
-                        relationshipView.getOrder().equals(sourceRelationshipView.getOrder())) {
-                    return relationshipView;
-                }
+    protected RelationshipView findRelationshipView(View view, RelationshipView relationshipView) {
+        for (RelationshipView rv : view.getRelationships()) {
+            if (
+                rv.getRelationship().getSource().getCanonicalName().equals(relationshipView.getRelationship().getSource().getCanonicalName()) &&
+                rv.getRelationship().getDestination().getCanonicalName().equals(relationshipView.getRelationship().getDestination().getCanonicalName()) &&
+                rv.getDescription().equals(relationshipView.getDescription()) &&
+                rv.getOrder().equals(relationshipView.getOrder())) {
+                    return rv;
             }
         }
 

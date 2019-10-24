@@ -1,0 +1,39 @@
+{
+  "id" : 0,
+  "name" : "Name",
+  "description" : "Description",
+  "configuration" : { },
+  "model" : {
+    "deploymentNodes" : [ {
+      "id" : "1",
+      "name" : "Deployment Node",
+      "environment" : "Default",
+      "instances" : 1,
+      "children" : [ {
+        "id" : "2",
+        "name" : "Deployment Node",
+        "environment" : "Default",
+        "instances" : 1,
+        "children" : [ {
+          "id" : "4",
+          "name" : "Child",
+          "environment" : "Default",
+          "instances" : 1
+        }, {
+          "id" : "3",
+          "name" : "Child",
+          "environment" : "Default",
+          "instances" : 1
+        } ]
+      } ]
+    } ]
+  },
+  "documentation" : { },
+  "views" : {
+    "configuration" : {
+      "branding" : { },
+      "styles" : { },
+      "terminology" : { }
+    }
+  }
+}

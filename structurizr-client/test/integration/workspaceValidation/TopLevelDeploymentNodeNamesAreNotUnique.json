@@ -1,0 +1,27 @@
+{
+  "id" : 0,
+  "name" : "Name",
+  "description" : "Description",
+  "configuration" : { },
+  "model" : {
+    "deploymentNodes" : [ {
+      "id" : "1",
+      "name" : "Deployment Node",
+      "environment" : "Default",
+      "instances" : 1
+    }, {
+      "id" : "2",
+      "name" : "Deployment Node",
+      "environment" : "Default",
+      "instances" : 1
+    } ]
+  },
+  "documentation" : { },
+  "views" : {
+    "configuration" : {
+      "branding" : { },
+      "styles" : { },
+      "terminology" : { }
+    }
+  }
+}

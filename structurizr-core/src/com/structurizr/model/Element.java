@@ -168,7 +168,7 @@ public abstract class Element extends ModelItem {
     }
 
     boolean has(Relationship relationship) {
-        return relationships.contains(relationship);
+        return relationships.stream().anyMatch(r -> r.getDestination().equals(relationship.getDestination()) && r.getDescription().equalsIgnoreCase(relationship.getDescription()));
     }
 
     void addRelationship(Relationship relationship) {

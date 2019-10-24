@@ -173,7 +173,6 @@ public final class Model {
     Relationship addRelationship(Element source, @Nonnull Element destination, String description, String technology, InteractionStyle interactionStyle) {
         if (destination == null) {
             throw new IllegalArgumentException("The destination must be specified.");
-
         }
 
         if (isChildOf(source, destination) || isChildOf(destination, source)) {
@@ -183,9 +182,9 @@ public final class Model {
         Relationship relationship = new Relationship(source, destination, description, technology, interactionStyle);
         if (addRelationship(relationship)) {
             return relationship;
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     private boolean isChildOf(Element e1, Element e2) {
@@ -366,16 +365,31 @@ public final class Model {
         peopleAndSoftwareSystems.addAll(people);
         peopleAndSoftwareSystems.addAll(softwareSystems);
         for (Element element : peopleAndSoftwareSystems) {
-            checkNameIsUnique(peopleAndSoftwareSystems, element.getName());
+            checkNameIsUnique(peopleAndSoftwareSystems, element.getName(), "A person or software system named \"%s\" already exists.");
         }
 
         for (SoftwareSystem softwareSystem : softwareSystems) {
             for (Container container : softwareSystem.getContainers()) {
-                checkNameIsUnique(softwareSystem.getContainers(), container.getName());
+                checkNameIsUnique(softwareSystem.getContainers(), container.getName(), "A container named \"%s\" already exists within \"" + softwareSystem.getName() + "\".");
 
                 for (Component component : container.getComponents()) {
-                    checkNameIsUnique(container.getComponents(), component.getName());
+                    checkNameIsUnique(container.getComponents(), component.getName(), "A component named \"%s\" already exists within \"" + container.getName() + "\".");
                 }
+            }
+        }
+
+        for (DeploymentNode deploymentNode : deploymentNodes) {
+            checkNameIsUnique(deploymentNodes, deploymentNode.getName(), "A top-level deployment node named \"%s\" already exists.");
+
+            if (deploymentNode.hasChildren()) {
+                checkChildNamesAreUnique(deploymentNode);
+            }
+        }
+
+        // and check that all relationships are unique
+        for (Element element : getElements()) {
+            for (Relationship relationship : element.getRelationships()) {
+                checkDescriptionIsUnique(element.getRelationships(), relationship);
             }
         }
     }
@@ -392,9 +406,29 @@ public final class Model {
         }
     }
 
-    private void checkNameIsUnique(Collection<? extends Element> elements, String name) {
+    private void checkNameIsUnique(Collection<? extends Element> elements, String name, String errorMessage) {
         if (elements.stream().filter(e -> e.getName().equalsIgnoreCase(name)).count() != 1) {
-            throw new WorkspaceValidationException("An element named " + name + " already exists in this context.");
+            throw new WorkspaceValidationException(
+                    String.format(errorMessage, name));
+        }
+    }
+
+    private void checkChildNamesAreUnique(DeploymentNode deploymentNode) {
+        for (DeploymentNode child : deploymentNode.getChildren()) {
+            checkNameIsUnique(deploymentNode.getChildren(), child.getName(), "A deployment node named \"%s\" already exists within \"" + deploymentNode.getName() + "\".");
+
+            if (child.hasChildren()) {
+                checkChildNamesAreUnique(child);
+            }
+        }
+    }
+
+    private void checkDescriptionIsUnique(Collection<Relationship> relationships, Relationship relationship) {
+        if (relationships.stream().filter(r -> r.getDestination().equals(relationship.getDestination()) && r.getDescription().equalsIgnoreCase(relationship.getDescription())).count() != 1) {
+            throw new WorkspaceValidationException(
+                    String.format(
+                            "A relationship with the description \"%s\" already exists between \"%s\" and \"%s\".",
+                            relationship.getDescription(), relationship.getSource().getName(), relationship.getDestination().getName()));
         }
     }
 

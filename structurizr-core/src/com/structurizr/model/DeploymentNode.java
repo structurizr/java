@@ -157,6 +157,11 @@ public final class DeploymentNode extends DeploymentElement {
         }
     }
 
+    @JsonIgnore
+    public boolean hasChildren() {
+        return !children.isEmpty();
+    }
+
     /**
      * Gets the set of container instances associated with this deployment node.
      *

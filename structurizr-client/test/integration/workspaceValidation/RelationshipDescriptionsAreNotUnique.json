@@ -1,0 +1,43 @@
+{
+  "id" : 0,
+  "name" : "Name",
+  "description" : "Description",
+  "configuration" : { },
+  "model" : {
+    "people" : [ {
+      "id" : "1",
+      "tags" : "Element,Person",
+      "name" : "User",
+      "relationships" : [ {
+        "id" : "3",
+        "tags" : "Relationship,Synchronous",
+        "sourceId" : "1",
+        "destinationId" : "2",
+        "description" : "Uses",
+        "interactionStyle" : "Synchronous"
+      }, {
+        "id" : "4",
+        "tags" : "Relationship,Synchronous",
+        "sourceId" : "1",
+        "destinationId" : "2",
+        "description" : "Uses",
+        "interactionStyle" : "Synchronous"
+      } ],
+      "location" : "Unspecified"
+    } ],
+    "softwareSystems" : [ {
+      "id" : "2",
+      "tags" : "Element,Software System",
+      "name" : "Software System",
+      "location" : "Unspecified"
+    } ]
+  },
+  "documentation" : { },
+  "views" : {
+    "configuration" : {
+      "branding" : { },
+      "styles" : { },
+      "terminology" : { }
+    }
+  }
+}

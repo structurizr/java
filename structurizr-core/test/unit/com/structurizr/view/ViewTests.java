@@ -172,16 +172,27 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         Relationship personUsesSoftwareSystem1 = person1.uses(softwareSystem1A, "Uses");
 
         // create a view with SystemA and Person (locations are set for both, relationship has vertices)
-        StaticView view1 = new SystemContextView(softwareSystem1A, "context", "Description");
-        view1.add(softwareSystem1B);
-        view1.getElementView(softwareSystem1B).setX(123);
-        view1.getElementView(softwareSystem1B).setY(321);
-        view1.add(person1);
-        view1.getElementView(person1).setX(456);
-        view1.getElementView(person1).setY(654);
-        view1.getRelationshipView(personUsesSoftwareSystem1).setVertices(Arrays.asList(new Vertex(123, 456)));
-        view1.getRelationshipView(personUsesSoftwareSystem1).setPosition(70);
-        view1.getRelationshipView(personUsesSoftwareSystem1).setRouting(Routing.Orthogonal);
+        StaticView staticView1 = new SystemContextView(softwareSystem1A, "context", "Description");
+        staticView1.add(softwareSystem1B);
+        staticView1.getElementView(softwareSystem1B).setX(123);
+        staticView1.getElementView(softwareSystem1B).setY(321);
+        staticView1.add(person1);
+        staticView1.getElementView(person1).setX(456);
+        staticView1.getElementView(person1).setY(654);
+        staticView1.getRelationshipView(personUsesSoftwareSystem1).setVertices(Arrays.asList(new Vertex(123, 456)));
+        staticView1.getRelationshipView(personUsesSoftwareSystem1).setPosition(70);
+        staticView1.getRelationshipView(personUsesSoftwareSystem1).setRouting(Routing.Orthogonal);
+
+        // and create a dynamic view, as they are treated slightly differently
+        DynamicView dynamicView1 = new DynamicView(model1, "dynamic", "Description");
+        dynamicView1.add(person1, "Overridden description", softwareSystem1A);
+        dynamicView1.getElementView(person1).setX(111);
+        dynamicView1.getElementView(person1).setY(222);
+        dynamicView1.getElementView(softwareSystem1A).setX(333);
+        dynamicView1.getElementView(softwareSystem1A).setY(444);
+        dynamicView1.getRelationshipView(personUsesSoftwareSystem1).setVertices(Arrays.asList(new Vertex(555, 666)));
+        dynamicView1.getRelationshipView(personUsesSoftwareSystem1).setPosition(30);
+        dynamicView1.getRelationshipView(personUsesSoftwareSystem1).setRouting(Routing.Direct);
 
         Workspace workspace2 = new Workspace("", "");
         Model model2 = workspace2.getModel();
@@ -192,29 +203,44 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         Relationship personUsesSoftwareSystem2 = person2.uses(softwareSystem2A, "Uses");
 
         // create a view with SystemB and Person (locations are 0,0 for both)
-        StaticView view2 = new SystemContextView(softwareSystem2A, "context", "Description");
-        view2.add(softwareSystem2B);
-        view2.add(person2);
-        assertEquals(0, view2.getElementView(softwareSystem2B).getX());
-        assertEquals(0, view2.getElementView(softwareSystem2B).getY());
-        assertEquals(0, view2.getElementView(softwareSystem2B).getX());
-        assertEquals(0, view2.getElementView(softwareSystem2B).getY());
-        assertEquals(0, view2.getElementView(person2).getX());
-        assertEquals(0, view2.getElementView(person2).getY());
-        assertTrue(view2.getRelationshipView(personUsesSoftwareSystem2).getVertices().isEmpty());
+        StaticView staticView2 = new SystemContextView(softwareSystem2A, "context", "Description");
+        staticView2.add(softwareSystem2B);
+        staticView2.add(person2);
+        assertEquals(0, staticView2.getElementView(softwareSystem2B).getX());
+        assertEquals(0, staticView2.getElementView(softwareSystem2B).getY());
+        assertEquals(0, staticView2.getElementView(softwareSystem2B).getX());
+        assertEquals(0, staticView2.getElementView(softwareSystem2B).getY());
+        assertEquals(0, staticView2.getElementView(person2).getX());
+        assertEquals(0, staticView2.getElementView(person2).getY());
+        assertTrue(staticView2.getRelationshipView(personUsesSoftwareSystem2).getVertices().isEmpty());
 
-        view2.copyLayoutInformationFrom(view1);
-        assertEquals(0, view2.getElementView(softwareSystem2A).getX());
-        assertEquals(0, view2.getElementView(softwareSystem2A).getY());
-        assertEquals(123, view2.getElementView(softwareSystem2B).getX());
-        assertEquals(321, view2.getElementView(softwareSystem2B).getY());
-        assertEquals(456, view2.getElementView(person2).getX());
-        assertEquals(654, view2.getElementView(person2).getY());
-        Vertex vertex = view2.getRelationshipView(personUsesSoftwareSystem2).getVertices().iterator().next();
-        assertEquals(123, vertex.getX());
-        assertEquals(456, vertex.getY());
-        assertEquals(70, view2.getRelationshipView(personUsesSoftwareSystem2).getPosition().intValue());
-        assertEquals(Routing.Orthogonal, view2.getRelationshipView(personUsesSoftwareSystem2).getRouting());
+        // and create a dynamic view (locations are 0,0)
+        DynamicView dynamicView2 = new DynamicView(model2, "dynamic", "Description");
+        dynamicView2.add(person2, "Overridden description", softwareSystem2A);
+
+        staticView2.copyLayoutInformationFrom(staticView1);
+        assertEquals(0, staticView2.getElementView(softwareSystem2A).getX());
+        assertEquals(0, staticView2.getElementView(softwareSystem2A).getY());
+        assertEquals(123, staticView2.getElementView(softwareSystem2B).getX());
+        assertEquals(321, staticView2.getElementView(softwareSystem2B).getY());
+        assertEquals(456, staticView2.getElementView(person2).getX());
+        assertEquals(654, staticView2.getElementView(person2).getY());
+        Vertex vertex1 = staticView2.getRelationshipView(personUsesSoftwareSystem2).getVertices().iterator().next();
+        assertEquals(123, vertex1.getX());
+        assertEquals(456, vertex1.getY());
+        assertEquals(70, staticView2.getRelationshipView(personUsesSoftwareSystem2).getPosition().intValue());
+        assertEquals(Routing.Orthogonal, staticView2.getRelationshipView(personUsesSoftwareSystem2).getRouting());
+
+        dynamicView2.copyLayoutInformationFrom(dynamicView1);
+        assertEquals(111, dynamicView2.getElementView(person2).getX());
+        assertEquals(222, dynamicView2.getElementView(person2).getY());
+        assertEquals(333, dynamicView2.getElementView(softwareSystem2A).getX());
+        assertEquals(444, dynamicView2.getElementView(softwareSystem2A).getY());
+        Vertex vertex2 = dynamicView2.getRelationshipView(personUsesSoftwareSystem2).getVertices().iterator().next();
+        assertEquals(555, vertex2.getX());
+        assertEquals(666, vertex2.getY());
+        assertEquals(30, dynamicView2.getRelationshipView(personUsesSoftwareSystem2).getPosition().intValue());
+        assertEquals(Routing.Direct, dynamicView2.getRelationshipView(personUsesSoftwareSystem2).getRouting());
     }
 
     @Test
