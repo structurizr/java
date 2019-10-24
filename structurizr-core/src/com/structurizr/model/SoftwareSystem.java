@@ -79,7 +79,7 @@ public final class SoftwareSystem extends StaticStructureElement {
      *
      * @param name        the name of the container (e.g. "Web Application")
      * @param description a short description/list of responsibilities
-     * @param technology  the technoogy choice (e.g. "Spring MVC", "Java EE", etc)
+     * @param technology  the technology choice (e.g. "Spring MVC", "Java EE", etc)
      * @return the newly created Container instance added to the model (or null)
      * @throws IllegalArgumentException     if a container with the same name exists already
      */
