@@ -107,7 +107,7 @@ public final class StructurizrClient {
     /**
      * Creates a new Structurizr client with the specified API URL, key and secret.
      *
-     * @param url       the URL of your structurizr web instance
+     * @param url       the URL of your Structurizr instance
      * @param apiKey    the API key of your workspace
      * @param apiSecret the API secret of your workspace
      */
@@ -246,13 +246,12 @@ public final class StructurizrClient {
                 debugResponse(response);
 
                 String responseText = EntityUtils.toString(response.getEntity());
+                ApiResponse apiResponse = ApiResponse.parse(responseText);
+                log.info(responseText);
+
                 if (response.getCode() == HttpStatus.SC_OK) {
-                    ApiResponse apiResponse = ApiResponse.parse(responseText);
-                    log.info(responseText);
                     return apiResponse.isSuccess();
                 } else {
-                    ApiResponse apiResponse = ApiResponse.parse(responseText);
-                    log.info(responseText);
                     throw new StructurizrClientException(apiResponse.getMessage());
                 }
             }
@@ -265,7 +264,7 @@ public final class StructurizrClient {
     /**
      * Gets the workspace with the given ID.
      *
-     * @param workspaceId the ID of your workspace
+     * @param workspaceId the workspace ID
      * @return a Workspace instance
      * @throws StructurizrClientException   if there are problems related to the network, authorization, JSON deserialization, etc
      */
@@ -314,7 +313,7 @@ public final class StructurizrClient {
     /**
      * Updates the given workspace.
      *
-     * @param workspaceId the ID of your workspace
+     * @param workspaceId the workspace ID
      * @param workspace   the workspace instance to update
      * @throws StructurizrClientException   if there are problems related to the network, authorization, JSON serialization, etc
      */
