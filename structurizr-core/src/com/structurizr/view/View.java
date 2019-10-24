@@ -384,7 +384,7 @@ public abstract class View {
 
     private ElementView findElementView(ElementView sourceElementView) {
         for (ElementView elementView : getElements()) {
-            if (elementView.getElement().equals(sourceElementView.getElement())) {
+            if (elementView.getElement().getCanonicalName().equals(sourceElementView.getElement().getCanonicalName())) {
                 return elementView;
             }
         }

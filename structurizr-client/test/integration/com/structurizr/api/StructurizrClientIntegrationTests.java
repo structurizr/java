@@ -15,8 +15,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileReader;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class StructurizrClientIntegrationTests {
 
@@ -63,8 +62,8 @@ public class StructurizrClientIntegrationTests {
         structurizrClient.putWorkspace(20081, workspace);
 
         workspace = structurizrClient.getWorkspace(20081);
-        assertTrue(workspace.getModel().contains(softwareSystem));
-        assertTrue(workspace.getModel().contains(person));
+        assertNotNull(workspace.getModel().getSoftwareSystemWithName("Software System"));
+        assertNotNull(workspace.getModel().getPersonWithName("Person"));
         assertEquals(1, workspace.getModel().getRelationships().size());
         assertEquals(1, workspace.getViews().getSystemContextViews().size());
 
@@ -90,8 +89,8 @@ public class StructurizrClientIntegrationTests {
         structurizrClient.putWorkspace(20081, workspace);
 
         workspace = structurizrClient.getWorkspace(20081);
-        assertTrue(workspace.getModel().contains(softwareSystem));
-        assertTrue(workspace.getModel().contains(person));
+        assertNotNull(workspace.getModel().getSoftwareSystemWithName("Software System"));
+        assertNotNull(workspace.getModel().getPersonWithName("Person"));
         assertEquals(1, workspace.getModel().getRelationships().size());
         assertEquals(1, workspace.getViews().getSystemContextViews().size());
 

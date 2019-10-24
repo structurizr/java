@@ -180,31 +180,4 @@ public abstract class Element extends ModelItem {
         return "{" + getId() + " | " + getName() + " | " + getDescription() + "}";
     }
 
-    @Override
-    public int hashCode() {
-        if (getId() != null) {
-            return getId().hashCode();
-        } else {
-            return super.hashCode();
-        }
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || !(o instanceof Element)) {
-            return false;
-        }
-
-        if (!this.getClass().equals(o.getClass())) {
-            return false;
-        }
-
-        Element element = (Element)o;
-        return getId().equals(element.getId());
-    }
-
 }

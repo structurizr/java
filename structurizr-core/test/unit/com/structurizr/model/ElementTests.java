@@ -232,14 +232,6 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_equals_ReturnsTrue_WhenTheAnObjectWithTheSameCanonicalNameIsPassed() {
-        SoftwareSystem softwareSystem1 = new Workspace("", "").getModel().addSoftwareSystem("System 1", "");
-        SoftwareSystem softwareSystem2 = new Workspace("", "").getModel().addSoftwareSystem("System 1", "");
-        assertTrue(softwareSystem1.equals(softwareSystem2));
-        assertTrue(softwareSystem2.equals(softwareSystem1));
-    }
-
-    @Test
     public void test_setUrl() {
         Element element = model.addSoftwareSystem("Name", "Description");
         element.setUrl("https://structurizr.com");

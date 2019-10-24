@@ -6,8 +6,7 @@ import org.junit.Test;
 
 import java.io.File;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class WorkspaceRulesValidationTests {
 
@@ -19,7 +18,8 @@ public class WorkspaceRulesValidationTests {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ElementIdsAreNotUnique.json"));
             fail();
         } catch (WorkspaceValidationException we) {
-            assertEquals("The element /Software System 1 has a non-unique ID of 1.", we.getMessage());
+            assertTrue(we.getMessage().startsWith("The element /Software System "));
+            assertTrue(we.getMessage().endsWith(" has a non-unique ID of 1."));
         }
     }
 
