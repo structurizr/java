@@ -38,11 +38,11 @@ public class BigBankPlc {
         Person customer = model.addPerson(Location.External, "Personal Banking Customer", "A customer of the bank, with personal bank accounts.");
 
         SoftwareSystem internetBankingSystem = model.addSoftwareSystem(Location.Internal, "Internet Banking System", "Allows customers to view information about their bank accounts, and make payments.");
-        customer.uses(internetBankingSystem, "Uses");
+        customer.uses(internetBankingSystem, "Views account balances, and makes payments using");
 
         SoftwareSystem mainframeBankingSystem = model.addSoftwareSystem(Location.Internal, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.");
         mainframeBankingSystem.addTags(EXISTING_SYSTEM_TAG);
-        internetBankingSystem.uses(mainframeBankingSystem, "Uses");
+        internetBankingSystem.uses(mainframeBankingSystem, "Gets account information from, and makes payments using");
 
         SoftwareSystem emailSystem = model.addSoftwareSystem(Location.Internal, "E-mail System", "The internal Microsoft Exchange e-mail system.");
         internetBankingSystem.uses(emailSystem, "Sends e-mail using");
@@ -73,12 +73,12 @@ public class BigBankPlc {
         Container database = internetBankingSystem.addContainer("Database", "Stores user registration information, hashed authentication credentials, access logs, etc.", "Relational Database Schema");
         database.addTags(DATABASE_TAG);
 
-        customer.uses(webApplication, "Uses", "HTTPS");
-        customer.uses(singlePageApplication, "Uses", "");
-        customer.uses(mobileApp, "Uses", "");
-        webApplication.uses(singlePageApplication, "Delivers", "");
+        customer.uses(webApplication, "Visits bigbank.com/ib using", "HTTPS");
+        customer.uses(singlePageApplication, "Views account balances, and makes payments using", "");
+        customer.uses(mobileApp, "Views account balances, and makes payments using", "");
+        webApplication.uses(singlePageApplication, "Delivers to the customer's web browser", "");
         apiApplication.uses(database, "Reads from and writes to", "JDBC");
-        apiApplication.uses(mainframeBankingSystem, "Uses", "XML/HTTPS");
+        apiApplication.uses(mainframeBankingSystem, "Makes API calls to", "XML/HTTPS");
         apiApplication.uses(emailSystem, "Sends e-mail using", "SMTP");
 
         // components
@@ -91,8 +91,8 @@ public class BigBankPlc {
         Component mainframeBankingSystemFacade = apiApplication.addComponent("Mainframe Banking System Facade", "A facade onto the mainframe banking system.", "Spring Bean");
         Component emailComponent = apiApplication.addComponent("E-mail Component", "Sends e-mails to users.", "Spring Bean");
 
-        apiApplication.getComponents().stream().filter(c -> "Spring MVC Rest Controller".equals(c.getTechnology())).forEach(c -> singlePageApplication.uses(c, "Uses", "JSON/HTTPS"));
-        apiApplication.getComponents().stream().filter(c -> "Spring MVC Rest Controller".equals(c.getTechnology())).forEach(c -> mobileApp.uses(c, "Uses", "JSON/HTTPS"));
+        apiApplication.getComponents().stream().filter(c -> "Spring MVC Rest Controller".equals(c.getTechnology())).forEach(c -> singlePageApplication.uses(c, "Makes API calls to", "JSON/HTTPS"));
+        apiApplication.getComponents().stream().filter(c -> "Spring MVC Rest Controller".equals(c.getTechnology())).forEach(c -> mobileApp.uses(c, "Makes API calls to", "JSON/HTTPS"));
         signinController.uses(securityComponent, "Uses");
         accountsSummaryController.uses(mainframeBankingSystemFacade, "Uses");
         resetPasswordController.uses(securityComponent, "Uses");
