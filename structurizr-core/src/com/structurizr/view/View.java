@@ -31,6 +31,8 @@ public abstract class View {
     private Set<ElementView> elementViews = new LinkedHashSet<>();
     private Set<RelationshipView> relationshipViews = new LinkedHashSet<>();
 
+    private LayoutMergeStrategy layoutMergeStrategy = new DefaultLayoutMergeStrategy();
+
     private ViewSet viewSet;
 
     View() {
@@ -357,39 +359,27 @@ public abstract class View {
     }
 
     /**
+     * Sets the strategy used for merging layout information (paper size, x/y positioning, etc)
+     * from one version of this view to another.
+     *
+     * @param layoutMergeStrategy       an instance of LayoutMergeStrategy
+     */
+    public void setLayoutMergeStrategy(LayoutMergeStrategy layoutMergeStrategy) {
+        if (layoutMergeStrategy == null) {
+            throw new IllegalArgumentException("A LayoutMergeStrategy object must be provided.");
+        }
+
+        this.layoutMergeStrategy = layoutMergeStrategy;
+    }
+
+    /**
      * Attempts to copy the visual layout information (e.g. x,y coordinates) of elements and relationships
      * from the specified source view into this view.
      *
      * @param source    the source View
      */
     void copyLayoutInformationFrom(@Nonnull View source) {
-        if (this.getPaperSize() == null) {
-            this.setPaperSize(source.getPaperSize());
-        }
-
-        for (ElementView sourceElementView : source.getElements()) {
-            ElementView destinationElementView = findElementView(sourceElementView);
-            if (destinationElementView != null) {
-                destinationElementView.copyLayoutInformationFrom(sourceElementView);
-            }
-        }
-
-        for (RelationshipView sourceRelationshipView : source.getRelationships()) {
-            RelationshipView destinationRelationshipView = findRelationshipView(sourceRelationshipView);
-            if (destinationRelationshipView != null) {
-                destinationRelationshipView.copyLayoutInformationFrom(sourceRelationshipView);
-            }
-        }
-    }
-
-    private ElementView findElementView(ElementView sourceElementView) {
-        for (ElementView elementView : getElements()) {
-            if (elementView.getElement().getCanonicalName().equals(sourceElementView.getElement().getCanonicalName())) {
-                return elementView;
-            }
-        }
-
-        return null;
+        layoutMergeStrategy.copyLayoutInformation(source, this);
     }
 
     /**
@@ -401,16 +391,6 @@ public abstract class View {
     public ElementView getElementView(@Nonnull Element element) {
         Optional<ElementView> elementView = this.elementViews.stream().filter(ev -> ev.getId().equals(element.getId())).findFirst();
         return elementView.orElse(null);
-    }
-
-    protected RelationshipView findRelationshipView(@Nonnull RelationshipView sourceRelationshipView) {
-        for (RelationshipView relationshipView : getRelationships()) {
-            if (relationshipView.getRelationship().equals(sourceRelationshipView.getRelationship())) {
-                return relationshipView;
-            }
-        }
-
-        return null;
     }
 
     /**

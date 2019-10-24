@@ -165,20 +165,6 @@ public final class DynamicView extends View {
         }
     }
 
-    @Override
-    protected RelationshipView findRelationshipView(@Nonnull RelationshipView sourceRelationshipView) {
-        for (RelationshipView relationshipView : getRelationships()) {
-            if (relationshipView.getRelationship().equals(sourceRelationshipView.getRelationship())) {
-                if ((relationshipView.getDescription() != null && relationshipView.getDescription().equals(sourceRelationshipView.getDescription())) &&
-                        relationshipView.getOrder().equals(sourceRelationshipView.getOrder())) {
-                    return relationshipView;
-                }
-            }
-        }
-
-        return null;
-    }
-
     /**
      * Gets the (computed) name of this view.
      *
