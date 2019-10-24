@@ -30,6 +30,7 @@ public final class WebSequenceDiagramsWriter {
      * Gets a single view as a WebSequenceDiagrams diagram definition.
      *
      * @param view      the view to write
+     * @return          the WebSequenceDiagrams definition as a String
      */
     public String toString(DynamicView view) {
         StringWriter stringWriter = new StringWriter();

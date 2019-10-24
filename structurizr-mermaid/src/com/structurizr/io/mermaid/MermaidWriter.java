@@ -22,7 +22,7 @@ import static java.util.Collections.emptyList;
  * using mermaid (https://mermaidjs.github.io).
  *
  * System landscape, system context, container, component, dynamic and deployment diagrams are supported.
- * Deployment node -> deployment node relationships are not rendered.
+ * Deployment node -&gt; deployment node relationships are not rendered.
  */
 public class MermaidWriter {
 
@@ -106,6 +106,7 @@ public class MermaidWriter {
      * Gets a single view as a mermaid diagram definition.
      *
      * @param view      the view to write
+     * @return          the Mermaid definition as a String
      */
     public String toString(View view) {
         StringWriter stringWriter = new StringWriter();
