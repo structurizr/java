@@ -186,10 +186,10 @@ public class BigBankPlc {
         containerView.addAnimation(apiApplication);
         containerView.addAnimation(database);
 
-        componentView.addAnimation(singlePageApplication, mobileApp);
-        componentView.addAnimation(signinController, securityComponent, database);
-        componentView.addAnimation(accountsSummaryController, mainframeBankingSystemFacade, mainframeBankingSystem);
-        componentView.addAnimation(resetPasswordController, emailComponent, database);
+        componentView.addAnimation(singlePageApplication, mobileApp, database, emailSystem, mainframeBankingSystem);
+        componentView.addAnimation(signinController, securityComponent);
+        componentView.addAnimation(accountsSummaryController, mainframeBankingSystemFacade);
+        componentView.addAnimation(resetPasswordController, emailComponent);
 
         // dynamic diagrams and deployment diagrams are not available with the Free Plan
         DynamicView dynamicView = views.createDynamicView(apiApplication, "SignIn", "Summarises how the sign in feature works in the single-page application.");
