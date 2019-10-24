@@ -1,6 +1,7 @@
 package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.structurizr.WorkspaceValidationException;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -217,12 +218,22 @@ public final class Model {
     }
 
     private void addElementToInternalStructures(Element element) {
+        // check that the ID is unique
+        if (getElement(element.getId()) != null || getRelationship(element.getId()) != null) {
+            throw new WorkspaceValidationException("The element " + element.getCanonicalName() + " has a non-unique ID of " + element.getId() + ".");
+        }
+
         elementsById.put(element.getId(), element);
         element.setModel(this);
         idGenerator.found(element.getId());
     }
 
     private void addRelationshipToInternalStructures(Relationship relationship) {
+        // check that the ID is unique
+        if (getElement(relationship.getId()) != null || getRelationship(relationship.getId()) != null) {
+            throw new WorkspaceValidationException("The relationship " + relationship.toString() + " has a non-unique ID of " + relationship.getId() + ".");
+        }
+
         relationshipsById.put(relationship.getId(), relationship);
         idGenerator.found(relationship.getId());
     }
@@ -332,6 +343,7 @@ public final class Model {
     void hydrate() {
         // add all of the elements to the model
         people.forEach(this::addElementToInternalStructures);
+
         for (SoftwareSystem softwareSystem : softwareSystems) {
             addElementToInternalStructures(softwareSystem);
             for (Container container : softwareSystem.getContainers()) {
@@ -348,6 +360,24 @@ public final class Model {
 
         // now hydrate the relationships
         getElements().forEach(this::hydrateRelationships);
+
+        // now check all of the element names are unique
+        Collection<Element> peopleAndSoftwareSystems = new ArrayList<>();
+        peopleAndSoftwareSystems.addAll(people);
+        peopleAndSoftwareSystems.addAll(softwareSystems);
+        for (Element element : peopleAndSoftwareSystems) {
+            checkNameIsUnique(peopleAndSoftwareSystems, element.getName());
+        }
+
+        for (SoftwareSystem softwareSystem : softwareSystems) {
+            for (Container container : softwareSystem.getContainers()) {
+                checkNameIsUnique(softwareSystem.getContainers(), container.getName());
+
+                for (Component component : container.getComponents()) {
+                    checkNameIsUnique(container.getComponents(), component.getName());
+                }
+            }
+        }
     }
 
     private void hydrateDeploymentNode(DeploymentNode deploymentNode, DeploymentNode parent) {
@@ -359,6 +389,12 @@ public final class Model {
         for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
             containerInstance.setContainer((Container)getElement(containerInstance.getContainerId()));
             addElementToInternalStructures(containerInstance);
+        }
+    }
+
+    private void checkNameIsUnique(Collection<? extends Element> elements, String name) {
+        if (elements.stream().filter(e -> e.getName().equalsIgnoreCase(name)).count() != 1) {
+            throw new WorkspaceValidationException("An element named " + name + " already exists in this context.");
         }
     }
 

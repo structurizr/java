@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
@@ -110,6 +111,10 @@ public final class Workspace extends AbstractWorkspace {
             Method hydrateMethod = Model.class.getDeclaredMethod("hydrate");
             hydrateMethod.setAccessible(true);
             hydrateMethod.invoke(model);
+        } catch (InvocationTargetException ite) {
+            if (ite.getCause() != null && ite.getCause() instanceof WorkspaceValidationException) {
+                throw (WorkspaceValidationException)ite.getCause();
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -120,6 +125,10 @@ public final class Workspace extends AbstractWorkspace {
             Method hydrateMethod = ViewSet.class.getDeclaredMethod("hydrate", Model.class);
             hydrateMethod.setAccessible(true);
             hydrateMethod.invoke(viewSet, model);
+        } catch (InvocationTargetException ite) {
+            if (ite.getCause() != null && ite.getCause() instanceof WorkspaceValidationException) {
+                throw (WorkspaceValidationException)ite.getCause();
+            }
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

@@ -2,13 +2,16 @@ package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.structurizr.WorkspaceValidationException;
 import com.structurizr.model.Container;
+import com.structurizr.model.Element;
 import com.structurizr.model.Model;
 import com.structurizr.model.SoftwareSystem;
 import com.structurizr.util.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -437,30 +440,73 @@ public final class ViewSet {
     void hydrate(Model model) {
         this.model = model;
 
+        checkViewKeysAreUnique();
+
         for (SystemLandscapeView view : systemLandscapeViews) {
             view.setModel(model);
             hydrateView(view);
         }
 
         for (SystemContextView view : systemContextViews) {
-            view.setSoftwareSystem(model.getSoftwareSystemWithId(view.getSoftwareSystemId()));
+            SoftwareSystem softwareSystem = model.getSoftwareSystemWithId(view.getSoftwareSystemId());
+            if (softwareSystem == null) {
+                throw new WorkspaceValidationException(
+                        String.format("The system context view with key %s is associated with a software system (id=%s), but that element does not exist in the model.",
+                                view.getKey(), view.getSoftwareSystemId())
+                );
+            }
+
+            view.setSoftwareSystem(softwareSystem);
             hydrateView(view);
         }
 
         for (ContainerView view : containerViews) {
-            view.setSoftwareSystem(model.getSoftwareSystemWithId(view.getSoftwareSystemId()));
+            SoftwareSystem softwareSystem = model.getSoftwareSystemWithId(view.getSoftwareSystemId());
+            if (softwareSystem == null) {
+                throw new WorkspaceValidationException(
+                        String.format("The container view with key %s is associated with a software system (id=%s), but that element does not exist in the model.",
+                                view.getKey(), view.getSoftwareSystemId())
+                );
+            }
+
+            view.setSoftwareSystem(softwareSystem);
             hydrateView(view);
         }
 
         for (ComponentView view : componentViews) {
-            view.setSoftwareSystem(model.getSoftwareSystemWithId(view.getSoftwareSystemId()));
-            view.setContainer(view.getSoftwareSystem().getContainerWithId(view.getContainerId()));
+            SoftwareSystem softwareSystem = model.getSoftwareSystemWithId(view.getSoftwareSystemId());
+            if (softwareSystem == null) {
+                throw new WorkspaceValidationException(
+                        String.format("The component view with key %s is associated with a software system (id=%s), but that element does not exist in the model.",
+                                view.getKey(), view.getSoftwareSystemId())
+                );
+            }
+
+            view.setSoftwareSystem(softwareSystem);
+
+            Container container = softwareSystem.getContainerWithId(view.getContainerId());
+            if (container == null) {
+                throw new WorkspaceValidationException(
+                        String.format("The component view with key %s is associated with a container (id=%s), but that element does not exist in the model.",
+                                view.getKey(), view.getContainerId())
+                );
+            }
+
+            view.setContainer(container);
             hydrateView(view);
         }
 
         for (DynamicView view : dynamicViews) {
             if (!isNullOrEmpty(view.getElementId())) {
-                view.setElement(model.getElement(view.getElementId()));
+                Element element = model.getElement(view.getElementId());
+                if (element == null) {
+                    throw new WorkspaceValidationException(
+                            String.format("The dynamic view with key %s is associated with an element (id=%s), but that element does not exist in the model.",
+                                    view.getKey(), view.getElementId())
+                    );
+                }
+
+                view.setElement(element);
             }
 
             view.setModel(model);
@@ -469,7 +515,15 @@ public final class ViewSet {
 
         for (DeploymentView view : deploymentViews) {
             if (!isNullOrEmpty(view.getSoftwareSystemId())) {
-                view.setSoftwareSystem(model.getSoftwareSystemWithId(view.getSoftwareSystemId()));
+                SoftwareSystem softwareSystem = model.getSoftwareSystemWithId(view.getSoftwareSystemId());
+                if (softwareSystem == null) {
+                    throw new WorkspaceValidationException(
+                            String.format("The deployment view with key %s is associated with a software system (id=%s), but that element does not exist in the model.",
+                                    view.getKey(), view.getSoftwareSystemId())
+                    );
+                }
+
+                view.setSoftwareSystem(softwareSystem);
             }
 
             view.setModel(model);
@@ -490,6 +544,33 @@ public final class ViewSet {
 
         for (RelationshipView relationshipView : view.getRelationships()) {
             relationshipView.setRelationship(model.getRelationship(relationshipView.getId()));
+        }
+    }
+
+    private void checkViewKeysAreUnique() {
+        Set<String> keys = new HashSet<>();
+        Collection<View> views = new ArrayList<>();
+        views.addAll(systemLandscapeViews);
+        views.addAll(systemContextViews);
+        views.addAll(containerViews);
+        views.addAll(componentViews);
+        views.addAll(dynamicViews);
+        views.addAll(deploymentViews);
+
+        for (View view : views) {
+            if (keys.contains(view.getKey())) {
+                throw new WorkspaceValidationException("A view with the key " + view.getKey() + " already exists.");
+            } else {
+                keys.add(view.getKey());
+            }
+        }
+
+        for (FilteredView filteredView : filteredViews) {
+            if (keys.contains(filteredView.getKey())) {
+                throw new WorkspaceValidationException("A view with the key " + filteredView.getKey() + " already exists.");
+            } else {
+                keys.add(filteredView.getKey());
+            }
         }
     }
 

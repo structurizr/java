@@ -3,6 +3,7 @@ package com.structurizr.io.json;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.structurizr.Workspace;
+import com.structurizr.WorkspaceValidationException;
 import com.structurizr.io.WorkspaceReader;
 import com.structurizr.io.WorkspaceReaderException;
 
@@ -32,6 +33,7 @@ public final class JsonReader implements WorkspaceReader {
 
             return workspace;
         } catch (IOException ioe) {
+            ioe.printStackTrace();
             throw new WorkspaceReaderException("Could not read JSON", ioe);
         }
     }

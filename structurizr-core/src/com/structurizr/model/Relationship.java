@@ -153,8 +153,8 @@ public final class Relationship extends ModelItem {
         Relationship that = (Relationship) o;
 
         if (!getDescription().equals(that.getDescription())) return false;
-        if (!getDestination().equals(that.getDestination())) return false;
-        if (!getSource().equals(that.getSource())) return false;
+        if (!getDestination().getCanonicalName().equals(that.getDestination().getCanonicalName())) return false;
+        if (!getSource().getCanonicalName().equals(that.getSource().getCanonicalName())) return false;
 
         return true;
     }

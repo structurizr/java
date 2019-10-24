@@ -879,32 +879,38 @@ public class ViewSetTests {
         views.setSystemLandscapeViews(Collections.singleton(systemLandscapeView));
 
         SystemContextView systemContextView = new SystemContextView();
+        systemContextView.setKey("systemContext");
         systemContextView.setSoftwareSystemId(softwareSystem.getId());
         systemContextView.setElements(elementViewsFor(softwareSystem));
         views.setSystemContextViews(Collections.singleton(systemContextView));
 
         ContainerView containerView = new ContainerView();
+        containerView.setKey("containers");
         containerView.setSoftwareSystemId(softwareSystem.getId());
         containerView.setElements(elementViewsFor(container));
         views.setContainerViews(Collections.singleton(containerView));
 
         ComponentView componentView = new ComponentView();
+        componentView.setKey("components");
         componentView.setSoftwareSystemId(softwareSystem.getId());
         componentView.setContainerId(container.getId());
         componentView.setElements(elementViewsFor(component));
         views.setComponentViews(Collections.singleton(componentView));
 
         DynamicView dynamicView = new DynamicView();
+        dynamicView.setKey("dynamic");
         dynamicView.setElementId(softwareSystem.getId());
         dynamicView.setElements(elementViewsFor(component));
         views.setDynamicViews(Collections.singleton(dynamicView));
 
         DeploymentView deploymentView = new DeploymentView();
+        deploymentView.setKey("deployment");
         deploymentView.setSoftwareSystemId(softwareSystem.getId());
         deploymentView.setElements(elementViewsFor(deploymentNode, containerInstance));
         views.setDeploymentViews(Collections.singleton(deploymentView));
 
         FilteredView filteredView = new FilteredView();
+        filteredView.setKey("filtered");
         filteredView.setBaseViewKey(systemLandscapeView.getKey());
         views.setFilteredViews(Collections.singleton(filteredView));
 

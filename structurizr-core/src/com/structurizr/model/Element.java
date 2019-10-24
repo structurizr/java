@@ -182,8 +182,8 @@ public abstract class Element extends ModelItem {
 
     @Override
     public int hashCode() {
-        if (name != null) {
-            return name.hashCode();
+        if (getId() != null) {
+            return getId().hashCode();
         } else {
             return super.hashCode();
         }
@@ -204,7 +204,7 @@ public abstract class Element extends ModelItem {
         }
 
         Element element = (Element)o;
-        return getCanonicalName().equals(element.getCanonicalName());
+        return getId().equals(element.getId());
     }
 
 }
