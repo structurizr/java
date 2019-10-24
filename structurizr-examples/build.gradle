@@ -3,6 +3,7 @@ dependencies {
     compile project(':structurizr-annotations')
     compile project(':structurizr-client')
     compile project(':structurizr-dot')
+    compile project(':structurizr-mermaid')
     compile project(':structurizr-plantuml')
     compile project(':structurizr-spring')
 
