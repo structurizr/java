@@ -3,10 +3,7 @@ package com.structurizr.view;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.structurizr.WorkspaceValidationException;
-import com.structurizr.model.Container;
-import com.structurizr.model.Element;
-import com.structurizr.model.Model;
-import com.structurizr.model.SoftwareSystem;
+import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -547,11 +544,27 @@ public final class ViewSet {
         view.setViewSet(this);
 
         for (ElementView elementView : view.getElements()) {
-            elementView.setElement(model.getElement(elementView.getId()));
+            Element element = model.getElement(elementView.getId());
+            if (element == null) {
+                throw new WorkspaceValidationException(
+                        String.format("The view with key \"%s\" references an element (id=%s), but that element does not exist in the model.",
+                                view.getKey(), elementView.getId())
+                );
+            }
+
+            elementView.setElement(element);
         }
 
         for (RelationshipView relationshipView : view.getRelationships()) {
-            relationshipView.setRelationship(model.getRelationship(relationshipView.getId()));
+            Relationship relationship = model.getRelationship(relationshipView.getId());
+            if (relationship == null) {
+                throw new WorkspaceValidationException(
+                        String.format("The view with key \"%s\" references a relationship (id=%s), but that relationship does not exist in the model.",
+                                view.getKey(), relationshipView.getId())
+                );
+            }
+
+            relationshipView.setRelationship(relationship);
         }
     }
 

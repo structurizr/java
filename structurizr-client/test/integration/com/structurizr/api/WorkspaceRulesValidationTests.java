@@ -182,6 +182,26 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
+    public void test_exceptionThrown_WhenElementReferencedByViewIsMissingFromTheModel() throws Exception {
+        try {
+            WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ElementReferencedByViewIsMissingFromTheModel.json"));
+            fail();
+        } catch (WorkspaceValidationException we) {
+            assertEquals("The view with key \"SystemLandscape\" references an element (id=2), but that element does not exist in the model.", we.getMessage());
+        }
+    }
+
+    @Test
+    public void test_exceptionThrown_WhenRelationshipReferencedByViewIsMissingFromTheModel() throws Exception {
+        try {
+            WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "RelationshipReferencedByViewIsMissingFromTheModel.json"));
+            fail();
+        } catch (WorkspaceValidationException we) {
+            assertEquals("The view with key \"SystemLandscape\" references a relationship (id=4), but that relationship does not exist in the model.", we.getMessage());
+        }
+    }
+
+    @Test
     public void test_exceptionThrown_WhenElementAssociatedWithDocumentationSectionIsMissingFromTheModel() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ElementAssociatedWithDocumentationSectionIsMissingFromTheModel.json"));
