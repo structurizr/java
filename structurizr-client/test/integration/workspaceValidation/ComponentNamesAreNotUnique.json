@@ -1,0 +1,38 @@
+{
+  "id" : 0,
+  "name" : "Name",
+  "description" : "Description",
+  "configuration" : { },
+  "model" : {
+    "softwareSystems" : [ {
+      "id" : "1",
+      "tags" : "Element,Software System",
+      "name" : "Software System",
+      "location" : "Unspecified",
+      "containers" : [ {
+        "id" : "2",
+        "tags" : "Element,Container",
+        "name" : "Container",
+        "components" : [ {
+          "id" : "3",
+          "tags" : "Element,Component",
+          "name" : "Component",
+          "size" : 0
+        }, {
+          "id" : "4",
+          "tags" : "Element,Component",
+          "name" : "Component",
+          "size" : 0
+        } ]
+      } ]
+    } ]
+  },
+  "documentation" : { },
+  "views" : {
+    "configuration" : {
+      "branding" : { },
+      "styles" : { },
+      "terminology" : { }
+    }
+  }
+}

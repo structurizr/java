@@ -1,0 +1,28 @@
+{
+  "id" : 0,
+  "name" : "Name",
+  "description" : "Description",
+  "configuration" : { },
+  "model" : {
+    "people" : [ {
+      "id" : "1",
+      "tags" : "Element,Person",
+      "name" : "Name",
+      "location" : "Unspecified"
+    } ],
+    "softwareSystems" : [ {
+      "id" : "2",
+      "tags" : "Element,Software System",
+      "name" : "Name",
+      "location" : "Unspecified"
+    } ]
+  },
+  "documentation" : { },
+  "views" : {
+    "configuration" : {
+      "branding" : { },
+      "styles" : { },
+      "terminology" : { }
+    }
+  }
+}

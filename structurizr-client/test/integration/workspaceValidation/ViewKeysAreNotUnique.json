@@ -1,0 +1,22 @@
+{
+  "id" : 0,
+  "name" : "Name",
+  "description" : "Description",
+  "configuration" : { },
+  "model" : { },
+  "documentation" : { },
+  "views" : {
+    "systemLandscapeViews" : [ {
+      "key" : "key",
+      "enterpriseBoundaryVisible" : true
+    }, {
+      "key" : "key",
+      "enterpriseBoundaryVisible" : true
+    } ],
+    "configuration" : {
+      "branding" : { },
+      "styles" : { },
+      "terminology" : { }
+    }
+  }
+}
