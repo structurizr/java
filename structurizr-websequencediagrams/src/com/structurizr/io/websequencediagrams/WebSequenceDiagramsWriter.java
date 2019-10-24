@@ -27,6 +27,17 @@ public final class WebSequenceDiagramsWriter {
     private static final String ASYNCHRONOUS_INTERACTION = "->>";
 
     /**
+     * Gets a single view as a WebSequenceDiagrams diagram definition.
+     *
+     * @param view      the view to write
+     */
+    public String toString(DynamicView view) {
+        StringWriter stringWriter = new StringWriter();
+        write(view, stringWriter);
+        return stringWriter.toString();
+    }
+
+    /**
      * Writes the dynamic views in the given workspace as WebSequenceDiagrams definitions, to the specified writer.
      *
      * @param workspace     the workspace containing the views to be written
