@@ -7,6 +7,7 @@ import com.structurizr.model.Tags;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 public class StyleTests extends AbstractWorkspaceTestBase {
 
@@ -68,6 +69,48 @@ public class StyleTests extends AbstractWorkspaceTestBase {
 
         RelationshipStyle style = styles.findRelationshipStyle(relationship);
         assertEquals("#0000ff", style.getColor());
+    }
+
+    @Test
+    public void test_addElementStyle_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
+        try {
+            styles.addElementStyle(Tags.SOFTWARE_SYSTEM).color("#ff0000");
+            styles.addElementStyle(Tags.SOFTWARE_SYSTEM).color("#ff0000");
+
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("An element style for the tag \"Software System\" already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addRelationshipStyle_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
+        try {
+            styles.addRelationshipStyle(Tags.RELATIONSHIP).color("#ff0000");
+            styles.addRelationshipStyle(Tags.RELATIONSHIP).color("#ff0000");
+
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A relationship style for the tag \"Relationship\" already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_clearElementStyles_RemovesAllElementStyles() {
+        styles.addElementStyle(Tags.SOFTWARE_SYSTEM).color("#ff0000");
+        assertEquals(1, styles.getElements().size());
+
+        styles.clearElementStyles();
+        assertEquals(0, styles.getElements().size());
+    }
+
+    @Test
+    public void test_clearRelationshipStyles_RemovesAllRelationshipStyles() {
+        styles.addRelationshipStyle(Tags.RELATIONSHIP).color("#ff0000");
+        assertEquals(1, styles.getRelationships().size());
+
+        styles.clearRelationshipStyles();
+        assertEquals(0, styles.getRelationships().size());
     }
 
 }

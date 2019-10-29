@@ -25,12 +25,30 @@ public final class Styles {
         ElementStyle elementStyle = null;
 
         if (tag != null) {
+            if (elements.stream().anyMatch(es -> es.getTag().equals(tag))) {
+                throw new IllegalArgumentException("An element style for the tag \"" + tag + "\" already exists.");
+            }
+
             elementStyle = new ElementStyle();
             elementStyle.setTag(tag);
             add(elementStyle);
         }
 
         return elementStyle;
+    }
+
+    /**
+     * Removes all element styles.
+     */
+    public void clearElementStyles() {
+        this.elements = new LinkedList<>();
+    }
+
+    /**
+     * Removes all relationship styles.
+     */
+    public void clearRelationshipStyles() {
+        this.relationships = new LinkedList<>();
     }
 
     public Collection<RelationshipStyle> getRelationships() {
@@ -47,6 +65,10 @@ public final class Styles {
         RelationshipStyle relationshipStyle = null;
 
         if (tag != null) {
+            if (relationships.stream().anyMatch(rs -> rs.getTag().equals(tag))) {
+                throw new IllegalArgumentException("A relationship style for the tag \"" + tag + "\" already exists.");
+            }
+
             relationshipStyle = new RelationshipStyle();
             relationshipStyle.setTag(tag);
              add(relationshipStyle);
