@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.3.1 (unreleased)
+## 1.3.1 (29th October 2019)
 
 - The automatic layout algorithm can now be configured on individual views.
 - The structurizr-annotations library can now be more easily used with OSGi applications.
