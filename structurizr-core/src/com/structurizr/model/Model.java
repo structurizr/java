@@ -379,7 +379,7 @@ public final class Model {
         }
 
         for (DeploymentNode deploymentNode : deploymentNodes) {
-            checkNameIsUnique(deploymentNodes, deploymentNode.getName(), "A top-level deployment node named \"%s\" already exists.");
+            checkNameIsUnique(deploymentNodes, deploymentNode.getName(), deploymentNode.getEnvironment(), "A top-level deployment node named \"%s\" already exists for the environment named \"" + deploymentNode.getEnvironment() + "\".");
 
             if (deploymentNode.hasChildren()) {
                 checkChildNamesAreUnique(deploymentNode);
@@ -413,9 +413,16 @@ public final class Model {
         }
     }
 
+    private void checkNameIsUnique(Collection<DeploymentNode> deploymentNodes, String name, String environment, String errorMessage) {
+        if (deploymentNodes.stream().filter(dn -> dn.getName().equalsIgnoreCase(name) && dn.getEnvironment().equals(environment)).count() != 1) {
+            throw new WorkspaceValidationException(
+                    String.format(errorMessage, name));
+        }
+    }
+
     private void checkChildNamesAreUnique(DeploymentNode deploymentNode) {
         for (DeploymentNode child : deploymentNode.getChildren()) {
-            checkNameIsUnique(deploymentNode.getChildren(), child.getName(), "A deployment node named \"%s\" already exists within \"" + deploymentNode.getName() + "\".");
+            checkNameIsUnique(deploymentNode.getChildren(), child.getName(), deploymentNode.getEnvironment(), "A deployment node named \"%s\" already exists within \"" + deploymentNode.getName() + "\".");
 
             if (child.hasChildren()) {
                 checkChildNamesAreUnique(child);

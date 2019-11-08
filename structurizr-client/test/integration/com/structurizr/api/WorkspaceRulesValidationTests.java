@@ -1,14 +1,7 @@
 package com.structurizr.api;
 
-import com.structurizr.Workspace;
 import com.structurizr.WorkspaceValidationException;
-import com.structurizr.documentation.Format;
-import com.structurizr.documentation.StructurizrDocumentationTemplate;
-import com.structurizr.model.Model;
-import com.structurizr.model.Person;
-import com.structurizr.model.SoftwareSystem;
 import com.structurizr.util.WorkspaceUtils;
-import com.structurizr.view.ViewSet;
 import org.junit.Test;
 
 import java.io.File;
@@ -87,8 +80,13 @@ public class WorkspaceRulesValidationTests {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "TopLevelDeploymentNodeNamesAreNotUnique.json"));
             fail();
         } catch (WorkspaceValidationException we) {
-            assertEquals("A top-level deployment node named \"Deployment Node\" already exists.", we.getMessage());
+            assertEquals("A top-level deployment node named \"Deployment Node\" already exists for the environment named \"Default\".", we.getMessage());
         }
+    }
+
+    @Test
+    public void test_exceptionNotThrown_WhenTopLevelDeploymentNodeNamesAreNotUniqueButTheyExistInDifferentEnvironments() throws Exception {
+        WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "TopLevelDeploymentNodeNamesAreNotUniqueButTheyExistInDifferentEnvironments.json"));
     }
 
     @Test
