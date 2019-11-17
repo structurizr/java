@@ -35,12 +35,6 @@ import com.structurizr.view.View;
  */
 public class C4PlantUMLWriter extends PlantUMLWriter {
 	/**
-	 * When the value associated with this name resolves to the boolean value "true" (the default)
-	 * the associated element is concerned internal (if possible).
-	 * Currently, this applies to Person, SoftwareSystem,
-	 */
-	public static final String C4_INTERNAL = "c4:state:internal";
-	/**
 	 * This property indicates to C4-PlantUML library which relationship type to
 	 * use. Possible values are given in the {@link Directions} enum
 	 */
@@ -89,11 +83,16 @@ public class C4PlantUMLWriter extends PlantUMLWriter {
 		@Override
 		void doWrite(View view, Person element, Writer writer, String prefix, String id, String separator)
 				throws IOException {
-			String macro = "Person_Ext";
-			if(Boolean.parseBoolean(element.getProperties().getOrDefault(C4_INTERNAL, "true"))) {
+			String macro = null;
+			switch(element.getLocation()) {
+			case External:
+				macro = "Person_Ext";
+				break;
+			default:
 				macro = "Person";
 			}
-			writer.write(format("%s%s(%s, \"%s\", \"%s\")%s", prefix, macro, id, element.getName(),
+			writer.write(format("%s%s(%s, \"%s\", \"%s\")%s", prefix, 
+					macro, id, element.getName(),
 					element.getDescription(), separator));
 		}
 	}
@@ -102,7 +101,7 @@ public class C4PlantUMLWriter extends PlantUMLWriter {
 		@Override
 		void doWrite(View view, SoftwareSystem element, Writer writer, String prefix, String id, String separator)
 				throws IOException {
-			boolean internal = Boolean.parseBoolean(element.getProperties().getOrDefault(C4_INTERNAL, "true"));
+			boolean internal = !element.getLocation().equals(Location.External);
 			Type type = Type.valueOf(element.getProperties().getOrDefault(C4_ELEMENT_TYPE, Type.Default.name()));
 			String macro = String.format("System%s%s", 
 					type==Type.Default ? "" : type.name(),
