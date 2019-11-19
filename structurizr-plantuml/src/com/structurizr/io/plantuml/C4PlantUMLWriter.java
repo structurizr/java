@@ -1,27 +1,19 @@
 package com.structurizr.io.plantuml;
 
-import static java.lang.String.format;
+import com.structurizr.model.*;
+import com.structurizr.view.View;
 
-import java.awt.Window.Type;
 import java.io.IOException;
 import java.io.Writer;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.logging.Level;
 
-import com.structurizr.io.plantuml.PlantUMLWriter;
-import com.structurizr.model.Component;
-import com.structurizr.model.Container;
-import com.structurizr.model.ContainerInstance;
-import com.structurizr.model.Element;
-import com.structurizr.model.Person;
-import com.structurizr.model.Relationship;
-import com.structurizr.model.SoftwareSystem;
-import com.structurizr.view.View;
+import static java.lang.String.format;
 
 /**
  * This writer extends the classical one to use the C4-PlantUML sprite library
- * avaiable on GitHub.
+ * available on GitHub.
  * 
  * To make full use of that sprite library, we use Structurizr properties to
  * tweak rendering.
