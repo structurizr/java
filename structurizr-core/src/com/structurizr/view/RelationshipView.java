@@ -90,7 +90,7 @@ public final class RelationshipView {
      * @return  the order, as a String
      */
     public String getOrder() {
-        return order;
+        return order != null ? order : "";
     }
 
     /**
