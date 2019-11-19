@@ -31,8 +31,8 @@ With the Spring PetClinic application built, we now need to create a software ar
 
 Name                                     | Description
 ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------
-com.structurizr:structurizr-client:1.0.0 | The Structurizr API client library.
-com.structurizr:structurizr-spring:1.0.0 | The Spring component finder.
+com.structurizr:structurizr-client:1.3.0 | The Structurizr API client library.
+com.structurizr:structurizr-spring:1.3.0 | The Spring component finder.
 
 First we need to create a little boilerplate code to create a workspace and a model.
 
