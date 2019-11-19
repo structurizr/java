@@ -38,6 +38,9 @@ public final class ElementStyle {
     private Border border;
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private String borderColor;
+
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Integer opacity;
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
@@ -235,6 +238,28 @@ public final class ElementStyle {
 
     public ElementStyle border(Border border) {
         setBorder(border);
+        return this;
+    }
+
+    /**
+     * Gets the border colour of the element, as a HTML RGB hex string (e.g. #123456).
+     *
+     * @return  the border colour as a String, or null if not specified
+     */
+    public String getBorderColor() {
+        return borderColor;
+    }
+
+    public void setBorderColor(String color) {
+        if (Color.isHexColorCode(color)) {
+            this.borderColor = color.toLowerCase();
+        } else {
+            throw new IllegalArgumentException(color + " is not a valid hex colour code.");
+        }
+    }
+
+    public ElementStyle borderColor(String color) {
+        setBorderColor(color);
         return this;
     }
 

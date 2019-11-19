@@ -166,6 +166,42 @@ public class ElementStyleTests {
         assertNull(style.getIcon());
     }
 
+    @Test
+    public void test_setBorderColor_SetsTheBorderColorProperty_WhenAValidHexColorCodeIsSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.setBorderColor("#ffffff");
+        assertEquals("#ffffff", style.getBorderColor());
 
+        style.setBorderColor("#FFFFFF");
+        assertEquals("#ffffff", style.getBorderColor());
 
+        style.setBorderColor("#123456");
+        assertEquals("#123456", style.getBorderColor());
+    }
+
+    @Test
+    public void test_borderColor_SetsTheBorderColorProperty_WhenAValidHexColorCodeIsSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.borderColor("#ffffff");
+        assertEquals("#ffffff", style.getBorderColor());
+
+        style.borderColor("#FFFFFF");
+        assertEquals("#ffffff", style.getBorderColor());
+
+        style.borderColor("#123456");
+        assertEquals("#123456", style.getBorderColor());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_setBorderColor_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.setBorderColor("white");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_borderColor_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.borderColor("white");
+    }
+    
 }

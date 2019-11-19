@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.2 (unreleased)
+
+- Added support for element border colours.
+
 ## 1.3.1 (29th October 2019)
 
 - The automatic layout algorithm can now be configured on individual views.

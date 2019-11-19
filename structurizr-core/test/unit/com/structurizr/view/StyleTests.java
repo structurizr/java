@@ -36,11 +36,12 @@ public class StyleTests extends AbstractWorkspaceTestBase {
         element.addTags("Some Tag");
 
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#ff0000").color("#ffffff");
-        styles.addElementStyle("Some Tag").color("#0000ff").shape(Shape.RoundedBox);
+        styles.addElementStyle("Some Tag").color("#0000ff").borderColor("#00ff00").shape(Shape.RoundedBox);
 
         ElementStyle style = styles.findElementStyle(element);
         assertEquals("#ff0000", style.getBackground());
         assertEquals("#0000ff", style.getColor());
+        assertEquals("#00ff00", style.getBorderColor());
         assertEquals(Shape.RoundedBox, style.getShape());
     }
 

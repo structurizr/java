@@ -2,6 +2,7 @@ package com.structurizr.view;
 
 import com.structurizr.model.Element;
 import com.structurizr.model.Relationship;
+import com.structurizr.util.StringUtils;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -108,12 +109,16 @@ public final class Styles {
             for (String tag : element.getTagsAsSet()) {
                 ElementStyle elementStyle = findElementStyle(tag);
                 if (elementStyle != null) {
-                    if (elementStyle.getBackground() != null && elementStyle.getBackground().trim().length() > 0) {
+                    if (!StringUtils.isNullOrEmpty(elementStyle.getBackground())) {
                         style.setBackground(elementStyle.getBackground());
                     }
 
-                    if (elementStyle.getColor() != null && elementStyle.getColor().trim().length() > 0) {
+                    if (!StringUtils.isNullOrEmpty(elementStyle.getColor())) {
                         style.setColor(elementStyle.getColor());
+                    }
+
+                    if (!StringUtils.isNullOrEmpty(elementStyle.getBorderColor())) {
+                        style.setBorderColor(elementStyle.getBorderColor());
                     }
 
                     if (elementStyle.getShape() != null) {
