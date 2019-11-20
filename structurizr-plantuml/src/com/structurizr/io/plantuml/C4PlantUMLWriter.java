@@ -21,7 +21,7 @@ import static java.lang.String.format;
  * It is possible to change relationships directions and rendering using the
  * {@link #C4_LAYOUT_DIRECTION} and {@link #C4_LAYOUT_MODE} mode properties.
  * 
- * @see https://github.com/RicardoNiepel/C4-PlantUML
+ * @see <a href="https://github.com/RicardoNiepel/C4-PlantUML">https://github.com/RicardoNiepel/C4-PlantUML</a>
  * @author nicolas-delsaux
  *
  */
