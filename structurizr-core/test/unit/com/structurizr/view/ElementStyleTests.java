@@ -167,41 +167,41 @@ public class ElementStyleTests {
     }
 
     @Test
-    public void test_setBorderColor_SetsTheBorderColorProperty_WhenAValidHexColorCodeIsSpecified() {
+    public void test_setStroke_SetsTheStrokeProperty_WhenAValidHexColorCodeIsSpecified() {
         ElementStyle style = new ElementStyle();
-        style.setBorderColor("#ffffff");
-        assertEquals("#ffffff", style.getBorderColor());
+        style.setStroke("#ffffff");
+        assertEquals("#ffffff", style.getStroke());
 
-        style.setBorderColor("#FFFFFF");
-        assertEquals("#ffffff", style.getBorderColor());
+        style.setStroke("#FFFFFF");
+        assertEquals("#ffffff", style.getStroke());
 
-        style.setBorderColor("#123456");
-        assertEquals("#123456", style.getBorderColor());
+        style.setStroke("#123456");
+        assertEquals("#123456", style.getStroke());
     }
 
     @Test
-    public void test_borderColor_SetsTheBorderColorProperty_WhenAValidHexColorCodeIsSpecified() {
+    public void test_Stroke_SetsTheStrokeProperty_WhenAValidHexColorCodeIsSpecified() {
         ElementStyle style = new ElementStyle();
-        style.borderColor("#ffffff");
-        assertEquals("#ffffff", style.getBorderColor());
+        style.stroke("#ffffff");
+        assertEquals("#ffffff", style.getStroke());
 
-        style.borderColor("#FFFFFF");
-        assertEquals("#ffffff", style.getBorderColor());
+        style.stroke("#FFFFFF");
+        assertEquals("#ffffff", style.getStroke());
 
-        style.borderColor("#123456");
-        assertEquals("#123456", style.getBorderColor());
+        style.stroke("#123456");
+        assertEquals("#123456", style.getStroke());
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void test_setBorderColor_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
+    public void test_setStroke_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
         ElementStyle style = new ElementStyle();
-        style.setBorderColor("white");
+        style.setStroke("white");
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void test_borderColor_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
+    public void test_Stroke_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
         ElementStyle style = new ElementStyle();
-        style.borderColor("white");
+        style.stroke("white");
     }
     
 }

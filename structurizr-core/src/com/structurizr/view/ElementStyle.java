@@ -23,6 +23,9 @@ public final class ElementStyle {
     private String background;
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private String stroke;
+
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private String color;
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
@@ -36,9 +39,6 @@ public final class ElementStyle {
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Border border;
-
-    @JsonInclude(value = JsonInclude.Include.NON_NULL)
-    private String borderColor;
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Integer opacity;
@@ -142,6 +142,28 @@ public final class ElementStyle {
     }
 
     /**
+     * Gets the stroke colour of the element, as a HTML RGB hex string (e.g. #123456).
+     *
+     * @return  the stroke colour as a String, or null if not specified
+     */
+    public String getStroke() {
+        return stroke;
+    }
+
+    public void setStroke(String color) {
+        if (Color.isHexColorCode(color)) {
+            this.stroke = color.toLowerCase();
+        } else {
+            throw new IllegalArgumentException(color + " is not a valid hex colour code.");
+        }
+    }
+
+    public ElementStyle stroke(String color) {
+        setStroke(color);
+        return this;
+    }
+
+    /**
      * Gets the foreground (text) colour of the element, as a HTML RGB hex string (e.g. #123456).
      *
      * @return  the foreground colour as a String, or null if not specified
@@ -238,28 +260,6 @@ public final class ElementStyle {
 
     public ElementStyle border(Border border) {
         setBorder(border);
-        return this;
-    }
-
-    /**
-     * Gets the border colour of the element, as a HTML RGB hex string (e.g. #123456).
-     *
-     * @return  the border colour as a String, or null if not specified
-     */
-    public String getBorderColor() {
-        return borderColor;
-    }
-
-    public void setBorderColor(String color) {
-        if (Color.isHexColorCode(color)) {
-            this.borderColor = color.toLowerCase();
-        } else {
-            throw new IllegalArgumentException(color + " is not a valid hex colour code.");
-        }
-    }
-
-    public ElementStyle borderColor(String color) {
-        setBorderColor(color);
         return this;
     }
 

@@ -117,8 +117,8 @@ public final class Styles {
                         style.setColor(elementStyle.getColor());
                     }
 
-                    if (!StringUtils.isNullOrEmpty(elementStyle.getBorderColor())) {
-                        style.setBorderColor(elementStyle.getBorderColor());
+                    if (!StringUtils.isNullOrEmpty(elementStyle.getStroke())) {
+                        style.setStroke(elementStyle.getStroke());
                     }
 
                     if (elementStyle.getShape() != null) {
