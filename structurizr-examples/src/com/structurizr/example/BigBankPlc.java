@@ -27,7 +27,7 @@ public class BigBankPlc {
     private static final String DATABASE_TAG = "Database";
     private static final String FAILOVER_TAG = "Failover";
 
-    private static Workspace create() {
+    public static void main(String[] args) throws Exception {
         Workspace workspace = new Workspace("Big Bank plc", "This is an example workspace to illustrate the key features of Structurizr, based around a fictional online banking system.");
         Model model = workspace.getModel();
         ViewSet views = workspace.getViews();
@@ -70,7 +70,7 @@ public class BigBankPlc {
         mobileApp.addTags(MOBILE_APP_TAG);
         Container webApplication = internetBankingSystem.addContainer("Web Application", "Delivers the static content and the Internet banking single page application.", "Java and Spring MVC");
         Container apiApplication = internetBankingSystem.addContainer("API Application", "Provides Internet banking functionality via a JSON/HTTPS API.", "Java and Spring MVC");
-        Container database = internetBankingSystem.addContainer("Database", "Stores user registration information, hashed authentication credentials, access logs, etc.", "Relational Database Schema");
+        Container database = internetBankingSystem.addContainer("Database", "Stores user registration information, hashed authentication credentials, access logs, etc.", "Oracle Database Schema");
         database.addTags(DATABASE_TAG);
 
         customer.uses(webApplication, "Visits bigbank.com/ib using", "HTTPS");
@@ -253,12 +253,8 @@ public class BigBankPlc {
                 "Here is some information about the live deployment environment for the Internet Banking System...\n" +
                         "image::embed:LiveDeployment[]");
 
-        return workspace;
-    }
-
-    public static void main(String[] args) throws Exception {
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
-        structurizrClient.putWorkspace(WORKSPACE_ID, create());
+        structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
     }
 
 }
