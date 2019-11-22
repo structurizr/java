@@ -38,6 +38,7 @@ The view can then be exported to be visualised using the [Structurizr service](h
     * [C4 model](https://c4model.com)
     * [Examples](https://structurizr.com/help/examples)
     * [Binaries](docs/binaries.md)
+    * [Building from source](docs/building.md)
     * [API client](docs/api-client.md)
     * [Usage patterns](docs/usage-patterns.md)
 * Model
@@ -64,7 +65,6 @@ The view can then be exported to be visualised using the [Structurizr service](h
 	* [HTTP-based health checks](docs/health-checks.md)
     * [Client-side encryption](docs/client-side-encryption.md)
     * [Corporate branding](docs/corporate-branding.md)
-    * [Building from source](docs/building.md)
 * Related projects
     * [java-quickstart](https://github.com/structurizr/java-quickstart): A simple starting point for using Structurizr for Java
     * [java-extensions](https://github.com/structurizr/java-extensions): A collection of Structurizr for Java extensions; including the ability to extract software architecture information from code, export views to PlantUML, etc.
