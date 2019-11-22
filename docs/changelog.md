@@ -1,8 +1,8 @@
 # Changelog
 
-## 1.3.2 (unreleased)
+## 1.3.2 (22nd November 2019)
 
-- Added support for element border colours.
+- Added support for element stroke colours.
 
 ## 1.3.1 (29th October 2019)
 
