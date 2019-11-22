@@ -1,6 +1,0 @@
-dependencies {
-
-    compile project(':structurizr-core')
-    compile 'io.github.livingdocumentation:dot-diagram:1.1'
-
-}

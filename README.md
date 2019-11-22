@@ -2,9 +2,7 @@
 
 # Structurizr for Java
 
-This GitHub repository is primarily a client library for [Structurizr](https://structurizr.com), a web-based publishing platform for software architecture models based upon the [C4 model](https://c4model.com). It can also be used to create software architecture diagrams that can be rendered with tools such as  [PlantUML](docs/plantuml.md), [Graphviz](docs/graphviz-and-dot.md) and [WebSequenceDiagrams](docs/websequencediagrams.md).
-
-In essence, Structurizr for Java is an implementation of an __executable architecture description language__; a domain-specific language to describe software architecture, using code. The key benefit of using code to create a software architecture model is that you can use the static analysis and reflection features of Java to help you extract components from the codebase you are modelling. Integration of this tooling with your continuous integration/build process helps your software architecture diagrams stay up to date.
+This GitHub repository is the official client library for the [Structurizr](https://structurizr.com) cloud service and on-premises installation, both of which are web-based publishing platforms for software architecture models based upon the [C4 model](https://c4model.com). __This repository is supported by Structurizr Limited__, as a part of the Structurizr service.
 
 ## A quick example
 
@@ -26,7 +24,7 @@ public static void main(String[] args) throws Exception {
 }
 ```
 
-The view can then be exported to be visualised in a number of different ways; e.g. PlantUML, Structurizr and Graphviz:
+The view can then be exported to be visualised using the [Structurizr service](https://structurizr.com), or other formats including PlantUML, WebSequenceDiagrams and Graphviz via the [Structurizr for Java extensions](https://github.com/structurizr/java-extensions).
 
 ![Views can be exported and visualised in many ways; e.g. PlantUML, Structurizr and Graphviz](docs/images/readme-1.png)
 
@@ -62,18 +60,6 @@ The view can then be exported to be visualised in a number of different ways; e.
     * [Viewpoints and Perspectives](docs/documentation-viewpoints-and-perspectives.md)
     * [Automatic template](docs/documentation-automatic.md)
     * [Architecture decision records](docs/decisions.md)
-* Extracting software architecture information from code
-    * [Component finder](docs/component-finder.md)
-    * [Structurizr annotations](docs/structurizr-annotations.md)
-    * [Type matchers](docs/type-matchers.md)
-    * [Spring component finder strategies](docs/spring-component-finder-strategies.md)
-    * [Supplementing the model from source code](docs/supplementing-from-source-code.md)
-    * [Components and supporting types](docs/supporting-types.md)
-    * [The Spring PetClinic example](docs/spring-petclinic.md)
-* Exporting and visualising with other tools
-    * [PlantUML](docs/plantuml.md)
-    * [Graphviz and DOT](docs/graphviz-and-dot.md)
-    * [WebSequenceDiagrams](docs/websequencediagrams.md)
 * Other
 	* [HTTP-based health checks](docs/health-checks.md)
     * [Client-side encryption](docs/client-side-encryption.md)
@@ -81,6 +67,7 @@ The view can then be exported to be visualised in a number of different ways; e.
     * [Building from source](docs/building.md)
 * Related projects
     * [java-quickstart](https://github.com/structurizr/java-quickstart): A simple starting point for using Structurizr for Java
+    * [java-extensions](https://github.com/structurizr/java-extensions): A collection of Structurizr for Java extensions; including the ability to extract software architecture information from code, export views to PlantUML, etc.
     * [structurizr-kotlin](https://github.com/Catalysts/structurizr-extensions/tree/master/structurizr-kotlin): An extension for Structurizr that lets you create your models in a fluent way.
     * [structurizr-spring-boot](https://github.com/Catalysts/structurizr-extensions/tree/master/structurizr-spring-boot): A way to apply dependency management to help modularise Structurizr code.
     * [structurizr-groovy](https://github.com/tidyjava/structurizr-groovy): An initial version of a Groovy wrapper around Structurizr for Java.

@@ -1,22 +1,6 @@
 dependencies {
-    compile project(':structurizr-adr-tools')
-    compile project(':structurizr-annotations')
     compile project(':structurizr-client')
-    compile project(':structurizr-dot')
-    compile project(':structurizr-mermaid')
-    compile project(':structurizr-plantuml')
-    compile project(':structurizr-spring')
 
     compile 'org.slf4j:slf4j-api:1.7.21'
     compile 'org.slf4j:slf4j-simple:1.7.21'
-}
-
-task springPetClinic(type:JavaExec) {
-    main = "com.structurizr.example.spring.petclinic.SpringPetClinic"
-    classpath(
-            sourceSets.main.runtimeClasspath,
-            '/Users/structurizr/Documents/spring-petclinic/target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/classes',
-            fileTree(dir: '/Users/structurizr/Documents/spring-petclinic/target/spring-petclinic-1.0.0-SNAPSHOT/WEB-INF/lib', include: '*.jar')
-    )
-    args '/Users/structurizr/Documents/spring-petclinic'
 }

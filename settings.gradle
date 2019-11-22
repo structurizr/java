@@ -1,13 +1,5 @@
 rootProject.name = 'structurizr'
 
-include 'structurizr-adr-tools'
-include 'structurizr-analysis'
-include 'structurizr-annotations'
 include 'structurizr-client'
 include 'structurizr-core'
-include 'structurizr-mermaid'
-include 'structurizr-plantuml'
-include 'structurizr-dot'
 include 'structurizr-examples'
-include 'structurizr-spring'
-include 'structurizr-websequencediagrams'

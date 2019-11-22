@@ -19,6 +19,6 @@ Manually adding elements to the model is the simplest way to use the Structurizr
 
 ## 2. Automatic extraction
 
-You can also extract components (and add them to a ```Container``` instance) automatically from a given codebase, using a number of different component finder strategies. See [Component finder](component-finder.md) for more details.
+You can also extract components (and add them to a ```Container``` instance) automatically from a given codebase, using a number of different component finder strategies. See [Component finder](https://github.com/structurizr/java-extensions/blob/master/docs/component-finder.md) for more details.
 
 Although there is nothing included in the Structurizr for Java library to support this, you could also choose to parse an external definition of your software architecture (e.g. an AWS infrastructure topology, another Architecture Description Language, etc) and create model elements accordingly.
