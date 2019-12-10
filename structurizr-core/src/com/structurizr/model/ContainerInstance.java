@@ -78,8 +78,9 @@ public final class ContainerInstance extends DeploymentElement {
     }
 
     @Override
-    public void removeTag(String tag) {
+    public boolean removeTag(String tag) {
         // do nothing ... tags cannot be removed from container instances (they should reflect the container they are based upon)
+        return false;
     }
 
     @Override
