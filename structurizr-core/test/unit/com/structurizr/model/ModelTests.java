@@ -357,12 +357,15 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         Set<Relationship> implicitRelationships = model.addImplicitRelationships();
         assertEquals(9, model.getRelationships().size());
         assertEquals(8, implicitRelationships.size());
+
         assertTrue(aaa.hasEfferentRelationshipWith(bb));
+        assertTrue(aaa.hasEfferentRelationshipWith(b));
+
         assertTrue(aa.hasEfferentRelationshipWith(bbb));
         assertTrue(aa.hasEfferentRelationshipWith(bb));
-        assertTrue(aaa.hasEfferentRelationshipWith(b));
-        assertTrue(a.hasEfferentRelationshipWith(bbb));
         assertTrue(aa.hasEfferentRelationshipWith(b));
+
+        assertTrue(a.hasEfferentRelationshipWith(bbb));
         assertTrue(a.hasEfferentRelationshipWith(bb));
         assertTrue(a.hasEfferentRelationshipWith(b));
     }
@@ -384,9 +387,12 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         Set<Relationship> implicitRelationships = model.addImplicitRelationships();
         assertEquals(6, model.getRelationships().size());
         assertEquals(5, implicitRelationships.size());
-        assertTrue(aa.hasEfferentRelationshipWith(bb));
+
         assertTrue(aaa.hasEfferentRelationshipWith(b));
+
+        assertTrue(aa.hasEfferentRelationshipWith(bb));
         assertTrue(aa.hasEfferentRelationshipWith(b));
+
         assertTrue(a.hasEfferentRelationshipWith(bb));
         assertTrue(a.hasEfferentRelationshipWith(b));
     }
@@ -803,6 +809,40 @@ public class ModelTests extends AbstractWorkspaceTestBase {
 
         Relationship relationship = user.getRelationships().stream().filter(r -> r.getDestination() == softwareSystem).findFirst().get();
         assertEquals("", relationship.getTechnology());
+    }
+
+    @Test
+    public void test_addImplicitRelationships_PropagatesAsyncRelationship_IfThereAreAMixOfInteractionStyles() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
+        SoftwareSystem softwareSystemExternal = model.addSoftwareSystem("External system", "");
+        Container service1 = softwareSystem.addContainer("Service1", "", "Technology1");
+        Container service2 = softwareSystem.addContainer("Service2", "", "Technology2");
+
+        softwareSystemExternal.uses(service1, "Sends an event to", "AMQP", InteractionStyle.Asynchronous);
+        softwareSystemExternal.uses(service2, "Sends a command to", "HTTPS", InteractionStyle.Synchronous);
+
+        model.addImplicitRelationships();
+        assertEquals(3, softwareSystemExternal.getRelationships().size());
+        Relationship relationship = softwareSystemExternal.getRelationships().stream().filter(r -> r.getDestination() ==
+                softwareSystem).findFirst().get();
+        assertEquals(InteractionStyle.Asynchronous, relationship.getInteractionStyle());
+    }
+
+    @Test
+    public void test_addImplicitRelationships_PropagatesAsyncRelationship_IfThereAreOnlyAsyncInteractionStyles() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
+        SoftwareSystem softwareSystemExternal = model.addSoftwareSystem("External system", "");
+        Container service1 = softwareSystem.addContainer("Service1", "", "Technology1");
+        Container service2 = softwareSystem.addContainer("Service2", "", "Technology2");
+
+        softwareSystemExternal.uses(service1, "Sends an event to", "AMQP", InteractionStyle.Asynchronous);
+        softwareSystemExternal.uses(service2, "Sends an event to", "Kafka", InteractionStyle.Asynchronous);
+
+        model.addImplicitRelationships();
+        assertEquals(3, softwareSystemExternal.getRelationships().size());
+        Relationship relationship = softwareSystemExternal.getRelationships().stream().filter(r -> r.getDestination() ==
+                softwareSystem).findFirst().get();
+        assertEquals(InteractionStyle.Asynchronous, relationship.getInteractionStyle());
     }
 
     @Test

@@ -537,6 +537,7 @@ public final class Model {
 
         String descriptionKey = "D";
         String technologyKey = "T";
+        String interactionStyleKey = "I";
         Map<Element, Map<Element, Map<String, HashSet<String>>>> candidateRelationships = new HashMap<>();
 
         for (Relationship relationship : getRelationships()) {
@@ -556,6 +557,7 @@ public final class Model {
                                 candidateRelationships.get(source).put(destination, new HashMap<>());
                                 candidateRelationships.get(source).get(destination).put(descriptionKey, new HashSet<>());
                                 candidateRelationships.get(source).get(destination).put(technologyKey, new HashSet<>());
+                                candidateRelationships.get(source).get(destination).put(interactionStyleKey, new HashSet<>());
                             }
 
                             if (relationship.getDescription() != null) {
@@ -564,6 +566,10 @@ public final class Model {
 
                             if (relationship.getTechnology() != null) {
                                 candidateRelationships.get(source).get(destination).get(technologyKey).add(relationship.getTechnology());
+                            }
+
+                            if (relationship.getInteractionStyle() != null) {
+                                candidateRelationships.get(source).get(destination).get(interactionStyleKey).add(relationship.getInteractionStyle().toString());
                             }
                         }
                     }
@@ -580,6 +586,7 @@ public final class Model {
             for (Element destination : candidateRelationships.get(source).keySet()) {
                 Set<String> possibleDescriptions = candidateRelationships.get(source).get(destination).get(descriptionKey);
                 Set<String> possibleTechnologies = candidateRelationships.get(source).get(destination).get(technologyKey);
+                Set<String> possibleInteractionStyles = candidateRelationships.get(source).get(destination).get(interactionStyleKey);
 
                 String description = "";
                 if (possibleDescriptions.size() == 1) {
@@ -591,8 +598,13 @@ public final class Model {
                     technology = possibleTechnologies.iterator().next();
                 }
 
-                // todo ... this defaults to being a synchronous relationship
-                Relationship implicitRelationship = addRelationship(source, destination, description, technology, InteractionStyle.Synchronous);
+                InteractionStyle interactionStyle = InteractionStyle.Synchronous;
+                // If any async relationships are present, mark the relationship as asynchronous
+                if (possibleInteractionStyles.contains(InteractionStyle.Asynchronous.toString())) {
+                    interactionStyle = InteractionStyle.Asynchronous;
+                }
+
+                Relationship implicitRelationship = addRelationship(source, destination, description, technology, interactionStyle);
                 if (implicitRelationship != null) {
                     implicitRelationships.add(implicitRelationship);
                 }
