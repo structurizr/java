@@ -114,6 +114,8 @@ public final class Workspace extends AbstractWorkspace {
         } catch (InvocationTargetException ite) {
             if (ite.getCause() != null && ite.getCause() instanceof WorkspaceValidationException) {
                 throw (WorkspaceValidationException)ite.getCause();
+            } else {
+                throw new RuntimeException(ite.getCause());
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -128,6 +130,8 @@ public final class Workspace extends AbstractWorkspace {
         } catch (InvocationTargetException ite) {
             if (ite.getCause() != null && ite.getCause() instanceof WorkspaceValidationException) {
                 throw (WorkspaceValidationException)ite.getCause();
+            } else {
+                throw new RuntimeException(ite.getCause());
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -142,6 +146,8 @@ public final class Workspace extends AbstractWorkspace {
         } catch (InvocationTargetException ite) {
             if (ite.getCause() != null && ite.getCause() instanceof WorkspaceValidationException) {
                 throw (WorkspaceValidationException)ite.getCause();
+            } else {
+                throw new RuntimeException(ite.getCause());
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
