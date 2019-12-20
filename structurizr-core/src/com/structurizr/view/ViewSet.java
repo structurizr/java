@@ -471,17 +471,7 @@ public final class ViewSet {
         }
 
         for (ComponentView view : componentViews) {
-            SoftwareSystem softwareSystem = model.getSoftwareSystemWithId(view.getSoftwareSystemId());
-            if (softwareSystem == null) {
-                throw new WorkspaceValidationException(
-                        String.format("The component view with key \"%s\" is associated with a software system (id=%s), but that element does not exist in the model.",
-                                view.getKey(), view.getSoftwareSystemId())
-                );
-            }
-
-            view.setSoftwareSystem(softwareSystem);
-
-            Container container = softwareSystem.getContainerWithId(view.getContainerId());
+            Container container = (Container)model.getElement(view.getContainerId());
             if (container == null) {
                 throw new WorkspaceValidationException(
                         String.format("The component view with key \"%s\" is associated with a container (id=%s), but that element does not exist in the model.",
@@ -490,6 +480,7 @@ public final class ViewSet {
             }
 
             view.setContainer(container);
+            view.setSoftwareSystem(container.getSoftwareSystem());
             hydrateView(view);
         }
 

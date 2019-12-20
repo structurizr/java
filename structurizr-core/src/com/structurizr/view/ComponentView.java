@@ -24,6 +24,12 @@ public final class ComponentView extends StaticView {
         this.container = container;
     }
 
+    @JsonIgnore
+    @Override
+    public String getSoftwareSystemId() {
+        return super.getSoftwareSystemId();
+    }
+
     /**
      * Gets the ID of the container associated with this view.
      *
