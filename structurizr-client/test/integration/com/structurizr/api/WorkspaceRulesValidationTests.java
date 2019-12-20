@@ -130,16 +130,6 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionThrown_WhenSoftwareSystemAssociatedWithComponentViewIsMissingFromTheModel() throws Exception {
-        try {
-            WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "SoftwareSystemAssociatedWithComponentViewIsMissingFromTheModel.json"));
-            fail();
-        } catch (WorkspaceValidationException we) {
-            assertEquals("The component view with key \"Components\" is associated with a software system (id=3), but that element does not exist in the model.", we.getMessage());
-        }
-    }
-
-    @Test
     public void test_exceptionThrown_WhenContainerAssociatedWithComponentViewIsMissingFromTheModel() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ContainerAssociatedWithComponentViewIsMissingFromTheModel.json"));
