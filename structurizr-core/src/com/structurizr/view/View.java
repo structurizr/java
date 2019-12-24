@@ -147,16 +147,10 @@ public abstract class View {
     }
 
     /**
-     * Enables the automatic layout for this view, with some default settings.
-     *
-     * @param enable    a boolean
+     * Enables automatic layout for this view, with some default settings.
      */
-    public void setAutomaticLayout(boolean enable) {
-        if (enable) {
-            this.setAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 600, 200, false);
-        } else {
-            this.automaticLayout = null;
-        }
+    public void enableAutomaticLayout() {
+        enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 600, 200, false);
     }
 
     /**
@@ -168,8 +162,15 @@ public abstract class View {
      * @param edgeSeparation    the separation between edges (in pixels, a positive integer)
      * @param vertices          whether vertices should be created during automatic layout
      */
-    public void setAutomaticLayout(AutomaticLayout.RankDirection rankDirection, int rankSeparation, int nodeSeparation, int edgeSeparation, boolean vertices) {
+    public void enableAutomaticLayout(AutomaticLayout.RankDirection rankDirection, int rankSeparation, int nodeSeparation, int edgeSeparation, boolean vertices) {
         this.automaticLayout = new AutomaticLayout(rankDirection, rankSeparation, nodeSeparation, edgeSeparation, vertices);
+    }
+
+    /**
+     * Disables automatic layout for this view.
+     */
+    public void disableAutomaticLayout() {
+        this.automaticLayout = null;
     }
 
     /**

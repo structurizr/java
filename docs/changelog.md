@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.4 (unreleased)
+
+- Split View.setAutomaticLayout(boolean) to enableAutomaticLayout() and disableAutomaticLayout() (__breaking change__).
+
 ## 1.3.3 (24th December 2019)
 
 - Fixes a deserialization issue with component views.

@@ -397,9 +397,9 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_setAutomaticLayout_EnablesAutoLayoutWithSomeDefaultValues_WhenTrueIsSpecified() {
+    public void test_enableAutomaticLayout_EnablesAutoLayoutWithSomeDefaultValues_WhenTrueIsSpecified() {
         SystemLandscapeView view = new Workspace("", "").getViews().createSystemLandscapeView("key", "Description");
-        view.setAutomaticLayout(true);
+        view.enableAutomaticLayout();
 
         assertNotNull(view.getAutomaticLayout());
         assertEquals(AutomaticLayout.RankDirection.TopBottom, view.getAutomaticLayout().getRankDirection());
@@ -410,19 +410,19 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_setAutomaticLayout_DisablesAutoLayout_WhenFalseIsSpecified() {
+    public void test_enableAutomaticLayout_DisablesAutoLayout_WhenFalseIsSpecified() {
         SystemLandscapeView view = new Workspace("", "").getViews().createSystemLandscapeView("key", "Description");
-        view.setAutomaticLayout(true);
+        view.enableAutomaticLayout();
         assertNotNull(view.getAutomaticLayout());
 
-        view.setAutomaticLayout(false);
+        view.disableAutomaticLayout();
         assertNull(view.getAutomaticLayout());
     }
 
     @Test
-    public void test_setAutomaticLayout() {
+    public void test_enableAutomaticLayout() {
         SystemLandscapeView view = new Workspace("", "").getViews().createSystemLandscapeView("key", "Description");
-        view.setAutomaticLayout(AutomaticLayout.RankDirection.LeftRight, 100, 200, 300, true);
+        view.enableAutomaticLayout(AutomaticLayout.RankDirection.LeftRight, 100, 200, 300, true);
 
         assertNotNull(view.getAutomaticLayout());
         assertEquals(AutomaticLayout.RankDirection.LeftRight, view.getAutomaticLayout().getRankDirection());
