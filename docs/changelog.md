@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.3 (24th December 2019)
+
+- Fixes a deserialization issue with component views.
+
 ## 1.3.2 (22nd November 2019)
 
 - Added support for element stroke colours.
