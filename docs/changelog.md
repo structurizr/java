@@ -4,6 +4,10 @@
 
 - Split View.setAutomaticLayout(boolean) to enableAutomaticLayout() and disableAutomaticLayout() (__breaking change__).
 
+## 1.3.4 (unreleased)
+
+- Added A1 and A0 paper sizes.
+
 ## 1.3.3 (24th December 2019)
 
 - Fixes a deserialization issue with component views.

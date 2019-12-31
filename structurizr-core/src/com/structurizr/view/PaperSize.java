@@ -1,5 +1,8 @@
 package com.structurizr.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * These represent paper sizes in pixels at 300dpi.
  */
@@ -19,6 +22,12 @@ public enum PaperSize {
 
     A2_Portrait("A2", Orientation.Portrait, 4961, 7016),
     A2_Landscape("A2", Orientation.Landscape, 7016, 4961),
+
+    A1_Portrait("A1", Orientation.Portrait, 7016, 9933),
+    A1_Landscape("A1", Orientation.Landscape, 9933, 7016),
+
+    A0_Portrait("A0", Orientation.Portrait, 9933, 14043),
+    A0_Landscape("A0", Orientation.Landscape, 14043, 9933),
 
     Letter_Portrait("Letter", Orientation.Portrait, 2550, 3300),
     Letter_Landscape("Letter", Orientation.Landscape, 3300, 2550),
@@ -60,6 +69,24 @@ public enum PaperSize {
     enum Orientation {
         Portrait,
         Landscape
+    }
+
+    public static final List<PaperSize> getOrderedPaperSizes() {
+        List<PaperSize> paperSizes = new ArrayList<>();
+
+        for (PaperSize paperSize : values()) {
+            if (paperSize.getOrientation() == Orientation.Landscape) {
+                paperSizes.add(paperSize);
+            }
+        }
+
+        for (PaperSize paperSize : values()) {
+            if (paperSize.getOrientation() == Orientation.Portrait) {
+                paperSizes.add(paperSize);
+            }
+        }
+
+        return paperSizes;
     }
 
 }
