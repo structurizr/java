@@ -3,10 +3,8 @@
 ## 1.3.4 (unreleased)
 
 - Split View.setAutomaticLayout(boolean) to enableAutomaticLayout() and disableAutomaticLayout() (__breaking change__).
-
-## 1.3.4 (unreleased)
-
 - Added A1 and A0 paper sizes.
+- Adds support for themes.
 
 ## 1.3.3 (24th December 2019)
 

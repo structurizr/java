@@ -2,6 +2,7 @@ package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.structurizr.util.Url;
 
 /**
  * Configuration associated with how information in the workspace is rendered.
@@ -10,6 +11,7 @@ public final class Configuration {
 
     private Branding branding = new Branding();
     private Styles styles = new Styles();
+    private String theme;
     private Terminology terminology = new Terminology();
 
     private String defaultView;
@@ -23,6 +25,30 @@ public final class Configuration {
      */
     public Styles getStyles() {
         return styles;
+    }
+
+    /**
+     * Gets the URL of the theme used to render views.
+     *
+     * @return  the URL of the theme
+     */
+    public String getTheme() {
+        return theme;
+    }
+
+    /**
+     * Sets the theme used to render views.
+     *
+     * @param url       the URL of theme
+     */
+    public void setTheme(String url) {
+        if (url != null && url.trim().length() > 0) {
+            if (Url.isUrl(url)) {
+                this.theme = url.trim();
+            } else {
+                throw new IllegalArgumentException(url + " is not a valid URL.");
+            }
+        }
     }
 
     /**

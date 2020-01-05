@@ -33,4 +33,38 @@ public class ConfigurationTests extends AbstractWorkspaceTestBase {
         assertEquals("someKey", destination.getLastSavedView());
     }
 
+    @Test
+    public void test_setTheme_WithAUrl() {
+        Configuration configuration = new Configuration();
+        configuration.setTheme("https://example.com/theme.json");
+        assertEquals("https://example.com/theme.json", configuration.getTheme());
+    }
+
+    @Test
+    public void test_setTheme_WithAUrlThatHasATrailingSpace() {
+        Configuration configuration = new Configuration();
+        configuration.setTheme("https://example.com/theme.json ");
+        assertEquals("https://example.com/theme.json", configuration.getTheme());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_setTheme_ThrowsAnIllegalArgumentException_WhenAnInvalidUrlIsSpecified() {
+        Configuration configuration = new Configuration();
+        configuration.setTheme("htt://blah");
+    }
+
+    @Test
+    public void test_setTheme_DoesNothing_WhenANullUrlIsSpecified() {
+        Configuration configuration = new Configuration();
+        configuration.setTheme(null);
+        assertNull(configuration.getTheme());
+    }
+
+    @Test
+    public void test_setTheme_DoesNothing_WhenAnEmptyUrlIsSpecified() {
+        Configuration configuration = new Configuration();
+        configuration.setTheme(" ");
+        assertNull(configuration.getTheme());
+    }
+
 }
