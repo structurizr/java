@@ -97,7 +97,7 @@ public final class ContainerInstance extends DeploymentElement {
     @Override
     @JsonIgnore
     public String getName() {
-        return null;
+        return container.getName() + " (container instance)";
     }
 
     @Override
