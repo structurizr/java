@@ -8,6 +8,7 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 public class ModelItemTests extends AbstractWorkspaceTestBase {
@@ -23,6 +24,13 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
     public void test_getTags_WhenThereAreNoTags() {
         Element element = model.addSoftwareSystem("Name", "Description");
         assertEquals("Element,Software System", element.getTags());
+    }
+
+    @Test
+    public void test_hasTag_ChecksRequiredTags() {
+        SoftwareSystem system = model.addSoftwareSystem("Name", "Description");
+        assertTrue("hasTag returns true for Software System", system.hasTag("Software System"));
+        assertTrue("hasTag returns true for Element", system.hasTag("Element"));
     }
 
     @Test
@@ -63,6 +71,16 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
         assertEquals("Element,Software System,tag1,tag2", element.getTags());
     }
 
+    @Test
+    public void test_removeTags() {
+        Element element = model.addSoftwareSystem("Name", "Description");
+        element.addTags("tag1", "tag2");
+        assertTrue("Remove an existing tag returns true", element.removeTag("tag1"));
+        assertFalse("Tag has been removed", element.hasTag("tag1"));
+
+        assertFalse("Remove a non-existing tag returns false", element.removeTag("no-such-tag"));
+        assertFalse("Remove a required tag returns false", element.removeTag("Element"));
+    }
     @Test
     public void test_getProperties_ReturnsAnEmptyList_WhenNoPropertiesHaveBeenAdded() {
         Element element = model.addSoftwareSystem("Name", "Description");
