@@ -84,10 +84,11 @@ abstract class ModelItem {
     }
 
     /**
+     * Removes the given tag.
      *
-     * @param tag
-     * @return True if the tag was removed. Will return false if a non-existent tag is passed, or if an attempt is
-     * made to remove requiredTags, which cannot be removed.
+     * @param tag       the tag to remove
+     * @return          true if the tag was removed; will return false if a non-existent tag is passed, or if an attempt is
+     *                  made to remove required tags, which cannot be removed.
      */
     public boolean removeTag(String tag) {
         if (tag != null) {
@@ -97,10 +98,11 @@ abstract class ModelItem {
     }
 
     /**
+     * Determines whether this model item has the given tag.
      *
-     * @param tag
-     * @return True if tag is present as a tag on this item, or if it is one of the
-     * required tags defined by the model in getRequiredTags()
+     * @param tag   the tag to check for
+     * @return      true if tag is present as a tag on this item, or if it is one of the
+     *              required tags defined by the model in getRequiredTags(), false otherwise
      */
     public boolean hasTag(String tag) {
         return getTagsAsSet().contains(tag);
