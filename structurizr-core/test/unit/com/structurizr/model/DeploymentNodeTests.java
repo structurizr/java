@@ -36,13 +36,16 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_getRequiredTags() {
         DeploymentNode deploymentNode = new DeploymentNode();
-        assertEquals(0, deploymentNode.getRequiredTags().size());
+        assertEquals(2, deploymentNode.getRequiredTags().size());
+        assertTrue(deploymentNode.getRequiredTags().contains(Tags.ELEMENT));
+        assertTrue(deploymentNode.getRequiredTags().contains(Tags.DEPLOYMENT_NODE));
     }
 
     @Test
     public void test_getTags() {
         DeploymentNode deploymentNode = new DeploymentNode();
-        assertEquals("", deploymentNode.getTags());
+        deploymentNode.addTags("Tag 1", "Tag 2");
+        assertEquals("Element,Deployment Node,Tag 1,Tag 2", deploymentNode.getTags());
     }
 
     @Test

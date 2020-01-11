@@ -2,9 +2,7 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * <p>
@@ -210,14 +208,7 @@ public final class DeploymentNode extends DeploymentElement {
 
     @JsonIgnore
     protected Set<String> getRequiredTags() {
-        // deployment nodes don't have any tags
-        return new HashSet<>();
-    }
-
-    @Override
-    public String getTags() {
-        // deployment nodes don't have any tags
-        return "";
+        return new LinkedHashSet<>(Arrays.asList(Tags.ELEMENT, Tags.DEPLOYMENT_NODE));
     }
 
     @Override

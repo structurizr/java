@@ -136,8 +136,10 @@ public class BigBankPlc {
                 .addDeploymentNode("Oracle - Primary", "The primary, live database server.", "Oracle 12c");
         primaryDatabaseServer.add(database);
 
-        DeploymentNode secondaryDatabaseServer = bigBankDataCenter.addDeploymentNode("bigbank-db02", "The secondary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.create("Location=Reading"))
-                .addDeploymentNode("Oracle - Secondary", "A secondary, standby database server, used for failover purposes only.", "Oracle 12c");
+        DeploymentNode bigBankdb02 = bigBankDataCenter.addDeploymentNode("bigbank-db02", "The secondary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.create("Location=Reading"));
+        bigBankdb02.addTags(FAILOVER_TAG);
+        DeploymentNode secondaryDatabaseServer = bigBankdb02.addDeploymentNode("Oracle - Secondary", "A secondary, standby database server, used for failover purposes only.", "Oracle 12c");
+        secondaryDatabaseServer.addTags(FAILOVER_TAG);
         ContainerInstance secondaryDatabase = secondaryDatabaseServer.add(database);
 
         model.getRelationships().stream().filter(r -> r.getDestination().equals(secondaryDatabase)).forEach(r -> r.addTags(FAILOVER_TAG));
