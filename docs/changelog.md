@@ -5,6 +5,7 @@
 - Split View.setAutomaticLayout(boolean) to enableAutomaticLayout() and disableAutomaticLayout() (__breaking change__).
 - Added A1 and A0 paper sizes.
 - Adds support for themes.
+- Adds support for tags on deployment nodes.
 
 ## 1.3.3 (24th December 2019)
 
