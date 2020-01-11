@@ -114,13 +114,13 @@ public class BigBankPlc {
                 .addDeploymentNode("Database Server", "A development database.", "Oracle 12c")
                 .add(database);
 
-        developerLaptop.addDeploymentNode("Web Browser", "", "Google Chrome, Mozilla Firefox, Apple Safari or Microsoft Edge").add(singlePageApplication);
+        developerLaptop.addDeploymentNode("Web Browser", "", "Chrome, Firefox, Safari, or Edge").add(singlePageApplication);
 
         DeploymentNode customerMobileDevice = model.addDeploymentNode("Live", "Customer's mobile device", "", "Apple iOS or Android");
         customerMobileDevice.add(mobileApp);
 
         DeploymentNode customerComputer = model.addDeploymentNode("Live", "Customer's computer", "", "Microsoft Windows or Apple macOS");
-        customerComputer.addDeploymentNode("Web Browser", "", "Google Chrome, Mozilla Firefox, Apple Safari or Microsoft Edge").add(singlePageApplication);
+        customerComputer.addDeploymentNode("Web Browser", "", "Chrome, Firefox, Safari, or Edge").add(singlePageApplication);
 
         DeploymentNode bigBankDataCenter = model.addDeploymentNode("Live", "Big Bank plc", "", "Big Bank plc data center");
 
