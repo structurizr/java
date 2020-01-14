@@ -6,6 +6,7 @@
 - Added A1 and A0 paper sizes.
 - Adds support for themes.
 - Adds support for tags on deployment nodes.
+- Adds support for animations on deployment views.
 
 ## 1.3.3 (24th December 2019)
 

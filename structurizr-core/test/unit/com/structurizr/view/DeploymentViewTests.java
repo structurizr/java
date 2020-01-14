@@ -152,4 +152,98 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
         assertTrue(deploymentView.getElements().contains(new ElementView(containerInstance)));
     }
 
+    @Test
+    public void test_addAnimationStep_ThrowsAnException_WhenNoContainerInstancesAreSpecified() {
+        try {
+            deploymentView = views.createDeploymentView("deployment", "Description");
+            deploymentView.addAnimation();
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("One or more container instances must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addAnimationStep() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
+        Container webApplication = softwareSystem.addContainer("Web Application", "Description", "Technology");
+        Container database = softwareSystem.addContainer("Database", "Description", "Technology");
+        webApplication.uses(database, "Reads from and writes to", "JDBC/HTTPS");
+
+        DeploymentNode developerLaptop = model.addDeploymentNode("Developer Laptop", "Description", "Technology");
+        DeploymentNode apacheTomcat = developerLaptop.addDeploymentNode("Apache Tomcat", "Description", "Technology");
+        DeploymentNode oracle = developerLaptop.addDeploymentNode("Oracle", "Description", "Technology");
+        ContainerInstance webApplicationInstance = apacheTomcat.add(webApplication);
+        ContainerInstance databaseInstance = oracle.add(database);
+
+        deploymentView = views.createDeploymentView(softwareSystem, "deployment", "Description");
+        deploymentView.add(developerLaptop);
+
+        deploymentView.addAnimation(webApplicationInstance);
+        deploymentView.addAnimation(databaseInstance);
+
+        Animation step1 = deploymentView.getAnimations().stream().filter(step -> step.getOrder() == 1).findFirst().get();
+        assertEquals(3, step1.getElements().size());
+        assertTrue(step1.getElements().contains(developerLaptop.getId()));
+        assertTrue(step1.getElements().contains(apacheTomcat.getId()));
+        assertTrue(step1.getElements().contains(webApplicationInstance.getId()));
+        assertEquals(0, step1.getRelationships().size());
+
+        Animation step2 = deploymentView.getAnimations().stream().filter(step -> step.getOrder() == 2).findFirst().get();
+        assertEquals(2, step2.getElements().size());
+        assertTrue(step2.getElements().contains(oracle.getId()));
+        assertTrue(step2.getElements().contains(databaseInstance.getId()));
+        assertEquals(1, step2.getRelationships().size());
+        assertTrue(step2.getRelationships().contains(webApplicationInstance.getRelationships().stream().findFirst().get().getId()));
+    }
+
+    @Test
+    public void test_addAnimationStep_IgnoresContainerInstancesThatDoNotExistInTheView() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
+        Container webApplication = softwareSystem.addContainer("Web Application", "Description", "Technology");
+        Container database = softwareSystem.addContainer("Database", "Description", "Technology");
+        webApplication.uses(database, "Reads from and writes to", "JDBC/HTTPS");
+
+        DeploymentNode developerLaptop = model.addDeploymentNode("Developer Laptop", "Description", "Technology");
+        DeploymentNode apacheTomcat = developerLaptop.addDeploymentNode("Apache Tomcat", "Description", "Technology");
+        DeploymentNode oracle = developerLaptop.addDeploymentNode("Oracle", "Description", "Technology");
+        ContainerInstance webApplicationInstance = apacheTomcat.add(webApplication);
+        ContainerInstance databaseInstance = oracle.add(database);
+
+        deploymentView = views.createDeploymentView(softwareSystem, "deployment", "Description");
+        deploymentView.add(apacheTomcat);
+
+        deploymentView.addAnimation(webApplicationInstance, databaseInstance);
+
+        Animation step1 = deploymentView.getAnimations().stream().filter(step -> step.getOrder() == 1).findFirst().get();
+        assertEquals(3, step1.getElements().size());
+        assertTrue(step1.getElements().contains(developerLaptop.getId()));
+        assertTrue(step1.getElements().contains(apacheTomcat.getId()));
+        assertTrue(step1.getElements().contains(webApplicationInstance.getId()));
+        assertEquals(0, step1.getRelationships().size());
+    }
+
+    @Test
+    public void test_addAnimationStep_ThrowsAnException_WhenContainerInstancesAreSpecifiedButNoneOfThemExistInTheView() {
+        try {
+            SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
+            Container webApplication = softwareSystem.addContainer("Web Application", "Description", "Technology");
+            Container database = softwareSystem.addContainer("Database", "Description", "Technology");
+            webApplication.uses(database, "Reads from and writes to", "JDBC/HTTPS");
+
+            DeploymentNode developerLaptop = model.addDeploymentNode("Developer Laptop", "Description", "Technology");
+            DeploymentNode apacheTomcat = developerLaptop.addDeploymentNode("Apache Tomcat", "Description", "Technology");
+            DeploymentNode oracle = developerLaptop.addDeploymentNode("Oracle", "Description", "Technology");
+            ContainerInstance webApplicationInstance = apacheTomcat.add(webApplication);
+            ContainerInstance databaseInstance = oracle.add(database);
+
+            deploymentView = views.createDeploymentView(softwareSystem, "deployment", "Description");
+
+            deploymentView.addAnimation(webApplicationInstance, databaseInstance);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("None of the specified container instances exist in this view.", iae.getMessage());
+        }
+    }
+
 }

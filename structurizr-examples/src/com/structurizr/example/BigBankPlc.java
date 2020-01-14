@@ -107,44 +107,44 @@ public class BigBankPlc {
         DeploymentNode developerLaptop = model.addDeploymentNode("Development", "Developer Laptop", "A developer laptop.", "Microsoft Windows 10 or Apple macOS");
         DeploymentNode apacheTomcat = developerLaptop.addDeploymentNode("Docker Container - Web Server", "A Docker container.", "Docker")
                 .addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"));
-        apacheTomcat.add(webApplication);
-        apacheTomcat.add(apiApplication);
+        ContainerInstance developmentWebApplication = apacheTomcat.add(webApplication);
+        ContainerInstance developmentApiApplication = apacheTomcat.add(apiApplication);
 
-        developerLaptop.addDeploymentNode("Docker Container - Database Server", "A Docker container.", "Docker")
+        ContainerInstance developmentDatabase = developerLaptop.addDeploymentNode("Docker Container - Database Server", "A Docker container.", "Docker")
                 .addDeploymentNode("Database Server", "A development database.", "Oracle 12c")
                 .add(database);
 
-        developerLaptop.addDeploymentNode("Web Browser", "", "Chrome, Firefox, Safari, or Edge").add(singlePageApplication);
+        ContainerInstance developmentSinglePageApplication = developerLaptop.addDeploymentNode("Web Browser", "", "Chrome, Firefox, Safari, or Edge").add(singlePageApplication);
 
         DeploymentNode customerMobileDevice = model.addDeploymentNode("Live", "Customer's mobile device", "", "Apple iOS or Android");
-        customerMobileDevice.add(mobileApp);
+        ContainerInstance liveMobileApp = customerMobileDevice.add(mobileApp);
 
         DeploymentNode customerComputer = model.addDeploymentNode("Live", "Customer's computer", "", "Microsoft Windows or Apple macOS");
-        customerComputer.addDeploymentNode("Web Browser", "", "Chrome, Firefox, Safari, or Edge").add(singlePageApplication);
+        ContainerInstance liveSinglePageApplication = customerComputer.addDeploymentNode("Web Browser", "", "Chrome, Firefox, Safari, or Edge").add(singlePageApplication);
 
         DeploymentNode bigBankDataCenter = model.addDeploymentNode("Live", "Big Bank plc", "", "Big Bank plc data center");
 
         DeploymentNode liveWebServer = bigBankDataCenter.addDeploymentNode("bigbank-web***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 4, MapUtils.create("Location=London and Reading"));
-        liveWebServer.addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"))
+        ContainerInstance liveWebApplication = liveWebServer.addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"))
                 .add(webApplication);
 
         DeploymentNode liveApiServer = bigBankDataCenter.addDeploymentNode("bigbank-api***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 8, MapUtils.create("Location=London and Reading"));
-        liveApiServer.addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"))
+        ContainerInstance liveApiApplication = liveApiServer.addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"))
                 .add(apiApplication);
 
         DeploymentNode primaryDatabaseServer = bigBankDataCenter.addDeploymentNode("bigbank-db01", "The primary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.create("Location=London"))
                 .addDeploymentNode("Oracle - Primary", "The primary, live database server.", "Oracle 12c");
-        primaryDatabaseServer.add(database);
+        ContainerInstance livePrimaryDatabase = primaryDatabaseServer.add(database);
 
         DeploymentNode bigBankdb02 = bigBankDataCenter.addDeploymentNode("bigbank-db02", "The secondary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.create("Location=Reading"));
         bigBankdb02.addTags(FAILOVER_TAG);
         DeploymentNode secondaryDatabaseServer = bigBankdb02.addDeploymentNode("Oracle - Secondary", "A secondary, standby database server, used for failover purposes only.", "Oracle 12c");
         secondaryDatabaseServer.addTags(FAILOVER_TAG);
-        ContainerInstance secondaryDatabase = secondaryDatabaseServer.add(database);
+        ContainerInstance liveSecondaryDatabase = secondaryDatabaseServer.add(database);
 
-        model.getRelationships().stream().filter(r -> r.getDestination().equals(secondaryDatabase)).forEach(r -> r.addTags(FAILOVER_TAG));
+        model.getRelationships().stream().filter(r -> r.getDestination().equals(liveSecondaryDatabase)).forEach(r -> r.addTags(FAILOVER_TAG));
         Relationship dataReplicationRelationship = primaryDatabaseServer.uses(secondaryDatabaseServer, "Replicates data to", "");
-        secondaryDatabase.addTags(FAILOVER_TAG);
+        liveSecondaryDatabase.addTags(FAILOVER_TAG);
 
         // views/diagrams
         SystemLandscapeView systemLandscapeView = views.createSystemLandscapeView("SystemLandscape", "The system landscape diagram for Big Bank plc.");
@@ -205,6 +205,10 @@ public class BigBankPlc {
         developmentDeploymentView.add(developerLaptop);
         developmentDeploymentView.setPaperSize(PaperSize.A5_Landscape);
 
+        developmentDeploymentView.addAnimation(developmentSinglePageApplication);
+        developmentDeploymentView.addAnimation(developmentWebApplication, developmentApiApplication);
+        developmentDeploymentView.addAnimation(developmentDatabase);
+
         DeploymentView liveDeploymentView = views.createDeploymentView(internetBankingSystem, "LiveDeployment", "An example live deployment scenario for the Internet Banking System.");
         liveDeploymentView.setEnvironment("Live");
         liveDeploymentView.add(bigBankDataCenter);
@@ -212,6 +216,12 @@ public class BigBankPlc {
         liveDeploymentView.add(customerComputer);
         liveDeploymentView.add(dataReplicationRelationship);
         liveDeploymentView.setPaperSize(PaperSize.A5_Landscape);
+
+        liveDeploymentView.addAnimation(liveSinglePageApplication);
+        liveDeploymentView.addAnimation(liveMobileApp);
+        liveDeploymentView.addAnimation(liveWebApplication, liveApiApplication);
+        liveDeploymentView.addAnimation(livePrimaryDatabase);
+        liveDeploymentView.addAnimation(liveSecondaryDatabase);
 
         // colours, shapes and other diagram styling
         Styles styles = views.getConfiguration().getStyles();

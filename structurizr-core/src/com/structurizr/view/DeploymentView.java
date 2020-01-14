@@ -5,6 +5,10 @@ import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * A deployment view, used to show the mapping of container instances to deployment nodes.
@@ -13,6 +17,8 @@ public final class DeploymentView extends View {
 
     private Model model;
     private String environment;
+
+    private List<Animation> animations = new ArrayList<>();
 
     DeploymentView() {
     }
@@ -148,6 +154,82 @@ public final class DeploymentView extends View {
     @Override
     protected boolean canBeRemoved(Element element) {
         return true;
+    }
+
+    /**
+     * Adds an animation step, with the specified container instances.
+     *
+     * @param containerInstances        the container instances that should be shown in the animation step
+     */
+    public void addAnimation(ContainerInstance... containerInstances) {
+        if (containerInstances == null || containerInstances.length == 0) {
+            throw new IllegalArgumentException("One or more container instances must be specified.");
+        }
+
+        Set<String> elementIdsInPreviousAnimationSteps = new HashSet<>();
+        for (Animation animationStep : animations) {
+            elementIdsInPreviousAnimationSteps.addAll(animationStep.getElements());
+        }
+
+        Set<Element> elementsInThisAnimationStep = new HashSet<>();
+        Set<Relationship> relationshipsInThisAnimationStep = new HashSet<>();
+
+        for (ContainerInstance containerInstance : containerInstances) {
+            if (isElementInView(containerInstance) && !elementIdsInPreviousAnimationSteps.contains(containerInstance.getId())) {
+                elementIdsInPreviousAnimationSteps.add(containerInstance.getId());
+                elementsInThisAnimationStep.add(containerInstance);
+
+                Element deploymentNode = findDeploymentNode(containerInstance);
+                while (deploymentNode != null) {
+                    if (!elementIdsInPreviousAnimationSteps.contains(deploymentNode.getId())) {
+                        elementIdsInPreviousAnimationSteps.add(deploymentNode.getId());
+                        elementsInThisAnimationStep.add(deploymentNode);
+                    }
+
+                    deploymentNode = deploymentNode.getParent();
+                }
+            }
+        }
+
+        if (elementsInThisAnimationStep.size() == 0) {
+            throw new IllegalArgumentException("None of the specified container instances exist in this view.");
+        }
+
+        for (RelationshipView relationshipView : this.getRelationships()) {
+            if (
+                    (elementsInThisAnimationStep.contains(relationshipView.getRelationship().getSource()) && elementIdsInPreviousAnimationSteps.contains(relationshipView.getRelationship().getDestination().getId())) ||
+                            (elementIdsInPreviousAnimationSteps.contains(relationshipView.getRelationship().getSource().getId()) && elementsInThisAnimationStep.contains(relationshipView.getRelationship().getDestination()))
+            ) {
+                relationshipsInThisAnimationStep.add(relationshipView.getRelationship());
+            }
+        }
+
+        animations.add(new Animation(animations.size() + 1, elementsInThisAnimationStep, relationshipsInThisAnimationStep));
+    }
+
+    private DeploymentNode findDeploymentNode(ContainerInstance containerInstance) {
+        for (Element element : getModel().getElements()) {
+            if (element instanceof DeploymentNode) {
+                DeploymentNode deploymentNode = (DeploymentNode)element;
+                if (deploymentNode.getContainerInstances().contains(containerInstance)) {
+                    return deploymentNode;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public List<Animation> getAnimations() {
+        return new ArrayList<>(animations);
+    }
+
+    void setAnimations(List<Animation> animations) {
+        if (animations != null) {
+            this.animations = new ArrayList<>(animations);
+        } else {
+            this.animations = new ArrayList<>();
+        }
     }
 
 }

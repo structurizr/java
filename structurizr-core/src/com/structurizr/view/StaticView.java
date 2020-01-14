@@ -201,22 +201,25 @@ public abstract class StaticView extends View {
         }
 
         Set<String> elementIdsInPreviousAnimationSteps = new HashSet<>();
+
+        for (Animation animationStep : animations) {
+            elementIdsInPreviousAnimationSteps.addAll(animationStep.getElements());
+        }
+
         Set<Element> elementsInThisAnimationStep = new HashSet<>();
         Set<Relationship> relationshipsInThisAnimationStep = new HashSet<>();
 
         for (Element element : elements) {
             if (isElementInView(element)) {
-                elementIdsInPreviousAnimationSteps.add(element.getId());
-                elementsInThisAnimationStep.add(element);
+                if (!elementIdsInPreviousAnimationSteps.contains(element.getId())) {
+                    elementIdsInPreviousAnimationSteps.add(element.getId());
+                    elementsInThisAnimationStep.add(element);
+                }
             }
         }
 
         if (elementsInThisAnimationStep.size() == 0) {
             throw new IllegalArgumentException("None of the specified elements exist in this view.");
-        }
-
-        for (Animation animationStep : animations) {
-            elementIdsInPreviousAnimationSteps.addAll(animationStep.getElements());
         }
 
         for (RelationshipView relationshipView : this.getRelationships()) {
