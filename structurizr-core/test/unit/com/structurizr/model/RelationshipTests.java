@@ -78,4 +78,31 @@ public class RelationshipTests extends AbstractWorkspaceTestBase {
         assertTrue(relationship.getTags().contains(Tags.ASYNCHRONOUS));
     }
 
+    @Test
+    public void test_setUrl() {
+        Relationship relationship = softwareSystem1.uses(softwareSystem2, "Uses 1", "Technology");
+        relationship.setUrl("https://structurizr.com");
+        assertEquals("https://structurizr.com", relationship.getUrl());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void test_setUrl_ThrowsAnIllegalArgumentException_WhenAnInvalidUrlIsSpecified() {
+        Relationship relationship = softwareSystem1.uses(softwareSystem2, "Uses 1", "Technology");
+        relationship.setUrl("htt://blah");
+    }
+
+    @Test
+    public void test_setUrl_DoesNothing_WhenANullUrlIsSpecified() {
+        Relationship relationship = softwareSystem1.uses(softwareSystem2, "Uses 1", "Technology");
+        relationship.setUrl(null);
+        assertNull(relationship.getUrl());
+    }
+
+    @Test
+    public void test_setUrl_DoesNothing_WhenAnEmptyUrlIsSpecified() {
+        Relationship relationship = softwareSystem1.uses(softwareSystem2, "Uses 1", "Technology");
+        relationship.setUrl(" ");
+        assertNull(relationship.getUrl());
+    }
+
 }
