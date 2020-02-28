@@ -1,15 +1,12 @@
 package com.structurizr.io.json;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import com.structurizr.encryption.EncryptedWorkspace;
 import com.structurizr.io.WorkspaceWriterException;
 
 import java.io.Writer;
 
-public final class EncryptedJsonWriter {
+public final class EncryptedJsonWriter extends AbstractJsonWriter {
 
     private boolean indentOutput = true;
 
@@ -33,16 +30,7 @@ public final class EncryptedJsonWriter {
         }
 
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            if (indentOutput) {
-                objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-            }
-            objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-            objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
-
-            objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-            objectMapper.setDateFormat(new ISO8601DateFormat());
-
+            ObjectMapper objectMapper = createObjectMapper(indentOutput);
             writer.write(objectMapper.writeValueAsString(workspace));
         } catch (Exception e) {
             throw new WorkspaceWriterException("Could not write as JSON", e);

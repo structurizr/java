@@ -13,7 +13,7 @@ import java.io.Reader;
 /**
  * Reads a workspace definition as JSON.
  */
-public final class JsonReader implements WorkspaceReader {
+public final class JsonReader extends AbstractJsonReader implements WorkspaceReader {
 
     /**
      * Reads and parses a workspace definition from a JSON document.
@@ -24,9 +24,7 @@ public final class JsonReader implements WorkspaceReader {
      */
     public Workspace read(Reader reader) throws WorkspaceReaderException {
         try {
-            ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-            objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+            ObjectMapper objectMapper = createObjectMapper();
 
             Workspace workspace = objectMapper.readValue(reader, Workspace.class);
             workspace.hydrate();
