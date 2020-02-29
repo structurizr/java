@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.3.4 (unreleased)
+## 1.3.4 (29th February 2020)
 
 - Split View.setAutomaticLayout(boolean) to enableAutomaticLayout() and disableAutomaticLayout() (__breaking change__).
 - Added A1 and A0 paper sizes.
