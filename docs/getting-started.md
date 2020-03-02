@@ -83,7 +83,7 @@ Once you've run your program to create and upload the workspace, you can now sig
 
 ![Getting Started with Structurizr for Java](images/getting-started-1.png)
 
-By default, Structurizr does not auto-layout your diagram elements. The diagram layout can be modified by dragging the elements around the diagram canvas in the diagram editor, and the layout saved using the "Save workspace" button. See [Structurizr - Help - Diagram layout](https://structurizr.com/help/diagram-layout) for more information. 
+By default, Structurizr does not auto-layout your diagram elements. The diagram layout can be modified by dragging the elements around the diagram canvas in the diagram editor, and the layout saved using the "Save workspace" button. See [Structurizr - Help - Diagram layout](https://structurizr.com/help/diagram-editor) for more information. 
 
 ![Getting Started with Structurizr for Java](images/getting-started-2.png)
 
