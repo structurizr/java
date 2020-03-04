@@ -138,8 +138,36 @@ public final class Styles {
             for (String tag : relationship.getTagsAsSet()) {
                 RelationshipStyle relationshipStyle = findRelationshipStyle(tag);
                 if (relationshipStyle != null) {
-                    if (relationshipStyle.getColor() != null && relationshipStyle.getColor().trim().length() > 0) {
+                    if (relationshipStyle.getThickness() != null) {
+                        style.setThickness(relationshipStyle.getThickness());
+                    }
+
+                    if (!StringUtils.isNullOrEmpty(relationshipStyle.getColor())) {
                         style.setColor(relationshipStyle.getColor());
+                    }
+
+                    if (relationshipStyle.getDashed() != null) {
+                        style.setDashed(relationshipStyle.getDashed());
+                    }
+
+                    if (relationshipStyle.getRouting() != null) {
+                        style.setRouting(relationshipStyle.getRouting());
+                    }
+
+                    if (relationshipStyle.getFontSize() != null) {
+                        style.setFontSize(relationshipStyle.getFontSize());
+                    }
+
+                    if (relationshipStyle.getWidth() != null) {
+                        style.setWidth(relationshipStyle.getWidth());
+                    }
+
+                    if (relationshipStyle.getPosition() != null) {
+                        style.setPosition(relationshipStyle.getPosition());
+                    }
+
+                    if (relationshipStyle.getOpacity() != null) {
+                        style.setOpacity(relationshipStyle.getOpacity());
                     }
                 }
             }
