@@ -109,6 +109,14 @@ public final class Styles {
             for (String tag : element.getTagsAsSet()) {
                 ElementStyle elementStyle = findElementStyle(tag);
                 if (elementStyle != null) {
+                    if (elementStyle.getWidth() != null) {
+                        style.setWidth(elementStyle.getWidth());
+                    }
+
+                    if (elementStyle.getHeight() != null) {
+                        style.setHeight(elementStyle.getHeight());
+                    }
+
                     if (!StringUtils.isNullOrEmpty(elementStyle.getBackground())) {
                         style.setBackground(elementStyle.getBackground());
                     }
@@ -121,8 +129,20 @@ public final class Styles {
                         style.setStroke(elementStyle.getStroke());
                     }
 
+                    if (elementStyle.getFontSize() != null) {
+                        style.setFontSize(elementStyle.getFontSize());
+                    }
+
                     if (elementStyle.getShape() != null) {
                         style.setShape(elementStyle.getShape());
+                    }
+
+                    if (elementStyle.getBorder() != null) {
+                        style.setBorder(elementStyle.getBorder());
+                    }
+
+                    if (elementStyle.getOpacity() != null) {
+                        style.setOpacity(elementStyle.getOpacity());
                     }
                 }
             }
