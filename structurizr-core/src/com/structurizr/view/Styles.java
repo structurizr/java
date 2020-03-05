@@ -109,6 +109,14 @@ public final class Styles {
             for (String tag : element.getTagsAsSet()) {
                 ElementStyle elementStyle = findElementStyle(tag);
                 if (elementStyle != null) {
+                    if (elementStyle.getWidth() != null) {
+                        style.setWidth(elementStyle.getWidth());
+                    }
+
+                    if (elementStyle.getHeight() != null) {
+                        style.setHeight(elementStyle.getHeight());
+                    }
+
                     if (!StringUtils.isNullOrEmpty(elementStyle.getBackground())) {
                         style.setBackground(elementStyle.getBackground());
                     }
@@ -121,8 +129,20 @@ public final class Styles {
                         style.setStroke(elementStyle.getStroke());
                     }
 
+                    if (elementStyle.getFontSize() != null) {
+                        style.setFontSize(elementStyle.getFontSize());
+                    }
+
                     if (elementStyle.getShape() != null) {
                         style.setShape(elementStyle.getShape());
+                    }
+
+                    if (elementStyle.getBorder() != null) {
+                        style.setBorder(elementStyle.getBorder());
+                    }
+
+                    if (elementStyle.getOpacity() != null) {
+                        style.setOpacity(elementStyle.getOpacity());
                     }
                 }
             }
@@ -138,8 +158,36 @@ public final class Styles {
             for (String tag : relationship.getTagsAsSet()) {
                 RelationshipStyle relationshipStyle = findRelationshipStyle(tag);
                 if (relationshipStyle != null) {
-                    if (relationshipStyle.getColor() != null && relationshipStyle.getColor().trim().length() > 0) {
+                    if (relationshipStyle.getThickness() != null) {
+                        style.setThickness(relationshipStyle.getThickness());
+                    }
+
+                    if (!StringUtils.isNullOrEmpty(relationshipStyle.getColor())) {
                         style.setColor(relationshipStyle.getColor());
+                    }
+
+                    if (relationshipStyle.getDashed() != null) {
+                        style.setDashed(relationshipStyle.getDashed());
+                    }
+
+                    if (relationshipStyle.getRouting() != null) {
+                        style.setRouting(relationshipStyle.getRouting());
+                    }
+
+                    if (relationshipStyle.getFontSize() != null) {
+                        style.setFontSize(relationshipStyle.getFontSize());
+                    }
+
+                    if (relationshipStyle.getWidth() != null) {
+                        style.setWidth(relationshipStyle.getWidth());
+                    }
+
+                    if (relationshipStyle.getPosition() != null) {
+                        style.setPosition(relationshipStyle.getPosition());
+                    }
+
+                    if (relationshipStyle.getOpacity() != null) {
+                        style.setOpacity(relationshipStyle.getOpacity());
                     }
                 }
             }
