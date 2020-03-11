@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.5 (unreleased)
+
+- Added an externalSoftwareSystemBoundariesVisible property to ContainerView, to set whether software system boundaries should be visible for "external" containers (those outside the software system in scope).
+
 ## 1.3.4 (29th February 2020)
 
 - Split View.setAutomaticLayout(boolean) to enableAutomaticLayout() and disableAutomaticLayout() (__breaking change__).

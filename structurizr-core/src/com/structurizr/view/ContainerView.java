@@ -12,6 +12,8 @@ import javax.annotation.Nonnull;
  */
 public final class ContainerView extends StaticView {
 
+    private boolean externalSoftwareSystemBoundariesVisible = true;
+
     ContainerView() {
     }
 
@@ -171,6 +173,24 @@ public final class ContainerView extends StaticView {
     @Override
     protected boolean canBeRemoved(Element element) {
         return true;
+    }
+
+    /**
+     * Determines whether software system boundaries should be visible for "external" containers (those outside the software system in scope).
+     *
+     * @return  true if external software system boundaries are visible, false otherwise
+     */
+    public boolean getExternalSoftwareSystemBoundariesVisible() {
+        return externalSoftwareSystemBoundariesVisible;
+    }
+
+    /**
+     * Sets whether software system boundaries should be visible for "external" containers (those outside the software system in scope).
+     *
+     * @param externalSoftwareSystemBoundariesVisible     true if external software system boundaries should be visible, false otherwise
+     */
+    public void setExternalSoftwareSystemBoundariesVisible(boolean externalSoftwareSystemBoundariesVisible) {
+        this.externalSoftwareSystemBoundariesVisible = externalSoftwareSystemBoundariesVisible;
     }
 
 }
