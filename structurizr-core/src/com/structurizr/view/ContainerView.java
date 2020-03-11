@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
  */
 public final class ContainerView extends StaticView {
 
-    private boolean externalSoftwareSystemBoundariesVisible = true;
+    private boolean externalSoftwareSystemBoundariesVisible = false;
 
     ContainerView() {
     }
