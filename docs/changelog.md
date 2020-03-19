@@ -3,6 +3,7 @@
 ## 1.3.5 (unreleased)
 
 - Added an externalSoftwareSystemBoundariesVisible property to ContainerView, to set whether software system boundaries should be visible for "external" containers (those outside the software system in scope).
+- Added a 16:10 ratio paper size.
 
 ## 1.3.4 (29th February 2020)
 

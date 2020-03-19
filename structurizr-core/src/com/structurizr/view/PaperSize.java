@@ -36,7 +36,8 @@ public enum PaperSize {
     Legal_Landscape("Legal", Orientation.Landscape, 4200, 2550),
 
     Slide_4_3("Slide 4:3", Orientation.Landscape, 3306, 2480),
-    Slide_16_9("Slide 16:9", Orientation.Landscape, 3508, 1973);
+    Slide_16_9("Slide 16:9", Orientation.Landscape, 3508, 1973),
+    Slide_16_10("Slide 16:10", Orientation.Landscape, 3508, 2193);
 
     private String name;
     private Orientation orientation;
