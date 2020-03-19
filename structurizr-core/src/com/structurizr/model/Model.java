@@ -24,7 +24,7 @@ public final class Model {
     private Set<SoftwareSystem> softwareSystems = new LinkedHashSet<>();
     private Set<DeploymentNode> deploymentNodes = new LinkedHashSet<>();
 
-    public Model() {
+    Model() {
     }
 
     /**

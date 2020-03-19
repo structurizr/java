@@ -22,7 +22,7 @@ public final class Workspace extends AbstractWorkspace {
 
     private static final Log log = LogFactory.getLog(Workspace.class);
 
-    private Model model = new Model();
+    private Model model;
     private ViewSet viewSet;
     private Documentation documentation;
 
@@ -38,6 +38,7 @@ public final class Workspace extends AbstractWorkspace {
     public Workspace(String name, String description) {
         super(name, description);
 
+        model = createModel();
         viewSet = createViewSet();
         documentation = createDocumentation();
     }
@@ -66,6 +67,16 @@ public final class Workspace extends AbstractWorkspace {
 
     void setViews(ViewSet viewSet) {
         this.viewSet = viewSet;
+    }
+
+    private Model createModel() {
+        try {
+            Constructor constructor = Model.class.getDeclaredConstructor();
+            constructor.setAccessible(true);
+            return (Model)constructor.newInstance();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private ViewSet createViewSet() {
