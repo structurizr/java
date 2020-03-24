@@ -225,13 +225,13 @@ public class BigBankPlc {
 
         // colours, shapes and other diagram styling
         Styles styles = views.getConfiguration().getStyles();
-        styles.addElementStyle(Tags.ELEMENT).color("#ffffff");
-        styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd");
-        styles.addElementStyle(Tags.CONTAINER).background("#438dd5");
+        styles.addElementStyle(Tags.ELEMENT);
+        styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd").color("#ffffff");
+        styles.addElementStyle(Tags.CONTAINER).background("#438dd5").color("#ffffff");
         styles.addElementStyle(Tags.COMPONENT).background("#85bbf0").color("#000000");
-        styles.addElementStyle(Tags.PERSON).background("#08427b").shape(Shape.Person).fontSize(22);
-        styles.addElementStyle(EXISTING_SYSTEM_TAG).background("#999999");
-        styles.addElementStyle(BANK_STAFF_TAG).background("#999999");
+        styles.addElementStyle(Tags.PERSON).background("#08427b").color("#ffffff").shape(Shape.Person).fontSize(22);
+        styles.addElementStyle(EXISTING_SYSTEM_TAG).background("#999999").color("#ffffff");
+        styles.addElementStyle(BANK_STAFF_TAG).background("#999999").color("#ffffff");
         styles.addElementStyle(WEB_BROWSER_TAG).shape(Shape.WebBrowser);
         styles.addElementStyle(MOBILE_APP_TAG).shape(Shape.MobileDeviceLandscape);
         styles.addElementStyle(DATABASE_TAG).shape(Shape.Cylinder);
