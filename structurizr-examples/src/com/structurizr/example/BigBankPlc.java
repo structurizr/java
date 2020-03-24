@@ -225,7 +225,6 @@ public class BigBankPlc {
 
         // colours, shapes and other diagram styling
         Styles styles = views.getConfiguration().getStyles();
-        styles.addElementStyle(Tags.ELEMENT);
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd").color("#ffffff");
         styles.addElementStyle(Tags.CONTAINER).background("#438dd5").color("#ffffff");
         styles.addElementStyle(Tags.COMPONENT).background("#85bbf0").color("#000000");
