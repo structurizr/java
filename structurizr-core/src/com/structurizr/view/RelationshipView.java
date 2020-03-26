@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.structurizr.model.Relationship;
 
 import java.util.Collection;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.Set;
 
 /**
  * This class represents an instance of a Relationship on a View.
@@ -19,7 +21,7 @@ public final class RelationshipView {
     private String id;
     private String description;
     private String order;
-    private Collection<Vertex> vertices = new LinkedList<>();
+    private Set<Vertex> vertices = new LinkedHashSet<>();
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Routing routing;
@@ -118,7 +120,7 @@ public final class RelationshipView {
      */
     public void setVertices(Collection<Vertex> vertices) {
         if (vertices != null) {
-            this.vertices = new LinkedList<>(vertices);
+            this.vertices = new LinkedHashSet<>(vertices);
         }
     }
 
