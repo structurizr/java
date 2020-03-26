@@ -272,8 +272,8 @@ public abstract class View {
         return null;
     }
 
-    protected boolean isElementInView(Element element) {
-        return this.elementViews.stream().filter(ev -> ev.getElement().equals(element)).count() > 0;
+    public boolean isElementInView(Element element) {
+        return this.elementViews.stream().anyMatch(ev -> ev.getElement().equals(element));
     }
 
     protected RelationshipView addRelationship(Relationship relationship, String description, String order) {
