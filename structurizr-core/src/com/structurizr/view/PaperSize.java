@@ -67,22 +67,25 @@ public enum PaperSize {
         return height;
     }
 
-    enum Orientation {
+    public enum Orientation {
         Portrait,
         Landscape
     }
 
-    public static final List<PaperSize> getOrderedPaperSizes() {
+    public static List<PaperSize> getOrderedPaperSizes() {
+        List<PaperSize> paperSizes = new ArrayList<>();
+
+        paperSizes.addAll(getOrderedPaperSizes(Orientation.Landscape));
+        paperSizes.addAll(getOrderedPaperSizes(Orientation.Portrait));
+
+        return paperSizes;
+    }
+
+    public static List<PaperSize> getOrderedPaperSizes(Orientation orientation) {
         List<PaperSize> paperSizes = new ArrayList<>();
 
         for (PaperSize paperSize : values()) {
-            if (paperSize.getOrientation() == Orientation.Landscape) {
-                paperSizes.add(paperSize);
-            }
-        }
-
-        for (PaperSize paperSize : values()) {
-            if (paperSize.getOrientation() == Orientation.Portrait) {
+            if (paperSize.getOrientation() == orientation) {
                 paperSizes.add(paperSize);
             }
         }
