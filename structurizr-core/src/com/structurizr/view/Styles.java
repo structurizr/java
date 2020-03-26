@@ -9,6 +9,12 @@ import java.util.LinkedList;
 
 public final class Styles {
 
+    private static final Integer DEFAULT_WIDTH_OF_ELEMENT = 450;
+    private static final Integer DEFAULT_HEIGHT_OF_ELEMENT = 300;
+
+    private static final Integer DEFAULT_WIDTH_OF_PERSON = 400;
+    private static final Integer DEFAULT_HEIGHT_OF_PERSON = 400;
+
     private Collection<ElementStyle> elements = new LinkedList<>();
     private Collection<RelationshipStyle> relationships = new LinkedList<>();
 
@@ -145,6 +151,22 @@ public final class Styles {
                         style.setOpacity(elementStyle.getOpacity());
                     }
                 }
+            }
+        }
+
+        if (style.getWidth() == null) {
+            if (style.getShape() == Shape.Person) {
+                style.setWidth(DEFAULT_WIDTH_OF_PERSON);
+            } else {
+                style.setWidth(DEFAULT_WIDTH_OF_ELEMENT);
+            }
+        }
+
+        if (style.getHeight() == null) {
+            if (style.getShape() == Shape.Person) {
+                style.setHeight(DEFAULT_HEIGHT_OF_PERSON);
+            } else {
+                style.setHeight(DEFAULT_HEIGHT_OF_ELEMENT);
             }
         }
 

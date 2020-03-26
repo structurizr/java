@@ -19,6 +19,8 @@ public class StyleTests extends AbstractWorkspaceTestBase {
         assertEquals("#dddddd", style.getBackground());
         assertEquals("#000000", style.getColor());
         assertEquals(Shape.Box, style.getShape());
+        assertEquals(new Integer(450), style.getWidth());
+        assertEquals(new Integer(300), style.getHeight());
     }
 
     @Test
@@ -28,6 +30,8 @@ public class StyleTests extends AbstractWorkspaceTestBase {
         assertEquals("#dddddd", style.getBackground());
         assertEquals("#000000", style.getColor());
         assertEquals(Shape.Box, style.getShape());
+        assertEquals(new Integer(450), style.getWidth());
+        assertEquals(new Integer(300), style.getHeight());
     }
 
     @Test
@@ -36,13 +40,43 @@ public class StyleTests extends AbstractWorkspaceTestBase {
         element.addTags("Some Tag");
 
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#ff0000").color("#ffffff");
-        styles.addElementStyle("Some Tag").color("#0000ff").stroke("#00ff00").shape(Shape.RoundedBox);
+        styles.addElementStyle("Some Tag").color("#0000ff").stroke("#00ff00").shape(Shape.RoundedBox).width(123).height(456);
 
         ElementStyle style = styles.findElementStyle(element);
         assertEquals("#ff0000", style.getBackground());
         assertEquals("#0000ff", style.getColor());
         assertEquals("#00ff00", style.getStroke());
         assertEquals(Shape.RoundedBox, style.getShape());
+        assertEquals(new Integer(123), style.getWidth());
+        assertEquals(new Integer(456), style.getHeight());
+    }
+
+    @Test
+    public void test_findElementStyle_ReturnsTheDefaultElementSize_WhenTheShapeIsABox() {
+        SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
+        element.addTags("Some Tag");
+
+        styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#ff0000").color("#ffffff");
+        styles.addElementStyle("Some Tag").shape(Shape.Box);
+
+        ElementStyle style = styles.findElementStyle(element);
+        assertEquals(Shape.Box, style.getShape());
+        assertEquals(new Integer(450), style.getWidth());
+        assertEquals(new Integer(300), style.getHeight());
+    }
+
+    @Test
+    public void test_findElementStyle_ReturnsTheDefaultElementSize_WhenTheShapeIsAPerson() {
+        SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
+        element.addTags("Some Tag");
+
+        styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#ff0000").color("#ffffff");
+        styles.addElementStyle("Some Tag").shape(Shape.Person);
+
+        ElementStyle style = styles.findElementStyle(element);
+        assertEquals(Shape.Person, style.getShape());
+        assertEquals(new Integer(400), style.getWidth());
+        assertEquals(new Integer(400), style.getHeight());
     }
 
     @Test
