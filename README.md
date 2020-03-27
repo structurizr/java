@@ -35,7 +35,7 @@ The view can then be exported to be visualised using the [Structurizr service](h
 * Introduction
     * [Getting started](docs/getting-started.md)
     * [About Structurizr and how it compares to other tooling](https://structurizr.com/help/about)
-    * [Why use code?](https://structurizr.com/help/why-use-code)
+    * [Why use code?](https://structurizr.com/help/code)
     * [Basic concepts](https://structurizr.com/help/concepts) (workspaces, models, views and documentation)
     * [C4 model](https://c4model.com)
     * [Examples](https://structurizr.com/help/examples)
