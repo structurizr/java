@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.text.SimpleDateFormat;
+import java.util.TimeZone;
 
 class AbstractJsonWriter {
 
@@ -20,7 +21,9 @@ class AbstractJsonWriter {
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
 
-        objectMapper.setDateFormat(new SimpleDateFormat(AbstractJsonWriter.ISO_DATE_TIME_FORMAT));
+        SimpleDateFormat sdf = new SimpleDateFormat(AbstractJsonWriter.ISO_DATE_TIME_FORMAT);
+        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+        objectMapper.setDateFormat(sdf);
 
         return objectMapper;
     }
