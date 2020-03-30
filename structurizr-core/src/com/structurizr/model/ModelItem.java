@@ -11,6 +11,7 @@ import java.util.*;
 abstract class ModelItem {
 
     private String id = "";
+    private String originId = "";
     private Set<String> tags = new LinkedHashSet<>();
     private Map<String, String> properties = new HashMap<>();
     private Set<Perspective> perspectives = new HashSet<>();
@@ -28,6 +29,14 @@ abstract class ModelItem {
 
     void setId(String id) {
         this.id = id;
+    }
+
+    public String getOriginId() {
+        return originId;
+    }
+
+    void setOriginId(String originId) {
+        this.originId = originId;
     }
 
     /**
