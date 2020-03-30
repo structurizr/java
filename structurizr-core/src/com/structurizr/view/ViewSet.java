@@ -678,4 +678,18 @@ public final class ViewSet {
         return systemLandscapeViews.isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && dynamicViews.isEmpty() && deploymentViews.isEmpty() && filteredViews.isEmpty();
     }
 
+    /**
+     * Removes all views and configuration.
+     */
+    public void clear() {
+        systemLandscapeViews = new HashSet<>();
+        systemContextViews = new HashSet<>();
+        containerViews = new HashSet<>();
+        componentViews = new HashSet<>();
+        dynamicViews = new HashSet<>();
+        deploymentViews = new HashSet<>();
+        filteredViews = new HashSet<>();
+        configuration = new Configuration();
+    }
+
 }

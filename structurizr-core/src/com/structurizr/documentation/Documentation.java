@@ -246,6 +246,16 @@ public final class Documentation {
     }
 
     /**
+     * Removes all documentation, decisions, and images.
+     */
+    public void clear() {
+        sections = new HashSet<>();
+        decisions = new HashSet<>();
+        images = new HashSet<>();
+        template = null;
+    }
+
+    /**
      * Gets the template metadata associated with this documentation.
      *
      * @return  a TemplateMetadata object, or null if there is none
