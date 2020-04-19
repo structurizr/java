@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.3.6 (unreleased)
+
+- Added a "Component" element shape.
+- Added a "Dotted" element border style.
+
 ## 1.3.5 (26th March 2020)
 
 - Added an externalSoftwareSystemBoundariesVisible property to ContainerView, to set whether software system boundaries should be visible for "external" containers (those outside the software system in scope).
