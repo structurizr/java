@@ -14,6 +14,7 @@ public enum Shape {
     Folder,
     WebBrowser,
     MobileDevicePortrait,
-    MobileDeviceLandscape
+    MobileDeviceLandscape,
+    Component
 
 }
