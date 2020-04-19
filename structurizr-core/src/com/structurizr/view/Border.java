@@ -3,6 +3,7 @@ package com.structurizr.view;
 public enum Border {
 
     Solid,
-    Dashed
+    Dashed,
+    Dotted
 
 }
