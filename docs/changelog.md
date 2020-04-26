@@ -4,6 +4,7 @@
 
 - Added a "Component" element shape.
 - Added a "Dotted" element border style.
+- Components from any container can now be added to a component view.
 
 ## 1.3.5 (26th March 2020)
 

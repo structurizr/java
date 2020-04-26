@@ -138,10 +138,6 @@ public final class ComponentView extends StaticView {
      */
     public void add(Component component, boolean addRelationships) {
         if (component != null) {
-            if (!component.getContainer().equals(getContainer())) {
-                throw new IllegalArgumentException("Only components belonging to " + container.getName() + " can be added to this view.");
-            }
-
             addElement(component, addRelationships);
         }
     }
