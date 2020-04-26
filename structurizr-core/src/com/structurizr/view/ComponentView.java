@@ -15,6 +15,8 @@ public final class ComponentView extends StaticView {
     private Container container;
     private String containerId;
 
+    private boolean externalContainerBoundariesVisible = false;
+
     ComponentView() {
     }
 
@@ -259,6 +261,24 @@ public final class ComponentView extends StaticView {
     @Override
     protected boolean canBeRemoved(Element element) {
         return true;
+    }
+
+    /**
+     * Determines whether container boundaries should be visible for "external" components (those outside the container in scope).
+     *
+     * @return  true if external container boundaries are visible, false otherwise
+     */
+    public boolean getExternalContainerBoundariesVisible() {
+        return externalContainerBoundariesVisible;
+    }
+
+    /**
+     * Sets whether container boundaries should be visible for "external" components (those outside the container in scope).
+     *
+     * @param externalContainerBoundariesVisible     true if external container boundaries should be visible, false otherwise
+     */
+    public void setExternalSoftwareSystemBoundariesVisible(boolean externalContainerBoundariesVisible) {
+        this.externalContainerBoundariesVisible = externalContainerBoundariesVisible;
     }
 
 }
