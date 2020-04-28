@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.3.6 (unreleased)
+## 1.4.0 (unreleased)
 
 - Added a "Component" element shape.
 - Added a "Dotted" element border style.
