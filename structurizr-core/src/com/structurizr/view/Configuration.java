@@ -14,6 +14,8 @@ public final class Configuration {
     private String theme;
     private Terminology terminology = new Terminology();
 
+    private MetadataSymbols metadataSymbols;
+
     private String defaultView;
     private String lastSavedView;
     private ViewSortOrder viewSortOrder;
@@ -124,6 +126,24 @@ public final class Configuration {
      */
     void setTerminology(Terminology terminology) {
         this.terminology = terminology;
+    }
+
+    /**
+     * Gets the type of symbols to use when rendering metadata.
+     *
+     * @return  a MetadataSymbols enum value
+     */
+    public MetadataSymbols getMetadataSymbols() {
+        return metadataSymbols;
+    }
+
+    /**
+     * Sets the type of symbols to use when rendering metadata.
+     *
+     * @param metadataSymbols   a MetadataSymbols enum value
+     */
+    public void setMetadataSymbols(MetadataSymbols metadataSymbols) {
+        this.metadataSymbols = metadataSymbols;
     }
 
     /**
