@@ -148,6 +148,19 @@ public abstract class Element extends ModelItem {
     }
 
     /**
+     * Determines whether this element has an efferent (outgoing) relationship with
+     * the specified element and description.
+     *
+     * @param element       the element to look for
+     * @param description   the relationship description
+     * @return  true if this element has an efferent relationship with the specified element and description,
+     *          false otherwise
+     */
+    public boolean hasEfferentRelationshipWith(Element element, String description) {
+        return getEfferentRelationshipWith(element, description) != null;
+    }
+
+    /**
      * Gets the efferent (outgoing) relationship with the specified element.
      *
      * @param element   the element to look for
@@ -160,6 +173,53 @@ public abstract class Element extends ModelItem {
 
         for (Relationship relationship : relationships) {
             if (relationship.getDestination().equals(element)) {
+                return relationship;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Gets the efferent (outgoing) relationship with the specified element.
+     *
+     * @param element   the element to look for
+     * @return  a Set of Relationship objects; empty if no relationships exist
+     */
+    public Set<Relationship> getEfferentRelationshipsWith(Element element) {
+        Set<Relationship> set = new HashSet<>();
+
+        if (element != null) {
+            for (Relationship relationship : relationships) {
+                if (relationship.getDestination().equals(element)) {
+                    set.add(relationship);
+                }
+            }
+        }
+
+        return set;
+    }
+
+    /**
+     * Determines whether this element has an efferent (outgoing) relationship with
+     * the specified element and description.
+     *
+     * @param element       the element to look for
+     * @param description   the relationship description
+     * @return  true if this element has an efferent relationship with the specified element and description,
+     *          false otherwise
+     */
+    public Relationship getEfferentRelationshipWith(Element element, String description) {
+        if (element == null) {
+            return null;
+        }
+
+        if (description == null) {
+            description = "";
+        }
+
+        for (Relationship relationship : relationships) {
+            if (relationship.getDestination().equals(element) && relationship.getDescription().equals(description)) {
                 return relationship;
             }
         }

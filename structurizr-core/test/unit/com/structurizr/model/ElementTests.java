@@ -68,6 +68,30 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_hasEfferentRelationshipWithElementAndDescription_ReturnsFalse_WhenANullElementIsSpecified() {
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
+        assertFalse(softwareSystem1.hasEfferentRelationshipWith(null, null));
+    }
+
+    @Test
+    public void test_hasEfferentRelationshipWithElementAndDescription_ReturnsFalse_WhenThereIsNotAMatchingRelationship() {
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("System 2", "");
+        softwareSystem1.uses(softwareSystem2, "Uses");
+
+        assertFalse(softwareSystem1.hasEfferentRelationshipWith(softwareSystem2, "Does something with"));
+    }
+
+    @Test
+    public void test_hasEfferentRelationshipWithElementAndDescription_ReturnsTrue_WhenThereIsAMatchingRelationship() {
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("System 2", "");
+        softwareSystem1.uses(softwareSystem2, "Uses");
+
+        assertTrue(softwareSystem1.hasEfferentRelationshipWith(softwareSystem2, "Uses"));
+    }
+
+    @Test
     public void test_getEfferentRelationshipWith_ReturnsNull_WhenANullElementIsSpecified() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
         assertNull(softwareSystem1.getEfferentRelationshipWith(null));

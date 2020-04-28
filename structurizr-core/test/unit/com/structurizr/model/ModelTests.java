@@ -946,4 +946,21 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertEquals("9", element.getId());
     }
 
+    @Test
+    public void test_impliedRelationshipStrategy() {
+        // default strategy initially
+        assertTrue(model.getImpliedRelationshipsStrategy() instanceof DefaultImpliedRelationshipsStrategy);
+
+        model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
+        assertTrue(model.getImpliedRelationshipsStrategy() instanceof CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy);
+    }
+
+    @Test
+    public void test_setImpliedRelationshipStrategy_ResetsToTheDefaultStrategy_WhenPassedNull() {
+        model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
+        model.setImpliedRelationshipsStrategy(null);
+
+        assertTrue(model.getImpliedRelationshipsStrategy() instanceof DefaultImpliedRelationshipsStrategy);
+    }
+
 }

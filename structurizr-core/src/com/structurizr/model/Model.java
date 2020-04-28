@@ -24,6 +24,8 @@ public final class Model {
     private Set<SoftwareSystem> softwareSystems = new LinkedHashSet<>();
     private Set<DeploymentNode> deploymentNodes = new LinkedHashSet<>();
 
+    private ImpliedRelationshipsStrategy impliedRelationshipsStrategy = new DefaultImpliedRelationshipsStrategy();
+
     Model() {
     }
 
@@ -171,6 +173,11 @@ public final class Model {
 
     @Nullable
     Relationship addRelationship(Element source, @Nonnull Element destination, String description, String technology, InteractionStyle interactionStyle) {
+        return addRelationship(source, destination, description, technology, interactionStyle, true);
+    }
+
+    @Nullable
+    Relationship addRelationship(Element source, @Nonnull Element destination, String description, String technology, InteractionStyle interactionStyle, boolean createImpliedRelationships) {
         if (destination == null) {
             throw new IllegalArgumentException("The destination must be specified.");
         }
@@ -181,6 +188,17 @@ public final class Model {
 
         Relationship relationship = new Relationship(source, destination, description, technology, interactionStyle);
         if (addRelationship(relationship)) {
+
+            if (createImpliedRelationships) {
+                if
+                (
+                    (source instanceof Person || source instanceof SoftwareSystem || source instanceof Container || source instanceof Component) &&
+                    (destination instanceof Person || destination instanceof SoftwareSystem || destination instanceof Container || destination instanceof Component)
+                ) {
+                    impliedRelationshipsStrategy.createImpliedRelationships(relationship);
+                }
+            }
+
             return relationship;
         }
 
@@ -530,8 +548,10 @@ public final class Model {
      * additional implied relationships to the model: AAA-&gt;BB AAA--&gt;B AA-&gt;BBB AA-&gt;BB AA-&gt;B A-&gt;BBB A-&gt;BB A-&gt;B.</p>
      *
      * @return a set of all implicit relationships that were added to the model
+     * @deprecated use {@link #setImpliedRelationshipsStrategy(ImpliedRelationshipsStrategy)} ()} instead to set a strategy, before creating relationships
      */
     @Nonnull
+    @Deprecated
     public Set<Relationship> addImplicitRelationships() {
         Set<Relationship> implicitRelationships = new HashSet<>();
 
@@ -889,6 +909,29 @@ public final class Model {
             relationship.setTechnology(technology);
         } else {
             throw new IllegalArgumentException("This relationship exists already: " + newRelationship);
+        }
+    }
+
+    /**
+     * Gets the strategy in use for creating implied relationships.
+     *
+     * @return  an ImpliedRelationshipStrategy implementation
+     */
+    @JsonIgnore
+    public ImpliedRelationshipsStrategy getImpliedRelationshipsStrategy() {
+        return impliedRelationshipsStrategy;
+    }
+
+    /**
+     * Sets the strategy is use for creating implied relationships.
+     *
+     * @param impliedRelationshipStrategy   an ImpliedRelationshipStrategy implementation
+     */
+    public void setImpliedRelationshipsStrategy(ImpliedRelationshipsStrategy impliedRelationshipStrategy) {
+        if (impliedRelationshipStrategy != null) {
+            this.impliedRelationshipsStrategy = impliedRelationshipStrategy;
+        } else {
+            this.impliedRelationshipsStrategy = new DefaultImpliedRelationshipsStrategy();
         }
     }
 

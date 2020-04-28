@@ -255,9 +255,9 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem(Location.External, "SoftwareSystem 2", "");
         Container container2a = softwareSystem2.addContainer("Container 2-A", "", "");
 
+        model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
         container2a.uses(container1a, "");
 
-        model.addImplicitRelationships();
         view.addDependentSoftwareSystems();
         view.addAllContainers();
 

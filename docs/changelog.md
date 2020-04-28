@@ -6,6 +6,7 @@
 - Added a "Dotted" element border style.
 - Components from any container can now be added to a component view.
 - Added an externalContainersBoundariesVisible property to ComponentView, to set whether container boundaries should be visible for "external" components (those outside the container in scope).
+- Improved the support for creating [implied relationships](docs/implied-relationships.md).
 
 ## 1.3.5 (26th March 2020)
 

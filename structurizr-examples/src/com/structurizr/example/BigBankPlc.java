@@ -30,6 +30,7 @@ public class BigBankPlc {
     public static void main(String[] args) throws Exception {
         Workspace workspace = new Workspace("Big Bank plc", "This is an example workspace to illustrate the key features of Structurizr, based around a fictional online banking system.");
         Model model = workspace.getModel();
+        model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
         ViewSet views = workspace.getViews();
 
         model.setEnterprise(new Enterprise("Big Bank plc"));
@@ -100,8 +101,6 @@ public class BigBankPlc {
         securityComponent.uses(database, "Reads from and writes to", "JDBC");
         mainframeBankingSystemFacade.uses(mainframeBankingSystem, "Uses", "XML/HTTPS");
         emailComponent.uses(emailSystem, "Sends e-mail using");
-
-        model.addImplicitRelationships();
 
         // deployment nodes and container instances
         DeploymentNode developerLaptop = model.addDeploymentNode("Development", "Developer Laptop", "A developer laptop.", "Microsoft Windows 10 or Apple macOS");

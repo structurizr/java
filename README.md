@@ -45,6 +45,7 @@ The view can then be exported to be visualised using the [Structurizr service](h
     * [Usage patterns](docs/usage-patterns.md)
 * Model
 	* [Creating your model](docs/model.md)
+	* [Implied relationships](docs/implied-relationships.md)
 * Views
 	* [Creating views](docs/views.md)
     * [System Context diagram](docs/system-context-diagram.md)
