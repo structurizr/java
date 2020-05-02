@@ -8,8 +8,8 @@ public enum MetadataSymbols {
     SquareBrackets,
     RoundBrackets,
     CurlyBrackets,
-    AngledBrackets,
-    DoubleAngledBrackets,
+    AngleBrackets,
+    DoubleAngleBrackets,
     None
 
 }
