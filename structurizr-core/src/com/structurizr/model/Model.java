@@ -661,6 +661,18 @@ public final class Model {
      * Adds a top-level deployment node to this model.
      *
      * @param name        the name of the deployment node
+     * @return a DeploymentNode instance
+     * @throws IllegalArgumentException if the name is not specified, or a top-level deployment node with the same name already exists in the model
+     */
+    @Nonnull
+    public DeploymentNode addDeploymentNode(@Nonnull String name) {
+        return addDeploymentNode(DeploymentNode.DEFAULT_DEPLOYMENT_ENVIRONMENT, name, null, null);
+    }
+
+    /**
+     * Adds a top-level deployment node to this model.
+     *
+     * @param name        the name of the deployment node
      * @param description the description of the deployment node
      * @param technology  the technology associated with the deployment node
      * @return a DeploymentNode instance

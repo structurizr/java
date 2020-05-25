@@ -57,6 +57,16 @@ public final class DeploymentNode extends DeploymentElement {
      * Adds a child deployment node.
      *
      * @param name          the name of the deployment node
+     * @return  a DeploymentNode object
+     */
+    public DeploymentNode addDeploymentNode(String name) {
+        return addDeploymentNode(name, null, null);
+    }
+
+    /**
+     * Adds a child deployment node.
+     *
+     * @param name          the name of the deployment node
      * @param description   a short description
      * @param technology    the technology
      * @return  a DeploymentNode object
@@ -193,7 +203,7 @@ public final class DeploymentNode extends DeploymentElement {
      * @param destination       the destination DeploymentNode
      * @param description       a short description of the relationship
      * @param technology        the technology
-     * @param interactionStyle  the interation style (Synchronous vs Asynchronous)
+     * @param interactionStyle  the interaction style (Synchronous vs Asynchronous)
      * @return                  a Relationship object
      */
     public Relationship uses(DeploymentNode destination, String description, String technology, InteractionStyle interactionStyle) {
