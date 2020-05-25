@@ -1,8 +1,12 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.structurizr.util.Url;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Configuration associated with how information in the workspace is rendered.
@@ -11,7 +15,7 @@ public final class Configuration {
 
     private Branding branding = new Branding();
     private Styles styles = new Styles();
-    private String theme;
+    private String[] themes;
     private Terminology terminology = new Terminology();
 
     private MetadataSymbols metadataSymbols;
@@ -29,13 +33,14 @@ public final class Configuration {
         return styles;
     }
 
-    /**
-     * Gets the URL of the theme used to render views.
-     *
-     * @return  the URL of the theme
-     */
+    @JsonIgnore
+    @Deprecated
     public String getTheme() {
-        return theme;
+        if (themes == null || themes.length == 0) {
+            return null;
+        }
+
+        return themes[0];
     }
 
     /**
@@ -43,14 +48,41 @@ public final class Configuration {
      *
      * @param url       the URL of theme
      */
+    @JsonSetter
     public void setTheme(String url) {
-        if (url != null && url.trim().length() > 0) {
-            if (Url.isUrl(url)) {
-                this.theme = url.trim();
-            } else {
-                throw new IllegalArgumentException(url + " is not a valid URL.");
+        setThemes(url);
+    }
+
+    /**
+     * Gets the URLs of the themes used to render views.
+     *
+     * @return  an array of URLs
+     */
+    public String[] getThemes() {
+        return themes;
+    }
+
+    /**
+     * Sets the themes used to render views.
+     *
+     * @param themes        an array of URLs
+     */
+    public void setThemes(String... themes) {
+        List<String> list = new ArrayList<>();
+
+        if (themes != null) {
+            for (String url : themes) {
+                if (url != null && url.trim().length() > 0) {
+                    if (Url.isUrl(url)) {
+                        list.add(url.trim());
+                    } else {
+                        throw new IllegalArgumentException(url + " is not a valid URL.");
+                    }
+                }
             }
         }
+
+        this.themes = list.toArray(new String[0]);
     }
 
     /**

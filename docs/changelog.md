@@ -9,6 +9,7 @@
 - Improved the support for creating [implied relationships](docs/implied-relationships.md).
 - Added the ability to customize the symbols used when rendering metadata.
 - Adds support for infrastructure nodes.
+- Adds support for multiple themes.
 
 ## 1.3.5 (26th March 2020)
 
