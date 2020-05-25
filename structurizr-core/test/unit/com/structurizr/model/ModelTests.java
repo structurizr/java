@@ -852,7 +852,55 @@ public class ModelTests extends AbstractWorkspaceTestBase {
             model.addDeploymentNode("Amazon AWS", "Description", "Technology");
             fail();
         } catch (IllegalArgumentException iae) {
-            assertEquals("A deployment node named 'Amazon AWS' already exists.", iae.getMessage());
+            assertEquals("A deployment/infrastructure node named 'Amazon AWS' already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addDeploymentNode_ThrowsAnException_WhenAChildDeploymentNodeWithTheSameNameAlreadyExists() {
+        DeploymentNode deploymentNode = model.addDeploymentNode("Amazon Web Services");
+        deploymentNode.addDeploymentNode("AWS Region");
+        try {
+            deploymentNode.addDeploymentNode("AWS Region");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A deployment/infrastructure node named 'AWS Region' already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addDeploymentNode_ThrowsAnException_WhenAChildInfrastructureNodeWithTheSameNameAlreadyExists() {
+        DeploymentNode deploymentNode = model.addDeploymentNode("Amazon Web Services");
+        deploymentNode.addInfrastructureNode("Node");
+        try {
+            deploymentNode.addDeploymentNode("Node");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A deployment/infrastructure node named 'Node' already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addInfrastructureNode_ThrowsAnException_WhenAChildDeploymentNodeWithTheSameNameAlreadyExists() {
+        DeploymentNode deploymentNode = model.addDeploymentNode("Amazon Web Services");
+        deploymentNode.addDeploymentNode("Node");
+        try {
+            deploymentNode.addInfrastructureNode("Node");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A deployment/infrastructure node named 'Node' already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addInfrastructureNode_ThrowsAnException_WhenAChildInfrastructureNodeWithTheSameNameAlreadyExists() {
+        DeploymentNode deploymentNode = model.addDeploymentNode("Amazon Web Services");
+        deploymentNode.addInfrastructureNode("Node");
+        try {
+            deploymentNode.addInfrastructureNode("Node");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A deployment/infrastructure node named 'Node' already exists.", iae.getMessage());
         }
     }
 

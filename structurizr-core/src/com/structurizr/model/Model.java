@@ -422,6 +422,11 @@ public final class Model {
             containerInstance.setContainer((Container)getElement(containerInstance.getContainerId()));
             addElementToInternalStructures(containerInstance);
         }
+
+        for (InfrastructureNode infrastructureNode : deploymentNode.getInfrastructureNodes()) {
+            infrastructureNode.setParent(deploymentNode);
+            addElementToInternalStructures(infrastructureNode);
+        }
     }
 
     private void checkNameIsUnique(Collection<? extends Element> elements, String name, String errorMessage) {
@@ -751,7 +756,7 @@ public final class Model {
             throw new IllegalArgumentException("A name must be specified.");
         }
 
-        if ((parent == null && getDeploymentNodeWithName(name, environment) == null) || (parent != null && parent.getDeploymentNodeWithName(name) == null)) {
+        if ((parent == null && getDeploymentNodeWithName(name, environment) == null) || (parent != null && parent.getDeploymentNodeWithName(name) == null && parent.getInfrastructureNodeWithName(name) == null)) {
             DeploymentNode deploymentNode = new DeploymentNode();
             deploymentNode.setName(name);
             deploymentNode.setDescription(description);
@@ -772,7 +777,33 @@ public final class Model {
 
             return deploymentNode;
         } else {
-            throw new IllegalArgumentException("A deployment node named '" + name + "' already exists.");
+            throw new IllegalArgumentException("A deployment/infrastructure node named '" + name + "' already exists.");
+        }
+    }
+
+    @Nonnull
+    InfrastructureNode addInfrastructureNode(DeploymentNode parent, @Nonnull String name, String description, String technology, Map<String, String> properties) {
+        if (name == null || name.trim().length() == 0) {
+            throw new IllegalArgumentException("A name must be specified.");
+        }
+
+        if (parent.getDeploymentNodeWithName(name) == null && parent.getInfrastructureNodeWithName(name) == null) {
+            InfrastructureNode infrastructureNode = new InfrastructureNode();
+            infrastructureNode.setName(name);
+            infrastructureNode.setDescription(description);
+            infrastructureNode.setTechnology(technology);
+            infrastructureNode.setParent(parent);
+            infrastructureNode.setEnvironment(parent.getEnvironment());
+            if (properties != null) {
+                infrastructureNode.setProperties(properties);
+            }
+
+            infrastructureNode.setId(idGenerator.generateId(infrastructureNode));
+            addElementToInternalStructures(infrastructureNode);
+
+            return infrastructureNode;
+        } else {
+            throw new IllegalArgumentException("A deployment/infrastructure node named '" + name + "' already exists.");
         }
     }
 

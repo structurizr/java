@@ -26,6 +26,7 @@ public final class DeploymentNode extends DeploymentElement {
     private int instances = 1;
 
     private Set<DeploymentNode> children = new HashSet<>();
+    private Set<InfrastructureNode> infrastructureNodes = new HashSet<>();
     private Set<ContainerInstance> containerInstances = new HashSet<>();
 
     /**
@@ -116,6 +117,65 @@ public final class DeploymentNode extends DeploymentElement {
     }
 
     /**
+     * Gets the infrastructure node with the specified name.
+     *
+     * @param name      the name of the infrastructure node
+     * @return          the InfrastructureNode instance with the specified name (or null if it doesn't exist).
+     */
+    public InfrastructureNode getInfrastructureNodeWithName(String name) {
+        if (name == null || name.trim().length() == 0) {
+            throw new IllegalArgumentException("A name must be specified.");
+        }
+
+        for (InfrastructureNode infrastructureNode : getInfrastructureNodes()) {
+            if (infrastructureNode.getName().equals(name)) {
+                return infrastructureNode;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Adds a child infrastructure node.
+     *
+     * @param name          the name of the infrastructure node
+     * @return              an InfrastructureNode object
+     */
+    public InfrastructureNode addInfrastructureNode(String name) {
+        return addInfrastructureNode(name, null, null);
+    }
+
+    /**
+     * Adds a child infrastructure node.
+     *
+     * @param name          the name of the infrastructure node
+     * @param description   a short description
+     * @param technology    the technology
+     * @return              an InfrastructureNode object
+     */
+    public InfrastructureNode addInfrastructureNode(String name, String description, String technology) {
+        return addInfrastructureNode(name, description, technology, null);
+    }
+
+    /**
+     * Adds a child infrastructure node.
+     *
+     * @param name          the name of the infrastructure node
+     * @param description   a short description
+     * @param technology    the technology
+     * @param properties    a Map (String,String) describing name=value properties
+     * @return              an InfrastructureNode object
+     */
+    public InfrastructureNode addInfrastructureNode(String name, String description, String technology, Map<String, String> properties) {
+        InfrastructureNode infrastructureNode = getModel().addInfrastructureNode(this, name, description, technology, properties);
+        if (infrastructureNode != null) {
+            infrastructureNodes.add(infrastructureNode);
+        }
+        return infrastructureNode;
+    }
+
+    /**
      * Adds a relationship between this and another deployment node.
      *
      * @param destination   the destination DeploymentNode
@@ -152,6 +212,21 @@ public final class DeploymentNode extends DeploymentElement {
     void setChildren(Set<DeploymentNode> children) {
         if (children != null) {
             this.children = new HashSet<>(children);
+        }
+    }
+
+    /**
+     * Gets the set of child infrastructure nodes.
+     *
+     * @return  a Set of InfrastructureNode objects
+     */
+    public Set<InfrastructureNode> getInfrastructureNodes() {
+        return new HashSet<>(infrastructureNodes);
+    }
+
+    void setInfrastructureNodes(Set<InfrastructureNode> infrastructureNodes) {
+        if (infrastructureNodes != null) {
+            this.infrastructureNodes = new HashSet<>(infrastructureNodes);
         }
     }
 

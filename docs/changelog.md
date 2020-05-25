@@ -8,6 +8,7 @@
 - Added an externalContainersBoundariesVisible property to ComponentView, to set whether container boundaries should be visible for "external" components (those outside the container in scope).
 - Improved the support for creating [implied relationships](docs/implied-relationships.md).
 - Added the ability to customize the symbols used when rendering metadata.
+- Adds support for infrastructure nodes.
 
 ## 1.3.5 (26th March 2020)
 

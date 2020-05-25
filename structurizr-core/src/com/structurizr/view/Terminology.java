@@ -29,6 +29,9 @@ public final class Terminology {
     private String deploymentNode = "";
 
     @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
+    private String infrastructureNode = "";
+
+    @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
     private String relationship = "";
 
     public String getEnterprise() {
@@ -85,6 +88,14 @@ public final class Terminology {
 
     public void setDeploymentNode(String deploymentNode) {
         this.deploymentNode = deploymentNode;
+    }
+
+    public String getInfrastructureNode() {
+        return infrastructureNode;
+    }
+
+    public void setInfrastructureNode(String infrastructureNode) {
+        this.infrastructureNode = infrastructureNode;
     }
 
     public String getRelationship() {

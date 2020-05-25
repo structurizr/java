@@ -69,7 +69,6 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
         assertNotNull(containerInstance);
         assertSame(container, containerInstance.getContainer());
         assertTrue(deploymentNode.getContainerInstances().contains(containerInstance));
-        assertEquals("Default", containerInstance.getEnvironment());
     }
 
     @Test
@@ -155,16 +154,29 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getDeploymentNodeWithName_ReturnsNull_WhenThereIsNoDeploymentWithTheSpecifiedName() {
+    public void test_getDeploymentNodeWithName_ReturnsNull_WhenThereIsNoDeploymentNodeWithTheSpecifiedName() {
         DeploymentNode deploymentNode = new DeploymentNode();
         assertNull(deploymentNode.getDeploymentNodeWithName("foo"));
     }
 
     @Test
-    public void test_getDeploymentNodeWithName_ReturnsTheNamedDeploymentNode_WhenThereIsADeploymentWithTheSpecifiedName() {
+    public void test_getDeploymentNodeWithName_ReturnsTheNamedDeploymentNode_WhenThereIsADeploymentNodeWithTheSpecifiedName() {
         DeploymentNode parent = model.addDeploymentNode("parent", "", "");
         DeploymentNode child = parent.addDeploymentNode("child", "", "");
         assertSame(child, parent.getDeploymentNodeWithName("child"));
+    }
+
+    @Test
+    public void test_getInfrastructureNodeWithName_ReturnsNull_WhenThereIsNoInfrastructureNodeWithTheSpecifiedName() {
+        DeploymentNode deploymentNode = new DeploymentNode();
+        assertNull(deploymentNode.getInfrastructureNodeWithName("foo"));
+    }
+
+    @Test
+    public void test_getInfrastructureNodeWithName_ReturnsTheNamedDeploymentNode_WhenThereIsAInfrastructureNodeWithTheSpecifiedName() {
+        DeploymentNode parent = model.addDeploymentNode("parent", "", "");
+        InfrastructureNode child = parent.addInfrastructureNode("child", "", "");
+        assertSame(child, parent.getInfrastructureNodeWithName("child"));
     }
 
 }
