@@ -162,6 +162,19 @@ public final class DeploymentView extends View {
     }
 
     /**
+     * Adds an animation step, with the specified infrastructure nodes.
+     *
+     * @param infrastructureNodes        the infrastructure nodes that should be shown in the animation step
+     */
+    public void addAnimation(InfrastructureNode... infrastructureNodes) {
+        if (infrastructureNodes == null || infrastructureNodes.length == 0) {
+            throw new IllegalArgumentException("One or more infrastructure nodes must be specified.");
+        }
+
+        addAnimationStep(infrastructureNodes);
+    }
+
+    /**
      * Adds an animation step, with the specified container instances.
      *
      * @param containerInstances        the container instances that should be shown in the animation step
@@ -171,6 +184,11 @@ public final class DeploymentView extends View {
             throw new IllegalArgumentException("One or more container instances must be specified.");
         }
 
+        addAnimationStep(containerInstances);
+    }
+
+    private void addAnimationStep(Element... elements) {
+
         Set<String> elementIdsInPreviousAnimationSteps = new HashSet<>();
         for (Animation animationStep : animations) {
             elementIdsInPreviousAnimationSteps.addAll(animationStep.getElements());
@@ -179,12 +197,12 @@ public final class DeploymentView extends View {
         Set<Element> elementsInThisAnimationStep = new HashSet<>();
         Set<Relationship> relationshipsInThisAnimationStep = new HashSet<>();
 
-        for (ContainerInstance containerInstance : containerInstances) {
-            if (isElementInView(containerInstance) && !elementIdsInPreviousAnimationSteps.contains(containerInstance.getId())) {
-                elementIdsInPreviousAnimationSteps.add(containerInstance.getId());
-                elementsInThisAnimationStep.add(containerInstance);
+        for (Element element : elements) {
+            if (isElementInView(element) && !elementIdsInPreviousAnimationSteps.contains(element.getId())) {
+                elementIdsInPreviousAnimationSteps.add(element.getId());
+                elementsInThisAnimationStep.add(element);
 
-                Element deploymentNode = findDeploymentNode(containerInstance);
+                Element deploymentNode = findDeploymentNode(element);
                 while (deploymentNode != null) {
                     if (!elementIdsInPreviousAnimationSteps.contains(deploymentNode.getId())) {
                         elementIdsInPreviousAnimationSteps.add(deploymentNode.getId());
@@ -212,12 +230,21 @@ public final class DeploymentView extends View {
         animations.add(new Animation(animations.size() + 1, elementsInThisAnimationStep, relationshipsInThisAnimationStep));
     }
 
-    private DeploymentNode findDeploymentNode(ContainerInstance containerInstance) {
+    private DeploymentNode findDeploymentNode(Element e) {
         for (Element element : getModel().getElements()) {
             if (element instanceof DeploymentNode) {
-                DeploymentNode deploymentNode = (DeploymentNode)element;
-                if (deploymentNode.getContainerInstances().contains(containerInstance)) {
-                    return deploymentNode;
+                DeploymentNode deploymentNode = (DeploymentNode) element;
+
+                if (e instanceof ContainerInstance) {
+                    if (deploymentNode.getContainerInstances().contains(e)) {
+                        return deploymentNode;
+                    }
+                }
+
+                if (e instanceof InfrastructureNode) {
+                    if (deploymentNode.getInfrastructureNodes().contains(e)) {
+                        return deploymentNode;
+                    }
                 }
             }
         }
