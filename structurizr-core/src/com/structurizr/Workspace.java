@@ -203,7 +203,7 @@ public final class Workspace extends AbstractWorkspace {
 
         // find elements with a missing description
         getModel().getElements().stream()
-                .filter(e -> !(e instanceof ContainerInstance) && !(e instanceof DeploymentNode))
+                .filter(e -> !(e instanceof ContainerInstance) && !(e instanceof DeploymentNode) && !(e instanceof InfrastructureNode))
                 .filter(e -> e.getDescription() == null || e.getDescription().trim().length() == 0)
                 .forEach(e -> warnings.add("The " + typeof(e) + " \"" + e.getCanonicalName().substring(1) + "\" is missing a description."));
 
