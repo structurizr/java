@@ -154,7 +154,7 @@ public abstract class View {
     }
 
     /**
-     * Enables the automatic layout for this view, with the specified settings.
+     * Enables automatic layout for this view, with the specified settings, using the Dagre implementation.
      *
      * @param rankDirection     the rank direction
      * @param rankSeparation    the separation between ranks (in pixels, a positive integer)
@@ -163,7 +163,18 @@ public abstract class View {
      * @param vertices          whether vertices should be created during automatic layout
      */
     public void enableAutomaticLayout(AutomaticLayout.RankDirection rankDirection, int rankSeparation, int nodeSeparation, int edgeSeparation, boolean vertices) {
-        this.automaticLayout = new AutomaticLayout(rankDirection, rankSeparation, nodeSeparation, edgeSeparation, vertices);
+        this.automaticLayout = new AutomaticLayout(AutomaticLayout.Implementation.Dagre, rankDirection, rankSeparation, nodeSeparation, edgeSeparation, vertices);
+    }
+
+    /**
+     * Enables automatic layout for this view, with the specified settings, using the Graphviz implementation.
+     *
+     * @param rankDirection     the rank direction
+     * @param rankSeparation    the separation between ranks (in pixels, a positive integer)
+     * @param nodeSeparation    the separation between nodes within the same rank (in pixels, a positive integer)
+     */
+    public void enableAutomaticLayout(AutomaticLayout.RankDirection rankDirection, int rankSeparation, int nodeSeparation) {
+        this.automaticLayout = new AutomaticLayout(AutomaticLayout.Implementation.Graphviz, rankDirection, rankSeparation, nodeSeparation, 0, false);
     }
 
     /**

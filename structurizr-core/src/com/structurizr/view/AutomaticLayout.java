@@ -5,6 +5,7 @@ package com.structurizr.view;
  */
 public final class AutomaticLayout {
 
+    private Implementation implementation;
     private RankDirection rankDirection;
     private int rankSeparation;
     private int nodeSeparation;
@@ -14,12 +15,26 @@ public final class AutomaticLayout {
     AutomaticLayout() {
     }
 
-    AutomaticLayout(RankDirection rankDirection, int rankSeparation, int nodeSeparation, int edgeSeparation, boolean vertices) {
+    AutomaticLayout(Implementation implementation, RankDirection rankDirection, int rankSeparation, int nodeSeparation, int edgeSeparation, boolean vertices) {
+        setImplementation(implementation);
         setRankDirection(rankDirection);
         setRankSeparation(rankSeparation);
         setNodeSeparation(nodeSeparation);
         setEdgeSeparation(edgeSeparation);
         setVertices(vertices);
+    }
+
+    /**
+     * Gets the name of the implementation to use.
+     *
+     * @return  an enum representing Graphviz or Dagre
+     */
+    public Implementation getImplementation() {
+        return implementation;
+    }
+
+    void setImplementation(Implementation implementation) {
+        this.implementation = implementation;
     }
 
     /**
@@ -101,6 +116,11 @@ public final class AutomaticLayout {
 
     void setVertices(boolean vertices) {
         this.vertices = vertices;
+    }
+
+    public enum Implementation {
+        Graphviz,
+        Dagre
     }
 
     public enum RankDirection {

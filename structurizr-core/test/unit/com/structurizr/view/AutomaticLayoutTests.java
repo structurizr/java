@@ -8,7 +8,7 @@ public class AutomaticLayoutTests {
 
     @Test
     public void test_setAutomaticLayout() {
-        AutomaticLayout automaticLayout = new AutomaticLayout(AutomaticLayout.RankDirection.LeftRight, 100, 200, 300, true);
+        AutomaticLayout automaticLayout = new AutomaticLayout(AutomaticLayout.Implementation.Dagre, AutomaticLayout.RankDirection.LeftRight, 100, 200, 300, true);
 
         assertEquals(AutomaticLayout.RankDirection.LeftRight, automaticLayout.getRankDirection());
         assertEquals(100, automaticLayout.getRankSeparation());
