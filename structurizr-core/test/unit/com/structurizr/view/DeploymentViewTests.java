@@ -156,10 +156,21 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     public void test_addAnimationStep_ThrowsAnException_WhenNoContainerInstancesAreSpecified() {
         try {
             deploymentView = views.createDeploymentView("deployment", "Description");
-            deploymentView.addAnimation();
+            deploymentView.addAnimation((ContainerInstance[])null);
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("One or more container instances must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addAnimationStep_ThrowsAnException_WhenNoInfrastructureNodesAreSpecified() {
+        try {
+            deploymentView = views.createDeploymentView("deployment", "Description");
+            deploymentView.addAnimation((InfrastructureNode[])null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("One or more infrastructure nodes must be specified.", iae.getMessage());
         }
     }
 
