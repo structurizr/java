@@ -10,6 +10,7 @@
 - Added the ability to customize the symbols used when rendering metadata.
 - Adds support for infrastructure nodes.
 - Adds support for multiple themes.
+- Adds support for curved relationship routing.
 
 ## 1.3.5 (26th March 2020)
 
