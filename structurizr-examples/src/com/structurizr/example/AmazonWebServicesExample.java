@@ -35,8 +35,9 @@ public class AmazonWebServicesExample {
         amazonWebServices.addTags("Amazon Web Services - Cloud");
         DeploymentNode amazonRegion = amazonWebServices.addDeploymentNode("US-East-1");
         amazonRegion.addTags("Amazon Web Services - Region");
-        DeploymentNode ec2 = amazonRegion.addDeploymentNode("Amazon EC2");
-        ec2.setInstances(10);
+        DeploymentNode autoscalingGroup = amazonRegion.addDeploymentNode("Autoscaling group");
+        autoscalingGroup.addTags("Amazon Web Services - Auto Scaling");
+        DeploymentNode ec2 = autoscalingGroup.addDeploymentNode("Amazon EC2");
         ec2.addTags("Amazon Web Services - EC2");
         ContainerInstance webApplicationInstance = ec2.add(webApplication);
 
