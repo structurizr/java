@@ -34,6 +34,7 @@ public class Shapes {
         model.addSoftwareSystem("Folder", "Description").addTags("Folder");
         model.addSoftwareSystem("Robot", "Description").addTags("Robot");
         model.addPerson("Person", "Description").addTags("Person");
+        model.addSoftwareSystem("Component", "Description").addTags("Component");
 
         ViewSet views = workspace.getViews();
         SystemLandscapeView view = views.createSystemLandscapeView("shapes", "An example of all shapes available in Structurizr.");
@@ -42,7 +43,7 @@ public class Shapes {
 
         Styles styles = views.getConfiguration().getStyles();
 
-        styles.addElementStyle(Tags.ELEMENT).color("#ffffff").background("#438dd5").fontSize(34).width(650).height(400);
+        styles.addElementStyle(Tags.ELEMENT).color("#ffffff").background("#438dd5").fontSize(34).width(650).height(400).description(false).metadata(false);
         styles.addElementStyle("Box").shape(Shape.Box);
         styles.addElementStyle("RoundedBox").shape(Shape.RoundedBox);
         styles.addElementStyle("Ellipse").shape(Shape.Ellipse);
@@ -56,6 +57,7 @@ public class Shapes {
         styles.addElementStyle("Hexagon").shape(Shape.Hexagon);
         styles.addElementStyle("Robot").shape(Shape.Robot).width(550);
         styles.addElementStyle("Person").shape(Shape.Person).width(550);
+        styles.addElementStyle("Component").shape(Shape.Component);
 
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
