@@ -12,7 +12,7 @@ The Structurizr for Java binaries are hosted on [Maven Central](https://repo1.ma
 
 Name                                     | Description
 ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------
-com.structurizr:structurizr-client:1.3.5 | The Structurizr API client library.
+com.structurizr:structurizr-client:1.4.0 | The Structurizr API client library.
 
 ## 2. Create a Java program
 

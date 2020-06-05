@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.4.0 (unreleased)
+## 1.4.0 (5th June 2020)
 
 - Added a "Component" element shape.
 - Added a "Dotted" element border style.
