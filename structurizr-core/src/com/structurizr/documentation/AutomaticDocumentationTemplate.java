@@ -66,24 +66,26 @@ public class AutomaticDocumentationTemplate extends DocumentationTemplate {
             Arrays.sort(filesInDirectory);
 
             for (File file : filesInDirectory) {
-                Format format = FormatFinder.findFormat(file);
-                String sectionDefinition = "";
+                if (!file.isDirectory() && !file.getName().startsWith(".")) {
+                    Format format = FormatFinder.findFormat(file);
+                    String sectionDefinition = "";
 
-                if (format == Format.Markdown) {
-                    sectionDefinition = "##";
-                } else if (format == Format.AsciiDoc) {
-                    sectionDefinition = "==";
+                    if (format == Format.Markdown) {
+                        sectionDefinition = "##";
+                    } else if (format == Format.AsciiDoc) {
+                        sectionDefinition = "==";
+                    }
+
+                    String content = new String(Files.readAllBytes(file.toPath()), "UTF-8");
+                    String sectionName = file.getName();
+                    Matcher matcher = Pattern.compile("^" + sectionDefinition + " (.*?)$", Pattern.MULTILINE).matcher(content);
+                    if (matcher.find()) {
+                        sectionName = matcher.group(1);
+                    }
+
+                    Section section = addSection(softwareSystem, sectionName, format, content);
+                    sections.add(section);
                 }
-
-                String content = new String(Files.readAllBytes(file.toPath()), "UTF-8");
-                String sectionName = file.getName();
-                Matcher matcher = Pattern.compile("^" + sectionDefinition + " (.*?)$", Pattern.MULTILINE).matcher(content);
-                if (matcher.find()) {
-                    sectionName = matcher.group(1);
-                }
-
-                Section section = addSection(softwareSystem, sectionName, format, content);
-                sections.add(section);
             }
         }
 
