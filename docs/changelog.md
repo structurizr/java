@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1 (14th June 2020)
+
+Fixes a bug that defaults the relationship interaction style to Synchronous, when it's specifically set to null.
+
 ## 1.4.0 (5th June 2020)
 
 - Added a "Component" element shape.

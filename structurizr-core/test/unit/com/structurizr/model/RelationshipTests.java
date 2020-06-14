@@ -105,4 +105,13 @@ public class RelationshipTests extends AbstractWorkspaceTestBase {
         assertNull(relationship.getUrl());
     }
 
+    @Test
+    public void test_interactionStyle_CanBeSetToNull() {
+        Relationship relationship = softwareSystem1.uses(softwareSystem2, "Uses 1", "Technology", null);
+
+        assertNull(relationship.getInteractionStyle());
+        assertFalse(relationship.getTagsAsSet().contains(Tags.ASYNCHRONOUS));
+        assertFalse(relationship.getTagsAsSet().contains(Tags.SYNCHRONOUS));
+    }
+
 }

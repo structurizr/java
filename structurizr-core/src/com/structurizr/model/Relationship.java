@@ -18,7 +18,7 @@ public final class Relationship extends ModelItem {
     private String destinationId;
     private String description;
     private String technology;
-    private InteractionStyle interactionStyle = InteractionStyle.Synchronous;
+    private InteractionStyle interactionStyle;
     private String url;
 
     private String linkedRelationshipId;
@@ -37,7 +37,7 @@ public final class Relationship extends ModelItem {
 
         if (interactionStyle == InteractionStyle.Synchronous) {
             addTags(Tags.SYNCHRONOUS);
-        } else {
+        } else if (interactionStyle == InteractionStyle.Asynchronous) {
             addTags(Tags.ASYNCHRONOUS);
         }
     }
