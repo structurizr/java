@@ -26,7 +26,7 @@ public static void main(String[] args) throws Exception {
 }
 ```
 
-The view can then be exported to be visualised using the [Structurizr service](https://structurizr.com), or other formats including PlantUML, WebSequenceDiagrams and Graphviz via the [Structurizr for Java extensions](https://github.com/structurizr/java-extensions).
+The view can then be exported to be visualised using the [Structurizr cloud service/on-premises installation](https://structurizr.com), or other formats including PlantUML and WebSequenceDiagrams via the [Structurizr for Java extensions](https://github.com/structurizr/java-extensions).
 
 ![Views can be exported and visualised in many ways; e.g. PlantUML, Structurizr and Graphviz](docs/images/readme-1.png)
 
