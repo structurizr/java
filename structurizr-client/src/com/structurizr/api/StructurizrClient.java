@@ -56,6 +56,8 @@ public final class StructurizrClient {
 
     private static final String WORKSPACE_PATH = "/workspace/";
 
+    private String agent = STRUCTURIZR_FOR_JAVA_AGENT;
+
     private String url;
     private String apiKey;
     private String apiSecret;
@@ -115,6 +117,28 @@ public final class StructurizrClient {
         setUrl(url);
         setApiKey(apiKey);
         setApiSecret(apiSecret);
+    }
+
+    /**
+     * Gets the agent string used to identify this client instance.
+     *
+     * @return  "structurizr-java/{version}", unless overridden
+     */
+    public String getAgent() {
+        return agent;
+    }
+
+    /**
+     * Sets the agent string used to identify this client instance.
+     *
+     * @param agent
+     */
+    public void setAgent(String agent) {
+        if (StringUtils.isNullOrEmpty(agent)) {
+            throw new IllegalArgumentException("An agent must be provided.");
+        }
+
+        this.agent = agent.trim();
     }
 
     /**
@@ -233,10 +257,10 @@ public final class StructurizrClient {
 
             if (lock) {
                 log.info("Locking workspace with ID " + workspaceId);
-                httpRequest = new HttpPut(url + WORKSPACE_PATH + workspaceId + "/lock?user=" + getUser() + "&agent=" + STRUCTURIZR_FOR_JAVA_AGENT);
+                httpRequest = new HttpPut(url + WORKSPACE_PATH + workspaceId + "/lock?user=" + getUser() + "&agent=" + agent);
             } else {
                 log.info("Unlocking workspace with ID " + workspaceId);
-                httpRequest = new HttpDelete(url + WORKSPACE_PATH + workspaceId + "/lock?user=" + getUser() + "&agent=" + STRUCTURIZR_FOR_JAVA_AGENT);
+                httpRequest = new HttpDelete(url + WORKSPACE_PATH + workspaceId + "/lock?user=" + getUser() + "&agent=" + agent);
             }
 
             addHeaders(httpRequest, "", "");
@@ -336,7 +360,7 @@ public final class StructurizrClient {
             workspace.setId(workspaceId);
             workspace.setThumbnail(null);
             workspace.setLastModifiedDate(new Date());
-            workspace.setLastModifiedAgent(STRUCTURIZR_FOR_JAVA_AGENT);
+            workspace.setLastModifiedAgent(agent);
             workspace.setLastModifiedUser(getUser());
 
             workspace.countAndLogWarnings();
@@ -402,7 +426,7 @@ public final class StructurizrClient {
 
         HashBasedMessageAuthenticationCode hmac = new HashBasedMessageAuthenticationCode(apiSecret);
         HmacContent hmacContent = new HmacContent(httpMethod, path, contentMd5, contentType, nonce);
-        httpRequest.addHeader(HttpHeaders.USER_AGENT, STRUCTURIZR_FOR_JAVA_AGENT);
+        httpRequest.addHeader(HttpHeaders.USER_AGENT, agent);
         httpRequest.addHeader(HttpHeaders.AUTHORIZATION, new HmacAuthorizationHeader(apiKey, hmac.generate(hmacContent.toString())).format());
         httpRequest.addHeader(HttpHeaders.NONCE, nonce);
 

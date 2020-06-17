@@ -3,8 +3,7 @@ package com.structurizr.api;
 import com.structurizr.Workspace;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class StructurizrClientTests {
 
@@ -134,6 +133,43 @@ public class StructurizrClientTests {
             fail();
         } catch (Exception e) {
             assertEquals("Could not find a structurizr.properties file on the classpath.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_getAgent() {
+        structurizrClient = new StructurizrClient("key", "secret");
+        assertTrue(structurizrClient.getAgent().startsWith("structurizr-java/"));
+    }
+
+    @Test
+    public void test_setAgent() {
+        structurizrClient = new StructurizrClient("key", "secret");
+        structurizrClient.setAgent("new_agent");
+        assertEquals("new_agent", structurizrClient.getAgent());
+    }
+
+    @Test
+    public void test_setAgent_ThrowsAnException_WhenPassedNull() {
+        structurizrClient = new StructurizrClient("key", "secret");
+
+        try {
+            structurizrClient.setAgent(null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("An agent must be provided.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_setAgent_ThrowsAnException_WhenPassedAnEmptyString() {
+        structurizrClient = new StructurizrClient("key", "secret");
+
+        try {
+            structurizrClient.setAgent(" ");
+            fail();
+        } catch (Exception e) {
+            assertEquals("An agent must be provided.", e.getMessage());
         }
     }
 
