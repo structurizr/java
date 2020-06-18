@@ -131,7 +131,7 @@ public final class StructurizrClient {
     /**
      * Sets the agent string used to identify this client instance.
      *
-     * @param agent
+     * @param agent     the agent string
      */
     public void setAgent(String agent) {
         if (StringUtils.isNullOrEmpty(agent)) {
