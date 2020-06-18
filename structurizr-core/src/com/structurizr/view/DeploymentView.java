@@ -5,10 +5,7 @@ import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * A deployment view, used to show the mapping of container instances to deployment nodes.
@@ -171,7 +168,7 @@ public final class DeploymentView extends View {
             throw new IllegalArgumentException("One or more infrastructure nodes must be specified.");
         }
 
-        addAnimationStep(infrastructureNodes);
+        addAnimation(new ContainerInstance[0], infrastructureNodes);
     }
 
     /**
@@ -184,7 +181,29 @@ public final class DeploymentView extends View {
             throw new IllegalArgumentException("One or more container instances must be specified.");
         }
 
-        addAnimationStep(containerInstances);
+        addAnimation(containerInstances, new InfrastructureNode[0]);
+    }
+
+    /**
+     * Adds an animation step, with the specified container instances and infrastructure nodes.
+     *
+     * @param containerInstances      the container instances that should be shown in the animation step
+     * @param infrastructureNodes      the container infrastructure nodes that should be shown in the animation step
+     */
+    public void addAnimation(ContainerInstance[] containerInstances, InfrastructureNode[] infrastructureNodes) {
+        if ((containerInstances == null || containerInstances.length == 0) && (infrastructureNodes == null || infrastructureNodes.length == 0)) {
+            throw new IllegalArgumentException("One or more container instances/infrastructure nodes must be specified.");
+        }
+
+        List<Element> elements = new ArrayList<>();
+        if (containerInstances != null) {
+            Collections.addAll(elements, containerInstances);
+        }
+        if (infrastructureNodes != null) {
+            Collections.addAll(elements, infrastructureNodes);
+        }
+
+        addAnimationStep(elements.toArray(new Element[0]));
     }
 
     private void addAnimationStep(Element... elements) {

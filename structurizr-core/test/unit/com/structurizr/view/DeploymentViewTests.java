@@ -1,7 +1,6 @@
 package com.structurizr.view;
 
 import com.structurizr.AbstractWorkspaceTestBase;
-import com.structurizr.Workspace;
 import com.structurizr.model.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -171,6 +170,17 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("One or more infrastructure nodes must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addAnimationStep_ThrowsAnException_WhenNoContainerInstancesOrInfrastructureNodesAreSpecified() {
+        try {
+            deploymentView = views.createDeploymentView("deployment", "Description");
+            deploymentView.addAnimation(null, null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("One or more container instances/infrastructure nodes must be specified.", iae.getMessage());
         }
     }
 
