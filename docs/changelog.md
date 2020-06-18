@@ -1,8 +1,13 @@
 # Changelog
 
+## 1.4.2 (18th June 2020)
+
+- Adds the ability to add container instances and infrastructure nodes to the same animation step on a deployment view.
+- Adds the ability to override the Structurizr client agent string. 
+
 ## 1.4.1 (14th June 2020)
 
-Fixes a bug that defaults the relationship interaction style to Synchronous, when it's specifically set to null.
+- Fixes a bug that defaults the relationship interaction style to Synchronous, when it's specifically set to null.
 
 ## 1.4.0 (5th June 2020)
 
