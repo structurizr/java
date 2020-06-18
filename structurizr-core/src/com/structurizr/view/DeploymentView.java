@@ -43,10 +43,16 @@ public final class DeploymentView extends View {
     }
 
     /**
-     * Adds all of the top-level deployment nodes to this view.
+     * Adds all of the top-level deployment nodes to this view, for the same deployment environment (if set).
      */
     public void addAllDeploymentNodes() {
-        getModel().getDeploymentNodes().forEach(this::add);
+        for (DeploymentNode deploymentNode : getModel().getDeploymentNodes()) {
+            if (deploymentNode.getParent() == null) {
+                if (this.getEnvironment() == null || this.getEnvironment().equals(deploymentNode.getEnvironment())) {
+                    add(deploymentNode);
+                }
+            }
+        }
     }
 
     /**

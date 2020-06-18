@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.3 (unreleased)
+
+- Fixes a bug where all deployment nodes would be added to a deployment view, even if that view had an environment set.
+
 ## 1.4.2 (18th June 2020)
 
 - Adds the ability to add container instances and infrastructure nodes to the same animation step on a deployment view.
