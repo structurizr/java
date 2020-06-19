@@ -84,6 +84,45 @@ public final class DeploymentView extends View {
         }
     }
 
+    /**
+     * Removes the given deployment node from this view.
+     *
+     * @param deploymentNode        the DeploymentNode to be removed
+     */
+    public void remove(@Nonnull DeploymentNode deploymentNode) {
+        for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
+            remove(containerInstance);
+        }
+
+        for (InfrastructureNode infrastructureNode : deploymentNode.getInfrastructureNodes()) {
+            remove(infrastructureNode);
+        }
+
+        for (DeploymentNode child : deploymentNode.getChildren()) {
+            remove(child);
+        }
+
+        removeElement(deploymentNode);
+    }
+
+    /**
+     * Removes the given infrastructure node from this view.
+     *
+     * @param infrastructureNode        the InfrastructureNode to be removed
+     */
+    public void remove(@Nonnull InfrastructureNode infrastructureNode) {
+        removeElement(infrastructureNode);
+    }
+
+    /**
+     * Removes the given infrastructure node from this view.
+     *
+     * @param containerInstance     the ContainerInstance to be removed
+     */
+    public void remove(@Nonnull ContainerInstance containerInstance) {
+        removeElement(containerInstance);
+    }
+
     private boolean addContainerInstancesAndDeploymentNodesAndInfrastructureNodes(DeploymentNode deploymentNode, boolean addRelationships) {
         boolean hasContainersOrInfrastructureNodes = false;
         for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {

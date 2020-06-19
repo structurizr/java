@@ -3,6 +3,7 @@
 ## 1.4.3 (unreleased)
 
 - Fixes a bug where all deployment nodes would be added to a deployment view, even if that view had an environment set.
+- Adds support for removing deployment nodes, infrastructure nodes, and container instances from deployment views.
 
 ## 1.4.2 (18th June 2020)
 
