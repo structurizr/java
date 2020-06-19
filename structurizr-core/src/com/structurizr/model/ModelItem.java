@@ -87,7 +87,7 @@ abstract class ModelItem {
 
         for (String tag : tags) {
             if (tag != null) {
-                this.tags.add(tag);
+                this.tags.add(tag.trim());
             }
         }
     }
@@ -101,7 +101,7 @@ abstract class ModelItem {
      */
     public boolean removeTag(String tag) {
         if (tag != null) {
-            return this.tags.remove(tag);
+            return this.tags.remove(tag.trim());
         }
         return false;
     }
@@ -114,7 +114,7 @@ abstract class ModelItem {
      *              required tags defined by the model in getRequiredTags(), false otherwise
      */
     public boolean hasTag(String tag) {
-        return getTagsAsSet().contains(tag);
+        return getTagsAsSet().contains(tag.trim());
     }
 
     /**
