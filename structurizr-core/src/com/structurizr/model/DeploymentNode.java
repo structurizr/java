@@ -288,6 +288,10 @@ public final class DeploymentNode extends DeploymentElement {
     }
 
     public void setInstances(int instances) {
+        if (instances < 1) {
+            throw new IllegalArgumentException("Number of instances must be a positive integer.");
+        }
+
         this.instances = instances;
     }
 

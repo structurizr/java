@@ -179,4 +179,34 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
         assertSame(child, parent.getInfrastructureNodeWithName("child"));
     }
 
+    @Test
+    public void test_setInstances() {
+        DeploymentNode deploymentNode = new DeploymentNode();
+        deploymentNode.setInstances(8);
+
+        assertEquals(8, deploymentNode.getInstances());
+    }
+
+    @Test
+    public void test_setInstances_ThrowsAnException_WhenZeroIsSpecified() {
+        try {
+            DeploymentNode deploymentNode = new DeploymentNode();
+            deploymentNode.setInstances(0);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Number of instances must be a positive integer.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_setInstances_ThrowsAnException_WhenANegativeNumberIsSpecified() {
+        try {
+            DeploymentNode deploymentNode = new DeploymentNode();
+            deploymentNode.setInstances(-1);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Number of instances must be a positive integer.", iae.getMessage());
+        }
+    }
+
 }

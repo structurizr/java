@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.4.4 (unreleased)
+
+- Fixes a bug where deployment node instances could set to a non-positive integer.
+
 ## 1.4.3 (19th June 2020)
 
 - Fixes a bug where all deployment nodes would be added to a deployment view, even if that view had an environment set.
