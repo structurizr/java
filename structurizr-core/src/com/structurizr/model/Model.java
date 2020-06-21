@@ -51,6 +51,17 @@ public final class Model {
      * Creates a software system (with an unspecified location) and adds it to the model.
      *
      * @param name        the name of the software system
+     * @return the SoftwareSystem instance created and added to the model (or null)
+     * @throws IllegalArgumentException if a software system with the same name already exists
+     */
+    public SoftwareSystem addSoftwareSystem(@Nonnull String name) {
+        return addSoftwareSystem(name, "");
+    }
+
+    /**
+     * Creates a software system (with an unspecified location) and adds it to the model.
+     *
+     * @param name        the name of the software system
      * @param description a short description of the software system
      * @return the SoftwareSystem instance created and added to the model (or null)
      * @throws IllegalArgumentException if a software system with the same name already exists
@@ -85,6 +96,18 @@ public final class Model {
         } else {
             throw new IllegalArgumentException("A software system named '" + name + "' already exists.");
         }
+    }
+
+    /**
+     * Creates a person (with an unspecified location) and adds it to the model.
+     *
+     * @param name        the name of the person (e.g. "Admin User" or "Bob the Business User")
+     * @return the Person instance created and added to the model (or null)
+     * @throws IllegalArgumentException if a person with the same name already exists
+     */
+    @Nonnull
+    public Person addPerson(@Nonnull String name) {
+        return addPerson(name, "");
     }
 
     /**
