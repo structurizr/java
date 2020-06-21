@@ -43,6 +43,13 @@ public final class DeploymentView extends View {
     }
 
     /**
+     * Adds the default set of elements to this view.
+     */
+    public void addDefaultElements() {
+        addAllDeploymentNodes();
+    }
+
+    /**
      * Adds all of the top-level deployment nodes to this view, for the same deployment environment (if set).
      */
     public void addAllDeploymentNodes() {

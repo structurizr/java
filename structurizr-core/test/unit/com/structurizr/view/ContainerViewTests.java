@@ -1,6 +1,7 @@
 package com.structurizr.view;
 
 import com.structurizr.AbstractWorkspaceTestBase;
+import com.structurizr.Workspace;
 import com.structurizr.model.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -264,4 +265,32 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
         assertEquals(2, view.getElements().size());
         assertEquals(1, view.getRelationships().size());
     }
+
+    @Test
+    public void test_addDefaultElements() {
+        model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
+
+        Person user1 = model.addPerson("User 1");
+        Person user2 = model.addPerson("User 2");
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
+        Container container1 = softwareSystem1.addContainer("Container 1", "", "");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2");
+        Container container2 = softwareSystem2.addContainer("Container 2", "", "");
+
+        user1.uses(container1, "Uses");
+        user2.uses(container2, "Uses");
+        container1.uses(container2, "Uses");
+
+        view = new ContainerView(softwareSystem1, "containers", "Description");
+        view.addDefaultElements();
+
+        assertEquals(3, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(user1)));
+        assertFalse(view.getElements().contains(new ElementView(user2)));
+        assertFalse(view.getElements().contains(new ElementView(softwareSystem1)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystem2)));
+        assertTrue(view.getElements().contains(new ElementView(container1)));
+        assertFalse(view.getElements().contains(new ElementView(container2)));
+    }
+
 }

@@ -574,4 +574,35 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
     }
 
+    @Test
+    public void test_addDefaultElements() {
+        model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
+
+        Person user1 = model.addPerson("User 1");
+        Person user2 = model.addPerson("User 2");
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
+        Container container1 = softwareSystem1.addContainer("Container 1", "", "");
+        Component component1 = container1.addComponent("Component 1", "", "");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2");
+        Container container2 = softwareSystem2.addContainer("Container 2", "", "");
+        Component component2 = container2.addComponent("Component 2", "", "");
+
+        user1.uses(component1, "Uses");
+        user2.uses(component2, "Uses");
+        component1.uses(component2, "Uses");
+
+        view = new ComponentView(container1, "components", "Description");
+        view.addDefaultElements();
+
+        assertEquals(3, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(user1)));
+        assertFalse(view.getElements().contains(new ElementView(user2)));
+        assertFalse(view.getElements().contains(new ElementView(softwareSystem1)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystem2)));
+        assertFalse(view.getElements().contains(new ElementView(container1)));
+        assertFalse(view.getElements().contains(new ElementView(container2)));
+        assertTrue(view.getElements().contains(new ElementView(component1)));
+        assertFalse(view.getElements().contains(new ElementView(component2)));
+    }
+
 }

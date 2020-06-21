@@ -92,6 +92,18 @@ public final class ContainerView extends StaticView {
     }
 
     /**
+     * Adds the default set of elements to this view.
+     */
+    @Override
+    public void addDefaultElements() {
+        for (Container container : getSoftwareSystem().getContainers()) {
+            add(container);
+            addNearestNeighbours(container, Person.class);
+            addNearestNeighbours(container, SoftwareSystem.class);
+        }
+    }
+
+    /**
      * Adds all people, software systems and containers that belong to the software system in scope.
      */
     @Override

@@ -186,4 +186,18 @@ public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(softwareSystem)));
     }
 
+    @Test
+    public void test_addDefaultElements() {
+        Person user = model.addPerson("User");
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2");
+
+        view.addDefaultElements();
+
+        assertEquals(3, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(user)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystem1)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystem2)));
+    }
+
 }

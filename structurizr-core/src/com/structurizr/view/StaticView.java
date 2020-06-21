@@ -26,6 +26,11 @@ public abstract class StaticView extends View {
     }
 
     /**
+     * Adds the default set of elements to this view.
+     */
+    public abstract void addDefaultElements();
+
+    /**
      * Adds all software systems in the model to this view.
      */
     public void addAllSoftwareSystems() {

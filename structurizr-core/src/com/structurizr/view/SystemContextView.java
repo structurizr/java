@@ -34,6 +34,15 @@ public final class SystemContextView extends StaticView {
     }
 
     /**
+     * Adds the default set of elements to this view.
+     */
+    @Override
+    public void addDefaultElements() {
+        addNearestNeighbours(getSoftwareSystem(), Person.class);
+        addNearestNeighbours(getSoftwareSystem(), SoftwareSystem.class);
+    }
+
+    /**
      * Adds all software systems and all people.
      */
     @Override

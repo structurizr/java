@@ -280,4 +280,25 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
         assertFalse(view.isEnterpriseBoundaryVisible());
     }
 
+    @Test
+    public void test_addDefaultElements() {
+        Person user1 = model.addPerson("User 1");
+        Person user2 = model.addPerson("User 2");
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2");
+
+        user1.uses(softwareSystem1, "");
+        softwareSystem1.uses(softwareSystem2, "");
+        user2.uses(softwareSystem2, "");
+
+        view = views.createSystemContextView(softwareSystem1, "key", "description");
+        view.addDefaultElements();
+
+        assertEquals(3, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(user1)));
+        assertFalse(view.getElements().contains(new ElementView(user2)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystem1)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystem2)));
+    }
+
 }

@@ -51,6 +51,15 @@ public final class SystemLandscapeView extends StaticView {
     }
 
     /**
+     * Adds the default set of elements to this view.
+     */
+    @Override
+    public void addDefaultElements() {
+        addAllSoftwareSystems();
+        addAllPeople();
+    }
+
+    /**
      * Adds all software systems and all people to this view.
      */
     @Override

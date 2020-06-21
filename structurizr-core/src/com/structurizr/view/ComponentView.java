@@ -173,6 +173,25 @@ public final class ComponentView extends StaticView {
     }
 
     /**
+     * Adds the default set of elements to this view.
+     */
+    @Override
+    public void addDefaultElements() {
+        for (Component component : getContainer().getComponents()) {
+            add(component);
+
+            for (Container container : getSoftwareSystem().getContainers()) {
+                if (container.hasEfferentRelationshipWith(component) || component.hasEfferentRelationshipWith(container)) {
+                    add(container);
+                }
+            };
+
+            addNearestNeighbours(component, Person.class);
+            addNearestNeighbours(component, SoftwareSystem.class);
+        }
+    }
+
+    /**
      * Adds all people, software systems, sibling containers and components belonging to the container in scope.
      */
     @Override
