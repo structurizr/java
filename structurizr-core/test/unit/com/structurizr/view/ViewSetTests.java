@@ -976,8 +976,9 @@ public class ViewSetTests {
         Container c2 = ss2.addContainer("Container 2", "", "");
         Component cc2 = c2.addComponent("Component 2", "", "");
 
-        DeploymentNode dev = model.addDeploymentNode("Development", "Deployment Node", "", "");
-        DeploymentNode live = model.addDeploymentNode("Live", "Deployment Node", "", "");
+        DeploymentNode dev = model.addDeploymentNode("Development", "Developer Laptop", "", "");
+        DeploymentNode live = model.addDeploymentNode("Live", "Amazon Web Services", "", "");
+        DeploymentNode liveEc2 = live.addDeploymentNode("EC2");
 
         views.createDefaultViews();
 
@@ -997,19 +998,21 @@ public class ViewSetTests {
         assertSame(c2, views.getComponentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem2-Container2-Component")).findFirst().get().getContainer());
 
         assertEquals(0, views.getDynamicViews().size());
+        assertEquals(0, views.getDeploymentViews().size());
 
-        assertEquals(2, views.getDeploymentViews().size());
-        assertNull(views.getDeploymentViews().stream().filter(v -> v.getKey().equals("Development-Deployment")).findFirst().get().getSoftwareSystem());
-        assertSame("Development", views.getDeploymentViews().stream().filter(v -> v.getKey().equals("Development-Deployment")).findFirst().get().getEnvironment());
-        assertNull(views.getDeploymentViews().stream().filter(v -> v.getKey().equals("Live-Deployment")).findFirst().get().getSoftwareSystem());
-        assertSame("Live", views.getDeploymentViews().stream().filter(v -> v.getKey().equals("Live-Deployment")).findFirst().get().getEnvironment());
+        live.addInfrastructureNode("Route 53");
 
         views.clear();
+        views.createDefaultViews();
+
+        assertEquals(1, views.getDeploymentViews().size());
+        assertSame("Live", views.getDeploymentViews().stream().filter(v -> v.getKey().equals("Live-Deployment")).findFirst().get().getEnvironment());
 
         dev.add(c1);
-        live.add(c1);
-        live.add(c2);
+        liveEc2.add(c1);
+        liveEc2.add(c2);
 
+        views.clear();
         views.createDefaultViews();
 
         assertEquals(3, views.getDeploymentViews().size());

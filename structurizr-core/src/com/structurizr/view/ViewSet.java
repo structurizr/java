@@ -733,7 +733,8 @@ public final class ViewSet {
             List<SoftwareSystem> softwareSystems = new ArrayList<>();
             for (DeploymentNode deploymentNode : model.getDeploymentNodes()) {
                 if (deploymentNode.getEnvironment().equals(deploymentEnvironment)) {
-                    for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
+                    Set<ContainerInstance> containerInstances = getContainerInstances(deploymentNode);
+                    for (ContainerInstance containerInstance : containerInstances) {
                         SoftwareSystem softwareSystem = containerInstance.getContainer().getSoftwareSystem();
                         if (!softwareSystems.contains(softwareSystem)) {
                             softwareSystems.add(softwareSystem);
@@ -743,11 +744,14 @@ public final class ViewSet {
             }
 
             if (softwareSystems.isEmpty()) {
-                String deploymentViewKey = removeNonWordCharacters(deploymentEnvironment) + "-Deployment";
-                DeploymentView deploymentView = createDeploymentView(deploymentViewKey, "");
-                deploymentView.setEnvironment(deploymentEnvironment);
-                deploymentView.addDefaultElements();
-                deploymentView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
+                // there are no container instances, but perhaps there are infrastructure nodes in this environment
+                if (model.getElements().stream().anyMatch(e -> e instanceof InfrastructureNode && ((InfrastructureNode)e).getEnvironment().equals(deploymentEnvironment))) {
+                    String deploymentViewKey = removeNonWordCharacters(deploymentEnvironment) + "-Deployment";
+                    DeploymentView deploymentView = createDeploymentView(deploymentViewKey, "");
+                    deploymentView.setEnvironment(deploymentEnvironment);
+                    deploymentView.addDefaultElements();
+                    deploymentView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
+                }
             } else {
                 softwareSystems.sort(Comparator.comparing(Element::getName));
 
@@ -765,6 +769,17 @@ public final class ViewSet {
     private String removeNonWordCharacters(String name) {
         return name.replaceAll("\\W", "");
     }
+
+    private Set<ContainerInstance> getContainerInstances(DeploymentNode deploymentNode) {
+        Set<ContainerInstance> containerInstances = new HashSet<>(deploymentNode.getContainerInstances());
+
+        for (DeploymentNode child : deploymentNode.getChildren()) {
+            containerInstances.addAll(getContainerInstances(child));
+        }
+
+        return containerInstances;
+    }
+
 
     /**
      * Removes all views and configuration.
