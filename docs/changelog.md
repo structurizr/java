@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.5 (21st June 2020)
+
+- Bug fixes.
+
 ## 1.4.4 (21st June 2020)
 
 - Adds an "addDefaultElements()" method to the static/deployment views.
