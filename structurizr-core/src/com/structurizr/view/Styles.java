@@ -2,6 +2,7 @@ package com.structurizr.view;
 
 import com.structurizr.model.Element;
 import com.structurizr.model.Relationship;
+import com.structurizr.model.Tags;
 import com.structurizr.util.StringUtils;
 
 import java.util.Collection;
@@ -56,6 +57,14 @@ public final class Styles {
      */
     public void clearRelationshipStyles() {
         this.relationships = new LinkedList<>();
+    }
+
+    public void addDefaultStyles() {
+        addElementStyle(Tags.ELEMENT).shape(Shape.RoundedBox);
+        addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd").color("#ffffff");
+        addElementStyle(Tags.CONTAINER).background("#438dd5").color("#ffffff");
+        addElementStyle(Tags.COMPONENT).background("#85bbf0").color("#000000");
+        addElementStyle(Tags.PERSON).background("#08427b").color("#ffffff").shape(Shape.Person);
     }
 
     public Collection<RelationshipStyle> getRelationships() {
