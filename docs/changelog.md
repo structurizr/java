@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.4 (unreleased)
+
+- Adds an "addDefaultElements()" method to the static/deployment views.
+- Adds an "addDefaultStyles()" method to Styles.
+- Adds a "createDefaultViews()" method to Views.
+
 ## 1.4.3 (19th June 2020)
 
 - Fixes a bug where all deployment nodes would be added to a deployment view, even if that view had an environment set.
