@@ -962,4 +962,66 @@ public class ViewSetTests {
         assertSame(systemLandscapeView, views.getSystemLandscapeViews().iterator().next());
     }
 
+    @Test
+    public void test_createDefaultViews() {
+        Workspace workspace = new Workspace("Name", "Description");
+        Model model = workspace.getModel();
+        ViewSet views = workspace.getViews();
+
+        SoftwareSystem ss1 = model.addSoftwareSystem("Software System 1");
+        Container c1 = ss1.addContainer("Container 1", "", "");
+        Component cc1 = c1.addComponent("Component 1", "", "");
+
+        SoftwareSystem ss2 = model.addSoftwareSystem("Software System 2");
+        Container c2 = ss2.addContainer("Container 2", "", "");
+        Component cc2 = c2.addComponent("Component 2", "", "");
+
+        DeploymentNode dev = model.addDeploymentNode("Development", "Deployment Node", "", "");
+        DeploymentNode live = model.addDeploymentNode("Live", "Deployment Node", "", "");
+
+        views.createDefaultViews();
+
+        assertEquals(1, views.getSystemLandscapeViews().size());
+        assertEquals("SystemLandscape", views.getSystemLandscapeViews().iterator().next().getKey());
+
+        assertEquals(2, views.getSystemContextViews().size());
+        assertSame(ss1, views.getSystemContextViews().stream().filter(v -> v.getKey().equals("SoftwareSystem1-SystemContext")).findFirst().get().getSoftwareSystem());
+        assertSame(ss2, views.getSystemContextViews().stream().filter(v -> v.getKey().equals("SoftwareSystem2-SystemContext")).findFirst().get().getSoftwareSystem());
+
+        assertEquals(2, views.getContainerViews().size());
+        assertSame(ss1, views.getContainerViews().stream().filter(v -> v.getKey().equals("SoftwareSystem1-Container")).findFirst().get().getSoftwareSystem());
+        assertSame(ss2, views.getContainerViews().stream().filter(v -> v.getKey().equals("SoftwareSystem2-Container")).findFirst().get().getSoftwareSystem());
+
+        assertEquals(2, views.getComponentViews().size());
+        assertSame(c1, views.getComponentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem1-Container1-Component")).findFirst().get().getContainer());
+        assertSame(c2, views.getComponentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem2-Container2-Component")).findFirst().get().getContainer());
+
+        assertEquals(0, views.getDynamicViews().size());
+
+        assertEquals(2, views.getDeploymentViews().size());
+        assertNull(views.getDeploymentViews().stream().filter(v -> v.getKey().equals("Development-Deployment")).findFirst().get().getSoftwareSystem());
+        assertSame("Development", views.getDeploymentViews().stream().filter(v -> v.getKey().equals("Development-Deployment")).findFirst().get().getEnvironment());
+        assertNull(views.getDeploymentViews().stream().filter(v -> v.getKey().equals("Live-Deployment")).findFirst().get().getSoftwareSystem());
+        assertSame("Live", views.getDeploymentViews().stream().filter(v -> v.getKey().equals("Live-Deployment")).findFirst().get().getEnvironment());
+
+        views.clear();
+
+        dev.add(c1);
+        dev.add(c2);
+        live.add(c1);
+        live.add(c2);
+
+        views.createDefaultViews();
+
+        assertEquals(4, views.getDeploymentViews().size());
+        assertSame(ss1, views.getDeploymentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem1-Development-Deployment")).findFirst().get().getSoftwareSystem());
+        assertSame("Development", views.getDeploymentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem1-Development-Deployment")).findFirst().get().getEnvironment());
+        assertSame(ss2, views.getDeploymentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem2-Development-Deployment")).findFirst().get().getSoftwareSystem());
+        assertSame("Development", views.getDeploymentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem2-Development-Deployment")).findFirst().get().getEnvironment());
+        assertSame(ss1, views.getDeploymentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem1-Live-Deployment")).findFirst().get().getSoftwareSystem());
+        assertSame("Live", views.getDeploymentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem1-Live-Deployment")).findFirst().get().getEnvironment());
+        assertSame(ss2, views.getDeploymentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem2-Live-Deployment")).findFirst().get().getSoftwareSystem());
+        assertSame("Live", views.getDeploymentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem2-Live-Deployment")).findFirst().get().getEnvironment());
+    }
+
 }

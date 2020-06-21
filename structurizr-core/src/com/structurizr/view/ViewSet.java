@@ -10,10 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static com.structurizr.util.StringUtils.isNullOrEmpty;
 
@@ -682,57 +679,79 @@ public final class ViewSet {
 
     public void createDefaultViews() {
         // create a single System Landscape diagram containing all people and software systems
-        SystemLandscapeView systemLandscapeView = createSystemLandscapeView(generateViewKey("SystemLandscape"), "");
+        SystemLandscapeView systemLandscapeView = createSystemLandscapeView("SystemLandscape", "");
         systemLandscapeView.addDefaultElements();
         systemLandscapeView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
         systemLandscapeView.setEnterpriseBoundaryVisible(true);
 
-        // and a system context view plus container view for each software system
-        for (SoftwareSystem softwareSystem : model.getSoftwareSystems()) {
-            SystemContextView systemContextView = createSystemContextView(softwareSystem, generateViewKey("SystemContext"), "");
-            systemContextView.addDefaultElements();
-            systemContextView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
-            systemContextView.setEnterpriseBoundaryVisible(true);
+        if (!model.getSoftwareSystems().isEmpty()) {
+            List<SoftwareSystem> softwareSystems = new ArrayList<>(model.getSoftwareSystems());
+            softwareSystems.sort(Comparator.comparing(Element::getName));
 
-            if (softwareSystem.getContainers().size() > 0) {
-                ContainerView containerView = createContainerView(softwareSystem, generateViewKey("Container"), "");
-                containerView.addDefaultElements();
-                containerView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
-                containerView.setExternalSoftwareSystemBoundariesVisible(true);
+            // and a system context view plus container view for each software system
+            for (SoftwareSystem softwareSystem : softwareSystems) {
+                String systemContextViewKey = removeNonWordCharacters(softwareSystem.getName()) + "-SystemContext";
+                SystemContextView systemContextView = createSystemContextView(softwareSystem, systemContextViewKey, "");
+                systemContextView.addDefaultElements();
+                systemContextView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
+                systemContextView.setEnterpriseBoundaryVisible(true);
 
-                for (Container container : softwareSystem.getContainers()) {
-                    if (container.getComponents().size() > 0) {
-                        ComponentView componentView = createComponentView(container, generateViewKey("Component"), "");
-                        componentView.addDefaultElements();
-                        componentView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
-                        componentView.setExternalSoftwareSystemBoundariesVisible(true);
+                if (softwareSystem.getContainers().size() > 0) {
+                    List<Container> containers = new ArrayList<>(softwareSystem.getContainers());
+                    containers.sort(Comparator.comparing(Element::getName));
+
+                    String containerViewKey = removeNonWordCharacters(softwareSystem.getName()) + "-Container";
+                    ContainerView containerView = createContainerView(softwareSystem, containerViewKey, "");
+                    containerView.addDefaultElements();
+                    containerView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
+                    containerView.setExternalSoftwareSystemBoundariesVisible(true);
+
+                    for (Container container : containers) {
+                        if (container.getComponents().size() > 0) {
+                            String componentViewKey = removeNonWordCharacters(softwareSystem.getName()) + "-" + removeNonWordCharacters(container.getName()) + "-Component";
+                            ComponentView componentView = createComponentView(container, componentViewKey, "");
+                            componentView.addDefaultElements();
+                            componentView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
+                            componentView.setExternalSoftwareSystemBoundariesVisible(true);
+                        }
                     }
                 }
             }
         }
 
-        // and deployment views for each environment and software system
-        Set<String> deploymentEnvironments = new HashSet<>();
+        // and deployment views for each environment and software system pair
+        List<String> deploymentEnvironments = new ArrayList<>();
         for (DeploymentNode deploymentNode : model.getDeploymentNodes()) {
-            deploymentEnvironments.add(deploymentNode.getEnvironment());
+            String environment = deploymentNode.getEnvironment();
+            if (!deploymentEnvironments.contains(environment)) {
+                deploymentEnvironments.add(environment);
+            }
         }
+        deploymentEnvironments.sort(String::compareTo);
 
         for (String deploymentEnvironment : deploymentEnvironments) {
-            Set<SoftwareSystem> softwareSystems = new HashSet<>();
+            List<SoftwareSystem> softwareSystems = new ArrayList<>();
             for (DeploymentNode deploymentNode : model.getDeploymentNodes()) {
                 for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
-                    softwareSystems.add(containerInstance.getContainer().getSoftwareSystem());
+                    SoftwareSystem softwareSystem = containerInstance.getContainer().getSoftwareSystem();
+                    if (!softwareSystems.contains(softwareSystem)) {
+                        softwareSystems.add(softwareSystem);
+                    }
                 }
             }
 
             if (softwareSystems.isEmpty()) {
-                DeploymentView deploymentView = createDeploymentView(generateViewKey("Deployment"), "");
+                String deploymentViewKey = removeNonWordCharacters(deploymentEnvironment) + "-Deployment";
+                DeploymentView deploymentView = createDeploymentView(deploymentViewKey, "");
                 deploymentView.setEnvironment(deploymentEnvironment);
                 deploymentView.addDefaultElements();
                 deploymentView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
             } else {
+                softwareSystems.sort(Comparator.comparing(Element::getName));
+
                 for (SoftwareSystem softwareSystem : softwareSystems) {
-                    DeploymentView deploymentView = createDeploymentView(softwareSystem, generateViewKey("Deployment"), "");
+                    String deploymentViewKey = removeNonWordCharacters(softwareSystem.getName()) + "-" + removeNonWordCharacters(deploymentEnvironment) + "-Deployment";
+                    DeploymentView deploymentView = createDeploymentView(softwareSystem, deploymentViewKey, "");
                     deploymentView.setEnvironment(deploymentEnvironment);
                     deploymentView.addDefaultElements();
                     deploymentView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
@@ -741,9 +760,8 @@ public final class ViewSet {
         }
     }
 
-    private String generateViewKey(String type) {
-        DecimalFormat format = new DecimalFormat("000");
-        return format.format(getViews().size() + 1) + "-" + type;
+    private String removeNonWordCharacters(String name) {
+        return name.replaceAll("\\W", "");
     }
 
     /**
