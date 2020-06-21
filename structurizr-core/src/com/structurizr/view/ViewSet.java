@@ -732,10 +732,12 @@ public final class ViewSet {
         for (String deploymentEnvironment : deploymentEnvironments) {
             List<SoftwareSystem> softwareSystems = new ArrayList<>();
             for (DeploymentNode deploymentNode : model.getDeploymentNodes()) {
-                for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
-                    SoftwareSystem softwareSystem = containerInstance.getContainer().getSoftwareSystem();
-                    if (!softwareSystems.contains(softwareSystem)) {
-                        softwareSystems.add(softwareSystem);
+                if (deploymentNode.getEnvironment().equals(deploymentEnvironment)) {
+                    for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
+                        SoftwareSystem softwareSystem = containerInstance.getContainer().getSoftwareSystem();
+                        if (!softwareSystems.contains(softwareSystem)) {
+                            softwareSystems.add(softwareSystem);
+                        }
                     }
                 }
             }

@@ -1007,17 +1007,14 @@ public class ViewSetTests {
         views.clear();
 
         dev.add(c1);
-        dev.add(c2);
         live.add(c1);
         live.add(c2);
 
         views.createDefaultViews();
 
-        assertEquals(4, views.getDeploymentViews().size());
+        assertEquals(3, views.getDeploymentViews().size());
         assertSame(ss1, views.getDeploymentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem1-Development-Deployment")).findFirst().get().getSoftwareSystem());
         assertSame("Development", views.getDeploymentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem1-Development-Deployment")).findFirst().get().getEnvironment());
-        assertSame(ss2, views.getDeploymentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem2-Development-Deployment")).findFirst().get().getSoftwareSystem());
-        assertSame("Development", views.getDeploymentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem2-Development-Deployment")).findFirst().get().getEnvironment());
         assertSame(ss1, views.getDeploymentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem1-Live-Deployment")).findFirst().get().getSoftwareSystem());
         assertSame("Live", views.getDeploymentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem1-Live-Deployment")).findFirst().get().getEnvironment());
         assertSame(ss2, views.getDeploymentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem2-Live-Deployment")).findFirst().get().getSoftwareSystem());
