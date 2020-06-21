@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.4.4 (unreleased)
+## 1.4.4 (21st June 2020)
 
 - Adds an "addDefaultElements()" method to the static/deployment views.
 - Adds an "addDefaultStyles()" method to Styles.
