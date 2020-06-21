@@ -65,6 +65,7 @@ public final class Styles {
         addElementStyle(Tags.CONTAINER).background("#438dd5").color("#ffffff");
         addElementStyle(Tags.COMPONENT).background("#85bbf0").color("#000000");
         addElementStyle(Tags.PERSON).background("#08427b").color("#ffffff").shape(Shape.Person);
+        addElementStyle(Tags.INFRASTRUCTURE_NODE).background("#ffffff");
     }
 
     public Collection<RelationshipStyle> getRelationships() {
