@@ -127,7 +127,7 @@ public final class Styles {
     }
 
     public ElementStyle findElementStyle(Element element) {
-        ElementStyle style = new ElementStyle("").background("#dddddd").stroke("#bbbbbb").color("#000000").shape(Shape.Box);
+        ElementStyle style = new ElementStyle("").background("#dddddd").color("#000000").shape(Shape.Box);
 
         if (element != null) {
             for (String tag : element.getTagsAsSet()) {
