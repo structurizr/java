@@ -1,8 +1,9 @@
 # Changelog
 
-## 1.4.6 (6th July 2020)
+## 1.4.7 (6th July 2020)
 
 - Adds a way to load styles from external themes.
+- Remove default stroke styling.
 
 ## 1.4.5 (21st June 2020)
 
