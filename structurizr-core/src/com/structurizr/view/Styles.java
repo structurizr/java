@@ -25,7 +25,11 @@ public final class Styles {
 
     public void add(ElementStyle elementStyle) {
         if (elementStyle != null) {
-            this.elements.add(elementStyle);
+            if (findElementStyle(elementStyle.getTag()) == null) {
+                this.elements.add(elementStyle);
+            } else {
+                throw new IllegalArgumentException("An element style for the tag \"" + elementStyle.getTag() + "\" already exists.");
+            }
         }
     }
 
@@ -74,7 +78,11 @@ public final class Styles {
 
     public void add(RelationshipStyle relationshipStyle) {
         if (relationshipStyle != null) {
-            this.relationships.add(relationshipStyle);
+            if (findRelationshipStyle(relationshipStyle.getTag()) == null) {
+                this.relationships.add(relationshipStyle);
+            } else {
+                throw new IllegalArgumentException("A relationship style for the tag \"" + relationshipStyle.getTag() + "\" already exists.");
+            }
         }
     }
 
@@ -119,7 +127,7 @@ public final class Styles {
     }
 
     public ElementStyle findElementStyle(Element element) {
-        ElementStyle style = new ElementStyle("").background("#dddddd").color("#000000").shape(Shape.Box);
+        ElementStyle style = new ElementStyle("").background("#dddddd").stroke("#bbbbbb").color("#000000").shape(Shape.Box);
 
         if (element != null) {
             for (String tag : element.getTagsAsSet()) {

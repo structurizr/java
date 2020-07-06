@@ -107,7 +107,7 @@ public class StyleTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addElementStyle_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
+    public void test_addElementStyleByTag_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
         try {
             styles.addElementStyle(Tags.SOFTWARE_SYSTEM).color("#ff0000");
             styles.addElementStyle(Tags.SOFTWARE_SYSTEM).color("#ff0000");
@@ -119,10 +119,34 @@ public class StyleTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addRelationshipStyle_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
+    public void test_addElementStyle_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
+        try {
+            ElementStyle style = styles.addElementStyle(Tags.SOFTWARE_SYSTEM).color("#ff0000");
+            styles.add(style);
+
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("An element style for the tag \"Software System\" already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addRelationshipStyleByTag_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
         try {
             styles.addRelationshipStyle(Tags.RELATIONSHIP).color("#ff0000");
             styles.addRelationshipStyle(Tags.RELATIONSHIP).color("#ff0000");
+
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A relationship style for the tag \"Relationship\" already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addRelationshipStyle_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
+        try {
+            RelationshipStyle style = styles.addRelationshipStyle(Tags.RELATIONSHIP).color("#ff0000");
+            styles.add(style);
 
             fail();
         } catch (IllegalArgumentException iae) {

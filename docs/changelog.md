@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.6 (unreleased)
+
+- Adds a way to load styles from external themes.
+
 ## 1.4.5 (21st June 2020)
 
 - Bug fixes.
