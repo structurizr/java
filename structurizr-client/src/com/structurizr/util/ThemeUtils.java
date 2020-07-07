@@ -105,6 +105,7 @@ public final class ThemeUtils {
             objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
             objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
             objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
+            objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 
             writer.write(objectMapper.writeValueAsString(
                     new Theme(
