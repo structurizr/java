@@ -1,5 +1,6 @@
 package com.structurizr.util;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -155,6 +156,7 @@ public final class ThemeUtils {
             this.description = description;
         }
 
+        @JsonGetter
         Collection<ElementStyle> getElements() {
             return elements;
         }
@@ -163,6 +165,7 @@ public final class ThemeUtils {
             this.elements = elements;
         }
 
+        @JsonGetter
         Collection<RelationshipStyle> getRelationships() {
             return relationships;
         }
