@@ -207,7 +207,21 @@ public final class DeploymentNode extends DeploymentElement {
      * @return                  a Relationship object
      */
     public Relationship uses(DeploymentNode destination, String description, String technology, InteractionStyle interactionStyle) {
-        return getModel().addRelationship(this, destination, description, technology, interactionStyle);
+        return uses(destination, description, technology, interactionStyle, new String[0]);
+    }
+
+    /**
+     * Adds a relationship between this and another deployment node.
+     *
+     * @param destination       the destination DeploymentNode
+     * @param description       a short description of the relationship
+     * @param technology        the technology
+     * @param interactionStyle  the interaction style (Synchronous vs Asynchronous)
+     * @param tags              an array of tags
+     * @return                  a Relationship object
+     */
+    public Relationship uses(DeploymentNode destination, String description, String technology, InteractionStyle interactionStyle, String[] tags) {
+        return getModel().addRelationship(this, destination, description, technology, interactionStyle, tags);
     }
 
     /**

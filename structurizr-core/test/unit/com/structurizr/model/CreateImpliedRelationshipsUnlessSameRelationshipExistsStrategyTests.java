@@ -20,10 +20,17 @@ public class CreateImpliedRelationshipsUnlessSameRelationshipExistsStrategyTests
 
         model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessSameRelationshipExistsStrategy());
 
-        aaa.uses(bbb, "Uses 1");
+        aaa.uses(bbb, "Uses 1", null, InteractionStyle.Asynchronous, new String[] { "Tag 1", "Tag 2" });
 
         assertEquals(9, model.getRelationships().size());
         assertTrue(aaa.hasEfferentRelationshipWith(bbb, "Uses 1"));
+
+        // and all relationships should have the same interaction style and tags
+        for (Relationship r : model.getRelationships()) {
+            assertEquals(InteractionStyle.Asynchronous, r.getInteractionStyle());
+            assertTrue(r.getTagsAsSet().contains("Tag 1"));
+            assertTrue(r.getTagsAsSet().contains("Tag 2"));
+        }
 
         // AAA->BBB implies AAA->BB AAA->B AA->BBB AA->BB AA->B A->BBB A->BB A->B
         assertTrue(aaa.hasEfferentRelationshipWith(bb, "Uses 1"));

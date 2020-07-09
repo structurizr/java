@@ -196,11 +196,16 @@ public final class Model {
 
     @Nullable
     Relationship addRelationship(Element source, @Nonnull Element destination, String description, String technology, InteractionStyle interactionStyle) {
-        return addRelationship(source, destination, description, technology, interactionStyle, true);
+        return addRelationship(source, destination, description, technology, interactionStyle, new String[0], true);
     }
 
     @Nullable
-    Relationship addRelationship(Element source, @Nonnull Element destination, String description, String technology, InteractionStyle interactionStyle, boolean createImpliedRelationships) {
+    Relationship addRelationship(Element source, @Nonnull Element destination, String description, String technology, InteractionStyle interactionStyle, String[] tags) {
+        return addRelationship(source, destination, description, technology, interactionStyle, tags, true);
+    }
+
+    @Nullable
+    Relationship addRelationship(Element source, @Nonnull Element destination, String description, String technology, InteractionStyle interactionStyle, String[] tags, boolean createImpliedRelationships) {
         if (destination == null) {
             throw new IllegalArgumentException("The destination must be specified.");
         }
@@ -209,7 +214,8 @@ public final class Model {
             throw new IllegalArgumentException("Relationships cannot be added between parents and children.");
         }
 
-        Relationship relationship = new Relationship(source, destination, description, technology, interactionStyle);
+        Relationship relationship = new Relationship(source, destination, description, technology, interactionStyle, tags);
+
         if (addRelationship(relationship)) {
 
             if (createImpliedRelationships) {
@@ -969,12 +975,15 @@ public final class Model {
             throw new IllegalArgumentException("A relationship must be specified.");
         }
 
-        Relationship newRelationship = new Relationship(relationship.getSource(), relationship.getDestination(), description, technology, relationship.getInteractionStyle());
-        if (!relationship.getSource().has(newRelationship)) {
+        if (!relationship.getSource().hasEfferentRelationshipWith(relationship.getDestination(), description)) {
             relationship.setDescription(description);
             relationship.setTechnology(technology);
         } else {
-            throw new IllegalArgumentException("This relationship exists already: " + newRelationship);
+            throw new IllegalArgumentException(
+                    String.format("A relationship named \"%s\" between \"%s\" and \"%s\" already exists.",
+                            description,
+                            relationship.getSource().getName(),
+                            relationship.getDestination().getName()));
         }
     }
 

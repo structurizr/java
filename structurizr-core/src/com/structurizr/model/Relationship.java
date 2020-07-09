@@ -26,7 +26,7 @@ public final class Relationship extends ModelItem {
     Relationship() {
     }
 
-    Relationship(Element source, Element destination, String description, String technology, InteractionStyle interactionStyle) {
+    Relationship(Element source, Element destination, String description, String technology, InteractionStyle interactionStyle, String[] tags) {
         this();
 
         setSource(source);
@@ -40,6 +40,8 @@ public final class Relationship extends ModelItem {
         } else if (interactionStyle == InteractionStyle.Asynchronous) {
             addTags(Tags.ASYNCHRONOUS);
         }
+
+        addTags(tags);
     }
 
     @JsonIgnore

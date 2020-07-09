@@ -335,7 +335,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
             model.modifyRelationship(relationship, "Uses", "Technology");
             fail();
         } catch (IllegalArgumentException iae) {
-            assertEquals("This relationship exists already: {1 | Element 1 | Description} ---[Uses]---> {2 | Element 2 | Description}", iae.getMessage());
+            assertEquals("A relationship named \"Uses\" between \"Element 1\" and \"Element 2\" already exists.", iae.getMessage());
         }
     }
 
