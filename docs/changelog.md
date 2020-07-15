@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.4.8 (15th July 2020)
+
+- Implied relationships now also copy the interaction style and relationships.
+- Fixes a serialisation problem with themes and styles.
+
 ## 1.4.7 (6th July 2020)
 
 - Remove default stroke styling.
