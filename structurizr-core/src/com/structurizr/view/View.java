@@ -20,6 +20,9 @@ import java.util.stream.Collectors;
  */
 public abstract class View {
 
+    private static final int DEFAULT_RANK_SEPARATION = 300;
+    private static final int DEFAULT_NODE_SEPARATION = 300;
+
     private SoftwareSystem softwareSystem;
     private String softwareSystemId;
     private String description = "";
@@ -164,6 +167,15 @@ public abstract class View {
      */
     public void enableAutomaticLayout(AutomaticLayout.RankDirection rankDirection, int rankSeparation, int nodeSeparation, int edgeSeparation, boolean vertices) {
         this.automaticLayout = new AutomaticLayout(AutomaticLayout.Implementation.Dagre, rankDirection, rankSeparation, nodeSeparation, edgeSeparation, vertices);
+    }
+
+    /**
+     * Enables automatic layout for this view, with the specified direction, using the Graphviz implementation.
+     *
+     * @param rankDirection     the rank direction
+     */
+    public void enableAutomaticLayout(AutomaticLayout.RankDirection rankDirection) {
+        enableAutomaticLayout(rankDirection, DEFAULT_RANK_SEPARATION, DEFAULT_NODE_SEPARATION);
     }
 
     /**
