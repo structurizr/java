@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.9 (unreleased)
+
+- Fixes #151: linked relationship tags were not being taken into account when finding relationship styling.
+
 ## 1.4.8 (15th July 2020)
 
 - Implied relationships now also copy the interaction style and tags.

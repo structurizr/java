@@ -281,6 +281,7 @@ public final class Model {
         }
 
         relationshipsById.put(relationship.getId(), relationship);
+        relationship.setModel(this);
         idGenerator.found(relationship.getId());
     }
 

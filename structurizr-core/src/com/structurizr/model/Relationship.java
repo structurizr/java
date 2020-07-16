@@ -12,6 +12,8 @@ import java.util.Set;
  */
 public final class Relationship extends ModelItem {
 
+    private Model model;
+
     private Element source;
     private String sourceId;
     private Element destination;
@@ -42,6 +44,15 @@ public final class Relationship extends ModelItem {
         }
 
         addTags(tags);
+    }
+
+    @JsonIgnore
+    public Model getModel() {
+        return this.model;
+    }
+
+    protected void setModel(Model model) {
+        this.model = model;
     }
 
     @JsonIgnore

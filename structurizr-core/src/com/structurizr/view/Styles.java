@@ -116,6 +116,7 @@ public final class Styles {
 
     private RelationshipStyle findRelationshipStyle(String tag) {
         if (tag != null) {
+            tag = tag.trim();
             for (RelationshipStyle relationshipStyle : relationships) {
                 if (relationshipStyle != null && relationshipStyle.getTag().equals(tag)) {
                     return relationshipStyle;
@@ -193,9 +194,22 @@ public final class Styles {
 
     public RelationshipStyle findRelationshipStyle(Relationship relationship) {
         RelationshipStyle style = new RelationshipStyle("").color("#707070");
+        String tags;
 
         if (relationship != null) {
-            for (String tag : relationship.getTagsAsSet()) {
+            if (!StringUtils.isNullOrEmpty(relationship.getLinkedRelationshipId())) {
+                // the "linked relationship ID" is used for container instance -> container instance relationships
+                Relationship linkedRelationship = relationship.getModel().getRelationship(relationship.getLinkedRelationshipId());
+                if (linkedRelationship != null) {
+                    tags = linkedRelationship.getTags() + "," + relationship.getTags();
+                } else {
+                    tags = relationship.getTags();
+                }
+            } else {
+                tags = relationship.getTags();
+            }
+
+            for (String tag : tags.split(",")) {
                 RelationshipStyle relationshipStyle = findRelationshipStyle(tag);
                 if (relationshipStyle != null) {
                     if (relationshipStyle.getThickness() != null) {

@@ -1,9 +1,7 @@
 package com.structurizr.view;
 
 import com.structurizr.AbstractWorkspaceTestBase;
-import com.structurizr.model.Relationship;
-import com.structurizr.model.SoftwareSystem;
-import com.structurizr.model.Tags;
+import com.structurizr.model.*;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -103,6 +101,28 @@ public class StyleTests extends AbstractWorkspaceTestBase {
         styles.addRelationshipStyle("Some Tag").color("#0000ff");
 
         RelationshipStyle style = styles.findRelationshipStyle(relationship);
+        assertEquals("#0000ff", style.getColor());
+    }
+
+    @Test
+    public void test_findRelationshipStyle_ReturnsTheCorrectStyle_WhenThereIsALinkedRelationship() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
+        Container container1 = softwareSystem.addContainer("Container 1", "Description", "Technology");
+        Container container2 = softwareSystem.addContainer("Container 2", "Description", "Technology");
+        Relationship relationship = container1.uses(container2, "Uses");
+        relationship.addTags("Tag");
+        styles.addRelationshipStyle("Tag").color("#0000ff");
+
+        RelationshipStyle style = styles.findRelationshipStyle(relationship);
+        assertEquals("#0000ff", style.getColor());
+
+        DeploymentNode deploymentNode = model.addDeploymentNode("Server");
+        ContainerInstance containerInstance1 = deploymentNode.add(container1);
+        ContainerInstance containerInstance2 = deploymentNode.add(container2);
+
+        Relationship relationshipInstance = containerInstance1.getEfferentRelationshipWith(containerInstance2);
+
+        style = styles.findRelationshipStyle(relationshipInstance);
         assertEquals("#0000ff", style.getColor());
     }
 
