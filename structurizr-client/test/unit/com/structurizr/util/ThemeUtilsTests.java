@@ -23,11 +23,16 @@ public class ThemeUtilsTests {
     @Test
     public void test_toJson() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
-        assertEquals("{ }", ThemeUtils.toJson(workspace));
+        assertEquals("{\n" +
+                "  \"name\" : \"Name\",\n" +
+                "  \"description\" : \"Description\"\n" +
+                "}", ThemeUtils.toJson(workspace));
 
         workspace.getViews().getConfiguration().getStyles().addElementStyle(Tags.ELEMENT).background("#ff0000");
         workspace.getViews().getConfiguration().getStyles().addRelationshipStyle(Tags.RELATIONSHIP).color("#ff0000");
         assertEquals("{\n" +
+                "  \"name\" : \"Name\",\n" +
+                "  \"description\" : \"Description\",\n" +
                 "  \"elements\" : [ {\n" +
                 "    \"tag\" : \"Element\",\n" +
                 "    \"background\" : \"#ff0000\"\n" +

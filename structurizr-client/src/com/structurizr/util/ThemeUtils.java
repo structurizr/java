@@ -140,7 +140,7 @@ public final class ThemeUtils {
             this.relationships = relationships;
         }
 
-        String getName() {
+        public String getName() {
             return name;
         }
 
@@ -148,7 +148,7 @@ public final class ThemeUtils {
             this.name = name;
         }
 
-        String getDescription() {
+        public String getDescription() {
             return description;
         }
 
