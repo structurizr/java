@@ -109,6 +109,9 @@ public class BigBankPlc {
         ContainerInstance developmentWebApplication = apacheTomcat.add(webApplication);
         ContainerInstance developmentApiApplication = apacheTomcat.add(apiApplication);
 
+        DeploymentNode bigBankDataCenterForDevelopment = model.addDeploymentNode("Development", "Big Bank plc", "", "Big Bank plc data center");
+        bigBankDataCenterForDevelopment.addDeploymentNode("bigbank-dev001").add(mainframeBankingSystem);
+
         ContainerInstance developmentDatabase = developerLaptop.addDeploymentNode("Docker Container - Database Server", "A Docker container.", "Docker")
                 .addDeploymentNode("Database Server", "A development database.", "Oracle 12c")
                 .add(database);
@@ -121,21 +124,22 @@ public class BigBankPlc {
         DeploymentNode customerComputer = model.addDeploymentNode("Live", "Customer's computer", "", "Microsoft Windows or Apple macOS");
         ContainerInstance liveSinglePageApplication = customerComputer.addDeploymentNode("Web Browser", "", "Chrome, Firefox, Safari, or Edge").add(singlePageApplication);
 
-        DeploymentNode bigBankDataCenter = model.addDeploymentNode("Live", "Big Bank plc", "", "Big Bank plc data center");
+        DeploymentNode bigBankDataCenterForLive = model.addDeploymentNode("Live", "Big Bank plc", "", "Big Bank plc data center");
+        bigBankDataCenterForLive.addDeploymentNode("bigbank-prod001").add(mainframeBankingSystem);
 
-        DeploymentNode liveWebServer = bigBankDataCenter.addDeploymentNode("bigbank-web***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 4, MapUtils.create("Location=London and Reading"));
+        DeploymentNode liveWebServer = bigBankDataCenterForLive.addDeploymentNode("bigbank-web***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 4, MapUtils.create("Location=London and Reading"));
         ContainerInstance liveWebApplication = liveWebServer.addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"))
                 .add(webApplication);
 
-        DeploymentNode liveApiServer = bigBankDataCenter.addDeploymentNode("bigbank-api***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 8, MapUtils.create("Location=London and Reading"));
+        DeploymentNode liveApiServer = bigBankDataCenterForLive.addDeploymentNode("bigbank-api***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 8, MapUtils.create("Location=London and Reading"));
         ContainerInstance liveApiApplication = liveApiServer.addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"))
                 .add(apiApplication);
 
-        DeploymentNode primaryDatabaseServer = bigBankDataCenter.addDeploymentNode("bigbank-db01", "The primary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.create("Location=London"))
+        DeploymentNode primaryDatabaseServer = bigBankDataCenterForLive.addDeploymentNode("bigbank-db01", "The primary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.create("Location=London"))
                 .addDeploymentNode("Oracle - Primary", "The primary, live database server.", "Oracle 12c");
         ContainerInstance livePrimaryDatabase = primaryDatabaseServer.add(database);
 
-        DeploymentNode bigBankdb02 = bigBankDataCenter.addDeploymentNode("bigbank-db02", "The secondary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.create("Location=Reading"));
+        DeploymentNode bigBankdb02 = bigBankDataCenterForLive.addDeploymentNode("bigbank-db02", "The secondary database server.", "Ubuntu 16.04 LTS", 1, MapUtils.create("Location=Reading"));
         bigBankdb02.addTags(FAILOVER_TAG);
         DeploymentNode secondaryDatabaseServer = bigBankdb02.addDeploymentNode("Oracle - Secondary", "A secondary, standby database server, used for failover purposes only.", "Oracle 12c");
         secondaryDatabaseServer.addTags(FAILOVER_TAG);
@@ -202,6 +206,7 @@ public class BigBankPlc {
         DeploymentView developmentDeploymentView = views.createDeploymentView(internetBankingSystem, "DevelopmentDeployment", "An example development deployment scenario for the Internet Banking System.");
         developmentDeploymentView.setEnvironment("Development");
         developmentDeploymentView.add(developerLaptop);
+        developmentDeploymentView.add(bigBankDataCenterForDevelopment);
         developmentDeploymentView.setPaperSize(PaperSize.A5_Landscape);
 
         developmentDeploymentView.addAnimation(developmentSinglePageApplication);
@@ -210,7 +215,7 @@ public class BigBankPlc {
 
         DeploymentView liveDeploymentView = views.createDeploymentView(internetBankingSystem, "LiveDeployment", "An example live deployment scenario for the Internet Banking System.");
         liveDeploymentView.setEnvironment("Live");
-        liveDeploymentView.add(bigBankDataCenter);
+        liveDeploymentView.add(bigBankDataCenterForLive);
         liveDeploymentView.add(customerMobileDevice);
         liveDeploymentView.add(customerComputer);
         liveDeploymentView.add(dataReplicationRelationship);

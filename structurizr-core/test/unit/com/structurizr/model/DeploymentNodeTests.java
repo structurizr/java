@@ -49,10 +49,21 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_add_ThrowsAnException_WhenASoftwareSystemIsNotSpecified() {
+        try {
+            DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+            deploymentNode.add((SoftwareSystem) null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A software system must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
     public void test_add_ThrowsAnException_WhenAContainerIsNotSpecified() {
         try {
             DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
-            deploymentNode.add(null);
+            deploymentNode.add((Container)null);
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A container must be specified.", iae.getMessage());

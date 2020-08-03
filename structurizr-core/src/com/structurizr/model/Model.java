@@ -448,6 +448,11 @@ public final class Model {
 
         deploymentNode.getChildren().forEach(child -> hydrateDeploymentNode(child, deploymentNode));
 
+        for (SoftwareSystemInstance softwareSystemInstance : deploymentNode.getSoftwareSystemInstances()) {
+            softwareSystemInstance.setSoftwareSystem((SoftwareSystem)getElement(softwareSystemInstance.getSoftwareSystemId()));
+            addElementToInternalStructures(softwareSystemInstance);
+        }
+
         for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
             containerInstance.setContainer((Container)getElement(containerInstance.getContainerId()));
             addElementToInternalStructures(containerInstance);
@@ -876,52 +881,77 @@ public final class Model {
         return null;
     }
 
-    ContainerInstance addContainerInstance(DeploymentNode deploymentNode, Container container, boolean replicateContainerRelationships) {
+    SoftwareSystemInstance addSoftwareSystemInstance(DeploymentNode deploymentNode, SoftwareSystem softwareSystem, boolean replicateRelationships) {
+        if (softwareSystem == null) {
+            throw new IllegalArgumentException("A software system must be specified.");
+        }
+
+        long instanceNumber = getElements().stream().filter(e -> e instanceof SoftwareSystemInstance && ((SoftwareSystemInstance)e).getSoftwareSystem().equals(softwareSystem)).count();
+        instanceNumber++;
+        SoftwareSystemInstance softwareSystemInstance = new SoftwareSystemInstance(softwareSystem, (int)instanceNumber, deploymentNode.getEnvironment());
+        softwareSystemInstance.setId(idGenerator.generateId(softwareSystemInstance));
+
+        if (replicateRelationships) {
+            replicateElementRelationships(deploymentNode.getEnvironment(), softwareSystemInstance);
+        }
+
+        addElementToInternalStructures(softwareSystemInstance);
+
+        return softwareSystemInstance;
+    }
+
+    ContainerInstance addContainerInstance(DeploymentNode deploymentNode, Container container, boolean replicateRelationships) {
         if (container == null) {
             throw new IllegalArgumentException("A container must be specified.");
         }
 
-        long instanceNumber = getElements().stream().filter(e -> e instanceof ContainerInstance && ((ContainerInstance) e).getContainer().equals(container)).count();
+        long instanceNumber = getElements().stream().filter(e -> e instanceof ContainerInstance && ((ContainerInstance)e).getContainer().equals(container)).count();
         instanceNumber++;
-        ContainerInstance containerInstance = new ContainerInstance(container, (int) instanceNumber, deploymentNode.getEnvironment());
+        ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber, deploymentNode.getEnvironment());
         containerInstance.setId(idGenerator.generateId(containerInstance));
 
-        if (replicateContainerRelationships) {
-            // find all ContainerInstance objects in the same deployment environment
-            Set<ContainerInstance> containerInstances = getElements().stream()
-                    .filter(e -> e instanceof ContainerInstance && ((ContainerInstance) e).getEnvironment().equals(deploymentNode.getEnvironment()))
-                    .map(e -> (ContainerInstance) e)
-                    .collect(Collectors.toSet());
-
-            // and replicate the container-container relationships within the same deployment environment
-            for (ContainerInstance ci : containerInstances) {
-                Container c = ci.getContainer();
-
-                for (Relationship relationship : container.getRelationships()) {
-                    if (relationship.getDestination().equals(c)) {
-                        Relationship newRelationship = addRelationship(containerInstance, ci, relationship.getDescription(), relationship.getTechnology(), relationship.getInteractionStyle());
-                        if (newRelationship != null) {
-                            newRelationship.setTags(null);
-                            newRelationship.setLinkedRelationshipId(relationship.getId());
-                        }
-                    }
-                }
-
-                for (Relationship relationship : c.getRelationships()) {
-                    if (relationship.getDestination().equals(container)) {
-                        Relationship newRelationship = addRelationship(ci, containerInstance, relationship.getDescription(), relationship.getTechnology(), relationship.getInteractionStyle());
-                        if (newRelationship != null) {
-                            newRelationship.setTags(null);
-                            newRelationship.setLinkedRelationshipId(relationship.getId());
-                        }
-                    }
-                }
-            }
+        if (replicateRelationships) {
+            replicateElementRelationships(deploymentNode.getEnvironment(), containerInstance);
         }
 
         addElementToInternalStructures(containerInstance);
 
         return containerInstance;
+    }
+
+    private void replicateElementRelationships(String deploymentEnvironment, StaticStructureElementInstance elementInstance) {
+        StaticStructureElement element = elementInstance.getElement();
+
+        // find all StaticStructureElementInstance objects in the same deployment environment
+        Set<StaticStructureElementInstance> elementInstances = getElements().stream()
+                .filter(e -> e instanceof StaticStructureElementInstance && ((StaticStructureElementInstance)e).getEnvironment().equals(deploymentEnvironment))
+                .map(e -> (StaticStructureElementInstance)e)
+                .collect(Collectors.toSet());
+
+        // and replicate the relationships within the same deployment environment
+        for (StaticStructureElementInstance ssei : elementInstances) {
+            StaticStructureElement sse = ssei.getElement();
+
+            for (Relationship relationship : element.getRelationships()) {
+                if (relationship.getDestination().equals(sse)) {
+                    Relationship newRelationship = addRelationship(elementInstance, ssei, relationship.getDescription(), relationship.getTechnology(), relationship.getInteractionStyle());
+                    if (newRelationship != null) {
+                        newRelationship.setTags(null);
+                        newRelationship.setLinkedRelationshipId(relationship.getId());
+                    }
+                }
+            }
+
+            for (Relationship relationship : sse.getRelationships()) {
+                if (relationship.getDestination().equals(element)) {
+                    Relationship newRelationship = addRelationship(ssei, elementInstance, relationship.getDescription(), relationship.getTechnology(), relationship.getInteractionStyle());
+                    if (newRelationship != null) {
+                        newRelationship.setTags(null);
+                        newRelationship.setLinkedRelationshipId(relationship.getId());
+                    }
+                }
+            }
+        }
     }
 
     /**

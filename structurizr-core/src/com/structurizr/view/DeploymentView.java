@@ -82,7 +82,7 @@ public final class DeploymentView extends View {
             throw new IllegalArgumentException("A deployment node must be specified.");
         }
 
-        if (addContainerInstancesAndDeploymentNodesAndInfrastructureNodes(deploymentNode, addRelationships)) {
+        if (addElementInstancesAndDeploymentNodesAndInfrastructureNodes(deploymentNode, addRelationships)) {
             Element parent = deploymentNode.getParent();
             while (parent != null) {
                 addElement(parent, addRelationships);
@@ -130,30 +130,35 @@ public final class DeploymentView extends View {
         removeElement(containerInstance);
     }
 
-    private boolean addContainerInstancesAndDeploymentNodesAndInfrastructureNodes(DeploymentNode deploymentNode, boolean addRelationships) {
-        boolean hasContainersOrInfrastructureNodes = false;
+    private boolean addElementInstancesAndDeploymentNodesAndInfrastructureNodes(DeploymentNode deploymentNode, boolean addRelationships) {
+        boolean hasElementsOrInfrastructureNodes = false;
+        for (SoftwareSystemInstance softwareSystemInstance : deploymentNode.getSoftwareSystemInstances()) {
+            addElement(softwareSystemInstance, addRelationships);
+            hasElementsOrInfrastructureNodes = true;
+        }
+
         for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
             Container container = containerInstance.getContainer();
             if (getSoftwareSystem() == null || container.getParent().equals(getSoftwareSystem())) {
                 addElement(containerInstance, addRelationships);
-                hasContainersOrInfrastructureNodes = true;
+                hasElementsOrInfrastructureNodes = true;
             }
         }
 
         for (InfrastructureNode infrastructureNode : deploymentNode.getInfrastructureNodes()) {
             addElement(infrastructureNode, addRelationships);
-            hasContainersOrInfrastructureNodes = true;
+            hasElementsOrInfrastructureNodes = true;
         }
 
         for (DeploymentNode child : deploymentNode.getChildren()) {
-            hasContainersOrInfrastructureNodes = hasContainersOrInfrastructureNodes | addContainerInstancesAndDeploymentNodesAndInfrastructureNodes(child, addRelationships);
+            hasElementsOrInfrastructureNodes = hasElementsOrInfrastructureNodes | addElementInstancesAndDeploymentNodesAndInfrastructureNodes(child, addRelationships);
         }
 
-        if (hasContainersOrInfrastructureNodes) {
+        if (hasElementsOrInfrastructureNodes) {
             addElement(deploymentNode, addRelationships);
         }
 
-        return hasContainersOrInfrastructureNodes;
+        return hasElementsOrInfrastructureNodes;
     }
 
     /**

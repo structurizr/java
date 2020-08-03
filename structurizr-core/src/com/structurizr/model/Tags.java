@@ -12,6 +12,7 @@ public class Tags {
 
     public static final String DEPLOYMENT_NODE = "Deployment Node";
     public static final String INFRASTRUCTURE_NODE = "Infrastructure Node";
+    public static final String SOFTWARE_SYSTEM_INSTANCE = "Software System Instance";
     public static final String CONTAINER_INSTANCE = "Container Instance";
 
     /**

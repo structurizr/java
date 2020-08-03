@@ -27,27 +27,52 @@ public final class DeploymentNode extends DeploymentElement {
 
     private Set<DeploymentNode> children = new HashSet<>();
     private Set<InfrastructureNode> infrastructureNodes = new HashSet<>();
+    private Set<SoftwareSystemInstance> softwareSystemInstances = new HashSet<>();
     private Set<ContainerInstance> containerInstances = new HashSet<>();
 
     /**
-     * Adds a container instance to this deployment node, replicating all of the container-container relationships.
+     * Adds a software system instance to this deployment node, replicating relationships.
+     *
+     * @param softwareSystem        the SoftwareSystem to add an instance of
+     * @return a SoftwareSystemInstance object
+     */
+    public SoftwareSystemInstance add(SoftwareSystem softwareSystem) {
+        return add(softwareSystem, true);
+    }
+
+    /**
+     * Adds a software system instance to this deployment node, optionally replicating relationships.
+     *
+     * @param softwareSystem                    the SoftwareSystem to add an instance of
+     * @param replicateRelationships            true if relationships should be replicated between the element instances in the same deployment environment, false otherwise
+     * @return a SoftwareSystemInstance object
+     */
+    public SoftwareSystemInstance add(SoftwareSystem softwareSystem, boolean replicateRelationships) {
+        SoftwareSystemInstance softwareSystemInstance = getModel().addSoftwareSystemInstance(this, softwareSystem, replicateRelationships);
+        this.softwareSystemInstances.add(softwareSystemInstance);
+
+        return softwareSystemInstance;
+    }
+
+    /**
+     * Adds a container instance to this deployment node, replicating relationships.
      *
      * @param container     the Container to add an instance of
-     * @return  a ContainerInstance object
+     * @return a ContainerInstance object
      */
     public ContainerInstance add(Container container) {
         return add(container, true);
     }
 
     /**
-     * Adds a container instance to this deployment node, optionally replicating all of the container-container relationships.
+     * Adds a container instance to this deployment node, optionally replicating relationships.
      *
      * @param container                         the Container to add an instance of
-     * @param replicateContainerRelationships   true if the container-container relationships should be replicated between the container instances, false otherwise
-     * @return  a ContainerInstance object
+     * @param replicateRelationships            true if relationships should be replicated between the element instances in the same deployment environment, false otherwise
+     * @return a ContainerInstance object
      */
-    public ContainerInstance add(Container container, boolean replicateContainerRelationships) {
-        ContainerInstance containerInstance = getModel().addContainerInstance(this, container, replicateContainerRelationships);
+    public ContainerInstance add(Container container, boolean replicateRelationships) {
+        ContainerInstance containerInstance = getModel().addContainerInstance(this, container, replicateRelationships);
         this.containerInstances.add(containerInstance);
 
         return containerInstance;
@@ -257,6 +282,21 @@ public final class DeploymentNode extends DeploymentElement {
     @JsonIgnore
     public boolean hasChildren() {
         return !children.isEmpty();
+    }
+
+    /**
+     * Gets the set of software system instances associated with this deployment node.
+     *
+     * @return  a Set of SoftwareSystemInstance objects
+     */
+    public Set<SoftwareSystemInstance> getSoftwareSystemInstances() {
+        return new HashSet<>(softwareSystemInstances);
+    }
+
+    void setSoftwareSystemInstances(Set<SoftwareSystemInstance> softwareSystemInstances) {
+        if (softwareSystemInstances != null) {
+            this.softwareSystemInstances = new HashSet<>(softwareSystemInstances);
+        }
     }
 
     /**

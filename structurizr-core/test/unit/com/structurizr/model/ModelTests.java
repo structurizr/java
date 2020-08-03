@@ -586,10 +586,21 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_addSoftwareSystemInstance_ThrowsAnException_WhenANullSoftwareSystemIsSpecified() {
+        try {
+            DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+            deploymentNode.add((SoftwareSystem) null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("A software system must be specified.", e.getMessage());
+        }
+    }
+
+    @Test
     public void test_addContainerInstance_ThrowsAnException_WhenANullContainerIsSpecified() {
         try {
             DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
-            deploymentNode.add(null);
+            deploymentNode.add((Container)null);
             fail();
         } catch (Exception e) {
             assertEquals("A container must be specified.", e.getMessage());
@@ -617,7 +628,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addContainerInstance_AddsAContainerInstanceAndReplicatesRelationshipsWithinTheDeploymentEnvironment_WhenAContainerIsSpecified() {
+    public void test_addElementInstance_AddsElementInstancesAndReplicatesRelationshipsWithinTheDeploymentEnvironment() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
         Container container1 = softwareSystem1.addContainer("Container 1", "Description", "Technology");
 
@@ -627,19 +638,24 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         SoftwareSystem softwareSystem3 = model.addSoftwareSystem("Software System 3", "Description");
         Container container3 = softwareSystem3.addContainer("Container 3", "Description", "Technology");
 
+        SoftwareSystem softwareSystem4 = model.addSoftwareSystem("Software System 4", "Description");
+
         container1.uses(container2, "Uses 1", "Technology 1", InteractionStyle.Synchronous);
         container2.uses(container3, "Uses 2", "Technology 2", InteractionStyle.Asynchronous);
+        container3.uses(softwareSystem4, "Uses");
 
         DeploymentNode developmentDeploymentNode = model.addDeploymentNode("Development", "Deployment Node", "Description", "Technology");
         ContainerInstance containerInstance1 = developmentDeploymentNode.add(container1);
         ContainerInstance containerInstance2 = developmentDeploymentNode.add(container2);
         ContainerInstance containerInstance3 = developmentDeploymentNode.add(container3);
+        SoftwareSystemInstance softwareSystemInstance = developmentDeploymentNode.add(softwareSystem4);
 
-        // the following live container instances should not affect the relationships of the development container instances
+        // the following live element instances should not affect the relationships of the development element instances
         DeploymentNode liveDeploymentNode = model.addDeploymentNode("Live", "Deployment Node", "Description", "Technology");
         liveDeploymentNode.add(container1);
         liveDeploymentNode.add(container2);
         liveDeploymentNode.add(container3);
+        liveDeploymentNode.add(softwareSystem4);
 
         assertSame(container2, containerInstance2.getContainer());
         assertEquals(container2.getId(), containerInstance2.getContainerId());
@@ -665,10 +681,19 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertEquals("Technology 2", relationship.getTechnology());
         assertEquals(InteractionStyle.Asynchronous, relationship.getInteractionStyle());
         assertEquals("", relationship.getTags());
+
+        assertEquals(1, containerInstance3.getRelationships().size());
+        relationship = containerInstance3.getRelationships().iterator().next();
+        assertSame(containerInstance3, relationship.getSource());
+        assertSame(softwareSystemInstance, relationship.getDestination());
+        assertEquals("Uses", relationship.getDescription());
+        assertNull(relationship.getTechnology());
+        assertNull(relationship.getInteractionStyle());
+        assertEquals("", relationship.getTags());
     }
 
     @Test
-    public void test_addContainerInstance_AddsAContainerInstanceAndDoesNotReplicateRelationships_WhenAContainerIsSpecified() {
+    public void test_addContainerInstance_AddsAContainerInstanceAndDoesNotReplicateRelationships() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
         Container container1 = softwareSystem1.addContainer("Container 1", "Description", "Technology");
 

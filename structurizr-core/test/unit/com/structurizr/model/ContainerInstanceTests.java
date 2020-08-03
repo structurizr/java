@@ -34,10 +34,10 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     public void test_getName() {
         ContainerInstance containerInstance = deploymentNode.add(database);
 
-        assertEquals("Database Schema (container instance)", containerInstance.getName());
+        assertEquals("Database Schema", containerInstance.getName());
 
         containerInstance.setName("foo");
-        assertEquals("Database Schema (container instance)", containerInstance.getName());
+        assertEquals("Database Schema", containerInstance.getName());
     }
 
     @Test
