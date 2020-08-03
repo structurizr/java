@@ -34,7 +34,7 @@ public abstract class StaticStructureElement extends Element {
      */
     @Nullable
     public Relationship uses(@Nonnull SoftwareSystem destination, String description, String technology) {
-        return uses(destination, description, technology, InteractionStyle.Synchronous);
+        return uses(destination, description, technology, null);
     }
 
     /**
@@ -73,7 +73,7 @@ public abstract class StaticStructureElement extends Element {
      */
     @Nullable
     public Relationship uses(@Nonnull Container destination, String description, String technology) {
-        return uses(destination, description, technology, InteractionStyle.Synchronous);
+        return uses(destination, description, technology, null);
     }
 
     /**
@@ -112,7 +112,7 @@ public abstract class StaticStructureElement extends Element {
      */
     @Nullable
     public Relationship uses(@Nonnull Component destination, String description, String technology) {
-        return uses(destination, description, technology, InteractionStyle.Synchronous);
+        return uses(destination, description, technology, null);
     }
 
     /**
@@ -151,7 +151,7 @@ public abstract class StaticStructureElement extends Element {
      */
     @Nullable
     public Relationship delivers(@Nonnull Person destination, String description, String technology) {
-        return delivers(destination, description, technology, InteractionStyle.Synchronous);
+        return delivers(destination, description, technology, null);
     }
 
     /**

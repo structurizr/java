@@ -4,6 +4,7 @@
 
 - Fixes #151: linked relationship tags were not being taken into account when finding relationship styling.
 - Fixes #153: Allow relationships in DynamicView to go both ways without two relationships between Elements in Model.
+- The interaction style on relationships no longer defaults to Synchronous.
 
 ## 1.4.8 (15th July 2020)
 

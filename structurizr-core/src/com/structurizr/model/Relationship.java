@@ -37,12 +37,6 @@ public final class Relationship extends ModelItem {
         setTechnology(technology);
         setInteractionStyle(interactionStyle);
 
-        if (interactionStyle == InteractionStyle.Synchronous) {
-            addTags(Tags.SYNCHRONOUS);
-        } else if (interactionStyle == InteractionStyle.Asynchronous) {
-            addTags(Tags.ASYNCHRONOUS);
-        }
-
         addTags(tags);
     }
 
@@ -154,7 +148,16 @@ public final class Relationship extends ModelItem {
     @Override
     protected Set<String> getRequiredTags() {
         if (linkedRelationshipId == null) {
-            return new LinkedHashSet<>(Collections.singletonList(Tags.RELATIONSHIP));
+            Set<String> tags = new LinkedHashSet<>();
+            tags.add(Tags.RELATIONSHIP);
+
+            if (interactionStyle == InteractionStyle.Synchronous) {
+                tags.add(Tags.SYNCHRONOUS);
+            } else if (interactionStyle == InteractionStyle.Asynchronous) {
+                tags.add(Tags.ASYNCHRONOUS);
+            }
+
+            return tags;
         } else {
             return Collections.emptySet();
         }
