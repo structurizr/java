@@ -6,6 +6,7 @@ import com.structurizr.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -343,6 +344,31 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
         assertEquals("1h", relationships.get(7).getOrder());
         assertEquals("1i", relationships.get(8).getOrder());
         assertEquals("1j", relationships.get(9).getOrder());
+    }
+
+    @Test
+    public void test_response() {
+        workspace = new Workspace("Name", "Description");
+        model = workspace.getModel();
+
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
+        Relationship relationship = softwareSystem1.uses(softwareSystem2, "Uses");
+        
+        DynamicView view = workspace.getViews().createDynamicView("key", "Description");
+        view.add(softwareSystem1, "Asks for X", softwareSystem2);
+        view.add(softwareSystem2, "Returns X", softwareSystem1); // this relationship doesn't exist, so is assumed to be a response
+
+        List<RelationshipView> list = new ArrayList<>(view.getRelationships());
+        RelationshipView relationshipView = list.get(0);
+        assertSame(relationship, relationshipView.getRelationship());
+        assertEquals("Asks for X", relationshipView.getDescription());
+        assertFalse(relationshipView.isResponse());
+
+        relationshipView = list.get(1);
+        assertSame(relationship, relationshipView.getRelationship());
+        assertEquals("Returns X", relationshipView.getDescription());
+        assertTrue(relationshipView.isResponse());
     }
 
 }

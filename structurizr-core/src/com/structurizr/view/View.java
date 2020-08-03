@@ -299,16 +299,6 @@ public abstract class View {
         return this.elementViews.stream().anyMatch(ev -> ev.getElement().equals(element));
     }
 
-    protected RelationshipView addRelationship(Relationship relationship, String description, String order) {
-        RelationshipView relationshipView = addRelationship(relationship);
-        if (relationshipView != null) {
-            relationshipView.setDescription(description);
-            relationshipView.setOrder(order);
-        }
-
-        return relationshipView;
-    }
-
     /**
      * Removes a relationship from this view.
      *

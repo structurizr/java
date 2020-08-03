@@ -109,10 +109,31 @@ public final class DynamicView extends View {
         if (relationship != null) {
             addElement(source, false);
             addElement(destination, false);
-            return addRelationship(relationship, description, sequenceNumber.getNext());
+
+            return addRelationship(relationship, description, sequenceNumber.getNext(), false);
         } else {
-            throw new IllegalArgumentException("A relationship between " + source.getName() + " and " + destination.getName() + " does not exist in model.");
+            // perhaps model this as a return/reply/response message instead, if the reverse relationship exists
+            relationship = destination.getEfferentRelationshipWith(source);
+            if (relationship != null) {
+                addElement(source, false);
+                addElement(destination, false);
+
+                return addRelationship(relationship, description, sequenceNumber.getNext(), true);
+            } else {
+                throw new IllegalArgumentException("A relationship between " + source.getName() + " and " + destination.getName() + " does not exist in model.");
+            }
         }
+    }
+
+    protected RelationshipView addRelationship(Relationship relationship, String description, String order, boolean response) {
+        RelationshipView relationshipView = addRelationship(relationship);
+        if (relationshipView != null) {
+            relationshipView.setDescription(description);
+            relationshipView.setOrder(order);
+            relationshipView.setResponse(response);
+        }
+
+        return relationshipView;
     }
 
     /**

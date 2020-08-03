@@ -21,6 +21,7 @@ public final class RelationshipView {
     private String id;
     private String description;
     private String order;
+    private Boolean response;
     private Set<Vertex> vertices = new LinkedHashSet<>();
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
@@ -102,6 +103,19 @@ public final class RelationshipView {
      */
     public void setOrder(String order) {
         this.order = order;
+    }
+
+    /**
+     * Gets whether this relationship view represents a response (used in dynamic views only).
+     *
+     * @return  true if a response, false or null otherwise
+     */
+    public Boolean isResponse() {
+        return response;
+    }
+
+    void setResponse(Boolean response) {
+        this.response = response;
     }
 
     /**
