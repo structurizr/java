@@ -110,7 +110,7 @@ public class BigBankPlc {
         ContainerInstance developmentApiApplication = apacheTomcat.add(apiApplication);
 
         DeploymentNode bigBankDataCenterForDevelopment = model.addDeploymentNode("Development", "Big Bank plc", "", "Big Bank plc data center");
-        bigBankDataCenterForDevelopment.addDeploymentNode("bigbank-dev001").add(mainframeBankingSystem);
+        SoftwareSystemInstance developmentMainframeBankingSystem = bigBankDataCenterForDevelopment.addDeploymentNode("bigbank-dev001").add(mainframeBankingSystem);
 
         ContainerInstance developmentDatabase = developerLaptop.addDeploymentNode("Docker Container - Database Server", "A Docker container.", "Docker")
                 .addDeploymentNode("Database Server", "A development database.", "Oracle 12c")
@@ -125,7 +125,7 @@ public class BigBankPlc {
         ContainerInstance liveSinglePageApplication = customerComputer.addDeploymentNode("Web Browser", "", "Chrome, Firefox, Safari, or Edge").add(singlePageApplication);
 
         DeploymentNode bigBankDataCenterForLive = model.addDeploymentNode("Live", "Big Bank plc", "", "Big Bank plc data center");
-        bigBankDataCenterForLive.addDeploymentNode("bigbank-prod001").add(mainframeBankingSystem);
+        SoftwareSystemInstance liveMainframeBankingSystem = bigBankDataCenterForLive.addDeploymentNode("bigbank-prod001").add(mainframeBankingSystem);
 
         DeploymentNode liveWebServer = bigBankDataCenterForLive.addDeploymentNode("bigbank-web***", "A web server residing in the web server farm, accessed via F5 BIG-IP LTMs.", "Ubuntu 16.04 LTS", 4, MapUtils.create("Location=London and Reading"));
         ContainerInstance liveWebApplication = liveWebServer.addDeploymentNode("Apache Tomcat", "An open source Java EE web server.", "Apache Tomcat 8.x", 1, MapUtils.create("Xmx=512M", "Xms=1024M", "Java Version=8"))
@@ -199,8 +199,11 @@ public class BigBankPlc {
         // dynamic diagrams and deployment diagrams are not available with the Free Plan
         DynamicView dynamicView = views.createDynamicView(apiApplication, "SignIn", "Summarises how the sign in feature works in the single-page application.");
         dynamicView.add(singlePageApplication, "Submits credentials to", signinController);
-        dynamicView.add(signinController, "Calls isAuthenticated() on", securityComponent);
+        dynamicView.add(signinController, "Validates credentials using", securityComponent);
         dynamicView.add(securityComponent, "select * from users where username = ?", database);
+        dynamicView.add(database, "Returns user data to", securityComponent);
+        dynamicView.add(securityComponent, "Returns true if the hashed password matches", signinController);
+        dynamicView.add(signinController, "Sends back an authentication token to", singlePageApplication);
         dynamicView.setPaperSize(PaperSize.A5_Landscape);
 
         DeploymentView developmentDeploymentView = views.createDeploymentView(internetBankingSystem, "DevelopmentDeployment", "An example development deployment scenario for the Internet Banking System.");
@@ -212,6 +215,7 @@ public class BigBankPlc {
         developmentDeploymentView.addAnimation(developmentSinglePageApplication);
         developmentDeploymentView.addAnimation(developmentWebApplication, developmentApiApplication);
         developmentDeploymentView.addAnimation(developmentDatabase);
+        developmentDeploymentView.addAnimation(developmentMainframeBankingSystem);
 
         DeploymentView liveDeploymentView = views.createDeploymentView(internetBankingSystem, "LiveDeployment", "An example live deployment scenario for the Internet Banking System.");
         liveDeploymentView.setEnvironment("Live");
@@ -219,13 +223,14 @@ public class BigBankPlc {
         liveDeploymentView.add(customerMobileDevice);
         liveDeploymentView.add(customerComputer);
         liveDeploymentView.add(dataReplicationRelationship);
-        liveDeploymentView.setPaperSize(PaperSize.A5_Landscape);
+        liveDeploymentView.setPaperSize(PaperSize.A4_Landscape);
 
         liveDeploymentView.addAnimation(liveSinglePageApplication);
         liveDeploymentView.addAnimation(liveMobileApp);
         liveDeploymentView.addAnimation(liveWebApplication, liveApiApplication);
         liveDeploymentView.addAnimation(livePrimaryDatabase);
         liveDeploymentView.addAnimation(liveSecondaryDatabase);
+        liveDeploymentView.addAnimation(liveMainframeBankingSystem);
 
         // colours, shapes and other diagram styling
         Styles styles = views.getConfiguration().getStyles();

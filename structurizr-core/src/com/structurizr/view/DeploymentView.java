@@ -229,32 +229,32 @@ public final class DeploymentView extends View {
     }
 
     /**
-     * Adds an animation step, with the specified container instances.
+     * Adds an animation step, with the specified element instances.
      *
-     * @param containerInstances        the container instances that should be shown in the animation step
+     * @param elementInstances      the element instances that should be shown in the animation step
      */
-    public void addAnimation(ContainerInstance... containerInstances) {
-        if (containerInstances == null || containerInstances.length == 0) {
-            throw new IllegalArgumentException("One or more container instances must be specified.");
+    public void addAnimation(StaticStructureElementInstance... elementInstances) {
+        if (elementInstances == null || elementInstances.length == 0) {
+            throw new IllegalArgumentException("One or more software system/container instances must be specified.");
         }
 
-        addAnimation(containerInstances, new InfrastructureNode[0]);
+        addAnimation(elementInstances, new InfrastructureNode[0]);
     }
 
     /**
      * Adds an animation step, with the specified container instances and infrastructure nodes.
      *
-     * @param containerInstances      the container instances that should be shown in the animation step
-     * @param infrastructureNodes      the container infrastructure nodes that should be shown in the animation step
+     * @param elementInstances          the element instances that should be shown in the animation step
+     * @param infrastructureNodes       the container infrastructure nodes that should be shown in the animation step
      */
-    public void addAnimation(ContainerInstance[] containerInstances, InfrastructureNode[] infrastructureNodes) {
-        if ((containerInstances == null || containerInstances.length == 0) && (infrastructureNodes == null || infrastructureNodes.length == 0)) {
-            throw new IllegalArgumentException("One or more container instances/infrastructure nodes must be specified.");
+    public void addAnimation(StaticStructureElementInstance[] elementInstances, InfrastructureNode[] infrastructureNodes) {
+        if ((elementInstances == null || elementInstances.length == 0) && (infrastructureNodes == null || infrastructureNodes.length == 0)) {
+            throw new IllegalArgumentException("One or more software system/container instances and/or infrastructure nodes must be specified.");
         }
 
         List<Element> elements = new ArrayList<>();
-        if (containerInstances != null) {
-            Collections.addAll(elements, containerInstances);
+        if (elementInstances != null) {
+            Collections.addAll(elements, elementInstances);
         }
         if (infrastructureNodes != null) {
             Collections.addAll(elements, infrastructureNodes);

@@ -165,13 +165,13 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAnimationStep_ThrowsAnException_WhenNoContainerInstancesAreSpecified() {
+    public void test_addAnimationStep_ThrowsAnException_WhenNoElementInstancesAreSpecified() {
         try {
             deploymentView = views.createDeploymentView("deployment", "Description");
             deploymentView.addAnimation((ContainerInstance[])null);
             fail();
         } catch (IllegalArgumentException iae) {
-            assertEquals("One or more container instances must be specified.", iae.getMessage());
+            assertEquals("One or more software system/container instances must be specified.", iae.getMessage());
         }
     }
 
@@ -187,13 +187,13 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAnimationStep_ThrowsAnException_WhenNoContainerInstancesOrInfrastructureNodesAreSpecified() {
+    public void test_addAnimationStep_ThrowsAnException_WhenNoElementInstancesOrInfrastructureNodesAreSpecified() {
         try {
             deploymentView = views.createDeploymentView("deployment", "Description");
             deploymentView.addAnimation(null, null);
             fail();
         } catch (IllegalArgumentException iae) {
-            assertEquals("One or more container instances/infrastructure nodes must be specified.", iae.getMessage());
+            assertEquals("One or more software system/container instances and/or infrastructure nodes must be specified.", iae.getMessage());
         }
     }
 
