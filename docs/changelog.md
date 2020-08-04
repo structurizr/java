@@ -4,6 +4,7 @@
 
 - Fixes #151: linked relationship tags were not being taken into account when finding relationship styling.
 - Fixes #153: Allow relationships in DynamicView to go both ways without two relationships between Elements in Model.
+- Adds support for software system instances on deployment views (#150: how do I provide tech details for an external system to show in Deployment View?)
 - The interaction style on relationships no longer defaults to Synchronous.
 - Adds support for software system instances on deployment views.
 
