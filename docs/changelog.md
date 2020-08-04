@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.5.0 (unreleased)
+## 1.5.0 (4th August 2020)
 
 - Fixes #151: linked relationship tags were not being taken into account when finding relationship styling.
 - Fixes #153: Allow relationships in DynamicView to go both ways without two relationships between Elements in Model.
