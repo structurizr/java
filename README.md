@@ -57,7 +57,7 @@ The view can then be exported to be visualised using the [Structurizr cloud serv
     * [Styling elements](docs/styling-elements.md)
     * [Styling relationships](docs/styling-relationships.md)
     * [Filtered views](docs/filtered-views.md)
-    * [Graphviz automatic layout](https://github.com/structurizr/java-extensions/blob/master/docs/graphviz.md)
+    * [Graphviz automatic layout](https://github.com/structurizr/java-extensions/blob/master/structurizr-graphviz)
 * Documentation
     * [Documentation overview](docs/documentation.md)
     * [Structurizr](docs/documentation-structurizr.md)
