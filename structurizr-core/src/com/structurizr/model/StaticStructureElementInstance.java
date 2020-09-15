@@ -143,4 +143,43 @@ public abstract class StaticStructureElementInstance extends DeploymentElement {
         return healthCheck;
     }
 
+    /**
+     * Adds a relationship between this element instance and an infrastructure node.
+     *
+     * @param destination   the destination InfrastructureNode
+     * @param description   a short description of the relationship
+     * @param technology    the technology
+     * @return              a Relationship object
+     */
+    public Relationship uses(InfrastructureNode destination, String description, String technology) {
+        return uses(destination, description, technology, null);
+    }
+
+    /**
+     * Adds a relationship between this element instance and an infrastructure node.
+     *
+     * @param destination       the destination InfrastructureNode
+     * @param description       a short description of the relationship
+     * @param technology        the technology
+     * @param interactionStyle  the interaction style (Synchronous vs Asynchronous)
+     * @return                  a Relationship object
+     */
+    public Relationship uses(InfrastructureNode destination, String description, String technology, InteractionStyle interactionStyle) {
+        return uses(destination, description, technology, interactionStyle, new String[0]);
+    }
+
+    /**
+     * Adds a relationship between this element instance and an infrastructure node.
+     *
+     * @param destination       the destination InfrastructureNode
+     * @param description       a short description of the relationship
+     * @param technology        the technology
+     * @param interactionStyle  the interaction style (Synchronous vs Asynchronous)
+     * @param tags              an array of tags
+     * @return                  a Relationship object
+     */
+    public Relationship uses(InfrastructureNode destination, String description, String technology, InteractionStyle interactionStyle, String[] tags) {
+        return getModel().addRelationship(this, destination, description, technology, interactionStyle, tags);
+    }
+
 }
