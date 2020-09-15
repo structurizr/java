@@ -2,17 +2,20 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.util.StringUtils;
+import com.structurizr.util.Url;
 
 import java.util.*;
 
 /**
  * The base class for elements and relationships.
  */
-abstract class ModelItem {
+public abstract class ModelItem {
 
     private String id = "";
     private String originId = "";
     private Set<String> tags = new LinkedHashSet<>();
+
+    private String url;
     private Map<String, String> properties = new HashMap<>();
     private Set<Perspective> perspectives = new HashSet<>();
 
@@ -115,6 +118,31 @@ abstract class ModelItem {
      */
     public boolean hasTag(String tag) {
         return getTagsAsSet().contains(tag.trim());
+    }
+
+    /**
+     * Gets the URL where more information about this item can be found.
+     *
+     * @return  a URL as a String
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * Sets the URL where more information about this item can be found.
+     *
+     * @param url   the URL as a String
+     * @throws IllegalArgumentException     if the URL is not a well-formed URL
+     */
+    public void setUrl(String url) {
+        if (url != null && url.trim().length() > 0) {
+            if (Url.isUrl(url)) {
+                this.url = url;
+            } else {
+                throw new IllegalArgumentException(url + " is not a valid URL.");
+            }
+        }
     }
 
     /**

@@ -16,7 +16,6 @@ public abstract class Element extends ModelItem {
 
     private String name;
     private String description;
-    private String url;
 
     private Set<Relationship> relationships = new LinkedHashSet<>();
 
@@ -52,31 +51,6 @@ public abstract class Element extends ModelItem {
         }
 
         this.name = name;
-    }
-
-    /**
-     * Gets the URL where more information about this element can be found.
-     *
-     * @return  a URL as a String
-     */
-    public String getUrl() {
-        return url;
-    }
-
-    /**
-     * Sets the URL where more information about this element can be found.
-     *
-     * @param url   the URL as a String
-     * @throws IllegalArgumentException     if the URL is not a well-formed URL
-     */
-    public void setUrl(String url) {
-        if (url != null && url.trim().length() > 0) {
-            if (Url.isUrl(url)) {
-                this.url = url;
-            } else {
-                throw new IllegalArgumentException(url + " is not a valid URL.");
-            }
-        }
     }
 
     @JsonIgnore

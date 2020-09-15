@@ -21,7 +21,6 @@ public final class Relationship extends ModelItem {
     private String description;
     private String technology;
     private InteractionStyle interactionStyle;
-    private String url;
 
     private String linkedRelationshipId;
 
@@ -160,31 +159,6 @@ public final class Relationship extends ModelItem {
             return tags;
         } else {
             return Collections.emptySet();
-        }
-    }
-
-    /**
-     * Gets the URL where more information about this relationship can be found.
-     *
-     * @return  a URL as a String
-     */
-    public String getUrl() {
-        return url;
-    }
-
-    /**
-     * Sets the URL where more information about this relationship can be found.
-     *
-     * @param url   the URL as a String
-     * @throws IllegalArgumentException     if the URL is not a well-formed URL
-     */
-    public void setUrl(String url) {
-        if (url != null && url.trim().length() > 0) {
-            if (Url.isUrl(url)) {
-                this.url = url;
-            } else {
-                throw new IllegalArgumentException(url + " is not a valid URL.");
-            }
         }
     }
 
