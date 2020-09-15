@@ -219,7 +219,7 @@ public final class DeploymentNode extends DeploymentElement {
      * @return              a Relationship object
      */
     public Relationship uses(DeploymentNode destination, String description, String technology) {
-        return uses(destination, description, technology, InteractionStyle.Synchronous);
+        return uses(destination, description, technology, null);
     }
 
     /**
