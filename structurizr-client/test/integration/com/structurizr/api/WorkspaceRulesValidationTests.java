@@ -18,7 +18,7 @@ public class WorkspaceRulesValidationTests {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ElementIdsAreNotUnique.json"));
             fail();
         } catch (WorkspaceValidationException we) {
-            assertTrue(we.getMessage().startsWith("The element softwaresystem://Software System "));
+            assertTrue(we.getMessage().startsWith("The element SoftwareSystem://Software System "));
             assertTrue(we.getMessage().endsWith(" has a non-unique ID of 1."));
         }
     }
