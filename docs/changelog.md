@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.0 (unreleased)
+
+- Changed the way that internal canonical element names are generated, to improve layout merging for deployment views.
+- getParent() of SoftwareSystemInstance and ContainerInstance now returns the parent deployment node.
+- Refactoring and bug fixes.
+
 ## 1.5.0 (4th August 2020)
 
 - Fixes #151: linked relationship tags were not being taken into account when finding relationship styling.

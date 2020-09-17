@@ -57,18 +57,6 @@ public abstract class StaticStructureElementInstance extends DeploymentElement {
 
     @Override
     @JsonIgnore
-    public String getCanonicalName() {
-        return getElement().getCanonicalName() + "[" + instanceId + "]";
-    }
-
-    @Override
-    @JsonIgnore
-    public Element getParent() {
-        return getElement().getParent();
-    }
-
-    @Override
-    @JsonIgnore
     public String getName() {
         return getElement().getName();
     }

@@ -5,85 +5,84 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
+public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
 
     private SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "System", "Description");
-    private Container database = softwareSystem.addContainer("Database Schema", "Stores data", "MySQL");
     private DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
 
     @Test
     public void test_construction() {
-        ContainerInstance instance = deploymentNode.add(database);
+        SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
-        assertSame(database, instance.getContainer());
-        assertEquals(database.getId(), instance.getContainerId());
+        assertSame(softwareSystem, instance.getSoftwareSystem());
+        assertEquals(softwareSystem.getId(), instance.getSoftwareSystemId());
         assertEquals(1, instance.getInstanceId());
     }
 
     @Test
-    public void test_getContainerId() {
-        ContainerInstance instance = deploymentNode.add(database);
+    public void test_getSoftwareSystemId() {
+        SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
-        assertEquals(database.getId(), instance.getContainerId());
-        instance.setContainer(null);
-        instance.setContainerId("1234");
-        assertEquals("1234", instance.getContainerId());
+        assertEquals(softwareSystem.getId(), instance.getSoftwareSystemId());
+        instance.setSoftwareSystem(null);
+        instance.setSoftwareSystemId("1234");
+        assertEquals("1234", instance.getSoftwareSystemId());
     }
 
     @Test
-    public void test_getName() {
-        ContainerInstance instance = deploymentNode.add(database);
+    public void test_getName_CannotBeChanged() {
+        SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
-        assertEquals("Database Schema", instance.getName());
+        assertEquals("System", instance.getName());
 
         instance.setName("foo");
-        assertEquals("Database Schema", instance.getName());
+        assertEquals("System", instance.getName());
     }
 
     @Test
     public void test_getCanonicalName() {
-        ContainerInstance instance = deploymentNode.add(database);
+        SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
-        assertEquals("ContainerInstance://Default/Deployment Node/System.Database Schema[1]", instance.getCanonicalName());
+        assertEquals("SoftwareSystemInstance://Default/Deployment Node/System[1]", instance.getCanonicalName());
     }
 
     @Test
     public void test_getParent_ReturnsTheParentDeploymentNode() {
-        ContainerInstance instance = deploymentNode.add(database);
+        SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         assertEquals(deploymentNode, instance.getParent());
     }
 
     @Test
     public void test_getRequiredTags() {
-        ContainerInstance instance = deploymentNode.add(database);
+        SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         assertTrue(instance.getRequiredTags().isEmpty());
     }
 
     @Test
     public void test_getTags() {
-        database.addTags("Database");
-        ContainerInstance instance = deploymentNode.add(database);
+        softwareSystem.addTags("Tag 1");
+        SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
         instance.addTags("Primary Instance");
 
-        assertEquals("Container Instance,Primary Instance", instance.getTags());
+        assertEquals("Software System Instance,Primary Instance", instance.getTags());
     }
 
     @Test
     public void test_removeTags_DoesNotRemoveAnyTags() {
-        ContainerInstance instance = deploymentNode.add(database);
+        SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
-        assertTrue(instance.getTags().contains(Tags.CONTAINER_INSTANCE));
+        assertTrue(instance.getTags().contains(Tags.SOFTWARE_SYSTEM_INSTANCE));
 
-        instance.removeTag(Tags.CONTAINER_INSTANCE);
+        instance.removeTag(Tags.SOFTWARE_SYSTEM_INSTANCE);
 
-        assertTrue(instance.getTags().contains(Tags.CONTAINER_INSTANCE));
+        assertTrue(instance.getTags().contains(Tags.SOFTWARE_SYSTEM_INSTANCE));
     }
 
     @Test
     public void test_addHealthCheck() {
-        ContainerInstance instance = deploymentNode.add(database);
+        SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
         assertTrue(instance.getHealthChecks().isEmpty());
 
         HttpHealthCheck healthCheck = instance.addHealthCheck("Test web application is working", "http://localhost:8080");
@@ -96,7 +95,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addHealthCheck_ThrowsAnException_WhenTheNameIsNull() {
-        ContainerInstance instance = deploymentNode.add(database);
+        SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         try {
             instance.addHealthCheck(null, "http://localhost");
@@ -108,7 +107,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addHealthCheck_ThrowsAnException_WhenTheNameIsEmpty() {
-        ContainerInstance instance = deploymentNode.add(database);
+        SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         try {
             instance.addHealthCheck(" ", "http://localhost");
@@ -120,7 +119,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsNull() {
-        ContainerInstance instance = deploymentNode.add(database);
+        SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         try {
             instance.addHealthCheck("Name", null);
@@ -132,7 +131,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsEmpty() {
-        ContainerInstance instance = deploymentNode.add(database);
+        SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         try {
             instance.addHealthCheck("Name", " ");
@@ -144,7 +143,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsInvalid() {
-        ContainerInstance instance = deploymentNode.add(database);
+        SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         try {
             instance.addHealthCheck("Name", "localhost");
@@ -156,7 +155,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addHealthCheck_ThrowsAnException_WhenTheIntervalIsLessThanZero() {
-        ContainerInstance instance = deploymentNode.add(database);
+        SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         try {
             instance.addHealthCheck("Name", "https://localhost", -1, 0);
@@ -168,7 +167,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addHealthCheck_ThrowsAnException_WhenTheTimeoutIsLessThanZero() {
-        ContainerInstance instance = deploymentNode.add(database);
+        SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         try {
             instance.addHealthCheck("Name", "https://localhost", 60, -1);

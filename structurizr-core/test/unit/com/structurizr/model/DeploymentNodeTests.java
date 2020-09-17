@@ -12,7 +12,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     public void test_getCanonicalName_WhenTheDeploymentNodeHasNoParent() {
         DeploymentNode deploymentNode = model.addDeploymentNode("Ubuntu Server", "", "");
 
-        assertEquals("/Deployment/Default/Ubuntu Server", deploymentNode.getCanonicalName());
+        assertEquals("DeploymentNode://Default/Ubuntu Server", deploymentNode.getCanonicalName());
     }
 
     @Test
@@ -20,7 +20,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
         DeploymentNode parent = model.addDeploymentNode("Windows Server", "", "");
         DeploymentNode child = parent.addDeploymentNode("Apache Tomcat", "", "");
 
-        assertEquals("/Deployment/Default/Windows Server/Apache Tomcat", child.getCanonicalName());
+        assertEquals("DeploymentNode://Default/Windows Server/Apache Tomcat", child.getCanonicalName());
     }
 
     @Test
@@ -80,6 +80,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
         assertNotNull(containerInstance);
         assertSame(container, containerInstance.getContainer());
         assertTrue(deploymentNode.getContainerInstances().contains(containerInstance));
+        assertEquals("ContainerInstance://Default/Deployment Node/Software System.Container[1]", containerInstance.getCanonicalName());
     }
 
     @Test

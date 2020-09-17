@@ -20,14 +20,14 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_getCanonicalName() {
-        assertEquals("/System/Container", container.getCanonicalName());
+        assertEquals("Container://System.Container", container.getCanonicalName());
     }
 
     @Test
-    public void test_getCanonicalName_WhenNameContainsASlashCharacter() {
-        container = softwareSystem.addContainer("Name1/Name2", "Description", "Some technology");
+    public void test_getCanonicalName_WhenNameContainsSlashAndDotCharacters() {
+        container = softwareSystem.addContainer("Name1/.Name2", "Description", "Some technology");
 
-        assertEquals("/System/Name1Name2", container.getCanonicalName());
+        assertEquals("Container://System.Name1Name2", container.getCanonicalName());
     }
 
     @Test

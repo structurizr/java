@@ -657,13 +657,6 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         liveDeploymentNode.add(container3);
         liveDeploymentNode.add(softwareSystem4);
 
-        assertSame(container2, containerInstance2.getContainer());
-        assertEquals(container2.getId(), containerInstance2.getContainerId());
-        assertSame(softwareSystem2, containerInstance2.getParent());
-        assertEquals("/Software System 2/Container 2[1]", containerInstance2.getCanonicalName());
-        assertEquals("Container Instance", containerInstance2.getTags());
-        assertEquals("Development", containerInstance2.getEnvironment());
-
         assertEquals(1, containerInstance1.getRelationships().size());
         Relationship relationship = containerInstance1.getRelationships().iterator().next();
         assertSame(containerInstance1, relationship.getSource());
@@ -710,12 +703,6 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         ContainerInstance containerInstance1 = deploymentNode.add(container1, false);
         ContainerInstance containerInstance2 = deploymentNode.add(container2, false);
         ContainerInstance containerInstance3 = deploymentNode.add(container3, false);
-
-        assertSame(container2, containerInstance2.getContainer());
-        assertEquals(container2.getId(), containerInstance2.getContainerId());
-        assertSame(softwareSystem2, containerInstance2.getParent());
-        assertEquals("/Software System 2/Container 2[1]", containerInstance2.getCanonicalName());
-        assertEquals("Container Instance", containerInstance2.getTags());
 
         assertEquals(0, containerInstance1.getRelationships().size());
         assertEquals(0, containerInstance2.getRelationships().size());
@@ -765,13 +752,10 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_getElementWithCanonicalName_ReturnsTheElement_WhenAnElementWithTheSpecifiedCanonicalNameExists() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
-
-        assertSame(model.getElementWithCanonicalName("/Software System"), softwareSystem);
-        assertSame(model.getElementWithCanonicalName("Software System"), softwareSystem);
-
         Container container = softwareSystem.addContainer("Web Application", "Description", "Technology");
-        assertSame(container, model.getElementWithCanonicalName("/Software System/Web Application"));
-        assertSame(container, model.getElementWithCanonicalName("Software System/Web Application"));
+
+        assertSame(softwareSystem, model.getElementWithCanonicalName("SoftwareSystem://Software System"));
+        assertSame(container, model.getElementWithCanonicalName("Container://Software System.Web Application"));
     }
 
     @Test
@@ -1034,6 +1018,39 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         model.setImpliedRelationshipsStrategy(null);
 
         assertTrue(model.getImpliedRelationshipsStrategy() instanceof DefaultImpliedRelationshipsStrategy);
+    }
+
+    @Test
+    public void test_addSoftwareSystemInstance_AllocatesInstanceIdsPerDeploymentNode() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
+        DeploymentNode deploymentNodeA = model.addDeploymentNode("Deployment Node A", "", "");
+        DeploymentNode deploymentNodeB = model.addDeploymentNode("Deployment Node B", "", "");
+        SoftwareSystemInstance softwareSystemInstanceA1 = deploymentNodeA.add(softwareSystem);
+        SoftwareSystemInstance softwareSystemInstanceA2 = deploymentNodeA.add(softwareSystem);
+        SoftwareSystemInstance softwareSystemInstanceB1 = deploymentNodeB.add(softwareSystem);
+        SoftwareSystemInstance softwareSystemInstanceB2 = deploymentNodeB.add(softwareSystem);
+
+        assertEquals("SoftwareSystemInstance://Default/Deployment Node A/Software System[1]", softwareSystemInstanceA1.getCanonicalName());
+        assertEquals("SoftwareSystemInstance://Default/Deployment Node A/Software System[2]", softwareSystemInstanceA2.getCanonicalName());
+        assertEquals("SoftwareSystemInstance://Default/Deployment Node B/Software System[1]", softwareSystemInstanceB1.getCanonicalName());
+        assertEquals("SoftwareSystemInstance://Default/Deployment Node B/Software System[2]", softwareSystemInstanceB2.getCanonicalName());
+    }
+
+    @Test
+    public void test_addContainerInstance_AllocatesInstanceIdsPerDeploymentNode() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
+        Container container = softwareSystem.addContainer("Container", "", "");
+        DeploymentNode deploymentNodeA = model.addDeploymentNode("Deployment Node A", "", "");
+        DeploymentNode deploymentNodeB = model.addDeploymentNode("Deployment Node B", "", "");
+        ContainerInstance containerInstanceA1 = deploymentNodeA.add(container);
+        ContainerInstance containerInstanceA2 = deploymentNodeA.add(container);
+        ContainerInstance containerInstanceB1 = deploymentNodeB.add(container);
+        ContainerInstance containerInstanceB2 = deploymentNodeB.add(container);
+
+        assertEquals("ContainerInstance://Default/Deployment Node A/Software System.Container[1]", containerInstanceA1.getCanonicalName());
+        assertEquals("ContainerInstance://Default/Deployment Node A/Software System.Container[2]", containerInstanceA2.getCanonicalName());
+        assertEquals("ContainerInstance://Default/Deployment Node B/Software System.Container[1]", containerInstanceB1.getCanonicalName());
+        assertEquals("ContainerInstance://Default/Deployment Node B/Software System.Container[2]", containerInstanceB2.getCanonicalName());
     }
 
 }

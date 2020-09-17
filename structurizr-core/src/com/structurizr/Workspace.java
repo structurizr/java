@@ -205,21 +205,21 @@ public final class Workspace extends AbstractWorkspace {
         getModel().getElements().stream()
                 .filter(e -> !(e instanceof ContainerInstance) && !(e instanceof DeploymentNode) && !(e instanceof InfrastructureNode))
                 .filter(e -> e.getDescription() == null || e.getDescription().trim().length() == 0)
-                .forEach(e -> warnings.add("The " + typeof(e) + " \"" + e.getCanonicalName().substring(1) + "\" is missing a description."));
+                .forEach(e -> warnings.add(e.getCanonicalName() + " is missing a description."));
 
         // find containers with a missing technology
         getModel().getElements().stream()
                 .filter(e -> e instanceof Container)
                 .map(e -> (Container)e)
                 .filter(c -> c.getTechnology() == null || c.getTechnology().trim().length() == 0)
-                .forEach(c -> warnings.add("The container \"" + c.getCanonicalName().substring(1) + "\" is missing a technology."));
+                .forEach(c -> warnings.add(c.getCanonicalName() + " is missing a technology."));
 
         // find components with a missing technology
         getModel().getElements().stream()
                 .filter(e -> e instanceof Component)
                 .map(e -> (Component)e)
                 .filter(c -> c.getTechnology() == null || c.getTechnology().trim().length() == 0)
-                .forEach(c -> warnings.add("The component \"" + c.getCanonicalName().substring(1) + "\" is missing a technology."));
+                .forEach(c -> warnings.add(c.getCanonicalName() + " is missing a technology."));
 
         // find component relationships with a missing description
         for (Relationship relationship : getModel().getRelationships()) {
@@ -230,7 +230,7 @@ public final class Workspace extends AbstractWorkspace {
                 // (i.e. let's not flood the user with warnings)
             } else {
                 if (relationship.getDescription() == null || relationship.getDescription().trim().length() == 0) {
-                    warnings.add("The relationship between " + typeof(relationship.getSource()) + " \"" + relationship.getSource().getCanonicalName().substring(1) + "\" and " + typeof(relationship.getDestination()) + " \"" + relationship.getDestination().getCanonicalName().substring(1) + "\" is missing a description.");
+                    warnings.add("The relationship between " + relationship.getSource().getCanonicalName() + " and " + relationship.getDestination().getCanonicalName() + " is missing a description.");
                 }
             }
         }

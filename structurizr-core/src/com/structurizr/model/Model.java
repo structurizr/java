@@ -450,11 +450,13 @@ public final class Model {
 
         for (SoftwareSystemInstance softwareSystemInstance : deploymentNode.getSoftwareSystemInstances()) {
             softwareSystemInstance.setSoftwareSystem((SoftwareSystem)getElement(softwareSystemInstance.getSoftwareSystemId()));
+            softwareSystemInstance.setParent(deploymentNode);
             addElementToInternalStructures(softwareSystemInstance);
         }
 
         for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
             containerInstance.setContainer((Container)getElement(containerInstance.getContainerId()));
+            containerInstance.setParent(deploymentNode);
             addElementToInternalStructures(containerInstance);
         }
 
@@ -886,9 +888,10 @@ public final class Model {
             throw new IllegalArgumentException("A software system must be specified.");
         }
 
-        long instanceNumber = getElements().stream().filter(e -> e instanceof SoftwareSystemInstance && ((SoftwareSystemInstance)e).getSoftwareSystem().equals(softwareSystem)).count();
+        long instanceNumber = deploymentNode.getSoftwareSystemInstances().stream().filter(ssi -> ssi.getSoftwareSystem().equals(softwareSystem)).count();
         instanceNumber++;
         SoftwareSystemInstance softwareSystemInstance = new SoftwareSystemInstance(softwareSystem, (int)instanceNumber, deploymentNode.getEnvironment());
+        softwareSystemInstance.setParent(deploymentNode);
         softwareSystemInstance.setId(idGenerator.generateId(softwareSystemInstance));
 
         if (replicateRelationships) {
@@ -905,9 +908,10 @@ public final class Model {
             throw new IllegalArgumentException("A container must be specified.");
         }
 
-        long instanceNumber = getElements().stream().filter(e -> e instanceof ContainerInstance && ((ContainerInstance)e).getContainer().equals(container)).count();
+        long instanceNumber = deploymentNode.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(container)).count();
         instanceNumber++;
         ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber, deploymentNode.getEnvironment());
+        containerInstance.setParent(deploymentNode);
         containerInstance.setId(idGenerator.generateId(containerInstance));
 
         if (replicateRelationships) {
@@ -964,11 +968,6 @@ public final class Model {
     public Element getElementWithCanonicalName(String canonicalName) {
         if (canonicalName == null || canonicalName.trim().length() == 0) {
             throw new IllegalArgumentException("A canonical name must be specified.");
-        }
-
-        // canonical names start with a leading slash, so add this if it's missing
-        if (!canonicalName.startsWith("/")) {
-            canonicalName = "/" + canonicalName;
         }
 
         for (Element element : getElements()) {

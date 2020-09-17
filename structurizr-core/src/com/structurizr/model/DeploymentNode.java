@@ -21,7 +21,6 @@ import java.util.*;
  */
 public final class DeploymentNode extends DeploymentElement {
 
-    private DeploymentNode parent;
     private String technology;
     private int instances = 1;
 
@@ -314,21 +313,6 @@ public final class DeploymentNode extends DeploymentElement {
         }
     }
 
-    /**
-     * Gets the parent deployment node.
-     *
-     * @return  the parent DeploymentNode, or null if there is no parent
-     */
-    @Override
-    @JsonIgnore
-    public Element getParent() {
-        return parent;
-    }
-
-    void setParent(DeploymentNode parent) {
-        this.parent = parent;
-    }
-
     public String getTechnology() {
         return technology;
     }
@@ -356,11 +340,7 @@ public final class DeploymentNode extends DeploymentElement {
 
     @Override
     public String getCanonicalName() {
-        if (getParent() != null) {
-            return getParent().getCanonicalName() + CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getName());
-        } else {
-            return CANONICAL_NAME_SEPARATOR + "Deployment" + CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getEnvironment()) + CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getName());
-        }
+        return new CanonicalNameGenerator().generate(this);
     }
 
 }

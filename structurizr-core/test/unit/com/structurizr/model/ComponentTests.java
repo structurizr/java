@@ -23,13 +23,13 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_getCanonicalName() {
         Component component = container.addComponent("Component", "Description");
-        assertEquals("/System/Container/Component", component.getCanonicalName());
+        assertEquals("Component://System.Container.Component", component.getCanonicalName());
     }
 
     @Test
-    public void test_getCanonicalName_WhenNameContainsASlashCharacter() {
-        Component component = container.addComponent("Name1/Name2", "Description");
-        assertEquals("/System/Container/Name1Name2", component.getCanonicalName());
+    public void test_getCanonicalName_WhenNameContainsSlashAndDotCharacters() {
+        Component component = container.addComponent("Name1/.Name2", "Description");
+        assertEquals("Component://System.Container.Name1Name2", component.getCanonicalName());
     }
 
     @Test

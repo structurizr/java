@@ -50,5 +50,11 @@ public final class SoftwareSystemInstance extends StaticStructureElementInstance
     void setSoftwareSystemId(String softwareSystemId) {
         this.softwareSystemId = softwareSystemId;
     }
-    
+
+    @Override
+    @JsonIgnore
+    public String getCanonicalName() {
+        return new CanonicalNameGenerator().generate(this);
+    }
+
 }

@@ -51,4 +51,10 @@ public final class ContainerInstance extends StaticStructureElementInstance {
         this.containerId = containerId;
     }
 
+    @Override
+    @JsonIgnore
+    public String getCanonicalName() {
+        return new CanonicalNameGenerator().generate(this);
+    }
+
 }

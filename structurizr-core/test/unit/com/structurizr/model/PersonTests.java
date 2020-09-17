@@ -10,14 +10,14 @@ public class PersonTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_getCanonicalName() {
         Person person = model.addPerson("Person", "Description");
-        assertEquals("/Person", person.getCanonicalName());
+        assertEquals("Person://Person", person.getCanonicalName());
     }
 
     @Test
-    public void test_getCanonicalName_WhenNameContainsASlashCharacter() {
+    public void test_getCanonicalName_WhenNameContainsSlashAndDotCharacters() {
         Person person = model.addPerson("Person", "Description");
-        person.setName("Name1/Name2");
-        assertEquals("/Name1Name2", person.getCanonicalName());
+        person.setName("Name1/.Name2");
+        assertEquals("Person://Name1Name2", person.getCanonicalName());
     }
 
     @Test

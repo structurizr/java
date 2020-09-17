@@ -133,7 +133,7 @@ public final class Component extends StaticStructureElement {
      */
     @Override
     public String getCanonicalName() {
-        return getParent().getCanonicalName() + CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getName());
+        return new CanonicalNameGenerator().generate(this);
     }
 
     @Override

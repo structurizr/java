@@ -42,7 +42,7 @@ public final class Person extends StaticStructureElement {
 
     @Override
     public String getCanonicalName() {
-        return CANONICAL_NAME_SEPARATOR + formatForCanonicalName(getName());
+        return new CanonicalNameGenerator().generate(this);
     }
 
     @Override
