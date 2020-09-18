@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.6.0 (unreleased)
+## 1.6.0 (18th September 2020)
 
 - Changed the way that internal canonical element names are generated, to improve layout merging for deployment views.
 - getParent() of SoftwareSystemInstance and ContainerInstance now returns the parent deployment node.
