@@ -56,12 +56,27 @@ public class AutomaticDocumentTemplateTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addSections() throws IOException {
-        Section section;
+    public void test_addSections_WithRecursiveSetToFalse() throws IOException {
         File root = new File(".//test/unit/com/structurizr/documentation/automatic");
 
         List<Section> sections = template.addSections(softwareSystem, root);
         assertEquals(6, sections.size());
+
+        assertSection(softwareSystem, "Section 1", Format.Markdown, "## Section 1", 1, sections.get(0));
+        assertSection(softwareSystem, "Section 2", Format.Markdown, "## Section 2", 2, sections.get(1));
+        assertSection(softwareSystem, "Section 3", Format.Markdown, "## Section 3", 3, sections.get(2));
+        assertSection(softwareSystem, "Section 4", Format.AsciiDoc, "== Section 4", 4, sections.get(3));
+        assertSection(softwareSystem, "Section 5", Format.AsciiDoc, "== Section 5", 5, sections.get(4));
+        assertSection(softwareSystem, "Section 6", Format.AsciiDoc, "== Section 6", 6, sections.get(5));
+    }
+
+    @Test
+    public void test_addSections_WithRecursiveSetToTrue() throws IOException {
+        File root = new File(".//test/unit/com/structurizr/documentation/automatic");
+
+        template.setRecursive(true);
+        List<Section> sections = template.addSections(softwareSystem, root);
+        assertEquals(7, sections.size());
 
         assertSection(softwareSystem, "Section 1", Format.Markdown, "## Section 1", 1, sections.get(0));
         assertSection(softwareSystem, "Section 2", Format.Markdown, "## Section 2", 2, sections.get(1));

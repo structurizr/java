@@ -5,6 +5,7 @@ import com.structurizr.model.SoftwareSystem;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -19,8 +20,28 @@ import java.util.regex.Pattern;
  */
 public class AutomaticDocumentationTemplate extends DocumentationTemplate {
 
+    private boolean recursive = false;
+
     public AutomaticDocumentationTemplate(Workspace workspace) {
         super(workspace);
+    }
+
+    /**
+     * Determines whether this template will scan directories recursively.
+     *
+     * @return  true if this template will scan directories recursively, false otherwise
+     */
+    public boolean isRecursive() {
+        return recursive;
+    }
+
+    /**
+     * Sets whether this template will scan directories recursively.
+     *
+     * @param recursive true if this template should scan directories recursively, false otherwise
+     */
+    public void setRecursive(boolean recursive) {
+        this.recursive = recursive;
     }
 
     /**
@@ -76,7 +97,7 @@ public class AutomaticDocumentationTemplate extends DocumentationTemplate {
                         sectionDefinition = "==";
                     }
 
-                    String content = new String(Files.readAllBytes(file.toPath()), "UTF-8");
+                    String content = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
                     String sectionName = file.getName();
                     Matcher matcher = Pattern.compile("^" + sectionDefinition + " (.*?)$", Pattern.MULTILINE).matcher(content);
                     if (matcher.find()) {
@@ -85,6 +106,10 @@ public class AutomaticDocumentationTemplate extends DocumentationTemplate {
 
                     Section section = addSection(softwareSystem, sectionName, format, content);
                     sections.add(section);
+                } else if (file.isDirectory()) {
+                    if (isRecursive()) {
+                        sections.addAll(add(softwareSystem, file));
+                    }
                 }
             }
         }

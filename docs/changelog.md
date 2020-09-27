@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.1 (27th September 2020)
+
+- Added a "recursive" option to the AutomaticDocumentationTemplate, so that sub-directories can optionally be scanned too.
+
 ## 1.6.0 (18th September 2020)
 
 - Changed the way that internal canonical element names are generated, to improve layout merging for deployment views.
