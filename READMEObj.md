@@ -1,6 +1,6 @@
 ![Structurizr](docs/images/structurizr-banner.png)
 
-# Structurizr for Java
+# Structurizr for Java for framing objects
 
 This GitHub repository is an official client library for the [Structurizr](https://structurizr.com) cloud service and on-premises installation, both of which are web-based publishing platforms for software architecture models based upon the [C4 model](https://c4model.com). __This repository is supported by Structurizr Limited__, as a part of the Structurizr service.
 
