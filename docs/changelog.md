@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.2 (unreleased)
+
+- Resolves an issue with the AutomaticDocumentationTemplate, where images were being included as documentation content.
+
 ## 1.6.1 (27th September 2020)
 
 - Added a "recursive" option to the AutomaticDocumentationTemplate, so that sub-directories can optionally be scanned too.

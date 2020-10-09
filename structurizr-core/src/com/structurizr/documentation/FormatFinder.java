@@ -11,6 +11,12 @@ class FormatFinder {
 
     private static Set<String> ASCIIDOC_EXTENSIONS = new HashSet<>(Arrays.asList(".asciidoc", ".adoc", ".asc"));
 
+    static boolean isMarkdownOrAsciiDoc(File file) {
+        String extension = file.getName().substring(file.getName().lastIndexOf("."));
+
+        return MARKDOWN_EXTENSIONS.contains(extension) || ASCIIDOC_EXTENSIONS.contains(extension);
+    }
+
     static Format findFormat(File file) {
         if (file == null) {
             throw new IllegalArgumentException("A file must be specified.");

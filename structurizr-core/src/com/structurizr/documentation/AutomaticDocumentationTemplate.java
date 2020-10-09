@@ -88,24 +88,26 @@ public class AutomaticDocumentationTemplate extends DocumentationTemplate {
 
             for (File file : filesInDirectory) {
                 if (!file.isDirectory() && !file.getName().startsWith(".")) {
-                    Format format = FormatFinder.findFormat(file);
-                    String sectionDefinition = "";
+                    if (FormatFinder.isMarkdownOrAsciiDoc(file)) {
+                        Format format = FormatFinder.findFormat(file);
+                        String sectionDefinition = "";
 
-                    if (format == Format.Markdown) {
-                        sectionDefinition = "##";
-                    } else if (format == Format.AsciiDoc) {
-                        sectionDefinition = "==";
+                        if (format == Format.Markdown) {
+                            sectionDefinition = "##";
+                        } else if (format == Format.AsciiDoc) {
+                            sectionDefinition = "==";
+                        }
+
+                        String content = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
+                        String sectionName = file.getName();
+                        Matcher matcher = Pattern.compile("^" + sectionDefinition + " (.*?)$", Pattern.MULTILINE).matcher(content);
+                        if (matcher.find()) {
+                            sectionName = matcher.group(1);
+                        }
+
+                        Section section = addSection(softwareSystem, sectionName, format, content);
+                        sections.add(section);
                     }
-
-                    String content = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
-                    String sectionName = file.getName();
-                    Matcher matcher = Pattern.compile("^" + sectionDefinition + " (.*?)$", Pattern.MULTILINE).matcher(content);
-                    if (matcher.find()) {
-                        sectionName = matcher.group(1);
-                    }
-
-                    Section section = addSection(softwareSystem, sectionName, format, content);
-                    sections.add(section);
                 } else if (file.isDirectory()) {
                     if (isRecursive()) {
                         sections.addAll(add(softwareSystem, file));
