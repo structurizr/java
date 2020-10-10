@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.6.2 (unreleased)
+## 1.6.2 (10th October 2020)
 
 - Resolves an issue with the AutomaticDocumentationTemplate, where images were being included as documentation content.
 
