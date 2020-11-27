@@ -9,7 +9,27 @@ import javax.annotation.Nullable;
  */
 public abstract class StaticStructureElement extends Element {
 
+    private String group;
+
     protected StaticStructureElement() {
+    }
+
+    /**
+     * Gets the group in which this element should be included in (experimental feature).
+     *
+     * @return  the group name, or null if not set
+     */
+    public String getGroup() {
+        return group;
+    }
+
+    /**
+     * Sets the group in which this element should be included in (experimental feature).
+     *
+     * @param group     the group name
+     */
+    public void setGroup(String group) {
+        this.group = group;
     }
 
     /**
