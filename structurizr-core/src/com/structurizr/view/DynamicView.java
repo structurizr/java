@@ -2,6 +2,7 @@ package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.*;
+import com.structurizr.util.StringUtils;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -93,6 +94,10 @@ public final class DynamicView extends View {
     }
 
     public RelationshipView add(@Nonnull Element source, String description, @Nonnull Element destination) {
+        return add(source, description, "", destination);
+    }
+
+    public RelationshipView add(@Nonnull Element source, String description, String technology, @Nonnull Element destination) {
         if (source == null) {
             throw new IllegalArgumentException("A source element must be specified.");
         }
@@ -105,7 +110,20 @@ public final class DynamicView extends View {
         checkElement(destination);
 
         // check that the relationship is in the model before adding it
-        Relationship relationship = source.getEfferentRelationshipWith(destination);
+        Relationship relationship = null;
+
+        if (StringUtils.isNullOrEmpty(technology)) {
+            // no technology is specified, so just pick the first relationship we find
+            relationship = source.getEfferentRelationshipWith(destination);
+        } else {
+            Set<Relationship> relationships = source.getEfferentRelationshipsWith(destination);
+            for (Relationship rel : relationships) {
+                if (technology.equals(rel.getTechnology())) {
+                    relationship = rel;
+                }
+            }
+        }
+
         if (relationship != null) {
             addElement(source, false);
             addElement(destination, false);
@@ -113,14 +131,30 @@ public final class DynamicView extends View {
             return addRelationship(relationship, description, sequenceNumber.getNext(), false);
         } else {
             // perhaps model this as a return/reply/response message instead, if the reverse relationship exists
-            relationship = destination.getEfferentRelationshipWith(source);
+
+            if (StringUtils.isNullOrEmpty(technology)) {
+                // no technology is specified, so just pick the first relationship we find
+                relationship = destination.getEfferentRelationshipWith(source);
+            } else {
+                Set<Relationship> relationships = destination.getEfferentRelationshipsWith(source);
+                for (Relationship rel : relationships) {
+                    if (technology.equals(rel.getTechnology())) {
+                        relationship = rel;
+                    }
+                }
+            }
+
             if (relationship != null) {
                 addElement(source, false);
                 addElement(destination, false);
 
                 return addRelationship(relationship, description, sequenceNumber.getNext(), true);
             } else {
-                throw new IllegalArgumentException("A relationship between " + source.getName() + " and " + destination.getName() + " does not exist in model.");
+                if (StringUtils.isNullOrEmpty(technology)) {
+                    throw new IllegalArgumentException("A relationship between " + source.getName() + " and " + destination.getName() + " does not exist in model.");
+                } else {
+                    throw new IllegalArgumentException("A relationship between " + source.getName() + " and " + destination.getName() + " with technology " + technology + " does not exist in model.");
+                }
             }
         }
     }

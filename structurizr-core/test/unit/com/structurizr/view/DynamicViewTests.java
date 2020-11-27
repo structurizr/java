@@ -44,7 +44,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenPassedANullSouceElement() {
+    public void test_add_ThrowsAnException_WhenPassedANullSourceElement() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
             dynamicView.add(null, softwareSystemA);
@@ -205,6 +205,26 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_add_ThrowsAnException_WhenARelationshipBetweenTheSourceAndDestinationElementsWithTheSpecifiedTechnologyDoesNotExist() {
+        try {
+            workspace = new Workspace("Name", "Description");
+            model = workspace.getModel();
+
+            SoftwareSystem ss1 = workspace.getModel().addSoftwareSystem("Software System 1", "");
+            SoftwareSystem ss2 = workspace.getModel().addSoftwareSystem("Software System 2", "");
+            ss1.uses(ss2, "Uses 1", "Tech 1");
+
+            DynamicView view = workspace.getViews().createDynamicView("key", "Description");
+
+            view.add(ss1, "Uses", "Tech 1", ss2);
+            view.add(ss1, "Uses", "Tech 2", ss2);
+            fail();
+        } catch (Exception e) {
+            assertEquals("A relationship between Software System 1 and Software System 2 with technology Tech 2 does not exist in model.", e.getMessage());
+        }
+    }
+
+    @Test
     public void test_add_AddsTheSourceAndDestinationElements_WhenARelationshipBetweenThemExists() {
         final DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
         dynamicView.add(containerA1, containerA2);
@@ -239,6 +259,26 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
 
         assertSame(container2, view.getRelationships().stream().filter(r -> r.getOrder().equals("1")).findFirst().get().getRelationship().getDestination());
         assertSame(container3, view.getRelationships().stream().filter(r -> r.getOrder().equals("2")).findFirst().get().getRelationship().getDestination());
+    }
+
+    @Test
+    public void test_normalSequence_WhenThereAreMultipleTechnologies() {
+        workspace = new Workspace("Name", "Description");
+        model = workspace.getModel();
+
+        SoftwareSystem ss1 = workspace.getModel().addSoftwareSystem("Software System 1", "");
+        SoftwareSystem ss2 = workspace.getModel().addSoftwareSystem("Software System 2", "");
+
+        Relationship r1 = ss1.uses(ss2, "Uses 1", "Tech 1");
+        Relationship r2 = ss1.uses(ss2, "Uses 2", "Tech 2");
+
+        DynamicView view = workspace.getViews().createDynamicView("key", "Description");
+
+        RelationshipView rv1 = view.add(ss1, "Uses", "Tech 1", ss2);
+        RelationshipView rv2 = view.add(ss1, "Uses", "Tech 2", ss2);
+
+        assertSame(r1, rv1.getRelationship());
+        assertSame(r2, rv2.getRelationship());
     }
 
     @Test
