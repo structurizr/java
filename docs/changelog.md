@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.6.3 (30th November 2020)
+
+- When adding a relationship to a dynamic view, the first relationship between the source and destination would be chosen, even if there are multiple relationships with different technologies. This release adds a way to indicate which relationship (based upon technology) should be chosen.
+- Suppress description warnings for software system instances.
+
+
 ## 1.6.2 (10th October 2020)
 
 - Resolves an issue with the AutomaticDocumentationTemplate, where images were being included as documentation content.
