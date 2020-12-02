@@ -17,6 +17,8 @@ public final class DynamicView extends View {
     private Element element;
     private String elementId;
 
+    private boolean externalBoundariesVisible = false;
+
     private SequenceNumber sequenceNumber = new SequenceNumber();
 
     DynamicView() {
@@ -283,6 +285,24 @@ public final class DynamicView extends View {
         } catch(NumberFormatException e){
             return false;
         }
+    }
+
+    /**
+     * Determines whether software system/container boundaries should be visible for "external" containers/components (those outside the element in scope).
+     *
+     * @return  true if external boundaries are visible, false otherwise
+     */
+    public boolean getExternalBoundariesVisible() {
+        return externalBoundariesVisible;
+    }
+
+    /**
+     * Sets whether software system/container boundaries should be visible for "external" containers/components (those outside the element in scope).
+     *
+     * @param externalBoundariesVisible     true if external boundaries should be visible, false otherwise
+     */
+    public void setExternalBoundariesVisible(boolean externalBoundariesVisible) {
+        this.externalBoundariesVisible = externalBoundariesVisible;
     }
 
 }

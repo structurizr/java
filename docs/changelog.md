@@ -3,6 +3,7 @@
 ## 1.6.4 (unreleased)
 
 Removes the restrictions related to adding containers/components outside the scoped software system/container.
+Adds an "externalBoundariesVisible" property to DynamicView, so that external software system/container boundaries can be shown/hidden.
 
 ## 1.6.3 (30th November 2020)
 
