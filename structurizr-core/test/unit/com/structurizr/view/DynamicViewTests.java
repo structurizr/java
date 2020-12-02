@@ -115,17 +115,6 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsASoftwareSystemButAContainerInAnotherSoftwareSystemIsAdded() {
-        try {
-            DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
-            dynamicView.add(containerB1, containerA1);
-            fail();
-        } catch (Exception e) {
-            assertEquals("Only containers that reside inside Software System A can be added to this view.", e.getMessage());
-        }
-    }
-
-    @Test
     public void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsASoftwareSystemButAComponentIsAdded() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
@@ -166,28 +155,6 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
             fail();
         } catch (Exception e) {
             assertEquals("Software System A is already the scope of this view and cannot be added to it.", e.getMessage());
-        }
-    }
-
-    @Test
-    public void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsAContainerAndAContainerInAnotherSoftwareSystemIsAdded() {
-        try {
-            DynamicView dynamicView = workspace.getViews().createDynamicView(containerA1, "key", "Description");
-            dynamicView.add(containerB1, containerA2);
-            fail();
-        } catch (Exception e) {
-            assertEquals("Only containers that reside inside Software System A can be added to this view.", e.getMessage());
-        }
-    }
-
-    @Test
-    public void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsAContainerAndAComponentInAnotherContainerIsAdded() {
-        try {
-            DynamicView dynamicView = workspace.getViews().createDynamicView(containerA1, "key", "Description");
-            dynamicView.add(componentA2, containerA2);
-            fail();
-        } catch (Exception e) {
-            assertEquals("Only components that reside inside Container A1 can be added to this view.", e.getMessage());
         }
     }
 

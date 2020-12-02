@@ -184,32 +184,24 @@ public final class DynamicView extends View {
         }
 
         // if the scope of this dynamic view is a software system, we only want:
-        //  - containers inside that software system
+        //  - containers
         //  - other software systems
         if (element instanceof SoftwareSystem) {
             if (elementToBeAdded.equals(element)) {
                 throw new IllegalArgumentException(elementToBeAdded.getName() + " is already the scope of this view and cannot be added to it.");
             }
-            if (elementToBeAdded instanceof Container && !elementToBeAdded.getParent().equals(element)) {
-                throw new IllegalArgumentException("Only containers that reside inside " + element.getName() + " can be added to this view.");
-            }
+
             if (elementToBeAdded instanceof Component) {
                 throw new IllegalArgumentException("Components can't be added to a dynamic view when the scope is a software system.");
             }
         }
 
-        // if the scope of this dynamic view is a container, we only want other containers inside the same software system
-        // and other components inside the container
+        // if the scope of this dynamic view is a container, we only want:
+        //  - other containers
+        //  - components
         if (element instanceof Container) {
             if (elementToBeAdded.equals(element) || elementToBeAdded.equals(element.getParent())) {
                 throw new IllegalArgumentException(elementToBeAdded.getName() + " is already the scope of this view and cannot be added to it.");
-            }
-            if (elementToBeAdded instanceof Container && !elementToBeAdded.getParent().equals(element.getParent())) {
-                throw new IllegalArgumentException("Only containers that reside inside " + element.getParent().getName() + " can be added to this view.");
-            }
-
-            if (elementToBeAdded instanceof Component && !elementToBeAdded.getParent().equals(element)) {
-                throw new IllegalArgumentException("Only components that reside inside " + element.getName() + " can be added to this view.");
             }
         }
 

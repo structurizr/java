@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.6.4 (unreleased)
+
+Removes the restrictions related to adding containers/components outside the scoped software system/container.
+
 ## 1.6.3 (30th November 2020)
 
 - When adding a relationship to a dynamic view, the first relationship between the source and destination would be chosen, even if there are multiple relationships with different technologies. This release adds a way to indicate which relationship (based upon technology) should be chosen.
