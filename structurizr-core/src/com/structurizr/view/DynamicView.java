@@ -6,6 +6,7 @@ import com.structurizr.util.StringUtils;
 
 import javax.annotation.Nonnull;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A dynamic view, used to describe behaviour between static elements at runtime.
@@ -108,8 +109,8 @@ public final class DynamicView extends View {
             throw new IllegalArgumentException("A destination element must be specified.");
         }
 
-        checkElement(source);
-        checkElement(destination);
+        checkElementCanBeAdded(source);
+        checkElementCanBeAdded(destination);
 
         // check that the relationship is in the model before adding it
         Relationship relationship = null;
@@ -173,48 +174,6 @@ public final class DynamicView extends View {
     }
 
     /**
-     * This checks that only appropriate elements can be added to the view.
-     */
-    private void checkElement(Element elementToBeAdded) {
-        if (!(elementToBeAdded instanceof Person) && !(elementToBeAdded instanceof SoftwareSystem) && !(elementToBeAdded instanceof Container) && !(elementToBeAdded instanceof Component)) {
-            throw new IllegalArgumentException("Only people, software systems, containers and components can be added to dynamic views.");
-        }
-
-        // people can always be added
-        if (elementToBeAdded instanceof Person) {
-            return;
-        }
-
-        // if the scope of this dynamic view is a software system, we only want:
-        //  - containers
-        //  - other software systems
-        if (element instanceof SoftwareSystem) {
-            if (elementToBeAdded.equals(element)) {
-                throw new IllegalArgumentException(elementToBeAdded.getName() + " is already the scope of this view and cannot be added to it.");
-            }
-
-            if (elementToBeAdded instanceof Component) {
-                throw new IllegalArgumentException("Components can't be added to a dynamic view when the scope is a software system.");
-            }
-        }
-
-        // if the scope of this dynamic view is a container, we only want:
-        //  - other containers
-        //  - components
-        if (element instanceof Container) {
-            if (elementToBeAdded.equals(element) || elementToBeAdded.equals(element.getParent())) {
-                throw new IllegalArgumentException(elementToBeAdded.getName() + " is already the scope of this view and cannot be added to it.");
-            }
-        }
-
-        if (element == null) {
-            if (!(elementToBeAdded instanceof SoftwareSystem)) {
-                throw new IllegalArgumentException("Only people and software systems can be added to this dynamic view.");
-            }
-        }
-    }
-
-    /**
      * Gets the (computed) name of this view.
      *
      * @return  the name, as a String
@@ -248,6 +207,52 @@ public final class DynamicView extends View {
 
     public void endParallelSequence(boolean endAllParallelSequencesAndContinueNumbering) {
         sequenceNumber.endParallelSequence(endAllParallelSequencesAndContinueNumbering);
+    }
+
+    @Override
+    protected void checkElementCanBeAdded(Element elementToBeAdded) {
+        if (!(elementToBeAdded instanceof Person) && !(elementToBeAdded instanceof SoftwareSystem) && !(elementToBeAdded instanceof Container) && !(elementToBeAdded instanceof Component)) {
+            throw new ElementNotPermittedInViewException("Only people, software systems, containers and components can be added to dynamic views.");
+        }
+
+        // people can always be added
+        if (elementToBeAdded instanceof Person) {
+            return;
+        }
+
+        // if the scope of this dynamic view is a software system, we only want:
+        //  - containers
+        //  - other software systems
+        if (element instanceof SoftwareSystem) {
+            if (elementToBeAdded.equals(element)) {
+                throw new ElementNotPermittedInViewException(elementToBeAdded.getName() + " is already the scope of this view and cannot be added to it.");
+            }
+
+            if (elementToBeAdded instanceof SoftwareSystem || elementToBeAdded instanceof Container) {
+                checkParentAndChildrenHaveNotAlreadyBeenAdded(elementToBeAdded);
+            } else if (elementToBeAdded instanceof Component) {
+                throw new ElementNotPermittedInViewException("Components can't be added to a dynamic view when the scope is a software system.");
+            }
+        }
+
+        // dynamic view with container scope:
+        //  - other containers
+        //  - components
+        if (element instanceof Container) {
+            if (elementToBeAdded.equals(element) || elementToBeAdded.equals(element.getParent())) {
+                throw new ElementNotPermittedInViewException(elementToBeAdded.getName() + " is already the scope of this view and cannot be added to it.");
+            }
+
+            checkParentAndChildrenHaveNotAlreadyBeenAdded(elementToBeAdded);
+        }
+
+        // dynamic view with no scope
+        //  - software systems
+        if (element == null) {
+            if (!(elementToBeAdded instanceof SoftwareSystem)) {
+                throw new ElementNotPermittedInViewException("Only people and software systems can be added to this dynamic view.");
+            }
+        }
     }
 
     @Override

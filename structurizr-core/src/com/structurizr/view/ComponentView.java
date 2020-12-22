@@ -92,7 +92,13 @@ public final class ComponentView extends StaticView {
      * Adds all other containers in the software system to this view.
      */
     public void addAllContainers() {
-        getSoftwareSystem().getContainers().forEach(this::add);
+        getSoftwareSystem().getContainers().forEach(c -> {
+            try {
+                add(c);
+            } catch (ElementNotPermittedInViewException e) {
+                // ignore
+            }
+        });
     }
 
     /**
@@ -111,9 +117,7 @@ public final class ComponentView extends StaticView {
      * @param addRelationships  whether to add relationships to/from the container
      */
     public void add(Container container, boolean addRelationships) {
-        if (container != null && !container.equals(getContainer())) {
-            addElement(container, addRelationships);
-        }
+        addElement(container, addRelationships);
     }
 
     /**
@@ -275,6 +279,35 @@ public final class ComponentView extends StaticView {
         if (element instanceof SoftwareSystem || element instanceof Person) {
             addElement(element, true);
         }
+    }
+
+    @Override
+    protected void checkElementCanBeAdded(Element element) {
+        if (element instanceof Person) {
+            return;
+        }
+
+        if (element instanceof SoftwareSystem) {
+            if (element.equals(getContainer().getParent())) {
+                throw new ElementNotPermittedInViewException("The software system in scope cannot be added to a component view.");
+            } else {
+                return;
+            }
+        }
+
+        if (element instanceof Container) {
+            if (element.equals(getContainer())) {
+                throw new ElementNotPermittedInViewException("The container in scope cannot be added to a component view.");
+            } else {
+                return;
+            }
+        }
+
+        if (element instanceof Component) {
+            return;
+        }
+
+        throw new ElementNotPermittedInViewException("Only people, software systems, containers, and components can be added to a component view.");
     }
 
     @Override

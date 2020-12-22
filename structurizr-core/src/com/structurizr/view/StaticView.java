@@ -34,7 +34,13 @@ public abstract class StaticView extends View {
      * Adds all software systems in the model to this view.
      */
     public void addAllSoftwareSystems() {
-        getModel().getSoftwareSystems().forEach(this::add);
+        getModel().getSoftwareSystems().forEach(ss -> {
+            try {
+                add(ss);
+            } catch (ElementNotPermittedInViewException e) {
+                // ignore
+            }
+        });
     }
 
     /**
@@ -127,16 +133,32 @@ public abstract class StaticView extends View {
             return;
         }
 
-        addElement(element, true);
+        try {
+            addElement(element, true);
 
-        Set<Relationship> relationships = getModel().getRelationships();
-        relationships.stream().filter(r -> r.getSource().equals(element) && typeOfElement.isInstance(r.getDestination()))
-                .map(Relationship::getDestination)
-                .forEach(d -> addElement(d, true));
+            Set<Relationship> relationships = getModel().getRelationships();
+            relationships.stream().filter(r -> r.getSource().equals(element) && typeOfElement.isInstance(r.getDestination()))
+                    .map(Relationship::getDestination)
+                    .forEach(d -> {
+                        try {
+                            addElement(d, true);
+                        } catch (ElementNotPermittedInViewException e) {
+                            System.out.println(e.getMessage() + " (ignoring " + d.getName() + ")");
+                        }
+                    });
 
-        relationships.stream().filter(r -> r.getDestination().equals(element) && typeOfElement.isInstance(r.getSource()))
-                .map(Relationship::getSource)
-                .forEach(s -> addElement(s, true));
+            relationships.stream().filter(r -> r.getDestination().equals(element) && typeOfElement.isInstance(r.getSource()))
+                    .map(Relationship::getSource)
+                    .forEach(s -> {
+                        try {
+                            addElement(s, true);
+                        } catch (ElementNotPermittedInViewException e) {
+                            System.out.println(e.getMessage() + " (ignoring " + s.getName() + ")");
+                        }
+                    });
+        } catch (ElementNotPermittedInViewException e) {
+            System.out.println(e.getMessage() + " (ignoring " + element.getName() + ")");
+        }
     }
 
     /**

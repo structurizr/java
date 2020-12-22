@@ -2,10 +2,7 @@ package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.structurizr.model.Element;
-import com.structurizr.model.Model;
-import com.structurizr.model.Relationship;
-import com.structurizr.model.SoftwareSystem;
+import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
 
 import javax.annotation.Nonnull;
@@ -228,6 +225,7 @@ public abstract class View {
         }
 
         if (getModel().contains(element)) {
+            checkElementCanBeAdded(element);
             elementViews.add(new ElementView(element));
 
             if (addRelationships) {
@@ -237,6 +235,8 @@ public abstract class View {
             throw new IllegalArgumentException("The element named " + element.getName() + " does not exist in the model associated with this view.");
         }
     }
+
+    protected abstract void checkElementCanBeAdded(Element element);
 
     private void addRelationships(Element element) {
         Set<Element> elements = getElements().stream()
@@ -433,5 +433,23 @@ public abstract class View {
     }
 
     protected abstract boolean canBeRemoved(Element element);
+
+    protected void checkParentAndChildrenHaveNotAlreadyBeenAdded(Element elementToBeAdded) {
+        // check the parent hasn't been added already
+        Set<String> elementIds = getElements().stream().map(ElementView::getElement).map(Element::getId).collect(Collectors.toSet());
+
+        if (elementToBeAdded.getParent() != null) {
+            if (elementIds.contains(elementToBeAdded.getParent().getId())) {
+                throw new ElementNotPermittedInViewException("The parent of " + elementToBeAdded.getName() + " is already in this view.");
+            }
+        }
+
+        // and now check a child hasn't been added already
+        Set<String> elementParentIds = getElements().stream().map(ElementView::getElement).filter(e -> e.getParent() != null).map(e -> e.getParent().getId()).collect(Collectors.toSet());
+
+        if (elementParentIds.contains(elementToBeAdded.getId())) {
+            throw new ElementNotPermittedInViewException("The child of " + elementToBeAdded.getName() + " is already in this view.");
+        }
+    }
 
 }

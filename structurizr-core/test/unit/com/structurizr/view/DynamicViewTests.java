@@ -72,8 +72,8 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
             DeploymentNode deploymentNode = workspace.getModel().addDeploymentNode("Deployment node", "Description", "Technology");
             dynamicView.add(deploymentNode, softwareSystemA);
             fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("Only people, software systems, containers and components can be added to dynamic views.", iae.getMessage());
+        } catch (ElementNotPermittedInViewException e) {
+            assertEquals("Only people, software systems, containers and components can be added to dynamic views.", e.getMessage());
         }
     }
 
@@ -85,8 +85,8 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
             ContainerInstance containerInstance = deploymentNode.add(containerA1);
             dynamicView.add(containerInstance, softwareSystemA);
             fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("Only people, software systems, containers and components can be added to dynamic views.", iae.getMessage());
+        } catch (ElementNotPermittedInViewException e) {
+            assertEquals("Only people, software systems, containers and components can be added to dynamic views.", e.getMessage());
         }
     }
 
@@ -94,10 +94,9 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     public void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsNotSpecifiedButAContainerIsAdded() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
-            DeploymentNode deploymentNode = workspace.getModel().addDeploymentNode("Deployment node", "Description", "Technology");
             dynamicView.add(containerA1, containerA1);
             fail();
-        } catch (IllegalArgumentException iae) {
+        } catch (ElementNotPermittedInViewException iae) {
             assertEquals("Only people and software systems can be added to this dynamic view.", iae.getMessage());
         }
     }
@@ -109,7 +108,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
             DeploymentNode deploymentNode = workspace.getModel().addDeploymentNode("Deployment node", "Description", "Technology");
             dynamicView.add(componentA1, componentA1);
             fail();
-        } catch (IllegalArgumentException iae) {
+        } catch (ElementNotPermittedInViewException iae) {
             assertEquals("Only people and software systems can be added to this dynamic view.", iae.getMessage());
         }
     }
@@ -155,6 +154,50 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
             fail();
         } catch (Exception e) {
             assertEquals("Software System A is already the scope of this view and cannot be added to it.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_add_ThrowsAnException_WhenTheParentOfAnElementHasAlreadyBeenAdded() {
+        try {
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "");
+            Container container1 = softwareSystem.addContainer("Container 1", "", "");
+            Component component1 = container1.addComponent("Component 1", "", "");
+
+            Container container2 = softwareSystem.addContainer("Container 2", "", "");
+            Component component2 = container2.addComponent("Component 2", "", "");
+
+            component1.uses(container2, "Uses");
+            component1.uses(component2, "Uses");
+
+            DynamicView dynamicView = workspace.getViews().createDynamicView(container1, "key", "Description");
+            dynamicView.add(component1, container2);
+            dynamicView.add(component1, component2);
+            fail();
+        } catch (Exception e) {
+            assertEquals("The parent of Component 2 is already in this view.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_add_ThrowsAnException_WhenTheChildOfAnElementHasAlreadyBeenAdded() {
+        try {
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "");
+            Container container1 = softwareSystem.addContainer("Container 1", "", "");
+            Component component1 = container1.addComponent("Component 1", "", "");
+
+            Container container2 = softwareSystem.addContainer("Container 2", "", "");
+            Component component2 = container2.addComponent("Component 2", "", "");
+
+            component1.uses(component2, "Uses");
+            component1.uses(container2, "Uses");
+
+            DynamicView dynamicView = workspace.getViews().createDynamicView(container1, "key", "Description");
+            dynamicView.add(component1, component2);
+            dynamicView.add(component1, container2);
+            fail();
+        } catch (Exception e) {
+            assertEquals("The child of Container 2 is already in this view.", e.getMessage());
         }
     }
 

@@ -33,24 +33,16 @@ public final class ContainerView extends StaticView {
     }
 
     /**
-     * Adds a software system to this view. Please note that you cannot add the software system
-     * that is the scope of this view.
-     *
-     * @param softwareSystem    the SoftwareSystem to add
-     * @param addRelationships  whether to add relationships to/from the software system
-     */
-    @Override
-    public void add(@Nonnull SoftwareSystem softwareSystem, boolean addRelationships) {
-        if (softwareSystem != null && !softwareSystem.equals(getSoftwareSystem())) {
-            addElement(softwareSystem, addRelationships);
-        }
-    }
-
-    /**
      * Adds all containers within the software system in scope to this view.
      */
     public void addAllContainers() {
-        getSoftwareSystem().getContainers().forEach(this::add);
+        getSoftwareSystem().getContainers().forEach(c -> {
+            try {
+                add(c);
+            } catch (ElementNotPermittedInViewException e) {
+                // ignore
+            }
+        });
     }
 
     /**
@@ -181,6 +173,28 @@ public final class ContainerView extends StaticView {
                 .filter(softwareSystem -> softwareSystem.hasEfferentRelationshipWith(this.getSoftwareSystem()))
                 .forEach(this::add);
     }
+
+    @Override
+    protected void checkElementCanBeAdded(Element element) {
+        if (element instanceof Person) {
+            return;
+        }
+
+        if (element instanceof SoftwareSystem) {
+            if (element.equals(getSoftwareSystem())) {
+                throw new ElementNotPermittedInViewException("The software system in scope cannot be added to a container view.");
+            } else {
+                return;
+            }
+        }
+
+        if (element instanceof Container) {
+            return;
+        }
+
+        throw new ElementNotPermittedInViewException("Only people, software systems, and containers can be added to a container view.");
+    }
+
 
     @Override
     protected boolean canBeRemoved(Element element) {

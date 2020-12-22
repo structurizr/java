@@ -1,15 +1,15 @@
 # Changelog
 
-## 1.6.4 (unreleased)
+## 1.7.0 (unreleased)
 
-Removes the restrictions related to adding containers/components outside the scoped software system/container.
-Adds an "externalBoundariesVisible" property to DynamicView, so that external software system/container boundaries can be shown/hidden.
+- Removes the dynamic view restrictions related to adding containers/components outside the scoped software system/container.
+- Adds an "externalBoundariesVisible" property to DynamicView, so that external software system/container boundaries can be shown/hidden.
+- Enhanced the rules relating to whether elements can be added to a view or not.
 
 ## 1.6.3 (30th November 2020)
 
 - When adding a relationship to a dynamic view, the first relationship between the source and destination would be chosen, even if there are multiple relationships with different technologies. This release adds a way to indicate which relationship (based upon technology) should be chosen.
 - Suppress description warnings for software system instances.
-
 
 ## 1.6.2 (10th October 2020)
 

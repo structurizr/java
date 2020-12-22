@@ -140,10 +140,15 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_DoesNothing_WhenANullContainerIsSpecified() {
+    public void test_add_ThrowsAnException_WhenANullContainerIsSpecified() {
         assertEquals(0, view.getElements().size());
-        view.add((Container) null);
-        assertEquals(0, view.getElements().size());
+
+        try {
+            view.add((Container) null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("An element must be specified.", iae.getMessage());
+        }
     }
 
     @Test
@@ -248,10 +253,13 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_DoesNothing_WhenTheContainerOfTheViewIsAdded() {
-        assertEquals("the container itself is not added to the view", 0, view.getElements().stream().map(e -> e.getElement()).filter(e -> e.equals(webApplication)).count());
-        view.add(webApplication);
-        assertEquals("the container itself is not added to the view", 0, view.getElements().stream().map(e -> e.getElement()).filter(e -> e.equals(webApplication)).count());
+    public void test_add_ThrowsAnException_WhenTheContainerOfTheViewIsAdded() {
+        try {
+            view.add(webApplication);
+            fail();
+        } catch (ElementNotPermittedInViewException e) {
+            assertEquals("The container in scope cannot be added to a component view.", e.getMessage());
+        }
     }
 
     @Test
@@ -325,8 +333,11 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addNearestNeighbours_DoesNothing_WhenThereAreNoNeighbours() {
-        view.addNearestNeighbours(softwareSystem);
+        Component component = webApplication.addComponent("Component", "", "");
+        view.add(component);
+        assertEquals(1, view.getElements().size());
 
+        view.addNearestNeighbours(component);
         assertEquals(1, view.getElements().size());
     }
 
@@ -362,31 +373,13 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         // userA -> systemA -> controller -> service -> systemB -> userB
         service.uses(softwareSystemB, "");
 
-        view.addNearestNeighbours(softwareSystem);
-
-        assertEquals(3, view.getElements().size());
-        assertTrue(view.getElements().contains(new ElementView(softwareSystemA)));
-        assertTrue(view.getElements().contains(new ElementView(softwareSystem)));
-        assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
-
         view = new ComponentView(webApplication, "components", "Description");
         view.addNearestNeighbours(softwareSystemA);
 
-        assertEquals(5, view.getElements().size());
+        assertEquals(3, view.getElements().size());
         assertTrue(view.getElements().contains(new ElementView(userA)));
         assertTrue(view.getElements().contains(new ElementView(softwareSystemA)));
-        assertTrue(view.getElements().contains(new ElementView(softwareSystem)));
-        assertTrue(view.getElements().contains(new ElementView(webApplication)));
         assertTrue(view.getElements().contains(new ElementView(controller)));
-
-        view = new ComponentView(webApplication, "components", "Description");
-        view.addNearestNeighbours(webApplication);
-
-        assertEquals(4, view.getElements().size());
-        assertTrue(view.getElements().contains(new ElementView(softwareSystemA)));
-        assertTrue(view.getElements().contains(new ElementView(webApplication)));
-        assertTrue(view.getElements().contains(new ElementView(database)));
-        assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
 
         view = new ComponentView(webApplication, "components", "Description");
         view.addNearestNeighbours(controller);

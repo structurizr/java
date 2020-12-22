@@ -124,7 +124,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     public void test_addNearestNeighbours_DoesNothing_WhenThereAreNoNeighbours() {
         view.addNearestNeighbours(softwareSystem);
 
-        assertEquals(1, view.getElements().size());
+        assertEquals(0, view.getElements().size());
     }
 
     @Test
@@ -160,20 +160,20 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
         // userA -> systemA -> controller -> service -> systemB -> userB
         service.uses(softwareSystemB, "");
 
-        view.addNearestNeighbours(softwareSystem);
+        view.addNearestNeighbours(webApplication);
 
-        assertEquals(3, view.getElements().size());
+        assertEquals(4, view.getElements().size());
         assertTrue(view.getElements().contains(new ElementView(softwareSystemA)));
-        assertTrue(view.getElements().contains(new ElementView(softwareSystem)));
         assertTrue(view.getElements().contains(new ElementView(softwareSystemB)));
+        assertTrue(view.getElements().contains(new ElementView(webApplication)));
+        assertTrue(view.getElements().contains(new ElementView(database)));
 
         view = new ContainerView(softwareSystem, "containers", "Description");
         view.addNearestNeighbours(softwareSystemA);
 
-        assertEquals(4, view.getElements().size());
+        assertEquals(3, view.getElements().size());
         assertTrue(view.getElements().contains(new ElementView(userA)));
         assertTrue(view.getElements().contains(new ElementView(softwareSystemA)));
-        assertTrue(view.getElements().contains(new ElementView(softwareSystem)));
         assertTrue(view.getElements().contains(new ElementView(webApplication)));
 
         view = new ContainerView(softwareSystem, "containers", "Description");

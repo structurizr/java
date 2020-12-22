@@ -211,6 +211,11 @@ public final class DeploymentView extends View {
     }
 
     @Override
+    protected void checkElementCanBeAdded(Element element) {
+
+    }
+
+    @Override
     protected boolean canBeRemoved(Element element) {
         return true;
     }
