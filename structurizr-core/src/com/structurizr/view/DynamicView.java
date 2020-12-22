@@ -117,7 +117,10 @@ public final class DynamicView extends View {
 
         if (StringUtils.isNullOrEmpty(technology)) {
             // no technology is specified, so just pick the first relationship we find
-            relationship = source.getEfferentRelationshipWith(destination);
+            relationship = source.getEfferentRelationshipWith(destination, description);
+            if (relationship == null) {
+                relationship = source.getEfferentRelationshipWith(destination);
+            }
         } else {
             Set<Relationship> relationships = source.getEfferentRelationshipsWith(destination);
             for (Relationship rel : relationships) {
