@@ -2,10 +2,13 @@ package com.structurizr.view;
 
 import com.structurizr.model.Element;
 import com.structurizr.model.Relationship;
+import com.structurizr.util.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A default implementation of a LayoutMergeStrategy that:
@@ -14,8 +17,10 @@ import javax.annotation.Nonnull;
  * - Copies element x,y positions.
  * - Copies relationship vertices.
  *
- * Elements are matched by the full canonical name. The downside of this approach is that if an element is renamed
- * between versions of a workspace, it won't be possible to find/copy the layout information associated with an element.
+ * Elements are matched using the following properties, in order:
+ * - the element's full canonical name
+ * - the element's name
+ * - the element's description
  */
 public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
 
@@ -25,31 +30,40 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
      * Attempts to copy the visual layout information (e.g. x,y coordinates) of elements and relationships
      * from the specified source view into the specified destination view.
      *
-     * @param sourceView        the source view (e.g. the version stored by the Structurizr service)
-     * @param destinationView   the destination View (e.g. the new version, created locally with code)
+     * @param viewWithLayoutInformation         the source view (e.g. the version stored by the Structurizr service)
+     * @param viewWithoutLayoutInformation      the destination View (e.g. the new version, created locally with code)
      */
-    public void copyLayoutInformation(@Nonnull View sourceView, @Nonnull View destinationView) {
-        setPaperSizeIfNotSpecified(sourceView, destinationView);
+    public void copyLayoutInformation(@Nonnull View viewWithLayoutInformation, @Nonnull View viewWithoutLayoutInformation) {
+        setPaperSizeIfNotSpecified(viewWithLayoutInformation, viewWithoutLayoutInformation);
 
-        for (ElementView destinationElementView : destinationView.getElements()) {
-            ElementView sourceElementView = findElementView(sourceView, destinationElementView.getElement());
-            if (sourceElementView != null) {
-                destinationElementView.copyLayoutInformationFrom(sourceElementView);
+        Map<ElementView, ElementView> elementViewMap = new HashMap<>();
+        Map<Element, Element> elementMap = new HashMap<>();
+
+        for (ElementView elementViewWithoutLayoutInformation : viewWithoutLayoutInformation.getElements()) {
+            ElementView elementViewWithLayoutInformation = findElementView(viewWithLayoutInformation, elementViewWithoutLayoutInformation.getElement());
+            if (elementViewWithLayoutInformation != null) {
+                elementViewMap.put(elementViewWithoutLayoutInformation, elementViewWithLayoutInformation);
+                elementMap.put(elementViewWithoutLayoutInformation.getElement(), elementViewWithLayoutInformation.getElement());
             } else {
-                log.warn("There is no layout information for the element named " + destinationElementView.getElement().getName() + " on view " + sourceView.getKey());
+                log.warn("There is no layout information for the element named " + elementViewWithoutLayoutInformation.getElement().getName() + " on view " + viewWithLayoutInformation.getKey());
             }
         }
 
-        for (RelationshipView destinationRelationshipView : destinationView.getRelationships()) {
-            RelationshipView sourceRelationshipView;
-            if (destinationView instanceof DynamicView) {
-                sourceRelationshipView = findRelationshipView(sourceView, destinationRelationshipView);
+        for (ElementView elementViewWithoutLayoutInformation : elementViewMap.keySet()) {
+            ElementView elementViewWithLayoutInformation = elementViewMap.get(elementViewWithoutLayoutInformation);
+            elementViewWithoutLayoutInformation.copyLayoutInformationFrom(elementViewWithLayoutInformation);
+        }
+
+        for (RelationshipView relationshipViewWithoutLayoutInformation : viewWithoutLayoutInformation.getRelationships()) {
+            RelationshipView relationshipViewWithLayoutInformation;
+            if (viewWithoutLayoutInformation instanceof DynamicView) {
+                relationshipViewWithLayoutInformation = findRelationshipView(viewWithLayoutInformation, relationshipViewWithoutLayoutInformation, elementMap);
             } else {
-                sourceRelationshipView = findRelationshipView(sourceView, destinationRelationshipView.getRelationship());
+                relationshipViewWithLayoutInformation = findRelationshipView(viewWithLayoutInformation, relationshipViewWithoutLayoutInformation.getRelationship(), elementMap);
             }
 
-            if (sourceRelationshipView != null) {
-                destinationRelationshipView.copyLayoutInformationFrom(sourceRelationshipView);
+            if (relationshipViewWithLayoutInformation != null) {
+                relationshipViewWithoutLayoutInformation.copyLayoutInformationFrom(relationshipViewWithLayoutInformation);
             }
         }
     }
@@ -61,22 +75,45 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
     }
 
     /**
-     * Finds an element by canonical name. Override this to change the behaviour.
-
-     * @param view          the view to search
-     * @param element       the Element to find
+     * Finds an element. Override this to change the behaviour.
+     *
+     * @param viewWithLayoutInformation             the view to search
+     * @param elementWithoutLayoutInformation       the Element to find
      * @return  an ElementView
      */
-    protected ElementView findElementView(View view, Element element) {
-        return view.getElements().stream().filter(ev -> ev.getElement().getCanonicalName().equals(element.getCanonicalName())).findFirst().orElse(null);
+    protected ElementView findElementView(View viewWithLayoutInformation, Element elementWithoutLayoutInformation) {
+        // see if we can find an element with the same canonical name in the source view
+        ElementView elementView = viewWithLayoutInformation.getElements().stream().filter(ev -> ev.getElement().getCanonicalName().equals(elementWithoutLayoutInformation.getCanonicalName())).findFirst().orElse(null);
+
+        if (elementView == null) {
+            // no element was found, so try finding an element of the same type with the same name (in this situation, the parent element may have been renamed)
+            elementView = viewWithLayoutInformation.getElements().stream().filter(ev -> ev.getElement().getName().equals(elementWithoutLayoutInformation.getName()) && ev.getElement().getClass().equals(elementWithoutLayoutInformation.getClass())).findFirst().orElse(null);
+        }
+
+        if (elementView == null) {
+            // no element was found, so try finding an element of the same type with the same description if set (in this situation, the element itself may have been renamed)
+            if (!StringUtils.isNullOrEmpty(elementWithoutLayoutInformation.getDescription())) {
+                elementView = viewWithLayoutInformation.getElements().stream().filter(ev -> ev.getElement().getDescription().equals(elementWithoutLayoutInformation.getDescription()) && ev.getElement().getClass().equals(elementWithoutLayoutInformation.getClass())).findFirst().orElse(null);
+            }
+        }
+
+        if (elementView == null) {
+            // no element was found, so try finding an element of the same type with the same ID (in this situation, the name and description may have changed)
+            elementView = viewWithLayoutInformation.getElements().stream().filter(ev -> ev.getElement().getId().equals(elementWithoutLayoutInformation.getId()) && ev.getElement().getClass().equals(elementWithoutLayoutInformation.getClass())).findFirst().orElse(null);
+        }
+
+        return elementView;
     }
 
-    protected RelationshipView findRelationshipView(View view, Relationship relationship) {
-        for (RelationshipView rv : view.getRelationships()) {
+    private RelationshipView findRelationshipView(View viewWithLayoutInformation, Relationship relationshipWithoutLayoutInformation, Map<Element,Element> elementMap) {
+        Element sourceElementWithLayoutInformation = elementMap.get(relationshipWithoutLayoutInformation.getSource());
+        Element destinationElementWithLayoutInformation = elementMap.get(relationshipWithoutLayoutInformation.getDestination());
+
+        for (RelationshipView rv : viewWithLayoutInformation.getRelationships()) {
             if (
-                rv.getRelationship().getSource().getCanonicalName().equals(relationship.getSource().getCanonicalName()) &&
-                rv.getRelationship().getDestination().getCanonicalName().equals(relationship.getDestination().getCanonicalName()) &&
-                rv.getRelationship().getDescription().equals(relationship.getDescription())
+                rv.getRelationship().getSource().equals(sourceElementWithLayoutInformation) &&
+                rv.getRelationship().getDestination().equals(destinationElementWithLayoutInformation) &&
+                rv.getRelationship().getDescription().equals(relationshipWithoutLayoutInformation.getDescription())
             ) {
                 return rv;
             }
@@ -85,13 +122,16 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
         return null;
     }
 
-    protected RelationshipView findRelationshipView(View view, RelationshipView relationshipView) {
+    private RelationshipView findRelationshipView(View view, RelationshipView relationshipWithoutLayoutInformation, Map<Element,Element> elementMap) {
+        Element sourceElementWithLayoutInformation = elementMap.get(relationshipWithoutLayoutInformation.getRelationship().getSource());
+        Element destinationElementWithLayoutInformation = elementMap.get(relationshipWithoutLayoutInformation.getRelationship().getDestination());
+
         for (RelationshipView rv : view.getRelationships()) {
             if (
-                rv.getRelationship().getSource().getCanonicalName().equals(relationshipView.getRelationship().getSource().getCanonicalName()) &&
-                rv.getRelationship().getDestination().getCanonicalName().equals(relationshipView.getRelationship().getDestination().getCanonicalName()) &&
-                rv.getDescription().equals(relationshipView.getDescription()) &&
-                rv.getOrder().equals(relationshipView.getOrder())) {
+                rv.getRelationship().getSource().equals(sourceElementWithLayoutInformation) &&
+                rv.getRelationship().getDestination().equals(destinationElementWithLayoutInformation) &&
+                rv.getDescription().equals(relationshipWithoutLayoutInformation.getDescription()) &&
+                rv.getOrder().equals(relationshipWithoutLayoutInformation.getOrder())) {
                     return rv;
             }
         }

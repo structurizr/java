@@ -5,6 +5,7 @@
 - Removes the dynamic view restrictions related to adding containers/components outside the scoped software system/container.
 - Adds an "externalBoundariesVisible" property to DynamicView, so that external software system/container boundaries can be shown/hidden.
 - Enhanced the rules relating to whether elements can be added to a view or not.
+- Enhanced the logic to merge layout information of elements on views.
 
 ## 1.6.3 (30th November 2020)
 
