@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.7.0 (unreleased)
+## 1.7.0 (6th January 2021)
 
 - Removes the dynamic view restrictions related to adding containers/components outside the scoped software system/container.
 - Adds an "externalBoundariesVisible" property to DynamicView, so that external software system/container boundaries can be shown/hidden.
