@@ -18,7 +18,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_getName_WithNoSoftwareSystemAndNoEnvironment() {
         deploymentView = views.createDeploymentView("deployment", "Description");
-        assertEquals("Deployment", deploymentView.getName());
+        assertEquals("Deployment - Default", deploymentView.getName());
     }
 
     @Test
@@ -32,7 +32,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     public void test_getName_WithASoftwareSystemAndNoEnvironment() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         deploymentView = views.createDeploymentView(softwareSystem, "deployment", "Description");
-        assertEquals("Software System - Deployment", deploymentView.getName());
+        assertEquals("Software System - Deployment - Default", deploymentView.getName());
     }
 
     @Test
@@ -162,6 +162,77 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
         assertTrue(deploymentView.getElements().contains(new ElementView(deploymentNodeParent)));
         assertTrue(deploymentView.getElements().contains(new ElementView(deploymentNodeChild)));
         assertTrue(deploymentView.getElements().contains(new ElementView(containerInstance)));
+    }
+
+    @Test
+    public void test_addDeploymentNode_ThrowsAnException_WhenAddingADeploymentNodeFromAnotherDeploymentEnvironment() {
+        DeploymentNode devDeploymentNode = model.addDeploymentNode("Dev", "Deployment Node", "Description", "Technology");
+        devDeploymentNode.addInfrastructureNode("Load Balancer");
+        DeploymentNode liveDeploymentNode = model.addDeploymentNode("Live", "Deployment Node", "Description", "Technology");
+        liveDeploymentNode.addInfrastructureNode("Load Balancer");
+
+        deploymentView = views.createDeploymentView("deployment", "Description");
+        deploymentView.setEnvironment("Dev");
+        deploymentView.add(devDeploymentNode); // should work
+
+        try {
+            deploymentView.add(liveDeploymentNode); // should fail
+            fail();
+        } catch (Exception e) {
+            assertEquals("Only elements in the Dev deployment environment can be added to this view.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addSoftwareSystemInstance_ThrowsAnException_WhenTheSoftwareSystemInstanceIsTheSoftwareSystemInScope() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+        SoftwareSystemInstance softwareSystemInstance = deploymentNode.add(softwareSystem);
+
+        deploymentView = views.createDeploymentView(softwareSystem, "deployment", "Description");
+        deploymentView.add(deploymentNode);
+
+        // the software system instance won't have been added (neither will the empty parent deployment node)
+        assertEquals(0, deploymentView.getElements().size());
+        assertNull(deploymentView.getElementView(softwareSystemInstance));
+    }
+
+    @Test
+    public void test_addSoftwareSystemInstance_DoesNotAddTheSoftwareSystemInstance_WhenAChildContainerInstanceHasAlreadyBeenAdded() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        Container container = softwareSystem.addContainer("Container");
+        DeploymentNode deploymentNode1 = model.addDeploymentNode("Deployment Node 1", "Description", "Technology");
+        DeploymentNode deploymentNode2 = model.addDeploymentNode("Deployment Node 2", "Description", "Technology");
+        ContainerInstance containerInstance = deploymentNode1.add(container);
+        SoftwareSystemInstance softwareSystemInstance = deploymentNode2.add(softwareSystem);
+
+        deploymentView = views.createDeploymentView("deployment", "Description");
+        deploymentView.add(deploymentNode1);
+        deploymentView.add(deploymentNode2);
+
+        // the software system instance won't have been added (neither will the empty parent deployment node)
+        assertEquals(2, deploymentView.getElements().size());
+        assertNotNull(deploymentView.getElementView(containerInstance));
+        assertNull(deploymentView.getElementView(softwareSystemInstance));
+    }
+
+    @Test
+    public void test_addContainerInstance_DoesNotAddTheContainerInstance_WhenTheParentSoftwareSystemInstanceHasAlreadyBeenAdded() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        Container container = softwareSystem.addContainer("Container");
+        DeploymentNode deploymentNode1 = model.addDeploymentNode("Deployment Node 1", "Description", "Technology");
+        DeploymentNode deploymentNode2 = model.addDeploymentNode("Deployment Node 2", "Description", "Technology");
+        SoftwareSystemInstance softwareSystemInstance = deploymentNode1.add(softwareSystem);
+        ContainerInstance containerInstance = deploymentNode2.add(container);
+
+        deploymentView = views.createDeploymentView("deployment", "Description");
+        deploymentView.add(deploymentNode1);
+        deploymentView.add(deploymentNode2);
+
+        // the container instance won't have been added (neither will the empty parent deployment node)
+        assertEquals(2, deploymentView.getElements().size());
+        assertNotNull(deploymentView.getElementView(softwareSystemInstance));
+        assertNull(deploymentView.getElementView(containerInstance));
     }
 
     @Test

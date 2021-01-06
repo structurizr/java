@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 public abstract class DeploymentElement extends Element {
 
-    static final String DEFAULT_DEPLOYMENT_ENVIRONMENT = "Default";
+    public static final String DEFAULT_DEPLOYMENT_ENVIRONMENT = "Default";
 
     private DeploymentNode parent;
     private String environment = DEFAULT_DEPLOYMENT_ENVIRONMENT;

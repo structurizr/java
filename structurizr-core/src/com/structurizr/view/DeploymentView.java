@@ -6,6 +6,7 @@ import com.structurizr.util.StringUtils;
 
 import javax.annotation.Nonnull;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A deployment view, used to show the mapping of container instances to deployment nodes.
@@ -13,7 +14,7 @@ import java.util.*;
 public final class DeploymentView extends View {
 
     private Model model;
-    private String environment;
+    private String environment = DeploymentElement.DEFAULT_DEPLOYMENT_ENVIRONMENT;
 
     private List<Animation> animations = new ArrayList<>();
 
@@ -133,15 +134,23 @@ public final class DeploymentView extends View {
     private boolean addElementInstancesAndDeploymentNodesAndInfrastructureNodes(DeploymentNode deploymentNode, boolean addRelationships) {
         boolean hasElementsOrInfrastructureNodes = false;
         for (SoftwareSystemInstance softwareSystemInstance : deploymentNode.getSoftwareSystemInstances()) {
-            addElement(softwareSystemInstance, addRelationships);
-            hasElementsOrInfrastructureNodes = true;
+            try {
+                addElement(softwareSystemInstance, addRelationships);
+                hasElementsOrInfrastructureNodes = true;
+            } catch (ElementNotPermittedInViewException e) {
+                // the element can't be added, so ignore it
+            }
         }
 
         for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
             Container container = containerInstance.getContainer();
             if (getSoftwareSystem() == null || container.getParent().equals(getSoftwareSystem())) {
-                addElement(containerInstance, addRelationships);
-                hasElementsOrInfrastructureNodes = true;
+                try {
+                    addElement(containerInstance, addRelationships);
+                    hasElementsOrInfrastructureNodes = true;
+                } catch (ElementNotPermittedInViewException e) {
+                    // the element can't be added, so ignore it
+                }
             }
         }
 
@@ -211,8 +220,44 @@ public final class DeploymentView extends View {
     }
 
     @Override
-    protected void checkElementCanBeAdded(Element element) {
+    protected void checkElementCanBeAdded(Element elementToBeAdded) {
+        if (!(elementToBeAdded instanceof DeploymentElement)) {
+            throw new ElementNotPermittedInViewException("Only deployment nodes, infrastructure nodes, software system instances, and container instances can be added to deployment views.");
+        }
 
+        DeploymentElement deploymentElementToBeAdded = (DeploymentElement) elementToBeAdded;
+        if (!deploymentElementToBeAdded.getEnvironment().equals(this.getEnvironment())) {
+            throw new ElementNotPermittedInViewException("Only elements in the " + this.getEnvironment() + " deployment environment can be added to this view.");
+        }
+
+        if (this.getSoftwareSystem() != null && elementToBeAdded instanceof SoftwareSystemInstance) {
+            SoftwareSystemInstance ssi = (SoftwareSystemInstance) elementToBeAdded;
+
+            if (ssi.getSoftwareSystem().equals(this.getSoftwareSystem())) {
+                // adding an instance of the scoped software system isn't permitted
+                throw new ElementNotPermittedInViewException("The software system in scope cannot be added to a deployment view.");
+            }
+        }
+
+        if (elementToBeAdded instanceof SoftwareSystemInstance) {
+            // check that a child container instance hasn't been added already
+            SoftwareSystemInstance softwareSystemInstanceToBeAdded = (SoftwareSystemInstance) elementToBeAdded;
+            Set<String> softwareSystemIds = getElements().stream().map(ElementView::getElement).filter(e -> e instanceof ContainerInstance).map(e -> (ContainerInstance)e).map(ci -> ci.getContainer().getSoftwareSystem().getId()).collect(Collectors.toSet());
+
+            if (softwareSystemIds.contains(softwareSystemInstanceToBeAdded.getSoftwareSystemId())) {
+                throw new ElementNotPermittedInViewException("A child of " + elementToBeAdded.getName() + " is already in this view.");
+            }
+        }
+
+        if (elementToBeAdded instanceof ContainerInstance) {
+            // check that the parent software system instance hasn't been added already
+            ContainerInstance containerInstanceToBeAdded = (ContainerInstance)elementToBeAdded;
+            Set<String> softwareSystemIds = getElements().stream().map(ElementView::getElement).filter(e -> e instanceof SoftwareSystemInstance).map(e -> (SoftwareSystemInstance)e).map(SoftwareSystemInstance::getSoftwareSystemId).collect(Collectors.toSet());
+
+            if (softwareSystemIds.contains(containerInstanceToBeAdded.getContainer().getSoftwareSystem().getId())) {
+                throw new ElementNotPermittedInViewException("The parent of " + elementToBeAdded.getName() + " is already in this view.");
+            }
+        }
     }
 
     @Override

@@ -66,31 +66,6 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenADeploymentNodeIsAdded() {
-        try {
-            DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
-            DeploymentNode deploymentNode = workspace.getModel().addDeploymentNode("Deployment node", "Description", "Technology");
-            dynamicView.add(deploymentNode, softwareSystemA);
-            fail();
-        } catch (ElementNotPermittedInViewException e) {
-            assertEquals("Only people, software systems, containers and components can be added to dynamic views.", e.getMessage());
-        }
-    }
-
-    @Test
-    public void test_add_ThrowsAnException_WhenAContainerInstanceIsAdded() {
-        try {
-            DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
-            DeploymentNode deploymentNode = workspace.getModel().addDeploymentNode("Deployment node", "Description", "Technology");
-            ContainerInstance containerInstance = deploymentNode.add(containerA1);
-            dynamicView.add(containerInstance, softwareSystemA);
-            fail();
-        } catch (ElementNotPermittedInViewException e) {
-            assertEquals("Only people, software systems, containers and components can be added to dynamic views.", e.getMessage());
-        }
-    }
-
-    @Test
     public void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsNotSpecifiedButAContainerIsAdded() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");

@@ -92,15 +92,15 @@ public final class DynamicView extends View {
         }
     }
 
-    public RelationshipView add(@Nonnull Element source, @Nonnull Element destination) {
+    public RelationshipView add(@Nonnull StaticStructureElement source, @Nonnull StaticStructureElement destination) {
         return add(source, "", destination);
     }
 
-    public RelationshipView add(@Nonnull Element source, String description, @Nonnull Element destination) {
+    public RelationshipView add(@Nonnull StaticStructureElement source, String description, @Nonnull StaticStructureElement destination) {
         return add(source, description, "", destination);
     }
 
-    public RelationshipView add(@Nonnull Element source, String description, String technology, @Nonnull Element destination) {
+    public RelationshipView add(@Nonnull StaticStructureElement source, String description, String technology, @Nonnull StaticStructureElement destination) {
         if (source == null) {
             throw new IllegalArgumentException("A source element must be specified.");
         }
@@ -214,12 +214,14 @@ public final class DynamicView extends View {
 
     @Override
     protected void checkElementCanBeAdded(Element elementToBeAdded) {
-        if (!(elementToBeAdded instanceof Person) && !(elementToBeAdded instanceof SoftwareSystem) && !(elementToBeAdded instanceof Container) && !(elementToBeAdded instanceof Component)) {
+        if (!(elementToBeAdded instanceof StaticStructureElement)) {
             throw new ElementNotPermittedInViewException("Only people, software systems, containers and components can be added to dynamic views.");
         }
 
+        StaticStructureElement staticStructureElementToBeAdded = (StaticStructureElement)elementToBeAdded;
+
         // people can always be added
-        if (elementToBeAdded instanceof Person) {
+        if (staticStructureElementToBeAdded instanceof Person) {
             return;
         }
 
@@ -227,13 +229,13 @@ public final class DynamicView extends View {
         //  - containers
         //  - other software systems
         if (element instanceof SoftwareSystem) {
-            if (elementToBeAdded.equals(element)) {
-                throw new ElementNotPermittedInViewException(elementToBeAdded.getName() + " is already the scope of this view and cannot be added to it.");
+            if (staticStructureElementToBeAdded.equals(element)) {
+                throw new ElementNotPermittedInViewException(staticStructureElementToBeAdded.getName() + " is already the scope of this view and cannot be added to it.");
             }
 
-            if (elementToBeAdded instanceof SoftwareSystem || elementToBeAdded instanceof Container) {
-                checkParentAndChildrenHaveNotAlreadyBeenAdded(elementToBeAdded);
-            } else if (elementToBeAdded instanceof Component) {
+            if (staticStructureElementToBeAdded instanceof SoftwareSystem || staticStructureElementToBeAdded instanceof Container) {
+                checkParentAndChildrenHaveNotAlreadyBeenAdded(staticStructureElementToBeAdded);
+            } else if (staticStructureElementToBeAdded instanceof Component) {
                 throw new ElementNotPermittedInViewException("Components can't be added to a dynamic view when the scope is a software system.");
             }
         }
@@ -242,17 +244,17 @@ public final class DynamicView extends View {
         //  - other containers
         //  - components
         if (element instanceof Container) {
-            if (elementToBeAdded.equals(element) || elementToBeAdded.equals(element.getParent())) {
-                throw new ElementNotPermittedInViewException(elementToBeAdded.getName() + " is already the scope of this view and cannot be added to it.");
+            if (staticStructureElementToBeAdded.equals(element) || staticStructureElementToBeAdded.equals(element.getParent())) {
+                throw new ElementNotPermittedInViewException(staticStructureElementToBeAdded.getName() + " is already the scope of this view and cannot be added to it.");
             }
 
-            checkParentAndChildrenHaveNotAlreadyBeenAdded(elementToBeAdded);
+            checkParentAndChildrenHaveNotAlreadyBeenAdded(staticStructureElementToBeAdded);
         }
 
         // dynamic view with no scope
         //  - software systems
         if (element == null) {
-            if (!(elementToBeAdded instanceof SoftwareSystem)) {
+            if (!(staticStructureElementToBeAdded instanceof SoftwareSystem)) {
                 throw new ElementNotPermittedInViewException("Only people and software systems can be added to this dynamic view.");
             }
         }

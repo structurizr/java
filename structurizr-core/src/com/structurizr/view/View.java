@@ -434,7 +434,7 @@ public abstract class View {
 
     protected abstract boolean canBeRemoved(Element element);
 
-    protected void checkParentAndChildrenHaveNotAlreadyBeenAdded(Element elementToBeAdded) {
+    final void checkParentAndChildrenHaveNotAlreadyBeenAdded(StaticStructureElement elementToBeAdded) {
         // check the parent hasn't been added already
         Set<String> elementIds = getElements().stream().map(ElementView::getElement).map(Element::getId).collect(Collectors.toSet());
 
