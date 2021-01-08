@@ -596,56 +596,68 @@ public final class ViewSet {
 
     public void copyLayoutInformationFrom(ViewSet source) {
         for (SystemLandscapeView view : systemLandscapeViews) {
-            SystemLandscapeView sourceView = findView(source.getSystemLandscapeViews(), view);
-            if (sourceView != null) {
-                view.copyLayoutInformationFrom(sourceView);
-            } else {
-                log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+            if (view.getAutomaticLayout() == null) {
+                SystemLandscapeView sourceView = findView(source.getSystemLandscapeViews(), view);
+                if (sourceView != null) {
+                    view.copyLayoutInformationFrom(sourceView);
+                } else {
+                    log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+                }
             }
         }
 
         for (SystemContextView view : systemContextViews) {
-            SystemContextView sourceView = findView(source.getSystemContextViews(), view);
-            if (sourceView != null) {
-                view.copyLayoutInformationFrom(sourceView);
-            } else {
-                log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+            if (view.getAutomaticLayout() == null) {
+                SystemContextView sourceView = findView(source.getSystemContextViews(), view);
+                if (sourceView != null) {
+                    view.copyLayoutInformationFrom(sourceView);
+                } else {
+                    log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+                }
             }
         }
 
         for (ContainerView view : containerViews) {
-            ContainerView sourceView = findView(source.getContainerViews(), view);
-            if (sourceView != null) {
-                view.copyLayoutInformationFrom(sourceView);
-            } else {
-                log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+            if (view.getAutomaticLayout() == null) {
+                ContainerView sourceView = findView(source.getContainerViews(), view);
+                if (sourceView != null) {
+                    view.copyLayoutInformationFrom(sourceView);
+                } else {
+                    log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+                }
             }
         }
 
         for (ComponentView view : componentViews) {
-            ComponentView sourceView = findView(source.getComponentViews(), view);
-            if (sourceView != null) {
-                view.copyLayoutInformationFrom(sourceView);
-            } else {
-                log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+            if (view.getAutomaticLayout() == null) {
+                ComponentView sourceView = findView(source.getComponentViews(), view);
+                if (sourceView != null) {
+                    view.copyLayoutInformationFrom(sourceView);
+                } else {
+                    log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+                }
             }
         }
 
         for (DynamicView view : dynamicViews) {
-            DynamicView sourceView = findView(source.getDynamicViews(), view);
-            if (sourceView != null) {
-                view.copyLayoutInformationFrom(sourceView);
-            } else {
-                log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+            if (view.getAutomaticLayout() == null) {
+                DynamicView sourceView = findView(source.getDynamicViews(), view);
+                if (sourceView != null) {
+                    view.copyLayoutInformationFrom(sourceView);
+                } else {
+                    log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+                }
             }
         }
 
         for (DeploymentView view : deploymentViews) {
-            DeploymentView sourceView = findView(source.getDeploymentViews(), view);
-            if (sourceView != null) {
-                view.copyLayoutInformationFrom(sourceView);
-            } else {
-                log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+            if (view.getAutomaticLayout() == null) {
+                DeploymentView sourceView = findView(source.getDeploymentViews(), view);
+                if (sourceView != null) {
+                    view.copyLayoutInformationFrom(sourceView);
+                } else {
+                    log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+                }
             }
         }
     }
