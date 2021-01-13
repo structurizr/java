@@ -65,6 +65,17 @@ public final class Container extends StaticStructureElement {
      * Adds a component to this container.
      *
      * @param name          the name of the component
+     * @return  the resulting Component instance
+     * @throws  IllegalArgumentException    if the component name is null or empty, or a component with the same name already exists
+     */
+    public Component addComponent(String name) {
+        return this.addComponent(name, "");
+    }
+
+    /**
+     * Adds a component to this container.
+     *
+     * @param name          the name of the component
      * @param description   a description of the component
      * @return  the resulting Component instance
      * @throws  IllegalArgumentException    if the component name is null or empty, or a component with the same name already exists
