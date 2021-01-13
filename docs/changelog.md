@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.7.1 (unreleased)
+
+- Bug fixes.
+
 ## 1.7.0 (6th January 2021)
 
 - Removes the dynamic view restrictions related to adding containers/components outside the scoped software system/container.
