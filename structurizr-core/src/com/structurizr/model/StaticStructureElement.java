@@ -1,5 +1,7 @@
 package com.structurizr.model;
 
+import com.structurizr.util.StringUtils;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -29,7 +31,15 @@ public abstract class StaticStructureElement extends Element {
      * @param group     the group name
      */
     public void setGroup(String group) {
-        this.group = group;
+        if (group == null) {
+            this.group = null;
+        } else {
+            this.group = group.trim();
+
+            if (StringUtils.isNullOrEmpty(this.group)) {
+                this.group = null;
+            }
+        }
     }
 
     /**
