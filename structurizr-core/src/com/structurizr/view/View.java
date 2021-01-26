@@ -116,6 +116,10 @@ public abstract class View {
     }
 
     void setKey(String key) {
+        if (key != null) {
+            key = key.replaceAll("/", "_");
+        }
+
         this.key = key;
     }
 

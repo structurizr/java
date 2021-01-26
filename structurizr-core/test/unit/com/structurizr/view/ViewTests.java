@@ -22,6 +22,13 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_construction_WhenTheViewKeyContainsAForwardSlashCharacter() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        StaticView view = new SystemContextView(softwareSystem, "key/1", "Description");
+        assertEquals("key_1", view.getKey());
+    }
+
+    @Test
     public void test_addAllSoftwareSystems_DoesNothing_WhenThereAreNoOtherSoftwareSystemsInTheModel() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         StaticView view = new SystemContextView(softwareSystem, "context", "Description");
