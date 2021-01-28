@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.7.1 (unreleased)
+## 1.7.1 (28th January 2021)
 
 - Bug fixes.
 
