@@ -4,6 +4,8 @@ import com.structurizr.configuration.WorkspaceConfiguration;
 
 import java.lang.reflect.Constructor;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The superclass for regular and encrypted workspaces.
@@ -19,6 +21,8 @@ public abstract class AbstractWorkspace {
     private String lastModifiedUser;
     private String lastModifiedAgent;
     private String thumbnail;
+
+    private Map<String, String> properties = new HashMap<>();
 
     private WorkspaceConfiguration configuration;
 
@@ -225,6 +229,39 @@ public abstract class AbstractWorkspace {
      */
     public void clearConfiguration() {
         this.configuration = null;
+    }
+
+    /**
+     * Gets the collection of name-value property pairs associated with this workspace, as a Map.
+     *
+     * @return  a Map (String, String) (empty if there are no properties)
+     */
+    public Map<String, String> getProperties() {
+        return new HashMap<>(properties);
+    }
+
+    /**
+     * Adds a name-value pair property to this workspace.
+     *
+     * @param name      the name of the property
+     * @param value     the value of the property
+     */
+    public void addProperty(String name, String value) {
+        if (name == null || name.trim().length() == 0) {
+            throw new IllegalArgumentException("A property name must be specified.");
+        }
+
+        if (value == null || value.trim().length() == 0) {
+            throw new IllegalArgumentException("A property value must be specified.");
+        }
+
+        properties.put(name, value);
+    }
+
+    void setProperties(Map<String, String> properties) {
+        if (properties != null) {
+            this.properties = new HashMap<>(properties);
+        }
     }
 
 }
