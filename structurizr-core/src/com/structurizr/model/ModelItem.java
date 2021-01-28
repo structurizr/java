@@ -146,7 +146,7 @@ public abstract class ModelItem {
     }
 
     /**
-     * Gets the collection of name-value property pairs associated with this element, as a Map.
+     * Gets the collection of name-value property pairs associated with this model item, as a Map.
      *
      * @return  a Map (String, String) (empty if there are no properties)
      */
@@ -155,7 +155,7 @@ public abstract class ModelItem {
     }
 
     /**
-     * Adds a name-value pair property to this element.
+     * Adds a name-value pair property to this model item.
      *
      * @param name      the name of the property
      * @param value     the value of the property
