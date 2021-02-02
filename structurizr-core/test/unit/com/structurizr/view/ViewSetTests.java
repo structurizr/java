@@ -28,6 +28,56 @@ public class ViewSetTests {
     }
 
     @Test
+    public void test_createCustomView_ThrowsAnException_WhenANullKeyIsSpecified() {
+        try {
+            new Workspace("", "").getViews().createCustomView(null, "Title", "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A key must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createCustomView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+        try {
+            new Workspace("", "").getViews().createCustomView(" ", "Title", "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A key must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createCustomView_ThrowsAnException_WhenADuplicateKeyIsSpecified() {
+        try {
+            Workspace workspace = new Workspace("Name", "Description");
+            workspace.getViews().createCustomView("key", "Title", "Description");
+            workspace.getViews().createCustomView("key", "Title", "Description");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A view with the key key already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_createCustomView_DoesNotThrowAnException_WhenUniqueKeysAreSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        workspace.getViews().createCustomView("key1", "Title", "Description");
+        workspace.getViews().createCustomView("key2", "Title", "Description");
+    }
+
+    @Test
+    public void test_createCustomView() {
+        Workspace workspace = new Workspace("Name", "Description");
+        CustomView customView = workspace.getViews().createCustomView("key", "Title", "Description");
+        assertEquals("key", customView.getKey());
+        assertEquals("Title", customView.getTitle());
+        assertEquals("Description", customView.getDescription());
+
+        assertEquals(1, workspace.getViews().getCustomViews().size());
+    }
+
+    @Test
     public void test_createSystemLandscapeView_ThrowsAnException_WhenANullKeyIsSpecified() {
         try {
             new Workspace("", "").getViews().createSystemLandscapeView(null, "Description");

@@ -221,6 +221,10 @@ public final class DeploymentView extends View {
 
     @Override
     protected void checkElementCanBeAdded(Element elementToBeAdded) {
+        if (elementToBeAdded instanceof CustomElement) {
+            return;
+        }
+
         if (!(elementToBeAdded instanceof DeploymentElement)) {
             throw new ElementNotPermittedInViewException("Only deployment nodes, infrastructure nodes, software system instances, and container instances can be added to deployment views.");
         }

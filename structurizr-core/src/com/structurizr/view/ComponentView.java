@@ -283,7 +283,7 @@ public final class ComponentView extends StaticView {
 
     @Override
     protected void checkElementCanBeAdded(Element element) {
-        if (element instanceof Person) {
+        if (element instanceof CustomElement || element instanceof Person) {
             return;
         }
 

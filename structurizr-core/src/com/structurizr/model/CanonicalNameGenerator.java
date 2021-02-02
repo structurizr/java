@@ -2,6 +2,7 @@ package com.structurizr.model;
 
 final class CanonicalNameGenerator {
 
+    private static final String CUSTOM_ELEMENT_TYPE = "Custom://";
     private static final String PERSON_TYPE = "Person://";
     private static final String SOFTWARE_SYSTEM_TYPE = "SoftwareSystem://";
     private static final String CONTAINER_TYPE = "Container://";
@@ -23,6 +24,10 @@ final class CanonicalNameGenerator {
         return name
                 .replace(STATIC_CANONICAL_NAME_SEPARATOR, "")
                 .replace(DEPLOYMENT_CANONICAL_NAME_SEPARATOR, "");
+    }
+
+    String generate(CustomElement customElement) {
+        return CUSTOM_ELEMENT_TYPE + formatName(customElement);
     }
 
     String generate(Person person) {

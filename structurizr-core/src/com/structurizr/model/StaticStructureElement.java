@@ -9,37 +9,9 @@ import javax.annotation.Nullable;
  * This is the superclass for model elements that describe the static structure
  * of a software system, namely Person, SoftwareSystem, Container and Component.
  */
-public abstract class StaticStructureElement extends Element {
+public abstract class StaticStructureElement extends GroupableElement {
 
-    private String group;
-
-    protected StaticStructureElement() {
-    }
-
-    /**
-     * Gets the group in which this element should be included in (experimental feature).
-     *
-     * @return  the group name, or null if not set
-     */
-    public String getGroup() {
-        return group;
-    }
-
-    /**
-     * Sets the group in which this element should be included in (experimental feature).
-     *
-     * @param group     the group name
-     */
-    public void setGroup(String group) {
-        if (group == null) {
-            this.group = null;
-        } else {
-            this.group = group.trim();
-
-            if (StringUtils.isNullOrEmpty(this.group)) {
-                this.group = null;
-            }
-        }
+    StaticStructureElement() {
     }
 
     /**

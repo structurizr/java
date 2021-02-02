@@ -107,7 +107,7 @@ public final class SystemLandscapeView extends StaticView {
 
     @Override
     protected void checkElementCanBeAdded(Element element) {
-        if (element instanceof Person || element instanceof SoftwareSystem) {
+        if (element instanceof CustomElement || element instanceof Person || element instanceof SoftwareSystem) {
             // all good
         } else {
             throw new ElementNotPermittedInViewException("Only people and software systems can be added to a system landscape view.");

@@ -439,4 +439,54 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getAutomaticLayout().isVertices());
     }
 
+    @Test
+    public void test_addCustomElement_AddsTheCustomElementToTheView() {
+        Workspace workspace = new Workspace("", "");
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
+
+        CustomElement box1 = workspace.getModel().addCustomElement("Box 1");
+        CustomElement box2 = workspace.getModel().addCustomElement("Box 2");
+        box1.uses(box2, "Uses");
+
+        view.add(box1);
+        assertEquals(1, view.getElements().size());
+        assertEquals(0, view.getRelationships().size());
+
+        view.add(box2);
+        assertEquals(2, view.getElements().size());
+        assertEquals(1, view.getRelationships().size());
+    }
+
+    @Test
+    public void test_addCustomElementWithoutRelationships_AddsTheCustomElementToTheView() {
+        Workspace workspace = new Workspace("", "");
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
+
+        CustomElement box1 = workspace.getModel().addCustomElement("Box 1");
+        CustomElement box2 = workspace.getModel().addCustomElement("Box 2");
+        box1.uses(box2, "Uses");
+
+        view.add(box1);
+        assertEquals(1, view.getElements().size());
+        assertEquals(0, view.getRelationships().size());
+
+        view.add(box2, false);
+        assertEquals(2, view.getElements().size());
+        assertEquals(0, view.getRelationships().size());
+    }
+
+    @Test
+    public void test_removeCustomElement_RemovesTheCustomElementFromTheView() {
+        Workspace workspace = new Workspace("", "");
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
+
+        CustomElement box1 = workspace.getModel().addCustomElement("Box 1");
+
+        view.add(box1);
+        assertEquals(1, view.getElements().size());
+
+        view.remove(box1);
+        assertEquals(0, view.getElements().size());
+    }
+
 }

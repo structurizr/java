@@ -2,14 +2,12 @@ package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import com.structurizr.Workspace;
 import com.structurizr.WorkspaceValidationException;
 import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import java.text.DecimalFormat;
 import java.util.*;
 
 import static com.structurizr.util.StringUtils.isNullOrEmpty;
@@ -23,6 +21,7 @@ public final class ViewSet {
 
     private Model model;
 
+    private Collection<CustomView> customViews = new HashSet<>();
     private Collection<SystemLandscapeView> systemLandscapeViews = new HashSet<>();
     private Collection<SystemContextView> systemContextViews = new HashSet<>();
     private Collection<ContainerView> containerViews = new HashSet<>();
@@ -42,11 +41,29 @@ public final class ViewSet {
     }
 
     /**
+     * Creates a custom view view.
+     *
+     * @param key           the key for the view (must be unique)
+     * @param title         a title of the view
+     * @param description   a description of the view
+     * @return              a CustomView object
+     * @throws              IllegalArgumentException if the key is not unique
+     */
+    public CustomView createCustomView(String key, String title, String description) {
+        assertThatTheViewKeyIsSpecifiedAndUnique(key);
+
+        CustomView view = new CustomView(model, key, title, description);
+        view.setViewSet(this);
+        customViews.add(view);
+        return view;
+    }
+
+    /**
      * Creates a system landscape view.
      *
      * @param key           the key for the view (must be unique)
      * @param description   a description of the view
-     * @return              an SystemLandscapeView object
+     * @return              a SystemLandscapeView object
      * @throws              IllegalArgumentException if the key is not unique
      */
     public SystemLandscapeView createSystemLandscapeView(String key, String description) {
@@ -280,6 +297,7 @@ public final class ViewSet {
         }
 
         Set<View> views = new HashSet<>();
+        views.addAll(customViews);
         views.addAll(systemLandscapeViews);
         views.addAll(systemContextViews);
         views.addAll(containerViews);
@@ -302,6 +320,21 @@ public final class ViewSet {
         }
 
         return filteredViews.stream().filter(v -> key.equals(v.getKey())).findFirst().orElse(null);
+    }
+
+    /**
+     * Gets the set of custom views.
+     *
+     * @return  a Collection of CustomView objects
+     */
+    public Collection<CustomView> getCustomViews() {
+        return new HashSet<>(customViews);
+    }
+
+    void setCustomViews(Set<CustomView> customViews) {
+        if (customViews != null) {
+            this.customViews = new HashSet<>(customViews);
+        }
     }
 
     /**
@@ -438,6 +471,11 @@ public final class ViewSet {
 
         checkViewKeysAreUnique();
 
+        for (CustomView view : customViews) {
+            view.setModel(model);
+            hydrateView(view);
+        }
+
         for (SystemLandscapeView view : systemLandscapeViews) {
             view.setModel(model);
             hydrateView(view);
@@ -561,6 +599,7 @@ public final class ViewSet {
     private void checkViewKeysAreUnique() {
         Set<String> keys = new HashSet<>();
         Collection<View> views = new ArrayList<>();
+        views.addAll(customViews);
         views.addAll(systemLandscapeViews);
         views.addAll(systemContextViews);
         views.addAll(containerViews);
@@ -595,6 +634,17 @@ public final class ViewSet {
     }
 
     public void copyLayoutInformationFrom(ViewSet source) {
+        for (CustomView view : customViews) {
+            if (view.getAutomaticLayout() == null) {
+                CustomView sourceView = findView(source.getCustomViews(), view);
+                if (sourceView != null) {
+                    view.copyLayoutInformationFrom(sourceView);
+                } else {
+                    log.warn("Could not find a matching view for \"" + view.getName() + "\" ... diagram layout information may be lost.");
+                }
+            }
+        }
+
         for (SystemLandscapeView view : systemLandscapeViews) {
             if (view.getAutomaticLayout() == null) {
                 SystemLandscapeView sourceView = findView(source.getSystemLandscapeViews(), view);
@@ -686,7 +736,7 @@ public final class ViewSet {
 
     @JsonIgnore
     public boolean isEmpty() {
-        return systemLandscapeViews.isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && dynamicViews.isEmpty() && deploymentViews.isEmpty() && filteredViews.isEmpty();
+        return customViews.isEmpty() && systemLandscapeViews.isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && dynamicViews.isEmpty() && deploymentViews.isEmpty() && filteredViews.isEmpty();
     }
 
     public void createDefaultViews() {
@@ -797,6 +847,7 @@ public final class ViewSet {
      * Removes all views and configuration.
      */
     public void clear() {
+        customViews = new HashSet<>();
         systemLandscapeViews = new HashSet<>();
         systemContextViews = new HashSet<>();
         containerViews = new HashSet<>();

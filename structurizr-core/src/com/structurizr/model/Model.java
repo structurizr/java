@@ -23,6 +23,7 @@ public final class Model {
     private Set<Person> people = new LinkedHashSet<>();
     private Set<SoftwareSystem> softwareSystems = new LinkedHashSet<>();
     private Set<DeploymentNode> deploymentNodes = new LinkedHashSet<>();
+    private Set<CustomElement> customElements = new LinkedHashSet<>();
 
     private ImpliedRelationshipsStrategy impliedRelationshipsStrategy = new DefaultImpliedRelationshipsStrategy();
 
@@ -94,7 +95,7 @@ public final class Model {
 
             return softwareSystem;
         } else {
-            throw new IllegalArgumentException("A software system named '" + name + "' already exists.");
+            throw new IllegalArgumentException("A top-level element named '" + name + "' already exists.");
         }
     }
 
@@ -147,9 +148,51 @@ public final class Model {
 
             return person;
         } else {
-            throw new IllegalArgumentException("A person named '" + name + "' already exists.");
+            throw new IllegalArgumentException("A top-level element named '" + name + "' already exists.");
         }
     }
+
+    /**
+     * Creates a custom element and adds it to the model.
+     *
+     * @param name        the name of the custom element
+     * @return the CustomElement instance created and added to the model (or null)
+     * @throws IllegalArgumentException if a custom element/person/software system with the same name already exists
+     */
+    @Nonnull
+    public CustomElement addCustomElement(@Nonnull String name) {
+        return addCustomElement(name, "", "");
+    }
+
+    /**
+     * Creates a custom element and adds it to the model.
+     *
+     * @param name          the name of the custom element
+     * @param description   a short description of the custom element
+     * @param metadata      the metadata of the custom element
+     * @return the CustomElement instance created and added to the model (or null)
+     * @throws IllegalArgumentException if a custom element/person/software system with the same name already exists
+     */
+    @Nonnull
+    public CustomElement addCustomElement(@Nonnull String name, @Nullable String metadata, @Nullable String description) {
+        if (getCustomElementWithName(name) == null) {
+            CustomElement customElement = new CustomElement();
+            customElement.setName(name);
+            customElement.setMetadata(metadata);
+            customElement.setDescription(description);
+
+            customElements.add(customElement);
+
+            customElement.setId(idGenerator.generateId(customElement));
+            addElementToInternalStructures(customElement);
+
+            return customElement;
+        } else {
+            throw new IllegalArgumentException("A top-level element named '" + name + "' already exists.");
+        }
+    }
+
+
 
     @Nonnull
     Container addContainer(SoftwareSystem parent, @Nonnull String name, @Nullable String description, @Nullable String technology) {
@@ -340,6 +383,22 @@ public final class Model {
     }
 
     /**
+     * Gets the set of all custom elements in this model.
+     *
+     * @return a Set of CustomElement instances
+     */
+    @Nonnull
+    public Set<CustomElement> getCustomElements() {
+        return new LinkedHashSet<>(customElements);
+    }
+
+    void setCustomElements(Set<CustomElement> customElements) {
+        if (customElements != null) {
+            this.customElements = new LinkedHashSet<>(customElements);
+        }
+    }
+
+    /**
      * Gets the set of all people in this model.
      *
      * @return a Set of Person instances
@@ -389,6 +448,7 @@ public final class Model {
 
     void hydrate() {
         // add all of the elements to the model
+        customElements.forEach(this::addElementToInternalStructures);
         people.forEach(this::addElementToInternalStructures);
 
         for (SoftwareSystem softwareSystem : softwareSystems) {
@@ -578,6 +638,28 @@ public final class Model {
         for (Person person : getPeople()) {
             if (person.getName().equals(name)) {
                 return person;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Gets the custom element with the specified name.
+     *
+     * @param name the name of the custom element
+     * @return the CustomElement instance with the specified name (or null if it doesn't exist)
+     * @throws IllegalArgumentException if the name is null or empty
+     */
+    @Nullable
+    public CustomElement getCustomElementWithName(@Nonnull String name) {
+        if (name == null || name.trim().length() == 0) {
+            throw new IllegalArgumentException("A custom element name must be specified.");
+        }
+
+        for (CustomElement customElement : getCustomElements()) {
+            if (customElement.getName().equals(name)) {
+                return customElement;
             }
         }
 

@@ -1,5 +1,6 @@
 package com.structurizr.view;
 
+import com.structurizr.model.CustomElement;
 import com.structurizr.model.Element;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
@@ -90,7 +91,7 @@ public final class SystemContextView extends StaticView {
 
     @Override
     protected void checkElementCanBeAdded(Element element) {
-        if (element instanceof Person || element instanceof SoftwareSystem) {
+        if (element instanceof CustomElement || element instanceof Person || element instanceof SoftwareSystem) {
             // all good
         } else {
             throw new ElementNotPermittedInViewException("Only people and software systems can be added to a system context view.");

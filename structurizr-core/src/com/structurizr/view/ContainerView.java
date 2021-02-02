@@ -1,9 +1,6 @@
 package com.structurizr.view;
 
-import com.structurizr.model.Container;
-import com.structurizr.model.Element;
-import com.structurizr.model.Person;
-import com.structurizr.model.SoftwareSystem;
+import com.structurizr.model.*;
 
 import javax.annotation.Nonnull;
 
@@ -176,7 +173,7 @@ public final class ContainerView extends StaticView {
 
     @Override
     protected void checkElementCanBeAdded(Element element) {
-        if (element instanceof Person) {
+        if (element instanceof CustomElement || element instanceof Person) {
             return;
         }
 

@@ -52,7 +52,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
             model.addSoftwareSystem(Location.External, "System A", "Description");
             fail();
         } catch (Exception e) {
-            assertEquals("A software system named 'System A' already exists.", e.getMessage());
+            assertEquals("A top-level element named 'System A' already exists.", e.getMessage());
         }
     }
 
@@ -91,7 +91,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
             model.addPerson(Location.External, "Admin User", "Description");
             fail();
         } catch (Exception e) {
-            assertEquals("A person named 'Admin User' already exists.", e.getMessage());
+            assertEquals("A top-level element named 'Admin User' already exists.", e.getMessage());
         }
     }
 

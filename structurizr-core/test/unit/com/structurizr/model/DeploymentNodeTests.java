@@ -134,7 +134,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     public void test_uses_ThrowsAnException_WhenANullDestinationIsSpecified() {
         try {
             DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "", "");
-            deploymentNode.uses(null, "", "");
+            deploymentNode.uses((DeploymentNode)null, "", "");
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("The destination must be specified.", iae.getMessage());

@@ -3,6 +3,8 @@ package com.structurizr.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.util.Url;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 
 /**
@@ -207,6 +209,46 @@ public abstract class Element extends ModelItem {
 
     void addRelationship(Relationship relationship) {
         relationships.add(relationship);
+    }
+
+    /**
+     * Adds a unidirectional "uses" style relationship between this element and the specified custom element.
+     *
+     * @param destination the target of the relationship
+     * @param description a description of the relationship (e.g. "uses", "gets data from", "sends data to")
+     * @return the relationship that has just been created and added to the model
+     */
+    @Nullable
+    public Relationship uses(@Nonnull CustomElement destination, String description) {
+        return uses(destination, description, null);
+    }
+
+    /**
+     * Adds a unidirectional "uses" style relationship between this element and the specified custom element.
+     *
+     * @param destination the target of the relationship
+     * @param description a description of the relationship (e.g. "uses", "gets data from", "sends data to")
+     * @param technology  the technology details (e.g. JSON/HTTPS)
+     * @return the relationship that has just been created and added to the model
+     */
+    @Nullable
+    public Relationship uses(@Nonnull CustomElement destination, String description, String technology) {
+        return getModel().addRelationship(this, destination, description, technology, null);
+    }
+
+    /**
+     * Adds a unidirectional "uses" style relationship between this element and the specified custom element.
+     *
+     * @param destination      the target of the relationship
+     * @param description      a description of the relationship (e.g. "uses", "gets data from", "sends data to")
+     * @param technology       the technology details (e.g. JSON/HTTPS)
+     * @param interactionStyle the interaction style (sync vs async)
+     * @param tags             an array of tags
+     * @return the relationship that has just been created and added to the model
+     */
+    @Nullable
+    public Relationship uses(@Nonnull CustomElement destination, String description, String technology, InteractionStyle interactionStyle, String[] tags) {
+        return getModel().addRelationship(this, destination, description, technology, interactionStyle, tags);
     }
 
     @Override
