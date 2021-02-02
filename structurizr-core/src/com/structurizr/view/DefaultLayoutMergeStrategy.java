@@ -93,7 +93,7 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
         if (elementView == null) {
             // no element was found, so try finding an element of the same type with the same description if set (in this situation, the element itself may have been renamed)
             if (!StringUtils.isNullOrEmpty(elementWithoutLayoutInformation.getDescription())) {
-                elementView = viewWithLayoutInformation.getElements().stream().filter(ev -> ev.getElement().getDescription().equals(elementWithoutLayoutInformation.getDescription()) && ev.getElement().getClass().equals(elementWithoutLayoutInformation.getClass())).findFirst().orElse(null);
+                elementView = viewWithLayoutInformation.getElements().stream().filter(ev -> elementWithoutLayoutInformation.getDescription().equals(ev.getElement().getDescription()) && ev.getElement().getClass().equals(elementWithoutLayoutInformation.getClass())).findFirst().orElse(null);
             }
         }
 
