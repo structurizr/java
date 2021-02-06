@@ -9,7 +9,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * Represents a custom element.
+ * Represents an element that can be included in a group.
  */
 public abstract class GroupableElement extends Element {
 
@@ -19,7 +19,7 @@ public abstract class GroupableElement extends Element {
     }
 
     /**
-     * Gets the group in which this element should be included in.
+     * Gets the name of the group in which this element should be included in.
      *
      * @return the group name, or null if not set
      */
@@ -28,7 +28,7 @@ public abstract class GroupableElement extends Element {
     }
 
     /**
-     * Sets the group in which this element should be included in.
+     * Sets the name of the group in which this element should be included in.
      *
      * @param group the group name
      */

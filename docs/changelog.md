@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.8.0 (unreleased)
+
+- Adds support for custom elements and custom views.
+
 ## 1.7.2 (2nd February 2021)
 
 - Bug fixes.
