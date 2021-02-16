@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * A wrapper for a collection of animation steps.
  */
-final class Animation {
+public final class Animation {
 
     private int order;
     private Set<String> elements = new HashSet<>();
