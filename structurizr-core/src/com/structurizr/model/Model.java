@@ -514,13 +514,25 @@ public final class Model {
         deploymentNode.getChildren().forEach(child -> hydrateDeploymentNode(child, deploymentNode));
 
         for (SoftwareSystemInstance softwareSystemInstance : deploymentNode.getSoftwareSystemInstances()) {
-            softwareSystemInstance.setSoftwareSystem((SoftwareSystem)getElement(softwareSystemInstance.getSoftwareSystemId()));
+            Element softwareSystem = getElement(softwareSystemInstance.getSoftwareSystemId());
+            if (!(softwareSystem instanceof SoftwareSystem)) {
+                throw new WorkspaceValidationException(
+                        String.format("A software system instance is associated with a software system (id=%s) that does not exist in the model.", softwareSystemInstance.getSoftwareSystemId()));
+            }
+
+            softwareSystemInstance.setSoftwareSystem((SoftwareSystem)softwareSystem);
             softwareSystemInstance.setParent(deploymentNode);
             addElementToInternalStructures(softwareSystemInstance);
         }
 
         for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
-            containerInstance.setContainer((Container)getElement(containerInstance.getContainerId()));
+            Element container = getElement(containerInstance.getContainerId());
+            if (!(container instanceof Container)) {
+                throw new WorkspaceValidationException(
+                        String.format("A container instance is associated with a container (id=%s) that does not exist in the model.", containerInstance.getContainerId()));
+            }
+
+            containerInstance.setContainer((Container)container);
             containerInstance.setParent(deploymentNode);
             addElementToInternalStructures(containerInstance);
         }
