@@ -70,7 +70,7 @@ public final class Person extends StaticStructureElement {
      *
      * @param destination       the Person being interacted with
      * @param description       a description of the interaction
-     * @return                  the resulting Relatioship
+     * @return                  the resulting Relationship
      */
     public Relationship interactsWith(Person destination, String description) {
         return interactsWith(destination, description, null);
@@ -82,10 +82,10 @@ public final class Person extends StaticStructureElement {
      * @param destination       the Person being interacted with
      * @param description       a description of the interaction
      * @param technology        the technology of the interaction (e.g. Telephone)
-     * @return                  the resulting Relatioship
+     * @return                  the resulting Relationship
      */
     public Relationship interactsWith(Person destination, String description, String technology) {
-        return interactsWith(destination, description, technology, InteractionStyle.Synchronous);
+        return interactsWith(destination, description, technology, null);
     }
 
     /**
@@ -95,7 +95,7 @@ public final class Person extends StaticStructureElement {
      * @param description       a description of the interaction
      * @param technology        the technology of the interaction (e.g. Telephone)
      * @param interactionStyle  the interaction style (e.g. Synchronous or Asynchronous)
-     * @return                  the resulting Relatioship
+     * @return                  the resulting Relationship
      */
     public Relationship interactsWith(Person destination, String description, String technology, InteractionStyle interactionStyle) {
         return getModel().addRelationship(this, destination, description, technology, interactionStyle);

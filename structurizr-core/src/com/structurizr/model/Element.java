@@ -168,13 +168,11 @@ public abstract class Element extends ModelItem {
     }
 
     /**
-     * Determines whether this element has an efferent (outgoing) relationship with
-     * the specified element and description.
+     * Gets the efferent (outgoing) relationship with the specified element and description.
      *
      * @param element       the element to look for
      * @param description   the relationship description
-     * @return  true if this element has an efferent relationship with the specified element and description,
-     *          false otherwise
+     * @return  a Relationship object, or null if the specified relationship doesn't exist
      */
     public Relationship getEfferentRelationshipWith(Element element, String description) {
         if (element == null) {
@@ -186,7 +184,7 @@ public abstract class Element extends ModelItem {
         }
 
         for (Relationship relationship : relationships) {
-            if (relationship.getDestination().equals(element) && relationship.getDescription().equals(description)) {
+            if (relationship.getDestination().equals(element) && description.equals(relationship.getDescription())) {
                 return relationship;
             }
         }

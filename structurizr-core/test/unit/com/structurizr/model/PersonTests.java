@@ -52,7 +52,7 @@ public class PersonTests extends AbstractWorkspaceTestBase {
         assertSame(person2, relationship.getDestination());
         assertEquals("Sends an e-mail to", relationship.getDescription());
         assertNull(relationship.getTechnology());
-        assertEquals(InteractionStyle.Synchronous, relationship.getInteractionStyle());
+        assertNull(relationship.getInteractionStyle());
     }
 
     @Test
@@ -68,7 +68,7 @@ public class PersonTests extends AbstractWorkspaceTestBase {
         assertSame(person2, relationship.getDestination());
         assertEquals("Sends a message to", relationship.getDescription());
         assertEquals("E-mail", relationship.getTechnology());
-        assertEquals(InteractionStyle.Synchronous, relationship.getInteractionStyle());
+        assertNull(relationship.getInteractionStyle());
     }
 
     @Test
