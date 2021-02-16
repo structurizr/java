@@ -2,7 +2,7 @@ package com.structurizr.model;
 
 /**
  * An ID generator that simply uses a sequential number when generating IDs for model elements and relationships.
- * This is the default ID generator.
+ * This is the default ID generator; any non-numeric IDs are ignored.
  */
 public class SequentialIntegerIdGeneratorStrategy implements IdGenerator {
 
@@ -25,9 +25,8 @@ public class SequentialIntegerIdGeneratorStrategy implements IdGenerator {
             if (idAsInt > ID) {
                 ID = idAsInt;
             }
-        }
-        catch(NumberFormatException e) {
-            // ignore non-numeric ids
+        } catch (NumberFormatException e) {
+            // ignore non-numeric IDs
         }
     }
 

@@ -1,12 +1,15 @@
 package com.structurizr.io.json;
 
 import com.structurizr.Workspace;
+import com.structurizr.model.*;
 import org.junit.Test;
 
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class JsonTests {
 
@@ -43,5 +46,48 @@ public class JsonTests {
         workspace = jsonReader.read(stringReader);
         assertEquals(1, workspace.getViews().getSystemLandscapeViews().size());
     }
+
+    @Test
+    public void test_write_and_read_withCustomIdGenerator() throws Exception {
+        Workspace workspace1 = new Workspace("Name", "Description");
+        workspace1.getModel().setIdGenerator(new CustomIdGenerator());
+        Person user = workspace1.getModel().addPerson("User");
+        SoftwareSystem softwareSystem = workspace1.getModel().addSoftwareSystem("Software System");
+        user.uses(softwareSystem, "Uses");
+
+        // output the model as JSON
+        JsonWriter jsonWriter = new JsonWriter(true);
+        StringWriter stringWriter = new StringWriter();
+        jsonWriter.write(workspace1, stringWriter);
+
+        // and read it back again
+        JsonReader jsonReader = new JsonReader();
+        jsonReader.setIdGenerator(new CustomIdGenerator());
+        StringReader stringReader = new StringReader(stringWriter.toString());
+
+        Workspace workspace2 = jsonReader.read(stringReader);
+        assertEquals(user.getId(), workspace2.getModel().getPersonWithName("User").getId());
+        assertNotNull(workspace2.getModel().getElement(user.getId()));
+    }
+
+    class CustomIdGenerator implements IdGenerator {
+
+        @Override
+        public String generateId(Element element) {
+            return UUID.randomUUID().toString();
+        }
+
+        @Override
+        public String generateId(Relationship relationship) {
+            return UUID.randomUUID().toString();
+        }
+
+        @Override
+        public void found(String id) {
+
+        }
+
+    }
+
 
 }

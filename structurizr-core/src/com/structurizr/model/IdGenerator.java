@@ -1,7 +1,7 @@
 package com.structurizr.model;
 
 /**
- * The interface that ID generators, used when creating IDs for model elements, must implement.
+ * The interface that ID generators, used when creating IDs for model elements/relationships, must implement.
  */
 public interface IdGenerator {
 

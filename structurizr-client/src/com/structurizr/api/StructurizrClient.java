@@ -8,6 +8,7 @@ import com.structurizr.io.json.EncryptedJsonReader;
 import com.structurizr.io.json.EncryptedJsonWriter;
 import com.structurizr.io.json.JsonReader;
 import com.structurizr.io.json.JsonWriter;
+import com.structurizr.model.IdGenerator;
 import com.structurizr.util.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -64,6 +65,7 @@ public final class StructurizrClient {
 
     private EncryptionStrategy encryptionStrategy;
 
+    private IdGenerator idGenerator = null;
     private boolean mergeFromRemote = true;
     private File workspaceArchiveLocation = new File(".");
 
@@ -117,6 +119,15 @@ public final class StructurizrClient {
         setUrl(url);
         setApiKey(apiKey);
         setApiSecret(apiSecret);
+    }
+
+    /**
+     * Sets the ID generator to use when parsing a JSON workspace definition.
+     *
+     * @param idGenerator   an IdGenerator implementation
+     */
+    public void setIdGenerator(IdGenerator idGenerator) {
+        this.idGenerator = idGenerator;
     }
 
     /**
@@ -311,7 +322,9 @@ public final class StructurizrClient {
                     archiveWorkspace(workspaceId, json);
 
                     if (encryptionStrategy == null) {
-                        return new JsonReader().read(new StringReader(json));
+                        JsonReader jsonReader = new JsonReader();
+                        jsonReader.setIdGenerator(idGenerator);
+                        return jsonReader.read(new StringReader(json));
                     } else {
                         EncryptedWorkspace encryptedWorkspace = new EncryptedJsonReader().read(new StringReader(json));
 
@@ -320,7 +333,9 @@ public final class StructurizrClient {
                             return encryptedWorkspace.getWorkspace();
                         } else {
                             // this workspace isn't encrypted, even though the client has an encryption strategy set
-                            return new JsonReader().read(new StringReader(json));
+                            JsonReader jsonReader = new JsonReader();
+                            jsonReader.setIdGenerator(idGenerator);
+                            return jsonReader.read(new StringReader(json));
                         }
                     }
                 } else {
