@@ -17,10 +17,13 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_getCanonicalName_WhenTheDeploymentNodeHasAParent() {
-        DeploymentNode parent = model.addDeploymentNode("Windows Server", "", "");
-        DeploymentNode child = parent.addDeploymentNode("Apache Tomcat", "", "");
+        DeploymentNode l1 = model.addDeploymentNode("Level 1", "", "");
+        DeploymentNode l2 = l1.addDeploymentNode("Level 2", "", "");
+        DeploymentNode l3 = l2.addDeploymentNode("Level 3", "", "");
 
-        assertEquals("DeploymentNode://Default/Windows Server/Apache Tomcat", child.getCanonicalName());
+        assertEquals("DeploymentNode://Default/Level 1", l1.getCanonicalName());
+        assertEquals("DeploymentNode://Default/Level 1/Level 2", l2.getCanonicalName());
+        assertEquals("DeploymentNode://Default/Level 1/Level 2/Level 3", l3.getCanonicalName());
     }
 
     @Test

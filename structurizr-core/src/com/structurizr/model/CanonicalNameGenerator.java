@@ -53,13 +53,14 @@ final class CanonicalNameGenerator {
         buf.append(formatName(deploymentNode.getEnvironment()));
         buf.append(DEPLOYMENT_CANONICAL_NAME_SEPARATOR);
 
+        String parents = "";
         DeploymentNode parent = (DeploymentNode)deploymentNode.getParent();
         while (parent != null) {
-            buf.append(formatName(parent));
-            buf.append(DEPLOYMENT_CANONICAL_NAME_SEPARATOR);
+            parents = formatName(parent) + DEPLOYMENT_CANONICAL_NAME_SEPARATOR + parents;
             parent = (DeploymentNode)parent.getParent();
         }
 
+        buf.append(parents);
         buf.append(formatName(deploymentNode));
 
         return buf.toString();
