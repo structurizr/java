@@ -6,7 +6,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class StaticStructureElementTests extends AbstractWorkspaceTestBase {
+public class GroupableElementTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_getGroup_ReturnsNullByDefault() {

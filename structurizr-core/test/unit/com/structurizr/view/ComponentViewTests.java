@@ -598,4 +598,32 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         assertFalse(view.getElements().contains(new ElementView(component2)));
     }
 
+    @Test
+    public void test_addSoftwareSystem_ThrowsAnException_WhenTheSoftwareSystemIsTheScopeOfTheView() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        Container container = softwareSystem.addContainer("Container");
+
+        view = new ComponentView(container, "components", "Description");
+        try {
+            view.add(softwareSystem);
+            fail();
+        } catch (ElementNotPermittedInViewException e) {
+            assertEquals("The software system in scope cannot be added to a component view.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addContainer_ThrowsAnException_WhenTheContainerIsTheScopeOfTheView() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        Container container = softwareSystem.addContainer("Container");
+
+        view = new ComponentView(container, "components", "Description");
+        try {
+            view.add(container);
+            fail();
+        } catch (ElementNotPermittedInViewException e) {
+            assertEquals("The container in scope cannot be added to a component view.", e.getMessage());
+        }
+    }
+
 }

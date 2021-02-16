@@ -64,31 +64,6 @@ public final class ComponentView extends StaticView {
     }
 
     /**
-     * Adds the specified software system, including relationships to/from that software system.
-     * Please note that the parent software system of the container in scope cannot be added to this view.
-     *
-     * @param softwareSystem    the SoftwareSystem to add to this view
-     */
-    @Override
-    public void add(@Nonnull SoftwareSystem softwareSystem) {
-        add(softwareSystem, true);
-    }
-
-    /**
-     * Adds the specified software system.
-     * Please note that the parent software system of the container in scope cannot be added to this view.
-     *
-     * @param softwareSystem    the SoftwareSystem to add to this view
-     * @param addRelationships  whether to add relationships to/from the component
-     */
-    @Override
-    public void add(@Nonnull SoftwareSystem softwareSystem, boolean addRelationships) {
-        if (softwareSystem != null && !softwareSystem.equals(getSoftwareSystem())) {
-            addElement(softwareSystem, addRelationships);
-        }
-    }
-
-    /**
      * Adds all other containers in the software system to this view.
      */
     public void addAllContainers() {

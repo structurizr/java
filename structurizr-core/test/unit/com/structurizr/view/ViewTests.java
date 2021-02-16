@@ -393,7 +393,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     public void test_addElement_ThrowsAnException_WhenTheSpecifiedElementDoesNotExistInTheModel() {
         try {
             Workspace workspace = new Workspace("1", "");
-            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System");
 
             SystemLandscapeView view = new Workspace("", "").getViews().createSystemLandscapeView("key", "Description");
             view.add(softwareSystem);

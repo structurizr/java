@@ -192,7 +192,6 @@ public final class ContainerView extends StaticView {
         throw new ElementNotPermittedInViewException("Only people, software systems, and containers can be added to a container view.");
     }
 
-
     @Override
     protected boolean canBeRemoved(Element element) {
         return true;

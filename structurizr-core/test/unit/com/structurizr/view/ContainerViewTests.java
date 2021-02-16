@@ -293,4 +293,17 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
         assertFalse(view.getElements().contains(new ElementView(container2)));
     }
 
+    @Test
+    public void test_addSoftwareSystem_ThrowsAnException_WhenTheSoftwareSystemIsTheScopeOfTheView() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+
+        view = new ContainerView(softwareSystem, "containers", "Description");
+        try {
+            view.add(softwareSystem);
+            fail();
+        } catch (ElementNotPermittedInViewException e) {
+            assertEquals("The software system in scope cannot be added to a container view.", e.getMessage());
+        }
+    }
+
 }

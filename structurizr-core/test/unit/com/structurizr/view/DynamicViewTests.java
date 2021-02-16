@@ -80,7 +80,6 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     public void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsNotSpecifiedButAComponentIsAdded() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
-            DeploymentNode deploymentNode = workspace.getModel().addDeploymentNode("Deployment node", "Description", "Technology");
             dynamicView.add(componentA1, componentA1);
             fail();
         } catch (ElementNotPermittedInViewException iae) {
