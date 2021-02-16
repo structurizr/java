@@ -83,7 +83,20 @@ public final class SoftwareSystem extends StaticStructureElement {
      */
     @Nonnull
     public Container addContainer(@Nonnull String name) {
-        return addContainer(name, "", "");
+        return addContainer(name, "");
+    }
+
+    /**
+     * Adds a container with the specified name and description.
+     *
+     * @param name        the name of the container (e.g. "Web Application")
+     * @param description a short description/list of responsibilities
+     * @return the newly created Container instance added to the model (or null)
+     * @throws IllegalArgumentException     if a container with the same name exists already
+     */
+    @Nonnull
+    public Container addContainer(@Nonnull String name, String description) {
+        return addContainer(name, description, "");
     }
 
     /**
