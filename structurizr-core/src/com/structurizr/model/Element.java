@@ -12,8 +12,6 @@ import java.util.*;
  */
 public abstract class Element extends ModelItem {
 
-    static final String CANONICAL_NAME_SEPARATOR = "/";
-
     private Model model;
 
     private String name;
@@ -53,13 +51,6 @@ public abstract class Element extends ModelItem {
         }
 
         this.name = name;
-    }
-
-    @JsonIgnore
-    public abstract String getCanonicalName();
-
-    String formatForCanonicalName(String name) {
-        return name.replace(CANONICAL_NAME_SEPARATOR, "");
     }
 
     /**

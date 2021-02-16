@@ -1,5 +1,7 @@
 package com.structurizr.model;
 
+import com.structurizr.util.StringUtils;
+
 final class CanonicalNameGenerator {
 
     private static final String CUSTOM_ELEMENT_TYPE = "Custom://";
@@ -15,6 +17,8 @@ final class CanonicalNameGenerator {
 
     private static final String STATIC_CANONICAL_NAME_SEPARATOR = ".";
     private static final String DEPLOYMENT_CANONICAL_NAME_SEPARATOR = "/";
+
+    private static final String RELATIONSHIP_TYPE = "Relationship://";
 
     private String formatName(Element element) {
         return formatName(element.getName());
@@ -83,5 +87,14 @@ final class CanonicalNameGenerator {
 
         return CONTAINER_INSTANCE_TYPE + deploymentNodeCanonicalName + DEPLOYMENT_CANONICAL_NAME_SEPARATOR + generate(containerInstance.getContainer()).substring(CONTAINER_TYPE.length()) + "[" + containerInstance.getInstanceId() + "]";
     }
+
+    String generate(Relationship relationship) {
+        if (StringUtils.isNullOrEmpty(relationship.getDescription())) {
+            return RELATIONSHIP_TYPE + relationship.getSource().getCanonicalName() + " -> " + relationship.getDestination().getCanonicalName();
+        } else {
+            return RELATIONSHIP_TYPE + relationship.getSource().getCanonicalName() + " -> " + relationship.getDestination().getCanonicalName() + " (" + relationship.getDescription() + ")";
+        }
+    }
+
 
 }

@@ -48,6 +48,11 @@ public final class Relationship extends ModelItem {
         this.model = model;
     }
 
+    @Override
+    public String getCanonicalName() {
+        return new CanonicalNameGenerator().generate(this);
+    }
+
     @JsonIgnore
     public Element getSource() {
         return source;

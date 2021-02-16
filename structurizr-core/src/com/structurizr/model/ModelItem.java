@@ -19,6 +19,9 @@ public abstract class ModelItem {
     private Map<String, String> properties = new HashMap<>();
     private Set<Perspective> perspectives = new HashSet<>();
 
+    @JsonIgnore
+    public abstract String getCanonicalName();
+
     protected abstract Set<String> getRequiredTags();
 
     /**
