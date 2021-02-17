@@ -2,9 +2,7 @@
 
 # Structurizr for Java
 
-This GitHub repository is an official client library for the [Structurizr](https://structurizr.com) cloud service and on-premises installation, both of which are web-based publishing platforms for software architecture models based upon the [C4 model](https://c4model.com). __This repository is supported by Structurizr Limited__, as a part of the Structurizr service.
-
-The component finder, adr-tools importer, and alternative diagram export formats (e.g. PlantUML) can be found at [Structurizr for Java extensions](https://github.com/structurizr/java-extensions).
+This GitHub repository is an official client library for the [Structurizr](https://structurizr.com) cloud service and on-premises installation, both of which are web-based publishing platforms for software architecture models based upon the [C4 model](https://c4model.com). The component finder, adr-tools importer, and alternative diagram export formats (e.g. PlantUML) can be found at [Structurizr for Java extensions](https://github.com/structurizr/java-extensions).
 
 ## A quick example
 
@@ -43,6 +41,7 @@ The view can then be exported to be visualised using the [Structurizr cloud serv
     * [Building from source](docs/building.md)
     * [API client](docs/api-client.md)
     * [Usage patterns](docs/usage-patterns.md)
+    * [FAQ](docs/faq.md)
 * Model
 	* [Creating your model](docs/model.md)
 	* [Implied relationships](docs/implied-relationships.md)
