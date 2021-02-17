@@ -182,7 +182,7 @@ public final class Styles {
         }
 
         if (style.getHeight() == null) {
-            if (style.getShape() == Shape.Person) {
+            if (style.getShape() == Shape.Person || style.getShape() == Shape.Robot) {
                 style.setHeight(DEFAULT_HEIGHT_OF_PERSON);
             } else {
                 style.setHeight(DEFAULT_HEIGHT_OF_ELEMENT);
