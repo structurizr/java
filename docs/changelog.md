@@ -1,8 +1,9 @@
 # Changelog
 
-## 1.8.0 (unreleased)
+## 1.8.0 (20th February 2021)
 
-- Adds support for custom elements and custom views.
+- Adds support for custom elements and custom views (experimental).
+- Bug fixes and improved workspace validation.
 
 ## 1.7.2 (2nd February 2021)
 
