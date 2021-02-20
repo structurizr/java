@@ -222,6 +222,7 @@ public abstract class StaticStructureElement extends GroupableElement {
      * @param description      a description of the relationship (e.g. "sends e-mail to")
      * @param technology       the technology details (e.g. JSON/HTTPS)
      * @param interactionStyle the interaction style (sync vs async)
+     * @param tags             an array of tags
      * @return the relationship that has just been created and added to the model
      */
     @Nullable
