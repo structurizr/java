@@ -98,6 +98,10 @@ public final class DeploymentView extends View {
      * @param deploymentNode        the DeploymentNode to be removed
      */
     public void remove(@Nonnull DeploymentNode deploymentNode) {
+        for (SoftwareSystemInstance softwareSystemInstance : deploymentNode.getSoftwareSystemInstances()) {
+            remove(softwareSystemInstance);
+        }
+
         for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
             remove(containerInstance);
         }
@@ -114,7 +118,7 @@ public final class DeploymentView extends View {
     }
 
     /**
-     * Removes the given infrastructure node from this view.
+     * Removes an infrastructure node from this view.
      *
      * @param infrastructureNode        the InfrastructureNode to be removed
      */
@@ -123,7 +127,16 @@ public final class DeploymentView extends View {
     }
 
     /**
-     * Removes the given infrastructure node from this view.
+     * Removes a software system instance from this view.
+     *
+     * @param softwareSystemInstance     the SoftwareSystemInstance to be removed
+     */
+    public void remove(@Nonnull SoftwareSystemInstance softwareSystemInstance) {
+        removeElement(softwareSystemInstance);
+    }
+
+    /**
+     * Removes a container instance from this view.
      *
      * @param containerInstance     the ContainerInstance to be removed
      */
