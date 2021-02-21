@@ -372,8 +372,27 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_remove_RemovesTheSoftwareSystemInstance() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+        DeploymentNode deploymentNodeChild = deploymentNodeParent.addDeploymentNode("Deployment Node", "Description", "Technology");
+        InfrastructureNode infrastructureNode = deploymentNodeChild.addInfrastructureNode("Infrastructure Node");
+        SoftwareSystemInstance softwareSystemInstance = deploymentNodeChild.add(softwareSystem);
+
+        deploymentView = views.createDeploymentView("deployment", "Description");
+        deploymentView.addAllDeploymentNodes();
+        assertEquals(4, deploymentView.getElements().size());
+
+        deploymentView.remove(softwareSystemInstance);
+        assertEquals(3, deploymentView.getElements().size());
+        assertTrue(deploymentView.getElements().contains(new ElementView(deploymentNodeParent)));
+        assertTrue(deploymentView.getElements().contains(new ElementView(deploymentNodeChild)));
+        assertTrue(deploymentView.getElements().contains(new ElementView(infrastructureNode)));
+    }
+
+    @Test
     public void test_remove_RemovesTheContainerInstance() {
-        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
         DeploymentNode deploymentNodeChild = deploymentNodeParent.addDeploymentNode("Deployment Node", "Description", "Technology");
@@ -424,6 +443,97 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
 
         deploymentView.remove(deploymentNodeParent);
         assertEquals(0, deploymentView.getElements().size());
+    }
+
+    @Test
+    public void test_add_AddsTheInfrastructureNode() {
+        DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+        DeploymentNode deploymentNodeChild = deploymentNodeParent.addDeploymentNode("Deployment Node", "Description", "Technology");
+        InfrastructureNode infrastructureNode1 = deploymentNodeChild.addInfrastructureNode("Infrastructure Node 1");
+        InfrastructureNode infrastructureNode2 = deploymentNodeChild.addInfrastructureNode("Infrastructure Node 2");
+
+        deploymentView = views.createDeploymentView("deployment", "Description");
+        deploymentView.add(infrastructureNode1);
+
+        assertEquals(3, deploymentView.getElements().size());
+        assertTrue(deploymentView.getElements().contains(new ElementView(deploymentNodeParent)));
+        assertTrue(deploymentView.getElements().contains(new ElementView(deploymentNodeChild)));
+        assertTrue(deploymentView.getElements().contains(new ElementView(infrastructureNode1)));
+    }
+
+    @Test
+    public void test_add_AddsTheSoftwareSystemInstance() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+        DeploymentNode deploymentNodeChild = deploymentNodeParent.addDeploymentNode("Deployment Node", "Description", "Technology");
+        InfrastructureNode infrastructureNode = deploymentNodeChild.addInfrastructureNode("Infrastructure Node ");
+        SoftwareSystemInstance softwareSystemInstance = deploymentNodeChild.add(softwareSystem);
+
+        deploymentView = views.createDeploymentView("deployment", "Description");
+        deploymentView.add(softwareSystemInstance);
+
+        assertEquals(3, deploymentView.getElements().size());
+        assertTrue(deploymentView.getElements().contains(new ElementView(deploymentNodeParent)));
+        assertTrue(deploymentView.getElements().contains(new ElementView(deploymentNodeChild)));
+        assertTrue(deploymentView.getElements().contains(new ElementView(softwareSystemInstance)));
+    }
+
+    @Test
+    public void test_addSoftwareSystemInstance_ThrowsAnException_WhenAChildContainerInstanceHasAlreadyBeenAdded() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        Container container = softwareSystem.addContainer("Container");
+        DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+        DeploymentNode deploymentNodeChild = deploymentNodeParent.addDeploymentNode("Deployment Node", "Description", "Technology");
+        SoftwareSystemInstance softwareSystemInstance = deploymentNodeChild.add(softwareSystem);
+        ContainerInstance containerInstance = deploymentNodeChild.add(container);
+
+        deploymentView = views.createDeploymentView("deployment", "Description");
+        deploymentView.add(containerInstance);
+
+        try {
+            deploymentView.add(softwareSystemInstance);
+            fail();
+        } catch (ElementNotPermittedInViewException e) {
+            assertEquals("A child of Software System is already in this view.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_add_AddsTheContainerInstance() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        Container container = softwareSystem.addContainer("Container");
+        DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+        DeploymentNode deploymentNodeChild = deploymentNodeParent.addDeploymentNode("Deployment Node", "Description", "Technology");
+        InfrastructureNode infrastructureNode = deploymentNodeChild.addInfrastructureNode("Infrastructure Node ");
+        ContainerInstance containerInstance = deploymentNodeChild.add(container);
+
+        deploymentView = views.createDeploymentView("deployment", "Description");
+        deploymentView.add(containerInstance);
+
+        assertEquals(3, deploymentView.getElements().size());
+        assertTrue(deploymentView.getElements().contains(new ElementView(deploymentNodeParent)));
+        assertTrue(deploymentView.getElements().contains(new ElementView(deploymentNodeChild)));
+        assertTrue(deploymentView.getElements().contains(new ElementView(containerInstance)));
+    }
+
+    @Test
+    public void test_addContainerInstance_ThrowsAnException_WhenTheParentSoftwareSystemInstanceHasAlreadyBeenAdded() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        Container container = softwareSystem.addContainer("Container");
+        DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
+        DeploymentNode deploymentNodeChild = deploymentNodeParent.addDeploymentNode("Deployment Node", "Description", "Technology");
+        SoftwareSystemInstance softwareSystemInstance = deploymentNodeChild.add(softwareSystem);
+        ContainerInstance containerInstance = deploymentNodeChild.add(container);
+
+        deploymentView = views.createDeploymentView("deployment", "Description");
+        deploymentView.add(softwareSystemInstance);
+
+        try {
+            deploymentView.add(containerInstance);
+            fail();
+        } catch (ElementNotPermittedInViewException e) {
+            assertEquals("The parent of Container is already in this view.", e.getMessage());
+        }
     }
 
 }

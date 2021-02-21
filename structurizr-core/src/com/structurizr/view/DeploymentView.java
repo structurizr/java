@@ -93,6 +93,48 @@ public final class DeploymentView extends View {
     }
 
     /**
+     * Adds an infrastructure node (and its parent deployment nodes) to this view.
+     *
+     * @param infrastructureNode        the InfrastructureNode to add
+     */
+    public void add(@Nonnull InfrastructureNode infrastructureNode) {
+        addElement(infrastructureNode, true);
+        DeploymentNode parent = (DeploymentNode)infrastructureNode.getParent();
+        while (parent != null) {
+            addElement(parent, true);
+            parent = (DeploymentNode)parent.getParent();
+        }
+    }
+
+    /**
+     * Adds a software system instance (and its parent deployment nodes) to this view.
+     *
+     * @param softwareSystemInstance        the SoftwareSystemInstance to add
+     */
+    public void add(@Nonnull SoftwareSystemInstance softwareSystemInstance) {
+        addElement(softwareSystemInstance, true);
+        DeploymentNode parent = (DeploymentNode)softwareSystemInstance.getParent();
+        while (parent != null) {
+            addElement(parent, true);
+            parent = (DeploymentNode)parent.getParent();
+        }
+    }
+
+    /**
+     * Adds a container instance (and its parent deployment nodes) to this view.
+     *
+     * @param containerInstance     the ContainerInstance to add
+     */
+    public void add(@Nonnull ContainerInstance containerInstance) {
+        addElement(containerInstance, true);
+        DeploymentNode parent = (DeploymentNode)containerInstance.getParent();
+        while (parent != null) {
+            addElement(parent, true);
+            parent = (DeploymentNode)parent.getParent();
+        }
+    }
+
+    /**
      * Removes the given deployment node from this view.
      *
      * @param deploymentNode        the DeploymentNode to be removed
