@@ -415,7 +415,7 @@ public abstract class View {
      * Gets the relationship view for the given relationship.
      *
      * @param relationship  the Relationship to find the RelationshipView for
-     * @return  an RelationshipView object, or null if the relationship doesn't exist in the view
+     * @return  a RelationshipView object, or null if the relationship doesn't exist in the view
      */
     public RelationshipView getRelationshipView(@Nonnull Relationship relationship) {
         Optional<RelationshipView> relationshipView = this.relationshipViews.stream().filter(rv -> rv.getId().equals(relationship.getId())).findFirst();
