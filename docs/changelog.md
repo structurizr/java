@@ -4,6 +4,7 @@
 
 - Adds support for adding individual infrastructure nodes, software system instances, and container instances to a deployment view.
 - Adds support for removing software system instances from deployment views.
+- Improved support for themes (e.g. when exporting to PlantUML), which now works the same as described at [Structurizr - Themes](https://structurizr.com/help/themes).
 
 ## 1.8.0 (20th February 2021)
 

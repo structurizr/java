@@ -4,32 +4,45 @@ import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.model.*;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
-public class StyleTests extends AbstractWorkspaceTestBase {
+public class StylesTests extends AbstractWorkspaceTestBase {
 
     private Styles styles = new Styles();
 
     @Test
     public void test_findElementStyle_ReturnsTheDefaultStyle_WhenPassedNull() {
         ElementStyle style = styles.findElementStyle(null);
-        assertEquals("#dddddd", style.getBackground());
-        assertEquals("#000000", style.getColor());
-        assertEquals(Shape.Box, style.getShape());
         assertEquals(new Integer(450), style.getWidth());
         assertEquals(new Integer(300), style.getHeight());
+        assertEquals("#dddddd", style.getBackground());
+        assertEquals("#000000", style.getColor());
+        assertEquals(new Integer(24), style.getFontSize());
+        assertEquals(Shape.Box, style.getShape());
+        assertNull(style.getIcon());
+        assertEquals(Border.Solid, style.getBorder());
+        assertEquals("#dddddd", style.getStroke());
+        assertEquals(new Integer(100), style.getOpacity());
+        assertEquals(true, style.getMetadata());
+        assertEquals(true, style.getDescription());
     }
 
     @Test
     public void test_findElementStyle_ReturnsTheDefaultStyle_WhenNoStylesAreDefined() {
         SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
         ElementStyle style = styles.findElementStyle(element);
-        assertEquals("#dddddd", style.getBackground());
-        assertEquals("#000000", style.getColor());
-        assertEquals(Shape.Box, style.getShape());
         assertEquals(new Integer(450), style.getWidth());
         assertEquals(new Integer(300), style.getHeight());
+        assertEquals("#dddddd", style.getBackground());
+        assertEquals("#000000", style.getColor());
+        assertEquals(new Integer(24), style.getFontSize());
+        assertEquals(Shape.Box, style.getShape());
+        assertNull(style.getIcon());
+        assertEquals(Border.Solid, style.getBorder());
+        assertEquals("#dddddd", style.getStroke());
+        assertEquals(new Integer(100), style.getOpacity());
+        assertEquals(true, style.getMetadata());
+        assertEquals(true, style.getDescription());
     }
 
     @Test
@@ -41,12 +54,18 @@ public class StyleTests extends AbstractWorkspaceTestBase {
         styles.addElementStyle("Some Tag").color("#0000ff").stroke("#00ff00").shape(Shape.RoundedBox).width(123).height(456);
 
         ElementStyle style = styles.findElementStyle(element);
-        assertEquals("#ff0000", style.getBackground());
-        assertEquals("#0000ff", style.getColor());
-        assertEquals("#00ff00", style.getStroke());
-        assertEquals(Shape.RoundedBox, style.getShape());
         assertEquals(new Integer(123), style.getWidth());
         assertEquals(new Integer(456), style.getHeight());
+        assertEquals("#ff0000", style.getBackground());
+        assertEquals("#0000ff", style.getColor());
+        assertEquals(new Integer(24), style.getFontSize());
+        assertEquals(Shape.RoundedBox, style.getShape());
+        assertNull(style.getIcon());
+        assertEquals(Border.Solid, style.getBorder());
+        assertEquals("#00ff00", style.getStroke());
+        assertEquals(new Integer(100), style.getOpacity());
+        assertEquals(true, style.getMetadata());
+        assertEquals(true, style.getDescription());
     }
 
     @Test
@@ -80,7 +99,14 @@ public class StyleTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_findRelationshipStyle_ReturnsTheDefaultStyle_WhenPassedNull() {
         RelationshipStyle style = styles.findRelationshipStyle(null);
+        assertEquals(new Integer(2), style.getThickness());
         assertEquals("#707070", style.getColor());
+        assertTrue(style.getDashed());
+        assertEquals(Routing.Direct, style.getRouting());
+        assertEquals(new Integer(24), style.getFontSize());
+        assertEquals(new Integer(200), style.getWidth());
+        assertEquals(new Integer(50), style.getPosition());
+        assertEquals(new Integer(100), style.getOpacity());
     }
 
     @Test
@@ -88,7 +114,14 @@ public class StyleTests extends AbstractWorkspaceTestBase {
         SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
         Relationship relationship = element.uses(element, "Uses");
         RelationshipStyle style = styles.findRelationshipStyle(relationship);
+        assertEquals(new Integer(2), style.getThickness());
         assertEquals("#707070", style.getColor());
+        assertTrue(style.getDashed());
+        assertEquals(Routing.Direct, style.getRouting());
+        assertEquals(new Integer(24), style.getFontSize());
+        assertEquals(new Integer(200), style.getWidth());
+        assertEquals(new Integer(50), style.getPosition());
+        assertEquals(new Integer(100), style.getOpacity());
     }
 
     @Test
@@ -101,7 +134,14 @@ public class StyleTests extends AbstractWorkspaceTestBase {
         styles.addRelationshipStyle("Some Tag").color("#0000ff");
 
         RelationshipStyle style = styles.findRelationshipStyle(relationship);
+        assertEquals(new Integer(2), style.getThickness());
         assertEquals("#0000ff", style.getColor());
+        assertTrue(style.getDashed());
+        assertEquals(Routing.Direct, style.getRouting());
+        assertEquals(new Integer(24), style.getFontSize());
+        assertEquals(new Integer(200), style.getWidth());
+        assertEquals(new Integer(50), style.getPosition());
+        assertEquals(new Integer(100), style.getOpacity());
     }
 
     @Test
@@ -127,6 +167,30 @@ public class StyleTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_addElementStyle_ThrowsAnException_WhenATagIsNotSpecified() {
+        try {
+            styles.addElementStyle("");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A tag must be specified.", iae.getMessage());
+        }
+
+        try {
+            styles.addElementStyle(" ");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A tag must be specified.", iae.getMessage());
+        }
+
+        try {
+            styles.addElementStyle(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A tag must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
     public void test_addElementStyleByTag_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
         try {
             styles.addElementStyle(Tags.SOFTWARE_SYSTEM).color("#ff0000");
@@ -147,6 +211,30 @@ public class StyleTests extends AbstractWorkspaceTestBase {
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("An element style for the tag \"Software System\" already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addRelationshipStyle_ThrowsAnException_WhenATagIsNotSpecified() {
+        try {
+            styles.addRelationshipStyle("");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A tag must be specified.", iae.getMessage());
+        }
+
+        try {
+            styles.addRelationshipStyle(" ");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A tag must be specified.", iae.getMessage());
+        }
+
+        try {
+            styles.addRelationshipStyle(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A tag must be specified.", iae.getMessage());
         }
     }
 

@@ -1,6 +1,7 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.structurizr.util.StringUtils;
 
 public final class RelationshipStyle {
 
@@ -197,4 +198,38 @@ public final class RelationshipStyle {
         return this;
     }
 
+    void copyFrom(RelationshipStyle relationshipStyle) {
+        if (relationshipStyle.getThickness() != null) {
+            this.setThickness(relationshipStyle.getThickness());
+        }
+
+        if (!StringUtils.isNullOrEmpty(relationshipStyle.getColor())) {
+            this.setColor(relationshipStyle.getColor());
+        }
+
+        if (relationshipStyle.getDashed() != null) {
+            this.setDashed(relationshipStyle.getDashed());
+        }
+
+        if (relationshipStyle.getRouting() != null) {
+            this.setRouting(relationshipStyle.getRouting());
+        }
+
+        if (relationshipStyle.getFontSize() != null) {
+            this.setFontSize(relationshipStyle.getFontSize());
+        }
+
+        if (relationshipStyle.getWidth() != null) {
+            this.setWidth(relationshipStyle.getWidth());
+        }
+
+        if (relationshipStyle.getPosition() != null) {
+            this.setPosition(relationshipStyle.getPosition());
+        }
+
+        if (relationshipStyle.getOpacity() != null) {
+            this.setOpacity(relationshipStyle.getOpacity());
+        }
+    }
+    
 }

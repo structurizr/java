@@ -1,6 +1,7 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.structurizr.util.StringUtils;
 import com.structurizr.util.Url;
 
 /**
@@ -335,4 +336,54 @@ public final class ElementStyle {
         return this;
     }
 
+    void copyFrom(ElementStyle elementStyle) {
+        if (elementStyle.getWidth() != null) {
+            this.setWidth(elementStyle.getWidth());
+        }
+
+        if (elementStyle.getHeight() != null) {
+            this.setHeight(elementStyle.getHeight());
+        }
+
+        if (!StringUtils.isNullOrEmpty(elementStyle.getBackground())) {
+            this.setBackground(elementStyle.getBackground());
+        }
+
+        if (!StringUtils.isNullOrEmpty(elementStyle.getStroke())) {
+            this.setStroke(elementStyle.getStroke());
+        }
+
+        if (!StringUtils.isNullOrEmpty(elementStyle.getColor())) {
+            this.setColor(elementStyle.getColor());
+        }
+
+        if (elementStyle.getFontSize() != null) {
+            this.setFontSize(elementStyle.getFontSize());
+        }
+
+        if (elementStyle.getShape() != null) {
+            this.setShape(elementStyle.getShape());
+        }
+
+        if (!StringUtils.isNullOrEmpty(elementStyle.getIcon())) {
+            this.setIcon(elementStyle.getIcon());
+        }
+
+        if (elementStyle.getBorder() != null) {
+            this.setBorder(elementStyle.getBorder());
+        }
+
+        if (elementStyle.getOpacity() != null) {
+            this.setOpacity(elementStyle.getOpacity());
+        }
+
+        if (elementStyle.getMetadata() != null) {
+            this.setMetadata(elementStyle.getMetadata());
+        }
+
+        if (elementStyle.getDescription() != null) {
+            this.setDescription(elementStyle.getDescription());
+        }
+    }
+    
 }

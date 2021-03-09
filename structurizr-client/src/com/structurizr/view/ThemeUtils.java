@@ -1,14 +1,11 @@
-package com.structurizr.util;
+package com.structurizr.view;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.structurizr.Workspace;
 import com.structurizr.io.WorkspaceWriterException;
-import com.structurizr.view.ElementStyle;
-import com.structurizr.view.RelationshipStyle;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -17,8 +14,6 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
-import java.util.LinkedList;
 
 /**
  * Some utility methods for exporting themes to JSON.
@@ -70,7 +65,7 @@ public final class ThemeUtils {
      * @param workspace     a Workspace object
      * @throws Exception    if something goes wrong
      */
-    public static void loadStylesFromThemes(Workspace workspace) throws Exception {
+    public static void loadThemes(Workspace workspace) throws Exception {
         if (workspace.getViews().getConfiguration().getThemes() != null) {
             for (String url : workspace.getViews().getConfiguration().getThemes()) {
                 CloseableHttpClient httpClient = HttpClients.createSystem();
@@ -86,13 +81,7 @@ public final class ThemeUtils {
 
                     Theme theme = objectMapper.readValue(json, Theme.class);
 
-                    for (ElementStyle elementStyle : theme.getElements()) {
-                        workspace.getViews().getConfiguration().getStyles().add(elementStyle);
-                    }
-
-                    for (RelationshipStyle relationshipStyle : theme.getRelationships()) {
-                        workspace.getViews().getConfiguration().getStyles().add(relationshipStyle);
-                    }
+                    workspace.getViews().getConfiguration().getStyles().addStylesFromTheme(url, theme.getElements(), theme.getRelationships());
                 }
 
                 httpClient.close();
@@ -121,59 +110,6 @@ public final class ThemeUtils {
 
         writer.flush();
         writer.close();
-    }
-
-    static class Theme {
-
-        private String name;
-        private String description;
-        private Collection<ElementStyle> elements = new LinkedList<>();
-        private Collection<RelationshipStyle> relationships = new LinkedList<>();
-
-        Theme() {
-        }
-
-        Theme(String name, String description, Collection<ElementStyle> elements, Collection<RelationshipStyle> relationships) {
-            this.name = name;
-            this.description = description;
-            this.elements = elements;
-            this.relationships = relationships;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        void setName(String name) {
-            this.name = name;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-
-        void setDescription(String description) {
-            this.description = description;
-        }
-
-        @JsonGetter
-        Collection<ElementStyle> getElements() {
-            return elements;
-        }
-
-        void setElements(Collection<ElementStyle> elements) {
-            this.elements = elements;
-        }
-
-        @JsonGetter
-        Collection<RelationshipStyle> getRelationships() {
-            return relationships;
-        }
-
-        void setRelationships(Collection<RelationshipStyle> relationships) {
-            this.relationships = relationships;
-        }
-
     }
 
 }

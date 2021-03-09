@@ -33,7 +33,7 @@ public class Theme {
         contextView.addAllPeople();
 
         // add a theme
-        views.getConfiguration().setTheme("https://raw.githubusercontent.com/structurizr/java/master/structurizr-examples/src/com/structurizr/example/theme/theme.json");
+        views.getConfiguration().setThemes("https://raw.githubusercontent.com/structurizr/java/master/structurizr-examples/src/com/structurizr/example/theme/theme.json");
 
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);

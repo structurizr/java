@@ -49,7 +49,7 @@ public final class Configuration {
      * @param url       the URL of theme
      */
     @JsonSetter
-    public void setTheme(String url) {
+    void setTheme(String url) {
         setThemes(url);
     }
 
