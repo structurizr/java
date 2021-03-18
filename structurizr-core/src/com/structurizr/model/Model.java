@@ -982,56 +982,54 @@ public final class Model {
         return null;
     }
 
-    SoftwareSystemInstance addSoftwareSystemInstance(DeploymentNode deploymentNode, SoftwareSystem softwareSystem, boolean replicateRelationships) {
+    SoftwareSystemInstance addSoftwareSystemInstance(DeploymentNode deploymentNode, SoftwareSystem softwareSystem, String deploymentGroup) {
         if (softwareSystem == null) {
             throw new IllegalArgumentException("A software system must be specified.");
         }
 
         long instanceNumber = deploymentNode.getSoftwareSystemInstances().stream().filter(ssi -> ssi.getSoftwareSystem().equals(softwareSystem)).count();
         instanceNumber++;
-        SoftwareSystemInstance softwareSystemInstance = new SoftwareSystemInstance(softwareSystem, (int)instanceNumber, deploymentNode.getEnvironment());
+        SoftwareSystemInstance softwareSystemInstance = new SoftwareSystemInstance(softwareSystem, (int)instanceNumber, deploymentNode.getEnvironment(), deploymentGroup);
         softwareSystemInstance.setParent(deploymentNode);
         softwareSystemInstance.setId(idGenerator.generateId(softwareSystemInstance));
 
-        if (replicateRelationships) {
-            replicateElementRelationships(deploymentNode.getEnvironment(), softwareSystemInstance);
-        }
+        replicateElementRelationships(softwareSystemInstance);
 
         addElementToInternalStructures(softwareSystemInstance);
 
         return softwareSystemInstance;
     }
 
-    ContainerInstance addContainerInstance(DeploymentNode deploymentNode, Container container, boolean replicateRelationships) {
+    ContainerInstance addContainerInstance(DeploymentNode deploymentNode, Container container, String deploymentGroup) {
         if (container == null) {
             throw new IllegalArgumentException("A container must be specified.");
         }
 
         long instanceNumber = deploymentNode.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(container)).count();
         instanceNumber++;
-        ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber, deploymentNode.getEnvironment());
+        ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber, deploymentNode.getEnvironment(), deploymentGroup);
         containerInstance.setParent(deploymentNode);
         containerInstance.setId(idGenerator.generateId(containerInstance));
 
-        if (replicateRelationships) {
-            replicateElementRelationships(deploymentNode.getEnvironment(), containerInstance);
-        }
+        replicateElementRelationships(containerInstance);
 
         addElementToInternalStructures(containerInstance);
 
         return containerInstance;
     }
 
-    private void replicateElementRelationships(String deploymentEnvironment, StaticStructureElementInstance elementInstance) {
+    private void replicateElementRelationships(StaticStructureElementInstance elementInstance) {
         StaticStructureElement element = elementInstance.getElement();
 
-        // find all StaticStructureElementInstance objects in the same deployment environment
+        // find all StaticStructureElementInstance objects in the same deployment environment and deployment group
         Set<StaticStructureElementInstance> elementInstances = getElements().stream()
-                .filter(e -> e instanceof StaticStructureElementInstance && ((StaticStructureElementInstance)e).getEnvironment().equals(deploymentEnvironment))
+                .filter(e -> e instanceof StaticStructureElementInstance)
                 .map(e -> (StaticStructureElementInstance)e)
+                .filter(ssei -> ssei.getEnvironment().equals(elementInstance.getEnvironment()))
+                .filter(ssei -> ssei.getDeploymentGroup().equals(elementInstance.getDeploymentGroup()))
                 .collect(Collectors.toSet());
 
-        // and replicate the relationships within the same deployment environment
+        // and replicate the relationships to/from the element instance
         for (StaticStructureElementInstance ssei : elementInstances) {
             StaticStructureElement sse = ssei.getElement();
 

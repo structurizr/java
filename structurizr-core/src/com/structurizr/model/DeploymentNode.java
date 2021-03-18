@@ -36,18 +36,18 @@ public final class DeploymentNode extends DeploymentElement {
      * @return a SoftwareSystemInstance object
      */
     public SoftwareSystemInstance add(SoftwareSystem softwareSystem) {
-        return add(softwareSystem, true);
+        return add(softwareSystem, DEFAULT_DEPLOYMENT_GROUP);
     }
 
     /**
-     * Adds a software system instance to this deployment node, optionally replicating relationships.
+     * Adds a software system instance to this deployment node, replicating relationships.
      *
-     * @param softwareSystem                    the SoftwareSystem to add an instance of
-     * @param replicateRelationships            true if relationships should be replicated between the element instances in the same deployment environment, false otherwise
+     * @param softwareSystem        the SoftwareSystem to add an instance of
+     * @param deploymentGroup       the deployment group
      * @return a SoftwareSystemInstance object
      */
-    public SoftwareSystemInstance add(SoftwareSystem softwareSystem, boolean replicateRelationships) {
-        SoftwareSystemInstance softwareSystemInstance = getModel().addSoftwareSystemInstance(this, softwareSystem, replicateRelationships);
+    public SoftwareSystemInstance add(SoftwareSystem softwareSystem, String deploymentGroup) {
+        SoftwareSystemInstance softwareSystemInstance = getModel().addSoftwareSystemInstance(this, softwareSystem, deploymentGroup);
         this.softwareSystemInstances.add(softwareSystemInstance);
 
         return softwareSystemInstance;
@@ -60,18 +60,18 @@ public final class DeploymentNode extends DeploymentElement {
      * @return a ContainerInstance object
      */
     public ContainerInstance add(Container container) {
-        return add(container, true);
+        return add(container, DEFAULT_DEPLOYMENT_GROUP);
     }
 
     /**
      * Adds a container instance to this deployment node, optionally replicating relationships.
      *
      * @param container                         the Container to add an instance of
-     * @param replicateRelationships            true if relationships should be replicated between the element instances in the same deployment environment, false otherwise
+     * @param deploymentGroup                   the deployment group
      * @return a ContainerInstance object
      */
-    public ContainerInstance add(Container container, boolean replicateRelationships) {
-        ContainerInstance containerInstance = getModel().addContainerInstance(this, container, replicateRelationships);
+    public ContainerInstance add(Container container, String deploymentGroup) {
+        ContainerInstance containerInstance = getModel().addContainerInstance(this, container, deploymentGroup);
         this.containerInstances.add(containerInstance);
 
         return containerInstance;

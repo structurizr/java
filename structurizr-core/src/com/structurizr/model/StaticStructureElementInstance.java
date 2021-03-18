@@ -16,22 +16,37 @@ public abstract class StaticStructureElementInstance extends DeploymentElement {
     private static final int DEFAULT_HEALTH_CHECK_INTERVAL_IN_SECONDS = 60;
     private static final long DEFAULT_HEALTH_CHECK_TIMEOUT_IN_MILLISECONDS = 0;
 
+    private String deploymentGroup = DEFAULT_DEPLOYMENT_GROUP;
     private int instanceId;
     private Set<HttpHealthCheck> healthChecks = new HashSet<>();
 
     StaticStructureElementInstance() {
     }
 
-    StaticStructureElementInstance(int instanceId, String environment) {
+    StaticStructureElementInstance(int instanceId, String environment, String deploymentGroup) {
         setInstanceId(instanceId);
         setEnvironment(environment);
+        setDeploymentGroup(deploymentGroup);
     }
 
     @JsonIgnore
     public abstract StaticStructureElement getElement();
 
     /**
-     * Gets the instance ID of this container.
+     * Gets the deployment group of this element instance.
+     *
+     * @return  a deployment group name
+     */
+    public String getDeploymentGroup() {
+        return deploymentGroup;
+    }
+
+    void setDeploymentGroup(String deploymentGroup) {
+        this.deploymentGroup = deploymentGroup;
+    }
+
+    /**
+     * Gets the instance ID of this element instance.
      *
      * @return  the instance ID, an integer greater than zero
      */

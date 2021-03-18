@@ -686,26 +686,66 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addContainerInstance_AddsAContainerInstanceAndDoesNotReplicateRelationships() {
-        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
-        Container container1 = softwareSystem1.addContainer("Container 1", "Description", "Technology");
+    public void test_addElementInstance_AddsElementInstancesAndReplicatesRelationshipsWithinTheDeploymentEnvironmentAndDefaultGroup() {
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System");
+        Container api = softwareSystem1.addContainer("API");
+        Container database = softwareSystem1.addContainer("Database");
+        api.uses(database, "Uses");
 
-        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
-        Container container2 = softwareSystem2.addContainer("Container 2", "Description", "Technology");
+        DeploymentNode liveDeploymentNode = model.addDeploymentNode("Live", "Deployment Node", "Description", "Technology");
+        ContainerInstance apiInstance1 = liveDeploymentNode.add(api);
+        ContainerInstance databaseInstance1 = liveDeploymentNode.add(database);
 
-        SoftwareSystem softwareSystem3 = model.addSoftwareSystem("Software System 3", "Description");
-        Container container3 = softwareSystem3.addContainer("Container 3", "Description", "Technology");
+        ContainerInstance apiInstance2 = liveDeploymentNode.add(api);
+        ContainerInstance databaseInstance2 = liveDeploymentNode.add(database);
 
-        container1.uses(container2, "Uses 1", "Technology 1", InteractionStyle.Synchronous);
-        container2.uses(container3, "Uses 2", "Technology 2", InteractionStyle.Asynchronous);
+        assertEquals(2, apiInstance1.getRelationships().size());
+        assertEquals(2, apiInstance2.getRelationships().size());
 
-        DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
-        ContainerInstance containerInstance1 = deploymentNode.add(container1, false);
-        ContainerInstance containerInstance2 = deploymentNode.add(container2, false);
-        ContainerInstance containerInstance3 = deploymentNode.add(container3, false);
+        // apiInstance1 -> databaseInstance1
+        Relationship relationship = apiInstance1.getEfferentRelationshipWith(databaseInstance1);
+        assertEquals("Uses", relationship.getDescription());
 
-        assertEquals(0, containerInstance1.getRelationships().size());
-        assertEquals(0, containerInstance2.getRelationships().size());
+        // apiInstance1 -> databaseInstance2
+        relationship = apiInstance1.getEfferentRelationshipWith(databaseInstance2);
+        assertEquals("Uses", relationship.getDescription());
+
+        // apiInstance2 -> databaseInstance1
+        relationship = apiInstance2.getEfferentRelationshipWith(databaseInstance1);
+        assertEquals("Uses", relationship.getDescription());
+
+        // apiInstance2 -> databaseInstance2
+        relationship = apiInstance2.getEfferentRelationshipWith(databaseInstance2);
+        assertEquals("Uses", relationship.getDescription());
+    }
+
+    @Test
+    public void test_addElementInstance_AddsElementInstancesAndReplicatesRelationshipsWithinTheDeploymentEnvironmentAndSpecifiedGroup() {
+        // in this test, container instances are added to two deployment groups: "Service 1" and "Service 2"
+        // relationships are not replicated between element instances in other groups
+
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System");
+        Container api = softwareSystem1.addContainer("API");
+        Container database = softwareSystem1.addContainer("Database");
+        api.uses(database, "Uses");
+
+        DeploymentNode liveDeploymentNode = model.addDeploymentNode("Live", "Deployment Node", "Description", "Technology");
+        ContainerInstance apiInstance1 = liveDeploymentNode.add(api, "Service 1");
+        ContainerInstance databaseInstance1 = liveDeploymentNode.add(database, "Service 1");
+
+        ContainerInstance apiInstance2 = liveDeploymentNode.add(api, "Service 2");
+        ContainerInstance databaseInstance2 = liveDeploymentNode.add(database, "Service 2");
+
+        assertEquals(1, apiInstance1.getRelationships().size());
+        assertEquals(1, apiInstance2.getRelationships().size());
+
+        // apiInstance1 -> databaseInstance1
+        Relationship relationship = apiInstance1.getEfferentRelationshipWith(databaseInstance1);
+        assertEquals("Uses", relationship.getDescription());
+
+        // apiInstance2 -> databaseInstance2
+        relationship = apiInstance2.getEfferentRelationshipWith(databaseInstance2);
+        assertEquals("Uses", relationship.getDescription());
     }
 
     @Test
