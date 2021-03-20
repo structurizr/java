@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.9.0 (unreleased)
+## 1.9.0 (20th March 2021)
 
 - Adds support for adding individual infrastructure nodes, software system instances, and container instances to a deployment view.
 - Adds support for removing software system instances from deployment views.
