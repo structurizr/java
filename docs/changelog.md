@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.1 (unreleased)
+
+- Adds a `findTerminology` method on the `Terminology` class.
+
 ## 1.9.0 (20th March 2021)
 
 - Adds support for adding individual infrastructure nodes, software system instances, and container instances to a deployment view.

@@ -1,6 +1,8 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.structurizr.model.*;
+import com.structurizr.util.StringUtils;
 
 /**
  * Provides a way for the terminology on diagrams, etc to be modified (e.g. language translations).
@@ -104,6 +106,36 @@ public final class Terminology {
 
     public void setRelationship(String relationship) {
         this.relationship = relationship;
+    }
+
+    /**
+     * Finds the terminology that can be used to describe/label the specified model item.
+     *
+     * @param modelItem     an Element or Relationship
+     * @return  the default or overridden terminology for the specified model item
+     */
+    public String findTerminology(ModelItem modelItem) {
+        if (modelItem instanceof StaticStructureElementInstance) {
+            modelItem = ((StaticStructureElementInstance)modelItem).getElement();
+        }
+
+        if (modelItem instanceof Relationship) {
+            return !StringUtils.isNullOrEmpty(getRelationship()) ? getRelationship() : "Relationship";
+        } else if (modelItem instanceof Person) {
+            return !StringUtils.isNullOrEmpty(getPerson()) ? getPerson() : "Person";
+        } else if (modelItem instanceof SoftwareSystem) {
+            return !StringUtils.isNullOrEmpty(getSoftwareSystem()) ? getSoftwareSystem() : "Software System";
+        } else if (modelItem instanceof Container) {
+            return !StringUtils.isNullOrEmpty(getContainer()) ? getContainer() : "Container";
+        } else if (modelItem instanceof Component) {
+            return !StringUtils.isNullOrEmpty(getComponent()) ? getComponent() : "Component";
+        } else if (modelItem instanceof DeploymentNode) {
+            return !StringUtils.isNullOrEmpty(getDeploymentNode()) ? getDeploymentNode() : "Deployment Node";
+        } else if (modelItem instanceof InfrastructureNode) {
+            return !StringUtils.isNullOrEmpty(getInfrastructureNode()) ? getInfrastructureNode() : "Infrastructure Node";
+        }
+
+        throw new IllegalArgumentException("Unknown model item type.");
     }
 
 }
