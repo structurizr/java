@@ -1,6 +1,7 @@
 package com.structurizr.view;
 
 import com.structurizr.Workspace;
+import com.structurizr.model.DeploymentNode;
 import com.structurizr.model.Element;
 import com.structurizr.model.Relationship;
 import com.structurizr.model.Tags;
@@ -141,7 +142,13 @@ public final class Styles {
     }
 
     public ElementStyle findElementStyle(Element element) {
-        ElementStyle style = new ElementStyle("").background("#dddddd").stroke("#dddddd").color("#000000").shape(Shape.Box).fontSize(24).border(Border.Solid).opacity(100).metadata(true).description(true);
+        ElementStyle style = new ElementStyle("").background("#dddddd").color("#000000").shape(Shape.Box).fontSize(24).border(Border.Solid).opacity(100).metadata(true).description(true);
+
+        if (element instanceof DeploymentNode) {
+            style.setBackground("#ffffff");
+            style.setColor("#000000");
+            style.setStroke("#888888");
+        }
 
         if (element != null) {
             for (String tag : element.getTagsAsSet()) {
@@ -166,6 +173,11 @@ public final class Styles {
             } else {
                 style.setHeight(DEFAULT_HEIGHT_OF_ELEMENT);
             }
+        }
+
+        if (style.getStroke() == null) {
+            java.awt.Color color = java.awt.Color.decode(style.getBackground());
+            style.setStroke(String.format("#%06X", (0xFFFFFF & color.darker().getRGB())));
         }
 
         return style;

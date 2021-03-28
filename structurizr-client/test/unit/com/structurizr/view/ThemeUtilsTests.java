@@ -94,7 +94,7 @@ public class ThemeUtilsTests {
         assertEquals(Shape.RoundedBox, style.getShape()); // from workspace
         assertNull(style.getIcon());
         assertEquals(Border.Solid, style.getBorder());
-        assertEquals("#dddddd", style.getStroke());
+        assertEquals("#b20000", style.getStroke());
         assertEquals(new Integer(100), style.getOpacity());
         assertEquals(true, style.getMetadata());
         assertEquals(true, style.getDescription());

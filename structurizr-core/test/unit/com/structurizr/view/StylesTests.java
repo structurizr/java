@@ -21,7 +21,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         assertEquals(Shape.Box, style.getShape());
         assertNull(style.getIcon());
         assertEquals(Border.Solid, style.getBorder());
-        assertEquals("#dddddd", style.getStroke());
+        assertEquals("#9a9a9a", style.getStroke());
         assertEquals(new Integer(100), style.getOpacity());
         assertEquals(true, style.getMetadata());
         assertEquals(true, style.getDescription());
@@ -39,7 +39,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         assertEquals(Shape.Box, style.getShape());
         assertNull(style.getIcon());
         assertEquals(Border.Solid, style.getBorder());
-        assertEquals("#dddddd", style.getStroke());
+        assertEquals("#9a9a9a", style.getStroke());
         assertEquals(new Integer(100), style.getOpacity());
         assertEquals(true, style.getMetadata());
         assertEquals(true, style.getDescription());
