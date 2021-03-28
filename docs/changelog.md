@@ -1,8 +1,9 @@
 # Changelog
 
-## 1.9.1 (unreleased)
+## 1.9.1 (28th March 2021)
 
 - Adds a `findTerminology` method on the `Terminology` class.
+- `Styles.findElementStyle` better mirrors how the Structurizr web renderer deals with element styling.
 
 ## 1.9.0 (20th March 2021)
 
