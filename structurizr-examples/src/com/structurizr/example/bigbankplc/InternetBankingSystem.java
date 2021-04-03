@@ -1,12 +1,13 @@
-package com.structurizr.example;
+package com.structurizr.example.bigbankplc;
 
-import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.documentation.Format;
-import com.structurizr.documentation.StructurizrDocumentationTemplate;
+import com.structurizr.documentation.AdrToolsImporter;
+import com.structurizr.documentation.AutomaticDocumentationTemplate;
 import com.structurizr.model.*;
 import com.structurizr.util.MapUtils;
 import com.structurizr.view.*;
+
+import java.io.File;
 
 /**
  * This is an example workspace to illustrate the key features of Structurizr,
@@ -14,55 +15,20 @@ import com.structurizr.view.*;
  *
  * The live workspace is available to view at https://structurizr.com/share/36141
  */
-public class BigBankPlc {
+public final class InternetBankingSystem extends BigBankPlc {
 
     private static final long WORKSPACE_ID = 36141;
     private static final String API_KEY = "key";
     private static final String API_SECRET = "secret";
 
-    private static final String EXISTING_SYSTEM_TAG = "Existing System";
-    private static final String BANK_STAFF_TAG = "Bank Staff";
     private static final String WEB_BROWSER_TAG = "Web Browser";
     private static final String MOBILE_APP_TAG = "Mobile App";
     private static final String DATABASE_TAG = "Database";
     private static final String FAILOVER_TAG = "Failover";
 
-    public static void main(String[] args) throws Exception {
-        Workspace workspace = new Workspace("Big Bank plc", "This is an example workspace to illustrate the key features of Structurizr, based around a fictional online banking system.");
-        Model model = workspace.getModel();
-        model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
-        ViewSet views = workspace.getViews();
-
-        model.setEnterprise(new Enterprise("Big Bank plc"));
-
-        // people and software systems
-        Person customer = model.addPerson(Location.External, "Personal Banking Customer", "A customer of the bank, with personal bank accounts.");
-
-        SoftwareSystem internetBankingSystem = model.addSoftwareSystem(Location.Internal, "Internet Banking System", "Allows customers to view information about their bank accounts, and make payments.");
-        customer.uses(internetBankingSystem, "Views account balances, and makes payments using");
-
-        SoftwareSystem mainframeBankingSystem = model.addSoftwareSystem(Location.Internal, "Mainframe Banking System", "Stores all of the core banking information about customers, accounts, transactions, etc.");
-        mainframeBankingSystem.addTags(EXISTING_SYSTEM_TAG);
-        internetBankingSystem.uses(mainframeBankingSystem, "Gets account information from, and makes payments using");
-
-        SoftwareSystem emailSystem = model.addSoftwareSystem(Location.Internal, "E-mail System", "The internal Microsoft Exchange e-mail system.");
-        internetBankingSystem.uses(emailSystem, "Sends e-mail using");
-        emailSystem.addTags(EXISTING_SYSTEM_TAG);
-        emailSystem.delivers(customer, "Sends e-mails to");
-
-        SoftwareSystem atm = model.addSoftwareSystem(Location.Internal, "ATM", "Allows customers to withdraw cash.");
-        atm.addTags(EXISTING_SYSTEM_TAG);
-        atm.uses(mainframeBankingSystem, "Uses");
-        customer.uses(atm, "Withdraws cash using");
-
-        Person customerServiceStaff = model.addPerson(Location.Internal, "Customer Service Staff", "Customer service staff within the bank.");
-        customerServiceStaff.addTags(BANK_STAFF_TAG);
-        customerServiceStaff.uses(mainframeBankingSystem, "Uses");
-        customer.interactsWith(customerServiceStaff, "Asks questions to", "Telephone");
-
-        Person backOfficeStaff = model.addPerson(Location.Internal, "Back Office Staff", "Administration and support staff within the bank.");
-        backOfficeStaff.addTags(BANK_STAFF_TAG);
-        backOfficeStaff.uses(mainframeBankingSystem, "Uses");
+    private InternetBankingSystem() throws Exception {
+        workspace.setName("Big Bank plc - Internet Banking System");
+        workspace.setDescription("The software architecture of the Big Bank plc Internet Banking System.");
 
         // containers
         Container singlePageApplication = internetBankingSystem.addContainer("Single-Page Application", "Provides all of the Internet banking functionality to customers via their web browser.", "JavaScript and Angular");
@@ -150,10 +116,6 @@ public class BigBankPlc {
         liveSecondaryDatabase.addTags(FAILOVER_TAG);
 
         // views/diagrams
-        SystemLandscapeView systemLandscapeView = views.createSystemLandscapeView("SystemLandscape", "The system landscape diagram for Big Bank plc.");
-        systemLandscapeView.addAllElements();
-        systemLandscapeView.setPaperSize(PaperSize.A5_Landscape);
-
         SystemContextView systemContextView = views.createSystemContextView(internetBankingSystem, "SystemContext", "The system context diagram for the Internet Banking System.");
         systemContextView.setEnterpriseBoundaryVisible(false);
         systemContextView.addNearestNeighbours(internetBankingSystem);
@@ -174,10 +136,6 @@ public class BigBankPlc {
         componentView.add(mainframeBankingSystem);
         componentView.add(emailSystem);
         componentView.setPaperSize(PaperSize.A5_Landscape);
-
-        systemLandscapeView.addAnimation(internetBankingSystem, customer, mainframeBankingSystem, emailSystem);
-        systemLandscapeView.addAnimation(atm);
-        systemLandscapeView.addAnimation(customerServiceStaff, backOfficeStaff);
 
         systemContextView.addAnimation(internetBankingSystem);
         systemContextView.addAnimation(customer);
@@ -237,9 +195,7 @@ public class BigBankPlc {
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#1168bd").color("#ffffff");
         styles.addElementStyle(Tags.CONTAINER).background("#438dd5").color("#ffffff");
         styles.addElementStyle(Tags.COMPONENT).background("#85bbf0").color("#000000");
-        styles.addElementStyle(Tags.PERSON).background("#08427b").color("#ffffff").shape(Shape.Person).fontSize(22);
         styles.addElementStyle(EXISTING_SYSTEM_TAG).background("#999999").color("#ffffff");
-        styles.addElementStyle(BANK_STAFF_TAG).background("#999999").color("#ffffff");
         styles.addElementStyle(WEB_BROWSER_TAG).shape(Shape.WebBrowser);
         styles.addElementStyle(MOBILE_APP_TAG).shape(Shape.MobileDeviceLandscape);
         styles.addElementStyle(DATABASE_TAG).shape(Shape.Cylinder);
@@ -247,34 +203,19 @@ public class BigBankPlc {
         styles.addRelationshipStyle(FAILOVER_TAG).opacity(25).position(70);
 
         // documentation
-        // - usually the documentation would be included from separate Markdown/AsciiDoc files, but this is just an example
-        StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
-        template.addContextSection(internetBankingSystem, Format.Markdown,
-                "Here is some context about the Internet Banking System...\n" +
-                        "![](embed:SystemLandscape)\n" +
-                        "![](embed:SystemContext)\n" +
-                        "### Internet Banking System\n...\n" +
-                        "### Mainframe Banking System\n...\n");
-        template.addContainersSection(internetBankingSystem, Format.Markdown,
-                "Here is some information about the containers within the Internet Banking System...\n" +
-                        "![](embed:Containers)\n" +
-                        "### Web Application\n...\n" +
-                        "### Database\n...\n");
-        template.addComponentsSection(webApplication, Format.Markdown,
-                "Here is some information about the API Application...\n" +
-                        "![](embed:Components)\n" +
-                        "### Sign in process\n" +
-                        "Here is some information about the Sign In Controller, including how the sign in process works...\n" +
-                        "![](embed:SignIn)");
-        template.addDevelopmentEnvironmentSection(internetBankingSystem, Format.AsciiDoc,
-                "Here is some information about how to set up a development environment for the Internet Banking System...\n" +
-                        "image::embed:DevelopmentDeployment[]");
-        template.addDeploymentSection(internetBankingSystem, Format.AsciiDoc,
-                "Here is some information about the live deployment environment for the Internet Banking System...\n" +
-                        "image::embed:LiveDeployment[]");
+        AutomaticDocumentationTemplate template = new AutomaticDocumentationTemplate(workspace);
+        template.addSections(internetBankingSystem, new File("./structurizr-examples/src/com/structurizr/example/bigbankplc/internetbankingsystem/docs"));
+
+        // ADRs
+        AdrToolsImporter adrToolsImporter = new AdrToolsImporter(workspace, new File("./structurizr-examples/src/com/structurizr/example/bigbankplc/internetbankingsystem/adrs"));
+        adrToolsImporter.importArchitectureDecisionRecords(internetBankingSystem);
 
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
         structurizrClient.putWorkspace(WORKSPACE_ID, workspace);
+    }
+
+    public static void main(String[] args) throws Exception {
+        new InternetBankingSystem();
     }
 
 }
