@@ -150,4 +150,25 @@ public class DefaultLayoutMergeStrategyTests {
         assertEquals(0, view2.getElementView(container2).getY());
     }
 
+    @Test
+    public void test_copyLayoutInformation_DoesNotThrowAnExceptionWhenAddingAnElementToAView() {
+        Workspace workspace1 = new Workspace("1", "");
+        SoftwareSystem softwareSystem1A = workspace1.getModel().addSoftwareSystem("Software System A");
+        SoftwareSystem softwareSystem1B = workspace1.getModel().addSoftwareSystem("Software System B");
+        softwareSystem1A.uses(softwareSystem1B, "Uses");
+        SystemLandscapeView view1 = workspace1.getViews().createSystemLandscapeView("key", "description");
+        view1.add(softwareSystem1A);
+
+        Workspace workspace2 = new Workspace("2", "");
+        SoftwareSystem softwareSystem2A = workspace2.getModel().addSoftwareSystem("Software System A");
+        SoftwareSystem softwareSystem2B = workspace2.getModel().addSoftwareSystem("Software System B");
+        softwareSystem2A.uses(softwareSystem2B, "Uses");
+        SystemLandscapeView view2 = workspace2.getViews().createSystemLandscapeView("key", "description");
+        view2.add(softwareSystem2A);
+        view2.add(softwareSystem2B);
+
+        DefaultLayoutMergeStrategy strategy = new DefaultLayoutMergeStrategy();
+        strategy.copyLayoutInformation(view1, view2);
+    }
+
 }

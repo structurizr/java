@@ -106,6 +106,10 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
     }
 
     private RelationshipView findRelationshipView(View viewWithLayoutInformation, Relationship relationshipWithoutLayoutInformation, Map<Element,Element> elementMap) {
+        if (!elementMap.containsKey(relationshipWithoutLayoutInformation.getSource()) || !elementMap.containsKey(relationshipWithoutLayoutInformation.getDestination())) {
+            return null;
+        }
+
         Element sourceElementWithLayoutInformation = elementMap.get(relationshipWithoutLayoutInformation.getSource());
         Element destinationElementWithLayoutInformation = elementMap.get(relationshipWithoutLayoutInformation.getDestination());
 
@@ -123,6 +127,10 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
     }
 
     private RelationshipView findRelationshipView(View view, RelationshipView relationshipWithoutLayoutInformation, Map<Element,Element> elementMap) {
+        if (!elementMap.containsKey(relationshipWithoutLayoutInformation.getRelationship().getSource()) || !elementMap.containsKey(relationshipWithoutLayoutInformation.getRelationship().getDestination())) {
+            return null;
+        }
+
         Element sourceElementWithLayoutInformation = elementMap.get(relationshipWithoutLayoutInformation.getRelationship().getSource());
         Element destinationElementWithLayoutInformation = elementMap.get(relationshipWithoutLayoutInformation.getRelationship().getDestination());
 
