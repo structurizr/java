@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.2 (27th April 2021)
+
+- Adds a `Diamond` shape.
+
 ## 1.9.1 (28th March 2021)
 
 - Adds a `findTerminology` method on the `Terminology` class.
