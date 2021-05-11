@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.9.3 (unreleased)
+## 1.9.3 (11th May 2021)
 
 - Added an `addTheme` method on `Configuration`.
 - Removed the `addDefaultStyles` method on `Styles`.
