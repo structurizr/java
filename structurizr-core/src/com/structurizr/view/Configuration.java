@@ -15,7 +15,7 @@ public final class Configuration {
 
     private Branding branding = new Branding();
     private Styles styles = new Styles();
-    private String[] themes;
+    private List<String> themes = new ArrayList<>();
     private Terminology terminology = new Terminology();
 
     private MetadataSymbols metadataSymbols;
@@ -36,11 +36,11 @@ public final class Configuration {
     @JsonIgnore
     @Deprecated
     public String getTheme() {
-        if (themes == null || themes.length == 0) {
+        if (themes == null || themes.size() == 0) {
             return null;
         }
 
-        return themes[0];
+        return themes.get(0);
     }
 
     /**
@@ -59,7 +59,7 @@ public final class Configuration {
      * @return  an array of URLs
      */
     public String[] getThemes() {
-        return themes;
+        return themes.toArray(new String[0]);
     }
 
     /**
@@ -68,21 +68,28 @@ public final class Configuration {
      * @param themes        an array of URLs
      */
     public void setThemes(String... themes) {
-        List<String> list = new ArrayList<>();
-
         if (themes != null) {
             for (String url : themes) {
-                if (url != null && url.trim().length() > 0) {
-                    if (Url.isUrl(url)) {
-                        list.add(url.trim());
-                    } else {
-                        throw new IllegalArgumentException(url + " is not a valid URL.");
-                    }
-                }
+                addTheme(url);
             }
         }
+    }
 
-        this.themes = list.toArray(new String[0]);
+    /**
+     * Adds a theme.
+     *
+     * @param url       the URL of the theme to be added
+     */
+    public void addTheme(String url) {
+        if (url != null && url.trim().length() > 0) {
+            if (Url.isUrl(url)) {
+                if (!themes.contains(url)) {
+                    themes.add(url.trim());
+                }
+            } else {
+                throw new IllegalArgumentException(url + " is not a valid URL.");
+            }
+        }
     }
 
     /**

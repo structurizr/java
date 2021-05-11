@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.3 (unreleased)
+
+- Added an `addTheme` method on `Configuration`.
+
 ## 1.9.2 (27th April 2021)
 
 - Adds a `Diamond` shape.

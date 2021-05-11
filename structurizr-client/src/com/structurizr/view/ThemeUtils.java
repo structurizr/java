@@ -66,26 +66,24 @@ public final class ThemeUtils {
      * @throws Exception    if something goes wrong
      */
     public static void loadThemes(Workspace workspace) throws Exception {
-        if (workspace.getViews().getConfiguration().getThemes() != null) {
-            for (String url : workspace.getViews().getConfiguration().getThemes()) {
-                CloseableHttpClient httpClient = HttpClients.createSystem();
-                HttpGet httpGet = new HttpGet(url);
+        for (String url : workspace.getViews().getConfiguration().getThemes()) {
+            CloseableHttpClient httpClient = HttpClients.createSystem();
+            HttpGet httpGet = new HttpGet(url);
 
-                CloseableHttpResponse response = httpClient.execute(httpGet);
-                if (response.getCode() == HTTP_OK_STATUS) {
-                    String json = EntityUtils.toString(response.getEntity());
+            CloseableHttpResponse response = httpClient.execute(httpGet);
+            if (response.getCode() == HTTP_OK_STATUS) {
+                String json = EntityUtils.toString(response.getEntity());
 
-                    ObjectMapper objectMapper = new ObjectMapper();
-                    objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
-                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                ObjectMapper objectMapper = new ObjectMapper();
+                objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
+                objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-                    Theme theme = objectMapper.readValue(json, Theme.class);
+                Theme theme = objectMapper.readValue(json, Theme.class);
 
-                    workspace.getViews().getConfiguration().getStyles().addStylesFromTheme(url, theme.getElements(), theme.getRelationships());
-                }
-
-                httpClient.close();
+                workspace.getViews().getConfiguration().getStyles().addStylesFromTheme(url, theme.getElements(), theme.getRelationships());
             }
+
+            httpClient.close();
         }
     }
 
