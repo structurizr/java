@@ -3,6 +3,7 @@
 ## 1.9.3 (unreleased)
 
 - Added an `addTheme` method on `Configuration`.
+- Removed the `addDefaultStyles` method on `Styles`.
 
 ## 1.9.2 (27th April 2021)
 
