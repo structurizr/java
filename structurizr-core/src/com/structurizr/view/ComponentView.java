@@ -266,6 +266,7 @@ public final class ComponentView extends StaticView {
             if (element.equals(getContainer().getParent())) {
                 throw new ElementNotPermittedInViewException("The software system in scope cannot be added to a component view.");
             } else {
+                checkParentAndChildrenHaveNotAlreadyBeenAdded((SoftwareSystem)element);
                 return;
             }
         }
@@ -274,11 +275,13 @@ public final class ComponentView extends StaticView {
             if (element.equals(getContainer())) {
                 throw new ElementNotPermittedInViewException("The container in scope cannot be added to a component view.");
             } else {
+                checkParentAndChildrenHaveNotAlreadyBeenAdded((Container)element);
                 return;
             }
         }
 
         if (element instanceof Component) {
+            checkParentAndChildrenHaveNotAlreadyBeenAdded((Component)element);
             return;
         }
 

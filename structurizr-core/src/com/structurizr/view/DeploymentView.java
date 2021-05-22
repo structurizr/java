@@ -314,7 +314,7 @@ public final class DeploymentView extends View {
             Set<String> softwareSystemIds = getElements().stream().map(ElementView::getElement).filter(e -> e instanceof SoftwareSystemInstance).map(e -> (SoftwareSystemInstance)e).map(SoftwareSystemInstance::getSoftwareSystemId).collect(Collectors.toSet());
 
             if (softwareSystemIds.contains(containerInstanceToBeAdded.getContainer().getSoftwareSystem().getId())) {
-                throw new ElementNotPermittedInViewException("The parent of " + elementToBeAdded.getName() + " is already in this view.");
+                throw new ElementNotPermittedInViewException("A parent of " + elementToBeAdded.getName() + " is already in this view.");
             }
         }
     }

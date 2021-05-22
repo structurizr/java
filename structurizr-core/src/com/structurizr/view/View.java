@@ -439,20 +439,31 @@ public abstract class View {
     protected abstract boolean canBeRemoved(Element element);
 
     final void checkParentAndChildrenHaveNotAlreadyBeenAdded(StaticStructureElement elementToBeAdded) {
-        // check the parent hasn't been added already
-        Set<String> elementIds = getElements().stream().map(ElementView::getElement).map(Element::getId).collect(Collectors.toSet());
+        // check a parent hasn't been added already
+        Set<String> idsOfElementsInView = getElements().stream().map(ElementView::getElement).map(Element::getId).collect(Collectors.toSet());
 
-        if (elementToBeAdded.getParent() != null) {
-            if (elementIds.contains(elementToBeAdded.getParent().getId())) {
-                throw new ElementNotPermittedInViewException("The parent of " + elementToBeAdded.getName() + " is already in this view.");
+        Element parent = elementToBeAdded.getParent();
+        while (parent != null) {
+            if (idsOfElementsInView.contains(parent.getId())) {
+                throw new ElementNotPermittedInViewException("A parent of " + elementToBeAdded.getName() + " is already in this view.");
             }
+
+            parent = parent.getParent();
         }
 
         // and now check a child hasn't been added already
-        Set<String> elementParentIds = getElements().stream().map(ElementView::getElement).filter(e -> e.getParent() != null).map(e -> e.getParent().getId()).collect(Collectors.toSet());
+        Set<String> elementParentIds = new HashSet<>();
+        for (ElementView elementView : getElements()) {
+            Element element = elementView.getElement();
+            parent = element.getParent();
+            while (parent != null) {
+                elementParentIds.add(parent.getId());
+                parent = parent.getParent();
+            }
+        }
 
         if (elementParentIds.contains(elementToBeAdded.getId())) {
-            throw new ElementNotPermittedInViewException("The child of " + elementToBeAdded.getName() + " is already in this view.");
+            throw new ElementNotPermittedInViewException("A child of " + elementToBeAdded.getName() + " is already in this view.");
         }
     }
 

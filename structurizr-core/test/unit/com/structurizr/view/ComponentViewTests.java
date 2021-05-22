@@ -626,4 +626,114 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
         }
     }
 
+    @Test
+    public void test_addSoftwareSystem_ThrowsAnException_WhenAChildContainerIsAlreadyAdded() {
+        try {
+            SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
+            Container container1 = softwareSystem1.addContainer("Container 1");
+            Component component1 = container1.addComponent("Component 1");
+
+            SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2");
+            Container container2 = softwareSystem2.addContainer("Container 2");
+            Component component2 = container2.addComponent("Component 2");
+
+            ComponentView view = views.createComponentView(container1, "key", "Description");
+
+            view.add(container2);
+            view.add(softwareSystem2);
+
+            fail();
+        } catch (ElementNotPermittedInViewException e) {
+            assertEquals("A child of Software System 2 is already in this view.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addSoftwareSystem_ThrowsAnException_WhenAChildComponentIsAlreadyAdded() {
+        try {
+            SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
+            Container container1 = softwareSystem1.addContainer("Container 1");
+            Component component1 = container1.addComponent("Component 1");
+
+            SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2");
+            Container container2 = softwareSystem2.addContainer("Container 2");
+            Component component2 = container2.addComponent("Component 2");
+
+            ComponentView view = views.createComponentView(container1, "key", "Description");
+
+            view.add(component2);
+            view.add(softwareSystem2);
+
+            fail();
+        } catch (ElementNotPermittedInViewException e) {
+            assertEquals("A child of Software System 2 is already in this view.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addContainer_ThrowsAnException_WhenAChildComponentIsAlreadyAdded() {
+        try {
+            SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
+            Container container1 = softwareSystem1.addContainer("Container 1");
+            Component component1 = container1.addComponent("Component 1");
+
+            SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2");
+            Container container2 = softwareSystem2.addContainer("Container 2");
+            Component component2 = container2.addComponent("Component 2");
+
+            ComponentView view = views.createComponentView(container1, "key", "Description");
+
+            view.add(component2);
+            view.add(container2);
+
+            fail();
+        } catch (ElementNotPermittedInViewException e) {
+            assertEquals("A child of Container 2 is already in this view.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addContainer_ThrowsAnException_WhenTheParentIsAlreadyAdded() {
+        try {
+            SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
+            Container container1 = softwareSystem1.addContainer("Container 1");
+            Component component1 = container1.addComponent("Component 1");
+
+            SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2");
+            Container container2 = softwareSystem2.addContainer("Container 2");
+            Component component2 = container2.addComponent("Component 2");
+
+            ComponentView view = views.createComponentView(container1, "key", "Description");
+
+            view.add(softwareSystem2);
+            view.add(container2);
+
+            fail();
+        } catch (ElementNotPermittedInViewException e) {
+            assertEquals("A parent of Container 2 is already in this view.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addComponent_ThrowsAnException_WhenTheParentIsAlreadyAdded() {
+        try {
+            SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
+            Container container1 = softwareSystem1.addContainer("Container 1");
+            Component component1 = container1.addComponent("Component 1");
+
+            SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2");
+            Container container2 = softwareSystem2.addContainer("Container 2");
+            Component component2 = container2.addComponent("Component 2");
+
+            ComponentView view = views.createComponentView(container1, "key", "Description");
+
+            view.add(softwareSystem2);
+            view.add(component2);
+
+            fail();
+        } catch (ElementNotPermittedInViewException e) {
+            assertEquals("A parent of Component 2 is already in this view.", e.getMessage());
+        }
+    }
+
 }

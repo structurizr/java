@@ -532,7 +532,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
             deploymentView.add(containerInstance);
             fail();
         } catch (ElementNotPermittedInViewException e) {
-            assertEquals("The parent of Container is already in this view.", e.getMessage());
+            assertEquals("A parent of Container is already in this view.", e.getMessage());
         }
     }
 

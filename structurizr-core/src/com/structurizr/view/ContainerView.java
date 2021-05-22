@@ -181,11 +181,13 @@ public final class ContainerView extends StaticView {
             if (element.equals(getSoftwareSystem())) {
                 throw new ElementNotPermittedInViewException("The software system in scope cannot be added to a container view.");
             } else {
+                checkParentAndChildrenHaveNotAlreadyBeenAdded((SoftwareSystem)element);
                 return;
             }
         }
 
         if (element instanceof Container) {
+            checkParentAndChildrenHaveNotAlreadyBeenAdded((Container)element);
             return;
         }
 

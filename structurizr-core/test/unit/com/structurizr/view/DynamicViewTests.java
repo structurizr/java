@@ -149,7 +149,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
             dynamicView.add(component1, component2);
             fail();
         } catch (Exception e) {
-            assertEquals("The parent of Component 2 is already in this view.", e.getMessage());
+            assertEquals("A parent of Component 2 is already in this view.", e.getMessage());
         }
     }
 
@@ -171,7 +171,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
             dynamicView.add(component1, container2);
             fail();
         } catch (Exception e) {
-            assertEquals("The child of Container 2 is already in this view.", e.getMessage());
+            assertEquals("A child of Container 2 is already in this view.", e.getMessage());
         }
     }
 

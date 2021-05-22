@@ -6,6 +6,9 @@ import com.structurizr.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 public class ContainerViewTests extends AbstractWorkspaceTestBase {
@@ -303,6 +306,48 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
             fail();
         } catch (ElementNotPermittedInViewException e) {
             assertEquals("The software system in scope cannot be added to a container view.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addSoftwareSystem_ThrowsAnException_WhenAChildContainerIsAlreadyAdded() {
+        try {
+            SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
+            Container container1 = softwareSystem1.addContainer("Container 1");
+
+            SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2");
+            Container container2 = softwareSystem2.addContainer("Container 2");
+
+            ContainerView view = views.createContainerView(softwareSystem1, "key", "Description");
+
+            view.add(container1);
+            view.add(container2);
+            view.add(softwareSystem2);
+
+            fail();
+        } catch (ElementNotPermittedInViewException e) {
+            assertEquals("A child of Software System 2 is already in this view.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addContainer_ThrowsAnException_WhenTheParentIsAlreadyAdded() {
+        try {
+            SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
+            Container container1 = softwareSystem1.addContainer("Container 1");
+
+            SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2");
+            Container container2 = softwareSystem2.addContainer("Container 2");
+
+            ContainerView view = views.createContainerView(softwareSystem1, "key", "Description");
+
+            view.add(container1);
+            view.add(softwareSystem2);
+            view.add(container2);
+
+            fail();
+        } catch (ElementNotPermittedInViewException e) {
+            assertEquals("A parent of Container 2 is already in this view.", e.getMessage());
         }
     }
 

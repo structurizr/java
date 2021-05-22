@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.4 (22nd May 2021)
+
+- Bug fixes to prevent parents and children to both be added to container/component views.
+
 ## 1.9.3 (11th May 2021)
 
 - Added an `addTheme` method on `Configuration`.
