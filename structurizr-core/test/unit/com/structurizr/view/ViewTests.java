@@ -180,6 +180,8 @@ public class ViewTests extends AbstractWorkspaceTestBase {
 
         // create a view with SystemA and Person (locations are set for both, relationship has vertices)
         StaticView staticView1 = new SystemContextView(softwareSystem1A, "context", "Description");
+        staticView1.setPaperSize(PaperSize.A3_Landscape);
+        staticView1.setDimensions(new Dimensions(123, 456));
         staticView1.add(softwareSystem1B);
         staticView1.getElementView(softwareSystem1B).setX(123);
         staticView1.getElementView(softwareSystem1B).setY(321);
@@ -226,6 +228,9 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         dynamicView2.add(person2, "Overridden description", softwareSystem2A);
 
         staticView2.copyLayoutInformationFrom(staticView1);
+        assertEquals(PaperSize.A3_Landscape, staticView2.getPaperSize());
+        assertEquals(123, staticView2.getDimensions().getWidth());
+        assertEquals(456, staticView2.getDimensions().getHeight());
         assertEquals(0, staticView2.getElementView(softwareSystem2A).getX());
         assertEquals(0, staticView2.getElementView(softwareSystem2A).getY());
         assertEquals(123, staticView2.getElementView(softwareSystem2B).getX());
