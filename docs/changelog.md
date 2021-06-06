@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.5 (unreleased)
+
+- Provides a way to store view dimensions.
+
 ## 1.9.4 (22nd May 2021)
 
 - Bug fixes to prevent parents and children to both be added to container/component views.

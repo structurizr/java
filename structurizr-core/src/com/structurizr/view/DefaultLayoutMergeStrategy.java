@@ -35,6 +35,7 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
      */
     public void copyLayoutInformation(@Nonnull View viewWithLayoutInformation, @Nonnull View viewWithoutLayoutInformation) {
         setPaperSizeIfNotSpecified(viewWithLayoutInformation, viewWithoutLayoutInformation);
+        setDimensionsIfNotSpecified(viewWithLayoutInformation, viewWithoutLayoutInformation);
 
         Map<ElementView, ElementView> elementViewMap = new HashMap<>();
         Map<Element, Element> elementMap = new HashMap<>();
@@ -71,6 +72,12 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
     private void setPaperSizeIfNotSpecified(@Nonnull View remoteView, @Nonnull View localView) {
         if (localView.getPaperSize() == null) {
             localView.setPaperSize(remoteView.getPaperSize());
+        }
+    }
+
+    private void setDimensionsIfNotSpecified(@Nonnull View remoteView, @Nonnull View localView) {
+        if (localView.getDimensions() == null) {
+            localView.setDimensions(remoteView.getDimensions());
         }
     }
 

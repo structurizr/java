@@ -25,6 +25,7 @@ public abstract class View {
     private String description = "";
     private String key;
     private PaperSize paperSize = null;
+    private Dimensions dimensions = null;
     private AutomaticLayout automaticLayout = null;
     private String title;
 
@@ -134,6 +135,14 @@ public abstract class View {
 
     public void setPaperSize(PaperSize paperSize) {
         this.paperSize = paperSize;
+    }
+
+    public Dimensions getDimensions() {
+        return dimensions;
+    }
+
+    public void setDimensions(Dimensions dimensions) {
+        this.dimensions = dimensions;
     }
 
     /**
