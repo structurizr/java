@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.9.5 (unreleased)
+## 1.9.5 (7th June 2021)
 
 - Provides a way to store view dimensions.
 
