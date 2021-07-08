@@ -69,4 +69,33 @@ public class ImageUtils {
         return "data:" + contentType + ";base64," + base64Content;
     }
 
+    public static void validateImage(String url) {
+        if (StringUtils.isNullOrEmpty(url)) {
+            return;
+        }
+
+        url = url.trim();
+
+        if (Url.isUrl(url)) {
+            // all good
+            return;
+        }
+
+        if (url.startsWith("data:image")) {
+            if (ImageUtils.isSupportedDataUri(url)) {
+                // all good
+                return;
+            } else {
+                // it's a data URI, but not supported
+                throw new IllegalArgumentException("Only PNG and JPG data URIs are supported: " + url);
+            }
+        }
+
+        throw new IllegalArgumentException("Expected a URL or data URI");
+    }
+
+    public static boolean isSupportedDataUri(String uri) {
+        return uri.startsWith("data:image/png;base64,") || uri.startsWith("data:image/jpeg;base64,");
+    }
+
 }

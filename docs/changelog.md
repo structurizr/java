@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.6 (unreleased)
+
+- Added validation logic to reject unsupported image data URIs.
+
 ## 1.9.5 (7th June 2021)
 
 - Provides a way to store view dimensions.

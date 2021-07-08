@@ -4,9 +4,7 @@ import org.junit.Test;
 
 import java.io.File;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class ImageUtilsTests {
 
@@ -153,6 +151,30 @@ public class ImageUtilsTests {
         String imageAsDataUri = ImageUtils.getImageAsDataUri(new File("../structurizr-core/test/unit/com/structurizr/util/structurizr-logo.png"));
         System.out.println(imageAsDataUri);
         assertTrue(imageAsDataUri.startsWith("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMQAAADECAYAAADA"));  // the actual base64 encoded string varies between Java 8 and 9
+    }
+
+    @Test
+    public void test_validateImage() {
+        // allowed
+        ImageUtils.validateImage("https://structurizr.com/image.png");
+        ImageUtils.validateImage("data:image/png;base64,iVBORw0KGg");
+        ImageUtils.validateImage("data:image/jpeg;base64,iVBORw0KGg");
+
+        //disallowed
+        try {
+            ImageUtils.validateImage("data:image/svg+xml;base64,iVBORw0KGg");
+            fail();
+        } catch (Exception e) {
+            assertEquals("Only PNG and JPG data URIs are supported: data:image/svg+xml;base64,iVBORw0KGg", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_isSupportedDataUri() {
+        assertTrue(ImageUtils.isSupportedDataUri("data:image/png;base64,iVBORw0KGg"));
+        assertTrue(ImageUtils.isSupportedDataUri("data:image/jpeg;base64,iVBORw0KGg"));
+        assertFalse(ImageUtils.isSupportedDataUri("data:image/svg+xml;base64,iVBORw0KGg"));
+        assertFalse(ImageUtils.isSupportedDataUri("hello world"));
     }
 
 }

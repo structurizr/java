@@ -1,8 +1,8 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.structurizr.util.ImageUtils;
 import com.structurizr.util.StringUtils;
-import com.structurizr.util.Url;
 
 /**
  * A definition of an element style.
@@ -232,12 +232,11 @@ public final class ElementStyle {
     }
 
     public void setIcon(String icon) {
-        if (icon != null && icon.trim().length() > 0) {
-            if (Url.isUrl(icon) || icon.startsWith("data:image/")) {
-                this.icon = icon.trim();
-            } else {
-                throw new IllegalArgumentException(icon + " is not a valid URL.");
-            }
+        if (StringUtils.isNullOrEmpty(icon)) {
+            this.icon = null;
+        } else {
+            ImageUtils.validateImage(icon);
+            this.icon = icon.trim();
         }
     }
 
