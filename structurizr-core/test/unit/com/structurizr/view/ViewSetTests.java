@@ -1058,7 +1058,7 @@ public class ViewSetTests {
         assertEquals(1, views.getDeploymentViews().size());
         assertSame("Live", views.getDeploymentViews().stream().filter(v -> v.getKey().equals("Live-Deployment")).findFirst().get().getEnvironment());
 
-        dev.add(c1);
+        dev.add(ss1);
         liveEc2.add(c1);
         liveEc2.add(c2);
 
