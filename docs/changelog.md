@@ -1,8 +1,9 @@
 # Changelog
 
-## 1.9.6 (unreleased)
+## 1.9.6 (31st August 2021)
 
 - Added validation logic to reject unsupported image data URIs.
+- Fixes #166 (ContainerInstance/SoftwareSystemInstance and auto-generation of deployment diagram).
 
 ## 1.9.5 (7th June 2021)
 
