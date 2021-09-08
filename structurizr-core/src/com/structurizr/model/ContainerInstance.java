@@ -13,8 +13,8 @@ public final class ContainerInstance extends StaticStructureElementInstance {
     ContainerInstance() {
     }
 
-    ContainerInstance(Container container, int instanceId, String environment, String deploymentGroup) {
-        super(instanceId, environment, deploymentGroup);
+    ContainerInstance(Container container, int instanceId, String environment, String... deploymentGroups) {
+        super(instanceId, environment, deploymentGroups);
 
         setContainer(container);
         addTags(Tags.CONTAINER_INSTANCE);

@@ -721,23 +721,63 @@ public class ModelTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addElementInstance_AddsElementInstancesAndReplicatesRelationshipsWithinTheDeploymentEnvironmentAndSpecifiedGroup() {
-        // in this test, container instances are added to two deployment groups: "Service 1" and "Service 2"
+        // in this test, container instances are added to two deployment groups: "Instance 1" and "Instance 2"
         // relationships are not replicated between element instances in other groups
 
-        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System");
-        Container api = softwareSystem1.addContainer("API");
-        Container database = softwareSystem1.addContainer("Database");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        Container api = softwareSystem.addContainer("API");
+        Container database = softwareSystem.addContainer("Database");
         api.uses(database, "Uses");
 
         DeploymentNode liveDeploymentNode = model.addDeploymentNode("Live", "Deployment Node", "Description", "Technology");
-        ContainerInstance apiInstance1 = liveDeploymentNode.add(api, "Service 1");
-        ContainerInstance databaseInstance1 = liveDeploymentNode.add(database, "Service 1");
+        ContainerInstance apiInstance1 = liveDeploymentNode.add(api, "Instance 1");
+        ContainerInstance databaseInstance1 = liveDeploymentNode.add(database, "Instance 1");
 
-        ContainerInstance apiInstance2 = liveDeploymentNode.add(api, "Service 2");
-        ContainerInstance databaseInstance2 = liveDeploymentNode.add(database, "Service 2");
+        ContainerInstance apiInstance2 = liveDeploymentNode.add(api, "Instance 2");
+        ContainerInstance databaseInstance2 = liveDeploymentNode.add(database, "Instance 2");
 
         assertEquals(1, apiInstance1.getRelationships().size());
         assertEquals(1, apiInstance2.getRelationships().size());
+
+        // apiInstance1 -> databaseInstance1
+        Relationship relationship = apiInstance1.getEfferentRelationshipWith(databaseInstance1);
+        assertEquals("Uses", relationship.getDescription());
+
+        // apiInstance2 -> databaseInstance2
+        relationship = apiInstance2.getEfferentRelationshipWith(databaseInstance2);
+        assertEquals("Uses", relationship.getDescription());
+    }
+
+    @Test
+    public void test_addElementInstance_AddsElementInstancesAndReplicatesRelationshipsWithinTheDeploymentEnvironmentAndSpecifiedGroups() {
+        // in this test:
+        // - API container instances are added to "Instance 1", "Instance 2" and "Shared"
+        // - database container instances are added to "Instance 1" and "Instance 2"
+        // - a shared container is added to "Shared"
+
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        Container api = softwareSystem.addContainer("API");
+        Container database = softwareSystem.addContainer("Database");
+        Container cache = softwareSystem.addContainer("Cache");
+        api.uses(database, "Uses");
+        api.uses(cache, "Uses");
+
+        DeploymentNode liveDeploymentNode = model.addDeploymentNode("Live");
+        ContainerInstance apiInstance1 = liveDeploymentNode.add(api, "Instance 1", "Shared");
+        ContainerInstance databaseInstance1 = liveDeploymentNode.add(database, "Instance 1");
+
+        ContainerInstance apiInstance2 = liveDeploymentNode.add(api, "Instance 2", "Shared");
+        ContainerInstance databaseInstance2 = liveDeploymentNode.add(database, "Instance 2");
+
+        ContainerInstance cacheInstance = liveDeploymentNode.add(cache, "Shared");
+
+        assertEquals(2, apiInstance1.getRelationships().size());
+        assertTrue(apiInstance1.hasEfferentRelationshipWith(databaseInstance1));
+        assertTrue(apiInstance1.hasEfferentRelationshipWith(cacheInstance));
+
+        assertEquals(2, apiInstance2.getRelationships().size());
+        assertTrue(apiInstance2.hasEfferentRelationshipWith(databaseInstance2));
+        assertTrue(apiInstance2.hasEfferentRelationshipWith(cacheInstance));
 
         // apiInstance1 -> databaseInstance1
         Relationship relationship = apiInstance1.getEfferentRelationshipWith(databaseInstance1);

@@ -13,8 +13,8 @@ public final class SoftwareSystemInstance extends StaticStructureElementInstance
     SoftwareSystemInstance() {
     }
 
-    SoftwareSystemInstance(SoftwareSystem softwareSystem, int instanceId, String environment, String deploymentGroup) {
-        super(instanceId, environment, deploymentGroup);
+    SoftwareSystemInstance(SoftwareSystem softwareSystem, int instanceId, String environment, String... deploymentGroups) {
+        super(instanceId, environment, deploymentGroups);
 
         setSoftwareSystem(softwareSystem);
         addTags(Tags.SOFTWARE_SYSTEM_INSTANCE);

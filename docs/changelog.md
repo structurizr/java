@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.9.7 (unreleased)
+
+- Adds support for software system/container instances in multiple deployment groups.
+
 ## 1.9.6 (31st August 2021)
 
 - Added validation logic to reject unsupported image data URIs.

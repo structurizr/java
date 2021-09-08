@@ -982,14 +982,14 @@ public final class Model {
         return null;
     }
 
-    SoftwareSystemInstance addSoftwareSystemInstance(DeploymentNode deploymentNode, SoftwareSystem softwareSystem, String deploymentGroup) {
+    SoftwareSystemInstance addSoftwareSystemInstance(DeploymentNode deploymentNode, SoftwareSystem softwareSystem, String... deploymentGroups) {
         if (softwareSystem == null) {
             throw new IllegalArgumentException("A software system must be specified.");
         }
 
         long instanceNumber = deploymentNode.getSoftwareSystemInstances().stream().filter(ssi -> ssi.getSoftwareSystem().equals(softwareSystem)).count();
         instanceNumber++;
-        SoftwareSystemInstance softwareSystemInstance = new SoftwareSystemInstance(softwareSystem, (int)instanceNumber, deploymentNode.getEnvironment(), deploymentGroup);
+        SoftwareSystemInstance softwareSystemInstance = new SoftwareSystemInstance(softwareSystem, (int)instanceNumber, deploymentNode.getEnvironment(), deploymentGroups);
         softwareSystemInstance.setParent(deploymentNode);
         softwareSystemInstance.setId(idGenerator.generateId(softwareSystemInstance));
 
@@ -1000,14 +1000,14 @@ public final class Model {
         return softwareSystemInstance;
     }
 
-    ContainerInstance addContainerInstance(DeploymentNode deploymentNode, Container container, String deploymentGroup) {
+    ContainerInstance addContainerInstance(DeploymentNode deploymentNode, Container container, String... deploymentGroups) {
         if (container == null) {
             throw new IllegalArgumentException("A container must be specified.");
         }
 
         long instanceNumber = deploymentNode.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(container)).count();
         instanceNumber++;
-        ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber, deploymentNode.getEnvironment(), deploymentGroup);
+        ContainerInstance containerInstance = new ContainerInstance(container, (int)instanceNumber, deploymentNode.getEnvironment(), deploymentGroups);
         containerInstance.setParent(deploymentNode);
         containerInstance.setId(idGenerator.generateId(containerInstance));
 
@@ -1026,7 +1026,7 @@ public final class Model {
                 .filter(e -> e instanceof StaticStructureElementInstance)
                 .map(e -> (StaticStructureElementInstance)e)
                 .filter(ssei -> ssei.getEnvironment().equals(elementInstance.getEnvironment()))
-                .filter(ssei -> ssei.getDeploymentGroup().equals(elementInstance.getDeploymentGroup()))
+                .filter(ssei -> ssei.inSameDeploymentGroup(elementInstance))
                 .collect(Collectors.toSet());
 
         // and replicate the relationships to/from the element instance

@@ -82,6 +82,31 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_getDeploymentGroups_WhenNoGroupsHaveBeenSpecified() {
+        ContainerInstance instance = deploymentNode.add(database);
+
+        assertEquals(1, instance.getDeploymentGroups().size());
+        assertTrue(instance.getDeploymentGroups().contains("Default"));
+    }
+
+    @Test
+    public void test_getDeploymentGroups_WhenOneGroupHasBeenSpecified() {
+        ContainerInstance instance = deploymentNode.add(database, "Group 1");
+
+        assertEquals(1, instance.getDeploymentGroups().size());
+        assertTrue(instance.getDeploymentGroups().contains("Group 1"));
+    }
+
+    @Test
+    public void test_getDeploymentGroups_WhenMultipleGroupsAreSpecified() {
+        ContainerInstance instance = deploymentNode.add(database, "Group 1", "Group 2");
+
+        assertEquals(2, instance.getDeploymentGroups().size());
+        assertTrue(instance.getDeploymentGroups().contains("Group 1"));
+        assertTrue(instance.getDeploymentGroups().contains("Group 2"));
+    }
+
+    @Test
     public void test_addHealthCheck() {
         ContainerInstance instance = deploymentNode.add(database);
         assertTrue(instance.getHealthChecks().isEmpty());

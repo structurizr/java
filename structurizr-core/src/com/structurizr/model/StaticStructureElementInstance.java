@@ -1,9 +1,11 @@
 package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.structurizr.util.StringUtils;
 import com.structurizr.util.Url;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,17 +18,28 @@ public abstract class StaticStructureElementInstance extends DeploymentElement {
     private static final int DEFAULT_HEALTH_CHECK_INTERVAL_IN_SECONDS = 60;
     private static final long DEFAULT_HEALTH_CHECK_TIMEOUT_IN_MILLISECONDS = 0;
 
-    private String deploymentGroup = DEFAULT_DEPLOYMENT_GROUP;
+    private Set<String> deploymentGroups = new HashSet<>();
     private int instanceId;
     private Set<HttpHealthCheck> healthChecks = new HashSet<>();
 
     StaticStructureElementInstance() {
     }
 
-    StaticStructureElementInstance(int instanceId, String environment, String deploymentGroup) {
+    StaticStructureElementInstance(int instanceId, String environment, String... deploymentGroups) {
         setInstanceId(instanceId);
         setEnvironment(environment);
-        setDeploymentGroup(deploymentGroup);
+
+        if (deploymentGroups != null) {
+            for (String deploymentGroup : deploymentGroups) {
+                if (!StringUtils.isNullOrEmpty(deploymentGroup)) {
+                    this.deploymentGroups.add(deploymentGroup.trim());
+                }
+            }
+        }
+
+        if (this.deploymentGroups.isEmpty()) {
+            this.deploymentGroups.add(DEFAULT_DEPLOYMENT_GROUP);
+        }
     }
 
     @JsonIgnore
@@ -37,12 +50,35 @@ public abstract class StaticStructureElementInstance extends DeploymentElement {
      *
      * @return  a deployment group name
      */
-    public String getDeploymentGroup() {
-        return deploymentGroup;
+    public Set<String> getDeploymentGroups() {
+        if (deploymentGroups.isEmpty()) {
+            return Collections.singleton(DEFAULT_DEPLOYMENT_GROUP);
+        } else {
+            return new HashSet<>(deploymentGroups);
+        }
     }
 
+    void setDeploymentGroups(Set<String> deploymentGroups) {
+        if (deploymentGroups != null) {
+            this.deploymentGroups = new HashSet<>(deploymentGroups);
+        } else {
+            this.deploymentGroups = new HashSet<>();
+        }
+    }
+
+    // provided for backwards compatibility
     void setDeploymentGroup(String deploymentGroup) {
-        this.deploymentGroup = deploymentGroup;
+        this.deploymentGroups = Collections.singleton(deploymentGroup);
+    }
+
+    boolean inSameDeploymentGroup(StaticStructureElementInstance ssei) {
+        for (String deploymentGroup : getDeploymentGroups()) {
+            if (ssei.getDeploymentGroups().contains(deploymentGroup)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

@@ -43,11 +43,11 @@ public final class DeploymentNode extends DeploymentElement {
      * Adds a software system instance to this deployment node, replicating relationships.
      *
      * @param softwareSystem        the SoftwareSystem to add an instance of
-     * @param deploymentGroup       the deployment group
+     * @param deploymentGroups      the deployment group(s)
      * @return a SoftwareSystemInstance object
      */
-    public SoftwareSystemInstance add(SoftwareSystem softwareSystem, String deploymentGroup) {
-        SoftwareSystemInstance softwareSystemInstance = getModel().addSoftwareSystemInstance(this, softwareSystem, deploymentGroup);
+    public SoftwareSystemInstance add(SoftwareSystem softwareSystem, String... deploymentGroups) {
+        SoftwareSystemInstance softwareSystemInstance = getModel().addSoftwareSystemInstance(this, softwareSystem, deploymentGroups);
         this.softwareSystemInstances.add(softwareSystemInstance);
 
         return softwareSystemInstance;
@@ -67,11 +67,11 @@ public final class DeploymentNode extends DeploymentElement {
      * Adds a container instance to this deployment node, optionally replicating relationships.
      *
      * @param container                         the Container to add an instance of
-     * @param deploymentGroup                   the deployment group
+     * @param deploymentGroups                  the deployment group(s)
      * @return a ContainerInstance object
      */
-    public ContainerInstance add(Container container, String deploymentGroup) {
-        ContainerInstance containerInstance = getModel().addContainerInstance(this, container, deploymentGroup);
+    public ContainerInstance add(Container container, String... deploymentGroups) {
+        ContainerInstance containerInstance = getModel().addContainerInstance(this, container, deploymentGroups);
         this.containerInstances.add(containerInstance);
 
         return containerInstance;
