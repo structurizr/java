@@ -1,6 +1,6 @@
 # Changelog
 
-### 1.9.7 (unreleased)
+### 1.9.7 (9th September 2021)
 
 - Adds support for software system/container instances in multiple deployment groups.
 
