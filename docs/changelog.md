@@ -1,6 +1,10 @@
 # Changelog
 
-### 1.9.7 (9th September 2021)
+## 1.9.8 (unreleased)
+
+- Adds support for relationships from deployment nodes to infrastructure nodes.
+
+## 1.9.7 (9th September 2021)
 
 - Adds support for software system/container instances in multiple deployment groups.
 
