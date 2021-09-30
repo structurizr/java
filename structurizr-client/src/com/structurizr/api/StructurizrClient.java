@@ -58,6 +58,7 @@ public final class StructurizrClient {
     private static final String WORKSPACE_PATH = "/workspace/";
 
     private String agent = STRUCTURIZR_FOR_JAVA_AGENT;
+    private String user;
 
     private String url;
     private String apiKey;
@@ -482,20 +483,28 @@ public final class StructurizrClient {
         return "structurizr-" + workspaceId + "-" + sdf.format(new Date()) + ".json";
     }
 
+    public void setUser(String user) {
+        this.user = user;
+    }
+
     private String getUser() {
-        String username = System.getProperty("user.name");
-
-        if (username.contains("@")) {
-            return username;
+        if (!StringUtils.isNullOrEmpty(user)) {
+            return user;
         } else {
-            String hostname = null;
-            try {
-                hostname = InetAddress.getLocalHost().getHostName();
-            } catch (UnknownHostException uhe) {
-                // ignore
-            }
+            String username = System.getProperty("user.name");
 
-            return username + (!StringUtils.isNullOrEmpty(hostname) ? "@" + hostname : "");
+            if (username.contains("@")) {
+                return username;
+            } else {
+                String hostname = null;
+                try {
+                    hostname = InetAddress.getLocalHost().getHostName();
+                } catch (UnknownHostException uhe) {
+                    // ignore
+                }
+
+                return username + (!StringUtils.isNullOrEmpty(hostname) ? "@" + hostname : "");
+            }
         }
     }
 
