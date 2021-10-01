@@ -136,4 +136,24 @@ public final class CustomView extends View {
         }
     }
 
+    /**
+     * Adds the default set of elements to this view.
+     */
+    public void addDefaultElements() {
+        addAllCustomElements();
+    }
+
+    /**
+     * Adds all custom elements to this view.
+     */
+    public void addAllCustomElements() {
+        getModel().getCustomElements().forEach(ce -> {
+            try {
+                add(ce);
+            } catch (ElementNotPermittedInViewException e) {
+                // ignore
+            }
+        });
+    }
+
 }
