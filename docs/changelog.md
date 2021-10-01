@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.9.8 (unreleased)
+## 1.9.8 (1st October 2021)
 
 - Adds support for relationships from deployment nodes to infrastructure nodes.
 
