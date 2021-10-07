@@ -323,6 +323,10 @@ public final class StructurizrClient {
                     archiveWorkspace(workspaceId, json);
 
                     if (encryptionStrategy == null) {
+                        if (json.contains("\"encryptionStrategy\"") && json.contains("\"ciphertext\"")) {
+                            log.warn("The JSON may contain a client-side encrypted workspace, but no passphrase has been specified.");
+                        }
+
                         JsonReader jsonReader = new JsonReader();
                         jsonReader.setIdGenerator(idGenerator);
                         return jsonReader.read(new StringReader(json));

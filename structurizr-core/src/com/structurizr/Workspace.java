@@ -22,7 +22,7 @@ public final class Workspace extends AbstractWorkspace {
 
     private static final Log log = LogFactory.getLog(Workspace.class);
 
-    private Model model;
+    private Model model = createModel();
     private ViewSet viewSet;
     private Documentation documentation;
 
