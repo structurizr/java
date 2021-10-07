@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.9 (unreleased)
+
+- Adds the implied relationships functionality for custom elements.
+
 ## 1.9.8 (1st October 2021)
 
 - Adds support for relationships from deployment nodes to infrastructure nodes.

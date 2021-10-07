@@ -269,8 +269,8 @@ public final class Model {
             if (createImpliedRelationships) {
                 if
                 (
-                    (source instanceof Person || source instanceof SoftwareSystem || source instanceof Container || source instanceof Component) &&
-                    (destination instanceof Person || destination instanceof SoftwareSystem || destination instanceof Container || destination instanceof Component)
+                    (source instanceof CustomElement || source instanceof Person || source instanceof SoftwareSystem || source instanceof Container || source instanceof Component) &&
+                    (destination instanceof CustomElement || destination instanceof Person || destination instanceof SoftwareSystem || destination instanceof Container || destination instanceof Component)
                 ) {
                     impliedRelationshipsStrategy.createImpliedRelationships(relationship);
                 }
