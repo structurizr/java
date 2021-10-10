@@ -39,6 +39,7 @@ public final class SystemContextView extends StaticView {
      */
     @Override
     public void addDefaultElements() {
+        addNearestNeighbours(getSoftwareSystem(), CustomElement.class);
         addNearestNeighbours(getSoftwareSystem(), Person.class);
         addNearestNeighbours(getSoftwareSystem(), SoftwareSystem.class);
     }

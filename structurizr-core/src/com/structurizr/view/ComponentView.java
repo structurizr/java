@@ -165,6 +165,7 @@ public final class ComponentView extends StaticView {
                 }
             };
 
+            addNearestNeighbours(component, CustomElement.class);
             addNearestNeighbours(component, Person.class);
             addNearestNeighbours(component, SoftwareSystem.class);
         }

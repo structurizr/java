@@ -495,6 +495,39 @@ public abstract class View {
         addElement(customElement, addRelationships);
     }
 
+    protected <T extends Element> void addNearestNeighbours(Element element, Class<T> typeOfElement) {
+        if (element == null) {
+            return;
+        }
+
+        try {
+            addElement(element, true);
+
+            Set<Relationship> relationships = getModel().getRelationships();
+            relationships.stream().filter(r -> r.getSource().equals(element) && typeOfElement.isInstance(r.getDestination()))
+                    .map(Relationship::getDestination)
+                    .forEach(d -> {
+                        try {
+                            addElement(d, true);
+                        } catch (ElementNotPermittedInViewException e) {
+                            System.out.println(e.getMessage() + " (ignoring " + d.getName() + ")");
+                        }
+                    });
+
+            relationships.stream().filter(r -> r.getDestination().equals(element) && typeOfElement.isInstance(r.getSource()))
+                    .map(Relationship::getSource)
+                    .forEach(s -> {
+                        try {
+                            addElement(s, true);
+                        } catch (ElementNotPermittedInViewException e) {
+                            System.out.println(e.getMessage() + " (ignoring " + s.getName() + ")");
+                        }
+                    });
+        } catch (ElementNotPermittedInViewException e) {
+            System.out.println(e.getMessage() + " (ignoring " + element.getName() + ")");
+        }
+    }
+
     /**
      * Removes the given custom element from this view.
      *
@@ -503,7 +536,5 @@ public abstract class View {
     public void remove(@Nonnull CustomElement customElement) {
         removeElement(customElement);
     }
-
-
 
 }

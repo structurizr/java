@@ -48,6 +48,8 @@ public final class DeploymentView extends View {
      */
     public void addDefaultElements() {
         addAllDeploymentNodes();
+
+        getElements().stream().map(ElementView::getElement).forEach(e -> addNearestNeighbours(e, CustomElement.class));
     }
 
     /**

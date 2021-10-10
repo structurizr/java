@@ -3,6 +3,7 @@
 ## 1.9.9 (unreleased)
 
 - Adds the implied relationships functionality for custom elements.
+- "addDefaultElements" will now also add any connected custom elements.
 
 ## 1.9.8 (1st October 2021)
 

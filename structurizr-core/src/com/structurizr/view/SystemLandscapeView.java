@@ -57,6 +57,8 @@ public final class SystemLandscapeView extends StaticView {
     public void addDefaultElements() {
         addAllSoftwareSystems();
         addAllPeople();
+
+        getElements().stream().map(ElementView::getElement).forEach(e -> addNearestNeighbours(e, CustomElement.class));
     }
 
     /**

@@ -87,6 +87,7 @@ public final class ContainerView extends StaticView {
     public void addDefaultElements() {
         for (Container container : getSoftwareSystem().getContainers()) {
             add(container);
+            addNearestNeighbours(container, CustomElement.class);
             addNearestNeighbours(container, Person.class);
             addNearestNeighbours(container, SoftwareSystem.class);
         }
