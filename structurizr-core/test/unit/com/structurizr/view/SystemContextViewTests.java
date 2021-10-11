@@ -282,6 +282,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addDefaultElements() {
+        CustomElement element = model.addCustomElement("Custom");
         Person user1 = model.addPerson("User 1");
         Person user2 = model.addPerson("User 2");
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
@@ -295,6 +296,17 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
         view.addDefaultElements();
 
         assertEquals(3, view.getElements().size());
+        assertFalse(view.getElements().contains(new ElementView(element)));
+        assertTrue(view.getElements().contains(new ElementView(user1)));
+        assertFalse(view.getElements().contains(new ElementView(user2)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystem1)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystem2)));
+
+        element.uses(softwareSystem1, "Uses");
+        view.addDefaultElements();
+
+        assertEquals(4, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(element)));
         assertTrue(view.getElements().contains(new ElementView(user1)));
         assertFalse(view.getElements().contains(new ElementView(user2)));
         assertTrue(view.getElements().contains(new ElementView(softwareSystem1)));

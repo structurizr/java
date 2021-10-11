@@ -188,6 +188,7 @@ public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_addDefaultElements() {
+        CustomElement element = model.addCustomElement("Custom");
         Person user = model.addPerson("User");
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2");
@@ -195,6 +196,16 @@ public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
         view.addDefaultElements();
 
         assertEquals(3, view.getElements().size());
+        assertFalse(view.getElements().contains(new ElementView(element)));
+        assertTrue(view.getElements().contains(new ElementView(user)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystem1)));
+        assertTrue(view.getElements().contains(new ElementView(softwareSystem2)));
+
+        element.uses(softwareSystem1, "Uses");
+        view.addDefaultElements();
+
+        assertEquals(4, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(element)));
         assertTrue(view.getElements().contains(new ElementView(user)));
         assertTrue(view.getElements().contains(new ElementView(softwareSystem1)));
         assertTrue(view.getElements().contains(new ElementView(softwareSystem2)));
