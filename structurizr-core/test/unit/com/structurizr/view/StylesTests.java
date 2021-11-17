@@ -12,7 +12,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_findElementStyle_ReturnsTheDefaultStyle_WhenPassedNull() {
-        ElementStyle style = styles.findElementStyle(null);
+        ElementStyle style = styles.findElementStyle((Element)null);
         assertEquals(new Integer(450), style.getWidth());
         assertEquals(new Integer(300), style.getHeight());
         assertEquals("#dddddd", style.getBackground());
@@ -98,7 +98,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
 
     @Test
     public void test_findRelationshipStyle_ReturnsTheDefaultStyle_WhenPassedNull() {
-        RelationshipStyle style = styles.findRelationshipStyle(null);
+        RelationshipStyle style = styles.findRelationshipStyle((Relationship)null);
         assertEquals(new Integer(2), style.getThickness());
         assertEquals("#707070", style.getColor());
         assertTrue(style.getDashed());

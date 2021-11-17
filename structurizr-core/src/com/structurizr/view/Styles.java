@@ -86,7 +86,7 @@ public final class Styles {
         return relationshipStyle;
     }
 
-    private ElementStyle findElementStyle(String tag) {
+    public ElementStyle findElementStyle(String tag) {
         if (tag == null) {
             return null;
         }
@@ -109,7 +109,7 @@ public final class Styles {
         return style;
     }
 
-    private RelationshipStyle findRelationshipStyle(String tag) {
+    public RelationshipStyle findRelationshipStyle(String tag) {
         if (tag == null) {
             return null;
         }
