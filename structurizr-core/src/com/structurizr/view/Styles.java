@@ -86,6 +86,14 @@ public final class Styles {
         return relationshipStyle;
     }
 
+    /**
+     * Finds the element style for the given tag. This method creates an empty style,
+     * and copies properties from any element styles (from the workspace and any themes) for the given tag.
+     *
+     *
+     * @param tag       the tag (a String)
+     * @return          an ElementStyle instance
+     */
     public ElementStyle findElementStyle(String tag) {
         if (tag == null) {
             return null;
@@ -109,6 +117,14 @@ public final class Styles {
         return style;
     }
 
+    /**
+     * Finds the relationship style for the given tag. This method creates an empty style,
+     * and copies properties from any relationship styles (from the workspace and any themes) for the given tag.
+     *
+     *
+     * @param tag       the tag (a String)
+     * @return          a RelationshipStyle instance
+     */
     public RelationshipStyle findRelationshipStyle(String tag) {
         if (tag == null) {
             return null;

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.10 (26th November 2021)
+
+- Promotes a couple of methods to be public; no functional changes.
+
 ## 1.9.9 (16th October 2021)
 
 - Adds the implied relationships functionality for custom elements.
