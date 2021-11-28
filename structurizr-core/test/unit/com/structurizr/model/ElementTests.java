@@ -269,15 +269,17 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_setUrl_DoesNothing_WhenANullUrlIsSpecified() {
+    public void test_setUrl_ResetsTheUrl_WhenANullUrlIsSpecified() {
         Element element = model.addSoftwareSystem("Name", "Description");
+        element.setUrl("https://structurizr.com");
         element.setUrl(null);
         assertNull(element.getUrl());
     }
 
     @Test
-    public void test_setUrl_DoesNothing_WhenAnEmptyUrlIsSpecified() {
+    public void test_setUrl_ResetsTheUrl_WhenAnEmptyUrlIsSpecified() {
         Element element = model.addSoftwareSystem("Name", "Description");
+        element.setUrl("https://structurizr.com");
         element.setUrl(" ");
         assertNull(element.getUrl());
     }

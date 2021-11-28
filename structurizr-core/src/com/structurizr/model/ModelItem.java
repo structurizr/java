@@ -139,12 +139,12 @@ public abstract class ModelItem {
      * @throws IllegalArgumentException     if the URL is not a well-formed URL
      */
     public void setUrl(String url) {
-        if (url != null && url.trim().length() > 0) {
-            if (Url.isUrl(url)) {
-                this.url = url;
-            } else {
-                throw new IllegalArgumentException(url + " is not a valid URL.");
-            }
+        if (StringUtils.isNullOrEmpty(url)) {
+            this.url = null;
+        } else if (Url.isUrl(url)) {
+            this.url = url;
+        } else {
+            throw new IllegalArgumentException(url + " is not a valid URL.");
         }
     }
 
