@@ -96,15 +96,17 @@ public class RelationshipTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_setUrl_DoesNothing_WhenANullUrlIsSpecified() {
+    public void test_setUrl_ResetsTheUrl_WhenANullUrlIsSpecified() {
         Relationship relationship = softwareSystem1.uses(softwareSystem2, "Uses 1", "Technology");
+        relationship.setUrl("https://structurizr.com");
         relationship.setUrl(null);
         assertNull(relationship.getUrl());
     }
 
     @Test
-    public void test_setUrl_DoesNothing_WhenAnEmptyUrlIsSpecified() {
+    public void test_setUrl_ResetsTheUrl_WhenAnEmptyUrlIsSpecified() {
         Relationship relationship = softwareSystem1.uses(softwareSystem2, "Uses 1", "Technology");
+        relationship.setUrl("https://structurizr.com");
         relationship.setUrl(" ");
         assertNull(relationship.getUrl());
     }
