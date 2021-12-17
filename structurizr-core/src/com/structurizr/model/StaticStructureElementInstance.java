@@ -96,7 +96,7 @@ public abstract class StaticStructureElementInstance extends DeploymentElement {
 
     @Override
     @JsonIgnore
-    protected Set<String> getRequiredTags() {
+    public Set<String> getDefaultTags() {
         return Collections.emptySet();
     }
 

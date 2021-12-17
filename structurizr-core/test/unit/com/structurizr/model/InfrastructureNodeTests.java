@@ -26,9 +26,9 @@ public class InfrastructureNodeTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_getRequiredTags() {
         InfrastructureNode infrastructureNode = new InfrastructureNode();
-        assertEquals(2, infrastructureNode.getRequiredTags().size());
-        assertTrue(infrastructureNode.getRequiredTags().contains(Tags.ELEMENT));
-        assertTrue(infrastructureNode.getRequiredTags().contains(Tags.INFRASTRUCTURE_NODE));
+        assertEquals(2, infrastructureNode.getDefaultTags().size());
+        assertTrue(infrastructureNode.getDefaultTags().contains(Tags.ELEMENT));
+        assertTrue(infrastructureNode.getDefaultTags().contains(Tags.INFRASTRUCTURE_NODE));
     }
 
     @Test

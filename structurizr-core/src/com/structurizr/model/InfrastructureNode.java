@@ -69,7 +69,7 @@ public final class InfrastructureNode extends DeploymentElement {
     }
 
     @JsonIgnore
-    protected Set<String> getRequiredTags() {
+    public Set<String> getDefaultTags() {
         return new LinkedHashSet<>(Arrays.asList(Tags.ELEMENT, Tags.INFRASTRUCTURE_NODE));
     }
 

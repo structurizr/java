@@ -57,7 +57,7 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     public void test_getRequiredTags() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
-        assertTrue(instance.getRequiredTags().isEmpty());
+        assertTrue(instance.getDefaultTags().isEmpty());
     }
 
     @Test

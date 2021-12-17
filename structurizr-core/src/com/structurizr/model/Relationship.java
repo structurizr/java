@@ -150,7 +150,7 @@ public final class Relationship extends ModelItem {
     }
 
     @Override
-    protected Set<String> getRequiredTags() {
+    public Set<String> getDefaultTags() {
         if (linkedRelationshipId == null) {
             Set<String> tags = new LinkedHashSet<>();
             tags.add(Tags.RELATIONSHIP);

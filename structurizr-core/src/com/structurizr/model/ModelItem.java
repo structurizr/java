@@ -22,7 +22,7 @@ public abstract class ModelItem {
     @JsonIgnore
     public abstract String getCanonicalName();
 
-    protected abstract Set<String> getRequiredTags();
+    public abstract Set<String> getDefaultTags();
 
     /**
      * Gets the ID of this item in the model.
@@ -70,7 +70,7 @@ public abstract class ModelItem {
 
     @JsonIgnore
     public Set<String> getTagsAsSet() {
-        Set<String> setOfTags = new LinkedHashSet<>(getRequiredTags());
+        Set<String> setOfTags = new LinkedHashSet<>(getDefaultTags());
         setOfTags.addAll(tags);
 
         return setOfTags;

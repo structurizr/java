@@ -189,7 +189,7 @@ public final class Container extends StaticStructureElement {
     }
 
     @Override
-    protected Set<String> getRequiredTags() {
+    public Set<String> getDefaultTags() {
         return new LinkedHashSet<>(Arrays.asList(Tags.ELEMENT, Tags.CONTAINER));
     }
 

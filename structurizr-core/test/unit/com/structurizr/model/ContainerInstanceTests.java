@@ -58,7 +58,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     public void test_getRequiredTags() {
         ContainerInstance instance = deploymentNode.add(database);
 
-        assertTrue(instance.getRequiredTags().isEmpty());
+        assertTrue(instance.getDefaultTags().isEmpty());
     }
 
     @Test

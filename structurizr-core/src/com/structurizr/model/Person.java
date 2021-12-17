@@ -46,7 +46,7 @@ public final class Person extends StaticStructureElement {
     }
 
     @Override
-    protected Set<String> getRequiredTags() {
+    public Set<String> getDefaultTags() {
         return new LinkedHashSet<>(Arrays.asList(Tags.ELEMENT, Tags.PERSON));
     }
 
