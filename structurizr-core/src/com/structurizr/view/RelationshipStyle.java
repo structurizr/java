@@ -31,6 +31,10 @@ public final class RelationshipStyle {
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Boolean dashed;
 
+    /** the line style used when rendering lines */
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private LineStyle style;
+
     /** the routing algorithm used when rendering lines */
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Routing routing;
@@ -48,17 +52,6 @@ public final class RelationshipStyle {
 
     RelationshipStyle(String tag) {
         this.tag = tag;
-    }
-
-    public RelationshipStyle(String tag, Integer thickness, String color, Boolean dashed, Routing routing, Integer fontSize, Integer width, Integer position) {
-        this.tag = tag;
-        this.thickness = thickness;
-        setColor(color);
-        this.dashed = dashed;
-        this.routing = routing;
-        this.fontSize = fontSize;
-        this.width = width;
-        this.position = position;
     }
 
     public String getTag() {
@@ -109,6 +102,19 @@ public final class RelationshipStyle {
 
     public RelationshipStyle dashed(boolean dashed) {
         setDashed(dashed);
+        return this;
+    }
+
+    public LineStyle getStyle() {
+        return style;
+    }
+
+    public void setStyle(LineStyle style) {
+        this.style = style;
+    }
+
+    public RelationshipStyle style(LineStyle style) {
+        setStyle(style);
         return this;
     }
 
@@ -209,6 +215,10 @@ public final class RelationshipStyle {
 
         if (relationshipStyle.getDashed() != null) {
             this.setDashed(relationshipStyle.getDashed());
+        }
+
+        if (relationshipStyle.getStyle() != null) {
+            this.setStyle(relationshipStyle.getStyle());
         }
 
         if (relationshipStyle.getRouting() != null) {
