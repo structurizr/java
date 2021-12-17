@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.9.11 (unreleased)
+
+- Adds the ability to indicate that individual views should not merge layout from remotes. 
+
 ## 1.9.10 (26th November 2021)
 
 - Promotes a couple of methods to be public; no functional changes.

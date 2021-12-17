@@ -1074,4 +1074,24 @@ public class ViewSetTests {
         assertSame("Live", views.getDeploymentViews().stream().filter(v -> v.getKey().equals("SoftwareSystem2-Live-Deployment")).findFirst().get().getEnvironment());
     }
 
+    @Test
+    public void test_copyLayoutInformationFrom_DoesNothing_WhenMergeFromRemoteIsSetToFalse() {
+        Workspace workspace1 = createWorkspace();
+        SoftwareSystem softwareSystem1 = workspace1.getModel().getSoftwareSystemWithName("Software System");
+        SystemLandscapeView view1 = workspace1.getViews().createSystemLandscapeView("landscape", "Description");
+        view1.addAllElements();
+        view1.getElements().iterator().next().setX(100);
+        view1.setPaperSize(PaperSize.A3_Landscape);
+
+        Workspace workspace2 = createWorkspace();
+        SoftwareSystem softwareSystem2 = workspace2.getModel().getSoftwareSystemWithName("Software System");
+        SystemLandscapeView view2 = workspace2.getViews().createSystemLandscapeView("context", "Description");
+        view2.addAllElements();
+        view2.setMergeFromRemote(false);
+
+        workspace2.getViews().copyLayoutInformationFrom(workspace1.getViews());
+        assertEquals(0, view2.getElements().iterator().next().getX());
+        assertNull(view2.getPaperSize());
+    }
+
 }

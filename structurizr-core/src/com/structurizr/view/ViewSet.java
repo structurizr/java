@@ -635,7 +635,7 @@ public final class ViewSet {
 
     public void copyLayoutInformationFrom(ViewSet source) {
         for (CustomView view : customViews) {
-            if (view.getAutomaticLayout() == null) {
+            if (view.getAutomaticLayout() == null && view.getMergeFromRemote() == true) {
                 CustomView sourceView = findView(source.getCustomViews(), view);
                 if (sourceView != null) {
                     view.copyLayoutInformationFrom(sourceView);
@@ -646,7 +646,7 @@ public final class ViewSet {
         }
 
         for (SystemLandscapeView view : systemLandscapeViews) {
-            if (view.getAutomaticLayout() == null) {
+            if (view.getAutomaticLayout() == null && view.getMergeFromRemote() == true) {
                 SystemLandscapeView sourceView = findView(source.getSystemLandscapeViews(), view);
                 if (sourceView != null) {
                     view.copyLayoutInformationFrom(sourceView);
@@ -657,7 +657,7 @@ public final class ViewSet {
         }
 
         for (SystemContextView view : systemContextViews) {
-            if (view.getAutomaticLayout() == null) {
+            if (view.getAutomaticLayout() == null && view.getMergeFromRemote() == true) {
                 SystemContextView sourceView = findView(source.getSystemContextViews(), view);
                 if (sourceView != null) {
                     view.copyLayoutInformationFrom(sourceView);
@@ -668,7 +668,7 @@ public final class ViewSet {
         }
 
         for (ContainerView view : containerViews) {
-            if (view.getAutomaticLayout() == null) {
+            if (view.getAutomaticLayout() == null && view.getMergeFromRemote() == true) {
                 ContainerView sourceView = findView(source.getContainerViews(), view);
                 if (sourceView != null) {
                     view.copyLayoutInformationFrom(sourceView);
@@ -679,7 +679,7 @@ public final class ViewSet {
         }
 
         for (ComponentView view : componentViews) {
-            if (view.getAutomaticLayout() == null) {
+            if (view.getAutomaticLayout() == null && view.getMergeFromRemote() == true) {
                 ComponentView sourceView = findView(source.getComponentViews(), view);
                 if (sourceView != null) {
                     view.copyLayoutInformationFrom(sourceView);
@@ -690,7 +690,7 @@ public final class ViewSet {
         }
 
         for (DynamicView view : dynamicViews) {
-            if (view.getAutomaticLayout() == null) {
+            if (view.getAutomaticLayout() == null && view.getMergeFromRemote() == true) {
                 DynamicView sourceView = findView(source.getDynamicViews(), view);
                 if (sourceView != null) {
                     view.copyLayoutInformationFrom(sourceView);
@@ -701,7 +701,7 @@ public final class ViewSet {
         }
 
         for (DeploymentView view : deploymentViews) {
-            if (view.getAutomaticLayout() == null) {
+            if (view.getAutomaticLayout() == null && view.getMergeFromRemote() == true) {
                 DeploymentView sourceView = findView(source.getDeploymentViews(), view);
                 if (sourceView != null) {
                     view.copyLayoutInformationFrom(sourceView);

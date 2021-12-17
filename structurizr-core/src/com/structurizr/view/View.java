@@ -27,6 +27,7 @@ public abstract class View {
     private PaperSize paperSize = null;
     private Dimensions dimensions = null;
     private AutomaticLayout automaticLayout = null;
+    private boolean mergeFromRemote = true;
     private String title;
 
     private Set<ElementView> elementViews = new LinkedHashSet<>();
@@ -204,6 +205,25 @@ public abstract class View {
      */
     public void disableAutomaticLayout() {
         this.automaticLayout = null;
+    }
+
+    /**
+     * Gets whether layout information for this view should be merged from a remote version of the workspace.
+     *
+     * @return  true if layout information should be merged from the remote workspace, false otherwise
+     */
+    public boolean getMergeFromRemote() {
+        return mergeFromRemote;
+    }
+
+    /**
+     * Specifies whether layout information for this view should be merged from a remote version of the workspace.
+     *
+     * @param mergeFromRemote   true if layout information should be merged from the remote workspace, false otherwise
+     */
+    @JsonIgnore
+    public void setMergeFromRemote(boolean mergeFromRemote) {
+        this.mergeFromRemote = mergeFromRemote;
     }
 
     /**
