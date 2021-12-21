@@ -1,6 +1,7 @@
 package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.structurizr.PropertyHolder;
 import com.structurizr.util.StringUtils;
 import com.structurizr.util.Url;
 
@@ -9,7 +10,7 @@ import java.util.*;
 /**
  * The base class for elements and relationships.
  */
-public abstract class ModelItem {
+public abstract class ModelItem implements PropertyHolder {
 
     private String id = "";
     private String originId = "";
