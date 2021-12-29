@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.10.0 (unreleased)
+## 1.10.0 (29th December 2021)
 
 - Adds support for different relationship line styles (solid, dashed, dotted).
 - Adds the ability to indicate that individual views should not merge layout from remotes. 
