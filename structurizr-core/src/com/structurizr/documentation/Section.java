@@ -88,7 +88,7 @@ public final class Section {
         return content;
     }
 
-    void setContent(String content) {
+    public void setContent(String content) {
         this.content = content;
     }
 

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.10.1 (unreleased)
+
+- Makes the `Section.setContent()` method public, to allow pre-processing of content before workspace upload/rendering. 
+
 ## 1.10.0 (29th December 2021)
 
 - Adds support for different relationship line styles (solid, dashed, dotted).
