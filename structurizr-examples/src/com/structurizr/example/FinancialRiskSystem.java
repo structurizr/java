@@ -2,8 +2,7 @@ package com.structurizr.example;
 
 import com.structurizr.Workspace;
 import com.structurizr.api.StructurizrClient;
-import com.structurizr.documentation.Format;
-import com.structurizr.documentation.StructurizrDocumentationTemplate;
+import com.structurizr.documentation.AutomaticDocumentationTemplate;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
@@ -76,11 +75,9 @@ public class FinancialRiskSystem {
         styles.addElementStyle("Future State").opacity(30).border(Border.Dashed);
         styles.addRelationshipStyle("Future State").opacity(30).dashed(true);
 
-        StructurizrDocumentationTemplate template = new StructurizrDocumentationTemplate(workspace);
+        AutomaticDocumentationTemplate template = new AutomaticDocumentationTemplate(workspace);
         File documentationRoot = new File("./structurizr-examples/src/com/structurizr/example/financialrisksystem");
-        template.addContextSection(financialRiskSystem, new File(documentationRoot, "context.adoc"));
-        template.addFunctionalOverviewSection(financialRiskSystem, new File(documentationRoot, "functional-overview.md"));
-        template.addQualityAttributesSection(financialRiskSystem, new File(documentationRoot, "quality-attributes.md"));
+        template.addSections(documentationRoot);
         template.addImages(documentationRoot);
 
         StructurizrClient structurizrClient = new StructurizrClient(API_KEY, API_SECRET);
