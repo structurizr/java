@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.10.1 (unreleased)
+## 1.10.1 (1st February 2022)
 
 - Makes the `Section.setContent()` method public, to allow pre-processing of content before workspace upload/rendering. 
 
