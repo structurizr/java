@@ -89,7 +89,7 @@ public final class Decision {
         return content;
     }
 
-    void setContent(String content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
