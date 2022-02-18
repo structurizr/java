@@ -1,10 +1,7 @@
 package com.structurizr.view;
 
 import com.structurizr.Workspace;
-import com.structurizr.model.DeploymentNode;
-import com.structurizr.model.Element;
-import com.structurizr.model.Relationship;
-import com.structurizr.model.Tags;
+import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
 
 import java.util.*;
@@ -158,10 +155,22 @@ public final class Styles {
         }
 
         if (element != null) {
-            for (String tag : element.getTagsAsSet()) {
-                ElementStyle elementStyle = findElementStyle(tag);
-                if (elementStyle != null) {
-                    style.copyFrom(elementStyle);
+            String tags = element.getTags();
+
+            if (element instanceof SoftwareSystemInstance) {
+                SoftwareSystem ss = ((SoftwareSystemInstance)element).getSoftwareSystem();
+                tags = ss.getTags() + "," + tags;
+            } else if (element instanceof ContainerInstance) {
+                Container c = ((ContainerInstance)element).getContainer();
+                tags = c.getTags() + "," + tags;
+            }
+
+            for (String tag : tags.split(",")) {
+                if (!StringUtils.isNullOrEmpty(tag)) {
+                    ElementStyle elementStyle = findElementStyle(tag);
+                    if (elementStyle != null) {
+                        style.copyFrom(elementStyle);
+                    }
                 }
             }
         }
@@ -192,25 +201,26 @@ public final class Styles {
 
     public RelationshipStyle findRelationshipStyle(Relationship relationship) {
         RelationshipStyle style = new RelationshipStyle("").thickness(2).color("#707070").dashed(true).routing(Routing.Direct).fontSize(24).width(200).position(50).opacity(100);
-        String tags;
 
         if (relationship != null) {
-            if (!StringUtils.isNullOrEmpty(relationship.getLinkedRelationshipId())) {
-                // the "linked relationship ID" is used for container instance -> container instance relationships
-                Relationship linkedRelationship = relationship.getModel().getRelationship(relationship.getLinkedRelationshipId());
-                if (linkedRelationship != null) {
-                    tags = linkedRelationship.getTags() + "," + relationship.getTags();
-                } else {
-                    tags = relationship.getTags();
-                }
-            } else {
-                tags = relationship.getTags();
+            String tags = relationship.getTags();
+            String linkedRelationshipId = relationship.getLinkedRelationshipId();
+
+            while (!StringUtils.isNullOrEmpty(linkedRelationshipId)) {
+                // the "linked relationship ID" is used for:
+                // - container instance -> container instance relationships
+                // - implied relationships
+                Relationship linkedRelationship = relationship.getModel().getRelationship(linkedRelationshipId);
+                tags = linkedRelationship.getTags() + "," + tags;
+                linkedRelationshipId = linkedRelationship.getLinkedRelationshipId();
             }
 
             for (String tag : tags.split(",")) {
-                RelationshipStyle relationshipStyle = findRelationshipStyle(tag);
-                if (relationshipStyle != null) {
-                    style.copyFrom(relationshipStyle);
+                if (!StringUtils.isNullOrEmpty(tag)) {
+                    RelationshipStyle relationshipStyle = findRelationshipStyle(tag);
+                    if (relationshipStyle != null) {
+                        style.copyFrom(relationshipStyle);
+                    }
                 }
             }
         }

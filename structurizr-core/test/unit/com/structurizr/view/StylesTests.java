@@ -69,6 +69,32 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_findElementStyle_ReturnsTheCorrectStyleForAnElementInstance_WhenStylesAreDefined() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Name");
+        softwareSystem.addTags("Some Tag");
+
+        DeploymentNode deploymentNode = model.addDeploymentNode("Server");
+        SoftwareSystemInstance softwareSystemInstance = deploymentNode.add(softwareSystem);
+
+        styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#ff0000").color("#ffffff");
+        styles.addElementStyle("Some Tag").color("#0000ff").stroke("#00ff00").shape(Shape.RoundedBox).width(123).height(456);
+
+        ElementStyle style = styles.findElementStyle(softwareSystemInstance);
+        assertEquals(new Integer(123), style.getWidth());
+        assertEquals(new Integer(456), style.getHeight());
+        assertEquals("#ff0000", style.getBackground());
+        assertEquals("#0000ff", style.getColor());
+        assertEquals(new Integer(24), style.getFontSize());
+        assertEquals(Shape.RoundedBox, style.getShape());
+        assertNull(style.getIcon());
+        assertEquals(Border.Solid, style.getBorder());
+        assertEquals("#00ff00", style.getStroke());
+        assertEquals(new Integer(100), style.getOpacity());
+        assertEquals(true, style.getMetadata());
+        assertEquals(true, style.getDescription());
+    }
+
+    @Test
     public void test_findElementStyle_ReturnsTheDefaultElementSize_WhenTheShapeIsABox() {
         SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
         element.addTags("Some Tag");
@@ -149,7 +175,34 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
         Container container1 = softwareSystem.addContainer("Container 1", "Description", "Technology");
         Container container2 = softwareSystem.addContainer("Container 2", "Description", "Technology");
+
         Relationship relationship = container1.uses(container2, "Uses");
+        relationship.addTags("Tag");
+        styles.addRelationshipStyle("Tag").color("#0000ff");
+
+        RelationshipStyle style = styles.findRelationshipStyle(relationship);
+        assertEquals("#0000ff", style.getColor());
+
+        DeploymentNode deploymentNode = model.addDeploymentNode("Server");
+        ContainerInstance containerInstance1 = deploymentNode.add(container1);
+        ContainerInstance containerInstance2 = deploymentNode.add(container2);
+
+        Relationship relationshipInstance = containerInstance1.getEfferentRelationshipWith(containerInstance2);
+
+        style = styles.findRelationshipStyle(relationshipInstance);
+        assertEquals("#0000ff", style.getColor());
+    }
+
+    @Test
+    public void test_findRelationshipStyle_ReturnsTheCorrectStyle_WhenThereIsALinkedRelationshipBasedUponAnImpliedRelationship() {
+        model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
+        Container container1 = softwareSystem.addContainer("Container 1");
+        Component component1 = container1.addComponent("Component 1");
+        Container container2 = softwareSystem.addContainer("Container 2");
+        Component component2 = container2.addComponent("Component 2");
+
+        Relationship relationship = component1.uses(component2, "Uses");
         relationship.addTags("Tag");
         styles.addRelationshipStyle("Tag").color("#0000ff");
 
