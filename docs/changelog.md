@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.11.0 (unreleased to Maven Central)
+## 1.11.0 (18th February 2022)
 
 - Fixes #167 (ImpliedRelationship Strategy replication of URL and perspectives).
 - Makes the `Decision.setContent()` method public, to allow pre-processing of content before workspace upload/rendering.
