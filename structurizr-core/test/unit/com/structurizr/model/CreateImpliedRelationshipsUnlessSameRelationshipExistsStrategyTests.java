@@ -3,8 +3,9 @@ package com.structurizr.model;
 import com.structurizr.AbstractWorkspaceTestBase;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import java.util.Set;
+
+import static org.junit.Assert.*;
 
 public class CreateImpliedRelationshipsUnlessSameRelationshipExistsStrategyTests extends AbstractWorkspaceTestBase {
 
@@ -20,16 +21,19 @@ public class CreateImpliedRelationshipsUnlessSameRelationshipExistsStrategyTests
 
         model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessSameRelationshipExistsStrategy());
 
-        aaa.uses(bbb, "Uses 1", null, InteractionStyle.Asynchronous, new String[] { "Tag 1", "Tag 2" });
+        Relationship explicitRelationship = aaa.uses(bbb, "Uses 1", "Technology", InteractionStyle.Asynchronous, new String[] { "Tag 1", "Tag 2" });
 
         assertEquals(9, model.getRelationships().size());
         assertTrue(aaa.hasEfferentRelationshipWith(bbb, "Uses 1"));
 
-        // and all relationships should have the same interaction style and tags
-        for (Relationship r : model.getRelationships()) {
-            assertEquals(InteractionStyle.Asynchronous, r.getInteractionStyle());
-            assertTrue(r.getTagsAsSet().contains("Tag 1"));
-            assertTrue(r.getTagsAsSet().contains("Tag 2"));
+        // all implied relationships with have a linked relationship, technology, and other properties unset
+        Set<Relationship> impliedRelationships = model.getRelationships();
+        impliedRelationships.remove(explicitRelationship);
+        for (Relationship r : impliedRelationships) {
+            assertEquals(explicitRelationship.getId(), r.getLinkedRelationshipId());
+            assertEquals("Technology", r.getTechnology());
+            assertNull(r.getInteractionStyle());
+            assertTrue(r.getTagsAsSet().isEmpty());
         }
 
         // AAA->BBB implies AAA->BB AAA->B AA->BBB AA->BB AA->B A->BBB A->BB A->B

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.11.0 (unreleased to Maven Central)
+
+- Fixes #167 (ImpliedRelationship Strategy replication of URL and perspectives).
+
 ## 1.10.1 (1st February 2022)
 
 - Makes the `Section.setContent()` method public, to allow pre-processing of content before workspace upload/rendering. 

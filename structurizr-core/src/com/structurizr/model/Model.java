@@ -238,8 +238,8 @@ public final class Model {
     }
 
     @Nullable
-    Relationship addRelationship(Element source, @Nonnull Element destination, String description, String technology) {
-        return addRelationship(source, destination, description, technology, null);
+    Relationship addRelationship(Element source, @Nonnull Element destination, String description, String technology, boolean createImpliedRelationships) {
+        return addRelationship(source, destination, description, technology, null, new String[0], createImpliedRelationships);
     }
 
     @Nullable
