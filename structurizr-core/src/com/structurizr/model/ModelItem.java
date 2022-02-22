@@ -23,6 +23,7 @@ public abstract class ModelItem implements PropertyHolder {
     @JsonIgnore
     public abstract String getCanonicalName();
 
+    @JsonIgnore
     public abstract Set<String> getDefaultTags();
 
     /**
