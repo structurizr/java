@@ -36,7 +36,7 @@ The view can then be exported to be visualised using the [Structurizr cloud serv
     * [Why use code?](https://structurizr.com/help/code)
     * [Basic concepts](https://structurizr.com/help/concepts) (workspaces, models, views and documentation)
     * [C4 model](https://c4model.com)
-    * [Examples](https://structurizr.com/help/examples)
+    * [Examples](https://github.com/structurizr/examples)
     * [Binaries](docs/binaries.md)
     * [Building from source](docs/building.md)
     * [API client](docs/api-client.md)
