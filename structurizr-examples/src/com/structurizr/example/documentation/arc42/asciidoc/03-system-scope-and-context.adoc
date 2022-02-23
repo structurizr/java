@@ -1,8 +1,0 @@
-== Context and Scope
-
-image::embed:SystemContext[]
-
-=== Business Context
-
-=== Technical Context
-

@@ -1,3 +1,0 @@
-== Context
-
-image::embed:SystemContext[]

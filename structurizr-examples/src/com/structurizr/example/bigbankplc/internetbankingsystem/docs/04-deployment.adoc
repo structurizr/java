@@ -1,5 +1,0 @@
-== Deployment
-
-Here is some information about the live deployment environment for the Internet Banking System...
-
-image::embed:LiveDeployment[]

@@ -1,3 +1,0 @@
-### Context View
-
-![](embed:SystemContext)

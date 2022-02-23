@@ -1,5 +1,0 @@
-== Development Environment
-
-Here is some information about how to set up a development environment for the Internet Banking System...
-
-image::embed:DevelopmentDeployment[]

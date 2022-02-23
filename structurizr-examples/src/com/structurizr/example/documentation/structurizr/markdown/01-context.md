@@ -1,3 +1,0 @@
-## Context
-
-![](embed:SystemContext)
