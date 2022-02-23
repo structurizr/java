@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.12.0 (unreleased)
+
+- Breaking API changes to how documentation and decisions are managed.
+- Moved documentation importers/templates to [structurizr-documentation](https://github.com/structurizr/documentation).
+
 ## 1.11.0 (18th February 2022)
 
 - Fixes #167 (ImpliedRelationship Strategy replication of URL and perspectives).

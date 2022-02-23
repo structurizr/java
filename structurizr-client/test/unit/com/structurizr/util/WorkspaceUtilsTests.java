@@ -63,22 +63,6 @@ public class WorkspaceUtilsTests {
     }
 
     @Test
-    public void test_loadWorkspaceFromJson_WorksWithSomeWorkspaceExamples() throws Exception {
-        File[] files = new File("test/integration/workspaces").listFiles(new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".json");
-            }
-        });
-
-        assertTrue(files != null && files.length > 0);
-
-        for (File file : files) {
-            WorkspaceUtils.loadWorkspaceFromJson(file);
-        }
-    }
-
-    @Test
     public void test_toJson_ThrowsAnException_WhenANullWorkspaceIsProvided() throws Exception {
         try {
             WorkspaceUtils.toJson(null, true);

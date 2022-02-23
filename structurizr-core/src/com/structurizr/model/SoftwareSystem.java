@@ -1,6 +1,7 @@
 package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.structurizr.documentation.Documentation;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -17,6 +18,8 @@ public final class SoftwareSystem extends StaticStructureElement {
     private Location location = Location.Unspecified;
 
     private Set<Container> containers = new LinkedHashSet<>();
+
+    private Documentation documentation = new Documentation();
 
     /**
      * Gets the parent of this software system.
@@ -170,6 +173,24 @@ public final class SoftwareSystem extends StaticStructureElement {
     @Override
     public Set<String> getDefaultTags() {
         return new LinkedHashSet<>(Arrays.asList(Tags.ELEMENT, Tags.SOFTWARE_SYSTEM));
+    }
+
+    /**
+     * Gets the documentation associated with this software system.
+     *
+     * @return  a Documentation object
+     */
+    public Documentation getDocumentation() {
+        return documentation;
+    }
+
+    /**
+     * Sets the documentation associated with this software system.
+     *
+     * @param documentation     a Documentation object
+     */
+    void setDocumentation(@Nonnull Documentation documentation) {
+        this.documentation = documentation;
     }
 
 }

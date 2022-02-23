@@ -40,7 +40,7 @@ public final class Workspace extends AbstractWorkspace {
 
         model = createModel();
         viewSet = createViewSet();
-        documentation = createDocumentation();
+        documentation = new Documentation();
     }
 
     /**
@@ -89,16 +89,6 @@ public final class Workspace extends AbstractWorkspace {
         }
     }
 
-    private Documentation createDocumentation() {
-        try {
-            Constructor constructor = Documentation.class.getDeclaredConstructor(Model.class);
-            constructor.setAccessible(true);
-            return (Documentation)constructor.newInstance(model);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     /**
      * Called when deserialising JSON, to re-create the object graph
      * based upon element/relationship IDs.
@@ -108,13 +98,8 @@ public final class Workspace extends AbstractWorkspace {
             viewSet = createViewSet();
         }
 
-        if (documentation == null) {
-            documentation = createDocumentation();
-        }
-
         hydrateModel();
         hydrateViewSet();
-        hydrateDocumentation();
     }
 
     private void hydrateModel() {
@@ -138,22 +123,6 @@ public final class Workspace extends AbstractWorkspace {
             Method hydrateMethod = ViewSet.class.getDeclaredMethod("hydrate", Model.class);
             hydrateMethod.setAccessible(true);
             hydrateMethod.invoke(viewSet, model);
-        } catch (InvocationTargetException ite) {
-            if (ite.getCause() != null && ite.getCause() instanceof WorkspaceValidationException) {
-                throw (WorkspaceValidationException)ite.getCause();
-            } else {
-                throw new RuntimeException(ite.getCause());
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void hydrateDocumentation() {
-        try {
-            Method hydrateMethod = Documentation.class.getDeclaredMethod("hydrate", Model.class);
-            hydrateMethod.setAccessible(true);
-            hydrateMethod.invoke(documentation, model);
         } catch (InvocationTargetException ite) {
             if (ite.getCause() != null && ite.getCause() instanceof WorkspaceValidationException) {
                 throw (WorkspaceValidationException)ite.getCause();

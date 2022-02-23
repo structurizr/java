@@ -1,1 +1,0 @@
-Quality attributes section

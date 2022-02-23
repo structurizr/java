@@ -4,49 +4,35 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.model.Element;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Represents a single (architecture) decision, as described at http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions
  */
 public final class Decision {
 
-    private Element element;
+    // elementId is here for backwards compatibility
     private String elementId;
+
     private String id;
     private Date date;
     private String title;
-    private DecisionStatus status;
+    private String status;
     private String content;
     private Format format;
+
+    private Set<Link> links = new HashSet<>();
 
     Decision() {
     }
 
-    Decision(Element element, String id, Date date, String title, DecisionStatus status, Format format, String content) {
-        this.element = element;
+    public Decision(String id) {
         this.id = id;
-        this.date = date;
-        this.title = title;
-        this.status = status;
-        this.format = format;
-        this.content = content;
-    }
-
-    @JsonIgnore
-    public Element getElement() {
-        return element;
-    }
-
-    void setElement(Element element) {
-        this.element = element;
     }
 
     public String getElementId() {
-        if (this.element != null) {
-            return this.element.getId();
-        } else {
-            return elementId;
-        }
+        return elementId;
     }
 
     void setElementId(String elementId) {
@@ -65,7 +51,7 @@ public final class Decision {
         return date;
     }
 
-    void setDate(Date date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -73,15 +59,15 @@ public final class Decision {
         return title;
     }
 
-    void setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public DecisionStatus getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    void setStatus(DecisionStatus status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -97,8 +83,26 @@ public final class Decision {
         return format;
     }
 
-    void setFormat(Format format) {
+    public void setFormat(Format format) {
         this.format = format;
+    }
+
+    public Set<Link> getLinks() {
+        return new HashSet<>(links);
+    }
+
+    void setLinks(Set<Link> links) {
+        this.links = links;
+    }
+
+    public void addLink(Decision decision, String type) {
+        if (!decision.getId().equals(this.getId())) {
+            links.add(new Link(decision.getId(), type));
+        }
+    }
+
+    public boolean hasLinkTo(Decision decision) {
+        return links.stream().anyMatch(l -> l.getId().equals(decision.getId()));
     }
 
 }

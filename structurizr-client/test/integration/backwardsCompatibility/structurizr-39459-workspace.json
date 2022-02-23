@@ -1,0 +1,278 @@
+{
+    "id": 39459,
+    "name": "adr-tools",
+    "description": "A description of the adr-tools command line utility.",
+    "revision": 9,
+    "lastModifiedDate": "2021-10-17T15:02:07Z",
+    "lastModifiedUser": "",
+    "lastModifiedAgent": "structurizr-web/2539/diagram",
+    "model": {
+        "people": [
+            {
+                "id": "1",
+                "tags": "Element,Person",
+                "name": "User",
+                "description": "Somebody on a software development team.",
+                "relationships": [
+                    {
+                        "id": "5",
+                        "tags": "Relationship,Synchronous",
+                        "sourceId": "1",
+                        "destinationId": "3",
+                        "description": "Manages ADRs using",
+                        "interactionStyle": "Synchronous"
+                    },
+                    {
+                        "id": "7",
+                        "tags": "Relationship,Synchronous",
+                        "sourceId": "1",
+                        "destinationId": "2",
+                        "description": "Manages ADRs using",
+                        "interactionStyle": "Synchronous"
+                    }
+                ],
+                "location": "Unspecified"
+            }
+        ],
+        "softwareSystems": [
+            {
+                "id": "2",
+                "tags": "Element,Software System",
+                "url": "https://github.com/npryce/adr-tools",
+                "name": "adr-tools",
+                "description": "A command-line tool for working with Architecture Decision Records (ADRs).",
+                "location": "Unspecified",
+                "containers": [
+                    {
+                        "id": "3",
+                        "tags": "Element,Container",
+                        "url": "https://github.com/npryce/adr-tools/tree/master/src",
+                        "name": "adr",
+                        "description": "A command-line tool for working with Architecture Decision Records (ADRs).",
+                        "relationships": [
+                            {
+                                "id": "6",
+                                "tags": "Relationship,Synchronous",
+                                "sourceId": "3",
+                                "destinationId": "4",
+                                "description": "Reads from and writes to",
+                                "interactionStyle": "Synchronous"
+                            }
+                        ],
+                        "technology": "Shell Scripts"
+                    },
+                    {
+                        "id": "4",
+                        "tags": "Element,Container,File System",
+                        "name": "File System",
+                        "description": "Stores ADRs, templates, etc.",
+                        "technology": "File System"
+                    }
+                ]
+            }
+        ],
+        "customElements": [],
+        "deploymentNodes": []
+    },
+    "documentation": {
+        "decisions": [
+            {
+                "elementId": "2",
+                "id": "8",
+                "date": "2017-02-21T00:00:00Z",
+                "title": "Use ISO 8601 Format for Dates",
+                "status": "Accepted",
+                "content": "# 8. Use ISO 8601 Format for Dates\n\nDate: 2017-02-21\n\n## Status\n\nAccepted\n\n## Context\n\n`adr-tools` seeks to communicate the history of architectural decisions of a\nproject.  An important component of the history is the time at which a decision\nwas made.\n\nTo communicate effectively, `adr-tools` should present information as\nunambiguously as possible.  That means that culture-neutral data formats should\nbe preferred over culture-specific formats.\n\nExisting `adr-tools` deployments format  dates as `dd/mm/yyyy` by default.  That\nformatting is common formatting in the United Kingdom (where the `adr-tools`\nproject was originally written), but is easily confused with the `mm/dd/yyyy`\nformat preferred in the United States.\n\nThe default date format may be overridden by setting `ADR_DATE` in `config.sh`.\n\n## Decision\n\n`adr-tools` will use the ISO 8601 format for dates:  `yyyy-mm-dd`\n\n## Consequences\n\nDates are displayed in a standard, culture-neutral format.\n\nThe UK-style and ISO 8601 formats can be distinguished by their separator\ncharacter.  The UK-style dates used a slash (`/`), while the ISO dates use a\nhyphen (`-`).\n\nPrior to this decision, `adr-tools` was deployed using the UK format for dates.\nAfter adopting the ISO 8601 format, existing deployments of `adr-tools` must do\none of the following:\n\n * Accept mixed formatting of dates within their documentation library.\n * Update existing documents to use ISO 8601 dates by running `adr upgrade-repository`\n\n---\nThis Architecture Decision Record (ADR) was written by Nat Pryce as a part of [adr-tools](https://github.com/npryce/adr-tools), and is reproduced here under the [Creative Commons Attribution 4.0 International (CC BY 4.0) license](https://creativecommons.org/licenses/by/4.0/).",
+                "format": "Markdown"
+            },
+            {
+                "elementId": "2",
+                "id": "3",
+                "date": "2016-02-12T00:00:00Z",
+                "title": "Single command with subcommands",
+                "status": "Accepted",
+                "content": "# 3. Single command with subcommands\n\nDate: 2016-02-12\n\n## Status\n\nAccepted\n\n## Context\n\nThe tool provides a number of related commands to create\nand manipulate architecture decision records.\n\nHow can the user find out about the commands that are available?\n\n## Decision\n\nThe tool defines a single command, called `adr`.\n\nThe first argument to `adr` (the subcommand) specifies the\naction to perform.  Further arguments are interpreted by the\nsubcommand.\n\nRunning `adr` without any arguments lists the available\nsubcommands.\n\nSubcommands are implemented as scripts in the same\ndirectory as the `adr` script.  E.g. the subcommand `new` is\nimplemented as the script `adr-new`, the subcommand `help`\nas the script `adr-help` and so on.\n\nHelper scripts that are part of the implementation but not\nsubcommands follow a different naming convention, so that\nsubcommands can be listed by filtering and transforming script\nfile names.\n\n## Consequences\n\nUsers can more easily explore the capabilities of the tool.\n\nUsers are already used to this style of command-line tool.  For\nexample, Git works this way.\n\nEach subcommand can be implemented in the most appropriate\nlanguage.\n\n---\nThis Architecture Decision Record (ADR) was written by Nat Pryce as a part of [adr-tools](https://github.com/npryce/adr-tools), and is reproduced here under the [Creative Commons Attribution 4.0 International (CC BY 4.0) license](https://creativecommons.org/licenses/by/4.0/).\n",
+                "format": "Markdown"
+            },
+            {
+                "elementId": "2",
+                "id": "4",
+                "date": "2016-02-12T00:00:00Z",
+                "title": "Markdown format",
+                "status": "Accepted",
+                "content": "# 4. Markdown format\n\nDate: 2016-02-12\n\n## Status\n\nAccepted\n\n## Context\n\nThe decision records must be stored in a plain text format:\n\n* This works well with version control systems.\n\n* It allows the tool to modify the status of records and insert\n  hyperlinks when one decision supercedes another.\n\n* Decisions can be read in the terminal, IDE, version control\n  browser, etc.\n\nPeople will want to use some formatting: lists, code examples,\nand so on.\n\nPeople will want to view the decision records in a more readable\nformat than plain text, and maybe print them out.\n\n\n## Decision\n\nRecord architecture decisions in [Markdown format](https://daringfireball.net/projects/markdown/).\n\n## Consequences\n\nDecisions can be read in the terminal.\n\nDecisions will be formatted nicely and hyperlinked by the\nbrowsers of project hosting sites like GitHub and Bitbucket.\n\nTools like [Pandoc](http://pandoc.org/) can be used to convert\nthe decision records into HTML or PDF.\n\n---\nThis Architecture Decision Record (ADR) was written by Nat Pryce as a part of [adr-tools](https://github.com/npryce/adr-tools), and is reproduced here under the [Creative Commons Attribution 4.0 International (CC BY 4.0) license](https://creativecommons.org/licenses/by/4.0/).",
+                "format": "Markdown"
+            },
+            {
+                "elementId": "2",
+                "id": "2",
+                "date": "2016-02-12T00:00:00Z",
+                "title": "Implement as shell scripts",
+                "status": "Accepted",
+                "content": "# 2. Implement as shell scripts\n\nDate: 2016-02-12\n\n## Status\n\nAccepted\n\n## Context\n\nADRs are plain text files stored in a subdirectory of the project.\n\nThe tool needs to create new files and apply small edits to\nthe Status section of existing files.\n\n## Decision\n\nThe tool is implemented as shell scripts that use standard Unix\ntools -- grep, sed, awk, etc.\n\n## Consequences\n\nThe tool won't support Windows. Being plain text files, ADRs can\nbe created by hand and edited in any text editor.  This tool just\nmakes the process more convenient.\n\nDevelopment will have to cope with differences between Unix\nvariants, particularly Linux and MacOS X.\n\n---\nThis Architecture Decision Record (ADR) was written by Nat Pryce as a part of [adr-tools](https://github.com/npryce/adr-tools), and is reproduced here under the [Creative Commons Attribution 4.0 International (CC BY 4.0) license](https://creativecommons.org/licenses/by/4.0/).",
+                "format": "Markdown"
+            },
+            {
+                "elementId": "2",
+                "id": "6",
+                "date": "2016-02-16T00:00:00Z",
+                "title": "Packaging and distribution in other version control repositories",
+                "status": "Accepted",
+                "content": "# 6. Packaging and distribution in other version control repositories\n\nDate: 2016-02-16\n\n## Status\n\nAccepted\n\n## Context\n\nUsers want to install adr-tools with their preferred package\nmanager.  For example, Ubuntu users use `apt`, RedHat users use\n`yum` and Mac OS X users use [Homebrew](http://brew.sh).\n\nThe developers of `adr-tools` don't know how, nor have permissions,\nto use all these packaging and distribution systems. Therefore packaging\nand distribution must be done by \"downstream\" parties.\n\nThe developers of the tool should not favour any one particular\npackaging and distribution solution.\n\n## Decision\n\nThe `adr-tools` project will not contain any packaging or\ndistribution scripts and config.\n\nPackaging and distribution will be managed by other projects in\nseparate version control repositories.\n\n## Consequences\n\nThe git repo of this project will be simpler.\n\nEventually, users will not have to use Git to get the software.\n\nWe will have to tag releases in the `adr-tools` repository so that\npackaging projects know what can be published and how it should be\nidentified.\n\nWe will document how users can install the software in this\nproject's README file.\n\n---\nThis Architecture Decision Record (ADR) was written by Nat Pryce as a part of [adr-tools](https://github.com/npryce/adr-tools), and is reproduced here under the [Creative Commons Attribution 4.0 International (CC BY 4.0) license](https://creativecommons.org/licenses/by/4.0/).",
+                "format": "Markdown"
+            },
+            {
+                "elementId": "2",
+                "id": "1",
+                "date": "2016-02-12T00:00:00Z",
+                "title": "Record architecture decisions",
+                "status": "Accepted",
+                "content": "# 1. Record architecture decisions\n\nDate: 2016-02-12\n\n## Status\n\nAccepted\n\n## Context\n\nWe need to record the architectural decisions made on this project.\n\n## Decision\n\nWe will use Architecture Decision Records, as described by Michael Nygard in this article: [http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions)\n\n## Consequences\n\nSee Michael Nygard's article, linked above.\n\n---\nThis Architecture Decision Record (ADR) was written by Nat Pryce as a part of [adr-tools](https://github.com/npryce/adr-tools), and is reproduced here under the [Creative Commons Attribution 4.0 International (CC BY 4.0) license](https://creativecommons.org/licenses/by/4.0/).",
+                "format": "Markdown"
+            },
+            {
+                "elementId": "2",
+                "id": "5",
+                "date": "2016-02-13T00:00:00Z",
+                "title": "Help comments",
+                "status": "Accepted",
+                "content": "# 5. Help comments\n\nDate: 2016-02-13\n\n## Status\n\nAccepted\n\n## Context\n\nThe tool will have a `help` subcommand to provide documentation\nfor users.\n\nIt's nice to have usage documentation in the script files\nthemselves, in comments.  When reading the code, that's the first\nplace to look for information about how to run a script.\n\n## Decision\n\nWrite usage documentation in comments in the source file.\n\nDistinguish between documentation comments and normal comments.\nDocumentation comments have two hash characters at the start of\nthe line.\n\nThe `adr help` command can parse comments out from the script\nusing the standard Unix tools `grep` and `cut`.\n\n## Consequences\n\nNo need to maintain help text in a separate file.\n\nHelp text can easily be kept up to date as the script is edited.\n\nThere's no automated check that the help text is up to date.  The\ntests do not work well as documentation for users, and the help\ntext is not easily cross-checked against the code.\n\nThis won't work if any subcommands are not implemented as scripts\nthat use '#' as a comment character.\n\n---\nThis Architecture Decision Record (ADR) was written by Nat Pryce as a part of [adr-tools](https://github.com/npryce/adr-tools), and is reproduced here under the [Creative Commons Attribution 4.0 International (CC BY 4.0) license](https://creativecommons.org/licenses/by/4.0/).",
+                "format": "Markdown"
+            },
+            {
+                "elementId": "2",
+                "id": "7",
+                "date": "2016-12-17T00:00:00Z",
+                "title": "Invoke adr-config executable to get configuration",
+                "status": "Accepted",
+                "content": "# 7. Invoke adr-config executable to get configuration\n\nDate: 2016-12-17\n\n## Status\n\nAccepted\n\n## Context\n\nPackagers (e.g. Homebrew developers) want to configure adr-tools to match the conventions of their installation. \n\nCurrently, this is done by sourcing a file `config.sh`, which should sit beside the `adr` executable.\n\nThis name is too common.\n\nThe `config.sh` file is not executable, and so doesn't belong in a bin directory.\n\n## Decision\n\nReplace `config.sh` with an executable, named `adr-config` that outputs configuration.\n\nEach script in ADR Tools will eval the output of `adr-config` to configure itself.\n\n## Consequences\n\nConfiguration within ADR Tools is a little more complicated.\n\nPackagers can write their own implementation of `adr-config` that outputs configuration that matches the platform's installation conventions, and deploy it next to the `adr` script.\n\nTo make development easier, the implementation of `adr-config` in the project's src/ directory will output configuration that lets the tool to run from the src/ directory without any installation step. (Packagers should not include this script in a deployable package.)\n\n---\nThis Architecture Decision Record (ADR) was written by Nat Pryce as a part of [adr-tools](https://github.com/npryce/adr-tools), and is reproduced here under the [Creative Commons Attribution 4.0 International (CC BY 4.0) license](https://creativecommons.org/licenses/by/4.0/).",
+                "format": "Markdown"
+            }
+        ],
+        "sections": [],
+        "images": []
+    },
+    "views": {
+        "systemContextViews": [
+            {
+                "softwareSystemId": "2",
+                "description": "The system context diagram for adr-tools.",
+                "key": "SystemContext",
+                "paperSize": "A5_Landscape",
+                "animations": [
+                    {
+                        "order": 1,
+                        "elements": [
+                            "1",
+                            "2"
+                        ],
+                        "relationships": [
+                            "7"
+                        ]
+                    }
+                ],
+                "enterpriseBoundaryVisible": true,
+                "elements": [
+                    {
+                        "id": "1",
+                        "x": 1040,
+                        "y": 224
+                    },
+                    {
+                        "id": "2",
+                        "x": 1015,
+                        "y": 1104
+                    }
+                ],
+                "relationships": [
+                    {
+                        "id": "7"
+                    }
+                ]
+            }
+        ],
+        "containerViews": [
+            {
+                "softwareSystemId": "2",
+                "description": "The container diagram for adr-tools.",
+                "key": "Containers",
+                "paperSize": "A5_Landscape",
+                "dimensions": {
+                    "width": 2480,
+                    "height": 1748
+                },
+                "externalSoftwareSystemBoundariesVisible": false,
+                "elements": [
+                    {
+                        "id": "1",
+                        "x": 1040,
+                        "y": 75
+                    },
+                    {
+                        "id": "3",
+                        "x": 1015,
+                        "y": 713
+                    },
+                    {
+                        "id": "4",
+                        "x": 1015,
+                        "y": 1251
+                    }
+                ],
+                "relationships": [
+                    {
+                        "id": "5",
+                        "routing": "Orthogonal"
+                    },
+                    {
+                        "id": "6",
+                        "routing": "Orthogonal"
+                    }
+                ],
+                "animations": []
+            }
+        ],
+        "configuration": {
+            "branding": {},
+            "styles": {
+                "elements": [
+                    {
+                        "tag": "Element",
+                        "color": "#ffffff",
+                        "shape": "RoundedBox"
+                    },
+                    {
+                        "tag": "Software System",
+                        "background": "#18adad",
+                        "color": "#ffffff"
+                    },
+                    {
+                        "tag": "Person",
+                        "background": "#008282",
+                        "color": "#ffffff",
+                        "shape": "Person"
+                    },
+                    {
+                        "tag": "Container",
+                        "background": "#6dbfbf"
+                    },
+                    {
+                        "tag": "File System",
+                        "shape": "Folder"
+                    }
+                ],
+                "relationships": []
+            },
+            "terminology": {},
+            "lastSavedView": "Containers",
+            "themes": []
+        },
+        "customViews": [],
+        "systemLandscapeViews": [],
+        "componentViews": [],
+        "dynamicViews": [],
+        "deploymentViews": [],
+        "filteredViews": []
+    },
+    "properties": {}
+}

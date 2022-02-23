@@ -1,19 +1,14 @@
 package com.structurizr.documentation;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.structurizr.WorkspaceValidationException;
-import com.structurizr.model.Element;
-import com.structurizr.model.Model;
-import com.structurizr.model.SoftwareSystem;
 import com.structurizr.util.StringUtils;
 
-import javax.annotation.Nonnull;
-import java.util.Date;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
- * Represents the documentation within a workspace - a collection of
+ * Represents the documentation within a workspace or software system - a collection of
  * content in Markdown or AsciiDoc format, optionally with attached images.
  *
  * See <a href="https://structurizr.com/help/documentation">Documentation</a>
@@ -21,33 +16,26 @@ import java.util.Set;
  */
 public final class Documentation {
 
-    private Model model;
     private Set<Section> sections = new HashSet<>();
     private Set<Decision> decisions = new HashSet<>();
     private Set<Image> images = new HashSet<>();
-    private TemplateMetadata template;
 
-    Documentation() {
+    public Documentation() {
     }
 
-    Documentation(@Nonnull Model model) {
-        this.model = model;
-    }
+    /**
+     * Adds a section to this documentation.
+     *
+     * @param section   a Section object
+     */
+    public void addSection(Section section) {
+        checkTitleIsSpecified(section.getTitle());
+        checkContentIsSpecified(section.getContent());
+        checkSectionIsUnique(section.getTitle());
+        checkFormatIsSpecified(section.getFormat());
 
-    @Nonnull
-    final Section addSection(Element element, String title, Format format, String content) {
-        if (element != null && !model.contains(element)) {
-            throw new IllegalArgumentException("The element named " + element.getName() + " does not exist in the model associated with this documentation.");
-        }
-
-        checkTitleIsSpecified(title);
-        checkContentIsSpecified(content);
-        checkSectionIsUnique(element, title);
-        checkFormatIsSpecified(format);
-
-        Section section = new Section(element, title, calculateOrder(), format, content);
+        section.setOrder(calculateOrder());
         sections.add(section);
-        return section;
     }
 
     private void checkTitleIsSpecified(String title) {
@@ -68,18 +56,10 @@ public final class Documentation {
         }
     }
 
-    private void checkSectionIsUnique(Element element, String title) {
-        if (element == null) {
-            for (Section section : sections) {
-                if (section.getElement() == null && title.equals(section.getTitle())) {
-                    throw new IllegalArgumentException("A section with a title of " + title + " already exists for this workspace.");
-                }
-            }
-        } else {
-            for (Section section : sections) {
-                if (element.getId().equals(section.getElementId()) && title.equals(section.getTitle())) {
-                    throw new IllegalArgumentException("A section with a title of " + title + " already exists for the element named " + element.getName() + ".");
-                }
+    private void checkSectionIsUnique(String title) {
+        for (Section section : sections) {
+            if (title.equals(section.getTitle())) {
+                throw new IllegalArgumentException("A section with a title of " + title + " already exists in this scope.");
             }
         }
     }
@@ -99,7 +79,7 @@ public final class Documentation {
 
     void setSections(Set<Section> sections) {
         if (sections != null) {
-            this.sections = new HashSet<>(sections);
+            this.sections = new LinkedHashSet<>(sections);
         }
     }
 
@@ -119,44 +99,19 @@ public final class Documentation {
     }
 
     /**
-     * Adds a new decision to this workspace.
+     * Adds a new decision to this documentation.
      *
-     * @param id        the ID of the decision
-     * @param date      the date of the decision
-     * @param title     the title of the decision
-     * @param status    the status of the decision
-     * @param format    the format of the decision content
-     * @param content   the content of the decision
-     * @return  a Decision object
+     * @param decision      the Decision object
      */
-    public Decision addDecision(String id, Date date, String title, DecisionStatus status, Format format, String content) {
-        return addDecision(null, id, date, title, status, format, content);
-    }
+    public void addDecision(Decision decision) {
+        checkIdIsSpecified(decision.getId());
+        checkTitleIsSpecified(decision.getTitle());
+        checkContentIsSpecified(decision.getContent());
+        checkDecisionStatusIsSpecified(decision.getStatus());
+        checkFormatIsSpecified(decision.getFormat());
+        checkDecisionIsUnique(decision.getId());
 
-    /**
-     * Adds a new decision to this workspace.
-     *
-     * @param softwareSystem    the SoftwareSystem to associate the decision with
-     * @param id                the ID of the decision
-     * @param date              the date of the decision
-     * @param title             the title of the decision
-     * @param status            the status of the decision
-     * @param format            the format of the decision content
-     * @param content           the content of the decision
-     * @return  a Decision object
-     */
-    public Decision addDecision(SoftwareSystem softwareSystem, String id, Date date, String title, DecisionStatus status, Format format, String content) {
-        checkIdIsSpecified(id);
-        checkTitleIsSpecified(title);
-        checkContentIsSpecified(content);
-        checkDecisionStatusIsSpecified(status);
-        checkFormatIsSpecified(format);
-        checkDecisionIsUnique(softwareSystem, id);
-
-        Decision decision = new Decision(softwareSystem, id, date, title, status, format, content);
         this.decisions.add(decision);
-
-        return decision;
     }
 
     private void checkIdIsSpecified(String id) {
@@ -165,29 +120,26 @@ public final class Documentation {
         }
     }
 
-    private void checkDecisionStatusIsSpecified(DecisionStatus status) {
+    private void checkDecisionStatusIsSpecified(String status) {
         if (status == null) {
             throw new IllegalArgumentException("A status must be specified.");
         }
     }
 
-    private void checkDecisionIsUnique(Element element, String id) {
-        if (element == null) {
-            for (Decision decision : decisions) {
-                if (decision.getElement() == null && id.equals(decision.getId())) {
-                    throw new IllegalArgumentException("A decision with an ID of " + id + " already exists for this workspace.");
-                }
-            }
-        } else {
-            for (Decision decision : decisions) {
-                if (element.getId().equals(decision.getElementId()) && id.equals(decision.getId())) {
-                    throw new IllegalArgumentException("A decision with an ID of " + id + " already exists for the element named " + element.getName() + ".");
-                }
+    private void checkDecisionIsUnique(String id) {
+        for (Decision decision : decisions) {
+            if (id.equals(decision.getId())) {
+                throw new IllegalArgumentException("A decision with an ID of " + id + " already exists in this scope.");
             }
         }
     }
 
-    void addImage(Image image) {
+    /**
+     * Adds an image to the documentation.
+     *
+     * @param image     an Image object
+     */
+    public void addImage(Image image) {
         images.add(image);
     }
 
@@ -206,40 +158,6 @@ public final class Documentation {
         }
     }
 
-    void hydrate(Model model) {
-        this.model = model;
-
-        for (Section section : sections) {
-            if (!StringUtils.isNullOrEmpty(section.getElementId())) {
-                Element element = model.getElement(section.getElementId());
-
-                if (element == null) {
-                    throw new WorkspaceValidationException(
-                            String.format("The documentation section with title \"%s\" is associated with an element (id=%s), but that element does not exist in the model.",
-                                    section.getTitle(), section.getElementId())
-                    );
-                }
-
-                section.setElement(element);
-            }
-        }
-
-        for (Decision decision : decisions) {
-            if (!StringUtils.isNullOrEmpty(decision.getElementId())) {
-                Element element = model.getElement(decision.getElementId());
-
-                if (element == null) {
-                    throw new WorkspaceValidationException(
-                            String.format("The decision record with title \"%s\" is associated with an element (id=%s), but that element does not exist in the model.",
-                                    decision.getTitle(), decision.getElementId())
-                    );
-                }
-
-                decision.setElement(element);
-            }
-        }
-    }
-
     @JsonIgnore
     public boolean isEmpty() {
         return sections.isEmpty() && images.isEmpty() && decisions.isEmpty();
@@ -252,20 +170,6 @@ public final class Documentation {
         sections = new HashSet<>();
         decisions = new HashSet<>();
         images = new HashSet<>();
-        template = null;
-    }
-
-    /**
-     * Gets the template metadata associated with this documentation.
-     *
-     * @return  a TemplateMetadata object, or null if there is none
-     */
-    public TemplateMetadata getTemplate() {
-        return template;
-    }
-
-    void setTemplate(TemplateMetadata template) {
-        this.template = template;
     }
 
 }

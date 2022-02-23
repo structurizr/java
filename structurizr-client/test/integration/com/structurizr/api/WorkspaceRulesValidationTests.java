@@ -189,24 +189,4 @@ public class WorkspaceRulesValidationTests {
         }
     }
 
-    @Test
-    public void test_exceptionThrown_WhenElementAssociatedWithDocumentationSectionIsMissingFromTheModel() throws Exception {
-        try {
-            WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ElementAssociatedWithDocumentationSectionIsMissingFromTheModel.json"));
-            fail();
-        } catch (WorkspaceValidationException we) {
-            assertEquals("The documentation section with title \"Context\" is associated with an element (id=2), but that element does not exist in the model.", we.getMessage());
-        }
-    }
-
-    @Test
-    public void test_exceptionThrown_WhenElementAssociatedWithDecisionIsMissingFromTheModel() throws Exception {
-        try {
-            WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ElementAssociatedWithDecisionIsMissingFromTheModel.json"));
-            fail();
-        } catch (WorkspaceValidationException we) {
-            assertEquals("The decision record with title \"Use Java\" is associated with an element (id=2), but that element does not exist in the model.", we.getMessage());
-        }
-    }
-
 }

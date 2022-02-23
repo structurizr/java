@@ -1,18 +1,13 @@
 package com.structurizr.documentation;
 
-import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.structurizr.model.Element;
-
 /**
  * A documentation section.
  */
 public final class Section {
 
-    private Element element;
+    // elementId is here for backwards compatibility
     private String elementId;
 
-    private String type;
     private String title;
     private int order;
     private Format format;
@@ -21,29 +16,14 @@ public final class Section {
     Section() {
     }
 
-    Section(Element element, String title, int order, Format format, String content) {
-        this.element = element;
+    Section(String title, Format format, String content) {
         this.title = title;
-        this.order = order;
         this.format = format;
         this.content = content;
     }
 
-    @JsonIgnore
-    public Element getElement() {
-        return element;
-    }
-
-    void setElement(Element element) {
-        this.element = element;
-    }
-
     public String getElementId() {
-        if (this.element != null) {
-            return this.element.getId();
-        } else {
-            return elementId;
-        }
+        return elementId;
     }
 
     void setElementId(String elementId) {
@@ -58,21 +38,11 @@ public final class Section {
         this.title = title;
     }
 
-    @JsonGetter
-    String getType() {
-        return this.type;
-    }
-
-    void setType(String type) {
-        this.type = type;
-        setTitle(type); // backwards compatibility for older clients
-    }
-
     public int getOrder() {
         return order;
     }
 
-    public void setOrder(int order) {
+    void setOrder(int order) {
         this.order = order;
     }
 

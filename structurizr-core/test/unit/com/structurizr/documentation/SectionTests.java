@@ -7,10 +7,12 @@ import static org.junit.Assert.assertEquals;
 public class SectionTests {
 
     @Test
-    public void test_setType_ProvidesBackwardsCompatibility() {
-        Section section = new Section();
-        section.setType("Title"); // older clients use the type property
+    public void test_construction() {
+        Section section = new Section("Title", Format.Markdown, "Content");
+
         assertEquals("Title", section.getTitle());
+        assertEquals(Format.Markdown, section.getFormat());
+        assertEquals("Content", section.getContent());
     }
 
 }
