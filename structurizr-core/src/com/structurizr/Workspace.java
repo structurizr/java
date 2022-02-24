@@ -18,7 +18,7 @@ import java.util.List;
  * Represents a Structurizr workspace, which is a wrapper for a
  * software architecture model, views and documentation.
  */
-public final class Workspace extends AbstractWorkspace {
+public final class Workspace extends AbstractWorkspace implements Documentable {
 
     private static final Log log = LogFactory.getLog(Workspace.class);
 

@@ -13,7 +13,7 @@ import java.util.Set;
 /**
  * Represents a "software system" in the C4 model.
  */
-public final class SoftwareSystem extends StaticStructureElement {
+public final class SoftwareSystem extends StaticStructureElement implements Documentable {
 
     private Location location = Location.Unspecified;
 
