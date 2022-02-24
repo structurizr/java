@@ -12,7 +12,7 @@ public final class Image {
     Image() {
     }
 
-    Image(String name, String type, String content) {
+    public Image(String name, String type, String content) {
         this.name = name;
         this.type = type;
         this.content = content;

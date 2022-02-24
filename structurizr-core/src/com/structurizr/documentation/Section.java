@@ -3,39 +3,20 @@ package com.structurizr.documentation;
 /**
  * A documentation section.
  */
-public final class Section {
-
-    // elementId is here for backwards compatibility
-    private String elementId;
+public final class Section extends DocumentationContent {
 
     private String title;
     private int order;
     private Format format;
     private String content;
 
-    Section() {
+    public Section() {
     }
 
-    Section(String title, Format format, String content) {
-        this.title = title;
-        this.format = format;
-        this.content = content;
-    }
-
-    public String getElementId() {
-        return elementId;
-    }
-
-    void setElementId(String elementId) {
-        this.elementId = elementId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    void setTitle(String title) {
-        this.title = title;
+    public Section(String title, Format format, String content) {
+        setTitle(title);
+        setFormat(format);
+        setContent(content);
     }
 
     public int getOrder() {
@@ -44,22 +25,6 @@ public final class Section {
 
     void setOrder(int order) {
         this.order = order;
-    }
-
-    public Format getFormat() {
-        return format;
-    }
-
-    void setFormat(Format format) {
-        this.format = format;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     @Override
