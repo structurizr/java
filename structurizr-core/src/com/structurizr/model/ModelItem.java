@@ -13,7 +13,6 @@ import java.util.*;
 public abstract class ModelItem implements PropertyHolder {
 
     private String id = "";
-    private String originId = "";
     private Set<String> tags = new LinkedHashSet<>();
 
     private String url;
@@ -37,14 +36,6 @@ public abstract class ModelItem implements PropertyHolder {
 
     void setId(String id) {
         this.id = id;
-    }
-
-    public String getOriginId() {
-        return originId;
-    }
-
-    void setOriginId(String originId) {
-        this.originId = originId;
     }
 
     /**
