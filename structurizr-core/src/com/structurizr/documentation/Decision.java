@@ -1,5 +1,7 @@
 package com.structurizr.documentation;
 
+import com.structurizr.util.StringUtils;
+
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -119,6 +121,60 @@ public final class Decision extends DocumentationContent {
         int result = getElementId() != null ? getElementId().hashCode() : 0;
         result = 31 * result + getId().hashCode();
         return result;
+    }
+
+    /**
+     * Represents a link between two decisions.
+     */
+    public static final class Link {
+
+        private String type;
+        private String id;
+
+        Link() {
+        }
+
+        Link(String id, String type) {
+            if (StringUtils.isNullOrEmpty(id)) {
+                throw new IllegalArgumentException("Link ID must be specfied");
+            }
+            this.id = id;
+            this.type = type;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        void setId(String id) {
+            this.id = id;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        void setType(String type) {
+            this.type = type;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Link link = (Link) o;
+
+            if (!type.equals(link.type)) return false;
+            return id.equals(link.id);
+        }
+
+        @Override
+        public int hashCode() {
+            int result = type.hashCode();
+            result = 31 * result + id.hashCode();
+            return result;
+        }
     }
 
 }

@@ -5,10 +5,7 @@ package com.structurizr.documentation;
  */
 public final class Section extends DocumentationContent {
 
-    private String title;
     private int order;
-    private Format format;
-    private String content;
 
     public Section() {
     }
