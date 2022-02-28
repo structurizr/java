@@ -1,6 +1,7 @@
 package com.structurizr;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.structurizr.documentation.Documentable;
 import com.structurizr.documentation.Documentation;
 import com.structurizr.model.*;
 import com.structurizr.view.ViewSet;
