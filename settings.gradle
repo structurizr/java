@@ -2,4 +2,3 @@ rootProject.name = 'structurizr'
 
 include 'structurizr-client'
 include 'structurizr-core'
-include 'structurizr-examples'
