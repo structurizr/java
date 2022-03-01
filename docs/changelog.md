@@ -1,9 +1,11 @@
 # Changelog
 
-## 1.12.0 (unreleased)
+## 1.12.0 (1st March 2022)
 
 - Breaking API changes to how documentation and decisions are managed.
 - Moved documentation importers/templates to [structurizr-documentation](https://github.com/structurizr/documentation).
+- Moved examples to [structurizr-examples](https://github.com/structurizr/examples)
+- Removal of deprecated `Model.addImplicitRelationships()` method.
 
 ## 1.11.0 (18th February 2022)
 
