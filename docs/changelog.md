@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.12.1 (2nd March 2022)
+
+- Renamed `Decision.Link.type` to `Decision.Link.description`. 
+
 ## 1.12.0 (1st March 2022)
 
 - Breaking API changes to how documentation and decisions are managed.

@@ -128,18 +128,19 @@ public final class Decision extends DocumentationContent {
      */
     public static final class Link {
 
-        private String type;
         private String id;
+        private String description = "";
 
         Link() {
         }
 
-        Link(String id, String type) {
+        Link(String id, String description) {
             if (StringUtils.isNullOrEmpty(id)) {
-                throw new IllegalArgumentException("Link ID must be specfied");
+                throw new IllegalArgumentException("Link ID must be specified");
             }
-            this.id = id;
-            this.type = type;
+
+            setId(id);
+            setDescription(description);
         }
 
         public String getId() {
@@ -150,12 +151,21 @@ public final class Decision extends DocumentationContent {
             this.id = id;
         }
 
-        public String getType() {
-            return type;
+        /**
+         * Gets the description of this link.
+         *
+         * @return      a String description
+         */
+        public String getDescription() {
+            return description;
         }
 
-        void setType(String type) {
-            this.type = type;
+        void setDescription(String description) {
+            if (!StringUtils.isNullOrEmpty(description)) {
+                this.description = description;
+            } else {
+                this.description = "";
+            }
         }
 
         @Override
@@ -165,13 +175,13 @@ public final class Decision extends DocumentationContent {
 
             Link link = (Link) o;
 
-            if (!type.equals(link.type)) return false;
+            if (!description.equals(link.description)) return false;
             return id.equals(link.id);
         }
 
         @Override
         public int hashCode() {
-            int result = type.hashCode();
+            int result = description.hashCode();
             result = 31 * result + id.hashCode();
             return result;
         }
