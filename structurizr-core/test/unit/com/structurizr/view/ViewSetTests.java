@@ -1094,4 +1094,32 @@ public class ViewSetTests {
         assertNull(view2.getPaperSize());
     }
 
+    @Test
+    public void test_view_ordering() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System");
+        Container container = softwareSystem.addContainer("Container");
+        ViewSet views = workspace.getViews();
+
+        CustomView customView = views.createCustomView("custom1", "Title", "Description");
+        SystemLandscapeView systemLandscapeView1 = views.createSystemLandscapeView("landscape1", "Description");
+        FilteredView filteredView = views.createFilteredView(systemLandscapeView1, "filtered1", "Description", FilterMode.Include, "Tag 1");
+        SystemContextView systemContextView = views.createSystemContextView(softwareSystem, "context1", "Description");
+        ContainerView containerView = views.createContainerView(softwareSystem, "container1", "Description");
+        ComponentView componentView = views.createComponentView(container, "component1", "Description");
+        DynamicView dynamicView = views.createDynamicView("dynamic1", "Description");
+        DeploymentView deploymentView = views.createDeploymentView("deployment1", "Description");
+        SystemLandscapeView systemLandscapeView2 = views.createSystemLandscapeView("landscape2", "Description");
+
+        assertEquals(1, customView.getOrder());
+        assertEquals(2, systemLandscapeView1.getOrder());
+        assertEquals(3, filteredView.getOrder());
+        assertEquals(4, systemContextView.getOrder());
+        assertEquals(5, containerView.getOrder());
+        assertEquals(6, componentView.getOrder());
+        assertEquals(7, dynamicView.getOrder());
+        assertEquals(8, deploymentView.getOrder());
+        assertEquals(9, systemLandscapeView2.getOrder());
+    }
+
 }

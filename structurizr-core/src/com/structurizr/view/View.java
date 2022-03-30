@@ -24,6 +24,7 @@ public abstract class View {
     private String softwareSystemId;
     private String description = "";
     private String key;
+    private int order;
     private PaperSize paperSize = null;
     private Dimensions dimensions = null;
     private AutomaticLayout automaticLayout = null;
@@ -123,6 +124,19 @@ public abstract class View {
         }
 
         this.key = key;
+    }
+
+    /**
+     * Gets the order of this view.
+     *
+     * @return  a positive integer
+     */
+    public int getOrder() {
+        return order;
+    }
+
+    void setOrder(int order) {
+        this.order = Math.max(1, order);
     }
 
     /**

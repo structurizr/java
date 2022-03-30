@@ -53,6 +53,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         CustomView view = new CustomView(model, key, title, description);
+        view.setOrder(getNextOrder());
         view.setViewSet(this);
         customViews.add(view);
         return view;
@@ -70,6 +71,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         SystemLandscapeView view = new SystemLandscapeView(model, key, description);
+        view.setOrder(getNextOrder());
         view.setViewSet(this);
         systemLandscapeViews.add(view);
         return view;
@@ -89,6 +91,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         SystemContextView view = new SystemContextView(softwareSystem, key, description);
+        view.setOrder(getNextOrder());
         view.setViewSet(this);
         systemContextViews.add(view);
         return view;
@@ -108,6 +111,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         ContainerView view = new ContainerView(softwareSystem, key, description);
+        view.setOrder(getNextOrder());
         view.setViewSet(this);
         containerViews.add(view);
         return view;
@@ -127,6 +131,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         ComponentView view = new ComponentView(container, key, description);
+        view.setOrder(getNextOrder());
         view.setViewSet(this);
         componentViews.add(view);
         return view;
@@ -144,6 +149,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         DynamicView view = new DynamicView(model, key, description);
+        view.setOrder(getNextOrder());
         view.setViewSet(this);
         dynamicViews.add(view);
         return view;
@@ -170,6 +176,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         DynamicView view = new DynamicView(softwareSystem, key, description);
+        view.setOrder(getNextOrder());
         view.setViewSet(this);
         dynamicViews.add(view);
         return view;
@@ -197,6 +204,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         DynamicView view = new DynamicView(container, key, description);
+        view.setOrder(getNextOrder());
         view.setViewSet(this);
         dynamicViews.add(view);
         return view;
@@ -214,6 +222,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         DeploymentView view = new DeploymentView(model, key, description);
+        view.setOrder(getNextOrder());
         view.setViewSet(this);
         deploymentViews.add(view);
         return view;
@@ -233,6 +242,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         DeploymentView view = new DeploymentView(softwareSystem, key, description);
+        view.setOrder(getNextOrder());
         view.setViewSet(this);
         deploymentViews.add(view);
         return view;
@@ -253,6 +263,7 @@ public final class ViewSet {
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         FilteredView filteredView = new FilteredView(view, key, description, mode, tags);
+        filteredView.setOrder(getNextOrder());
         filteredViews.add(filteredView);
         return filteredView;
     }
@@ -622,6 +633,21 @@ public final class ViewSet {
                 keys.add(filteredView.getKey());
             }
         }
+    }
+
+    private synchronized int getNextOrder() {
+        int order = 0;
+
+        order = Math.max(order, customViews.stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0));
+        order = Math.max(order, systemLandscapeViews.stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0));
+        order = Math.max(order, systemContextViews.stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0));
+        order = Math.max(order, containerViews.stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0));
+        order = Math.max(order, componentViews.stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0));
+        order = Math.max(order, dynamicViews.stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0));
+        order = Math.max(order, deploymentViews.stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0));
+        order = Math.max(order, filteredViews.stream().max(Comparator.comparingInt(FilteredView::getOrder)).map(FilteredView::getOrder).orElse(0));
+
+        return order + 1;
     }
 
     /**

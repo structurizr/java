@@ -15,6 +15,7 @@ public final class FilteredView {
     private String baseViewKey;
 
     private String key;
+    private int order;
     private String description = "";
 
     private FilterMode mode = FilterMode.Exclude;
@@ -58,6 +59,19 @@ public final class FilteredView {
 
     void setKey(String key) {
         this.key = key;
+    }
+
+    /**
+     * Gets the order of this view.
+     *
+     * @return  a positive integer
+     */
+    public int getOrder() {
+        return order;
+    }
+
+    void setOrder(int order) {
+        this.order = Math.max(1, order);
     }
 
     public String getDescription() {
