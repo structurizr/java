@@ -2,7 +2,7 @@
 
 ## 1.12.2 (30th March 2022)
 
-- Added support for sorting views by the order in which they are created.
+- Adds support for sorting views by the order in which they are created.
 
 ## 1.12.1 (2nd March 2022)
 
