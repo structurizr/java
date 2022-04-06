@@ -3,7 +3,7 @@ package com.structurizr.view;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.structurizr.util.StringUtils;
 
-public final class RelationshipStyle {
+public final class RelationshipStyle extends AbstractStyle {
 
     private static final int START_OF_LINE = 0;
     private static final int END_OF_LINE = 100;

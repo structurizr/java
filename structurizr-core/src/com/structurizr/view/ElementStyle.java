@@ -1,13 +1,14 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.structurizr.PropertyHolder;
 import com.structurizr.util.ImageUtils;
 import com.structurizr.util.StringUtils;
 
 /**
  * A definition of an element style.
  */
-public final class ElementStyle {
+public final class ElementStyle extends AbstractStyle {
 
     public static final int DEFAULT_WIDTH = 450;
     public static final int DEFAULT_HEIGHT = 300;

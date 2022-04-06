@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.13.0 (unreleased to Maven Central)
+
+- Adds support for name/value properties on element and relationship styles.
+
 ## 1.12.2 (30th March 2022)
 
 - Adds support for sorting views by the order in which they are created.

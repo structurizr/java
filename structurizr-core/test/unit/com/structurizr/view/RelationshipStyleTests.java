@@ -2,8 +2,10 @@ package com.structurizr.view;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.*;
 
 public class RelationshipStyleTests {
 
@@ -124,6 +126,80 @@ public class RelationshipStyleTests {
     public void test_color_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
         RelationshipStyle style = new RelationshipStyle();
         style.color("white");
+    }
+
+    @Test
+    public void test_getProperties_ReturnsAnEmptyList_WhenNoPropertiesHaveBeenAdded() {
+        RelationshipStyle style = new RelationshipStyle();
+        assertEquals(0, style.getProperties().size());
+    }
+
+    @Test
+    public void test_addProperty_ThrowsAnException_WhenTheNameIsNull() {
+        try {
+            RelationshipStyle style = new RelationshipStyle();
+            style.addProperty(null, "value");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("A property name must be specified.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addProperty_ThrowsAnException_WhenTheNameIsEmpty() {
+        try {
+            RelationshipStyle style = new RelationshipStyle();
+            style.addProperty(" ", "value");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("A property name must be specified.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addProperty_ThrowsAnException_WhenTheValueIsNull() {
+        try {
+            RelationshipStyle style = new RelationshipStyle();
+            style.addProperty("name", null);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("A property value must be specified.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addProperty_ThrowsAnException_WhenTheValueIsEmpty() {
+        try {
+            RelationshipStyle style = new RelationshipStyle();
+            style.addProperty("name", " ");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("A property value must be specified.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addProperty_AddsTheProperty_WhenANameAndValueAreSpecified() {
+        RelationshipStyle style = new RelationshipStyle();
+        style.addProperty("name", "value");
+        assertEquals("value", style.getProperties().get("name"));
+    }
+
+    @Test
+    public void test_setProperties_DoesNothing_WhenNullIsSpecified() {
+        RelationshipStyle style = new RelationshipStyle();
+        style.setProperties(null);
+        assertEquals(0, style.getProperties().size());
+    }
+
+    @Test
+    public void test_setProperties_SetsTheProperties_WhenANonEmptyMapIsSpecified() {
+        RelationshipStyle style = new RelationshipStyle();
+        Map<String, String> properties = new HashMap<>();
+        properties.put("name", "value");
+        style.setProperties(properties);
+        assertEquals(1, style.getProperties().size());
+        assertEquals("value", style.getProperties().get("name"));
     }
 
 }

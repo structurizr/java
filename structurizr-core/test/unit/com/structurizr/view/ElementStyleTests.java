@@ -2,8 +2,10 @@ package com.structurizr.view;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.Assert.*;
 
 public class ElementStyleTests {
 
@@ -203,5 +205,79 @@ public class ElementStyleTests {
         ElementStyle style = new ElementStyle();
         style.stroke("white");
     }
-    
+
+    @Test
+    public void test_getProperties_ReturnsAnEmptyList_WhenNoPropertiesHaveBeenAdded() {
+        ElementStyle style = new ElementStyle();
+        assertEquals(0, style.getProperties().size());
+    }
+
+    @Test
+    public void test_addProperty_ThrowsAnException_WhenTheNameIsNull() {
+        try {
+            ElementStyle style = new ElementStyle();
+            style.addProperty(null, "value");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("A property name must be specified.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addProperty_ThrowsAnException_WhenTheNameIsEmpty() {
+        try {
+            ElementStyle style = new ElementStyle();
+            style.addProperty(" ", "value");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("A property name must be specified.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addProperty_ThrowsAnException_WhenTheValueIsNull() {
+        try {
+            ElementStyle style = new ElementStyle();
+            style.addProperty("name", null);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("A property value must be specified.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addProperty_ThrowsAnException_WhenTheValueIsEmpty() {
+        try {
+            ElementStyle style = new ElementStyle();
+            style.addProperty("name", " ");
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertEquals("A property value must be specified.", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_addProperty_AddsTheProperty_WhenANameAndValueAreSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.addProperty("name", "value");
+        assertEquals("value", style.getProperties().get("name"));
+    }
+
+    @Test
+    public void test_setProperties_DoesNothing_WhenNullIsSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.setProperties(null);
+        assertEquals(0, style.getProperties().size());
+    }
+
+    @Test
+    public void test_setProperties_SetsTheProperties_WhenANonEmptyMapIsSpecified() {
+        ElementStyle style = new ElementStyle();
+        Map<String, String> properties = new HashMap<>();
+        properties.put("name", "value");
+        style.setProperties(properties);
+        assertEquals(1, style.getProperties().size());
+        assertEquals("value", style.getProperties().get("name"));
+    }
+
 }
