@@ -2,7 +2,7 @@ dependencies {
 
     compile project(':structurizr-core')
 
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.13.2.2'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
 
     compile 'org.apache.httpcomponents.client5:httpclient5:5.1.3'
 

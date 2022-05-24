@@ -1,6 +1,6 @@
 dependencies {
 
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.13.2'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.13.3'
 
     compile 'commons-logging:commons-logging:1.2'
 
