@@ -13,16 +13,16 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     @Test
     public void test_findElementStyle_ReturnsTheDefaultStyle_WhenPassedNull() {
         ElementStyle style = styles.findElementStyle((Element)null);
-        assertEquals(new Integer(450), style.getWidth());
-        assertEquals(new Integer(300), style.getHeight());
+        assertEquals(Integer.valueOf(450), style.getWidth());
+        assertEquals(Integer.valueOf(300), style.getHeight());
         assertEquals("#dddddd", style.getBackground());
         assertEquals("#000000", style.getColor());
-        assertEquals(new Integer(24), style.getFontSize());
+        assertEquals(Integer.valueOf(24), style.getFontSize());
         assertEquals(Shape.Box, style.getShape());
         assertNull(style.getIcon());
         assertEquals(Border.Solid, style.getBorder());
         assertEquals("#9a9a9a", style.getStroke());
-        assertEquals(new Integer(100), style.getOpacity());
+        assertEquals(Integer.valueOf(100), style.getOpacity());
         assertEquals(true, style.getMetadata());
         assertEquals(true, style.getDescription());
     }
@@ -31,16 +31,16 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     public void test_findElementStyle_ReturnsTheDefaultStyle_WhenNoStylesAreDefined() {
         SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
         ElementStyle style = styles.findElementStyle(element);
-        assertEquals(new Integer(450), style.getWidth());
-        assertEquals(new Integer(300), style.getHeight());
+        assertEquals(Integer.valueOf(450), style.getWidth());
+        assertEquals(Integer.valueOf(300), style.getHeight());
         assertEquals("#dddddd", style.getBackground());
         assertEquals("#000000", style.getColor());
-        assertEquals(new Integer(24), style.getFontSize());
+        assertEquals(Integer.valueOf(24), style.getFontSize());
         assertEquals(Shape.Box, style.getShape());
         assertNull(style.getIcon());
         assertEquals(Border.Solid, style.getBorder());
         assertEquals("#9a9a9a", style.getStroke());
-        assertEquals(new Integer(100), style.getOpacity());
+        assertEquals(Integer.valueOf(100), style.getOpacity());
         assertEquals(true, style.getMetadata());
         assertEquals(true, style.getDescription());
     }
@@ -54,16 +54,16 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         styles.addElementStyle("Some Tag").color("#0000ff").stroke("#00ff00").shape(Shape.RoundedBox).width(123).height(456);
 
         ElementStyle style = styles.findElementStyle(element);
-        assertEquals(new Integer(123), style.getWidth());
-        assertEquals(new Integer(456), style.getHeight());
+        assertEquals(Integer.valueOf(123), style.getWidth());
+        assertEquals(Integer.valueOf(456), style.getHeight());
         assertEquals("#ff0000", style.getBackground());
         assertEquals("#0000ff", style.getColor());
-        assertEquals(new Integer(24), style.getFontSize());
+        assertEquals(Integer.valueOf(24), style.getFontSize());
         assertEquals(Shape.RoundedBox, style.getShape());
         assertNull(style.getIcon());
         assertEquals(Border.Solid, style.getBorder());
         assertEquals("#00ff00", style.getStroke());
-        assertEquals(new Integer(100), style.getOpacity());
+        assertEquals(Integer.valueOf(100), style.getOpacity());
         assertEquals(true, style.getMetadata());
         assertEquals(true, style.getDescription());
     }
@@ -80,16 +80,16 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         styles.addElementStyle("Some Tag").color("#0000ff").stroke("#00ff00").shape(Shape.RoundedBox).width(123).height(456);
 
         ElementStyle style = styles.findElementStyle(softwareSystemInstance);
-        assertEquals(new Integer(123), style.getWidth());
-        assertEquals(new Integer(456), style.getHeight());
+        assertEquals(Integer.valueOf(123), style.getWidth());
+        assertEquals(Integer.valueOf(456), style.getHeight());
         assertEquals("#ff0000", style.getBackground());
         assertEquals("#0000ff", style.getColor());
-        assertEquals(new Integer(24), style.getFontSize());
+        assertEquals(Integer.valueOf(24), style.getFontSize());
         assertEquals(Shape.RoundedBox, style.getShape());
         assertNull(style.getIcon());
         assertEquals(Border.Solid, style.getBorder());
         assertEquals("#00ff00", style.getStroke());
-        assertEquals(new Integer(100), style.getOpacity());
+        assertEquals(Integer.valueOf(100), style.getOpacity());
         assertEquals(true, style.getMetadata());
         assertEquals(true, style.getDescription());
     }
@@ -104,8 +104,8 @@ public class StylesTests extends AbstractWorkspaceTestBase {
 
         ElementStyle style = styles.findElementStyle(element);
         assertEquals(Shape.Box, style.getShape());
-        assertEquals(new Integer(450), style.getWidth());
-        assertEquals(new Integer(300), style.getHeight());
+        assertEquals(Integer.valueOf(450), style.getWidth());
+        assertEquals(Integer.valueOf(300), style.getHeight());
     }
 
     @Test
@@ -118,21 +118,21 @@ public class StylesTests extends AbstractWorkspaceTestBase {
 
         ElementStyle style = styles.findElementStyle(element);
         assertEquals(Shape.Person, style.getShape());
-        assertEquals(new Integer(400), style.getWidth());
-        assertEquals(new Integer(400), style.getHeight());
+        assertEquals(Integer.valueOf(400), style.getWidth());
+        assertEquals(Integer.valueOf(400), style.getHeight());
     }
 
     @Test
     public void test_findRelationshipStyle_ReturnsTheDefaultStyle_WhenPassedNull() {
         RelationshipStyle style = styles.findRelationshipStyle((Relationship)null);
-        assertEquals(new Integer(2), style.getThickness());
+        assertEquals(Integer.valueOf(2), style.getThickness());
         assertEquals("#707070", style.getColor());
         assertTrue(style.getDashed());
         assertEquals(Routing.Direct, style.getRouting());
-        assertEquals(new Integer(24), style.getFontSize());
-        assertEquals(new Integer(200), style.getWidth());
-        assertEquals(new Integer(50), style.getPosition());
-        assertEquals(new Integer(100), style.getOpacity());
+        assertEquals(Integer.valueOf(24), style.getFontSize());
+        assertEquals(Integer.valueOf(200), style.getWidth());
+        assertEquals(Integer.valueOf(50), style.getPosition());
+        assertEquals(Integer.valueOf(100), style.getOpacity());
     }
 
     @Test
@@ -140,14 +140,14 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
         Relationship relationship = element.uses(element, "Uses");
         RelationshipStyle style = styles.findRelationshipStyle(relationship);
-        assertEquals(new Integer(2), style.getThickness());
+        assertEquals(Integer.valueOf(2), style.getThickness());
         assertEquals("#707070", style.getColor());
         assertTrue(style.getDashed());
         assertEquals(Routing.Direct, style.getRouting());
-        assertEquals(new Integer(24), style.getFontSize());
-        assertEquals(new Integer(200), style.getWidth());
-        assertEquals(new Integer(50), style.getPosition());
-        assertEquals(new Integer(100), style.getOpacity());
+        assertEquals(Integer.valueOf(24), style.getFontSize());
+        assertEquals(Integer.valueOf(200), style.getWidth());
+        assertEquals(Integer.valueOf(50), style.getPosition());
+        assertEquals(Integer.valueOf(100), style.getOpacity());
     }
 
     @Test
@@ -160,14 +160,14 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         styles.addRelationshipStyle("Some Tag").color("#0000ff");
 
         RelationshipStyle style = styles.findRelationshipStyle(relationship);
-        assertEquals(new Integer(2), style.getThickness());
+        assertEquals(Integer.valueOf(2), style.getThickness());
         assertEquals("#0000ff", style.getColor());
         assertTrue(style.getDashed());
         assertEquals(Routing.Direct, style.getRouting());
-        assertEquals(new Integer(24), style.getFontSize());
-        assertEquals(new Integer(200), style.getWidth());
-        assertEquals(new Integer(50), style.getPosition());
-        assertEquals(new Integer(100), style.getOpacity());
+        assertEquals(Integer.valueOf(24), style.getFontSize());
+        assertEquals(Integer.valueOf(200), style.getWidth());
+        assertEquals(Integer.valueOf(50), style.getPosition());
+        assertEquals(Integer.valueOf(100), style.getOpacity());
     }
 
     @Test

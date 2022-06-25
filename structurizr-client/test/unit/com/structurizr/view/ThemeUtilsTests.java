@@ -86,16 +86,16 @@ public class ThemeUtilsTests {
         workspace.getViews().getConfiguration().getStyles().addStylesFromTheme("url2", elementStyles, relationshipStyles);
 
         ElementStyle style = workspace.getViews().getConfiguration().getStyles().findElementStyle(softwareSystem);
-        assertEquals(new Integer(450), style.getWidth());
-        assertEquals(new Integer(300), style.getHeight());
+        assertEquals(Integer.valueOf(450), style.getWidth());
+        assertEquals(Integer.valueOf(300), style.getHeight());
         assertEquals("#ff0000", style.getBackground()); // from theme 2
         assertEquals("#ffffff", style.getColor()); // from theme 1
-        assertEquals(new Integer(24), style.getFontSize());
+        assertEquals(Integer.valueOf(24), style.getFontSize());
         assertEquals(Shape.RoundedBox, style.getShape()); // from workspace
         assertNull(style.getIcon());
         assertEquals(Border.Solid, style.getBorder());
         assertEquals("#b20000", style.getStroke());
-        assertEquals(new Integer(100), style.getOpacity());
+        assertEquals(Integer.valueOf(100), style.getOpacity());
         assertEquals(true, style.getMetadata());
         assertEquals(true, style.getDescription());
     }
@@ -120,14 +120,14 @@ public class ThemeUtilsTests {
         workspace.getViews().getConfiguration().getStyles().addStylesFromTheme("url2", elementStyles, relationshipStyles);
 
         RelationshipStyle style = workspace.getViews().getConfiguration().getStyles().findRelationshipStyle(relationship);
-        assertEquals(new Integer(4), style.getThickness()); // from theme 1
+        assertEquals(Integer.valueOf(4), style.getThickness()); // from theme 1
         assertEquals("#0000ff", style.getColor()); // from theme 2
         Assert.assertFalse(style.getDashed()); // from workspace
         assertEquals(Routing.Direct, style.getRouting());
-        assertEquals(new Integer(24), style.getFontSize());
-        assertEquals(new Integer(200), style.getWidth());
-        assertEquals(new Integer(50), style.getPosition());
-        assertEquals(new Integer(100), style.getOpacity());
+        assertEquals(Integer.valueOf(24), style.getFontSize());
+        assertEquals(Integer.valueOf(200), style.getWidth());
+        assertEquals(Integer.valueOf(50), style.getPosition());
+        assertEquals(Integer.valueOf(100), style.getOpacity());
     }
 
 }

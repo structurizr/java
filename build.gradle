@@ -1,15 +1,9 @@
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.0'
-}
-
 defaultTasks 'clean', 'compileJava', 'test'
 
 subprojects { proj ->
 
-    apply plugin: 'idea'
     apply plugin: 'java'
     apply plugin: 'maven-publish'
-    apply plugin: 'maven'
     apply plugin: 'signing'
 
     description = 'Structurizr'
@@ -18,7 +12,6 @@ subprojects { proj ->
 
     repositories {
         mavenCentral()
-        mavenLocal()
     }
 
     sourceSets {
@@ -34,80 +27,65 @@ subprojects { proj ->
         }
     }
 
-    dependencies {
-        compile 'com.google.code.findbugs:jsr305:3.0.2'
-    }
-
     compileJava.options.encoding = 'UTF-8'
     compileTestJava.options.encoding = 'UTF-8'
 
     sourceCompatibility = 1.8
     targetCompatibility = 1.8
 
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+
     jar {
         manifest {
             attributes(
-                    "Implementation-Title": "Structurizr for Java",
-                    "Implementation-Version": version
+                "Implementation-Title": "Structurizr for Java",
+                "Implementation-Version": version
             )
         }
     }
 
-    task sourcesJar(type: Jar) {
-        classifier = 'sources'
-        from sourceSets.main.allJava
-    }
-
-    task javadocJar(type: Jar) {
-        classifier = 'javadoc'
-        from javadoc
-    }
-
-    artifacts {
-        archives javadocJar, sourcesJar
-    }
-
-    signing {
-        sign configurations.archives
-    }
-
-    uploadArchives {
+    publishing {
         repositories {
-            mavenDeployer {
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-                repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                    authentication(userName: ossrhUsername, password: ossrhPassword)
+            maven {
+                name = "ossrh"
+                url = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+                credentials {
+                    username = findProperty('ossrhUsername')
+                    password = findProperty('ossrhPassword')
                 }
+            }
+        }
 
-                snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                    authentication(userName: ossrhUsername, password: ossrhPassword)
-                }
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
 
-                pom.project {
-                    name 'Structurizr for Java'
-                    packaging 'jar'
-                    description 'Structurizr for Java'
-                    url 'https://github.com/structurizr/java'
+                pom {
+                    name = 'Structurizr for Java'
+                    description = 'Structurizr for Java'
+                    url = 'https://github.com/structurizr/java'
 
                     scm {
-                        connection 'scm:git:git://github.com/structurizr/structurizr-java.git'
-                        developerConnection 'scm:git:git@github.com:structurizr/structurizr-java.git'
-                        url 'https://github.com/structurizr/java'
+                        connection = 'scm:git:git://github.com/structurizr/structurizr-java.git'
+                        developerConnection = 'scm:git:git@github.com:structurizr/structurizr-java.git'
+                        url = 'https://github.com/structurizr/java'
                     }
 
                     licenses {
                         license {
-                            name 'The Apache License, Version 2.0'
-                            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                            name = 'The Apache License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
                         }
                     }
 
                     developers {
                         developer {
-                            id "simon"
-                            name "Simon Brown"
-                            email "simon@structurizr.com"
+                            id = "simon"
+                            name = "Simon Brown"
+                            email = "simon@structurizr.com"
                         }
                     }
                 }
@@ -115,44 +93,8 @@ subprojects { proj ->
         }
     }
 
-    def pomConfig = {
-        licenses {
-            license {
-                name "The Apache Software License, Version 2.0"
-                url "http://www.apache.org/licenses/LICENSE-2.0.txt"
-                distribution "repo"
-            }
-        }
-        developers {
-            developer {
-                id "simon"
-                name "Simon Brown"
-                email "simon@structurizr.com"
-            }
-        }
-    }
-
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.java
-                artifact sourcesJar
-                artifact javadocJar
-                pom.withXml {
-                    def root = asNode()
-                    root.appendNode('description', 'Visualise, document and explore your software architecture with the C4 model.')
-                    root.appendNode('name', 'Structurizr for Java')
-                    root.appendNode('url', 'https://github.com/structurizr/java')
-                    root.children().last() + pomConfig
-                }
-            }
-        }
-
-        repositories {
-            maven {
-                url "$buildDir/repo"
-            }
-        }
+    signing {
+        sign publishing.publications.mavenJava
     }
 
 }

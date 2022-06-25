@@ -1,22 +1,10 @@
 dependencies {
 
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.13.3'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.3'
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
-    compile 'commons-logging:commons-logging:1.2'
+    implementation 'commons-logging:commons-logging:1.2'
 
-    testCompile 'junit:junit:4.12'
-    testCompile 'org.assertj:assertj-core:3.9.1'
-}
-
-sourceSets {
-    main {
-        java {
-            srcDir 'src'
-        }
-    }
-    test {
-        java {
-            srcDir 'test/unit'
-        }
-    }
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.assertj:assertj-core:3.9.1'
 }
