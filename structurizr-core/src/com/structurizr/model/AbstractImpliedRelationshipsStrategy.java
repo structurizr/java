@@ -30,4 +30,22 @@ public abstract class AbstractImpliedRelationshipsStrategy implements ImpliedRel
         return false;
     }
 
+    /**
+     * Creates an implied relationship based upon the specified relationship, between the specified source and destination elements.
+     *
+     * @param relationship      the Relationship on which the implied relationship is based
+     * @param source            the implied relationship source
+     * @param destination       the implied relationship destination
+     * @return                  a Relationship object representing the implied relationship, or null if one wasn't created
+     */
+    protected Relationship createImpliedRelationship(Relationship relationship, Element source, Element destination) {
+        Model model = relationship.getModel();
+        Relationship impliedRelationship = model.addRelationship(source, destination, relationship.getDescription(), relationship.getTechnology(), false);
+        if (impliedRelationship != null) {
+            impliedRelationship.setLinkedRelationshipId(relationship.getId());
+        }
+
+        return impliedRelationship;
+    }
+
 }

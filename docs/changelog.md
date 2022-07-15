@@ -1,6 +1,10 @@
 # Changelog
 
-## 1.13.0 (unreleased to Maven Central)
+## 1.13.1 (unreleased to Maven Central)
+
+- Adds a helper method (`AbstractImpliedRelationshipsStrategy.createImpliedRelationship`) to create implied relationships, which can then be used by custom implementations.
+
+## 1.13.0 (25th June 2022)
 
 - Adds support for name/value properties on element and relationship styles.
 

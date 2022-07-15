@@ -19,10 +19,7 @@ public class CreateImpliedRelationshipsUnlessSameRelationshipExistsStrategy exte
                     boolean createRelationship = !source.hasEfferentRelationshipWith(destination, relationship.getDescription());
 
                     if (createRelationship) {
-                        Relationship impliedRelationship = model.addRelationship(source, destination, relationship.getDescription(), relationship.getTechnology(), false);
-                        if (impliedRelationship != null) {
-                            impliedRelationship.setLinkedRelationshipId(relationship.getId());
-                        }
+                        createImpliedRelationship(relationship, source, destination);
                     }
                 }
 
