@@ -77,13 +77,13 @@ public class ThemeUtilsTests {
         Collection<ElementStyle> elementStyles = new ArrayList<>();
         Collection<RelationshipStyle> relationshipStyles = new ArrayList<>();
         elementStyles.add(new ElementStyle("Element").shape(Shape.Box).background("#000000").color("#ffffff"));
-        workspace.getViews().getConfiguration().getStyles().addStylesFromTheme("url1", elementStyles, relationshipStyles);
+        workspace.getViews().getConfiguration().getStyles().addStylesFromTheme(new Theme(elementStyles, relationshipStyles));
 
         // theme 2
         elementStyles = new ArrayList<>();
         relationshipStyles = new ArrayList<>();
         elementStyles.add(new ElementStyle("Element").background("#ff0000"));
-        workspace.getViews().getConfiguration().getStyles().addStylesFromTheme("url2", elementStyles, relationshipStyles);
+        workspace.getViews().getConfiguration().getStyles().addStylesFromTheme(new Theme(elementStyles, relationshipStyles));
 
         ElementStyle style = workspace.getViews().getConfiguration().getStyles().findElementStyle(softwareSystem);
         assertEquals(Integer.valueOf(450), style.getWidth());
@@ -111,13 +111,13 @@ public class ThemeUtilsTests {
         Collection<ElementStyle> elementStyles = new ArrayList<>();
         Collection<RelationshipStyle> relationshipStyles = new ArrayList<>();
         relationshipStyles.add(new RelationshipStyle("Relationship").color("#ff0000").thickness(4));
-        workspace.getViews().getConfiguration().getStyles().addStylesFromTheme("url1", elementStyles, relationshipStyles);
+        workspace.getViews().getConfiguration().getStyles().addStylesFromTheme(new Theme(elementStyles, relationshipStyles));
 
         // theme 2
         elementStyles = new ArrayList<>();
         relationshipStyles = new ArrayList<>();
         relationshipStyles.add(new RelationshipStyle("Relationship").color("#0000ff"));
-        workspace.getViews().getConfiguration().getStyles().addStylesFromTheme("url2", elementStyles, relationshipStyles);
+        workspace.getViews().getConfiguration().getStyles().addStylesFromTheme(new Theme(elementStyles, relationshipStyles));
 
         RelationshipStyle style = workspace.getViews().getConfiguration().getStyles().findRelationshipStyle(relationship);
         assertEquals(Integer.valueOf(4), style.getThickness()); // from theme 1
