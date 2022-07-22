@@ -80,7 +80,7 @@ public final class ThemeUtils {
 
                 Theme theme = objectMapper.readValue(json, Theme.class);
 
-                workspace.getViews().getConfiguration().getStyles().addStylesFromTheme(url, theme.getElements(), theme.getRelationships());
+                workspace.getViews().getConfiguration().getStyles().addStylesFromTheme(theme);
             }
 
             httpClient.close();

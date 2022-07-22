@@ -17,7 +17,7 @@ public final class Styles {
     private Collection<ElementStyle> elements = new LinkedList<>();
     private Collection<RelationshipStyle> relationships = new LinkedList<>();
 
-    private Map<String,Theme> themes = new LinkedHashMap<>();
+    private List<Theme> themes = new ArrayList<>();
 
     public Collection<ElementStyle> getElements() {
         return elements;
@@ -100,7 +100,7 @@ public final class Styles {
         ElementStyle style = new ElementStyle(tag);
 
         Collection<ElementStyle> elementStyles = new ArrayList<>();
-        for (Theme theme : themes.values()) {
+        for (Theme theme : themes) {
             elementStyles.addAll(theme.getElements());
         }
         elementStyles.addAll(elements);
@@ -131,7 +131,7 @@ public final class Styles {
         RelationshipStyle style = new RelationshipStyle(tag);
 
         Collection<RelationshipStyle> relationshipStyles= new ArrayList<>();
-        for (Theme theme : themes.values()) {
+        for (Theme theme : themes) {
             relationshipStyles.addAll(theme.getRelationships());
         }
         relationshipStyles.addAll(relationships);
@@ -228,8 +228,15 @@ public final class Styles {
         return style;
     }
 
-    void addStylesFromTheme(String url, Collection<ElementStyle> elements, Collection<RelationshipStyle> relationships) {
-        themes.put(url, new Theme(elements, relationships));
+    /**
+     * Adds the element/relationship styles from the given theme.
+     *
+     * @param theme     a Theme object
+     */
+    public void addStylesFromTheme(Theme theme) {
+        if (theme != null) {
+            themes.add(theme);
+        }
     }
 
 }
