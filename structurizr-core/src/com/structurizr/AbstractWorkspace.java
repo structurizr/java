@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * The superclass for regular and encrypted workspaces.
  */
-public abstract class AbstractWorkspace {
+public abstract class AbstractWorkspace implements PropertyHolder {
 
     private long id;
     private String name;
