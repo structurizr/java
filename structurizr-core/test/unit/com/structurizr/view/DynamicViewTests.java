@@ -209,6 +209,40 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    public void test_addRelationshipWithOriginalDescription() {
+        workspace = new Workspace("Name", "Description");
+        model = workspace.getModel();
+
+        SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
+        SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
+        Relationship relationship = a.uses(b, "Uses");
+
+        DynamicView view = workspace.getViews().createDynamicView("key", "Description");
+        view.add(relationship);
+
+        assertEquals(2, view.getElements().size());
+        assertSame(relationship, view.getRelationships().iterator().next().getRelationship());
+        assertEquals("", view.getRelationships().iterator().next().getDescription());
+    }
+
+    @Test
+    public void test_addRelationshipWithOveriddenDescription() {
+        workspace = new Workspace("Name", "Description");
+        model = workspace.getModel();
+
+        SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
+        SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
+        Relationship relationship = a.uses(b, "Uses");
+
+        DynamicView view = workspace.getViews().createDynamicView("key", "Description");
+        view.add(relationship, "New description");
+
+        assertEquals(2, view.getElements().size());
+        assertSame(relationship, view.getRelationships().iterator().next().getRelationship());
+        assertEquals("New description", view.getRelationships().iterator().next().getDescription());
+    }
+
+    @Test
     public void test_add_AddsTheSourceAndDestinationElements_WhenARelationshipBetweenThemExists() {
         final DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
         dynamicView.add(containerA1, containerA2);
@@ -243,6 +277,26 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
 
         assertSame(container2, view.getRelationships().stream().filter(r -> r.getOrder().equals("1")).findFirst().get().getRelationship().getDestination());
         assertSame(container3, view.getRelationships().stream().filter(r -> r.getOrder().equals("2")).findFirst().get().getRelationship().getDestination());
+    }
+
+    @Test
+    public void test_normalSequence_WhenThereAreMultipleDescriptions() {
+        workspace = new Workspace("Name", "Description");
+        model = workspace.getModel();
+
+        SoftwareSystem ss1 = workspace.getModel().addSoftwareSystem("Software System 1", "");
+        SoftwareSystem ss2 = workspace.getModel().addSoftwareSystem("Software System 2", "");
+
+        Relationship r1 = ss1.uses(ss2, "Uses 1");
+        Relationship r2 = ss1.uses(ss2, "Uses 2");
+
+        DynamicView view = workspace.getViews().createDynamicView("key", "Description");
+
+        RelationshipView rv1 = view.add(ss1, "Uses 1", ss2);
+        RelationshipView rv2 = view.add(ss1, "Uses 2", ss2);
+
+        assertSame(r1, rv1.getRelationship());
+        assertSame(r2, rv2.getRelationship());
     }
 
     @Test

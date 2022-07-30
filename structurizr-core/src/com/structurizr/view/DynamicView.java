@@ -165,6 +165,37 @@ public final class DynamicView extends View {
         }
     }
 
+    /**
+     * Adds a specific relationship to this dynamic view, with the original description.
+     *
+     * @param relationship      the Relationship to add
+     * @return  a RelationshipView
+     */
+    public RelationshipView add(Relationship relationship) {
+        return add(relationship, "");
+    }
+
+    /**
+     * Adds a specific relationship to this dynamic view, with an overidden description.
+     *
+     * @param relationship      the Relationship to add
+     * @param description       the overidden description
+     * @return  a RelationshipView
+     */
+    public RelationshipView add(Relationship relationship, String description) {
+        if (relationship == null) {
+            throw new IllegalArgumentException("A relationship must be specified.");
+        }
+
+        checkElementCanBeAdded(relationship.getSource());
+        checkElementCanBeAdded(relationship.getDestination());
+
+        addElement(relationship.getSource(), false);
+        addElement(relationship.getDestination(), false);
+
+        return addRelationship(relationship, description, sequenceNumber.getNext(), false);
+    }
+
     protected RelationshipView addRelationship(Relationship relationship, String description, String order, boolean response) {
         RelationshipView relationshipView = addRelationship(relationship);
         if (relationshipView != null) {

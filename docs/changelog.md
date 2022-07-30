@@ -1,8 +1,9 @@
 # Changelog
 
-## 1.13.1 (unreleased to Maven Central)
+## 1.14.0 (unreleased to Maven Central)
 
 - Adds a helper method (`AbstractImpliedRelationshipsStrategy.createImpliedRelationship`) to create implied relationships, which can then be used by custom implementations.
+- Provides a way to add specific relationships to dynamic views. 
 
 ## 1.13.0 (25th June 2022)
 
