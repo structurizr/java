@@ -1,15 +1,15 @@
 package com.structurizr.view;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PaperSizeTests {
 
     @Test
-    public void test_getOrderedPaperSizes_WhenOrientationIsLandscape() {
+    void test_getOrderedPaperSizes_WhenOrientationIsLandscape() {
         List<PaperSize> paperSizes = PaperSize.getOrderedPaperSizes(PaperSize.Orientation.Landscape);
         assertEquals(12, paperSizes.size());
 
@@ -29,7 +29,7 @@ public class PaperSizeTests {
     }
 
     @Test
-    public void test_getOrderedPaperSizes_WhenOrientationIsPortrait() {
+    void test_getOrderedPaperSizes_WhenOrientationIsPortrait() {
         List<PaperSize> paperSizes = PaperSize.getOrderedPaperSizes(PaperSize.Orientation.Portrait);
         assertEquals(9, paperSizes.size());
 
@@ -46,7 +46,7 @@ public class PaperSizeTests {
     }
 
     @Test
-    public void test_getOrderedPaperSizes() {
+    void test_getOrderedPaperSizes() {
         List<PaperSize> paperSizes = PaperSize.getOrderedPaperSizes();
         assertEquals(21, paperSizes.size());
 

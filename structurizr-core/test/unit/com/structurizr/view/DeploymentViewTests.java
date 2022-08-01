@@ -2,41 +2,41 @@ package com.structurizr.view;
 
 import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.model.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DeploymentViewTests extends AbstractWorkspaceTestBase {
 
     private DeploymentView deploymentView;
 
-    @Before
+    @BeforeEach
     public void setup() {
     }
 
     @Test
-    public void test_getName_WithNoSoftwareSystemAndNoEnvironment() {
+    void test_getName_WithNoSoftwareSystemAndNoEnvironment() {
         deploymentView = views.createDeploymentView("deployment", "Description");
         assertEquals("Deployment - Default", deploymentView.getName());
     }
 
     @Test
-    public void test_getName_WithNoSoftwareSystemAndAnEnvironment() {
+    void test_getName_WithNoSoftwareSystemAndAnEnvironment() {
         deploymentView = views.createDeploymentView("deployment", "Description");
         deploymentView.setEnvironment("Live");
         assertEquals("Deployment - Live", deploymentView.getName());
     }
 
     @Test
-    public void test_getName_WithASoftwareSystemAndNoEnvironment() {
+    void test_getName_WithASoftwareSystemAndNoEnvironment() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         deploymentView = views.createDeploymentView(softwareSystem, "deployment", "Description");
         assertEquals("Software System - Deployment - Default", deploymentView.getName());
     }
 
     @Test
-    public void test_getName_WithASoftwareSystemAndAnEnvironment() {
+    void test_getName_WithASoftwareSystemAndAnEnvironment() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         deploymentView = views.createDeploymentView(softwareSystem, "deployment", "Description");
         deploymentView.setEnvironment("Live");
@@ -44,10 +44,10 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addDeploymentNode_ThrowsAnException_WhenPassedNull() {
+    void test_addDeploymentNode_ThrowsAnException_WhenPassedNull() {
         try {
             deploymentView = views.createDeploymentView("key", "Description");
-            deploymentView.add((DeploymentNode)null);
+            deploymentView.add((DeploymentNode) null);
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A deployment node must be specified.", iae.getMessage());
@@ -55,10 +55,10 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addRelationship_ThrowsAnException_WhenPassedNull() {
+    void test_addRelationship_ThrowsAnException_WhenPassedNull() {
         try {
             deploymentView = views.createDeploymentView("key", "Description");
-            deploymentView.add((Relationship)null);
+            deploymentView.add((Relationship) null);
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A relationship must be specified.", iae.getMessage());
@@ -66,7 +66,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAllDeploymentNodes_DoesNothing_WhenThereAreNoTopLevelDeploymentNodes() {
+    void test_addAllDeploymentNodes_DoesNothing_WhenThereAreNoTopLevelDeploymentNodes() {
         deploymentView = views.createDeploymentView("deployment", "Description");
 
         deploymentView.addAllDeploymentNodes();
@@ -74,7 +74,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAllDeploymentNodes_DoesNothing_WhenThereAreTopLevelDeploymentNodesButNoContainerInstances() {
+    void test_addAllDeploymentNodes_DoesNothing_WhenThereAreTopLevelDeploymentNodesButNoContainerInstances() {
         deploymentView = views.createDeploymentView("deployment", "Description");
         model.addDeploymentNode("Deployment Node", "Description", "Technology");
 
@@ -83,7 +83,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAllDeploymentNodes_DoesNothing_WhenThereNoDeploymentNodesForTheDeploymentEnvironment() {
+    void test_addAllDeploymentNodes_DoesNothing_WhenThereNoDeploymentNodesForTheDeploymentEnvironment() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
@@ -96,7 +96,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAllDeploymentNodes_AddsDeploymentNodesAndContainerInstances_WhenThereAreTopLevelDeploymentNodesWithContainerInstances() {
+    void test_addAllDeploymentNodes_AddsDeploymentNodesAndContainerInstances_WhenThereAreTopLevelDeploymentNodesWithContainerInstances() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
@@ -110,7 +110,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAllDeploymentNodes_AddsDeploymentNodesAndContainerInstances_WhenThereAreChildDeploymentNodesWithContainerInstances() {
+    void test_addAllDeploymentNodes_AddsDeploymentNodesAndContainerInstances_WhenThereAreChildDeploymentNodesWithContainerInstances() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
@@ -126,7 +126,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAllDeploymentNodes_AddsDeploymentNodesAndContainerInstancesOnlyForTheSoftwareSystemInScope() {
+    void test_addAllDeploymentNodes_AddsDeploymentNodesAndContainerInstancesOnlyForTheSoftwareSystemInScope() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "");
         Container container1 = softwareSystem1.addContainer("Container 1", "Description", "Technology");
         DeploymentNode deploymentNode1 = model.addDeploymentNode("Deployment Node 1", "Description", "Technology");
@@ -149,7 +149,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addDeploymentNode_AddsTheParentToo() {
+    void test_addDeploymentNode_AddsTheParentToo() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
@@ -165,7 +165,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addDeploymentNode_ThrowsAnException_WhenAddingADeploymentNodeFromAnotherDeploymentEnvironment() {
+    void test_addDeploymentNode_ThrowsAnException_WhenAddingADeploymentNodeFromAnotherDeploymentEnvironment() {
         DeploymentNode devDeploymentNode = model.addDeploymentNode("Dev", "Deployment Node", "Description", "Technology");
         devDeploymentNode.addInfrastructureNode("Load Balancer");
         DeploymentNode liveDeploymentNode = model.addDeploymentNode("Live", "Deployment Node", "Description", "Technology");
@@ -184,7 +184,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addSoftwareSystemInstance_ThrowsAnException_WhenTheSoftwareSystemInstanceIsTheSoftwareSystemInScope() {
+    void test_addSoftwareSystemInstance_ThrowsAnException_WhenTheSoftwareSystemInstanceIsTheSoftwareSystemInScope() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
         DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
         SoftwareSystemInstance softwareSystemInstance = deploymentNode.add(softwareSystem);
@@ -198,7 +198,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addSoftwareSystemInstance_DoesNotAddTheSoftwareSystemInstance_WhenAChildContainerInstanceHasAlreadyBeenAdded() {
+    void test_addSoftwareSystemInstance_DoesNotAddTheSoftwareSystemInstance_WhenAChildContainerInstanceHasAlreadyBeenAdded() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
         Container container = softwareSystem.addContainer("Container");
         DeploymentNode deploymentNode1 = model.addDeploymentNode("Deployment Node 1", "Description", "Technology");
@@ -217,7 +217,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addContainerInstance_DoesNotAddTheContainerInstance_WhenTheParentSoftwareSystemInstanceHasAlreadyBeenAdded() {
+    void test_addContainerInstance_DoesNotAddTheContainerInstance_WhenTheParentSoftwareSystemInstanceHasAlreadyBeenAdded() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
         Container container = softwareSystem.addContainer("Container");
         DeploymentNode deploymentNode1 = model.addDeploymentNode("Deployment Node 1", "Description", "Technology");
@@ -236,10 +236,10 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAnimationStep_ThrowsAnException_WhenNoElementInstancesAreSpecified() {
+    void test_addAnimationStep_ThrowsAnException_WhenNoElementInstancesAreSpecified() {
         try {
             deploymentView = views.createDeploymentView("deployment", "Description");
-            deploymentView.addAnimation((ContainerInstance[])null);
+            deploymentView.addAnimation((ContainerInstance[]) null);
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("One or more software system/container instances must be specified.", iae.getMessage());
@@ -247,10 +247,10 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAnimationStep_ThrowsAnException_WhenNoInfrastructureNodesAreSpecified() {
+    void test_addAnimationStep_ThrowsAnException_WhenNoInfrastructureNodesAreSpecified() {
         try {
             deploymentView = views.createDeploymentView("deployment", "Description");
-            deploymentView.addAnimation((InfrastructureNode[])null);
+            deploymentView.addAnimation((InfrastructureNode[]) null);
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("One or more infrastructure nodes must be specified.", iae.getMessage());
@@ -258,7 +258,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAnimationStep_ThrowsAnException_WhenNoElementInstancesOrInfrastructureNodesAreSpecified() {
+    void test_addAnimationStep_ThrowsAnException_WhenNoElementInstancesOrInfrastructureNodesAreSpecified() {
         try {
             deploymentView = views.createDeploymentView("deployment", "Description");
             deploymentView.addAnimation(null, null);
@@ -269,7 +269,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAnimationStep() {
+    void test_addAnimationStep() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         Container webApplication = softwareSystem.addContainer("Web Application", "Description", "Technology");
         Container database = softwareSystem.addContainer("Database", "Description", "Technology");
@@ -303,7 +303,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAnimationStep_IgnoresContainerInstancesThatDoNotExistInTheView() {
+    void test_addAnimationStep_IgnoresContainerInstancesThatDoNotExistInTheView() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         Container webApplication = softwareSystem.addContainer("Web Application", "Description", "Technology");
         Container database = softwareSystem.addContainer("Database", "Description", "Technology");
@@ -329,7 +329,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAnimationStep_ThrowsAnException_WhenContainerInstancesAreSpecifiedButNoneOfThemExistInTheView() {
+    void test_addAnimationStep_ThrowsAnException_WhenContainerInstancesAreSpecifiedButNoneOfThemExistInTheView() {
         try {
             SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
             Container webApplication = softwareSystem.addContainer("Web Application", "Description", "Technology");
@@ -352,7 +352,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_remove_RemovesTheInfrastructureNode() {
+    void test_remove_RemovesTheInfrastructureNode() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
@@ -372,7 +372,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_remove_RemovesTheSoftwareSystemInstance() {
+    void test_remove_RemovesTheSoftwareSystemInstance() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
         DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
         DeploymentNode deploymentNodeChild = deploymentNodeParent.addDeploymentNode("Deployment Node", "Description", "Technology");
@@ -391,7 +391,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_remove_RemovesTheContainerInstance() {
+    void test_remove_RemovesTheContainerInstance() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
@@ -411,7 +411,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_remove_RemovesTheDeploymentNodeAndChildren() {
+    void test_remove_RemovesTheDeploymentNodeAndChildren() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
@@ -429,7 +429,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_remove_RemovesTheChildDeploymentNodeAndChildren() {
+    void test_remove_RemovesTheChildDeploymentNodeAndChildren() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
@@ -446,7 +446,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_AddsTheInfrastructureNode() {
+    void test_add_AddsTheInfrastructureNode() {
         DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
         DeploymentNode deploymentNodeChild = deploymentNodeParent.addDeploymentNode("Deployment Node", "Description", "Technology");
         InfrastructureNode infrastructureNode1 = deploymentNodeChild.addInfrastructureNode("Infrastructure Node 1");
@@ -462,7 +462,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_AddsTheSoftwareSystemInstance() {
+    void test_add_AddsTheSoftwareSystemInstance() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
         DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
         DeploymentNode deploymentNodeChild = deploymentNodeParent.addDeploymentNode("Deployment Node", "Description", "Technology");
@@ -479,7 +479,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addSoftwareSystemInstance_ThrowsAnException_WhenAChildContainerInstanceHasAlreadyBeenAdded() {
+    void test_addSoftwareSystemInstance_ThrowsAnException_WhenAChildContainerInstanceHasAlreadyBeenAdded() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
         Container container = softwareSystem.addContainer("Container");
         DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
@@ -499,7 +499,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_AddsTheContainerInstance() {
+    void test_add_AddsTheContainerInstance() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
         Container container = softwareSystem.addContainer("Container");
         DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");
@@ -517,7 +517,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addContainerInstance_ThrowsAnException_WhenTheParentSoftwareSystemInstanceHasAlreadyBeenAdded() {
+    void test_addContainerInstance_ThrowsAnException_WhenTheParentSoftwareSystemInstanceHasAlreadyBeenAdded() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
         Container container = softwareSystem.addContainer("Container");
         DeploymentNode deploymentNodeParent = model.addDeploymentNode("Deployment Node", "Description", "Technology");

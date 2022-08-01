@@ -4,18 +4,17 @@ import com.structurizr.Workspace;
 import com.structurizr.model.Relationship;
 import com.structurizr.model.SoftwareSystem;
 import com.structurizr.model.Tags;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ThemeUtilsTests {
 
     @Test
-    public void test_loadThemes_DoesNothingWhenNoThemesAreDefined() throws Exception {
+    void test_loadThemes_DoesNothingWhenNoThemesAreDefined() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
         ThemeUtils.loadThemes(workspace);
 
@@ -24,7 +23,7 @@ public class ThemeUtilsTests {
     }
 
     @Test
-    public void test_loadThemes_LoadsThemesWhenThemesAreDefined() throws Exception {
+    void test_loadThemes_LoadsThemesWhenThemesAreDefined() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
         softwareSystem.addTags("Amazon Web Services - Alexa For Business");
@@ -44,7 +43,7 @@ public class ThemeUtilsTests {
     }
 
     @Test
-    public void test_toJson() throws Exception {
+    void test_toJson() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
         assertEquals("{\n" +
                 "  \"name\" : \"Name\",\n" +
@@ -68,7 +67,7 @@ public class ThemeUtilsTests {
     }
 
     @Test
-    public void test_findElementStyle_WithThemes() {
+    void test_findElementStyle_WithThemes() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
         workspace.getViews().getConfiguration().getStyles().addElementStyle("Element").shape(Shape.RoundedBox);
@@ -101,7 +100,7 @@ public class ThemeUtilsTests {
     }
 
     @Test
-    public void test_findRelationshipStyle_WithThemes() {
+    void test_findRelationshipStyle_WithThemes() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
         Relationship relationship = softwareSystem.uses(softwareSystem, "Uses");
@@ -122,7 +121,7 @@ public class ThemeUtilsTests {
         RelationshipStyle style = workspace.getViews().getConfiguration().getStyles().findRelationshipStyle(relationship);
         assertEquals(Integer.valueOf(4), style.getThickness()); // from theme 1
         assertEquals("#0000ff", style.getColor()); // from theme 2
-        Assert.assertFalse(style.getDashed()); // from workspace
+        assertFalse(style.getDashed()); // from workspace
         assertEquals(Routing.Direct, style.getRouting());
         assertEquals(Integer.valueOf(24), style.getFontSize());
         assertEquals(Integer.valueOf(200), style.getWidth());

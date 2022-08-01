@@ -3,17 +3,17 @@ package com.structurizr.io.json;
 import com.structurizr.Workspace;
 import com.structurizr.encryption.AesEncryptionStrategy;
 import com.structurizr.encryption.EncryptedWorkspace;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.StringReader;
 import java.io.StringWriter;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EncryptedJsonTests {
 
     @Test
-    public void test_write_and_read() throws Exception {
+    void test_write_and_read() throws Exception {
         final Workspace workspace1 = new Workspace("Name", "Description");
 
         // output the model as JSON

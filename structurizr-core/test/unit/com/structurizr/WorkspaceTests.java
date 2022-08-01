@@ -5,38 +5,38 @@ import com.structurizr.documentation.Format;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 import com.structurizr.model.SoftwareSystem;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WorkspaceTests {
 
     private Workspace workspace = new Workspace("Name", "Description");
 
     @Test
-    public void test_isEmpty_ReturnsTrue_WhenThereAreNoElementsViewsOrDocumentation() {
+    void test_isEmpty_ReturnsTrue_WhenThereAreNoElementsViewsOrDocumentation() {
         workspace = new Workspace("Name", "Description");
         assertTrue(workspace.isEmpty());
     }
 
     @Test
-    public void test_isEmpty_ReturnsFalse_WhenThereAreElements() {
+    void test_isEmpty_ReturnsFalse_WhenThereAreElements() {
         workspace = new Workspace("Name", "Description");
         workspace.getModel().addPerson("Name", "Description");
         assertFalse(workspace.isEmpty());
     }
 
     @Test
-    public void test_isEmpty_ReturnsFalse_WhenThereAreViews() {
+    void test_isEmpty_ReturnsFalse_WhenThereAreViews() {
         workspace = new Workspace("Name", "Description");
         workspace.getViews().createSystemLandscapeView("key", "Description");
         assertFalse(workspace.isEmpty());
     }
 
     @Test
-    public void test_isEmpty_ReturnsFalse_WhenThereIsDocumentation() throws Exception {
+    void test_isEmpty_ReturnsFalse_WhenThereIsDocumentation() throws Exception {
         workspace = new Workspace("Name", "Description");
         Decision d = new Decision("1");
         d.setTitle("Title");
@@ -48,7 +48,7 @@ public class WorkspaceTests {
     }
 
     @Test
-    public void test_countAndLogWarnings() {
+    void test_countAndLogWarnings() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem1 = workspace.getModel().addSoftwareSystem("Software System 1", null);
         SoftwareSystem softwareSystem2 = workspace.getModel().addSoftwareSystem("Software System 2", " ");
@@ -66,7 +66,7 @@ public class WorkspaceTests {
     }
 
     @Test
-    public void test_hydrate_DoesNotCrash() {
+    void test_hydrate_DoesNotCrash() {
         Workspace workspace = new Workspace("Name", "Description");
         assertNotNull(workspace.getViews());
         assertNotNull(workspace.getDocumentation());

@@ -1,28 +1,28 @@
 package com.structurizr.view;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class ColorPairTests {
 
     @Test
-    public void test_construction() {
+    void test_construction() {
         ColorPair colorPair = new ColorPair("#ffffff", "#000000");
         assertEquals("#ffffff", colorPair.getBackground());
         assertEquals("#000000", colorPair.getForeground());
     }
 
     @Test
-    public void test_setBackground_WithAValidHtmlColorCode() {
+    void test_setBackground_WithAValidHtmlColorCode() {
         ColorPair colorPair = new ColorPair();
         colorPair.setBackground("#ffffff");
         assertEquals("#ffffff", colorPair.getBackground());
     }
 
     @Test
-    public void test_setBackground_ThrowsAnException_WhenANullHtmlColorCodeIsSpecified() {
+    void test_setBackground_ThrowsAnException_WhenANullHtmlColorCodeIsSpecified() {
         try {
             ColorPair colorPair = new ColorPair();
             colorPair.setBackground(null);
@@ -33,7 +33,7 @@ public class ColorPairTests {
     }
 
     @Test
-    public void test_setBackground_ThrowsAnException_WhenAnEmptyHtmlColorCodeIsSpecified() {
+    void test_setBackground_ThrowsAnException_WhenAnEmptyHtmlColorCodeIsSpecified() {
         try {
             ColorPair colorPair = new ColorPair();
             colorPair.setBackground("");
@@ -44,7 +44,7 @@ public class ColorPairTests {
     }
 
     @Test
-    public void test_setBackground_ThrowsAnException_WhenAnInvalidHtmlColorCodeIsSpecified() {
+    void test_setBackground_ThrowsAnException_WhenAnInvalidHtmlColorCodeIsSpecified() {
         try {
             ColorPair colorPair = new ColorPair();
             colorPair.setBackground("ffffff");
@@ -55,14 +55,14 @@ public class ColorPairTests {
     }
 
     @Test
-    public void test_setForeground_WithAValidHtmlColorCode() {
+    void test_setForeground_WithAValidHtmlColorCode() {
         ColorPair colorPair = new ColorPair();
         colorPair.setForeground("#000000");
         assertEquals("#000000", colorPair.getForeground());
     }
 
     @Test
-    public void test_setForeground_ThrowsAnException_WhenANullHtmlColorCodeIsSpecified() {
+    void test_setForeground_ThrowsAnException_WhenANullHtmlColorCodeIsSpecified() {
         try {
             ColorPair colorPair = new ColorPair();
             colorPair.setForeground(null);
@@ -73,7 +73,7 @@ public class ColorPairTests {
     }
 
     @Test
-    public void test_setForeground_ThrowsAnException_WhenAnEmptyHtmlColorCodeIsSpecified() {
+    void test_setForeground_ThrowsAnException_WhenAnEmptyHtmlColorCodeIsSpecified() {
         try {
             ColorPair colorPair = new ColorPair();
             colorPair.setForeground("");
@@ -84,7 +84,7 @@ public class ColorPairTests {
     }
 
     @Test
-    public void test_setForeground_ThrowsAnException_WhenAnInvalidHtmlColorCodeIsSpecified() {
+    void test_setForeground_ThrowsAnException_WhenAnInvalidHtmlColorCodeIsSpecified() {
         try {
             ColorPair colorPair = new ColorPair();
             colorPair.setForeground("000000");

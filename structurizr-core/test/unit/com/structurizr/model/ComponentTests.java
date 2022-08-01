@@ -1,12 +1,11 @@
 package com.structurizr.model;
 
 import com.structurizr.AbstractWorkspaceTestBase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static junit.framework.TestCase.assertNull;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ComponentTests extends AbstractWorkspaceTestBase {
 
@@ -14,38 +13,38 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     private Container container = softwareSystem.addContainer("Container", "Description", "Some technology");
 
     @Test
-    public void test_getName_ReturnsTheGivenName_WhenANameIsGiven() {
+    void test_getName_ReturnsTheGivenName_WhenANameIsGiven() {
         Component component = new Component();
         component.setName("Some name");
         assertEquals("Some name", component.getName());
     }
 
     @Test
-    public void test_getCanonicalName() {
+    void test_getCanonicalName() {
         Component component = container.addComponent("Component", "Description");
         assertEquals("Component://System.Container.Component", component.getCanonicalName());
     }
 
     @Test
-    public void test_getCanonicalName_WhenNameContainsSlashAndDotCharacters() {
+    void test_getCanonicalName_WhenNameContainsSlashAndDotCharacters() {
         Component component = container.addComponent("Name1/.Name2", "Description");
         assertEquals("Component://System.Container.Name1Name2", component.getCanonicalName());
     }
 
     @Test
-    public void test_getParent_ReturnsTheParentContainer() {
+    void test_getParent_ReturnsTheParentContainer() {
         Component component = container.addComponent("Component", "Description");
         assertEquals(container, component.getParent());
     }
 
     @Test
-    public void test_getContainer_ReturnsTheParentContainer() {
+    void test_getContainer_ReturnsTheParentContainer() {
         Component component = container.addComponent("Name", "Description");
         assertEquals(container, component.getContainer());
     }
 
     @Test
-    public void test_removeTags_DoesNotRemoveRequiredTags() {
+    void test_removeTags_DoesNotRemoveRequiredTags() {
         Component component = new Component();
         assertTrue(component.getTags().contains(Tags.ELEMENT));
         assertTrue(component.getTags().contains(Tags.COMPONENT));
@@ -58,7 +57,7 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_technologyProperty() {
+    void test_technologyProperty() {
         Component component = new Component();
         assertNull(component.getTechnology());
 
@@ -67,7 +66,7 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_sizeProperty() {
+    void test_sizeProperty() {
         Component component = new Component();
         assertEquals(0, component.getSize());
 
@@ -76,7 +75,7 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_setType_ThrowsAnExceptionWhenPassedNull() {
+    void test_setType_ThrowsAnExceptionWhenPassedNull() {
         Component component = new Component();
         try {
             component.setType(null);
@@ -87,7 +86,7 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_setType_AddsAPrimaryCodeElement_WhenPassedAFullyQualifiedTypeName() {
+    void test_setType_AddsAPrimaryCodeElement_WhenPassedAFullyQualifiedTypeName() {
         Component component = new Component();
         component.setType("com.structurizr.web.HomePageController");
 
@@ -100,7 +99,7 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_setType_OverwritesThePrimaryCodeElement_WhenCalledMoreThanOnce() {
+    void test_setType_OverwritesThePrimaryCodeElement_WhenCalledMoreThanOnce() {
         Component component = new Component();
         component.setType("com.structurizr.web.HomePageController");
         component.setType("com.structurizr.web.SomeOtherController");
@@ -115,7 +114,7 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addSupportingType_ThrowsAnExceptionWhenPassedNull() {
+    void test_addSupportingType_ThrowsAnExceptionWhenPassedNull() {
         Component component = new Component();
         try {
             component.addSupportingType(null);
@@ -126,7 +125,7 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addSupportingType_AddsASupportingCodeElement_WhenPassedAFullyQualifiedTypeName() {
+    void test_addSupportingType_AddsASupportingCodeElement_WhenPassedAFullyQualifiedTypeName() {
         Component component = new Component();
         component.addSupportingType("com.structurizr.web.HomePageViewModel");
 
@@ -139,20 +138,20 @@ public class ComponentTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getType_ReturnsNull_WhenThereAreNoCodeElements() {
+    void test_getType_ReturnsNull_WhenThereAreNoCodeElements() {
         Component component = new Component();
         assertNull(component.getType());
     }
 
     @Test
-    public void test_getType_ReturnsNull_WhenThereAreNoPrimaryCodeElements() {
+    void test_getType_ReturnsNull_WhenThereAreNoPrimaryCodeElements() {
         Component component = new Component();
         component.addSupportingType("com.structurizr.SomeType");
         assertNull(component.getType());
     }
 
     @Test
-    public void test_getType_ReturnsThePrimaryCodeElement_WhenThereIsAPrimaryCodeElement() {
+    void test_getType_ReturnsThePrimaryCodeElement_WhenThereIsAPrimaryCodeElement() {
         Component component = new Component();
         component.setType("com.structurizr.SomeType");
         CodeElement codeElement = component.getType();

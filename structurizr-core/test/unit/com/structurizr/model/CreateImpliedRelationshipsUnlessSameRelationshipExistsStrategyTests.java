@@ -1,16 +1,16 @@
 package com.structurizr.model;
 
 import com.structurizr.AbstractWorkspaceTestBase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CreateImpliedRelationshipsUnlessSameRelationshipExistsStrategyTests extends AbstractWorkspaceTestBase {
 
     @Test
-    public void test_impliedRelationships_WhenNoSummaryRelationshipsExist() {
+    void test_impliedRelationships_WhenNoSummaryRelationshipsExist() {
         SoftwareSystem a = model.addSoftwareSystem("A", "");
         Container aa = a.addContainer("AA", "", "");
         Component aaa = aa.addComponent("AAA", "", "");
@@ -21,7 +21,7 @@ public class CreateImpliedRelationshipsUnlessSameRelationshipExistsStrategyTests
 
         model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessSameRelationshipExistsStrategy());
 
-        Relationship explicitRelationship = aaa.uses(bbb, "Uses 1", "Technology", InteractionStyle.Asynchronous, new String[] { "Tag 1", "Tag 2" });
+        Relationship explicitRelationship = aaa.uses(bbb, "Uses 1", "Technology", InteractionStyle.Asynchronous, new String[]{"Tag 1", "Tag 2"});
 
         assertEquals(9, model.getRelationships().size());
         assertTrue(aaa.hasEfferentRelationshipWith(bbb, "Uses 1"));

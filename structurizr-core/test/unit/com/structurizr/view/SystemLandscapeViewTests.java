@@ -2,56 +2,60 @@ package com.structurizr.view;
 
 import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.model.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
 
     private SystemLandscapeView view;
 
-    @Before
+    @BeforeEach
     public void setUp() {
         view = new SystemLandscapeView(model, "context", "Description");
     }
 
     @Test
-    public void test_construction() {
+    void test_construction() {
         assertEquals("System Landscape", view.getName());
         assertEquals(0, view.getElements().size());
         assertSame(model, view.getModel());
     }
 
     @Test
-    public void test_getName_WhenNoEnterpriseIsSpecified() {
+    void test_getName_WhenNoEnterpriseIsSpecified() {
         assertEquals("System Landscape", view.getName());
     }
 
     @Test
-    public void test_getName_WhenAnEnterpriseIsSpecified() {
+    void test_getName_WhenAnEnterpriseIsSpecified() {
         model.setEnterprise(new Enterprise("Widgets Limited"));
         assertEquals("System Landscape for Widgets Limited", view.getName());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void test_getName_WhenAnEmptyEnterpriseNameIsSpecified() {
-        model.setEnterprise(new Enterprise(""));
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void test_getName_WhenANullEnterpriseNameIsSpecified() {
-        model.setEnterprise(new Enterprise(null));
+    @Test
+    void test_getName_WhenAnEmptyEnterpriseNameIsSpecified() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            model.setEnterprise(new Enterprise(""));
+        });
     }
 
     @Test
-    public void test_addAllSoftwareSystems_DoesNothing_WhenThereAreNoOtherSoftwareSystems() {
+    void test_getName_WhenANullEnterpriseNameIsSpecified() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            model.setEnterprise(new Enterprise(null));
+        });
+    }
+
+    @Test
+    void test_addAllSoftwareSystems_DoesNothing_WhenThereAreNoOtherSoftwareSystems() {
         view.addAllSoftwareSystems();
         assertEquals(0, view.getElements().size());
     }
 
     @Test
-    public void test_addAllSoftwareSystems_AddsAllSoftwareSystems_WhenThereAreSomeSoftwareSystemsInTheModel() {
+    void test_addAllSoftwareSystems_AddsAllSoftwareSystems_WhenThereAreSomeSoftwareSystemsInTheModel() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.External, "System A", "Description");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.External, "System B", "Description");
 
@@ -63,13 +67,13 @@ public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAllPeople_DoesNothing_WhenThereAreNoPeople() {
+    void test_addAllPeople_DoesNothing_WhenThereAreNoPeople() {
         view.addAllPeople();
         assertEquals(0, view.getElements().size());
     }
 
     @Test
-    public void test_addAllPeople_AddsAllPeople_WhenThereAreSomePeopleInTheModel() {
+    void test_addAllPeople_AddsAllPeople_WhenThereAreSomePeopleInTheModel() {
         Person userA = model.addPerson("User A", "Description");
         Person userB = model.addPerson("User B", "Description");
 
@@ -81,13 +85,13 @@ public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAllElements_DoesNothing_WhenThereAreNoSoftwareSystemsOrPeople() {
+    void test_addAllElements_DoesNothing_WhenThereAreNoSoftwareSystemsOrPeople() {
         view.addAllElements();
         assertEquals(0, view.getElements().size());
     }
 
     @Test
-    public void test_addAllElements_AddsAllSoftwareSystemsAndPeople_WhenThereAreSomeSoftwareSystemsAndPeopleInTheModel() {
+    void test_addAllElements_AddsAllSoftwareSystemsAndPeople_WhenThereAreSomeSoftwareSystemsAndPeopleInTheModel() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
         Person person = model.addPerson("Person", "Description");
 
@@ -99,7 +103,7 @@ public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_isEnterpriseBoundaryVisible() {
+    void test_isEnterpriseBoundaryVisible() {
         assertTrue(view.isEnterpriseBoundaryVisible()); // default is true
 
         view.setEnterpriseBoundaryVisible(false);
@@ -107,7 +111,7 @@ public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addNearestNeighbours_ThrowsAnException_WhenANullElementIsSpecified() {
+    void test_addNearestNeighbours_ThrowsAnException_WhenANullElementIsSpecified() {
         try {
             view.addNearestNeighbours(null);
             fail();
@@ -117,7 +121,7 @@ public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addNearestNeighbours_ThrowsAnException_WhenAnElementThatIsNotAPersonOrSoftwareSystemIsSpecified() {
+    void test_addNearestNeighbours_ThrowsAnException_WhenAnElementThatIsNotAPersonOrSoftwareSystemIsSpecified() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("The System", "Description");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         try {
@@ -129,7 +133,7 @@ public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addNearestNeighbours_DoesNothing_WhenThereAreNoNeighbours() {
+    void test_addNearestNeighbours_DoesNothing_WhenThereAreNoNeighbours() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("The System", "Description");
         view.addNearestNeighbours(softwareSystem);
 
@@ -137,7 +141,7 @@ public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addNearestNeighbours_AddsNearestNeighbours_WhenThereAreSomeNearestNeighbours() {
+    void test_addNearestNeighbours_AddsNearestNeighbours_WhenThereAreSomeNearestNeighbours() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("The System", "Description");
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "Description");
@@ -187,7 +191,7 @@ public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addDefaultElements() {
+    void test_addDefaultElements() {
         CustomElement element = model.addCustomElement("Custom");
         Person user = model.addPerson("User");
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");

@@ -3,14 +3,14 @@ package com.structurizr.view;
 import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.model.Relationship;
 import com.structurizr.model.SoftwareSystem;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StaticViewTests extends AbstractWorkspaceTestBase {
 
     @Test
-    public void test_addAnimationStep_ThrowsAnException_WhenNoElementsAreSpecified() {
+    void test_addAnimationStep_ThrowsAnException_WhenNoElementsAreSpecified() {
         try {
             SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
             view.addAnimation();
@@ -21,7 +21,7 @@ public class StaticViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAnimationStep() {
+    void test_addAnimationStep() {
         SoftwareSystem element1 = model.addSoftwareSystem("Software System 1", "");
         SoftwareSystem element2 = model.addSoftwareSystem("Software System 2", "");
         SoftwareSystem element3 = model.addSoftwareSystem("Software System 3", "");
@@ -55,7 +55,7 @@ public class StaticViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAnimationStep_IgnoresElementsThatDoNotExistInTheView() {
+    void test_addAnimationStep_IgnoresElementsThatDoNotExistInTheView() {
         SoftwareSystem element1 = model.addSoftwareSystem("Software System 1", "");
         SoftwareSystem element2 = model.addSoftwareSystem("Software System 2", "");
 
@@ -69,7 +69,7 @@ public class StaticViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addAnimationStep_ThrowsAnException_WhenElementsAreSpecifiedButNoneOfThemExistInTheView() {
+    void test_addAnimationStep_ThrowsAnException_WhenElementsAreSpecifiedButNoneOfThemExistInTheView() {
         try {
             SoftwareSystem element1 = model.addSoftwareSystem("Software System 1", "");
 

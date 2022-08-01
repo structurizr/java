@@ -2,24 +2,24 @@ package com.structurizr.model;
 
 import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.Workspace;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ElementTests extends AbstractWorkspaceTestBase {
 
-   @Test
-   public void test_construction() {
-       Element element = model.addSoftwareSystem("Name", "Description");
-       assertEquals("Name", element.getName());
-       assertEquals("Description", element.getDescription());
-   }
+    @Test
+    void test_construction() {
+        Element element = model.addSoftwareSystem("Name", "Description");
+        assertEquals("Name", element.getName());
+        assertEquals("Description", element.getDescription());
+    }
 
     @Test
-    public void test_setName_ThrowsAnException_WhenANullValueIsSpecified() {
+    void test_setName_ThrowsAnException_WhenANullValueIsSpecified() {
         Element element = model.addSoftwareSystem("Name", "Description");
         try {
             element.setName(null);
@@ -30,7 +30,7 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_setName_ThrowsAnException_WhenAnEmptyValueIsSpecified() {
+    void test_setName_ThrowsAnException_WhenAnEmptyValueIsSpecified() {
         Element element = model.addSoftwareSystem("Name", "Description");
         try {
             element.setName(" ");
@@ -41,26 +41,26 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_hasEfferentRelationshipWith_ReturnsFalse_WhenANullElementIsSpecified() {
+    void test_hasEfferentRelationshipWith_ReturnsFalse_WhenANullElementIsSpecified() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
         assertFalse(softwareSystem1.hasEfferentRelationshipWith(null));
     }
 
     @Test
-    public void test_hasEfferentRelationshipWith_ReturnsFalse_WhenTheSameElementIsSpecifiedAndNoCyclicRelationshipExists() {
+    void test_hasEfferentRelationshipWith_ReturnsFalse_WhenTheSameElementIsSpecifiedAndNoCyclicRelationshipExists() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
         assertFalse(softwareSystem1.hasEfferentRelationshipWith(softwareSystem1));
     }
 
     @Test
-    public void test_hasEfferentRelationshipWith_ReturnsTrue_WhenTheSameElementIsSpecifiedAndACyclicRelationshipExists() {
+    void test_hasEfferentRelationshipWith_ReturnsTrue_WhenTheSameElementIsSpecifiedAndACyclicRelationshipExists() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
         softwareSystem1.uses(softwareSystem1, "uses");
         assertTrue(softwareSystem1.hasEfferentRelationshipWith(softwareSystem1));
     }
 
     @Test
-    public void test_hasEfferentRelationshipWith_ReturnsTrue_WhenThereIsARelationship() {
+    void test_hasEfferentRelationshipWith_ReturnsTrue_WhenThereIsARelationship() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem("System 2", "");
         softwareSystem1.uses(softwareSystem2, "uses");
@@ -68,13 +68,13 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_hasEfferentRelationshipWithElementAndDescription_ReturnsFalse_WhenANullElementIsSpecified() {
+    void test_hasEfferentRelationshipWithElementAndDescription_ReturnsFalse_WhenANullElementIsSpecified() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
         assertFalse(softwareSystem1.hasEfferentRelationshipWith(null, null));
     }
 
     @Test
-    public void test_hasEfferentRelationshipWithElementAndDescription_ReturnsFalse_WhenThereIsNotAMatchingRelationship() {
+    void test_hasEfferentRelationshipWithElementAndDescription_ReturnsFalse_WhenThereIsNotAMatchingRelationship() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem("System 2", "");
         softwareSystem1.uses(softwareSystem2, "Uses");
@@ -83,7 +83,7 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_hasEfferentRelationshipWithElementAndDescription_ReturnsTrue_WhenThereIsAMatchingRelationship() {
+    void test_hasEfferentRelationshipWithElementAndDescription_ReturnsTrue_WhenThereIsAMatchingRelationship() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem("System 2", "");
         softwareSystem1.uses(softwareSystem2, "Uses");
@@ -92,19 +92,19 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getEfferentRelationshipWith_ReturnsNull_WhenANullElementIsSpecified() {
+    void test_getEfferentRelationshipWith_ReturnsNull_WhenANullElementIsSpecified() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
         assertNull(softwareSystem1.getEfferentRelationshipWith(null));
     }
 
     @Test
-    public void test_getEfferentRelationshipWith_ReturnsNull_WhenTheSameElementIsSpecifiedAndNoCyclicRelationshipExists() {
+    void test_getEfferentRelationshipWith_ReturnsNull_WhenTheSameElementIsSpecifiedAndNoCyclicRelationshipExists() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
         assertNull(softwareSystem1.getEfferentRelationshipWith(softwareSystem1));
     }
 
     @Test
-    public void test_getEfferentRelationshipWith_ReturnsCyclicRelationship_WhenTheSameElementIsSpecifiedAndACyclicRelationshipExists() {
+    void test_getEfferentRelationshipWith_ReturnsCyclicRelationship_WhenTheSameElementIsSpecifiedAndACyclicRelationshipExists() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
         softwareSystem1.uses(softwareSystem1, "uses");
 
@@ -115,7 +115,7 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getEfferentRelationshipWith_ReturnsTheRelationship_WhenThereIsARelationship() {
+    void test_getEfferentRelationshipWith_ReturnsTheRelationship_WhenThereIsARelationship() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem("System 2", "");
         softwareSystem1.uses(softwareSystem2, "uses");
@@ -127,7 +127,7 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_hasAfferentRelationships_ReturnsFalse_WhenThereAreNoIncomingRelationships() {
+    void test_hasAfferentRelationships_ReturnsFalse_WhenThereAreNoIncomingRelationships() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem("System 2", "");
         softwareSystem1.uses(softwareSystem2, "Uses");
@@ -136,7 +136,7 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_hasAfferentRelationships_ReturnsTrue_WhenThereAreIncomingRelationships() {
+    void test_hasAfferentRelationships_ReturnsTrue_WhenThereAreIncomingRelationships() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("System 1", "");
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem("System 2", "");
         softwareSystem1.uses(softwareSystem2, "Uses");
@@ -145,7 +145,7 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addRelationship_DoesNothing_WhenTheSameRelationshipWithASoftwareSystemIsAddedMoreThanOnce() {
+    void test_addRelationship_DoesNothing_WhenTheSameRelationshipWithASoftwareSystemIsAddedMoreThanOnce() {
         SoftwareSystem a = model.addSoftwareSystem("A", "");
         SoftwareSystem b = model.addSoftwareSystem("B", "");
 
@@ -164,7 +164,7 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addRelationship_DoesNothing_WhenTheSameRelationshipWithAContainerIsAddedMoreThanOnce() {
+    void test_addRelationship_DoesNothing_WhenTheSameRelationshipWithAContainerIsAddedMoreThanOnce() {
         SoftwareSystem a = model.addSoftwareSystem("A", "");
         SoftwareSystem b = model.addSoftwareSystem("B", "");
         Container bb = b.addContainer("BB", "", "");
@@ -184,7 +184,7 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addRelationship_DoesNothing_WhenTheSameRelationshipWithAComponentIsAddedMoreThanOnce() {
+    void test_addRelationship_DoesNothing_WhenTheSameRelationshipWithAComponentIsAddedMoreThanOnce() {
         SoftwareSystem a = model.addSoftwareSystem("A", "");
         SoftwareSystem b = model.addSoftwareSystem("B", "");
         Container bb = b.addContainer("BB", "", "");
@@ -205,7 +205,7 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addRelationship_DoesNothing_WhenTheSameRelationshipWithAPersonIsAddedMoreThanOnce() {
+    void test_addRelationship_DoesNothing_WhenTheSameRelationshipWithAPersonIsAddedMoreThanOnce() {
         SoftwareSystem a = model.addSoftwareSystem("A", "");
         Person b = model.addPerson("B", "");
 
@@ -224,52 +224,54 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_equals_ReturnsFalse_WhenTestedAgainstNull() {
+    void test_equals_ReturnsFalse_WhenTestedAgainstNull() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
-        assertFalse(softwareSystem.equals(null));
+        assertNotEquals(softwareSystem, null);
     }
 
     @Test
-    public void test_equals_ReturnsFalse_WhenTheTwoObjectsAreDifferentTypes() {
+    void test_equals_ReturnsFalse_WhenTheTwoObjectsAreDifferentTypes() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
-        assertFalse(softwareSystem.equals("hello world"));
+        assertNotEquals(softwareSystem, "hello world");
     }
 
     @Test
-    public void test_equals_ReturnsTrue_WhenTestedAgainstItself() {
+    void test_equals_ReturnsTrue_WhenTestedAgainstItself() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
-        assertTrue(softwareSystem.equals(softwareSystem));
+        assertEquals(softwareSystem, softwareSystem);
     }
 
     @Test
-    public void test_equals_ReturnsFalse_WhenTheTwoObjectsAreDifferent() {
+    void test_equals_ReturnsFalse_WhenTheTwoObjectsAreDifferent() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("A", "Description");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem("B", "Description");
-        assertFalse(softwareSystemA.equals(softwareSystemB));
+        assertNotEquals(softwareSystemA, softwareSystemB);
     }
 
     @Test
-    public void test_equals_ReturnsFalse_WhenTheTwoElementsHaveTheSameCanonicalNameButAreDifferentTypes() {
+    void test_equals_ReturnsFalse_WhenTheTwoElementsHaveTheSameCanonicalNameButAreDifferentTypes() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
         Person person = model.addPerson("Name", "Description");
-        assertFalse(softwareSystem.equals(person));
+        assertNotEquals(softwareSystem, person);
     }
 
     @Test
-    public void test_setUrl() {
+    void test_setUrl() {
         Element element = model.addSoftwareSystem("Name", "Description");
         element.setUrl("https://structurizr.com");
         assertEquals("https://structurizr.com", element.getUrl());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void test_setUrl_ThrowsAnIllegalArgumentException_WhenAnInvalidUrlIsSpecified() {
-        Element element = model.addSoftwareSystem("Name", "Description");
-        element.setUrl("htt://blah");
+    @Test
+    void test_setUrl_ThrowsAnIllegalArgumentException_WhenAnInvalidUrlIsSpecified() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Element element = model.addSoftwareSystem("Name", "Description");
+            element.setUrl("htt://blah");
+        });
     }
 
     @Test
-    public void test_setUrl_ResetsTheUrl_WhenANullUrlIsSpecified() {
+    void test_setUrl_ResetsTheUrl_WhenANullUrlIsSpecified() {
         Element element = model.addSoftwareSystem("Name", "Description");
         element.setUrl("https://structurizr.com");
         element.setUrl(null);
@@ -277,7 +279,7 @@ public class ElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_setUrl_ResetsTheUrl_WhenAnEmptyUrlIsSpecified() {
+    void test_setUrl_ResetsTheUrl_WhenAnEmptyUrlIsSpecified() {
         Element element = model.addSoftwareSystem("Name", "Description");
         element.setUrl("https://structurizr.com");
         element.setUrl(" ");

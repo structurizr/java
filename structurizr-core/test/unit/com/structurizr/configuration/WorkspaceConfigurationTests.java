@@ -1,14 +1,14 @@
 package com.structurizr.configuration;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class WorkspaceConfigurationTests {
 
     @Test
-    public void test_addUser_ThrowsAnException_WhenANullUsernameIsSpecified() {
+    void test_addUser_ThrowsAnException_WhenANullUsernameIsSpecified() {
         try {
             WorkspaceConfiguration configuration = new WorkspaceConfiguration();
             configuration.addUser(null, Role.ReadWrite);
@@ -19,7 +19,7 @@ public class WorkspaceConfigurationTests {
     }
 
     @Test
-    public void test_addUser_ThrowsAnException_WhenAnEmptyUsernameIsSpecified() {
+    void test_addUser_ThrowsAnException_WhenAnEmptyUsernameIsSpecified() {
         try {
             WorkspaceConfiguration configuration = new WorkspaceConfiguration();
             configuration.addUser(" ", Role.ReadWrite);
@@ -30,7 +30,7 @@ public class WorkspaceConfigurationTests {
     }
 
     @Test
-    public void test_addUser_ThrowsAnException_WhenANullRoleIsSpecified() {
+    void test_addUser_ThrowsAnException_WhenANullRoleIsSpecified() {
         try {
             WorkspaceConfiguration configuration = new WorkspaceConfiguration();
             configuration.addUser("user@domain.com", null);
@@ -41,7 +41,7 @@ public class WorkspaceConfigurationTests {
     }
 
     @Test
-    public void test_addUser_AddsAUser() {
+    void test_addUser_AddsAUser() {
         WorkspaceConfiguration configuration = new WorkspaceConfiguration();
         configuration.addUser("user@domain.com", Role.ReadOnly);
 

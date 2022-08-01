@@ -2,14 +2,14 @@ package com.structurizr.view;
 
 import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.model.SoftwareSystem;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class FilteredViewTests extends AbstractWorkspaceTestBase {
 
     @Test
-    public void test_construction() {
+    void test_construction() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
         SystemContextView systemContextView = views.createSystemContextView(softwareSystem, "SystemContext", "Description");
         FilteredView filteredView = views.createFilteredView(

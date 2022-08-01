@@ -1,14 +1,14 @@
 package com.structurizr.model;
 
 import com.structurizr.AbstractWorkspaceTestBase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CustomElementTests extends AbstractWorkspaceTestBase {
 
     @Test
-    public void test_basicProperties() {
+    void test_basicProperties() {
         CustomElement element = model.addCustomElement("Name", "Type", "Description");
         assertEquals("Name", element.getName());
         assertEquals("Type", element.getMetadata());
@@ -16,26 +16,26 @@ public class CustomElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getCanonicalName() {
+    void test_getCanonicalName() {
         CustomElement element = model.addCustomElement("Name", "Type", "Description");
         assertEquals("Custom://Name", element.getCanonicalName());
     }
 
     @Test
-    public void test_getCanonicalName_WhenNameContainsSlashAndDotCharacters() {
+    void test_getCanonicalName_WhenNameContainsSlashAndDotCharacters() {
         CustomElement element = model.addCustomElement("Name", "Type", "Description");
         element.setName("Name1/.Name2");
         assertEquals("Custom://Name1Name2", element.getCanonicalName());
     }
 
     @Test
-    public void test_getParent_ReturnsNull() {
+    void test_getParent_ReturnsNull() {
         CustomElement element = model.addCustomElement("Name", "Type", "Description");
         assertNull(element.getParent());
     }
 
     @Test
-    public void test_removeTags_DoesNotRemoveRequiredTags() {
+    void test_removeTags_DoesNotRemoveRequiredTags() {
         CustomElement element = model.addCustomElement("Name", "Type", "Description");
         assertTrue(element.getTags().contains(Tags.ELEMENT));
 
@@ -45,7 +45,7 @@ public class CustomElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_uses_AddsARelationshipWhenTheDescriptionIsSpecified() {
+    void test_uses_AddsARelationshipWhenTheDescriptionIsSpecified() {
         CustomElement element1 = model.addCustomElement("Box 1");
         CustomElement element2 = model.addCustomElement("Box 2");
 
@@ -61,7 +61,7 @@ public class CustomElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_uses_AddsARelationshipWhenTheDescriptionAndTechnologyAreSpecified() {
+    void test_uses_AddsARelationshipWhenTheDescriptionAndTechnologyAreSpecified() {
         CustomElement element1 = model.addCustomElement("Box 1");
         CustomElement element2 = model.addCustomElement("Box 2");
 
@@ -73,11 +73,11 @@ public class CustomElementTests extends AbstractWorkspaceTestBase {
         assertSame(element2, relationship.getDestination());
         assertEquals("Uses", relationship.getDescription());
         assertEquals("Technology", relationship.getTechnology());
-        assertEquals(null, relationship.getInteractionStyle());
+        assertNull(relationship.getInteractionStyle());
     }
 
     @Test
-    public void test_uses_AddsARelationshipWhenTheDescriptionAndTechnologyAndInteractionStyleAreSpecified() {
+    void test_uses_AddsARelationshipWhenTheDescriptionAndTechnologyAndInteractionStyleAreSpecified() {
         CustomElement element1 = model.addCustomElement("Box 1");
         CustomElement element2 = model.addCustomElement("Box 2");
 
@@ -93,11 +93,11 @@ public class CustomElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_uses_AddsARelationshipWhenTheDescriptionAndTechnologyAndInteractionStyleAndTagsAreSpecified() {
+    void test_uses_AddsARelationshipWhenTheDescriptionAndTechnologyAndInteractionStyleAndTagsAreSpecified() {
         CustomElement element1 = model.addCustomElement("Box 1");
         CustomElement element2 = model.addCustomElement("Box 2");
 
-        element1.uses(element2, "Uses", "Technology", InteractionStyle.Asynchronous, new String[] { "Tag 1", "Tag 2" });
+        element1.uses(element2, "Uses", "Technology", InteractionStyle.Asynchronous, new String[]{"Tag 1", "Tag 2"});
         assertEquals(1, element1.getRelationships().size());
 
         Relationship relationship = element1.getRelationships().iterator().next();

@@ -2,18 +2,18 @@ package com.structurizr.api;
 
 import com.structurizr.WorkspaceValidationException;
 import com.structurizr.util.WorkspaceUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WorkspaceRulesValidationTests {
 
     private static final File PATH_TO_WORKSPACE_FILES = new File("test/integration/workspaceValidation");
 
     @Test
-    public void test_exceptionThrown_WhenElementIdsAreNotUnique() throws Exception {
+    void test_exceptionThrown_WhenElementIdsAreNotUnique() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ElementIdsAreNotUnique.json"));
             fail();
@@ -24,7 +24,7 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionThrown_WhenRelationshipIdsAreNotUnique() throws Exception {
+    void test_exceptionThrown_WhenRelationshipIdsAreNotUnique() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "RelationshipIdsAreNotUnique.json"));
             fail();
@@ -35,7 +35,7 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionThrown_WhenViewKeysAreNotUnique() throws Exception {
+    void test_exceptionThrown_WhenViewKeysAreNotUnique() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ViewKeysAreNotUnique.json"));
             fail();
@@ -45,7 +45,7 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionThrown_WhenPeopleAndSoftwareSystemNamesAreNotUnique() throws Exception {
+    void test_exceptionThrown_WhenPeopleAndSoftwareSystemNamesAreNotUnique() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "PeopleAndSoftwareSystemNamesAreNotUnique.json"));
             fail();
@@ -55,7 +55,7 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionThrown_WhenContainerNamesAreNotUnique() throws Exception {
+    void test_exceptionThrown_WhenContainerNamesAreNotUnique() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ContainerNamesAreNotUnique.json"));
             fail();
@@ -65,7 +65,7 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionThrown_WhenComponentNamesAreNotUnique() throws Exception {
+    void test_exceptionThrown_WhenComponentNamesAreNotUnique() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ComponentNamesAreNotUnique.json"));
             fail();
@@ -75,7 +75,7 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionThrown_WhenTopLevelDeploymentNodeNamesAreNotUnique() throws Exception {
+    void test_exceptionThrown_WhenTopLevelDeploymentNodeNamesAreNotUnique() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "TopLevelDeploymentNodeNamesAreNotUnique.json"));
             fail();
@@ -85,12 +85,12 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionNotThrown_WhenTopLevelDeploymentNodeNamesAreNotUniqueButTheyExistInDifferentEnvironments() throws Exception {
+    void test_exceptionNotThrown_WhenTopLevelDeploymentNodeNamesAreNotUniqueButTheyExistInDifferentEnvironments() throws Exception {
         WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "TopLevelDeploymentNodeNamesAreNotUniqueButTheyExistInDifferentEnvironments.json"));
     }
 
     @Test
-    public void test_exceptionThrown_WhenChildDeploymentNodeNamesAreNotUnique() throws Exception {
+    void test_exceptionThrown_WhenChildDeploymentNodeNamesAreNotUnique() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ChildDeploymentNodeNamesAreNotUnique.json"));
             fail();
@@ -100,7 +100,7 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionThrown_WhenRelationshipDescriptionsAreNotUnique() throws Exception {
+    void test_exceptionThrown_WhenRelationshipDescriptionsAreNotUnique() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "RelationshipDescriptionsAreNotUnique.json"));
             fail();
@@ -110,7 +110,7 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionThrown_WhenSoftwareSystemAssociatedWithSystemContextViewIsMissingFromTheModel() throws Exception {
+    void test_exceptionThrown_WhenSoftwareSystemAssociatedWithSystemContextViewIsMissingFromTheModel() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "SoftwareSystemAssociatedWithSystemContextViewIsMissingFromTheModel.json"));
             fail();
@@ -120,7 +120,7 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionThrown_WhenSoftwareSystemAssociatedWithContainerViewIsMissingFromTheModel() throws Exception {
+    void test_exceptionThrown_WhenSoftwareSystemAssociatedWithContainerViewIsMissingFromTheModel() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "SoftwareSystemAssociatedWithContainerViewIsMissingFromTheModel.json"));
             fail();
@@ -130,7 +130,7 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionThrown_WhenContainerAssociatedWithComponentViewIsMissingFromTheModel() throws Exception {
+    void test_exceptionThrown_WhenContainerAssociatedWithComponentViewIsMissingFromTheModel() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ContainerAssociatedWithComponentViewIsMissingFromTheModel.json"));
             fail();
@@ -140,7 +140,7 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionThrown_WhenElementAssociatedWithDynamicViewIsMissingFromTheModel() throws Exception {
+    void test_exceptionThrown_WhenElementAssociatedWithDynamicViewIsMissingFromTheModel() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ElementAssociatedWithDynamicViewIsMissingFromTheModel.json"));
             fail();
@@ -150,7 +150,7 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionThrown_WhenSoftwareSystemAssociatedWithDeploymentViewIsMissingFromTheModel() throws Exception {
+    void test_exceptionThrown_WhenSoftwareSystemAssociatedWithDeploymentViewIsMissingFromTheModel() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "SoftwareSystemAssociatedWithDeploymentViewIsMissingFromTheModel.json"));
             fail();
@@ -160,7 +160,7 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionThrown_WhenViewAssociatedWithFilteredViewIsMissingFromTheWorkspace() throws Exception {
+    void test_exceptionThrown_WhenViewAssociatedWithFilteredViewIsMissingFromTheWorkspace() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ViewAssociatedWithFilteredViewIsMissingFromTheWorkspace.json"));
             fail();
@@ -170,7 +170,7 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionThrown_WhenElementReferencedByViewIsMissingFromTheModel() throws Exception {
+    void test_exceptionThrown_WhenElementReferencedByViewIsMissingFromTheModel() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ElementReferencedByViewIsMissingFromTheModel.json"));
             fail();
@@ -180,7 +180,7 @@ public class WorkspaceRulesValidationTests {
     }
 
     @Test
-    public void test_exceptionThrown_WhenRelationshipReferencedByViewIsMissingFromTheModel() throws Exception {
+    void test_exceptionThrown_WhenRelationshipReferencedByViewIsMissingFromTheModel() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "RelationshipReferencedByViewIsMissingFromTheModel.json"));
             fail();

@@ -1,22 +1,22 @@
 package com.structurizr.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class HttpHealthCheckTests {
 
     private HttpHealthCheck healthCheck;
 
     @Test
-    public void test_defaultConstructorExists() {
+    void test_defaultConstructorExists() {
         // the default constructor is used when deserializing from JSON
         healthCheck = new HttpHealthCheck();
     }
 
     @Test
-    public void test_construction() {
+    void test_construction() {
         healthCheck = new HttpHealthCheck("Name", "http://localhost", 120, 1000);
         assertEquals("Name", healthCheck.getName());
         assertEquals("http://localhost", healthCheck.getUrl());
@@ -25,14 +25,14 @@ public class HttpHealthCheckTests {
     }
 
     @Test
-    public void test_addHeader() {
+    void test_addHeader() {
         healthCheck = new HttpHealthCheck();
         healthCheck.addHeader("Name", "Value");
         assertEquals("Value", healthCheck.getHeaders().get("Name"));
     }
 
     @Test
-    public void test_addHeader_ThrowsAnException_WhenTheHeaderNameIsNull() {
+    void test_addHeader_ThrowsAnException_WhenTheHeaderNameIsNull() {
         healthCheck = new HttpHealthCheck();
         try {
             healthCheck.addHeader(null, "value");
@@ -43,7 +43,7 @@ public class HttpHealthCheckTests {
     }
 
     @Test
-    public void test_addHeader_ThrowsAnException_WhenTheHeaderNameIsEmpty() {
+    void test_addHeader_ThrowsAnException_WhenTheHeaderNameIsEmpty() {
         healthCheck = new HttpHealthCheck();
         try {
             healthCheck.addHeader(" ", "value");
@@ -54,7 +54,7 @@ public class HttpHealthCheckTests {
     }
 
     @Test
-    public void test_addHeader_ThrowsAnException_WhenTheHeaderValueIsNull() {
+    void test_addHeader_ThrowsAnException_WhenTheHeaderValueIsNull() {
         healthCheck = new HttpHealthCheck();
         try {
             healthCheck.addHeader("Name", null);
@@ -65,7 +65,7 @@ public class HttpHealthCheckTests {
     }
 
     @Test
-    public void test_addHeader_DoesNotThrowAnException_WhenTheHeaderValueIsEmpty() {
+    void test_addHeader_DoesNotThrowAnException_WhenTheHeaderValueIsEmpty() {
         healthCheck = new HttpHealthCheck();
         healthCheck.addHeader("Name", "");
         assertEquals("", healthCheck.getHeaders().get("Name"));

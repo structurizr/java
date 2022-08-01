@@ -1,19 +1,19 @@
 package com.structurizr.api;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HmacContentTests {
 
 
     @Test
-    public void test_toString_WhenThereAreNoStrings() {
+    void test_toString_WhenThereAreNoStrings() {
         assertEquals("", new HmacContent().toString());
     }
 
     @Test
-    public void test_toString_WhenThereAreSomeStrings() {
+    void test_toString_WhenThereAreSomeStrings() {
         assertEquals("String1\nString2\nString3\n", new HmacContent("String1", "String2", "String3").toString());
     }
 

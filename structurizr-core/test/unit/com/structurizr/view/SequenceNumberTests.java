@@ -1,20 +1,20 @@
 package com.structurizr.view;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SequenceNumberTests {
 
     @Test
-    public void test_increment() {
+    void test_increment() {
         SequenceNumber sequenceNumber = new SequenceNumber();
         assertEquals("1", sequenceNumber.getNext());
         assertEquals("2", sequenceNumber.getNext());
     }
 
     @Test
-    public void test_parallelSequences() {
+    void test_parallelSequences() {
         SequenceNumber sequenceNumber = new SequenceNumber();
         assertEquals("1", sequenceNumber.getNext());
 

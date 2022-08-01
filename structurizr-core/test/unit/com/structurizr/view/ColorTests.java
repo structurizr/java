@@ -1,31 +1,31 @@
 package com.structurizr.view;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ColorTests {
 
     @Test
-    public void test_isHexColorCode_ReturnsFalse_WhenPassedNull() {
+    void test_isHexColorCode_ReturnsFalse_WhenPassedNull() {
         assertFalse(Color.isHexColorCode(null));
     }
 
     @Test
-    public void test_isHexColorCode_ReturnsFalse_WhenPassedAnEmptyString() {
+    void test_isHexColorCode_ReturnsFalse_WhenPassedAnEmptyString() {
         assertFalse(Color.isHexColorCode(""));
     }
 
     @Test
-    public void test_isHexColorCode_ReturnsFalse_WhenPassedAnInvalidString() {
+    void test_isHexColorCode_ReturnsFalse_WhenPassedAnInvalidString() {
         assertFalse(Color.isHexColorCode("ffffff"));
         assertFalse(Color.isHexColorCode("#fffff"));
         assertFalse(Color.isHexColorCode("#gggggg"));
     }
 
     @Test
-    public void test_isHexColorCode_ReturnsTrue_WhenPassedAnValidString() {
+    void test_isHexColorCode_ReturnsTrue_WhenPassedAnValidString() {
         assertTrue(Color.isHexColorCode("#abcdef"));
         assertTrue(Color.isHexColorCode("#ABCDEF"));
         assertTrue(Color.isHexColorCode("#123456"));

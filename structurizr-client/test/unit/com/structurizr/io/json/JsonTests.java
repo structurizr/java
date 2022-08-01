@@ -2,19 +2,19 @@ package com.structurizr.io.json;
 
 import com.structurizr.Workspace;
 import com.structurizr.model.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.UUID;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class JsonTests {
 
     @Test
-    public void test_write_and_read() throws Exception {
+    void test_write_and_read() throws Exception {
         final Workspace workspace1 = new Workspace("Name", "Description");
 
         // output the model as JSON
@@ -31,7 +31,7 @@ public class JsonTests {
     }
 
     @Test
-    public void test_backwardsCompatibilityOfRenamingEnterpriseContextViewsToSystemLandscapeViews() throws Exception {
+    void test_backwardsCompatibilityOfRenamingEnterpriseContextViewsToSystemLandscapeViews() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
         workspace.getViews().createSystemLandscapeView("key", "description");
 
@@ -48,7 +48,7 @@ public class JsonTests {
     }
 
     @Test
-    public void test_write_and_read_withCustomIdGenerator() throws Exception {
+    void test_write_and_read_withCustomIdGenerator() throws Exception {
         Workspace workspace1 = new Workspace("Name", "Description");
         workspace1.getModel().setIdGenerator(new CustomIdGenerator());
         Person user = workspace1.getModel().addPerson("User");

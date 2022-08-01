@@ -3,14 +3,14 @@ package com.structurizr.view;
 import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.Workspace;
 import com.structurizr.model.*;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DynamicViewTests extends AbstractWorkspaceTestBase {
 
@@ -28,7 +28,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
 
     private Relationship relationship;
 
-    @Before
+    @BeforeEach
     public void setup() {
         person = model.addPerson("Person", "");
         softwareSystemA = model.addSoftwareSystem("Software System A", "");
@@ -44,7 +44,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenPassedANullSourceElement() {
+    void test_add_ThrowsAnException_WhenPassedANullSourceElement() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
             dynamicView.add(null, softwareSystemA);
@@ -55,7 +55,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenPassedANullDestinationElement() {
+    void test_add_ThrowsAnException_WhenPassedANullDestinationElement() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
             dynamicView.add(person, null);
@@ -66,7 +66,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsNotSpecifiedButAContainerIsAdded() {
+    void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsNotSpecifiedButAContainerIsAdded() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
             dynamicView.add(containerA1, containerA1);
@@ -77,7 +77,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsNotSpecifiedButAComponentIsAdded() {
+    void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsNotSpecifiedButAComponentIsAdded() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
             dynamicView.add(componentA1, componentA1);
@@ -88,7 +88,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsASoftwareSystemButAComponentIsAdded() {
+    void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsASoftwareSystemButAComponentIsAdded() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
             dynamicView.add(componentA1, containerA1);
@@ -99,7 +99,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsASoftwareSystemAndTheSameSoftwareSystemIsAdded() {
+    void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsASoftwareSystemAndTheSameSoftwareSystemIsAdded() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
             dynamicView.add(softwareSystemA, containerA1);
@@ -110,7 +110,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsAContainerAndTheSameContainerIsAdded() {
+    void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsAContainerAndTheSameContainerIsAdded() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView(containerA1, "key", "Description");
             dynamicView.add(containerA1, containerA2);
@@ -121,7 +121,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsAContainerAndTheParentSoftwareSystemIsAdded() {
+    void test_add_ThrowsAnException_WhenTheScopeOfTheDynamicViewIsAContainerAndTheParentSoftwareSystemIsAdded() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView(containerA1, "key", "Description");
             dynamicView.add(softwareSystemA, containerA2);
@@ -132,7 +132,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenTheParentOfAnElementHasAlreadyBeenAdded() {
+    void test_add_ThrowsAnException_WhenTheParentOfAnElementHasAlreadyBeenAdded() {
         try {
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "");
             Container container1 = softwareSystem.addContainer("Container 1", "", "");
@@ -154,7 +154,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenTheChildOfAnElementHasAlreadyBeenAdded() {
+    void test_add_ThrowsAnException_WhenTheChildOfAnElementHasAlreadyBeenAdded() {
         try {
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "");
             Container container1 = softwareSystem.addContainer("Container 1", "", "");
@@ -176,7 +176,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenARelationshipBetweenTheSourceAndDestinationElementsDoesNotExist() {
+    void test_add_ThrowsAnException_WhenARelationshipBetweenTheSourceAndDestinationElementsDoesNotExist() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
             SoftwareSystem ss1 = workspace.getModel().addSoftwareSystem("Software System 1", "");
@@ -189,7 +189,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenARelationshipBetweenTheSourceAndDestinationElementsWithTheSpecifiedTechnologyDoesNotExist() {
+    void test_add_ThrowsAnException_WhenARelationshipBetweenTheSourceAndDestinationElementsWithTheSpecifiedTechnologyDoesNotExist() {
         try {
             workspace = new Workspace("Name", "Description");
             model = workspace.getModel();
@@ -209,7 +209,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addRelationshipWithOriginalDescription() {
+    void test_addRelationshipWithOriginalDescription() {
         workspace = new Workspace("Name", "Description");
         model = workspace.getModel();
 
@@ -226,7 +226,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addRelationshipWithOveriddenDescription() {
+    void test_addRelationshipWithOveriddenDescription() {
         workspace = new Workspace("Name", "Description");
         model = workspace.getModel();
 
@@ -243,14 +243,14 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_AddsTheSourceAndDestinationElements_WhenARelationshipBetweenThemExists() {
+    void test_add_AddsTheSourceAndDestinationElements_WhenARelationshipBetweenThemExists() {
         final DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
         dynamicView.add(containerA1, containerA2);
         assertEquals(2, dynamicView.getElements().size());
     }
 
     @Test
-    public void test_add_AddsTheSourceAndDestinationElements_WhenARelationshipBetweenThemExistsAndTheDestinationIsAnExternalSoftwareSystem() {
+    void test_add_AddsTheSourceAndDestinationElements_WhenARelationshipBetweenThemExistsAndTheDestinationIsAnExternalSoftwareSystem() {
         DynamicView dynamicView = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
         containerA2.uses(softwareSystemB, "", "");
         dynamicView.add(containerA2, softwareSystemB);
@@ -258,7 +258,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_normalSequence() {
+    void test_normalSequence() {
         workspace = new Workspace("Name", "Description");
         model = workspace.getModel();
 
@@ -280,7 +280,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_normalSequence_WhenThereAreMultipleDescriptions() {
+    void test_normalSequence_WhenThereAreMultipleDescriptions() {
         workspace = new Workspace("Name", "Description");
         model = workspace.getModel();
 
@@ -300,7 +300,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_normalSequence_WhenThereAreMultipleTechnologies() {
+    void test_normalSequence_WhenThereAreMultipleTechnologies() {
         workspace = new Workspace("Name", "Description");
         model = workspace.getModel();
 
@@ -320,7 +320,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_parallelSequence() {
+    void test_parallelSequence() {
         workspace = new Workspace("Name", "Description");
         model = workspace.getModel();
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("A", "");
@@ -359,7 +359,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getRelationships_WhenTheOrderPropertyIsAnInteger() {
+    void test_getRelationships_WhenTheOrderPropertyIsAnInteger() {
         containerA1.uses(containerA2, "uses");
         DynamicView view = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
         for (int i = 0; i < 10; i++) {
@@ -380,7 +380,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getRelationships_WhenTheOrderPropertyIsADecimal() {
+    void test_getRelationships_WhenTheOrderPropertyIsADecimal() {
         containerA1.uses(containerA2, "uses");
         DynamicView view = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
         for (int i = 0; i < 10; i++) {
@@ -402,7 +402,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getRelationships_WhenTheOrderPropertyIsAString() {
+    void test_getRelationships_WhenTheOrderPropertyIsAString() {
         String characters = "abcdefghij";
         containerA1.uses(containerA2, "uses");
         DynamicView view = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
@@ -425,14 +425,14 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_response() {
+    void test_response() {
         workspace = new Workspace("Name", "Description");
         model = workspace.getModel();
 
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
         Relationship relationship = softwareSystem1.uses(softwareSystem2, "Uses");
-        
+
         DynamicView view = workspace.getViews().createDynamicView("key", "Description");
         view.add(softwareSystem1, "Asks for X", softwareSystem2);
         view.add(softwareSystem2, "Returns X", softwareSystem1); // this relationship doesn't exist, so is assumed to be a response

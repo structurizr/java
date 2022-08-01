@@ -1,9 +1,9 @@
 package com.structurizr.model;
 
 import com.structurizr.AbstractWorkspaceTestBase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
 
@@ -12,7 +12,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     private DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
 
     @Test
-    public void test_construction() {
+    void test_construction() {
         ContainerInstance instance = deploymentNode.add(database);
 
         assertSame(database, instance.getContainer());
@@ -21,7 +21,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getContainerId() {
+    void test_getContainerId() {
         ContainerInstance instance = deploymentNode.add(database);
 
         assertEquals(database.getId(), instance.getContainerId());
@@ -31,7 +31,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getName() {
+    void test_getName() {
         ContainerInstance instance = deploymentNode.add(database);
 
         assertEquals("Database Schema", instance.getName());
@@ -41,28 +41,28 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getCanonicalName() {
+    void test_getCanonicalName() {
         ContainerInstance instance = deploymentNode.add(database);
 
         assertEquals("ContainerInstance://Default/Deployment Node/System.Database Schema[1]", instance.getCanonicalName());
     }
 
     @Test
-    public void test_getParent_ReturnsTheParentDeploymentNode() {
+    void test_getParent_ReturnsTheParentDeploymentNode() {
         ContainerInstance instance = deploymentNode.add(database);
 
         assertEquals(deploymentNode, instance.getParent());
     }
 
     @Test
-    public void test_getRequiredTags() {
+    void test_getRequiredTags() {
         ContainerInstance instance = deploymentNode.add(database);
 
         assertTrue(instance.getDefaultTags().isEmpty());
     }
 
     @Test
-    public void test_getTags() {
+    void test_getTags() {
         database.addTags("Database");
         ContainerInstance instance = deploymentNode.add(database);
         instance.addTags("Primary Instance");
@@ -71,7 +71,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_removeTags_DoesNotRemoveAnyTags() {
+    void test_removeTags_DoesNotRemoveAnyTags() {
         ContainerInstance instance = deploymentNode.add(database);
 
         assertTrue(instance.getTags().contains(Tags.CONTAINER_INSTANCE));
@@ -82,7 +82,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getDeploymentGroups_WhenNoGroupsHaveBeenSpecified() {
+    void test_getDeploymentGroups_WhenNoGroupsHaveBeenSpecified() {
         ContainerInstance instance = deploymentNode.add(database);
 
         assertEquals(1, instance.getDeploymentGroups().size());
@@ -90,7 +90,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getDeploymentGroups_WhenOneGroupHasBeenSpecified() {
+    void test_getDeploymentGroups_WhenOneGroupHasBeenSpecified() {
         ContainerInstance instance = deploymentNode.add(database, "Group 1");
 
         assertEquals(1, instance.getDeploymentGroups().size());
@@ -98,7 +98,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getDeploymentGroups_WhenMultipleGroupsAreSpecified() {
+    void test_getDeploymentGroups_WhenMultipleGroupsAreSpecified() {
         ContainerInstance instance = deploymentNode.add(database, "Group 1", "Group 2");
 
         assertEquals(2, instance.getDeploymentGroups().size());
@@ -107,7 +107,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addHealthCheck() {
+    void test_addHealthCheck() {
         ContainerInstance instance = deploymentNode.add(database);
         assertTrue(instance.getHealthChecks().isEmpty());
 
@@ -120,7 +120,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addHealthCheck_ThrowsAnException_WhenTheNameIsNull() {
+    void test_addHealthCheck_ThrowsAnException_WhenTheNameIsNull() {
         ContainerInstance instance = deploymentNode.add(database);
 
         try {
@@ -132,7 +132,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addHealthCheck_ThrowsAnException_WhenTheNameIsEmpty() {
+    void test_addHealthCheck_ThrowsAnException_WhenTheNameIsEmpty() {
         ContainerInstance instance = deploymentNode.add(database);
 
         try {
@@ -144,7 +144,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsNull() {
+    void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsNull() {
         ContainerInstance instance = deploymentNode.add(database);
 
         try {
@@ -156,7 +156,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsEmpty() {
+    void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsEmpty() {
         ContainerInstance instance = deploymentNode.add(database);
 
         try {
@@ -168,7 +168,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsInvalid() {
+    void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsInvalid() {
         ContainerInstance instance = deploymentNode.add(database);
 
         try {
@@ -180,7 +180,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addHealthCheck_ThrowsAnException_WhenTheIntervalIsLessThanZero() {
+    void test_addHealthCheck_ThrowsAnException_WhenTheIntervalIsLessThanZero() {
         ContainerInstance instance = deploymentNode.add(database);
 
         try {
@@ -192,7 +192,7 @@ public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addHealthCheck_ThrowsAnException_WhenTheTimeoutIsLessThanZero() {
+    void test_addHealthCheck_ThrowsAnException_WhenTheTimeoutIsLessThanZero() {
         ContainerInstance instance = deploymentNode.add(database);
 
         try {

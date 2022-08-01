@@ -1,28 +1,27 @@
 package com.structurizr.model;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static junit.framework.TestCase.assertNull;
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CodeElementTests {
 
     @Test
-    public void test_construction_WhenAFullyQualifiedNameIsSpecified() {
+    void test_construction_WhenAFullyQualifiedNameIsSpecified() {
         CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
         assertEquals("SomeComponent", codeElement.getName());
         assertEquals("com.structurizr.component.SomeComponent", codeElement.getType());
     }
 
     @Test
-    public void test_construction_WhenAFullyQualifiedNameIsSpecifiedInTheDefaultPackage() {
+    void test_construction_WhenAFullyQualifiedNameIsSpecifiedInTheDefaultPackage() {
         CodeElement codeElement = new CodeElement("SomeComponent");
         assertEquals("SomeComponent", codeElement.getName());
         assertEquals("SomeComponent", codeElement.getType());
     }
 
     @Test
-    public void test_descriptionProperty() {
+    void test_descriptionProperty() {
         CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
         assertNull(codeElement.getDescription());
 
@@ -31,7 +30,7 @@ public class CodeElementTests {
     }
 
     @Test
-    public void test_sizeProperty() {
+    void test_sizeProperty() {
         CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
         assertEquals(0, codeElement.getSize());
 
@@ -40,7 +39,7 @@ public class CodeElementTests {
     }
 
     @Test
-    public void test_languageProperty() {
+    void test_languageProperty() {
         CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
         assertEquals("Java", codeElement.getLanguage());
 
@@ -49,7 +48,7 @@ public class CodeElementTests {
     }
 
     @Test
-    public void test_categoryProperty() {
+    void test_categoryProperty() {
         CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
         assertNull(codeElement.getCategory());
 
@@ -58,7 +57,7 @@ public class CodeElementTests {
     }
 
     @Test
-    public void test_visibilityProperty() {
+    void test_visibilityProperty() {
         CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
         assertNull(codeElement.getVisibility());
 
@@ -67,70 +66,76 @@ public class CodeElementTests {
     }
 
     @Test
-    public void test_setUrl() {
+    void test_setUrl() {
         CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
         codeElement.setUrl("https://structurizr.com");
         assertEquals("https://structurizr.com", codeElement.getUrl());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void test_setUrl_ThrowsAnIllegalArgumentException_WhenAnInvalidUrlIsSpecified() {
-        CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
-        codeElement.setUrl("htt://blah");
+    @Test
+    void test_setUrl_ThrowsAnIllegalArgumentException_WhenAnInvalidUrlIsSpecified() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
+            codeElement.setUrl("htt://blah");
+        });
     }
 
     @Test
-    public void test_setUrl_DoesNothing_WhenANullUrlIsSpecified() {
+    void test_setUrl_DoesNothing_WhenANullUrlIsSpecified() {
         CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
         codeElement.setUrl(null);
         assertNull(codeElement.getUrl());
     }
 
     @Test
-    public void test_setUrl_DoesNothing_WhenAnEmptyUrlIsSpecified() {
+    void test_setUrl_DoesNothing_WhenAnEmptyUrlIsSpecified() {
         CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
         codeElement.setUrl(" ");
         assertNull(codeElement.getUrl());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void test_construction_ThrowsAnIllegalArgumentException_WhenANullFullyQualifiedNameIsSpecified() {
-        new CodeElement(null);
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void test_construction_ThrowsAnIllegalArgumentException_WhenAnEmptyFullyQualifiedNameIsSpecified() {
-        new CodeElement("  ");
+    @Test
+    void test_construction_ThrowsAnIllegalArgumentException_WhenANullFullyQualifiedNameIsSpecified() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new CodeElement(null);
+        });
     }
 
     @Test
-    public void test_equals_ReturnsFalse_WhenComparedToNull() {
+    void test_construction_ThrowsAnIllegalArgumentException_WhenAnEmptyFullyQualifiedNameIsSpecified() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            new CodeElement("  ");
+        });
+    }
+
+    @Test
+    void test_equals_ReturnsFalse_WhenComparedToNull() {
         CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
-        assertFalse(codeElement.equals(null));
+        assertNotEquals(codeElement, null);
     }
 
     @Test
-    public void test_equals_ReturnsFalse_WhenComparedToDifferentTypeOfObject() {
+    void test_equals_ReturnsFalse_WhenComparedToDifferentTypeOfObject() {
         CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
-        assertFalse(codeElement.equals("hello"));
+        assertNotEquals(codeElement, "hello");
     }
 
     @Test
-    public void test_equals_ReturnsFalse_WhenComparedToAnotherCodeElementWithADifferentType() {
+    void test_equals_ReturnsFalse_WhenComparedToAnotherCodeElementWithADifferentType() {
         CodeElement codeElement1 = new CodeElement("com.structurizr.component.SomeComponent1");
         CodeElement codeElement2 = new CodeElement("com.structurizr.component.SomeComponent2");
-        assertFalse(codeElement1.equals(codeElement2));
+        assertNotEquals(codeElement1, codeElement2);
     }
 
     @Test
-    public void test_equals_ReturnsFalse_WhenComparedToAnotherCodeElementWithTheSameType() {
+    void test_equals_ReturnsFalse_WhenComparedToAnotherCodeElementWithTheSameType() {
         CodeElement codeElement1 = new CodeElement("com.structurizr.component.SomeComponent1");
         CodeElement codeElement2 = new CodeElement("com.structurizr.component.SomeComponent1");
-        assertTrue(codeElement1.equals(codeElement2));
+        assertEquals(codeElement1, codeElement2);
     }
 
     @Test
-    public void test_getPackage_ReturnsThePackageName() {
+    void test_getPackage_ReturnsThePackageName() {
         CodeElement codeElement = new CodeElement("com.structurizr.component.SomeComponent");
         assertEquals("com.structurizr.component", codeElement.getPackage());
     }
