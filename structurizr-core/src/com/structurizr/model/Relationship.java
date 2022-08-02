@@ -1,7 +1,6 @@
 package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.structurizr.util.Url;
 
 import java.util.Collections;
 import java.util.LinkedHashSet;

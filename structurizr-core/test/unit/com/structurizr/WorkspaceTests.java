@@ -7,8 +7,6 @@ import com.structurizr.model.Container;
 import com.structurizr.model.SoftwareSystem;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 public class WorkspaceTests {

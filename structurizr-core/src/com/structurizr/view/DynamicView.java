@@ -6,7 +6,6 @@ import com.structurizr.util.StringUtils;
 
 import javax.annotation.Nonnull;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * A dynamic view, used to describe behaviour between static elements at runtime.

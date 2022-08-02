@@ -4,7 +4,6 @@ import com.structurizr.AbstractWorkspaceTestBase;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -2,12 +2,6 @@ package com.structurizr.model;
 
 import com.structurizr.util.StringUtils;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.LinkedHashSet;
-import java.util.Set;
-
 /**
  * Represents an element that can be included in a group.
  */
