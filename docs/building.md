@@ -1,6 +1,6 @@
 # Building
 
-To build "Structurizr for Java" from the sources (you'll need Java 11+ installed)...
+To build this repo from the sources (you'll need `git` and Java 11+ installed)...
 
 ```
 git clone https://github.com/structurizr/java.git structurizr-java
