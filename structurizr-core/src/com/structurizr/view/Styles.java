@@ -145,6 +145,16 @@ public final class Styles {
         return style;
     }
 
+    /**
+     * Finds the element style used to render the specified element, according to the following rules:
+     *
+     * 1. Start with a default style.
+     * 2. Calculate set of tags associated with the element.
+     * 3. Find the style properties for each tag (themes first, followed by workspace styles)
+     *
+     * @param element       an Element object
+     * @return  an ElementStyle object
+     */
     public ElementStyle findElementStyle(Element element) {
         ElementStyle style = new ElementStyle("").background("#dddddd").color("#000000").shape(Shape.Box).fontSize(24).border(Border.Solid).opacity(100).metadata(true).description(true);
 
@@ -199,6 +209,16 @@ public final class Styles {
         return style;
     }
 
+    /**
+     * Finds the relationship style used to render the specified relationship, according to the following rules:
+     *
+     * 1. Start with a default style.
+     * 2. Calculate set of tags associated with the relationship, and any linked relationship(s).
+     * 3. Find the style properties for each tag (themes first, followed by workspace styles)
+     *
+     * @param relationship      a Relationship object
+     * @return      a RelationshipStyle object
+     */
     public RelationshipStyle findRelationshipStyle(Relationship relationship) {
         RelationshipStyle style = new RelationshipStyle("").thickness(2).color("#707070").dashed(true).routing(Routing.Direct).fontSize(24).width(200).position(50).opacity(100);
 
