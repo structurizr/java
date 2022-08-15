@@ -10,4 +10,4 @@ This is an example System Context diagram for a fictional Internet Banking Syste
 
 ![An example System Context diagram](images/system-context-diagram-1.png)
 
-See [InternetBankingSystem.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/bigbankplc/InternetBankingSystem.java) for the code, and [https://structurizr.com/share/36141#SystemContext](https://structurizr.com/share/36141#SystemContext) for the diagram.
+See [InternetBankingSystem.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/bigbankplc/InternetBankingSystem.java) for the code, and [https://structurizr.com/share/36141/diagrams#SystemContext](https://structurizr.com/share/36141/diagrams#SystemContext) for the diagram.

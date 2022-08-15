@@ -8,7 +8,7 @@ As an example, a Dynamic diagram describing the customer sign in process for a s
 
 ![An example Dynamic diagram](images/dynamic-diagram-1.png)
 
-See [InternetBankingSystem.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/bigbankplc/InternetBankingSystem.java) for the code, and [https://structurizr.com/share/36141#SignIn](https://structurizr.com/share/36141#SignIn) for the diagram.
+See [InternetBankingSystem.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/bigbankplc/InternetBankingSystem.java) for the code, and [https://structurizr.com/share/36141/diagrams#SignIn](https://structurizr.com/share/36141/diagrams#SignIn) for the diagram.
 
 ### Adding relationships
 
