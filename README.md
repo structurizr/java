@@ -2,11 +2,12 @@
 
 # Structurizr for Java
 
-This GitHub repository is an official client library for the [Structurizr](https://structurizr.com) cloud service and on-premises installation, both of which are web-based publishing platforms for software architecture models based upon the [C4 model](https://c4model.com). The component finder, adr-tools importer, and alternative diagram export formats (e.g. PlantUML) can be found at [Structurizr for Java extensions](https://github.com/structurizr/java-extensions).
+This GitHub repository is (1) a client library for the [Structurizr](https://structurizr.com) cloud service and on-premises installation
+and (2) a way to create a Structurizr workspace using Java code. Looking for the [Structurizr DSL](https://github.com/structurizr/dsl) instead?
 
 ## A quick example
 
-As an example, the following Java code can be used to create a software architecture __model__ and an associated __view__ that describes a user using a software system.
+As an example, the following Java code can be used to create a software architecture __model__ and an associated __view__ that describes a user using a software system, based upon the [C4 model](https://c4model.com).
 
 ```java
 public static void main(String[] args) throws Exception {
@@ -24,10 +25,8 @@ public static void main(String[] args) throws Exception {
 }
 ```
 
-The view can then be exported to be visualised using the [Structurizr cloud service/on-premises installation](https://structurizr.com),
-or other formats including PlantUML, Mermaid, and WebSequenceDiagrams via the [structurizr-export library](https://github.com/structurizr/export).
-
-![Views can be exported and visualised via a number of tools](docs/images/readme-1.png)
+The view can then be exported to be visualised using the [Structurizr cloud service/on-premises installation/Lite](https://structurizr.com),
+or other formats including PlantUML, Mermaid, DOT, and WebSequenceDiagrams via the [structurizr-export library](https://github.com/structurizr/export).
 
 ## Table of contents
 
