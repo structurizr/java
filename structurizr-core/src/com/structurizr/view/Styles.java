@@ -1,6 +1,5 @@
 package com.structurizr.view;
 
-import com.structurizr.Workspace;
 import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
 

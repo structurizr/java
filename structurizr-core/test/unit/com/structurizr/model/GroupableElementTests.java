@@ -1,35 +1,35 @@
 package com.structurizr.model;
 
 import com.structurizr.AbstractWorkspaceTestBase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class GroupableElementTests extends AbstractWorkspaceTestBase {
 
     @Test
-    public void test_getGroup_ReturnsNullByDefault() {
+    void test_getGroup_ReturnsNullByDefault() {
         Person element = model.addPerson("Person");
         assertNull(element.getGroup());
     }
 
     @Test
-    public void test_setGroup() {
+    void test_setGroup() {
         Person element = model.addPerson("Person");
         element.setGroup("Group");
         assertEquals("Group", element.getGroup());
     }
 
     @Test
-    public void test_setGroup_TrimsWhiteSpace() {
+    void test_setGroup_TrimsWhiteSpace() {
         Person element = model.addPerson("Person");
         element.setGroup(" Group ");
         assertEquals("Group", element.getGroup());
     }
 
     @Test
-    public void test_setGroup_HandlesEmptyAndNullValues() {
+    void test_setGroup_HandlesEmptyAndNullValues() {
         Person element = model.addPerson("Person");
         element.setGroup("Group");
 

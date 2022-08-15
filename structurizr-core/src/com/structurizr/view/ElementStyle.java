@@ -1,7 +1,6 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.structurizr.PropertyHolder;
 import com.structurizr.util.ImageUtils;
 import com.structurizr.util.StringUtils;
 

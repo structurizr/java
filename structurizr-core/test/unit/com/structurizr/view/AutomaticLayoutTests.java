@@ -1,13 +1,13 @@
 package com.structurizr.view;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class AutomaticLayoutTests {
 
     @Test
-    public void test_setAutomaticLayout() {
+    void test_setAutomaticLayout() {
         AutomaticLayout automaticLayout = new AutomaticLayout(AutomaticLayout.Implementation.Dagre, AutomaticLayout.RankDirection.LeftRight, 100, 200, 300, true);
 
         assertEquals(AutomaticLayout.RankDirection.LeftRight, automaticLayout.getRankDirection());
@@ -18,7 +18,7 @@ public class AutomaticLayoutTests {
     }
 
     @Test
-    public void test_setRankDirection_ThrowsAnException_WhenNullIsSpecified() {
+    void test_setRankDirection_ThrowsAnException_WhenNullIsSpecified() {
         try {
             AutomaticLayout automaticLayout = new AutomaticLayout();
             automaticLayout.setRankDirection(null);
@@ -29,7 +29,7 @@ public class AutomaticLayoutTests {
     }
 
     @Test
-    public void test_setRankSeparation_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
+    void test_setRankSeparation_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
         try {
             AutomaticLayout automaticLayout = new AutomaticLayout();
             automaticLayout.setRankSeparation(-100);
@@ -40,7 +40,7 @@ public class AutomaticLayoutTests {
     }
 
     @Test
-    public void test_setNodeSeparation_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
+    void test_setNodeSeparation_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
         try {
             AutomaticLayout automaticLayout = new AutomaticLayout();
             automaticLayout.setNodeSeparation(-100);
@@ -51,7 +51,7 @@ public class AutomaticLayoutTests {
     }
 
     @Test
-    public void test_setEdgeSeparation_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
+    void test_setEdgeSeparation_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
         try {
             AutomaticLayout automaticLayout = new AutomaticLayout();
             automaticLayout.setEdgeSeparation(-100);

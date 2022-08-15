@@ -5,7 +5,6 @@ import com.structurizr.Workspace;
 import com.structurizr.io.WorkspaceReader;
 import com.structurizr.io.WorkspaceReaderException;
 import com.structurizr.model.IdGenerator;
-import com.structurizr.model.SequentialIntegerIdGeneratorStrategy;
 
 import java.io.IOException;
 import java.io.Reader;

@@ -1,13 +1,14 @@
 package com.structurizr.view;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 public class DimensionsTests {
 
     @Test
-    public void test_construction() {
+    void test_construction() {
         Dimensions dimensions = new Dimensions(123, 456);
 
         assertEquals(123, dimensions.getWidth());
@@ -15,7 +16,7 @@ public class DimensionsTests {
     }
 
     @Test
-    public void test_setWidth_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
+    void test_setWidth_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
         try {
             Dimensions dimensions = new Dimensions();
             dimensions.setWidth(-100);
@@ -26,7 +27,7 @@ public class DimensionsTests {
     }
 
     @Test
-    public void test_setHeight_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
+    void test_setHeight_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
         try {
             Dimensions dimensions = new Dimensions();
             dimensions.setHeight(-100);

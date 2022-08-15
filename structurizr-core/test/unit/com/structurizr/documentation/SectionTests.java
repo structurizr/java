@@ -1,13 +1,13 @@
 package com.structurizr.documentation;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SectionTests {
 
     @Test
-    public void test_construction() {
+    void test_construction() {
         Section section = new Section("Title", Format.Markdown, "Content");
 
         assertEquals("Title", section.getTitle());

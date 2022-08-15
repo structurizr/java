@@ -1,14 +1,14 @@
 package com.structurizr.model;
 
 import com.structurizr.AbstractWorkspaceTestBase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class InfrastructureNodeTests extends AbstractWorkspaceTestBase {
 
     @Test
-    public void test_getCanonicalName() {
+    void test_getCanonicalName() {
         DeploymentNode deploymentNode = model.addDeploymentNode("Amazon Web Services", "", "");
         InfrastructureNode infrastructureNode = deploymentNode.addInfrastructureNode("Route 53", "", "");
 
@@ -16,7 +16,7 @@ public class InfrastructureNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getParent_ReturnsTheParentDeploymentNode() {
+    void test_getParent_ReturnsTheParentDeploymentNode() {
         DeploymentNode parent = model.addDeploymentNode("Parent", "", "");
         InfrastructureNode child = parent.addInfrastructureNode("Child", "", "");
         child.setParent(parent);
@@ -24,7 +24,7 @@ public class InfrastructureNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getRequiredTags() {
+    void test_getRequiredTags() {
         InfrastructureNode infrastructureNode = new InfrastructureNode();
         assertEquals(2, infrastructureNode.getDefaultTags().size());
         assertTrue(infrastructureNode.getDefaultTags().contains(Tags.ELEMENT));
@@ -32,7 +32,7 @@ public class InfrastructureNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getTags() {
+    void test_getTags() {
         InfrastructureNode infrastructureNode = new InfrastructureNode();
         infrastructureNode.addTags("Tag 1", "Tag 2");
         assertEquals("Element,Infrastructure Node,Tag 1,Tag 2", infrastructureNode.getTags());

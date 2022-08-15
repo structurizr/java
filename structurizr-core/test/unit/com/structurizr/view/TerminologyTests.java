@@ -2,14 +2,14 @@ package com.structurizr.view;
 
 import com.structurizr.Workspace;
 import com.structurizr.model.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TerminologyTests {
 
     @Test
-    public void test_findTerminology() {
+    void test_findTerminology() {
         Workspace workspace = new Workspace("Name", "Description");
         Terminology terminology = workspace.getViews().getConfiguration().getTerminology();
         Person person = workspace.getModel().addPerson("Name");

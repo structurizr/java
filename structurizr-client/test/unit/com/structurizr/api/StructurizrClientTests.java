@@ -1,16 +1,16 @@
 package com.structurizr.api;
 
 import com.structurizr.Workspace;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StructurizrClientTests {
 
     private StructurizrClient structurizrClient;
 
     @Test
-    public void test_construction_WithTwoParameters() {
+    void test_construction_WithTwoParameters() {
         structurizrClient = new StructurizrClient("key", "secret");
         assertEquals("https://api.structurizr.com", structurizrClient.getUrl());
         assertEquals("key", structurizrClient.getApiKey());
@@ -18,7 +18,7 @@ public class StructurizrClientTests {
     }
 
     @Test
-    public void test_construction_WithThreeParameters() {
+    void test_construction_WithThreeParameters() {
         structurizrClient = new StructurizrClient("https://localhost", "key", "secret");
         assertEquals("https://localhost", structurizrClient.getUrl());
         assertEquals("key", structurizrClient.getApiKey());
@@ -26,7 +26,7 @@ public class StructurizrClientTests {
     }
 
     @Test
-    public void test_construction_WithThreeParameters_TruncatesTheApiUrl_WhenTheApiUrlHasATrailingSlashCharacter() {
+    void test_construction_WithThreeParameters_TruncatesTheApiUrl_WhenTheApiUrlHasATrailingSlashCharacter() {
         structurizrClient = new StructurizrClient("https://localhost/", "key", "secret");
         assertEquals("https://localhost", structurizrClient.getUrl());
         assertEquals("key", structurizrClient.getApiKey());
@@ -34,7 +34,7 @@ public class StructurizrClientTests {
     }
 
     @Test
-    public void test_construction_ThrowsAnException_WhenANullApiKeyIsUsed() {
+    void test_construction_ThrowsAnException_WhenANullApiKeyIsUsed() {
         try {
             structurizrClient = new StructurizrClient(null, "secret");
             fail();
@@ -44,7 +44,7 @@ public class StructurizrClientTests {
     }
 
     @Test
-    public void test_construction_ThrowsAnException_WhenAnEmptyApiKeyIsUsed() {
+    void test_construction_ThrowsAnException_WhenAnEmptyApiKeyIsUsed() {
         try {
             structurizrClient = new StructurizrClient(" ", "secret");
             fail();
@@ -54,7 +54,7 @@ public class StructurizrClientTests {
     }
 
     @Test
-    public void test_construction_ThrowsAnException_WhenANullApiSecretIsUsed() {
+    void test_construction_ThrowsAnException_WhenANullApiSecretIsUsed() {
         try {
             structurizrClient = new StructurizrClient("key", null);
             fail();
@@ -64,7 +64,7 @@ public class StructurizrClientTests {
     }
 
     @Test
-    public void test_construction_ThrowsAnException_WhenAnEmptyApiSecretIsUsed() {
+    void test_construction_ThrowsAnException_WhenAnEmptyApiSecretIsUsed() {
         try {
             structurizrClient = new StructurizrClient("key", " ");
             fail();
@@ -74,7 +74,7 @@ public class StructurizrClientTests {
     }
 
     @Test
-    public void test_construction_ThrowsAnException_WhenANullApiUrlIsUsed() {
+    void test_construction_ThrowsAnException_WhenANullApiUrlIsUsed() {
         try {
             structurizrClient = new StructurizrClient(null, "key", "secret");
             fail();
@@ -84,7 +84,7 @@ public class StructurizrClientTests {
     }
 
     @Test
-    public void test_construction_ThrowsAnException_WhenAnEmptyApiUrlIsUsed() {
+    void test_construction_ThrowsAnException_WhenAnEmptyApiUrlIsUsed() {
         try {
             structurizrClient = new StructurizrClient(" ", "key", "secret");
             fail();
@@ -94,7 +94,7 @@ public class StructurizrClientTests {
     }
 
     @Test
-    public void test_getWorkspace_ThrowsAnException_WhenTheWorkspaceIdIsNotValid() throws Exception {
+    void test_getWorkspace_ThrowsAnException_WhenTheWorkspaceIdIsNotValid() throws Exception {
         try {
             structurizrClient = new StructurizrClient("key", "secret");
             structurizrClient.getWorkspace(0);
@@ -105,7 +105,7 @@ public class StructurizrClientTests {
     }
 
     @Test
-    public void test_putWorkspace_ThrowsAnException_WhenTheWorkspaceIdIsNotValid() throws Exception {
+    void test_putWorkspace_ThrowsAnException_WhenTheWorkspaceIdIsNotValid() throws Exception {
         try {
             structurizrClient = new StructurizrClient("key", "secret");
             structurizrClient.putWorkspace(0, new Workspace("Name", "Description"));
@@ -116,7 +116,7 @@ public class StructurizrClientTests {
     }
 
     @Test
-    public void test_putWorkspace_ThrowsAnException_WhenANullWorkspaceIsSpecified() throws Exception {
+    void test_putWorkspace_ThrowsAnException_WhenANullWorkspaceIsSpecified() throws Exception {
         try {
             structurizrClient = new StructurizrClient("key", "secret");
             structurizrClient.putWorkspace(1234, null);
@@ -127,7 +127,7 @@ public class StructurizrClientTests {
     }
 
     @Test
-    public void test_constructionWithAPropertiesFile_ThrowsAnException_WhenNoPropertiesAreFound() {
+    void test_constructionWithAPropertiesFile_ThrowsAnException_WhenNoPropertiesAreFound() {
         try {
             structurizrClient = new StructurizrClient();
             fail();
@@ -137,20 +137,20 @@ public class StructurizrClientTests {
     }
 
     @Test
-    public void test_getAgent() {
+    void test_getAgent() {
         structurizrClient = new StructurizrClient("key", "secret");
         assertTrue(structurizrClient.getAgent().startsWith("structurizr-java/"));
     }
 
     @Test
-    public void test_setAgent() {
+    void test_setAgent() {
         structurizrClient = new StructurizrClient("key", "secret");
         structurizrClient.setAgent("new_agent");
         assertEquals("new_agent", structurizrClient.getAgent());
     }
 
     @Test
-    public void test_setAgent_ThrowsAnException_WhenPassedNull() {
+    void test_setAgent_ThrowsAnException_WhenPassedNull() {
         structurizrClient = new StructurizrClient("key", "secret");
 
         try {
@@ -162,7 +162,7 @@ public class StructurizrClientTests {
     }
 
     @Test
-    public void test_setAgent_ThrowsAnException_WhenPassedAnEmptyString() {
+    void test_setAgent_ThrowsAnException_WhenPassedAnEmptyString() {
         structurizrClient = new StructurizrClient("key", "secret");
 
         try {

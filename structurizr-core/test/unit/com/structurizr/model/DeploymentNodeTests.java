@@ -2,21 +2,21 @@ package com.structurizr.model;
 
 import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.util.MapUtils;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
 
     @Test
-    public void test_getCanonicalName_WhenTheDeploymentNodeHasNoParent() {
+    void test_getCanonicalName_WhenTheDeploymentNodeHasNoParent() {
         DeploymentNode deploymentNode = model.addDeploymentNode("Ubuntu Server", "", "");
 
         assertEquals("DeploymentNode://Default/Ubuntu Server", deploymentNode.getCanonicalName());
     }
 
     @Test
-    public void test_getCanonicalName_WhenTheDeploymentNodeHasAParent() {
+    void test_getCanonicalName_WhenTheDeploymentNodeHasAParent() {
         DeploymentNode l1 = model.addDeploymentNode("Level 1", "", "");
         DeploymentNode l2 = l1.addDeploymentNode("Level 2", "", "");
         DeploymentNode l3 = l2.addDeploymentNode("Level 3", "", "");
@@ -27,7 +27,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getParent_ReturnsTheParentDeploymentNode() {
+    void test_getParent_ReturnsTheParentDeploymentNode() {
         DeploymentNode parent = model.addDeploymentNode("Parent", "", "");
         assertNull(parent.getParent());
 
@@ -37,7 +37,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getRequiredTags() {
+    void test_getRequiredTags() {
         DeploymentNode deploymentNode = new DeploymentNode();
         assertEquals(2, deploymentNode.getDefaultTags().size());
         assertTrue(deploymentNode.getDefaultTags().contains(Tags.ELEMENT));
@@ -45,14 +45,14 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getTags() {
+    void test_getTags() {
         DeploymentNode deploymentNode = new DeploymentNode();
         deploymentNode.addTags("Tag 1", "Tag 2");
         assertEquals("Element,Deployment Node,Tag 1,Tag 2", deploymentNode.getTags());
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenASoftwareSystemIsNotSpecified() {
+    void test_add_ThrowsAnException_WhenASoftwareSystemIsNotSpecified() {
         try {
             DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
             deploymentNode.add((SoftwareSystem) null);
@@ -63,10 +63,10 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_ThrowsAnException_WhenAContainerIsNotSpecified() {
+    void test_add_ThrowsAnException_WhenAContainerIsNotSpecified() {
         try {
             DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
-            deploymentNode.add((Container)null);
+            deploymentNode.add((Container) null);
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A container must be specified.", iae.getMessage());
@@ -74,7 +74,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_add_AddsAContainerInstance_WhenAContainerIsSpecified() {
+    void test_add_AddsAContainerInstance_WhenAContainerIsSpecified() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         Container container = softwareSystem.addContainer("Container", "", "");
         DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "", "");
@@ -87,7 +87,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addDeploymentNode_ThrowsAnException_WhenANameIsNotSpecified() {
+    void test_addDeploymentNode_ThrowsAnException_WhenANameIsNotSpecified() {
         try {
             DeploymentNode parent = model.addDeploymentNode("Parent", "", "");
             parent.addDeploymentNode(null, "", "");
@@ -98,7 +98,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addDeploymentNode_AddsAChildDeploymentNode_WhenANameIsSpecified() {
+    void test_addDeploymentNode_AddsAChildDeploymentNode_WhenANameIsSpecified() {
         DeploymentNode parent = model.addDeploymentNode("Parent", "", "");
 
         DeploymentNode child = parent.addDeploymentNode("Child 1", "Description", "Technology");
@@ -134,10 +134,10 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_uses_ThrowsAnException_WhenANullDestinationIsSpecified() {
+    void test_uses_ThrowsAnException_WhenANullDestinationIsSpecified() {
         try {
             DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "", "");
-            deploymentNode.uses((DeploymentNode)null, "", "");
+            deploymentNode.uses((DeploymentNode) null, "", "");
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("The destination must be specified.", iae.getMessage());
@@ -145,7 +145,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_uses_AddsARelationship() {
+    void test_uses_AddsARelationship() {
         DeploymentNode primaryNode = model.addDeploymentNode("MySQL - Primary", "", "");
         DeploymentNode secondaryNode = model.addDeploymentNode("MySQL - Secondary", "", "");
         Relationship relationship = primaryNode.uses(secondaryNode, "Replicates data to", "Some technology");
@@ -158,7 +158,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getDeploymentNodeWithName_ThrowsAnException_WhenANameIsNotSpecified() {
+    void test_getDeploymentNodeWithName_ThrowsAnException_WhenANameIsNotSpecified() {
         try {
             DeploymentNode deploymentNode = new DeploymentNode();
             deploymentNode.getDeploymentNodeWithName(null);
@@ -169,33 +169,33 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getDeploymentNodeWithName_ReturnsNull_WhenThereIsNoDeploymentNodeWithTheSpecifiedName() {
+    void test_getDeploymentNodeWithName_ReturnsNull_WhenThereIsNoDeploymentNodeWithTheSpecifiedName() {
         DeploymentNode deploymentNode = new DeploymentNode();
         assertNull(deploymentNode.getDeploymentNodeWithName("foo"));
     }
 
     @Test
-    public void test_getDeploymentNodeWithName_ReturnsTheNamedDeploymentNode_WhenThereIsADeploymentNodeWithTheSpecifiedName() {
+    void test_getDeploymentNodeWithName_ReturnsTheNamedDeploymentNode_WhenThereIsADeploymentNodeWithTheSpecifiedName() {
         DeploymentNode parent = model.addDeploymentNode("parent", "", "");
         DeploymentNode child = parent.addDeploymentNode("child", "", "");
         assertSame(child, parent.getDeploymentNodeWithName("child"));
     }
 
     @Test
-    public void test_getInfrastructureNodeWithName_ReturnsNull_WhenThereIsNoInfrastructureNodeWithTheSpecifiedName() {
+    void test_getInfrastructureNodeWithName_ReturnsNull_WhenThereIsNoInfrastructureNodeWithTheSpecifiedName() {
         DeploymentNode deploymentNode = new DeploymentNode();
         assertNull(deploymentNode.getInfrastructureNodeWithName("foo"));
     }
 
     @Test
-    public void test_getInfrastructureNodeWithName_ReturnsTheNamedDeploymentNode_WhenThereIsAInfrastructureNodeWithTheSpecifiedName() {
+    void test_getInfrastructureNodeWithName_ReturnsTheNamedDeploymentNode_WhenThereIsAInfrastructureNodeWithTheSpecifiedName() {
         DeploymentNode parent = model.addDeploymentNode("parent", "", "");
         InfrastructureNode child = parent.addInfrastructureNode("child", "", "");
         assertSame(child, parent.getInfrastructureNodeWithName("child"));
     }
 
     @Test
-    public void test_setInstances() {
+    void test_setInstances() {
         DeploymentNode deploymentNode = new DeploymentNode();
         deploymentNode.setInstances(8);
 
@@ -203,7 +203,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_setInstances_ThrowsAnException_WhenZeroIsSpecified() {
+    void test_setInstances_ThrowsAnException_WhenZeroIsSpecified() {
         try {
             DeploymentNode deploymentNode = new DeploymentNode();
             deploymentNode.setInstances(0);
@@ -214,7 +214,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_setInstances_ThrowsAnException_WhenANegativeNumberIsSpecified() {
+    void test_setInstances_ThrowsAnException_WhenANegativeNumberIsSpecified() {
         try {
             DeploymentNode deploymentNode = new DeploymentNode();
             deploymentNode.setInstances(-1);

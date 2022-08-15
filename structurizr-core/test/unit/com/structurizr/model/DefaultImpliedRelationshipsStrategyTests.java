@@ -1,15 +1,15 @@
 package com.structurizr.model;
 
 import com.structurizr.AbstractWorkspaceTestBase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class DefaultImpliedRelationshipsStrategyTests extends AbstractWorkspaceTestBase {
 
     @Test
-    public void test_createImpliedRelationships_DoesNothing() {
+    void test_createImpliedRelationships_DoesNothing() {
         SoftwareSystem a = model.addSoftwareSystem("A", "");
         Container aa = a.addContainer("AA", "", "");
         Component aaa = aa.addComponent("AAA", "", "");

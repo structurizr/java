@@ -1,22 +1,21 @@
 package com.structurizr.view;
 
 import com.structurizr.AbstractWorkspaceTestBase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ConfigurationTests extends AbstractWorkspaceTestBase {
 
     @Test
-    public void test_defaultView_DoesNothing_WhenPassedNull() {
+    void test_defaultView_DoesNothing_WhenPassedNull() {
         Configuration configuration = new Configuration();
-        configuration.setDefaultView((View)null);
+        configuration.setDefaultView((View) null);
         assertNull(configuration.getDefaultView());
     }
 
     @Test
-    public void test_defaultView() {
+    void test_defaultView() {
         SystemLandscapeView view = views.createSystemLandscapeView("key", "Description");
         Configuration configuration = new Configuration();
         configuration.setDefaultView(view);
@@ -24,7 +23,7 @@ public class ConfigurationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_copyConfigurationFrom() {
+    void test_copyConfigurationFrom() {
         Configuration source = new Configuration();
         source.setLastSavedView("someKey");
 
@@ -34,34 +33,36 @@ public class ConfigurationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_setTheme_WithAUrl() {
+    void test_setTheme_WithAUrl() {
         Configuration configuration = new Configuration();
         configuration.setTheme("https://example.com/theme.json");
         assertEquals("https://example.com/theme.json", configuration.getTheme());
     }
 
     @Test
-    public void test_setTheme_WithAUrlThatHasATrailingSpace() {
+    void test_setTheme_WithAUrlThatHasATrailingSpace() {
         Configuration configuration = new Configuration();
         configuration.setTheme("https://example.com/theme.json ");
         assertEquals("https://example.com/theme.json", configuration.getTheme());
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void test_setTheme_ThrowsAnIllegalArgumentException_WhenAnInvalidUrlIsSpecified() {
-        Configuration configuration = new Configuration();
-        configuration.setTheme("htt://blah");
+    @Test
+    void test_setTheme_ThrowsAnIllegalArgumentException_WhenAnInvalidUrlIsSpecified() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Configuration configuration = new Configuration();
+            configuration.setTheme("htt://blah");
+        });
     }
 
     @Test
-    public void test_setTheme_DoesNothing_WhenANullUrlIsSpecified() {
+    void test_setTheme_DoesNothing_WhenANullUrlIsSpecified() {
         Configuration configuration = new Configuration();
         configuration.setTheme(null);
         assertNull(configuration.getTheme());
     }
 
     @Test
-    public void test_setTheme_DoesNothing_WhenAnEmptyUrlIsSpecified() {
+    void test_setTheme_DoesNothing_WhenAnEmptyUrlIsSpecified() {
         Configuration configuration = new Configuration();
         configuration.setTheme(" ");
         assertNull(configuration.getTheme());

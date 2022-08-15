@@ -1,37 +1,44 @@
 package com.structurizr.model;
 
 import com.structurizr.AbstractWorkspaceTestBase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
-import java.util.Set;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ModelTests extends AbstractWorkspaceTestBase {
 
-    @Test(expected = IllegalArgumentException.class)
-    public void test_addSoftwareSystem_ThrowsAnException_WhenANullNameIsSpecified() {
-        model.addSoftwareSystem(null, "");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void test_addSoftwareSystem_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
-        model.addSoftwareSystem(" ", "");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void test_addPerson_ThrowsAnException_WhenANullNameIsSpecified() {
-        model.addPerson(null, "");
-    }
-
-    @Test(expected = IllegalArgumentException.class)
-    public void test_addPerson_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
-        model.addPerson(" ", "");
+    @Test
+    void test_addSoftwareSystem_ThrowsAnException_WhenANullNameIsSpecified() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            model.addSoftwareSystem(null, "");
+        });
     }
 
     @Test
-    public void test_addSoftwareSystem_AddsTheSoftwareSystem_WhenASoftwareSystemDoesNotExistWithTheSameName() {
+    void test_addSoftwareSystem_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            model.addSoftwareSystem(" ", "");
+        });
+    }
+
+    @Test
+    void test_addPerson_ThrowsAnException_WhenANullNameIsSpecified() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            model.addPerson(null, "");
+        });
+    }
+
+    @Test
+    void test_addPerson_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            model.addPerson(" ", "");
+        });
+    }
+
+    @Test
+    void test_addSoftwareSystem_AddsTheSoftwareSystem_WhenASoftwareSystemDoesNotExistWithTheSameName() {
         assertTrue(model.getSoftwareSystems().isEmpty());
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "System A", "Some description");
         assertEquals(1, model.getSoftwareSystems().size());
@@ -44,7 +51,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addSoftwareSystem_ThrowsAnException_WhenASoftwareSystemExistsWithTheSameName() {
+    void test_addSoftwareSystem_ThrowsAnException_WhenASoftwareSystemExistsWithTheSameName() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "System A", "Some description");
         assertEquals(1, model.getSoftwareSystems().size());
 
@@ -57,7 +64,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addSoftwareSystemWithoutSpecifyingLocation_AddsTheSoftwareSystem_WhenASoftwareSystemDoesNotExistWithTheSameName() {
+    void test_addSoftwareSystemWithoutSpecifyingLocation_AddsTheSoftwareSystem_WhenASoftwareSystemDoesNotExistWithTheSameName() {
         assertTrue(model.getSoftwareSystems().isEmpty());
         SoftwareSystem softwareSystem = model.addSoftwareSystem("System A", "Some description");
         assertEquals(1, model.getSoftwareSystems().size());
@@ -70,7 +77,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addPerson_AddsThePerson_WhenAPersonDoesNotExistWithTheSameName() {
+    void test_addPerson_AddsThePerson_WhenAPersonDoesNotExistWithTheSameName() {
         assertTrue(model.getPeople().isEmpty());
         Person person = model.addPerson(Location.Internal, "Some internal user", "Some description");
         assertEquals(1, model.getPeople().size());
@@ -83,7 +90,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addPerson_ThrowsAnException_WhenAPersonExistsWithTheSameName() {
+    void test_addPerson_ThrowsAnException_WhenAPersonExistsWithTheSameName() {
         Person person = model.addPerson(Location.Internal, "Admin User", "Description");
         assertEquals(1, model.getPeople().size());
 
@@ -96,7 +103,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addPerson_AddsThePersonWithoutSpecifyingTheLocation_WhenAPersonDoesNotExistWithTheSameName() {
+    void test_addPerson_AddsThePersonWithoutSpecifyingTheLocation_WhenAPersonDoesNotExistWithTheSameName() {
         assertTrue(model.getPeople().isEmpty());
         Person person = model.addPerson("Some internal user", "Some description");
         assertEquals(1, model.getPeople().size());
@@ -109,42 +116,42 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getElement_ReturnsNull_WhenAnElementWithTheSpecifiedIdDoesNotExist() {
+    void test_getElement_ReturnsNull_WhenAnElementWithTheSpecifiedIdDoesNotExist() {
         assertNull(model.getElement("100"));
     }
 
     @Test
-    public void test_getElement_ReturnsAnElement_WhenAnElementWithTheSpecifiedIdDoesExist() {
+    void test_getElement_ReturnsAnElement_WhenAnElementWithTheSpecifiedIdDoesExist() {
         Person person = model.addPerson(Location.Internal, "Name", "Description");
         assertSame(person, model.getElement(person.getId()));
     }
 
     @Test
-    public void test_contains_ReturnsFalse_WhenTheSpecifiedElementIsNotInTheModel() {
+    void test_contains_ReturnsFalse_WhenTheSpecifiedElementIsNotInTheModel() {
         Model newModel = new Model();
         SoftwareSystem softwareSystem = newModel.addSoftwareSystem(Location.Unspecified, "Name", "Description");
         assertFalse(model.contains(softwareSystem));
     }
 
     @Test
-    public void test_contains_ReturnsTrue_WhenTheSpecifiedElementIsInTheModel() {
+    void test_contains_ReturnsTrue_WhenTheSpecifiedElementIsInTheModel() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Unspecified, "Name", "Description");
         assertTrue(model.contains(softwareSystem));
     }
 
     @Test
-    public void test_getSoftwareSystemWithName_ReturnsNull_WhenASoftwareSystemWithTheSpecifiedNameDoesNotExist() {
+    void test_getSoftwareSystemWithName_ReturnsNull_WhenASoftwareSystemWithTheSpecifiedNameDoesNotExist() {
         assertNull(model.getSoftwareSystemWithName("System X"));
     }
 
     @Test
-    public void test_getSoftwareSystemWithName_ReturnsASoftwareSystem_WhenASoftwareSystemWithTheSpecifiedNameExists() {
+    void test_getSoftwareSystemWithName_ReturnsASoftwareSystem_WhenASoftwareSystemWithTheSpecifiedNameExists() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "System A", "Description");
         assertSame(softwareSystem, model.getSoftwareSystemWithName("System A"));
     }
 
     @Test
-    public void test_getSoftwareSystemWithId_ThrowsAnException_WhenPassedANullId() {
+    void test_getSoftwareSystemWithId_ThrowsAnException_WhenPassedANullId() {
         try {
             model.getSoftwareSystemWithId(null);
             fail();
@@ -154,7 +161,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getSoftwareSystemWithId_ThrowsAnException_WhenPassedAnEmptyId() {
+    void test_getSoftwareSystemWithId_ThrowsAnException_WhenPassedAnEmptyId() {
         try {
             model.getSoftwareSystemWithId(" ");
             fail();
@@ -164,29 +171,29 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getSoftwareSystemWithId_ReturnsNull_WhenASoftwareSystemWithTheSpecifiedIdDoesNotExist() {
+    void test_getSoftwareSystemWithId_ReturnsNull_WhenASoftwareSystemWithTheSpecifiedIdDoesNotExist() {
         assertNull(model.getSoftwareSystemWithId("100"));
     }
 
     @Test
-    public void test_getSoftwareSystemWithId_ReturnsASoftwareSystem_WhenASoftwareSystemWithTheSpecifiedIdDoesExist() {
+    void test_getSoftwareSystemWithId_ReturnsASoftwareSystem_WhenASoftwareSystemWithTheSpecifiedIdDoesExist() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "System A", "Description");
         assertSame(softwareSystem, model.getSoftwareSystemWithId(softwareSystem.getId()));
     }
 
     @Test
-    public void test_getPersonWithName_ReturnsNull_WhenAPersonWithTheSpecifiedNameDoesNotExist() {
+    void test_getPersonWithName_ReturnsNull_WhenAPersonWithTheSpecifiedNameDoesNotExist() {
         assertNull(model.getPersonWithName("Admin User"));
     }
 
     @Test
-    public void test_getPersonWithName_ReturnsAPerson_WhenAPersonWithTheSpecifiedNameExists() {
+    void test_getPersonWithName_ReturnsAPerson_WhenAPersonWithTheSpecifiedNameExists() {
         Person person = model.addPerson(Location.External, "Admin User", "Description");
         assertSame(person, model.getPersonWithName("Admin User"));
     }
 
     @Test
-    public void test_getRelationship_ThrowsAnException_WhenPassedANullId() {
+    void test_getRelationship_ThrowsAnException_WhenPassedANullId() {
         try {
             model.getRelationship(null);
             fail();
@@ -196,7 +203,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getRelationship_ThrowsAnException_WhenPassedAnEmptyId() {
+    void test_getRelationship_ThrowsAnException_WhenPassedAnEmptyId() {
         try {
             model.getRelationship(" ");
             fail();
@@ -206,7 +213,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addRelationship_AddsARelationshipWithTheSpecifiedDescriptionAndTechnologyAndInteractionStyle() {
+    void test_addRelationship_AddsARelationshipWithTheSpecifiedDescriptionAndTechnologyAndInteractionStyle() {
         SoftwareSystem a = model.addSoftwareSystem("A", "");
         SoftwareSystem b = model.addSoftwareSystem("B", "");
         Relationship relationship = model.addRelationship(a, b, "Uses", "HTTPS", InteractionStyle.Asynchronous);
@@ -221,7 +228,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addRelationship_DisallowsTheSameRelationshipToBeAddedMoreThanOnce() {
+    void test_addRelationship_DisallowsTheSameRelationshipToBeAddedMoreThanOnce() {
         SoftwareSystem element1 = model.addSoftwareSystem("Element 1", "Description");
         SoftwareSystem element2 = model.addSoftwareSystem("Element 2", "Description");
         Relationship relationship1 = element1.uses(element2, "Uses", "");
@@ -232,7 +239,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addRelationship_AllowsMultipleRelationshipsBetweenElements() {
+    void test_addRelationship_AllowsMultipleRelationshipsBetweenElements() {
         SoftwareSystem element1 = model.addSoftwareSystem("Element 1", "Description");
         SoftwareSystem element2 = model.addSoftwareSystem("Element 2", "Description");
         Relationship relationship1 = element1.uses(element2, "Uses in some way", "");
@@ -243,7 +250,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addRelationship_ThrowsAnException_WhenTheDestinationIsAChildOfTheSource() {
+    void test_addRelationship_ThrowsAnException_WhenTheDestinationIsAChildOfTheSource() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         Container container = softwareSystem.addContainer("Container", "", "");
         Component component = container.addComponent("Component", "", "");
@@ -274,7 +281,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addRelationship_ThrowsAnException_WhenTheSourceIsAChildOfTheDestination() {
+    void test_addRelationship_ThrowsAnException_WhenTheSourceIsAChildOfTheDestination() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         Container container = softwareSystem.addContainer("Container", "", "");
         Component component = container.addComponent("Component", "", "");
@@ -305,7 +312,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_modifyRelationship_ThrowsAnException_WhenARelationshipIsNotSpecified() {
+    void test_modifyRelationship_ThrowsAnException_WhenARelationshipIsNotSpecified() {
         try {
             model.modifyRelationship(null, "Uses", "Technology");
             fail();
@@ -315,7 +322,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_modifyRelationship_ModifiesAnExistingRelationship_WhenThatRelationshipDoesNotAlreadyExist() {
+    void test_modifyRelationship_ModifiesAnExistingRelationship_WhenThatRelationshipDoesNotAlreadyExist() {
         SoftwareSystem element1 = model.addSoftwareSystem("Element 1", "Description");
         SoftwareSystem element2 = model.addSoftwareSystem("Element 2", "Description");
         Relationship relationship = element1.uses(element2, "", "");
@@ -326,7 +333,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_modifyRelationship_ThrowsAnException_WhenThatRelationshipDoesAlreadyExist() {
+    void test_modifyRelationship_ThrowsAnException_WhenThatRelationshipDoesAlreadyExist() {
         SoftwareSystem element1 = model.addSoftwareSystem("Element 1", "Description");
         SoftwareSystem element2 = model.addSoftwareSystem("Element 2", "Description");
         Relationship relationship = element1.uses(element2, "Uses", "Technology");
@@ -340,7 +347,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addSoftwareSystemInstance_ThrowsAnException_WhenANullSoftwareSystemIsSpecified() {
+    void test_addSoftwareSystemInstance_ThrowsAnException_WhenANullSoftwareSystemIsSpecified() {
         try {
             DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
             deploymentNode.add((SoftwareSystem) null);
@@ -351,10 +358,10 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addContainerInstance_ThrowsAnException_WhenANullContainerIsSpecified() {
+    void test_addContainerInstance_ThrowsAnException_WhenANullContainerIsSpecified() {
         try {
             DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
-            deploymentNode.add((Container)null);
+            deploymentNode.add((Container) null);
             fail();
         } catch (Exception e) {
             assertEquals("A container must be specified.", e.getMessage());
@@ -362,7 +369,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addDeploymentNode_AddsADeploymentNode_WhenADeploymentEnvironmentIsNotSpecified() {
+    void test_addDeploymentNode_AddsADeploymentNode_WhenADeploymentEnvironmentIsNotSpecified() {
         DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
 
         assertEquals("Deployment Node", deploymentNode.getName());
@@ -372,7 +379,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addDeploymentNode_AddsADeploymentNode_WhenADeploymentEnvironmentIsSpecified() {
+    void test_addDeploymentNode_AddsADeploymentNode_WhenADeploymentEnvironmentIsSpecified() {
         DeploymentNode deploymentNode = model.addDeploymentNode("Development", "Deployment Node", "Description", "Technology");
 
         assertEquals("Deployment Node", deploymentNode.getName());
@@ -382,7 +389,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addElementInstance_AddsElementInstancesAndReplicatesRelationshipsWithinTheDeploymentEnvironment() {
+    void test_addElementInstance_AddsElementInstancesAndReplicatesRelationshipsWithinTheDeploymentEnvironment() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
         Container container1 = softwareSystem1.addContainer("Container 1", "Description", "Technology");
 
@@ -440,7 +447,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addElementInstance_AddsElementInstancesAndReplicatesRelationshipsWithinTheDeploymentEnvironmentAndDefaultGroup() {
+    void test_addElementInstance_AddsElementInstancesAndReplicatesRelationshipsWithinTheDeploymentEnvironmentAndDefaultGroup() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System");
         Container api = softwareSystem1.addContainer("API");
         Container database = softwareSystem1.addContainer("Database");
@@ -474,7 +481,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addElementInstance_AddsElementInstancesAndReplicatesRelationshipsWithinTheDeploymentEnvironmentAndSpecifiedGroup() {
+    void test_addElementInstance_AddsElementInstancesAndReplicatesRelationshipsWithinTheDeploymentEnvironmentAndSpecifiedGroup() {
         // in this test, container instances are added to two deployment groups: "Instance 1" and "Instance 2"
         // relationships are not replicated between element instances in other groups
 
@@ -503,7 +510,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addElementInstance_AddsElementInstancesAndReplicatesRelationshipsWithinTheDeploymentEnvironmentAndSpecifiedGroups() {
+    void test_addElementInstance_AddsElementInstancesAndReplicatesRelationshipsWithinTheDeploymentEnvironmentAndSpecifiedGroups() {
         // in this test:
         // - API container instances are added to "Instance 1", "Instance 2" and "Shared"
         // - database container instances are added to "Instance 1" and "Instance 2"
@@ -543,7 +550,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getElement_ThrowsAnException_WhenANullIdIsSpecified() {
+    void test_getElement_ThrowsAnException_WhenANullIdIsSpecified() {
         try {
             model.getElement(null);
         } catch (IllegalArgumentException iae) {
@@ -552,7 +559,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getElement_ThrowsAnException_WhenAnEmptyIdIsSpecified() {
+    void test_getElement_ThrowsAnException_WhenAnEmptyIdIsSpecified() {
         try {
             model.getElement(" ");
         } catch (IllegalArgumentException iae) {
@@ -561,7 +568,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getElementWithCanonicalName_ThrowsAnException_WhenANullCanonicalNameIsSpecified() {
+    void test_getElementWithCanonicalName_ThrowsAnException_WhenANullCanonicalNameIsSpecified() {
         try {
             model.getElementWithCanonicalName(null);
         } catch (IllegalArgumentException iae) {
@@ -570,7 +577,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getElementWithCanonicalName_ThrowsAnException_WhenAnEmptyCanonicalNameIsSpecified() {
+    void test_getElementWithCanonicalName_ThrowsAnException_WhenAnEmptyCanonicalNameIsSpecified() {
         try {
             model.getElementWithCanonicalName(" ");
         } catch (IllegalArgumentException iae) {
@@ -579,12 +586,12 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getElementWithCanonicalName_ReturnsNull_WhenAnElementWithTheSpecifiedCanonicalNameDoesNotExist() {
+    void test_getElementWithCanonicalName_ReturnsNull_WhenAnElementWithTheSpecifiedCanonicalNameDoesNotExist() {
         assertNull(model.getElementWithCanonicalName("Software System"));
     }
 
     @Test
-    public void test_getElementWithCanonicalName_ReturnsTheElement_WhenAnElementWithTheSpecifiedCanonicalNameExists() {
+    void test_getElementWithCanonicalName_ReturnsTheElement_WhenAnElementWithTheSpecifiedCanonicalNameExists() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
         Container container = softwareSystem.addContainer("Web Application", "Description", "Technology");
 
@@ -593,7 +600,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addDeploymentNode_ThrowsAnException_WhenADeploymentNodeWithTheSameNameAlreadyExists() {
+    void test_addDeploymentNode_ThrowsAnException_WhenADeploymentNodeWithTheSameNameAlreadyExists() {
         model.addDeploymentNode("Amazon AWS", "Description", "Technology");
         try {
             model.addDeploymentNode("Amazon AWS", "Description", "Technology");
@@ -604,7 +611,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addDeploymentNode_ThrowsAnException_WhenAChildDeploymentNodeWithTheSameNameAlreadyExists() {
+    void test_addDeploymentNode_ThrowsAnException_WhenAChildDeploymentNodeWithTheSameNameAlreadyExists() {
         DeploymentNode deploymentNode = model.addDeploymentNode("Amazon Web Services");
         deploymentNode.addDeploymentNode("AWS Region");
         try {
@@ -616,7 +623,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addDeploymentNode_ThrowsAnException_WhenAChildInfrastructureNodeWithTheSameNameAlreadyExists() {
+    void test_addDeploymentNode_ThrowsAnException_WhenAChildInfrastructureNodeWithTheSameNameAlreadyExists() {
         DeploymentNode deploymentNode = model.addDeploymentNode("Amazon Web Services");
         deploymentNode.addInfrastructureNode("Node");
         try {
@@ -628,7 +635,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addInfrastructureNode_ThrowsAnException_WhenAChildDeploymentNodeWithTheSameNameAlreadyExists() {
+    void test_addInfrastructureNode_ThrowsAnException_WhenAChildDeploymentNodeWithTheSameNameAlreadyExists() {
         DeploymentNode deploymentNode = model.addDeploymentNode("Amazon Web Services");
         deploymentNode.addDeploymentNode("Node");
         try {
@@ -640,7 +647,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addInfrastructureNode_ThrowsAnException_WhenAChildInfrastructureNodeWithTheSameNameAlreadyExists() {
+    void test_addInfrastructureNode_ThrowsAnException_WhenAChildInfrastructureNodeWithTheSameNameAlreadyExists() {
         DeploymentNode deploymentNode = model.addDeploymentNode("Amazon Web Services");
         deploymentNode.addInfrastructureNode("Node");
         try {
@@ -652,7 +659,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_setIdGenerator_ThrowsAnException_WhenANullIdGeneratorIsSpecified() {
+    void test_setIdGenerator_ThrowsAnException_WhenANullIdGeneratorIsSpecified() {
         try {
             model.setIdGenerator(null);
             fail();
@@ -662,7 +669,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_hydrate() {
+    void test_hydrate() {
         Person person = new Person();
         person.setId("1");
         person.setName("Person");
@@ -742,7 +749,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_impliedRelationshipStrategy() {
+    void test_impliedRelationshipStrategy() {
         // default strategy initially
         assertTrue(model.getImpliedRelationshipsStrategy() instanceof DefaultImpliedRelationshipsStrategy);
 
@@ -751,7 +758,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_setImpliedRelationshipStrategy_ResetsToTheDefaultStrategy_WhenPassedNull() {
+    void test_setImpliedRelationshipStrategy_ResetsToTheDefaultStrategy_WhenPassedNull() {
         model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
         model.setImpliedRelationshipsStrategy(null);
 
@@ -759,7 +766,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addSoftwareSystemInstance_AllocatesInstanceIdsPerDeploymentNode() {
+    void test_addSoftwareSystemInstance_AllocatesInstanceIdsPerDeploymentNode() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         DeploymentNode deploymentNodeA = model.addDeploymentNode("Deployment Node A", "", "");
         DeploymentNode deploymentNodeB = model.addDeploymentNode("Deployment Node B", "", "");
@@ -775,7 +782,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addContainerInstance_AllocatesInstanceIdsPerDeploymentNode() {
+    void test_addContainerInstance_AllocatesInstanceIdsPerDeploymentNode() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         Container container = softwareSystem.addContainer("Container", "", "");
         DeploymentNode deploymentNodeA = model.addDeploymentNode("Deployment Node A", "", "");

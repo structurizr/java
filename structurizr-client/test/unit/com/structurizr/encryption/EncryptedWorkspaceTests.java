@@ -3,14 +3,12 @@ package com.structurizr.encryption;
 import com.structurizr.Workspace;
 import com.structurizr.configuration.Role;
 import com.structurizr.io.json.JsonWriter;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.io.StringWriter;
 
-import static junit.framework.TestCase.assertSame;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EncryptedWorkspaceTests {
 
@@ -18,7 +16,7 @@ public class EncryptedWorkspaceTests {
     private Workspace workspace;
     private EncryptionStrategy encryptionStrategy;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         workspace = new Workspace("Name", "Description");
         workspace.setVersion("1.2.3");
@@ -31,7 +29,7 @@ public class EncryptedWorkspaceTests {
     }
 
     @Test
-    public void test_construction_WhenTwoParametersAreSpecified() throws Exception {
+    void test_construction_WhenTwoParametersAreSpecified() throws Exception {
         encryptedWorkspace = new EncryptedWorkspace(workspace, encryptionStrategy);
 
         assertEquals("Name", encryptedWorkspace.getName());
@@ -55,7 +53,7 @@ public class EncryptedWorkspaceTests {
     }
 
     @Test
-    public void test_construction_WhenThreeParametersAreSpecified() throws Exception {
+    void test_construction_WhenThreeParametersAreSpecified() throws Exception {
         JsonWriter jsonWriter = new JsonWriter(false);
         StringWriter stringWriter = new StringWriter();
         jsonWriter.write(workspace, stringWriter);
@@ -77,7 +75,7 @@ public class EncryptedWorkspaceTests {
     }
 
     @Test
-    public void test_getPlaintext_ReturnsTheDecryptedVersionOfTheCiphertext() throws Exception {
+    void test_getPlaintext_ReturnsTheDecryptedVersionOfTheCiphertext() throws Exception {
         encryptedWorkspace = new EncryptedWorkspace(workspace, encryptionStrategy);
         String cipherText = encryptedWorkspace.getCiphertext();
 
@@ -89,7 +87,7 @@ public class EncryptedWorkspaceTests {
     }
 
     @Test
-    public void test_getWorkspace_ReturnsTheWorkspace_WhenACipherextIsSpecified() throws Exception {
+    void test_getWorkspace_ReturnsTheWorkspace_WhenACipherextIsSpecified() throws Exception {
         JsonWriter jsonWriter = new JsonWriter(false);
         StringWriter stringWriter = new StringWriter();
         jsonWriter.write(workspace, stringWriter);

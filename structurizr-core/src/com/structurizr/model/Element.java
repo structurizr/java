@@ -1,7 +1,6 @@
 package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.structurizr.util.Url;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

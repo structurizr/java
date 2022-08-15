@@ -2,12 +2,12 @@ package com.structurizr.view;
 
 import com.structurizr.Workspace;
 import com.structurizr.model.*;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Collections;
 import java.util.HashSet;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ViewSetTests {
 
@@ -28,7 +28,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createCustomView_ThrowsAnException_WhenANullKeyIsSpecified() {
+    void test_createCustomView_ThrowsAnException_WhenANullKeyIsSpecified() {
         try {
             new Workspace("", "").getViews().createCustomView(null, "Title", "Description");
             fail();
@@ -38,7 +38,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createCustomView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+    void test_createCustomView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
         try {
             new Workspace("", "").getViews().createCustomView(" ", "Title", "Description");
             fail();
@@ -48,7 +48,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createCustomView_ThrowsAnException_WhenADuplicateKeyIsSpecified() {
+    void test_createCustomView_ThrowsAnException_WhenADuplicateKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             workspace.getViews().createCustomView("key", "Title", "Description");
@@ -60,14 +60,14 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createCustomView_DoesNotThrowAnException_WhenUniqueKeysAreSpecified() {
+    void test_createCustomView_DoesNotThrowAnException_WhenUniqueKeysAreSpecified() {
         Workspace workspace = new Workspace("Name", "Description");
         workspace.getViews().createCustomView("key1", "Title", "Description");
         workspace.getViews().createCustomView("key2", "Title", "Description");
     }
 
     @Test
-    public void test_createCustomView() {
+    void test_createCustomView() {
         Workspace workspace = new Workspace("Name", "Description");
         CustomView customView = workspace.getViews().createCustomView("key", "Title", "Description");
         assertEquals("key", customView.getKey());
@@ -78,7 +78,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createSystemLandscapeView_ThrowsAnException_WhenANullKeyIsSpecified() {
+    void test_createSystemLandscapeView_ThrowsAnException_WhenANullKeyIsSpecified() {
         try {
             new Workspace("", "").getViews().createSystemLandscapeView(null, "Description");
             fail();
@@ -88,7 +88,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createSystemLandscapeView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+    void test_createSystemLandscapeView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
         try {
             new Workspace("", "").getViews().createSystemLandscapeView(" ", "Description");
             fail();
@@ -98,7 +98,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createSystemLandscapeView_ThrowsAnException_WhenADuplicateKeyIsSpecified() {
+    void test_createSystemLandscapeView_ThrowsAnException_WhenADuplicateKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             workspace.getViews().createSystemLandscapeView("key", "Description");
@@ -110,14 +110,14 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createSystemLandscapeView_DoesNotThrowAnException_WhenUniqueKeysAreSpecified() {
+    void test_createSystemLandscapeView_DoesNotThrowAnException_WhenUniqueKeysAreSpecified() {
         Workspace workspace = new Workspace("Name", "Description");
         workspace.getViews().createSystemLandscapeView("key1", "Description");
         workspace.getViews().createSystemLandscapeView("key2", "Description");
     }
 
     @Test
-    public void test_createSystemLandscapeView() {
+    void test_createSystemLandscapeView() {
         Workspace workspace = new Workspace("Name", "Description");
         SystemLandscapeView systemLandscapeView = workspace.getViews().createSystemLandscapeView("key", "Description");
         assertEquals("key", systemLandscapeView.getKey());
@@ -125,7 +125,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createSystemContextView_ThrowsAnException_WhenASoftwareSystemIsSpecified() {
+    void test_createSystemContextView_ThrowsAnException_WhenASoftwareSystemIsSpecified() {
         try {
             new Workspace("", "").getViews().createSystemContextView(null, null, "Description");
             fail();
@@ -135,7 +135,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createSystemContextView_ThrowsAnException_WhenANullKeyIsSpecified() {
+    void test_createSystemContextView_ThrowsAnException_WhenANullKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -147,7 +147,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createSystemContextView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+    void test_createSystemContextView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -159,7 +159,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createSystemContextView_ThrowsAnException_WhenADuplicateKeyIsSpecified() {
+    void test_createSystemContextView_ThrowsAnException_WhenADuplicateKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -172,7 +172,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createSystemContextView() {
+    void test_createSystemContextView() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
         SystemContextView systemContextView = workspace.getViews().createSystemContextView(softwareSystem, "key", "Description");
@@ -182,7 +182,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createContainerView_ThrowsAnException_WhenASoftwareSystemIsSpecified() {
+    void test_createContainerView_ThrowsAnException_WhenASoftwareSystemIsSpecified() {
         try {
             new Workspace("", "").getViews().createContainerView(null, null, "Description");
             fail();
@@ -192,7 +192,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createContainerView_ThrowsAnException_WhenANullKeyIsSpecified() {
+    void test_createContainerView_ThrowsAnException_WhenANullKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -204,7 +204,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createContainerView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+    void test_createContainerView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -216,7 +216,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createContainerView_ThrowsAnException_WhenADuplicateKeyIsSpecified() {
+    void test_createContainerView_ThrowsAnException_WhenADuplicateKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -229,7 +229,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createContainerView() {
+    void test_createContainerView() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
         ContainerView containerView = workspace.getViews().createContainerView(softwareSystem, "key", "Description");
@@ -239,7 +239,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createComponentView_ThrowsAnException_WhenASoftwareSystemIsSpecified() {
+    void test_createComponentView_ThrowsAnException_WhenASoftwareSystemIsSpecified() {
         try {
             new Workspace("", "").getViews().createComponentView(null, null, "Description");
             fail();
@@ -249,7 +249,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createComponentView_ThrowsAnException_WhenANullKeyIsSpecified() {
+    void test_createComponentView_ThrowsAnException_WhenANullKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -262,7 +262,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createComponentView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+    void test_createComponentView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -275,7 +275,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createComponentView_ThrowsAnException_WhenADuplicateKeyIsSpecified() {
+    void test_createComponentView_ThrowsAnException_WhenADuplicateKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -289,7 +289,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createComponentView() {
+    void test_createComponentView() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
@@ -299,9 +299,9 @@ public class ViewSetTests {
         assertSame(softwareSystem, componentView.getSoftwareSystem());
         assertSame(container, componentView.getContainer());
     }
-    
+
     @Test
-    public void test_createDynamicView_ThrowsAnException_WhenANullKeyIsSpecified() {
+    void test_createDynamicView_ThrowsAnException_WhenANullKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             workspace.getViews().createDynamicView(null, "Description");
@@ -312,7 +312,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDynamicView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+    void test_createDynamicView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             workspace.getViews().createDynamicView(" ", "Description");
@@ -323,7 +323,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDynamicView() {
+    void test_createDynamicView() {
         Workspace workspace = new Workspace("Name", "Description");
 
         DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
@@ -334,9 +334,9 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDynamicViewForASoftwareSystem_ThrowsAnException_WhenANullSoftwareSystemIsSpecified() {
+    void test_createDynamicViewForASoftwareSystem_ThrowsAnException_WhenANullSoftwareSystemIsSpecified() {
         try {
-            new Workspace("", "").getViews().createDynamicView((SoftwareSystem)null, "key", "Description");
+            new Workspace("", "").getViews().createDynamicView((SoftwareSystem) null, "key", "Description");
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A software system must be specified.", iae.getMessage());
@@ -344,7 +344,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDynamicViewForASoftwareSystem_ThrowsAnException_WhenANullKeyIsSpecified() {
+    void test_createDynamicViewForASoftwareSystem_ThrowsAnException_WhenANullKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -356,7 +356,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDynamicViewForASoftwareSystem_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+    void test_createDynamicViewForASoftwareSystem_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -368,7 +368,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDynamicViewForASoftwareSystem_ThrowsAnException_WhenADuplicateKeyIsUsed() {
+    void test_createDynamicViewForASoftwareSystem_ThrowsAnException_WhenADuplicateKeyIsUsed() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
 
@@ -382,7 +382,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDynamicViewForSoftwareSystem() {
+    void test_createDynamicViewForSoftwareSystem() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
 
@@ -394,9 +394,9 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDynamicViewForAContainer_ThrowsAnException_WhenANullContainerIsSpecified() {
+    void test_createDynamicViewForAContainer_ThrowsAnException_WhenANullContainerIsSpecified() {
         try {
-            new Workspace("", "").getViews().createDynamicView((Container)null, "key", "Description");
+            new Workspace("", "").getViews().createDynamicView((Container) null, "key", "Description");
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A container must be specified.", iae.getMessage());
@@ -404,7 +404,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDynamicViewForAContainer_ThrowsAnException_WhenANullKeyIsSpecified() {
+    void test_createDynamicViewForAContainer_ThrowsAnException_WhenANullKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -417,7 +417,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDynamicViewForAContainer_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+    void test_createDynamicViewForAContainer_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -430,7 +430,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDynamicViewForContainer() {
+    void test_createDynamicViewForContainer() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
@@ -443,7 +443,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDeploymentView_ThrowsAnException_WhenANullKeyIsSpecified() {
+    void test_createDeploymentView_ThrowsAnException_WhenANullKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             workspace.getViews().createDeploymentView(null, "Description");
@@ -454,7 +454,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDeploymentView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+    void test_createDeploymentView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             workspace.getViews().createDeploymentView(" ", "Description");
@@ -465,7 +465,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDeploymentView_ThrowsAnException_WhenADuplicateKeyIsUsed() {
+    void test_createDeploymentView_ThrowsAnException_WhenADuplicateKeyIsUsed() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
 
@@ -479,7 +479,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDeploymentView() {
+    void test_createDeploymentView() {
         Workspace workspace = new Workspace("Name", "Description");
 
         DeploymentView deploymentView = workspace.getViews().createDeploymentView("key", "Description");
@@ -489,9 +489,9 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDeploymentViewForASoftwareSystem_ThrowsAnException_WhenANullSoftwareSystemIsSpecified() {
+    void test_createDeploymentViewForASoftwareSystem_ThrowsAnException_WhenANullSoftwareSystemIsSpecified() {
         try {
-            new Workspace("", "").getViews().createDeploymentView((SoftwareSystem)null, "key", "Description");
+            new Workspace("", "").getViews().createDeploymentView((SoftwareSystem) null, "key", "Description");
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A software system must be specified.", iae.getMessage());
@@ -499,7 +499,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDeploymentViewForASoftwareSystem_ThrowsAnException_WhenANullKeyIsSpecified() {
+    void test_createDeploymentViewForASoftwareSystem_ThrowsAnException_WhenANullKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -511,7 +511,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDeploymentViewForASoftwareSystem_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+    void test_createDeploymentViewForASoftwareSystem_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -523,7 +523,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDeploymentViewForASoftwareSystem_ThrowsAnException_WhenADuplicateKeyIsUsed() {
+    void test_createDeploymentViewForASoftwareSystem_ThrowsAnException_WhenADuplicateKeyIsUsed() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
 
@@ -537,7 +537,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDeploymentViewForSoftwareSystem() {
+    void test_createDeploymentViewForSoftwareSystem() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name", "Description");
 
@@ -548,7 +548,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createFilteredView_ThrowsAnException_WhenANullViewIsSpecified() {
+    void test_createFilteredView_ThrowsAnException_WhenANullViewIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             workspace.getViews().createFilteredView(null, "key", "Description", FilterMode.Include, "tag1", "tag2");
@@ -559,7 +559,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createFilteredView_ThrowsAnException_WhenANullKeyIsSpecified() {
+    void test_createFilteredView_ThrowsAnException_WhenANullKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("systemLandscape", "Description");
@@ -571,7 +571,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createFilteredView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+    void test_createFilteredView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
             SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("systemLandscape", "Description");
@@ -583,7 +583,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createFilteredView_ThrowsAnException_WhenADuplicateKeyIsUsed() {
+    void test_createFilteredView_ThrowsAnException_WhenADuplicateKeyIsUsed() {
         Workspace workspace = new Workspace("Name", "Description");
         SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("systemLandscape", "Description");
         workspace.getViews().createFilteredView(view, "filtered", "Description", FilterMode.Include, "tag1", "tag2");
@@ -596,7 +596,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createFilteredView() {
+    void test_createFilteredView() {
         Workspace workspace = new Workspace("Name", "Description");
         SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("systemLandscape", "Description");
         FilteredView filteredView = workspace.getViews().createFilteredView(view, "key", "Description", FilterMode.Include, "tag1", "tag2");
@@ -610,7 +610,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_WhenAViewKeyIsNotSetButTheViewTitlesMatch() {
+    void test_copyLayoutInformationFrom_WhenAViewKeyIsNotSetButTheViewTitlesMatch() {
         Workspace workspace1 = createWorkspace();
         SoftwareSystem softwareSystem1 = workspace1.getModel().getSoftwareSystemWithName("Software System");
         SystemContextView view1 = workspace1.getViews().createSystemContextView(softwareSystem1, "context", "Description");
@@ -631,7 +631,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_WhenAViewKeyHasBeenIntroduced() {
+    void test_copyLayoutInformationFrom_WhenAViewKeyHasBeenIntroduced() {
         Workspace workspace1 = createWorkspace();
         SoftwareSystem softwareSystem1 = workspace1.getModel().getSoftwareSystemWithName("Software System");
         SystemContextView view1 = workspace1.getViews().createSystemContextView(softwareSystem1, "context", "Description");
@@ -651,7 +651,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_IgnoresThePaperSize_WhenThePaperSizeIsSet() {
+    void test_copyLayoutInformationFrom_IgnoresThePaperSize_WhenThePaperSizeIsSet() {
         Workspace workspace1 = createWorkspace();
         SoftwareSystem softwareSystem1 = workspace1.getModel().getSoftwareSystemWithName("Software System");
         SystemContextView view1 = workspace1.getViews().createSystemContextView(softwareSystem1, "context", "Description");
@@ -667,7 +667,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_CopiesThePaperSize_WhenThePaperSizeIsNotSet() {
+    void test_copyLayoutInformationFrom_CopiesThePaperSize_WhenThePaperSizeIsNotSet() {
         Workspace workspace1 = createWorkspace();
         SoftwareSystem softwareSystem1 = workspace1.getModel().getSoftwareSystemWithName("Software System");
         SystemContextView view1 = workspace1.getViews().createSystemContextView(softwareSystem1, "context", "Description");
@@ -682,7 +682,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_WhenTheSystemLandscapeViewKeysMatch() {
+    void test_copyLayoutInformationFrom_WhenTheSystemLandscapeViewKeysMatch() {
         Workspace workspace1 = createWorkspace();
         SoftwareSystem softwareSystem1 = workspace1.getModel().getSoftwareSystemWithName("Software System");
         SystemLandscapeView view1 = workspace1.getViews().createSystemLandscapeView("landscape", "Description");
@@ -701,7 +701,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_DoesNotDoAnythingIfThereIsNoSystemLandscapeViewToCopyInformationFrom() {
+    void test_copyLayoutInformationFrom_DoesNotDoAnythingIfThereIsNoSystemLandscapeViewToCopyInformationFrom() {
         Workspace workspace1 = createWorkspace();
 
         Workspace workspace2 = createWorkspace();
@@ -715,7 +715,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_WhenTheSystemContextViewKeysMatch() {
+    void test_copyLayoutInformationFrom_WhenTheSystemContextViewKeysMatch() {
         Workspace workspace1 = createWorkspace();
         SoftwareSystem softwareSystem1 = workspace1.getModel().getSoftwareSystemWithName("Software System");
         SystemContextView view1 = workspace1.getViews().createSystemContextView(softwareSystem1, "context", "Description");
@@ -734,7 +734,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_DoesNotDoAnythingIfThereIsNoSystemContextViewToCopyInformationFrom() {
+    void test_copyLayoutInformationFrom_DoesNotDoAnythingIfThereIsNoSystemContextViewToCopyInformationFrom() {
         Workspace workspace1 = createWorkspace();
 
         Workspace workspace2 = createWorkspace();
@@ -748,7 +748,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_WhenTheContainerViewKeysMatch() {
+    void test_copyLayoutInformationFrom_WhenTheContainerViewKeysMatch() {
         Workspace workspace1 = createWorkspace();
         SoftwareSystem softwareSystem1 = workspace1.getModel().getSoftwareSystemWithName("Software System");
         ContainerView view1 = workspace1.getViews().createContainerView(softwareSystem1, "containers", "Description");
@@ -767,7 +767,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_DoesNotDoAnythingIfThereIsNoContainerViewToCopyInformationFrom() {
+    void test_copyLayoutInformationFrom_DoesNotDoAnythingIfThereIsNoContainerViewToCopyInformationFrom() {
         Workspace workspace1 = createWorkspace();
 
         Workspace workspace2 = createWorkspace();
@@ -781,7 +781,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_WhenTheComponentViewKeysMatch() {
+    void test_copyLayoutInformationFrom_WhenTheComponentViewKeysMatch() {
         Workspace workspace1 = createWorkspace();
         Container container1 = workspace1.getModel().getSoftwareSystemWithName("Software System").getContainerWithName("Container");
         ComponentView view1 = workspace1.getViews().createComponentView(container1, "containers", "Description");
@@ -800,7 +800,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_DoesNotDoAnythingIfThereIsNoComponentViewToCopyInformationFrom() {
+    void test_copyLayoutInformationFrom_DoesNotDoAnythingIfThereIsNoComponentViewToCopyInformationFrom() {
         Workspace workspace1 = createWorkspace();
 
         Workspace workspace2 = createWorkspace();
@@ -814,7 +814,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_WhenTheDynamicViewKeysMatch() {
+    void test_copyLayoutInformationFrom_WhenTheDynamicViewKeysMatch() {
         Workspace workspace1 = createWorkspace();
         Person person1 = workspace1.getModel().getPersonWithName("Person");
         SoftwareSystem softwareSystem1 = workspace1.getModel().getSoftwareSystemWithName("Software System");
@@ -835,7 +835,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_DoesNotDoAnythingIfThereIsNoDynamicViewToCopyInformationFrom() {
+    void test_copyLayoutInformationFrom_DoesNotDoAnythingIfThereIsNoDynamicViewToCopyInformationFrom() {
         Workspace workspace1 = createWorkspace();
 
         Workspace workspace2 = createWorkspace();
@@ -850,7 +850,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_WhenTheDeploymentViewKeysMatch() {
+    void test_copyLayoutInformationFrom_WhenTheDeploymentViewKeysMatch() {
         Workspace workspace1 = createWorkspace();
         DeploymentNode deploymentNode1 = workspace1.getModel().getDeploymentNodeWithName("Deployment Node");
         DeploymentView view1 = workspace1.getViews().createDeploymentView("key", "Description");
@@ -871,7 +871,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_DoesNotDoAnythingIfThereIsNoDeploymentViewToCopyInformationFrom() {
+    void test_copyLayoutInformationFrom_DoesNotDoAnythingIfThereIsNoDeploymentViewToCopyInformationFrom() {
         Workspace workspace1 = createWorkspace();
 
         Workspace workspace2 = createWorkspace();
@@ -910,7 +910,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_hydrate() {
+    void test_hydrate() {
         Workspace workspace = new Workspace("Name", "Description");
         Model model = workspace.getModel();
         ViewSet views = workspace.getViews();
@@ -1004,7 +1004,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_setEnterpriseContextViews_IsSupportedForOlderWorkspaces() {
+    void test_setEnterpriseContextViews_IsSupportedForOlderWorkspaces() {
         ViewSet views = new Workspace("", "").getViews();
         SystemLandscapeView systemLandscapeView = views.createSystemLandscapeView("key", "Description");
         views.setEnterpriseContextViews(Collections.singleton(systemLandscapeView));
@@ -1013,7 +1013,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_createDefaultViews() {
+    void test_createDefaultViews() {
         Workspace workspace = new Workspace("Name", "Description");
         Model model = workspace.getModel();
         ViewSet views = workspace.getViews();
@@ -1075,7 +1075,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_DoesNothing_WhenMergeFromRemoteIsSetToFalse() {
+    void test_copyLayoutInformationFrom_DoesNothing_WhenMergeFromRemoteIsSetToFalse() {
         Workspace workspace1 = createWorkspace();
         SoftwareSystem softwareSystem1 = workspace1.getModel().getSoftwareSystemWithName("Software System");
         SystemLandscapeView view1 = workspace1.getViews().createSystemLandscapeView("landscape", "Description");
@@ -1095,7 +1095,7 @@ public class ViewSetTests {
     }
 
     @Test
-    public void test_view_ordering() {
+    void test_view_ordering() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System");
         Container container = softwareSystem.addContainer("Container");

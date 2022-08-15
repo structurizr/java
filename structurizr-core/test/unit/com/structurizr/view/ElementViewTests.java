@@ -3,21 +3,21 @@ package com.structurizr.view;
 import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.model.Element;
 import com.structurizr.model.Location;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ElementViewTests extends AbstractWorkspaceTestBase {
 
     @Test
-    public void test_copyLayoutInformationFrom_DoesNothing_WhenNullIsPassed() {
+    void test_copyLayoutInformationFrom_DoesNothing_WhenNullIsPassed() {
         Element element = model.addSoftwareSystem(Location.External, "SystemA", "");
         ElementView elementView = new ElementView(element);
         elementView.copyLayoutInformationFrom(null);
     }
 
     @Test
-    public void test_copyLayoutInformationFrom_CopiesXAndY_WhenANonNullElementViewIsPassed() {
+    void test_copyLayoutInformationFrom_CopiesXAndY_WhenANonNullElementViewIsPassed() {
         Element element = model.addSoftwareSystem(Location.External, "SystemA", "");
         ElementView elementView1 = new ElementView(element);
         assertEquals(0, elementView1.getX());

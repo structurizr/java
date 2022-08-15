@@ -1,9 +1,9 @@
 package com.structurizr.model;
 
 import com.structurizr.AbstractWorkspaceTestBase;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
 
@@ -11,7 +11,7 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     private DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
 
     @Test
-    public void test_construction() {
+    void test_construction() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         assertSame(softwareSystem, instance.getSoftwareSystem());
@@ -20,7 +20,7 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getSoftwareSystemId() {
+    void test_getSoftwareSystemId() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         assertEquals(softwareSystem.getId(), instance.getSoftwareSystemId());
@@ -30,7 +30,7 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getName_CannotBeChanged() {
+    void test_getName_CannotBeChanged() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         assertEquals("System", instance.getName());
@@ -40,28 +40,28 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getCanonicalName() {
+    void test_getCanonicalName() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         assertEquals("SoftwareSystemInstance://Default/Deployment Node/System[1]", instance.getCanonicalName());
     }
 
     @Test
-    public void test_getParent_ReturnsTheParentDeploymentNode() {
+    void test_getParent_ReturnsTheParentDeploymentNode() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         assertEquals(deploymentNode, instance.getParent());
     }
 
     @Test
-    public void test_getRequiredTags() {
+    void test_getRequiredTags() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         assertTrue(instance.getDefaultTags().isEmpty());
     }
 
     @Test
-    public void test_getTags() {
+    void test_getTags() {
         softwareSystem.addTags("Tag 1");
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
         instance.addTags("Primary Instance");
@@ -70,7 +70,7 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_removeTags_DoesNotRemoveAnyTags() {
+    void test_removeTags_DoesNotRemoveAnyTags() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         assertTrue(instance.getTags().contains(Tags.SOFTWARE_SYSTEM_INSTANCE));
@@ -81,7 +81,7 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addHealthCheck() {
+    void test_addHealthCheck() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
         assertTrue(instance.getHealthChecks().isEmpty());
 
@@ -94,7 +94,7 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addHealthCheck_ThrowsAnException_WhenTheNameIsNull() {
+    void test_addHealthCheck_ThrowsAnException_WhenTheNameIsNull() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         try {
@@ -106,7 +106,7 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addHealthCheck_ThrowsAnException_WhenTheNameIsEmpty() {
+    void test_addHealthCheck_ThrowsAnException_WhenTheNameIsEmpty() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         try {
@@ -118,7 +118,7 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsNull() {
+    void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsNull() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         try {
@@ -130,7 +130,7 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsEmpty() {
+    void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsEmpty() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         try {
@@ -142,7 +142,7 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsInvalid() {
+    void test_addHealthCheck_ThrowsAnException_WhenTheUrlIsInvalid() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         try {
@@ -154,7 +154,7 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addHealthCheck_ThrowsAnException_WhenTheIntervalIsLessThanZero() {
+    void test_addHealthCheck_ThrowsAnException_WhenTheIntervalIsLessThanZero() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         try {
@@ -166,7 +166,7 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_addHealthCheck_ThrowsAnException_WhenTheTimeoutIsLessThanZero() {
+    void test_addHealthCheck_ThrowsAnException_WhenTheTimeoutIsLessThanZero() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         try {
@@ -178,7 +178,7 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getDeploymentGroups_WhenNoGroupsHaveBeenSpecified() {
+    void test_getDeploymentGroups_WhenNoGroupsHaveBeenSpecified() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem);
 
         assertEquals(1, instance.getDeploymentGroups().size());
@@ -186,7 +186,7 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getDeploymentGroups_WhenOneGroupHasBeenSpecified() {
+    void test_getDeploymentGroups_WhenOneGroupHasBeenSpecified() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem, "Group 1");
 
         assertEquals(1, instance.getDeploymentGroups().size());
@@ -194,7 +194,7 @@ public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    public void test_getDeploymentGroups_WhenMultipleGroupsAreSpecified() {
+    void test_getDeploymentGroups_WhenMultipleGroupsAreSpecified() {
         SoftwareSystemInstance instance = deploymentNode.add(softwareSystem, "Group 1", "Group 2");
 
         assertEquals(2, instance.getDeploymentGroups().size());

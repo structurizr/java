@@ -1,13 +1,13 @@
 package com.structurizr.api;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ApiResponseTests {
 
     @Test
-    public void test_parse_createsAnApiErrorObjectWithTheSpecifiedErrorMessage() throws Exception {
+    void test_parse_createsAnApiErrorObjectWithTheSpecifiedErrorMessage() throws Exception {
         ApiResponse apiResponse = ApiResponse.parse("{\"message\": \"Hello\"}");
         assertEquals("Hello", apiResponse.getMessage());
     }

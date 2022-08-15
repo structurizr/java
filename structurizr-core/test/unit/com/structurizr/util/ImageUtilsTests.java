@@ -1,15 +1,15 @@
 package com.structurizr.util;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ImageUtilsTests {
 
     @Test
-    public void test_getContentType_ThrowsAnException_WhenANullFileIsSpecified() throws Exception {
+    void test_getContentType_ThrowsAnException_WhenANullFileIsSpecified() throws Exception {
         try {
             ImageUtils.getContentType(null);
             fail();
@@ -19,7 +19,7 @@ public class ImageUtilsTests {
     }
 
     @Test
-    public void test_getContentType_ThrowsAnException_WhenAFileIsSpecifiedButItIsNotAFile() throws Exception {
+    void test_getContentType_ThrowsAnException_WhenAFileIsSpecifiedButItIsNotAFile() throws Exception {
         try {
             ImageUtils.getContentType(new File("../structurizr-core"));
             fail();
@@ -30,7 +30,7 @@ public class ImageUtilsTests {
     }
 
     @Test
-    public void test_getContentType_ThrowsAnException_WhenAFileIsSpecifiedButItIsNotAnImage() throws Exception {
+    void test_getContentType_ThrowsAnException_WhenAFileIsSpecifiedButItIsNotAnImage() throws Exception {
         try {
             ImageUtils.getContentType(new File("../build.gradle"));
             fail();
@@ -41,7 +41,7 @@ public class ImageUtilsTests {
     }
 
     @Test
-    public void test_getContentType_ThrowsAnException_WhenAFileIsSpecifiedButItDoesNotExist() throws Exception {
+    void test_getContentType_ThrowsAnException_WhenAFileIsSpecifiedButItDoesNotExist() throws Exception {
         try {
             ImageUtils.getContentType(new File("./foo.xml"));
             fail();
@@ -51,13 +51,13 @@ public class ImageUtilsTests {
     }
 
     @Test
-    public void test_getContentType_ReturnsTheContentType_WhenAFileIsSpecified() throws Exception {
+    void test_getContentType_ReturnsTheContentType_WhenAFileIsSpecified() throws Exception {
         String contentType = ImageUtils.getContentType(new File("../structurizr-core/test/unit/com/structurizr/util/structurizr-logo.png"));
         assertEquals("image/png", contentType);
     }
 
     @Test
-    public void test_getImageAsBase64_ThrowsAnException_WhenANullFileIsSpecified() throws Exception {
+    void test_getImageAsBase64_ThrowsAnException_WhenANullFileIsSpecified() throws Exception {
         try {
             ImageUtils.getImageAsBase64(null);
             fail();
@@ -67,7 +67,7 @@ public class ImageUtilsTests {
     }
 
     @Test
-    public void test_getImageAsBase64_ThrowsAnException_WhenAFileIsSpecifiedButItIsNotAFile() throws Exception {
+    void test_getImageAsBase64_ThrowsAnException_WhenAFileIsSpecifiedButItIsNotAFile() throws Exception {
         try {
             ImageUtils.getImageAsBase64(new File("../structurizr-core"));
             fail();
@@ -78,7 +78,7 @@ public class ImageUtilsTests {
     }
 
     @Test
-    public void test_getImageAsBase64_ThrowsAnException_WhenAFileIsSpecifiedButItIsNotAnImage() throws Exception {
+    void test_getImageAsBase64_ThrowsAnException_WhenAFileIsSpecifiedButItIsNotAnImage() throws Exception {
         try {
             ImageUtils.getImageAsBase64(new File("../build.gradle"));
             fail();
@@ -89,7 +89,7 @@ public class ImageUtilsTests {
     }
 
     @Test
-    public void test_getImageAsBase64_ThrowsAnException_WhenAFileIsSpecifiedButItDoesNotExist() throws Exception {
+    void test_getImageAsBase64_ThrowsAnException_WhenAFileIsSpecifiedButItDoesNotExist() throws Exception {
         try {
             ImageUtils.getImageAsBase64(new File("./foo.xml"));
             fail();
@@ -99,13 +99,13 @@ public class ImageUtilsTests {
     }
 
     @Test
-    public void test_getImageAsBase64_ReturnsTheImageAsABase64EncodedString_WhenAFileIsSpecified() throws Exception {
+    void test_getImageAsBase64_ReturnsTheImageAsABase64EncodedString_WhenAFileIsSpecified() throws Exception {
         String imageAsBase64 = ImageUtils.getImageAsBase64(new File("../structurizr-core/test/unit/com/structurizr/util/structurizr-logo.png"));
         assertTrue(imageAsBase64.startsWith("iVBORw0KGgoAAAANSUhEUgAAAMQAAADECAYAAADApo5rAAA")); // the actual base64 encoded string varies between Java 8 and 9
     }
 
     @Test
-    public void test_getImageAsDataUri_ThrowsAnException_WhenANullFileIsSpecified() throws Exception {
+    void test_getImageAsDataUri_ThrowsAnException_WhenANullFileIsSpecified() throws Exception {
         try {
             ImageUtils.getImageAsDataUri(null);
             fail();
@@ -115,7 +115,7 @@ public class ImageUtilsTests {
     }
 
     @Test
-    public void test_getImageAsDataUri_ThrowsAnException_WhenAFileIsSpecifiedButItIsNotAFile() throws Exception {
+    void test_getImageAsDataUri_ThrowsAnException_WhenAFileIsSpecifiedButItIsNotAFile() throws Exception {
         try {
             ImageUtils.getImageAsDataUri(new File("../structurizr-core"));
             fail();
@@ -126,7 +126,7 @@ public class ImageUtilsTests {
     }
 
     @Test
-    public void test_getImageAsDataUri_ThrowsAnException_WhenAFileIsSpecifiedButItIsNotAnImage() throws Exception {
+    void test_getImageAsDataUri_ThrowsAnException_WhenAFileIsSpecifiedButItIsNotAnImage() throws Exception {
         try {
             ImageUtils.getImageAsDataUri(new File("../build.gradle"));
             fail();
@@ -137,7 +137,7 @@ public class ImageUtilsTests {
     }
 
     @Test
-    public void test_getImageAsDataUri_ThrowsAnException_WhenAFileIsSpecifiedButItDoesNotExist() throws Exception {
+    void test_getImageAsDataUri_ThrowsAnException_WhenAFileIsSpecifiedButItDoesNotExist() throws Exception {
         try {
             ImageUtils.getImageAsDataUri(new File("./foo.xml"));
             fail();
@@ -147,14 +147,14 @@ public class ImageUtilsTests {
     }
 
     @Test
-    public void test_getImageAsDataUri_ReturnsTheImageAsADataUri_WhenAFileIsSpecified() throws Exception {
+    void test_getImageAsDataUri_ReturnsTheImageAsADataUri_WhenAFileIsSpecified() throws Exception {
         String imageAsDataUri = ImageUtils.getImageAsDataUri(new File("../structurizr-core/test/unit/com/structurizr/util/structurizr-logo.png"));
         System.out.println(imageAsDataUri);
         assertTrue(imageAsDataUri.startsWith("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMQAAADECAYAAADA"));  // the actual base64 encoded string varies between Java 8 and 9
     }
 
     @Test
-    public void test_validateImage() {
+    void test_validateImage() {
         // allowed
         ImageUtils.validateImage("https://structurizr.com/image.png");
         ImageUtils.validateImage("data:image/png;base64,iVBORw0KGg");
@@ -170,7 +170,7 @@ public class ImageUtilsTests {
     }
 
     @Test
-    public void test_isSupportedDataUri() {
+    void test_isSupportedDataUri() {
         assertTrue(ImageUtils.isSupportedDataUri("data:image/png;base64,iVBORw0KGg"));
         assertTrue(ImageUtils.isSupportedDataUri("data:image/jpeg;base64,iVBORw0KGg"));
         assertFalse(ImageUtils.isSupportedDataUri("data:image/svg+xml;base64,iVBORw0KGg"));

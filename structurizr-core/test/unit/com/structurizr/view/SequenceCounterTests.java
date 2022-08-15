@@ -1,13 +1,13 @@
 package com.structurizr.view;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SequenceCounterTests {
 
     @Test
-    public void test_increment_IncrementsTheCounter_WhenThereIsNoParent() {
+    void test_increment_IncrementsTheCounter_WhenThereIsNoParent() {
         SequenceCounter counter = new SequenceCounter();
         assertEquals("0", counter.toString());
 
