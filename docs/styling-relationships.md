@@ -46,6 +46,3 @@ styles.addRelationshipStyle("JDBC").color("#0000ff");
 Structurizr will automatically add all relationship styles to a diagram key.
 
 ![The diagram key](images/styling-relationships-4.png)
-
-
-You can find the code for this example at [StylingRelationships.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/StylingRelationships.java) and the live example workspace at [https://structurizr.com/share/36131](https://structurizr.com/share/36131).

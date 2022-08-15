@@ -24,16 +24,15 @@ public static void main(String[] args) throws Exception {
 }
 ```
 
-The view can then be exported to be visualised using the [Structurizr cloud service/on-premises installation](https://structurizr.com), or other formats including PlantUML and WebSequenceDiagrams via the [Structurizr for Java extensions](https://github.com/structurizr/java-extensions).
+The view can then be exported to be visualised using the [Structurizr cloud service/on-premises installation](https://structurizr.com),
+or other formats including PlantUML, Mermaid, and WebSequenceDiagrams via the [structurizr-export library](https://github.com/structurizr/export).
 
-![Views can be exported and visualised in many ways; e.g. PlantUML, Structurizr and Graphviz](docs/images/readme-1.png)
+![Views can be exported and visualised via a number of tools](docs/images/readme-1.png)
 
 ## Table of contents
 
 * Introduction
     * [Getting started](docs/getting-started.md)
-    * [About Structurizr and how it compares to other tooling](https://structurizr.com/help/about)
-    * [Why use code?](https://structurizr.com/help/code)
     * [Basic concepts](https://structurizr.com/help/concepts) (workspaces, models, views and documentation)
     * [C4 model](https://c4model.com)
     * [Examples](https://github.com/structurizr/examples)
@@ -57,26 +56,16 @@ The view can then be exported to be visualised using the [Structurizr cloud serv
     * [Styling relationships](docs/styling-relationships.md)
     * [Filtered views](docs/filtered-views.md)
     * [Graphviz automatic layout](https://github.com/structurizr/java-extensions/blob/master/structurizr-graphviz)
-* Documentation
-    * [Documentation overview](docs/documentation.md)
-    * [Structurizr](docs/documentation-structurizr.md)
-    * [arc42](docs/documentation-arc42.md)
-    * [Viewpoints and Perspectives](docs/documentation-viewpoints-and-perspectives.md)
-    * [Automatic template](docs/documentation-automatic.md)
-    * [Architecture decision records](docs/decisions.md)
 * Other
-	* [HTTP-based health checks](docs/health-checks.md)
     * [Client-side encryption](docs/client-side-encryption.md)
-    * [Corporate branding](docs/corporate-branding.md)
 * Related projects
+    * [structurizr-dsl](https://github.com/structurizr/dsl): A text-based DSL for authoring Structurizr workspaces.
     * [java-quickstart](https://github.com/structurizr/java-quickstart): A simple starting point for using Structurizr for Java
-    * [java-extensions](https://github.com/structurizr/java-extensions): A collection of Structurizr for Java extensions; including the ability to extract software architecture information from code, export views to PlantUML, etc.
-    * [arch-as-code](https://github.com/nahknarmi/arch-as-code): A tool to store software architecture diagrams/documentation as YAML, and publish it to Structurizr.
+    * [structurizr-export](https://github.com/structurizr/export): Export model and views to external formats (e.g. PlantUML, Mermaid, etc).
+    * [structurizr-documentation](https://github.com/structurizr/documentation): Import Markdown/AsciiDoc documentation and ADRs into a Structurizr workspace.
+    * [java-extensions](https://github.com/structurizr/java-extensions): A collection of Structurizr for Java extensions; including the ability to extract software architecture information from code.
     * [structurizr-kotlin](https://github.com/Catalysts/structurizr-extensions/tree/master/structurizr-kotlin): An extension for Structurizr that lets you create your models in a fluent way.
     * [structurizr-spring-boot](https://github.com/Catalysts/structurizr-extensions/tree/master/structurizr-spring-boot): A way to apply dependency management to help modularise Structurizr code.
     * [structurizr-groovy](https://github.com/tidyjava/structurizr-groovy): An initial version of a Groovy wrapper around Structurizr for Java.
-    * [structurizr-dotnet](https://github.com/structurizr/dotnet): Structurizr for .NET
 * [changelog](docs/changelog.md)
-
-[![Build Status](https://travis-ci.org/structurizr/java.svg?branch=master)](https://travis-ci.org/structurizr/java)
 

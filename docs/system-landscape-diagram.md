@@ -10,4 +10,4 @@ As an example, a System Landscape diagram for a simplified, fictional bank might
 
 ![An example System Landscape diagram](images/system-landscape-diagram-1.png)
 
-See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/BigBankPlc.java) for the code, and [https://structurizr.com/share/36141#SystemLandscape](https://structurizr.com/share/36141#SystemLandscape) for the diagram.
+See [SystemLandscape.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/bigbankplc/SystemLandscape.java) for the code, and [https://structurizr.com/share/36141#SystemLandscape](https://structurizr.com/share/36141#SystemLandscape) for the diagram.

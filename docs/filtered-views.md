@@ -36,4 +36,4 @@ views.createFilteredView(systemLandscapeView, "FutureState", "The future state s
 
 In summary, you create a view with all of the elements and relationships that you want to show, and then create one or more filtered views on top, specifying the tags that you'd like to include or exclude.
 
-See [FilteredViews.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/FilteredViews.java) for the full code, and [https://structurizr.com/share/19911](https://structurizr.com/share/19911) for the diagram.
+See [FilteredViews.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/FilteredViews.java) for the full code, and [https://structurizr.com/share/19911](https://structurizr.com/share/19911) for the diagram.

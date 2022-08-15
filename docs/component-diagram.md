@@ -10,7 +10,7 @@ This is an example Component diagram for a fictional Internet Banking System, sh
 
 ![An example Component diagram](images/component-diagram-1.png)
 
-See [BigBankPlc.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/BigBankPlc.java) for the code, and [https://structurizr.com/share/36141#Components](https://structurizr.com/share/36141#Components) for the diagram.
+See [InternetBankingSystem.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/bigbankplc/InternetBankingSystem.java) for the code, and [https://structurizr.com/share/36141#Components](https://structurizr.com/share/36141#Components) for the diagram.
 
 ### Extracting components automatically
 

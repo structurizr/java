@@ -20,4 +20,4 @@ The default key size is 128 bits and the default iteration count is 1000. An alt
 
 In addition, a random salt and initialization vector are generated automatically for you, using Java's ```SecureRandom``` class.
 
-See [ClientSideEncryption.java](https://github.com/structurizr/java/blob/master/structurizr-examples/src/com/structurizr/example/ClientSideEncryption.java) for a full example, and [https://structurizr.com/share/41](https://structurizr.com/share/41) to access the workspace.
+See [ClientSideEncryption.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/ClientSideEncryption.java) for a full example, and [https://structurizr.com/share/41](https://structurizr.com/share/41) to access the workspace.
