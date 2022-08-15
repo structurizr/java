@@ -10,9 +10,15 @@ dependencies {
 
     implementation 'commons-logging:commons-logging:1.2'
 
-    testImplementation(platform('org.junit:junit-bom:5.9.0'))
-    testImplementation('org.junit.jupiter:junit-jupiter')
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.0'
+
 }
-test {
-    useJUnitPlatform()
+
+sourceSets {
+    test {
+        java {
+            srcDir 'test/unit'
+            srcDir 'test/integration'
+        }
+    }
 }
