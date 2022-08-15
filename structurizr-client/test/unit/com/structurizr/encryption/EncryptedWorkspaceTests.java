@@ -29,7 +29,7 @@ public class EncryptedWorkspaceTests {
     }
 
     @Test
-    void test_construction_WhenTwoParametersAreSpecified() throws Exception {
+    void construction_WhenTwoParametersAreSpecified() throws Exception {
         encryptedWorkspace = new EncryptedWorkspace(workspace, encryptionStrategy);
 
         assertEquals("Name", encryptedWorkspace.getName());
@@ -53,7 +53,7 @@ public class EncryptedWorkspaceTests {
     }
 
     @Test
-    void test_construction_WhenThreeParametersAreSpecified() throws Exception {
+    void construction_WhenThreeParametersAreSpecified() throws Exception {
         JsonWriter jsonWriter = new JsonWriter(false);
         StringWriter stringWriter = new StringWriter();
         jsonWriter.write(workspace, stringWriter);
@@ -75,7 +75,7 @@ public class EncryptedWorkspaceTests {
     }
 
     @Test
-    void test_getPlaintext_ReturnsTheDecryptedVersionOfTheCiphertext() throws Exception {
+    void getPlaintext_ReturnsTheDecryptedVersionOfTheCiphertext() throws Exception {
         encryptedWorkspace = new EncryptedWorkspace(workspace, encryptionStrategy);
         String cipherText = encryptedWorkspace.getCiphertext();
 
@@ -87,7 +87,7 @@ public class EncryptedWorkspaceTests {
     }
 
     @Test
-    void test_getWorkspace_ReturnsTheWorkspace_WhenACipherextIsSpecified() throws Exception {
+    void getWorkspace_ReturnsTheWorkspace_WhenACipherextIsSpecified() throws Exception {
         JsonWriter jsonWriter = new JsonWriter(false);
         StringWriter stringWriter = new StringWriter();
         jsonWriter.write(workspace, stringWriter);

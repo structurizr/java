@@ -11,7 +11,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     private Styles styles = new Styles();
 
     @Test
-    void test_findElementStyle_ReturnsTheDefaultStyle_WhenPassedNull() {
+    void findElementStyle_ReturnsTheDefaultStyle_WhenPassedNull() {
         ElementStyle style = styles.findElementStyle((Element) null);
         assertEquals(Integer.valueOf(450), style.getWidth());
         assertEquals(Integer.valueOf(300), style.getHeight());
@@ -28,7 +28,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_findElementStyle_ReturnsTheDefaultStyle_WhenNoStylesAreDefined() {
+    void findElementStyle_ReturnsTheDefaultStyle_WhenNoStylesAreDefined() {
         SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
         ElementStyle style = styles.findElementStyle(element);
         assertEquals(Integer.valueOf(450), style.getWidth());
@@ -46,7 +46,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_findElementStyle_ReturnsTheCorrectStyle_WhenStylesAreDefined() {
+    void findElementStyle_ReturnsTheCorrectStyle_WhenStylesAreDefined() {
         SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
         element.addTags("Some Tag");
 
@@ -69,7 +69,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_findElementStyle_ReturnsTheCorrectStyleForAnElementInstance_WhenStylesAreDefined() {
+    void findElementStyle_ReturnsTheCorrectStyleForAnElementInstance_WhenStylesAreDefined() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Name");
         softwareSystem.addTags("Some Tag");
 
@@ -95,7 +95,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_findElementStyle_ReturnsTheDefaultElementSize_WhenTheShapeIsABox() {
+    void findElementStyle_ReturnsTheDefaultElementSize_WhenTheShapeIsABox() {
         SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
         element.addTags("Some Tag");
 
@@ -109,7 +109,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_findElementStyle_ReturnsTheDefaultElementSize_WhenTheShapeIsAPerson() {
+    void findElementStyle_ReturnsTheDefaultElementSize_WhenTheShapeIsAPerson() {
         SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
         element.addTags("Some Tag");
 
@@ -123,7 +123,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_findRelationshipStyle_ReturnsTheDefaultStyle_WhenPassedNull() {
+    void findRelationshipStyle_ReturnsTheDefaultStyle_WhenPassedNull() {
         RelationshipStyle style = styles.findRelationshipStyle((Relationship) null);
         assertEquals(Integer.valueOf(2), style.getThickness());
         assertEquals("#707070", style.getColor());
@@ -136,7 +136,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_findRelationshipStyle_ReturnsTheDefaultStyle_WhenNoStylesAreDefined() {
+    void findRelationshipStyle_ReturnsTheDefaultStyle_WhenNoStylesAreDefined() {
         SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
         Relationship relationship = element.uses(element, "Uses");
         RelationshipStyle style = styles.findRelationshipStyle(relationship);
@@ -151,7 +151,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_findRelationshipStyle_ReturnsTheCorrectStyle_WhenStylesAreDefined() {
+    void findRelationshipStyle_ReturnsTheCorrectStyle_WhenStylesAreDefined() {
         SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
         Relationship relationship = element.uses(element, "Uses");
         relationship.addTags("Some Tag");
@@ -171,7 +171,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_findRelationshipStyle_ReturnsTheCorrectStyle_WhenThereIsALinkedRelationship() {
+    void findRelationshipStyle_ReturnsTheCorrectStyle_WhenThereIsALinkedRelationship() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
         Container container1 = softwareSystem.addContainer("Container 1", "Description", "Technology");
         Container container2 = softwareSystem.addContainer("Container 2", "Description", "Technology");
@@ -194,7 +194,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_findRelationshipStyle_ReturnsTheCorrectStyle_WhenThereIsALinkedRelationshipBasedUponAnImpliedRelationship() {
+    void findRelationshipStyle_ReturnsTheCorrectStyle_WhenThereIsALinkedRelationshipBasedUponAnImpliedRelationship() {
         model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
         Container container1 = softwareSystem.addContainer("Container 1");
@@ -220,7 +220,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addElementStyle_ThrowsAnException_WhenATagIsNotSpecified() {
+    void addElementStyle_ThrowsAnException_WhenATagIsNotSpecified() {
         try {
             styles.addElementStyle("");
             fail();
@@ -244,7 +244,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addElementStyleByTag_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
+    void addElementStyleByTag_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
         try {
             styles.addElementStyle(Tags.SOFTWARE_SYSTEM).color("#ff0000");
             styles.addElementStyle(Tags.SOFTWARE_SYSTEM).color("#ff0000");
@@ -256,7 +256,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addElementStyle_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
+    void addElementStyle_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
         try {
             ElementStyle style = styles.addElementStyle(Tags.SOFTWARE_SYSTEM).color("#ff0000");
             styles.add(style);
@@ -268,7 +268,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addRelationshipStyle_ThrowsAnException_WhenATagIsNotSpecified() {
+    void addRelationshipStyle_ThrowsAnException_WhenATagIsNotSpecified() {
         try {
             styles.addRelationshipStyle("");
             fail();
@@ -292,7 +292,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addRelationshipStyleByTag_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
+    void addRelationshipStyleByTag_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
         try {
             styles.addRelationshipStyle(Tags.RELATIONSHIP).color("#ff0000");
             styles.addRelationshipStyle(Tags.RELATIONSHIP).color("#ff0000");
@@ -304,7 +304,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addRelationshipStyle_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
+    void addRelationshipStyle_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
         try {
             RelationshipStyle style = styles.addRelationshipStyle(Tags.RELATIONSHIP).color("#ff0000");
             styles.add(style);
@@ -316,7 +316,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_clearElementStyles_RemovesAllElementStyles() {
+    void clearElementStyles_RemovesAllElementStyles() {
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).color("#ff0000");
         assertEquals(1, styles.getElements().size());
 
@@ -325,7 +325,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_clearRelationshipStyles_RemovesAllRelationshipStyles() {
+    void clearRelationshipStyles_RemovesAllRelationshipStyles() {
         styles.addRelationshipStyle(Tags.RELATIONSHIP).color("#ff0000");
         assertEquals(1, styles.getRelationships().size());
 

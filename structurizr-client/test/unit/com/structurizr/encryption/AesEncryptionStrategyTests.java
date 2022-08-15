@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AesEncryptionStrategyTests {
 
     @Test
-    void test_encrypt_EncryptsPlaintext() throws Exception {
+    void encrypt_EncryptsPlaintext() throws Exception {
         AesEncryptionStrategy strategy = new AesEncryptionStrategy(128, 1000, "06DC30A48ADEEE72D98E33C2CEAEAD3E", "ED124530AF64A5CAD8EF463CF5628434", "password");
 
         String ciphertext = strategy.encrypt("Hello world");
@@ -18,7 +18,7 @@ public class AesEncryptionStrategyTests {
     }
 
     @Test
-    void test_decrypt_decryptsTheCiphertext_WhenTheSameStrategyInstanceIsUsed() throws Exception {
+    void decrypt_decryptsTheCiphertext_WhenTheSameStrategyInstanceIsUsed() throws Exception {
         AesEncryptionStrategy strategy = new AesEncryptionStrategy(128, 1000, "password");
 
         String ciphertext = strategy.encrypt("Hello world");
@@ -26,7 +26,7 @@ public class AesEncryptionStrategyTests {
     }
 
     @Test
-    void test_decrypt_decryptsTheCiphertext_WhenTheSameConfigurationIsUsed() throws Exception {
+    void decrypt_decryptsTheCiphertext_WhenTheSameConfigurationIsUsed() throws Exception {
         AesEncryptionStrategy strategy = new AesEncryptionStrategy(128, 1000, "password");
 
         String ciphertext = strategy.encrypt("Hello world");
@@ -36,7 +36,7 @@ public class AesEncryptionStrategyTests {
     }
 
     @Test
-    void test_decrypt_doesNotDecryptTheCiphertext_WhenTheIncorrectKeySizeIsUsed() throws Exception {
+    void decrypt_doesNotDecryptTheCiphertext_WhenTheIncorrectKeySizeIsUsed() throws Exception {
         try {
             AesEncryptionStrategy strategy = new AesEncryptionStrategy(128, 1000, "password");
 
@@ -53,7 +53,7 @@ public class AesEncryptionStrategyTests {
     }
 
     @Test
-    void test_decrypt_doesNotDecryptTheCiphertext_WhenTheIncorrectIterationCountIsUsed() throws Exception {
+    void decrypt_doesNotDecryptTheCiphertext_WhenTheIncorrectIterationCountIsUsed() throws Exception {
         assertThrows(BadPaddingException.class, () -> {
             AesEncryptionStrategy strategy = new AesEncryptionStrategy(128, 1000, "password");
 
@@ -65,7 +65,7 @@ public class AesEncryptionStrategyTests {
     }
 
     @Test
-    void test_decrypt_doesNotDecryptTheCiphertext_WhenTheIncorrectSaltIsUsed() throws Exception {
+    void decrypt_doesNotDecryptTheCiphertext_WhenTheIncorrectSaltIsUsed() throws Exception {
         assertThrows(BadPaddingException.class, () -> {
             AesEncryptionStrategy strategy = new AesEncryptionStrategy(128, 1000, "password");
 
@@ -77,7 +77,7 @@ public class AesEncryptionStrategyTests {
     }
 
     @Test
-    void test_decrypt_doesNotDecryptTheCiphertext_WhenTheIncorrectIvIsUsed() throws Exception {
+    void decrypt_doesNotDecryptTheCiphertext_WhenTheIncorrectIvIsUsed() throws Exception {
         assertThrows(BadPaddingException.class, () -> {
             AesEncryptionStrategy strategy = new AesEncryptionStrategy(128, 1000, "password");
 
@@ -89,7 +89,7 @@ public class AesEncryptionStrategyTests {
     }
 
     @Test
-    void test_decrypt_doesNotDecryptTheCiphertext_WhenTheIncorrectPassphraseIsUsed() throws Exception {
+    void decrypt_doesNotDecryptTheCiphertext_WhenTheIncorrectPassphraseIsUsed() throws Exception {
         assertThrows(BadPaddingException.class, () -> {
             AesEncryptionStrategy strategy = new AesEncryptionStrategy(128, 1000, "password");
 

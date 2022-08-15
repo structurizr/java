@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class WorkspaceUtilsTests {
 
     @Test
-    void test_loadWorkspaceFromJson_ThrowsAnException_WhenANullFileIsSpecified() {
+    void loadWorkspaceFromJson_ThrowsAnException_WhenANullFileIsSpecified() {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(null);
             fail();
@@ -21,7 +21,7 @@ public class WorkspaceUtilsTests {
     }
 
     @Test
-    void test_loadWorkspaceFromJson_ThrowsAnException_WhenTheFileDoesNotExist() {
+    void loadWorkspaceFromJson_ThrowsAnException_WhenTheFileDoesNotExist() {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File("test/unit/com/structurizr/util/other-workspace.json"));
             fail();
@@ -31,7 +31,7 @@ public class WorkspaceUtilsTests {
     }
 
     @Test
-    void test_saveWorkspaceToJson_ThrowsAnException_WhenANullWorkspaceIsSpecified() {
+    void saveWorkspaceToJson_ThrowsAnException_WhenANullWorkspaceIsSpecified() {
         try {
             WorkspaceUtils.saveWorkspaceToJson(null, null);
             fail();
@@ -41,7 +41,7 @@ public class WorkspaceUtilsTests {
     }
 
     @Test
-    void test_saveWorkspaceToJson_ThrowsAnException_WhenANullFileIsSpecified() {
+    void saveWorkspaceToJson_ThrowsAnException_WhenANullFileIsSpecified() {
         try {
             WorkspaceUtils.saveWorkspaceToJson(new Workspace("Name", "Description"), null);
             fail();
@@ -51,7 +51,7 @@ public class WorkspaceUtilsTests {
     }
 
     @Test
-    void test_saveWorkspaceToJson_and_loadWorkspaceFromJson() throws Exception {
+    void saveWorkspaceToJson_and_loadWorkspaceFromJson() throws Exception {
         File file = new File("build/workspace-utils.json");
         Workspace workspace = new Workspace("Name", "Description");
         WorkspaceUtils.saveWorkspaceToJson(workspace, file);
@@ -61,7 +61,7 @@ public class WorkspaceUtilsTests {
     }
 
     @Test
-    void test_toJson_ThrowsAnException_WhenANullWorkspaceIsProvided() throws Exception {
+    void toJson_ThrowsAnException_WhenANullWorkspaceIsProvided() throws Exception {
         try {
             WorkspaceUtils.toJson(null, true);
             fail();
@@ -71,7 +71,7 @@ public class WorkspaceUtilsTests {
     }
 
     @Test
-    void test_toJson() throws Exception {
+    void toJson() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
         String indentedOutput = WorkspaceUtils.toJson(workspace, true);
         String unindentedOutput = WorkspaceUtils.toJson(workspace, false);
@@ -95,7 +95,7 @@ public class WorkspaceUtilsTests {
     }
 
     @Test
-    void test_fromJson_ThrowsAnException_WhenANullJsonStringIsProvided() throws Exception {
+    void fromJson_ThrowsAnException_WhenANullJsonStringIsProvided() throws Exception {
         try {
             WorkspaceUtils.fromJson(null);
             fail();
@@ -105,7 +105,7 @@ public class WorkspaceUtilsTests {
     }
 
     @Test
-    void test_fromJson_ThrowsAnException_WhenAnEmptyJsonStringIsProvided() throws Exception {
+    void fromJson_ThrowsAnException_WhenAnEmptyJsonStringIsProvided() throws Exception {
         try {
             WorkspaceUtils.fromJson(" ");
             fail();
@@ -115,7 +115,7 @@ public class WorkspaceUtilsTests {
     }
 
     @Test
-    void test_fromJson() throws Exception {
+    void fromJson() throws Exception {
         Workspace workspace = WorkspaceUtils.fromJson("{\"id\":0,\"name\":\"Name\",\"description\":\"Description\",\"model\":{},\"documentation\":{},\"views\":{\"configuration\":{\"branding\":{},\"styles\":{},\"terminology\":{}}}}");
         assertEquals("Name", workspace.getName());
         assertEquals("Description", workspace.getDescription());

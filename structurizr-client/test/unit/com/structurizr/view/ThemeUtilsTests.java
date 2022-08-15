@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ThemeUtilsTests {
 
     @Test
-    void test_loadThemes_DoesNothingWhenNoThemesAreDefined() throws Exception {
+    void loadThemes_DoesNothingWhenNoThemesAreDefined() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
         ThemeUtils.loadThemes(workspace);
 
@@ -23,7 +23,7 @@ public class ThemeUtilsTests {
     }
 
     @Test
-    void test_loadThemes_LoadsThemesWhenThemesAreDefined() throws Exception {
+    void loadThemes_LoadsThemesWhenThemesAreDefined() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
         softwareSystem.addTags("Amazon Web Services - Alexa For Business");
@@ -43,7 +43,7 @@ public class ThemeUtilsTests {
     }
 
     @Test
-    void test_toJson() throws Exception {
+    void toJson() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
         assertEquals("{\n" +
                 "  \"name\" : \"Name\",\n" +
@@ -67,7 +67,7 @@ public class ThemeUtilsTests {
     }
 
     @Test
-    void test_findElementStyle_WithThemes() {
+    void findElementStyle_WithThemes() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
         workspace.getViews().getConfiguration().getStyles().addElementStyle("Element").shape(Shape.RoundedBox);
@@ -100,7 +100,7 @@ public class ThemeUtilsTests {
     }
 
     @Test
-    void test_findRelationshipStyle_WithThemes() {
+    void findRelationshipStyle_WithThemes() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
         Relationship relationship = softwareSystem.uses(softwareSystem, "Uses");

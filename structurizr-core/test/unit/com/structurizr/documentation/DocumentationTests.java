@@ -16,7 +16,7 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addSection_ThrowsAnException_WhenTheTitleIsNotSpecified() {
+    void addSection_ThrowsAnException_WhenTheTitleIsNotSpecified() {
         try {
             Section section = new Section();
 
@@ -28,7 +28,7 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addSection_ThrowsAnException_WhenTheContentIsNotSpecified() {
+    void addSection_ThrowsAnException_WhenTheContentIsNotSpecified() {
         try {
             Section section = new Section();
             section.setTitle("Title");
@@ -41,7 +41,7 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addSection_ThrowsAnException_WhenTheFormatIsNotSpecified() {
+    void addSection_ThrowsAnException_WhenTheFormatIsNotSpecified() {
         try {
             Section section = new Section();
             section.setTitle("Title");
@@ -55,7 +55,7 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addSection_ThrowsAnException_WhenASectionExistsWithTheSameTitle() {
+    void addSection_ThrowsAnException_WhenASectionExistsWithTheSameTitle() {
         try {
             Section section = new Section();
             section.setTitle("Title");
@@ -71,7 +71,7 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addSection() {
+    void addSection() {
         Section section = new Section();
         section.setTitle("Title");
         section.setContent("Content");
@@ -88,7 +88,7 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addSection_IncrementsTheSectionOrderNumber() {
+    void addSection_IncrementsTheSectionOrderNumber() {
         Section section1 = new Section("Title 1", Format.Markdown, "Content");
         Section section2 = new Section("Title 2", Format.Markdown, "Content");
         Section section3 = new Section("Title 3", Format.Markdown, "Content");
@@ -103,7 +103,7 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addDecision_ThrowsAnException_WhenTheTitleIsNotSpecified() {
+    void addDecision_ThrowsAnException_WhenTheTitleIsNotSpecified() {
         try {
             Decision decision = new Decision("1");
 
@@ -115,7 +115,7 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addDecision_ThrowsAnException_WhenTheContentIsNotSpecified() {
+    void addDecision_ThrowsAnException_WhenTheContentIsNotSpecified() {
         try {
             Decision decision = new Decision("1");
             decision.setTitle("Title");
@@ -128,7 +128,7 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addDecision_ThrowsAnException_WhenTheStatusIsNotSpecified() {
+    void addDecision_ThrowsAnException_WhenTheStatusIsNotSpecified() {
         try {
             Decision decision = new Decision("1");
             decision.setTitle("Title");
@@ -142,7 +142,7 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addDecision_ThrowsAnException_WhenTheFormatIsNotSpecified() {
+    void addDecision_ThrowsAnException_WhenTheFormatIsNotSpecified() {
         try {
             Decision decision = new Decision("1");
             decision.setTitle("Title");
@@ -157,7 +157,7 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addDecision_ThrowsAnException_WhenADecisionExistsWithTheSameId() {
+    void addDecision_ThrowsAnException_WhenADecisionExistsWithTheSameId() {
         try {
             Decision decision = new Decision("1");
             decision.setTitle("Title");

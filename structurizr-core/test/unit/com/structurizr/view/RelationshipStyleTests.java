@@ -12,25 +12,25 @@ public class RelationshipStyleTests {
     private RelationshipStyle relationshipStyle = new RelationshipStyle("tag");
 
     @Test
-    void test_setPosition_SetsPositionToNull_WhenNullIsSpecified() {
+    void setPosition_SetsPositionToNull_WhenNullIsSpecified() {
         relationshipStyle.setPosition(null);
         assertNull(relationshipStyle.getPosition());
     }
 
     @Test
-    void test_setPosition_SetsPositionToZero_WhenANegativeNumberIsSpecified() {
+    void setPosition_SetsPositionToZero_WhenANegativeNumberIsSpecified() {
         relationshipStyle.setPosition(-1);
         assertEquals(Integer.valueOf(0), relationshipStyle.getPosition());
     }
 
     @Test
-    void test_setPosition_SetsPositionToOneHundred_WhenANumberGreaterThanOneHundredIsSpecified() {
+    void setPosition_SetsPositionToOneHundred_WhenANumberGreaterThanOneHundredIsSpecified() {
         relationshipStyle.setPosition(101);
         assertEquals(Integer.valueOf(100), relationshipStyle.getPosition());
     }
 
     @Test
-    void test_setPosition_SetsPosition_WhenANumberBetweenZeroAndOneHundredIsSpecified() {
+    void setPosition_SetsPosition_WhenANumberBetweenZeroAndOneHundredIsSpecified() {
         relationshipStyle.setPosition(0);
         assertEquals(Integer.valueOf(0), relationshipStyle.getPosition());
 
@@ -49,7 +49,7 @@ public class RelationshipStyleTests {
     }
 
     @Test
-    void test_setOpacity() {
+    void setOpacity() {
         RelationshipStyle style = new RelationshipStyle();
         assertNull(style.getOpacity());
 
@@ -70,7 +70,7 @@ public class RelationshipStyleTests {
     }
 
     @Test
-    void test_opacity() {
+    void opacity() {
         RelationshipStyle style = new RelationshipStyle();
         assertNull(style.getOpacity());
 
@@ -91,7 +91,7 @@ public class RelationshipStyleTests {
     }
 
     @Test
-    void test_setColor_SetsTheColorProperty_WhenAValidHexColorCodeIsSpecified() {
+    void setColor_SetsTheColorProperty_WhenAValidHexColorCodeIsSpecified() {
         RelationshipStyle style = new RelationshipStyle();
         style.setColor("#ffffff");
         assertEquals("#ffffff", style.getColor());
@@ -104,7 +104,7 @@ public class RelationshipStyleTests {
     }
 
     @Test
-    void test_color_SetsTheColorProperty_WhenAValidHexColorCodeIsSpecified() {
+    void color_SetsTheColorProperty_WhenAValidHexColorCodeIsSpecified() {
         RelationshipStyle style = new RelationshipStyle();
         style.color("#ffffff");
         assertEquals("#ffffff", style.getColor());
@@ -117,7 +117,7 @@ public class RelationshipStyleTests {
     }
 
     @Test
-    void test_setColor_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
+    void setColor_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             RelationshipStyle style = new RelationshipStyle();
             style.setColor("white");
@@ -125,7 +125,7 @@ public class RelationshipStyleTests {
     }
 
     @Test
-    void test_color_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
+    void color_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             RelationshipStyle style = new RelationshipStyle();
             style.color("white");
@@ -133,13 +133,13 @@ public class RelationshipStyleTests {
     }
 
     @Test
-    void test_getProperties_ReturnsAnEmptyList_WhenNoPropertiesHaveBeenAdded() {
+    void getProperties_ReturnsAnEmptyList_WhenNoPropertiesHaveBeenAdded() {
         RelationshipStyle style = new RelationshipStyle();
         assertEquals(0, style.getProperties().size());
     }
 
     @Test
-    void test_addProperty_ThrowsAnException_WhenTheNameIsNull() {
+    void addProperty_ThrowsAnException_WhenTheNameIsNull() {
         try {
             RelationshipStyle style = new RelationshipStyle();
             style.addProperty(null, "value");
@@ -150,7 +150,7 @@ public class RelationshipStyleTests {
     }
 
     @Test
-    void test_addProperty_ThrowsAnException_WhenTheNameIsEmpty() {
+    void addProperty_ThrowsAnException_WhenTheNameIsEmpty() {
         try {
             RelationshipStyle style = new RelationshipStyle();
             style.addProperty(" ", "value");
@@ -161,7 +161,7 @@ public class RelationshipStyleTests {
     }
 
     @Test
-    void test_addProperty_ThrowsAnException_WhenTheValueIsNull() {
+    void addProperty_ThrowsAnException_WhenTheValueIsNull() {
         try {
             RelationshipStyle style = new RelationshipStyle();
             style.addProperty("name", null);
@@ -172,7 +172,7 @@ public class RelationshipStyleTests {
     }
 
     @Test
-    void test_addProperty_ThrowsAnException_WhenTheValueIsEmpty() {
+    void addProperty_ThrowsAnException_WhenTheValueIsEmpty() {
         try {
             RelationshipStyle style = new RelationshipStyle();
             style.addProperty("name", " ");
@@ -183,21 +183,21 @@ public class RelationshipStyleTests {
     }
 
     @Test
-    void test_addProperty_AddsTheProperty_WhenANameAndValueAreSpecified() {
+    void addProperty_AddsTheProperty_WhenANameAndValueAreSpecified() {
         RelationshipStyle style = new RelationshipStyle();
         style.addProperty("name", "value");
         assertEquals("value", style.getProperties().get("name"));
     }
 
     @Test
-    void test_setProperties_DoesNothing_WhenNullIsSpecified() {
+    void setProperties_DoesNothing_WhenNullIsSpecified() {
         RelationshipStyle style = new RelationshipStyle();
         style.setProperties(null);
         assertEquals(0, style.getProperties().size());
     }
 
     @Test
-    void test_setProperties_SetsTheProperties_WhenANonEmptyMapIsSpecified() {
+    void setProperties_SetsTheProperties_WhenANonEmptyMapIsSpecified() {
         RelationshipStyle style = new RelationshipStyle();
         Map<String, String> properties = new HashMap<>();
         properties.put("name", "value");

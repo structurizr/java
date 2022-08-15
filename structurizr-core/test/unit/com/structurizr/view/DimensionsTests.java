@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class DimensionsTests {
 
     @Test
-    void test_construction() {
+    void construction() {
         Dimensions dimensions = new Dimensions(123, 456);
 
         assertEquals(123, dimensions.getWidth());
@@ -16,7 +16,7 @@ public class DimensionsTests {
     }
 
     @Test
-    void test_setWidth_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
+    void setWidth_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
         try {
             Dimensions dimensions = new Dimensions();
             dimensions.setWidth(-100);
@@ -27,7 +27,7 @@ public class DimensionsTests {
     }
 
     @Test
-    void test_setHeight_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
+    void setHeight_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
         try {
             Dimensions dimensions = new Dimensions();
             dimensions.setHeight(-100);

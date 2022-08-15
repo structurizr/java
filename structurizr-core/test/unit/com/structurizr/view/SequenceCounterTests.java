@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SequenceCounterTests {
 
     @Test
-    void test_increment_IncrementsTheCounter_WhenThereIsNoParent() {
+    void increment_IncrementsTheCounter_WhenThereIsNoParent() {
         SequenceCounter counter = new SequenceCounter();
         assertEquals("0", counter.toString());
 

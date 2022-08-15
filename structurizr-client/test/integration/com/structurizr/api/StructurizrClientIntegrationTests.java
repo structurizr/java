@@ -51,7 +51,7 @@ public class StructurizrClientIntegrationTests {
     }
 
     @Test
-    void test_putAndGetWorkspace_WithoutEncryption() throws Exception {
+    void putAndGetWorkspace_WithoutEncryption() throws Exception {
         Workspace workspace = new Workspace("Structurizr client library tests - without encryption", "A test workspace for the Structurizr client library");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
         Person person = workspace.getModel().addPerson("Person", "Description");
@@ -77,7 +77,7 @@ public class StructurizrClientIntegrationTests {
     }
 
     @Test
-    void test_putAndGetWorkspace_WithEncryption() throws Exception {
+    void putAndGetWorkspace_WithEncryption() throws Exception {
         structurizrClient.setEncryptionStrategy(new AesEncryptionStrategy("password"));
         Workspace workspace = new Workspace("Structurizr client library tests - with encryption", "A test workspace for the Structurizr client library");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -104,14 +104,14 @@ public class StructurizrClientIntegrationTests {
     }
 
     @Test
-    void test_lockWorkspace() throws Exception {
+    void lockWorkspace() throws Exception {
         structurizrClient.unlockWorkspace(20081);
         assertTrue(structurizrClient.lockWorkspace(20081));
     }
 
 
     @Test
-    void test_unlockWorkspace() throws Exception {
+    void unlockWorkspace() throws Exception {
         structurizrClient.lockWorkspace(20081);
         assertTrue(structurizrClient.unlockWorkspace(20081));
     }

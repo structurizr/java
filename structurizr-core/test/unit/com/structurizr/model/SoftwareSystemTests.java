@@ -12,21 +12,21 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
     private SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "Name", "Description");
 
     @Test
-    void test_addContainer_ThrowsAnException_WhenANullNameIsSpecified() {
+    void addContainer_ThrowsAnException_WhenANullNameIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             softwareSystem.addContainer(null, "", "");
         });
     }
 
     @Test
-    void test_addContainer_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
+    void addContainer_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             softwareSystem.addContainer(" ", "", "");
         });
     }
 
     @Test
-    void test_addContainer_AddsAContainer_WhenAContainerWithTheSameNameDoesNotExist() {
+    void addContainer_AddsAContainer_WhenAContainerWithTheSameNameDoesNotExist() {
         Container container = softwareSystem.addContainer("Web Application", "Description", "Spring MVC");
         assertEquals("Web Application", container.getName());
         assertEquals("Description", container.getDescription());
@@ -37,7 +37,7 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addContainer_ThrowsAnException_WhenAContainerWithTheSameNameAlreadyExists() {
+    void addContainer_ThrowsAnException_WhenAContainerWithTheSameNameAlreadyExists() {
         Container container = softwareSystem.addContainer("Web Application", "Description", "Spring MVC");
         assertEquals(1, softwareSystem.getContainers().size());
 
@@ -50,29 +50,29 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_getContainerWithName_ReturnsNull_WhenAContainerWithTheSpecifiedNameDoesNotExist() {
+    void getContainerWithName_ReturnsNull_WhenAContainerWithTheSpecifiedNameDoesNotExist() {
         assertNull(softwareSystem.getContainerWithName("Web Application"));
     }
 
     @Test
-    void test_GetContainerWithName_ReturnsAContainer_WhenAContainerWithTheSpecifiedNameDoesExist() {
+    void GetContainerWithName_ReturnsAContainer_WhenAContainerWithTheSpecifiedNameDoesExist() {
         Container container = softwareSystem.addContainer("Web Application", "Description", "Spring MVC");
         assertSame(container, softwareSystem.getContainerWithName("Web Application"));
     }
 
     @Test
-    void test_getContainerWithId_ReturnsNull_WhenAContainerWithTheSpecifiedIdDoesNotExist() {
+    void getContainerWithId_ReturnsNull_WhenAContainerWithTheSpecifiedIdDoesNotExist() {
         assertNull(softwareSystem.getContainerWithId("100"));
     }
 
     @Test
-    void test_GetContainerWithId_ReturnsAContainer_WhenAContainerWithTheSpecifiedIdDoesExist() {
+    void GetContainerWithId_ReturnsAContainer_WhenAContainerWithTheSpecifiedIdDoesExist() {
         Container container = softwareSystem.addContainer("Web Application", "Description", "Spring MVC");
         assertSame(container, softwareSystem.getContainerWithId(container.getId()));
     }
 
     @Test
-    void test_uses_AddsAUnidirectionalRelationshipBetweenTwoSoftwareSystems() {
+    void uses_AddsAUnidirectionalRelationshipBetweenTwoSoftwareSystems() {
         SoftwareSystem systemA = model.addSoftwareSystem(Location.Internal, "System A", "Description");
         SoftwareSystem systemB = model.addSoftwareSystem(Location.Internal, "System B", "Description");
         systemA.uses(systemB, "Gets some data from");
@@ -86,7 +86,7 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_uses_AddsAUnidirectionalRelationshipBetweenTwoSoftwareSystems_WhenADifferentRelationshipAlreadyExists() {
+    void uses_AddsAUnidirectionalRelationshipBetweenTwoSoftwareSystems_WhenADifferentRelationshipAlreadyExists() {
         SoftwareSystem systemA = model.addSoftwareSystem(Location.Internal, "System A", "Description");
         SoftwareSystem systemB = model.addSoftwareSystem(Location.Internal, "System B", "Description");
         systemA.uses(systemB, "Gets data using the REST API");
@@ -106,7 +106,7 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_uses_DoesNotAddAUnidirectionalRelationshipBetweenTwoSoftwareSystems_WhenTheSameRelationshipAlreadyExists() {
+    void uses_DoesNotAddAUnidirectionalRelationshipBetweenTwoSoftwareSystems_WhenTheSameRelationshipAlreadyExists() {
         SoftwareSystem systemA = model.addSoftwareSystem(Location.Internal, "System A", "Description");
         SoftwareSystem systemB = model.addSoftwareSystem(Location.Internal, "System B", "Description");
         systemA.uses(systemB, "Gets data using the REST API");
@@ -116,7 +116,7 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_delivers_AddsAUnidirectionalRelationshipBetweenASoftwareSystemAndAPerson() {
+    void delivers_AddsAUnidirectionalRelationshipBetweenASoftwareSystemAndAPerson() {
         SoftwareSystem system = model.addSoftwareSystem(Location.Internal, "System", "Description");
         Person person = model.addPerson(Location.Internal, "User", "Description");
         system.delivers(person, "E-mails results to");
@@ -130,7 +130,7 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_delivers_AddsAUnidirectionalRelationshipBetweenASoftwareSystemAndAPerson_WhenADifferentRelationshipAlreadyExists() {
+    void delivers_AddsAUnidirectionalRelationshipBetweenASoftwareSystemAndAPerson_WhenADifferentRelationshipAlreadyExists() {
         SoftwareSystem system = model.addSoftwareSystem(Location.Internal, "System", "Description");
         Person person = model.addPerson(Location.Internal, "User", "Description");
         system.delivers(person, "E-mails results to");
@@ -151,7 +151,7 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_delivers_DoesNotAddAUnidirectionalRelationshipBetweenASoftwareSystemAndAPerson_WhenTheSameRelationshipAlreadyExists() {
+    void delivers_DoesNotAddAUnidirectionalRelationshipBetweenASoftwareSystemAndAPerson_WhenTheSameRelationshipAlreadyExists() {
         SoftwareSystem system = model.addSoftwareSystem(Location.Internal, "System", "Description");
         Person person = model.addPerson(Location.Internal, "User", "Description");
         system.delivers(person, "E-mails results to");
@@ -161,30 +161,30 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_getTags_IncludesSoftwareSystemByDefault() {
+    void getTags_IncludesSoftwareSystemByDefault() {
         SoftwareSystem system = model.addSoftwareSystem(Location.Internal, "System", "Description");
         assertEquals("Element,Software System", system.getTags());
     }
 
     @Test
-    void test_getCanonicalName() {
+    void getCanonicalName() {
         SoftwareSystem system = model.addSoftwareSystem(Location.Internal, "System", "Description");
         assertEquals("SoftwareSystem://System", system.getCanonicalName());
     }
 
     @Test
-    void test_getCanonicalName_WhenNameContainsSlashAndDotCharacters() {
+    void getCanonicalName_WhenNameContainsSlashAndDotCharacters() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Name1/.Name2", "Description");
         assertEquals("SoftwareSystem://Name1Name2", softwareSystem.getCanonicalName());
     }
 
     @Test
-    void test_getParent_ReturnsNull() {
+    void getParent_ReturnsNull() {
         assertNull(softwareSystem.getParent());
     }
 
     @Test
-    void test_removeTags_DoesNotRemoveRequiredTags() {
+    void removeTags_DoesNotRemoveRequiredTags() {
         assertTrue(softwareSystem.getTags().contains(Tags.ELEMENT));
         assertTrue(softwareSystem.getTags().contains(Tags.SOFTWARE_SYSTEM));
 
@@ -196,7 +196,7 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_getContainerWithName_ThrowsAnException_WhenANullNameIsSpecified() {
+    void getContainerWithName_ThrowsAnException_WhenANullNameIsSpecified() {
         try {
             softwareSystem.getContainerWithName(null);
             fail();
@@ -206,7 +206,7 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_getContainerWithName_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
+    void getContainerWithName_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
         try {
             softwareSystem.getContainerWithName(" ");
             fail();
@@ -216,7 +216,7 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_getContainerWithId_ThrowsAnException_WhenANullIdIsSpecified() {
+    void getContainerWithId_ThrowsAnException_WhenANullIdIsSpecified() {
         try {
             softwareSystem.getContainerWithId(null);
             fail();
@@ -226,7 +226,7 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_getContainerWithId_ThrowsAnException_WhenAnEmptyIdIsSpecified() {
+    void getContainerWithId_ThrowsAnException_WhenAnEmptyIdIsSpecified() {
         try {
             softwareSystem.getContainerWithId(" ");
             fail();

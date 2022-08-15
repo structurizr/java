@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class StaticViewTests extends AbstractWorkspaceTestBase {
 
     @Test
-    void test_addAnimationStep_ThrowsAnException_WhenNoElementsAreSpecified() {
+    void addAnimationStep_ThrowsAnException_WhenNoElementsAreSpecified() {
         try {
             SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
             view.addAnimation();
@@ -21,7 +21,7 @@ public class StaticViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAnimationStep() {
+    void addAnimationStep() {
         SoftwareSystem element1 = model.addSoftwareSystem("Software System 1", "");
         SoftwareSystem element2 = model.addSoftwareSystem("Software System 2", "");
         SoftwareSystem element3 = model.addSoftwareSystem("Software System 3", "");
@@ -55,7 +55,7 @@ public class StaticViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAnimationStep_IgnoresElementsThatDoNotExistInTheView() {
+    void addAnimationStep_IgnoresElementsThatDoNotExistInTheView() {
         SoftwareSystem element1 = model.addSoftwareSystem("Software System 1", "");
         SoftwareSystem element2 = model.addSoftwareSystem("Software System 2", "");
 
@@ -69,7 +69,7 @@ public class StaticViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAnimationStep_ThrowsAnException_WhenElementsAreSpecifiedButNoneOfThemExistInTheView() {
+    void addAnimationStep_ThrowsAnException_WhenElementsAreSpecifiedButNoneOfThemExistInTheView() {
         try {
             SoftwareSystem element1 = model.addSoftwareSystem("Software System 1", "");
 

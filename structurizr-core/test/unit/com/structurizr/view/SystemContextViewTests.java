@@ -19,7 +19,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_construction() {
+    void construction() {
         assertEquals("The System - System Context", view.getName());
         assertEquals(1, view.getElements().size());
         assertSame(view.getElements().iterator().next().getElement(), softwareSystem);
@@ -29,14 +29,14 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAllSoftwareSystems_DoesNothing_WhenThereAreNoOtherSoftwareSystems() {
+    void addAllSoftwareSystems_DoesNothing_WhenThereAreNoOtherSoftwareSystems() {
         assertEquals(1, view.getElements().size());
         view.addAllSoftwareSystems();
         assertEquals(1, view.getElements().size());
     }
 
     @Test
-    void test_addAllSoftwareSystems_AddsAllSoftwareSystems_WhenThereAreSomeSoftwareSystemsInTheModel() {
+    void addAllSoftwareSystems_AddsAllSoftwareSystems_WhenThereAreSomeSoftwareSystemsInTheModel() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.External, "System A", "Description");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.External, "System B", "Description");
 
@@ -49,14 +49,14 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAllPeople_DoesNothing_WhenThereAreNoPeople() {
+    void addAllPeople_DoesNothing_WhenThereAreNoPeople() {
         assertEquals(1, view.getElements().size());
         view.addAllPeople();
         assertEquals(1, view.getElements().size());
     }
 
     @Test
-    void test_addAllPeople_AddsAllPeople_WhenThereAreSomePeopleInTheModel() {
+    void addAllPeople_AddsAllPeople_WhenThereAreSomePeopleInTheModel() {
         Person userA = model.addPerson(Location.External, "User A", "Description");
         Person userB = model.addPerson(Location.External, "User B", "Description");
 
@@ -69,14 +69,14 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAllElements_DoesNothing_WhenThereAreNoSoftwareSystemsOrPeople() {
+    void addAllElements_DoesNothing_WhenThereAreNoSoftwareSystemsOrPeople() {
         assertEquals(1, view.getElements().size());
         view.addAllElements();
         assertEquals(1, view.getElements().size());
     }
 
     @Test
-    void test_addAllElements_AddsAllSoftwareSystemsAndPeople_WhenThereAreSomeSoftwareSystemsAndPeopleInTheModel() {
+    void addAllElements_AddsAllSoftwareSystemsAndPeople_WhenThereAreSomeSoftwareSystemsAndPeopleInTheModel() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.External, "System A", "Description");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.External, "System B", "Description");
         Person userA = model.addPerson(Location.External, "User A", "Description");
@@ -93,7 +93,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addNearestNeighbours_ThrowsAnException_WhenANullElementIsSpecified() {
+    void addNearestNeighbours_ThrowsAnException_WhenANullElementIsSpecified() {
         try {
             view.addNearestNeighbours(null);
             fail();
@@ -103,7 +103,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addNearestNeighbours_ThrowsAnException_WhenAnElementThatIsNotAPersonOrSoftwareSystemIsSpecified() {
+    void addNearestNeighbours_ThrowsAnException_WhenAnElementThatIsNotAPersonOrSoftwareSystemIsSpecified() {
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         try {
             view.addNearestNeighbours(container);
@@ -114,14 +114,14 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addNearestNeighbours_DoesNothing_WhenThereAreNoNeighbours() {
+    void addNearestNeighbours_DoesNothing_WhenThereAreNoNeighbours() {
         view.addNearestNeighbours(softwareSystem);
 
         assertEquals(1, view.getElements().size());
     }
 
     @Test
-    void test_addNearestNeighbours_AddsNearestNeighbours_WhenThereAreSomeNearestNeighbours() {
+    void addNearestNeighbours_AddsNearestNeighbours_WhenThereAreSomeNearestNeighbours() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("A", "Description");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem("B", "Description");
         Person userA = model.addPerson("User A", "Description");
@@ -170,7 +170,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_removeSoftwareSystem_ThrowsAnException_WhenPassedNull() {
+    void removeSoftwareSystem_ThrowsAnException_WhenPassedNull() {
         try {
             view.remove((SoftwareSystem) null);
             fail();
@@ -180,7 +180,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_removeSoftwareSystem_DoesNothing_WhenTheSoftwareSystemIsNotInTheView() {
+    void removeSoftwareSystem_DoesNothing_WhenTheSoftwareSystemIsNotInTheView() {
         SoftwareSystem anotherSoftwareSystem = model.addSoftwareSystem("Another software system", "");
         assertEquals(1, view.getElements().size());
 
@@ -189,7 +189,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_removeSoftwareSystem_DoesNotRemoveTheSoftwareSystemInFocus() {
+    void removeSoftwareSystem_DoesNotRemoveTheSoftwareSystemInFocus() {
         try {
             view.remove(softwareSystem);
             fail();
@@ -199,7 +199,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_removeSoftwareSystem_RemovesTheSoftwareSystemAndRelationshipsFromTheView() {
+    void removeSoftwareSystem_RemovesTheSoftwareSystemAndRelationshipsFromTheView() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software system 1", "");
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software system 2", "");
         softwareSystem1.uses(softwareSystem2, "uses");
@@ -215,7 +215,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_removePerson_ThrowsAnException_WhenPassedNull() {
+    void removePerson_ThrowsAnException_WhenPassedNull() {
         try {
             view.remove((Person) null);
             fail();
@@ -225,7 +225,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_removePerson_DoesNothing_WhenThePersonIsNotInTheView() {
+    void removePerson_DoesNothing_WhenThePersonIsNotInTheView() {
         Person person = model.addPerson("Person", "");
         assertEquals(1, view.getElements().size());
 
@@ -234,7 +234,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_removePerson_RemovesThePersonAndRelationshipsFromTheView() {
+    void removePerson_RemovesThePersonAndRelationshipsFromTheView() {
         Person person = model.addPerson("Person", "");
         person.uses(softwareSystem, "uses");
         softwareSystem.delivers(person, "delivers something to");
@@ -249,7 +249,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addSoftwareSystemWithoutRelationships_DoesNotAddRelationships() {
+    void addSoftwareSystemWithoutRelationships_DoesNotAddRelationships() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software system 1", "");
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software system 2", "");
         softwareSystem1.uses(softwareSystem2, "uses");
@@ -261,7 +261,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addPersonWithoutRelationships_DoesNotAddRelationships() {
+    void addPersonWithoutRelationships_DoesNotAddRelationships() {
         Person user = model.addPerson("User", "");
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software system 2", "");
         user.uses(softwareSystem, "uses");
@@ -273,7 +273,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_isEnterpriseBoundaryVisible() {
+    void isEnterpriseBoundaryVisible() {
         assertTrue(view.isEnterpriseBoundaryVisible()); // default is true
 
         view.setEnterpriseBoundaryVisible(false);
@@ -281,7 +281,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addDefaultElements() {
+    void addDefaultElements() {
         CustomElement element = model.addCustomElement("Custom");
         Person user1 = model.addPerson("User 1");
         Person user2 = model.addPerson("User 2");

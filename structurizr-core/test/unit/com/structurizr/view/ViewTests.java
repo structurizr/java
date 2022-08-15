@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ViewTests extends AbstractWorkspaceTestBase {
 
     @Test
-    void test_construction() {
+    void construction() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         StaticView view = new SystemContextView(softwareSystem, "key", "Description");
         assertEquals("key", view.getKey());
@@ -22,14 +22,14 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_construction_WhenTheViewKeyContainsAForwardSlashCharacter() {
+    void construction_WhenTheViewKeyContainsAForwardSlashCharacter() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
         StaticView view = new SystemContextView(softwareSystem, "key/1", "Description");
         assertEquals("key_1", view.getKey());
     }
 
     @Test
-    void test_addAllSoftwareSystems_DoesNothing_WhenThereAreNoOtherSoftwareSystemsInTheModel() {
+    void addAllSoftwareSystems_DoesNothing_WhenThereAreNoOtherSoftwareSystemsInTheModel() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         StaticView view = new SystemContextView(softwareSystem, "context", "Description");
         assertEquals(1, view.getElements().size());
@@ -38,7 +38,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAllSoftwareSystems_DoesAddAllSoftwareSystems_WhenThereAreSoftwareSystemsInTheModel() {
+    void addAllSoftwareSystems_DoesAddAllSoftwareSystems_WhenThereAreSoftwareSystemsInTheModel() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.Unspecified, "System A", "Description");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.Unspecified, "System B", "Description");
@@ -56,7 +56,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addSoftwareSystem_ThrowsAnException_WhenGivenNull() {
+    void addSoftwareSystem_ThrowsAnException_WhenGivenNull() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         StaticView view = new SystemContextView(softwareSystem, "context", "Description");
 
@@ -69,7 +69,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addSoftwareSystem_AddsTheSoftwareSystem_WhenTheSoftwareSystemIsInTheModel() {
+    void addSoftwareSystem_AddsTheSoftwareSystem_WhenTheSoftwareSystemIsInTheModel() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.Unspecified, "System A", "Description");
 
@@ -82,7 +82,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAllPeople_DoesNothing_WhenThereAreNoPeopleInTheModel() {
+    void addAllPeople_DoesNothing_WhenThereAreNoPeopleInTheModel() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
 
         StaticView view = new SystemContextView(softwareSystem, "context", "Description");
@@ -93,7 +93,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAllPeople_DoesAddAllPeople_WhenThereArePeopleInTheModel() {
+    void addAllPeople_DoesAddAllPeople_WhenThereArePeopleInTheModel() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         Person person1 = model.addPerson(Location.Unspecified, "Person 1", "Description");
         Person person2 = model.addPerson(Location.Unspecified, "Person 2", "Description");
@@ -111,7 +111,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addPerson_ThrowsAnException_WhenGivenNull() {
+    void addPerson_ThrowsAnException_WhenGivenNull() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         StaticView view = new SystemContextView(softwareSystem, "context", "Description");
         try {
@@ -123,7 +123,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addPerson_AddsThePerson_WhenThPersonIsInTheModel() {
+    void addPerson_AddsThePerson_WhenThPersonIsInTheModel() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         StaticView view = new SystemContextView(softwareSystem, "context", "Description");
 
@@ -137,7 +137,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_removeElementsWithNoRelationships_RemovesAllElements_WhenTheViewHasNoRelationshipsBetweenElements() {
+    void removeElementsWithNoRelationships_RemovesAllElements_WhenTheViewHasNoRelationshipsBetweenElements() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "Software System", "Description");
         Person person = model.addPerson(Location.Unspecified, "Person", "Description");
 
@@ -150,7 +150,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_removeElementsWithNoRelationships_RemovesOnlyThoseElementsWithoutRelationships_WhenTheViewContainsSomeUnlinkedElements() {
+    void removeElementsWithNoRelationships_RemovesOnlyThoseElementsWithoutRelationships_WhenTheViewContainsSomeUnlinkedElements() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.Unspecified, "System A", "Description");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.Unspecified, "System B", "Description");
@@ -170,7 +170,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_copyLayoutInformationFrom() {
+    void copyLayoutInformationFrom() {
         Workspace workspace1 = new Workspace("", "");
         Model model1 = workspace1.getModel();
         SoftwareSystem softwareSystem1A = model1.addSoftwareSystem("System A", "Description");
@@ -256,21 +256,21 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_getName() {
+    void getName() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         SystemContextView systemContextView = new SystemContextView(softwareSystem, "context", "Description");
         assertEquals("The System - System Context", systemContextView.getName());
     }
 
     @Test
-    void test_removeElementsThatAreUnreachableFrom_DoesNothing_WhenANullElementIsSpecified() {
+    void removeElementsThatAreUnreachableFrom_DoesNothing_WhenANullElementIsSpecified() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
         StaticView view = new SystemContextView(softwareSystem, "context", "Description");
         view.removeElementsThatAreUnreachableFrom(null);
     }
 
     @Test
-    void test_removeElementsThatAreUnreachableFrom_DoesNothing_WhenAllElementsCanBeReached() {
+    void removeElementsThatAreUnreachableFrom_DoesNothing_WhenAllElementsCanBeReached() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("The System", "Description");
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "");
@@ -287,7 +287,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_removeElementsThatAreUnreachableFrom_RemovesOrphanedElements_WhenThereAreSomeOrphanedElements() {
+    void removeElementsThatAreUnreachableFrom_RemovesOrphanedElements_WhenThereAreSomeOrphanedElements() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("The System", "Description");
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "");
@@ -306,7 +306,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_removeElementsThatAreUnreachableFrom_RemovesUnreachableElements_WhenThereAreSomeUnreachableElements() {
+    void removeElementsThatAreUnreachableFrom_RemovesUnreachableElements_WhenThereAreSomeUnreachableElements() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("The System", "Description");
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "");
@@ -324,7 +324,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_removeElementsThatAreUnreachableFrom_DoesntIncludeAllElements_WhenThereIsACyclicGraph() {
+    void removeElementsThatAreUnreachableFrom_DoesntIncludeAllElements_WhenThereIsACyclicGraph() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
         Person user = model.addPerson("User", "");
@@ -345,7 +345,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_removeRelationship_DoesNothing_WhenNullIsSpecified() {
+    void removeRelationship_DoesNothing_WhenNullIsSpecified() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
         SoftwareSystem softwareSystem3 = model.addSoftwareSystem("Software System 3", "Description");
@@ -362,7 +362,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_removeRelationship_RemovesARelationship_WhenAValidRelationshipIsSpecified() {
+    void removeRelationship_RemovesARelationship_WhenAValidRelationshipIsSpecified() {
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
         SoftwareSystem softwareSystem3 = model.addSoftwareSystem("Software System 3", "Description");
@@ -383,7 +383,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_setKey_ThrowsAnException_WhenANullKeyIsSpecified() {
+    void setKey_ThrowsAnException_WhenANullKeyIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
             new SystemContextView(softwareSystem, null, "Description");
@@ -391,7 +391,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_setKey_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
+    void setKey_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
             new SystemContextView(softwareSystem, " ", "Description");
@@ -399,7 +399,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addElement_ThrowsAnException_WhenTheSpecifiedElementDoesNotExistInTheModel() {
+    void addElement_ThrowsAnException_WhenTheSpecifiedElementDoesNotExistInTheModel() {
         try {
             Workspace workspace = new Workspace("1", "");
             SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System");
@@ -413,7 +413,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_enableAutomaticLayout_EnablesAutoLayoutWithSomeDefaultValues_WhenTrueIsSpecified() {
+    void enableAutomaticLayout_EnablesAutoLayoutWithSomeDefaultValues_WhenTrueIsSpecified() {
         SystemLandscapeView view = new Workspace("", "").getViews().createSystemLandscapeView("key", "Description");
         view.enableAutomaticLayout();
 
@@ -426,7 +426,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_enableAutomaticLayout_DisablesAutoLayout_WhenFalseIsSpecified() {
+    void enableAutomaticLayout_DisablesAutoLayout_WhenFalseIsSpecified() {
         SystemLandscapeView view = new Workspace("", "").getViews().createSystemLandscapeView("key", "Description");
         view.enableAutomaticLayout();
         assertNotNull(view.getAutomaticLayout());
@@ -436,7 +436,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_enableAutomaticLayout() {
+    void enableAutomaticLayout() {
         SystemLandscapeView view = new Workspace("", "").getViews().createSystemLandscapeView("key", "Description");
         view.enableAutomaticLayout(AutomaticLayout.RankDirection.LeftRight, 100, 200, 300, true);
 
@@ -449,7 +449,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addCustomElement_AddsTheCustomElementToTheView() {
+    void addCustomElement_AddsTheCustomElementToTheView() {
         Workspace workspace = new Workspace("", "");
         SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
 
@@ -467,7 +467,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addCustomElementWithoutRelationships_AddsTheCustomElementToTheView() {
+    void addCustomElementWithoutRelationships_AddsTheCustomElementToTheView() {
         Workspace workspace = new Workspace("", "");
         SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
 
@@ -485,7 +485,7 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_removeCustomElement_RemovesTheCustomElementFromTheView() {
+    void removeCustomElement_RemovesTheCustomElementFromTheView() {
         Workspace workspace = new Workspace("", "");
         SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
 

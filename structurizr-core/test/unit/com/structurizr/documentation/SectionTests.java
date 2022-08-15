@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SectionTests {
 
     @Test
-    void test_construction() {
+    void construction() {
         Section section = new Section("Title", Format.Markdown, "Content");
 
         assertEquals("Title", section.getTitle());

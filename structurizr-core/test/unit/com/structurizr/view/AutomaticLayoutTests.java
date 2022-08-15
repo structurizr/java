@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AutomaticLayoutTests {
 
     @Test
-    void test_setAutomaticLayout() {
+    void setAutomaticLayout() {
         AutomaticLayout automaticLayout = new AutomaticLayout(AutomaticLayout.Implementation.Dagre, AutomaticLayout.RankDirection.LeftRight, 100, 200, 300, true);
 
         assertEquals(AutomaticLayout.RankDirection.LeftRight, automaticLayout.getRankDirection());
@@ -18,7 +18,7 @@ public class AutomaticLayoutTests {
     }
 
     @Test
-    void test_setRankDirection_ThrowsAnException_WhenNullIsSpecified() {
+    void setRankDirection_ThrowsAnException_WhenNullIsSpecified() {
         try {
             AutomaticLayout automaticLayout = new AutomaticLayout();
             automaticLayout.setRankDirection(null);
@@ -29,7 +29,7 @@ public class AutomaticLayoutTests {
     }
 
     @Test
-    void test_setRankSeparation_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
+    void setRankSeparation_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
         try {
             AutomaticLayout automaticLayout = new AutomaticLayout();
             automaticLayout.setRankSeparation(-100);
@@ -40,7 +40,7 @@ public class AutomaticLayoutTests {
     }
 
     @Test
-    void test_setNodeSeparation_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
+    void setNodeSeparation_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
         try {
             AutomaticLayout automaticLayout = new AutomaticLayout();
             automaticLayout.setNodeSeparation(-100);
@@ -51,7 +51,7 @@ public class AutomaticLayoutTests {
     }
 
     @Test
-    void test_setEdgeSeparation_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
+    void setEdgeSeparation_ThrowsAnException_WhenANegativeIntegerIsSpecified() {
         try {
             AutomaticLayout automaticLayout = new AutomaticLayout();
             automaticLayout.setEdgeSeparation(-100);

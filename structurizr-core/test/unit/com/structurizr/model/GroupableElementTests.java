@@ -9,27 +9,27 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class GroupableElementTests extends AbstractWorkspaceTestBase {
 
     @Test
-    void test_getGroup_ReturnsNullByDefault() {
+    void getGroup_ReturnsNullByDefault() {
         Person element = model.addPerson("Person");
         assertNull(element.getGroup());
     }
 
     @Test
-    void test_setGroup() {
+    void setGroup() {
         Person element = model.addPerson("Person");
         element.setGroup("Group");
         assertEquals("Group", element.getGroup());
     }
 
     @Test
-    void test_setGroup_TrimsWhiteSpace() {
+    void setGroup_TrimsWhiteSpace() {
         Person element = model.addPerson("Person");
         element.setGroup(" Group ");
         assertEquals("Group", element.getGroup());
     }
 
     @Test
-    void test_setGroup_HandlesEmptyAndNullValues() {
+    void setGroup_HandlesEmptyAndNullValues() {
         Person element = model.addPerson("Person");
         element.setGroup("Group");
 

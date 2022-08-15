@@ -10,14 +10,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class ElementViewTests extends AbstractWorkspaceTestBase {
 
     @Test
-    void test_copyLayoutInformationFrom_DoesNothing_WhenNullIsPassed() {
+    void copyLayoutInformationFrom_DoesNothing_WhenNullIsPassed() {
         Element element = model.addSoftwareSystem(Location.External, "SystemA", "");
         ElementView elementView = new ElementView(element);
         elementView.copyLayoutInformationFrom(null);
     }
 
     @Test
-    void test_copyLayoutInformationFrom_CopiesXAndY_WhenANonNullElementViewIsPassed() {
+    void copyLayoutInformationFrom_CopiesXAndY_WhenANonNullElementViewIsPassed() {
         Element element = model.addSoftwareSystem(Location.External, "SystemA", "");
         ElementView elementView1 = new ElementView(element);
         assertEquals(0, elementView1.getX());

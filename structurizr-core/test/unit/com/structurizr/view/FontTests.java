@@ -28,26 +28,26 @@ public class FontTests {
     }
 
     @Test
-    void test_setUrl_WithAUrl() {
+    void setUrl_WithAUrl() {
         font.setUrl("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
         assertEquals("https://fonts.googleapis.com/css?family=Open+Sans:400,700", font.getUrl());
     }
 
     @Test
-    void test_setUrl_ThrowsAnIllegalArgumentException_WhenAnInvalidUrlIsSpecified() {
+    void setUrl_ThrowsAnIllegalArgumentException_WhenAnInvalidUrlIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             font.setUrl("htt://blah");
         });
     }
 
     @Test
-    void test_setUrl_DoesNothing_WhenANullUrlIsSpecified() {
+    void setUrl_DoesNothing_WhenANullUrlIsSpecified() {
         font.setUrl(null);
         assertNull(font.getUrl());
     }
 
     @Test
-    void test_setUrl_DoesNothing_WhenAnEmptyUrlIsSpecified() {
+    void setUrl_DoesNothing_WhenAnEmptyUrlIsSpecified() {
         font.setUrl(" ");
         assertNull(font.getUrl());
     }

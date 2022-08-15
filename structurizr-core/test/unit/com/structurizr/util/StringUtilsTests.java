@@ -8,18 +8,18 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class StringUtilsTests {
 
     @Test
-    void test_isNullOrEmpty_ReturnsTrue_WhenPassedNull() {
+    void isNullOrEmpty_ReturnsTrue_WhenPassedNull() {
         assertTrue(StringUtils.isNullOrEmpty(null));
     }
 
     @Test
-    void test_isNullOrEmpty_ReturnsTrue_WhenPassedAnEmptyString() {
+    void isNullOrEmpty_ReturnsTrue_WhenPassedAnEmptyString() {
         assertTrue(StringUtils.isNullOrEmpty(""));
         assertTrue(StringUtils.isNullOrEmpty(" "));
     }
 
     @Test
-    void test_isNullOrEmpty_ReturnsFalse_WhenPassedANonEmptyString() {
+    void isNullOrEmpty_ReturnsFalse_WhenPassedANonEmptyString() {
         assertFalse(StringUtils.isNullOrEmpty("Hello World!"));
     }
 

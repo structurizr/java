@@ -8,12 +8,12 @@ public class HmacContentTests {
 
 
     @Test
-    void test_toString_WhenThereAreNoStrings() {
+    void toString_WhenThereAreNoStrings() {
         assertEquals("", new HmacContent().toString());
     }
 
     @Test
-    void test_toString_WhenThereAreSomeStrings() {
+    void toString_WhenThereAreSomeStrings() {
         assertEquals("String1\nString2\nString3\n", new HmacContent("String1", "String2", "String3").toString());
     }
 

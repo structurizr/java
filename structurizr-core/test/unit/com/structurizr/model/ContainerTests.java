@@ -11,7 +11,7 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
     private Container container = softwareSystem.addContainer("Container", "Description", "Some technology");
 
     @Test
-    void test_technologyProperty() {
+    void technologyProperty() {
         assertEquals("Some technology", container.getTechnology());
 
         container.setTechnology("Some other technology");
@@ -19,29 +19,29 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_getCanonicalName() {
+    void getCanonicalName() {
         assertEquals("Container://System.Container", container.getCanonicalName());
     }
 
     @Test
-    void test_getCanonicalName_WhenNameContainsSlashAndDotCharacters() {
+    void getCanonicalName_WhenNameContainsSlashAndDotCharacters() {
         container = softwareSystem.addContainer("Name1/.Name2", "Description", "Some technology");
 
         assertEquals("Container://System.Name1Name2", container.getCanonicalName());
     }
 
     @Test
-    void test_getParent_ReturnsTheParentSoftwareSystem() {
+    void getParent_ReturnsTheParentSoftwareSystem() {
         assertEquals(softwareSystem, container.getParent());
     }
 
     @Test
-    void test_getSoftwareSystem_ReturnsTheParentSoftwareSystem() {
+    void getSoftwareSystem_ReturnsTheParentSoftwareSystem() {
         assertEquals(softwareSystem, container.getSoftwareSystem());
     }
 
     @Test
-    void test_removeTags_DoesNotRemoveRequiredTags() {
+    void removeTags_DoesNotRemoveRequiredTags() {
         assertTrue(container.getTags().contains(Tags.ELEMENT));
         assertTrue(container.getTags().contains(Tags.CONTAINER));
 
@@ -53,21 +53,21 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addComponent_ThrowsAnException_WhenANullNameIsSpecified() {
+    void addComponent_ThrowsAnException_WhenANullNameIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             container.addComponent(null, "");
         });
     }
 
     @Test
-    void test_addComponent_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
+    void addComponent_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             container.addComponent(" ", "");
         });
     }
 
     @Test
-    void test_addComponent_ThrowsAnException_WhenAComponentWithTheSameNameAlreadyExists() {
+    void addComponent_ThrowsAnException_WhenAComponentWithTheSameNameAlreadyExists() {
         container.addComponent("Component 1", "");
         try {
             container.addComponent("Component 1", "");
@@ -78,7 +78,7 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addComponent_AddsAComponentWithTheSpecifiedNameAndDescription() {
+    void addComponent_AddsAComponentWithTheSpecifiedNameAndDescription() {
         Component component = container.addComponent("Name", "Description");
         assertTrue(container.getComponents().contains(component));
         assertEquals("Name", component.getName());
@@ -90,7 +90,7 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addComponent_AddsAComponentWithTheSpecifiedNameAndDescriptionAndTechnology() {
+    void addComponent_AddsAComponentWithTheSpecifiedNameAndDescriptionAndTechnology() {
         Component component = container.addComponent("Name", "Description", "Technology");
         assertTrue(container.getComponents().contains(component));
         assertEquals("Name", component.getName());
@@ -102,7 +102,7 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addComponent_AddsAComponentWithTheSpecifiedNameAndDescriptionAndTechnologyAndStringType() {
+    void addComponent_AddsAComponentWithTheSpecifiedNameAndDescriptionAndTechnologyAndStringType() {
         Component component = container.addComponent("Name", "SomeType", "Description", "Technology");
         assertTrue(container.getComponents().contains(component));
         assertEquals("Name", component.getName());
@@ -114,7 +114,7 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addComponent_AddsAComponentWithTheSpecifiedNameAndDescriptionAndTechnologyAndClassType() {
+    void addComponent_AddsAComponentWithTheSpecifiedNameAndDescriptionAndTechnologyAndClassType() {
         Component component = container.addComponent("Name", this.getClass(), "Description", "Technology");
         assertTrue(container.getComponents().contains(component));
         assertEquals("Name", component.getName());
@@ -126,7 +126,7 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_getComponentWithName_ThrowsAnException_WhenANullNameIsSpecified() {
+    void getComponentWithName_ThrowsAnException_WhenANullNameIsSpecified() {
         try {
             container.getComponentWithName(null);
             fail();
@@ -136,7 +136,7 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_getComponentWithName_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
+    void getComponentWithName_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
         try {
             container.getComponentWithName(" ");
             fail();
@@ -146,7 +146,7 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_getComponentOfType_ThrowsAnException_WhenANullTypeIsSpecified() {
+    void getComponentOfType_ThrowsAnException_WhenANullTypeIsSpecified() {
         try {
             container.getComponentOfType(null);
             fail();
@@ -156,7 +156,7 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_getComponentOfType_ThrowsAnException_WhenAnEmptyTypeIsSpecified() {
+    void getComponentOfType_ThrowsAnException_WhenAnEmptyTypeIsSpecified() {
         try {
             container.getComponentOfType(" ");
             fail();
@@ -166,12 +166,12 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_getComponentOfType_ReturnsNull_WhenNoComponentWithTheSpecifiedTypeExists() {
+    void getComponentOfType_ReturnsNull_WhenNoComponentWithTheSpecifiedTypeExists() {
         assertNull(container.getComponentOfType("SomeType"));
     }
 
     @Test
-    void test_getComponentOfType_ReturnsAComponent_WhenAComponentWithTheSpecifiedTypeExists() {
+    void getComponentOfType_ReturnsAComponent_WhenAComponentWithTheSpecifiedTypeExists() {
         container.addComponent("Name", "SomeType", "Description", "Technology");
         Component component = container.getComponentOfType("SomeType");
 

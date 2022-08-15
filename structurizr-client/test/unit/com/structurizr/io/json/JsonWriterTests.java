@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class JsonWriterTests {
 
     @Test
-    void test_write_ThrowsAnIllegalArgumentException_WhenANullWorkspaceIsSpecified() throws Exception {
+    void write_ThrowsAnIllegalArgumentException_WhenANullWorkspaceIsSpecified() throws Exception {
         try {
             JsonWriter writer = new JsonWriter(true);
             writer.write(null, new StringWriter());
@@ -22,7 +22,7 @@ public class JsonWriterTests {
     }
 
     @Test
-    void test_write_ThrowsAnIllegalArgumentException_WhenANullWriterIsSpecified() throws Exception {
+    void write_ThrowsAnIllegalArgumentException_WhenANullWriterIsSpecified() throws Exception {
         try {
             JsonWriter writer = new JsonWriter(true);
             Workspace workspace = new Workspace("Name", "Description");

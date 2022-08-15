@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PaperSizeTests {
 
     @Test
-    void test_getOrderedPaperSizes_WhenOrientationIsLandscape() {
+    void getOrderedPaperSizes_WhenOrientationIsLandscape() {
         List<PaperSize> paperSizes = PaperSize.getOrderedPaperSizes(PaperSize.Orientation.Landscape);
         assertEquals(12, paperSizes.size());
 
@@ -29,7 +29,7 @@ public class PaperSizeTests {
     }
 
     @Test
-    void test_getOrderedPaperSizes_WhenOrientationIsPortrait() {
+    void getOrderedPaperSizes_WhenOrientationIsPortrait() {
         List<PaperSize> paperSizes = PaperSize.getOrderedPaperSizes(PaperSize.Orientation.Portrait);
         assertEquals(9, paperSizes.size());
 
@@ -46,7 +46,7 @@ public class PaperSizeTests {
     }
 
     @Test
-    void test_getOrderedPaperSizes() {
+    void getOrderedPaperSizes() {
         List<PaperSize> paperSizes = PaperSize.getOrderedPaperSizes();
         assertEquals(21, paperSizes.size());
 

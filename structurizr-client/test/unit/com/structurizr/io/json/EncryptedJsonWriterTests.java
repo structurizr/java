@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class EncryptedJsonWriterTests {
 
     @Test
-    void test_write_ThrowsAnIllegalArgumentException_WhenANullEncryptedWorkspaceIsSpecified() throws Exception {
+    void write_ThrowsAnIllegalArgumentException_WhenANullEncryptedWorkspaceIsSpecified() throws Exception {
         try {
             EncryptedJsonWriter writer = new EncryptedJsonWriter(true);
             writer.write(null, new StringWriter());
@@ -24,7 +24,7 @@ public class EncryptedJsonWriterTests {
     }
 
     @Test
-    void test_write_ThrowsAnIllegalArgumentException_WhenANullWriterIsSpecified() throws Exception {
+    void write_ThrowsAnIllegalArgumentException_WhenANullWriterIsSpecified() throws Exception {
         try {
             EncryptedJsonWriter writer = new EncryptedJsonWriter(true);
             Workspace workspace = new Workspace("Name", "Description");

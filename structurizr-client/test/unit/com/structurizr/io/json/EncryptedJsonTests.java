@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class EncryptedJsonTests {
 
     @Test
-    void test_write_and_read() throws Exception {
+    void write_and_read() throws Exception {
         final Workspace workspace1 = new Workspace("Name", "Description");
 
         // output the model as JSON

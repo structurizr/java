@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 public class VertexTests {
 
     @Test
-    void test_equals() {
+    void equals() {
         Vertex vertex1 = new Vertex(123, 456);
         Vertex vertex2 = new Vertex(123, 456);
         Vertex vertex3 = new Vertex(456, 123);

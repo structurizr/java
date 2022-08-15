@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class FilteredViewTests extends AbstractWorkspaceTestBase {
 
     @Test
-    void test_construction() {
+    void construction() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
         SystemContextView systemContextView = views.createSystemContextView(softwareSystem, "SystemContext", "Description");
         FilteredView filteredView = views.createFilteredView(

@@ -8,14 +8,14 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ConfigurationTests extends AbstractWorkspaceTestBase {
 
     @Test
-    void test_defaultView_DoesNothing_WhenPassedNull() {
+    void defaultView_DoesNothing_WhenPassedNull() {
         Configuration configuration = new Configuration();
         configuration.setDefaultView((View) null);
         assertNull(configuration.getDefaultView());
     }
 
     @Test
-    void test_defaultView() {
+    void defaultView() {
         SystemLandscapeView view = views.createSystemLandscapeView("key", "Description");
         Configuration configuration = new Configuration();
         configuration.setDefaultView(view);
@@ -23,7 +23,7 @@ public class ConfigurationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_copyConfigurationFrom() {
+    void copyConfigurationFrom() {
         Configuration source = new Configuration();
         source.setLastSavedView("someKey");
 
@@ -33,21 +33,21 @@ public class ConfigurationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_setTheme_WithAUrl() {
+    void setTheme_WithAUrl() {
         Configuration configuration = new Configuration();
         configuration.setTheme("https://example.com/theme.json");
         assertEquals("https://example.com/theme.json", configuration.getTheme());
     }
 
     @Test
-    void test_setTheme_WithAUrlThatHasATrailingSpace() {
+    void setTheme_WithAUrlThatHasATrailingSpace() {
         Configuration configuration = new Configuration();
         configuration.setTheme("https://example.com/theme.json ");
         assertEquals("https://example.com/theme.json", configuration.getTheme());
     }
 
     @Test
-    void test_setTheme_ThrowsAnIllegalArgumentException_WhenAnInvalidUrlIsSpecified() {
+    void setTheme_ThrowsAnIllegalArgumentException_WhenAnInvalidUrlIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             Configuration configuration = new Configuration();
             configuration.setTheme("htt://blah");
@@ -55,14 +55,14 @@ public class ConfigurationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_setTheme_DoesNothing_WhenANullUrlIsSpecified() {
+    void setTheme_DoesNothing_WhenANullUrlIsSpecified() {
         Configuration configuration = new Configuration();
         configuration.setTheme(null);
         assertNull(configuration.getTheme());
     }
 
     @Test
-    void test_setTheme_DoesNothing_WhenAnEmptyUrlIsSpecified() {
+    void setTheme_DoesNothing_WhenAnEmptyUrlIsSpecified() {
         Configuration configuration = new Configuration();
         configuration.setTheme(" ");
         assertNull(configuration.getTheme());

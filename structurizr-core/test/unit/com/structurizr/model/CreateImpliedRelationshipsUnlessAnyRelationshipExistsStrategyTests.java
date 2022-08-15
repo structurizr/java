@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategyTests extends AbstractWorkspaceTestBase {
 
     @Test
-    void test_impliedRelationshipsAreCreated() {
+    void impliedRelationshipsAreCreated() {
         SoftwareSystem a = model.addSoftwareSystem("A", "");
         Container aa = a.addContainer("AA", "", "");
         Component aaa = aa.addComponent("AAA", "", "");
@@ -54,7 +54,7 @@ public class CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategyTests 
     }
 
     @Test
-    void test_impliedRelationshipsAreCreated_UnlessAnyRelationshipExists() {
+    void impliedRelationshipsAreCreated_UnlessAnyRelationshipExists() {
         SoftwareSystem a = model.addSoftwareSystem("A", "");
         Container aa = a.addContainer("AA", "", "");
         Component aaa = aa.addComponent("AAA", "", "");

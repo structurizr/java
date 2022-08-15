@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class DefaultImpliedRelationshipsStrategyTests extends AbstractWorkspaceTestBase {
 
     @Test
-    void test_createImpliedRelationships_DoesNothing() {
+    void createImpliedRelationships_DoesNothing() {
         SoftwareSystem a = model.addSoftwareSystem("A", "");
         Container aa = a.addContainer("AA", "", "");
         Component aaa = aa.addComponent("AAA", "", "");

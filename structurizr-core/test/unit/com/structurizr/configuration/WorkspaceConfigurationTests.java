@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public class WorkspaceConfigurationTests {
 
     @Test
-    void test_addUser_ThrowsAnException_WhenANullUsernameIsSpecified() {
+    void addUser_ThrowsAnException_WhenANullUsernameIsSpecified() {
         try {
             WorkspaceConfiguration configuration = new WorkspaceConfiguration();
             configuration.addUser(null, Role.ReadWrite);
@@ -19,7 +19,7 @@ public class WorkspaceConfigurationTests {
     }
 
     @Test
-    void test_addUser_ThrowsAnException_WhenAnEmptyUsernameIsSpecified() {
+    void addUser_ThrowsAnException_WhenAnEmptyUsernameIsSpecified() {
         try {
             WorkspaceConfiguration configuration = new WorkspaceConfiguration();
             configuration.addUser(" ", Role.ReadWrite);
@@ -30,7 +30,7 @@ public class WorkspaceConfigurationTests {
     }
 
     @Test
-    void test_addUser_ThrowsAnException_WhenANullRoleIsSpecified() {
+    void addUser_ThrowsAnException_WhenANullRoleIsSpecified() {
         try {
             WorkspaceConfiguration configuration = new WorkspaceConfiguration();
             configuration.addUser("user@domain.com", null);
@@ -41,7 +41,7 @@ public class WorkspaceConfigurationTests {
     }
 
     @Test
-    void test_addUser_AddsAUser() {
+    void addUser_AddsAUser() {
         WorkspaceConfiguration configuration = new WorkspaceConfiguration();
         configuration.addUser("user@domain.com", Role.ReadOnly);
 

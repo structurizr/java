@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class CustomElementTests extends AbstractWorkspaceTestBase {
 
     @Test
-    void test_basicProperties() {
+    void basicProperties() {
         CustomElement element = model.addCustomElement("Name", "Type", "Description");
         assertEquals("Name", element.getName());
         assertEquals("Type", element.getMetadata());
@@ -16,26 +16,26 @@ public class CustomElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_getCanonicalName() {
+    void getCanonicalName() {
         CustomElement element = model.addCustomElement("Name", "Type", "Description");
         assertEquals("Custom://Name", element.getCanonicalName());
     }
 
     @Test
-    void test_getCanonicalName_WhenNameContainsSlashAndDotCharacters() {
+    void getCanonicalName_WhenNameContainsSlashAndDotCharacters() {
         CustomElement element = model.addCustomElement("Name", "Type", "Description");
         element.setName("Name1/.Name2");
         assertEquals("Custom://Name1Name2", element.getCanonicalName());
     }
 
     @Test
-    void test_getParent_ReturnsNull() {
+    void getParent_ReturnsNull() {
         CustomElement element = model.addCustomElement("Name", "Type", "Description");
         assertNull(element.getParent());
     }
 
     @Test
-    void test_removeTags_DoesNotRemoveRequiredTags() {
+    void removeTags_DoesNotRemoveRequiredTags() {
         CustomElement element = model.addCustomElement("Name", "Type", "Description");
         assertTrue(element.getTags().contains(Tags.ELEMENT));
 
@@ -45,7 +45,7 @@ public class CustomElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_uses_AddsARelationshipWhenTheDescriptionIsSpecified() {
+    void uses_AddsARelationshipWhenTheDescriptionIsSpecified() {
         CustomElement element1 = model.addCustomElement("Box 1");
         CustomElement element2 = model.addCustomElement("Box 2");
 
@@ -61,7 +61,7 @@ public class CustomElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_uses_AddsARelationshipWhenTheDescriptionAndTechnologyAreSpecified() {
+    void uses_AddsARelationshipWhenTheDescriptionAndTechnologyAreSpecified() {
         CustomElement element1 = model.addCustomElement("Box 1");
         CustomElement element2 = model.addCustomElement("Box 2");
 
@@ -77,7 +77,7 @@ public class CustomElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_uses_AddsARelationshipWhenTheDescriptionAndTechnologyAndInteractionStyleAreSpecified() {
+    void uses_AddsARelationshipWhenTheDescriptionAndTechnologyAndInteractionStyleAreSpecified() {
         CustomElement element1 = model.addCustomElement("Box 1");
         CustomElement element2 = model.addCustomElement("Box 2");
 
@@ -93,7 +93,7 @@ public class CustomElementTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_uses_AddsARelationshipWhenTheDescriptionAndTechnologyAndInteractionStyleAndTagsAreSpecified() {
+    void uses_AddsARelationshipWhenTheDescriptionAndTechnologyAndInteractionStyleAndTagsAreSpecified() {
         CustomElement element1 = model.addCustomElement("Box 1");
         CustomElement element2 = model.addCustomElement("Box 2");
 

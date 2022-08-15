@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TerminologyTests {
 
     @Test
-    void test_findTerminology() {
+    void findTerminology() {
         Workspace workspace = new Workspace("Name", "Description");
         Terminology terminology = workspace.getViews().getConfiguration().getTerminology();
         Person person = workspace.getModel().addPerson("Name");

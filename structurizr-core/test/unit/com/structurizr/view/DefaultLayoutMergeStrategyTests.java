@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DefaultLayoutMergeStrategyTests {
 
     @Test
-    void test_copyLayoutInformation_WhenCanonicalNamesHaveNotChanged() {
+    void copyLayoutInformation_WhenCanonicalNamesHaveNotChanged() {
         Workspace workspace1 = new Workspace("1", "");
         SoftwareSystem softwareSystem1 = workspace1.getModel().addSoftwareSystem("Software System");
         Container container1 = softwareSystem1.addContainer("Container", "", "");
@@ -33,7 +33,7 @@ public class DefaultLayoutMergeStrategyTests {
     }
 
     @Test
-    void test_copyLayoutInformation_WhenAParentElementNameHasChanged() {
+    void copyLayoutInformation_WhenAParentElementNameHasChanged() {
         Workspace workspace1 = new Workspace("1", "");
         SoftwareSystem softwareSystem1 = workspace1.getModel().addSoftwareSystem("Software System");
         Container container1 = softwareSystem1.addContainer("Container", "", "");
@@ -56,7 +56,7 @@ public class DefaultLayoutMergeStrategyTests {
     }
 
     @Test
-    void test_copyLayoutInformation_WhenAnElementNameHasChangedButTheDescriptionHasNotChanged() {
+    void copyLayoutInformation_WhenAnElementNameHasChangedButTheDescriptionHasNotChanged() {
         Workspace workspace1 = new Workspace("1", "");
         SoftwareSystem softwareSystem1 = workspace1.getModel().addSoftwareSystem("Software System");
         Container container1 = softwareSystem1.addContainer("Container", "Container description", "");
@@ -79,7 +79,7 @@ public class DefaultLayoutMergeStrategyTests {
     }
 
     @Test
-    void test_copyLayoutInformation_WhenAnElementNameAndDescriptionHaveChangedButTheIdHasNotChanged() {
+    void copyLayoutInformation_WhenAnElementNameAndDescriptionHaveChangedButTheIdHasNotChanged() {
         Workspace workspace1 = new Workspace("1", "");
         SoftwareSystem softwareSystem1 = workspace1.getModel().addSoftwareSystem("Software System");
         Container container1 = softwareSystem1.addContainer("Container", "Container description", "");
@@ -102,7 +102,7 @@ public class DefaultLayoutMergeStrategyTests {
     }
 
     @Test
-    void test_copyLayoutInformation_WhenAnElementNameAndDescriptionAndIdHaveChanged() {
+    void copyLayoutInformation_WhenAnElementNameAndDescriptionAndIdHaveChanged() {
         Workspace workspace1 = new Workspace("1", "");
         SoftwareSystem softwareSystem1 = workspace1.getModel().addSoftwareSystem("Software System");
         Container container1 = softwareSystem1.addContainer("Container", "Container description", "");
@@ -126,7 +126,7 @@ public class DefaultLayoutMergeStrategyTests {
     }
 
     @Test
-    void test_copyLayoutInformation_WhenAnElementNameAndDescriptionAndIdHaveChangedAndDescriptionWasNull() {
+    void copyLayoutInformation_WhenAnElementNameAndDescriptionAndIdHaveChangedAndDescriptionWasNull() {
         Workspace workspace1 = new Workspace("1", "");
         SoftwareSystem softwareSystem1 = workspace1.getModel().addSoftwareSystem("Software System");
         Container container1 = softwareSystem1.addContainer("Container");
@@ -151,7 +151,7 @@ public class DefaultLayoutMergeStrategyTests {
     }
 
     @Test
-    void test_copyLayoutInformation_DoesNotThrowAnExceptionWhenAddingAnElementToAView() {
+    void copyLayoutInformation_DoesNotThrowAnExceptionWhenAddingAnElementToAView() {
         Workspace workspace1 = new Workspace("1", "");
         SoftwareSystem softwareSystem1A = workspace1.getModel().addSoftwareSystem("Software System A");
         SoftwareSystem softwareSystem1B = workspace1.getModel().addSoftwareSystem("Software System B");

@@ -19,7 +19,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_construction() {
+    void construction() {
         assertEquals("The System - Containers", view.getName());
         assertEquals("Description", view.getDescription());
         assertEquals(0, view.getElements().size());
@@ -29,14 +29,14 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAllSoftwareSystems_DoesNothing_WhenThereAreNoOtherSoftwareSystems() {
+    void addAllSoftwareSystems_DoesNothing_WhenThereAreNoOtherSoftwareSystems() {
         assertEquals(0, view.getElements().size());
         view.addAllSoftwareSystems();
         assertEquals(0, view.getElements().size());
     }
 
     @Test
-    void test_addAllSoftwareSystems_AddsAllSoftwareSystems_WhenThereAreSomeSoftwareSystemsInTheModel() {
+    void addAllSoftwareSystems_AddsAllSoftwareSystems_WhenThereAreSomeSoftwareSystemsInTheModel() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.External, "System A", "Description");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.External, "System B", "Description");
 
@@ -48,14 +48,14 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAllPeople_DoesNothing_WhenThereAreNoPeople() {
+    void addAllPeople_DoesNothing_WhenThereAreNoPeople() {
         assertEquals(0, view.getElements().size());
         view.addAllPeople();
         assertEquals(0, view.getElements().size());
     }
 
     @Test
-    void test_addAllPeople_AddsAllPeople_WhenThereAreSomePeopleInTheModel() {
+    void addAllPeople_AddsAllPeople_WhenThereAreSomePeopleInTheModel() {
         Person userA = model.addPerson(Location.External, "User A", "Description");
         Person userB = model.addPerson(Location.External, "User B", "Description");
 
@@ -67,14 +67,14 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAllElements_DoesNothing_WhenThereAreNoSoftwareSystemsOrPeople() {
+    void addAllElements_DoesNothing_WhenThereAreNoSoftwareSystemsOrPeople() {
         assertEquals(0, view.getElements().size());
         view.addAllElements();
         assertEquals(0, view.getElements().size());
     }
 
     @Test
-    void test_addAllElements_AddsAllSoftwareSystemsAndPeopleAndContainers_WhenThereAreSomeSoftwareSystemsAndPeopleAndContainersInTheModel() {
+    void addAllElements_AddsAllSoftwareSystemsAndPeopleAndContainers_WhenThereAreSomeSoftwareSystemsAndPeopleAndContainersInTheModel() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.External, "System A", "Description");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.External, "System B", "Description");
         Person userA = model.addPerson(Location.External, "User A", "Description");
@@ -94,14 +94,14 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAllContainers_DoesNothing_WhenThereAreNoContainers() {
+    void addAllContainers_DoesNothing_WhenThereAreNoContainers() {
         assertEquals(0, view.getElements().size());
         view.addAllContainers();
         assertEquals(0, view.getElements().size());
     }
 
     @Test
-    void test_addAllContainers_AddsAllContainers_WhenThereAreSomeContainers() {
+    void addAllContainers_AddsAllContainers_WhenThereAreSomeContainers() {
         Container webApplication = softwareSystem.addContainer("Web Application", "Does something", "Apache Tomcat");
         Container database = softwareSystem.addContainer("Database", "Does something", "MySQL");
 
@@ -113,21 +113,21 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addNearestNeightbours_DoesNothing_WhenANullElementIsSpecified() {
+    void addNearestNeightbours_DoesNothing_WhenANullElementIsSpecified() {
         view.addNearestNeighbours(null);
 
         assertEquals(0, view.getElements().size());
     }
 
     @Test
-    void test_addNearestNeighbours_DoesNothing_WhenThereAreNoNeighbours() {
+    void addNearestNeighbours_DoesNothing_WhenThereAreNoNeighbours() {
         view.addNearestNeighbours(softwareSystem);
 
         assertEquals(0, view.getElements().size());
     }
 
     @Test
-    void test_addNearestNeighbours_AddsNearestNeighbours_WhenThereAreSomeNearestNeighbours() {
+    void addNearestNeighbours_AddsNearestNeighbours_WhenThereAreSomeNearestNeighbours() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "Description");
         Person userA = model.addPerson("User A", "Description");
@@ -186,7 +186,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_remove_RemovesContainer() {
+    void remove_RemovesContainer() {
         Container webApplication = softwareSystem.addContainer("Web Application", "", "");
         Container database = softwareSystem.addContainer("Database", "", "");
 
@@ -199,7 +199,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_remove_ElementsWithTag() {
+    void remove_ElementsWithTag() {
         final String TAG = "myTag";
         Container webApplication = softwareSystem.addContainer("Web Application", "", "");
         Container database = softwareSystem.addContainer("Database", "", "");
@@ -214,7 +214,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_remove_RelationshipWithTag() {
+    void remove_RelationshipWithTag() {
         final String TAG = "myTag";
         Container webApplication = softwareSystem.addContainer("Web Application", "", "");
         Container database = softwareSystem.addContainer("Database", "", "");
@@ -230,7 +230,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addDependentSoftwareSystem() {
+    void addDependentSoftwareSystem() {
         assertEquals(0, view.getElements().size());
         assertEquals(0, view.getRelationships().size());
 
@@ -249,7 +249,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addDependentSoftwareSystem2() {
+    void addDependentSoftwareSystem2() {
         Container container1a = softwareSystem.addContainer("Container 1A", "", "");
 
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem(Location.External, "SoftwareSystem 2", "");
@@ -266,7 +266,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addDefaultElements() {
+    void addDefaultElements() {
         model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
 
         CustomElement element = model.addCustomElement("Custom");
@@ -307,7 +307,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addSoftwareSystem_ThrowsAnException_WhenTheSoftwareSystemIsTheScopeOfTheView() {
+    void addSoftwareSystem_ThrowsAnException_WhenTheSoftwareSystemIsTheScopeOfTheView() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
 
         view = new ContainerView(softwareSystem, "containers", "Description");
@@ -320,7 +320,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addSoftwareSystem_ThrowsAnException_WhenAChildContainerIsAlreadyAdded() {
+    void addSoftwareSystem_ThrowsAnException_WhenAChildContainerIsAlreadyAdded() {
         try {
             SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
             Container container1 = softwareSystem1.addContainer("Container 1");
@@ -341,7 +341,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addContainer_ThrowsAnException_WhenTheParentIsAlreadyAdded() {
+    void addContainer_ThrowsAnException_WhenTheParentIsAlreadyAdded() {
         try {
             SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
             Container container1 = softwareSystem1.addContainer("Container 1");

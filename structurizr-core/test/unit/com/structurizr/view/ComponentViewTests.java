@@ -24,7 +24,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_construction() {
+    void construction() {
         assertEquals("The System - Web Application - Components", view.getName());
         assertEquals("Some description", view.getDescription());
         assertEquals(0, view.getElements().size());
@@ -35,14 +35,14 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAllSoftwareSystems_DoesNothing_WhenThereAreNoOtherSoftwareSystems() {
+    void addAllSoftwareSystems_DoesNothing_WhenThereAreNoOtherSoftwareSystems() {
         assertEquals(0, view.getElements().size());
         view.addAllSoftwareSystems();
         assertEquals(0, view.getElements().size());
     }
 
     @Test
-    void test_addAllSoftwareSystems_AddsAllSoftwareSystems_WhenThereAreSomeSoftwareSystemsInTheModel() {
+    void addAllSoftwareSystems_AddsAllSoftwareSystems_WhenThereAreSomeSoftwareSystemsInTheModel() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.External, "System A", "Description");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.External, "System B", "Description");
 
@@ -54,14 +54,14 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAllPeople_DoesNothing_WhenThereAreNoPeople() {
+    void addAllPeople_DoesNothing_WhenThereAreNoPeople() {
         assertEquals(0, view.getElements().size());
         view.addAllPeople();
         assertEquals(0, view.getElements().size());
     }
 
     @Test
-    void test_addAllPeople_AddsAllPeople_WhenThereAreSomePeopleInTheModel() {
+    void addAllPeople_AddsAllPeople_WhenThereAreSomePeopleInTheModel() {
         Person userA = model.addPerson(Location.External, "User A", "Description");
         Person userB = model.addPerson(Location.External, "User B", "Description");
 
@@ -73,14 +73,14 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAllElements_DoesNothing_WhenThereAreNoSoftwareSystemsOrPeople() {
+    void addAllElements_DoesNothing_WhenThereAreNoSoftwareSystemsOrPeople() {
         assertEquals(0, view.getElements().size());
         view.addAllElements();
         assertEquals(0, view.getElements().size());
     }
 
     @Test
-    void test_addAllElements_AddsAllSoftwareSystemsAndPeopleAndContainersAndComponents_WhenThereAreSomeSoftwareSystemsAndPeopleAndContainersAndComponentsInTheModel() {
+    void addAllElements_AddsAllSoftwareSystemsAndPeopleAndContainersAndComponents_WhenThereAreSomeSoftwareSystemsAndPeopleAndContainersAndComponentsInTheModel() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.External, "System A", "Description");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.External, "System B", "Description");
         Person userA = model.addPerson(Location.External, "User A", "Description");
@@ -102,14 +102,14 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAllContainers_DoesNothing_WhenThereAreNoContainers() {
+    void addAllContainers_DoesNothing_WhenThereAreNoContainers() {
         assertEquals(0, view.getElements().size());
         view.addAllContainers();
         assertEquals(0, view.getElements().size());
     }
 
     @Test
-    void test_addAllContainers_AddsAllContainers_WhenThereAreSomeContainers() {
+    void addAllContainers_AddsAllContainers_WhenThereAreSomeContainers() {
         Container database = softwareSystem.addContainer("Database", "Stores something", "MySQL");
         Container fileSystem = softwareSystem.addContainer("File System", "Stores something else", "");
 
@@ -121,14 +121,14 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addAllComponents_DoesNothing_WhenThereAreNoComponents() {
+    void addAllComponents_DoesNothing_WhenThereAreNoComponents() {
         assertEquals(0, view.getElements().size());
         view.addAllComponents();
         assertEquals(0, view.getElements().size());
     }
 
     @Test
-    void test_addAllComponents_AddsAllComponents_WhenThereAreSomeComponents() {
+    void addAllComponents_AddsAllComponents_WhenThereAreSomeComponents() {
         Component componentA = webApplication.addComponent("Component A", "Does something", "Java");
         Component componentB = webApplication.addComponent("Component B", "Does something", "Java");
 
@@ -140,7 +140,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_add_ThrowsAnException_WhenANullContainerIsSpecified() {
+    void add_ThrowsAnException_WhenANullContainerIsSpecified() {
         assertEquals(0, view.getElements().size());
 
         try {
@@ -152,7 +152,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_add_AddsTheContainer_WhenTheContainerIsNoInTheViewAlready() {
+    void add_AddsTheContainer_WhenTheContainerIsNoInTheViewAlready() {
         Container database = softwareSystem.addContainer("Database", "Stores something", "MySQL");
 
         assertEquals(0, view.getElements().size());
@@ -162,7 +162,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_add_DoesNothing_WhenTheSpecifiedContainerIsAlreadyInTheView() {
+    void add_DoesNothing_WhenTheSpecifiedContainerIsAlreadyInTheView() {
         Container database = softwareSystem.addContainer("Database", "Stores something", "MySQL");
         view.add(database);
         assertEquals(1, view.getElements().size());
@@ -173,7 +173,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_remove_ThrowsAndException_WhenANullContainerIsPassed() {
+    void remove_ThrowsAndException_WhenANullContainerIsPassed() {
         try {
             view.remove((Container) null);
             fail();
@@ -183,7 +183,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_remove_RemovesTheContainer_WhenTheContainerIsInTheView() {
+    void remove_RemovesTheContainer_WhenTheContainerIsInTheView() {
         Container database = softwareSystem.addContainer("Database", "Stores something", "MySQL");
         view.add(database);
         assertEquals(1, view.getElements().size());
@@ -194,7 +194,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_remove_DoesNothing_WhenTheContainerIsNotInTheView() {
+    void remove_DoesNothing_WhenTheContainerIsNotInTheView() {
         Container database = softwareSystem.addContainer("Database", "Stores something", "MySQL");
         Container fileSystem = softwareSystem.addContainer("File System", "Stores something else", "");
 
@@ -208,14 +208,14 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_add_DoesNothing_WhenANullComponentIsSpecified() {
+    void add_DoesNothing_WhenANullComponentIsSpecified() {
         assertEquals(0, view.getElements().size());
         view.add((Component) null);
         assertEquals(0, view.getElements().size());
     }
 
     @Test
-    void test_add_AddsTheComponent_WhenTheComponentIsNotInTheViewAlready() {
+    void add_AddsTheComponent_WhenTheComponentIsNotInTheViewAlready() {
         Component componentA = webApplication.addComponent("Component A", "Does something", "Java");
 
         assertEquals(0, view.getElements().size());
@@ -225,7 +225,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_add_DoesNothing_WhenTheSpecifiedComponentIsAlreadyInTheView() {
+    void add_DoesNothing_WhenTheSpecifiedComponentIsAlreadyInTheView() {
         Component componentA = webApplication.addComponent("Component A", "Does something", "Java");
         view.add(componentA);
         assertEquals(1, view.getElements().size());
@@ -236,7 +236,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_add_ThrowsAnException_WhenTheSpecifiedComponentIsInADifferentContainer() {
+    void add_ThrowsAnException_WhenTheSpecifiedComponentIsInADifferentContainer() {
         try {
             SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
 
@@ -253,7 +253,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_add_ThrowsAnException_WhenTheContainerOfTheViewIsAdded() {
+    void add_ThrowsAnException_WhenTheContainerOfTheViewIsAdded() {
         try {
             view.add(webApplication);
             fail();
@@ -263,7 +263,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_add_DoesNothing_WhenTheContainerOfTheViewIsAddedViaDependency() {
+    void add_DoesNothing_WhenTheContainerOfTheViewIsAddedViaDependency() {
         final SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "Some other system", "external system that uses our web application");
 
         final Relationship relationshipFromExternalSystem = softwareSystem.uses(webApplication, "");
@@ -274,7 +274,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_remove_DoesNothing_WhenANullComponentIsPassed() {
+    void remove_DoesNothing_WhenANullComponentIsPassed() {
         try {
             view.remove((Component) null);
             fail();
@@ -284,7 +284,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_remove_RemovesTheComponent_WhenTheComponentIsInTheView() {
+    void remove_RemovesTheComponent_WhenTheComponentIsInTheView() {
         Component componentA = webApplication.addComponent("Component A", "Does something", "Java");
         view.add(componentA);
         assertEquals(1, view.getElements().size());
@@ -295,7 +295,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_remove_RemovesTheComponentAndRelationships_WhenTheComponentIsInTheViewAndHasArelationshipToAnotherElement() {
+    void remove_RemovesTheComponentAndRelationships_WhenTheComponentIsInTheViewAndHasArelationshipToAnotherElement() {
         Component componentA = webApplication.addComponent("Component A", "Does something", "Java");
         Component componentB = webApplication.addComponent("Component B", "Does something", "Java");
         componentA.uses(componentB, "uses");
@@ -311,7 +311,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_remove_DoesNothing_WhenTheComponentIsNotInTheView() {
+    void remove_DoesNothing_WhenTheComponentIsNotInTheView() {
         Component componentA = webApplication.addComponent("Component A", "Does something", "Java");
         Component componentB = webApplication.addComponent("Component B", "Does something", "Java");
 
@@ -325,14 +325,14 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addNearestNeightbours_DoesNothing_WhenANullElementIsSpecified() {
+    void addNearestNeightbours_DoesNothing_WhenANullElementIsSpecified() {
         view.addNearestNeighbours(null);
 
         assertEquals(0, view.getElements().size());
     }
 
     @Test
-    void test_addNearestNeighbours_DoesNothing_WhenThereAreNoNeighbours() {
+    void addNearestNeighbours_DoesNothing_WhenThereAreNoNeighbours() {
         Component component = webApplication.addComponent("Component", "", "");
         view.add(component);
         assertEquals(1, view.getElements().size());
@@ -342,7 +342,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addNearestNeighbours_AddsNearestNeighbours_WhenThereAreSomeNearestNeighbours() {
+    void addNearestNeighbours_AddsNearestNeighbours_WhenThereAreSomeNearestNeighbours() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
         SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "Description");
         Person userA = model.addPerson("User A", "Description");
@@ -400,7 +400,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addExternalDependencies_AddsOrphanedElements_WhenThereAreNoDirectRelationshipsWithAComponent() {
+    void addExternalDependencies_AddsOrphanedElements_WhenThereAreNoDirectRelationshipsWithAComponent() {
         SoftwareSystem source = model.addSoftwareSystem("Source", "");
         SoftwareSystem destination = model.addSoftwareSystem("Destination", "");
 
@@ -424,7 +424,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addExternalDependencies_AddsTheContainer_WhenAComponentHasARelationshipToAContainerInTheSameSoftwareSystem() {
+    void addExternalDependencies_AddsTheContainer_WhenAComponentHasARelationshipToAContainerInTheSameSoftwareSystem() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("Software System A", "");
         Container containerA = softwareSystemA.addContainer("Container A", "", "");
         Component componentA = containerA.addComponent("Component A", "", "");
@@ -441,7 +441,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addExternalDependencies_AddsTheContainer_WhenAComponentHasARelationshipFromAContainerInTheSameSoftwareSystem() {
+    void addExternalDependencies_AddsTheContainer_WhenAComponentHasARelationshipFromAContainerInTheSameSoftwareSystem() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("Software System A", "");
         Container containerA = softwareSystemA.addContainer("Container A", "", "");
         Component componentA = containerA.addComponent("Component A", "", "");
@@ -458,7 +458,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addExternalDependencies_AddsTheParentContainer_WhenAComponentHasARelationshipToAComponentInADifferentContainerInTheSameSoftwareSystem() {
+    void addExternalDependencies_AddsTheParentContainer_WhenAComponentHasARelationshipToAComponentInADifferentContainerInTheSameSoftwareSystem() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("Software System A", "");
         Container containerA = softwareSystemA.addContainer("Container A", "", "");
         Component componentA = containerA.addComponent("Component A", "", "");
@@ -476,7 +476,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addExternalDependencies_AddsTheParentContainer_WhenAComponentHasARelationshipFromAComponentInADifferentContainerInTheSameSoftwareSystem() {
+    void addExternalDependencies_AddsTheParentContainer_WhenAComponentHasARelationshipFromAComponentInADifferentContainerInTheSameSoftwareSystem() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("Software System A", "");
         Container containerA = softwareSystemA.addContainer("Container A", "", "");
         Component componentA = containerA.addComponent("Component A", "", "");
@@ -494,7 +494,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addExternalDependencies_AddsTheParentSoftwareSystem_WhenAComponentHasARelationshipToAContainerInAnotherSoftwareSystem() {
+    void addExternalDependencies_AddsTheParentSoftwareSystem_WhenAComponentHasARelationshipToAContainerInAnotherSoftwareSystem() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("Software System A", "");
         Container containerA = softwareSystemA.addContainer("Container A", "", "");
         Component componentA = containerA.addComponent("Component A", "", "");
@@ -512,7 +512,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addExternalDependencies_AddsTheParentSoftwareSystem_WhenAComponentHasARelationshipFromAContainerInAnotherSoftwareSystem() {
+    void addExternalDependencies_AddsTheParentSoftwareSystem_WhenAComponentHasARelationshipFromAContainerInAnotherSoftwareSystem() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("Software System A", "");
         Container containerA = softwareSystemA.addContainer("Container A", "", "");
         Component componentA = containerA.addComponent("Component A", "", "");
@@ -530,7 +530,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addExternalDependencies_AddsTheParentSoftwareSystem_WhenAComponentHasARelationshipToAComponentInAnotherSoftwareSystem() {
+    void addExternalDependencies_AddsTheParentSoftwareSystem_WhenAComponentHasARelationshipToAComponentInAnotherSoftwareSystem() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("Software System A", "");
         Container containerA = softwareSystemA.addContainer("Container A", "", "");
         Component componentA = containerA.addComponent("Component A", "", "");
@@ -549,7 +549,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addExternalDependencies_AddsTheParentSoftwareSystem_WhenAComponentHasARelationshipFromAComponentInAnotherSoftwareSystem() {
+    void addExternalDependencies_AddsTheParentSoftwareSystem_WhenAComponentHasARelationshipFromAComponentInAnotherSoftwareSystem() {
         SoftwareSystem softwareSystemA = model.addSoftwareSystem("Software System A", "");
         Container containerA = softwareSystemA.addContainer("Container A", "", "");
         Component componentA = containerA.addComponent("Component A", "", "");
@@ -568,7 +568,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addDefaultElements() {
+    void addDefaultElements() {
         model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
 
         CustomElement element = model.addCustomElement("Custom");
@@ -615,7 +615,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addSoftwareSystem_ThrowsAnException_WhenTheSoftwareSystemIsTheScopeOfTheView() {
+    void addSoftwareSystem_ThrowsAnException_WhenTheSoftwareSystemIsTheScopeOfTheView() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
         Container container = softwareSystem.addContainer("Container");
 
@@ -629,7 +629,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addContainer_ThrowsAnException_WhenTheContainerIsTheScopeOfTheView() {
+    void addContainer_ThrowsAnException_WhenTheContainerIsTheScopeOfTheView() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
         Container container = softwareSystem.addContainer("Container");
 
@@ -643,7 +643,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addSoftwareSystem_ThrowsAnException_WhenAChildContainerIsAlreadyAdded() {
+    void addSoftwareSystem_ThrowsAnException_WhenAChildContainerIsAlreadyAdded() {
         try {
             SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
             Container container1 = softwareSystem1.addContainer("Container 1");
@@ -665,7 +665,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addSoftwareSystem_ThrowsAnException_WhenAChildComponentIsAlreadyAdded() {
+    void addSoftwareSystem_ThrowsAnException_WhenAChildComponentIsAlreadyAdded() {
         try {
             SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
             Container container1 = softwareSystem1.addContainer("Container 1");
@@ -687,7 +687,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addContainer_ThrowsAnException_WhenAChildComponentIsAlreadyAdded() {
+    void addContainer_ThrowsAnException_WhenAChildComponentIsAlreadyAdded() {
         try {
             SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
             Container container1 = softwareSystem1.addContainer("Container 1");
@@ -709,7 +709,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addContainer_ThrowsAnException_WhenTheParentIsAlreadyAdded() {
+    void addContainer_ThrowsAnException_WhenTheParentIsAlreadyAdded() {
         try {
             SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
             Container container1 = softwareSystem1.addContainer("Container 1");
@@ -731,7 +731,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addComponent_ThrowsAnException_WhenTheParentIsAlreadyAdded() {
+    void addComponent_ThrowsAnException_WhenTheParentIsAlreadyAdded() {
         try {
             SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1");
             Container container1 = softwareSystem1.addContainer("Container 1");

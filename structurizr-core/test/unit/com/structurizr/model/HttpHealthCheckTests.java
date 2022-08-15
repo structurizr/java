@@ -10,13 +10,13 @@ public class HttpHealthCheckTests {
     private HttpHealthCheck healthCheck;
 
     @Test
-    void test_defaultConstructorExists() {
+    void defaultConstructorExists() {
         // the default constructor is used when deserializing from JSON
         healthCheck = new HttpHealthCheck();
     }
 
     @Test
-    void test_construction() {
+    void construction() {
         healthCheck = new HttpHealthCheck("Name", "http://localhost", 120, 1000);
         assertEquals("Name", healthCheck.getName());
         assertEquals("http://localhost", healthCheck.getUrl());
@@ -25,14 +25,14 @@ public class HttpHealthCheckTests {
     }
 
     @Test
-    void test_addHeader() {
+    void addHeader() {
         healthCheck = new HttpHealthCheck();
         healthCheck.addHeader("Name", "Value");
         assertEquals("Value", healthCheck.getHeaders().get("Name"));
     }
 
     @Test
-    void test_addHeader_ThrowsAnException_WhenTheHeaderNameIsNull() {
+    void addHeader_ThrowsAnException_WhenTheHeaderNameIsNull() {
         healthCheck = new HttpHealthCheck();
         try {
             healthCheck.addHeader(null, "value");
@@ -43,7 +43,7 @@ public class HttpHealthCheckTests {
     }
 
     @Test
-    void test_addHeader_ThrowsAnException_WhenTheHeaderNameIsEmpty() {
+    void addHeader_ThrowsAnException_WhenTheHeaderNameIsEmpty() {
         healthCheck = new HttpHealthCheck();
         try {
             healthCheck.addHeader(" ", "value");
@@ -54,7 +54,7 @@ public class HttpHealthCheckTests {
     }
 
     @Test
-    void test_addHeader_ThrowsAnException_WhenTheHeaderValueIsNull() {
+    void addHeader_ThrowsAnException_WhenTheHeaderValueIsNull() {
         healthCheck = new HttpHealthCheck();
         try {
             healthCheck.addHeader("Name", null);
@@ -65,7 +65,7 @@ public class HttpHealthCheckTests {
     }
 
     @Test
-    void test_addHeader_DoesNotThrowAnException_WhenTheHeaderValueIsEmpty() {
+    void addHeader_DoesNotThrowAnException_WhenTheHeaderValueIsEmpty() {
         healthCheck = new HttpHealthCheck();
         healthCheck.addHeader("Name", "");
         assertEquals("", healthCheck.getHeaders().get("Name"));

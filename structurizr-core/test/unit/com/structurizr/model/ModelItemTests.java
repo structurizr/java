@@ -11,41 +11,41 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ModelItemTests extends AbstractWorkspaceTestBase {
 
     @Test
-    void test_construction() {
+    void construction() {
         Element element = model.addSoftwareSystem("Name", "Description");
         assertEquals("Name", element.getName());
         assertEquals("Description", element.getDescription());
     }
 
     @Test
-    void test_getTags_WhenThereAreNoTags() {
+    void getTags_WhenThereAreNoTags() {
         Element element = model.addSoftwareSystem("Name", "Description");
         assertEquals("Element,Software System", element.getTags());
     }
 
     @Test
-    void test_hasTag_ChecksRequiredTags() {
+    void hasTag_ChecksRequiredTags() {
         SoftwareSystem system = model.addSoftwareSystem("Name", "Description");
         assertTrue(system.hasTag("Software System"), "hasTag returns true for Software System");
         assertTrue(system.hasTag("Element"), "hasTag returns true for Element");
     }
 
     @Test
-    void test_getTags_ReturnsTheListOfTags_WhenThereAreSomeTags() {
+    void getTags_ReturnsTheListOfTags_WhenThereAreSomeTags() {
         Element element = model.addSoftwareSystem("Name", "Description");
         element.addTags("tag1", "tag2", "tag3");
         assertEquals("Element,Software System,tag1,tag2,tag3", element.getTags());
     }
 
     @Test
-    void test_setTags_DoesNotDoAnything_WhenPassedNull() {
+    void setTags_DoesNotDoAnything_WhenPassedNull() {
         Element element = model.addSoftwareSystem("Name", "Description");
         element.setTags(null);
         assertEquals("Element,Software System", element.getTags());
     }
 
     @Test
-    void test_addTags_DoesNotDoAnything_WhenPassedNull() {
+    void addTags_DoesNotDoAnything_WhenPassedNull() {
         Element element = model.addSoftwareSystem("Name", "Description");
         element.addTags((String) null);
         assertEquals("Element,Software System", element.getTags());
@@ -55,21 +55,21 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addTags_AddsTags_WhenPassedSomeTags() {
+    void addTags_AddsTags_WhenPassedSomeTags() {
         Element element = model.addSoftwareSystem("Name", "Description");
         element.addTags(null, "tag1", null, "tag2");
         assertEquals("Element,Software System,tag1,tag2", element.getTags());
     }
 
     @Test
-    void test_addTags_AddsTags_WhenPassedSomeTagsAndThereAreDuplicateTags() {
+    void addTags_AddsTags_WhenPassedSomeTagsAndThereAreDuplicateTags() {
         Element element = model.addSoftwareSystem("Name", "Description");
         element.addTags(null, "tag1", null, "tag2", "tag2");
         assertEquals("Element,Software System,tag1,tag2", element.getTags());
     }
 
     @Test
-    void test_removeTags() {
+    void removeTags() {
         Element element = model.addSoftwareSystem("Name", "Description");
         element.addTags("tag1", "tag2");
         assertTrue(element.removeTag("tag1"), "Remove an existing tag returns true");
@@ -80,13 +80,13 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_getProperties_ReturnsAnEmptyList_WhenNoPropertiesHaveBeenAdded() {
+    void getProperties_ReturnsAnEmptyList_WhenNoPropertiesHaveBeenAdded() {
         Element element = model.addSoftwareSystem("Name", "Description");
         assertEquals(0, element.getProperties().size());
     }
 
     @Test
-    void test_addProperty_ThrowsAnException_WhenTheNameIsNull() {
+    void addProperty_ThrowsAnException_WhenTheNameIsNull() {
         try {
             Element element = model.addSoftwareSystem("Name", "Description");
             element.addProperty(null, "value");
@@ -97,7 +97,7 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addProperty_ThrowsAnException_WhenTheNameIsEmpty() {
+    void addProperty_ThrowsAnException_WhenTheNameIsEmpty() {
         try {
             Element element = model.addSoftwareSystem("Name", "Description");
             element.addProperty(" ", "value");
@@ -108,7 +108,7 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addProperty_ThrowsAnException_WhenTheValueIsNull() {
+    void addProperty_ThrowsAnException_WhenTheValueIsNull() {
         try {
             Element element = model.addSoftwareSystem("Name", "Description");
             element.addProperty("name", null);
@@ -119,7 +119,7 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addProperty_ThrowsAnException_WhenTheValueIsEmpty() {
+    void addProperty_ThrowsAnException_WhenTheValueIsEmpty() {
         try {
             Element element = model.addSoftwareSystem("Name", "Description");
             element.addProperty("name", " ");
@@ -130,21 +130,21 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addProperty_AddsTheProperty_WhenANameAndValueAreSpecified() {
+    void addProperty_AddsTheProperty_WhenANameAndValueAreSpecified() {
         Element element = model.addSoftwareSystem("Name", "Description");
         element.addProperty("AWS region", "us-east-1");
         assertEquals("us-east-1", element.getProperties().get("AWS region"));
     }
 
     @Test
-    void test_setProperties_DoesNothing_WhenNullIsSpecified() {
+    void setProperties_DoesNothing_WhenNullIsSpecified() {
         Element element = model.addSoftwareSystem("Name", "Description");
         element.setProperties(null);
         assertEquals(0, element.getProperties().size());
     }
 
     @Test
-    void test_setProperties_SetsTheProperties_WhenANonEmptyMapIsSpecified() {
+    void setProperties_SetsTheProperties_WhenANonEmptyMapIsSpecified() {
         Element element = model.addSoftwareSystem("Name", "Description");
         Map<String, String> properties = new HashMap<>();
         properties.put("name", "value");
@@ -154,7 +154,7 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addPerspective_ThrowsAnException_WhenANameIsNotSpecified() {
+    void addPerspective_ThrowsAnException_WhenANameIsNotSpecified() {
         try {
             Element element = model.addSoftwareSystem("Name", "Description");
             element.addPerspective(null, null);
@@ -165,7 +165,7 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addPerspective_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
+    void addPerspective_ThrowsAnException_WhenAnEmptyNameIsSpecified() {
         try {
             Element element = model.addSoftwareSystem("Name", "Description");
             element.addPerspective(" ", null);
@@ -176,7 +176,7 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addPerspective_ThrowsAnException_WhenADescriptionIsNotSpecified() {
+    void addPerspective_ThrowsAnException_WhenADescriptionIsNotSpecified() {
         try {
             Element element = model.addSoftwareSystem("Name", "Description");
             element.addPerspective("Security", null);
@@ -187,7 +187,7 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addPerspective_ThrowsAnException_WhenAnEmptyDescriptionIsSpecified() {
+    void addPerspective_ThrowsAnException_WhenAnEmptyDescriptionIsSpecified() {
         try {
             Element element = model.addSoftwareSystem("Name", "Description");
             element.addPerspective("Security", " ");
@@ -198,7 +198,7 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addPerspective_AddsAPerspective() {
+    void addPerspective_AddsAPerspective() {
         Element element = model.addSoftwareSystem("Name", "Description");
         Perspective perspective = element.addPerspective("Security", "Data is encrypted at rest.");
         assertEquals("Security", perspective.getName());
@@ -207,7 +207,7 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void test_addPerspective_ThrowsAnException_WhenTheNamedPerspectiveAlreadyExists() {
+    void addPerspective_ThrowsAnException_WhenTheNamedPerspectiveAlreadyExists() {
         try {
             Element element = model.addSoftwareSystem("Name", "Description");
             element.addPerspective("Security", "Data is encrypted at rest.");

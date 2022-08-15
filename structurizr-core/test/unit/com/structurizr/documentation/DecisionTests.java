@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class DecisionTests extends AbstractWorkspaceTestBase {
 
     @Test
-    void test_hasLinkTo() {
+    void hasLinkTo() {
         Decision d1 = new Decision("1");
         Decision d2 = new Decision("2");
         Decision d3 = new Decision("3");

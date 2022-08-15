@@ -7,14 +7,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class SequenceNumberTests {
 
     @Test
-    void test_increment() {
+    void increment() {
         SequenceNumber sequenceNumber = new SequenceNumber();
         assertEquals("1", sequenceNumber.getNext());
         assertEquals("2", sequenceNumber.getNext());
     }
 
     @Test
-    void test_parallelSequences() {
+    void parallelSequences() {
         SequenceNumber sequenceNumber = new SequenceNumber();
         assertEquals("1", sequenceNumber.getNext());
 
