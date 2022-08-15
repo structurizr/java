@@ -1,6 +1,10 @@
 # Changelog
 
-## 1.14.0 (unreleased to Maven Central)
+## 1.14.1 (15th August 2022)
+
+- Enables `structurizr-core` to be used as a transitive dependency by consumers of `structurizr-client`.
+
+## 1.14.0 (14th August 2022)
 
 - Adds a helper method (`AbstractImpliedRelationshipsStrategy.createImpliedRelationship`) to create implied relationships, which can then be used by custom implementations.
 - Provides a way to add specific relationships to dynamic views. 

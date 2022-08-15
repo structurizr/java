@@ -2,13 +2,13 @@ defaultTasks 'clean', 'compileJava', 'test'
 
 subprojects { proj ->
 
-    apply plugin: 'java'
+    apply plugin: 'java-library'
     apply plugin: 'maven-publish'
     apply plugin: 'signing'
 
     description = 'Structurizr'
     group = 'com.structurizr'
-    version = '1.14.0'
+    version = '1.14.1'
 
     repositories {
         mavenCentral()

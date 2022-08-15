@@ -1,17 +1,9 @@
 # Building
 
-[![Build Status](https://travis-ci.org/structurizr/java.svg?branch=master)](https://travis-ci.org/structurizr/java)
-
-To build "Structurizr for Java" from the sources (you'll need Java 8)...
+To build this repo from the sources (you'll need `git` and Java 11+ installed)...
 
 ```
-git clone https://github.com/structurizr/java.git
-cd java
-./gradlew compileJava test
-```
-
-If necessary, after building, you can install "Structurizr for Java" into your local Maven repo using:
-
-```
-./gradlew publishToMavenLocal
+git clone https://github.com/structurizr/java.git structurizr-java
+cd structurizr-java
+./gradlew
 ```
