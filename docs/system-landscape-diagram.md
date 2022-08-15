@@ -8,6 +8,6 @@ Essentially this is a high-level map of the software systems at the enterprise l
 
 As an example, a System Landscape diagram for a simplified, fictional bank might look something like this.
 
-![An example System Landscape diagram](images/system-landscape-diagram-1.png)
+![An example System Landscape diagram](https://static.structurizr.com/workspace/28201/diagrams/SystemLandscape.png)
 
 See [SystemLandscape.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/bigbankplc/SystemLandscape.java) for the code, and [https://structurizr.com/share/28201/diagrams#SystemLandscape](https://structurizr.com/share/28201/diagrams#SystemLandscape) for the diagram.

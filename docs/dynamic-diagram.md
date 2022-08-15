@@ -6,7 +6,7 @@ A simple dynamic diagram can be useful when you want to show how elements in a s
 
 As an example, a Dynamic diagram describing the customer sign in process for a simplified, fictional Internet Banking System might look something like this. In summary, it shows the components involved in the sign in process, and the interactions between them.
 
-![An example Dynamic diagram](images/dynamic-diagram-1.png)
+![An example Dynamic diagram](https://static.structurizr.com/workspace/36141/diagrams/SignIn.png)
 
 See [InternetBankingSystem.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/bigbankplc/InternetBankingSystem.java) for the code, and [https://structurizr.com/share/36141/diagrams#SignIn](https://structurizr.com/share/36141/diagrams#SignIn) for the diagram.
 

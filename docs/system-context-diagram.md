@@ -8,6 +8,6 @@ Detail isn't important here as this is your zoomed out view showing a big pictur
 
 This is an example System Context diagram for a fictional Internet Banking System. It shows the people who use it, and the other software systems that the Internet Banking System has a relationship with. Personal Customers of the bank use the Internet Banking System to view information about their bank accounts, and to make payments. The Internet Banking System itself uses the bank's existing Mainframe Banking System to do this, and uses the bank's existing E-mail System to send e-mails to customers.
 
-![An example System Context diagram](images/system-context-diagram-1.png)
+![An example System Context diagram](https://static.structurizr.com/workspace/36141/diagrams/SystemContext.png)
 
 See [InternetBankingSystem.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/bigbankplc/InternetBankingSystem.java) for the code, and [https://structurizr.com/share/36141/diagrams#SystemContext](https://structurizr.com/share/36141/diagrams#SystemContext) for the diagram.

@@ -6,6 +6,6 @@ A deployment diagram allows you to illustrate how containers in the static model
 
 As an example, a Deployment diagram for the live environment of a simplified, fictional Internet Banking System might look something like this. In summary, it shows the deployment of the Web Application and the Database, with a secondary Database being used for failover purposes.
 
-![An example Deployment diagram](images/deployment-diagram-1.png)
+![An example Deployment diagram](https://static.structurizr.com/workspace/36141/diagrams/LiveDeployment.png)
 
 See [InternetBankingSystem.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/bigbankplc/InternetBankingSystem.java) for the code, and [https://structurizr.com/share/36141/diagrams#LiveDeployment](https://structurizr.com/share/36141/diagrams#LiveDeployment) for the diagram.

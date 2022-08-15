@@ -8,7 +8,7 @@ The Component diagram shows how a container is made up of a number of "component
 
 This is an example Component diagram for a fictional Internet Banking System, showing some (rather than all) of the components within the API Application. Here, there are two Spring MVC Rest Controllers providing access points for the JSON/HTTPS API, with each controller subsequently using other components to access data from the Database and Mainframe Banking System.
 
-![An example Component diagram](images/component-diagram-1.png)
+![An example Component diagram](https://static.structurizr.com/workspace/36141/diagrams/Components.png)
 
 See [InternetBankingSystem.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/bigbankplc/InternetBankingSystem.java) for the code, and [https://structurizr.com/share/36141/diagrams#Components](https://structurizr.com/share/36141/diagrams#Components) for the diagram.
 

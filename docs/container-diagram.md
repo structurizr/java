@@ -10,6 +10,6 @@ This is an example Container diagram for a fictional Internet Banking System. It
 
 Both the Single-Page Application and Mobile App use a JSON/HTTPS API, which is provided by another Java/Spring MVC application running on the server. The API Application gets user information from the Database (a relational database schema). The API Application also communicates with the existing Mainframe Banking System, using a propreitary XML/HTTPS interface, to get information about bank accounts or make transactions. The API Application also uses the existing E-mail System if it needs to send e-mails to customers.
 
-![An example Container diagram](images/container-diagram-1.png)
+![An example Container diagram](https://static.structurizr.com/workspace/36141/diagrams/Containers.png)
 
 See [InternetBankingSystem.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/bigbankplc/InternetBankingSystem.java) for the code, and [https://structurizr.com/share/36141/diagrams#Containers](https://structurizr.com/share/36141/diagrams#Containers) for the diagram.
