@@ -73,8 +73,8 @@ subprojects { proj ->
                     url = 'https://github.com/structurizr/java'
 
                     scm {
-                        connection = 'scm:git:git://github.com/structurizr/structurizr-java.git'
-                        developerConnection = 'scm:git:git@github.com:structurizr/structurizr-java.git'
+                        connection = 'scm:git:git://github.com/structurizr/java.git'
+                        developerConnection = 'scm:git:git@github.com:structurizr/java.git'
                         url = 'https://github.com/structurizr/java'
                     }
 
