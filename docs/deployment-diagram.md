@@ -8,4 +8,4 @@ As an example, a Deployment diagram for the live environment of a simplified, fi
 
 ![An example Deployment diagram](images/deployment-diagram-1.png)
 
-See [InternetBankingSystem.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/bigbankplc/InternetBankingSystem.java) for the code, and [https://structurizr.com/share/36141#LiveDeployment](https://structurizr.com/share/36141#LiveDeployment) for the diagram.
+See [InternetBankingSystem.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/bigbankplc/InternetBankingSystem.java) for the code, and [https://structurizr.com/share/36141/diagrams#LiveDeployment](https://structurizr.com/share/36141/diagrams#LiveDeployment) for the diagram.
