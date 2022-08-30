@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.14.2 (unreleased to Maven Central)
+
+- Adds documentation section filenames into the model.
+
 ## 1.14.1 (15th August 2022)
 
 - Enables `structurizr-core` to be used as a transitive dependency by consumers of `structurizr-client`.

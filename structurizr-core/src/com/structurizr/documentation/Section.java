@@ -5,6 +5,7 @@ package com.structurizr.documentation;
  */
 public final class Section extends DocumentationContent {
 
+    private String filename;
     private int order;
 
     public Section() {
@@ -14,6 +15,24 @@ public final class Section extends DocumentationContent {
         setTitle(title);
         setFormat(format);
         setContent(content);
+    }
+
+    /**
+     * Gets the filename of this section.
+     *
+     * @return  the filename, as a String
+     */
+    public String getFilename() {
+        return filename;
+    }
+
+    /**
+     * Sets the filename of this section (e.g. where this section was imported from).
+     *
+     * @param filename      the filename, as a String
+     */
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     public int getOrder() {
