@@ -16,6 +16,7 @@ jobs:
     strategy:
       matrix:
         java: [ '11', '17' ]
+      max-parallel: 1
 
     steps:
     - uses: actions/checkout@v3
