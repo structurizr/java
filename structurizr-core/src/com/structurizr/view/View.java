@@ -510,25 +510,6 @@ public abstract class View {
         }
     }
 
-    /**
-     * Adds the given custom element to this view, including relationships to/from that custom element.
-     *
-     * @param customElement the CustomElement to add
-     */
-    public void add(@Nonnull CustomElement customElement) {
-        add(customElement, true);
-    }
-
-    /**
-     * Adds the given custom element to this view.
-     *
-     * @param customElement the CustomElement to add
-     * @param addRelationships  whether to add relationships to/from the custom element
-     */
-    public void add(@Nonnull CustomElement customElement, boolean addRelationships) {
-        addElement(customElement, addRelationships);
-    }
-
     protected <T extends Element> void addNearestNeighbours(Element element, Class<T> typeOfElement) {
         if (element == null) {
             return;
@@ -560,15 +541,6 @@ public abstract class View {
         } catch (ElementNotPermittedInViewException e) {
             System.out.println(e.getMessage() + " (ignoring " + element.getName() + ")");
         }
-    }
-
-    /**
-     * Removes the given custom element from this view.
-     *
-     * @param customElement the CustomElement to add
-     */
-    public void remove(@Nonnull CustomElement customElement) {
-        removeElement(customElement);
     }
 
 }

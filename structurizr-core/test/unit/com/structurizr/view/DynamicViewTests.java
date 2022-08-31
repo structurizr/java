@@ -47,7 +47,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     void add_ThrowsAnException_WhenPassedANullSourceElement() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
-            dynamicView.add(null, softwareSystemA);
+            dynamicView.add((StaticStructureElement)null, softwareSystemA);
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A source element must be specified.", iae.getMessage());
@@ -58,7 +58,7 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     void add_ThrowsAnException_WhenPassedANullDestinationElement() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");
-            dynamicView.add(person, null);
+            dynamicView.add(person, (StaticStructureElement)null);
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A destination element must be specified.", iae.getMessage());

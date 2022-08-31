@@ -1,9 +1,6 @@
 package com.structurizr.view;
 
-import com.structurizr.model.Element;
-import com.structurizr.model.Person;
-import com.structurizr.model.Relationship;
-import com.structurizr.model.SoftwareSystem;
+import com.structurizr.model.*;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -238,6 +235,34 @@ public abstract class StaticView extends View {
         } else {
             this.animations = new ArrayList<>();
         }
+    }
+
+    /**
+     * Adds the given custom element to this view, including relationships to/from that custom element.
+     *
+     * @param customElement the CustomElement to add
+     */
+    public void add(@Nonnull CustomElement customElement) {
+        add(customElement, true);
+    }
+
+    /**
+     * Adds the given custom element to this view.
+     *
+     * @param customElement the CustomElement to add
+     * @param addRelationships  whether to add relationships to/from the custom element
+     */
+    public void add(@Nonnull CustomElement customElement, boolean addRelationships) {
+        addElement(customElement, addRelationships);
+    }
+
+    /**
+     * Removes the given custom element from this view.
+     *
+     * @param customElement the CustomElement to add
+     */
+    public void remove(@Nonnull CustomElement customElement) {
+        removeElement(customElement);
     }
 
 }

@@ -100,6 +100,46 @@ public final class DynamicView extends View {
     }
 
     public RelationshipView add(@Nonnull StaticStructureElement source, String description, String technology, @Nonnull StaticStructureElement destination) {
+        return addRelationshipViaElements(source, description, technology, destination);
+    }
+
+    public RelationshipView add(@Nonnull CustomElement source, @Nonnull StaticStructureElement destination) {
+        return add(source, "", destination);
+    }
+
+    public RelationshipView add(@Nonnull CustomElement source, String description, @Nonnull StaticStructureElement destination) {
+        return add(source, description, "", destination);
+    }
+
+    public RelationshipView add(@Nonnull CustomElement source, String description, String technology, @Nonnull StaticStructureElement destination) {
+        return addRelationshipViaElements(source, description, technology, destination);
+    }
+
+    public RelationshipView add(@Nonnull StaticStructureElement source, @Nonnull CustomElement destination) {
+        return add(source, "", destination);
+    }
+
+    public RelationshipView add(@Nonnull StaticStructureElement source, String description, @Nonnull CustomElement destination) {
+        return add(source, description, "", destination);
+    }
+
+    public RelationshipView add(@Nonnull StaticStructureElement source, String description, String technology, @Nonnull CustomElement destination) {
+        return addRelationshipViaElements(source, description, technology, destination);
+    }
+
+    public RelationshipView add(@Nonnull CustomElement source, @Nonnull CustomElement destination) {
+        return add(source, "", destination);
+    }
+
+    public RelationshipView add(@Nonnull CustomElement source, String description, @Nonnull CustomElement destination) {
+        return add(source, description, "", destination);
+    }
+
+    public RelationshipView add(@Nonnull CustomElement source, String description, String technology, @Nonnull CustomElement destination) {
+        return addRelationshipViaElements(source, description, technology, destination);
+    }
+
+    private RelationshipView addRelationshipViaElements(@Nonnull Element source, String description, String technology, @Nonnull Element destination) {
         if (source == null) {
             throw new IllegalArgumentException("A source element must be specified.");
         }
@@ -244,6 +284,11 @@ public final class DynamicView extends View {
 
     @Override
     protected void checkElementCanBeAdded(Element elementToBeAdded) {
+        if (elementToBeAdded instanceof CustomElement) {
+            // all good
+            return;
+        }
+
         if (!(elementToBeAdded instanceof StaticStructureElement)) {
             throw new ElementNotPermittedInViewException("Only people, software systems, containers and components can be added to dynamic views.");
         }

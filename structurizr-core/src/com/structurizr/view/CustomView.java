@@ -137,6 +137,34 @@ public final class CustomView extends View {
     }
 
     /**
+     * Adds the given custom element to this view, including relationships to/from that custom element.
+     *
+     * @param customElement the CustomElement to add
+     */
+    public void add(@Nonnull CustomElement customElement) {
+        add(customElement, true);
+    }
+
+    /**
+     * Adds the given custom element to this view.
+     *
+     * @param customElement the CustomElement to add
+     * @param addRelationships  whether to add relationships to/from the custom element
+     */
+    public void add(@Nonnull CustomElement customElement, boolean addRelationships) {
+        addElement(customElement, addRelationships);
+    }
+
+    /**
+     * Removes the given custom element from this view.
+     *
+     * @param customElement the CustomElement to add
+     */
+    public void remove(@Nonnull CustomElement customElement) {
+        removeElement(customElement);
+    }
+
+    /**
      * Adds the default set of elements to this view.
      */
     public void addDefaultElements() {
