@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.15.0 (unreleased to Maven Central)
+## 1.15.0 (13th September 2022)
 
 - Adds documentation section filenames into the model.
 - Adds support for custom elements on dynamic views.
