@@ -159,6 +159,10 @@ public class ImageUtilsTests {
         ImageUtils.validateImage("https://structurizr.com/image.png");
         ImageUtils.validateImage("data:image/png;base64,iVBORw0KGg");
         ImageUtils.validateImage("data:image/jpeg;base64,iVBORw0KGg");
+        ImageUtils.validateImage("image.png");
+        ImageUtils.validateImage("image.jpg");
+        ImageUtils.validateImage("image.jpeg");
+        ImageUtils.validateImage("image.gif");
 
         //disallowed
         try {
