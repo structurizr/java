@@ -2,6 +2,7 @@ package com.structurizr.view;
 
 import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
+import com.structurizr.util.TagUtils;
 
 import java.util.*;
 
@@ -88,13 +89,14 @@ public final class Styles {
      *
      *
      * @param tag       the tag (a String)
-     * @return          an ElementStyle instance
+     * @return          an ElementStyle instance, or null if there is no style for the given tag
      */
     public ElementStyle findElementStyle(String tag) {
         if (tag == null) {
             return null;
         }
 
+        boolean elementStyleExists = false;
         tag = tag.trim();
         ElementStyle style = new ElementStyle(tag);
 
@@ -106,11 +108,16 @@ public final class Styles {
 
         for (ElementStyle elementStyle : elementStyles) {
             if (elementStyle != null && elementStyle.getTag().equals(tag)) {
+                elementStyleExists = true;
                 style.copyFrom(elementStyle);
             }
         }
 
-        return style;
+        if (elementStyleExists) {
+            return style;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -119,13 +126,14 @@ public final class Styles {
      *
      *
      * @param tag       the tag (a String)
-     * @return          a RelationshipStyle instance
+     * @return          a RelationshipStyle instance, or null if there is no style for the given tag
      */
     public RelationshipStyle findRelationshipStyle(String tag) {
         if (tag == null) {
             return null;
         }
 
+        boolean relationshipStyleExists = false;
         tag = tag.trim();
         RelationshipStyle style = new RelationshipStyle(tag);
 
@@ -138,10 +146,15 @@ public final class Styles {
         for (RelationshipStyle relationshipStyle : relationshipStyles) {
             if (relationshipStyle != null && relationshipStyle.getTag().equals(tag)) {
                 style.copyFrom(relationshipStyle);
+                relationshipStyleExists = true;
             }
         }
 
-        return style;
+        if (relationshipStyleExists) {
+            return style;
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -155,7 +168,7 @@ public final class Styles {
      * @return  an ElementStyle object
      */
     public ElementStyle findElementStyle(Element element) {
-        ElementStyle style = new ElementStyle("").background("#dddddd").color("#000000").shape(Shape.Box).fontSize(24).border(Border.Solid).opacity(100).metadata(true).description(true);
+        ElementStyle style = new ElementStyle(Tags.ELEMENT).background("#dddddd").color("#000000").shape(Shape.Box).fontSize(24).border(Border.Solid).opacity(100).metadata(true).description(true);
 
         if (element instanceof DeploymentNode) {
             style.setBackground("#ffffff");
@@ -164,6 +177,8 @@ public final class Styles {
         }
 
         if (element != null) {
+            Set<String> tagsUsedToComposeStyle = new LinkedHashSet<>();
+            tagsUsedToComposeStyle.add(Tags.ELEMENT);
             String tags = element.getTags();
 
             if (element instanceof SoftwareSystemInstance) {
@@ -179,9 +194,12 @@ public final class Styles {
                     ElementStyle elementStyle = findElementStyle(tag);
                     if (elementStyle != null) {
                         style.copyFrom(elementStyle);
+                        tagsUsedToComposeStyle.add(elementStyle.getTag());
                     }
                 }
             }
+
+            style.setTag(TagUtils.toString(tagsUsedToComposeStyle));
         }
 
         if (style.getWidth() == null) {
@@ -219,9 +237,11 @@ public final class Styles {
      * @return      a RelationshipStyle object
      */
     public RelationshipStyle findRelationshipStyle(Relationship relationship) {
-        RelationshipStyle style = new RelationshipStyle("").thickness(2).color("#707070").dashed(true).routing(Routing.Direct).fontSize(24).width(200).position(50).opacity(100);
+        RelationshipStyle style = new RelationshipStyle(Tags.RELATIONSHIP).thickness(2).color("#707070").dashed(true).routing(Routing.Direct).fontSize(24).width(200).position(50).opacity(100);
 
         if (relationship != null) {
+            Set<String> tagsUsedToComposeStyle = new LinkedHashSet<>();
+            tagsUsedToComposeStyle.add(Tags.RELATIONSHIP);
             String tags = relationship.getTags();
             String linkedRelationshipId = relationship.getLinkedRelationshipId();
 
@@ -239,9 +259,12 @@ public final class Styles {
                     RelationshipStyle relationshipStyle = findRelationshipStyle(tag);
                     if (relationshipStyle != null) {
                         style.copyFrom(relationshipStyle);
+                        tagsUsedToComposeStyle.add(relationshipStyle.getTag());
                     }
                 }
             }
+
+            style.setTag(TagUtils.toString(tagsUsedToComposeStyle));
         }
 
         return style;

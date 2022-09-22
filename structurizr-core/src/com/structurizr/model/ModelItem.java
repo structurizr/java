@@ -3,6 +3,7 @@ package com.structurizr.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.PropertyHolder;
 import com.structurizr.util.StringUtils;
+import com.structurizr.util.TagUtils;
 import com.structurizr.util.Url;
 
 import java.util.*;
@@ -45,20 +46,7 @@ public abstract class ModelItem implements PropertyHolder {
      *          or an empty string if there are no tags
      */
     public String getTags() {
-        Set<String> setOfTags = getTagsAsSet();
-
-        if (setOfTags.isEmpty()) {
-            return "";
-        }
-
-        StringBuilder buf = new StringBuilder();
-        for (String tag : setOfTags) {
-            buf.append(tag);
-            buf.append(",");
-        }
-
-        String tagsAsString = buf.toString();
-        return tagsAsString.substring(0, tagsAsString.length()-1);
+        return TagUtils.toString(getTagsAsSet());
     }
 
     @JsonIgnore
