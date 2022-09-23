@@ -84,6 +84,20 @@ public final class Styles {
     }
 
     /**
+     * Gets the element style that has been defined (in this workspace) for the given tag.
+     *
+     * @param tag   the tag (a String)
+     * @return      an ElementStyle instance, or null if no element style has been defined in this workspace
+     */
+    public ElementStyle getElementStyle(String tag) {
+        if (StringUtils.isNullOrEmpty(tag)) {
+            throw new IllegalArgumentException("A tag must be specified.");
+        }
+
+        return elements.stream().filter(es -> es.getTag().equals(tag)).findFirst().orElse(null);
+    }
+
+    /**
      * Finds the element style for the given tag. This method creates an empty style,
      * and copies properties from any element styles (from the workspace and any themes) for the given tag.
      *
@@ -118,6 +132,20 @@ public final class Styles {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Gets the relationship style that has been defined (in this workspace) for the given tag.
+     *
+     * @param tag   the tag (a String)
+     * @return      an RelationshipStyle instance, or null if no relationship style has been defined in this workspace
+     */
+    public RelationshipStyle getRelationshipStyle(String tag) {
+        if (StringUtils.isNullOrEmpty(tag)) {
+            throw new IllegalArgumentException("A tag must be specified.");
+        }
+
+        return relationships.stream().filter(rs -> rs.getTag().equals(tag)).findFirst().orElse(null);
     }
 
     /**

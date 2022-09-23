@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.15.1 (23rd September 2022)
+
+- Adds some additional functionality for getting and finding element/relationship styles.
+
 ## 1.15.0 (13th September 2022)
 
 - Adds documentation section filenames into the model.

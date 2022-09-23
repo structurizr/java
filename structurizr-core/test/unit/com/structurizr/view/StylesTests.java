@@ -333,4 +333,66 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         assertEquals(0, styles.getRelationships().size());
     }
 
+    @Test
+    void getElementStyle_ThrowsAnException_WhenGivenNoTag() {
+        try {
+            styles.getElementStyle(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A tag must be specified.", iae.getMessage());
+        }
+
+        try {
+            styles.getElementStyle(" ");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A tag must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    void getElementStyle_ReturnsNull_WhenThereIsNoStyleForTheGivenTag() {
+        ElementStyle style = styles.getElementStyle("Tag");
+        assertNull(style);
+    }
+
+    @Test
+    void getElementStyle_ReturnsTheElementStyle_WhenThereIsAStyleForTheGivenTag() {
+        styles.addElementStyle("Tag").background("#ffffff");
+
+        ElementStyle style = styles.getElementStyle("Tag");
+        assertEquals("#ffffff", style.getBackground());
+    }
+
+    @Test
+    void getRelationshipStyle_ThrowsAnException_WhenGivenNoTag() {
+        try {
+            styles.getRelationshipStyle(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A tag must be specified.", iae.getMessage());
+        }
+
+        try {
+            styles.getRelationshipStyle(" ");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A tag must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    void getRelationshipStyle_ReturnsNull_WhenThereIsNoStyleForTheGivenTag() {
+        RelationshipStyle style = styles.getRelationshipStyle("Tag");
+        assertNull(style);
+    }
+
+    @Test
+    void getRelationshipStyle_ReturnsTheRelationshipStyle_WhenThereIsAStyleForTheGivenTag() {
+        styles.addRelationshipStyle("Tag").color("#ffffff");
+
+        RelationshipStyle style = styles.getRelationshipStyle("Tag");
+        assertEquals("#ffffff", style.getColor());
+    }
+
 }
