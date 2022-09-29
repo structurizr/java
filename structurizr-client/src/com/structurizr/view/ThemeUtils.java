@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.structurizr.Workspace;
 import com.structurizr.io.WorkspaceWriterException;
+import com.structurizr.util.StringUtils;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
@@ -79,6 +80,21 @@ public final class ThemeUtils {
                 objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
                 Theme theme = objectMapper.readValue(json, Theme.class);
+                String baseUrl = url.substring(0, url.lastIndexOf('/') + 1);
+
+                for (ElementStyle elementStyle : theme.getElements()) {
+                    String icon = elementStyle.getIcon();
+                    if (!StringUtils.isNullOrEmpty(icon)) {
+                        if (icon.startsWith("http")) {
+                            // okay, image served over HTTP
+                        } else if (icon.startsWith("data:image")) {
+                            // also okay, data URI
+                        } else {
+                            // convert the relative icon filename into a full URL
+                            elementStyle.setIcon(baseUrl + icon);
+                        }
+                    }
+                }
 
                 workspace.getViews().getConfiguration().getStyles().addStylesFromTheme(theme);
             }

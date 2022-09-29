@@ -39,7 +39,7 @@ public class ThemeUtilsTests {
         assertNotNull(style);
         assertEquals("#d6242d", style.getStroke());
         assertEquals("#d6242d", style.getColor());
-        assertNotNull(style.getIcon());
+        assertEquals("https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Alexa-For-Business_light-bg@4x.png", style.getIcon());
     }
 
     @Test
@@ -127,6 +127,26 @@ public class ThemeUtilsTests {
         assertEquals(Integer.valueOf(200), style.getWidth());
         assertEquals(Integer.valueOf(50), style.getPosition());
         assertEquals(Integer.valueOf(100), style.getOpacity());
+    }
+
+    @Test
+    void loadThemes_ReplacesRelativeIconReferences() throws Exception {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
+        softwareSystem.addTags("Amazon Web Services - Alexa For Business");
+        workspace.getViews().getConfiguration().setThemes("https://raw.githubusercontent.com/structurizr/themes/master/amazon-web-services-2020.04.30/theme.json");
+
+        ThemeUtils.loadThemes(workspace);
+
+        // there should still be zero styles in the workspace
+        assertEquals(0, workspace.getViews().getConfiguration().getStyles().getElements().size());
+
+        // but we should be able to find a style included in the theme
+        ElementStyle style = workspace.getViews().getConfiguration().getStyles().findElementStyle(softwareSystem);
+        assertNotNull(style);
+        assertEquals("#d6242d", style.getStroke());
+        assertEquals("#d6242d", style.getColor());
+        assertEquals("https://raw.githubusercontent.com/structurizr/themes/master/amazon-web-services-2020.04.30/Alexa-For-Business_light-bg@4x.png", style.getIcon());
     }
 
 }
