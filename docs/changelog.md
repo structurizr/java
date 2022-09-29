@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.15.2 (unreleased to Maven Central)
+
+- Adds support for element icons being specified as filenames (rather than full URLs) in themes.
+
 ## 1.15.1 (23rd September 2022)
 
 - Adds some additional functionality for getting and finding element/relationship styles.
