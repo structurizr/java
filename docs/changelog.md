@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.15.2 (unreleased to Maven Central)
+## 1.15.2 (3rd October 2022)
 
 - Adds support for element icons being specified as filenames (rather than full URLs) in themes.
 
