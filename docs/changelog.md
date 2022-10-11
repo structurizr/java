@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.15.3 (11th October 2022)
+
+- Updates some transitive dependencies.
+
 ## 1.15.2 (3rd October 2022)
 
 - Adds support for element icons being specified as filenames (rather than full URLs) in themes.
