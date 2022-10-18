@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.16.0 (unreleased to Maven Central)
+
+- Adds support for element style stroke widths.
+
 ## 1.15.3 (11th October 2022)
 
 - Updates some transitive dependencies.

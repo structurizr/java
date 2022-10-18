@@ -27,6 +27,9 @@ public final class ElementStyle extends AbstractStyle {
     private String stroke;
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private Integer strokeWidth;
+
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private String color;
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
@@ -161,6 +164,30 @@ public final class ElementStyle extends AbstractStyle {
 
     public ElementStyle stroke(String color) {
         setStroke(color);
+        return this;
+    }
+
+    /**
+     * Gets the stroke width, in pixels, between 1 and 10.
+     *
+     * @return  the stroke width
+     */
+    public Integer getStrokeWidth() {
+        return strokeWidth;
+    }
+
+    public void setStrokeWidth(Integer strokeWidth) {
+        if (strokeWidth == null) {
+            this.strokeWidth = null;
+        } else if (strokeWidth < 1) {
+            this.strokeWidth = 1;
+        } else {
+            this.strokeWidth = Math.min(10, strokeWidth);
+        }
+    }
+
+    public ElementStyle strokeWidth(Integer strokeWidth) {
+        setStrokeWidth(strokeWidth);
         return this;
     }
 
@@ -350,6 +377,10 @@ public final class ElementStyle extends AbstractStyle {
 
         if (!StringUtils.isNullOrEmpty(elementStyle.getStroke())) {
             this.setStroke(elementStyle.getStroke());
+        }
+
+        if (elementStyle.getStrokeWidth() != null) {
+            this.setStrokeWidth(elementStyle.getStrokeWidth());
         }
 
         if (!StringUtils.isNullOrEmpty(elementStyle.getColor())) {

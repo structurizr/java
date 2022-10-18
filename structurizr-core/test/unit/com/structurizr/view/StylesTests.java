@@ -22,6 +22,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         assertNull(style.getIcon());
         assertEquals(Border.Solid, style.getBorder());
         assertEquals("#9a9a9a", style.getStroke());
+        assertNull(style.getStrokeWidth());
         assertEquals(Integer.valueOf(100), style.getOpacity());
         assertEquals(true, style.getMetadata());
         assertEquals(true, style.getDescription());
@@ -40,6 +41,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         assertNull(style.getIcon());
         assertEquals(Border.Solid, style.getBorder());
         assertEquals("#9a9a9a", style.getStroke());
+        assertNull(style.getStrokeWidth());
         assertEquals(Integer.valueOf(100), style.getOpacity());
         assertEquals(true, style.getMetadata());
         assertEquals(true, style.getDescription());
@@ -51,7 +53,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         element.addTags("Some Tag");
 
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#ff0000").color("#ffffff");
-        styles.addElementStyle("Some Tag").color("#0000ff").stroke("#00ff00").shape(Shape.RoundedBox).width(123).height(456);
+        styles.addElementStyle("Some Tag").color("#0000ff").stroke("#00ff00").strokeWidth(2).shape(Shape.RoundedBox).width(123).height(456);
 
         ElementStyle style = styles.findElementStyle(element);
         assertEquals(Integer.valueOf(123), style.getWidth());
@@ -63,6 +65,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         assertNull(style.getIcon());
         assertEquals(Border.Solid, style.getBorder());
         assertEquals("#00ff00", style.getStroke());
+        assertEquals(2, style.getStrokeWidth());
         assertEquals(Integer.valueOf(100), style.getOpacity());
         assertEquals(true, style.getMetadata());
         assertEquals(true, style.getDescription());
@@ -89,6 +92,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         assertNull(style.getIcon());
         assertEquals(Border.Solid, style.getBorder());
         assertEquals("#00ff00", style.getStroke());
+        assertNull(style.getStrokeWidth());
         assertEquals(Integer.valueOf(100), style.getOpacity());
         assertEquals(true, style.getMetadata());
         assertEquals(true, style.getDescription());

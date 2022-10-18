@@ -294,4 +294,40 @@ public class ElementStyleTests {
         assertEquals("value", style.getProperties().get("name"));
     }
 
+    @Test
+    void setStrokeWidth_WhenNullIsSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.setStrokeWidth(10);
+        style.setStrokeWidth(null);
+        assertNull(style.getStrokeWidth());
+    }
+
+    @Test
+    void setStrokeWidth_WhenANegativeIntegerIsSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.setStrokeWidth(-1);
+        assertEquals(1, style.getStrokeWidth());
+    }
+
+    @Test
+    void setStrokeWidth_WhenZeroIsSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.setStrokeWidth(0);
+        assertEquals(1, style.getStrokeWidth());
+    }
+
+    @Test
+    void setStrokeWidth_WhenAPositiveIntegerIsSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.setStrokeWidth(10);
+        assertEquals(10, style.getStrokeWidth());
+    }
+
+    @Test
+    void setStrokeWidth_WhenAPositiveIntegerOver10IsSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.setStrokeWidth(20);
+        assertEquals(10, style.getStrokeWidth());
+    }
+
 }
