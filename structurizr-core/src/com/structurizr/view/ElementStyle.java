@@ -414,6 +414,10 @@ public final class ElementStyle extends AbstractStyle {
         if (elementStyle.getDescription() != null) {
             this.setDescription(elementStyle.getDescription());
         }
+
+        for (String name : elementStyle.getProperties().keySet()) {
+            this.addProperty(name, elementStyle.getProperties().get(name));
+        }
     }
     
 }

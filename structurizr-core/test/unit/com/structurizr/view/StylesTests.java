@@ -80,7 +80,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         SoftwareSystemInstance softwareSystemInstance = deploymentNode.add(softwareSystem);
 
         styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#ff0000").color("#ffffff");
-        styles.addElementStyle("Some Tag").color("#0000ff").stroke("#00ff00").shape(Shape.RoundedBox).width(123).height(456);
+        styles.addElementStyle("Some Tag").color("#0000ff").stroke("#00ff00").shape(Shape.RoundedBox).width(123).height(456).addProperty("name", "value");
 
         ElementStyle style = styles.findElementStyle(softwareSystemInstance);
         assertEquals(Integer.valueOf(123), style.getWidth());
@@ -96,6 +96,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         assertEquals(Integer.valueOf(100), style.getOpacity());
         assertEquals(true, style.getMetadata());
         assertEquals(true, style.getDescription());
+        assertEquals("value", style.getProperties().get("name"));
     }
 
     @Test
@@ -161,7 +162,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         relationship.addTags("Some Tag");
 
         styles.addRelationshipStyle(Tags.RELATIONSHIP).color("#ff0000");
-        styles.addRelationshipStyle("Some Tag").color("#0000ff");
+        styles.addRelationshipStyle("Some Tag").color("#0000ff").addProperty("name", "value");
 
         RelationshipStyle style = styles.findRelationshipStyle(relationship);
         assertEquals(Integer.valueOf(2), style.getThickness());
@@ -172,6 +173,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         assertEquals(Integer.valueOf(200), style.getWidth());
         assertEquals(Integer.valueOf(50), style.getPosition());
         assertEquals(Integer.valueOf(100), style.getOpacity());
+        assertEquals("value", style.getProperties().get("name"));
     }
 
     @Test

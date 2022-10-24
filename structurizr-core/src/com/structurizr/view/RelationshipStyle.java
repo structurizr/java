@@ -240,6 +240,10 @@ public final class RelationshipStyle extends AbstractStyle {
         if (relationshipStyle.getOpacity() != null) {
             this.setOpacity(relationshipStyle.getOpacity());
         }
+
+        for (String name : relationshipStyle.getProperties().keySet()) {
+            this.addProperty(name, relationshipStyle.getProperties().get(name));
+        }
     }
     
 }
