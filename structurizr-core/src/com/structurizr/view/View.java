@@ -2,20 +2,18 @@ package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.structurizr.PropertyHolder;
 import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
 
 import javax.annotation.Nonnull;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * The superclass for all views (static views, dynamic views and deployment views).
  */
-public abstract class View {
+public abstract class View implements PropertyHolder {
 
     private static final int DEFAULT_RANK_SEPARATION = 300;
     private static final int DEFAULT_NODE_SEPARATION = 300;
@@ -30,6 +28,7 @@ public abstract class View {
     private AutomaticLayout automaticLayout = null;
     private boolean mergeFromRemote = true;
     private String title;
+    private Map<String, String> properties = new HashMap<>();
 
     private Set<ElementView> elementViews = new LinkedHashSet<>();
     private Set<RelationshipView> relationshipViews = new LinkedHashSet<>();
@@ -540,6 +539,39 @@ public abstract class View {
                     });
         } catch (ElementNotPermittedInViewException e) {
             System.out.println(e.getMessage() + " (ignoring " + element.getName() + ")");
+        }
+    }
+
+    /**
+     * Gets the collection of name-value property pairs associated with this view, as a Map.
+     *
+     * @return  a Map (String, String) (empty if there are no properties)
+     */
+    public Map<String, String> getProperties() {
+        return new HashMap<>(properties);
+    }
+
+    /**
+     * Adds a name-value pair property to this view.
+     *
+     * @param name      the name of the property
+     * @param value     the value of the property
+     */
+    public void addProperty(String name, String value) {
+        if (name == null || name.trim().length() == 0) {
+            throw new IllegalArgumentException("A property name must be specified.");
+        }
+
+        if (value == null || value.trim().length() == 0) {
+            throw new IllegalArgumentException("A property value must be specified.");
+        }
+
+        properties.put(name, value);
+    }
+
+    void setProperties(Map<String, String> properties) {
+        if (properties != null) {
+            this.properties = new HashMap<>(properties);
         }
     }
 
