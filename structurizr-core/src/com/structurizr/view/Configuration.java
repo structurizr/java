@@ -209,7 +209,7 @@ public final class Configuration implements PropertyHolder {
     }
 
     /**
-     * Gets the collection of name-value property pairs associated with this workspace, as a Map.
+     * Gets the collection of name-value property pairs, as a Map.
      *
      * @return  a Map (String, String) (empty if there are no properties)
      */
@@ -218,7 +218,7 @@ public final class Configuration implements PropertyHolder {
     }
 
     /**
-     * Adds a name-value pair property to this workspace.
+     * Adds a name-value pair property.
      *
      * @param name      the name of the property
      * @param value     the value of the property
