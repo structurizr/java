@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.16.1 (27th October 2022)
+
+- Adds name-value properties to views.
+
 ## 1.16.0 (24th October 2022)
 
 - Adds support for element style stroke widths.
