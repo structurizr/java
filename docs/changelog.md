@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.16.2 (22nd December 2022)
+
+- Upgraded dependencies.
+
 ## 1.16.1 (27th October 2022)
 
 - Adds name-value properties to views.
