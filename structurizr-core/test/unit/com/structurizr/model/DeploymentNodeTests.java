@@ -107,7 +107,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
         assertEquals("Description", child.getDescription());
         assertEquals("Technology", child.getTechnology());
         assertEquals("Default", child.getEnvironment());
-        assertEquals(1, child.getInstances());
+        assertEquals("1", child.getInstances());
         assertTrue(child.getProperties().isEmpty());
         assertTrue(parent.getChildren().contains(child));
 
@@ -117,7 +117,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
         assertEquals("Description", child.getDescription());
         assertEquals("Technology", child.getTechnology());
         assertEquals("Default", child.getEnvironment());
-        assertEquals(4, child.getInstances());
+        assertEquals("4", child.getInstances());
         assertTrue(child.getProperties().isEmpty());
         assertTrue(parent.getChildren().contains(child));
 
@@ -127,7 +127,7 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
         assertEquals("Description", child.getDescription());
         assertEquals("Technology", child.getTechnology());
         assertEquals("Default", child.getEnvironment());
-        assertEquals(4, child.getInstances());
+        assertEquals("4", child.getInstances());
         assertEquals(1, child.getProperties().size());
         assertEquals("value", child.getProperties().get("name"));
         assertTrue(parent.getChildren().contains(child));
@@ -195,21 +195,13 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void setInstances() {
-        DeploymentNode deploymentNode = new DeploymentNode();
-        deploymentNode.setInstances(8);
-
-        assertEquals(8, deploymentNode.getInstances());
-    }
-
-    @Test
-    void setInstances_ThrowsAnException_WhenZeroIsSpecified() {
+    void setInstances_ThrowsAnException_WhenAZeroIsSpecified() {
         try {
             DeploymentNode deploymentNode = new DeploymentNode();
-            deploymentNode.setInstances(0);
+            deploymentNode.setInstances("0");
             fail();
         } catch (IllegalArgumentException iae) {
-            assertEquals("Number of instances must be a positive integer.", iae.getMessage());
+            assertEquals("Number of instances must be a positive integer or a range.", iae.getMessage());
         }
     }
 
@@ -217,11 +209,72 @@ public class DeploymentNodeTests extends AbstractWorkspaceTestBase {
     void setInstances_ThrowsAnException_WhenANegativeNumberIsSpecified() {
         try {
             DeploymentNode deploymentNode = new DeploymentNode();
-            deploymentNode.setInstances(-1);
+            deploymentNode.setInstances("-1");
             fail();
         } catch (IllegalArgumentException iae) {
-            assertEquals("Number of instances must be a positive integer.", iae.getMessage());
+            assertEquals("Number of instances must be a positive integer or a range.", iae.getMessage());
         }
+    }
+
+    @Test
+    void setInstancesAsPositiveInteger() {
+        DeploymentNode deploymentNode = new DeploymentNode();
+
+        deploymentNode.setInstances("8");
+        assertEquals("8", deploymentNode.getInstances());
+
+        deploymentNode.setInstances(8);
+        assertEquals("8", deploymentNode.getInstances());
+    }
+
+    @Test
+    void setInstances_ThrowsAnException_WhenAnInvalidRangeIsSpecified() {
+        try {
+            DeploymentNode deploymentNode = new DeploymentNode();
+            deploymentNode.setInstances("x..N");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Number of instances must be a positive integer or a range.", iae.getMessage());
+        }
+
+        try {
+            DeploymentNode deploymentNode = new DeploymentNode();
+            deploymentNode.setInstances("2..1");
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Range upper bound must be greater than the lower bound.", iae.getMessage());
+        }
+    }
+
+    @Test
+    void setInstancesAsRangeWithBoundedUpperRange() {
+        DeploymentNode deploymentNode = new DeploymentNode();
+
+        deploymentNode.setInstances("0..2");
+        assertEquals("0..2", deploymentNode.getInstances());
+        
+        deploymentNode.setInstances("1..2");
+        assertEquals("1..2", deploymentNode.getInstances());
+
+        deploymentNode.setInstances("5..10");
+        assertEquals("5..10", deploymentNode.getInstances());
+    }
+
+    @Test
+    void setInstancesAsRangeWithUnboundedUpperRange() {
+        DeploymentNode deploymentNode = new DeploymentNode();
+
+        deploymentNode.setInstances("0..N");
+        assertEquals("0..N", deploymentNode.getInstances());
+
+        deploymentNode.setInstances("1..N");
+        assertEquals("1..N", deploymentNode.getInstances());
+
+        deploymentNode.setInstances("0..*");
+        assertEquals("0..*", deploymentNode.getInstances());
+
+        deploymentNode.setInstances("1..*");
+        assertEquals("1..*", deploymentNode.getInstances());
     }
 
 }

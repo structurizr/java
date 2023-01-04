@@ -1,6 +1,7 @@
 package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.util.*;
 
@@ -22,7 +23,7 @@ import java.util.*;
 public final class DeploymentNode extends DeploymentElement {
 
     private String technology;
-    private int instances = 1;
+    private String instances = "1";
 
     private Set<DeploymentNode> children = new HashSet<>();
     private Set<InfrastructureNode> infrastructureNodes = new HashSet<>();
@@ -360,13 +361,34 @@ public final class DeploymentNode extends DeploymentElement {
         this.technology = technology;
     }
 
-    public int getInstances() {
+    public String getInstances() {
         return instances;
     }
 
     public void setInstances(int instances) {
-        if (instances < 1) {
-            throw new IllegalArgumentException("Number of instances must be a positive integer.");
+        setInstances("" + instances);
+    }
+
+    @JsonSetter
+    public void setInstances(String instances) {
+        try {
+            int instancesAsInteger = Integer.parseInt(instances);
+            if (instancesAsInteger < 1) {
+                throw new IllegalArgumentException("Number of instances must be a positive integer or a range.");
+            }
+        } catch (NumberFormatException nfe) {
+            if (instances.matches("\\d*\\.\\.\\d*")) {
+                String[] range = instances.split("\\.\\.");
+                if (Integer.parseInt(range[0]) > Integer.parseInt(range[1])) {
+                    throw new IllegalArgumentException("Range upper bound must be greater than the lower bound.");
+                }
+            } else if (instances.matches("\\d*..N")) {
+                // okay
+            } else if (instances.matches("\\d*..\\*")) {
+                // okay
+            } else {
+                throw new IllegalArgumentException("Number of instances must be a positive integer or a range.");
+            }
         }
 
         this.instances = instances;

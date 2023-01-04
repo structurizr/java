@@ -2,7 +2,8 @@
 
 ## 1.17.0 (unreleased)
 
-- Fixes case-sensitivity inconsistencies related to element names and relationship descriptions (#183). 
+- Fixes case-sensitivity inconsistencies related to element names and relationship descriptions (#183).
+- Adds support for setting deployment node instances to positive integers or a range (e.g. 0..1, 0..N, 0..*, 1..N, 1..*, 5..10, etc).
 
 ## 1.16.2 (22nd December 2022)
 
