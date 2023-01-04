@@ -1,6 +1,8 @@
 package com.structurizr.util;
 
 import com.structurizr.Workspace;
+import com.structurizr.model.Model;
+import com.structurizr.model.SoftwareSystem;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -119,6 +121,35 @@ public class WorkspaceUtilsTests {
         Workspace workspace = WorkspaceUtils.fromJson("{\"id\":0,\"name\":\"Name\",\"description\":\"Description\",\"model\":{},\"documentation\":{},\"views\":{\"configuration\":{\"branding\":{},\"styles\":{},\"terminology\":{}}}}");
         assertEquals("Name", workspace.getName());
         assertEquals("Description", workspace.getDescription());
+    }
+
+    @Test
+    void elementNamesAreCaseSensitive() throws Exception {
+        Workspace workspace = new Workspace("Name", "Description");
+        Model model = workspace.getModel();
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Name");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("NAME");
+        SoftwareSystem softwareSystem3 = model.addSoftwareSystem("name");
+
+        assertEquals(3, model.getSoftwareSystems().size());
+
+        WorkspaceUtils.fromJson(WorkspaceUtils.toJson(workspace, false)); // no exception thrown
+    }
+
+    @Test
+    void relationshipDescriptionsAreCaseSensitive() throws Exception {
+        Workspace workspace = new Workspace("Name", "Description");
+        Model model = workspace.getModel();
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("1");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("2");
+
+        softwareSystem1.uses(softwareSystem2, "Uses");
+        softwareSystem1.uses(softwareSystem2, "USES");
+        softwareSystem1.uses(softwareSystem2, "uses");
+
+        assertEquals(3, softwareSystem1.getRelationships().size());
+
+        WorkspaceUtils.fromJson(WorkspaceUtils.toJson(workspace, false)); // no exception thrown
     }
 
 }

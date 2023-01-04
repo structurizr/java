@@ -544,14 +544,14 @@ public final class Model {
     }
 
     private void checkNameIsUnique(Collection<? extends Element> elements, String name, String errorMessage) {
-        if (elements.stream().filter(e -> e.getName().equalsIgnoreCase(name)).count() != 1) {
+        if (elements.stream().filter(e -> e.getName().equals(name)).count() != 1) {
             throw new WorkspaceValidationException(
                     String.format(errorMessage, name));
         }
     }
 
     private void checkNameIsUnique(Collection<DeploymentNode> deploymentNodes, String name, String environment, String errorMessage) {
-        if (deploymentNodes.stream().filter(dn -> dn.getName().equalsIgnoreCase(name) && dn.getEnvironment().equals(environment)).count() != 1) {
+        if (deploymentNodes.stream().filter(dn -> dn.getName().equals(name) && dn.getEnvironment().equals(environment)).count() != 1) {
             throw new WorkspaceValidationException(
                     String.format(errorMessage, name));
         }
@@ -568,7 +568,7 @@ public final class Model {
     }
 
     private void checkDescriptionIsUnique(Collection<Relationship> relationships, Relationship relationship) {
-        if (relationships.stream().filter(r -> r.getDestination().equals(relationship.getDestination()) && r.getDescription().equalsIgnoreCase(relationship.getDescription())).count() != 1) {
+        if (relationships.stream().filter(r -> r.getDestination().equals(relationship.getDestination()) && r.getDescription().equals(relationship.getDescription())).count() != 1) {
             throw new WorkspaceValidationException(
                     String.format(
                             "A relationship with the description \"%s\" already exists between \"%s\" and \"%s\".",

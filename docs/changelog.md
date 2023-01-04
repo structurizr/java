@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.17.0 (unreleased)
+
+- Fixes case-sensitivity inconsistencies related to element names and relationship descriptions (#183). 
+
 ## 1.16.2 (22nd December 2022)
 
 - Upgraded dependencies.

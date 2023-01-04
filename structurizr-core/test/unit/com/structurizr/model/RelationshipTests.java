@@ -122,4 +122,14 @@ public class RelationshipTests extends AbstractWorkspaceTestBase {
         assertFalse(relationship.getTagsAsSet().contains(Tags.SYNCHRONOUS));
     }
 
+    @Test
+    void relationshipDescriptionsAreCaseSensitive() {
+        softwareSystem1.uses(softwareSystem2, "Uses");
+        softwareSystem1.uses(softwareSystem2, "Uses");
+        softwareSystem1.uses(softwareSystem2, "USES");
+        softwareSystem1.uses(softwareSystem2, "uses");
+
+        assertEquals(3, softwareSystem1.getRelationships().size());
+    }
+
 }
