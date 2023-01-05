@@ -294,6 +294,32 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
     }
 
     @Test
+    public void test_renderComponentDiagramWithAReversedFlowArrow() throws Exception {
+        Workspace workspace = new Workspace("Name", "Description");
+
+        SoftwareSystem softwareSystem1 = workspace.getModel().addSoftwareSystem("Software System 1");
+        Container container1 = softwareSystem1.addContainer("Container 1");
+        Component component1 = container1.addComponent("Component 1");
+        Component component2 = container1.addComponent("Component 2");
+
+        SoftwareSystem softwareSystem2 = workspace.getModel().addSoftwareSystem("Software System 2");
+        Container container2 = softwareSystem2.addContainer("Container 2");
+        Component component3 = container2.addComponent("Component 3");
+
+        component1.uses(component2, "Uses").addTags("reversed-flow");
+        component2.uses(component3, "Uses");
+
+        ComponentView componentView = workspace.getViews().createComponentView(container1, "Components", "");
+        componentView.add(component1);
+        componentView.add(component2);
+        componentView.add(component3);
+
+        Diagram diagram = new StructurizrPlantUMLExporter().export(componentView);
+        String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/component-view-with-reversed-arrows-1.puml"));
+        assertEquals(expected, diagram.getDefinition());
+    }
+
+    @Test
     public void test_renderDynamicDiagramWithExternalContainers() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem1 = workspace.getModel().addSoftwareSystem("Software System 1");
@@ -615,34 +641,34 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 @startuml
                 set separator none
                 title System Landscape
-                                
+
                 top to bottom direction
-                                
+
                 skinparam {
                   arrowFontSize 10
                   defaultTextAlignment center
                   wrapWidth 200
                   maxMessageSize 100
                 }
-                                
+
                 hide stereotype
-                                
+
                 skinparam rectangle<<SoftwareSystem>> {
                   BackgroundColor #dddddd
                   FontColor #000000
                   BorderColor #9a9a9a
                   shadowing false
                 }
-                                
+
                 rectangle "Group" <<group1>> as group1 {
                   skinparam RectangleBorderColor<<group1>> #cccccc
                   skinparam RectangleFontColor<<group1>> #cccccc
                   skinparam RectangleBorderStyle<<group1>> dashed
-                                
+
                   rectangle "==Software System\\n<size:10>[Software System]</size>" <<SoftwareSystem>> as SoftwareSystem
                 }
-                                
-                                
+
+
                 @enduml""";
 
         diagram = exporter.export(view);
@@ -794,18 +820,18 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 @startuml
                 set separator none
                 title Software System - Containers
-                                
+
                 top to bottom direction
-                                
+
                 skinparam {
                   arrowFontSize 10
                   defaultTextAlignment center
                   wrapWidth 200
                   maxMessageSize 100
                 }
-                                
+
                 hide stereotype
-                                
+
                 skinparam rectangle<<SoftwareSystem.Container1>> {
                   BackgroundColor #dddddd
                   FontColor #000000
@@ -823,26 +849,26 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                   FontColor #9a9a9a
                   shadowing false
                 }
-                                
+
                 rectangle "Software System\\n<size:10>[Software System]</size>" <<SoftwareSystem>> {
                   rectangle "Group 1" <<group1>> as group1 {
                     skinparam RectangleBorderColor<<group1>> #cccccc
                     skinparam RectangleFontColor<<group1>> #cccccc
                     skinparam RectangleBorderStyle<<group1>> dashed
-                                
+
                     rectangle "==Container 1\\n<size:10>[Container]</size>" <<SoftwareSystem.Container1>> as SoftwareSystem.Container1
                   }
-                                
+
                   rectangle "Group 2" <<group2>> as group2 {
                     skinparam RectangleBorderColor<<group2>> #cccccc
                     skinparam RectangleFontColor<<group2>> #cccccc
                     skinparam RectangleBorderStyle<<group2>> dashed
-                                
+
                     rectangle "==Container 2\\n<size:10>[Container]</size>" <<SoftwareSystem.Container2>> as SoftwareSystem.Container2
                   }
-                                
+
                 }
-                                
+
                 @enduml""";
 
         StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
@@ -880,18 +906,18 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 @startuml
                 set separator none
                 title Deployment - Default
-                                
+
                 top to bottom direction
-                                
+
                 skinparam {
                   arrowFontSize 10
                   defaultTextAlignment center
                   wrapWidth 200
                   maxMessageSize 100
                 }
-                                
+
                 hide stereotype
-                                
+
                 skinparam rectangle<<Default.Server1.InfrastructureNode1>> {
                   BackgroundColor #dddddd
                   FontColor #000000
@@ -916,27 +942,27 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                   BorderColor #9a9a9a
                   shadowing false
                 }
-                                
+
                 rectangle "Group 1" <<group1>> as group1 {
                   skinparam RectangleBorderColor<<group1>> #cccccc
                   skinparam RectangleFontColor<<group1>> #cccccc
                   skinparam RectangleBorderStyle<<group1>> dashed
-                                
+
                   rectangle "Server 1\\n<size:10>[Deployment Node]</size>" <<Default.Server1>> as Default.Server1 {
                     rectangle "Group 2" <<group2>> as group2 {
                       skinparam RectangleBorderColor<<group2>> #cccccc
                       skinparam RectangleFontColor<<group2>> #cccccc
                       skinparam RectangleBorderStyle<<group2>> dashed
-                                
+
                       rectangle "==Infrastructure Node 2\\n<size:10>[Infrastructure Node]</size>" <<Default.Server1.InfrastructureNode2>> as Default.Server1.InfrastructureNode2
                       rectangle "==Software System\\n<size:10>[Software System]</size>" <<Default.Server1.SoftwareSystem_1>> as Default.Server1.SoftwareSystem_1
                     }
-                                
+
                     rectangle "==Infrastructure Node 1\\n<size:10>[Infrastructure Node]</size>" <<Default.Server1.InfrastructureNode1>> as Default.Server1.InfrastructureNode1
                   }
-                                
+
                 }
-                                
+
                 @enduml""";
 
         StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
@@ -1048,34 +1074,34 @@ rectangle "Node\\n<size:10>[Deployment Node]</size>" <<Default.Node>> as Default
                 @startuml
                 set separator none
                 title System Landscape
-                                
+
                 top to bottom direction
-                                
+
                 skinparam {
                   arrowFontSize 10
                   defaultTextAlignment center
                   wrapWidth 200
                   maxMessageSize 100
                 }
-                                
+
                 hide stereotype
-                                
+
                 skinparam rectangle<<Name>> {
                   BackgroundColor #dddddd
                   FontColor #000000
                   BorderColor #9a9a9a
                   shadowing false
                 }
-                                
+
                 rectangle "Name" <<group1>> as group1 {
                   skinparam RectangleBorderColor<<group1>> #cccccc
                   skinparam RectangleFontColor<<group1>> #cccccc
                   skinparam RectangleBorderStyle<<group1>> dashed
-                                
+
                   rectangle "==Name\\n<size:10>[Software System]</size>" <<Name>> as Name
                 }
-                                
-                                
+
+
                 @enduml""", diagram.getDefinition());
     }
 
