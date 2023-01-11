@@ -130,6 +130,17 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
             }
         }
 
+        // if we got this far, perhaps the relationship description was changed, so try matching on ID instead
+        for (RelationshipView rv : viewWithLayoutInformation.getRelationships()) {
+            if (
+                rv.getRelationship().getSource().equals(sourceElementWithLayoutInformation) &&
+                rv.getRelationship().getDestination().equals(destinationElementWithLayoutInformation) &&
+                rv.getRelationship().getId().equals(relationshipWithoutLayoutInformation.getId())
+            ) {
+                return rv;
+            }
+        }
+
         return null;
     }
 
@@ -146,6 +157,17 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
                 rv.getRelationship().getSource().equals(sourceElementWithLayoutInformation) &&
                 rv.getRelationship().getDestination().equals(destinationElementWithLayoutInformation) &&
                 rv.getDescription().equals(relationshipWithoutLayoutInformation.getDescription()) &&
+                rv.getOrder().equals(relationshipWithoutLayoutInformation.getOrder())) {
+                    return rv;
+            }
+        }
+
+        // if we got this far, perhaps the relationship description was changed, so try matching on ID instead
+        for (RelationshipView rv : view.getRelationships()) {
+            if (
+                rv.getRelationship().getSource().equals(sourceElementWithLayoutInformation) &&
+                rv.getRelationship().getDestination().equals(destinationElementWithLayoutInformation) &&
+                rv.getRelationship().getId().equals(relationshipWithoutLayoutInformation.getId()) &&
                 rv.getOrder().equals(relationshipWithoutLayoutInformation.getOrder())) {
                     return rv;
             }

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.17.1 (unreleased)
+
+- Fixes #191 (Layout of relationships is reset when changing the description).
+
 ## 1.17.0 (5th January 2023)
 
 - Fixes case-sensitivity inconsistencies related to element names and relationship descriptions (#183).

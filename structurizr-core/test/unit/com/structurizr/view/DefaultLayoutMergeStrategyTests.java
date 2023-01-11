@@ -2,8 +2,11 @@ package com.structurizr.view;
 
 import com.structurizr.Workspace;
 import com.structurizr.model.Container;
+import com.structurizr.model.Relationship;
 import com.structurizr.model.SoftwareSystem;
 import org.junit.jupiter.api.Test;
+
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -169,6 +172,106 @@ public class DefaultLayoutMergeStrategyTests {
 
         DefaultLayoutMergeStrategy strategy = new DefaultLayoutMergeStrategy();
         strategy.copyLayoutInformation(view1, view2);
+    }
+
+    @Test
+    void copyLayoutInformation_FromStaticViewWhenRelationshipDescriptionHasNotChanged() {
+        Workspace workspace1 = new Workspace("1", "");
+        SoftwareSystem a1 = workspace1.getModel().addSoftwareSystem("A");
+        SoftwareSystem b1 = workspace1.getModel().addSoftwareSystem("B");
+        Relationship relationship1 = a1.uses(b1, "Uses");
+        SystemLandscapeView view1 = workspace1.getViews().createSystemLandscapeView("Key", "Description");
+        view1.addAllElements();
+        view1.getRelationshipView(relationship1).setVertices(Collections.singletonList(new Vertex(123, 456)));
+
+        Workspace workspace2 = new Workspace("2", "");
+        SoftwareSystem a2 = workspace2.getModel().addSoftwareSystem("A");
+        SoftwareSystem b2 = workspace2.getModel().addSoftwareSystem("B");
+        Relationship relationship2 = a2.uses(b2, "Uses");
+        SystemLandscapeView view2 = workspace2.getViews().createSystemLandscapeView("Key", "Description");
+        view2.addAllElements();
+
+        DefaultLayoutMergeStrategy strategy = new DefaultLayoutMergeStrategy();
+        strategy.copyLayoutInformation(view1, view2);
+
+        assertEquals(1, view2.getRelationshipView(relationship2).getVertices().size());
+        assertEquals(123, view2.getRelationshipView(relationship2).getVertices().iterator().next().getX());
+        assertEquals(456, view2.getRelationshipView(relationship2).getVertices().iterator().next().getY());
+    }
+
+    @Test
+    void copyLayoutInformation_FromStaticViewWhenRelationshipDescriptionHasChanged() {
+        Workspace workspace1 = new Workspace("1", "");
+        SoftwareSystem a1 = workspace1.getModel().addSoftwareSystem("A");
+        SoftwareSystem b1 = workspace1.getModel().addSoftwareSystem("B");
+        Relationship relationship1 = a1.uses(b1, "Uses");
+        SystemLandscapeView view1 = workspace1.getViews().createSystemLandscapeView("Key", "Description");
+        view1.addAllElements();
+        view1.getRelationshipView(relationship1).setVertices(Collections.singletonList(new Vertex(123, 456)));
+
+        Workspace workspace2 = new Workspace("2", "");
+        SoftwareSystem a2 = workspace2.getModel().addSoftwareSystem("A");
+        SoftwareSystem b2 = workspace2.getModel().addSoftwareSystem("B");
+        Relationship relationship2 = a2.uses(b2, "Reads from and writes to");
+        SystemLandscapeView view2 = workspace2.getViews().createSystemLandscapeView("Key", "Description");
+        view2.addAllElements();
+
+        DefaultLayoutMergeStrategy strategy = new DefaultLayoutMergeStrategy();
+        strategy.copyLayoutInformation(view1, view2);
+
+        assertEquals(1, view2.getRelationshipView(relationship2).getVertices().size());
+        assertEquals(123, view2.getRelationshipView(relationship2).getVertices().iterator().next().getX());
+        assertEquals(456, view2.getRelationshipView(relationship2).getVertices().iterator().next().getY());
+    }
+
+    @Test
+    void copyLayoutInformation_FromDynamicViewWhenRelationshipDescriptionHasNotChanged() {
+        Workspace workspace1 = new Workspace("1", "");
+        SoftwareSystem a1 = workspace1.getModel().addSoftwareSystem("A");
+        SoftwareSystem b1 = workspace1.getModel().addSoftwareSystem("B");
+        Relationship relationship1 = a1.uses(b1, "Uses");
+        DynamicView view1 = workspace1.getViews().createDynamicView("Key", "Description");
+        RelationshipView rv1 = view1.add(a1, b1);
+        rv1.setVertices(Collections.singletonList(new Vertex(123, 456)));
+
+        Workspace workspace2 = new Workspace("2", "");
+        SoftwareSystem a2 = workspace2.getModel().addSoftwareSystem("A");
+        SoftwareSystem b2 = workspace2.getModel().addSoftwareSystem("B");
+        Relationship relationship2 = a2.uses(b2, "Uses");
+        DynamicView view2 = workspace2.getViews().createDynamicView("Key", "Description");
+        RelationshipView rv2 = view2.add(a2, b2);
+
+        DefaultLayoutMergeStrategy strategy = new DefaultLayoutMergeStrategy();
+        strategy.copyLayoutInformation(view1, view2);
+
+        assertEquals(1, view2.getRelationshipView(relationship2).getVertices().size());
+        assertEquals(123, view2.getRelationshipView(relationship2).getVertices().iterator().next().getX());
+        assertEquals(456, view2.getRelationshipView(relationship2).getVertices().iterator().next().getY());
+    }
+
+    @Test
+    void copyLayoutInformation_FromDynamicViewWhenRelationshipDescriptionHasChanged() {
+        Workspace workspace1 = new Workspace("1", "");
+        SoftwareSystem a1 = workspace1.getModel().addSoftwareSystem("A");
+        SoftwareSystem b1 = workspace1.getModel().addSoftwareSystem("B");
+        Relationship relationship1 = a1.uses(b1, "Uses");
+        DynamicView view1 = workspace1.getViews().createDynamicView("Key", "Description");
+        RelationshipView rv1 = view1.add(a1, b1);
+        rv1.setVertices(Collections.singletonList(new Vertex(123, 456)));
+
+        Workspace workspace2 = new Workspace("2", "");
+        SoftwareSystem a2 = workspace2.getModel().addSoftwareSystem("A");
+        SoftwareSystem b2 = workspace2.getModel().addSoftwareSystem("B");
+        Relationship relationship2 = a2.uses(b2, "Uses");
+        DynamicView view2 = workspace2.getViews().createDynamicView("Key", "Description");
+        RelationshipView rv2 = view2.add(a2, "Reads from and writes to", b2);
+
+        DefaultLayoutMergeStrategy strategy = new DefaultLayoutMergeStrategy();
+        strategy.copyLayoutInformation(view1, view2);
+
+        assertEquals(1, view2.getRelationshipView(relationship2).getVertices().size());
+        assertEquals(123, view2.getRelationshipView(relationship2).getVertices().iterator().next().getX());
+        assertEquals(456, view2.getRelationshipView(relationship2).getVertices().iterator().next().getY());
     }
 
 }
