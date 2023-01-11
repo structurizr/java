@@ -4,17 +4,15 @@ Here is a quick overview of how to get started with Structurizr for Java so that
 You can find the code at [GettingStarted.java](https://github.com/structurizr/examples/blob/main/java/src/main/java/com/structurizr/example/GettingStarted.java)
 and the live example workspace at [https://structurizr.com/share/25441](https://structurizr.com/share/25441).
 
-> See the [java-quickstart project](https://github.com/structurizr/java-quickstart) for a quick and simple way to get started with Structurizr for Java. 
-
 For more examples, please see [structurizr-examples](https://github.com/structurizr/examples/tree/main/java/src/main/java/com/structurizr/example).
 
 ## 1. Dependencies
 
 The Structurizr for Java binaries are hosted on [Maven Central](https://repo1.maven.org/maven2/com/structurizr/structurizr-client/) and the dependencies for use with Maven, Ivy, Gradle, etc are as follows.
 
-Name                                     | Description
----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------
-com.structurizr:structurizr-client:1.14.1 | The Structurizr API client library.
+Name                               | Description
+---------------------------------- | ---------------------------------------------------------------------------------------------------------------------------
+com.structurizr:structurizr-client | The Structurizr API client library.
 
 ## 2. Create a Java program
 

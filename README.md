@@ -59,7 +59,6 @@ or other formats including PlantUML, Mermaid, DOT, and WebSequenceDiagrams via t
     * [Client-side encryption](docs/client-side-encryption.md)
 * Related projects
     * [structurizr-dsl](https://github.com/structurizr/dsl): A text-based DSL for authoring Structurizr workspaces.
-    * [java-quickstart](https://github.com/structurizr/java-quickstart): A simple starting point for using Structurizr for Java
     * [structurizr-export](https://github.com/structurizr/export): Export model and views to external formats (e.g. PlantUML, Mermaid, etc).
     * [structurizr-documentation](https://github.com/structurizr/documentation): Import Markdown/AsciiDoc documentation and ADRs into a Structurizr workspace.
     * [java-extensions](https://github.com/structurizr/java-extensions): A collection of Structurizr for Java extensions; including the ability to extract software architecture information from code.
