@@ -83,7 +83,13 @@ public final class RelationshipStyle extends AbstractStyle {
         if (Color.isHexColorCode(color)) {
             this.color = color.toLowerCase();
         } else {
-            throw new IllegalArgumentException(color + " is not a valid hex colour code.");
+            String hexColorCode = Color.fromColorNameToHexColorCode(color);
+
+            if (hexColorCode != null) {
+                this.color = hexColorCode.toLowerCase();
+            } else {
+                throw new IllegalArgumentException(color + " is not a valid hex colour code or HTML colour name.");
+            }
         }
     }
 

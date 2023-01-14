@@ -2,8 +2,7 @@ package com.structurizr.view;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ColorTests {
 
@@ -29,6 +28,16 @@ public class ColorTests {
         assertTrue(Color.isHexColorCode("#abcdef"));
         assertTrue(Color.isHexColorCode("#ABCDEF"));
         assertTrue(Color.isHexColorCode("#123456"));
+    }
+
+    @Test
+    void fromColorNameToHexColorCode_ReturnsNull_WhenPassedAnInvalidName() {
+        assertNull(Color.fromColorNameToHexColorCode("hello world"));
+    }
+
+    @Test
+    void fromColorNameToHexColorCode_ReturnsAHexColorCode_WhenPassedAnValidName() {
+        assertEquals("#FFFF00", Color.fromColorNameToHexColorCode("yellow"));
     }
 
 }

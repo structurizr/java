@@ -78,10 +78,24 @@ public class ElementStyleTests {
     }
 
     @Test
+    void setColor_SetsTheColorProperty_WhenAValidColorNameIsSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.setColor("yellow");
+        assertEquals("#ffff00", style.getColor());
+    }
+
+    @Test
+    void color_SetsTheColorProperty_WhenAValidColorNameIsSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.color("yellow");
+        assertEquals("#ffff00", style.getColor());
+    }
+
+    @Test
     void setColor_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             ElementStyle style = new ElementStyle();
-            style.setColor("white");
+            style.setColor("hello");
         });
     }
 
@@ -89,7 +103,7 @@ public class ElementStyleTests {
     void color_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             ElementStyle style = new ElementStyle();
-            style.color("white");
+            style.color("hello");
         });
     }
 
@@ -120,10 +134,24 @@ public class ElementStyleTests {
     }
 
     @Test
+    void setBackground_SetsTheBackgroundProperty_WhenAValidColorNameIsSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.setBackground("yellow");
+        assertEquals("#ffff00", style.getBackground());
+    }
+
+    @Test
+    void background_SetsTheBackgroundProperty_WhenAValidColorNameIsSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.background("yellow");
+        assertEquals("#ffff00", style.getBackground());
+    }
+
+    @Test
     void setBackground_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             ElementStyle style = new ElementStyle();
-            style.setBackground("white");
+            style.setBackground("hello");
         });
     }
 
@@ -131,7 +159,7 @@ public class ElementStyleTests {
     void background_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             ElementStyle style = new ElementStyle();
-            style.background("white");
+            style.background("hello");
         });
     }
 
@@ -205,10 +233,24 @@ public class ElementStyleTests {
     }
 
     @Test
+    void setStroke_SetsTheStrokeProperty_WhenAValidColorNameIsSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.setStroke("yellow");
+        assertEquals("#ffff00", style.getStroke());
+    }
+
+    @Test
+    void Stroke_SetsTheStrokeProperty_WhenAValidColorNameIsSpecified() {
+        ElementStyle style = new ElementStyle();
+        style.stroke("yellow");
+        assertEquals("#ffff00", style.getStroke());
+    }
+
+    @Test
     void setStroke_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             ElementStyle style = new ElementStyle();
-            style.setStroke("white");
+            style.setStroke("hello");
         });
     }
 
@@ -216,7 +258,7 @@ public class ElementStyleTests {
     void Stroke_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             ElementStyle style = new ElementStyle();
-            style.stroke("white");
+            style.stroke("hello");
         });
     }
 

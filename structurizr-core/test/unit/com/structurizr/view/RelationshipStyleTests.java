@@ -117,18 +117,32 @@ public class RelationshipStyleTests {
     }
 
     @Test
-    void setColor_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
+    void setColor_SetsTheColorProperty_WhenAValidColorNameIsSpecified() {
+        RelationshipStyle style = new RelationshipStyle();
+        style.setColor("yellow");
+        assertEquals("#ffff00", style.getColor());
+    }
+
+    @Test
+    void color_SetsTheColorProperty_WhenAValidColorNameIsSpecified() {
+        RelationshipStyle style = new RelationshipStyle();
+        style.color("yellow");
+        assertEquals("#ffff00", style.getColor());
+    }
+
+    @Test
+    void setColor_ThrowsAnException_WhenAnInvalidColorIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             RelationshipStyle style = new RelationshipStyle();
-            style.setColor("white");
+            style.setColor("hello");
         });
     }
 
     @Test
-    void color_ThrowsAnException_WhenAnInvalidHexColorCodeIsSpecified() {
+    void color_ThrowsAnException_WhenAnInvalidColorIsSpecified() {
         assertThrows(IllegalArgumentException.class, () -> {
             RelationshipStyle style = new RelationshipStyle();
-            style.color("white");
+            style.color("hello");
         });
     }
 

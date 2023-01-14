@@ -132,11 +132,17 @@ public final class ElementStyle extends AbstractStyle {
         return background;
     }
 
-    public void setBackground(String background) {
-        if (Color.isHexColorCode(background)) {
-            this.background = background.toLowerCase();
+    public void setBackground(String color) {
+        if (Color.isHexColorCode(color)) {
+            this.background = color.toLowerCase();
         } else {
-            throw new IllegalArgumentException(background + " is not a valid hex colour code.");
+            String hexColorCode = Color.fromColorNameToHexColorCode(color);
+
+            if (hexColorCode != null) {
+                this.background = hexColorCode.toLowerCase();
+            } else {
+                throw new IllegalArgumentException(color + " is not a valid hex colour code or HTML colour name.");
+            }
         }
     }
 
@@ -158,7 +164,13 @@ public final class ElementStyle extends AbstractStyle {
         if (Color.isHexColorCode(color)) {
             this.stroke = color.toLowerCase();
         } else {
-            throw new IllegalArgumentException(color + " is not a valid hex colour code.");
+            String hexColorCode = Color.fromColorNameToHexColorCode(color);
+
+            if (hexColorCode != null) {
+                this.stroke = hexColorCode.toLowerCase();
+            } else {
+                throw new IllegalArgumentException(color + " is not a valid hex colour code or HTML colour name.");
+            }
         }
     }
 
@@ -204,7 +216,13 @@ public final class ElementStyle extends AbstractStyle {
         if (Color.isHexColorCode(color)) {
             this.color = color.toLowerCase();
         } else {
-            throw new IllegalArgumentException(color + " is not a valid hex colour code.");
+            String hexColorCode = Color.fromColorNameToHexColorCode(color);
+
+            if (hexColorCode != null) {
+                this.color = hexColorCode.toLowerCase();
+            } else {
+                throw new IllegalArgumentException(color + " is not a valid hex colour code or HTML colour name.");
+            }
         }
     }
 
