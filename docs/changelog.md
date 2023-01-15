@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.18.0 (unreleased)
+## 1.18.0 (15th January 2023)
 
 - Fixes #191 (Layout of relationships is reset when changing the description).
 - Adds support for using (CSS/HTML) named colors instead of hex color codes (#192).
