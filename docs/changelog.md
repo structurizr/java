@@ -2,7 +2,7 @@
 
 ## 1.19.0 (unreleased
 
-- Fixes #192 (Named colours are case-sensitive).
+- Fixes #196 (Named colours are case-sensitive).
 
 ## 1.18.0 (15th January 2023)
 
