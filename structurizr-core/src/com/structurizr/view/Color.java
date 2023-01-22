@@ -12,7 +12,11 @@ public class Color {
     }
 
     public static String fromColorNameToHexColorCode(String name) {
-        return NAMED_COLORS.getOrDefault(name, null);
+        if (name != null) {
+            return NAMED_COLORS.getOrDefault(name.toLowerCase(), null);
+        } else {
+            return null;
+        }
     }
 
     static {

@@ -36,8 +36,13 @@ public class ColorTests {
     }
 
     @Test
-    void fromColorNameToHexColorCode_ReturnsAHexColorCode_WhenPassedAnValidName() {
+    void fromColorNameToHexColorCode_ReturnsAHexColorCode_WhenPassedAValidName() {
         assertEquals("#FFFF00", Color.fromColorNameToHexColorCode("yellow"));
+    }
+
+    @Test
+    void fromColorNameToHexColorCode_ReturnsAHexColorCode_WhenPassedAValidNameInMixedCase() {
+        assertEquals("#FFFF00", Color.fromColorNameToHexColorCode("Yellow"));
     }
 
 }

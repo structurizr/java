@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.19.0 (unreleased
+
+- Fixes #192 (Named colours are case-sensitive).
+
 ## 1.18.0 (15th January 2023)
 
 - Fixes #191 (Layout of relationships is reset when changing the description).
