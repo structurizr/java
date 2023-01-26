@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.19.0 (unreleased
+## 1.19.0 (26th January 2023)
 
 - Fixes #196 (Named colours are case-sensitive).
 
