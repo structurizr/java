@@ -41,6 +41,7 @@ public final class Model {
 
     /**
      * Sets the enterprise associated with this model.
+     * This is typically used in conjunction with {@link Location}.
      *
      * @param enterprise an Enterprise instance
      */
