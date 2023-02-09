@@ -14,6 +14,7 @@ public enum Shape {
     Robot,
     Folder,
     WebBrowser,
+    Window,
     MobileDevicePortrait,
     MobileDeviceLandscape,
     Component
