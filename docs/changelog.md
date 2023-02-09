@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.20.0 (unreleased)
+
+- `ThemeUtils.toJson()` now includes the workspace branding logo and font in the resulting theme. 
+
 ## 1.19.0 (26th January 2023)
 
 - Fixes #196 (Named colours are case-sensitive).

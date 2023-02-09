@@ -1,6 +1,8 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.structurizr.util.ImageUtils;
+import com.structurizr.util.StringUtils;
 
 import java.util.Collection;
 import java.util.LinkedList;
@@ -11,6 +13,8 @@ final class Theme {
     private String description;
     private Collection<ElementStyle> elements = new LinkedList<>();
     private Collection<RelationshipStyle> relationships = new LinkedList<>();
+    private String logo;
+    private Font font;
 
     Theme() {
     }
@@ -59,6 +63,37 @@ final class Theme {
 
     void setRelationships(Collection<RelationshipStyle> relationships) {
         this.relationships = relationships;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    /**
+     * Sets the URL of an image representing a logo.
+     *
+     * @param logo   a URL or data URI as a String
+     */
+    public void setLogo(String logo) {
+        if (StringUtils.isNullOrEmpty(logo)) {
+            this.logo = null;
+        } else {
+            ImageUtils.validateImage(logo);
+            this.logo = logo.trim();
+        }
+    }
+
+    public Font getFont() {
+        return font;
+    }
+
+    /**
+     * Sets the font to use.
+     *
+     * @param font  a Font object
+     */
+    public void setFont(Font font) {
+        this.font = font;
     }
 
 }

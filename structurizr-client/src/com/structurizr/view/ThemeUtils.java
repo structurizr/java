@@ -111,13 +111,16 @@ public final class ThemeUtils {
             objectMapper.setSerializationInclusion(JsonInclude.Include.NON_EMPTY);
             objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
 
-            writer.write(objectMapper.writeValueAsString(
-                    new Theme(
-                            workspace.getName(),
-                            workspace.getDescription(),
-                            workspace.getViews().getConfiguration().getStyles().getElements(),
-                            workspace.getViews().getConfiguration().getStyles().getRelationships()
-                    )));
+            Theme theme = new Theme(
+                    workspace.getName(),
+                    workspace.getDescription(),
+                    workspace.getViews().getConfiguration().getStyles().getElements(),
+                    workspace.getViews().getConfiguration().getStyles().getRelationships()
+            );
+            theme.setFont(workspace.getViews().getConfiguration().getBranding().getFont());
+            theme.setLogo(workspace.getViews().getConfiguration().getBranding().getLogo());
+
+            writer.write(objectMapper.writeValueAsString(theme));
         } catch (IOException ioe) {
             throw new WorkspaceWriterException("Could not write the theme as JSON", ioe);
         }
