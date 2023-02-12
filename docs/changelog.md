@@ -3,6 +3,8 @@
 ## 1.20.0 (unreleased)
 
 - `ThemeUtils.toJson()` now includes the workspace branding logo and font in the resulting theme. 
+- Adds a `Window` shape.
+- Adds support for "image views".
 
 ## 1.19.0 (26th January 2023)
 

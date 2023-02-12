@@ -28,6 +28,7 @@ public final class ViewSet {
     private Collection<ComponentView> componentViews = new HashSet<>();
     private Collection<DynamicView> dynamicViews = new HashSet<>();
     private Collection<DeploymentView> deploymentViews = new HashSet<>();
+    private Collection<ImageView> imageViews = new HashSet<>();
 
     private Collection<FilteredView> filteredViews = new HashSet<>();
 
@@ -268,12 +269,48 @@ public final class ViewSet {
         return filteredView;
     }
 
+    /**
+     * Creates an image view.
+     *
+     * @param key               the key for the view (must be unique)
+     * @return                  an ImageView object
+     * @throws                  IllegalArgumentException if the key is not unique
+     */
+    public ImageView createImageView(String key) {
+        assertThatTheViewKeyIsSpecifiedAndUnique(key);
+
+        ImageView view = new ImageView(key);
+        view.setOrder(getNextOrder());
+        imageViews.add(view);
+        return view;
+    }
+
+    /**
+     * Creates an image view, where the scope is the specified element.
+     *
+     * @param element           the Element object representing the scope of the view
+     * @param key               the key for the view (must be unique)
+     * @return                  an ImageView object
+     * @throws                  IllegalArgumentException if the element is null or the key is not unique
+     */
+    public ImageView createImageView(Element element, String key) {
+        if (element == null) {
+            throw new IllegalArgumentException("An element must be specified.");
+        }
+        assertThatTheViewKeyIsSpecifiedAndUnique(key);
+
+        ImageView view = new ImageView(element, key);
+        view.setOrder(getNextOrder());
+        imageViews.add(view);
+        return view;
+    }
+
     private void assertThatTheViewKeyIsSpecifiedAndUnique(String key) {
         if (StringUtils.isNullOrEmpty(key)) {
             throw new IllegalArgumentException("A key must be specified.");
         }
 
-        if (getViewWithKey(key) != null || getFilteredViewWithKey(key) != null) {
+        if (getViewWithKey(key) != null || getFilteredViewWithKey(key) != null || getImageViewWithKey(key) != null) {
             throw new IllegalArgumentException("A view with the key " + key + " already exists.");
         }
     }
@@ -331,6 +368,20 @@ public final class ViewSet {
         }
 
         return filteredViews.stream().filter(v -> key.equals(v.getKey())).findFirst().orElse(null);
+    }
+
+    /**
+     * Finds the image view with the specified key, or null if the view does not exist.
+     *
+     * @param key   the key
+     * @return  a ImageView object, or null if a view with the specified key could not be found
+     */
+    ImageView getImageViewWithKey(String key) {
+        if (key == null) {
+            throw new IllegalArgumentException("A key must be specified.");
+        }
+
+        return imageViews.stream().filter(v -> key.equals(v.getKey())).findFirst().orElse(null);
     }
 
     /**
@@ -459,7 +510,22 @@ public final class ViewSet {
     }
 
     /**
-     * Gets the set of all views (except filtered views).
+     * Gets the set of image views.
+     *
+     * @return  a Collection of ImageView objects
+     */
+    public Collection<ImageView> getImageViews() {
+        return new HashSet<>(imageViews);
+    }
+
+    void setImageView(Set<ImageView> imageViews) {
+        if (imageViews != null) {
+            this.imageViews = new HashSet<>(imageViews);
+        }
+    }
+
+    /**
+     * Gets the set of all views (except filtered and image views).
      *
      * @return      a Collection of View objects
      */
@@ -577,6 +643,20 @@ public final class ViewSet {
 
             filteredView.setView(view);
         }
+
+        for (ImageView view : imageViews) {
+            if (!isNullOrEmpty(view.getElementId())) {
+                Element element = model.getElement(view.getElementId());
+                if (element == null) {
+                    throw new WorkspaceValidationException(
+                            String.format("The image view with key \"%s\" is associated with an element (id=%s), but that element does not exist in the model.",
+                                    view.getKey(), view.getElementId())
+                    );
+                }
+
+                view.setElement(element);
+            }
+        }
     }
 
     private void hydrateView(View view) {
@@ -646,6 +726,7 @@ public final class ViewSet {
         order = Math.max(order, dynamicViews.stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0));
         order = Math.max(order, deploymentViews.stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0));
         order = Math.max(order, filteredViews.stream().max(Comparator.comparingInt(FilteredView::getOrder)).map(FilteredView::getOrder).orElse(0));
+        order = Math.max(order, imageViews.stream().max(Comparator.comparingInt(ImageView::getOrder)).map(ImageView::getOrder).orElse(0));
 
         return order + 1;
     }
