@@ -495,9 +495,9 @@ public final class ViewSet {
     }
 
     /**
-     * Gets the set of dynamic views.
+     * Gets the set of deployment views.
      *
-     * @return  a Collection of DynamicView objects
+     * @return  a Collection of DeploymentView objects
      */
     public Collection<DeploymentView> getDeploymentViews() {
         return new HashSet<>(deploymentViews);
