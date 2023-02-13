@@ -9,14 +9,10 @@ import java.util.Set;
 /**
  * Represents a view on top of a view, which can be used to include or exclude specific elements.
  */
-public final class FilteredView {
+public final class FilteredView extends View {
 
-    private View view;
+    private StaticView view;
     private String baseViewKey;
-
-    private String key;
-    private int order;
-    private String description = "";
 
     private FilterMode mode = FilterMode.Exclude;
     private Set<String> tags = new HashSet<>();
@@ -26,8 +22,8 @@ public final class FilteredView {
 
     FilteredView(StaticView view, String key, String description, FilterMode mode, String... tags) {
         this.view = view;
-        this.key = key;
-        this.description = description;
+        setKey(key);
+        setDescription(description);
         this.mode = mode;
         this.tags.addAll(Arrays.asList(tags));
     }
@@ -37,7 +33,7 @@ public final class FilteredView {
         return view;
     }
 
-    void setView(View view) {
+    void setView(StaticView view) {
         this.view = view;
     }
 
@@ -53,35 +49,6 @@ public final class FilteredView {
         this.baseViewKey = baseViewKey;
     }
 
-    public String getKey() {
-        return key;
-    }
-
-    void setKey(String key) {
-        this.key = key;
-    }
-
-    /**
-     * Gets the order of this view.
-     *
-     * @return  a positive integer
-     */
-    public int getOrder() {
-        return order;
-    }
-
-    void setOrder(int order) {
-        this.order = Math.max(1, order);
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    void setDescription(String description) {
-        this.description = description;
-    }
-
     public FilterMode getMode() {
         return mode;
     }
@@ -92,6 +59,11 @@ public final class FilteredView {
 
     public Set<String> getTags() {
         return new HashSet<>(tags);
+    }
+
+    @Override
+    public String getName() {
+        return "Filtered: " + view.getName();
     }
 
 }

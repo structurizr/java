@@ -2,9 +2,10 @@
 
 ## 1.20.0 (unreleased)
 
-- `ThemeUtils.toJson()` now includes the workspace branding logo and font in the resulting theme. 
-- Adds a `Window` shape.
-- Adds support for "image views".
+- __Breaking change__: Renamed `View` to `ModelView`.
+- Added support for "image views".
+- Added a `Window` shape.
+- `ThemeUtils.toJson()` now includes the workspace branding logo and font in the resulting theme.
 
 ## 1.19.0 (26th January 2023)
 

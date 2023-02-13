@@ -8,18 +8,12 @@ import com.structurizr.util.StringUtils;
 /**
  * A view that has been rendered elsewhere (e.g. PlantUML, Mermaid, Kroki, etc) as a image (e.g. PNG).
  */
-public final class ImageView {
-
-    private String key;
-    private int order;
+public final class ImageView extends View {
 
     private Element element;
     private String elementId;
     private String content;
     private String contentType;
-
-    private String title;
-    private String description;
 
     ImageView() {
     }
@@ -100,77 +94,9 @@ public final class ImageView {
         this.contentType = contentType;
     }
 
-    /**
-     * Gets the order of this view.
-     *
-     * @return  a positive integer
-     */
-    public int getOrder() {
-        return order;
-    }
-
-    void setOrder(int order) {
-        this.order = Math.max(1, order);
-    }
-
-    /**
-     * Gets the title of this view, if one has been set.
-     *
-     * @return  the title, as a String
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     * Sets the title for this view.
-     *
-     * @param title     the title, as a String
-     */
-    public void setTitle(String title) {
-        if (StringUtils.isNullOrEmpty(title)) {
-            throw new IllegalArgumentException("A title must be specified");
-        }
-        this.title = title;
-    }
-
-    /**
-     * Gets the description of this view.
-     *
-     * @return  the description, as a String
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Sets the description of this view.
-     *
-     * @param description       the description, as a string
-     */
-    public void setDescription(String description) {
-        if (description == null) {
-            this.description = "";
-        } else {
-            this.description = description;
-        }
-    }
-
-    /**
-     * Gets the identifier for this view.
-     *
-     * @return the identifier, as a String
-     */
-    public String getKey() {
-        return key;
-    }
-
-    void setKey(String key) {
-        if (key != null) {
-            key = key.replaceAll("/", "_");
-        }
-
-        this.key = key;
+    @Override
+    public String getName() {
+        return getTitle();
     }
 
 }

@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * A deployment view, used to show the mapping of container instances to deployment nodes.
  */
-public final class DeploymentView extends View {
+public final class DeploymentView extends ModelView {
 
     private Model model;
     private String environment = DeploymentElement.DEFAULT_DEPLOYMENT_ENVIRONMENT;

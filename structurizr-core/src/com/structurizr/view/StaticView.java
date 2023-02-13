@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * The superclass for all static views (system landscape, system context, container and component views).
  */
-public abstract class StaticView extends View {
+public abstract class StaticView extends ModelView {
 
     private List<Animation> animations = new ArrayList<>();
 

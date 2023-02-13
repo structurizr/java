@@ -14,6 +14,6 @@ public interface LayoutMergeStrategy {
      * @param sourceView        the source view (e.g. the version stored by the Structurizr service)
      * @param destinationView   the destination View (e.g. the new version, created locally with code)
      */
-    void copyLayoutInformation(@Nonnull View sourceView, @Nonnull View destinationView);
+    void copyLayoutInformation(@Nonnull ModelView sourceView, @Nonnull ModelView destinationView);
 
 }

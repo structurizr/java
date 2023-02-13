@@ -33,7 +33,7 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
      * @param viewWithLayoutInformation         the source view (e.g. the version stored by the Structurizr service)
      * @param viewWithoutLayoutInformation      the destination View (e.g. the new version, created locally with code)
      */
-    public void copyLayoutInformation(@Nonnull View viewWithLayoutInformation, @Nonnull View viewWithoutLayoutInformation) {
+    public void copyLayoutInformation(@Nonnull ModelView viewWithLayoutInformation, @Nonnull ModelView viewWithoutLayoutInformation) {
         setPaperSizeIfNotSpecified(viewWithLayoutInformation, viewWithoutLayoutInformation);
         setDimensionsIfNotSpecified(viewWithLayoutInformation, viewWithoutLayoutInformation);
 
@@ -69,13 +69,13 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
         }
     }
 
-    private void setPaperSizeIfNotSpecified(@Nonnull View remoteView, @Nonnull View localView) {
+    private void setPaperSizeIfNotSpecified(@Nonnull ModelView remoteView, @Nonnull ModelView localView) {
         if (localView.getPaperSize() == null) {
             localView.setPaperSize(remoteView.getPaperSize());
         }
     }
 
-    private void setDimensionsIfNotSpecified(@Nonnull View remoteView, @Nonnull View localView) {
+    private void setDimensionsIfNotSpecified(@Nonnull ModelView remoteView, @Nonnull ModelView localView) {
         if (localView.getDimensions() == null) {
             localView.setDimensions(remoteView.getDimensions());
         }
@@ -88,7 +88,7 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
      * @param elementWithoutLayoutInformation       the Element to find
      * @return  an ElementView
      */
-    protected ElementView findElementView(View viewWithLayoutInformation, Element elementWithoutLayoutInformation) {
+    protected ElementView findElementView(ModelView viewWithLayoutInformation, Element elementWithoutLayoutInformation) {
         // see if we can find an element with the same canonical name in the source view
         ElementView elementView = viewWithLayoutInformation.getElements().stream().filter(ev -> ev.getElement().getCanonicalName().equals(elementWithoutLayoutInformation.getCanonicalName())).findFirst().orElse(null);
 
@@ -112,7 +112,7 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
         return elementView;
     }
 
-    private RelationshipView findRelationshipView(View viewWithLayoutInformation, Relationship relationshipWithoutLayoutInformation, Map<Element,Element> elementMap) {
+    private RelationshipView findRelationshipView(ModelView viewWithLayoutInformation, Relationship relationshipWithoutLayoutInformation, Map<Element,Element> elementMap) {
         if (!elementMap.containsKey(relationshipWithoutLayoutInformation.getSource()) || !elementMap.containsKey(relationshipWithoutLayoutInformation.getDestination())) {
             return null;
         }
@@ -144,7 +144,7 @@ public class DefaultLayoutMergeStrategy implements LayoutMergeStrategy {
         return null;
     }
 
-    private RelationshipView findRelationshipView(View view, RelationshipView relationshipWithoutLayoutInformation, Map<Element,Element> elementMap) {
+    private RelationshipView findRelationshipView(ModelView view, RelationshipView relationshipWithoutLayoutInformation, Map<Element,Element> elementMap) {
         if (!elementMap.containsKey(relationshipWithoutLayoutInformation.getRelationship().getSource()) || !elementMap.containsKey(relationshipWithoutLayoutInformation.getRelationship().getDestination())) {
             return null;
         }

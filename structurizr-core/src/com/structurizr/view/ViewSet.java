@@ -265,6 +265,7 @@ public final class ViewSet {
 
         FilteredView filteredView = new FilteredView(view, key, description, mode, tags);
         filteredView.setOrder(getNextOrder());
+        view.setViewSet(this);
         filteredViews.add(filteredView);
         return filteredView;
     }
@@ -281,6 +282,7 @@ public final class ViewSet {
 
         ImageView view = new ImageView(key);
         view.setOrder(getNextOrder());
+        view.setViewSet(this);
         imageViews.add(view);
         return view;
     }
@@ -301,6 +303,7 @@ public final class ViewSet {
 
         ImageView view = new ImageView(element, key);
         view.setOrder(getNextOrder());
+        view.setViewSet(this);
         imageViews.add(view);
         return view;
     }
@@ -641,7 +644,14 @@ public final class ViewSet {
                 );
             }
 
-            filteredView.setView(view);
+            if (view instanceof StaticView) {
+                filteredView.setView((StaticView)view);
+            } else {
+                throw new WorkspaceValidationException(
+                        String.format("The filtered view with key \"%s\" is based upon a view (key=%s), but that view is not a static view.",
+                                filteredView.getKey(), filteredView.getBaseViewKey())
+                );
+            }
         }
 
         for (ImageView view : imageViews) {
@@ -659,7 +669,7 @@ public final class ViewSet {
         }
     }
 
-    private void hydrateView(View view) {
+    private void hydrateView(ModelView view) {
         view.setViewSet(this);
 
         for (ElementView elementView : view.getElements()) {
@@ -687,8 +697,7 @@ public final class ViewSet {
         }
     }
 
-    private void checkViewKeysAreUnique() {
-        Set<String> keys = new HashSet<>();
+    private Collection<View> getAllViews() {
         Collection<View> views = new ArrayList<>();
         views.addAll(customViews);
         views.addAll(systemLandscapeViews);
@@ -697,38 +706,26 @@ public final class ViewSet {
         views.addAll(componentViews);
         views.addAll(dynamicViews);
         views.addAll(deploymentViews);
+        views.addAll(filteredViews);
+        views.addAll(imageViews);
 
-        for (View view : views) {
+        return views;
+    }
+
+    private void checkViewKeysAreUnique() {
+        Set<String> keys = new HashSet<>();
+
+        for (View view : getAllViews()) {
             if (keys.contains(view.getKey())) {
                 throw new WorkspaceValidationException("A view with the key " + view.getKey() + " already exists.");
             } else {
                 keys.add(view.getKey());
             }
         }
-
-        for (FilteredView filteredView : filteredViews) {
-            if (keys.contains(filteredView.getKey())) {
-                throw new WorkspaceValidationException("A view with the key " + filteredView.getKey() + " already exists.");
-            } else {
-                keys.add(filteredView.getKey());
-            }
-        }
     }
 
     private synchronized int getNextOrder() {
-        int order = 0;
-
-        order = Math.max(order, customViews.stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0));
-        order = Math.max(order, systemLandscapeViews.stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0));
-        order = Math.max(order, systemContextViews.stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0));
-        order = Math.max(order, containerViews.stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0));
-        order = Math.max(order, componentViews.stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0));
-        order = Math.max(order, dynamicViews.stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0));
-        order = Math.max(order, deploymentViews.stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0));
-        order = Math.max(order, filteredViews.stream().max(Comparator.comparingInt(FilteredView::getOrder)).map(FilteredView::getOrder).orElse(0));
-        order = Math.max(order, imageViews.stream().max(Comparator.comparingInt(ImageView::getOrder)).map(ImageView::getOrder).orElse(0));
-
-        return order + 1;
+        return getAllViews().stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0) + 1;
     }
 
     /**

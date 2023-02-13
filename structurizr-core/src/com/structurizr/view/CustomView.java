@@ -15,7 +15,7 @@ import java.util.Set;
 /**
  * Represents a custom view, containing custom elements.
  */
-public final class CustomView extends View {
+public final class CustomView extends ModelView {
 
     private List<Animation> animations = new ArrayList<>();
 
