@@ -3,6 +3,8 @@
 ## 1.20.1 (unreleased)
 
 - `ViewSet.getViews()` now includes all views.
+- `ViewSet.getViewWithKey()` is now public.
+
 ## 1.20.0 (16th February 2023)
 
 - __Breaking change__: Renamed `com.structurizr.view.View` to `com.structurizr.view.ModelView`.

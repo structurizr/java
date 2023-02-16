@@ -342,7 +342,7 @@ public final class ViewSet {
      * @param key   the key
      * @return  a View object, or null if a view with the specified key could not be found
      */
-    View getViewWithKey(String key) {
+    public View getViewWithKey(String key) {
         if (key == null) {
             throw new IllegalArgumentException("A key must be specified.");
         }
