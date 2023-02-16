@@ -1,8 +1,8 @@
 # Changelog
 
-## 1.20.0 (unreleased)
+## 1.20.0 (16th February 2023)
 
-- __Breaking change__: Renamed `View` to `ModelView`.
+- __Breaking change__: Renamed `com.structurizr.view.View` to `com.structurizr.view.ModelView`.
 - Added support for "image views".
 - Added a `Window` shape.
 - `ThemeUtils.toJson()` now includes the workspace branding logo and font in the resulting theme.
