@@ -347,16 +347,7 @@ public final class ViewSet {
             throw new IllegalArgumentException("A key must be specified.");
         }
 
-        Set<View> views = new HashSet<>();
-        views.addAll(customViews);
-        views.addAll(systemLandscapeViews);
-        views.addAll(systemContextViews);
-        views.addAll(containerViews);
-        views.addAll(componentViews);
-        views.addAll(dynamicViews);
-        views.addAll(deploymentViews);
-
-        return views.stream().filter(v -> key.equals(v.getKey())).findFirst().orElse(null);
+        return getViews().stream().filter(v -> key.equals(v.getKey())).findFirst().orElse(null);
     }
 
     /**
@@ -528,7 +519,7 @@ public final class ViewSet {
     }
 
     /**
-     * Gets the set of all views (except filtered and image views).
+     * Gets the set of all views.
      *
      * @return      a Collection of View objects
      */
@@ -536,12 +527,15 @@ public final class ViewSet {
     public Collection<View> getViews() {
         HashSet<View> views = new HashSet<>();
 
+        views.addAll(getCustomViews());
         views.addAll(getSystemLandscapeViews());
         views.addAll(getSystemContextViews());
         views.addAll(getContainerViews());
         views.addAll(getComponentViews());
         views.addAll(getDynamicViews());
         views.addAll(getDeploymentViews());
+        views.addAll(getFilteredViews());
+        views.addAll(getImageViews());
 
         return views;
     }
@@ -697,25 +691,10 @@ public final class ViewSet {
         }
     }
 
-    private Collection<View> getAllViews() {
-        Collection<View> views = new ArrayList<>();
-        views.addAll(customViews);
-        views.addAll(systemLandscapeViews);
-        views.addAll(systemContextViews);
-        views.addAll(containerViews);
-        views.addAll(componentViews);
-        views.addAll(dynamicViews);
-        views.addAll(deploymentViews);
-        views.addAll(filteredViews);
-        views.addAll(imageViews);
-
-        return views;
-    }
-
     private void checkViewKeysAreUnique() {
         Set<String> keys = new HashSet<>();
 
-        for (View view : getAllViews()) {
+        for (View view : getViews()) {
             if (keys.contains(view.getKey())) {
                 throw new WorkspaceValidationException("A view with the key " + view.getKey() + " already exists.");
             } else {
@@ -725,7 +704,7 @@ public final class ViewSet {
     }
 
     private synchronized int getNextOrder() {
-        return getAllViews().stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0) + 1;
+        return getViews().stream().max(Comparator.comparingInt(View::getOrder)).map(View::getOrder).orElse(0) + 1;
     }
 
     /**
