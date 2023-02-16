@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.20.1 (unreleased)
+## 1.20.1 (16th February 2023)
 
 - `ViewSet.getViews()` now includes all views.
 - `ViewSet.getViewWithKey()` is now public.
