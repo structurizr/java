@@ -27,6 +27,13 @@ public class ViewTests extends AbstractWorkspaceTestBase {
         StaticView view = new SystemContextView(softwareSystem, "key/1", "Description");
         assertEquals("key_1", view.getKey());
     }
+    
+    @Test
+    public void test_construction_WhenTheViewKeyContainsASpaceCharacter() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        StaticView view = new SystemContextView(softwareSystem, "key 1", "Description");
+        assertEquals("key_1", view.getKey());
+    }    
 
     @Test
     void addAllSoftwareSystems_DoesNothing_WhenThereAreNoOtherSoftwareSystemsInTheModel() {
