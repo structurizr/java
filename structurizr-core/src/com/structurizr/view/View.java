@@ -51,7 +51,7 @@ public abstract class View implements PropertyHolder {
 
     void setKey(String key) {
         if (key != null) {
-            key = key.replaceAll("/", "_");
+            key = key.replaceAll("/", "_").replaceAll(" ", "_");
         }
 
         this.key = key;
