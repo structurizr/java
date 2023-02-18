@@ -265,7 +265,7 @@ public final class ViewSet {
 
         FilteredView filteredView = new FilteredView(view, key, description, mode, tags);
         filteredView.setOrder(getNextOrder());
-        view.setViewSet(this);
+        filteredView.setViewSet(this);
         filteredViews.add(filteredView);
         return filteredView;
     }
