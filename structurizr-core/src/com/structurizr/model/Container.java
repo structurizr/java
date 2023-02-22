@@ -1,11 +1,17 @@
 package com.structurizr.model;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Optional;
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.documentation.Documentable;
 import com.structurizr.documentation.Documentation;
-
-import javax.annotation.Nonnull;
-import java.util.*;
 
 /**
  * Represents a "container" in the C4 model.
@@ -73,7 +79,8 @@ public final class Container extends StaticStructureElement implements Documenta
      * @return  the resulting Component instance
      * @throws  IllegalArgumentException    if the component name is null or empty, or a component with the same name already exists
      */
-    public Component addComponent(String name) {
+    @Nonnull
+    public Component addComponent(@Nonnull String name) {
         return this.addComponent(name, "");
     }
 
@@ -85,7 +92,8 @@ public final class Container extends StaticStructureElement implements Documenta
      * @return  the resulting Component instance
      * @throws  IllegalArgumentException    if the component name is null or empty, or a component with the same name already exists
      */
-    public Component addComponent(String name, String description) {
+    @Nonnull
+    public Component addComponent(@Nonnull String name, @Nullable String description) {
         return this.addComponent(name, description, null);
     }
 
@@ -98,7 +106,8 @@ public final class Container extends StaticStructureElement implements Documenta
      * @return  the resulting Component instance
      * @throws  IllegalArgumentException    if the component name is null or empty, or a component with the same name already exists
      */
-    public Component addComponent(String name, String description, String technology) {
+    @Nonnull
+    public Component addComponent(@Nonnull String name, @Nullable String description, @Nullable String technology) {
         return this.addComponent(name, (String)null, description, technology);
     }
 
@@ -112,7 +121,8 @@ public final class Container extends StaticStructureElement implements Documenta
      * @return  the resulting Component instance
      * @throws  IllegalArgumentException    if the component name is null or empty, or a component with the same name already exists
      */
-    public Component addComponent(String name, Class type, String description, String technology) {
+    @Nonnull
+    public Component addComponent(@Nonnull String name, @Nonnull Class type, String description, String technology) {
         return this.addComponent(name, type.getCanonicalName(), description, technology);
     }
 
@@ -126,7 +136,8 @@ public final class Container extends StaticStructureElement implements Documenta
      * @return  the resulting Component instance
      * @throws  IllegalArgumentException    if the component name is null or empty, or a component with the same name already exists
      */
-    public Component addComponent(String name, String type, String description, String technology) {
+    @Nonnull
+    public Component addComponent(@Nonnull String name, String type, String description, String technology) {
         return getModel().addComponentOfType(this, name, type, description, technology);
     }
 

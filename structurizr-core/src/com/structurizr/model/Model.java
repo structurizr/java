@@ -1,12 +1,19 @@
 package com.structurizr.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.structurizr.WorkspaceValidationException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.*;
-import java.util.stream.Collectors;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.structurizr.WorkspaceValidationException;
 
 /**
  * Represents a software architecture model, into which all model elements are added.
@@ -214,8 +221,8 @@ public final class Model {
             throw new IllegalArgumentException("A container named '" + name + "' already exists for this software system.");
         }
     }
-
-    Component addComponentOfType(Container parent, String name, String type, String description, String technology) {
+    @Nonnull
+    Component addComponentOfType(Container parent, @Nonnull String name, @Nullable String type, @Nullable String description, String technology) {
         if (parent.getComponentWithName(name) == null) {
             Component component = new Component();
             component.setName(name);
@@ -255,9 +262,7 @@ public final class Model {
 
     @Nullable
     Relationship addRelationship(Element source, @Nonnull Element destination, String description, String technology, InteractionStyle interactionStyle, String[] tags, boolean createImpliedRelationships) {
-        if (destination == null) {
-            throw new IllegalArgumentException("The destination must be specified.");
-        }
+
 
         if (isChildOf(source, destination) || isChildOf(destination, source)) {
             throw new IllegalArgumentException("Relationships cannot be added between parents and children.");

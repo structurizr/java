@@ -1,19 +1,26 @@
 package com.structurizr.model;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
+import javax.annotation.Nonnull;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.PropertyHolder;
 import com.structurizr.util.StringUtils;
 import com.structurizr.util.TagUtils;
 import com.structurizr.util.Url;
 
-import java.util.*;
-
 /**
  * The base class for elements and relationships.
  */
 public abstract class ModelItem implements PropertyHolder {
 
-    private String id = "";
+    @Nonnull private String id = "";
     private Set<String> tags = new LinkedHashSet<>();
 
     private String url;
@@ -31,11 +38,12 @@ public abstract class ModelItem implements PropertyHolder {
      *
      * @return the ID, as a String
      */
+    @Nonnull
     public String getId() {
         return id;
     }
 
-    void setId(String id) {
+    void setId(@Nonnull String id) {
         this.id = id;
     }
 
