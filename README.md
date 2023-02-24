@@ -30,6 +30,7 @@ or other formats including PlantUML, Mermaid, DOT, and WebSequenceDiagrams via t
 
 ## Table of contents
 
+* [changelog](docs/changelog.md)
 * Introduction
     * [Getting started](docs/getting-started.md)
     * [Basic concepts](https://structurizr.com/help/concepts) (workspaces, models, views and documentation)
@@ -38,7 +39,6 @@ or other formats including PlantUML, Mermaid, DOT, and WebSequenceDiagrams via t
     * [Binaries](docs/binaries.md)
     * [Building from source](docs/building.md)
     * [API client](docs/api-client.md)
-    * [Usage patterns](docs/usage-patterns.md)
     * [FAQ](docs/faq.md)
 * Model
 	* [Creating your model](docs/model.md)
@@ -54,16 +54,10 @@ or other formats including PlantUML, Mermaid, DOT, and WebSequenceDiagrams via t
     * [Styling elements](docs/styling-elements.md)
     * [Styling relationships](docs/styling-relationships.md)
     * [Filtered views](docs/filtered-views.md)
-    * [Graphviz automatic layout](https://github.com/structurizr/java-extensions/blob/master/structurizr-graphviz)
 * Other
     * [Client-side encryption](docs/client-side-encryption.md)
 * Related projects
     * [structurizr-dsl](https://github.com/structurizr/dsl): A text-based DSL for authoring Structurizr workspaces.
     * [structurizr-export](https://github.com/structurizr/export): Export model and views to external formats (e.g. PlantUML, Mermaid, etc).
-    * [structurizr-documentation](https://github.com/structurizr/documentation): Import Markdown/AsciiDoc documentation and ADRs into a Structurizr workspace.
-    * [java-extensions](https://github.com/structurizr/java-extensions): A collection of Structurizr for Java extensions; including the ability to extract software architecture information from code.
-    * [structurizr-kotlin](https://github.com/Catalysts/structurizr-extensions/tree/master/structurizr-kotlin): An extension for Structurizr that lets you create your models in a fluent way.
-    * [structurizr-spring-boot](https://github.com/Catalysts/structurizr-extensions/tree/master/structurizr-spring-boot): A way to apply dependency management to help modularise Structurizr code.
-    * [structurizr-groovy](https://github.com/tidyjava/structurizr-groovy): An initial version of a Groovy wrapper around Structurizr for Java.
-* [changelog](docs/changelog.md)
+    * [structurizr-import](https://github.com/structurizr/import): Import Markdown/AsciiDoc documentation/ADRs into a Structurizr workspace.
 
