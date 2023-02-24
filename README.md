@@ -30,7 +30,7 @@ or other formats including PlantUML, Mermaid, DOT, and WebSequenceDiagrams via t
 
 ## Table of contents
 
-* [changelog](docs/changelog.md)
+* [Changelog](docs/changelog.md)
 * Introduction
     * [Getting started](docs/getting-started.md)
     * [Basic concepts](https://structurizr.com/help/concepts) (workspaces, models, views and documentation)
@@ -38,24 +38,24 @@ or other formats including PlantUML, Mermaid, DOT, and WebSequenceDiagrams via t
     * [Examples](https://github.com/structurizr/examples)
     * [Binaries](docs/binaries.md)
     * [Building from source](docs/building.md)
-    * [API client](docs/api-client.md)
     * [FAQ](docs/faq.md)
 * Model
 	* [Creating your model](docs/model.md)
 	* [Implied relationships](docs/implied-relationships.md)
 * Views
-	* [Creating views](docs/views.md)
-    * [System Context diagram](docs/system-context-diagram.md)
-    * [Container diagram](docs/container-diagram.md)
-    * [Component diagram](docs/component-diagram.md)
-    * [Dynamic diagram](docs/dynamic-diagram.md)
-    * [Deployment diagram](docs/deployment-diagram.md)
-    * [System Landscape diagram](docs/system-landscape-diagram.md)
-    * [Styling elements](docs/styling-elements.md)
-    * [Styling relationships](docs/styling-relationships.md)
-    * [Filtered views](docs/filtered-views.md)
-* Other
-    * [Client-side encryption](docs/client-side-encryption.md)
+  * [Creating views](docs/views.md)
+  * [System Context diagram](docs/system-context-diagram.md)
+  * [Container diagram](docs/container-diagram.md)
+  * [Component diagram](docs/component-diagram.md)
+  * [Dynamic diagram](docs/dynamic-diagram.md)
+  * [Deployment diagram](docs/deployment-diagram.md)
+  * [System Landscape diagram](docs/system-landscape-diagram.md)
+  * [Styling elements](docs/styling-elements.md)
+  * [Styling relationships](docs/styling-relationships.md)
+  * [Filtered views](docs/filtered-views.md)
+* Cloud service/on-premises installation
+  * [API client](docs/api-client.md)
+  * [Client-side encryption](docs/client-side-encryption.md)
 * Related projects
     * [structurizr-dsl](https://github.com/structurizr/dsl): A text-based DSL for authoring Structurizr workspaces.
     * [structurizr-export](https://github.com/structurizr/export): Export model and views to external formats (e.g. PlantUML, Mermaid, etc).
