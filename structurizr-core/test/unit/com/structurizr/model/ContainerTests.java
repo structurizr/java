@@ -84,8 +84,6 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
         assertEquals("Name", component.getName());
         assertEquals("Description", component.getDescription());
         assertNull(component.getTechnology());
-        assertNull(component.getType());
-        assertEquals(0, component.getCode().size());
         assertSame(container, component.getParent());
     }
 
@@ -96,32 +94,6 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
         assertEquals("Name", component.getName());
         assertEquals("Description", component.getDescription());
         assertEquals("Technology", component.getTechnology());
-        assertNull(component.getType());
-        assertEquals(0, component.getCode().size());
-        assertSame(container, component.getParent());
-    }
-
-    @Test
-    void addComponent_AddsAComponentWithTheSpecifiedNameAndDescriptionAndTechnologyAndStringType() {
-        Component component = container.addComponent("Name", "SomeType", "Description", "Technology");
-        assertTrue(container.getComponents().contains(component));
-        assertEquals("Name", component.getName());
-        assertEquals("Description", component.getDescription());
-        assertEquals("Technology", component.getTechnology());
-        assertEquals("SomeType", component.getType().getType());
-        assertEquals(1, component.getCode().size());
-        assertSame(container, component.getParent());
-    }
-
-    @Test
-    void addComponent_AddsAComponentWithTheSpecifiedNameAndDescriptionAndTechnologyAndClassType() {
-        Component component = container.addComponent("Name", this.getClass(), "Description", "Technology");
-        assertTrue(container.getComponents().contains(component));
-        assertEquals("Name", component.getName());
-        assertEquals("Description", component.getDescription());
-        assertEquals("Technology", component.getTechnology());
-        assertEquals("com.structurizr.model.ContainerTests", component.getType().getType());
-        assertEquals(1, component.getCode().size());
         assertSame(container, component.getParent());
     }
 
@@ -143,40 +115,6 @@ public class ContainerTests extends AbstractWorkspaceTestBase {
         } catch (IllegalArgumentException iae) {
             assertEquals("A component name must be provided.", iae.getMessage());
         }
-    }
-
-    @Test
-    void getComponentOfType_ThrowsAnException_WhenANullTypeIsSpecified() {
-        try {
-            container.getComponentOfType(null);
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A component type must be provided.", iae.getMessage());
-        }
-    }
-
-    @Test
-    void getComponentOfType_ThrowsAnException_WhenAnEmptyTypeIsSpecified() {
-        try {
-            container.getComponentOfType(" ");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A component type must be provided.", iae.getMessage());
-        }
-    }
-
-    @Test
-    void getComponentOfType_ReturnsNull_WhenNoComponentWithTheSpecifiedTypeExists() {
-        assertNull(container.getComponentOfType("SomeType"));
-    }
-
-    @Test
-    void getComponentOfType_ReturnsAComponent_WhenAComponentWithTheSpecifiedTypeExists() {
-        container.addComponent("Name", "SomeType", "Description", "Technology");
-        Component component = container.getComponentOfType("SomeType");
-
-        assertNotNull(component);
-        assertEquals("SomeType", component.getType().getType());
     }
 
 }

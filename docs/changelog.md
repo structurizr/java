@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.21.0 (unreleased)
+
+- __Breaking change__: Removes the concept of "code elements" from `Component`.
+
 ## 1.20.1 (16th February 2023)
 
 - `ViewSet.getViews()` now includes all views.

@@ -215,16 +215,12 @@ public final class Model {
         }
     }
 
-    Component addComponentOfType(Container parent, String name, String type, String description, String technology) {
+    Component addComponent(Container parent, String name, String description, String technology) {
         if (parent.getComponentWithName(name) == null) {
             Component component = new Component();
             component.setName(name);
             component.setDescription(description);
             component.setTechnology(technology);
-
-            if (type != null && type.trim().length() > 0) {
-                component.setType(type);
-            }
 
             component.setParent(parent);
             parent.add(component);
