@@ -15,7 +15,7 @@ public class Url {
      * @return  true if the URL is valid, false otherwise
      */
     public static boolean isUrl(String urlAsString) {
-        if (urlAsString != null && urlAsString.trim().length() > 0) {
+        if (!StringUtils.isNullOrEmpty(urlAsString)) {
             try {
                 new URL(urlAsString);
                 return true;
