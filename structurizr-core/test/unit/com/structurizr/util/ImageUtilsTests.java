@@ -11,7 +11,7 @@ public class ImageUtilsTests {
     @Test
     void getContentType_ThrowsAnException_WhenANullFileIsSpecified() throws Exception {
         try {
-            ImageUtils.getContentType(null);
+            ImageUtils.getContentType((File)null);
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A file must be specified.", iae.getMessage());
@@ -53,6 +53,22 @@ public class ImageUtilsTests {
     @Test
     void getContentType_ReturnsTheContentType_WhenAFileIsSpecified() throws Exception {
         String contentType = ImageUtils.getContentType(new File("../structurizr-core/test/unit/com/structurizr/util/structurizr-logo.png"));
+        assertEquals("image/png", contentType);
+    }
+
+    @Test
+    void getContentType_ThrowsAnException_WhenANullUrlIsSpecified() throws Exception {
+        try {
+            ImageUtils.getContentType((String)null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A URL must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    void getContentType_ReturnsTheContentType_WhenAUrlIsSpecified() throws Exception {
+        String contentType = ImageUtils.getContentType(new File("../structurizr-core/test/unit/com/structurizr/util/structurizr-logo.png").toURI().toURL().toExternalForm());
         assertEquals("image/png", contentType);
     }
 

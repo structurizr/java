@@ -6,6 +6,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.net.URLConnection;
 import java.util.Base64;
 
@@ -36,6 +37,23 @@ public class ImageUtils {
         }
 
         return contentType;
+    }
+
+    /**
+     * Gets the content type of the specified URL representing an image.
+     *
+     * @param   url             a URL pointing to an image
+     * @return  a content type (e.g. "image/png")
+     * @throws IOException      if there is an error reading the file
+     */
+    public static String getContentType(String url) throws IOException {
+        if (StringUtils.isNullOrEmpty(url)) {
+            throw new IllegalArgumentException("A URL must be specified.");
+        }
+
+        URLConnection connection = new URL(url).openConnection();
+        connection.setConnectTimeout(1000 * 30);
+        return connection.getContentType();
     }
 
     /**
