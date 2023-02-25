@@ -15,6 +15,15 @@ import java.util.Base64;
  */
 public class ImageUtils {
 
+    public static final String DATA_URI_PREFIX = "data:";
+    public static final String DATA_URI_IMAGE_PNG = "data:image/png;base64,";
+    public static final String DATA_URI_IMAGE_JPG = "data:image/jpeg;base64,";
+    public static final String DATA_URI_IMAGE_SVG = "data:image/svg+xml;";
+
+    public static final String CONTENT_TYPE_IMAGE_PNG = "image/png";
+    public static final String CONTENT_TYPE_IMAGE_JPG = "image/jpeg";
+    public static final String CONTENT_TYPE_IMAGE_SVG = "image/svg+xml";
+
     /**
      * Gets the content type of the specified file representing an image.
      *
@@ -57,6 +66,28 @@ public class ImageUtils {
     }
 
     /**
+     * Gets the content type of the specified data URI representing an image.
+     *
+     * @param   dataUri             a data URI representing an image
+     * @return  a content type (e.g. "image/png")
+     */
+    public static String getContentTypeFromDataUri(String dataUri) {
+        if (StringUtils.isNullOrEmpty(dataUri)) {
+            throw new IllegalArgumentException("A data URI must be specified.");
+        }
+
+        if (dataUri.startsWith(DATA_URI_IMAGE_PNG)) {
+            return CONTENT_TYPE_IMAGE_PNG;
+        } else if (dataUri.startsWith(DATA_URI_IMAGE_JPG)) {
+            return CONTENT_TYPE_IMAGE_JPG;
+        } else if (dataUri.startsWith(DATA_URI_IMAGE_SVG)) {
+            return CONTENT_TYPE_IMAGE_SVG;
+        }
+
+        return null;
+    }
+
+    /**
      * Gets the content of an image as a Base64 encoded string.
      *
      * @param   file            a File pointing to an image
@@ -84,7 +115,7 @@ public class ImageUtils {
         String contentType = getContentType(file);
         String base64Content = getImageAsBase64(file);
 
-        return "data:" + contentType + ";base64," + base64Content;
+        return DATA_URI_PREFIX + contentType + ";base64," + base64Content;
     }
 
     public static void validateImage(String imageDescriptor) {
@@ -104,7 +135,7 @@ public class ImageUtils {
             return;
         }
 
-        if (imageDescriptor.startsWith("data:image")) {
+        if (imageDescriptor.startsWith(DATA_URI_PREFIX)) {
             if (ImageUtils.isSupportedDataUri(imageDescriptor)) {
                 // it's a PNG/JPG data URI
                 return;
@@ -118,7 +149,9 @@ public class ImageUtils {
     }
 
     public static boolean isSupportedDataUri(String uri) {
-        return uri.startsWith("data:image/png;base64,") || uri.startsWith("data:image/jpeg;base64,");
+        return  uri.startsWith(DATA_URI_IMAGE_PNG) ||
+                uri.startsWith(DATA_URI_IMAGE_JPG) ||
+                uri.startsWith(DATA_URI_IMAGE_SVG);
     }
 
 }

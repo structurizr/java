@@ -73,6 +73,24 @@ public class ImageUtilsTests {
     }
 
     @Test
+    void getContentTypeFromDataUri_ThrowsAnException_WhenANullDataUriIsSpecified() throws Exception {
+        try {
+            ImageUtils.getContentTypeFromDataUri(null);
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A data URI must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    void getContentTypeFromDataUri_ReturnsTheContentType_WhenAUrlIsSpecified() throws Exception {
+        assertEquals("image/png", ImageUtils.getContentTypeFromDataUri("data:image/png;base64,..."));
+        assertEquals("image/jpeg", ImageUtils.getContentTypeFromDataUri("data:image/jpeg;base64,..."));
+        assertEquals("image/svg+xml", ImageUtils.getContentTypeFromDataUri("data:image/svg+xml;utf8,..."));
+        assertNull(ImageUtils.getContentTypeFromDataUri("data:..."));
+    }
+
+    @Test
     void getImageAsBase64_ThrowsAnException_WhenANullFileIsSpecified() throws Exception {
         try {
             ImageUtils.getImageAsBase64(null);
@@ -179,13 +197,14 @@ public class ImageUtilsTests {
         ImageUtils.validateImage("image.jpg");
         ImageUtils.validateImage("image.jpeg");
         ImageUtils.validateImage("image.gif");
+        ImageUtils.validateImage("data:image/svg+xml;utf8,iVBORw0KGg");
 
         //disallowed
         try {
-            ImageUtils.validateImage("data:image/svg+xml;base64,iVBORw0KGg");
+            ImageUtils.validateImage("data:image/other");
             fail();
         } catch (Exception e) {
-            assertEquals("Only PNG and JPG data URIs are supported: data:image/svg+xml;base64,iVBORw0KGg", e.getMessage());
+            assertEquals("Only PNG and JPG data URIs are supported: data:image/other", e.getMessage());
         }
     }
 
@@ -193,7 +212,7 @@ public class ImageUtilsTests {
     void isSupportedDataUri() {
         assertTrue(ImageUtils.isSupportedDataUri("data:image/png;base64,iVBORw0KGg"));
         assertTrue(ImageUtils.isSupportedDataUri("data:image/jpeg;base64,iVBORw0KGg"));
-        assertFalse(ImageUtils.isSupportedDataUri("data:image/svg+xml;base64,iVBORw0KGg"));
+        assertTrue(ImageUtils.isSupportedDataUri("data:image/svg+xml;utf8,<svg..."));
         assertFalse(ImageUtils.isSupportedDataUri("hello world"));
     }
 
