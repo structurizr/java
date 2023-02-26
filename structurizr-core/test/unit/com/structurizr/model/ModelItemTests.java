@@ -218,4 +218,18 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
         }
     }
 
+    @Test
+    void setUrl_AcceptsAUrl() {
+        Element element = model.addSoftwareSystem("Name");
+        element.setUrl("https://structurizr.com");
+        assertEquals("https://structurizr.com", element.getUrl());
+    }
+
+    @Test
+    void setUrl_AcceptsAWorkspaceUrl() {
+        Element element = model.addSoftwareSystem("Name");
+        element.setUrl("{workspace}/diagrams#key");
+        assertEquals("{workspace}/diagrams#key", element.getUrl());
+    }
+
 }

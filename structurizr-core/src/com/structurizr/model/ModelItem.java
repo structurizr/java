@@ -122,10 +122,14 @@ public abstract class ModelItem implements PropertyHolder {
     public void setUrl(String url) {
         if (StringUtils.isNullOrEmpty(url)) {
             this.url = null;
-        } else if (Url.isUrl(url)) {
-            this.url = url;
         } else {
-            throw new IllegalArgumentException(url + " is not a valid URL.");
+            if (url.startsWith(Url.WORKSPACE_URL_PREFIX)) {
+                this.url = url;
+            } else if (Url.isUrl(url)) {
+                this.url = url;
+            } else {
+                throw new IllegalArgumentException(url + " is not a valid URL.");
+            }
         }
     }
 

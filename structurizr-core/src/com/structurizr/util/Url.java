@@ -8,6 +8,8 @@ import java.net.URL;
  */
 public class Url {
 
+    public static final String WORKSPACE_URL_PREFIX = "{workspace}";
+
     /**
      * Determines whether the supplied string is a valid URL.
      *

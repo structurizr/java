@@ -3,6 +3,7 @@
 ## 1.21.0 (unreleased)
 
 - __Breaking change__: Removes the concept of "code elements" from `Component`.
+- Adds support for element/relationship URLs of the form `{workspace}/...` for linking to diagrams/documentation/decisions in the same workspace.
 
 ## 1.20.1 (16th February 2023)
 
