@@ -12,6 +12,7 @@ import java.util.Set;
 public final class Decision extends DocumentationContent {
 
     private String id;
+    private String title;
     private Date date;
     private String status;
 
@@ -35,6 +36,19 @@ public final class Decision extends DocumentationContent {
 
     void setId(String id) {
         this.id = id;
+    }
+
+    /**
+     * Gets the title.
+     *
+     * @return      the title, as a String
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     /**

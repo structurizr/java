@@ -16,22 +16,9 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void addSection_ThrowsAnException_WhenTheTitleIsNotSpecified() {
-        try {
-            Section section = new Section();
-
-            documentation.addSection(section);
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A title must be specified.", iae.getMessage());
-        }
-    }
-
-    @Test
     void addSection_ThrowsAnException_WhenTheContentIsNotSpecified() {
         try {
             Section section = new Section();
-            section.setTitle("Title");
 
             documentation.addSection(section);
             fail();
@@ -44,7 +31,6 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
     void addSection_ThrowsAnException_WhenTheFormatIsNotSpecified() {
         try {
             Section section = new Section();
-            section.setTitle("Title");
             section.setContent("Content");
 
             documentation.addSection(section);
@@ -55,25 +41,8 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void addSection_ThrowsAnException_WhenASectionExistsWithTheSameTitle() {
-        try {
-            Section section = new Section();
-            section.setTitle("Title");
-            section.setContent("Content");
-            section.setFormat(Format.Markdown);
-
-            documentation.addSection(section);
-            documentation.addSection(section);
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A section with a title of Title already exists in this scope.", iae.getMessage());
-        }
-    }
-
-    @Test
     void addSection() {
         Section section = new Section();
-        section.setTitle("Title");
         section.setContent("Content");
         section.setFormat(Format.Markdown);
 
@@ -81,7 +50,6 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
 
         assertEquals(1, documentation.getSections().size());
         assertTrue(documentation.getSections().contains(section));
-        assertEquals("Title", section.getTitle());
         assertEquals(Format.Markdown, section.getFormat());
         assertEquals("Content", section.getContent());
         assertEquals(1, section.getOrder());
@@ -89,9 +57,9 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
 
     @Test
     void addSection_IncrementsTheSectionOrderNumber() {
-        Section section1 = new Section("Title 1", Format.Markdown, "Content");
-        Section section2 = new Section("Title 2", Format.Markdown, "Content");
-        Section section3 = new Section("Title 3", Format.Markdown, "Content");
+        Section section1 = new Section(Format.Markdown, "Content 1");
+        Section section2 = new Section(Format.Markdown, "Content 2");
+        Section section3 = new Section(Format.Markdown, "Content 3");
 
         documentation.addSection(section1);
         documentation.addSection(section2);

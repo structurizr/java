@@ -29,9 +29,7 @@ public final class Documentation {
      * @param section   a Section object
      */
     public void addSection(Section section) {
-        checkTitleIsSpecified(section.getTitle());
         checkContentIsSpecified(section.getContent());
-        checkSectionIsUnique(section.getTitle());
         checkFormatIsSpecified(section.getFormat());
 
         section.setOrder(calculateOrder());
@@ -53,14 +51,6 @@ public final class Documentation {
     private void checkFormatIsSpecified(Format format) {
         if (format == null) {
             throw new IllegalArgumentException("A format must be specified.");
-        }
-    }
-
-    private void checkSectionIsUnique(String title) {
-        for (Section section : sections) {
-            if (title.equals(section.getTitle())) {
-                throw new IllegalArgumentException("A section with a title of " + title + " already exists in this scope.");
-            }
         }
     }
 

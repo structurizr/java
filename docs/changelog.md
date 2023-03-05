@@ -1,8 +1,12 @@
 # Changelog
 
+## 1.22.1 (5th March 2023)
+
+- Removes unused documentation section title property. 
+
 ## 1.22.0 (5th March 2023)
 
-- Adds documentation to components. 
+- Adds documentation to components.
 
 ## 1.21.0 (26th February 2023)
 

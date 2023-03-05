@@ -11,8 +11,7 @@ public final class Section extends DocumentationContent {
     public Section() {
     }
 
-    public Section(String title, Format format, String content) {
-        setTitle(title);
+    public Section(Format format, String content) {
         setFormat(format);
         setContent(content);
     }
@@ -55,16 +54,16 @@ public final class Section extends DocumentationContent {
 
         Section section = (Section)object;
         if (getElementId() != null) {
-            return getElementId().equals(section.getElementId()) && getTitle().equals(section.getTitle());
+            return getElementId().equals(section.getElementId()) && getContent().equals(section.getContent());
         } else {
-            return getTitle().equals(section.getTitle());
+            return getContent().equals(section.getContent());
         }
     }
 
     @Override
     public int hashCode() {
         int result = getElementId() != null ? getElementId().hashCode() : 0;
-        result = 31 * result + getTitle().hashCode();
+        result = 31 * result + getContent().hashCode();
         return result;
     }
 

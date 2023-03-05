@@ -8,9 +8,8 @@ public class SectionTests {
 
     @Test
     void construction() {
-        Section section = new Section("Title", Format.Markdown, "Content");
+        Section section = new Section(Format.Markdown, "Content");
 
-        assertEquals("Title", section.getTitle());
         assertEquals(Format.Markdown, section.getFormat());
         assertEquals("Content", section.getContent());
     }

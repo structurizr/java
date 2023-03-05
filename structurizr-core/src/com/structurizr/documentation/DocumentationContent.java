@@ -8,7 +8,6 @@ public abstract class DocumentationContent {
     // elementId is here for backwards compatibility
     private String elementId;
 
-    private String title;
     private String content;
     private Format format;
 
@@ -27,19 +26,6 @@ public abstract class DocumentationContent {
 
     void setElementId(String elementId) {
         this.elementId = elementId;
-    }
-
-    /**
-     * Gets the title.
-     *
-     * @return      the title, as a String
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
     }
 
     /**
