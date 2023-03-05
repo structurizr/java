@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.22.0 (5th March 2023)
+
+- Adds documentation to components. 
+
 ## 1.21.0 (26th February 2023)
 
 - __Breaking change__: Removes the concept of "code elements" from `Component`.

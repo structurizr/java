@@ -1,6 +1,8 @@
 package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.structurizr.documentation.Documentable;
+import com.structurizr.documentation.Documentation;
 
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -9,11 +11,13 @@ import java.util.Set;
 /**
  * Represents a "component" in the C4 model.
  */
-public final class Component extends StaticStructureElement {
+public final class Component extends StaticStructureElement implements Documentable {
 
     private Container parent;
 
     private String technology;
+
+    private Documentation documentation = new Documentation();
 
     Component() {
     }
@@ -65,6 +69,24 @@ public final class Component extends StaticStructureElement {
     @Override
     public Set<String> getDefaultTags() {
         return new LinkedHashSet<>(Arrays.asList(Tags.ELEMENT, Tags.COMPONENT));
+    }
+
+    /**
+     * Gets the documentation associated with this component.
+     *
+     * @return  a Documentation object
+     */
+    public Documentation getDocumentation() {
+        return documentation;
+    }
+
+    /**
+     * Sets the documentation associated with this component.
+     *
+     * @param documentation     a Documentation object
+     */
+    void setDocumentation(Documentation documentation) {
+        this.documentation = documentation;
     }
 
 }
