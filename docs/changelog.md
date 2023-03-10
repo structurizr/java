@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.22.2 (10th March 2023)
+
+- Updates Jackson library dependency.
+
 ## 1.22.1 (5th March 2023)
 
 - Removes unused documentation section title property. 
