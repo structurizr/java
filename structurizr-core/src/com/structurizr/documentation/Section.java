@@ -1,5 +1,8 @@
 package com.structurizr.documentation;
 
+import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * A documentation section.
  */
@@ -14,6 +17,15 @@ public final class Section extends DocumentationContent {
     public Section(Format format, String content) {
         setFormat(format);
         setContent(content);
+    }
+
+    /**
+     * This method is retained for backwards compatibility.
+     */
+    @JsonGetter
+    @JsonInclude(JsonInclude.Include.ALWAYS)
+    public String getTitle() {
+        return "";
     }
 
     /**

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.22.3 (11th March 2023)
+
+- Adds better backwards compatibility for removal of documentation sections.
+
 ## 1.22.2 (10th March 2023)
 
 - Updates Jackson library dependency.
