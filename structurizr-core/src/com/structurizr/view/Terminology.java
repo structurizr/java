@@ -40,6 +40,7 @@ public final class Terminology {
         return enterprise;
     }
 
+    @Deprecated
     public void setEnterprise(String enterprise) {
         this.enterprise = enterprise;
     }
