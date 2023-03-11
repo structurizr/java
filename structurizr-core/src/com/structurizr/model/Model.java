@@ -1,6 +1,7 @@
 package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.structurizr.PropertyHolder;
 import com.structurizr.WorkspaceValidationException;
 
 import javax.annotation.Nonnull;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
 /**
  * Represents a software architecture model, into which all model elements are added.
  */
-public final class Model {
+public final class Model implements PropertyHolder {
 
     private IdGenerator idGenerator = new SequentialIntegerIdGeneratorStrategy();
 
@@ -26,6 +27,8 @@ public final class Model {
     private Set<CustomElement> customElements = new LinkedHashSet<>();
 
     private ImpliedRelationshipsStrategy impliedRelationshipsStrategy = new DefaultImpliedRelationshipsStrategy();
+
+    private Map<String, String> properties = new HashMap<>();
 
     Model() {
     }
@@ -1062,6 +1065,39 @@ public final class Model {
             this.impliedRelationshipsStrategy = impliedRelationshipStrategy;
         } else {
             this.impliedRelationshipsStrategy = new DefaultImpliedRelationshipsStrategy();
+        }
+    }
+
+    /**
+     * Gets the collection of name-value property pairs, as a Map.
+     *
+     * @return  a Map (String, String) (empty if there are no properties)
+     */
+    public Map<String, String> getProperties() {
+        return new HashMap<>(properties);
+    }
+
+    /**
+     * Adds a name-value pair property.
+     *
+     * @param name      the name of the property
+     * @param value     the value of the property
+     */
+    public void addProperty(String name, String value) {
+        if (name == null || name.trim().length() == 0) {
+            throw new IllegalArgumentException("A property name must be specified.");
+        }
+
+        if (value == null || value.trim().length() == 0) {
+            throw new IllegalArgumentException("A property value must be specified.");
+        }
+
+        properties.put(name, value);
+    }
+
+    void setProperties(Map<String, String> properties) {
+        if (properties != null) {
+            this.properties = new HashMap<>(properties);
         }
     }
 

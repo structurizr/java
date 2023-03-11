@@ -3,6 +3,7 @@
 ## 1.23.0 (unreleased)
 
 - Deprecates `Enterprise` and `Location` concepts.
+- Adds properties to the model.
 
 ## 1.22.3 (11th March 2023)
 
