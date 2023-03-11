@@ -14,7 +14,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
 
     @BeforeEach
     public void setUp() {
-        softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
+        softwareSystem = model.addSoftwareSystem("The System", "Description");
         view = new ContainerView(softwareSystem, "containers", "Description");
     }
 
@@ -37,8 +37,8 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     void addAllSoftwareSystems_AddsAllSoftwareSystems_WhenThereAreSomeSoftwareSystemsInTheModel() {
-        SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.External, "System A", "Description");
-        SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.External, "System B", "Description");
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "Description");
 
         view.addAllSoftwareSystems();
 
@@ -56,8 +56,8 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     void addAllPeople_AddsAllPeople_WhenThereAreSomePeopleInTheModel() {
-        Person userA = model.addPerson(Location.External, "User A", "Description");
-        Person userB = model.addPerson(Location.External, "User B", "Description");
+        Person userA = model.addPerson("User A", "Description");
+        Person userB = model.addPerson("User B", "Description");
 
         view.addAllPeople();
 
@@ -75,10 +75,10 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     void addAllElements_AddsAllSoftwareSystemsAndPeopleAndContainers_WhenThereAreSomeSoftwareSystemsAndPeopleAndContainersInTheModel() {
-        SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.External, "System A", "Description");
-        SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.External, "System B", "Description");
-        Person userA = model.addPerson(Location.External, "User A", "Description");
-        Person userB = model.addPerson(Location.External, "User B", "Description");
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "Description");
+        Person userA = model.addPerson("User A", "Description");
+        Person userB = model.addPerson("User B", "Description");
         Container webApplication = softwareSystem.addContainer("Web Application", "Does something", "Apache Tomcat");
         Container database = softwareSystem.addContainer("Database", "Does something", "MySQL");
 
@@ -236,7 +236,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
 
         view.addDependentSoftwareSystems();
 
-        SoftwareSystem softwareSystem2 = model.addSoftwareSystem(Location.External, "SoftwareSystem 2", "");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("SoftwareSystem 2", "");
 
         view.addDependentSoftwareSystems();
         assertEquals(0, view.getElements().size());
@@ -252,7 +252,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     void addDependentSoftwareSystem2() {
         Container container1a = softwareSystem.addContainer("Container 1A", "", "");
 
-        SoftwareSystem softwareSystem2 = model.addSoftwareSystem(Location.External, "SoftwareSystem 2", "");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("SoftwareSystem 2", "");
         Container container2a = softwareSystem2.addContainer("Container 2-A", "", "");
 
         model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());

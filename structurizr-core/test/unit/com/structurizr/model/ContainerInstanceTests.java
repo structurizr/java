@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ContainerInstanceTests extends AbstractWorkspaceTestBase {
 
-    private SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "System", "Description");
+    private SoftwareSystem softwareSystem = model.addSoftwareSystem("System", "Description");
     private Container database = softwareSystem.addContainer("Database Schema", "Stores data", "MySQL");
     private DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
 

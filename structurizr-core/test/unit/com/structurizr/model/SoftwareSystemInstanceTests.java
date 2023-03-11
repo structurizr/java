@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SoftwareSystemInstanceTests extends AbstractWorkspaceTestBase {
 
-    private SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "System", "Description");
+    private SoftwareSystem softwareSystem = model.addSoftwareSystem("System", "Description");
     private DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node", "Description", "Technology");
 
     @Test

@@ -2,7 +2,6 @@ package com.structurizr.view;
 
 import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.model.Element;
-import com.structurizr.model.Location;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -11,14 +10,14 @@ public class ElementViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     void copyLayoutInformationFrom_DoesNothing_WhenNullIsPassed() {
-        Element element = model.addSoftwareSystem(Location.External, "SystemA", "");
+        Element element = model.addSoftwareSystem("SystemA", "");
         ElementView elementView = new ElementView(element);
         elementView.copyLayoutInformationFrom(null);
     }
 
     @Test
     void copyLayoutInformationFrom_CopiesXAndY_WhenANonNullElementViewIsPassed() {
-        Element element = model.addSoftwareSystem(Location.External, "SystemA", "");
+        Element element = model.addSoftwareSystem("SystemA", "");
         ElementView elementView1 = new ElementView(element);
         assertEquals(0, elementView1.getX());
         assertEquals(0, elementView1.getY());

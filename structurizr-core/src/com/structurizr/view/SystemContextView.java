@@ -77,6 +77,7 @@ public final class SystemContextView extends StaticView {
      *
      * @return  true if the enterprise boundary is visible, false otherwise
      */
+    @Deprecated
     public boolean isEnterpriseBoundaryVisible() {
         return enterpriseBoundaryVisible;
     }
@@ -86,6 +87,7 @@ public final class SystemContextView extends StaticView {
      *
      * @param enterpriseBoundaryVisible     true if the enterprise boundary should be visible, false otherwise
      */
+    @Deprecated
     public void setEnterpriseBoundaryVisible(boolean enterpriseBoundaryVisible) {
         this.enterpriseBoundaryVisible = enterpriseBoundaryVisible;
     }

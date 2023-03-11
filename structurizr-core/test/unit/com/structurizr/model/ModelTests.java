@@ -40,10 +40,9 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     @Test
     void addSoftwareSystem_AddsTheSoftwareSystem_WhenASoftwareSystemDoesNotExistWithTheSameName() {
         assertTrue(model.getSoftwareSystems().isEmpty());
-        SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "System A", "Some description");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("System A", "Some description");
         assertEquals(1, model.getSoftwareSystems().size());
 
-        assertEquals(Location.External, softwareSystem.getLocation());
         assertEquals("System A", softwareSystem.getName());
         assertEquals("Some description", softwareSystem.getDescription());
         assertEquals("1", softwareSystem.getId());
@@ -52,11 +51,11 @@ public class ModelTests extends AbstractWorkspaceTestBase {
 
     @Test
     void addSoftwareSystem_ThrowsAnException_WhenASoftwareSystemExistsWithTheSameName() {
-        SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "System A", "Some description");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("System A", "Some description");
         assertEquals(1, model.getSoftwareSystems().size());
 
         try {
-            model.addSoftwareSystem(Location.External, "System A", "Description");
+            model.addSoftwareSystem("System A", "Description");
             fail();
         } catch (Exception e) {
             assertEquals("A top-level element named 'System A' already exists.", e.getMessage());
@@ -69,7 +68,6 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("System A", "Some description");
         assertEquals(1, model.getSoftwareSystems().size());
 
-        assertEquals(Location.Unspecified, softwareSystem.getLocation());
         assertEquals("System A", softwareSystem.getName());
         assertEquals("Some description", softwareSystem.getDescription());
         assertEquals("1", softwareSystem.getId());
@@ -79,10 +77,9 @@ public class ModelTests extends AbstractWorkspaceTestBase {
     @Test
     void addPerson_AddsThePerson_WhenAPersonDoesNotExistWithTheSameName() {
         assertTrue(model.getPeople().isEmpty());
-        Person person = model.addPerson(Location.Internal, "Some internal user", "Some description");
+        Person person = model.addPerson("Some internal user", "Some description");
         assertEquals(1, model.getPeople().size());
 
-        assertEquals(Location.Internal, person.getLocation());
         assertEquals("Some internal user", person.getName());
         assertEquals("Some description", person.getDescription());
         assertEquals("1", person.getId());
@@ -91,11 +88,11 @@ public class ModelTests extends AbstractWorkspaceTestBase {
 
     @Test
     void addPerson_ThrowsAnException_WhenAPersonExistsWithTheSameName() {
-        Person person = model.addPerson(Location.Internal, "Admin User", "Description");
+        Person person = model.addPerson("Admin User", "Description");
         assertEquals(1, model.getPeople().size());
 
         try {
-            model.addPerson(Location.External, "Admin User", "Description");
+            model.addPerson("Admin User", "Description");
             fail();
         } catch (Exception e) {
             assertEquals("A top-level element named 'Admin User' already exists.", e.getMessage());
@@ -108,7 +105,6 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         Person person = model.addPerson("Some internal user", "Some description");
         assertEquals(1, model.getPeople().size());
 
-        assertEquals(Location.Unspecified, person.getLocation());
         assertEquals("Some internal user", person.getName());
         assertEquals("Some description", person.getDescription());
         assertEquals("1", person.getId());
@@ -122,20 +118,20 @@ public class ModelTests extends AbstractWorkspaceTestBase {
 
     @Test
     void getElement_ReturnsAnElement_WhenAnElementWithTheSpecifiedIdDoesExist() {
-        Person person = model.addPerson(Location.Internal, "Name", "Description");
+        Person person = model.addPerson("Name", "Description");
         assertSame(person, model.getElement(person.getId()));
     }
 
     @Test
     void contains_ReturnsFalse_WhenTheSpecifiedElementIsNotInTheModel() {
         Model newModel = new Model();
-        SoftwareSystem softwareSystem = newModel.addSoftwareSystem(Location.Unspecified, "Name", "Description");
+        SoftwareSystem softwareSystem = newModel.addSoftwareSystem("Name", "Description");
         assertFalse(model.contains(softwareSystem));
     }
 
     @Test
     void contains_ReturnsTrue_WhenTheSpecifiedElementIsInTheModel() {
-        SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Unspecified, "Name", "Description");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
         assertTrue(model.contains(softwareSystem));
     }
 
@@ -146,7 +142,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
 
     @Test
     void getSoftwareSystemWithName_ReturnsASoftwareSystem_WhenASoftwareSystemWithTheSpecifiedNameExists() {
-        SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "System A", "Description");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("System A", "Description");
         assertSame(softwareSystem, model.getSoftwareSystemWithName("System A"));
     }
 
@@ -177,7 +173,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
 
     @Test
     void getSoftwareSystemWithId_ReturnsASoftwareSystem_WhenASoftwareSystemWithTheSpecifiedIdDoesExist() {
-        SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "System A", "Description");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("System A", "Description");
         assertSame(softwareSystem, model.getSoftwareSystemWithId(softwareSystem.getId()));
     }
 
@@ -188,7 +184,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
 
     @Test
     void getPersonWithName_ReturnsAPerson_WhenAPersonWithTheSpecifiedNameExists() {
-        Person person = model.addPerson(Location.External, "Admin User", "Description");
+        Person person = model.addPerson("Admin User", "Description");
         assertSame(person, model.getPersonWithName("Admin User"));
     }
 

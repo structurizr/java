@@ -14,7 +14,7 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
 
     @BeforeEach
     public void setUp() {
-        softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
+        softwareSystem = model.addSoftwareSystem( "The System", "Description");
         view = new SystemContextView(softwareSystem, "context", "Description");
     }
 
@@ -37,8 +37,8 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     void addAllSoftwareSystems_AddsAllSoftwareSystems_WhenThereAreSomeSoftwareSystemsInTheModel() {
-        SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.External, "System A", "Description");
-        SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.External, "System B", "Description");
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "Description");
 
         view.addAllSoftwareSystems();
 
@@ -57,8 +57,8 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     void addAllPeople_AddsAllPeople_WhenThereAreSomePeopleInTheModel() {
-        Person userA = model.addPerson(Location.External, "User A", "Description");
-        Person userB = model.addPerson(Location.External, "User B", "Description");
+        Person userA = model.addPerson( "User A", "Description");
+        Person userB = model.addPerson( "User B", "Description");
 
         view.addAllPeople();
 
@@ -77,10 +77,10 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     void addAllElements_AddsAllSoftwareSystemsAndPeople_WhenThereAreSomeSoftwareSystemsAndPeopleInTheModel() {
-        SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.External, "System A", "Description");
-        SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.External, "System B", "Description");
-        Person userA = model.addPerson(Location.External, "User A", "Description");
-        Person userB = model.addPerson(Location.External, "User B", "Description");
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "Description");
+        Person userA = model.addPerson( "User A", "Description");
+        Person userB = model.addPerson( "User B", "Description");
 
         view.addAllElements();
 

@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ContainerTests extends AbstractWorkspaceTestBase {
 
-    private SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "System", "Description");
+    private SoftwareSystem softwareSystem = model.addSoftwareSystem("System", "Description");
     private Container container = softwareSystem.addContainer("Container", "Description", "Some technology");
 
     @Test

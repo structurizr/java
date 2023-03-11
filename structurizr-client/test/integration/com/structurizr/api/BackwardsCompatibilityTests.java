@@ -23,6 +23,23 @@ class BackwardsCompatibilityTests {
     }
 
     @Test
+    void enterprise_and_location() throws Exception {
+        File file = new File(PATH_TO_WORKSPACE_FILES, "structurizr-36141-workspace.json");
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(file);
+
+        assertEquals("Big Bank plc", workspace.getModel().getEnterprise().getName());
+        assertEquals(Location.Internal, workspace.getModel().getPersonWithName("Back Office Staff").getLocation());
+        assertEquals(Location.External, workspace.getModel().getPersonWithName("Personal Banking Customer").getLocation());
+
+        // make sure enterprise and location information is not lost when going to/from JSON
+        workspace = WorkspaceUtils.fromJson(WorkspaceUtils.toJson(workspace, false));
+
+        assertEquals("Big Bank plc", workspace.getModel().getEnterprise().getName());
+        assertEquals(Location.Internal, workspace.getModel().getPersonWithName("Back Office Staff").getLocation());
+        assertEquals(Location.External, workspace.getModel().getPersonWithName("Personal Banking Customer").getLocation());
+    }
+
+    @Test
     void documentation() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
         workspace.getDocumentation().addSection(new Section(Format.Markdown, "## Heading 1"));

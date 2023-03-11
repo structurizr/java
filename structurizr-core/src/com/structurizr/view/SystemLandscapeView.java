@@ -31,8 +31,7 @@ public final class SystemLandscapeView extends StaticView {
      */
     @Override
     public String getName() {
-        Enterprise enterprise = model.getEnterprise();
-        return "System Landscape" + (enterprise != null && enterprise.getName().trim().length() > 0 ? " for " + enterprise.getName() : "");
+        return "System Landscape";
     }
 
     /**
@@ -94,6 +93,7 @@ public final class SystemLandscapeView extends StaticView {
      *
      * @return  true if the enterprise boundary is visible, false otherwise
      */
+    @Deprecated
     public boolean isEnterpriseBoundaryVisible() {
         return enterpriseBoundaryVisible;
     }
@@ -103,6 +103,7 @@ public final class SystemLandscapeView extends StaticView {
      *
      * @param enterpriseBoundaryVisible     true if the enterprise boundary should be visible, false otherwise
      */
+    @Deprecated
     public void setEnterpriseBoundaryVisible(boolean enterpriseBoundaryVisible) {
         this.enterpriseBoundaryVisible = enterpriseBoundaryVisible;
     }

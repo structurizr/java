@@ -24,28 +24,8 @@ public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void getName_WhenNoEnterpriseIsSpecified() {
+    void getName() {
         assertEquals("System Landscape", view.getName());
-    }
-
-    @Test
-    void getName_WhenAnEnterpriseIsSpecified() {
-        model.setEnterprise(new Enterprise("Widgets Limited"));
-        assertEquals("System Landscape for Widgets Limited", view.getName());
-    }
-
-    @Test
-    void getName_WhenAnEmptyEnterpriseNameIsSpecified() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            model.setEnterprise(new Enterprise(""));
-        });
-    }
-
-    @Test
-    void getName_WhenANullEnterpriseNameIsSpecified() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            model.setEnterprise(new Enterprise(null));
-        });
     }
 
     @Test
@@ -56,8 +36,8 @@ public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     void addAllSoftwareSystems_AddsAllSoftwareSystems_WhenThereAreSomeSoftwareSystemsInTheModel() {
-        SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.External, "System A", "Description");
-        SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.External, "System B", "Description");
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "Description");
 
         view.addAllSoftwareSystems();
 

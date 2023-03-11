@@ -45,6 +45,7 @@ public final class Model {
      *
      * @param enterprise an Enterprise instance
      */
+    @Deprecated
     public void setEnterprise(Enterprise enterprise) {
         this.enterprise = enterprise;
     }
@@ -61,7 +62,7 @@ public final class Model {
     }
 
     /**
-     * Creates a software system (with an unspecified location) and adds it to the model.
+     * Creates a software system and adds it to the model.
      *
      * @param name        the name of the software system
      * @param description a short description of the software system
@@ -69,7 +70,21 @@ public final class Model {
      * @throws IllegalArgumentException if a software system with the same name already exists
      */
     public SoftwareSystem addSoftwareSystem(@Nonnull String name, @Nullable String description) {
-        return addSoftwareSystem(Location.Unspecified, name, description);
+        if (getSoftwareSystemWithName(name) == null) {
+            SoftwareSystem softwareSystem = new SoftwareSystem();
+            softwareSystem.setLocation(Location.Unspecified);
+            softwareSystem.setName(name);
+            softwareSystem.setDescription(description);
+
+            softwareSystems.add(softwareSystem);
+
+            softwareSystem.setId(idGenerator.generateId(softwareSystem));
+            addElementToInternalStructures(softwareSystem);
+
+            return softwareSystem;
+        } else {
+            throw new IllegalArgumentException("A top-level element named '" + name + "' already exists.");
+        }
     }
 
     /**
@@ -82,6 +97,7 @@ public final class Model {
      * @throws IllegalArgumentException if a software system with the same name already exists
      */
     @Nonnull
+    @Deprecated
     public SoftwareSystem addSoftwareSystem(@Nullable Location location, @Nonnull String name, @Nullable String description) {
         if (getSoftwareSystemWithName(name) == null) {
             SoftwareSystem softwareSystem = new SoftwareSystem();
@@ -113,7 +129,7 @@ public final class Model {
     }
 
     /**
-     * Creates a person (with an unspecified location) and adds it to the model.
+     * Creates a person and adds it to the model.
      *
      * @param name        the name of the person (e.g. "Admin User" or "Bob the Business User")
      * @param description a short description of the person
@@ -122,7 +138,21 @@ public final class Model {
      */
     @Nonnull
     public Person addPerson(@Nonnull String name, @Nullable String description) {
-        return addPerson(Location.Unspecified, name, description);
+        if (getPersonWithName(name) == null) {
+            Person person = new Person();
+            person.setLocation(Location.Unspecified);
+            person.setName(name);
+            person.setDescription(description);
+
+            people.add(person);
+
+            person.setId(idGenerator.generateId(person));
+            addElementToInternalStructures(person);
+
+            return person;
+        } else {
+            throw new IllegalArgumentException("A top-level element named '" + name + "' already exists.");
+        }
     }
 
     /**
@@ -135,6 +165,7 @@ public final class Model {
      * @throws IllegalArgumentException if a person with the same name already exists
      */
     @Nonnull
+    @Deprecated
     public Person addPerson(Location location, @Nonnull String name, @Nullable String description) {
         if (getPersonWithName(name) == null) {
             Person person = new Person();

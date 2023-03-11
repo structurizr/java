@@ -18,7 +18,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
 
     @BeforeEach
     public void setUp() {
-        softwareSystem = model.addSoftwareSystem(Location.Internal, "The System", "Description");
+        softwareSystem = model.addSoftwareSystem("The System", "Description");
         webApplication = softwareSystem.addContainer("Web Application", "Does something", "Apache Tomcat");
         view = new ComponentView(webApplication, "Key", "Some description");
     }
@@ -43,8 +43,8 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     void addAllSoftwareSystems_AddsAllSoftwareSystems_WhenThereAreSomeSoftwareSystemsInTheModel() {
-        SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.External, "System A", "Description");
-        SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.External, "System B", "Description");
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "Description");
 
         view.addAllSoftwareSystems();
 
@@ -62,8 +62,8 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     void addAllPeople_AddsAllPeople_WhenThereAreSomePeopleInTheModel() {
-        Person userA = model.addPerson(Location.External, "User A", "Description");
-        Person userB = model.addPerson(Location.External, "User B", "Description");
+        Person userA = model.addPerson("User A", "Description");
+        Person userB = model.addPerson("User B", "Description");
 
         view.addAllPeople();
 
@@ -81,10 +81,10 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     void addAllElements_AddsAllSoftwareSystemsAndPeopleAndContainersAndComponents_WhenThereAreSomeSoftwareSystemsAndPeopleAndContainersAndComponentsInTheModel() {
-        SoftwareSystem softwareSystemA = model.addSoftwareSystem(Location.External, "System A", "Description");
-        SoftwareSystem softwareSystemB = model.addSoftwareSystem(Location.External, "System B", "Description");
-        Person userA = model.addPerson(Location.External, "User A", "Description");
-        Person userB = model.addPerson(Location.External, "User B", "Description");
+        SoftwareSystem softwareSystemA = model.addSoftwareSystem("System A", "Description");
+        SoftwareSystem softwareSystemB = model.addSoftwareSystem("System B", "Description");
+        Person userA = model.addPerson("User A", "Description");
+        Person userB = model.addPerson("User B", "Description");
         Container database = softwareSystem.addContainer("Database", "Does something", "MySQL");
         Component componentA = webApplication.addComponent("Component A", "Does something", "Java");
         Component componentB = webApplication.addComponent("Component B", "Does something", "Java");
@@ -264,7 +264,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     void add_DoesNothing_WhenTheContainerOfTheViewIsAddedViaDependency() {
-        final SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.External, "Some other system", "external system that uses our web application");
+        final SoftwareSystem softwareSystem = model.addSoftwareSystem("Some other system", "external system that uses our web application");
 
         final Relationship relationshipFromExternalSystem = softwareSystem.uses(webApplication, "");
 

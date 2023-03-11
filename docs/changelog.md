@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.23.0 (unreleased)
+
+- Deprecates `Enterprise` and `Location` concepts.
+
 ## 1.22.3 (11th March 2023)
 
 - Adds better backwards compatibility for removal of documentation sections.

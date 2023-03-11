@@ -12,8 +12,8 @@ public class RelationshipTests extends AbstractWorkspaceTestBase {
 
     @BeforeEach
     public void setUp() {
-        softwareSystem1 = model.addSoftwareSystem(Location.Internal, "Name1", "Description");
-        softwareSystem2 = model.addSoftwareSystem(Location.Internal, "Name2", "Description");
+        softwareSystem1 = model.addSoftwareSystem("Name1", "Description");
+        softwareSystem2 = model.addSoftwareSystem("Name2", "Description");
     }
 
     @Test

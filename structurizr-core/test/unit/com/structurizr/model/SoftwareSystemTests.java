@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
 
-    private SoftwareSystem softwareSystem = model.addSoftwareSystem(Location.Internal, "Name", "Description");
+    private SoftwareSystem softwareSystem = model.addSoftwareSystem("Name", "Description");
 
     @Test
     void addContainer_ThrowsAnException_WhenANullNameIsSpecified() {
@@ -73,8 +73,8 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
 
     @Test
     void uses_AddsAUnidirectionalRelationshipBetweenTwoSoftwareSystems() {
-        SoftwareSystem systemA = model.addSoftwareSystem(Location.Internal, "System A", "Description");
-        SoftwareSystem systemB = model.addSoftwareSystem(Location.Internal, "System B", "Description");
+        SoftwareSystem systemA = model.addSoftwareSystem("System A", "Description");
+        SoftwareSystem systemB = model.addSoftwareSystem("System B", "Description");
         systemA.uses(systemB, "Gets some data from");
 
         assertEquals(1, systemA.getRelationships().size());
@@ -87,8 +87,8 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
 
     @Test
     void uses_AddsAUnidirectionalRelationshipBetweenTwoSoftwareSystems_WhenADifferentRelationshipAlreadyExists() {
-        SoftwareSystem systemA = model.addSoftwareSystem(Location.Internal, "System A", "Description");
-        SoftwareSystem systemB = model.addSoftwareSystem(Location.Internal, "System B", "Description");
+        SoftwareSystem systemA = model.addSoftwareSystem("System A", "Description");
+        SoftwareSystem systemB = model.addSoftwareSystem("System B", "Description");
         systemA.uses(systemB, "Gets data using the REST API");
         systemA.uses(systemB, "Subscribes to updates using the Streaming API");
 
@@ -107,8 +107,8 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
 
     @Test
     void uses_DoesNotAddAUnidirectionalRelationshipBetweenTwoSoftwareSystems_WhenTheSameRelationshipAlreadyExists() {
-        SoftwareSystem systemA = model.addSoftwareSystem(Location.Internal, "System A", "Description");
-        SoftwareSystem systemB = model.addSoftwareSystem(Location.Internal, "System B", "Description");
+        SoftwareSystem systemA = model.addSoftwareSystem("System A", "Description");
+        SoftwareSystem systemB = model.addSoftwareSystem("System B", "Description");
         systemA.uses(systemB, "Gets data using the REST API");
         systemA.uses(systemB, "Gets data using the REST API");
 
@@ -117,8 +117,8 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
 
     @Test
     void delivers_AddsAUnidirectionalRelationshipBetweenASoftwareSystemAndAPerson() {
-        SoftwareSystem system = model.addSoftwareSystem(Location.Internal, "System", "Description");
-        Person person = model.addPerson(Location.Internal, "User", "Description");
+        SoftwareSystem system = model.addSoftwareSystem("System", "Description");
+        Person person = model.addPerson("User", "Description");
         system.delivers(person, "E-mails results to");
 
         assertEquals(1, system.getRelationships().size());
@@ -131,8 +131,8 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
 
     @Test
     void delivers_AddsAUnidirectionalRelationshipBetweenASoftwareSystemAndAPerson_WhenADifferentRelationshipAlreadyExists() {
-        SoftwareSystem system = model.addSoftwareSystem(Location.Internal, "System", "Description");
-        Person person = model.addPerson(Location.Internal, "User", "Description");
+        SoftwareSystem system = model.addSoftwareSystem("System", "Description");
+        Person person = model.addPerson("User", "Description");
         system.delivers(person, "E-mails results to");
         system.delivers(person, "Text messages results to");
 
@@ -152,8 +152,8 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
 
     @Test
     void delivers_DoesNotAddAUnidirectionalRelationshipBetweenASoftwareSystemAndAPerson_WhenTheSameRelationshipAlreadyExists() {
-        SoftwareSystem system = model.addSoftwareSystem(Location.Internal, "System", "Description");
-        Person person = model.addPerson(Location.Internal, "User", "Description");
+        SoftwareSystem system = model.addSoftwareSystem("System", "Description");
+        Person person = model.addPerson("User", "Description");
         system.delivers(person, "E-mails results to");
         system.delivers(person, "E-mails results to");
 
@@ -162,13 +162,13 @@ public class SoftwareSystemTests extends AbstractWorkspaceTestBase {
 
     @Test
     void getTags_IncludesSoftwareSystemByDefault() {
-        SoftwareSystem system = model.addSoftwareSystem(Location.Internal, "System", "Description");
+        SoftwareSystem system = model.addSoftwareSystem("System", "Description");
         assertEquals("Element,Software System", system.getTags());
     }
 
     @Test
     void getCanonicalName() {
-        SoftwareSystem system = model.addSoftwareSystem(Location.Internal, "System", "Description");
+        SoftwareSystem system = model.addSoftwareSystem("System", "Description");
         assertEquals("SoftwareSystem://System", system.getCanonicalName());
     }
 
