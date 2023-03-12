@@ -308,6 +308,7 @@ public final class ComponentView extends StaticView {
      *
      * @param externalContainerBoundariesVisible     true if external container boundaries should be visible, false otherwise
      */
+    @Deprecated
     public void setExternalSoftwareSystemBoundariesVisible(boolean externalContainerBoundariesVisible) {
         this.externalContainerBoundariesVisible = externalContainerBoundariesVisible;
     }

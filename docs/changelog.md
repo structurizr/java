@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.23.1 (unreleased)
+
+- Deprecates the `setExternalBoundariesVisible` methods on `ContainerView`, `ComponentView`, and `DynamicView`.
+
 ## 1.23.0 (11th March 2023)
 
 - Deprecates `Enterprise` and `Location` concepts.

@@ -214,6 +214,7 @@ public final class ContainerView extends StaticView {
      *
      * @param externalSoftwareSystemBoundariesVisible     true if external software system boundaries should be visible, false otherwise
      */
+    @Deprecated
     public void setExternalSoftwareSystemBoundariesVisible(boolean externalSoftwareSystemBoundariesVisible) {
         this.externalSoftwareSystemBoundariesVisible = externalSoftwareSystemBoundariesVisible;
     }

@@ -386,6 +386,7 @@ public final class DynamicView extends ModelView {
      *
      * @param externalBoundariesVisible     true if external boundaries should be visible, false otherwise
      */
+    @Deprecated
     public void setExternalBoundariesVisible(boolean externalBoundariesVisible) {
         this.externalBoundariesVisible = externalBoundariesVisible;
     }
