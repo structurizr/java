@@ -11,7 +11,7 @@
 
 ## 1.22.3 (11th March 2023)
 
-- Adds better backwards compatibility for removal of documentation sections.
+- Adds better backwards compatibility for removal of documentation section titles.
 
 ## 1.22.2 (10th March 2023)
 
