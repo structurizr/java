@@ -3,6 +3,7 @@
 ## 1.23.1 (unreleased)
 
 - Deprecates the `setExternalBoundariesVisible` methods on `ContainerView`, `ComponentView`, and `DynamicView`.
+- Removes the check for empty content when adding a documentation section. 
 
 ## 1.23.0 (11th March 2023)
 

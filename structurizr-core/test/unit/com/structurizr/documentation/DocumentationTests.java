@@ -16,18 +16,6 @@ public class DocumentationTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void addSection_ThrowsAnException_WhenTheContentIsNotSpecified() {
-        try {
-            Section section = new Section();
-
-            documentation.addSection(section);
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("Content must be specified.", iae.getMessage());
-        }
-    }
-
-    @Test
     void addSection_ThrowsAnException_WhenTheFormatIsNotSpecified() {
         try {
             Section section = new Section();

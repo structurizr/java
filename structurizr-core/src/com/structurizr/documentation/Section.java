@@ -54,29 +54,4 @@ public final class Section extends DocumentationContent {
         this.order = order;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-
-        if (object == null || getClass() != object.getClass()) {
-            return false;
-        }
-
-        Section section = (Section)object;
-        if (getElementId() != null) {
-            return getElementId().equals(section.getElementId()) && getContent().equals(section.getContent());
-        } else {
-            return getContent().equals(section.getContent());
-        }
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getElementId() != null ? getElementId().hashCode() : 0;
-        result = 31 * result + getContent().hashCode();
-        return result;
-    }
-
 }

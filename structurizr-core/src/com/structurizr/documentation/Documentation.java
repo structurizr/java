@@ -3,20 +3,18 @@ package com.structurizr.documentation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.util.StringUtils;
 
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 /**
- * Represents the documentation within a workspace or software system - a collection of
- * content in Markdown or AsciiDoc format, optionally with attached images.
+ * Represents the documentation within a workspace, software system, container, or component;
+ *  a collection of content in Markdown or AsciiDoc format, optionally with attached images.
  *
  * See <a href="https://structurizr.com/help/documentation">Documentation</a>
  * on the Structurizr website for more details.
  */
 public final class Documentation {
 
-    private Set<Section> sections = new HashSet<>();
+    private List<Section> sections = new ArrayList<>();
     private Set<Decision> decisions = new HashSet<>();
     private Set<Image> images = new HashSet<>();
 
@@ -29,7 +27,6 @@ public final class Documentation {
      * @param section   a Section object
      */
     public void addSection(Section section) {
-        checkContentIsSpecified(section.getContent());
         checkFormatIsSpecified(section.getFormat());
 
         section.setOrder(calculateOrder());
@@ -63,13 +60,13 @@ public final class Documentation {
      *
      * @return a Set of {@link Section} objects
      */
-    public Set<Section> getSections() {
-        return new HashSet<>(sections);
+    public Collection<Section> getSections() {
+        return new ArrayList<>(sections);
     }
 
-    void setSections(Set<Section> sections) {
+    void setSections(Collection<Section> sections) {
         if (sections != null) {
-            this.sections = new LinkedHashSet<>(sections);
+            this.sections = new ArrayList<>(sections);
         }
     }
 
@@ -157,7 +154,7 @@ public final class Documentation {
      * Removes all documentation, decisions, and images.
      */
     public void clear() {
-        sections = new HashSet<>();
+        sections = new ArrayList<>();
         decisions = new HashSet<>();
         images = new HashSet<>();
     }
