@@ -18,9 +18,18 @@ class SequenceNumber {
 
     void endParallelSequence(boolean endAllParallelSequencesAndContinueNumbering) {
         if (endAllParallelSequencesAndContinueNumbering) {
-            int sequence = this.counter.getSequence();
-            this.counter = this.counter.getParent();
-            this.counter.setSequence(sequence);
+            if (counter.incremented()) {
+                // relationships were added in this parallel sequence
+                int sequence = this.counter.getSequence();
+                this.counter = this.counter.getParent();
+                this.counter.setSequence(sequence);
+            } else {
+                // no relationships were added in this parallel sequence, so treat this as a group of parallel sequences
+                int sequence = this.counter.getSequence();
+                this.counter = this.counter.getParent();
+                this.counter.setSequence(sequence);
+                this.counter.increment();
+            }
         } else {
             this.counter = this.counter.getParent();
         }

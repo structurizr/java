@@ -359,6 +359,44 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    void parallelSequence2() {
+        workspace = new Workspace("Name", "Description");
+        model = workspace.getModel();
+        SoftwareSystem a = model.addSoftwareSystem("A");
+        SoftwareSystem b = model.addSoftwareSystem("B");
+        SoftwareSystem c = model.addSoftwareSystem("C");
+        SoftwareSystem d = model.addSoftwareSystem("D");
+
+        a.uses(b, "");
+        b.uses(c, "");
+        b.uses(d, "");
+        b.uses(a, "");
+
+        DynamicView view = workspace.getViews().createDynamicView("key", "Description");
+
+        RelationshipView rv1 = view.add(a, b);
+
+        view.startParallelSequence();
+
+        view.startParallelSequence();
+        RelationshipView rv2 = view.add(b, c);
+        view.endParallelSequence();
+
+        view.startParallelSequence();
+        RelationshipView rv3 = view.add(b, d);
+        view.endParallelSequence();
+
+        view.endParallelSequence(true);
+
+        RelationshipView rv4 = view.add(b, a);
+
+        assertEquals("1", rv1.getOrder());
+        assertEquals("2", rv2.getOrder());
+        assertEquals("2", rv3.getOrder());
+        assertEquals("3", rv4.getOrder());
+    }
+
+    @Test
     void getRelationships_WhenTheOrderPropertyIsAnInteger() {
         containerA1.uses(containerA2, "uses");
         DynamicView view = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");

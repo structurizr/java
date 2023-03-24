@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.23.2 (unreleased)
+
+- `DynamicView.endParallelSequences(true)` will now increment the counter when no relationships have been defined in the parallel sequence.
+
 ## 1.23.1 (17th March 2023)
 
 - Deprecates the `setExternalBoundariesVisible` methods on `ContainerView`, `ComponentView`, and `DynamicView`.

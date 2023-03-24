@@ -4,6 +4,7 @@ class SequenceCounter implements Cloneable {
 
     private SequenceCounter parent;
     private int sequence = 0;
+    private boolean incremented = false;
 
     SequenceCounter() {
     }
@@ -14,6 +15,11 @@ class SequenceCounter implements Cloneable {
 
     void increment() {
         this.sequence++;
+        incremented = true;
+    }
+
+    boolean incremented() {
+        return incremented;
     }
 
     int getSequence() {
