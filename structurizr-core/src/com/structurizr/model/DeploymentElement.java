@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 /**
  * This is the superclass for model elements that describe deployment nodes, infrastructure nodes, and container instances.
  */
-public abstract class DeploymentElement extends Element {
+public abstract class DeploymentElement extends GroupableElement {
 
     public static final String DEFAULT_DEPLOYMENT_ENVIRONMENT = "Default";
     public static final String DEFAULT_DEPLOYMENT_GROUP = "Default";

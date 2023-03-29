@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.24.0 (unreleased)
+
+- Adds support for deployment elements to be grouped.
+
 ## 1.23.2 (24th March 2023)
 
 - `DynamicView.endParallelSequences(true)` will now increment the counter when no relationships have been defined in the parallel sequence.
