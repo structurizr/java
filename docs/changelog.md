@@ -1,8 +1,8 @@
 # Changelog
 
-## 1.24.0 (unreleased)
+## 1.24.0 (30th March 2023)
 
-- Adds support for deployment elements to be grouped.
+- Adds a `group` property to deployment nodes, infrastructure nodes, software system instances, and container instances.
 
 ## 1.23.2 (24th March 2023)
 
