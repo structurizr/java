@@ -32,6 +32,7 @@ public final class Person extends StaticStructureElement {
         return location;
     }
 
+    @Deprecated
     public void setLocation(Location location) {
         if (location != null) {
             this.location = location;

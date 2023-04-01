@@ -50,6 +50,7 @@ public final class SoftwareSystem extends StaticStructureElement implements Docu
      *
      * @param location  a Location instance
      */
+    @Deprecated
     public void setLocation(Location location) {
         if (location != null) {
             this.location = location;
