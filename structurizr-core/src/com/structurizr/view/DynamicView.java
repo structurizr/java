@@ -235,7 +235,7 @@ public final class DynamicView extends ModelView {
         return addRelationship(relationship, description, sequenceNumber.getNext(), false);
     }
 
-    protected RelationshipView addRelationship(Relationship relationship, String description, String order, boolean response) {
+    private RelationshipView addRelationship(Relationship relationship, String description, String order, boolean response) {
         RelationshipView relationshipView = addRelationship(relationship);
         if (relationshipView != null) {
             relationshipView.setDescription(description);
