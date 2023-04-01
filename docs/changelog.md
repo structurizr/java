@@ -1,5 +1,9 @@
 # Changelog
 
+## (unreleased)
+
+- Reduces visibility of `setOrder()` and `setDescription()` on `RelationshipView`, as they should not be public.
+
 ## 1.24.0 (30th March 2023)
 
 - Adds a `group` property to deployment nodes, infrastructure nodes, software system instances, and container instances.
