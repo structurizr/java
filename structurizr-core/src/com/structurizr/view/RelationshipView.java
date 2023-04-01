@@ -83,7 +83,7 @@ public final class RelationshipView {
      *
      * @param description   the description, as a String
      */
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = description;
     }
 
@@ -101,7 +101,7 @@ public final class RelationshipView {
      *
      * @param order     the order, as a String
      */
-    public void setOrder(String order) {
+    void setOrder(String order) {
         this.order = order;
     }
 
