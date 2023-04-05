@@ -1,6 +1,6 @@
 # Changelog
 
-## (unreleased)
+## 1.24.1 (5th April 2023)
 
 - Reduces visibility of `setOrder()` and `setDescription()` on `RelationshipView`, as they should not be public.
 
