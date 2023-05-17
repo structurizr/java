@@ -1,45 +1,47 @@
 package com.structurizr.configuration;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import java.util.Objects;
+
 /**
  * Represents a user, and the role-based access they have to a workspace.
  */
 public final class User {
 
-    private String username;
-    private Role role;
+    @Nonnull
+    private final String username;
+    @Nonnull
+    private final Role role;
 
-    User() {
-    }
-
-    User(String username, Role role) {
-        setUsername(username);
-        setRole(role);
+    @JsonCreator
+    User(@JsonProperty(value = "username", required = true) @CheckForNull String username,
+         @JsonProperty(value = "role", required = true) @CheckForNull Role role) {
+        this.username = Objects.requireNonNull(username);
+        this.role = Objects.requireNonNull(role);
     }
 
     /**
      * Gets the username (e.g. e-mail address).
      *
-     * @return  the username, as a String
+     * @return the username, as a String
      */
+    @Nonnull
     public String getUsername() {
         return username;
-    }
-
-    void setUsername(String username) {
-        this.username = username;
     }
 
     /**
      * Gets the role.
      *
-     * @return  a Role enum
+     * @return a Role enum
      */
+    @Nonnull
     public Role getRole() {
         return role;
-    }
-
-    void setRole(Role role) {
-        this.role = role;
     }
 
     @Override
