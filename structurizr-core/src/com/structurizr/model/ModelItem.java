@@ -19,8 +19,11 @@ public abstract class ModelItem implements PropertyHolder {
     @Nonnull
     private final Set<String> tags = new LinkedHashSet<>();
 
+    @Nullable
     private String url;
+    @Nonnull
     private Map<String, String> properties = new HashMap<>();
+    @Nonnull
     private Set<Perspective> perspectives = new HashSet<>();
 
     @JsonIgnore
@@ -115,6 +118,7 @@ public abstract class ModelItem implements PropertyHolder {
      *
      * @return  a URL as a String
      */
+    @Nullable
     public String getUrl() {
         return url;
     }
@@ -125,7 +129,7 @@ public abstract class ModelItem implements PropertyHolder {
      * @param url   the URL as a String
      * @throws IllegalArgumentException     if the URL is not a well-formed URL
      */
-    public void setUrl(String url) {
+    public void setUrl(@Nullable String url) {
         if (StringUtils.isNullOrEmpty(url)) {
             this.url = null;
         } else {
@@ -144,6 +148,7 @@ public abstract class ModelItem implements PropertyHolder {
      *
      * @return  a Map (String, String) (empty if there are no properties)
      */
+    @Nonnull
     public Map<String, String> getProperties() {
         return new HashMap<>(properties);
     }
@@ -155,18 +160,18 @@ public abstract class ModelItem implements PropertyHolder {
      * @param value     the value of the property
      */
     public void addProperty(String name, String value) {
-        if (name == null || name.trim().length() == 0) {
+        if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("A property name must be specified.");
         }
 
-        if (value == null || value.trim().length() == 0) {
+        if (value == null || value.trim().isEmpty()) {
             throw new IllegalArgumentException("A property value must be specified.");
         }
 
         properties.put(name, value);
     }
 
-    void setProperties(Map<String, String> properties) {
+    void setProperties(@Nullable Map<String, String> properties) {
         if (properties != null) {
             this.properties = new HashMap<>(properties);
         }
@@ -177,11 +182,12 @@ public abstract class ModelItem implements PropertyHolder {
      *
      * @return  a Set of Perspective objects (empty if there are none)
      */
+    @Nonnull
     public Set<Perspective> getPerspectives() {
         return new HashSet<>(perspectives);
     }
 
-    void setPerspectives(Set<Perspective> perspectives) {
+    void setPerspectives(@Nullable Set<Perspective> perspectives) {
         this.perspectives.clear();
 
         if (perspectives == null) {
@@ -208,7 +214,7 @@ public abstract class ModelItem implements PropertyHolder {
             throw new IllegalArgumentException("A description must be specified.");
         }
 
-        if (perspectives.stream().filter(p -> p.getName().equals(name)).count() > 0) {
+        if (perspectives.stream().anyMatch(p -> Objects.equals(p.getName(), name))) {
             throw new IllegalArgumentException("A perspective named \"" + name + "\" already exists.");
         }
 

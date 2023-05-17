@@ -4,6 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.structurizr.util.ImageUtils;
 import com.structurizr.util.StringUtils;
 
+ import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * A definition of an element style.
  */
@@ -38,6 +41,7 @@ public final class ElementStyle extends AbstractStyle {
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Shape shape;
 
+    @Nullable
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private String icon;
 
@@ -272,11 +276,12 @@ public final class ElementStyle extends AbstractStyle {
      *
      * @return  the icon, or null if not specified
      */
+    @Nullable
     public String getIcon() {
         return icon;
     }
 
-    public void setIcon(String icon) {
+    public void setIcon(@Nullable String icon) {
         if (StringUtils.isNullOrEmpty(icon)) {
             this.icon = null;
         } else {
@@ -285,7 +290,8 @@ public final class ElementStyle extends AbstractStyle {
         }
     }
 
-    public ElementStyle icon(String icon) {
+    @Nonnull
+    public ElementStyle icon(@Nullable String icon) {
         setIcon(icon);
         return this;
     }

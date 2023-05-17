@@ -15,6 +15,7 @@ import org.apache.hc.core5.http.io.entity.EntityUtils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 
 /**
  * Some utility methods for exporting themes to JSON.
@@ -79,7 +80,7 @@ public final class ThemeUtils {
                 objectMapper.enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT);
                 objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-                Theme theme = objectMapper.readValue(json, Theme.class);
+                Theme theme = Objects.requireNonNull(objectMapper.readValue(json, Theme.class));
                 String baseUrl = url.substring(0, url.lastIndexOf('/') + 1);
 
                 for (ElementStyle elementStyle : theme.getElements()) {

@@ -155,12 +155,12 @@ public abstract class StaticStructureElementInstance extends DeploymentElement {
      * @throws IllegalArgumentException     if the name is empty, the URL is not a well-formed URL, or the interval/timeout is not zero/a positive integer
      */
     @Nonnull
-    public HttpHealthCheck addHealthCheck(String name, String url, int interval, long timeout) {
-        if (name == null || name.trim().length() == 0) {
+    public HttpHealthCheck addHealthCheck(String name, @Nonnull String url, int interval, long timeout) {
+        if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("The name must not be null or empty.");
         }
 
-        if (url == null || url.trim().length() == 0) {
+        if (url == null || url.trim().isEmpty()) {
             throw new IllegalArgumentException("The URL must not be null or empty.");
         }
 

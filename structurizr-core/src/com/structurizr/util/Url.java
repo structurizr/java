@@ -1,6 +1,5 @@
 package com.structurizr.util;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.net.MalformedURLException;
 import java.net.URL;

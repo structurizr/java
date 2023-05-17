@@ -2,26 +2,32 @@ package com.structurizr.view;
 
 import com.structurizr.util.Url;
 
+import javax.annotation.Nullable;
+import java.util.Objects;
+
 /**
  * Represents a font, including a name and an optional URL for web fonts.
  */
 public final class Font {
 
+    @Nullable
     private String name;
+    @Nullable
     private String url;
 
     Font() {
     }
 
-    public Font(String name) {
-        this.name = name;
+    public Font(@Nullable String name) {
+        this.name = Objects.requireNonNull(name);
     }
 
-    public Font(String name, String url) {
+    public Font(@Nullable String name, @Nullable String url) {
         setName(name);
         setUrl(url);
     }
 
+    @Nullable
     public String getName() {
         return name;
     }
@@ -31,10 +37,11 @@ public final class Font {
      *
      * @param name      the name of a font family
      */
-    public void setName(String name) {
+    public void setName(@Nullable String name) {
         this.name = name;
     }
 
+    @Nullable
     public String getUrl() {
         return url;
     }
@@ -44,8 +51,8 @@ public final class Font {
      *
      * @param url   a URL as a String
      */
-    public void setUrl(String url) {
-        if (url != null && url.trim().length() > 0) {
+    public void setUrl(@Nullable String url) {
+        if (url != null && !url.trim().isEmpty()) {
             if (Url.isUrl(url)) {
                 this.url = url;
             } else {

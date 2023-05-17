@@ -2,6 +2,7 @@ package com.structurizr;
 
 import com.structurizr.configuration.WorkspaceConfiguration;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
 import java.util.Date;
 import java.util.HashMap;
@@ -24,6 +25,7 @@ public abstract class AbstractWorkspace implements PropertyHolder {
 
     private Map<String, String> properties = new HashMap<>();
 
+    @Nullable
     private WorkspaceConfiguration configuration;
 
     protected AbstractWorkspace() {
@@ -206,11 +208,12 @@ public abstract class AbstractWorkspace implements PropertyHolder {
      *
      * @return  a Configuration object
      */
+    @Nullable
     public WorkspaceConfiguration getConfiguration() {
         return configuration;
     }
 
-    protected void setConfiguration(WorkspaceConfiguration configuration) {
+    protected void setConfiguration(@Nullable WorkspaceConfiguration configuration) {
         this.configuration = configuration;
     }
 
@@ -247,11 +250,11 @@ public abstract class AbstractWorkspace implements PropertyHolder {
      * @param value     the value of the property
      */
     public void addProperty(String name, String value) {
-        if (name == null || name.trim().length() == 0) {
+        if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("A property name must be specified.");
         }
 
-        if (value == null || value.trim().length() == 0) {
+        if (value == null || value.trim().isEmpty()) {
             throw new IllegalArgumentException("A property value must be specified.");
         }
 

@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.structurizr.PropertyHolder;
 import com.structurizr.util.Url;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,9 +18,11 @@ import java.util.Map;
  */
 public final class Configuration implements PropertyHolder {
 
+    @Nonnull
     private Branding branding = new Branding();
     private Styles styles = new Styles();
-    private List<String> themes = new ArrayList<>();
+    @Nonnull
+    private final List<String> themes = new ArrayList<>();
     private Terminology terminology = new Terminology();
 
     private MetadataSymbols metadataSymbols;
@@ -38,14 +42,11 @@ public final class Configuration implements PropertyHolder {
         return styles;
     }
 
+    @Nullable
     @JsonIgnore
     @Deprecated
     public String getTheme() {
-        if (themes == null || themes.size() == 0) {
-            return null;
-        }
-
-        return themes.get(0);
+        return themes.stream().findFirst().orElse(null);
     }
 
     /**
@@ -54,7 +55,7 @@ public final class Configuration implements PropertyHolder {
      * @param url       the URL of theme
      */
     @JsonSetter
-    void setTheme(String url) {
+    void setTheme(@Nullable String url) {
         setThemes(url);
     }
 
@@ -63,6 +64,7 @@ public final class Configuration implements PropertyHolder {
      *
      * @return  an array of URLs
      */
+    @Nonnull
     public String[] getThemes() {
         return themes.toArray(new String[0]);
     }
@@ -72,7 +74,7 @@ public final class Configuration implements PropertyHolder {
      *
      * @param themes        an array of URLs
      */
-    public void setThemes(String... themes) {
+    public void setThemes(@Nullable String... themes) {
         if (themes != null) {
             for (String url : themes) {
                 addTheme(url);
@@ -85,8 +87,8 @@ public final class Configuration implements PropertyHolder {
      *
      * @param url       the URL of the theme to be added
      */
-    public void addTheme(String url) {
-        if (url != null && url.trim().length() > 0) {
+    public void addTheme(@Nullable String url) {
+        if (url != null && !url.trim().isEmpty()) {
             if (Url.isUrl(url)) {
                 if (!themes.contains(url)) {
                     themes.add(url.trim());
@@ -141,6 +143,7 @@ public final class Configuration implements PropertyHolder {
      *
      * @return  a Branding object
      */
+    @Nonnull
     public Branding getBranding() {
         return branding;
     }
@@ -150,7 +153,7 @@ public final class Configuration implements PropertyHolder {
      *
      * @param branding      a Branding object
      */
-    void setBranding(Branding branding) {
+    void setBranding(@Nonnull Branding branding) {
         this.branding = branding;
     }
 
@@ -224,11 +227,11 @@ public final class Configuration implements PropertyHolder {
      * @param value     the value of the property
      */
     public void addProperty(String name, String value) {
-        if (name == null || name.trim().length() == 0) {
+        if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("A property name must be specified.");
         }
 
-        if (value == null || value.trim().length() == 0) {
+        if (value == null || value.trim().isEmpty()) {
             throw new IllegalArgumentException("A property value must be specified.");
         }
 

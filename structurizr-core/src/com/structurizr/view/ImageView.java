@@ -5,6 +5,8 @@ import com.structurizr.model.Element;
 import com.structurizr.util.ImageUtils;
 import com.structurizr.util.StringUtils;
 
+import javax.annotation.Nullable;
+
 /**
  * A view that has been rendered elsewhere (e.g. PlantUML, Mermaid, Kroki, etc) as a image (e.g. PNG).
  */
@@ -12,6 +14,7 @@ public final class ImageView extends View {
 
     private Element element;
     private String elementId;
+    @Nullable
     private String content;
     private String contentType;
 
@@ -58,6 +61,7 @@ public final class ImageView extends View {
      *
      * @return  the content, as a String
      */
+    @Nullable
     public String getContent() {
         return content;
     }
@@ -67,7 +71,7 @@ public final class ImageView extends View {
      *
      * @param content   the content of this view
      */
-    public void setContent(String content) {
+    public void setContent(@Nullable String content) {
         if (StringUtils.isNullOrEmpty(content)) {
             this.content = null;
         } else {
