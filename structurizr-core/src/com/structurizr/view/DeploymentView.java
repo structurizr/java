@@ -5,17 +5,19 @@ import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * A deployment view, used to show the mapping of container instances to deployment nodes.
  */
-public final class DeploymentView extends ModelView {
+public final class DeploymentView extends ModelView implements AnimatedView {
 
     private Model model;
     private String environment = DeploymentElement.DEFAULT_DEPLOYMENT_ENVIRONMENT;
 
+    @Nonnull
     private List<Animation> animations = new ArrayList<>();
 
     DeploymentView() {
@@ -439,11 +441,13 @@ public final class DeploymentView extends ModelView {
         return null;
     }
 
+    @Nonnull
+    @Override
     public List<Animation> getAnimations() {
         return new ArrayList<>(animations);
     }
 
-    void setAnimations(List<Animation> animations) {
+    void setAnimations(@Nullable List<Animation> animations) {
         if (animations != null) {
             this.animations = new ArrayList<>(animations);
         } else {
