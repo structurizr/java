@@ -172,6 +172,7 @@ public final class SoftwareSystem extends StaticStructureElement implements Docu
         return new CanonicalNameGenerator().generate(this);
     }
 
+    @Nonnull
     @Override
     public Set<String> getDefaultTags() {
         return new LinkedHashSet<>(Arrays.asList(Tags.ELEMENT, Tags.SOFTWARE_SYSTEM));

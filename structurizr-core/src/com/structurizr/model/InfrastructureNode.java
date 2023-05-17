@@ -2,6 +2,7 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -68,6 +69,7 @@ public final class InfrastructureNode extends DeploymentElement {
         this.technology = technology;
     }
 
+    @Nonnull
     @JsonIgnore
     public Set<String> getDefaultTags() {
         return new LinkedHashSet<>(Arrays.asList(Tags.ELEMENT, Tags.INFRASTRUCTURE_NODE));

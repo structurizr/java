@@ -93,6 +93,7 @@ public abstract class StaticStructureElementInstance extends DeploymentElement {
         this.instanceId = instanceId;
     }
 
+    @Nonnull
     @Override
     @JsonIgnore
     public Set<String> getDefaultTags() {

@@ -3,6 +3,7 @@ package com.structurizr.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
+import javax.annotation.Nonnull;
 import java.util.*;
 
 /**
@@ -394,6 +395,7 @@ public final class DeploymentNode extends DeploymentElement {
         this.instances = instances;
     }
 
+    @Nonnull
     @JsonIgnore
     public Set<String> getDefaultTags() {
         return new LinkedHashSet<>(Arrays.asList(Tags.ELEMENT, Tags.DEPLOYMENT_NODE));

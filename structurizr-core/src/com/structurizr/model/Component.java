@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.documentation.Documentable;
 import com.structurizr.documentation.Documentation;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -66,6 +67,7 @@ public final class Component extends StaticStructureElement implements Documenta
         return new CanonicalNameGenerator().generate(this);
     }
 
+    @Nonnull
     @Override
     public Set<String> getDefaultTags() {
         return new LinkedHashSet<>(Arrays.asList(Tags.ELEMENT, Tags.COMPONENT));

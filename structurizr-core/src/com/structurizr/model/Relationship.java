@@ -2,6 +2,7 @@ package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.annotation.Nonnull;
 import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -148,6 +149,7 @@ public final class Relationship extends ModelItem {
         this.linkedRelationshipId = baseRelationshipId;
     }
 
+    @Nonnull
     @Override
     public Set<String> getDefaultTags() {
         if (linkedRelationshipId == null) {

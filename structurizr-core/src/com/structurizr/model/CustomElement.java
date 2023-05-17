@@ -21,6 +21,7 @@ public final class CustomElement extends GroupableElement {
         return null;
     }
 
+    @Nonnull
     @Override
     public Set<String> getDefaultTags() {
         return new LinkedHashSet<>(Collections.singletonList(Tags.ELEMENT));

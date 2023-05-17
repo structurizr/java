@@ -46,6 +46,7 @@ public final class Person extends StaticStructureElement {
         return new CanonicalNameGenerator().generate(this);
     }
 
+    @Nonnull
     @Override
     public Set<String> getDefaultTags() {
         return new LinkedHashSet<>(Arrays.asList(Tags.ELEMENT, Tags.PERSON));

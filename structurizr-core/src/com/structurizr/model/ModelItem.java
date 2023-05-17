@@ -6,6 +6,8 @@ import com.structurizr.util.StringUtils;
 import com.structurizr.util.TagUtils;
 import com.structurizr.util.Url;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 
 /**
@@ -14,7 +16,8 @@ import java.util.*;
 public abstract class ModelItem implements PropertyHolder {
 
     private String id = "";
-    private Set<String> tags = new LinkedHashSet<>();
+    @Nonnull
+    private final Set<String> tags = new LinkedHashSet<>();
 
     private String url;
     private Map<String, String> properties = new HashMap<>();
@@ -23,6 +26,7 @@ public abstract class ModelItem implements PropertyHolder {
     @JsonIgnore
     public abstract String getCanonicalName();
 
+    @Nonnull
     @JsonIgnore
     public abstract Set<String> getDefaultTags();
 
@@ -45,10 +49,12 @@ public abstract class ModelItem implements PropertyHolder {
      * @return  a comma separated list of tags,
      *          or an empty string if there are no tags
      */
+    @Nonnull
     public String getTags() {
         return TagUtils.toString(getTagsAsSet());
     }
 
+    @Nonnull
     @JsonIgnore
     public Set<String> getTagsAsSet() {
         Set<String> setOfTags = new LinkedHashSet<>(getDefaultTags());
@@ -57,7 +63,7 @@ public abstract class ModelItem implements PropertyHolder {
         return setOfTags;
     }
 
-    void setTags(String tags) {
+    void setTags(@Nullable String tags) {
         this.tags.clear();
 
         if (tags == null) {
@@ -67,7 +73,7 @@ public abstract class ModelItem implements PropertyHolder {
         Collections.addAll(this.tags, tags.split(","));
     }
 
-    public void addTags(String... tags) {
+    public void addTags(@Nullable String... tags) {
         if (tags == null) {
             return;
         }
@@ -86,7 +92,7 @@ public abstract class ModelItem implements PropertyHolder {
      * @return          true if the tag was removed; will return false if a non-existent tag is passed, or if an attempt is
      *                  made to remove required tags, which cannot be removed.
      */
-    public boolean removeTag(String tag) {
+    public boolean removeTag(@Nullable String tag) {
         if (tag != null) {
             return this.tags.remove(tag.trim());
         }
@@ -100,7 +106,7 @@ public abstract class ModelItem implements PropertyHolder {
      * @return      true if tag is present as a tag on this item, or if it is one of the
      *              required tags defined by the model in getRequiredTags(), false otherwise
      */
-    public boolean hasTag(String tag) {
+    public boolean hasTag(@Nonnull String tag) {
         return getTagsAsSet().contains(tag.trim());
     }
 
