@@ -2,6 +2,7 @@ package com.structurizr;
 
 import com.structurizr.configuration.WorkspaceConfiguration;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
 import java.util.Date;
@@ -21,8 +22,10 @@ public abstract class AbstractWorkspace implements PropertyHolder {
     private Date lastModifiedDate;
     private String lastModifiedUser;
     private String lastModifiedAgent;
+    @Nullable
     private String thumbnail;
 
+    @Nonnull
     private Map<String, String> properties = new HashMap<>();
 
     @Nullable
@@ -190,6 +193,7 @@ public abstract class AbstractWorkspace implements PropertyHolder {
      * @return  a Base64 encoded PNG file as a Data URI (data:image/png;base64)
      *          or null if there is no thumbnail
      */
+    @Nullable
     public String getThumbnail() {
         return thumbnail;
     }
@@ -199,7 +203,7 @@ public abstract class AbstractWorkspace implements PropertyHolder {
      *
      * @param thumbnail     a Base64 encoded PNG file as a Data URI (data:image/png;base64)
      */
-    public void setThumbnail(String thumbnail) {
+    public void setThumbnail(@Nullable String thumbnail) {
         this.thumbnail = thumbnail;
     }
 
@@ -239,6 +243,7 @@ public abstract class AbstractWorkspace implements PropertyHolder {
      *
      * @return  a Map (String, String) (empty if there are no properties)
      */
+    @Nonnull
     public Map<String, String> getProperties() {
         return new HashMap<>(properties);
     }
@@ -249,7 +254,7 @@ public abstract class AbstractWorkspace implements PropertyHolder {
      * @param name      the name of the property
      * @param value     the value of the property
      */
-    public void addProperty(String name, String value) {
+    public void addProperty(@Nonnull String name, @Nonnull String value) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("A property name must be specified.");
         }
@@ -261,7 +266,7 @@ public abstract class AbstractWorkspace implements PropertyHolder {
         properties.put(name, value);
     }
 
-    void setProperties(Map<String, String> properties) {
+    void setProperties(@Nullable Map<String, String> properties) {
         if (properties != null) {
             this.properties = new HashMap<>(properties);
         }

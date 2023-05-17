@@ -159,7 +159,7 @@ public abstract class ModelItem implements PropertyHolder {
      * @param name      the name of the property
      * @param value     the value of the property
      */
-    public void addProperty(String name, String value) {
+    public void addProperty(@Nonnull String name, @Nonnull String value) {
         if (name == null || name.trim().isEmpty()) {
             throw new IllegalArgumentException("A property name must be specified.");
         }

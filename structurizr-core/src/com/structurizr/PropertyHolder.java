@@ -1,5 +1,6 @@
 package com.structurizr;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
 public interface PropertyHolder {
@@ -9,7 +10,8 @@ public interface PropertyHolder {
      *
      * @return  a Map (String, String) (empty if there are no properties)
      */
-    public Map<String, String> getProperties();
+    @Nonnull
+    Map<String, String> getProperties();
 
     /**
      * Adds a name-value pair property to this workspace.
@@ -17,6 +19,6 @@ public interface PropertyHolder {
      * @param name      the name of the property
      * @param value     the value of the property
      */
-    public void addProperty(String name, String value);
+    void addProperty(@Nonnull String name, @Nonnull String value);
 
 }

@@ -28,6 +28,7 @@ public final class Model implements PropertyHolder {
 
     private ImpliedRelationshipsStrategy impliedRelationshipsStrategy = new DefaultImpliedRelationshipsStrategy();
 
+    @Nonnull
     private Map<String, String> properties = new HashMap<>();
 
     Model() {
@@ -1073,6 +1074,7 @@ public final class Model implements PropertyHolder {
      *
      * @return  a Map (String, String) (empty if there are no properties)
      */
+    @Nonnull
     public Map<String, String> getProperties() {
         return new HashMap<>(properties);
     }
@@ -1083,7 +1085,7 @@ public final class Model implements PropertyHolder {
      * @param name      the name of the property
      * @param value     the value of the property
      */
-    public void addProperty(String name, String value) {
+    public void addProperty(@Nonnull String name, @Nonnull String value) {
         if (name == null || name.trim().length() == 0) {
             throw new IllegalArgumentException("A property name must be specified.");
         }
@@ -1095,7 +1097,7 @@ public final class Model implements PropertyHolder {
         properties.put(name, value);
     }
 
-    void setProperties(Map<String, String> properties) {
+    void setProperties(@Nullable Map<String, String> properties) {
         if (properties != null) {
             this.properties = new HashMap<>(properties);
         }

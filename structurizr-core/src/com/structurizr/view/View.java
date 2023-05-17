@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.PropertyHolder;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,6 +17,7 @@ public abstract class View implements PropertyHolder {
     private int order;
     private String title;
     private String description;
+    @Nonnull
     private Map<String, String> properties = new HashMap<>();
 
     private ViewSet viewSet;
@@ -115,6 +117,7 @@ public abstract class View implements PropertyHolder {
      *
      * @return  a Map (String, String) (empty if there are no properties)
      */
+    @Nonnull
     public Map<String, String> getProperties() {
         return new HashMap<>(properties);
     }
@@ -125,7 +128,7 @@ public abstract class View implements PropertyHolder {
      * @param name      the name of the property
      * @param value     the value of the property
      */
-    public void addProperty(String name, String value) {
+    public void addProperty(@Nonnull String name, @Nonnull String value) {
         if (name == null || name.trim().length() == 0) {
             throw new IllegalArgumentException("A property name must be specified.");
         }
@@ -137,7 +140,7 @@ public abstract class View implements PropertyHolder {
         properties.put(name, value);
     }
 
-    void setProperties(Map<String, String> properties) {
+    void setProperties(@Nullable Map<String, String> properties) {
         if (properties != null) {
             this.properties = new HashMap<>(properties);
         }
