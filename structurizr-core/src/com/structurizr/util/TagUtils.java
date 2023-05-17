@@ -1,10 +1,12 @@
 package com.structurizr.util;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 
 public class TagUtils {
 
-    public static String toString(Collection<String> tags) {
+    @Nonnull
+    public static String toString(@Nonnull Collection<String> tags) {
         if (tags.isEmpty()) {
             return "";
         }

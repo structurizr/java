@@ -1,5 +1,7 @@
 package com.structurizr.util;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -16,7 +18,7 @@ public class Url {
      * @param urlAsString       the URL, as a String
      * @return  true if the URL is valid, false otherwise
      */
-    public static boolean isUrl(String urlAsString) {
+    public static boolean isUrl(@Nullable String urlAsString) {
         if (!StringUtils.isNullOrEmpty(urlAsString)) {
             try {
                 new URL(urlAsString);

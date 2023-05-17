@@ -1,5 +1,7 @@
 package com.structurizr.util;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,7 +14,7 @@ public final class MapUtils {
      *
      * @return  a Map
      */
-    public static Map<String, String> create(String... nameValuePairs) {
+    public static Map<String, String> create(@Nonnull String... nameValuePairs) {
         Map<String, String> map = new HashMap<>();
 
         if (nameValuePairs != null) {

@@ -1,6 +1,7 @@
 package com.structurizr.util;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Base64;
+import java.util.Objects;
 
 /**
  * Some utility methods for dealing with images.
@@ -31,6 +33,7 @@ public class ImageUtils {
      * @return  a content type (e.g. "image/png")
      * @throws IOException      if there is an error reading the file
      */
+    @Nonnull
     public static String getContentType(@Nonnull File file) throws IOException {
         if (file == null) {
             throw new IllegalArgumentException("A file must be specified.");
@@ -55,7 +58,8 @@ public class ImageUtils {
      * @return  a content type (e.g. "image/png")
      * @throws IOException      if there is an error reading the file
      */
-    public static String getContentType(String url) throws IOException {
+    @Nullable
+    public static String getContentType(@Nonnull String url) throws IOException {
         if (StringUtils.isNullOrEmpty(url)) {
             throw new IllegalArgumentException("A URL must be specified.");
         }
@@ -71,7 +75,8 @@ public class ImageUtils {
      * @param   dataUri             a data URI representing an image
      * @return  a content type (e.g. "image/png")
      */
-    public static String getContentTypeFromDataUri(String dataUri) {
+    @Nullable
+    public static String getContentTypeFromDataUri(@Nonnull String dataUri) {
         if (StringUtils.isNullOrEmpty(dataUri)) {
             throw new IllegalArgumentException("A data URI must be specified.");
         }
@@ -94,8 +99,9 @@ public class ImageUtils {
      * @return  a Base64 encoded version of that image
      * @throws IOException      if there is an error reading the file
      */
+    @Nonnull
     public static String getImageAsBase64(@Nonnull File file) throws IOException {
-        String contentType = getContentType(file);
+        @Nonnull String contentType = getContentType(file);
         BufferedImage bufferedImage = ImageIO.read(file);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ImageIO.write(bufferedImage, contentType.split("/")[1], bos);
@@ -111,14 +117,15 @@ public class ImageUtils {
      * @return              a data URI
      * @throws IOException  if there is an error reading the file
      */
-    public static String getImageAsDataUri(File file) throws IOException {
+    @Nonnull
+    public static String getImageAsDataUri(@Nonnull File file) throws IOException {
         String contentType = getContentType(file);
         String base64Content = getImageAsBase64(file);
 
         return DATA_URI_PREFIX + contentType + ";base64," + base64Content;
     }
 
-    public static void validateImage(String imageDescriptor) {
+    public static void validateImage(@Nullable String imageDescriptor) {
         if (StringUtils.isNullOrEmpty(imageDescriptor)) {
             return;
         }
@@ -148,7 +155,7 @@ public class ImageUtils {
         throw new IllegalArgumentException("Expected a URL or data URI");
     }
 
-    public static boolean isSupportedDataUri(String uri) {
+    public static boolean isSupportedDataUri(@Nonnull String uri) {
         return  uri.startsWith(DATA_URI_IMAGE_PNG) ||
                 uri.startsWith(DATA_URI_IMAGE_JPG) ||
                 uri.startsWith(DATA_URI_IMAGE_SVG);
