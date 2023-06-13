@@ -7,6 +7,7 @@ import com.structurizr.model.Model;
 import com.structurizr.model.Relationship;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -15,8 +16,9 @@ import java.util.Set;
 /**
  * Represents a custom view, containing custom elements.
  */
-public final class CustomView extends ModelView {
+public final class CustomView extends ModelView implements AnimatedView {
 
+    @Nonnull
     private List<Animation> animations = new ArrayList<>();
 
     private Model model;
@@ -124,11 +126,13 @@ public final class CustomView extends ModelView {
         animations.add(new Animation(animations.size() + 1, elementsInThisAnimationStep, relationshipsInThisAnimationStep));
     }
 
+    @Nonnull
+    @Override
     public List<Animation> getAnimations() {
         return new ArrayList<>(animations);
     }
 
-    void setAnimations(List<Animation> animations) {
+    void setAnimations(@Nullable List<Animation> animations) {
         if (animations != null) {
             this.animations = new ArrayList<>(animations);
         } else {
