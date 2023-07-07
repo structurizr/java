@@ -8,6 +8,8 @@ import com.structurizr.util.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.*;
 
 import static com.structurizr.util.StringUtils.isNullOrEmpty;
@@ -18,6 +20,13 @@ import static com.structurizr.util.StringUtils.isNullOrEmpty;
 public final class ViewSet {
 
     private static final Log log = LogFactory.getLog(ViewSet.class);
+
+    public static final String SYSTEM_LANDSCAPE_VIEW_TYPE = "SystemLandscape";
+    public static final String SYSTEM_CONTEXT_VIEW_TYPE = "SystemContext";
+    public static final String CONTAINER_VIEW_TYPE = "Container";
+    public static final String COMPONENT_VIEW_TYPE = "Component";
+    public static final String DYNAMIC_VIEW_TYPE = "Dynamic";
+    public static final String DEPLOYMENT_VIEW_TYPE = "Deployment";
 
     private Model model;
 
@@ -822,9 +831,27 @@ public final class ViewSet {
         return customViews.isEmpty() && systemLandscapeViews.isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && dynamicViews.isEmpty() && deploymentViews.isEmpty() && filteredViews.isEmpty();
     }
 
+    public String generateViewKey(String prefix) {
+        NumberFormat format = new DecimalFormat("000");
+        int counter = 1;
+        String key = prefix + "-" + format.format(counter);
+
+        while (hasViewWithKey(key)) {
+            counter++;
+            key = prefix + "-" + format.format(counter);
+        }
+
+        log.warn(key + " is an automatically generated view key - you will likely lose manual layout information when using automatically generated view keys.");
+        return key;
+    }
+
+    private boolean hasViewWithKey(String key) {
+        return getViews().stream().anyMatch(view -> view.getKey().equals(key));
+    }
+
     public void createDefaultViews() {
         // create a single System Landscape diagram containing all people and software systems
-        SystemLandscapeView systemLandscapeView = createSystemLandscapeView("SystemLandscape", "");
+        SystemLandscapeView systemLandscapeView = createSystemLandscapeView(generateViewKey(SYSTEM_LANDSCAPE_VIEW_TYPE), "");
         systemLandscapeView.addDefaultElements();
         systemLandscapeView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
         systemLandscapeView.setEnterpriseBoundaryVisible(true);
@@ -835,7 +862,7 @@ public final class ViewSet {
 
             // and a system context view plus container view for each software system
             for (SoftwareSystem softwareSystem : softwareSystems) {
-                String systemContextViewKey = removeNonWordCharacters(softwareSystem.getName()) + "-SystemContext";
+                String systemContextViewKey = generateViewKey(SYSTEM_CONTEXT_VIEW_TYPE);
                 SystemContextView systemContextView = createSystemContextView(softwareSystem, systemContextViewKey, "");
                 systemContextView.addDefaultElements();
                 systemContextView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
@@ -845,7 +872,7 @@ public final class ViewSet {
                     List<Container> containers = new ArrayList<>(softwareSystem.getContainers());
                     containers.sort(Comparator.comparing(Element::getName));
 
-                    String containerViewKey = removeNonWordCharacters(softwareSystem.getName()) + "-Container";
+                    String containerViewKey = generateViewKey(CONTAINER_VIEW_TYPE);
                     ContainerView containerView = createContainerView(softwareSystem, containerViewKey, "");
                     containerView.addDefaultElements();
                     containerView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
@@ -853,7 +880,7 @@ public final class ViewSet {
 
                     for (Container container : containers) {
                         if (container.getComponents().size() > 0) {
-                            String componentViewKey = removeNonWordCharacters(softwareSystem.getName()) + "-" + removeNonWordCharacters(container.getName()) + "-Component";
+                            String componentViewKey = generateViewKey(COMPONENT_VIEW_TYPE);
                             ComponentView componentView = createComponentView(container, componentViewKey, "");
                             componentView.addDefaultElements();
                             componentView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
@@ -899,7 +926,7 @@ public final class ViewSet {
             if (softwareSystems.isEmpty()) {
                 // there are no container instances, but perhaps there are infrastructure nodes in this environment
                 if (model.getElements().stream().anyMatch(e -> e instanceof InfrastructureNode && ((InfrastructureNode)e).getEnvironment().equals(deploymentEnvironment))) {
-                    String deploymentViewKey = removeNonWordCharacters(deploymentEnvironment) + "-Deployment";
+                    String deploymentViewKey = generateViewKey(DEPLOYMENT_VIEW_TYPE);
                     DeploymentView deploymentView = createDeploymentView(deploymentViewKey, "");
                     deploymentView.setEnvironment(deploymentEnvironment);
                     deploymentView.addDefaultElements();
@@ -909,7 +936,7 @@ public final class ViewSet {
                 softwareSystems.sort(Comparator.comparing(Element::getName));
 
                 for (SoftwareSystem softwareSystem : softwareSystems) {
-                    String deploymentViewKey = removeNonWordCharacters(softwareSystem.getName()) + "-" + removeNonWordCharacters(deploymentEnvironment) + "-Deployment";
+                    String deploymentViewKey = generateViewKey(DEPLOYMENT_VIEW_TYPE);
                     DeploymentView deploymentView = createDeploymentView(softwareSystem, deploymentViewKey, "");
                     deploymentView.setEnvironment(deploymentEnvironment);
                     deploymentView.addDefaultElements();
@@ -917,10 +944,6 @@ public final class ViewSet {
                 }
             }
         }
-    }
-
-    private String removeNonWordCharacters(String name) {
-        return name.replaceAll("\\W", "");
     }
 
     private Set<SoftwareSystemInstance> getSoftwareSystemInstances(DeploymentNode deploymentNode) {

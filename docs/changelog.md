@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.25.0 (unreleased to Maven Central)
+
+- Fixes https://github.com/structurizr/java/issues/213 (Views are not created automatically if non-English characters are used in software systems' names)
+
 ## 1.24.1 (5th April 2023)
 
 - Reduces visibility of `setOrder()` and `setDescription()` on `RelationshipView`, as they should not be public.
