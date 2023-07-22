@@ -8,13 +8,16 @@ import com.structurizr.Workspace;
 import com.structurizr.io.WorkspaceWriterException;
 import com.structurizr.util.StringUtils;
 import org.apache.hc.client5.http.classic.methods.HttpGet;
+import org.apache.hc.client5.http.config.ConnectionConfig;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
+import org.apache.hc.client5.http.impl.io.BasicHttpClientConnectionManager;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Some utility methods for exporting themes to JSON.
@@ -22,6 +25,8 @@ import java.nio.charset.StandardCharsets;
 public final class ThemeUtils {
 
     private static final int HTTP_OK_STATUS = 200;
+
+    private static final int DEFAULT_TIMEOUT_IN_MILLISECONDS = 10000;
 
     /**
      * Serializes the theme (element and relationship styles) in the specified workspace to a file, as a JSON string.
@@ -62,13 +67,37 @@ public final class ThemeUtils {
     /**
      * Loads (and inlines) the element and relationship styles from the themes defined in the workspace, into the workspace itself.
      * This implementation simply copies the styles from all themes into the workspace.
+     * This uses a default timeout value of 10000ms.
      *
      * @param workspace     a Workspace object
      * @throws Exception    if something goes wrong
      */
     public static void loadThemes(Workspace workspace) throws Exception {
+        loadThemes(workspace, DEFAULT_TIMEOUT_IN_MILLISECONDS);
+    }
+
+    /**
+     * Loads (and inlines) the element and relationship styles from the themes defined in the workspace, into the workspace itself.
+     * This implementation simply copies the styles from all themes into the workspace.
+     *
+     * @param workspace                 a Workspace object
+     * @param timeoutInMilliseconds     the timeout in milliseconds
+     * @throws Exception    if something goes wrong
+     */
+    public static void loadThemes(Workspace workspace, int timeoutInMilliseconds) throws Exception {
         for (String url : workspace.getViews().getConfiguration().getThemes()) {
-            CloseableHttpClient httpClient = HttpClients.createSystem();
+            ConnectionConfig connectionConfig = ConnectionConfig.custom()
+                    .setConnectTimeout(timeoutInMilliseconds, TimeUnit.MILLISECONDS)
+                    .setSocketTimeout(timeoutInMilliseconds, TimeUnit.MILLISECONDS)
+                    .build();
+
+            BasicHttpClientConnectionManager cm = new BasicHttpClientConnectionManager();
+            cm.setConnectionConfig(connectionConfig);
+
+            CloseableHttpClient httpClient = HttpClientBuilder.create()
+                    .setConnectionManager(cm)
+                    .build();
+
             HttpGet httpGet = new HttpGet(url);
 
             CloseableHttpResponse response = httpClient.execute(httpGet);

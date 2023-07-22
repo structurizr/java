@@ -1,8 +1,9 @@
 # Changelog
 
-## 1.25.0 (unreleased to Maven Central)
+## 1.25.0 (22nd July 2023)
 
 - Fixes https://github.com/structurizr/java/issues/213 (Views are not created automatically if non-English characters are used in software systems' names)
+- Adds a way to load themes with a timeout.
 
 ## 1.24.1 (5th April 2023)
 
