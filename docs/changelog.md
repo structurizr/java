@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.25.1 (unreleased to Maven Central)
+
+- Adds a `clearUsers()` method to clear configured users on the workspace configuration.
+
 ## 1.25.0 (22nd July 2023)
 
 - Fixes https://github.com/structurizr/java/issues/213 (Views are not created automatically if non-English characters are used in software systems' names)

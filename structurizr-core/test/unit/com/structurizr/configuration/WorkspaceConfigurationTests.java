@@ -50,4 +50,14 @@ public class WorkspaceConfigurationTests {
         assertEquals(Role.ReadOnly, configuration.getUsers().iterator().next().getRole());
     }
 
+    @Test
+    void clearUsers() {
+        WorkspaceConfiguration configuration = new WorkspaceConfiguration();
+        configuration.addUser("user@domain.com", Role.ReadOnly);
+        assertEquals(1, configuration.getUsers().size());
+
+        configuration.clearUsers();
+        assertEquals(0, configuration.getUsers().size());
+    }
+
 }

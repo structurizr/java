@@ -48,4 +48,11 @@ public final class WorkspaceConfiguration {
         users.add(new User(username, role));
     }
 
+    /**
+     * Clears all configured users.
+     */
+    public void clearUsers() {
+        this.users = new HashSet<>();
+    }
+
 }
