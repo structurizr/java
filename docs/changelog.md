@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.25.1 (unreleased to Maven Central)
+## 1.25.1 (26th July 2023)
 
 - Adds a `clearUsers()` method to clear configured users on the workspace configuration.
 
