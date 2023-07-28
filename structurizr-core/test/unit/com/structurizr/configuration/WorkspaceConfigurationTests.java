@@ -62,6 +62,9 @@ public class WorkspaceConfigurationTests {
 
         configuration.setVisibility(Visibility.Private);
         assertEquals(Visibility.Private, configuration.getVisibility());
+
+        configuration.setVisibility(null);
+        assertNull(configuration.getVisibility());
     }
 
     @Test

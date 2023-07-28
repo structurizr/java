@@ -26,11 +26,11 @@ public final class WorkspaceConfiguration {
     }
 
     /**
-     * Gets the visibility of this workspace (private or public).
+     * Sets the visibility of this workspace (private or public).
      *
-     * @param visibility    a Visibility enum
+     * @param visibility    a Visibility enum, or null to indicate that no changes should be made
      */
-    void setVisibility(Visibility visibility) {
+    public void setVisibility(Visibility visibility) {
         this.visibility = visibility;
     }
 

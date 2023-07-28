@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.26.0 (28th July 2023)
+## 1.26.1 (28th July 2023)
 
 - Adds the ability to specify the workspace visibility (private/public) via the workspace configuration.
 
