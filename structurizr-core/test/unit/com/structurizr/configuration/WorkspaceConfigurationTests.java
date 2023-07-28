@@ -56,6 +56,15 @@ public class WorkspaceConfigurationTests {
     }
 
     @Test
+    void visibility() {
+        WorkspaceConfiguration configuration = new WorkspaceConfiguration();
+        assertNull(configuration.getVisibility());
+
+        configuration.setVisibility(Visibility.Private);
+        assertEquals(Visibility.Private, configuration.getVisibility());
+    }
+
+    @Test
     void clearUsers() {
         WorkspaceConfiguration configuration = new WorkspaceConfiguration();
         configuration.addUser("user@domain.com", Role.ReadOnly);

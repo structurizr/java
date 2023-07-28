@@ -10,9 +10,28 @@ import java.util.Set;
  */
 public final class WorkspaceConfiguration {
 
+    private Visibility visibility = null;
     private Set<User> users = new HashSet<>();
 
     WorkspaceConfiguration() {
+    }
+
+    /**
+     * Gets the visibility of this workspace (private or public).
+     *
+     * @return      a Visibility enum
+     */
+    public Visibility getVisibility() {
+        return visibility;
+    }
+
+    /**
+     * Gets the visibility of this workspace (private or public).
+     *
+     * @param visibility    a Visibility enum
+     */
+    void setVisibility(Visibility visibility) {
+        this.visibility = visibility;
     }
 
     /**

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.26.0 (unreleased to Maven Central)
+
+- Adds the ability to specify the workspace visibility (private/public) via the workspace configuration.
+
 ## 1.25.1 (26th July 2023)
 
 - Adds a `clearUsers()` method to clear configured users on the workspace configuration.
