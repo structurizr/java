@@ -31,20 +31,21 @@ public final class WorkspaceConfiguration {
     }
 
     /**
+     * Adds a user.
+     *
+     * @param   user        a User object representing the username and role
+     */
+    public void addUser(User user) {
+        users.add(user);
+    }
+
+    /**
      * Adds a user, with the specified username and role.
      *
      * @param username      the username (e.g. an e-mail address)
      * @param role          the user's role
      */
     public void addUser(String username, Role role) {
-        if (StringUtils.isNullOrEmpty(username)) {
-            throw new IllegalArgumentException("A username must be specified.");
-        }
-
-        if (role == null) {
-            throw new IllegalArgumentException("A role must be specified.");
-        }
-
         users.add(new User(username, role));
     }
 

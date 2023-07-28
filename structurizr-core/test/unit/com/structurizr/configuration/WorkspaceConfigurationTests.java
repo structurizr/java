@@ -2,8 +2,7 @@ package com.structurizr.configuration;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class WorkspaceConfigurationTests {
 
@@ -33,7 +32,7 @@ public class WorkspaceConfigurationTests {
     void addUser_ThrowsAnException_WhenANullRoleIsSpecified() {
         try {
             WorkspaceConfiguration configuration = new WorkspaceConfiguration();
-            configuration.addUser("user@domain.com", null);
+            configuration.addUser("user@example.com", null);
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A role must be specified.", iae.getMessage());
@@ -43,11 +42,17 @@ public class WorkspaceConfigurationTests {
     @Test
     void addUser_AddsAUser() {
         WorkspaceConfiguration configuration = new WorkspaceConfiguration();
-        configuration.addUser("user@domain.com", Role.ReadOnly);
+        configuration.addUser("user1@example.com", Role.ReadOnly);
 
         assertEquals(1, configuration.getUsers().size());
-        assertEquals("user@domain.com", configuration.getUsers().iterator().next().getUsername());
-        assertEquals(Role.ReadOnly, configuration.getUsers().iterator().next().getRole());
+        User user = configuration.getUsers().stream().filter(u -> u.getUsername().equals("user1@example.com")).findFirst().get();
+        assertEquals(Role.ReadOnly, user.getRole());
+
+        configuration.addUser("user2@example.com", Role.ReadWrite);
+
+        assertEquals(2, configuration.getUsers().size());
+        user = configuration.getUsers().stream().filter(u -> u.getUsername().equals("user2@example.com")).findFirst().get();
+        assertEquals(Role.ReadWrite, user.getRole());
     }
 
     @Test

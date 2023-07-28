@@ -1,5 +1,7 @@
 package com.structurizr.configuration;
 
+import com.structurizr.util.StringUtils;
+
 /**
  * Represents a user, and the role-based access they have to a workspace.
  */
@@ -11,7 +13,15 @@ public final class User {
     User() {
     }
 
-    User(String username, Role role) {
+    public User(String username, Role role) {
+        if (StringUtils.isNullOrEmpty(username)) {
+            throw new IllegalArgumentException("A username must be specified.");
+        }
+
+        if (role == null) {
+            throw new IllegalArgumentException("A role must be specified.");
+        }
+
         setUsername(username);
         setRole(role);
     }
