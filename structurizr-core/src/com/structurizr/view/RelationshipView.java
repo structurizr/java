@@ -3,6 +3,8 @@ package com.structurizr.view;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.structurizr.model.Relationship;
+import com.structurizr.util.StringUtils;
+import com.structurizr.util.Url;
 
 import java.util.Collection;
 import java.util.LinkedHashSet;
@@ -20,6 +22,7 @@ public final class RelationshipView {
     private Relationship relationship;
     private String id;
     private String description;
+    private String url;
     private String order;
     private Boolean response;
     private Set<Vertex> vertices = new LinkedHashSet<>();
@@ -85,6 +88,35 @@ public final class RelationshipView {
      */
     void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Gets the URL where more information about this relationship instance can be found.
+     *
+     * @return  a URL as a String
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * Sets the URL where more information about this relationship instance can be found.
+     *
+     * @param url   the URL as a String
+     * @throws IllegalArgumentException     if the URL is not a well-formed URL
+     */
+    public void setUrl(String url) {
+        if (StringUtils.isNullOrEmpty(url)) {
+            this.url = null;
+        } else {
+            if (url.startsWith(Url.WORKSPACE_URL_PREFIX)) {
+                this.url = url;
+            } else if (Url.isUrl(url)) {
+                this.url = url;
+            } else {
+                throw new IllegalArgumentException(url + " is not a valid URL.");
+            }
+        }
     }
 
     /**

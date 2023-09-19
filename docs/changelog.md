@@ -3,6 +3,7 @@
 ## 1.27.0 (unreleased)
 
 - Upgrades dependencies, targets Java 17.
+- Adds a 'url' property to 'RelationshipView' (see https://github.com/structurizr/java/issues/214).
 
 ## 1.26.1 (28th July 2023)
 
