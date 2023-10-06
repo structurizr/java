@@ -578,7 +578,7 @@ public final class Model implements PropertyHolder {
                 // node that is missing from the model.
                 throw new WorkspaceValidationException(
                         String.format(
-                                "SoftwareSystem (id=%s) does not exist in the model (referenced by SofwareSystem Instance in a %s DeploymentNode (name=%s)",
+                                "SoftwareSystem (id=%s) does not exist in the model (referenced by SofwareSystem Instance in a %s DeploymentNode (name=%s))",
                                 softwareSystemInstance.getSoftwareSystemId(), nodeType, deploymentNode.getName()));
             }
         });
@@ -593,7 +593,7 @@ public final class Model implements PropertyHolder {
                 // that is missing from the model.
                 throw new WorkspaceValidationException(
                         String.format(
-                                "Container (id=%s) does not exist in the model (referenced by Container Instance in a %s DeploymentNode (name=%s)",
+                                "Container (id=%s) does not exist in the model (referenced by Container Instance in a %s DeploymentNode (name=%s))",
                                 containerInstance.getContainerId(), nodeType, deploymentNode.getName()));
             }
         }
