@@ -539,38 +539,63 @@ public final class Model implements PropertyHolder {
     }
 
     private void hydrateDeploymentNode(DeploymentNode deploymentNode, DeploymentNode parent) {
+        final String nodeType = parent == null ? "root" : "child";
+
         deploymentNode.setParent(parent);
         addElementToInternalStructures(deploymentNode);
 
         deploymentNode.getChildren().forEach(child -> hydrateDeploymentNode(child, deploymentNode));
 
-        for (SoftwareSystemInstance softwareSystemInstance : deploymentNode.getSoftwareSystemInstances()) {
-            Element softwareSystem = getElement(softwareSystemInstance.getSoftwareSystemId());
-            if (!(softwareSystem instanceof SoftwareSystem)) {
-                throw new WorkspaceValidationException(
-                        String.format("A software system instance is associated with a software system (id=%s) that does not exist in the model.", softwareSystemInstance.getSoftwareSystemId()));
-            }
+        verifyDeploymentNode(deploymentNode, nodeType);
 
-            softwareSystemInstance.setSoftwareSystem((SoftwareSystem)softwareSystem);
+        deploymentNode.getSoftwareSystemInstances().forEach(softwareSystemInstance -> {
+            Element softwareSystem = getElement(softwareSystemInstance.getSoftwareSystemId());
+            softwareSystemInstance.setSoftwareSystem((SoftwareSystem) softwareSystem);
             softwareSystemInstance.setParent(deploymentNode);
             addElementToInternalStructures(softwareSystemInstance);
-        }
+        });
 
-        for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
+        deploymentNode.getContainerInstances().forEach(containerInstance -> {
             Element container = getElement(containerInstance.getContainerId());
-            if (!(container instanceof Container)) {
-                throw new WorkspaceValidationException(
-                        String.format("A container instance is associated with a container (id=%s) that does not exist in the model.", containerInstance.getContainerId()));
-            }
-
-            containerInstance.setContainer((Container)container);
+            containerInstance.setContainer((Container) container);
             containerInstance.setParent(deploymentNode);
             addElementToInternalStructures(containerInstance);
-        }
+        });
 
-        for (InfrastructureNode infrastructureNode : deploymentNode.getInfrastructureNodes()) {
+        deploymentNode.getInfrastructureNodes().forEach(infrastructureNode -> {
             infrastructureNode.setParent(deploymentNode);
             addElementToInternalStructures(infrastructureNode);
+        });
+    }
+
+    private void verifyDeploymentNode(DeploymentNode deploymentNode, String nodeType) {
+        // Verify each deployment node Software system instance
+        deploymentNode.getSoftwareSystemInstances().forEach(softwareSystemInstance -> {
+            Element softwareSystem = getElement(softwareSystemInstance.getSoftwareSystemId());
+            if (!(softwareSystem instanceof SoftwareSystem)) {
+                // This generally means that the model (e.g. from the DSL editor) has some
+                // mistake, we are referencing a software system definition within a deployment
+                // node that is missing from the model.
+                throw new WorkspaceValidationException(
+                        String.format(
+                                "SoftwareSystem (id=%s) does not exist in the model (referenced by SofwareSystem Instance in a %s DeploymentNode (name=%s)",
+                                softwareSystemInstance.getSoftwareSystemId(), nodeType, deploymentNode.getName()));
+            }
+        });
+
+        // verify each deployment node Container instance
+        for (ContainerInstance containerInstance : deploymentNode.getContainerInstances()) {
+            Element container = getElement(containerInstance.getContainerId());
+
+            if (!(container instanceof Container)) {
+                // This generally means that the model (e.g. from the DSL editor) has some
+                // mistake, we are referencing a container definition within a deployment node
+                // that is missing from the model.
+                throw new WorkspaceValidationException(
+                        String.format(
+                                "Container (id=%s) does not exist in the model (referenced by Container Instance in a %s DeploymentNode (name=%s)",
+                                containerInstance.getContainerId(), nodeType, deploymentNode.getName()));
+            }
         }
     }
 
