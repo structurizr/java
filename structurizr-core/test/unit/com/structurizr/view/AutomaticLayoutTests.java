@@ -15,6 +15,7 @@ public class AutomaticLayoutTests {
         assertEquals(200, automaticLayout.getNodeSeparation());
         assertEquals(300, automaticLayout.getEdgeSeparation());
         assertTrue(automaticLayout.isVertices());
+        assertFalse(automaticLayout.isApplied());
     }
 
     @Test

@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.27.1 (unreleased)
+
+- Adds a flag to determine whether automatic layout has been applied or not.
+
 ## 1.27.0 (23rd October 2023)
 
 - Upgrades dependencies, targets Java 17.

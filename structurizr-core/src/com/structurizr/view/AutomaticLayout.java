@@ -11,6 +11,7 @@ public final class AutomaticLayout {
     private int nodeSeparation;
     private int edgeSeparation;
     private boolean vertices;
+    private boolean applied;
 
     AutomaticLayout() {
     }
@@ -22,6 +23,7 @@ public final class AutomaticLayout {
         setNodeSeparation(nodeSeparation);
         setEdgeSeparation(edgeSeparation);
         setVertices(vertices);
+        setApplied(false);
     }
 
     /**
@@ -116,6 +118,24 @@ public final class AutomaticLayout {
 
     void setVertices(boolean vertices) {
         this.vertices = vertices;
+    }
+
+    /**
+     * Returns whether automatic layout has been applied.
+     *
+     * @return  true if automatic layout has been applied, false otherwise
+     */
+    public boolean isApplied() {
+        return applied;
+    }
+
+    /**
+     * Sets whether automatic layout has been applied.
+     *
+     * @param applied   true if automatic layout has been applied, false otherwise
+     */
+    public void setApplied(boolean applied) {
+        this.applied = applied;
     }
 
     public enum Implementation {
