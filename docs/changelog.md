@@ -4,6 +4,7 @@
 
 - Adds a flag to determine whether automatic layout has been applied or not.
 - Adds support for perspective values.
+- Adds the ability to scope and validate a workspace.
 
 ## 1.27.0 (23rd October 2023)
 

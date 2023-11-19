@@ -23,6 +23,8 @@ public final class Workspace extends AbstractWorkspace implements Documentable {
 
     private static final Log log = LogFactory.getLog(Workspace.class);
 
+    private WorkspaceScope scope = null;
+
     private Model model = createModel();
     private ViewSet viewSet;
     private Documentation documentation;
@@ -42,6 +44,24 @@ public final class Workspace extends AbstractWorkspace implements Documentable {
         model = createModel();
         viewSet = createViewSet();
         documentation = new Documentation();
+    }
+
+    /**
+     * Gets the scope of this workspace
+     *
+     * @return      a WorkspaceScope enum, or null if undefined
+     */
+    public WorkspaceScope getScope() {
+        return scope;
+    }
+
+    /**
+     * Sets the workspace scope.
+     *
+     * @param scope     a WorkspaceScope enum, or null if undefined
+     */
+    public void setScope(WorkspaceScope scope) {
+        this.scope = scope;
     }
 
     /**
