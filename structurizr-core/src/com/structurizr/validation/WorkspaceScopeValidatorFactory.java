@@ -1,14 +1,14 @@
 package com.structurizr.validation;
 
 import com.structurizr.Workspace;
-import com.structurizr.WorkspaceScope;
+import com.structurizr.configuration.WorkspaceScope;
 
 public final class WorkspaceScopeValidatorFactory {
 
     public static WorkspaceScopeValidator getValidator(Workspace workspace) {
-        if (workspace.getScope() == WorkspaceScope.Landscape) {
+        if (workspace.getConfiguration().getScope() == WorkspaceScope.Landscape) {
             return new LandscapeWorkspaceScopeValidator();
-        } else if (workspace.getScope() == WorkspaceScope.SoftwareSystem) {
+        } else if (workspace.getConfiguration().getScope() == WorkspaceScope.SoftwareSystem) {
             return new SoftwareSystemWorkspaceScopeValidator();
         } else {
             return new UndefinedWorkspaceScopeValidator();

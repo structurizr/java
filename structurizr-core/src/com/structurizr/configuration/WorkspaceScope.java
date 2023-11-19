@@ -1,4 +1,4 @@
-package com.structurizr;
+package com.structurizr.configuration;
 
 public enum WorkspaceScope {
 

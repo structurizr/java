@@ -56,6 +56,18 @@ public class WorkspaceConfigurationTests {
     }
 
     @Test
+    void scope() {
+        WorkspaceConfiguration configuration = new WorkspaceConfiguration();
+        assertNull(configuration.getScope()); // default scope is undefined
+
+        configuration.setScope(WorkspaceScope.SoftwareSystem);
+        assertEquals(WorkspaceScope.SoftwareSystem, configuration.getScope());
+
+        configuration.setScope(null);
+        assertNull(configuration.getScope());
+    }
+
+    @Test
     void visibility() {
         WorkspaceConfiguration configuration = new WorkspaceConfiguration();
         assertNull(configuration.getVisibility());

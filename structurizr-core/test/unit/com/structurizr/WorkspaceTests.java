@@ -73,16 +73,4 @@ public class WorkspaceTests {
         workspace.hydrate();
     }
 
-    @Test
-    void scope() {
-        Workspace workspace = new Workspace("Name", "Description");
-        assertNull(workspace.getScope()); // default scope is undefined
-
-        workspace.setScope(WorkspaceScope.SoftwareSystem);
-        assertEquals(WorkspaceScope.SoftwareSystem, workspace.getScope());
-
-        workspace.setScope(null);
-        assertNull(workspace.getScope());
-    }
-
 }

@@ -1,7 +1,5 @@
 package com.structurizr.configuration;
 
-import com.structurizr.util.StringUtils;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,10 +8,29 @@ import java.util.Set;
  */
 public final class WorkspaceConfiguration {
 
+    private WorkspaceScope scope = null;
     private Visibility visibility = null;
     private Set<User> users = new HashSet<>();
 
     WorkspaceConfiguration() {
+    }
+
+    /**
+     * Gets the scope of this workspace
+     *
+     * @return      a WorkspaceScope enum, or null if undefined
+     */
+    public WorkspaceScope getScope() {
+        return scope;
+    }
+
+    /**
+     * Sets the workspace scope.
+     *
+     * @param scope     a WorkspaceScope enum, or null if undefined
+     */
+    public void setScope(WorkspaceScope scope) {
+        this.scope = scope;
     }
 
     /**
