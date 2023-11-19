@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.28.0 (unreleased)
+## 1.28.0 (19th November 2023)
 
 - Adds a flag to determine whether automatic layout has been applied or not.
 - Adds support for perspective values.
