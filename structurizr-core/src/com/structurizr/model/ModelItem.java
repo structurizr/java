@@ -189,11 +189,24 @@ public abstract class ModelItem implements PropertyHolder {
      * Adds a perspective to this model item.
      *
      * @param name          the name of the perspective (e.g. "Security", must be unique)
-     * @param description   a description of the perspective
+     * @param description   the description of the perspective
      * @return              a Perspective object
      * @throws IllegalArgumentException     if perspective details are not specified, or the named perspective exists already
      */
     public Perspective addPerspective(String name, String description) {
+        return addPerspective(name, description, "");
+    }
+
+    /**
+     * Adds a perspective to this model item.
+     *
+     * @param name          the name of the perspective (e.g. "Technical Debt", must be unique)
+     * @param description   the description of the perspective (e.g. "High")
+     * @param value         the value of the perspective
+     * @return              a Perspective object
+     * @throws IllegalArgumentException     if perspective details are not specified, or the named perspective exists already
+     */
+    public Perspective addPerspective(String name, String description, String value) {
         if (StringUtils.isNullOrEmpty(name)) {
             throw new IllegalArgumentException("A name must be specified.");
         }
@@ -202,11 +215,11 @@ public abstract class ModelItem implements PropertyHolder {
             throw new IllegalArgumentException("A description must be specified.");
         }
 
-        if (perspectives.stream().filter(p -> p.getName().equals(name)).count() > 0) {
+        if (perspectives.stream().anyMatch(p -> p.getName().equals(name))) {
             throw new IllegalArgumentException("A perspective named \"" + name + "\" already exists.");
         }
 
-        Perspective perspective = new Perspective(name, description);
+        Perspective perspective = new Perspective(name, description, value);
         perspectives.add(perspective);
 
         return perspective;

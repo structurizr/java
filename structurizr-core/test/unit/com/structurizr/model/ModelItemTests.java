@@ -200,10 +200,18 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
     @Test
     void addPerspective_AddsAPerspective() {
         Element element = model.addSoftwareSystem("Name", "Description");
-        Perspective perspective = element.addPerspective("Security", "Data is encrypted at rest.");
-        assertEquals("Security", perspective.getName());
-        assertEquals("Data is encrypted at rest.", perspective.getDescription());
-        assertTrue(element.getPerspectives().contains(perspective));
+
+        Perspective securityPerspective = element.addPerspective("Security", "Data is encrypted at rest.");
+        assertEquals("Security", securityPerspective.getName());
+        assertEquals("Data is encrypted at rest.", securityPerspective.getDescription());
+        assertEquals("", securityPerspective.getValue());
+        assertTrue(element.getPerspectives().contains(securityPerspective));
+
+        Perspective technicalDebtPerspective = element.addPerspective("Technical Debt", "High tech debt due to feature X being delivered rapidly.", "High");
+        assertEquals("Technical Debt", technicalDebtPerspective.getName());
+        assertEquals("High tech debt due to feature X being delivered rapidly.", technicalDebtPerspective.getDescription());
+        assertEquals("High", technicalDebtPerspective.getValue());
+        assertTrue(element.getPerspectives().contains(technicalDebtPerspective));
     }
 
     @Test

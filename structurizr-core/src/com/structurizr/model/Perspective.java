@@ -8,14 +8,15 @@ public final class Perspective {
 
     private String name;
     private String description;
-    // todo link this perspective to architecture decision records
+    private String value;
 
     Perspective() {
     }
 
-    Perspective(String name, String description) {
+    Perspective(String name, String description, String value) {
         this.name = name;
         this.description = description;
+        this.value = value;
     }
 
     /**
@@ -42,6 +43,19 @@ public final class Perspective {
 
     void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Gets the value of this perspective.
+     *
+     * @return  the value of this perspective, as a String
+     */
+    public String getValue() {
+        return value;
+    }
+
+    void setValue(String value) {
+        this.value = value;
     }
 
     @Override
