@@ -39,7 +39,8 @@ public class EncryptedWorkspaceTests {
         assertEquals("structurizr-java", encryptedWorkspace.getLastModifiedAgent());
         assertEquals(1234, encryptedWorkspace.getId());
         assertEquals("user@domain.com", encryptedWorkspace.getConfiguration().getUsers().iterator().next().getUsername());
-        assertNull(workspace.getConfiguration());
+        assertNotNull(workspace.getConfiguration());
+        assertTrue(workspace.getConfiguration().getUsers().isEmpty());
 
         assertSame(workspace, encryptedWorkspace.getWorkspace());
         assertSame(encryptionStrategy, encryptedWorkspace.getEncryptionStrategy());
