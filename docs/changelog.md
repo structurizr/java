@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.28.1 (11th December 2023)
+
+- `AbstractWorkspace.clearConfiguration()` creates a new instance rather than nulling it.
+
 ## 1.28.0 (19th November 2023)
 
 - Adds a flag to determine whether automatic layout has been applied or not.

@@ -228,7 +228,7 @@ public abstract class AbstractWorkspace implements PropertyHolder {
      * Clears the configuration associated with this workspace.
      */
     public void clearConfiguration() {
-        this.configuration = null;
+        this.configuration = createWorkspaceConfiguration();
     }
 
     /**
