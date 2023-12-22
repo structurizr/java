@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.29.0 (unreleased)
+
+- Adds `com.structurizr.api.AdminApiClient` as a client for the cloud service/on-premises admin APIs.
+
 ## 1.28.1 (11th December 2023)
 
 - `AbstractWorkspace.clearConfiguration()` creates a new instance rather than nulling it.

@@ -1,4 +1,4 @@
-rootProject.name = 'structurizr'
+rootProject.name = 'structurizr-java'
 
 include 'structurizr-client'
 include 'structurizr-core'
