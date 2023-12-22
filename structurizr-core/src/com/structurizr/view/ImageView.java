@@ -77,7 +77,7 @@ public final class ImageView extends View {
     }
 
     /**
-     * Gets the the content type of this view (e.g. "image/png").
+     * Gets the content type of this view (e.g. "image/png").
      *
      * @return      the content type, as a String
      */
