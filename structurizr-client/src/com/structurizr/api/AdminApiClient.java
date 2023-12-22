@@ -24,7 +24,7 @@ public class AdminApiClient extends AbstractApiClient {
     private final String apiKey;
 
     /**
-     * Creates a new API client with the specified on-premises API URL and key.
+     * Creates a new admin API client.
      *
      * @param url       the URL of your Structurizr instance
      * @param username  the username (only required for the Structurizr cloud service)
