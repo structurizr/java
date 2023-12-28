@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 /**
  * The superclass for all views that show elements/relationships from the model, namely:
  *
+ * - Custom views
  * - System landscape views
  * - System context views
  * - Container views
