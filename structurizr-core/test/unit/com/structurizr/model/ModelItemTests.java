@@ -234,10 +234,24 @@ public class ModelItemTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void setUrl_AcceptsAWorkspaceUrl() {
+    void setUrl_AcceptsAnIntraWorkspaceUrl() {
         Element element = model.addSoftwareSystem("Name");
         element.setUrl("{workspace}/diagrams#key");
         assertEquals("{workspace}/diagrams#key", element.getUrl());
+    }
+
+    @Test
+    void setUrl_AcceptsAnInterWorkspaceUrl() {
+        Element element = model.addSoftwareSystem("Name");
+
+        element.setUrl("{workspace:123456}");
+        assertEquals("{workspace:123456}", element.getUrl());
+
+        element.setUrl("{workspace:123456}/diagrams#key");
+        assertEquals("{workspace:123456}/diagrams#key", element.getUrl());
+
+        element.setUrl("{workspace:123456}/documentation");
+        assertEquals("{workspace:123456}/documentation", element.getUrl());
     }
 
 }
