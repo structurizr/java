@@ -109,7 +109,9 @@ public final class RelationshipView {
         if (StringUtils.isNullOrEmpty(url)) {
             this.url = null;
         } else {
-            if (url.startsWith(Url.WORKSPACE_URL_PREFIX)) {
+            if (url.startsWith(Url.INTRA_WORKSPACE_URL_PREFIX)) {
+                this.url = url;
+            } else if (url.matches(Url.INTER_WORKSPACE_URL_REGEX)) {
                 this.url = url;
             } else if (Url.isUrl(url)) {
                 this.url = url;
