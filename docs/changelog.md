@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.29.0 (unreleased)
+## 1.29.0 (28th December 2023)
 
 - Adds `com.structurizr.api.AdminApiClient` as a client for the cloud service/on-premises admin APIs.
 - Adds support for inter-workspace URLs of the form `{workspace:123456}/diagrams`.
