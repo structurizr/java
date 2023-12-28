@@ -41,10 +41,6 @@ public class WorkspaceApiClient extends AbstractApiClient {
 
     private static final Log log = LogFactory.getLog(WorkspaceApiClient.class);
 
-    private static final String STRUCTURIZR_API_URL = "structurizr.api.url";
-    private static final String STRUCTURIZR_API_KEY = "structurizr.api.key";
-    private static final String STRUCTURIZR_API_SECRET = "structurizr.api.secret";
-
     private String user;
 
     private String apiKey;
@@ -56,32 +52,7 @@ public class WorkspaceApiClient extends AbstractApiClient {
     private boolean mergeFromRemote = true;
     private File workspaceArchiveLocation = new File(".");
 
-    /**
-     * Creates a new Structurizr client based upon configuration in a structurizr.properties file
-     * on the classpath with the following name-value pairs:
-     * - structurizr.api.url
-     * - structurizr.api.key
-     * - structurizr.api.secret
-     *
-     * @throws StructurizrClientException   if something goes wrong
-     */
-    public WorkspaceApiClient() throws StructurizrClientException {
-        try (InputStream in =
-                     WorkspaceApiClient.class.getClassLoader().getResourceAsStream("structurizr.properties")) {
-            Properties properties = new Properties();
-            if (in != null) {
-                properties.load(in);
-
-                setUrl(properties.getProperty(STRUCTURIZR_API_URL));
-                setApiKey(properties.getProperty(STRUCTURIZR_API_KEY));
-                setApiSecret(properties.getProperty(STRUCTURIZR_API_SECRET));
-            } else {
-                throw new StructurizrClientException("Could not find a structurizr.properties file on the classpath.");
-            }
-        } catch (IOException e) {
-            log.error(e);
-            throw new StructurizrClientException(e);
-        }
+    protected WorkspaceApiClient() {
     }
 
     /**
@@ -120,7 +91,7 @@ public class WorkspaceApiClient extends AbstractApiClient {
         return apiKey;
     }
 
-    private void setApiKey(String apiKey) {
+    protected void setApiKey(String apiKey) {
         if (apiKey == null || apiKey.trim().length() == 0) {
             throw new IllegalArgumentException("The API key must not be null or empty.");
         }
@@ -132,7 +103,7 @@ public class WorkspaceApiClient extends AbstractApiClient {
         return apiSecret;
     }
 
-    private void setApiSecret(String apiSecret) {
+    protected void setApiSecret(String apiSecret) {
         if (apiSecret == null || apiSecret.trim().length() == 0) {
             throw new IllegalArgumentException("The API secret must not be null or empty.");
         }
