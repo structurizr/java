@@ -54,6 +54,14 @@ public final class DeploymentNode extends DeploymentElement {
         return softwareSystemInstance;
     }
 
+    void remove(SoftwareSystemInstance softwareSystemInstance) {
+        this.softwareSystemInstances.remove(softwareSystemInstance);
+    }
+
+    void remove(ContainerInstance containerInstance) {
+        this.containerInstances.remove(containerInstance);
+    }
+
     /**
      * Adds a container instance to this deployment node, replicating relationships.
      *
@@ -129,6 +137,10 @@ public final class DeploymentNode extends DeploymentElement {
             children.add(deploymentNode);
         }
         return deploymentNode;
+    }
+
+    void remove(DeploymentNode deploymentNode) {
+        children.remove(deploymentNode);
     }
 
     /**
@@ -318,9 +330,34 @@ public final class DeploymentNode extends DeploymentElement {
         }
     }
 
+    /**
+     * Determines whether this deployment node has any child deployment nodes.
+     *
+     * @return      true if it has child deployment nodes, false otherwise
+     */
     @JsonIgnore
     public boolean hasChildren() {
         return !children.isEmpty();
+    }
+
+    /**
+     * Determines whether this deployment node has any software system instances.
+     *
+     * @return      true if it has software system instances, false otherwise
+     */
+    @JsonIgnore
+    public boolean hasSoftwareSystemInstances() {
+        return !softwareSystemInstances.isEmpty();
+    }
+
+    /**
+     * Determines whether this deployment node has any container instances.
+     *
+     * @return      true if it has container instances, false otherwise
+     */
+    @JsonIgnore
+    public boolean hasContainerInstances() {
+        return !containerInstances.isEmpty();
     }
 
     /**

@@ -80,6 +80,16 @@ public final class SoftwareSystem extends StaticStructureElement implements Docu
     }
 
     /**
+     * Determines whether this software system has any containers.
+     *
+     * @return      true if it has containers, false otherwise
+     */
+    @JsonIgnore
+    public boolean hasContainers() {
+        return !containers.isEmpty();
+    }
+
+    /**
      * Adds a container with the specified name.
      *
      * @param name        the name of the container (e.g. "Web Application")
@@ -116,6 +126,10 @@ public final class SoftwareSystem extends StaticStructureElement implements Docu
     @Nonnull
     public Container addContainer(@Nonnull String name, String description, String technology) {
         return getModel().addContainer(this, name, description, technology);
+    }
+
+    void remove(Container container) {
+        containers.remove(container);
     }
 
     /**

@@ -1,5 +1,9 @@
 # Changelog
 
+## unreleased
+
+- Adds `Workspace.trim()` to trim a workspace of unused elements (i.e. those not associated with any views).
+
 ## 1.29.0 (28th December 2023)
 
 - Adds `com.structurizr.api.AdminApiClient` as a client for the cloud service/on-premises admin APIs.

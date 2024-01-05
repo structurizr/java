@@ -195,8 +195,12 @@ public abstract class Element extends ModelItem {
         return relationships.stream().anyMatch(r -> r.getDestination().equals(relationship.getDestination()) && r.getDescription().equals(relationship.getDescription()));
     }
 
-    void addRelationship(Relationship relationship) {
+    void add(Relationship relationship) {
         relationships.add(relationship);
+    }
+
+    void remove(Relationship relationship) {
+        relationships.remove(relationship);
     }
 
     /**

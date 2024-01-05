@@ -108,6 +108,10 @@ public final class Container extends StaticStructureElement implements Documenta
         }
     }
 
+    void remove(Component component) {
+        components.remove(component);
+    }
+
     /**
      * Gets the set of components within this software system.
      *
@@ -121,6 +125,16 @@ public final class Container extends StaticStructureElement implements Documenta
         if (components != null) {
             this.components = new HashSet<>(components);
         }
+    }
+
+    /**
+     * Determines whether this container has any components.
+     *
+     * @return      true if it has components, false otherwise
+     */
+    @JsonIgnore
+    public boolean hasComponents() {
+        return !components.isEmpty();
     }
 
     /**

@@ -227,8 +227,6 @@ public final class Model implements PropertyHolder {
         }
     }
 
-
-
     @Nonnull
     Container addContainer(SoftwareSystem parent, @Nonnull String name, @Nullable String description, @Nullable String technology) {
         if (parent.getContainerWithName(name) == null) {
@@ -333,7 +331,7 @@ public final class Model implements PropertyHolder {
     private boolean addRelationship(Relationship relationship) {
         if (!relationship.getSource().has(relationship)) {
             relationship.setId(idGenerator.generateId(relationship));
-            relationship.getSource().addRelationship(relationship);
+            relationship.getSource().add(relationship);
 
             addRelationshipToInternalStructures(relationship);
             return true;
@@ -362,6 +360,10 @@ public final class Model implements PropertyHolder {
         relationshipsById.put(relationship.getId(), relationship);
         relationship.setModel(this);
         idGenerator.found(relationship.getId());
+    }
+
+    private void removeRelationshipFromInternalStructures(Relationship relationship) {
+        relationshipsById.remove(relationship.getId());
     }
 
     /**
@@ -618,11 +620,21 @@ public final class Model implements PropertyHolder {
     /**
      * Determines whether this model contains the specified element.
      *
-     * @param element any element
+     * @param element       an element
      * @return true, if the element is contained in this model
      */
     public boolean contains(Element element) {
-        return elementsById.values().contains(element);
+        return elementsById.containsValue(element);
+    }
+
+    /**
+     * Determines whether this model contains the specified relationship.
+     *
+     * @param relationship      a relationship
+     * @return true, if the relationship is contained in this model
+     */
+    public boolean contains(Relationship relationship) {
+        return relationshipsById.containsValue(relationship);
     }
 
     /**
@@ -1099,6 +1111,118 @@ public final class Model implements PropertyHolder {
         if (properties != null) {
             this.properties = new HashMap<>(properties);
         }
+    }
+
+    /**
+     * Removes a custom element from the model.
+     *
+     * @param element       the CustomElement object to remove
+     */
+    void remove(CustomElement element) {
+        removeElement(element);
+        customElements.remove(element);
+    }
+
+    /**
+     * Removes a person from the model.
+     *
+     * @param person    the Person object to remove
+     */
+    void remove(Person person) {
+        removeElement(person);
+        people.remove(person);
+    }
+
+    /**
+     * Removes a software system from the model.
+     *
+     * @param softwareSystem    the SoftwareSystem object to remove
+     */
+    void remove(SoftwareSystem softwareSystem) {
+        removeElement(softwareSystem);
+        softwareSystems.remove(softwareSystem);
+    }
+
+    /**
+     * Removes a container from the model.
+     *
+     * @param container     the Container object to remove
+     */
+    void remove(Container container) {
+        removeElement(container);
+        container.getSoftwareSystem().remove(container);
+    }
+
+    /**
+     * Removes a component from the model.
+     *
+     * @param component     the Component object to remove
+     */
+    void remove(Component component) {
+        removeElement(component);
+        component.getContainer().remove(component);
+    }
+
+    /**
+     * Removes a software system instance from the model.
+     *
+     * @param softwareSystemInstance        the SoftwareSystemInstance object to remove
+     */
+    void remove(SoftwareSystemInstance softwareSystemInstance) {
+        removeElement(softwareSystemInstance);
+
+        Set<DeploymentNode> deploymentNodes = getElements().stream().filter(e -> e instanceof DeploymentNode).map(e -> (DeploymentNode)e).collect(Collectors.toSet());
+        for (DeploymentNode deploymentNode : deploymentNodes) {
+            deploymentNode.remove(softwareSystemInstance);
+        }
+    }
+
+    /**
+     * Removes a container instance from the model.
+     *
+     * @param containerInstance     the ContainerInstance object to remove
+     */
+    void remove(ContainerInstance containerInstance) {
+        removeElement(containerInstance);
+
+        Set<DeploymentNode> deploymentNodes = getElements().stream().filter(e -> e instanceof DeploymentNode).map(e -> (DeploymentNode)e).collect(Collectors.toSet());
+        for (DeploymentNode deploymentNode : deploymentNodes) {
+            deploymentNode.remove(containerInstance);
+        }
+    }
+
+    /**
+     * Removes a deployment node from the model.
+     *
+     * @param deploymentNode        the DeploymentNode object to remove
+     */
+    void remove(DeploymentNode deploymentNode) {
+        removeElement(deploymentNode);
+
+        if (deploymentNode.getParent() == null) {
+            deploymentNodes.remove(deploymentNode);
+        } else {
+            ((DeploymentNode)deploymentNode.getParent()).remove(deploymentNode);
+        }
+    }
+
+    private void removeElement(Element element) {
+        if (element == null) {
+            throw new IllegalArgumentException("An element must be specified.");
+        }
+
+        // remove any relationships to/from the element
+        for (Relationship relationship : getRelationships()) {
+            if (relationship.getSource() == element) {
+                removeRelationshipFromInternalStructures(relationship);
+                relationship.getSource().remove(relationship);
+            } else if (relationship.getDestination() == element) {
+                removeRelationshipFromInternalStructures(relationship);
+                relationship.getDestination().remove(relationship);
+            }
+        }
+
+        elementsById.remove(element.getId());
     }
 
 }
