@@ -253,6 +253,7 @@ public class WorkspaceTests {
 
         workspace.trim();
         assertEquals(0, workspace.getModel().getElements().size());
+        assertEquals(0, workspace.getModel().getRelationships().size());
     }
 
     @Test
