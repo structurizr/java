@@ -296,8 +296,6 @@ public class WorkspaceApiClient extends AbstractApiClient {
             workspace.setLastModifiedAgent(agent);
             workspace.setLastModifiedUser(getUser());
 
-            workspace.countAndLogWarnings();
-
             HttpPut httpPut = new HttpPut(url + WORKSPACE_PATH + "/" + workspaceId);
 
             StringWriter stringWriter = new StringWriter();

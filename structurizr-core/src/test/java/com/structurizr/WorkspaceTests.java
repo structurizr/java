@@ -1,10 +1,8 @@
 package com.structurizr;
 
-import com.structurizr.configuration.WorkspaceScope;
 import com.structurizr.documentation.Decision;
 import com.structurizr.documentation.Format;
 import com.structurizr.model.*;
-import com.structurizr.view.SystemContextView;
 import com.structurizr.view.SystemLandscapeView;
 import org.junit.jupiter.api.Test;
 
@@ -44,24 +42,6 @@ public class WorkspaceTests {
         d.setFormat(Format.Markdown);
         workspace.getDocumentation().addDecision(d);
         assertFalse(workspace.isEmpty());
-    }
-
-    @Test
-    void countAndLogWarnings() {
-        Workspace workspace = new Workspace("Name", "Description");
-        SoftwareSystem softwareSystem1 = workspace.getModel().addSoftwareSystem("Software System 1", null);
-        SoftwareSystem softwareSystem2 = workspace.getModel().addSoftwareSystem("Software System 2", " ");
-        Container container1 = softwareSystem1.addContainer("Name", "Description", null);
-        Container container2 = softwareSystem2.addContainer("Name", "Description", " ");
-        container1.uses(container2, null, null);
-        container2.uses(container1, " ", " ");
-
-        Component component1A = container1.addComponent("A", null, null);
-        Component component1B = container1.addComponent("B", "", "");
-        component1A.uses(component1B, null);
-        component1B.uses(component1A, "");
-
-        assertEquals(10, workspace.countAndLogWarnings());
     }
 
     @Test
