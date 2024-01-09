@@ -8,23 +8,10 @@ subprojects { proj ->
 
     description = 'Structurizr'
     group = 'com.structurizr'
-    version = '1.29.0'
+    version = '2.0.0'
 
     repositories {
         mavenCentral()
-    }
-
-    sourceSets {
-        main {
-            java {
-                srcDir 'src'
-            }
-        }
-        test {
-            java {
-                srcDir 'test/unit'
-            }
-        }
     }
 
     test {

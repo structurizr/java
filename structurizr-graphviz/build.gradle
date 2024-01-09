@@ -1,0 +1,10 @@
+dependencies {
+
+    api project(':structurizr-export')
+
+    testImplementation project(':structurizr-client')
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+
+}
+
+description = 'Automatic layout facilities for Structurizr views'

@@ -1,0 +1,28 @@
+@startuml
+set separator none
+title SoftwareSystem - Containers
+
+top to bottom direction
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+
+System_Boundary("SoftwareSystem_boundary", "SoftwareSystem", $tags="") {
+  WithoutPropertyHeader()
+  AddProperty("IP","127.0.0.1")
+  AddProperty("Region","East")
+  Container(SoftwareSystem.Container1, "Container 1", $techn="", $descr="", $tags="", $link="")
+  WithoutPropertyHeader()
+  AddProperty("IP","127.0.0.2")
+  AddProperty("Region","West")
+  Container(SoftwareSystem.Container2, "Container 2", $techn="", $descr="", $tags="", $link="")
+}
+
+WithoutPropertyHeader()
+AddProperty("Prop1","Value1")
+AddProperty("Prop2","Value2")
+Rel(SoftwareSystem.Container1, SoftwareSystem.Container2, "", $techn="", $tags="", $link="")
+
+SHOW_LEGEND(true)
+@enduml

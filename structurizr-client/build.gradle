@@ -13,8 +13,8 @@ dependencies {
 sourceSets {
     test {
         java {
-            srcDir 'test/unit'
-            srcDir 'test/integration'
+            srcDir 'src/test/java'
+            srcDir 'src/integrationTest/java'
         }
     }
 }

@@ -1,0 +1,56 @@
+@startuml
+set separator none
+title Software System 1 - Container 1 - Components
+
+top to bottom direction
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+
+hide stereotype
+
+skinparam rectangle<<SoftwareSystem1.Container1.Component1>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9a9a9a
+  shadowing false
+}
+skinparam rectangle<<SoftwareSystem1.Container1.Component2>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9a9a9a
+  shadowing false
+}
+skinparam rectangle<<SoftwareSystem2.Container2.Component3>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9a9a9a
+  shadowing false
+}
+skinparam rectangle<<SoftwareSystem1.Container1>> {
+  BorderColor #9a9a9a
+  FontColor #9a9a9a
+  shadowing false
+}
+skinparam rectangle<<SoftwareSystem2.Container2>> {
+  BorderColor #9a9a9a
+  FontColor #9a9a9a
+  shadowing false
+}
+
+rectangle "Container 1\n<size:10>[Container]</size>" <<SoftwareSystem1.Container1>> {
+  rectangle "==Component 1\n<size:10>[Component]</size>" <<SoftwareSystem1.Container1.Component1>> as SoftwareSystem1.Container1.Component1
+  rectangle "==Component 2\n<size:10>[Component]</size>" <<SoftwareSystem1.Container1.Component2>> as SoftwareSystem1.Container1.Component2
+}
+
+rectangle "Container 2\n<size:10>[Container]</size>" <<SoftwareSystem2.Container2>> {
+  rectangle "==Component 3\n<size:10>[Component]</size>" <<SoftwareSystem2.Container2.Component3>> as SoftwareSystem2.Container2.Component3
+}
+
+SoftwareSystem1.Container1.Component1 .[#707070,thickness=2].> SoftwareSystem1.Container1.Component2 : "<color:#707070>Uses"
+SoftwareSystem1.Container1.Component2 .[#707070,thickness=2].> SoftwareSystem2.Container2.Component3 : "<color:#707070>Uses"
+@enduml

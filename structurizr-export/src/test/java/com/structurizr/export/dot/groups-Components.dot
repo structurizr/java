@@ -1,0 +1,35 @@
+digraph {
+  compound=true
+  graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
+  node [fontname="Arial", shape=box, margin="0.4,0.3"]
+  edge [fontname="Arial"]
+  label=<<br /><font point-size="34">D - F - Components</font>>
+
+  3 [id=3,shape=rect, label=<<font point-size="34">C</font><br /><font point-size="19">[Software System]</font>>, style=filled, color="#9a9a9a", fillcolor="#dddddd", fontcolor="#000000"]
+
+  subgraph cluster_6 {
+    margin=25
+    label=<<font point-size="24"><br />F</font><br /><font point-size="19">[Container]</font>>
+    labelloc=b
+    color="#444444"
+    fontcolor="#444444"
+    fillcolor="#444444"
+
+    subgraph "cluster_group_Group 4" {
+      margin=25
+      label=<<font point-size="24"><br />Group 4</font>>
+      labelloc=b
+      color="#cccccc"
+      fontcolor="#cccccc"
+      fillcolor="#ffffff"
+      style="dashed"
+
+      8 [id=8,shape=rect, label=<<font point-size="34">H</font><br /><font point-size="19">[Component]</font>>, style=filled, color="#9a9a9a", fillcolor="#dddddd", fontcolor="#000000"]
+    }
+
+    7 [id=7,shape=rect, label=<<font point-size="34">G</font><br /><font point-size="19">[Component]</font>>, style=filled, color="#9a9a9a", fillcolor="#dddddd", fontcolor="#000000"]
+  }
+
+  3 -> 7 [id=13, label=<>, style="dashed", color="#707070", fontcolor="#707070"]
+  3 -> 8 [id=15, label=<>, style="dashed", color="#707070", fontcolor="#707070"]
+}

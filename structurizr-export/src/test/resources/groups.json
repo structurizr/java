@@ -1,0 +1,203 @@
+{
+  "id" : 0,
+  "name" : "Name",
+  "description" : "Description",
+  "properties" : {
+    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgYSA9IHNvZnR3YXJlU3lzdGVtICJBIgogICAgICAgIAogICAgICAgIGdyb3VwICJHcm91cCAxIiB7CiAgICAgICAgICAgIGIgPSBzb2Z0d2FyZVN5c3RlbSAiQiIKICAgICAgICB9CgogICAgICAgIGVudGVycHJpc2UgIkVudGVycHJpc2UiIHsKICAgICAgICAgICAgYyA9IHNvZnR3YXJlU3lzdGVtICJDIgoKICAgICAgICAgICAgZ3JvdXAgIkdyb3VwIDIiIHsKICAgICAgICAgICAgICAgIGQgPSBzb2Z0d2FyZVN5c3RlbSAiRCIgewogICAgICAgICAgICAgICAgICAgIGUgPSBjb250YWluZXIgIkUiCiAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgZ3JvdXAgIkdyb3VwIDMiIHsKICAgICAgICAgICAgICAgICAgICAgICAgZiA9IGNvbnRhaW5lciAiRiIgewogICAgICAgICAgICAgICAgICAgICAgICAgICAgZyA9IGNvbXBvbmVudCAiRyIKICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgZ3JvdXAgIkdyb3VwIDQiIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBoID0gY29tcG9uZW50ICJIIgogICAgICAgICAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIAogICAgICAgIGEgLT4gYgogICAgICAgIGIgLT4gYwogICAgICAgIGMgLT4gZQogICAgICAgIGMgLT4gZwogICAgICAgIGMgLT4gaAoKICAgIH0KICAgIAogICAgdmlld3MgewogICAgICAgIHN5c3RlbWxhbmRzY2FwZSAiU3lzdGVtTGFuZHNjYXBlIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvbGF5b3V0CiAgICAgICAgfQogICAgICAgIAogICAgICAgIGNvbnRhaW5lciBkICJDb250YWluZXJzIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvbGF5b3V0CiAgICAgICAgfQoKICAgICAgICBjb21wb25lbnQgZiAiQ29tcG9uZW50cyIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dAogICAgICAgIH0KICAgIH0KCn0K"
+  },
+  "configuration" : { },
+  "model" : {
+    "enterprise" : {
+      "name" : "Enterprise"
+    },
+    "softwareSystems" : [ {
+      "id" : "1",
+      "tags" : "Element,Software System",
+      "name" : "A",
+      "relationships" : [ {
+        "id" : "9",
+        "tags" : "Relationship",
+        "sourceId" : "1",
+        "destinationId" : "2"
+      } ],
+      "location" : "External"
+    }, {
+      "id" : "2",
+      "tags" : "Element,Software System",
+      "name" : "B",
+      "relationships" : [ {
+        "id" : "10",
+        "tags" : "Relationship",
+        "sourceId" : "2",
+        "destinationId" : "3"
+      } ],
+      "group" : "Group 1",
+      "location" : "External"
+    }, {
+      "id" : "3",
+      "tags" : "Element,Software System",
+      "name" : "C",
+      "relationships" : [ {
+        "id" : "11",
+        "tags" : "Relationship",
+        "sourceId" : "3",
+        "destinationId" : "5"
+      }, {
+        "id" : "12",
+        "tags" : "Relationship",
+        "sourceId" : "3",
+        "destinationId" : "4"
+      }, {
+        "id" : "13",
+        "tags" : "Relationship",
+        "sourceId" : "3",
+        "destinationId" : "7"
+      }, {
+        "id" : "14",
+        "tags" : "Relationship",
+        "sourceId" : "3",
+        "destinationId" : "6"
+      }, {
+        "id" : "15",
+        "tags" : "Relationship",
+        "sourceId" : "3",
+        "destinationId" : "8"
+      } ],
+      "location" : "Internal"
+    }, {
+      "id" : "4",
+      "tags" : "Element,Software System",
+      "name" : "D",
+      "group" : "Group 2",
+      "location" : "Internal",
+      "containers" : [ {
+        "id" : "5",
+        "tags" : "Element,Container",
+        "name" : "E"
+      }, {
+        "id" : "6",
+        "tags" : "Element,Container",
+        "name" : "F",
+        "group" : "Group 3",
+        "components" : [ {
+          "id" : "8",
+          "tags" : "Element,Component",
+          "name" : "H",
+          "group" : "Group 4",
+          "size" : 0
+        }, {
+          "id" : "7",
+          "tags" : "Element,Component",
+          "name" : "G",
+          "size" : 0
+        } ]
+      } ]
+    } ]
+  },
+  "documentation" : { },
+  "views" : {
+    "systemLandscapeViews" : [ {
+      "key" : "SystemLandscape",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false
+      },
+      "enterpriseBoundaryVisible" : true,
+      "elements" : [ {
+        "id" : "1",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "2",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "4",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "12"
+      }, {
+        "id" : "9"
+      }, {
+        "id" : "10"
+      } ]
+    } ],
+    "containerViews" : [ {
+      "softwareSystemId" : "4",
+      "key" : "Containers",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false
+      },
+      "externalSoftwareSystemBoundariesVisible" : true,
+      "elements" : [ {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "14"
+      }, {
+        "id" : "11"
+      } ]
+    } ],
+    "componentViews" : [ {
+      "key" : "Components",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false
+      },
+      "containerId" : "6",
+      "externalContainerBoundariesVisible" : true,
+      "elements" : [ {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "relationships" : [ {
+        "id" : "15"
+      }, {
+        "id" : "13"
+      } ]
+    } ],
+    "configuration" : {
+      "branding" : { },
+      "styles" : { },
+      "terminology" : { }
+    }
+  }
+}

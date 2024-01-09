@@ -1,0 +1,34 @@
+graph TB
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["System Landscape"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    subgraph enterprise [Enterprise]
+      style enterprise fill:#ffffff,stroke:#444444,color:#444444
+
+      subgraph group1 [Group 2]
+        style group1 fill:#ffffff,stroke:#cccccc,color:#cccccc,stroke-dasharray:5
+
+        4["<div style='font-weight: bold'>D</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>"]
+        style 4 fill:#dddddd,stroke:#9a9a9a,color:#000000
+      end
+
+      3["<div style='font-weight: bold'>C</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>"]
+      style 3 fill:#dddddd,stroke:#9a9a9a,color:#000000
+    end
+
+    subgraph group2 [Group 1]
+      style group2 fill:#ffffff,stroke:#cccccc,color:#cccccc,stroke-dasharray:5
+
+      2["<div style='font-weight: bold'>B</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>"]
+      style 2 fill:#dddddd,stroke:#9a9a9a,color:#000000
+    end
+
+    1["<div style='font-weight: bold'>A</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>"]
+    style 1 fill:#dddddd,stroke:#9a9a9a,color:#000000
+
+    2-. "<div></div><div style='font-size: 70%'></div>" .->3
+    3-. "<div></div><div style='font-size: 70%'></div>" .->4
+    1-. "<div></div><div style='font-size: 70%'></div>" .->2
+  end

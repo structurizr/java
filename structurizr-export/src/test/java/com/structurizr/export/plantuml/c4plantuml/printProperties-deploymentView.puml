@@ -1,0 +1,21 @@
+@startuml
+set separator none
+title Deployment - Default
+
+top to bottom direction
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Deployment>
+
+WithoutPropertyHeader()
+AddProperty("Prop1","Value1")
+Deployment_Node(Default.Deploymentnode, "Deployment node", $type="", $descr="", $tags="", $link="") {
+  WithoutPropertyHeader()
+  AddProperty("Prop2","Value2")
+  Deployment_Node(Default.Deploymentnode.Infrastructurenode, "Infrastructure node", $type="technology", $descr="description", $tags="", $link="")
+}
+
+
+SHOW_LEGEND(true)
+@enduml

@@ -1,0 +1,13 @@
+title API Application - Dynamic - SignIn
+
+participant <<Container>>\nSingle-Page Application as Single-Page Application
+participant <<Component>>\nSign In Controller as Sign In Controller
+participant <<Component>>\nSecurity Component as Security Component
+participant <<Container>>\nDatabase as Database
+
+Single-Page Application->Sign In Controller: Submits credentials to
+Sign In Controller->Security Component: Validates credentials using
+Security Component->Database: select * from users where username = ?
+Database-->Security Component: Returns user data to
+Security Component-->Sign In Controller: Returns true if the hashed password matches
+Sign In Controller-->Single-Page Application: Sends back an authentication token to

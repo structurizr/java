@@ -1,0 +1,49 @@
+@startuml
+set separator none
+title API Application - Dynamic
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+
+hide stereotype
+
+skinparam sequenceParticipant<<InternetBankingSystem.Database>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2e6295
+  shadowing false
+}
+skinparam sequenceParticipant<<InternetBankingSystem.APIApplication.SecurityComponent>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  shadowing false
+}
+skinparam sequenceParticipant<<InternetBankingSystem.APIApplication.SignInController>> {
+  BackgroundColor #85bbf0
+  FontColor #000000
+  BorderColor #5d82a8
+  shadowing false
+}
+skinparam sequenceParticipant<<InternetBankingSystem.SinglePageApplication>> {
+  BackgroundColor #438dd5
+  FontColor #ffffff
+  BorderColor #2e6295
+  shadowing false
+}
+
+participant "Single-Page Application\n<size:10>[Container: JavaScript and Angular]</size>" as InternetBankingSystem.SinglePageApplication <<InternetBankingSystem.SinglePageApplication>> #438dd5
+participant "Sign In Controller\n<size:10>[Component: Spring MVC Rest Controller]</size>" as InternetBankingSystem.APIApplication.SignInController <<InternetBankingSystem.APIApplication.SignInController>> #85bbf0
+participant "Security Component\n<size:10>[Component: Spring Bean]</size>" as InternetBankingSystem.APIApplication.SecurityComponent <<InternetBankingSystem.APIApplication.SecurityComponent>> #85bbf0
+database "Database\n<size:10>[Container: Oracle Database Schema]</size>" as InternetBankingSystem.Database <<InternetBankingSystem.Database>> #438dd5
+InternetBankingSystem.SinglePageApplication -[#707070]> InternetBankingSystem.APIApplication.SignInController : Submits credentials to
+InternetBankingSystem.APIApplication.SignInController -[#707070]> InternetBankingSystem.APIApplication.SecurityComponent : Validates credentials using
+InternetBankingSystem.APIApplication.SecurityComponent -[#707070]> InternetBankingSystem.Database : select * from users where username = ?
+InternetBankingSystem.APIApplication.SecurityComponent <-[#707070]- InternetBankingSystem.Database : Returns user data to
+InternetBankingSystem.APIApplication.SignInController <-[#707070]- InternetBankingSystem.APIApplication.SecurityComponent : Returns true if the hashed password matches
+InternetBankingSystem.SinglePageApplication <-[#707070]- InternetBankingSystem.APIApplication.SignInController : Sends back an authentication token to
+@enduml

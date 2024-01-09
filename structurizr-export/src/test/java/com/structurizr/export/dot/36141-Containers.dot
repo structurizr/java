@@ -1,0 +1,37 @@
+digraph {
+  compound=true
+  graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
+  node [fontname="Arial", shape=box, margin="0.4,0.3"]
+  edge [fontname="Arial"]
+  label=<<br /><font point-size="34">Internet Banking System - Containers</font><br /><font point-size="24">The container diagram for the Internet Banking System.</font>>
+
+  1 [id=1,shape=rect, label=<<font point-size="32">Personal Banking<br />Customer</font><br /><font point-size="17">[Person]</font><br /><br /><font point-size="22">A customer of the bank, with<br />personal bank accounts.</font>>, style=filled, color="#052e56", fillcolor="#08427b", fontcolor="#ffffff"]
+  4 [id=4,shape=rect, label=<<font point-size="34">Mainframe Banking<br />System</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">Stores all of the core banking<br />information about customers,<br />accounts, transactions, etc.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
+  6 [id=6,shape=rect, label=<<font point-size="34">E-mail System</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">The internal Microsoft<br />Exchange e-mail system.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
+
+  subgraph cluster_2 {
+    margin=25
+    label=<<font point-size="24"><br />Internet Banking System</font><br /><font point-size="19">[Software System]</font>>
+    labelloc=b
+    color="#444444"
+    fontcolor="#444444"
+    fillcolor="#444444"
+
+    17 [id=17,shape=rect, label=<<font point-size="34">Single-Page<br />Application</font><br /><font point-size="19">[Container: JavaScript and Angular]</font><br /><br /><font point-size="24">Provides all of the Internet<br />banking functionality to<br />customers via their web<br />browser.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
+    18 [id=18,shape=rect, label=<<font point-size="34">Mobile App</font><br /><font point-size="19">[Container: Xamarin]</font><br /><br /><font point-size="24">Provides a limited subset of<br />the Internet banking<br />functionality to customers via<br />their mobile device.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
+    19 [id=19,shape=rect, label=<<font point-size="34">Web Application</font><br /><font point-size="19">[Container: Java and Spring MVC]</font><br /><br /><font point-size="24">Delivers the static content<br />and the Internet banking<br />single page application.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
+    20 [id=20,shape=rect, label=<<font point-size="34">API Application</font><br /><font point-size="19">[Container: Java and Spring MVC]</font><br /><br /><font point-size="24">Provides Internet banking<br />functionality via a JSON/HTTPS<br />API.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
+    21 [id=21,shape=cylinder, label=<<font point-size="34">Database</font><br /><font point-size="19">[Container: Oracle Database Schema]</font><br /><br /><font point-size="24">Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
+  }
+
+  1 -> 19 [id=22, label=<<font point-size="24">Visits bigbank.com/ib<br />using</font><br /><font point-size="19">[HTTPS]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  1 -> 17 [id=23, label=<<font point-size="24">Views account balances,<br />and makes payments using</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  1 -> 18 [id=24, label=<<font point-size="24">Views account balances,<br />and makes payments using</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  19 -> 17 [id=25, label=<<font point-size="24">Delivers to the customer's<br />web browser</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  20 -> 21 [id=26, label=<<font point-size="24">Reads from and writes to</font><br /><font point-size="19">[JDBC]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  20 -> 4 [id=27, label=<<font point-size="24">Makes API calls to</font><br /><font point-size="19">[XML/HTTPS]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  20 -> 6 [id=28, label=<<font point-size="24">Sends e-mail using</font><br /><font point-size="19">[SMTP]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  17 -> 20 [id=36, label=<<font point-size="24">Makes API calls to</font><br /><font point-size="19">[JSON/HTTPS]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  18 -> 20 [id=40, label=<<font point-size="24">Makes API calls to</font><br /><font point-size="19">[JSON/HTTPS]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  6 -> 1 [id=8, label=<<font point-size="24">Sends e-mails to</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+}

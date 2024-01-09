@@ -1,0 +1,43 @@
+graph TB
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["System Landscape"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    subgraph group1 [Organisation 1]
+      style group1 fill:#ffffff,stroke:#cccccc,color:#cccccc,stroke-dasharray:5
+
+      3["<div style='font-weight: bold'>Organisation 1</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>"]
+      style 3 fill:#dddddd,stroke:#9a9a9a,color:#000000
+        subgraph group2 [Department 1]
+          style group2 fill:#ffffff,stroke:#cccccc,color:#cccccc,stroke-dasharray:5
+
+          5["<div style='font-weight: bold'>Department 1</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>"]
+          style 5 fill:#dddddd,stroke:#9a9a9a,color:#000000
+            subgraph group3 [Team 1]
+              style group3 fill:#ffffff,stroke:#cccccc,color:#cccccc,stroke-dasharray:5
+
+              1["<div style='font-weight: bold'>Team 1</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>"]
+              style 1 fill:#dddddd,stroke:#9a9a9a,color:#000000
+            end
+
+            subgraph group4 [Team 2]
+              style group4 fill:#ffffff,stroke:#cccccc,color:#cccccc,stroke-dasharray:5
+
+              2["<div style='font-weight: bold'>Team 2</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>"]
+              style 2 fill:#dddddd,stroke:#9a9a9a,color:#000000
+            end
+
+        end
+
+    end
+
+    subgraph group5 [Organisation 2]
+      style group5 fill:#ffffff,stroke:#cccccc,color:#cccccc,stroke-dasharray:5
+
+      4["<div style='font-weight: bold'>Organisation 2</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>"]
+      style 4 fill:#dddddd,stroke:#9a9a9a,color:#000000
+    end
+
+
+  end

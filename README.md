@@ -1,9 +1,13 @@
 # Structurizr for Java
 
-This GitHub repository is (1) a client library for the [Structurizr](https://structurizr.com) cloud service and on-premises installation
-and (2) a way to create a Structurizr workspace using Java code.
+This repository contains the source code for the following libraries:
 
-Looking for the [Structurizr DSL](https://github.com/structurizr/dsl) instead?
+- [structurizr-client](structurizr-client)
+- [structurizr-core](structurizr-core)
+- [structurizr-dsl](structurizr-dsl)
+- [structurizr-export](structurizr-export)
+- [structurizr-graphviz](structurizr-graphviz)
+- [structurizr-import](structurizr-import)
 
-- [Documentation](https://docs.structurizr.com/java)
-- [Changelog](docs/changelog.md)
+- [Documentation](https://docs.structurizr.com)
+- [Changelog](changelog.md)

@@ -1,0 +1,20 @@
+graph TB
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["Internet Banking System - System Context"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    1["<div style='font-weight: bold'>Personal Banking Customer</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>A customer of the bank, with<br />personal bank accounts.</div>"]
+    style 1 fill:#08427b,stroke:#052e56,color:#ffffff
+    2["<div style='font-weight: bold'>Internet Banking System</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>Allows customers to view<br />information about their bank<br />accounts, and make payments.</div>"]
+    style 2 fill:#1168bd,stroke:#0b4884,color:#ffffff
+    4["<div style='font-weight: bold'>Mainframe Banking System</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>Stores all of the core<br />banking information about<br />customers, accounts,<br />transactions, etc.</div>"]
+    style 4 fill:#999999,stroke:#6b6b6b,color:#ffffff
+    6["<div style='font-weight: bold'>E-mail System</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>The internal Microsoft<br />Exchange e-mail system.</div>"]
+    style 6 fill:#999999,stroke:#6b6b6b,color:#ffffff
+
+    1-. "<div>Views account balances, and<br />makes payments using</div><div style='font-size: 70%'></div>" .->2
+    2-. "<div>Gets account information<br />from, and makes payments<br />using</div><div style='font-size: 70%'></div>" .->4
+    2-. "<div>Sends e-mail using</div><div style='font-size: 70%'></div>" .->6
+    6-. "<div>Sends e-mails to</div><div style='font-size: 70%'></div>" .->1
+  end

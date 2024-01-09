@@ -1,0 +1,92 @@
+graph TB
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["Internet Banking System - Deployment - Live"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    subgraph 67 [Customer's mobile device]
+      style 67 fill:#ffffff,stroke:#888888,color:#000000
+
+      68["<div style='font-weight: bold'>Mobile App</div><div style='font-size: 70%; margin-top: 0px'>[Container: Xamarin]</div><div style='font-size: 80%; margin-top:10px'>Provides a limited subset of<br />the Internet banking<br />functionality to customers<br />via their mobile device.</div>"]
+      style 68 fill:#438dd5,stroke:#2e6295,color:#ffffff
+    end
+
+    subgraph 69 [Customer's computer]
+      style 69 fill:#ffffff,stroke:#888888,color:#000000
+
+      subgraph 70 [Web Browser]
+        style 70 fill:#ffffff,stroke:#888888,color:#000000
+
+        71["<div style='font-weight: bold'>Single-Page Application</div><div style='font-size: 70%; margin-top: 0px'>[Container: JavaScript and Angular]</div><div style='font-size: 80%; margin-top:10px'>Provides all of the Internet<br />banking functionality to<br />customers via their web<br />browser.</div>"]
+        style 71 fill:#438dd5,stroke:#2e6295,color:#ffffff
+      end
+
+    end
+
+    subgraph 72 [Big Bank plc]
+      style 72 fill:#ffffff,stroke:#888888,color:#000000
+
+      subgraph 73 [bigbank-prod001]
+        style 73 fill:#ffffff,stroke:#888888,color:#000000
+
+        74["<div style='font-weight: bold'>Mainframe Banking System</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>Stores all of the core<br />banking information about<br />customers, accounts,<br />transactions, etc.</div>"]
+        style 74 fill:#999999,stroke:#6b6b6b,color:#ffffff
+      end
+
+      subgraph 75 [bigbank-web***]
+        style 75 fill:#ffffff,stroke:#888888,color:#000000
+
+        subgraph 76 [Apache Tomcat]
+          style 76 fill:#ffffff,stroke:#888888,color:#000000
+
+          77["<div style='font-weight: bold'>Web Application</div><div style='font-size: 70%; margin-top: 0px'>[Container: Java and Spring MVC]</div><div style='font-size: 80%; margin-top:10px'>Delivers the static content<br />and the Internet banking<br />single page application.</div>"]
+          style 77 fill:#438dd5,stroke:#2e6295,color:#ffffff
+        end
+
+      end
+
+      subgraph 79 [bigbank-api***]
+        style 79 fill:#ffffff,stroke:#888888,color:#000000
+
+        subgraph 80 [Apache Tomcat]
+          style 80 fill:#ffffff,stroke:#888888,color:#000000
+
+          81["<div style='font-weight: bold'>API Application</div><div style='font-size: 70%; margin-top: 0px'>[Container: Java and Spring MVC]</div><div style='font-size: 80%; margin-top:10px'>Provides Internet banking<br />functionality via a<br />JSON/HTTPS API.</div>"]
+          style 81 fill:#438dd5,stroke:#2e6295,color:#ffffff
+        end
+
+      end
+
+      subgraph 85 [bigbank-db01]
+        style 85 fill:#ffffff,stroke:#888888,color:#000000
+
+        subgraph 86 [Oracle - Primary]
+          style 86 fill:#ffffff,stroke:#888888,color:#000000
+
+          87[("<div style='font-weight: bold'>Database</div><div style='font-size: 70%; margin-top: 0px'>[Container: Oracle Database Schema]</div><div style='font-size: 80%; margin-top:10px'>Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</div>")]
+          style 87 fill:#438dd5,stroke:#2e6295,color:#ffffff
+        end
+
+      end
+
+      subgraph 89 [bigbank-db02]
+        style 89 fill:#ffffff,stroke:#888888,color:#000000
+
+        subgraph 90 [Oracle - Secondary]
+          style 90 fill:#ffffff,stroke:#888888,color:#000000
+
+          91[("<div style='font-weight: bold'>Database</div><div style='font-size: 70%; margin-top: 0px'>[Container: Oracle Database Schema]</div><div style='font-size: 80%; margin-top:10px'>Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</div>")]
+          style 91 fill:#438dd5,stroke:#2e6295,color:#ffffff
+        end
+
+      end
+
+    end
+
+    77-. "<div>Delivers to the customer's<br />web browser</div><div style='font-size: 70%'></div>" .->71
+    68-. "<div>Makes API calls to</div><div style='font-size: 70%'>[JSON/HTTPS]</div>" .->81
+    71-. "<div>Makes API calls to</div><div style='font-size: 70%'>[JSON/HTTPS]</div>" .->81
+    81-. "<div>Makes API calls to</div><div style='font-size: 70%'>[XML/HTTPS]</div>" .->74
+    81-. "<div>Reads from and writes to</div><div style='font-size: 70%'>[JDBC]</div>" .->87
+    81-. "<div>Reads from and writes to</div><div style='font-size: 70%'>[JDBC]</div>" .->91
+  end

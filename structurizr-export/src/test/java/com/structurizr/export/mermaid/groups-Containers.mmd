@@ -1,0 +1,26 @@
+graph TB
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["D - Containers"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    3["<div style='font-weight: bold'>C</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>"]
+    style 3 fill:#dddddd,stroke:#9a9a9a,color:#000000
+
+    subgraph 4 [D]
+      style 4 fill:#ffffff,stroke:#9a9a9a,color:#9a9a9a
+
+      subgraph group1 [Group 3]
+        style group1 fill:#ffffff,stroke:#cccccc,color:#cccccc,stroke-dasharray:5
+
+        6["<div style='font-weight: bold'>F</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>"]
+        style 6 fill:#dddddd,stroke:#9a9a9a,color:#000000
+      end
+
+      5["<div style='font-weight: bold'>E</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>"]
+      style 5 fill:#dddddd,stroke:#9a9a9a,color:#000000
+    end
+
+    3-. "<div></div><div style='font-size: 70%'></div>" .->5
+    3-. "<div></div><div style='font-size: 70%'></div>" .->6
+  end

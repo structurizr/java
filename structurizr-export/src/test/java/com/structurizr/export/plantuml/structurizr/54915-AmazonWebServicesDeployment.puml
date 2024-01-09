@@ -1,0 +1,111 @@
+@startuml
+set separator none
+title Spring PetClinic - Deployment - Live
+
+left to right direction
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+
+hide stereotype
+
+skinparam rectangle<<Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2>> {
+  BackgroundColor #ffffff
+  FontColor #d86613
+  BorderColor #d86613
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<Live.AmazonWebServices.USEast1.AmazonRDS>> {
+  BackgroundColor #ffffff
+  FontColor #3b48cc
+  BorderColor #3b48cc
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<Live.AmazonWebServices>> {
+  BackgroundColor #ffffff
+  FontColor #232f3e
+  BorderColor #232f3e
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<Live.AmazonWebServices.USEast1.Autoscalinggroup>> {
+  BackgroundColor #ffffff
+  FontColor #cc2264
+  BorderColor #cc2264
+  roundCorner 20
+  shadowing false
+}
+skinparam database<<Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.Database_1>> {
+  BackgroundColor #ffffff
+  FontColor #000000
+  BorderColor #b2b2b2
+  shadowing false
+}
+skinparam rectangle<<Live.AmazonWebServices.USEast1.ElasticLoadBalancer>> {
+  BackgroundColor #ffffff
+  FontColor #693cc5
+  BorderColor #693cc5
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<Live.AmazonWebServices.USEast1.AmazonRDS.MySQL>> {
+  BackgroundColor #ffffff
+  FontColor #3b48cc
+  BorderColor #3b48cc
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<Live.AmazonWebServices.USEast1.Route53>> {
+  BackgroundColor #ffffff
+  FontColor #693cc5
+  BorderColor #693cc5
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<Live.AmazonWebServices.USEast1>> {
+  BackgroundColor #ffffff
+  FontColor #147eba
+  BorderColor #147eba
+  roundCorner 20
+  shadowing false
+}
+skinparam rectangle<<Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2.WebApplication_1>> {
+  BackgroundColor #ffffff
+  FontColor #000000
+  BorderColor #b2b2b2
+  roundCorner 20
+  shadowing false
+}
+
+rectangle "Amazon Web Services\n<size:10>[Deployment Node]</size>\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/AWS-Cloud_light-bg@4x.png{scale=0.21428571428571427}>" <<Live.AmazonWebServices>> as Live.AmazonWebServices {
+  rectangle "US-East-1\n<size:10>[Deployment Node]</size>\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Region_light-bg@4x.png{scale=0.21428571428571427}>" <<Live.AmazonWebServices.USEast1>> as Live.AmazonWebServices.USEast1 {
+    rectangle "Amazon RDS\n<size:10>[Deployment Node]</size>\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Amazon-RDS_light-bg@4x.png{scale=0.1}>" <<Live.AmazonWebServices.USEast1.AmazonRDS>> as Live.AmazonWebServices.USEast1.AmazonRDS {
+      rectangle "MySQL\n<size:10>[Deployment Node]</size>\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Amazon-RDS_MySQL_instance_light-bg@4x.png{scale=0.15}>" <<Live.AmazonWebServices.USEast1.AmazonRDS.MySQL>> as Live.AmazonWebServices.USEast1.AmazonRDS.MySQL {
+        database "==Database\n<size:10>[Container: Relational database schema]</size>\n\nStores information regarding the veterinarians, the clients, and their pets." <<Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.Database_1>> as Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.Database_1
+      }
+
+    }
+
+    rectangle "==Route 53\n<size:10>[Infrastructure Node]</size>\n\nHighly available and scalable cloud DNS service.\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Amazon-Route-53_light-bg@4x.png{scale=0.1}>" <<Live.AmazonWebServices.USEast1.Route53>> as Live.AmazonWebServices.USEast1.Route53
+    rectangle "==Elastic Load Balancer\n<size:10>[Infrastructure Node]</size>\n\nAutomatically distributes incoming application traffic.\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Elastic-Load-Balancing_light-bg@4x.png{scale=0.1}>" <<Live.AmazonWebServices.USEast1.ElasticLoadBalancer>> as Live.AmazonWebServices.USEast1.ElasticLoadBalancer
+    rectangle "Autoscaling group\n<size:10>[Deployment Node]</size>\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/AWS-Auto-Scaling_light-bg@4x.png{scale=0.1}>" <<Live.AmazonWebServices.USEast1.Autoscalinggroup>> as Live.AmazonWebServices.USEast1.Autoscalinggroup {
+      rectangle "Amazon EC2\n<size:10>[Deployment Node]</size>\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Amazon-EC2_light-bg@4x.png{scale=0.1}>" <<Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2>> as Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2 {
+        rectangle "==Web Application\n<size:10>[Container: Java and Spring Boot]</size>\n\nAllows employees to view and manage information regarding the veterinarians, the clients, and their pets." <<Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2.WebApplication_1>> as Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2.WebApplication_1
+      }
+
+    }
+
+  }
+
+}
+
+Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2.WebApplication_1 .[#707070,thickness=2].> Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.Database_1 : "<color:#707070>Reads from and writes to\n<color:#707070><size:8>[MySQL Protocol/SSL]</size>"
+Live.AmazonWebServices.USEast1.Route53 .[#707070,thickness=2].> Live.AmazonWebServices.USEast1.ElasticLoadBalancer : "<color:#707070>Forwards requests to\n<color:#707070><size:8>[HTTPS]</size>"
+Live.AmazonWebServices.USEast1.ElasticLoadBalancer .[#707070,thickness=2].> Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2.WebApplication_1 : "<color:#707070>Forwards requests to\n<color:#707070><size:8>[HTTPS]</size>"
+@enduml

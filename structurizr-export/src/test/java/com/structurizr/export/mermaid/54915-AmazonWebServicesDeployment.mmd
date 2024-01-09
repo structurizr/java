@@ -1,0 +1,48 @@
+graph LR
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["Spring PetClinic - Deployment - Live"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    subgraph 5 [Amazon Web Services]
+      style 5 fill:#ffffff,stroke:#232f3e,color:#232f3e
+
+      subgraph 6 [US-East-1]
+        style 6 fill:#ffffff,stroke:#147eba,color:#147eba
+
+        subgraph 12 [Amazon RDS]
+          style 12 fill:#ffffff,stroke:#3b48cc,color:#3b48cc
+
+          subgraph 13 [MySQL]
+            style 13 fill:#ffffff,stroke:#3b48cc,color:#3b48cc
+
+            14[("<div style='font-weight: bold'>Database</div><div style='font-size: 70%; margin-top: 0px'>[Container: Relational database schema]</div><div style='font-size: 80%; margin-top:10px'>Stores information regarding<br />the veterinarians, the<br />clients, and their pets.</div>")]
+            style 14 fill:#ffffff,stroke:#b2b2b2,color:#000000
+          end
+
+        end
+
+        7("<div style='font-weight: bold'>Route 53</div><div style='font-size: 70%; margin-top: 0px'>[Infrastructure Node]</div><div style='font-size: 80%; margin-top:10px'>Highly available and scalable<br />cloud DNS service.</div>")
+        style 7 fill:#ffffff,stroke:#693cc5,color:#693cc5
+        8("<div style='font-weight: bold'>Elastic Load Balancer</div><div style='font-size: 70%; margin-top: 0px'>[Infrastructure Node]</div><div style='font-size: 80%; margin-top:10px'>Automatically distributes<br />incoming application traffic.</div>")
+        style 8 fill:#ffffff,stroke:#693cc5,color:#693cc5
+        subgraph 9 [Autoscaling group]
+          style 9 fill:#ffffff,stroke:#cc2264,color:#cc2264
+
+          subgraph 10 [Amazon EC2]
+            style 10 fill:#ffffff,stroke:#d86613,color:#d86613
+
+            11("<div style='font-weight: bold'>Web Application</div><div style='font-size: 70%; margin-top: 0px'>[Container: Java and Spring Boot]</div><div style='font-size: 80%; margin-top:10px'>Allows employees to view and<br />manage information regarding<br />the veterinarians, the<br />clients, and their pets.</div>")
+            style 11 fill:#ffffff,stroke:#b2b2b2,color:#000000
+          end
+
+        end
+
+      end
+
+    end
+
+    11-. "<div>Reads from and writes to</div><div style='font-size: 70%'>[MySQL Protocol/SSL]</div>" .->14
+    7-. "<div>Forwards requests to</div><div style='font-size: 70%'>[HTTPS]</div>" .->8
+    8-. "<div>Forwards requests to</div><div style='font-size: 70%'>[HTTPS]</div>" .->11
+  end

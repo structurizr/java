@@ -1,0 +1,82 @@
+@startuml
+set separator none
+title System Landscape
+
+top to bottom direction
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+
+hide stereotype
+
+skinparam rectangle<<ATM>> {
+  BackgroundColor #999999
+  FontColor #ffffff
+  BorderColor #6b6b6b
+  shadowing false
+}
+skinparam person<<BackOfficeStaff>> {
+  BackgroundColor #999999
+  FontColor #ffffff
+  BorderColor #6b6b6b
+  shadowing false
+}
+skinparam person<<CustomerServiceStaff>> {
+  BackgroundColor #999999
+  FontColor #ffffff
+  BorderColor #6b6b6b
+  shadowing false
+}
+skinparam rectangle<<EmailSystem>> {
+  BackgroundColor #999999
+  FontColor #ffffff
+  BorderColor #6b6b6b
+  shadowing false
+}
+skinparam rectangle<<InternetBankingSystem>> {
+  BackgroundColor #1168bd
+  FontColor #ffffff
+  BorderColor #0b4884
+  shadowing false
+}
+skinparam rectangle<<MainframeBankingSystem>> {
+  BackgroundColor #999999
+  FontColor #ffffff
+  BorderColor #6b6b6b
+  shadowing false
+}
+skinparam person<<PersonalBankingCustomer>> {
+  BackgroundColor #08427b
+  FontColor #ffffff
+  BorderColor #052e56
+  shadowing false
+}
+
+rectangle "Big Bank plc" <<enterprise>> {
+  skinparam RectangleBorderColor<<enterprise>> #444444
+  skinparam RectangleFontColor<<enterprise>> #444444
+
+  person "==Customer Service Staff\n<size:10>[Person]</size>\n\nCustomer service staff within the bank." <<CustomerServiceStaff>> as CustomerServiceStaff
+  person "==Back Office Staff\n<size:10>[Person]</size>\n\nAdministration and support staff within the bank." <<BackOfficeStaff>> as BackOfficeStaff
+  rectangle "==Internet Banking System\n<size:10>[Software System]</size>\n\nAllows customers to view information about their bank accounts, and make payments." <<InternetBankingSystem>> as InternetBankingSystem
+  rectangle "==Mainframe Banking System\n<size:10>[Software System]</size>\n\nStores all of the core banking information about customers, accounts, transactions, etc." <<MainframeBankingSystem>> as MainframeBankingSystem
+  rectangle "==E-mail System\n<size:10>[Software System]</size>\n\nThe internal Microsoft Exchange e-mail system." <<EmailSystem>> as EmailSystem
+  rectangle "==ATM\n<size:10>[Software System]</size>\n\nAllows customers to withdraw cash." <<ATM>> as ATM
+}
+
+person "==Personal Banking Customer\n<size:10>[Person]</size>\n\nA customer of the bank, with personal bank accounts." <<PersonalBankingCustomer>> as PersonalBankingCustomer
+
+ATM .[#707070,thickness=2].> MainframeBankingSystem : "<color:#707070>Uses"
+PersonalBankingCustomer .[#707070,thickness=2].> ATM : "<color:#707070>Withdraws cash using"
+CustomerServiceStaff .[#707070,thickness=2].> MainframeBankingSystem : "<color:#707070>Uses"
+PersonalBankingCustomer .[#707070,thickness=2].> CustomerServiceStaff : "<color:#707070>Asks questions to\n<color:#707070><size:8>[Telephone]</size>"
+BackOfficeStaff .[#707070,thickness=2].> MainframeBankingSystem : "<color:#707070>Uses"
+PersonalBankingCustomer .[#707070,thickness=2].> InternetBankingSystem : "<color:#707070>Views account balances, and makes payments using"
+InternetBankingSystem .[#707070,thickness=2].> MainframeBankingSystem : "<color:#707070>Gets account information from, and makes payments using"
+InternetBankingSystem .[#707070,thickness=2].> EmailSystem : "<color:#707070>Sends e-mail using"
+EmailSystem .[#707070,thickness=2].> PersonalBankingCustomer : "<color:#707070>Sends e-mails to"
+@enduml
