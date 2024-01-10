@@ -35,12 +35,12 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
     private Charset characterEncoding = StandardCharsets.UTF_8;
     private IdentifierScope identifierScope = IdentifierScope.Flat;
-    private Stack<DslContext> contextStack;
-    private Set<String> parsedTokens = new HashSet<>();
-    private IdentifiersRegister identifiersRegister;
-    private Map<String, Constant> constants;
+    private final Stack<DslContext> contextStack;
+    private final Set<String> parsedTokens = new HashSet<>();
+    private final IdentifiersRegister identifiersRegister;
+    private final Map<String, Constant> constants;
 
-    private List<String> dslSourceLines = new ArrayList<>();
+    private final List<String> dslSourceLines = new ArrayList<>();
     private Workspace workspace;
     private boolean extendingWorkspace = false;
 
@@ -121,27 +121,22 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     }
 
     /**
-     * Parses the specified Structurizr DSL file(s), adding the parsed content to the workspace.
-     * If "path" represents a single file, that single file will be parsed.
-     * If "path" represents a directory, all files in that directory (recursively) will be parsed.
+     * Parses the specified Structurizr DSL file.
      *
-     * @param path      a File object representing a file or directory
+     * @param dslFile       a File object representing a DSL file
      * @throws StructurizrDslParserException when something goes wrong
      */
-    public void parse(File path) throws StructurizrDslParserException {
-        if (path == null) {
+    public void parse(File dslFile) throws StructurizrDslParserException {
+        if (dslFile == null) {
             throw new StructurizrDslParserException("A file must be specified");
         }
 
-        if (!path.exists()) {
-            throw new StructurizrDslParserException("The file at " + path.getAbsolutePath() + " does not exist");
+        if (!dslFile.exists()) {
+            throw new StructurizrDslParserException("The file at " + dslFile.getAbsolutePath() + " does not exist");
         }
 
-        List<File> files = FileUtils.findFiles(path);
         try {
-            for (File file : files) {
-                parse(Files.readAllLines(file.toPath(), characterEncoding), file);
-            }
+            parse(Files.readAllLines(dslFile.toPath(), characterEncoding), dslFile);
         } catch (IOException e) {
             throw new StructurizrDslParserException(e.getMessage());
         }
@@ -154,51 +149,38 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     }
 
     /**
-     * Parses the specified Structurizr DSL fragment, adding the parsed content to the workspace.
+     * Parses the specified Structurizr DSL, adding the parsed content to the workspace.
      *
-     * @param dsl       a DSL fragment
+     * @param dsl       a Structurizr DSL definition, as a single String
      * @throws StructurizrDslParserException when something goes wrong
      */
     public void parse(String dsl) throws StructurizrDslParserException {
+        parse(dsl, new File("."));
+    }
+
+    /**
+     * Parses the specified Structurizr DSL, adding the parsed content to the workspace.
+     *
+     * @param dsl       a Structurizr DSL definition, as a single String
+     * @param dslFile   a File representing the DSL file, and therefore where includes/images/etc should be loaded relative to
+     * @throws StructurizrDslParserException when something goes wrong
+     */
+    public void parse(String dsl, File dslFile) throws StructurizrDslParserException {
         if (StringUtils.isNullOrEmpty(dsl)) {
             throw new StructurizrDslParserException("A DSL fragment must be specified");
         }
 
         List<String> lines = Arrays.asList(dsl.split("\\r?\\n"));
-        parse(lines, new File("."));
+        parse(lines, dslFile);
     }
 
-    private List<DslLine> preProcessLines(List<String> lines) {
-        List<DslLine> dslLines = new ArrayList<>();
-
-        int lineNumber = 1;
-        StringBuilder buf = new StringBuilder();
-        boolean lineComplete = true;
-
-        for (String line : lines) {
-            if (line.endsWith(MULTI_LINE_SEPARATOR)) {
-                buf.append(line, 0, line.length()-1);
-                lineComplete = false;
-            } else {
-                if (lineComplete) {
-                    buf.append(line);
-                } else {
-                    buf.append(line.stripLeading());
-                    lineComplete = true;
-                }
-            }
-
-            if (lineComplete) {
-                dslLines.add(new DslLine(buf.toString(), lineNumber));
-                buf = new StringBuilder();
-            }
-
-            lineNumber++;
-        }
-
-        return dslLines;
-    }
-
+    /**
+     * Parses a list of Structurizr DSL lines.
+     *
+     * @param lines     a Structurizr DSL definition, as a List of String objects (one per line)
+     * @param dslFile   a File representing the DSL file, and therefore where includes/images/etc should be loaded relative to
+     * @throws StructurizrDslParserException when something goes wrong
+     */
     void parse(List<String> lines, File dslFile) throws StructurizrDslParserException {
         List<DslLine> dslLines = preProcessLines(lines);
 
@@ -928,6 +910,37 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                 }
             }
         }
+    }
+
+    private List<DslLine> preProcessLines(List<String> lines) {
+        List<DslLine> dslLines = new ArrayList<>();
+
+        int lineNumber = 1;
+        StringBuilder buf = new StringBuilder();
+        boolean lineComplete = true;
+
+        for (String line : lines) {
+            if (line.endsWith(MULTI_LINE_SEPARATOR)) {
+                buf.append(line, 0, line.length()-1);
+                lineComplete = false;
+            } else {
+                if (lineComplete) {
+                    buf.append(line);
+                } else {
+                    buf.append(line.stripLeading());
+                    lineComplete = true;
+                }
+            }
+
+            if (lineComplete) {
+                dslLines.add(new DslLine(buf.toString(), lineNumber));
+                buf = new StringBuilder();
+            }
+
+            lineNumber++;
+        }
+
+        return dslLines;
     }
 
     private String substituteStrings(String token) {
