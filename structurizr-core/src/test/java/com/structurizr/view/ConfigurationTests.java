@@ -36,14 +36,14 @@ public class ConfigurationTests extends AbstractWorkspaceTestBase {
     void setTheme_WithAUrl() {
         Configuration configuration = new Configuration();
         configuration.setTheme("https://example.com/theme.json");
-        assertEquals("https://example.com/theme.json", configuration.getTheme());
+        assertEquals("https://example.com/theme.json", configuration.getThemes()[0]);
     }
 
     @Test
     void setTheme_WithAUrlThatHasATrailingSpace() {
         Configuration configuration = new Configuration();
         configuration.setTheme("https://example.com/theme.json ");
-        assertEquals("https://example.com/theme.json", configuration.getTheme());
+        assertEquals("https://example.com/theme.json", configuration.getThemes()[0]);
     }
 
     @Test
@@ -58,14 +58,14 @@ public class ConfigurationTests extends AbstractWorkspaceTestBase {
     void setTheme_DoesNothing_WhenANullUrlIsSpecified() {
         Configuration configuration = new Configuration();
         configuration.setTheme(null);
-        assertNull(configuration.getTheme());
+        assertEquals(0, configuration.getThemes().length);
     }
 
     @Test
     void setTheme_DoesNothing_WhenAnEmptyUrlIsSpecified() {
         Configuration configuration = new Configuration();
         configuration.setTheme(" ");
-        assertNull(configuration.getTheme());
+        assertEquals(0, configuration.getThemes().length);
     }
 
 }
