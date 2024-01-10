@@ -38,16 +38,6 @@ public final class Configuration implements PropertyHolder {
         return styles;
     }
 
-    @JsonIgnore
-    @Deprecated
-    public String getTheme() {
-        if (themes == null || themes.size() == 0) {
-            return null;
-        }
-
-        return themes.get(0);
-    }
-
     /**
      * Sets the theme used to render views.
      *

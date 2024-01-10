@@ -2,6 +2,7 @@
 
 ## 2.0.0 (unreleased)
 
+- Removes the deprecated concepts (e.g. location and enterprise.
 - structurizr-core: Adds `Workspace.trim()` to trim a workspace of unused elements (i.e. those not associated with any views).
-- structurizr-core: Removes the deprecated location and enterprise concepts from `Model`.
+- structurizr-client: Removes `StructurizrClient` (use `WorkspaceApiClient` instead).
 

@@ -17,7 +17,7 @@ public final class Enterprise {
      * @throws IllegalArgumentException     if the name is not specified
      */
     @Deprecated
-    public Enterprise(String name) {
+    Enterprise(String name) {
         if (name == null || name.trim().length() == 0) {
             throw new IllegalArgumentException("Name must be specified.");
         }
