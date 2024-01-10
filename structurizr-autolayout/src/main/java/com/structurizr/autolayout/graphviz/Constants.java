@@ -1,4 +1,4 @@
-package com.structurizr.graphviz;
+package com.structurizr.autolayout.graphviz;
 
 /**
  * Some constants used when applying graphviz.

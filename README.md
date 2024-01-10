@@ -7,7 +7,7 @@ This repository contains the source code for the following libraries:
 - [structurizr-dsl](structurizr-dsl)
 - [structurizr-export](structurizr-export)
 - [structurizr-import](structurizr-import)
-- [structurizr-graphviz](structurizr-graphviz)
+- [structurizr-autolayout](structurizr-autolayout)
 - [structurizr-assistant](structurizr-assistant)
 
 - [Documentation](https://docs.structurizr.com)

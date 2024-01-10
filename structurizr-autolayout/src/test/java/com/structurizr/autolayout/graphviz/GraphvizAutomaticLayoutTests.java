@@ -1,6 +1,7 @@
-package com.structurizr.graphviz;
+package com.structurizr.autolayout.graphviz;
 
 import com.structurizr.Workspace;
+import com.structurizr.autolayout.graphviz.GraphvizAutomaticLayout;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
 import com.structurizr.model.Tags;

@@ -1,4 +1,4 @@
-package com.structurizr.graphviz;
+package com.structurizr.autolayout.graphviz;
 
 import com.structurizr.export.AbstractDiagramExporter;
 import com.structurizr.export.Diagram;

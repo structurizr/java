@@ -1,6 +1,8 @@
-package com.structurizr.graphviz;
+package com.structurizr.autolayout.graphviz;
 
 import com.structurizr.Workspace;
+import com.structurizr.autolayout.graphviz.DOTExporter;
+import com.structurizr.autolayout.graphviz.RankDirection;
 import com.structurizr.export.Diagram;
 import com.structurizr.model.*;
 import com.structurizr.util.WorkspaceUtils;

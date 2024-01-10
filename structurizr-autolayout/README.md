@@ -1,6 +1,6 @@
-# structurizr-graphviz
+# structurizr-autolayout
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.structurizr/structurizr-graphviz.svg?label=Maven%20Central)](https://search.maven.org/artifact/com.structurizr/structurizr-graphviz)
+[![Maven Central](https://img.shields.io/maven-central/v/com.structurizr/structurizr-autolayout.svg?label=Maven%20Central)](https://search.maven.org/artifact/com.structurizr/structurizr-autolayout)
 
 This library provides automatic facilities for Structurizr views.
 It's a wrapper around the [Graphviz tool](http://www.graphviz.org),
@@ -17,7 +17,7 @@ GraphvizAutomaticLayout graphviz = new GraphvizAutomaticLayout();
 graphviz.apply(workspace);
 ```
 
-The ```structurizr-graphviz``` library does the following for every view in the workspace:
+The ```structurizr-autolayout``` library does the following for every view in the workspace:
 
 1. Export the view to a DOT file.
 2. Run Graphviz (via the ```dot``` command), with the output format set to SVG.

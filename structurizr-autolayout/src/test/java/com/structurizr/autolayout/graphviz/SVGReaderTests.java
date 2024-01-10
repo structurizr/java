@@ -1,11 +1,10 @@
-package com.structurizr.graphviz;
+package com.structurizr.autolayout.graphviz;
 
 import com.structurizr.Workspace;
-import com.structurizr.model.Location;
+import com.structurizr.autolayout.graphviz.SVGReader;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
 import com.structurizr.model.Tags;
-import com.structurizr.util.WorkspaceUtils;
 import com.structurizr.view.PaperSize;
 import com.structurizr.view.Shape;
 import com.structurizr.view.SystemContextView;
