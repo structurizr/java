@@ -17,19 +17,19 @@ import java.io.FileReader;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class StructurizrClientIntegrationTests {
+public class WorkspaceApiClientIntegrationTests {
 
-    private StructurizrClient structurizrClient;
-    private File workspaceArchiveLocation = new File(System.getProperty("java.io.tmpdir"), "structurizr");
+    private WorkspaceApiClient client;
+    private final File workspaceArchiveLocation = new File(System.getProperty("java.io.tmpdir"), "structurizr");
 
     @BeforeEach
     void setUp() {
-        structurizrClient = new StructurizrClient("81ace434-94a1-486f-a786-37bbeaa44e08", "a8673e21-7b6f-4f52-be65-adb7248be86b");
-        structurizrClient.setWorkspaceArchiveLocation(workspaceArchiveLocation);
+        client = new WorkspaceApiClient("81ace434-94a1-486f-a786-37bbeaa44e08", "a8673e21-7b6f-4f52-be65-adb7248be86b");
+        client.setWorkspaceArchiveLocation(workspaceArchiveLocation);
         workspaceArchiveLocation.mkdirs();
         clearWorkspaceArchive();
         assertEquals(0, workspaceArchiveLocation.listFiles().length);
-        structurizrClient.setMergeFromRemote(false);
+        client.setMergeFromRemote(false);
     }
 
     @AfterEach
@@ -59,9 +59,9 @@ public class StructurizrClientIntegrationTests {
         SystemContextView systemContextView = workspace.getViews().createSystemContextView(softwareSystem, "SystemContext", "Description");
         systemContextView.addAllElements();
 
-        structurizrClient.putWorkspace(20081, workspace);
+        client.putWorkspace(20081, workspace);
 
-        workspace = structurizrClient.getWorkspace(20081);
+        workspace = client.getWorkspace(20081);
         assertNotNull(workspace.getModel().getSoftwareSystemWithName("Software System"));
         assertNotNull(workspace.getModel().getPersonWithName("Person"));
         assertEquals(1, workspace.getModel().getRelationships().size());
@@ -78,7 +78,7 @@ public class StructurizrClientIntegrationTests {
 
     @Test
     void putAndGetWorkspace_WithEncryption() throws Exception {
-        structurizrClient.setEncryptionStrategy(new AesEncryptionStrategy("password"));
+        client.setEncryptionStrategy(new AesEncryptionStrategy("password"));
         Workspace workspace = new Workspace("Structurizr client library tests - with encryption", "A test workspace for the Structurizr client library");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
         Person person = workspace.getModel().addPerson("Person", "Description");
@@ -86,9 +86,9 @@ public class StructurizrClientIntegrationTests {
         SystemContextView systemContextView = workspace.getViews().createSystemContextView(softwareSystem, "SystemContext", "Description");
         systemContextView.addAllElements();
 
-        structurizrClient.putWorkspace(20081, workspace);
+        client.putWorkspace(20081, workspace);
 
-        workspace = structurizrClient.getWorkspace(20081);
+        workspace = client.getWorkspace(20081);
         assertNotNull(workspace.getModel().getSoftwareSystemWithName("Software System"));
         assertNotNull(workspace.getModel().getPersonWithName("Person"));
         assertEquals(1, workspace.getModel().getRelationships().size());
@@ -105,15 +105,15 @@ public class StructurizrClientIntegrationTests {
 
     @Test
     void lockWorkspace() throws Exception {
-        structurizrClient.unlockWorkspace(20081);
-        assertTrue(structurizrClient.lockWorkspace(20081));
+        client.unlockWorkspace(20081);
+        assertTrue(client.lockWorkspace(20081));
     }
 
 
     @Test
     void unlockWorkspace() throws Exception {
-        structurizrClient.lockWorkspace(20081);
-        assertTrue(structurizrClient.unlockWorkspace(20081));
+        client.lockWorkspace(20081);
+        assertTrue(client.unlockWorkspace(20081));
     }
 
 }
