@@ -88,23 +88,13 @@ public final class SystemLandscapeView extends StaticView {
         }
     }
 
-    /**
-     * Determines whether the enterprise boundary (to differentiate "internal" elements from "external" elements") should be visible on the resulting diagram.
-     *
-     * @return  true if the enterprise boundary is visible, false otherwise
-     */
     @Deprecated
     public boolean isEnterpriseBoundaryVisible() {
         return enterpriseBoundaryVisible;
     }
 
-    /**
-     * Sets whether the enterprise boundary (to differentiate "internal" elements from "external" elements") should be visible on the resulting diagram.
-     *
-     * @param enterpriseBoundaryVisible     true if the enterprise boundary should be visible, false otherwise
-     */
     @Deprecated
-    public void setEnterpriseBoundaryVisible(boolean enterpriseBoundaryVisible) {
+    void setEnterpriseBoundaryVisible(boolean enterpriseBoundaryVisible) {
         this.enterpriseBoundaryVisible = enterpriseBoundaryVisible;
     }
 

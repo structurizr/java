@@ -17,8 +17,8 @@ ContainerDb(InternetBankingSystem.Database, "Database", $techn="Oracle Database 
 
 Rel(InternetBankingSystem.SinglePageApplication, InternetBankingSystem.APIApplication.SignInController, "Submits credentials to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
 Rel(InternetBankingSystem.APIApplication.SignInController, InternetBankingSystem.APIApplication.SecurityComponent, "Validates credentials using", $techn="", $tags="Relationship", $link="")
-Rel(InternetBankingSystem.APIApplication.SecurityComponent, InternetBankingSystem.Database, "select * from users where username = ?", $techn="JDBC", $tags="Relationship", $link="")
-Rel(InternetBankingSystem.Database, InternetBankingSystem.APIApplication.SecurityComponent, "Returns user data to", $techn="JDBC", $tags="Relationship", $link="")
+Rel(InternetBankingSystem.APIApplication.SecurityComponent, InternetBankingSystem.Database, "select * from users where username = ?", $techn="SQL/TCP", $tags="Relationship", $link="")
+Rel(InternetBankingSystem.Database, InternetBankingSystem.APIApplication.SecurityComponent, "Returns user data to", $techn="SQL/TCP", $tags="Relationship", $link="")
 Rel(InternetBankingSystem.APIApplication.SecurityComponent, InternetBankingSystem.APIApplication.SignInController, "Returns true if the hashed password matches", $techn="", $tags="Relationship", $link="")
 Rel(InternetBankingSystem.APIApplication.SignInController, InternetBankingSystem.SinglePageApplication, "Sends back an authentication token to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
 

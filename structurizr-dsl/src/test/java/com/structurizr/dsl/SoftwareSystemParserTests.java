@@ -1,6 +1,5 @@
 package com.structurizr.dsl;
 
-import com.structurizr.model.Location;
 import com.structurizr.model.SoftwareSystem;
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SoftwareSystemParserTests extends AbstractTests {
 
-    private SoftwareSystemParser parser = new SoftwareSystemParser();
+    private final SoftwareSystemParser parser = new SoftwareSystemParser();
 
     @Test
     void test_parse_ThrowsAnException_WhenThereAreTooManyTokens() {
@@ -38,7 +37,6 @@ class SoftwareSystemParserTests extends AbstractTests {
         SoftwareSystem softwareSystem = model.getSoftwareSystemWithName("Name");
         assertNotNull(softwareSystem);
         assertEquals("", softwareSystem.getDescription());
-        assertEquals(Location.Unspecified, softwareSystem.getLocation());
         assertEquals("Element,Software System", softwareSystem.getTags());
     }
 
@@ -50,7 +48,6 @@ class SoftwareSystemParserTests extends AbstractTests {
         SoftwareSystem softwareSystem = model.getSoftwareSystemWithName("Name");
         assertNotNull(softwareSystem);
         assertEquals("Description", softwareSystem.getDescription());
-        assertEquals(Location.Unspecified, softwareSystem.getLocation());
         assertEquals("Element,Software System", softwareSystem.getTags());
     }
 
@@ -62,22 +59,7 @@ class SoftwareSystemParserTests extends AbstractTests {
         SoftwareSystem softwareSystem = model.getSoftwareSystemWithName("Name");
         assertNotNull(softwareSystem);
         assertEquals("Description", softwareSystem.getDescription());
-        assertEquals(Location.Unspecified, softwareSystem.getLocation());
         assertEquals("Element,Software System,Tag 1,Tag 2", softwareSystem.getTags());
-    }
-
-    @Test
-    void test_parse_CreatesAnInternalSoftwareSystem() {
-        EnterpriseDslContext context = new EnterpriseDslContext();
-        context.setWorkspace(workspace);
-        parser.parse(context, tokens("softwareSystem", "Name"));
-
-        assertEquals(1, model.getElements().size());
-        SoftwareSystem softwareSystem = model.getSoftwareSystemWithName("Name");
-        assertNotNull(softwareSystem);
-        assertEquals("", softwareSystem.getDescription());
-        assertEquals(Location.Internal, softwareSystem.getLocation());
-        assertEquals("Element,Software System", softwareSystem.getTags());
     }
 
 }

@@ -72,21 +72,21 @@ rectangle "==Mainframe Banking System\n<size:10>[Software System]</size>\n\nStor
 rectangle "==E-mail System\n<size:10>[Software System]</size>\n\nThe internal Microsoft Exchange e-mail system." <<EmailSystem>> as EmailSystem
 
 rectangle "Internet Banking System\n<size:10>[Software System]</size>" <<InternetBankingSystem>> {
-  rectangle "==Single-Page Application\n<size:10>[Container: JavaScript and Angular]</size>\n\nProvides all of the Internet banking functionality to customers via their web browser." <<InternetBankingSystem.SinglePageApplication>> as InternetBankingSystem.SinglePageApplication
-  rectangle "==Mobile App\n<size:10>[Container: Xamarin]</size>\n\nProvides a limited subset of the Internet banking functionality to customers via their mobile device." <<InternetBankingSystem.MobileApp>> as InternetBankingSystem.MobileApp
   rectangle "==Web Application\n<size:10>[Container: Java and Spring MVC]</size>\n\nDelivers the static content and the Internet banking single page application." <<InternetBankingSystem.WebApplication>> as InternetBankingSystem.WebApplication
   rectangle "==API Application\n<size:10>[Container: Java and Spring MVC]</size>\n\nProvides Internet banking functionality via a JSON/HTTPS API." <<InternetBankingSystem.APIApplication>> as InternetBankingSystem.APIApplication
   database "==Database\n<size:10>[Container: Oracle Database Schema]</size>\n\nStores user registration information, hashed authentication credentials, access logs, etc." <<InternetBankingSystem.Database>> as InternetBankingSystem.Database
+  rectangle "==Single-Page Application\n<size:10>[Container: JavaScript and Angular]</size>\n\nProvides all of the Internet banking functionality to customers via their web browser." <<InternetBankingSystem.SinglePageApplication>> as InternetBankingSystem.SinglePageApplication
+  rectangle "==Mobile App\n<size:10>[Container: Xamarin]</size>\n\nProvides a limited subset of the Internet banking functionality to customers via their mobile device." <<InternetBankingSystem.MobileApp>> as InternetBankingSystem.MobileApp
 }
 
+EmailSystem .[#707070,thickness=2].> PersonalBankingCustomer : "<color:#707070>Sends e-mails to"
 PersonalBankingCustomer .[#707070,thickness=2].> InternetBankingSystem.WebApplication : "<color:#707070>Visits bigbank.com/ib using\n<color:#707070><size:8>[HTTPS]</size>"
 PersonalBankingCustomer .[#707070,thickness=2].> InternetBankingSystem.SinglePageApplication : "<color:#707070>Views account balances, and makes payments using"
 PersonalBankingCustomer .[#707070,thickness=2].> InternetBankingSystem.MobileApp : "<color:#707070>Views account balances, and makes payments using"
 InternetBankingSystem.WebApplication .[#707070,thickness=2].> InternetBankingSystem.SinglePageApplication : "<color:#707070>Delivers to the customer's web browser"
-InternetBankingSystem.APIApplication .[#707070,thickness=2].> InternetBankingSystem.Database : "<color:#707070>Reads from and writes to\n<color:#707070><size:8>[JDBC]</size>"
-InternetBankingSystem.APIApplication .[#707070,thickness=2].> MainframeBankingSystem : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[XML/HTTPS]</size>"
-InternetBankingSystem.APIApplication .[#707070,thickness=2].> EmailSystem : "<color:#707070>Sends e-mail using\n<color:#707070><size:8>[SMTP]</size>"
 InternetBankingSystem.SinglePageApplication .[#707070,thickness=2].> InternetBankingSystem.APIApplication : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[JSON/HTTPS]</size>"
 InternetBankingSystem.MobileApp .[#707070,thickness=2].> InternetBankingSystem.APIApplication : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[JSON/HTTPS]</size>"
-EmailSystem .[#707070,thickness=2].> PersonalBankingCustomer : "<color:#707070>Sends e-mails to"
+InternetBankingSystem.APIApplication .[#707070,thickness=2].> InternetBankingSystem.Database : "<color:#707070>Reads from and writes to\n<color:#707070><size:8>[SQL/TCP]</size>"
+InternetBankingSystem.APIApplication .[#707070,thickness=2].> MainframeBankingSystem : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[XML/HTTPS]</size>"
+InternetBankingSystem.APIApplication .[#707070,thickness=2].> EmailSystem : "<color:#707070>Sends e-mail using"
 @enduml

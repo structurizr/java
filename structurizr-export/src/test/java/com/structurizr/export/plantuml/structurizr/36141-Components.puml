@@ -86,10 +86,10 @@ skinparam rectangle<<InternetBankingSystem.APIApplication>> {
 }
 
 rectangle "==Mainframe Banking System\n<size:10>[Software System]</size>\n\nStores all of the core banking information about customers, accounts, transactions, etc." <<MainframeBankingSystem>> as MainframeBankingSystem
-rectangle "==Single-Page Application\n<size:10>[Container: JavaScript and Angular]</size>\n\nProvides all of the Internet banking functionality to customers via their web browser." <<InternetBankingSystem.SinglePageApplication>> as InternetBankingSystem.SinglePageApplication
 rectangle "==E-mail System\n<size:10>[Software System]</size>\n\nThe internal Microsoft Exchange e-mail system." <<EmailSystem>> as EmailSystem
-rectangle "==Mobile App\n<size:10>[Container: Xamarin]</size>\n\nProvides a limited subset of the Internet banking functionality to customers via their mobile device." <<InternetBankingSystem.MobileApp>> as InternetBankingSystem.MobileApp
 database "==Database\n<size:10>[Container: Oracle Database Schema]</size>\n\nStores user registration information, hashed authentication credentials, access logs, etc." <<InternetBankingSystem.Database>> as InternetBankingSystem.Database
+rectangle "==Single-Page Application\n<size:10>[Container: JavaScript and Angular]</size>\n\nProvides all of the Internet banking functionality to customers via their web browser." <<InternetBankingSystem.SinglePageApplication>> as InternetBankingSystem.SinglePageApplication
+rectangle "==Mobile App\n<size:10>[Container: Xamarin]</size>\n\nProvides a limited subset of the Internet banking functionality to customers via their mobile device." <<InternetBankingSystem.MobileApp>> as InternetBankingSystem.MobileApp
 
 rectangle "API Application\n<size:10>[Container: Java and Spring MVC]</size>" <<InternetBankingSystem.APIApplication>> {
   rectangle "==Sign In Controller\n<size:10>[Component: Spring MVC Rest Controller]</size>\n\nAllows users to sign in to the Internet Banking System." <<InternetBankingSystem.APIApplication.SignInController>> as InternetBankingSystem.APIApplication.SignInController
@@ -101,16 +101,16 @@ rectangle "API Application\n<size:10>[Container: Java and Spring MVC]</size>" <<
 }
 
 InternetBankingSystem.SinglePageApplication .[#707070,thickness=2].> InternetBankingSystem.APIApplication.SignInController : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[JSON/HTTPS]</size>"
-InternetBankingSystem.SinglePageApplication .[#707070,thickness=2].> InternetBankingSystem.APIApplication.ResetPasswordController : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[JSON/HTTPS]</size>"
 InternetBankingSystem.SinglePageApplication .[#707070,thickness=2].> InternetBankingSystem.APIApplication.AccountsSummaryController : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[JSON/HTTPS]</size>"
+InternetBankingSystem.SinglePageApplication .[#707070,thickness=2].> InternetBankingSystem.APIApplication.ResetPasswordController : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[JSON/HTTPS]</size>"
 InternetBankingSystem.MobileApp .[#707070,thickness=2].> InternetBankingSystem.APIApplication.SignInController : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[JSON/HTTPS]</size>"
-InternetBankingSystem.MobileApp .[#707070,thickness=2].> InternetBankingSystem.APIApplication.ResetPasswordController : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[JSON/HTTPS]</size>"
 InternetBankingSystem.MobileApp .[#707070,thickness=2].> InternetBankingSystem.APIApplication.AccountsSummaryController : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[JSON/HTTPS]</size>"
+InternetBankingSystem.MobileApp .[#707070,thickness=2].> InternetBankingSystem.APIApplication.ResetPasswordController : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[JSON/HTTPS]</size>"
 InternetBankingSystem.APIApplication.SignInController .[#707070,thickness=2].> InternetBankingSystem.APIApplication.SecurityComponent : "<color:#707070>Uses"
 InternetBankingSystem.APIApplication.AccountsSummaryController .[#707070,thickness=2].> InternetBankingSystem.APIApplication.MainframeBankingSystemFacade : "<color:#707070>Uses"
 InternetBankingSystem.APIApplication.ResetPasswordController .[#707070,thickness=2].> InternetBankingSystem.APIApplication.SecurityComponent : "<color:#707070>Uses"
 InternetBankingSystem.APIApplication.ResetPasswordController .[#707070,thickness=2].> InternetBankingSystem.APIApplication.EmailComponent : "<color:#707070>Uses"
-InternetBankingSystem.APIApplication.SecurityComponent .[#707070,thickness=2].> InternetBankingSystem.Database : "<color:#707070>Reads from and writes to\n<color:#707070><size:8>[JDBC]</size>"
-InternetBankingSystem.APIApplication.MainframeBankingSystemFacade .[#707070,thickness=2].> MainframeBankingSystem : "<color:#707070>Uses\n<color:#707070><size:8>[XML/HTTPS]</size>"
+InternetBankingSystem.APIApplication.SecurityComponent .[#707070,thickness=2].> InternetBankingSystem.Database : "<color:#707070>Reads from and writes to\n<color:#707070><size:8>[SQL/TCP]</size>"
+InternetBankingSystem.APIApplication.MainframeBankingSystemFacade .[#707070,thickness=2].> MainframeBankingSystem : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[XML/HTTPS]</size>"
 InternetBankingSystem.APIApplication.EmailComponent .[#707070,thickness=2].> EmailSystem : "<color:#707070>Sends e-mail using"
 @enduml

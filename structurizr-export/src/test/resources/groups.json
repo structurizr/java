@@ -3,110 +3,165 @@
   "name" : "Name",
   "description" : "Description",
   "properties" : {
-    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgYSA9IHNvZnR3YXJlU3lzdGVtICJBIgogICAgICAgIAogICAgICAgIGdyb3VwICJHcm91cCAxIiB7CiAgICAgICAgICAgIGIgPSBzb2Z0d2FyZVN5c3RlbSAiQiIKICAgICAgICB9CgogICAgICAgIGVudGVycHJpc2UgIkVudGVycHJpc2UiIHsKICAgICAgICAgICAgYyA9IHNvZnR3YXJlU3lzdGVtICJDIgoKICAgICAgICAgICAgZ3JvdXAgIkdyb3VwIDIiIHsKICAgICAgICAgICAgICAgIGQgPSBzb2Z0d2FyZVN5c3RlbSAiRCIgewogICAgICAgICAgICAgICAgICAgIGUgPSBjb250YWluZXIgIkUiCiAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgZ3JvdXAgIkdyb3VwIDMiIHsKICAgICAgICAgICAgICAgICAgICAgICAgZiA9IGNvbnRhaW5lciAiRiIgewogICAgICAgICAgICAgICAgICAgICAgICAgICAgZyA9IGNvbXBvbmVudCAiRyIKICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgZ3JvdXAgIkdyb3VwIDQiIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBoID0gY29tcG9uZW50ICJIIgogICAgICAgICAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIAogICAgICAgIGEgLT4gYgogICAgICAgIGIgLT4gYwogICAgICAgIGMgLT4gZQogICAgICAgIGMgLT4gZwogICAgICAgIGMgLT4gaAoKICAgIH0KICAgIAogICAgdmlld3MgewogICAgICAgIHN5c3RlbWxhbmRzY2FwZSAiU3lzdGVtTGFuZHNjYXBlIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvbGF5b3V0CiAgICAgICAgfQogICAgICAgIAogICAgICAgIGNvbnRhaW5lciBkICJDb250YWluZXJzIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvbGF5b3V0CiAgICAgICAgfQoKICAgICAgICBjb21wb25lbnQgZiAiQ29tcG9uZW50cyIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dAogICAgICAgIH0KICAgIH0KCn0K"
+    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgIHN0cnVjdHVyaXpyLmdyb3VwU2VwYXJhdG9yIC8KICAgICAgICB9CgogICAgICAgIGEgPSBzb2Z0d2FyZVN5c3RlbSAiQSIKCiAgICAgICAgZ3JvdXAgIkdyb3VwIDEiIHsKICAgICAgICAgICAgYiA9IHNvZnR3YXJlU3lzdGVtICJCIgogICAgICAgIH0KCiAgICAgICAgZ3JvdXAgIkdyb3VwIDIiIHsKICAgICAgICAgICAgYyA9IHNvZnR3YXJlU3lzdGVtICJDIgoKICAgICAgICAgICAgZ3JvdXAgIkdyb3VwIDMiIHsKICAgICAgICAgICAgICAgIGQgPSBzb2Z0d2FyZVN5c3RlbSAiRCIgewogICAgICAgICAgICAgICAgICAgIGUgPSBjb250YWluZXIgIkUiCgogICAgICAgICAgICAgICAgICAgIGdyb3VwICJHcm91cCA0IiB7CiAgICAgICAgICAgICAgICAgICAgICAgIGYgPSBjb250YWluZXIgIkYiIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGcgPSBjb21wb25lbnQgIkciCgogICAgICAgICAgICAgICAgICAgICAgICAgICAgZ3JvdXAgIkdyb3VwIDUiIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBoID0gY29tcG9uZW50ICJIIgogICAgICAgICAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgfQoKICAgICAgICBhIC0+IGIKICAgICAgICBiIC0+IGMKICAgICAgICBjIC0+IGUKICAgICAgICBjIC0+IGcKICAgICAgICBjIC0+IGgKCiAgICB9CgogICAgdmlld3MgewogICAgICAgIHN5c3RlbWxhbmRzY2FwZSAiU3lzdGVtTGFuZHNjYXBlIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvbGF5b3V0CiAgICAgICAgfQoKICAgICAgICBjb250YWluZXIgZCAiQ29udGFpbmVycyIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dAogICAgICAgIH0KCiAgICAgICAgY29tcG9uZW50IGYgIkNvbXBvbmVudHMiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9sYXlvdXQKICAgICAgICB9CiAgICB9Cgp9Cg=="
   },
   "configuration" : { },
   "model" : {
-    "enterprise" : {
-      "name" : "Enterprise"
-    },
     "softwareSystems" : [ {
       "id" : "1",
       "tags" : "Element,Software System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "a"
+      },
       "name" : "A",
       "relationships" : [ {
         "id" : "9",
         "tags" : "Relationship",
+        "properties" : {
+          "structurizr.dsl.identifier" : "370d771e-c1ab-4243-b9cd-2325145b20bc"
+        },
         "sourceId" : "1",
         "destinationId" : "2"
       } ],
-      "location" : "External"
+      "location" : "Unspecified",
+      "documentation" : { }
     }, {
       "id" : "2",
       "tags" : "Element,Software System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "b"
+      },
       "name" : "B",
       "relationships" : [ {
         "id" : "10",
         "tags" : "Relationship",
+        "properties" : {
+          "structurizr.dsl.identifier" : "923c8280-f475-422a-9fef-2b69220bc8e6"
+        },
         "sourceId" : "2",
         "destinationId" : "3"
       } ],
       "group" : "Group 1",
-      "location" : "External"
+      "location" : "Unspecified",
+      "documentation" : { }
     }, {
       "id" : "3",
       "tags" : "Element,Software System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "c"
+      },
       "name" : "C",
       "relationships" : [ {
         "id" : "11",
         "tags" : "Relationship",
+        "properties" : {
+          "structurizr.dsl.identifier" : "cd5c9209-d4f5-4ffa-a323-dc0d5612cdb8"
+        },
         "sourceId" : "3",
         "destinationId" : "5"
       }, {
         "id" : "12",
-        "tags" : "Relationship",
         "sourceId" : "3",
-        "destinationId" : "4"
+        "destinationId" : "4",
+        "linkedRelationshipId" : "11"
       }, {
         "id" : "13",
         "tags" : "Relationship",
+        "properties" : {
+          "structurizr.dsl.identifier" : "0f23b6e5-9276-4468-b3fb-9381f53c8cd7"
+        },
         "sourceId" : "3",
         "destinationId" : "7"
       }, {
         "id" : "14",
-        "tags" : "Relationship",
         "sourceId" : "3",
-        "destinationId" : "6"
+        "destinationId" : "6",
+        "linkedRelationshipId" : "13"
       }, {
         "id" : "15",
         "tags" : "Relationship",
+        "properties" : {
+          "structurizr.dsl.identifier" : "b0b99a2e-129b-4f75-81c0-de9c67916229"
+        },
         "sourceId" : "3",
         "destinationId" : "8"
       } ],
-      "location" : "Internal"
+      "group" : "Group 2",
+      "location" : "Unspecified",
+      "documentation" : { }
     }, {
       "id" : "4",
       "tags" : "Element,Software System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "d"
+      },
       "name" : "D",
-      "group" : "Group 2",
-      "location" : "Internal",
+      "group" : "Group 2/Group 3",
+      "location" : "Unspecified",
       "containers" : [ {
-        "id" : "5",
-        "tags" : "Element,Container",
-        "name" : "E"
-      }, {
         "id" : "6",
         "tags" : "Element,Container",
+        "properties" : {
+          "structurizr.dsl.identifier" : "f"
+        },
         "name" : "F",
-        "group" : "Group 3",
+        "group" : "Group 4",
         "components" : [ {
           "id" : "8",
           "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "h"
+          },
           "name" : "H",
-          "group" : "Group 4",
-          "size" : 0
+          "group" : "Group 5",
+          "documentation" : { }
         }, {
           "id" : "7",
           "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "g"
+          },
           "name" : "G",
-          "size" : 0
-        } ]
-      } ]
-    } ]
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "5",
+        "tags" : "Element,Container",
+        "properties" : {
+          "structurizr.dsl.identifier" : "e"
+        },
+        "name" : "E",
+        "documentation" : { }
+      } ],
+      "documentation" : { }
+    } ],
+    "properties" : {
+      "structurizr.groupSeparator" : "/"
+    }
   },
   "documentation" : { },
   "views" : {
     "systemLandscapeViews" : [ {
       "key" : "SystemLandscape",
+      "order" : 1,
       "automaticLayout" : {
         "implementation" : "Graphviz",
         "rankDirection" : "TopBottom",
         "rankSeparation" : 300,
         "nodeSeparation" : 300,
         "edgeSeparation" : 0,
-        "vertices" : false
+        "vertices" : false,
+        "applied" : false
       },
       "enterpriseBoundaryVisible" : true,
+      "relationships" : [ {
+        "id" : "12"
+      }, {
+        "id" : "9"
+      }, {
+        "id" : "10"
+      } ],
       "elements" : [ {
         "id" : "1",
         "x" : 0,
@@ -123,27 +178,27 @@
         "id" : "4",
         "x" : 0,
         "y" : 0
-      } ],
-      "relationships" : [ {
-        "id" : "12"
-      }, {
-        "id" : "9"
-      }, {
-        "id" : "10"
       } ]
     } ],
     "containerViews" : [ {
-      "softwareSystemId" : "4",
       "key" : "Containers",
+      "order" : 2,
+      "softwareSystemId" : "4",
       "automaticLayout" : {
         "implementation" : "Graphviz",
         "rankDirection" : "TopBottom",
         "rankSeparation" : 300,
         "nodeSeparation" : 300,
         "edgeSeparation" : 0,
-        "vertices" : false
+        "vertices" : false,
+        "applied" : false
       },
       "externalSoftwareSystemBoundariesVisible" : true,
+      "relationships" : [ {
+        "id" : "14"
+      }, {
+        "id" : "11"
+      } ],
       "elements" : [ {
         "id" : "3",
         "x" : 0,
@@ -156,25 +211,27 @@
         "id" : "6",
         "x" : 0,
         "y" : 0
-      } ],
-      "relationships" : [ {
-        "id" : "14"
-      }, {
-        "id" : "11"
       } ]
     } ],
     "componentViews" : [ {
       "key" : "Components",
+      "order" : 3,
       "automaticLayout" : {
         "implementation" : "Graphviz",
         "rankDirection" : "TopBottom",
         "rankSeparation" : 300,
         "nodeSeparation" : 300,
         "edgeSeparation" : 0,
-        "vertices" : false
+        "vertices" : false,
+        "applied" : false
       },
       "containerId" : "6",
       "externalContainerBoundariesVisible" : true,
+      "relationships" : [ {
+        "id" : "15"
+      }, {
+        "id" : "13"
+      } ],
       "elements" : [ {
         "id" : "3",
         "x" : 0,
@@ -187,11 +244,6 @@
         "id" : "8",
         "x" : 0,
         "y" : 0
-      } ],
-      "relationships" : [ {
-        "id" : "15"
-      }, {
-        "id" : "13"
       } ]
     } ],
     "configuration" : {

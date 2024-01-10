@@ -83,14 +83,6 @@ public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void isEnterpriseBoundaryVisible() {
-        assertTrue(view.isEnterpriseBoundaryVisible()); // default is true
-
-        view.setEnterpriseBoundaryVisible(false);
-        assertFalse(view.isEnterpriseBoundaryVisible());
-    }
-
-    @Test
     void addNearestNeighbours_ThrowsAnException_WhenANullElementIsSpecified() {
         try {
             view.addNearestNeighbours(null);

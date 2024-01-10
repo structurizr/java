@@ -39,7 +39,7 @@ workspace "Name" "Description" {
             }
         }
 
-        enterprise "${ORGANISATION_NAME} - ${GROUP_NAME}" {
+        group "${ORGANISATION_NAME} - ${GROUP_NAME}" {
             softwareSystem = softwareSystem "Software System" "Description"  "Tag" {
                 webApplication = container "Web Application" "Description" "Technology" "Tag" {
                     homePageController = component "HomePageController" "Description" "Spring MVC Controller" "Tag" {
@@ -317,7 +317,6 @@ workspace "Name" "Description" {
         }
 
         terminology {
-            enterprise "Enterprise"
             person "Person"
             softwareSystem "Software System"
             container "Container"

@@ -130,7 +130,21 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
 
     private Diagram export(SystemLandscapeView view, Integer animationStep) {
         this.frame = animationStep;
-        return export(view, view.isEnterpriseBoundaryVisible());
+
+        IndentingWriter writer = new IndentingWriter();
+        writeHeader(view, writer);
+
+        List<GroupableElement> elements = new ArrayList<>();
+        for (ElementView elementView : view.getElements()) {
+            elements.add((GroupableElement)elementView.getElement());
+        }
+        writeElements(view, elements, writer);
+
+        writer.writeLine();
+        writeRelationships(view, writer);
+        writeFooter(view, writer);
+
+        return createDiagram(view, writer.toString());
     }
 
     public Diagram export(SystemContextView view) {
@@ -149,59 +163,15 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
 
     private Diagram export(SystemContextView view, Integer animationStep) {
         this.frame = animationStep;
-        return export(view, view.isEnterpriseBoundaryVisible());
-    }
 
-    private Diagram export(ModelView view, boolean enterpriseBoundaryIsVisible) {
         IndentingWriter writer = new IndentingWriter();
         writeHeader(view, writer);
 
-        boolean showEnterpriseBoundary =
-                enterpriseBoundaryIsVisible &&
-                (view.getElements().stream().map(ElementView::getElement).anyMatch(e -> e instanceof Person && ((Person)e).getLocation() == Location.Internal) ||
-                 view.getElements().stream().map(ElementView::getElement).anyMatch(e -> e instanceof SoftwareSystem && ((SoftwareSystem)e).getLocation() == Location.Internal));
-
-        if (showEnterpriseBoundary) {
-            String enterpriseName = "Enterprise";
-            if (view.getModel().getEnterprise() != null) {
-                enterpriseName = view.getModel().getEnterprise().getName();
-            }
-
-            startEnterpriseBoundary(view, enterpriseName, writer);
-
-            List<GroupableElement> elementsInsideEnterpriseBoundary = new ArrayList<>();
-            for (ElementView elementView : view.getElements()) {
-                if (elementView.getElement() instanceof Person && ((Person)elementView.getElement()).getLocation() == Location.Internal) {
-                    elementsInsideEnterpriseBoundary.add((StaticStructureElement)elementView.getElement());
-                }
-                if (elementView.getElement() instanceof SoftwareSystem && ((SoftwareSystem)elementView.getElement()).getLocation() == Location.Internal) {
-                    elementsInsideEnterpriseBoundary.add((StaticStructureElement)elementView.getElement());
-                }
-            }
-            writeElements(view, elementsInsideEnterpriseBoundary, writer);
-
-            endEnterpriseBoundary(view, writer);
-
-            List<GroupableElement> elementsOutsideEnterpriseBoundary = new ArrayList<>();
-            for (ElementView elementView : view.getElements()) {
-                if (elementView.getElement() instanceof Person && ((Person)elementView.getElement()).getLocation() != Location.Internal) {
-                    elementsOutsideEnterpriseBoundary.add((StaticStructureElement)elementView.getElement());
-                }
-                if (elementView.getElement() instanceof SoftwareSystem && ((SoftwareSystem)elementView.getElement()).getLocation() != Location.Internal) {
-                    elementsOutsideEnterpriseBoundary.add((StaticStructureElement)elementView.getElement());
-                }
-                if (elementView.getElement() instanceof CustomElement) {
-                    elementsOutsideEnterpriseBoundary.add((CustomElement)elementView.getElement());
-                }
-            }
-            writeElements(view, elementsOutsideEnterpriseBoundary, writer);
-        } else {
-            List<GroupableElement> elements = new ArrayList<>();
-            for (ElementView elementView : view.getElements()) {
-                elements.add((GroupableElement)elementView.getElement());
-            }
-            writeElements(view, elements, writer);
+        List<GroupableElement> elements = new ArrayList<>();
+        for (ElementView elementView : view.getElements()) {
+            elements.add((GroupableElement)elementView.getElement());
         }
+        writeElements(view, elements, writer);
 
         writer.writeLine();
         writeRelationships(view, writer);

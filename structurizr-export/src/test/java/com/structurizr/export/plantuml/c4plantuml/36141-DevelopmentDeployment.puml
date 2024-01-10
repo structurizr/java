@@ -12,29 +12,29 @@ top to bottom direction
 AddElementTag("Software System,Existing System", $bgColor="#999999", $borderColor="#6b6b6b", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="Solid", $borderThickness="1")
 AddElementTag("Element", $bgColor="#ffffff", $borderColor="#888888", $fontColor="#000000", $sprite="", $shadowing="", $borderStyle="Solid", $borderThickness="1")
 AddElementTag("Container,Database", $bgColor="#438dd5", $borderColor="#2e6295", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="Solid", $borderThickness="1")
-AddElementTag("Container,Web Browser", $bgColor="#438dd5", $borderColor="#2e6295", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="Solid", $borderThickness="1")
 AddElementTag("Container", $bgColor="#438dd5", $borderColor="#2e6295", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="Solid", $borderThickness="1")
+AddElementTag("Container,Web Browser", $bgColor="#438dd5", $borderColor="#2e6295", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="Solid", $borderThickness="1")
 
 AddRelTag("Relationship", $textColor="#707070", $lineColor="#707070", $lineStyle = "")
 
-Deployment_Node(Development.DeveloperLaptop, "Developer Laptop", $type="Microsoft Windows 10 or Apple macOS", $descr="A developer laptop.", $tags="Element", $link="") {
-  Deployment_Node(Development.DeveloperLaptop.DockerContainerWebServer, "Docker Container - Web Server", $type="Docker", $descr="A Docker container.", $tags="Element", $link="") {
-    Deployment_Node(Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat, "Apache Tomcat", $type="Apache Tomcat 8.x", $descr="An open source Java EE web server.", $tags="Element", $link="") {
+Deployment_Node(Development.DeveloperLaptop, "Developer Laptop", $type="Microsoft Windows 10 or Apple macOS", $descr="", $tags="Element", $link="") {
+  Deployment_Node(Development.DeveloperLaptop.WebBrowser, "Web Browser", $type="Chrome, Firefox, Safari, or Edge", $descr="", $tags="Element", $link="") {
+    Container(Development.DeveloperLaptop.WebBrowser.SinglePageApplication_1, "Single-Page Application", $techn="JavaScript and Angular", $descr="Provides all of the Internet banking functionality to customers via their web browser.", $tags="Container,Web Browser", $link="")
+  }
+
+  Deployment_Node(Development.DeveloperLaptop.DockerContainerWebServer, "Docker Container - Web Server", $type="Docker", $descr="", $tags="Element", $link="") {
+    Deployment_Node(Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat, "Apache Tomcat", $type="Apache Tomcat 8.x", $descr="", $tags="Element", $link="") {
       Container(Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.WebApplication_1, "Web Application", $techn="Java and Spring MVC", $descr="Delivers the static content and the Internet banking single page application.", $tags="Container", $link="")
       Container(Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1, "API Application", $techn="Java and Spring MVC", $descr="Provides Internet banking functionality via a JSON/HTTPS API.", $tags="Container", $link="")
     }
 
   }
 
-  Deployment_Node(Development.DeveloperLaptop.DockerContainerDatabaseServer, "Docker Container - Database Server", $type="Docker", $descr="A Docker container.", $tags="Element", $link="") {
-    Deployment_Node(Development.DeveloperLaptop.DockerContainerDatabaseServer.DatabaseServer, "Database Server", $type="Oracle 12c", $descr="A development database.", $tags="Element", $link="") {
+  Deployment_Node(Development.DeveloperLaptop.DockerContainerDatabaseServer, "Docker Container - Database Server", $type="Docker", $descr="", $tags="Element", $link="") {
+    Deployment_Node(Development.DeveloperLaptop.DockerContainerDatabaseServer.DatabaseServer, "Database Server", $type="Oracle 12c", $descr="", $tags="Element", $link="") {
       ContainerDb(Development.DeveloperLaptop.DockerContainerDatabaseServer.DatabaseServer.Database_1, "Database", $techn="Oracle Database Schema", $descr="Stores user registration information, hashed authentication credentials, access logs, etc.", $tags="Container,Database", $link="")
     }
 
-  }
-
-  Deployment_Node(Development.DeveloperLaptop.WebBrowser, "Web Browser", $type="Chrome, Firefox, Safari, or Edge", $descr="", $tags="Element", $link="") {
-    Container(Development.DeveloperLaptop.WebBrowser.SinglePageApplication_1, "Single-Page Application", $techn="JavaScript and Angular", $descr="Provides all of the Internet banking functionality to customers via their web browser.", $tags="Container,Web Browser", $link="")
   }
 
 }
@@ -46,10 +46,10 @@ Deployment_Node(Development.BigBankplc, "Big Bank plc", $type="Big Bank plc data
 
 }
 
-Rel(Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1, Development.BigBankplc.bigbankdev001.MainframeBankingSystem_1, "Makes API calls to", $techn="XML/HTTPS", $tags="Relationship", $link="")
-Rel(Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1, Development.DeveloperLaptop.DockerContainerDatabaseServer.DatabaseServer.Database_1, "Reads from and writes to", $techn="JDBC", $tags="Relationship", $link="")
-Rel(Development.DeveloperLaptop.WebBrowser.SinglePageApplication_1, Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1, "Makes API calls to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
 Rel(Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.WebApplication_1, Development.DeveloperLaptop.WebBrowser.SinglePageApplication_1, "Delivers to the customer's web browser", $techn="", $tags="Relationship", $link="")
+Rel(Development.DeveloperLaptop.WebBrowser.SinglePageApplication_1, Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1, "Makes API calls to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
+Rel(Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1, Development.DeveloperLaptop.DockerContainerDatabaseServer.DatabaseServer.Database_1, "Reads from and writes to", $techn="SQL/TCP", $tags="Relationship", $link="")
+Rel(Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1, Development.BigBankplc.bigbankdev001.MainframeBankingSystem_1, "Makes API calls to", $techn="XML/HTTPS", $tags="Relationship", $link="")
 
 SHOW_LEGEND(true)
 @enduml

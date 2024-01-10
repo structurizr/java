@@ -493,27 +493,19 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
 
         if (element instanceof Person) {
             Person person = (Person)element;
-            String location = "";
-            if (person.getLocation() == Location.External) {
-                location = "_Ext";
-            }
 
             // Person(alias, label, ?descr, ?sprite, ?tags, ?link, ?type)
             writer.writeLine(
-                    String.format("Person%s(%s, \"%s\", $descr=\"%s\", $tags=\"%s\", $link=\"%s\")",
-                        location, id, name, description, tagsOf(view, elementToWrite), url)
+                    String.format("Person(%s, \"%s\", $descr=\"%s\", $tags=\"%s\", $link=\"%s\")",
+                        id, name, description, tagsOf(view, elementToWrite), url)
             );
         } else if (element instanceof SoftwareSystem) {
             SoftwareSystem softwareSystem = (SoftwareSystem)element;
-            String location = "";
-            if (softwareSystem.getLocation() == Location.External) {
-                location = "_Ext";
-            }
 
             // System(alias, label, ?descr, ?sprite, ?tags, ?link, ?type)
             writer.writeLine(
-                    String.format("System%s(%s, \"%s\", $descr=\"%s\", $tags=\"%s\", $link=\"%s\")",
-                        location, id, name, description, tagsOf(view, elementToWrite), url)
+                    String.format("System(%s, \"%s\", $descr=\"%s\", $tags=\"%s\", $link=\"%s\")",
+                        id, name, description, tagsOf(view, elementToWrite), url)
             );
         } else if (element instanceof Container) {
             Container container = (Container)element;

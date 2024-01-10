@@ -8,32 +8,32 @@ graph TB
     style 1 fill:#08427b,stroke:#052e56,color:#ffffff
     4["<div style='font-weight: bold'>Mainframe Banking System</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>Stores all of the core<br />banking information about<br />customers, accounts,<br />transactions, etc.</div>"]
     style 4 fill:#999999,stroke:#6b6b6b,color:#ffffff
-    6["<div style='font-weight: bold'>E-mail System</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>The internal Microsoft<br />Exchange e-mail system.</div>"]
-    style 6 fill:#999999,stroke:#6b6b6b,color:#ffffff
+    5["<div style='font-weight: bold'>E-mail System</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>The internal Microsoft<br />Exchange e-mail system.</div>"]
+    style 5 fill:#999999,stroke:#6b6b6b,color:#ffffff
 
-    subgraph 2 [Internet Banking System]
-      style 2 fill:#ffffff,stroke:#0b4884,color:#0b4884
+    subgraph 7 [Internet Banking System]
+      style 7 fill:#ffffff,stroke:#0b4884,color:#0b4884
 
-      17["<div style='font-weight: bold'>Single-Page Application</div><div style='font-size: 70%; margin-top: 0px'>[Container: JavaScript and Angular]</div><div style='font-size: 80%; margin-top:10px'>Provides all of the Internet<br />banking functionality to<br />customers via their web<br />browser.</div>"]
-      style 17 fill:#438dd5,stroke:#2e6295,color:#ffffff
-      18["<div style='font-weight: bold'>Mobile App</div><div style='font-size: 70%; margin-top: 0px'>[Container: Xamarin]</div><div style='font-size: 80%; margin-top:10px'>Provides a limited subset of<br />the Internet banking<br />functionality to customers<br />via their mobile device.</div>"]
+      10["<div style='font-weight: bold'>Web Application</div><div style='font-size: 70%; margin-top: 0px'>[Container: Java and Spring MVC]</div><div style='font-size: 80%; margin-top:10px'>Delivers the static content<br />and the Internet banking<br />single page application.</div>"]
+      style 10 fill:#438dd5,stroke:#2e6295,color:#ffffff
+      11["<div style='font-weight: bold'>API Application</div><div style='font-size: 70%; margin-top: 0px'>[Container: Java and Spring MVC]</div><div style='font-size: 80%; margin-top:10px'>Provides Internet banking<br />functionality via a<br />JSON/HTTPS API.</div>"]
+      style 11 fill:#438dd5,stroke:#2e6295,color:#ffffff
+      18[("<div style='font-weight: bold'>Database</div><div style='font-size: 70%; margin-top: 0px'>[Container: Oracle Database Schema]</div><div style='font-size: 80%; margin-top:10px'>Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</div>")]
       style 18 fill:#438dd5,stroke:#2e6295,color:#ffffff
-      19["<div style='font-weight: bold'>Web Application</div><div style='font-size: 70%; margin-top: 0px'>[Container: Java and Spring MVC]</div><div style='font-size: 80%; margin-top:10px'>Delivers the static content<br />and the Internet banking<br />single page application.</div>"]
-      style 19 fill:#438dd5,stroke:#2e6295,color:#ffffff
-      20["<div style='font-weight: bold'>API Application</div><div style='font-size: 70%; margin-top: 0px'>[Container: Java and Spring MVC]</div><div style='font-size: 80%; margin-top:10px'>Provides Internet banking<br />functionality via a<br />JSON/HTTPS API.</div>"]
-      style 20 fill:#438dd5,stroke:#2e6295,color:#ffffff
-      21[("<div style='font-weight: bold'>Database</div><div style='font-size: 70%; margin-top: 0px'>[Container: Oracle Database Schema]</div><div style='font-size: 80%; margin-top:10px'>Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</div>")]
-      style 21 fill:#438dd5,stroke:#2e6295,color:#ffffff
+      8["<div style='font-weight: bold'>Single-Page Application</div><div style='font-size: 70%; margin-top: 0px'>[Container: JavaScript and Angular]</div><div style='font-size: 80%; margin-top:10px'>Provides all of the Internet<br />banking functionality to<br />customers via their web<br />browser.</div>"]
+      style 8 fill:#438dd5,stroke:#2e6295,color:#ffffff
+      9["<div style='font-weight: bold'>Mobile App</div><div style='font-size: 70%; margin-top: 0px'>[Container: Xamarin]</div><div style='font-size: 80%; margin-top:10px'>Provides a limited subset of<br />the Internet banking<br />functionality to customers<br />via their mobile device.</div>"]
+      style 9 fill:#438dd5,stroke:#2e6295,color:#ffffff
     end
 
-    1-. "<div>Visits bigbank.com/ib using</div><div style='font-size: 70%'>[HTTPS]</div>" .->19
-    1-. "<div>Views account balances, and<br />makes payments using</div><div style='font-size: 70%'></div>" .->17
-    1-. "<div>Views account balances, and<br />makes payments using</div><div style='font-size: 70%'></div>" .->18
-    19-. "<div>Delivers to the customer's<br />web browser</div><div style='font-size: 70%'></div>" .->17
-    20-. "<div>Reads from and writes to</div><div style='font-size: 70%'>[JDBC]</div>" .->21
-    20-. "<div>Makes API calls to</div><div style='font-size: 70%'>[XML/HTTPS]</div>" .->4
-    20-. "<div>Sends e-mail using</div><div style='font-size: 70%'>[SMTP]</div>" .->6
-    17-. "<div>Makes API calls to</div><div style='font-size: 70%'>[JSON/HTTPS]</div>" .->20
-    18-. "<div>Makes API calls to</div><div style='font-size: 70%'>[JSON/HTTPS]</div>" .->20
-    6-. "<div>Sends e-mails to</div><div style='font-size: 70%'></div>" .->1
+    5-. "<div>Sends e-mails to</div><div style='font-size: 70%'></div>" .->1
+    1-. "<div>Visits bigbank.com/ib using</div><div style='font-size: 70%'>[HTTPS]</div>" .->10
+    1-. "<div>Views account balances, and<br />makes payments using</div><div style='font-size: 70%'></div>" .->8
+    1-. "<div>Views account balances, and<br />makes payments using</div><div style='font-size: 70%'></div>" .->9
+    10-. "<div>Delivers to the customer's<br />web browser</div><div style='font-size: 70%'></div>" .->8
+    8-. "<div>Makes API calls to</div><div style='font-size: 70%'>[JSON/HTTPS]</div>" .->11
+    9-. "<div>Makes API calls to</div><div style='font-size: 70%'>[JSON/HTTPS]</div>" .->11
+    11-. "<div>Reads from and writes to</div><div style='font-size: 70%'>[SQL/TCP]</div>" .->18
+    11-. "<div>Makes API calls to</div><div style='font-size: 70%'>[XML/HTTPS]</div>" .->4
+    11-. "<div>Sends e-mail using</div><div style='font-size: 70%'></div>" .->5
   end

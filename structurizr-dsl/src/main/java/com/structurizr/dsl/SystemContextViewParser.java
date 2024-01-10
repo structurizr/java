@@ -53,10 +53,7 @@ final class SystemContextViewParser extends AbstractViewParser {
             description = tokens.get(DESCRIPTION_INDEX);
         }
 
-        SystemContextView view = workspace.getViews().createSystemContextView(softwareSystem, key, description);
-        view.setEnterpriseBoundaryVisible(true);
-
-        return view;
+        return workspace.getViews().createSystemContextView(softwareSystem, key, description);
     }
 
 }

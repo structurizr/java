@@ -73,7 +73,6 @@ class ContainerViewParserTests extends AbstractTests {
         assertEquals(1, views.size());
         assertEquals("Container-001", views.get(0).getKey());
         assertEquals("", views.get(0).getDescription());
-        assertTrue(views.get(0).getExternalSoftwareSystemBoundariesVisible());
     }
 
     @Test
@@ -89,7 +88,6 @@ class ContainerViewParserTests extends AbstractTests {
         assertEquals(1, views.size());
         assertEquals("key", views.get(0).getKey());
         assertEquals("", views.get(0).getDescription());
-        assertTrue(views.get(0).getExternalSoftwareSystemBoundariesVisible());
     }
 
     @Test
@@ -105,7 +103,6 @@ class ContainerViewParserTests extends AbstractTests {
         assertEquals(1, views.size());
         assertEquals("key", views.get(0).getKey());
         assertEquals("Description", views.get(0).getDescription());
-        assertTrue(views.get(0).getExternalSoftwareSystemBoundariesVisible());
     }
 
 }

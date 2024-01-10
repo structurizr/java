@@ -36,11 +36,7 @@ public final class SoftwareSystem extends StaticStructureElement implements Docu
     SoftwareSystem() {
     }
 
-    /**
-     * Gets the location of this software system.
-     *
-     * @return a Location instance
-     */
+    @Deprecated
     public Location getLocation() {
         return location;
     }
@@ -51,7 +47,7 @@ public final class SoftwareSystem extends StaticStructureElement implements Docu
      * @param location  a Location instance
      */
     @Deprecated
-    public void setLocation(Location location) {
+    void setLocation(Location location) {
         if (location != null) {
             this.location = location;
         } else {

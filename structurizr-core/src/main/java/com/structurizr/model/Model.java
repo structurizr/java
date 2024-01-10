@@ -33,23 +33,13 @@ public final class Model implements PropertyHolder {
     Model() {
     }
 
-    /**
-     * Gets the enterprise associated with this model.
-     *
-     * @return an Enterprise instance, or null if one has not been set
-     */
+    @Deprecated
     public Enterprise getEnterprise() {
         return enterprise;
     }
 
-    /**
-     * Sets the enterprise associated with this model.
-     * This is typically used in conjunction with {@link Location}.
-     *
-     * @param enterprise an Enterprise instance
-     */
     @Deprecated
-    public void setEnterprise(Enterprise enterprise) {
+    void setEnterprise(Enterprise enterprise) {
         this.enterprise = enterprise;
     }
 
@@ -75,36 +65,6 @@ public final class Model implements PropertyHolder {
     public SoftwareSystem addSoftwareSystem(@Nonnull String name, @Nullable String description) {
         if (getSoftwareSystemWithName(name) == null) {
             SoftwareSystem softwareSystem = new SoftwareSystem();
-            softwareSystem.setLocation(Location.Unspecified);
-            softwareSystem.setName(name);
-            softwareSystem.setDescription(description);
-
-            softwareSystems.add(softwareSystem);
-
-            softwareSystem.setId(idGenerator.generateId(softwareSystem));
-            addElementToInternalStructures(softwareSystem);
-
-            return softwareSystem;
-        } else {
-            throw new IllegalArgumentException("A top-level element named '" + name + "' already exists.");
-        }
-    }
-
-    /**
-     * Creates a software system and adds it to the model.
-     *
-     * @param location    the location of the software system (e.g. internal, external, etc)
-     * @param name        the name of the software system
-     * @param description a short description of the software system
-     * @return the SoftwareSystem instance created and added to the model (or null)
-     * @throws IllegalArgumentException if a software system with the same name already exists
-     */
-    @Nonnull
-    @Deprecated
-    public SoftwareSystem addSoftwareSystem(@Nullable Location location, @Nonnull String name, @Nullable String description) {
-        if (getSoftwareSystemWithName(name) == null) {
-            SoftwareSystem softwareSystem = new SoftwareSystem();
-            softwareSystem.setLocation(location);
             softwareSystem.setName(name);
             softwareSystem.setDescription(description);
 
@@ -143,36 +103,6 @@ public final class Model implements PropertyHolder {
     public Person addPerson(@Nonnull String name, @Nullable String description) {
         if (getPersonWithName(name) == null) {
             Person person = new Person();
-            person.setLocation(Location.Unspecified);
-            person.setName(name);
-            person.setDescription(description);
-
-            people.add(person);
-
-            person.setId(idGenerator.generateId(person));
-            addElementToInternalStructures(person);
-
-            return person;
-        } else {
-            throw new IllegalArgumentException("A top-level element named '" + name + "' already exists.");
-        }
-    }
-
-    /**
-     * Creates a person and adds it to the model.
-     *
-     * @param location    the location of the person (e.g. internal, external, etc)
-     * @param name        the name of the person (e.g. "Admin User" or "Bob the Business User")
-     * @param description a short description of the person
-     * @return the Person instance created and added to the model (or null)
-     * @throws IllegalArgumentException if a person with the same name already exists
-     */
-    @Nonnull
-    @Deprecated
-    public Person addPerson(Location location, @Nonnull String name, @Nullable String description) {
-        if (getPersonWithName(name) == null) {
-            Person person = new Person();
-            person.setLocation(location);
             person.setName(name);
             person.setDescription(description);
 

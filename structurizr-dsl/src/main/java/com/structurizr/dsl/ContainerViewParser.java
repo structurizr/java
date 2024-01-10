@@ -54,7 +54,6 @@ final class ContainerViewParser extends AbstractViewParser {
         }
 
         ContainerView view = workspace.getViews().createContainerView(softwareSystem, key, description);
-        view.setExternalSoftwareSystemBoundariesVisible(true);
 
         return view;
     }

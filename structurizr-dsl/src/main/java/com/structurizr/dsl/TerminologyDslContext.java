@@ -5,7 +5,6 @@ final class TerminologyDslContext extends DslContext {
     @Override
     protected String[] getPermittedTokens() {
         return new String[] {
-                StructurizrDslTokens.ENTERPRISE_TOKEN,
                 StructurizrDslTokens.PERSON_TOKEN,
                 StructurizrDslTokens.SOFTWARE_SYSTEM_TOKEN,
                 StructurizrDslTokens.CONTAINER_TOKEN,

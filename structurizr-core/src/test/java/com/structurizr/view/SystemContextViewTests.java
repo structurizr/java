@@ -273,14 +273,6 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void isEnterpriseBoundaryVisible() {
-        assertTrue(view.isEnterpriseBoundaryVisible()); // default is true
-
-        view.setEnterpriseBoundaryVisible(false);
-        assertFalse(view.isEnterpriseBoundaryVisible());
-    }
-
-    @Test
     void addDefaultElements() {
         CustomElement element = model.addCustomElement("Custom");
         Person user1 = model.addPerson("User 1");

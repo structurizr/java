@@ -28,7 +28,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = diagrams.stream().filter(d -> d.getKey().equals("SystemLandscape")).findFirst().get();
         String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/36141-SystemLandscape.puml"));
         assertEquals(expected, diagram.getDefinition());
-        assertEquals(3, diagram.getFrames().size());
+        assertEquals(0, diagram.getFrames().size());
 
         //assertEquals("", diagram.getLegend().getDefinition());
 
@@ -55,12 +55,12 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         diagram = diagrams.stream().filter(md -> md.getKey().equals("DevelopmentDeployment")).findFirst().get();
         expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/36141-DevelopmentDeployment.puml"));
         assertEquals(expected, diagram.getDefinition());
-        assertEquals(4, diagram.getFrames().size());
+        assertEquals(3, diagram.getFrames().size());
 
         diagram = diagrams.stream().filter(md -> md.getKey().equals("LiveDeployment")).findFirst().get();
         expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/36141-LiveDeployment.puml"));
         assertEquals(expected, diagram.getDefinition());
-        assertEquals(6, diagram.getFrames().size());
+        assertEquals(5, diagram.getFrames().size());
 
         // and the sequence diagram version
         workspace.getViews().getConfiguration().addProperty(exporter.PLANTUML_SEQUENCE_DIAGRAM_PROPERTY, "true");

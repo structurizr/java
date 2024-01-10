@@ -34,10 +34,7 @@ final class SystemLandscapeViewParser extends AbstractViewParser {
             description = tokens.get(DESCRIPTION_INDEX);
         }
 
-        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView(key, description);
-        view.setEnterpriseBoundaryVisible(true);
-
-        return view;
+        return workspace.getViews().createSystemLandscapeView(key, description);
     }
 
 }

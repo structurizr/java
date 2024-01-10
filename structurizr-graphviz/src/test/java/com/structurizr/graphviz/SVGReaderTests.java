@@ -5,6 +5,7 @@ import com.structurizr.model.Location;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
 import com.structurizr.model.Tags;
+import com.structurizr.util.WorkspaceUtils;
 import com.structurizr.view.PaperSize;
 import com.structurizr.view.Shape;
 import com.structurizr.view.SystemContextView;
@@ -49,14 +50,11 @@ public class SVGReaderTests {
     private static Workspace createWorkspace() {
         Workspace workspace = new Workspace("Name", "");
         Person user = workspace.getModel().addPerson("User", "");
-        user.setLocation(Location.External);
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "");
-        softwareSystem.setLocation(Location.Internal);
         user.uses(softwareSystem, "Uses");
 
         SystemContextView view = workspace.getViews().createSystemContextView(softwareSystem, "SystemContext", "");
         view.addAllElements();
-        view.setEnterpriseBoundaryVisible(true);
 
         workspace.getViews().getConfiguration().getStyles().addElementStyle(Tags.PERSON).shape(Shape.Person);
 

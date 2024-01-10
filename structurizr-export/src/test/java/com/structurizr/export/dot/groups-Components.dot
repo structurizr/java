@@ -15,9 +15,9 @@ digraph {
     fontcolor="#444444"
     fillcolor="#444444"
 
-    subgraph "cluster_group_Group 4" {
+    subgraph "cluster_group_Group 5" {
       margin=25
-      label=<<font point-size="24"><br />Group 4</font>>
+      label=<<font point-size="24"><br />Group 5</font>>
       labelloc=b
       color="#cccccc"
       fontcolor="#cccccc"

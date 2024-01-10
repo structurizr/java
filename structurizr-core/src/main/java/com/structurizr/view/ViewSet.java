@@ -854,7 +854,6 @@ public final class ViewSet {
         SystemLandscapeView systemLandscapeView = createSystemLandscapeView(generateViewKey(SYSTEM_LANDSCAPE_VIEW_TYPE), "");
         systemLandscapeView.addDefaultElements();
         systemLandscapeView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
-        systemLandscapeView.setEnterpriseBoundaryVisible(true);
 
         if (!model.getSoftwareSystems().isEmpty()) {
             List<SoftwareSystem> softwareSystems = new ArrayList<>(model.getSoftwareSystems());
@@ -866,7 +865,6 @@ public final class ViewSet {
                 SystemContextView systemContextView = createSystemContextView(softwareSystem, systemContextViewKey, "");
                 systemContextView.addDefaultElements();
                 systemContextView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
-                systemContextView.setEnterpriseBoundaryVisible(true);
 
                 if (softwareSystem.getContainers().size() > 0) {
                     List<Container> containers = new ArrayList<>(softwareSystem.getContainers());
@@ -876,7 +874,6 @@ public final class ViewSet {
                     ContainerView containerView = createContainerView(softwareSystem, containerViewKey, "");
                     containerView.addDefaultElements();
                     containerView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
-                    containerView.setExternalSoftwareSystemBoundariesVisible(true);
 
                     for (Container container : containers) {
                         if (container.getComponents().size() > 0) {
@@ -884,7 +881,6 @@ public final class ViewSet {
                             ComponentView componentView = createComponentView(container, componentViewKey, "");
                             componentView.addDefaultElements();
                             componentView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
-                            componentView.setExternalSoftwareSystemBoundariesVisible(true);
                         }
                     }
                 }

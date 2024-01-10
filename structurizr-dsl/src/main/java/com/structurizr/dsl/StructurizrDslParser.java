@@ -305,7 +305,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (inContext(ExternalScriptDslContext.class)) {
                         new ScriptParser().parseParameter(getContext(ExternalScriptDslContext.class), tokens);
 
-                    } else if (tokens.size() > 2 && RELATIONSHIP_TOKEN.equals(tokens.get(1)) && (inContext(ModelDslContext.class) || inContext(EnterpriseDslContext.class) || inContext(CustomElementDslContext.class) || inContext(PersonDslContext.class) || inContext(SoftwareSystemDslContext.class) || inContext(ContainerDslContext.class) || inContext(ComponentDslContext.class) || inContext(DeploymentEnvironmentDslContext.class) || inContext(DeploymentNodeDslContext.class) || inContext(InfrastructureNodeDslContext.class) || inContext(SoftwareSystemInstanceDslContext.class) || inContext(ContainerInstanceDslContext.class))) {
+                    } else if (tokens.size() > 2 && RELATIONSHIP_TOKEN.equals(tokens.get(1)) && (inContext(ModelDslContext.class) || inContext(CustomElementDslContext.class) || inContext(PersonDslContext.class) || inContext(SoftwareSystemDslContext.class) || inContext(ContainerDslContext.class) || inContext(ComponentDslContext.class) || inContext(DeploymentEnvironmentDslContext.class) || inContext(DeploymentNodeDslContext.class) || inContext(InfrastructureNodeDslContext.class) || inContext(SoftwareSystemInstanceDslContext.class) || inContext(ContainerInstanceDslContext.class))) {
                         Relationship relationship = new ExplicitRelationshipParser().parse(getContext(), tokens.withoutContextStartToken());
 
                         if (shouldStartContext(tokens)) {
@@ -367,7 +367,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                         registerIdentifier(identifier, customElement);
 
-                    } else if (PERSON_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class) || inContext(EnterpriseDslContext.class))) {
+                    } else if (PERSON_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class))) {
                         Person person = new PersonParser().parse(getContext(GroupableDslContext.class), tokens.withoutContextStartToken());
 
                         if (shouldStartContext(tokens)) {
@@ -376,7 +376,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                         registerIdentifier(identifier, person);
 
-                    } else if (SOFTWARE_SYSTEM_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class) || inContext(EnterpriseDslContext.class))) {
+                    } else if (SOFTWARE_SYSTEM_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class))) {
                         SoftwareSystem softwareSystem = new SoftwareSystemParser().parse(getContext(GroupableDslContext.class), tokens.withoutContextStartToken());
 
                         if (shouldStartContext(tokens)) {
@@ -407,11 +407,6 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         ElementGroup group = new GroupParser().parse(getContext(ModelDslContext.class), tokens);
 
                         startContext(new ModelDslContext(group));
-                        registerIdentifier(identifier, group);
-                    } else if (GROUP_TOKEN.equalsIgnoreCase(firstToken) && inContext(EnterpriseDslContext.class)) {
-                        ElementGroup group = new GroupParser().parse(getContext(EnterpriseDslContext.class), tokens);
-
-                        startContext(new EnterpriseDslContext(group));
                         registerIdentifier(identifier, group);
                     } else if (GROUP_TOKEN.equalsIgnoreCase(firstToken) && inContext(SoftwareSystemDslContext.class)) {
                         ElementGroup group = new GroupParser().parse(getContext(SoftwareSystemDslContext.class), tokens);
@@ -618,10 +613,6 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (RELATIONSHIP_STYLE_ROUTING_TOKEN.equalsIgnoreCase(firstToken) && inContext(RelationshipStyleDslContext.class)) {
                         new RelationshipStyleParser().parseRouting(getContext(RelationshipStyleDslContext.class), tokens);
 
-                    } else if (ENTERPRISE_TOKEN.equalsIgnoreCase(firstToken) && inContext(ModelDslContext.class)) {
-                        new EnterpriseParser().parse(getContext(), tokens.withoutContextStartToken());
-                        startContext(new EnterpriseDslContext());
-
                     } else if (DEPLOYMENT_ENVIRONMENT_TOKEN.equalsIgnoreCase(firstToken) && inContext(ModelDslContext.class)) {
                         String environment = new DeploymentEnvironmentParser().parse(tokens.withoutContextStartToken());
 
@@ -814,9 +805,6 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                     } else if (TERMINOLOGY_TOKEN.equalsIgnoreCase(firstToken) && inContext(ViewsDslContext.class)) {
                         startContext(new TerminologyDslContext());
-
-                    } else if (ENTERPRISE_TOKEN.equalsIgnoreCase(firstToken) && inContext(TerminologyDslContext.class)) {
-                        new TerminologyParser().parseEnterprise(getContext(), tokens);
 
                     } else if (PERSON_TOKEN.equalsIgnoreCase(firstToken) && inContext(TerminologyDslContext.class)) {
                         new TerminologyParser().parsePerson(getContext(), tokens);

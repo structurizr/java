@@ -81,8 +81,6 @@ class DynamicViewParser extends AbstractViewParser {
             }
         }
 
-        view.setExternalBoundariesVisible(true);
-
         return view;
     }
 

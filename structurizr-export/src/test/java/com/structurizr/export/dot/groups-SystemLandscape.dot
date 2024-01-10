@@ -5,29 +5,6 @@ digraph {
   edge [fontname="Arial"]
   label=<<br /><font point-size="34">System Landscape</font>>
 
-  subgraph cluster_enterprise {
-    margin=25
-    label=<<font point-size="24"><br />Enterprise</font><br /><font point-size="19">[Enterprise]</font>>
-    labelloc=b
-    color="#444444"
-    fontcolor="#444444"
-    fillcolor="#ffffff"
-
-    subgraph "cluster_group_Group 2" {
-      margin=25
-      label=<<font point-size="24"><br />Group 2</font>>
-      labelloc=b
-      color="#cccccc"
-      fontcolor="#cccccc"
-      fillcolor="#ffffff"
-      style="dashed"
-
-      4 [id=4,shape=rect, label=<<font point-size="34">D</font><br /><font point-size="19">[Software System]</font>>, style=filled, color="#9a9a9a", fillcolor="#dddddd", fontcolor="#000000"]
-    }
-
-    3 [id=3,shape=rect, label=<<font point-size="34">C</font><br /><font point-size="19">[Software System]</font>>, style=filled, color="#9a9a9a", fillcolor="#dddddd", fontcolor="#000000"]
-  }
-
   subgraph "cluster_group_Group 1" {
     margin=25
     label=<<font point-size="24"><br />Group 1</font>>
@@ -38,6 +15,30 @@ digraph {
     style="dashed"
 
     2 [id=2,shape=rect, label=<<font point-size="34">B</font><br /><font point-size="19">[Software System]</font>>, style=filled, color="#9a9a9a", fillcolor="#dddddd", fontcolor="#000000"]
+  }
+
+  subgraph "cluster_group_Group 2" {
+    margin=25
+    label=<<font point-size="24"><br />Group 2</font>>
+    labelloc=b
+    color="#cccccc"
+    fontcolor="#cccccc"
+    fillcolor="#ffffff"
+    style="dashed"
+
+    3 [id=3,shape=rect, label=<<font point-size="34">C</font><br /><font point-size="19">[Software System]</font>>, style=filled, color="#9a9a9a", fillcolor="#dddddd", fontcolor="#000000"]
+      subgraph "cluster_group_Group 3" {
+        margin=25
+        label=<<font point-size="24"><br />Group 3</font>>
+        labelloc=b
+        color="#cccccc"
+        fontcolor="#cccccc"
+        fillcolor="#ffffff"
+        style="dashed"
+
+        4 [id=4,shape=rect, label=<<font point-size="34">D</font><br /><font point-size="19">[Software System]</font>>, style=filled, color="#9a9a9a", fillcolor="#dddddd", fontcolor="#000000"]
+      }
+
   }
 
   1 [id=1,shape=rect, label=<<font point-size="34">A</font><br /><font point-size="19">[Software System]</font>>, style=filled, color="#9a9a9a", fillcolor="#dddddd", fontcolor="#000000"]

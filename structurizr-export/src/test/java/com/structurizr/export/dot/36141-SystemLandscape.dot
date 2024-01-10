@@ -3,33 +3,34 @@ digraph {
   graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
   node [fontname="Arial", shape=box, margin="0.4,0.3"]
   edge [fontname="Arial"]
-  label=<<br /><font point-size="34">System Landscape</font><br /><font point-size="24">The system landscape diagram for Big Bank plc.</font>>
+  label=<<br /><font point-size="34">System Landscape</font>>
 
-  subgraph cluster_enterprise {
+  subgraph "cluster_group_Big Bank plc" {
     margin=25
-    label=<<font point-size="24"><br />Big Bank plc</font><br /><font point-size="19">[Enterprise]</font>>
+    label=<<font point-size="24"><br />Big Bank plc</font>>
     labelloc=b
-    color="#444444"
-    fontcolor="#444444"
+    color="#cccccc"
+    fontcolor="#cccccc"
     fillcolor="#ffffff"
+    style="dashed"
 
-    12 [id=12,shape=rect, label=<<font point-size="32">Customer Service<br />Staff</font><br /><font point-size="17">[Person]</font><br /><br /><font point-size="22">Customer service staff within<br />the bank.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
-    15 [id=15,shape=rect, label=<<font point-size="32">Back Office Staff</font><br /><font point-size="17">[Person]</font><br /><br /><font point-size="22">Administration and support<br />staff within the bank.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
-    2 [id=2,shape=rect, label=<<font point-size="34">Internet Banking<br />System</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">Allows customers to view<br />information about their bank<br />accounts, and make payments.</font>>, style=filled, color="#0b4884", fillcolor="#1168bd", fontcolor="#ffffff"]
+    2 [id=2,shape=rect, label=<<font point-size="32">Customer Service<br />Staff</font><br /><font point-size="17">[Person]</font><br /><br /><font point-size="22">Customer service staff within<br />the bank.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
+    3 [id=3,shape=rect, label=<<font point-size="32">Back Office Staff</font><br /><font point-size="17">[Person]</font><br /><br /><font point-size="22">Administration and support<br />staff within the bank.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
     4 [id=4,shape=rect, label=<<font point-size="34">Mainframe Banking<br />System</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">Stores all of the core banking<br />information about customers,<br />accounts, transactions, etc.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
-    6 [id=6,shape=rect, label=<<font point-size="34">E-mail System</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">The internal Microsoft<br />Exchange e-mail system.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
-    9 [id=9,shape=rect, label=<<font point-size="34">ATM</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">Allows customers to withdraw<br />cash.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
+    5 [id=5,shape=rect, label=<<font point-size="34">E-mail System</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">The internal Microsoft<br />Exchange e-mail system.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
+    6 [id=6,shape=rect, label=<<font point-size="34">ATM</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">Allows customers to withdraw<br />cash.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
+    7 [id=7,shape=rect, label=<<font point-size="34">Internet Banking<br />System</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">Allows customers to view<br />information about their bank<br />accounts, and make payments.</font>>, style=filled, color="#0b4884", fillcolor="#1168bd", fontcolor="#ffffff"]
   }
 
   1 [id=1,shape=rect, label=<<font point-size="32">Personal Banking<br />Customer</font><br /><font point-size="17">[Person]</font><br /><br /><font point-size="22">A customer of the bank, with<br />personal bank accounts.</font>>, style=filled, color="#052e56", fillcolor="#08427b", fontcolor="#ffffff"]
 
-  9 -> 4 [id=10, label=<<font point-size="24">Uses</font>>, style="dashed", color="#707070", fontcolor="#707070"]
-  1 -> 9 [id=11, label=<<font point-size="24">Withdraws cash using</font>>, style="dashed", color="#707070", fontcolor="#707070"]
-  12 -> 4 [id=13, label=<<font point-size="24">Uses</font>>, style="dashed", color="#707070", fontcolor="#707070"]
-  1 -> 12 [id=14, label=<<font point-size="24">Asks questions to</font><br /><font point-size="19">[Telephone]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
-  15 -> 4 [id=16, label=<<font point-size="24">Uses</font>>, style="dashed", color="#707070", fontcolor="#707070"]
-  1 -> 2 [id=3, label=<<font point-size="24">Views account balances,<br />and makes payments using</font>>, style="dashed", color="#707070", fontcolor="#707070"]
-  2 -> 4 [id=5, label=<<font point-size="24">Gets account information<br />from, and makes payments<br />using</font>>, style="dashed", color="#707070", fontcolor="#707070"]
-  2 -> 6 [id=7, label=<<font point-size="24">Sends e-mail using</font>>, style="dashed", color="#707070", fontcolor="#707070"]
-  6 -> 1 [id=8, label=<<font point-size="24">Sends e-mails to</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  1 -> 7 [id=19, label=<<font point-size="24">Views account balances,<br />and makes payments using</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  7 -> 4 [id=20, label=<<font point-size="24">Gets account information<br />from, and makes payments<br />using</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  7 -> 5 [id=21, label=<<font point-size="24">Sends e-mail using</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  5 -> 1 [id=22, label=<<font point-size="24">Sends e-mails to</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  1 -> 2 [id=23, label=<<font point-size="24">Asks questions to</font><br /><font point-size="19">[Telephone]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  2 -> 4 [id=24, label=<<font point-size="24">Uses</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  1 -> 6 [id=25, label=<<font point-size="24">Withdraws cash using</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  6 -> 4 [id=26, label=<<font point-size="24">Uses</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  3 -> 4 [id=27, label=<<font point-size="24">Uses</font>>, style="dashed", color="#707070", fontcolor="#707070"]
 }

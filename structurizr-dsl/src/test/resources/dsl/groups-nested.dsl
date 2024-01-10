@@ -27,14 +27,6 @@ workspace {
 
             c = softwareSystem "C"
         }
-
-        enterprise "Enterprise" {
-            group "Department A" {
-                group "Team 1" {
-                    d = softwareSystem "D"
-                }
-            }
-        }
     }
 
     views {

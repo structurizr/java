@@ -7,21 +7,22 @@ top to bottom direction
 !include <C4/C4>
 !include <C4/C4_Context>
 
-Enterprise_Boundary(enterprise, "Enterprise") {
-  AddBoundaryTag("Group 2", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="Dashed", $borderThickness="1")
-  Boundary(group_1, "Group 2", $tags="Group 2") {
-    System(D, "D", $descr="", $tags="", $link="")
-  }
-
-  System(C, "C", $descr="", $tags="", $link="")
-}
-
 AddBoundaryTag("Group 1", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="Dashed", $borderThickness="1")
-Boundary(group_2, "Group 1", $tags="Group 1") {
-  System_Ext(B, "B", $descr="", $tags="", $link="")
+Boundary(group_1, "Group 1", $tags="Group 1") {
+  System(B, "B", $descr="", $tags="", $link="")
 }
 
-System_Ext(A, "A", $descr="", $tags="", $link="")
+AddBoundaryTag("Group 2", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="Dashed", $borderThickness="1")
+Boundary(group_2, "Group 2", $tags="Group 2") {
+  System(C, "C", $descr="", $tags="", $link="")
+    AddBoundaryTag("Group 2/Group 3", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="Dashed", $borderThickness="1")
+    Boundary(group_3, "Group 3", $tags="Group 2/Group 3") {
+      System(D, "D", $descr="", $tags="", $link="")
+    }
+
+}
+
+System(A, "A", $descr="", $tags="", $link="")
 
 Rel(B, C, "", $techn="", $tags="", $link="")
 Rel(C, D, "", $techn="", $tags="", $link="")

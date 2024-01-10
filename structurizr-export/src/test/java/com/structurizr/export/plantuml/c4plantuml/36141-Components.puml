@@ -20,10 +20,10 @@ AddRelTag("Relationship", $textColor="#707070", $lineColor="#707070", $lineStyle
 AddBoundaryTag("Container", $bgColor="#ffffff", $borderColor="#2e6295", $fontColor="#2e6295", $shadowing="", $borderStyle="Solid", $borderThickness="1")
 
 System(MainframeBankingSystem, "Mainframe Banking System", $descr="Stores all of the core banking information about customers, accounts, transactions, etc.", $tags="Software System,Existing System", $link="")
-Container(InternetBankingSystem.SinglePageApplication, "Single-Page Application", $techn="JavaScript and Angular", $descr="Provides all of the Internet banking functionality to customers via their web browser.", $tags="Container,Web Browser", $link="")
 System(EmailSystem, "E-mail System", $descr="The internal Microsoft Exchange e-mail system.", $tags="Software System,Existing System", $link="")
-Container(InternetBankingSystem.MobileApp, "Mobile App", $techn="Xamarin", $descr="Provides a limited subset of the Internet banking functionality to customers via their mobile device.", $tags="Container,Mobile App", $link="")
 ContainerDb(InternetBankingSystem.Database, "Database", $techn="Oracle Database Schema", $descr="Stores user registration information, hashed authentication credentials, access logs, etc.", $tags="Container,Database", $link="")
+Container(InternetBankingSystem.SinglePageApplication, "Single-Page Application", $techn="JavaScript and Angular", $descr="Provides all of the Internet banking functionality to customers via their web browser.", $tags="Container,Web Browser", $link="")
+Container(InternetBankingSystem.MobileApp, "Mobile App", $techn="Xamarin", $descr="Provides a limited subset of the Internet banking functionality to customers via their mobile device.", $tags="Container,Mobile App", $link="")
 
 Container_Boundary("InternetBankingSystem.APIApplication_boundary", "API Application", $tags="Container") {
   Component(InternetBankingSystem.APIApplication.SignInController, "Sign In Controller", $techn="Spring MVC Rest Controller", $descr="Allows users to sign in to the Internet Banking System.", $tags="Component", $link="")
@@ -35,17 +35,17 @@ Container_Boundary("InternetBankingSystem.APIApplication_boundary", "API Applica
 }
 
 Rel(InternetBankingSystem.SinglePageApplication, InternetBankingSystem.APIApplication.SignInController, "Makes API calls to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
-Rel(InternetBankingSystem.SinglePageApplication, InternetBankingSystem.APIApplication.ResetPasswordController, "Makes API calls to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
 Rel(InternetBankingSystem.SinglePageApplication, InternetBankingSystem.APIApplication.AccountsSummaryController, "Makes API calls to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
+Rel(InternetBankingSystem.SinglePageApplication, InternetBankingSystem.APIApplication.ResetPasswordController, "Makes API calls to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
 Rel(InternetBankingSystem.MobileApp, InternetBankingSystem.APIApplication.SignInController, "Makes API calls to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
-Rel(InternetBankingSystem.MobileApp, InternetBankingSystem.APIApplication.ResetPasswordController, "Makes API calls to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
 Rel(InternetBankingSystem.MobileApp, InternetBankingSystem.APIApplication.AccountsSummaryController, "Makes API calls to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
+Rel(InternetBankingSystem.MobileApp, InternetBankingSystem.APIApplication.ResetPasswordController, "Makes API calls to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
 Rel(InternetBankingSystem.APIApplication.SignInController, InternetBankingSystem.APIApplication.SecurityComponent, "Uses", $techn="", $tags="Relationship", $link="")
 Rel(InternetBankingSystem.APIApplication.AccountsSummaryController, InternetBankingSystem.APIApplication.MainframeBankingSystemFacade, "Uses", $techn="", $tags="Relationship", $link="")
 Rel(InternetBankingSystem.APIApplication.ResetPasswordController, InternetBankingSystem.APIApplication.SecurityComponent, "Uses", $techn="", $tags="Relationship", $link="")
 Rel(InternetBankingSystem.APIApplication.ResetPasswordController, InternetBankingSystem.APIApplication.EmailComponent, "Uses", $techn="", $tags="Relationship", $link="")
-Rel(InternetBankingSystem.APIApplication.SecurityComponent, InternetBankingSystem.Database, "Reads from and writes to", $techn="JDBC", $tags="Relationship", $link="")
-Rel(InternetBankingSystem.APIApplication.MainframeBankingSystemFacade, MainframeBankingSystem, "Uses", $techn="XML/HTTPS", $tags="Relationship", $link="")
+Rel(InternetBankingSystem.APIApplication.SecurityComponent, InternetBankingSystem.Database, "Reads from and writes to", $techn="SQL/TCP", $tags="Relationship", $link="")
+Rel(InternetBankingSystem.APIApplication.MainframeBankingSystemFacade, MainframeBankingSystem, "Makes API calls to", $techn="XML/HTTPS", $tags="Relationship", $link="")
 Rel(InternetBankingSystem.APIApplication.EmailComponent, EmailSystem, "Sends e-mail using", $techn="", $tags="Relationship", $link="")
 
 SHOW_LEGEND(true)

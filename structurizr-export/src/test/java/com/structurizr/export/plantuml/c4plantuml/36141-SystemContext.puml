@@ -9,14 +9,18 @@ top to bottom direction
 
 AddElementTag("Software System", $bgColor="#1168bd", $borderColor="#0b4884", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="Solid", $borderThickness="1")
 AddElementTag("Software System,Existing System", $bgColor="#999999", $borderColor="#6b6b6b", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="Solid", $borderThickness="1")
-AddElementTag("Person", $bgColor="#08427b", $borderColor="#052e56", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="Solid", $borderThickness="1")
+AddElementTag("Person,Customer", $bgColor="#08427b", $borderColor="#052e56", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="Solid", $borderThickness="1")
 
 AddRelTag("Relationship", $textColor="#707070", $lineColor="#707070", $lineStyle = "")
 
-Person_Ext(PersonalBankingCustomer, "Personal Banking Customer", $descr="A customer of the bank, with personal bank accounts.", $tags="Person", $link="")
-System(InternetBankingSystem, "Internet Banking System", $descr="Allows customers to view information about their bank accounts, and make payments.", $tags="Software System", $link="")
-System(MainframeBankingSystem, "Mainframe Banking System", $descr="Stores all of the core banking information about customers, accounts, transactions, etc.", $tags="Software System,Existing System", $link="")
-System(EmailSystem, "E-mail System", $descr="The internal Microsoft Exchange e-mail system.", $tags="Software System,Existing System", $link="")
+AddBoundaryTag("Big Bank plc", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="Dashed", $borderThickness="1")
+Boundary(group_1, "Big Bank plc", $tags="Big Bank plc") {
+  System(MainframeBankingSystem, "Mainframe Banking System", $descr="Stores all of the core banking information about customers, accounts, transactions, etc.", $tags="Software System,Existing System", $link="")
+  System(EmailSystem, "E-mail System", $descr="The internal Microsoft Exchange e-mail system.", $tags="Software System,Existing System", $link="")
+  System(InternetBankingSystem, "Internet Banking System", $descr="Allows customers to view information about their bank accounts, and make payments.", $tags="Software System", $link="")
+}
+
+Person(PersonalBankingCustomer, "Personal Banking Customer", $descr="A customer of the bank, with personal bank accounts.", $tags="Person,Customer", $link="")
 
 Rel(PersonalBankingCustomer, InternetBankingSystem, "Views account balances, and makes payments using", $techn="", $tags="Relationship", $link="")
 Rel(InternetBankingSystem, MainframeBankingSystem, "Gets account information from, and makes payments using", $techn="", $tags="Relationship", $link="")

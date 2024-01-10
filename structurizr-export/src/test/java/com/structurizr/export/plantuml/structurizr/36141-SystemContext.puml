@@ -38,10 +38,17 @@ skinparam person<<PersonalBankingCustomer>> {
   shadowing false
 }
 
+rectangle "Big Bank plc" <<group1>> {
+  skinparam RectangleBorderColor<<group1>> #cccccc
+  skinparam RectangleFontColor<<group1>> #cccccc
+  skinparam RectangleBorderStyle<<group1>> dashed
+
+  rectangle "==Mainframe Banking System\n<size:10>[Software System]</size>\n\nStores all of the core banking information about customers, accounts, transactions, etc." <<MainframeBankingSystem>> as MainframeBankingSystem
+  rectangle "==E-mail System\n<size:10>[Software System]</size>\n\nThe internal Microsoft Exchange e-mail system." <<EmailSystem>> as EmailSystem
+  rectangle "==Internet Banking System\n<size:10>[Software System]</size>\n\nAllows customers to view information about their bank accounts, and make payments." <<InternetBankingSystem>> as InternetBankingSystem
+}
+
 person "==Personal Banking Customer\n<size:10>[Person]</size>\n\nA customer of the bank, with personal bank accounts." <<PersonalBankingCustomer>> as PersonalBankingCustomer
-rectangle "==Internet Banking System\n<size:10>[Software System]</size>\n\nAllows customers to view information about their bank accounts, and make payments." <<InternetBankingSystem>> as InternetBankingSystem
-rectangle "==Mainframe Banking System\n<size:10>[Software System]</size>\n\nStores all of the core banking information about customers, accounts, transactions, etc." <<MainframeBankingSystem>> as MainframeBankingSystem
-rectangle "==E-mail System\n<size:10>[Software System]</size>\n\nThe internal Microsoft Exchange e-mail system." <<EmailSystem>> as EmailSystem
 
 PersonalBankingCustomer .[#707070,thickness=2].> InternetBankingSystem : "<color:#707070>Views account balances, and makes payments using"
 InternetBankingSystem .[#707070,thickness=2].> MainframeBankingSystem : "<color:#707070>Gets account information from, and makes payments using"

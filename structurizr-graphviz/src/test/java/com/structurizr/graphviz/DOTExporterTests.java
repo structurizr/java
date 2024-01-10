@@ -43,19 +43,16 @@ public class DOTExporterTests {
     }
 
     @Test
-    public void test_writeSystemLandscapeViewWithNoEnterpriseBoundary() {
+    public void test_writeSystemLandscapeView() {
         Workspace workspace = new Workspace("Name", "");
         CustomElement box = workspace.getModel().addCustomElement("Box");
         Person user = workspace.getModel().addPerson("User", "");
-        user.setLocation(Location.External);
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "");
-        softwareSystem.setLocation(Location.Internal);
         user.uses(softwareSystem, "Uses");
 
         SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("SystemLandscape", "");
         view.addAllElements();
         view.add(box);
-        view.setEnterpriseBoundaryVisible(false);
 
         DOTExporter exporter = new DOTExporter(RankDirection.TopBottom, 300, 300);
         Diagram diagram = exporter.export(view);
@@ -88,7 +85,6 @@ public class DOTExporterTests {
         SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("SystemLandscape", "");
         view.addAllElements();
         view.add(box);
-        view.setEnterpriseBoundaryVisible(false);
 
         DOTExporter exporter = new DOTExporter(RankDirection.TopBottom, 300, 300);
         Diagram diagram = exporter.export(view);
@@ -179,21 +175,18 @@ public class DOTExporterTests {
     }
 
     @Test
-    public void test_writeSystemLandscapeViewWithNoEnterpriseBoundaryInGermanLocale() throws Exception {
+    public void test_writeSystemLandscapeViewInGermanLocale() throws Exception {
         // ranksep=1.0 was being output as ranksep=1,0
         Locale.setDefault(new Locale("de", "DE"));
         Workspace workspace = new Workspace("Name", "");
         CustomElement box = workspace.getModel().addCustomElement("Box");
         Person user = workspace.getModel().addPerson("User", "");
-        user.setLocation(Location.External);
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "");
-        softwareSystem.setLocation(Location.Internal);
         user.uses(softwareSystem, "Uses");
 
         SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("SystemLandscape", "");
         view.addAllElements();
         view.add(box);
-        view.setEnterpriseBoundaryVisible(false);
 
         DOTExporter exporter = new DOTExporter(RankDirection.TopBottom, 300, 300);
         Diagram diagram = exporter.export(view);
@@ -214,56 +207,16 @@ public class DOTExporterTests {
     }
 
     @Test
-    public void test_writeSystemLandscapeViewWithAnEnterpriseBoundary() throws Exception {
+    public void test_writeSystemContextView() throws Exception {
         Workspace workspace = new Workspace("Name", "");
         CustomElement box = workspace.getModel().addCustomElement("Box");
         Person user = workspace.getModel().addPerson("User", "");
-        user.setLocation(Location.External);
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "");
-        softwareSystem.setLocation(Location.Internal);
-        user.uses(softwareSystem, "Uses");
-
-        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("SystemLandscape", "");
-        view.addAllElements();
-        view.add(box);
-        view.setEnterpriseBoundaryVisible(true);
-
-        DOTExporter exporter = new DOTExporter(RankDirection.TopBottom, 300, 300);
-        Diagram diagram = exporter.export(view);
-
-        String content = diagram.getDefinition();
-        assertEquals("digraph {\n" +
-                "  compound=true\n" +
-                "  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]\n" +
-                "  node [shape=box,fontsize=5]\n" +
-                "  edge []\n" +
-                "\n" +
-                "  subgraph cluster_enterprise {\n" +
-                "    margin=25\n" +
-                "    3 [width=1.500000,height=1.000000,fixedsize=true,id=3,label=\"3: Software System\"]\n" +
-                "  }\n" +
-                "\n" +
-                "  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label=\"1: Box\"]\n" +
-                "  2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label=\"2: User\"]\n" +
-                "\n" +
-                "  2 -> 3 [id=4]\n" +
-                "}", content);
-    }
-
-    @Test
-    public void test_writeSystemContextViewWithNoEnterpriseBoundary() throws Exception {
-        Workspace workspace = new Workspace("Name", "");
-        CustomElement box = workspace.getModel().addCustomElement("Box");
-        Person user = workspace.getModel().addPerson("User", "");
-        user.setLocation(Location.External);
-        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "");
-        softwareSystem.setLocation(Location.Internal);
         user.uses(softwareSystem, "Uses");
 
         SystemContextView view = workspace.getViews().createSystemContextView(softwareSystem, "SystemContext", "");
         view.addAllElements();
         view.add(box);
-        view.setEnterpriseBoundaryVisible(false);
 
         DOTExporter exporter = new DOTExporter(RankDirection.TopBottom, 300, 300);
         Diagram diagram = exporter.export(view);
@@ -283,43 +236,6 @@ public class DOTExporterTests {
                 "}", content);
     }
 
-
-    @Test
-    public void test_writeSystemContextViewWithAnEnterpriseBoundary() throws Exception {
-        Workspace workspace = new Workspace("Name", "");
-        CustomElement box = workspace.getModel().addCustomElement("Box");
-        Person user = workspace.getModel().addPerson("User", "");
-        user.setLocation(Location.External);
-        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "");
-        softwareSystem.setLocation(Location.Internal);
-        user.uses(softwareSystem, "Uses");
-
-        SystemContextView view = workspace.getViews().createSystemContextView(softwareSystem, "SystemContext", "");
-        view.addAllElements();
-        view.add(box);
-        view.setEnterpriseBoundaryVisible(true);
-
-        DOTExporter exporter = new DOTExporter(RankDirection.TopBottom, 300, 300);
-        Diagram diagram = exporter.export(view);
-
-        String content = diagram.getDefinition();
-        assertEquals("digraph {\n" +
-                "  compound=true\n" +
-                "  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]\n" +
-                "  node [shape=box,fontsize=5]\n" +
-                "  edge []\n" +
-                "\n" +
-                "  subgraph cluster_enterprise {\n" +
-                "    margin=25\n" +
-                "    3 [width=1.500000,height=1.000000,fixedsize=true,id=3,label=\"3: Software System\"]\n" +
-                "  }\n" +
-                "\n" +
-                "  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label=\"1: Box\"]\n" +
-                "  2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label=\"2: User\"]\n" +
-                "\n" +
-                "  2 -> 3 [id=4]\n" +
-                "}", content);
-    }
 
     @Test
     public void test_writeSystemContextViewWithGroupedElements() throws Exception {
@@ -334,7 +250,6 @@ public class DOTExporterTests {
         SystemContextView view = workspace.getViews().createSystemContextView(softwareSystem, "SystemContext", "");
         view.addAllElements();
         view.add(box);
-        view.setEnterpriseBoundaryVisible(false);
 
         DOTExporter exporter = new DOTExporter(RankDirection.TopBottom, 300, 300);
         Diagram diagram = exporter.export(view);

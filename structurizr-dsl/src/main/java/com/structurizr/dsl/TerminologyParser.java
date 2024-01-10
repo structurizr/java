@@ -4,15 +4,6 @@ final class TerminologyParser extends AbstractParser {
 
     private final static int TERM_INDEX = 1;
 
-    void parseEnterprise(DslContext context, Tokens tokens) {
-        // enterprise <term>
-        if (!tokens.includes(TERM_INDEX)) {
-            throw new RuntimeException("Expected: enterprise <term>");
-        }
-
-        context.getWorkspace().getViews().getConfiguration().getTerminology().setEnterprise(tokens.get(TERM_INDEX));
-    }
-
     void parsePerson(DslContext context, Tokens tokens) {
         // person <term>
         if (!tokens.includes(TERM_INDEX)) {

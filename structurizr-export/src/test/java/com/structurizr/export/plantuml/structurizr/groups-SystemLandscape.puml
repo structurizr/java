@@ -38,27 +38,28 @@ skinparam rectangle<<D>> {
   shadowing false
 }
 
-rectangle "Enterprise" <<enterprise>> {
-  skinparam RectangleBorderColor<<enterprise>> #444444
-  skinparam RectangleFontColor<<enterprise>> #444444
+rectangle "Group 1" <<group1>> {
+  skinparam RectangleBorderColor<<group1>> #cccccc
+  skinparam RectangleFontColor<<group1>> #cccccc
+  skinparam RectangleBorderStyle<<group1>> dashed
 
-  rectangle "Group 2" <<group1>> {
-    skinparam RectangleBorderColor<<group1>> #cccccc
-    skinparam RectangleFontColor<<group1>> #cccccc
-    skinparam RectangleBorderStyle<<group1>> dashed
-
-    rectangle "==D\n<size:10>[Software System]</size>" <<D>> as D
-  }
-
-  rectangle "==C\n<size:10>[Software System]</size>" <<C>> as C
+  rectangle "==B\n<size:10>[Software System]</size>" <<B>> as B
 }
 
-rectangle "Group 1" <<group2>> {
+rectangle "Group 2" <<group2>> {
   skinparam RectangleBorderColor<<group2>> #cccccc
   skinparam RectangleFontColor<<group2>> #cccccc
   skinparam RectangleBorderStyle<<group2>> dashed
 
-  rectangle "==B\n<size:10>[Software System]</size>" <<B>> as B
+  rectangle "==C\n<size:10>[Software System]</size>" <<C>> as C
+    rectangle "Group 3" <<group3>> {
+      skinparam RectangleBorderColor<<group3>> #cccccc
+      skinparam RectangleFontColor<<group3>> #cccccc
+      skinparam RectangleBorderStyle<<group3>> dashed
+
+      rectangle "==D\n<size:10>[Software System]</size>" <<D>> as D
+    }
+
 }
 
 rectangle "==A\n<size:10>[Software System]</size>" <<A>> as A

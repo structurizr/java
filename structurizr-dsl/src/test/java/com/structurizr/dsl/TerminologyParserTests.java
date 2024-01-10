@@ -10,23 +10,6 @@ class TerminologyParserTests extends AbstractTests {
     private TerminologyParser parser = new TerminologyParser();
 
     @Test
-    void test_parseEnterprise_ThrowsAnException_WhenNoTermIsSpecified() {
-        try {
-            parser.parseEnterprise(context(), tokens("enterprise"));
-            fail();
-        } catch (Exception e) {
-            assertEquals("Expected: enterprise <term>", e.getMessage());
-        }
-    }
-
-    @Test
-    void test_parseEnterprise_SetsTheTerm_WhenOneIsSpecified() {
-        parser.parseEnterprise(context(), tokens("enterprise", "TERM"));
-
-        assertEquals("TERM", workspace.getViews().getConfiguration().getTerminology().getEnterprise());
-    }
-
-    @Test
     void test_parsePerson_ThrowsAnException_WhenNoTermIsSpecified() {
         try {
             parser.parsePerson(context(), tokens("person"));

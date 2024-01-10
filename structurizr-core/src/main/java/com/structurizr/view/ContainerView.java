@@ -200,22 +200,13 @@ public final class ContainerView extends StaticView {
         return true;
     }
 
-    /**
-     * Determines whether software system boundaries should be visible for "external" containers (those outside the software system in scope).
-     *
-     * @return  true if external software system boundaries are visible, false otherwise
-     */
+    @Deprecated
     public boolean getExternalSoftwareSystemBoundariesVisible() {
         return externalSoftwareSystemBoundariesVisible;
     }
 
-    /**
-     * Sets whether software system boundaries should be visible for "external" containers (those outside the software system in scope).
-     *
-     * @param externalSoftwareSystemBoundariesVisible     true if external software system boundaries should be visible, false otherwise
-     */
     @Deprecated
-    public void setExternalSoftwareSystemBoundariesVisible(boolean externalSoftwareSystemBoundariesVisible) {
+    void setExternalSoftwareSystemBoundariesVisible(boolean externalSoftwareSystemBoundariesVisible) {
         this.externalSoftwareSystemBoundariesVisible = externalSoftwareSystemBoundariesVisible;
     }
 

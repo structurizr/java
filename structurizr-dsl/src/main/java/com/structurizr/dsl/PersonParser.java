@@ -1,6 +1,5 @@
 package com.structurizr.dsl;
 
-import com.structurizr.model.Location;
 import com.structurizr.model.Person;
 
 final class PersonParser extends AbstractParser {
@@ -42,10 +41,6 @@ final class PersonParser extends AbstractParser {
         if (tokens.includes(TAGS_INDEX)) {
             String tags = tokens.get(TAGS_INDEX);
             person.addTags(tags.split(","));
-        }
-
-        if (context instanceof EnterpriseDslContext) {
-            person.setLocation(Location.Internal);
         }
 
         if (context.hasGroup()) {

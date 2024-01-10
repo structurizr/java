@@ -87,11 +87,4 @@ public class PersonTests extends AbstractWorkspaceTestBase {
         assertEquals(InteractionStyle.Asynchronous, relationship.getInteractionStyle());
     }
 
-    @Test
-    void setLocation_SetsTheLocationToUnspecified_WhenNullIsPassed() {
-        Person person = model.addPerson("Person", "Description");
-        person.setLocation(null);
-        assertEquals(Location.Unspecified, person.getLocation());
-    }
-
 }

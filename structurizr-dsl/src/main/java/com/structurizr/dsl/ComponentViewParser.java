@@ -54,7 +54,6 @@ final class ComponentViewParser extends AbstractViewParser {
         }
 
         ComponentView view = workspace.getViews().createComponentView(container, key, description);
-        view.setExternalSoftwareSystemBoundariesVisible(true);
 
         return view;
     }

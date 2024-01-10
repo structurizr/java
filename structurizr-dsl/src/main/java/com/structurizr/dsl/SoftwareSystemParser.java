@@ -1,6 +1,5 @@
 package com.structurizr.dsl;
 
-import com.structurizr.model.Location;
 import com.structurizr.model.SoftwareSystem;
 
 final class SoftwareSystemParser extends AbstractParser {
@@ -42,10 +41,6 @@ final class SoftwareSystemParser extends AbstractParser {
         if (tokens.includes(TAGS_INDEX)) {
             String tags = tokens.get(TAGS_INDEX);
             softwareSystem.addTags(tags.split(","));
-        }
-
-        if (context instanceof EnterpriseDslContext) {
-            softwareSystem.setLocation(Location.Internal);
         }
 
         if (context.hasGroup()) {

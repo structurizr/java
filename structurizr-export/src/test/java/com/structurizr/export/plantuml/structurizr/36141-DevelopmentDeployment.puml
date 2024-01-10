@@ -93,6 +93,10 @@ skinparam rectangle<<Development.BigBankplc.bigbankdev001>> {
 }
 
 rectangle "Developer Laptop\n<size:10>[Deployment Node: Microsoft Windows 10 or Apple macOS]</size>" <<Development.DeveloperLaptop>> as Development.DeveloperLaptop {
+  rectangle "Web Browser\n<size:10>[Deployment Node: Chrome, Firefox, Safari, or Edge]</size>" <<Development.DeveloperLaptop.WebBrowser>> as Development.DeveloperLaptop.WebBrowser {
+    rectangle "==Single-Page Application\n<size:10>[Container: JavaScript and Angular]</size>\n\nProvides all of the Internet banking functionality to customers via their web browser." <<Development.DeveloperLaptop.WebBrowser.SinglePageApplication_1>> as Development.DeveloperLaptop.WebBrowser.SinglePageApplication_1
+  }
+
   rectangle "Docker Container - Web Server\n<size:10>[Deployment Node: Docker]</size>" <<Development.DeveloperLaptop.DockerContainerWebServer>> as Development.DeveloperLaptop.DockerContainerWebServer {
     rectangle "Apache Tomcat\n<size:10>[Deployment Node: Apache Tomcat 8.x]</size>" <<Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat>> as Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat {
       rectangle "==Web Application\n<size:10>[Container: Java and Spring MVC]</size>\n\nDelivers the static content and the Internet banking single page application." <<Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.WebApplication_1>> as Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.WebApplication_1
@@ -108,10 +112,6 @@ rectangle "Developer Laptop\n<size:10>[Deployment Node: Microsoft Windows 10 or 
 
   }
 
-  rectangle "Web Browser\n<size:10>[Deployment Node: Chrome, Firefox, Safari, or Edge]</size>" <<Development.DeveloperLaptop.WebBrowser>> as Development.DeveloperLaptop.WebBrowser {
-    rectangle "==Single-Page Application\n<size:10>[Container: JavaScript and Angular]</size>\n\nProvides all of the Internet banking functionality to customers via their web browser." <<Development.DeveloperLaptop.WebBrowser.SinglePageApplication_1>> as Development.DeveloperLaptop.WebBrowser.SinglePageApplication_1
-  }
-
 }
 
 rectangle "Big Bank plc\n<size:10>[Deployment Node: Big Bank plc data center]</size>" <<Development.BigBankplc>> as Development.BigBankplc {
@@ -121,8 +121,8 @@ rectangle "Big Bank plc\n<size:10>[Deployment Node: Big Bank plc data center]</s
 
 }
 
-Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1 .[#707070,thickness=2].> Development.BigBankplc.bigbankdev001.MainframeBankingSystem_1 : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[XML/HTTPS]</size>"
-Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1 .[#707070,thickness=2].> Development.DeveloperLaptop.DockerContainerDatabaseServer.DatabaseServer.Database_1 : "<color:#707070>Reads from and writes to\n<color:#707070><size:8>[JDBC]</size>"
-Development.DeveloperLaptop.WebBrowser.SinglePageApplication_1 .[#707070,thickness=2].> Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1 : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[JSON/HTTPS]</size>"
 Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.WebApplication_1 .[#707070,thickness=2].> Development.DeveloperLaptop.WebBrowser.SinglePageApplication_1 : "<color:#707070>Delivers to the customer's web browser"
+Development.DeveloperLaptop.WebBrowser.SinglePageApplication_1 .[#707070,thickness=2].> Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1 : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[JSON/HTTPS]</size>"
+Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1 .[#707070,thickness=2].> Development.DeveloperLaptop.DockerContainerDatabaseServer.DatabaseServer.Database_1 : "<color:#707070>Reads from and writes to\n<color:#707070><size:8>[SQL/TCP]</size>"
+Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1 .[#707070,thickness=2].> Development.BigBankplc.bigbankdev001.MainframeBankingSystem_1 : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[XML/HTTPS]</size>"
 @enduml

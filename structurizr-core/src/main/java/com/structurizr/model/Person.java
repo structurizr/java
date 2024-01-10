@@ -23,17 +23,13 @@ public final class Person extends StaticStructureElement {
     Person() {
     }
 
-    /**
-     * Gets the location of this person.
-     *
-     * @return  a Location
-     */
+    @Deprecated
     public Location getLocation() {
         return location;
     }
 
     @Deprecated
-    public void setLocation(Location location) {
+    void setLocation(Location location) {
         if (location != null) {
             this.location = location;
         } else {

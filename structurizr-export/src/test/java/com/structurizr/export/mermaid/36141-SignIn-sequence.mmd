@@ -1,13 +1,13 @@
 sequenceDiagram
 
-  participant 17 as Single-Page Application<br />[Container: JavaScript and Angular]
-  participant 29 as Sign In Controller<br />[Component: Spring MVC Rest Controller]
-  participant 32 as Security Component<br />[Component: Spring Bean]
-  participant 21 as Database<br />[Container: Oracle Database Schema]
+  participant 8 as Single-Page Application<br />[Container: JavaScript and Angular]
+  participant 12 as Sign In Controller<br />[Component: Spring MVC Rest Controller]
+  participant 15 as Security Component<br />[Component: Spring Bean]
+  participant 18 as Database<br />[Container: Oracle Database Schema]
 
-  17->>29: Submits credentials to<br />[JSON/HTTPS]
-  29->>32: Validates credentials using
-  32->>21: select * from users where username = ?<br />[JDBC]
-  21-->>32: Returns user data to<br />[JDBC]
-  32-->>29: Returns true if the hashed password matches
-  29-->>17: Sends back an authentication token to<br />[JSON/HTTPS]
+  8->>12: Submits credentials to<br />[JSON/HTTPS]
+  12->>15: Validates credentials using
+  15->>18: select * from users where username = ?<br />[SQL/TCP]
+  18-->>15: Returns user data to<br />[SQL/TCP]
+  15-->>12: Returns true if the hashed password matches
+  12-->>8: Sends back an authentication token to<br />[JSON/HTTPS]

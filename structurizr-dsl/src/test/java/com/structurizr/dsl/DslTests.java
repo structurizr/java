@@ -24,7 +24,6 @@ class DslTests extends AbstractTests {
         parser.parse(new File("src/test/resources/dsl/test.dsl"));
 
         assertFalse(parser.getWorkspace().isEmpty());
-        assertEquals("Organisation - Group", parser.getWorkspace().getModel().getEnterprise().getName());
     }
 
     @Test
@@ -147,10 +146,6 @@ class DslTests extends AbstractTests {
 
         Workspace workspace = parser.getWorkspace();
 
-        assertEquals(Location.External, workspace.getModel().getPersonWithName("Personal Banking Customer").getLocation());
-        assertEquals(Location.Internal, workspace.getModel().getPersonWithName("Customer Service Staff").getLocation());
-        assertEquals(Location.Internal, workspace.getModel().getPersonWithName("Back Office Staff").getLocation());
-
         assertEquals(51, workspace.getModel().getElements().size());
         assertEquals(3, workspace.getModel().getPeople().size());
         assertEquals(4, workspace.getModel().getSoftwareSystems().size());
@@ -208,10 +203,6 @@ class DslTests extends AbstractTests {
 
         Workspace workspace = parser.getWorkspace();
 
-        assertEquals(Location.External, workspace.getModel().getPersonWithName("Personal Banking Customer").getLocation());
-        assertEquals(Location.Internal, workspace.getModel().getPersonWithName("Customer Service Staff").getLocation());
-        assertEquals(Location.Internal, workspace.getModel().getPersonWithName("Back Office Staff").getLocation());
-
         assertEquals(7, workspace.getModel().getElements().size());
         assertEquals(3, workspace.getModel().getPeople().size());
         assertEquals(4, workspace.getModel().getSoftwareSystems().size());
@@ -240,10 +231,6 @@ class DslTests extends AbstractTests {
         parser.parse(new File("src/test/resources/dsl/big-bank-plc/internet-banking-system.dsl"));
 
         Workspace workspace = parser.getWorkspace();
-
-        assertEquals(Location.External, workspace.getModel().getPersonWithName("Personal Banking Customer").getLocation());
-        assertEquals(Location.Internal, workspace.getModel().getPersonWithName("Customer Service Staff").getLocation());
-        assertEquals(Location.Internal, workspace.getModel().getPersonWithName("Back Office Staff").getLocation());
 
         assertEquals(51, workspace.getModel().getElements().size());
         assertEquals(3, workspace.getModel().getPeople().size());
@@ -603,9 +590,6 @@ class DslTests extends AbstractTests {
 
         SoftwareSystem c = parser.getWorkspace().getModel().getSoftwareSystemWithName("C");
         assertEquals("Organisation", c.getGroup());
-
-        SoftwareSystem d = parser.getWorkspace().getModel().getSoftwareSystemWithName("D");
-        assertEquals("Department A/Team 1", d.getGroup());
     }
 
     @Test

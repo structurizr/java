@@ -41,7 +41,7 @@ public final class Terminology {
     }
 
     @Deprecated
-    public void setEnterprise(String enterprise) {
+    void setEnterprise(String enterprise) {
         this.enterprise = enterprise;
     }
 

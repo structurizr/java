@@ -49,7 +49,7 @@ skinparam rectangle<<Live.Customersmobiledevice>> {
   BorderColor #888888
   shadowing false
 }
-skinparam database<<Live.BigBankplc.bigbankdb02.OracleSecondary.Database_2>> {
+skinparam database<<Live.BigBankplc.bigbankdb02.OracleSecondary.Database_1>> {
   BackgroundColor #438dd5
   FontColor #ffffff
   BorderColor #2e6295
@@ -146,10 +146,6 @@ rectangle "Customer's computer\n<size:10>[Deployment Node: Microsoft Windows or 
 }
 
 rectangle "Big Bank plc\n<size:10>[Deployment Node: Big Bank plc data center]</size>" <<Live.BigBankplc>> as Live.BigBankplc {
-  rectangle "bigbank-prod001\n<size:10>[Deployment Node]</size>" <<Live.BigBankplc.bigbankprod001>> as Live.BigBankplc.bigbankprod001 {
-    rectangle "==Mainframe Banking System\n<size:10>[Software System]</size>\n\nStores all of the core banking information about customers, accounts, transactions, etc." <<Live.BigBankplc.bigbankprod001.MainframeBankingSystem_1>> as Live.BigBankplc.bigbankprod001.MainframeBankingSystem_1
-  }
-
   rectangle "bigbank-web*** (x4)\n<size:10>[Deployment Node: Ubuntu 16.04 LTS]</size>" <<Live.BigBankplc.bigbankweb>> as Live.BigBankplc.bigbankweb {
     rectangle "Apache Tomcat\n<size:10>[Deployment Node: Apache Tomcat 8.x]</size>" <<Live.BigBankplc.bigbankweb.ApacheTomcat>> as Live.BigBankplc.bigbankweb.ApacheTomcat {
       rectangle "==Web Application\n<size:10>[Container: Java and Spring MVC]</size>\n\nDelivers the static content and the Internet banking single page application." <<Live.BigBankplc.bigbankweb.ApacheTomcat.WebApplication_1>> as Live.BigBankplc.bigbankweb.ApacheTomcat.WebApplication_1
@@ -173,9 +169,13 @@ rectangle "Big Bank plc\n<size:10>[Deployment Node: Big Bank plc data center]</s
 
   rectangle "bigbank-db02\n<size:10>[Deployment Node: Ubuntu 16.04 LTS]</size>" <<Live.BigBankplc.bigbankdb02>> as Live.BigBankplc.bigbankdb02 {
     rectangle "Oracle - Secondary\n<size:10>[Deployment Node: Oracle 12c]</size>" <<Live.BigBankplc.bigbankdb02.OracleSecondary>> as Live.BigBankplc.bigbankdb02.OracleSecondary {
-      database "==Database\n<size:10>[Container: Oracle Database Schema]</size>\n\nStores user registration information, hashed authentication credentials, access logs, etc." <<Live.BigBankplc.bigbankdb02.OracleSecondary.Database_2>> as Live.BigBankplc.bigbankdb02.OracleSecondary.Database_2
+      database "==Database\n<size:10>[Container: Oracle Database Schema]</size>\n\nStores user registration information, hashed authentication credentials, access logs, etc." <<Live.BigBankplc.bigbankdb02.OracleSecondary.Database_1>> as Live.BigBankplc.bigbankdb02.OracleSecondary.Database_1
     }
 
+  }
+
+  rectangle "bigbank-prod001\n<size:10>[Deployment Node]</size>" <<Live.BigBankplc.bigbankprod001>> as Live.BigBankplc.bigbankprod001 {
+    rectangle "==Mainframe Banking System\n<size:10>[Software System]</size>\n\nStores all of the core banking information about customers, accounts, transactions, etc." <<Live.BigBankplc.bigbankprod001.MainframeBankingSystem_1>> as Live.BigBankplc.bigbankprod001.MainframeBankingSystem_1
   }
 
 }
@@ -183,8 +183,8 @@ rectangle "Big Bank plc\n<size:10>[Deployment Node: Big Bank plc data center]</s
 Live.BigBankplc.bigbankweb.ApacheTomcat.WebApplication_1 .[#707070,thickness=2].> Live.Customerscomputer.WebBrowser.SinglePageApplication_1 : "<color:#707070>Delivers to the customer's web browser"
 Live.Customersmobiledevice.MobileApp_1 .[#707070,thickness=2].> Live.BigBankplc.bigbankapi.ApacheTomcat.APIApplication_1 : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[JSON/HTTPS]</size>"
 Live.Customerscomputer.WebBrowser.SinglePageApplication_1 .[#707070,thickness=2].> Live.BigBankplc.bigbankapi.ApacheTomcat.APIApplication_1 : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[JSON/HTTPS]</size>"
+Live.BigBankplc.bigbankapi.ApacheTomcat.APIApplication_1 .[#707070,thickness=2].> Live.BigBankplc.bigbankdb01.OraclePrimary.Database_1 : "<color:#707070>Reads from and writes to\n<color:#707070><size:8>[SQL/TCP]</size>"
+Live.BigBankplc.bigbankapi.ApacheTomcat.APIApplication_1 .[#707070,thickness=2].> Live.BigBankplc.bigbankdb02.OracleSecondary.Database_1 : "<color:#707070>Reads from and writes to\n<color:#707070><size:8>[SQL/TCP]</size>"
 Live.BigBankplc.bigbankapi.ApacheTomcat.APIApplication_1 .[#707070,thickness=2].> Live.BigBankplc.bigbankprod001.MainframeBankingSystem_1 : "<color:#707070>Makes API calls to\n<color:#707070><size:8>[XML/HTTPS]</size>"
-Live.BigBankplc.bigbankapi.ApacheTomcat.APIApplication_1 .[#707070,thickness=2].> Live.BigBankplc.bigbankdb01.OraclePrimary.Database_1 : "<color:#707070>Reads from and writes to\n<color:#707070><size:8>[JDBC]</size>"
-Live.BigBankplc.bigbankapi.ApacheTomcat.APIApplication_1 .[#707070,thickness=2].> Live.BigBankplc.bigbankdb02.OracleSecondary.Database_2 : "<color:#707070>Reads from and writes to\n<color:#707070><size:8>[JDBC]</size>"
 Live.BigBankplc.bigbankdb01.OraclePrimary .[#707070,thickness=2].> Live.BigBankplc.bigbankdb02.OracleSecondary : "<color:#707070>Replicates data to"
 @enduml

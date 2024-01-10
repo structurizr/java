@@ -47,24 +47,13 @@ digraph {
 
     subgraph cluster_73 {
       margin=25
-      label=<<font point-size="24">bigbank-prod001</font><br /><font point-size="19">[Deployment Node]</font>>
-      labelloc=b
-      color="#888888"
-      fontcolor="#000000"
-      fillcolor="#ffffff"
-
-      74 [id=74,shape=rect, label=<<font point-size="34">Mainframe Banking<br />System</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">Stores all of the core banking<br />information about customers,<br />accounts, transactions, etc.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
-    }
-
-    subgraph cluster_75 {
-      margin=25
       label=<<font point-size="24">bigbank-web***</font><br /><font point-size="19">[Deployment Node: Ubuntu 16.04 LTS]</font>>
       labelloc=b
       color="#888888"
       fontcolor="#000000"
       fillcolor="#ffffff"
 
-      subgraph cluster_76 {
+      subgraph cluster_74 {
         margin=25
         label=<<font point-size="24">Apache Tomcat</font><br /><font point-size="19">[Deployment Node: Apache Tomcat 8.x]</font>>
         labelloc=b
@@ -72,12 +61,12 @@ digraph {
         fontcolor="#000000"
         fillcolor="#ffffff"
 
-        77 [id=77,shape=rect, label=<<font point-size="34">Web Application</font><br /><font point-size="19">[Container: Java and Spring MVC]</font><br /><br /><font point-size="24">Delivers the static content<br />and the Internet banking<br />single page application.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
+        75 [id=75,shape=rect, label=<<font point-size="34">Web Application</font><br /><font point-size="19">[Container: Java and Spring MVC]</font><br /><br /><font point-size="24">Delivers the static content<br />and the Internet banking<br />single page application.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
       }
 
     }
 
-    subgraph cluster_79 {
+    subgraph cluster_77 {
       margin=25
       label=<<font point-size="24">bigbank-api***</font><br /><font point-size="19">[Deployment Node: Ubuntu 16.04 LTS]</font>>
       labelloc=b
@@ -85,7 +74,7 @@ digraph {
       fontcolor="#000000"
       fillcolor="#ffffff"
 
-      subgraph cluster_80 {
+      subgraph cluster_78 {
         margin=25
         label=<<font point-size="24">Apache Tomcat</font><br /><font point-size="19">[Deployment Node: Apache Tomcat 8.x]</font>>
         labelloc=b
@@ -93,12 +82,12 @@ digraph {
         fontcolor="#000000"
         fillcolor="#ffffff"
 
-        81 [id=81,shape=rect, label=<<font point-size="34">API Application</font><br /><font point-size="19">[Container: Java and Spring MVC]</font><br /><br /><font point-size="24">Provides Internet banking<br />functionality via a JSON/HTTPS<br />API.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
+        79 [id=79,shape=rect, label=<<font point-size="34">API Application</font><br /><font point-size="19">[Container: Java and Spring MVC]</font><br /><br /><font point-size="24">Provides Internet banking<br />functionality via a JSON/HTTPS<br />API.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
       }
 
     }
 
-    subgraph cluster_85 {
+    subgraph cluster_82 {
       margin=25
       label=<<font point-size="24">bigbank-db01</font><br /><font point-size="19">[Deployment Node: Ubuntu 16.04 LTS]</font>>
       labelloc=b
@@ -106,7 +95,7 @@ digraph {
       fontcolor="#000000"
       fillcolor="#ffffff"
 
-      subgraph cluster_86 {
+      subgraph cluster_83 {
         margin=25
         label=<<font point-size="24">Oracle - Primary</font><br /><font point-size="19">[Deployment Node: Oracle 12c]</font>>
         labelloc=b
@@ -114,12 +103,12 @@ digraph {
         fontcolor="#000000"
         fillcolor="#ffffff"
 
-        87 [id=87,shape=cylinder, label=<<font point-size="34">Database</font><br /><font point-size="19">[Container: Oracle Database Schema]</font><br /><br /><font point-size="24">Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
+        84 [id=84,shape=cylinder, label=<<font point-size="34">Database</font><br /><font point-size="19">[Container: Oracle Database Schema]</font><br /><br /><font point-size="24">Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
       }
 
     }
 
-    subgraph cluster_89 {
+    subgraph cluster_86 {
       margin=25
       label=<<font point-size="24">bigbank-db02</font><br /><font point-size="19">[Deployment Node: Ubuntu 16.04 LTS]</font>>
       labelloc=b
@@ -127,7 +116,7 @@ digraph {
       fontcolor="#000000"
       fillcolor="#ffffff"
 
-      subgraph cluster_90 {
+      subgraph cluster_87 {
         margin=25
         label=<<font point-size="24">Oracle - Secondary</font><br /><font point-size="19">[Deployment Node: Oracle 12c]</font>>
         labelloc=b
@@ -135,18 +124,29 @@ digraph {
         fontcolor="#000000"
         fillcolor="#ffffff"
 
-        91 [id=91,shape=cylinder, label=<<font point-size="34">Database</font><br /><font point-size="19">[Container: Oracle Database Schema]</font><br /><br /><font point-size="24">Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
+        88 [id=88,shape=cylinder, label=<<font point-size="34">Database</font><br /><font point-size="19">[Container: Oracle Database Schema]</font><br /><br /><font point-size="24">Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
       }
 
     }
 
+    subgraph cluster_90 {
+      margin=25
+      label=<<font point-size="24">bigbank-prod001</font><br /><font point-size="19">[Deployment Node]</font>>
+      labelloc=b
+      color="#888888"
+      fontcolor="#000000"
+      fillcolor="#ffffff"
+
+      91 [id=91,shape=rect, label=<<font point-size="34">Mainframe Banking<br />System</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">Stores all of the core banking<br />information about customers,<br />accounts, transactions, etc.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
+    }
+
   }
 
-  77 -> 71 [id=78, label=<<font point-size="24">Delivers to the customer's<br />web browser</font>>, style="dashed", color="#707070", fontcolor="#707070"]
-  68 -> 81 [id=82, label=<<font point-size="24">Makes API calls to</font><br /><font point-size="19">[JSON/HTTPS]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
-  71 -> 81 [id=83, label=<<font point-size="24">Makes API calls to</font><br /><font point-size="19">[JSON/HTTPS]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
-  81 -> 74 [id=84, label=<<font point-size="24">Makes API calls to</font><br /><font point-size="19">[XML/HTTPS]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
-  81 -> 87 [id=88, label=<<font point-size="24">Reads from and writes to</font><br /><font point-size="19">[JDBC]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
-  81 -> 91 [id=92, label=<<font point-size="24">Reads from and writes to</font><br /><font point-size="19">[JDBC]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
-  87 -> 91 [id=93, label=<<font point-size="24">Replicates data to</font>>, style="dashed", color="#707070", fontcolor="#707070",ltail=cluster_86,lhead=cluster_90]
+  75 -> 71 [id=76, label=<<font point-size="24">Delivers to the customer's<br />web browser</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  68 -> 79 [id=80, label=<<font point-size="24">Makes API calls to</font><br /><font point-size="19">[JSON/HTTPS]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  71 -> 79 [id=81, label=<<font point-size="24">Makes API calls to</font><br /><font point-size="19">[JSON/HTTPS]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  79 -> 84 [id=85, label=<<font point-size="24">Reads from and writes to</font><br /><font point-size="19">[SQL/TCP]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  79 -> 88 [id=89, label=<<font point-size="24">Reads from and writes to</font><br /><font point-size="19">[SQL/TCP]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  79 -> 91 [id=92, label=<<font point-size="24">Makes API calls to</font><br /><font point-size="19">[XML/HTTPS]</font>>, style="dashed", color="#707070", fontcolor="#707070"]
+  84 -> 88 [id=93, label=<<font point-size="24">Replicates data to</font>>, style="dashed", color="#707070", fontcolor="#707070",ltail=cluster_83,lhead=cluster_87]
 }
