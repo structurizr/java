@@ -1,7 +1,6 @@
 package com.structurizr.assistant.model;
 
 import com.structurizr.Workspace;
-import com.structurizr.assistant.Priority;
 import com.structurizr.assistant.Recommendation;
 import com.structurizr.model.Container;
 import com.structurizr.model.Relationship;
@@ -22,7 +21,7 @@ public class RelationshipTechnologyInspectionTests {
         Relationship relationship = a.uses(b, "Description");
 
         Recommendation recommendation = new RelationshipTechnologyInspection(workspace).run(relationship);
-        Assertions.assertEquals(Priority.Low, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.Low, recommendation.getPriority());
         assertEquals("structurizr.recommendations.model.relationship.technology", recommendation.getType());
         assertEquals("Add a technology to the relationship between the software system named \"A\" and the software system named \"B\".", recommendation.getDescription());
     }
@@ -36,7 +35,7 @@ public class RelationshipTechnologyInspectionTests {
         Relationship relationship = a.uses(b, "Description");
 
         Recommendation recommendation = new RelationshipTechnologyInspection(workspace).run(relationship);
-        Assertions.assertEquals(Priority.Medium, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.Medium, recommendation.getPriority());
         assertEquals("structurizr.recommendations.model.relationship.technology", recommendation.getType());
         assertEquals("Add a technology to the relationship between the container named \"A\" and the container named \"B\".", recommendation.getDescription());
     }

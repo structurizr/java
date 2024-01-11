@@ -1,7 +1,6 @@
 package com.structurizr.assistant.model;
 
 import com.structurizr.Workspace;
-import com.structurizr.assistant.Priority;
 import com.structurizr.assistant.Recommendation;
 import com.structurizr.model.Container;
 import com.structurizr.model.SoftwareSystem;
@@ -20,7 +19,7 @@ public class ContainerDescriptionInspectionTests {
         Container container = softwareSystem.addContainer("Name");
 
         Recommendation recommendation = new ContainerDescriptionInspection(workspace).run(container);
-        Assertions.assertEquals(Priority.Medium, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.Medium, recommendation.getPriority());
         assertEquals("structurizr.recommendations.model.container.description", recommendation.getType());
         assertEquals("Add a description to the container named \"Name\".", recommendation.getDescription());
     }

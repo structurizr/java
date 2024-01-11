@@ -1,7 +1,6 @@
 package com.structurizr.assistant.model;
 
 import com.structurizr.Workspace;
-import com.structurizr.assistant.Priority;
 import com.structurizr.assistant.Recommendation;
 import com.structurizr.model.Container;
 import com.structurizr.model.DeploymentNode;
@@ -20,7 +19,7 @@ public class EmptyDeploymentNodeCheckTests {
         DeploymentNode deploymentNode = workspace.getModel().addDeploymentNode("Name");
 
         Recommendation recommendation = new EmptyDeploymentNodeInspection(workspace).run(deploymentNode);
-        Assertions.assertEquals(Priority.Low, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.Low, recommendation.getPriority());
         assertEquals("structurizr.recommendations.model.deploymentnode.empty", recommendation.getType());
         assertEquals("The deployment node named \"Name\" is empty.", recommendation.getDescription());
     }

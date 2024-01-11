@@ -1,7 +1,6 @@
 package com.structurizr.assistant.model;
 
 import com.structurizr.Workspace;
-import com.structurizr.assistant.Priority;
 import com.structurizr.assistant.Recommendation;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
@@ -22,7 +21,7 @@ public class ComponentTechnologyInspectionTests {
         Component component = container.addComponent("Name");
 
         Recommendation recommendation = new ComponentTechnologyInspection(workspace).run(component);
-        Assertions.assertEquals(Priority.Low, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.Low, recommendation.getPriority());
         assertEquals("structurizr.recommendations.model.component.technology", recommendation.getType());
         assertEquals("Add a technology to the component named \"Name\".", recommendation.getDescription());
     }

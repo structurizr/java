@@ -1,7 +1,6 @@
 package com.structurizr.assistant.model;
 
 import com.structurizr.Workspace;
-import com.structurizr.assistant.Priority;
 import com.structurizr.assistant.Recommendation;
 import com.structurizr.model.InfrastructureNode;
 import org.junit.jupiter.api.Assertions;
@@ -19,7 +18,7 @@ public class InfrastructureNodeTechnologyInspectionTests {
                 .addInfrastructureNode("Name");
 
         Recommendation recommendation = new InfrastructureNodeTechnologyInspection(workspace).run(infrastructureNode);
-        Assertions.assertEquals(Priority.Medium, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.Medium, recommendation.getPriority());
         assertEquals("structurizr.recommendations.model.infrastructurenode.technology", recommendation.getType());
         assertEquals("Add a technology to the infrastructure node named \"Name\".", recommendation.getDescription());
     }

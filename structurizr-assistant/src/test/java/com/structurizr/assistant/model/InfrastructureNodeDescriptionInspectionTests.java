@@ -1,7 +1,6 @@
 package com.structurizr.assistant.model;
 
 import com.structurizr.Workspace;
-import com.structurizr.assistant.Priority;
 import com.structurizr.assistant.Recommendation;
 import com.structurizr.model.InfrastructureNode;
 import org.junit.jupiter.api.Assertions;
@@ -19,7 +18,7 @@ public class InfrastructureNodeDescriptionInspectionTests {
                 .addInfrastructureNode("Name");
 
         Recommendation recommendation = new InfrastructureNodeDescriptionInspection(workspace).run(infrastructureNode);
-        Assertions.assertEquals(Priority.Medium, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.Medium, recommendation.getPriority());
         assertEquals("structurizr.recommendations.model.infrastructurenode.description", recommendation.getType());
         assertEquals("Add a description to the infrastructure node named \"Name\".", recommendation.getDescription());
     }

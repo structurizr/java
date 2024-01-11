@@ -12,7 +12,7 @@ abstract class ComponentInspection extends ElementInspection {
     }
 
     @Override
-    protected Recommendation inspect(Element element) {
+    protected final Recommendation inspect(Element element) {
         return inspect((Component)element);
     }
 

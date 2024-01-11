@@ -1,7 +1,6 @@
 package com.structurizr.assistant.model;
 
 import com.structurizr.Workspace;
-import com.structurizr.assistant.Priority;
 import com.structurizr.assistant.Recommendation;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
@@ -23,7 +22,7 @@ public class RelationshipDescriptionInspectionTests {
         Relationship relationship = a.uses(b, "");
 
         Recommendation recommendation = new RelationshipDescriptionInspection(workspace).run(relationship);
-        Assertions.assertEquals(Priority.Medium, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.Medium, recommendation.getPriority());
         assertEquals("structurizr.recommendations.model.relationship.description", recommendation.getType());
         assertEquals("Add a description to the relationship between the software system named \"A\" and the software system named \"B\".", recommendation.getDescription());
     }
@@ -38,7 +37,7 @@ public class RelationshipDescriptionInspectionTests {
         Relationship relationship = a.uses(b, "");
 
         Recommendation recommendation = new RelationshipDescriptionInspection(workspace).run(relationship);
-        Assertions.assertEquals(Priority.Low, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.Low, recommendation.getPriority());
         assertEquals("structurizr.recommendations.model.relationship.description", recommendation.getType());
         assertEquals("Add a description to the relationship between the component named \"A\" and the component named \"B\".", recommendation.getDescription());
     }

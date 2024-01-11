@@ -1,7 +1,6 @@
 package com.structurizr.assistant.view;
 
 import com.structurizr.Workspace;
-import com.structurizr.assistant.Priority;
 import com.structurizr.assistant.Recommendation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ public class EmptyViewsInspectionTests {
         Workspace workspace = new Workspace("Name", "Description");
 
         Recommendation recommendation = new EmptyViewsInspection(workspace).run();
-        Assertions.assertEquals(Priority.High, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.High, recommendation.getPriority());
         assertEquals("structurizr.recommendations.views.empty", recommendation.getType());
         assertEquals("Add some views to the workspace.", recommendation.getDescription());
     }

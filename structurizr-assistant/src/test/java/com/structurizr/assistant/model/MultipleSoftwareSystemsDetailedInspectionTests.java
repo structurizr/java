@@ -1,7 +1,6 @@
 package com.structurizr.assistant.model;
 
 import com.structurizr.Workspace;
-import com.structurizr.assistant.Priority;
 import com.structurizr.assistant.Recommendation;
 import com.structurizr.documentation.Decision;
 import com.structurizr.documentation.Format;
@@ -22,7 +21,7 @@ public class MultipleSoftwareSystemsDetailedInspectionTests {
         workspace.getModel().addSoftwareSystem("B").addContainer("Container");
 
         Recommendation recommendation = new MultipleSoftwareSystemsDetailedInspection(workspace).run();
-        Assertions.assertEquals(Priority.High, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.High, recommendation.getPriority());
         assertEquals("structurizr.recommendations.workspace.scope", recommendation.getType());
         assertEquals("This workspace describes the internal details of 2 software systems. It is recommended that a workspace contains the model, views, and documentation for a single software system only.", recommendation.getDescription());
     }
@@ -34,7 +33,7 @@ public class MultipleSoftwareSystemsDetailedInspectionTests {
         workspace.getModel().addSoftwareSystem("B").getDocumentation().addSection(new Section(Format.Markdown, "# Section 1"));
 
         Recommendation recommendation = new MultipleSoftwareSystemsDetailedInspection(workspace).run();
-        Assertions.assertEquals(Priority.High, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.High, recommendation.getPriority());
         assertEquals("structurizr.recommendations.workspace.scope", recommendation.getType());
         assertEquals("This workspace describes the internal details of 2 software systems. It is recommended that a workspace contains the model, views, and documentation for a single software system only.", recommendation.getDescription());
     }
@@ -51,7 +50,7 @@ public class MultipleSoftwareSystemsDetailedInspectionTests {
         workspace.getModel().addSoftwareSystem("B").getDocumentation().addDecision(decision);
 
         Recommendation recommendation = new MultipleSoftwareSystemsDetailedInspection(workspace).run();
-        Assertions.assertEquals(Priority.High, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.High, recommendation.getPriority());
         assertEquals("structurizr.recommendations.workspace.scope", recommendation.getType());
         assertEquals("This workspace describes the internal details of 2 software systems. It is recommended that a workspace contains the model, views, and documentation for a single software system only.", recommendation.getDescription());
     }

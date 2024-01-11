@@ -29,4 +29,10 @@ public final class Recommendation {
         return type + " | " + priority + " | " + description;
     }
 
+    public enum Priority {
+        Low,
+        Medium,
+        High
+    }
+
 }

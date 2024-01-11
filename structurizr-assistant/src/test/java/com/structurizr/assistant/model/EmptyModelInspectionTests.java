@@ -1,7 +1,6 @@
 package com.structurizr.assistant.model;
 
 import com.structurizr.Workspace;
-import com.structurizr.assistant.Priority;
 import com.structurizr.assistant.Recommendation;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -16,7 +15,7 @@ public class EmptyModelInspectionTests {
         Workspace workspace = new Workspace("Name", "Description");
 
         Recommendation recommendation = new EmptyModelInspection(workspace).run();
-        Assertions.assertEquals(Priority.High, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.High, recommendation.getPriority());
         assertEquals("structurizr.recommendations.model.empty", recommendation.getType());
         assertEquals("Add some elements to the model.", recommendation.getDescription());
     }

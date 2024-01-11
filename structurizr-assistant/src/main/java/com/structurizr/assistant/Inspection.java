@@ -36,15 +36,15 @@ public abstract class Inspection {
     }
 
     protected Recommendation lowPriorityRecommendation(String description) {
-        return new Recommendation(STRUCTURIZR_RECOMMENDATIONS_PREFIX + getType(), Priority.Low, description);
+        return new Recommendation(STRUCTURIZR_RECOMMENDATIONS_PREFIX + getType(), Recommendation.Priority.Low, description);
     }
 
     protected Recommendation mediumPriorityRecommendation(String description) {
-        return new Recommendation(STRUCTURIZR_RECOMMENDATIONS_PREFIX + getType(), Priority.Medium, description);
+        return new Recommendation(STRUCTURIZR_RECOMMENDATIONS_PREFIX + getType(), Recommendation.Priority.Medium, description);
     }
 
     protected Recommendation highPriorityRecommendation(String description) {
-        return new Recommendation(STRUCTURIZR_RECOMMENDATIONS_PREFIX + getType(), Priority.High, description);
+        return new Recommendation(STRUCTURIZR_RECOMMENDATIONS_PREFIX + getType(), Recommendation.Priority.High, description);
     }
 
 }

@@ -1,7 +1,6 @@
 package com.structurizr.assistant.model;
 
 import com.structurizr.Workspace;
-import com.structurizr.assistant.Priority;
 import com.structurizr.assistant.Recommendation;
 import com.structurizr.model.SoftwareSystem;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +17,7 @@ public class OrphanedElementInspectionTests {
         SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
 
         Recommendation recommendation = new OrphanedElementInspection(workspace).run(a);
-        Assertions.assertEquals(Priority.Medium, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.Medium, recommendation.getPriority());
         assertEquals("structurizr.recommendations.model.element.orphaned", recommendation.getType());
         assertEquals("The software system named \"A\" is orphaned - add a relationship to/from it, or consider removing it from the model.", recommendation.getDescription());
     }

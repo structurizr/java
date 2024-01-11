@@ -1,7 +1,6 @@
 package com.structurizr.assistant.model;
 
 import com.structurizr.Workspace;
-import com.structurizr.assistant.Priority;
 import com.structurizr.assistant.Recommendation;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
@@ -22,7 +21,7 @@ public class ComponentDescriptionInspectionTests {
         Component component = container.addComponent("Name");
 
         Recommendation recommendation = new ComponentDescriptionInspection(workspace).run(component);
-        Assertions.assertEquals(Priority.Medium, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.Medium, recommendation.getPriority());
         assertEquals("structurizr.recommendations.model.component.description", recommendation.getType());
         assertEquals("Add a description to the component named \"Name\".", recommendation.getDescription());
     }

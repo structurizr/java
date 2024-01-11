@@ -1,7 +1,6 @@
 package com.structurizr.assistant.view;
 
 import com.structurizr.Workspace;
-import com.structurizr.assistant.Priority;
 import com.structurizr.assistant.Recommendation;
 import com.structurizr.model.SoftwareSystem;
 import org.junit.jupiter.api.Assertions;
@@ -21,7 +20,7 @@ public class ContainerViewsForMultipleSoftwareSystemsInspectionTests {
         workspace.getViews().createContainerView(b, "Containers-B", "Description");
 
         Recommendation recommendation = new ContainerViewsForMultipleSoftwareSystemsInspection(workspace).run();
-        Assertions.assertEquals(Priority.High, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.High, recommendation.getPriority());
         assertEquals("structurizr.recommendations.workspace.scope", recommendation.getType());
         assertEquals("Container views exist for 2 software systems. It is recommended that a workspace includes container views for a single software system only.", recommendation.getDescription());
     }

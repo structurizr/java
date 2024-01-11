@@ -1,7 +1,6 @@
 package com.structurizr.assistant.model;
 
 import com.structurizr.Workspace;
-import com.structurizr.assistant.Priority;
 import com.structurizr.assistant.Recommendation;
 import com.structurizr.model.SoftwareSystem;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +17,7 @@ public class SoftwareSystemDescriptionInspectionTests {
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
 
         Recommendation recommendation = new SoftwareSystemDescriptionInspection(workspace).run(softwareSystem);
-        Assertions.assertEquals(Priority.Medium, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.Medium, recommendation.getPriority());
         assertEquals("structurizr.recommendations.model.softwaresystem.description", recommendation.getType());
         assertEquals("Add a description to the software system named \"Name\".", recommendation.getDescription());
     }

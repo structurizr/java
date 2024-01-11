@@ -1,7 +1,6 @@
 package com.structurizr.assistant.model;
 
 import com.structurizr.Workspace;
-import com.structurizr.assistant.Priority;
 import com.structurizr.assistant.Recommendation;
 import com.structurizr.model.DeploymentNode;
 import org.junit.jupiter.api.Assertions;
@@ -18,7 +17,7 @@ public class DeploymentNodeDescriptionInspectionTests {
         DeploymentNode deploymentNode = workspace.getModel().addDeploymentNode("Name");
 
         Recommendation recommendation = new DeploymentNodeDescriptionInspection(workspace).run(deploymentNode);
-        Assertions.assertEquals(Priority.Medium, recommendation.getPriority());
+        Assertions.assertEquals(Recommendation.Priority.Medium, recommendation.getPriority());
         assertEquals("structurizr.recommendations.model.deploymentnode.description", recommendation.getType());
         assertEquals("Add a description to the deployment node named \"Name\".", recommendation.getDescription());
     }
