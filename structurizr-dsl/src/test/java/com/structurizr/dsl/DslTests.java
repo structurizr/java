@@ -708,7 +708,9 @@ class DslTests extends AbstractTests {
         // adrtools decisions
         assertEquals(10, parser.getWorkspace().getDocumentation().getDecisions().size());
         assertEquals(10, softwareSystem.getDocumentation().getDecisions().size());
-        assertEquals(10, container.getDocumentation().getDecisions().size());
+
+        // madr decisions
+        assertEquals(19, container.getDocumentation().getDecisions().size());
 
         // log4brains decisions
         assertEquals(4, component.getDocumentation().getDecisions().size());

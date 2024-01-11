@@ -7,7 +7,7 @@ workspace {
             !decisions adrtools
 
             container "Container" {
-                !decisions adrtools adrtools
+                !decisions madr madr
 
                 component "Component" {
                     !decisions log4brains log4brains

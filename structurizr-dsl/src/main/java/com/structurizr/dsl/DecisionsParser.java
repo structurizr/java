@@ -15,9 +15,11 @@ final class DecisionsParser extends AbstractParser {
 
     private static final String ADRTOOLS_DECISION_IMPORTER = "adrtools";
     private static final String LOG4BRAINS_DECISION_IMPORTER = "log4brains";
+    private static final String MADR_DECISION_IMPORTER = "madr";
 
     static {
         DECISION_IMPORTERS.put(ADRTOOLS_DECISION_IMPORTER, "com.structurizr.importer.documentation.AdrToolsDecisionImporter");
+        DECISION_IMPORTERS.put(MADR_DECISION_IMPORTER, "com.structurizr.importer.documentation.MadrDecisionImporter");
         DECISION_IMPORTERS.put(LOG4BRAINS_DECISION_IMPORTER, "com.structurizr.importer.documentation.Log4brainsDecisionImporter");
     }
 

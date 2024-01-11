@@ -33,8 +33,8 @@ public class Log4brainsDecisionImporter extends AbstractDecisionImporter {
     /**
      * Imports Markdown files from the specified path, one per decision.
      *
-     * @param documentable      the item that documentation should be associated with
-     * @param path              the path to import documentation from
+     * @param documentable      the item that decisions should be associated with
+     * @param path              the path to import decisions from
      */
     @Override
     public void importDocumentation(Documentable documentable, File path) {
@@ -187,9 +187,9 @@ public class Log4brainsDecisionImporter extends AbstractDecisionImporter {
                 Matcher matcher = LINK_REGEX.matcher(line);
                 if (matcher.find()) {
                     String linkDescription = matcher.group(1);
-                    String markdownFile = matcher.group(2);
+                    String target = matcher.group(2);
 
-                    Decision targetDecision = decisionsByFilename.get(markdownFile);
+                    Decision targetDecision = decisionsByFilename.get(target);
                     if (targetDecision != null) {
                         decision.addLink(targetDecision, linkDescription);
                     }
