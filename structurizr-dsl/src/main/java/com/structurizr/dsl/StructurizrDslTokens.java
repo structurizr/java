@@ -97,6 +97,7 @@ class StructurizrDslTokens {
     static final String INCLUDE_FILE_TOKEN = "!include";
     static final String DOCS_TOKEN = "!docs";
     static final String ADRS_TOKEN = "!adrs";
+    static final String DECISIONS_TOKEN = "!decisions";
     static final String CONSTANT_TOKEN = "!constant";
     static final String IDENTIFIERS_TOKEN = "!identifiers";
     static final String IMPLIED_RELATIONSHIPS_TOKEN = "!impliedRelationships";

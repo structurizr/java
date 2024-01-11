@@ -36,7 +36,7 @@ final class SoftwareSystemDslContext extends GroupableElementDslContext {
     protected String[] getPermittedTokens() {
         return new String[] {
                 StructurizrDslTokens.DOCS_TOKEN,
-                StructurizrDslTokens.ADRS_TOKEN,
+                StructurizrDslTokens.DECISIONS_TOKEN,
                 StructurizrDslTokens.GROUP_TOKEN,
                 StructurizrDslTokens.CONTAINER_TOKEN,
                 StructurizrDslTokens.DESCRIPTION_TOKEN,

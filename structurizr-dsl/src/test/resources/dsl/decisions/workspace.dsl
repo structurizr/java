@@ -1,16 +1,16 @@
 workspace {
 
-    !adrs adrs com.structurizr.example.ExampleDecisionImporter
+    !adrs adrtools com.structurizr.example.ExampleDecisionImporter
 
     model {
         softwareSystem = softwareSystem "Software System" {
-            !adrs adrs
+            !decisions adrtools
 
             container "Container" {
-                !adrs adrs
+                !decisions adrtools adrtools
 
                 component "Component" {
-                    !adrs adrs
+                    !decisions log4brains log4brains
                 }
             }
         }

@@ -9,7 +9,7 @@ final class WorkspaceDslContext extends DslContext {
                 StructurizrDslTokens.DESCRIPTION_TOKEN,
                 StructurizrDslTokens.PROPERTIES_TOKEN,
                 StructurizrDslTokens.DOCS_TOKEN,
-                StructurizrDslTokens.ADRS_TOKEN,
+                StructurizrDslTokens.DECISIONS_TOKEN,
                 StructurizrDslTokens.IDENTIFIERS_TOKEN,
                 StructurizrDslTokens.IMPLIED_RELATIONSHIPS_TOKEN,
                 StructurizrDslTokens.MODEL_TOKEN,

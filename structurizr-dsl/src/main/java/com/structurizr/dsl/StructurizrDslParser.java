@@ -844,24 +844,24 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                             new DocsParser().parse(getContext(ComponentDslContext.class), dslFile, tokens);
                         }
 
-                    } else if (ADRS_TOKEN.equalsIgnoreCase(firstToken) && inContext(WorkspaceDslContext.class)) {
+                    } else if ((ADRS_TOKEN.equalsIgnoreCase(firstToken) || DECISIONS_TOKEN.equalsIgnoreCase(firstToken)) && inContext(WorkspaceDslContext.class)) {
                         if (!restricted) {
-                            new AdrsParser().parse(getContext(WorkspaceDslContext.class), dslFile, tokens);
+                            new DecisionsParser().parse(getContext(WorkspaceDslContext.class), dslFile, tokens);
                         }
 
-                    } else if (ADRS_TOKEN.equalsIgnoreCase(firstToken) && inContext(SoftwareSystemDslContext.class)) {
+                    } else if ((ADRS_TOKEN.equalsIgnoreCase(firstToken) || DECISIONS_TOKEN.equalsIgnoreCase(firstToken)) && inContext(SoftwareSystemDslContext.class)) {
                         if (!restricted) {
-                            new AdrsParser().parse(getContext(SoftwareSystemDslContext.class), dslFile, tokens);
+                            new DecisionsParser().parse(getContext(SoftwareSystemDslContext.class), dslFile, tokens);
                         }
 
-                    } else if (ADRS_TOKEN.equalsIgnoreCase(firstToken) && inContext(ContainerDslContext.class)) {
+                    } else if ((ADRS_TOKEN.equalsIgnoreCase(firstToken) || DECISIONS_TOKEN.equalsIgnoreCase(firstToken)) && inContext(ContainerDslContext.class)) {
                         if (!restricted) {
-                            new AdrsParser().parse(getContext(ContainerDslContext.class), dslFile, tokens);
+                            new DecisionsParser().parse(getContext(ContainerDslContext.class), dslFile, tokens);
                         }
 
-                    } else if (ADRS_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentDslContext.class)) {
+                    } else if ((ADRS_TOKEN.equalsIgnoreCase(firstToken) || DECISIONS_TOKEN.equalsIgnoreCase(firstToken)) && inContext(ComponentDslContext.class)) {
                         if (!restricted) {
-                            new AdrsParser().parse(getContext(ComponentDslContext.class), dslFile, tokens);
+                            new DecisionsParser().parse(getContext(ComponentDslContext.class), dslFile, tokens);
                         }
 
                     } else if (CONSTANT_TOKEN.equalsIgnoreCase(firstToken)) {

@@ -17,6 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AdrToolsDecisionImporterTests {
 
+    private static final File DECISIONS_FOLDER = new File("./src/test/resources/decisions/adrtools");
+
     private AdrToolsDecisionImporter decisionImporter;
     private Workspace workspace;
     private Documentation documentation;
@@ -72,7 +74,7 @@ public class AdrToolsDecisionImporterTests {
 
     @Test
     public void test_importDecisions() {
-        decisionImporter.importDocumentation(workspace, new File("./src/test/resources/adrs"));
+        decisionImporter.importDocumentation(workspace, DECISIONS_FOLDER);
 
         assertEquals(9, documentation.getDecisions().size());
 
@@ -108,7 +110,7 @@ public class AdrToolsDecisionImporterTests {
 
     @Test
     public void test_importDocumentation_CapturesLinksBetweenDecisions() {
-        decisionImporter.importDocumentation(workspace, new File("./src/test/resources/adrs"));
+        decisionImporter.importDocumentation(workspace, DECISIONS_FOLDER);
 
         Decision decision5 = documentation.getDecisions().stream().filter(d -> d.getId().equals("5")).findFirst().get();
         assertEquals(1, decision5.getLinks().size());
@@ -119,7 +121,7 @@ public class AdrToolsDecisionImporterTests {
 
     @Test
     public void test_importDocumentation_RewritesLinksBetweenDecisions() {
-        decisionImporter.importDocumentation(workspace, new File("./src/test/resources/adrs"));
+        decisionImporter.importDocumentation(workspace, DECISIONS_FOLDER);
 
         Decision decision5 = documentation.getDecisions().stream().filter(d -> d.getId().equals("5")).findFirst().get();
         assertTrue(decision5.getContent().contains("Amended by [9. Help scripts](#9)"));

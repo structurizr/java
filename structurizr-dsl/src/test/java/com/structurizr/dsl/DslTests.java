@@ -697,18 +697,21 @@ class DslTests extends AbstractTests {
     }
 
     @Test
-    void test_adrs() throws Exception {
+    void test_decisions() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
-        parser.parse(new File("src/test/resources/dsl/adrs/workspace.dsl"));
+        parser.parse(new File("src/test/resources/dsl/decisions/workspace.dsl"));
 
         SoftwareSystem softwareSystem = parser.getWorkspace().getModel().getSoftwareSystemWithName("Software System");
         Container container = softwareSystem.getContainerWithName("Container");
         Component component = container.getComponentWithName("Component");
 
+        // adrtools decisions
         assertEquals(10, parser.getWorkspace().getDocumentation().getDecisions().size());
         assertEquals(10, softwareSystem.getDocumentation().getDecisions().size());
         assertEquals(10, container.getDocumentation().getDecisions().size());
-        assertEquals(10, component.getDocumentation().getDecisions().size());
+
+        // log4brains decisions
+        assertEquals(4, component.getDocumentation().getDecisions().size());
     }
 
     @Test
@@ -764,7 +767,7 @@ class DslTests extends AbstractTests {
             parser.parse(dslFile);
             fail();
         } catch (StructurizrDslParserException e) {
-            assertEquals("Unexpected tokens (expected: name, description, properties, !docs, !adrs, !identifiers, !impliedRelationships, model, views, configuration) at line 3 of " + dslFile.getAbsolutePath() + ": softwareSystem \"Name\"", e.getMessage());
+            assertEquals("Unexpected tokens (expected: name, description, properties, !docs, !decisions, !identifiers, !impliedRelationships, model, views, configuration) at line 3 of " + dslFile.getAbsolutePath() + ": softwareSystem \"Name\"", e.getMessage());
         }
     }
 
@@ -777,7 +780,7 @@ class DslTests extends AbstractTests {
             parser.parse(dslFile);
             fail();
         } catch (StructurizrDslParserException e) {
-            assertEquals("Unexpected tokens (expected: !docs, !adrs, group, container, description, tags, url, properties, perspectives, ->) at line 6 of " + dslFile.getAbsolutePath() + ": url \"https://example.com\"", e.getMessage());
+            assertEquals("Unexpected tokens (expected: !docs, !decisions, group, container, description, tags, url, properties, perspectives, ->) at line 6 of " + dslFile.getAbsolutePath() + ": url \"https://example.com\"", e.getMessage());
         }
     }
 
@@ -966,7 +969,7 @@ class DslTests extends AbstractTests {
             fail();
         } catch (StructurizrDslParserException e) {
             // check that the error message includes the original line number
-            assertEquals("Unexpected tokens (expected: !docs, !adrs, group, container, description, tags, url, properties, perspectives, ->) at line 8 of " + dslFile.getAbsolutePath() + ": component \"Component\" // components not permitted inside software systems", e.getMessage());
+            assertEquals("Unexpected tokens (expected: !docs, !decisions, group, container, description, tags, url, properties, perspectives, ->) at line 8 of " + dslFile.getAbsolutePath() + ": component \"Component\" // components not permitted inside software systems", e.getMessage());
         }
     }
 

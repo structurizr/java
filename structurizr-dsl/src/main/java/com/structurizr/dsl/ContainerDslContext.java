@@ -36,7 +36,7 @@ final class ContainerDslContext extends GroupableElementDslContext {
     protected String[] getPermittedTokens() {
         return new String[] {
                 StructurizrDslTokens.DOCS_TOKEN,
-                StructurizrDslTokens.ADRS_TOKEN,
+                StructurizrDslTokens.DECISIONS_TOKEN,
                 StructurizrDslTokens.GROUP_TOKEN,
                 StructurizrDslTokens.COMPONENT_TOKEN,
                 StructurizrDslTokens.DESCRIPTION_TOKEN,
