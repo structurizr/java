@@ -42,6 +42,8 @@ public class DefaultAssistant extends Assistant {
 
             if (element instanceof SoftwareSystem) {
                 add(new SoftwareSystemDescriptionInspection(workspace).run(element));
+                add(new SoftwareSystemDocumentationInspection(workspace).run(element));
+                add(new SoftwareSystemDecisionsInspection(workspace).run(element));
             }
 
             if (element instanceof Container) {
