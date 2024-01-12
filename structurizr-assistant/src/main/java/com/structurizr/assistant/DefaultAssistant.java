@@ -7,6 +7,7 @@ import com.structurizr.assistant.view.ElementStyleMetadataInspection;
 import com.structurizr.assistant.view.EmptyViewsInspection;
 import com.structurizr.assistant.view.SystemContextViewsForMultipleSoftwareSystemsInspection;
 import com.structurizr.assistant.workspace.WorkspaceScopeInspection;
+import com.structurizr.assistant.workspace.WorkspaceToolingInspection;
 import com.structurizr.model.*;
 import com.structurizr.view.ElementStyle;
 
@@ -26,6 +27,7 @@ public class DefaultAssistant extends Assistant {
     }
 
     private void runWorkspaceInspections(Workspace workspace) {
+        add(new WorkspaceToolingInspection(workspace).run());
         add(new WorkspaceScopeInspection(workspace).run());
     }
 
