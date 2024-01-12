@@ -10,6 +10,7 @@ import java.io.File;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,6 +24,9 @@ public class MadrDecisionImporter extends AbstractDecisionImporter {
 
     private static final String STATUS_PREFIX = "status: ";
     private static final String DEFAULT_STATUS = "accepted";
+
+    private static final String DATE_PREFIX = "date: ";
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
 
     private static final Pattern LINK_REGEX = Pattern.compile("\\[.*]\\((.*)\\)");
     private static final String FRONT_MATTER_SEPARATOR = "---";
@@ -97,10 +101,18 @@ public class MadrDecisionImporter extends AbstractDecisionImporter {
         String contentWithoutFrontMatter = content.replaceFirst("(?m)^---\n(^.*\n)*?---\n", "");
         decision.setContent(contentWithoutFrontMatter);
 
-        String[] lines = contentWithoutFrontMatter.split("\\n");
-        decision.setTitle(extractTitle(lines));
+        String[] linesWithFrontMatter = content.split("\\n");
+        String[] linesWithoutFrontMatter = contentWithoutFrontMatter.split("\\n");
+
+        decision.setTitle(extractTitle(linesWithoutFrontMatter));
+
         decision.setDate(extractDate(file));
-        decision.setStatus(extractStatus(content.split("\\n")));
+        Date dateFromFrontMatter = extractDate(linesWithFrontMatter);
+        if (dateFromFrontMatter != null) {
+            decision.setDate(dateFromFrontMatter);
+        }
+
+        decision.setStatus(extractStatus(linesWithFrontMatter));
         decision.setFormat(Format.Markdown);
 
         return decision;
@@ -126,8 +138,30 @@ public class MadrDecisionImporter extends AbstractDecisionImporter {
         return new Date(file.lastModified());
     }
 
-    protected String extractStatus(String[] lines) {
+    protected Date extractDate(String[] lines) throws Exception {
         // the date is on a line of its own, in the front matter, in the format:
+        // date: {YYYY-MM-DD}
+        if (lines[0].startsWith(FRONT_MATTER_SEPARATOR)) {
+            for (int i = 1; i < lines.length; i++) {
+                String line = lines[i];
+
+                if (line.startsWith(FRONT_MATTER_SEPARATOR)) {
+                    // we've hit the end of the front matter
+                    return null;
+                } else if (line.startsWith(DATE_PREFIX)) {
+                    SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
+                    sdf.setTimeZone(timeZone);
+
+                    return sdf.parse(line.substring(DATE_PREFIX.length()));
+                }
+            }
+        }
+
+        return null;
+    }
+
+    protected String extractStatus(String[] lines) {
+        // the status is on a line of its own, in the front matter, in the format:
         // status: {DECISION_STATUS}
         if (lines[0].startsWith(FRONT_MATTER_SEPARATOR)) {
             for (int i = 1; i < lines.length; i++) {

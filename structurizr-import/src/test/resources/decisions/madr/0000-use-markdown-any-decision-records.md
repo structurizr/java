@@ -1,6 +1,7 @@
 ---
 parent: Decisions
 nav_order: 0
+date: 2024-01-11
 ---
 # Use Markdown Any Decision Records
 
