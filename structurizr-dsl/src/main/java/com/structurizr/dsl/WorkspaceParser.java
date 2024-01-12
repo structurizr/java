@@ -23,7 +23,6 @@ final class WorkspaceParser extends AbstractParser {
         // workspace extends <file|url>
 
         Workspace workspace = new Workspace("Name", "Description");
-        workspace.getModel().setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
 
         if (tokens.hasMoreThan(SECOND_INDEX)) {
             throw new RuntimeException("Too many tokens, expected: " + GRAMMAR_STANDALONE + " or " + GRAMMAR_EXTENDS);
@@ -87,6 +86,8 @@ final class WorkspaceParser extends AbstractParser {
                 }
             }
         }
+
+        workspace.getModel().setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
 
         return workspace;
     }

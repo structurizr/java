@@ -436,6 +436,7 @@ class DslTests extends AbstractTests {
 
         Workspace workspace = parser.getWorkspace();
         Model model = workspace.getModel();
+        assertEquals(CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy.class, model.getImpliedRelationshipsStrategy().getClass());
 
         assertEquals(1, model.getPeople().size());
         Person user = model.getPersonWithName("User");
@@ -473,6 +474,7 @@ class DslTests extends AbstractTests {
 
         Workspace workspace = parser.getWorkspace();
         Model model = workspace.getModel();
+        assertEquals(CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy.class, model.getImpliedRelationshipsStrategy().getClass());
 
         assertEquals(1, model.getPeople().size());
         Person user = model.getPersonWithName("User");
