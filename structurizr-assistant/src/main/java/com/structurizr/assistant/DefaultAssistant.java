@@ -37,9 +37,6 @@ public class DefaultAssistant extends Assistant {
         ElementNotIncludedInAnyViewsInspection elementNotIncludedInAnyViewsCheck = new ElementNotIncludedInAnyViewsInspection(workspace);
         OrphanedElementInspection orphanedElementCheck = new OrphanedElementInspection(workspace);
         for (Element element : workspace.getModel().getElements()) {
-            add(elementNotIncludedInAnyViewsCheck.run(element));
-            add(orphanedElementCheck.run(element));
-
             if (element instanceof Person) {
                 add(new PersonDescriptionInspection(workspace).run(element));
             }
@@ -59,6 +56,25 @@ public class DefaultAssistant extends Assistant {
                 add(new ComponentDescriptionInspection(workspace).run(element));
                 add(new ComponentTechnologyInspection(workspace).run(element));
             }
+
+            if (element instanceof DeploymentNode) {
+                add(new DeploymentNodeDescriptionInspection(workspace).run(element));
+                add(new DeploymentNodeTechnologyInspection(workspace).run(element));
+                add(new EmptyDeploymentNodeInspection(workspace).run(element));
+            }
+
+            if (element instanceof InfrastructureNode) {
+                add(new InfrastructureNodeDescriptionInspection(workspace).run(element));
+                add(new InfrastructureNodeTechnologyInspection(workspace).run(element));
+            }
+
+            add(orphanedElementCheck.run(element));
+            add(elementNotIncludedInAnyViewsCheck.run(element));
+        }
+
+        for (Relationship relationship : workspace.getModel().getRelationships()) {
+            add(new RelationshipDescriptionInspection(workspace).run(relationship));
+            add(new RelationshipTechnologyInspection(workspace).run(relationship));
         }
     }
 
