@@ -6,7 +6,7 @@ import com.structurizr.Workspace;
 public abstract class Inspection {
 
     private static final String STRUCTURIZR_INSPECTION_PREFIX = "structurizr.inspection.";
-    public static final String ALL_INSPECTIONS = "structurizr.inspection";
+    public static final String ALL_INSPECTIONS = "structurizr.inspections";
 
     private final Workspace workspace;
     private final Severity defaultSeverity;
