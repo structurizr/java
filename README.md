@@ -8,7 +8,7 @@ This repository contains the source code for the following libraries:
 - [structurizr-export](structurizr-export)
 - [structurizr-import](structurizr-import)
 - [structurizr-autolayout](structurizr-autolayout)
-- [structurizr-assistant](structurizr-assistant)
+- [structurizr-inspection](structurizr-inspection)
 
 - [Documentation](https://docs.structurizr.com)
 - [Changelog](changelog.md)

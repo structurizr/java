@@ -1,7 +1,0 @@
-dependencies {
-
-    api project(':structurizr-core')
-
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
-
-}

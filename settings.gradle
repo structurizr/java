@@ -1,6 +1,6 @@
 rootProject.name = 'structurizr-java'
 
-include 'structurizr-assistant'
+include 'structurizr-inspection'
 include 'structurizr-client'
 include 'structurizr-core'
 include 'structurizr-dsl'
