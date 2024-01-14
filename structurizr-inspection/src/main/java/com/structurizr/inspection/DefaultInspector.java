@@ -14,11 +14,6 @@ import com.structurizr.view.ElementStyle;
 public class DefaultInspector extends Inspector {
 
     public DefaultInspector(Workspace workspace) {
-        if (workspace.getProperties().getOrDefault(Inspection.ALL_INSPECTIONS, Severity.ERROR.toString()).equalsIgnoreCase(Severity.IGNORE.toString())) {
-            // skip all inspections
-            return;
-        }
-
         runWorkspaceInspections(workspace);
         runModelInspections(workspace);
         runViewInspections(workspace);
