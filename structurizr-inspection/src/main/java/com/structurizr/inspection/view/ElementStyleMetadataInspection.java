@@ -13,7 +13,7 @@ public class ElementStyleMetadataInspection extends Inspection {
     }
 
     public final Violation run(ElementStyle elementStyle) {
-        Severity severity = getSeverity(getType(), getWorkspace(), getWorkspace().getViews().getConfiguration());
+        Severity severity = getSeverity(getWorkspace(), getWorkspace().getViews().getConfiguration());
         Violation violation = inspect(elementStyle);
 
         return violation == null ? null : violation.withSeverity(severity);

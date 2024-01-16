@@ -21,7 +21,7 @@ public abstract class RelationshipInspection extends Inspection {
             getWorkspace().getModel().getRelationship(relationship.getLinkedRelationshipId());
         }
 
-        Severity severity = getSeverity(getType(), getWorkspace(), getWorkspace().getModel(), source.getParent(), source, linkedRelationship, relationship);
+        Severity severity = getSeverity(getWorkspace(), getWorkspace().getModel(), source.getParent(), source, linkedRelationship, relationship);
         Violation violation = inspect(relationship);
 
         return violation == null ? null : violation.withSeverity(severity);

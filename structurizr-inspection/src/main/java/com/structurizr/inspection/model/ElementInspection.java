@@ -15,7 +15,7 @@ abstract class ElementInspection extends Inspection {
     public final Violation run(Element element) {
         Element parentElement = element.getParent();
 
-        Severity severity = getSeverity(getType(), getWorkspace(), getWorkspace().getModel(), parentElement, element);
+        Severity severity = getSeverity(getWorkspace(), getWorkspace().getModel(), parentElement, element);
         Violation violation = inspect(element);
 
         return violation == null ? null : violation.withSeverity(severity);

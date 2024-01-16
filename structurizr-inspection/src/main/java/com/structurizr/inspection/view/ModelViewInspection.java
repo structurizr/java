@@ -13,7 +13,7 @@ abstract class ModelViewInspection extends Inspection {
     }
 
     public final Violation run(ModelView view) {
-        Severity severity = getSeverity(getType(), getWorkspace(), getWorkspace().getViews().getConfiguration(), view);
+        Severity severity = getSeverity(getWorkspace(), getWorkspace().getViews().getConfiguration(), view);
         Violation violation = inspect(view);
 
         return violation == null ? null : violation.withSeverity(severity);

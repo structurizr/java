@@ -1,9 +1,9 @@
 package com.structurizr.inspection.workspace;
 
 import com.structurizr.Workspace;
+import com.structurizr.configuration.WorkspaceScope;
 import com.structurizr.inspection.Severity;
 import com.structurizr.inspection.Violation;
-import com.structurizr.configuration.WorkspaceScope;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

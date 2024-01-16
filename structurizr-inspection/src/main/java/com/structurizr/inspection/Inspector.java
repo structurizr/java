@@ -1,7 +1,6 @@
 package com.structurizr.inspection;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 abstract class Inspector {

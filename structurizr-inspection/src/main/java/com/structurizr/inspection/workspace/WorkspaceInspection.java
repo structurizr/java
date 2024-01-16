@@ -12,7 +12,7 @@ abstract class WorkspaceInspection extends Inspection {
     }
 
     public final Violation run() {
-        Severity severity = getSeverity(getType(), getWorkspace());
+        Severity severity = getSeverity(getWorkspace());
         Violation violation = inspect(getWorkspace());
 
         return violation == null ? null : violation.withSeverity(severity);

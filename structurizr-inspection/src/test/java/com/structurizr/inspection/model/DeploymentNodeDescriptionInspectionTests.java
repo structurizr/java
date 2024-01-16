@@ -1,8 +1,8 @@
 package com.structurizr.inspection.model;
 
 import com.structurizr.Workspace;
-import com.structurizr.inspection.Violation;
 import com.structurizr.inspection.Severity;
+import com.structurizr.inspection.Violation;
 import com.structurizr.model.DeploymentNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

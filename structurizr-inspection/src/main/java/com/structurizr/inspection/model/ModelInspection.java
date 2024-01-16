@@ -12,7 +12,7 @@ abstract class ModelInspection extends Inspection {
     }
 
     public final Violation run() {
-        Severity severity = getSeverity(getType(), getWorkspace(), getWorkspace().getModel());
+        Severity severity = getSeverity(getWorkspace(), getWorkspace().getModel());
         Violation violation = inspect(getWorkspace());
 
         return violation == null ? null : violation.withSeverity(severity);
