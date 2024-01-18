@@ -76,14 +76,12 @@ public class MadrDecisionImporterTests {
     public void test_importDecisions() {
         decisionImporter.importDocumentation(workspace, DECISIONS_FOLDER);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         assertEquals(19, documentation.getDecisions().size());
 
         Decision decision0 = documentation.getDecisions().stream().filter(d -> d.getId().equals("0")).findFirst().get();
         assertEquals("0", decision0.getId());
         assertEquals("Use Markdown Any Decision Records", decision0.getTitle());
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         assertEquals("11-Jan-2024", sdf.format(decision0.getDate()));
         assertEquals("accepted", decision0.getStatus());
         Assertions.assertEquals(Format.Markdown, decision0.getFormat());
