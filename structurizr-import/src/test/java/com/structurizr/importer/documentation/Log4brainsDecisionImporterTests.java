@@ -76,7 +76,6 @@ public class Log4brainsDecisionImporterTests {
     public void test_importDecisions() {
         decisionImporter.importDocumentation(workspace, DECISIONS_FOLDER);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         assertEquals(4, documentation.getDecisions().size());
 
@@ -85,7 +84,6 @@ public class Log4brainsDecisionImporterTests {
         Decision decision1 = documentation.getDecisions().stream().filter(d -> d.getId().equals("1")).findFirst().get();
         assertEquals("1", decision1.getId());
         assertEquals("Use Log4brains to manage the ADRs", decision1.getTitle());
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
         assertEquals("10-Jan-2024", sdf.format(decision1.getDate()));
         assertEquals("accepted", decision1.getStatus());
         Assertions.assertEquals(Format.Markdown, decision1.getFormat());
