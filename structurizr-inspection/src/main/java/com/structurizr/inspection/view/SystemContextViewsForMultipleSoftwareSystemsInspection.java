@@ -1,16 +1,17 @@
 package com.structurizr.inspection.view;
 
 import com.structurizr.Workspace;
+import com.structurizr.inspection.Inspector;
 import com.structurizr.inspection.Violation;
 import com.structurizr.view.SystemContextView;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public class SystemContextViewsForMultipleSoftwareSystemsInspection extends ViewsInspection {
+public class SystemContextViewsForMultipleSoftwareSystemsInspection extends AbstractViewsInspection {
 
-    public SystemContextViewsForMultipleSoftwareSystemsInspection(Workspace workspace) {
-        super(workspace);
+    public SystemContextViewsForMultipleSoftwareSystemsInspection(Inspector inspector) {
+        super(inspector);
     }
 
     @Override

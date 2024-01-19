@@ -1,11 +1,11 @@
 package com.structurizr.inspection.model;
 
-import com.structurizr.Workspace;
+import com.structurizr.inspection.Inspector;
 
 public class InfrastructureNodeDescriptionInspection extends ElementDescriptionInspection {
 
-    public InfrastructureNodeDescriptionInspection(Workspace workspace) {
-        super(workspace);
+    public InfrastructureNodeDescriptionInspection(Inspector inspector) {
+        super(inspector);
     }
 
     protected String getType() {

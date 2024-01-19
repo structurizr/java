@@ -1,6 +1,7 @@
 package com.structurizr.inspection.model;
 
 import com.structurizr.Workspace;
+import com.structurizr.inspection.DefaultInspector;
 import com.structurizr.inspection.Severity;
 import com.structurizr.inspection.Violation;
 import com.structurizr.model.Person;
@@ -10,16 +11,17 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class PersonDescriptionInspectionTests {
+public class
+PersonDescriptionInspectionTests {
 
     @Test
     public void run_WithoutDescription() {
         Workspace workspace = new Workspace("Name", "Description");
         Person person = workspace.getModel().addPerson("Name");
 
-        Violation violation = new PersonDescriptionInspection(workspace).run(person);
+        Violation violation = new PersonDescriptionInspection(new DefaultInspector(workspace)).run(person);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
-        assertEquals("structurizr.inspection.model.person.description", violation.getType());
+        assertEquals("model.person.description", violation.getType());
         assertEquals("Add a description to the person named \"Name\".", violation.getMessage());
     }
 
@@ -28,7 +30,7 @@ public class PersonDescriptionInspectionTests {
         Workspace workspace = new Workspace("Name", "Description");
         Person person = workspace.getModel().addPerson("Name", "Description");
 
-        Violation violation = new PersonDescriptionInspection(workspace).run(person);
+        Violation violation = new PersonDescriptionInspection(new DefaultInspector(workspace)).run(person);
         assertNull(violation);
     }
 

@@ -1,13 +1,13 @@
 package com.structurizr.inspection.model;
 
-import com.structurizr.Workspace;
+import com.structurizr.inspection.Inspector;
 import com.structurizr.inspection.Violation;
 import com.structurizr.model.SoftwareSystem;
 
-public class SoftwareSystemDocumentationInspection extends SoftwareSystemInspection {
+public class SoftwareSystemDocumentationInspection extends AbstractSoftwareSystemInspection {
 
-    public SoftwareSystemDocumentationInspection(Workspace workspace) {
-        super(workspace);
+    public SoftwareSystemDocumentationInspection(Inspector inspector) {
+        super(inspector);
     }
 
     @Override

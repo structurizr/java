@@ -14,71 +14,78 @@ import com.structurizr.view.ElementStyle;
 public class DefaultInspector extends Inspector {
 
     public DefaultInspector(Workspace workspace) {
-        runWorkspaceInspections(workspace);
-        runModelInspections(workspace);
-        runViewInspections(workspace);
+        super(workspace);
+
+        runWorkspaceInspections();
+        runModelInspections();
+        runViewInspections();
     }
 
-    private void runWorkspaceInspections(Workspace workspace) {
-        add(new WorkspaceToolingInspection(workspace).run());
-        add(new WorkspaceScopeInspection(workspace).run());
+    private void runWorkspaceInspections() {
+        add(new WorkspaceToolingInspection(this).run());
+        add(new WorkspaceScopeInspection(this).run());
     }
 
-    private void runModelInspections(Workspace workspace) {
-        add(new EmptyModelInspection(workspace).run());
-        add(new MultipleSoftwareSystemsDetailedInspection(workspace).run());
-        ElementNotIncludedInAnyViewsInspection elementNotIncludedInAnyViewsCheck = new ElementNotIncludedInAnyViewsInspection(workspace);
-        OrphanedElementInspection orphanedElementCheck = new OrphanedElementInspection(workspace);
-        for (Element element : workspace.getModel().getElements()) {
+    private void runModelInspections() {
+        add(new EmptyModelInspection(this).run());
+        add(new MultipleSoftwareSystemsDetailedInspection(this).run());
+        ElementNotIncludedInAnyViewsInspection elementNotIncludedInAnyViewsCheck = new ElementNotIncludedInAnyViewsInspection(this);
+        OrphanedElementInspection orphanedElementCheck = new OrphanedElementInspection(this);
+        for (Element element : getWorkspace().getModel().getElements()) {
             if (element instanceof Person) {
-                add(new PersonDescriptionInspection(workspace).run(element));
+                add(new PersonDescriptionInspection(this).run(element));
             }
 
             if (element instanceof SoftwareSystem) {
-                add(new SoftwareSystemDescriptionInspection(workspace).run(element));
-                add(new SoftwareSystemDocumentationInspection(workspace).run(element));
-                add(new SoftwareSystemDecisionsInspection(workspace).run(element));
+                add(new SoftwareSystemDescriptionInspection(this).run(element));
+                add(new SoftwareSystemDocumentationInspection(this).run(element));
+                add(new SoftwareSystemDecisionsInspection(this).run(element));
             }
 
             if (element instanceof Container) {
-                add(new ContainerDescriptionInspection(workspace).run(element));
-                add(new ContainerTechnologyInspection(workspace).run(element));
+                add(new ContainerDescriptionInspection(this).run(element));
+                add(new ContainerTechnologyInspection(this).run(element));
             }
 
             if (element instanceof Component) {
-                add(new ComponentDescriptionInspection(workspace).run(element));
-                add(new ComponentTechnologyInspection(workspace).run(element));
+                add(new ComponentDescriptionInspection(this).run(element));
+                add(new ComponentTechnologyInspection(this).run(element));
             }
 
             if (element instanceof DeploymentNode) {
-                add(new DeploymentNodeDescriptionInspection(workspace).run(element));
-                add(new DeploymentNodeTechnologyInspection(workspace).run(element));
-                add(new EmptyDeploymentNodeInspection(workspace).run(element));
+                add(new DeploymentNodeDescriptionInspection(this).run(element));
+                add(new DeploymentNodeTechnologyInspection(this).run(element));
+                add(new EmptyDeploymentNodeInspection(this).run(element));
             }
 
             if (element instanceof InfrastructureNode) {
-                add(new InfrastructureNodeDescriptionInspection(workspace).run(element));
-                add(new InfrastructureNodeTechnologyInspection(workspace).run(element));
+                add(new InfrastructureNodeDescriptionInspection(this).run(element));
+                add(new InfrastructureNodeTechnologyInspection(this).run(element));
             }
 
             add(orphanedElementCheck.run(element));
             add(elementNotIncludedInAnyViewsCheck.run(element));
         }
 
-        for (Relationship relationship : workspace.getModel().getRelationships()) {
-            add(new RelationshipDescriptionInspection(workspace).run(relationship));
-            add(new RelationshipTechnologyInspection(workspace).run(relationship));
+        for (Relationship relationship : getWorkspace().getModel().getRelationships()) {
+            add(new RelationshipDescriptionInspection(this).run(relationship));
+            add(new RelationshipTechnologyInspection(this).run(relationship));
         }
     }
 
-    private void runViewInspections(Workspace workspace) {
-        add(new EmptyViewsInspection(workspace).run());
-        add(new SystemContextViewsForMultipleSoftwareSystemsInspection(workspace).run());
-        add(new ContainerViewsForMultipleSoftwareSystemsInspection(workspace).run());
+    private void runViewInspections() {
+        add(new EmptyViewsInspection(this).run());
+        add(new SystemContextViewsForMultipleSoftwareSystemsInspection(this).run());
+        add(new ContainerViewsForMultipleSoftwareSystemsInspection(this).run());
 
-        for (ElementStyle elementStyle : workspace.getViews().getConfiguration().getStyles().getElements()) {
-            add(new ElementStyleMetadataInspection(workspace).run(elementStyle));
+        for (ElementStyle elementStyle : getWorkspace().getViews().getConfiguration().getStyles().getElements()) {
+            add(new ElementStyleMetadataInspection(this).run(elementStyle));
         }
+    }
+
+    @Override
+    public SeverityStrategy getSeverityStrategy() {
+        return new PropertyBasedSeverityStrategy();
     }
 
 }

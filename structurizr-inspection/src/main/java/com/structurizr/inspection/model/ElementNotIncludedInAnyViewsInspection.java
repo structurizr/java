@@ -1,6 +1,6 @@
 package com.structurizr.inspection.model;
 
-import com.structurizr.Workspace;
+import com.structurizr.inspection.Inspector;
 import com.structurizr.inspection.Violation;
 import com.structurizr.model.Element;
 import com.structurizr.view.ElementView;
@@ -10,14 +10,14 @@ import com.structurizr.view.View;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ElementNotIncludedInAnyViewsInspection extends ElementInspection {
+public class ElementNotIncludedInAnyViewsInspection extends AbstractElementInspection {
 
     private final Set<String> elementsInViews = new HashSet<>();
 
-    public ElementNotIncludedInAnyViewsInspection(Workspace workspace) {
-        super(workspace);
+    public ElementNotIncludedInAnyViewsInspection(Inspector inspector) {
+        super(inspector);
 
-        for (View view : workspace.getViews().getViews()) {
+        for (View view : getWorkspace().getViews().getViews()) {
             if (view instanceof ModelView) {
                 ModelView modelView = (ModelView)view;
                 for (ElementView elementView : modelView.getElements()) {

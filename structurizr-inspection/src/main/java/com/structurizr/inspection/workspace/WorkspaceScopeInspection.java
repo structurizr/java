@@ -1,12 +1,13 @@
 package com.structurizr.inspection.workspace;
 
 import com.structurizr.Workspace;
+import com.structurizr.inspection.Inspector;
 import com.structurizr.inspection.Violation;
 
-public class WorkspaceScopeInspection extends WorkspaceInspection {
+public class WorkspaceScopeInspection extends AbstractWorkspaceInspection {
 
-    public WorkspaceScopeInspection(Workspace workspace) {
-        super(workspace);
+    public WorkspaceScopeInspection(Inspector inspector) {
+        super(inspector);
     }
 
     @Override

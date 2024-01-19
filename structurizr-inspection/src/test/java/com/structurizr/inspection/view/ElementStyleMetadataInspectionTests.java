@@ -1,6 +1,7 @@
 package com.structurizr.inspection.view;
 
 import com.structurizr.Workspace;
+import com.structurizr.inspection.DefaultInspector;
 import com.structurizr.inspection.Severity;
 import com.structurizr.inspection.Violation;
 import com.structurizr.view.ElementStyle;
@@ -10,16 +11,18 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class ElementStyleMetadataInspectionTests {
+public class
+
+ElementStyleMetadataInspectionTests {
 
     @Test
     public void run_WithMetadataFalse() {
         Workspace workspace = new Workspace("Name", "Description");
         ElementStyle elementStyle = workspace.getViews().getConfiguration().getStyles().addElementStyle("Tag").metadata(false);
 
-        Violation violation = new ElementStyleMetadataInspection(workspace).run(elementStyle);
+        Violation violation = new ElementStyleMetadataInspection(new DefaultInspector(workspace)).run(elementStyle);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
-        assertEquals("structurizr.inspection.views.styles.element.metadata", violation.getType());
+        assertEquals("views.styles.element.metadata", violation.getType());
         assertEquals("The element style for tag \"Tag\" has metadata hidden, which may introduce ambiguity on rendered diagrams.", violation.getMessage());
     }
 
@@ -28,7 +31,7 @@ public class ElementStyleMetadataInspectionTests {
         Workspace workspace = new Workspace("Name", "Description");
         ElementStyle elementStyle = workspace.getViews().getConfiguration().getStyles().addElementStyle("Tag").metadata(true);
 
-        Violation violation = new ElementStyleMetadataInspection(workspace).run(elementStyle);
+        Violation violation = new ElementStyleMetadataInspection(new DefaultInspector(workspace)).run(elementStyle);
         assertNull(violation);
     }
 
@@ -37,7 +40,7 @@ public class ElementStyleMetadataInspectionTests {
         Workspace workspace = new Workspace("Name", "Description");
         ElementStyle elementStyle = workspace.getViews().getConfiguration().getStyles().addElementStyle("Tag");
 
-        Violation violation = new ElementStyleMetadataInspection(workspace).run(elementStyle);
+        Violation violation = new ElementStyleMetadataInspection(new DefaultInspector(workspace)).run(elementStyle);
         assertNull(violation);
     }
 

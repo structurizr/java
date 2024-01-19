@@ -1,6 +1,7 @@
 package com.structurizr.inspection.model;
 
 import com.structurizr.Workspace;
+import com.structurizr.inspection.DefaultInspector;
 import com.structurizr.inspection.Severity;
 import com.structurizr.inspection.Violation;
 import com.structurizr.model.Component;
@@ -12,7 +13,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class ComponentDescriptionInspectionTests {
+public class
+ComponentDescriptionInspectionTests {
 
     @Test
     public void run_WithoutDescription() {
@@ -21,9 +23,9 @@ public class ComponentDescriptionInspectionTests {
         Container container = softwareSystem.addContainer("Container");
         Component component = container.addComponent("Name");
 
-        Violation violation = new ComponentDescriptionInspection(workspace).run(component);
+        Violation violation = new ComponentDescriptionInspection(new DefaultInspector(workspace)).run(component);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
-        assertEquals("structurizr.inspection.model.component.description", violation.getType());
+        assertEquals("model.component.description", violation.getType());
         assertEquals("Add a description to the component named \"Name\".", violation.getMessage());
     }
 
@@ -34,7 +36,7 @@ public class ComponentDescriptionInspectionTests {
         Container container = softwareSystem.addContainer("Container");
         Component component = container.addComponent("Name", "Description");
 
-        Violation violation = new ComponentDescriptionInspection(workspace).run(component);
+        Violation violation = new ComponentDescriptionInspection(new DefaultInspector(workspace)).run(component);
         assertNull(violation);
     }
 

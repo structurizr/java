@@ -1,6 +1,7 @@
 package com.structurizr.inspection.view;
 
 import com.structurizr.Workspace;
+import com.structurizr.inspection.DefaultInspector;
 import com.structurizr.inspection.Severity;
 import com.structurizr.inspection.Violation;
 import com.structurizr.model.SoftwareSystem;
@@ -10,7 +11,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class SystemContextViewsForMultipleSoftwareSystemsInspectionTests {
+public class
+SystemContextViewsForMultipleSoftwareSystemsInspectionTests {
 
     @Test
     public void run_MultipleSoftwareSystems() {
@@ -20,9 +22,9 @@ public class SystemContextViewsForMultipleSoftwareSystemsInspectionTests {
         SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
         workspace.getViews().createSystemContextView(b, "SystemContext-B", "Description");
 
-        Violation violation = new SystemContextViewsForMultipleSoftwareSystemsInspection(workspace).run();
+        Violation violation = new SystemContextViewsForMultipleSoftwareSystemsInspection(new DefaultInspector(workspace)).run();
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
-        assertEquals("structurizr.inspection.workspace.scope", violation.getType());
+        assertEquals("workspace.scope", violation.getType());
         assertEquals("System context views exist for 2 software systems. It is recommended that a workspace includes system context views for a single software system only.", violation.getMessage());
     }
 
@@ -33,7 +35,7 @@ public class SystemContextViewsForMultipleSoftwareSystemsInspectionTests {
         workspace.getViews().createSystemContextView(a, "SystemContext-A", "Description");
         SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
 
-        Violation violation = new SystemContextViewsForMultipleSoftwareSystemsInspection(workspace).run();
+        Violation violation = new SystemContextViewsForMultipleSoftwareSystemsInspection(new DefaultInspector(workspace)).run();
         assertNull(violation);
     }
 

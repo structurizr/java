@@ -1,11 +1,11 @@
 package com.structurizr.inspection.model;
 
-import com.structurizr.Workspace;
+import com.structurizr.inspection.Inspector;
 
 public class ComponentDescriptionInspection extends ElementDescriptionInspection {
 
-    public ComponentDescriptionInspection(Workspace workspace) {
-        super(workspace);
+    public ComponentDescriptionInspection(Inspector inspector) {
+        super(inspector);
     }
 
     @Override

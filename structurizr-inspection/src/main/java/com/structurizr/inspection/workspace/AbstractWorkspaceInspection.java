@@ -1,18 +1,19 @@
-package com.structurizr.inspection.model;
+package com.structurizr.inspection.workspace;
 
 import com.structurizr.Workspace;
 import com.structurizr.inspection.Inspection;
+import com.structurizr.inspection.Inspector;
 import com.structurizr.inspection.Severity;
 import com.structurizr.inspection.Violation;
 
-abstract class ModelInspection extends Inspection {
+abstract class AbstractWorkspaceInspection extends Inspection {
 
-    public ModelInspection(Workspace workspace) {
-        super(workspace);
+    public AbstractWorkspaceInspection(Inspector inspector) {
+        super(inspector);
     }
 
     public final Violation run() {
-        Severity severity = getSeverity(getWorkspace(), getWorkspace().getModel());
+        Severity severity = getInspector().getSeverityStrategy().getSeverity(this, getWorkspace());
         Violation violation = inspect(getWorkspace());
 
         return violation == null ? null : violation.withSeverity(severity);

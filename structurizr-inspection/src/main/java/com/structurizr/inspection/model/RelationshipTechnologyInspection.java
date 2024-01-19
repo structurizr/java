@@ -1,16 +1,16 @@
 package com.structurizr.inspection.model;
 
-import com.structurizr.Workspace;
+import com.structurizr.inspection.Inspector;
 import com.structurizr.inspection.Violation;
 import com.structurizr.model.Container;
 import com.structurizr.model.Element;
 import com.structurizr.model.Relationship;
 import com.structurizr.util.StringUtils;
 
-public class RelationshipTechnologyInspection extends RelationshipInspection {
+public class RelationshipTechnologyInspection extends AbstractRelationshipInspection {
 
-    public RelationshipTechnologyInspection(Workspace workspace) {
-        super(workspace);
+    public RelationshipTechnologyInspection(Inspector inspector) {
+        super(inspector);
     }
 
     @Override

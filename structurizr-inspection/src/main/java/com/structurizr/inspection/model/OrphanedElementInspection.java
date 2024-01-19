@@ -1,6 +1,6 @@
 package com.structurizr.inspection.model;
 
-import com.structurizr.Workspace;
+import com.structurizr.inspection.Inspector;
 import com.structurizr.inspection.Violation;
 import com.structurizr.model.DeploymentNode;
 import com.structurizr.model.Element;
@@ -9,14 +9,14 @@ import com.structurizr.model.Relationship;
 import java.util.HashSet;
 import java.util.Set;
 
-public class OrphanedElementInspection extends ElementInspection {
+public class OrphanedElementInspection extends AbstractElementInspection {
 
     private final Set<String> elementsWithRelationships = new HashSet<>();
 
-    public OrphanedElementInspection(Workspace workspace) {
-        super(workspace);
+    public OrphanedElementInspection(Inspector inspector) {
+        super(inspector);
 
-        for (Relationship relationship : workspace.getModel().getRelationships()) {
+        for (Relationship relationship : getWorkspace().getModel().getRelationships()) {
             elementsWithRelationships.add(relationship.getSourceId());
             elementsWithRelationships.add(relationship.getDestinationId());
         }

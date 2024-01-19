@@ -1,21 +1,19 @@
 package com.structurizr.inspection.model;
 
-import com.structurizr.Workspace;
 import com.structurizr.inspection.Inspection;
+import com.structurizr.inspection.Inspector;
 import com.structurizr.inspection.Severity;
 import com.structurizr.inspection.Violation;
 import com.structurizr.model.Element;
 
-abstract class ElementInspection extends Inspection {
+abstract class AbstractElementInspection extends Inspection {
 
-    public ElementInspection(Workspace workspace) {
-        super(workspace);
+    public AbstractElementInspection(Inspector inspector) {
+        super(inspector);
     }
 
     public final Violation run(Element element) {
-        Element parentElement = element.getParent();
-
-        Severity severity = getSeverity(getWorkspace(), getWorkspace().getModel(), parentElement, element);
+        Severity severity = getInspector().getSeverityStrategy().getSeverity(this, element);
         Violation violation = inspect(element);
 
         return violation == null ? null : violation.withSeverity(severity);

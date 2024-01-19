@@ -1,16 +1,17 @@
 package com.structurizr.inspection.workspace;
 
 import com.structurizr.Workspace;
+import com.structurizr.inspection.Inspector;
 import com.structurizr.inspection.Violation;
 import com.structurizr.util.StringUtils;
 
-public class WorkspaceToolingInspection extends WorkspaceInspection {
+public class WorkspaceToolingInspection extends AbstractWorkspaceInspection {
 
     private static final String CLOUD_SERVICE_DSL_EDITOR = "structurizr-cloud/dsl-editor";
     private static final String ONPREMISES_DSL_EDITOR = "structurizr-onpremises/dsl-editor";
 
-    public WorkspaceToolingInspection(Workspace workspace) {
-        super(workspace);
+    public WorkspaceToolingInspection(Inspector inspector) {
+        super(inspector);
     }
 
     @Override

@@ -1,11 +1,11 @@
 package com.structurizr.inspection.model;
 
-import com.structurizr.Workspace;
+import com.structurizr.inspection.Inspector;
 
 public class DeploymentNodeDescriptionInspection extends ElementDescriptionInspection {
 
-    public DeploymentNodeDescriptionInspection(Workspace workspace) {
-        super(workspace);
+    public DeploymentNodeDescriptionInspection(Inspector inspector) {
+        super(inspector);
     }
 
     @Override

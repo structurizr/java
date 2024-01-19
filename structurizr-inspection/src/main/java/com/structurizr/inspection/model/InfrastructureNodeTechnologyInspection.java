@@ -1,14 +1,14 @@
 package com.structurizr.inspection.model;
 
-import com.structurizr.Workspace;
+import com.structurizr.inspection.Inspector;
 import com.structurizr.inspection.Violation;
 import com.structurizr.model.InfrastructureNode;
 import com.structurizr.util.StringUtils;
 
-public class InfrastructureNodeTechnologyInspection extends InfrastructureNodeInspection {
+public class InfrastructureNodeTechnologyInspection extends AbstractInfrastructureNodeInspection {
 
-    public InfrastructureNodeTechnologyInspection(Workspace workspace) {
-        super(workspace);
+    public InfrastructureNodeTechnologyInspection(Inspector inspector) {
+        super(inspector);
     }
 
     @Override

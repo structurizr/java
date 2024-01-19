@@ -1,6 +1,7 @@
 package com.structurizr.inspection.model;
 
 import com.structurizr.Workspace;
+import com.structurizr.inspection.DefaultInspector;
 import com.structurizr.inspection.Severity;
 import com.structurizr.inspection.Violation;
 import com.structurizr.model.Component;
@@ -13,7 +14,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class RelationshipDescriptionInspectionTests {
+public class
+RelationshipDescriptionInspectionTests {
 
     @Test
     public void run_WithoutDescription_MediumPriority() {
@@ -22,9 +24,9 @@ public class RelationshipDescriptionInspectionTests {
         SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
         Relationship relationship = a.uses(b, "");
 
-        Violation violation = new RelationshipDescriptionInspection(workspace).run(relationship);
+        Violation violation = new RelationshipDescriptionInspection(new DefaultInspector(workspace)).run(relationship);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
-        assertEquals("structurizr.inspection.model.relationship.description", violation.getType());
+        assertEquals("model.relationship.description", violation.getType());
         assertEquals("Add a description to the relationship between the software system named \"A\" and the software system named \"B\".", violation.getMessage());
     }
 
@@ -37,9 +39,9 @@ public class RelationshipDescriptionInspectionTests {
         Component b = container.addComponent("B");
         Relationship relationship = a.uses(b, "");
 
-        Violation violation = new RelationshipDescriptionInspection(workspace).run(relationship);
+        Violation violation = new RelationshipDescriptionInspection(new DefaultInspector(workspace)).run(relationship);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
-        assertEquals("structurizr.inspection.model.relationship.description", violation.getType());
+        assertEquals("model.relationship.description", violation.getType());
         assertEquals("Add a description to the relationship between the component named \"A\" and the component named \"B\".", violation.getMessage());
     }
 
@@ -50,7 +52,7 @@ public class RelationshipDescriptionInspectionTests {
         SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
         Relationship relationship = a.uses(b, "Description");
 
-        Violation violation = new RelationshipDescriptionInspection(workspace).run(relationship);
+        Violation violation = new RelationshipDescriptionInspection(new DefaultInspector(workspace)).run(relationship);
         assertNull(violation);
     }
 

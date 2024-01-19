@@ -34,10 +34,4 @@ public final class Violation {
         return this;
     }
 
-    public enum Priority {
-        Low,
-        Medium,
-        High
-    }
-
 }

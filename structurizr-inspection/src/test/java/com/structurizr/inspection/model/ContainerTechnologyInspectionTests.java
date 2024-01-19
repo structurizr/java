@@ -1,6 +1,7 @@
 package com.structurizr.inspection.model;
 
 import com.structurizr.Workspace;
+import com.structurizr.inspection.DefaultInspector;
 import com.structurizr.inspection.Severity;
 import com.structurizr.inspection.Violation;
 import com.structurizr.model.Container;
@@ -11,7 +12,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class ContainerTechnologyInspectionTests {
+public class
+ContainerTechnologyInspectionTests {
 
     @Test
     public void run_WithoutDescription() {
@@ -19,9 +21,9 @@ public class ContainerTechnologyInspectionTests {
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System");
         Container container = softwareSystem.addContainer("Name");
 
-        Violation violation = new ContainerTechnologyInspection(workspace).run(container);
+        Violation violation = new ContainerTechnologyInspection(new DefaultInspector(workspace)).run(container);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
-        assertEquals("structurizr.inspection.model.container.technology", violation.getType());
+        assertEquals("model.container.technology", violation.getType());
         assertEquals("Add a technology to the container named \"Name\".", violation.getMessage());
     }
 
@@ -31,7 +33,7 @@ public class ContainerTechnologyInspectionTests {
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System");
         Container container = softwareSystem.addContainer("Name", "Description", "Technology");
 
-        Violation violation = new ContainerTechnologyInspection(workspace).run(container);
+        Violation violation = new ContainerTechnologyInspection(new DefaultInspector(workspace)).run(container);
         assertNull(violation);
     }
 

@@ -3,6 +3,7 @@ package com.structurizr.inspection.model;
 import com.structurizr.Workspace;
 import com.structurizr.documentation.Decision;
 import com.structurizr.documentation.Format;
+import com.structurizr.inspection.DefaultInspector;
 import com.structurizr.inspection.Severity;
 import com.structurizr.inspection.Violation;
 import com.structurizr.model.Container;
@@ -13,7 +14,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class SoftwareSystemDecisionInspectionTests {
+public class
+SoftwareSystemDecisionInspectionTests {
 
     @Test
     public void run_WithoutDecision() {
@@ -21,9 +23,9 @@ public class SoftwareSystemDecisionInspectionTests {
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System");
         Container container = softwareSystem.addContainer("Name");
 
-        Violation violation = new SoftwareSystemDecisionsInspection(workspace).run(softwareSystem);
+        Violation violation = new SoftwareSystemDecisionsInspection(new DefaultInspector(workspace)).run(softwareSystem);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
-        assertEquals("structurizr.inspection.model.softwaresystem.decisions", violation.getType());
+        assertEquals("model.softwaresystem.decisions", violation.getType());
         assertEquals("The software system named \"Software System\" has containers, but is missing decisions.", violation.getMessage());
     }
 
@@ -40,7 +42,7 @@ public class SoftwareSystemDecisionInspectionTests {
         decision.setStatus("Accepted");
         softwareSystem.getDocumentation().addDecision(decision);
 
-        Violation violation = new SoftwareSystemDecisionsInspection(workspace).run(softwareSystem);
+        Violation violation = new SoftwareSystemDecisionsInspection(new DefaultInspector(workspace)).run(softwareSystem);
         assertNull(violation);
     }
 

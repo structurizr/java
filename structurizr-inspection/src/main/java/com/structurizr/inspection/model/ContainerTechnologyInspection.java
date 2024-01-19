@@ -1,14 +1,14 @@
 package com.structurizr.inspection.model;
 
-import com.structurizr.Workspace;
+import com.structurizr.inspection.Inspector;
 import com.structurizr.inspection.Violation;
 import com.structurizr.model.Container;
 import com.structurizr.util.StringUtils;
 
-public class ContainerTechnologyInspection extends ContainerInspection {
+public class ContainerTechnologyInspection extends AbstractContainerInspection {
 
-    public ContainerTechnologyInspection(Workspace workspace) {
-        super(workspace);
+    public ContainerTechnologyInspection(Inspector inspector) {
+        super(inspector);
     }
 
     @Override

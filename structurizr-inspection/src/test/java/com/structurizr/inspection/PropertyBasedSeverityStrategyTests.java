@@ -1,23 +1,17 @@
 package com.structurizr.inspection;
 
-import com.structurizr.Workspace;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class InspectionTests {
+public class PropertyBasedSeverityStrategyTests {
 
     @Test
     void generateTypes() {
-        Workspace workspace = new Workspace("Name", "Description");
-        List<String> types = new Inspection(workspace) {
-            @Override
-            protected String getType() {
-                return "model.component.description";
-            }
-        }.generateTypes();
+        PropertyBasedSeverityStrategy strategy = new PropertyBasedSeverityStrategy();
+        List<String> types = strategy.generatePropertyNames("model.component.description");
 
         assertEquals("structurizr.inspection.model.component.description", types.get(0));
         assertEquals("structurizr.inspection.model.component.*", types.get(1));

@@ -1,5 +1,10 @@
 workspace {
 
+    properties {
+        structurizr.inspection.* INFO
+        structurizr.inspection.model.* WARNING
+    }
+
     model {
         user = person "User"
         softwareSystem1 = softwareSystem "Software System 1" {

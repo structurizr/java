@@ -1,6 +1,7 @@
 package com.structurizr.inspection.model;
 
 import com.structurizr.Workspace;
+import com.structurizr.inspection.DefaultInspector;
 import com.structurizr.inspection.Severity;
 import com.structurizr.inspection.Violation;
 import com.structurizr.model.Container;
@@ -12,7 +13,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-public class RelationshipTechnologyInspectionTests {
+public class
+RelationshipTechnologyInspectionTests {
 
     @Test
     public void run_WithoutDescription_LowPriority() {
@@ -21,9 +23,9 @@ public class RelationshipTechnologyInspectionTests {
         SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
         Relationship relationship = a.uses(b, "Description");
 
-        Violation violation = new RelationshipTechnologyInspection(workspace).run(relationship);
+        Violation violation = new RelationshipTechnologyInspection(new DefaultInspector(workspace)).run(relationship);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
-        assertEquals("structurizr.inspection.model.relationship.technology", violation.getType());
+        assertEquals("model.relationship.technology", violation.getType());
         assertEquals("Add a technology to the relationship between the software system named \"A\" and the software system named \"B\".", violation.getMessage());
     }
 
@@ -35,9 +37,9 @@ public class RelationshipTechnologyInspectionTests {
         Container b = softwareSystem.addContainer("B");
         Relationship relationship = a.uses(b, "Description");
 
-        Violation violation = new RelationshipTechnologyInspection(workspace).run(relationship);
+        Violation violation = new RelationshipTechnologyInspection(new DefaultInspector(workspace)).run(relationship);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
-        assertEquals("structurizr.inspection.model.relationship.technology", violation.getType());
+        assertEquals("model.relationship.technology", violation.getType());
         assertEquals("Add a technology to the relationship between the container named \"A\" and the container named \"B\".", violation.getMessage());
     }
 
@@ -48,7 +50,7 @@ public class RelationshipTechnologyInspectionTests {
         SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
         Relationship relationship = a.uses(b, "Description", "Technology");
 
-        Violation violation = new RelationshipTechnologyInspection(workspace).run(relationship);
+        Violation violation = new RelationshipTechnologyInspection(new DefaultInspector(workspace)).run(relationship);
         assertNull(violation);
     }
 

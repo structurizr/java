@@ -1,12 +1,13 @@
 package com.structurizr.inspection.view;
 
 import com.structurizr.Workspace;
+import com.structurizr.inspection.Inspector;
 import com.structurizr.inspection.Violation;
 
-public class EmptyViewsInspection extends ViewsInspection {
+public class EmptyViewsInspection extends AbstractViewsInspection {
 
-    public EmptyViewsInspection(Workspace workspace) {
-        super(workspace);
+    public EmptyViewsInspection(Inspector inspector) {
+        super(inspector);
     }
 
     @Override

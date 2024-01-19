@@ -1,14 +1,14 @@
 package com.structurizr.inspection.model;
 
-import com.structurizr.Workspace;
+import com.structurizr.inspection.Inspector;
 import com.structurizr.inspection.Violation;
 import com.structurizr.model.Component;
 import com.structurizr.util.StringUtils;
 
-public class ComponentTechnologyInspection extends ComponentInspection {
+public class ComponentTechnologyInspection extends AbstractComponentInspection {
 
-    public ComponentTechnologyInspection(Workspace workspace) {
-        super(workspace);
+    public ComponentTechnologyInspection(Inspector inspector) {
+        super(inspector);
     }
 
     @Override
