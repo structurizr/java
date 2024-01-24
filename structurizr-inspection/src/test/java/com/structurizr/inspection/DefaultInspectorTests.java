@@ -27,13 +27,13 @@ public class DefaultInspectorTests {
         violation = violations.get(1);
         assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.empty", violation.getType());
-        assertEquals("Add some elements to the model.", violation.getMessage());
+        assertEquals("The model is empty.", violation.getMessage());
 
 
         violation = violations.get(2);
         assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("views.empty", violation.getType());
-        assertEquals("Add some views to the workspace.", violation.getMessage());
+        assertEquals("This workspace has no views.", violation.getMessage());
     }
 
     @Test

@@ -22,7 +22,7 @@ EmptyViewInspectionTests {
         Violation violation = new EmptyViewInspection(new DefaultInspector(workspace)).run(view);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("views.view.empty", violation.getType());
-        assertEquals("The view with key \"key\" is empty - add some elements.", violation.getMessage());
+        assertEquals("The view with key \"key\" is empty.", violation.getMessage());
     }
 
     @Test

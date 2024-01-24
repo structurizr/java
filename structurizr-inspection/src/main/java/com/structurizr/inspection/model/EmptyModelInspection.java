@@ -13,7 +13,7 @@ public class EmptyModelInspection extends AbstractModelInspection {
     @Override
     protected Violation inspect(Workspace workspace) {
         if (workspace.getModel().isEmpty()) {
-            return violation("Add some elements to the model.");
+            return violation("The model is empty.");
         }
 
         return noViolation();

@@ -20,7 +20,7 @@ EmptyModelInspectionTests {
         Violation violation = new EmptyModelInspection(new DefaultInspector(workspace)).run();
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.empty", violation.getType());
-        assertEquals("Add some elements to the model.", violation.getMessage());
+        assertEquals("The model is empty.", violation.getMessage());
     }
 
     @Test

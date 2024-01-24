@@ -13,7 +13,7 @@ public class EmptyViewInspection extends AbstractModelViewInspection {
     @Override
     public Violation inspect(ModelView view) {
         if (view.getElements().isEmpty()) {
-            return violation("The view with key \"" + view.getKey() + "\" is empty - add some elements.");
+            return violation("The view with key \"" + view.getKey() + "\" is empty.");
         }
 
         return noViolation();

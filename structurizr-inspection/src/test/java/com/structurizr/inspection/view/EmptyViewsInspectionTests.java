@@ -21,7 +21,7 @@ EmptyViewsInspectionTests {
         Violation violation = new EmptyViewsInspection(new DefaultInspector(workspace)).run();
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("views.empty", violation.getType());
-        assertEquals("Add some views to the workspace.", violation.getMessage());
+        assertEquals("This workspace has no views.", violation.getMessage());
     }
 
     @Test

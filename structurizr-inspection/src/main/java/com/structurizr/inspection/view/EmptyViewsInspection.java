@@ -13,7 +13,7 @@ public class EmptyViewsInspection extends AbstractViewsInspection {
     @Override
     public Violation inspect(Workspace workspace) {
         if (workspace.getViews().isEmpty()) {
-            return violation("Add some views to the workspace.");
+            return violation("This workspace has no views.");
         }
 
         return noViolation();
