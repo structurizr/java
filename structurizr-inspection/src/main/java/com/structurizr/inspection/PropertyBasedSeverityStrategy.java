@@ -49,8 +49,12 @@ public class PropertyBasedSeverityStrategy implements SeverityStrategy {
     @Override
     public Severity getSeverity(Inspection inspection, Element element) {
         Element parentElement = element.getParent();
+        Element grandParentElement = null;
+        if (parentElement != null) {
+            grandParentElement = parentElement.getParent();
+        }
 
-        return getSeverityFromProperties(inspection, inspection.getWorkspace(), inspection.getWorkspace().getModel(), parentElement, element);
+        return getSeverityFromProperties(inspection, inspection.getWorkspace(), inspection.getWorkspace().getModel(), grandParentElement, parentElement, element);
     }
 
     @Override
