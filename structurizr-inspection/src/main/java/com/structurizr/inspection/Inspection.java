@@ -10,7 +10,7 @@ public abstract class Inspection {
         this.inspector = inspector;
     }
 
-    protected abstract String  getType();
+    protected abstract String getType();
 
     public Inspector getInspector() {
         return inspector;
@@ -25,7 +25,7 @@ public abstract class Inspection {
     }
 
     protected Violation violation(String description) {
-        return new Violation(getType(), description);
+        return new Violation(this, description);
     }
 
 }

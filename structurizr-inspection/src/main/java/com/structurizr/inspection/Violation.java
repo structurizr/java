@@ -2,17 +2,17 @@ package com.structurizr.inspection;
 
 public final class Violation {
 
-    private final String type;
+    private Inspection inspection;
     private Severity severity;
     private final String message;
 
-    Violation(String type, String message) {
-        this.type = type;
+    Violation(Inspection inspection, String message) {
+        this.inspection = inspection;
         this.message = message;
     }
 
     public String getType() {
-        return type;
+        return inspection.getType();
     }
 
     public Severity getSeverity() {
@@ -25,7 +25,7 @@ public final class Violation {
 
     @Override
     public String toString() {
-        return type + " | " + severity + " | " + message;
+        return inspection.getType() + " | " + severity + " | " + message;
     }
 
     public Violation withSeverity(Severity severity) {
