@@ -9,11 +9,11 @@ import com.structurizr.model.Relationship;
 import java.util.HashSet;
 import java.util.Set;
 
-public class OrphanedElementInspection extends AbstractElementInspection {
+public class DisconnectedElementInspection extends AbstractElementInspection {
 
     private final Set<String> elementsWithRelationships = new HashSet<>();
 
-    public OrphanedElementInspection(Inspector inspector) {
+    public DisconnectedElementInspection(Inspector inspector) {
         super(inspector);
 
         for (Relationship relationship : getWorkspace().getModel().getRelationships()) {
@@ -30,7 +30,7 @@ public class OrphanedElementInspection extends AbstractElementInspection {
         }
 
         if (!elementsWithRelationships.contains(element.getId())) {
-            return violation("The " + terminologyFor(element).toLowerCase() + " named \"" + element.getName() + "\" is orphaned - add a relationship to/from it, or consider removing it from the model.");
+            return violation("The " + terminologyFor(element).toLowerCase() + " named \"" + element.getName() + "\" is disconnected - add a relationship to/from it, or consider removing it from the model.");
         }
 
         return noViolation();
@@ -38,7 +38,7 @@ public class OrphanedElementInspection extends AbstractElementInspection {
 
     @Override
     protected String getType() {
-        return "model.element.orphaned";
+        return "model.element.disconnected";
     }
 
 }

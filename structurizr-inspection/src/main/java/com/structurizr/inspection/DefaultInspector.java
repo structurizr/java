@@ -30,7 +30,7 @@ public class DefaultInspector extends Inspector {
         add(new EmptyModelInspection(this).run());
         add(new MultipleSoftwareSystemsDetailedInspection(this).run());
         ElementNotIncludedInAnyViewsInspection elementNotIncludedInAnyViewsCheck = new ElementNotIncludedInAnyViewsInspection(this);
-        OrphanedElementInspection orphanedElementCheck = new OrphanedElementInspection(this);
+        DisconnectedElementInspection disconnectedElementCheck = new DisconnectedElementInspection(this);
         for (Element element : getWorkspace().getModel().getElements()) {
             if (element instanceof Person) {
                 add(new PersonDescriptionInspection(this).run(element));
@@ -63,7 +63,7 @@ public class DefaultInspector extends Inspector {
                 add(new InfrastructureNodeTechnologyInspection(this).run(element));
             }
 
-            add(orphanedElementCheck.run(element));
+            add(disconnectedElementCheck.run(element));
             add(elementNotIncludedInAnyViewsCheck.run(element));
         }
 

@@ -12,30 +12,30 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class
-OrphanedElementInspectionTests {
+DisconnectedElementInspectionTests {
 
     @Test
-    public void run_WithOrphan() {
+    public void run_WithDisconnectedElement() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
 
-        Violation violation = new OrphanedElementInspection(new DefaultInspector(workspace)).run(a);
+        Violation violation = new DisconnectedElementInspection(new DefaultInspector(workspace)).run(a);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
-        assertEquals("model.element.orphaned", violation.getType());
-        assertEquals("The software system named \"A\" is orphaned - add a relationship to/from it, or consider removing it from the model.", violation.getMessage());
+        assertEquals("model.element.disconnected", violation.getType());
+        assertEquals("The software system named \"A\" is disconnected - add a relationship to/from it, or consider removing it from the model.", violation.getMessage());
     }
 
     @Test
-    public void run_WithoutOrphan() {
+    public void run_WithoutDisconnectedElement() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
         SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
         a.uses(b, "Uses");
 
-        Violation violation = new OrphanedElementInspection(new DefaultInspector(workspace)).run(a);
+        Violation violation = new DisconnectedElementInspection(new DefaultInspector(workspace)).run(a);
         assertNull(violation);
 
-        violation = new OrphanedElementInspection(new DefaultInspector(workspace)).run(b);
+        violation = new DisconnectedElementInspection(new DefaultInspector(workspace)).run(b);
         assertNull(violation);
     }
 
