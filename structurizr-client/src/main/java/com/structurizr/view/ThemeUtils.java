@@ -95,6 +95,7 @@ public final class ThemeUtils {
             cm.setConnectionConfig(connectionConfig);
 
             CloseableHttpClient httpClient = HttpClientBuilder.create()
+                    .useSystemProperties()
                     .setConnectionManager(cm)
                     .build();
 
