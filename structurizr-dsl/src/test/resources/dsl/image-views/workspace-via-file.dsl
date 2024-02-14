@@ -19,8 +19,12 @@ workspace {
             kroki graphviz diagram.dot
         }
 
-        image * "image" {
-            image logo.png
+        image * "png" {
+            image image.png
+        }
+
+        image * "svg" {
+            image image.svg
         }
     }
 

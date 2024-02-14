@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
 import java.util.Base64;
 
 /**
@@ -96,6 +97,11 @@ public class ImageUtils {
      */
     public static String getImageAsBase64(@Nonnull File file) throws IOException {
         String contentType = getContentType(file);
+
+        if (ImageUtils.CONTENT_TYPE_IMAGE_SVG.equalsIgnoreCase(contentType)) {
+            return Base64.getEncoder().encodeToString(Files.readAllBytes(file.toPath()));
+        }
+
         BufferedImage bufferedImage = ImageIO.read(file);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ImageIO.write(bufferedImage, contentType.split("/")[1], bos);

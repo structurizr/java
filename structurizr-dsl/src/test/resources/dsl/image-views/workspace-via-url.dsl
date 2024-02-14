@@ -11,19 +11,23 @@ workspace {
         }
 
         image * "plantuml" {
-            plantuml https://raw.githubusercontent.com/structurizr/dsl/master/src/test/dsl/image-views/diagram.puml
+            plantuml https://raw.githubusercontent.com/structurizr/java/master/structurizr-dsl/src/test/resources/dsl/image-views/diagram.puml
         }
 
         image * "mermaid" {
-            mermaid https://raw.githubusercontent.com/structurizr/dsl/master/src/test/dsl/image-views/diagram.mmd
+            mermaid https://raw.githubusercontent.com/structurizr/java/master/structurizr-dsl/src/test/resources/dsl/image-views/diagram.mmd
         }
 
         image * "kroki" {
-            kroki graphviz https://raw.githubusercontent.com/structurizr/dsl/master/src/test/dsl/image-views/diagram.dot
+            kroki graphviz https://raw.githubusercontent.com/structurizr/java/master/structurizr-dsl/src/test/resources/dsl/image-views/diagram.dot
         }
 
-        image * "image" {
-            image https://raw.githubusercontent.com/structurizr/dsl/master/src/test/dsl/image-views/logo.png
+        image * "png" {
+            image https://raw.githubusercontent.com/structurizr/java/master/structurizr-dsl/src/test/resources/dsl/image-views/image.png
+        }
+
+        image * "svg" {
+            image https://raw.githubusercontent.com/structurizr/java/master/structurizr-dsl/src/test/resources/dsl/image-views/image.svg
         }
     }
 
