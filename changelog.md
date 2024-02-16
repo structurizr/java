@@ -9,4 +9,5 @@
 - structurizr-import: Adds support for importing decisions managed by Log4brains.
 - structurizr-import: Adds support for importing decisions in MADR format.
 - structurizr-dsl: Adds `!decisions` as a synonym for `!adrs`.
+- structurizr-dsl: Allows `!identifiers` to be used inside `model`.
 - structurizr-inspection: Initial version.

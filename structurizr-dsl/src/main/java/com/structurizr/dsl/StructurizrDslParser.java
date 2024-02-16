@@ -868,7 +868,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         Constant constant = new ConstantParser().parse(getContext(), tokens);
                         constants.put(constant.getName(), constant);
 
-                    } else if (IDENTIFIERS_TOKEN.equalsIgnoreCase(firstToken) && inContext(WorkspaceDslContext.class)) {
+                    } else if (IDENTIFIERS_TOKEN.equalsIgnoreCase(firstToken) && (inContext(WorkspaceDslContext.class) || inContext(ModelDslContext.class))) {
                         setIdentifierScope(new IdentifierScopeParser().parse(getContext(), tokens));
 
                     } else {
