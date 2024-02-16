@@ -11,7 +11,7 @@ class ExternalScriptDslContextTests extends AbstractTests {
 
     @Test
     void test_parseExternal_RunsTheScript_WhenAValidScriptFilenameIsSpecified() {
-        ExternalScriptDslContext context = new ExternalScriptDslContext(new WorkspaceDslContext(), new File("src/test/resources/dsl/workspace.dsl"), "test.kts");
+        ExternalScriptDslContext context = new ExternalScriptDslContext(new WorkspaceDslContext(), new File("src/test/resources/dsl/workspace.dsl"), null, "test.kts");
         context.setWorkspace(workspace);
         context.end();
 

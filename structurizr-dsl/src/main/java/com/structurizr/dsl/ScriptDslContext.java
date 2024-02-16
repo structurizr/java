@@ -22,12 +22,14 @@ abstract class ScriptDslContext extends DslContext {
     private final DslContext parentContext;
 
     protected final File dslFile;
+    private final StructurizrDslParser dslParser;
 
     private final Map<String,String> parameters = new HashMap<>();
 
-    ScriptDslContext(DslContext parentContext, File dslFile) {
+    ScriptDslContext(DslContext parentContext, File dslFile, StructurizrDslParser dslParser) {
         this.parentContext = parentContext;
         this.dslFile = dslFile;
+        this.dslParser = dslParser;
     }
 
     void addParameter(String name, String value) {
@@ -60,7 +62,7 @@ abstract class ScriptDslContext extends DslContext {
             }
 
             // bind a context object
-            StructurizrDslScriptContext scriptContext = new StructurizrDslScriptContext(dslFile, getWorkspace(), parameters);
+            StructurizrDslScriptContext scriptContext = new StructurizrDslScriptContext(dslParser, dslFile, getWorkspace(), parameters);
             bindings.put(CONTEXT_VARIABLE_NAME, scriptContext);
 
             // and any custom parameters

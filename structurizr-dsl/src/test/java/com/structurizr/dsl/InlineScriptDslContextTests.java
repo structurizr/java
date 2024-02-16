@@ -12,7 +12,7 @@ class InlineScriptDslContextTests extends AbstractTests {
     @Test
     void test_end_ThrowsAnException_WhenAnUnsupportedLanguageIsSpecified() {
         try {
-            InlineScriptDslContext context = new InlineScriptDslContext(new WorkspaceDslContext(), new File("workspace.dsl"), "java");
+            InlineScriptDslContext context = new InlineScriptDslContext(new WorkspaceDslContext(), new File("workspace.dsl"), null, "java");
             context.end();
             fail();
         } catch (Exception e) {

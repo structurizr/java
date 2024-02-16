@@ -20,8 +20,8 @@ class InlineScriptDslContext extends ScriptDslContext {
         SUPPORTED_LANGUAGES.put("ruby", "rb");
     }
 
-    InlineScriptDslContext(DslContext parentContext, File dslFile, String language) {
-        super(parentContext, dslFile);
+    InlineScriptDslContext(DslContext parentContext, File dslFile, StructurizrDslParser dslParser, String language) {
+        super(parentContext, dslFile, dslParser);
 
         this.language = language.toLowerCase();
     }

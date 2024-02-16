@@ -9,8 +9,8 @@ class ExternalScriptDslContext extends ScriptDslContext {
 
     private final String filename;
 
-    ExternalScriptDslContext(DslContext parentContext, File dslFile, String filename) {
-        super(parentContext, dslFile);
+    ExternalScriptDslContext(DslContext parentContext, File dslFile, StructurizrDslParser dslParser, String filename) {
+        super(parentContext, dslFile, dslParser);
 
         this.filename = filename;
     }
