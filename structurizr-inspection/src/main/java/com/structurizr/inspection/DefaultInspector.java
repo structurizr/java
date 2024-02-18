@@ -2,14 +2,11 @@ package com.structurizr.inspection;
 
 import com.structurizr.Workspace;
 import com.structurizr.inspection.model.*;
-import com.structurizr.inspection.view.ContainerViewsForMultipleSoftwareSystemsInspection;
-import com.structurizr.inspection.view.ElementStyleMetadataInspection;
-import com.structurizr.inspection.view.EmptyViewsInspection;
-import com.structurizr.inspection.view.SystemContextViewsForMultipleSoftwareSystemsInspection;
+import com.structurizr.inspection.view.*;
 import com.structurizr.inspection.workspace.WorkspaceScopeInspection;
 import com.structurizr.inspection.workspace.WorkspaceToolingInspection;
 import com.structurizr.model.*;
-import com.structurizr.view.ElementStyle;
+import com.structurizr.view.*;
 
 public class DefaultInspector extends Inspector {
 
@@ -75,8 +72,58 @@ public class DefaultInspector extends Inspector {
 
     private void runViewInspections() {
         add(new EmptyViewsInspection(this).run());
+
+        for (CustomView view : getWorkspace().getViews().getCustomViews()) {
+            add(new GeneratedKeyInspection(this).run(view));
+            add(new EmptyViewInspection(this).run(view));
+            add(new ManualLayoutInspection(this).run(view));
+        }
+
+        for (SystemLandscapeView view : getWorkspace().getViews().getSystemLandscapeViews()) {
+            add(new GeneratedKeyInspection(this).run(view));
+            add(new EmptyViewInspection(this).run(view));
+            add(new ManualLayoutInspection(this).run(view));
+        }
+
         add(new SystemContextViewsForMultipleSoftwareSystemsInspection(this).run());
+        for (SystemContextView view : getWorkspace().getViews().getSystemContextViews()) {
+            add(new GeneratedKeyInspection(this).run(view));
+            add(new EmptyViewInspection(this).run(view));
+            add(new ManualLayoutInspection(this).run(view));
+        }
+
         add(new ContainerViewsForMultipleSoftwareSystemsInspection(this).run());
+        for (ContainerView view : getWorkspace().getViews().getContainerViews()) {
+            add(new GeneratedKeyInspection(this).run(view));
+            add(new EmptyViewInspection(this).run(view));
+            add(new ManualLayoutInspection(this).run(view));
+        }
+
+        for (ComponentView view : getWorkspace().getViews().getComponentViews()) {
+            add(new GeneratedKeyInspection(this).run(view));
+            add(new EmptyViewInspection(this).run(view));
+            add(new ManualLayoutInspection(this).run(view));
+        }
+
+        for (DynamicView view : getWorkspace().getViews().getDynamicViews()) {
+            add(new GeneratedKeyInspection(this).run(view));
+            add(new EmptyViewInspection(this).run(view));
+            add(new ManualLayoutInspection(this).run(view));
+        }
+
+        for (DeploymentView view : getWorkspace().getViews().getDeploymentViews()) {
+            add(new GeneratedKeyInspection(this).run(view));
+            add(new EmptyViewInspection(this).run(view));
+            add(new ManualLayoutInspection(this).run(view));
+        }
+
+        for (FilteredView view : getWorkspace().getViews().getFilteredViews()) {
+            add(new GeneratedKeyInspection(this).run(view));
+        }
+
+        for (ImageView view : getWorkspace().getViews().getImageViews()) {
+            add(new GeneratedKeyInspection(this).run(view));
+        }
 
         for (ElementStyle elementStyle : getWorkspace().getViews().getConfiguration().getStyles().getElements()) {
             add(new ElementStyleMetadataInspection(this).run(elementStyle));
