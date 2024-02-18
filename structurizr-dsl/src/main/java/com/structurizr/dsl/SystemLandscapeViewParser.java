@@ -7,8 +7,6 @@ final class SystemLandscapeViewParser extends AbstractViewParser {
 
     private static final String GRAMMAR = "systemLandscape [key] [description] {";
 
-    private static final String VIEW_TYPE = "SystemLandscape";
-
     private static final int KEY_INDEX = 1;
     private static final int DESCRIPTION_INDEX = 2;
 
@@ -25,10 +23,8 @@ final class SystemLandscapeViewParser extends AbstractViewParser {
 
         if (tokens.includes(KEY_INDEX)) {
             key = tokens.get(KEY_INDEX);
-        } else {
-            key = workspace.getViews().generateViewKey(VIEW_TYPE);
+            validateViewKey(key);
         }
-        validateViewKey(key);
 
         if (tokens.includes(DESCRIPTION_INDEX)) {
             description = tokens.get(DESCRIPTION_INDEX);

@@ -9,8 +9,6 @@ final class DeploymentViewParser extends AbstractViewParser {
 
     private static final String GRAMMAR = "deployment <*|software system identifier> <environment> [key] [description] {";
 
-    private static final String VIEW_TYPE = "Deployment";
-
     private static final int SCOPE_IDENTIFIER_INDEX = 1;
     private static final int ENVIRONMENT_INDEX = 2;
     private static final int KEY_INDEX = 3;
@@ -51,10 +49,8 @@ final class DeploymentViewParser extends AbstractViewParser {
         if ("*".equals(scopeIdentifier)) {
             if (tokens.includes(KEY_INDEX)) {
                 key = tokens.get(KEY_INDEX);
-            } else {
-                key = workspace.getViews().generateViewKey(VIEW_TYPE);
+                validateViewKey(key);
             }
-            validateViewKey(key);
 
             view = workspace.getViews().createDeploymentView(key, description);
         } else {
@@ -66,10 +62,8 @@ final class DeploymentViewParser extends AbstractViewParser {
             if (element instanceof SoftwareSystem) {
                 if (tokens.includes(KEY_INDEX)) {
                     key = tokens.get(KEY_INDEX);
-                } else {
-                    key = workspace.getViews().generateViewKey(VIEW_TYPE);
+                    validateViewKey(key);
                 }
-                validateViewKey(key);
 
                 view = workspace.getViews().createDeploymentView((SoftwareSystem)element, key, description);
             } else {

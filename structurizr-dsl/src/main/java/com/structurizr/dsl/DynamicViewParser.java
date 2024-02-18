@@ -6,13 +6,9 @@ import com.structurizr.model.Element;
 import com.structurizr.model.SoftwareSystem;
 import com.structurizr.view.DynamicView;
 
-import java.text.DecimalFormat;
-
 class DynamicViewParser extends AbstractViewParser {
 
     private static final String GRAMMAR = "dynamic <*|software system identifier|container identifier> [key] [description] {";
-
-    private static final String VIEW_TYPE = "Dynamic";
 
     private static final int SCOPE_IDENTIFIER_INDEX = 1;
     private static final int KEY_INDEX = 2;
@@ -45,10 +41,8 @@ class DynamicViewParser extends AbstractViewParser {
         if (WILDCARD.equals(scopeIdentifier)) {
             if (tokens.includes(KEY_INDEX)) {
                 key = tokens.get(KEY_INDEX);
-            } else {
-                key = workspace.getViews().generateViewKey(VIEW_TYPE);
+                validateViewKey(key);
             }
-            validateViewKey(key);
 
             view = workspace.getViews().createDynamicView(key, description);
         } else {
@@ -60,20 +54,15 @@ class DynamicViewParser extends AbstractViewParser {
             if (element instanceof SoftwareSystem) {
                 if (tokens.includes(KEY_INDEX)) {
                     key = tokens.get(KEY_INDEX);
-                } else {
-                    key = workspace.getViews().generateViewKey(VIEW_TYPE);
+                    validateViewKey(key);
                 }
-                validateViewKey(key);
 
                 view = workspace.getViews().createDynamicView((SoftwareSystem)element, key, description);
             } else if (element instanceof Container) {
-                Container container = (Container)element;
                 if (tokens.includes(KEY_INDEX)) {
                     key = tokens.get(KEY_INDEX);
-                } else {
-                    key = workspace.getViews().generateViewKey(VIEW_TYPE);
+                    validateViewKey(key);
                 }
-                validateViewKey(key);
 
                 view = workspace.getViews().createDynamicView((Container)element, key, description);
             } else {

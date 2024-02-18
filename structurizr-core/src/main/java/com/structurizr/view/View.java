@@ -1,6 +1,7 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.structurizr.PropertyHolder;
 
 import javax.annotation.Nonnull;
@@ -13,6 +14,8 @@ import java.util.Map;
 public abstract class View implements PropertyHolder {
 
     private String key;
+    private boolean generatedKey = false;
+
     private int order;
     private String title;
     private String description;
@@ -55,6 +58,20 @@ public abstract class View implements PropertyHolder {
         }
 
         this.key = key;
+    }
+
+    /**
+     * Returns true if this view has an automatically generated view key, false otherwise.
+     *
+     * @return  true if this view has an automatically generated view key, false otherwise
+     */
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    public boolean isGeneratedKey() {
+        return generatedKey;
+    }
+
+    void setGeneratedKey(boolean generatedKey) {
+        this.generatedKey = generatedKey;
     }
 
     /**

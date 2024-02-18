@@ -27,6 +27,9 @@ public final class ViewSet {
     public static final String COMPONENT_VIEW_TYPE = "Component";
     public static final String DYNAMIC_VIEW_TYPE = "Dynamic";
     public static final String DEPLOYMENT_VIEW_TYPE = "Deployment";
+    public static final String FILTERED_VIEW_TYPE = "Filtered";
+    public static final String IMAGE_VIEW_TYPE = "Image";
+    public static final String CUSTOM_VIEW_TYPE = "Custom";
 
     private Model model;
 
@@ -60,9 +63,17 @@ public final class ViewSet {
      * @throws              IllegalArgumentException if the key is not unique
      */
     public CustomView createCustomView(String key, String title, String description) {
+        boolean keyIsAutomaticallyGenerated = false;
+
+        if (StringUtils.isNullOrEmpty(key)) {
+            key = generateViewKey(CUSTOM_VIEW_TYPE);
+            keyIsAutomaticallyGenerated = true;
+        }
+
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         CustomView view = new CustomView(model, key, title, description);
+        view.setGeneratedKey(keyIsAutomaticallyGenerated);
         view.setOrder(getNextOrder());
         view.setViewSet(this);
         customViews.add(view);
@@ -78,12 +89,21 @@ public final class ViewSet {
      * @throws              IllegalArgumentException if the key is not unique
      */
     public SystemLandscapeView createSystemLandscapeView(String key, String description) {
+        boolean keyIsAutomaticallyGenerated = false;
+
+        if (StringUtils.isNullOrEmpty(key)) {
+            key = generateViewKey(SYSTEM_LANDSCAPE_VIEW_TYPE);
+            keyIsAutomaticallyGenerated = true;
+        }
+
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         SystemLandscapeView view = new SystemLandscapeView(model, key, description);
+        view.setGeneratedKey(keyIsAutomaticallyGenerated);
         view.setOrder(getNextOrder());
         view.setViewSet(this);
         systemLandscapeViews.add(view);
+
         return view;
     }
 
@@ -97,10 +117,18 @@ public final class ViewSet {
      * @throws                  IllegalArgumentException if the software system is null or the key is not unique
      */
     public SystemContextView createSystemContextView(SoftwareSystem softwareSystem, String key, String description) {
+        boolean keyIsAutomaticallyGenerated = false;
+
+        if (StringUtils.isNullOrEmpty(key)) {
+            key = generateViewKey(SYSTEM_CONTEXT_VIEW_TYPE);
+            keyIsAutomaticallyGenerated = true;
+        }
+
         assertThatTheSoftwareSystemIsNotNull(softwareSystem);
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         SystemContextView view = new SystemContextView(softwareSystem, key, description);
+        view.setGeneratedKey(keyIsAutomaticallyGenerated);
         view.setOrder(getNextOrder());
         view.setViewSet(this);
         systemContextViews.add(view);
@@ -117,10 +145,18 @@ public final class ViewSet {
      * @throws                  IllegalArgumentException if the software system is null or the key is not unique
      */
     public ContainerView createContainerView(SoftwareSystem softwareSystem, String key, String description) {
+        boolean keyIsAutomaticallyGenerated = false;
+
+        if (StringUtils.isNullOrEmpty(key)) {
+            key = generateViewKey(CONTAINER_VIEW_TYPE);
+            keyIsAutomaticallyGenerated = true;
+        }
+
         assertThatTheSoftwareSystemIsNotNull(softwareSystem);
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         ContainerView view = new ContainerView(softwareSystem, key, description);
+        view.setGeneratedKey(keyIsAutomaticallyGenerated);
         view.setOrder(getNextOrder());
         view.setViewSet(this);
         containerViews.add(view);
@@ -137,10 +173,18 @@ public final class ViewSet {
      * @throws                  IllegalArgumentException if the container is null or the key is not unique
      */
     public ComponentView createComponentView(Container container, String key, String description) {
+        boolean keyIsAutomaticallyGenerated = false;
+
+        if (StringUtils.isNullOrEmpty(key)) {
+            key = generateViewKey(COMPONENT_VIEW_TYPE);
+            keyIsAutomaticallyGenerated = true;
+        }
+
         assertThatTheContainerIsNotNull(container);
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         ComponentView view = new ComponentView(container, key, description);
+        view.setGeneratedKey(keyIsAutomaticallyGenerated);
         view.setOrder(getNextOrder());
         view.setViewSet(this);
         componentViews.add(view);
@@ -156,9 +200,17 @@ public final class ViewSet {
      * @throws              IllegalArgumentException if the key is not unique
      */
     public DynamicView createDynamicView(String key, String description) {
+        boolean keyIsAutomaticallyGenerated = false;
+
+        if (StringUtils.isNullOrEmpty(key)) {
+            key = generateViewKey(DYNAMIC_VIEW_TYPE);
+            keyIsAutomaticallyGenerated = true;
+        }
+
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         DynamicView view = new DynamicView(model, key, description);
+        view.setGeneratedKey(keyIsAutomaticallyGenerated);
         view.setOrder(getNextOrder());
         view.setViewSet(this);
         dynamicViews.add(view);
@@ -182,10 +234,18 @@ public final class ViewSet {
      * @throws                  IllegalArgumentException if the software system is null or the key is not unique
      */
     public DynamicView createDynamicView(SoftwareSystem softwareSystem, String key, String description) {
+        boolean keyIsAutomaticallyGenerated = false;
+
+        if (StringUtils.isNullOrEmpty(key)) {
+            key = generateViewKey(DYNAMIC_VIEW_TYPE);
+            keyIsAutomaticallyGenerated = true;
+        }
+
         assertThatTheSoftwareSystemIsNotNull(softwareSystem);
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         DynamicView view = new DynamicView(softwareSystem, key, description);
+        view.setGeneratedKey(keyIsAutomaticallyGenerated);
         view.setOrder(getNextOrder());
         view.setViewSet(this);
         dynamicViews.add(view);
@@ -210,10 +270,18 @@ public final class ViewSet {
      * @throws                  IllegalArgumentException if the container is null or the key is not unique
      */
     public DynamicView createDynamicView(Container container, String key, String description) {
+        boolean keyIsAutomaticallyGenerated = false;
+
+        if (StringUtils.isNullOrEmpty(key)) {
+            key = generateViewKey(DYNAMIC_VIEW_TYPE);
+            keyIsAutomaticallyGenerated = true;
+        }
+
         assertThatTheContainerIsNotNull(container);
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         DynamicView view = new DynamicView(container, key, description);
+        view.setGeneratedKey(keyIsAutomaticallyGenerated);
         view.setOrder(getNextOrder());
         view.setViewSet(this);
         dynamicViews.add(view);
@@ -229,9 +297,17 @@ public final class ViewSet {
      * @throws              IllegalArgumentException if the key is not unique
      */
     public DeploymentView createDeploymentView(String key, String description) {
+        boolean keyIsAutomaticallyGenerated = false;
+
+        if (StringUtils.isNullOrEmpty(key)) {
+            key = generateViewKey(DEPLOYMENT_VIEW_TYPE);
+            keyIsAutomaticallyGenerated = true;
+        }
+
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         DeploymentView view = new DeploymentView(model, key, description);
+        view.setGeneratedKey(keyIsAutomaticallyGenerated);
         view.setOrder(getNextOrder());
         view.setViewSet(this);
         deploymentViews.add(view);
@@ -248,10 +324,18 @@ public final class ViewSet {
      * @throws                  IllegalArgumentException if the software system is null or the key is not unique
      */
     public DeploymentView createDeploymentView(SoftwareSystem softwareSystem, String key, String description) {
+        boolean keyIsAutomaticallyGenerated = false;
+
+        if (StringUtils.isNullOrEmpty(key)) {
+            key = generateViewKey(DEPLOYMENT_VIEW_TYPE);
+            keyIsAutomaticallyGenerated = true;
+        }
+
         assertThatTheSoftwareSystemIsNotNull(softwareSystem);
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         DeploymentView view = new DeploymentView(softwareSystem, key, description);
+        view.setGeneratedKey(keyIsAutomaticallyGenerated);
         view.setOrder(getNextOrder());
         view.setViewSet(this);
         deploymentViews.add(view);
@@ -269,10 +353,18 @@ public final class ViewSet {
      * @return              a FilteredView object
      */
     public FilteredView createFilteredView(StaticView view, String key, String description, FilterMode mode, String... tags) {
+        boolean keyIsAutomaticallyGenerated = false;
+
+        if (StringUtils.isNullOrEmpty(key)) {
+            key = generateViewKey(FILTERED_VIEW_TYPE);
+            keyIsAutomaticallyGenerated = true;
+        }
+
         assertThatTheViewIsNotNull(view);
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         FilteredView filteredView = new FilteredView(view, key, description, mode, tags);
+        filteredView.setGeneratedKey(keyIsAutomaticallyGenerated);
         filteredView.setOrder(getNextOrder());
         filteredView.setViewSet(this);
         filteredViews.add(filteredView);
@@ -287,9 +379,17 @@ public final class ViewSet {
      * @throws                  IllegalArgumentException if the key is not unique
      */
     public ImageView createImageView(String key) {
+        boolean keyIsAutomaticallyGenerated = false;
+
+        if (StringUtils.isNullOrEmpty(key)) {
+            key = generateViewKey(IMAGE_VIEW_TYPE);
+            keyIsAutomaticallyGenerated = true;
+        }
+
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         ImageView view = new ImageView(key);
+        view.setGeneratedKey(keyIsAutomaticallyGenerated);
         view.setOrder(getNextOrder());
         view.setViewSet(this);
         imageViews.add(view);
@@ -305,12 +405,20 @@ public final class ViewSet {
      * @throws                  IllegalArgumentException if the element is null or the key is not unique
      */
     public ImageView createImageView(Element element, String key) {
+        boolean keyIsAutomaticallyGenerated = false;
+
+        if (StringUtils.isNullOrEmpty(key)) {
+            key = generateViewKey(IMAGE_VIEW_TYPE);
+            keyIsAutomaticallyGenerated = true;
+        }
+
         if (element == null) {
             throw new IllegalArgumentException("An element must be specified.");
         }
         assertThatTheViewKeyIsSpecifiedAndUnique(key);
 
         ImageView view = new ImageView(element, key);
+        view.setGeneratedKey(keyIsAutomaticallyGenerated);
         view.setOrder(getNextOrder());
         view.setViewSet(this);
         imageViews.add(view);
@@ -831,7 +939,7 @@ public final class ViewSet {
         return customViews.isEmpty() && systemLandscapeViews.isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && dynamicViews.isEmpty() && deploymentViews.isEmpty() && filteredViews.isEmpty();
     }
 
-    public String generateViewKey(String prefix) {
+    private String generateViewKey(String prefix) {
         NumberFormat format = new DecimalFormat("000");
         int counter = 1;
         String key = prefix + "-" + format.format(counter);
@@ -841,7 +949,6 @@ public final class ViewSet {
             key = prefix + "-" + format.format(counter);
         }
 
-        log.warn(key + " is an automatically generated view key - you will likely lose manual layout information when using automatically generated view keys.");
         return key;
     }
 
@@ -851,7 +958,7 @@ public final class ViewSet {
 
     public void createDefaultViews() {
         // create a single System Landscape diagram containing all people and software systems
-        SystemLandscapeView systemLandscapeView = createSystemLandscapeView(generateViewKey(SYSTEM_LANDSCAPE_VIEW_TYPE), "");
+        SystemLandscapeView systemLandscapeView = createSystemLandscapeView("", "");
         systemLandscapeView.addDefaultElements();
         systemLandscapeView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
 
@@ -861,8 +968,7 @@ public final class ViewSet {
 
             // and a system context view plus container view for each software system
             for (SoftwareSystem softwareSystem : softwareSystems) {
-                String systemContextViewKey = generateViewKey(SYSTEM_CONTEXT_VIEW_TYPE);
-                SystemContextView systemContextView = createSystemContextView(softwareSystem, systemContextViewKey, "");
+                SystemContextView systemContextView = createSystemContextView(softwareSystem, "", "");
                 systemContextView.addDefaultElements();
                 systemContextView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
 
@@ -870,15 +976,13 @@ public final class ViewSet {
                     List<Container> containers = new ArrayList<>(softwareSystem.getContainers());
                     containers.sort(Comparator.comparing(Element::getName));
 
-                    String containerViewKey = generateViewKey(CONTAINER_VIEW_TYPE);
-                    ContainerView containerView = createContainerView(softwareSystem, containerViewKey, "");
+                    ContainerView containerView = createContainerView(softwareSystem, "", "");
                     containerView.addDefaultElements();
                     containerView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
 
                     for (Container container : containers) {
                         if (container.getComponents().size() > 0) {
-                            String componentViewKey = generateViewKey(COMPONENT_VIEW_TYPE);
-                            ComponentView componentView = createComponentView(container, componentViewKey, "");
+                            ComponentView componentView = createComponentView(container, "", "");
                             componentView.addDefaultElements();
                             componentView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
                         }
@@ -922,8 +1026,7 @@ public final class ViewSet {
             if (softwareSystems.isEmpty()) {
                 // there are no container instances, but perhaps there are infrastructure nodes in this environment
                 if (model.getElements().stream().anyMatch(e -> e instanceof InfrastructureNode && ((InfrastructureNode)e).getEnvironment().equals(deploymentEnvironment))) {
-                    String deploymentViewKey = generateViewKey(DEPLOYMENT_VIEW_TYPE);
-                    DeploymentView deploymentView = createDeploymentView(deploymentViewKey, "");
+                    DeploymentView deploymentView = createDeploymentView("", "");
                     deploymentView.setEnvironment(deploymentEnvironment);
                     deploymentView.addDefaultElements();
                     deploymentView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);
@@ -932,8 +1035,7 @@ public final class ViewSet {
                 softwareSystems.sort(Comparator.comparing(Element::getName));
 
                 for (SoftwareSystem softwareSystem : softwareSystems) {
-                    String deploymentViewKey = generateViewKey(DEPLOYMENT_VIEW_TYPE);
-                    DeploymentView deploymentView = createDeploymentView(softwareSystem, deploymentViewKey, "");
+                    DeploymentView deploymentView = createDeploymentView(softwareSystem, "", "");
                     deploymentView.setEnvironment(deploymentEnvironment);
                     deploymentView.addDefaultElements();
                     deploymentView.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom, 300, 300);

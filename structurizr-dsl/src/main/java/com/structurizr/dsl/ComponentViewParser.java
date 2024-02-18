@@ -9,8 +9,6 @@ final class ComponentViewParser extends AbstractViewParser {
 
     private static final String GRAMMAR = "component <container identifier> [key] [description] {";
 
-    private static final String VIEW_TYPE = "Component";
-
     private static final int CONTAINER_IDENTIFIER_INDEX = 1;
     private static final int KEY_INDEX = 2;
     private static final int DESCRIPTION_INDEX = 3;
@@ -44,10 +42,8 @@ final class ComponentViewParser extends AbstractViewParser {
 
         if (tokens.includes(KEY_INDEX)) {
             key = tokens.get(KEY_INDEX);
-        } else {
-            key = workspace.getViews().generateViewKey(VIEW_TYPE);
+            validateViewKey(key);
         }
-        validateViewKey(key);
 
         if (tokens.includes(DESCRIPTION_INDEX)) {
             description = tokens.get(DESCRIPTION_INDEX);

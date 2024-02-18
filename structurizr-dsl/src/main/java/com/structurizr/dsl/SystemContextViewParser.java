@@ -9,8 +9,6 @@ final class SystemContextViewParser extends AbstractViewParser {
 
     private static final String GRAMMAR = "systemContext <software system identifier> [key] [description] {";
 
-    private static final String VIEW_TYPE = "SystemContext";
-
     private static final int SOFTWARE_SYSTEM_IDENTIFIER_INDEX = 1;
     private static final int KEY_INDEX = 2;
     private static final int DESCRIPTION_INDEX = 3;
@@ -44,10 +42,8 @@ final class SystemContextViewParser extends AbstractViewParser {
 
         if (tokens.includes(KEY_INDEX)) {
             key = tokens.get(KEY_INDEX);
-        } else {
-            key = workspace.getViews().generateViewKey(VIEW_TYPE);
+            validateViewKey(key);
         }
-        validateViewKey(key);
 
         if (tokens.includes(DESCRIPTION_INDEX)) {
             description = tokens.get(DESCRIPTION_INDEX);

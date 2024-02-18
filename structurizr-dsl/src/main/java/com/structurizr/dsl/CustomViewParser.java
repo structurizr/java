@@ -7,8 +7,6 @@ final class CustomViewParser extends AbstractViewParser {
 
     private static final String GRAMMAR = "custom [key] [title] [description] {";
 
-    private static final String VIEW_TYPE = "Custom";
-
     private static final int KEY_INDEX = 1;
     private static final int TITLE_INDEX = 2;
     private static final int DESCRIPTION_INDEX = 3;
@@ -27,10 +25,8 @@ final class CustomViewParser extends AbstractViewParser {
 
         if (tokens.includes(KEY_INDEX)) {
             key = tokens.get(KEY_INDEX);
-        } else {
-            key = workspace.getViews().generateViewKey(VIEW_TYPE);
+            validateViewKey(key);
         }
-        validateViewKey(key);
 
         if (tokens.includes(TITLE_INDEX)) {
             title = tokens.get(TITLE_INDEX);

@@ -14,8 +14,6 @@ final class FilteredViewParser extends AbstractViewParser {
 
     private static final String GRAMMAR = "filtered <baseKey> <include|exclude> <tags> [key] [description]";
 
-    private static final String VIEW_TYPE = "Filtered";
-
     private static final int BASE_KEY_INDEX = 1;
     private static final int MODE_INDEX = 2;
     private static final int TAGS_INDEX = 3;
@@ -37,7 +35,7 @@ final class FilteredViewParser extends AbstractViewParser {
         }
 
         Workspace workspace = context.getWorkspace();
-        String key;
+        String key = "";
 
         StaticView baseView;
         String baseKey = tokens.get(BASE_KEY_INDEX);
@@ -77,10 +75,8 @@ final class FilteredViewParser extends AbstractViewParser {
 
         if (tokens.includes(KEY_INDEX)) {
             key = tokens.get(KEY_INDEX);
-        } else {
-            key = workspace.getViews().generateViewKey(VIEW_TYPE);
+            validateViewKey(key);
         }
-        validateViewKey(key);
 
         return workspace.getViews().createFilteredView(baseView, key, description, filterMode, tags.toArray(new String[0]));
     }

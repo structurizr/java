@@ -28,23 +28,17 @@ public class ViewSetTests {
     }
 
     @Test
-    void createCustomView_ThrowsAnException_WhenANullKeyIsSpecified() {
-        try {
-            new Workspace("", "").getViews().createCustomView(null, "Title", "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createCustomView_GeneratesAKey_WhenANullKeyIsSpecified() {
+        View view = new Workspace("", "").getViews().createCustomView(null, "Title", "Description");
+        assertEquals("Custom-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
-    void createCustomView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
-        try {
-            new Workspace("", "").getViews().createCustomView(" ", "Title", "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createCustomView_GeneratesAKey_WhenAnEmptyKeyIsSpecified() {
+        View view = new Workspace("", "").getViews().createCustomView(" ", "Title", "Description");
+        assertEquals("Custom-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
@@ -78,23 +72,17 @@ public class ViewSetTests {
     }
 
     @Test
-    void createSystemLandscapeView_ThrowsAnException_WhenANullKeyIsSpecified() {
-        try {
-            new Workspace("", "").getViews().createSystemLandscapeView(null, "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createSystemLandscapeView_GeneratesAKey_WhenANullKeyIsSpecified() {
+        SystemLandscapeView view = new Workspace("", "").getViews().createSystemLandscapeView(null, "Description");
+        assertEquals("SystemLandscape-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
-    void createSystemLandscapeView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
-        try {
-            new Workspace("", "").getViews().createSystemLandscapeView(" ", "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createSystemLandscapeView_GeneratesAKey_WhenAnEmptyKeyIsSpecified() {
+        SystemLandscapeView view = new Workspace("", "").getViews().createSystemLandscapeView(" ", "Description");
+        assertEquals("SystemLandscape-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
@@ -135,27 +123,21 @@ public class ViewSetTests {
     }
 
     @Test
-    void createSystemContextView_ThrowsAnException_WhenANullKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
-            workspace.getViews().createSystemContextView(softwareSystem, null, "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createSystemContextView_GeneratesAKey_WhenANullKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+        SystemContextView view = workspace.getViews().createSystemContextView(softwareSystem, null, "Description");
+        assertEquals("SystemContext-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
-    void createSystemContextView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
-            workspace.getViews().createSystemContextView(softwareSystem, " ", "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createSystemContextView_GeneratesAKey_WhenAnEmptyKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+        SystemContextView view = workspace.getViews().createSystemContextView(softwareSystem, " ", "Description");
+        assertEquals("SystemContext-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
@@ -192,27 +174,21 @@ public class ViewSetTests {
     }
 
     @Test
-    void createContainerView_ThrowsAnException_WhenANullKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
-            workspace.getViews().createContainerView(softwareSystem, null, "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createContainerView_GeneratesAKey_WhenANullKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+        ContainerView view = workspace.getViews().createContainerView(softwareSystem, null, "Description");
+        assertEquals("Container-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
-    void createContainerView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
-            workspace.getViews().createContainerView(softwareSystem, " ", "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createContainerView_GeneratesAKey_WhenAnEmptyKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+        ContainerView view = workspace.getViews().createContainerView(softwareSystem, " ", "Description");
+        assertEquals("Container-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
@@ -249,29 +225,23 @@ public class ViewSetTests {
     }
 
     @Test
-    void createComponentView_ThrowsAnException_WhenANullKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
-            Container container = softwareSystem.addContainer("Container", "Description", "Technology");
-            workspace.getViews().createComponentView(container, null, "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createComponentView_GeneratesAKey_WhenANullKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+        Container container = softwareSystem.addContainer("Container", "Description", "Technology");
+        ComponentView view = workspace.getViews().createComponentView(container, null, "Description");
+        assertEquals("Component-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
-    void createComponentView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
-            Container container = softwareSystem.addContainer("Container", "Description", "Technology");
-            workspace.getViews().createComponentView(container, " ", "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createComponentView_GeneratesAKey_WhenAnEmptyKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+        Container container = softwareSystem.addContainer("Container", "Description", "Technology");
+        ComponentView view = workspace.getViews().createComponentView(container, " ", "Description");
+        assertEquals("Component-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
@@ -301,25 +271,19 @@ public class ViewSetTests {
     }
 
     @Test
-    void createDynamicView_ThrowsAnException_WhenANullKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            workspace.getViews().createDynamicView(null, "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createDynamicView_GeneratesAKey_WhenANullKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        DynamicView view = workspace.getViews().createDynamicView(null, "Description");
+        assertEquals("Dynamic-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
-    void createDynamicView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            workspace.getViews().createDynamicView(" ", "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createDynamicView_GeneratesAKey_WhenAnEmptyKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        DynamicView view = workspace.getViews().createDynamicView(" ", "Description");
+        assertEquals("Dynamic-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
@@ -344,27 +308,21 @@ public class ViewSetTests {
     }
 
     @Test
-    void createDynamicViewForASoftwareSystem_ThrowsAnException_WhenANullKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
-            workspace.getViews().createDynamicView(softwareSystem, null, "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createDynamicViewForASoftwareSystem_GeneratesAKey_WhenANullKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+        DynamicView view = workspace.getViews().createDynamicView(softwareSystem, null, "Description");
+        assertEquals("Dynamic-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
-    void createDynamicViewForASoftwareSystem_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
-            workspace.getViews().createDynamicView(softwareSystem, " ", "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createDynamicViewForASoftwareSystem_GeneratesAKey_WhenAnEmptyKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+        DynamicView view = workspace.getViews().createDynamicView(softwareSystem, " ", "Description");
+        assertEquals("Dynamic-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
@@ -404,29 +362,23 @@ public class ViewSetTests {
     }
 
     @Test
-    void createDynamicViewForAContainer_ThrowsAnException_WhenANullKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
-            Container container = softwareSystem.addContainer("Container", "Description", "Technology");
-            workspace.getViews().createDynamicView(container, null, "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createDynamicViewForAContainer_GeneratesAKey_WhenANullKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+        Container container = softwareSystem.addContainer("Container", "Description", "Technology");
+        DynamicView view = workspace.getViews().createDynamicView(container, null, "Description");
+        assertEquals("Dynamic-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
-    void createDynamicViewForAContainer_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
-            Container container = softwareSystem.addContainer("Container", "Description", "Technology");
-            workspace.getViews().createDynamicView(container, " ", "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createDynamicViewForAContainer_GeneratesAKey_WhenAnEmptyKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+        Container container = softwareSystem.addContainer("Container", "Description", "Technology");
+        DynamicView view = workspace.getViews().createDynamicView(container, " ", "Description");
+        assertEquals("Dynamic-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
@@ -443,25 +395,19 @@ public class ViewSetTests {
     }
 
     @Test
-    void createDeploymentView_ThrowsAnException_WhenANullKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            workspace.getViews().createDeploymentView(null, "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createDeploymentView_GeneratesAKey_WhenANullKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        DeploymentView view = workspace.getViews().createDeploymentView(null, "Description");
+        assertEquals("Deployment-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
-    void createDeploymentView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            workspace.getViews().createDeploymentView(" ", "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createDeploymentView_GeneratesAKey_WhenAnEmptyKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        DeploymentView view = workspace.getViews().createDeploymentView(" ", "Description");
+        assertEquals("Deployment-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
@@ -499,27 +445,21 @@ public class ViewSetTests {
     }
 
     @Test
-    void createDeploymentViewForASoftwareSystem_ThrowsAnException_WhenANullKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
-            workspace.getViews().createDeploymentView(softwareSystem, null, "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createDeploymentViewForASoftwareSystem_GeneratesAKey_WhenANullKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+        DeploymentView view = workspace.getViews().createDeploymentView(softwareSystem, null, "Description");
+        assertEquals("Deployment-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
-    void createDeploymentViewForASoftwareSystem_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
-            workspace.getViews().createDeploymentView(softwareSystem, " ", "Description");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createDeploymentViewForASoftwareSystem_GeneratesAKey_WhenAnEmptyKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
+        DeploymentView view = workspace.getViews().createDeploymentView(softwareSystem, " ", "Description");
+        assertEquals("Deployment-001", view.getKey());
+        assertTrue(view.isGeneratedKey());
     }
 
     @Test
@@ -559,27 +499,21 @@ public class ViewSetTests {
     }
 
     @Test
-    void createFilteredView_ThrowsAnException_WhenANullKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("systemLandscape", "Description");
-            workspace.getViews().createFilteredView(view, null, "Description", FilterMode.Include, "tag1", "tag2");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createFilteredView_GeneratesAKey_WhenANullKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("systemLandscape", "Description");
+        FilteredView filteredView = workspace.getViews().createFilteredView(view, null, "Description", FilterMode.Include, "tag1", "tag2");
+        assertEquals("Filtered-001", filteredView.getKey());
+        assertTrue(filteredView.isGeneratedKey());
     }
 
     @Test
-    void createFilteredView_ThrowsAnException_WhenAnEmptyKeyIsSpecified() {
-        try {
-            Workspace workspace = new Workspace("Name", "Description");
-            SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("systemLandscape", "Description");
-            workspace.getViews().createFilteredView(view, " ", "Description", FilterMode.Include, "tag1", "tag2");
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A key must be specified.", iae.getMessage());
-        }
+    void createFilteredView_GeneratesAKey_WhenAnEmptyKeyIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("systemLandscape", "Description");
+        FilteredView filteredView = workspace.getViews().createFilteredView(view, " ", "Description", FilterMode.Include, "tag1", "tag2");
+        assertEquals("Filtered-001", filteredView.getKey());
+        assertTrue(filteredView.isGeneratedKey());
     }
 
     @Test

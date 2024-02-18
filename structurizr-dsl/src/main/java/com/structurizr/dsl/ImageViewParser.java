@@ -8,8 +8,6 @@ class ImageViewParser extends AbstractViewParser {
 
     private static final String GRAMMAR = "image <*|element identifier> [key] {";
 
-    private static final String VIEW_TYPE = "Image";
-
     private static final int SCOPE_IDENTIFIER_INDEX = 1;
     private static final int KEY_INDEX = 2;
 
@@ -32,10 +30,8 @@ class ImageViewParser extends AbstractViewParser {
         ImageView view;
         if (tokens.includes(KEY_INDEX)) {
             key = tokens.get(KEY_INDEX);
-        } else {
-            key = workspace.getViews().generateViewKey(VIEW_TYPE);
+            validateViewKey(key);
         }
-        validateViewKey(key);
 
         String scopeIdentifier = tokens.get(SCOPE_IDENTIFIER_INDEX);
         if (WILDCARD.equals(scopeIdentifier)) {
