@@ -1,6 +1,8 @@
 package com.structurizr.inspection;
 
 import com.structurizr.Workspace;
+import com.structurizr.inspection.documentation.EmbeddedViewMissingInspection;
+import com.structurizr.inspection.documentation.EmbeddedViewWithGeneratedKeyInspection;
 import com.structurizr.inspection.model.*;
 import com.structurizr.inspection.view.*;
 import com.structurizr.inspection.workspace.WorkspaceScopeInspection;
@@ -21,6 +23,8 @@ public class DefaultInspector extends Inspector {
     private void runWorkspaceInspections() {
         add(new WorkspaceToolingInspection(this).run());
         add(new WorkspaceScopeInspection(this).run());
+        add(new EmbeddedViewMissingInspection(this).run(getWorkspace()));
+        add(new EmbeddedViewWithGeneratedKeyInspection(this).run(getWorkspace()));
     }
 
     private void runModelInspections() {
@@ -37,16 +41,22 @@ public class DefaultInspector extends Inspector {
                 add(new SoftwareSystemDescriptionInspection(this).run(element));
                 add(new SoftwareSystemDocumentationInspection(this).run(element));
                 add(new SoftwareSystemDecisionsInspection(this).run(element));
+                add(new EmbeddedViewMissingInspection(this).run((SoftwareSystem)element));
+                add(new EmbeddedViewWithGeneratedKeyInspection(this).run((SoftwareSystem)element));
             }
 
             if (element instanceof Container) {
                 add(new ContainerDescriptionInspection(this).run(element));
                 add(new ContainerTechnologyInspection(this).run(element));
+                add(new EmbeddedViewMissingInspection(this).run((Container)element));
+                add(new EmbeddedViewWithGeneratedKeyInspection(this).run((Container)element));
             }
 
             if (element instanceof Component) {
                 add(new ComponentDescriptionInspection(this).run(element));
                 add(new ComponentTechnologyInspection(this).run(element));
+                add(new EmbeddedViewMissingInspection(this).run((Component)element));
+                add(new EmbeddedViewWithGeneratedKeyInspection(this).run((Component)element));
             }
 
             if (element instanceof DeploymentNode) {
