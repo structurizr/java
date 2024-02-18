@@ -21,7 +21,7 @@ public class ManualLayoutInspectionTests {
         Violation violation = new ManualLayoutInspection(new DefaultInspector(workspace)).run(view);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("views.view.layout", violation.getType());
-        assertEquals("The view with key \"SystemLandscape-001\" has an automatically generated view key, which may cause manual layout information to be lost in the future.", violation.getMessage());
+        assertEquals("The view with key \"SystemLandscape-001\" has an automatically generated view key and this may cause manual layout information to be lost in the future.", violation.getMessage());
     }
 
     @Test

@@ -21,7 +21,7 @@ public class GeneratedKeyInspectionTests {
         Violation violation = new GeneratedKeyInspection(new DefaultInspector(workspace)).run(view);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("views.view.key", violation.getType());
-        assertEquals("The view with key \"SystemLandscape-001\" has an automatically generated view key, which is not guaranteed to be stable over time.", violation.getMessage());
+        assertEquals("The view with key \"SystemLandscape-001\" has an automatically generated view key and this is not guaranteed to be stable over time.", violation.getMessage());
     }
 
     @Test
