@@ -19,7 +19,7 @@ public class ElementStyleMetadataInspection extends Inspection {
         return violation == null ? null : violation.withSeverity(severity);
     }
 
-    public Violation inspect(ElementStyle elementStyle) {
+    protected Violation inspect(ElementStyle elementStyle) {
         if (elementStyle.getMetadata() != null && !elementStyle.getMetadata()) {
             return violation("The element style for tag \"" + elementStyle.getTag() + "\" has metadata hidden, which may introduce ambiguity on rendered diagrams.");
         }

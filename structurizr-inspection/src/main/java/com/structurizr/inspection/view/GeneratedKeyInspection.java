@@ -12,7 +12,7 @@ public class GeneratedKeyInspection extends AbstractViewInspection {
     }
 
     @Override
-    public Violation inspect(View view) {
+    protected Violation inspect(View view) {
         if (view.isGeneratedKey()) {
             return violation("The view with key \"" + view.getKey() + "\" has an automatically generated view key, which is not guaranteed to be stable over time.");
         }

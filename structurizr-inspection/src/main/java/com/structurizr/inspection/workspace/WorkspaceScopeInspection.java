@@ -11,7 +11,7 @@ public class WorkspaceScopeInspection extends AbstractWorkspaceInspection {
     }
 
     @Override
-    public Violation inspect(Workspace workspace) {
+    protected Violation inspect(Workspace workspace) {
         if (workspace.getConfiguration().getScope() == null) {
             return violation("This workspace has no defined scope. It is recommended that the workspace scope is set to \"Landscape\" or \"SoftwareSystem\".");
         }

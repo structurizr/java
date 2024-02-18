@@ -15,7 +15,7 @@ public class WorkspaceToolingInspection extends AbstractWorkspaceInspection {
     }
 
     @Override
-    public Violation inspect(Workspace workspace) {
+    protected Violation inspect(Workspace workspace) {
         if (!StringUtils.isNullOrEmpty(workspace.getLastModifiedAgent())) {
             if (workspace.getLastModifiedAgent().startsWith(CLOUD_SERVICE_DSL_EDITOR) || workspace.getLastModifiedAgent().startsWith(ONPREMISES_DSL_EDITOR)) {
                 return violation("The browser-based DSL editor is the easiest way to get started without installing any tooling, but it does not provide access to the full feature set of the Structurizr DSL. It is recommended that you use the Structurizr DSL in conjunction with the Structurizr CLI's \"push\" command.");

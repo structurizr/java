@@ -15,7 +15,7 @@ public class SystemContextViewsForMultipleSoftwareSystemsInspection extends Abst
     }
 
     @Override
-    public Violation inspect(Workspace workspace) {
+    protected Violation inspect(Workspace workspace) {
         Set<String> softwareSystemsWithSystemContextViews = new HashSet<>();
         for (SystemContextView view : workspace.getViews().getSystemContextViews()) {
             softwareSystemsWithSystemContextViews.add(view.getSoftwareSystemId());

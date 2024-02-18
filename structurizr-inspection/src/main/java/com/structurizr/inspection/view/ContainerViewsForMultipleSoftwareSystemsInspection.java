@@ -15,7 +15,7 @@ public class ContainerViewsForMultipleSoftwareSystemsInspection extends Abstract
     }
 
     @Override
-    public Violation inspect(Workspace workspace) {
+    protected Violation inspect(Workspace workspace) {
         Set<String> softwareSystemsWithContainerViews = new HashSet<>();
         for (ContainerView view : workspace.getViews().getContainerViews()) {
             softwareSystemsWithContainerViews.add(view.getSoftwareSystemId());

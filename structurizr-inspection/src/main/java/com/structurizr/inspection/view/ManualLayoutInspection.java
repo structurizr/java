@@ -11,7 +11,7 @@ public class ManualLayoutInspection extends AbstractModelViewInspection {
     }
 
     @Override
-    public Violation inspect(ModelView view) {
+    protected Violation inspect(ModelView view) {
         if (view.isGeneratedKey() && view.getAutomaticLayout() == null) {
             return violation("The view with key \"" + view.getKey() + "\" has an automatically generated view key, which may cause manual layout information to be lost in the future.");
         }
