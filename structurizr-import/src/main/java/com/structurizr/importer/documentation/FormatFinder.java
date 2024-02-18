@@ -10,13 +10,17 @@ import java.util.Set;
 public class FormatFinder {
 
     private static final Set<String> MARKDOWN_EXTENSIONS = new HashSet<>(Arrays.asList(".md", ".markdown", ".text"));
-
     private static final Set<String> ASCIIDOC_EXTENSIONS = new HashSet<>(Arrays.asList(".asciidoc", ".adoc", ".asc"));
+    private static final String DOT = ".";
 
     public static boolean isMarkdownOrAsciiDoc(File file) {
-        String extension = file.getName().substring(file.getName().lastIndexOf("."));
+        if (file.getName().contains(DOT)) {
+            String extension = file.getName().substring(file.getName().lastIndexOf(DOT));
 
-        return MARKDOWN_EXTENSIONS.contains(extension) || ASCIIDOC_EXTENSIONS.contains(extension);
+            return MARKDOWN_EXTENSIONS.contains(extension) || ASCIIDOC_EXTENSIONS.contains(extension);
+        }
+
+        return false;
     }
 
     public static Format findFormat(File file) {
