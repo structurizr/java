@@ -2,7 +2,7 @@
 
 ## 2.0.0 (unreleased)
 
-- Removes deprecated concepts (e.g. enterprise and software system/person location).
+- structurizr-core: Removes deprecated concepts (e.g. enterprise and software system/person location).
 - structurizr-core: Adds `Workspace.trim()` to trim a workspace of unused elements (i.e. those not associated with any views).
 - structurizr-core: Adds support for SVG image views (https://github.com/structurizr/java/issues/249).
 - structurizr-core: View keys will be automatically generated if not specified.
