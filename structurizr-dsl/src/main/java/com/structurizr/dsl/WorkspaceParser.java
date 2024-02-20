@@ -36,13 +36,15 @@ final class WorkspaceParser extends AbstractParser {
                     String source = tokens.get(SECOND_INDEX);
 
                     try {
-                        if (source.startsWith("https://")) {
-                            if (source.endsWith(".json")) {
-                                String json = readFromUrl(source);
+                        if (source.startsWith("https://") || source.startsWith("http://")) {
+                            RemoteContent content = readFromUrl(source);
+
+                            if (source.endsWith(".json") || content.getContentType().startsWith(RemoteContent.CONTENT_TYPE_JSON)) {
+                                String json = content.getContent();
                                 workspace = WorkspaceUtils.fromJson(json);
                                 registerIdentifiers(workspace, context);
                             } else {
-                                String dsl = readFromUrl(source);
+                                String dsl = content.getContent();
                                 StructurizrDslParser structurizrDslParser = new StructurizrDslParser();
                                 structurizrDslParser.parse(context, dsl);
                                 workspace = structurizrDslParser.getWorkspace();

@@ -25,9 +25,9 @@ final class IncludeParser extends AbstractParser {
         }
 
         String source = tokens.get(SOURCE_INDEX);
-        if (source.startsWith("https://")) {
-            String dsl = readFromUrl(source);
-            List<String> lines = Arrays.asList(dsl.split("\n"));
+        if (source.startsWith("https://") || source.startsWith("http://")) {
+            RemoteContent content = readFromUrl(source);
+            List<String> lines = Arrays.asList(content.getContent().split("\n"));
             context.addFile(context.getParentFile(), lines);
         } else {
             if (context.getParentFile() != null) {

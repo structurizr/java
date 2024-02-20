@@ -45,8 +45,8 @@ final class ImageViewContentParser extends AbstractParser {
 
                 try {
                     if (Url.isUrl(source)) {
-                        String content = readFromUrl(source);
-                        new PlantUMLImporter().importDiagram(context.getView(), content);
+                        RemoteContent content = readFromUrl(source);
+                        new PlantUMLImporter().importDiagram(context.getView(), content.getContent());
                         context.getView().setTitle(source.substring(source.lastIndexOf("/")+1));
                     } else {
                         if (!restricted) {
@@ -77,8 +77,8 @@ final class ImageViewContentParser extends AbstractParser {
 
                 try {
                     if (Url.isUrl(source)) {
-                        String content = readFromUrl(source);
-                        new MermaidImporter().importDiagram(context.getView(), content);
+                        RemoteContent content = readFromUrl(source);
+                        new MermaidImporter().importDiagram(context.getView(), content.getContent());
                         context.getView().setTitle(source.substring(source.lastIndexOf("/")+1));
                     } else {
                         if (!restricted) {
@@ -110,8 +110,8 @@ final class ImageViewContentParser extends AbstractParser {
 
                 try {
                     if (Url.isUrl(source)) {
-                        String content = readFromUrl(source);
-                        new KrokiImporter().importDiagram(context.getView(), format, content);
+                        RemoteContent content = readFromUrl(source);
+                        new KrokiImporter().importDiagram(context.getView(), format, content.getContent());
                         context.getView().setTitle(source.substring(source.lastIndexOf("/")+1));
                     } else {
                         if (!restricted) {

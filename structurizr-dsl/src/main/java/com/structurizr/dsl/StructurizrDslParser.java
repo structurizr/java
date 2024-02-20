@@ -236,7 +236,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         endContext();
 
                     } else if (INCLUDE_FILE_TOKEN.equalsIgnoreCase(firstToken)) {
-                        if (!restricted || tokens.get(1).startsWith("https://")) {
+                        if (!restricted || tokens.get(1).startsWith("https://") || tokens.get(1).startsWith("http://")) {
                             String leadingSpace = line.substring(0, line.indexOf(INCLUDE_FILE_TOKEN));
 
                             IncludedDslContext context = new IncludedDslContext(dslFile);
