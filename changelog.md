@@ -7,9 +7,10 @@
 - structurizr-core: Adds support for SVG image views (https://github.com/structurizr/java/issues/249).
 - structurizr-core: View keys will be automatically generated if not specified.
 - structurizr-client: Removes `StructurizrClient` (use `WorkspaceApiClient` instead).
+- structurizr-dsl: Removes `enterprise` keyword.
+- structurizr-dsl: Adds `!decisions` as a synonym for `!adrs`.
+- structurizr-dsl: Allows `!identifiers` to be used inside `model`.
 - structurizr-import: Adds support for importing decisions managed by Log4brains.
 - structurizr-import: Adds support for importing decisions in MADR format.
 - structurizr-import: Fixes https://github.com/structurizr/java/issues/251 (Importing docs fails on files without extension).
-- structurizr-dsl: Adds `!decisions` as a synonym for `!adrs`.
-- structurizr-dsl: Allows `!identifiers` to be used inside `model`.
 - structurizr-inspection: Initial version.
