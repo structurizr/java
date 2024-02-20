@@ -27,6 +27,7 @@ class StructurizrDslTokens {
     static final String SCOPE_TOKEN = "scope";
     static final String MODEL_TOKEN = "model";
     static final String VIEWS_TOKEN = "views";
+    static final String ENTERPRISE_TOKEN = "enterprise";
     static final String DEPLOYMENT_ENVIRONMENT_TOKEN = "deploymentEnvironment";
     static final String DEPLOYMENT_GROUP_TOKEN = "deploymentGroup";
     static final String DEPLOYMENT_NODE_TOKEN = "deploymentNode";

@@ -1047,4 +1047,17 @@ class DslTests extends AbstractTests {
         parser.parse(dslFile);
     }
 
+    @Test
+    void test_Enterprise() {
+        File dslFile = new File("src/test/resources/dsl/enterprise.dsl");
+
+        try {
+            StructurizrDslParser parser = new StructurizrDslParser();
+            parser.parse(dslFile);
+            fail();
+        } catch (StructurizrDslParserException e) {
+            assertEquals("The enterprise keyword was previously deprecated, and has now been removed - please use group instead (https://docs.structurizr.com/dsl/language#group) at line 4 of " + dslFile.getAbsolutePath() + ": enterprise \"Name\" {", e.getMessage());
+        }
+    }
+
 }
