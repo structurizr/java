@@ -22,7 +22,7 @@ DisconnectedElementInspectionTests {
         Violation violation = new DisconnectedElementInspection(new DefaultInspector(workspace)).run(a);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.element.disconnected", violation.getType());
-        assertEquals("The software system named \"A\" is disconnected - add a relationship to/from it, or consider removing it from the model.", violation.getMessage());
+        assertEquals("The software system \"A\" is disconnected - add a relationship to/from it, or consider removing it from the model.", violation.getMessage());
     }
 
     @Test

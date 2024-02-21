@@ -24,6 +24,11 @@ public abstract class AbstractRelationshipInspection extends Inspection {
         return getWorkspace().getViews().getConfiguration().getTerminology().findTerminology(element).toLowerCase();
     }
 
+    protected String nameOf(Element element) {
+        String canonicalName = element.getCanonicalName();
+        return canonicalName.substring(canonicalName.indexOf("://") + 3);
+    }
+
     protected abstract Violation inspect(Relationship relationship);
 
 }

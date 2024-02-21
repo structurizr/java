@@ -14,7 +14,7 @@ public class InfrastructureNodeTechnologyInspection extends AbstractInfrastructu
     @Override
     protected Violation inspect(InfrastructureNode infrastructureNode) {
         if (StringUtils.isNullOrEmpty(infrastructureNode.getTechnology())) {
-            return violation("Add a technology to the " + terminologyFor(infrastructureNode).toLowerCase() + " named \"" + infrastructureNode.getName() + "\".");
+            return violation("The " + terminologyFor(infrastructureNode).toLowerCase() + " \"" + nameOf(infrastructureNode) + "\" is missing a technology.");
         }
 
         return noViolation();

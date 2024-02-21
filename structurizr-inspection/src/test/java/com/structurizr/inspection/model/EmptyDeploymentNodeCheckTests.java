@@ -24,7 +24,7 @@ EmptyDeploymentNodeCheckTests {
         Violation violation = new EmptyDeploymentNodeInspection(new DefaultInspector(workspace)).run(deploymentNode);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.deploymentnode.empty", violation.getType());
-        assertEquals("The deployment node named \"Name\" is empty.", violation.getMessage());
+        assertEquals("The deployment node \"Default/Name\" is empty.", violation.getMessage());
     }
 
     @Test

@@ -22,7 +22,7 @@ DeploymentNodeTechnologyInspectionTests {
         Violation violation = new DeploymentNodeTechnologyInspection(new DefaultInspector(workspace)).run(deploymentNode);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.deploymentnode.technology", violation.getType());
-        assertEquals("Add a technology to the deployment node named \"Name\".", violation.getMessage());
+        assertEquals("The deployment node \"Default/Name\" is missing a technology.", violation.getMessage());
     }
 
     @Test

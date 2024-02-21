@@ -16,7 +16,10 @@ public final class Model implements PropertyHolder {
 
     private IdGenerator idGenerator = new SequentialIntegerIdGeneratorStrategy();
 
+    private final Set<Element> elements = new LinkedHashSet<>();
     private final Map<String, Element> elementsById = new HashMap<>();
+
+    private final Set<Relationship> relationships = new LinkedHashSet<>();
     private final Map<String, Relationship> relationshipsById = new HashMap<>();
 
     private Enterprise enterprise;
@@ -277,6 +280,7 @@ public final class Model implements PropertyHolder {
         }
 
         elementsById.put(element.getId(), element);
+        elements.add(element);
         element.setModel(this);
         idGenerator.found(element.getId());
     }
@@ -288,12 +292,14 @@ public final class Model implements PropertyHolder {
         }
 
         relationshipsById.put(relationship.getId(), relationship);
+        relationships.add(relationship);
         relationship.setModel(this);
         idGenerator.found(relationship.getId());
     }
 
     private void removeRelationshipFromInternalStructures(Relationship relationship) {
         relationshipsById.remove(relationship.getId());
+        relationships.remove(relationship);
     }
 
     /**
@@ -304,7 +310,7 @@ public final class Model implements PropertyHolder {
     @JsonIgnore
     @Nonnull
     public Set<Element> getElements() {
-        return new HashSet<>(this.elementsById.values());
+        return new LinkedHashSet<>(elements);
     }
 
     /**
@@ -331,7 +337,7 @@ public final class Model implements PropertyHolder {
     @JsonIgnore
     @Nonnull
     public Set<Relationship> getRelationships() {
-        return new HashSet<>(this.relationshipsById.values());
+        return new LinkedHashSet<>(this.relationships);
     }
 
     /**
@@ -554,7 +560,7 @@ public final class Model implements PropertyHolder {
      * @return true, if the element is contained in this model
      */
     public boolean contains(Element element) {
-        return elementsById.containsValue(element);
+        return elements.contains(element);
     }
 
     /**
@@ -564,7 +570,7 @@ public final class Model implements PropertyHolder {
      * @return true, if the relationship is contained in this model
      */
     public boolean contains(Relationship relationship) {
-        return relationshipsById.containsValue(relationship);
+        return relationships.contains(relationship);
     }
 
     /**
@@ -1153,6 +1159,7 @@ public final class Model implements PropertyHolder {
         }
 
         elementsById.remove(element.getId());
+        elements.remove(element);
     }
 
 }

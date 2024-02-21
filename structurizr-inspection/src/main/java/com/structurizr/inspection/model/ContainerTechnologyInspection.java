@@ -14,7 +14,7 @@ public class ContainerTechnologyInspection extends AbstractContainerInspection {
     @Override
     protected Violation inspect(Container container) {
         if (StringUtils.isNullOrEmpty(container.getTechnology())) {
-            return violation("Add a technology to the " + terminologyFor(container).toLowerCase() + " named \"" + container.getName() + "\".");
+            return violation("The " + terminologyFor(container).toLowerCase() + " \"" + nameOf(container) + "\" is missing a technology.");
         }
 
         return noViolation();

@@ -10,6 +10,7 @@ public abstract class Inspector {
     private final Workspace workspace;
 
     private final List<Violation> violations = new ArrayList<>();
+    private int numberOfInspections = 0;
 
     protected Inspector(Workspace workspace) {
         this.workspace = workspace;
@@ -23,7 +24,13 @@ public abstract class Inspector {
         return new ArrayList<>(violations);
     }
 
+    public int getNumberOfInspections() {
+        return numberOfInspections;
+    }
+
     protected void add(Violation violation) {
+        numberOfInspections++;
+
         if (violation != null) {
             violations.add(violation);
         }

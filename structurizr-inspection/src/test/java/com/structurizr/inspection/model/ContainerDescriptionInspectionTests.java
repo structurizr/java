@@ -24,7 +24,7 @@ ContainerDescriptionInspectionTests {
         Violation violation = new ContainerDescriptionInspection(new DefaultInspector(workspace)).run(container);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.container.description", violation.getType());
-        assertEquals("Add a description to the container named \"Name\".", violation.getMessage());
+        assertEquals("The container \"Software System.Name\" is missing a description.", violation.getMessage());
     }
 
     @Test

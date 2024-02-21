@@ -26,7 +26,7 @@ SoftwareSystemDecisionInspectionTests {
         Violation violation = new SoftwareSystemDecisionsInspection(new DefaultInspector(workspace)).run(softwareSystem);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.softwaresystem.decisions", violation.getType());
-        assertEquals("The software system named \"Software System\" has containers, but is missing decisions.", violation.getMessage());
+        assertEquals("The software system \"Software System\" has containers, but is missing decisions.", violation.getMessage());
     }
 
     @Test

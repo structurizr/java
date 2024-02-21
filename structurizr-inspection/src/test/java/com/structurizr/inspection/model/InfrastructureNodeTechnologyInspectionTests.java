@@ -23,7 +23,7 @@ InfrastructureNodeTechnologyInspectionTests {
         Violation violation = new InfrastructureNodeTechnologyInspection(new DefaultInspector(workspace)).run(infrastructureNode);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.infrastructurenode.technology", violation.getType());
-        assertEquals("Add a technology to the infrastructure node named \"Name\".", violation.getMessage());
+        assertEquals("The infrastructure node \"Default/Deployment Node/Name\" is missing a technology.", violation.getMessage());
     }
 
     @Test

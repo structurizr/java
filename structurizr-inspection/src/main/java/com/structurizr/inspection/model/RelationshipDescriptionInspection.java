@@ -19,11 +19,7 @@ public class RelationshipDescriptionInspection extends AbstractRelationshipInspe
         Element destination = relationship.getDestination();
 
         if (StringUtils.isNullOrEmpty(relationship.getDescription())) {
-            if (source instanceof Component && destination instanceof Component) {
-                return violation("Add a description to the relationship between the " + terminologyFor(source) + " named \"" + source.getName() + "\" and the " + terminologyFor(destination) + " named \"" + destination.getName() + "\".");
-            } else {
-                return violation("Add a description to the relationship between the " + terminologyFor(source) + " named \"" + source.getName() + "\" and the " + terminologyFor(destination) + " named \"" + destination.getName() + "\".");
-            }
+            return violation("The relationship between the " + terminologyFor(source) + " \"" + nameOf(source) + "\" and the " + terminologyFor(destination) + " \"" + nameOf(destination) + "\" is missing a description.");
         }
 
         return noViolation();

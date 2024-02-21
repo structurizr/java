@@ -14,7 +14,7 @@ public class DeploymentNodeTechnologyInspection extends AbstractDeploymentNodeIn
     @Override
     protected Violation inspect(DeploymentNode deploymentNode) {
         if (StringUtils.isNullOrEmpty(deploymentNode.getDescription())) {
-            return violation("Add a technology to the " + terminologyFor(deploymentNode).toLowerCase() + " named \"" + deploymentNode.getName() + "\".");
+            return violation("The " + terminologyFor(deploymentNode).toLowerCase() + " \"" + nameOf(deploymentNode) + "\" is missing a technology.");
         }
 
         return noViolation();

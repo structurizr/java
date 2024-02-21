@@ -13,7 +13,7 @@ public class EmptyDeploymentNodeInspection extends AbstractDeploymentNodeInspect
     @Override
     protected Violation inspect(DeploymentNode deploymentNode) {
         if (!deploymentNode.hasChildren() && !deploymentNode.hasSoftwareSystemInstances() && !deploymentNode.hasContainerInstances() && !deploymentNode.hasInfrastructureNodes()) {
-            return violation("The " + terminologyFor(deploymentNode).toLowerCase() + " named \"" + deploymentNode.getName() + "\" is empty.");
+            return violation("The " + terminologyFor(deploymentNode).toLowerCase() + " \"" + nameOf(deploymentNode) + "\" is empty.");
         }
 
         return noViolation();

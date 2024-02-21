@@ -13,7 +13,7 @@ public class SoftwareSystemDocumentationInspection extends AbstractSoftwareSyste
     @Override
     protected Violation inspect(SoftwareSystem softwareSystem) {
         if (softwareSystem.hasContainers() && softwareSystem.getDocumentation().getSections().isEmpty()) {
-            return violation("The " + terminologyFor(softwareSystem).toLowerCase() + " named \"" + softwareSystem.getName() + "\" has containers, but is missing documentation.");
+            return violation("The " + terminologyFor(softwareSystem).toLowerCase() + " \"" + nameOf(softwareSystem) + "\" has containers, but is missing documentation.");
         }
 
         return noViolation();

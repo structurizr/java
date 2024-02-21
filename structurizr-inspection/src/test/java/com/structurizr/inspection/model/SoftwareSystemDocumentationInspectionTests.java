@@ -26,7 +26,7 @@ SoftwareSystemDocumentationInspectionTests {
         Violation violation = new SoftwareSystemDocumentationInspection(new DefaultInspector(workspace)).run(softwareSystem);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.softwaresystem.documentation", violation.getType());
-        assertEquals("The software system named \"Software System\" has containers, but is missing documentation.", violation.getMessage());
+        assertEquals("The software system \"Software System\" has containers, but is missing documentation.", violation.getMessage());
     }
 
     @Test

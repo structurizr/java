@@ -13,10 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DefaultInspectorTests {
 
     @Test
-    void test_EmptyWorkspace() throws Exception {
+    void test_EmptyWorkspace() {
         DefaultInspector inspector = new DefaultInspector(new Workspace("Name", "Description"));
         List<Violation> violations = inspector.getViolations();
 
+        assertEquals(9, inspector.getNumberOfInspections());
         assertEquals(3, violations.size());
 
         Violation violation = violations.get(0);
@@ -28,7 +29,6 @@ public class DefaultInspectorTests {
         assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.empty", violation.getType());
         assertEquals("The model is empty.", violation.getMessage());
-
 
         violation = violations.get(2);
         assertEquals(Severity.ERROR, violation.getSeverity());

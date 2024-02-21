@@ -22,7 +22,7 @@ SoftwareSystemDescriptionInspectionTests {
         Violation violation = new SoftwareSystemDescriptionInspection(new DefaultInspector(workspace)).run(softwareSystem);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.softwaresystem.description", violation.getType());
-        assertEquals("Add a description to the software system named \"Name\".", violation.getMessage());
+        assertEquals("The software system \"Name\" is missing a description.", violation.getMessage());
     }
 
     @Test

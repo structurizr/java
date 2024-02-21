@@ -13,7 +13,7 @@ public class SoftwareSystemDecisionsInspection extends AbstractSoftwareSystemIns
     @Override
     protected Violation inspect(SoftwareSystem softwareSystem) {
         if (softwareSystem.hasContainers() && softwareSystem.getDocumentation().getDecisions().isEmpty()) {
-            return violation("The " + terminologyFor(softwareSystem).toLowerCase() + " named \"" + softwareSystem.getName() + "\" has containers, but is missing decisions.");
+            return violation("The " + terminologyFor(softwareSystem).toLowerCase() + " \"" + nameOf(softwareSystem) + "\" has containers, but is missing decisions.");
         }
 
         return noViolation();

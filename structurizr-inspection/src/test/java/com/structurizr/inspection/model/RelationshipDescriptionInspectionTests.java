@@ -18,7 +18,7 @@ public class
 RelationshipDescriptionInspectionTests {
 
     @Test
-    public void run_WithoutDescription_MediumPriority() {
+    public void run_WithoutDescription() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
         SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
@@ -27,22 +27,7 @@ RelationshipDescriptionInspectionTests {
         Violation violation = new RelationshipDescriptionInspection(new DefaultInspector(workspace)).run(relationship);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.relationship.description", violation.getType());
-        assertEquals("Add a description to the relationship between the software system named \"A\" and the software system named \"B\".", violation.getMessage());
-    }
-
-    @Test
-    public void run_WithoutDescription_LowPriority() {
-        Workspace workspace = new Workspace("Name", "Description");
-        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System");
-        Container container = softwareSystem.addContainer("Container");
-        Component a = container.addComponent("A");
-        Component b = container.addComponent("B");
-        Relationship relationship = a.uses(b, "");
-
-        Violation violation = new RelationshipDescriptionInspection(new DefaultInspector(workspace)).run(relationship);
-        Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
-        assertEquals("model.relationship.description", violation.getType());
-        assertEquals("Add a description to the relationship between the component named \"A\" and the component named \"B\".", violation.getMessage());
+        assertEquals("The relationship between the software system \"A\" and the software system \"B\" is missing a description.", violation.getMessage());
     }
 
     @Test

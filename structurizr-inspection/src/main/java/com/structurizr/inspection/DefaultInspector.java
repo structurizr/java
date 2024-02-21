@@ -72,11 +72,11 @@ public class DefaultInspector extends Inspector {
 
             add(disconnectedElementCheck.run(element));
             add(elementNotIncludedInAnyViewsCheck.run(element));
-        }
 
-        for (Relationship relationship : getWorkspace().getModel().getRelationships()) {
-            add(new RelationshipDescriptionInspection(this).run(relationship));
-            add(new RelationshipTechnologyInspection(this).run(relationship));
+            for (Relationship relationship : element.getRelationships()) {
+                add(new RelationshipDescriptionInspection(this).run(relationship));
+                add(new RelationshipTechnologyInspection(this).run(relationship));
+            }
         }
     }
 

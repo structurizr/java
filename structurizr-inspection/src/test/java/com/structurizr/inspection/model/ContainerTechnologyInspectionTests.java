@@ -24,7 +24,7 @@ ContainerTechnologyInspectionTests {
         Violation violation = new ContainerTechnologyInspection(new DefaultInspector(workspace)).run(container);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.container.technology", violation.getType());
-        assertEquals("Add a technology to the container named \"Name\".", violation.getMessage());
+        assertEquals("The container \"Software System.Name\" is missing a technology.", violation.getMessage());
     }
 
     @Test

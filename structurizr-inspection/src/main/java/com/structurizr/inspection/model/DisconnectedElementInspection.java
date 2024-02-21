@@ -30,7 +30,7 @@ public class DisconnectedElementInspection extends AbstractElementInspection {
         }
 
         if (!elementsWithRelationships.contains(element.getId())) {
-            return violation("The " + terminologyFor(element).toLowerCase() + " named \"" + element.getName() + "\" is disconnected - add a relationship to/from it, or consider removing it from the model.");
+            return violation("The " + terminologyFor(element).toLowerCase() + " \"" + nameOf(element) + "\" is disconnected - add a relationship to/from it, or consider removing it from the model.");
         }
 
         return noViolation();

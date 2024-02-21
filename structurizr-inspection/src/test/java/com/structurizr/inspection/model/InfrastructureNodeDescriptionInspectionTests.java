@@ -23,7 +23,7 @@ InfrastructureNodeDescriptionInspectionTests {
         Violation violation = new InfrastructureNodeDescriptionInspection(new DefaultInspector(workspace)).run(infrastructureNode);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.infrastructurenode.description", violation.getType());
-        assertEquals("Add a description to the infrastructure node named \"Name\".", violation.getMessage());
+        assertEquals("The infrastructure node \"Default/Deployment Node/Name\" is missing a description.", violation.getMessage());
     }
 
     @Test

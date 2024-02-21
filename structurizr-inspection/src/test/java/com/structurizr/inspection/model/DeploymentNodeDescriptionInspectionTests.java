@@ -22,7 +22,7 @@ DeploymentNodeDescriptionInspectionTests {
         Violation violation = new DeploymentNodeDescriptionInspection(new DefaultInspector(workspace)).run(deploymentNode);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.deploymentnode.description", violation.getType());
-        assertEquals("Add a description to the deployment node named \"Name\".", violation.getMessage());
+        assertEquals("The deployment node \"Default/Name\" is missing a description.", violation.getMessage());
     }
 
     @Test

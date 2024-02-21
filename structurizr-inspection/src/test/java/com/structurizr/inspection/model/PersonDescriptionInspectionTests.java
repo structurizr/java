@@ -22,7 +22,7 @@ PersonDescriptionInspectionTests {
         Violation violation = new PersonDescriptionInspection(new DefaultInspector(workspace)).run(person);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.person.description", violation.getType());
-        assertEquals("Add a description to the person named \"Name\".", violation.getMessage());
+        assertEquals("The person \"Name\" is missing a description.", violation.getMessage());
     }
 
     @Test

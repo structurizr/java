@@ -26,7 +26,7 @@ ComponentTechnologyInspectionTests {
         Violation violation = new ComponentTechnologyInspection(new DefaultInspector(workspace)).run(component);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("model.component.technology", violation.getType());
-        assertEquals("Add a technology to the component named \"Name\".", violation.getMessage());
+        assertEquals("The component \"Software System.Container.Name\" is missing a technology.", violation.getMessage());
     }
 
     @Test
