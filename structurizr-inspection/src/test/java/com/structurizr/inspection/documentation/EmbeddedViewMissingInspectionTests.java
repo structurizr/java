@@ -45,15 +45,15 @@ public class EmbeddedViewMissingInspectionTests {
 
         Violation violation = new EmbeddedViewMissingInspection(new DefaultInspector(workspace)).run(softwareSystem);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
-        assertEquals("documentation.embeddedView", violation.getType());
-        assertEquals("The following views are embedded into documentation for the software system named \"Software System\" but do not exist in the workspace: SystemContext, Containers", violation.getMessage());
+        assertEquals("documentation.embeddedview", violation.getType());
+        assertEquals("The following views are embedded into documentation for the software system \"Software System\" but do not exist in the workspace: SystemContext, Containers", violation.getMessage());
 
         workspace.getViews().createSystemContextView(softwareSystem, "SystemContext", "Description");
 
         violation = new EmbeddedViewMissingInspection(new DefaultInspector(workspace)).run(softwareSystem);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
-        assertEquals("documentation.embeddedView", violation.getType());
-        assertEquals("The following views are embedded into documentation for the software system named \"Software System\" but do not exist in the workspace: Containers", violation.getMessage());
+        assertEquals("documentation.embeddedview", violation.getType());
+        assertEquals("The following views are embedded into documentation for the software system \"Software System\" but do not exist in the workspace: Containers", violation.getMessage());
     }
 
     @Test

@@ -43,8 +43,8 @@ public class EmbeddedViewWithGeneratedKeyInspectionTests {
 
         Violation violation = new EmbeddedViewWithGeneratedKeyInspection(new DefaultInspector(workspace)).run(softwareSystem);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());
-        assertEquals("documentation.embeddedView", violation.getType());
-        assertEquals("The following views are embedded into documentation for the software system named \"Software System\" via an automatically generated view key: SystemContext-001, Container-001", violation.getMessage());
+        assertEquals("documentation.embeddedview", violation.getType());
+        assertEquals("The following views are embedded into documentation for the software system \"Software System\" via an automatically generated view key: SystemContext-001, Container-001", violation.getMessage());
     }
 
     @Test

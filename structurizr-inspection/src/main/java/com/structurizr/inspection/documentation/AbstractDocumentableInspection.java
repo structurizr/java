@@ -80,4 +80,9 @@ public abstract class AbstractDocumentableInspection extends Inspection {
         return getWorkspace().getViews().getConfiguration().getTerminology().findTerminology(element).toLowerCase();
     }
 
+    protected String nameOf(Element element) {
+        String canonicalName = element.getCanonicalName();
+        return canonicalName.substring(canonicalName.indexOf("://") + 3);
+    }
+
 }

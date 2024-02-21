@@ -37,7 +37,7 @@ public class EmbeddedViewMissingInspection extends AbstractDocumentableInspectio
                 return violation("The following views are embedded into documentation for the workspace but do not exist in the workspace: " + String.join(", ", missingViews));
             } else if (documentable instanceof Element) {
                 Element element = (Element)documentable;
-                return violation("The following views are embedded into documentation for the " + terminologyFor(element).toLowerCase() + " named \"" + element.getName() + "\" but do not exist in the workspace: " + String.join(", ", missingViews));
+                return violation("The following views are embedded into documentation for the " + terminologyFor(element).toLowerCase() + " \"" + nameOf(element) + "\" but do not exist in the workspace: " + String.join(", ", missingViews));
             }
         }
 
@@ -46,7 +46,7 @@ public class EmbeddedViewMissingInspection extends AbstractDocumentableInspectio
 
     @Override
     protected String getType() {
-        return "documentation.embeddedView";
+        return "documentation.embeddedview";
     }
 
 }

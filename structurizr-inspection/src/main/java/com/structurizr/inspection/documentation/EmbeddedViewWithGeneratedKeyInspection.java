@@ -34,7 +34,7 @@ public class EmbeddedViewWithGeneratedKeyInspection extends AbstractDocumentable
                 return violation("The following views are embedded into documentation for the workspace via an automatically generated view key: " + String.join(", ", viewsWithGeneratedKeys));
             } else if (documentable instanceof Element) {
                 Element element = (Element)documentable;
-                return violation("The following views are embedded into documentation for the " + terminologyFor(element).toLowerCase() + " named \"" + element.getName() + "\" via an automatically generated view key: " + String.join(", ", viewsWithGeneratedKeys));
+                return violation("The following views are embedded into documentation for the " + terminologyFor(element).toLowerCase() + " \"" + nameOf(element) + "\" via an automatically generated view key: " + String.join(", ", viewsWithGeneratedKeys));
             }
         }
 
@@ -43,7 +43,7 @@ public class EmbeddedViewWithGeneratedKeyInspection extends AbstractDocumentable
 
     @Override
     protected String getType() {
-        return "documentation.embeddedView";
+        return "documentation.embeddedview";
     }
 
 }
