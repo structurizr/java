@@ -1,5 +1,9 @@
 # Changelog
 
+## unreleased
+
+- structurizr-core: `ViewSet.isEmpty()` was missing a check for image views.
+
 ## 2.0.0 (22nd February 2024)
 
 - structurizr-core: Removes deprecated concepts - enterprise and software system/person location.

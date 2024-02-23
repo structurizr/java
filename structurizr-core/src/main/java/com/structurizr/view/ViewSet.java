@@ -936,7 +936,7 @@ public final class ViewSet {
 
     @JsonIgnore
     public boolean isEmpty() {
-        return customViews.isEmpty() && systemLandscapeViews.isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && dynamicViews.isEmpty() && deploymentViews.isEmpty() && filteredViews.isEmpty();
+        return customViews.isEmpty() && systemLandscapeViews.isEmpty() && systemContextViews.isEmpty() && containerViews.isEmpty() && componentViews.isEmpty() && dynamicViews.isEmpty() && deploymentViews.isEmpty() && filteredViews.isEmpty() && imageViews.isEmpty();
     }
 
     private String generateViewKey(String prefix) {
