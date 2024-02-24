@@ -1060,4 +1060,20 @@ class DslTests extends AbstractTests {
         }
     }
 
+    @Test
+    void test_UnbalancedCurlyBraces() {
+        try {
+            StructurizrDslParser parser = new StructurizrDslParser();
+            parser.parse("""
+                    workspace {
+                        model {
+                            person "User"
+                        }
+                    """);
+            fail();
+        } catch (StructurizrDslParserException e) {
+            assertEquals("Unexpected end of DSL content - are one or more closing curly braces missing?", e.getMessage());
+        }
+    }
+
 }

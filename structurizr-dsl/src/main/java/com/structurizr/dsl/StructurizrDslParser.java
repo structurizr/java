@@ -136,7 +136,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         }
 
         try {
-            parse(Files.readAllLines(dslFile.toPath(), characterEncoding), dslFile);
+            parse(Files.readAllLines(dslFile.toPath(), characterEncoding), dslFile, false);
         } catch (IOException e) {
             throw new StructurizrDslParserException(e.getMessage());
         }
@@ -171,7 +171,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         }
 
         List<String> lines = Arrays.asList(dsl.split("\\r?\\n"));
-        parse(lines, dslFile);
+        parse(lines, dslFile, false);
     }
 
     /**
@@ -181,7 +181,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
      * @param dslFile   a File representing the DSL file, and therefore where includes/images/etc should be loaded relative to
      * @throws StructurizrDslParserException when something goes wrong
      */
-    void parse(List<String> lines, File dslFile) throws StructurizrDslParserException {
+    void parse(List<String> lines, File dslFile, boolean include) throws StructurizrDslParserException {
         List<DslLine> dslLines = preProcessLines(lines);
 
         for (DslLine dslLine : dslLines) {
@@ -247,7 +247,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                                     paddedLines.add(leadingSpace + unpaddedLine);
                                 }
 
-                                parse(paddedLines, includedFile.getFile());
+                                parse(paddedLines, includedFile.getFile(), true);
                             }
 
                             includeInDslSourceLines = false;
@@ -912,6 +912,10 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     throw new StructurizrDslParserException(e.getClass().getSimpleName(), dslFile, dslLine.getLineNumber(), line);
                 }
             }
+        }
+
+        if (!include && !contextStack.empty()) {
+            throw new StructurizrDslParserException("Unexpected end of DSL content - are one or more closing curly braces missing?");
         }
     }
 
