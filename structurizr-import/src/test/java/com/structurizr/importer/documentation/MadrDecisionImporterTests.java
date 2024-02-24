@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.TimeZone;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -75,7 +75,7 @@ public class MadrDecisionImporterTests {
     @Test
     public void test_importDecisions() {
         decisionImporter.importDocumentation(workspace, DECISIONS_FOLDER);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
 
         assertEquals(19, documentation.getDecisions().size());
 

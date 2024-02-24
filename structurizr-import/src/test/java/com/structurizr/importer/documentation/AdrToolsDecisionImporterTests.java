@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.TimeZone;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -81,7 +81,7 @@ public class AdrToolsDecisionImporterTests {
         Decision decision1 = documentation.getDecisions().stream().filter(d -> d.getId().equals("1")).findFirst().get();
         assertEquals("1", decision1.getId());
         assertEquals("Record architecture decisions", decision1.getTitle());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MMM-yyyy", Locale.US);
         assertEquals("12-Feb-2016", sdf.format(decision1.getDate()));
         assertEquals("Accepted", decision1.getStatus());
         Assertions.assertEquals(Format.Markdown, decision1.getFormat());
