@@ -4,6 +4,8 @@ import com.structurizr.Workspace;
 import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
 import com.structurizr.view.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +21,8 @@ import java.util.stream.Collectors;
  * Main DSL parser class - forms the API for using the parser.
  */
 public final class StructurizrDslParser extends StructurizrDslTokens {
+
+    private static final Log log = LogFactory.getLog(StructurizrDslParser.class);
 
     private static final String BOM = "\uFEFF";
 
@@ -869,6 +873,9 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                     } else if (CONSTANT_TOKEN.equalsIgnoreCase(firstToken)) {
                         Constant constant = new ConstantParser().parse(getContext(), tokens);
+                        if (constants.containsKey(constant.getName())) {
+                            log.warn("A constant named " + constant.getName() + " already exists");
+                        }
                         constants.put(constant.getName(), constant);
 
                     } else if (IDENTIFIERS_TOKEN.equalsIgnoreCase(firstToken) && (inContext(WorkspaceDslContext.class) || inContext(ModelDslContext.class))) {
