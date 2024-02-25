@@ -43,6 +43,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     private final Set<String> parsedTokens = new HashSet<>();
     private final IdentifiersRegister identifiersRegister;
     private final Map<String, Constant> constants;
+    private final StructurizrDslParserOptions parserOptions;
 
     private final List<String> dslSourceLines = new ArrayList<>();
     private Workspace workspace;
@@ -54,9 +55,14 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
      * Creates a new instance of the parser.
      */
     public StructurizrDslParser() {
+        this(new StructurizrDslParserOptions(false));
+    }
+
+    public StructurizrDslParser(StructurizrDslParserOptions options) {
         contextStack = new Stack<>();
         identifiersRegister = new IdentifiersRegister();
         constants = new HashMap<>();
+        parserOptions = options;
     }
 
     /**
@@ -874,7 +880,11 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (CONSTANT_TOKEN.equalsIgnoreCase(firstToken)) {
                         Constant constant = new ConstantParser().parse(getContext(), tokens);
                         if (constants.containsKey(constant.getName())) {
-                            log.warn("A constant named " + constant.getName() + " already exists");
+                            String message = "A constant named " + constant.getName() + " already exists";
+                            if(parserOptions.uniqueConstantsDeclaration()) {
+                                throw new StructurizrDslParserException(message);
+                            }
+                            log.warn(message);
                         }
                         constants.put(constant.getName(), constant);
 
