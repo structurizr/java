@@ -364,17 +364,17 @@ class DslTests extends AbstractTests {
         assertEquals("workspace {\n" +
                 "\n" +
                 "    model {\n" +
-                "        !constant SOFTWARE_SYSTEM_NAME \"Software System 1\"\n" +
+                "        !var SOFTWARE_SYSTEM_NAME \"Software System 1\"\n" +
                 "        softwareSystem \"${SOFTWARE_SYSTEM_NAME}\" {\n" +
                 "            !docs ../../docs\n" +
                 "        }\n" +
                 "\n" +
-                "        !constant SOFTWARE_SYSTEM_NAME \"Software System 2\"\n" +
+                "        !var SOFTWARE_SYSTEM_NAME \"Software System 2\"\n" +
                 "        softwareSystem \"${SOFTWARE_SYSTEM_NAME}\" {\n" +
                 "            !docs ../../docs\n" +
                 "        }\n" +
                 "\n" +
-                "        !constant SOFTWARE_SYSTEM_NAME \"Software System 3\"\n" +
+                "        !var SOFTWARE_SYSTEM_NAME \"Software System 3\"\n" +
                 "        softwareSystem \"${SOFTWARE_SYSTEM_NAME}\" {\n" +
                 "            !docs ../../docs\n" +
                 "        }\n" +
@@ -1073,6 +1073,38 @@ class DslTests extends AbstractTests {
             fail();
         } catch (StructurizrDslParserException e) {
             assertEquals("Unexpected end of DSL content - are one or more closing curly braces missing?", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_Const() {
+        try {
+            StructurizrDslParser parser = new StructurizrDslParser();
+            parser.parse("""
+                    workspace {
+                        !const name value1
+                        !const name value2
+                    }
+                    """);
+            fail();
+        } catch (StructurizrDslParserException e) {
+            assertEquals("A constant/variable \"name\" already exists at line 3: !const name value2", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_Var_CannotOverrideConst() {
+        try {
+            StructurizrDslParser parser = new StructurizrDslParser();
+            parser.parse("""
+                    workspace {
+                        !const name value1
+                        !var name value2
+                    }
+                    """);
+            fail();
+        } catch (StructurizrDslParserException e) {
+            assertEquals("A constant \"name\" already exists at line 3: !var name value2", e.getMessage());
         }
     }
 

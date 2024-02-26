@@ -1,4 +1,4 @@
-!constant INTERNET_BANKING_SYSTEM_INCLUDE "details.dsl"
+!const INTERNET_BANKING_SYSTEM_INCLUDE "details.dsl"
 
 workspace "Big Bank plc - Internet Banking System" "The software architecture of the Big Bank plc Internet Banking System." {
 

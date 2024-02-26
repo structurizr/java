@@ -1,5 +1,8 @@
-!constant ORGANISATION_NAME "Organisation"
-!constant GROUP_NAME "Group"
+!const ORGANISATION_NAME "Organisation"
+!const GROUP_NAME "Group"
+
+!var name abc
+!var name ABC
 
 workspace "Name" "Description" {
 

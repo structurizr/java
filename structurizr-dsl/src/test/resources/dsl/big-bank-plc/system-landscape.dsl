@@ -1,4 +1,4 @@
-!constant INTERNET_BANKING_SYSTEM_INCLUDE "summary.dsl"
+!const INTERNET_BANKING_SYSTEM_INCLUDE "summary.dsl"
 
 workspace "Big Bank plc - System Landscape" "The system landscape for Big Bank plc." {
 

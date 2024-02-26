@@ -23,7 +23,7 @@ public final class StructurizrDslParserException extends Exception {
     }
 
     StructurizrDslParserException(String message, File dslFile, int lineNumber, String line) {
-        super((message.endsWith(".") ? message.substring(0, message.length()-1) : message) + " at line " + lineNumber + (dslFile != null ? " of " + dslFile.getAbsolutePath() : "") + ": " + line.trim());
+        super((message.endsWith(".") ? message.substring(0, message.length()-1) : message) + " at line " + lineNumber + (dslFile != null && dslFile.isFile() ? " of " + dslFile.getAbsolutePath() : "") + ": " + line.trim());
         this.lineNumber = lineNumber;
         this.line = line;
     }

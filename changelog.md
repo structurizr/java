@@ -4,6 +4,7 @@
 
 - structurizr-core: `ViewSet.isEmpty()` was missing a check for image views.
 - structurizr-dsl: Fixes https://github.com/structurizr/java/issues/252 (DSL parser does not seem to handle curly brackets balance).
+- structurizr-dsl: Deprecates `!constant`, adds `!const` and `!var` (see https://github.com/structurizr/java/issues/253).
 
 ## 2.0.0 (22nd February 2024)
 

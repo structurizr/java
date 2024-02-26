@@ -42,7 +42,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     private final Stack<DslContext> contextStack;
     private final Set<String> parsedTokens = new HashSet<>();
     private final IdentifiersRegister identifiersRegister;
-    private final Map<String, Constant> constants;
+    private final Map<String, NameValuePair> constantsAndVariables;
 
     private final List<String> dslSourceLines = new ArrayList<>();
     private Workspace workspace;
@@ -56,7 +56,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     public StructurizrDslParser() {
         contextStack = new Stack<>();
         identifiersRegister = new IdentifiersRegister();
-        constants = new HashMap<>();
+        constantsAndVariables = new HashMap<>();
     }
 
     /**
@@ -872,11 +872,29 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         }
 
                     } else if (CONSTANT_TOKEN.equalsIgnoreCase(firstToken)) {
-                        Constant constant = new ConstantParser().parse(getContext(), tokens);
-                        if (constants.containsKey(constant.getName())) {
-                            log.warn("A constant named " + constant.getName() + " already exists");
+                        log.warn("!constant has been deprecated and will be removed in a future release - please use !const or !var instead");
+                        NameValuePair nameValuePair = new NameValueParser().parseConstant(tokens);
+
+                        if (constantsAndVariables.containsKey(nameValuePair.getName())) {
+                            log.warn("A constant \"" + nameValuePair.getName() + "\" already exists");
                         }
-                        constants.put(constant.getName(), constant);
+                        constantsAndVariables.put(nameValuePair.getName(), nameValuePair);
+
+                    } else if (CONST_TOKEN.equalsIgnoreCase(firstToken)) {
+                        NameValuePair nameValuePair = new NameValueParser().parseConstant(tokens);
+
+                        if (constantsAndVariables.containsKey(nameValuePair.getName())) {
+                            throw new StructurizrDslParserException("A constant/variable \"" + nameValuePair.getName() + "\" already exists");
+                        }
+                        constantsAndVariables.put(nameValuePair.getName(), nameValuePair);
+
+                    } else if (VAR_TOKEN.equalsIgnoreCase(firstToken)) {
+                        NameValuePair nameValuePair = new NameValueParser().parseVariable(tokens);
+
+                        if (constantsAndVariables.containsKey(nameValuePair.getName()) && constantsAndVariables.get(nameValuePair.getName()).getType() == NameValueType.Constant) {
+                            throw new StructurizrDslParserException("A constant \"" + nameValuePair.getName() + "\" already exists");
+                        }
+                        constantsAndVariables.put(nameValuePair.getName(), nameValuePair);
 
                     } else if (IDENTIFIERS_TOKEN.equalsIgnoreCase(firstToken) && (inContext(WorkspaceDslContext.class) || inContext(ModelDslContext.class))) {
                         setIdentifierScope(new IdentifierScopeParser().parse(getContext(), tokens));
@@ -963,8 +981,8 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
             String before = m.group(0);
             String after = null;
             String name = before.substring(2, before.length()-1);
-            if (constants.containsKey(name)) {
-                after = constants.get(name).getValue();
+            if (constantsAndVariables.containsKey(name)) {
+                after = constantsAndVariables.get(name).getValue();
             } else {
                 if (!restricted) {
                     String environmentVariable = System.getenv().get(name);

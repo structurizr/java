@@ -100,6 +100,8 @@ class StructurizrDslTokens {
     static final String ADRS_TOKEN = "!adrs";
     static final String DECISIONS_TOKEN = "!decisions";
     static final String CONSTANT_TOKEN = "!constant";
+    static final String CONST_TOKEN = "!const";
+    static final String VAR_TOKEN = "!var";
     static final String IDENTIFIERS_TOKEN = "!identifiers";
     static final String IMPLIED_RELATIONSHIPS_TOKEN = "!impliedRelationships";
     static final String REF_TOKEN = "!ref";
