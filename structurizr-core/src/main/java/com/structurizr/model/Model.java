@@ -16,18 +16,18 @@ public final class Model implements PropertyHolder {
 
     private IdGenerator idGenerator = new SequentialIntegerIdGeneratorStrategy();
 
-    private final Set<Element> elements = new LinkedHashSet<>();
+    private final Set<Element> elements = new TreeSet<>();
     private final Map<String, Element> elementsById = new HashMap<>();
 
-    private final Set<Relationship> relationships = new LinkedHashSet<>();
+    private final Set<Relationship> relationships = new TreeSet<>();
     private final Map<String, Relationship> relationshipsById = new HashMap<>();
 
     private Enterprise enterprise;
 
-    private Set<Person> people = new LinkedHashSet<>();
-    private Set<SoftwareSystem> softwareSystems = new LinkedHashSet<>();
-    private Set<DeploymentNode> deploymentNodes = new LinkedHashSet<>();
-    private Set<CustomElement> customElements = new LinkedHashSet<>();
+    private Set<Person> people = new TreeSet<>();
+    private Set<SoftwareSystem> softwareSystems = new TreeSet<>();
+    private Set<DeploymentNode> deploymentNodes = new TreeSet<>();
+    private Set<CustomElement> customElements = new TreeSet<>();
 
     private ImpliedRelationshipsStrategy impliedRelationshipsStrategy = new DefaultImpliedRelationshipsStrategy();
 
@@ -70,10 +70,9 @@ public final class Model implements PropertyHolder {
             SoftwareSystem softwareSystem = new SoftwareSystem();
             softwareSystem.setName(name);
             softwareSystem.setDescription(description);
+            softwareSystem.setId(idGenerator.generateId(softwareSystem));
 
             softwareSystems.add(softwareSystem);
-
-            softwareSystem.setId(idGenerator.generateId(softwareSystem));
             addElementToInternalStructures(softwareSystem);
 
             return softwareSystem;
@@ -108,10 +107,9 @@ public final class Model implements PropertyHolder {
             Person person = new Person();
             person.setName(name);
             person.setDescription(description);
+            person.setId(idGenerator.generateId(person));
 
             people.add(person);
-
-            person.setId(idGenerator.generateId(person));
             addElementToInternalStructures(person);
 
             return person;
@@ -167,11 +165,11 @@ public final class Model implements PropertyHolder {
             container.setName(name);
             container.setDescription(description);
             container.setTechnology(technology);
+            container.setId(idGenerator.generateId(container));
 
             container.setParent(parent);
             parent.add(container);
 
-            container.setId(idGenerator.generateId(container));
             addElementToInternalStructures(container);
 
             return container;
@@ -186,11 +184,11 @@ public final class Model implements PropertyHolder {
             component.setName(name);
             component.setDescription(description);
             component.setTechnology(technology);
+            component.setId(idGenerator.generateId(component));
 
             component.setParent(parent);
             parent.add(component);
 
-            component.setId(idGenerator.generateId(component));
             addElementToInternalStructures(component);
 
             return component;
@@ -310,7 +308,7 @@ public final class Model implements PropertyHolder {
     @JsonIgnore
     @Nonnull
     public Set<Element> getElements() {
-        return new LinkedHashSet<>(elements);
+        return new TreeSet<>(elements);
     }
 
     /**
@@ -337,7 +335,7 @@ public final class Model implements PropertyHolder {
     @JsonIgnore
     @Nonnull
     public Set<Relationship> getRelationships() {
-        return new LinkedHashSet<>(this.relationships);
+        return new TreeSet<>(this.relationships);
     }
 
     /**
@@ -363,12 +361,12 @@ public final class Model implements PropertyHolder {
      */
     @Nonnull
     public Set<CustomElement> getCustomElements() {
-        return new LinkedHashSet<>(customElements);
+        return new TreeSet<>(customElements);
     }
 
     void setCustomElements(Set<CustomElement> customElements) {
         if (customElements != null) {
-            this.customElements = new LinkedHashSet<>(customElements);
+            this.customElements = new TreeSet<>(customElements);
         }
     }
 
@@ -379,12 +377,12 @@ public final class Model implements PropertyHolder {
      */
     @Nonnull
     public Set<Person> getPeople() {
-        return new LinkedHashSet<>(people);
+        return new TreeSet<>(people);
     }
 
     void setPeople(Set<Person> people) {
         if (people != null) {
-            this.people = new LinkedHashSet<>(people);
+            this.people = new TreeSet<>(people);
         }
     }
 
@@ -395,12 +393,12 @@ public final class Model implements PropertyHolder {
      */
     @Nonnull
     public Set<SoftwareSystem> getSoftwareSystems() {
-        return new LinkedHashSet<>(softwareSystems);
+        return new TreeSet<>(softwareSystems);
     }
 
     void setSoftwareSystems(Set<SoftwareSystem> softwareSystems) {
         if (softwareSystems != null) {
-            this.softwareSystems = new LinkedHashSet<>(softwareSystems);
+            this.softwareSystems = new TreeSet<>(softwareSystems);
         }
     }
 
@@ -411,12 +409,12 @@ public final class Model implements PropertyHolder {
      */
     @Nonnull
     public Set<DeploymentNode> getDeploymentNodes() {
-        return new LinkedHashSet<>(deploymentNodes);
+        return new TreeSet<>(deploymentNodes);
     }
 
     void setDeploymentNodes(Set<DeploymentNode> deploymentNodes) {
         if (deploymentNodes != null) {
-            this.deploymentNodes = new LinkedHashSet<>(deploymentNodes);
+            this.deploymentNodes = new TreeSet<>(deploymentNodes);
         }
     }
 
@@ -791,6 +789,8 @@ public final class Model implements PropertyHolder {
             deploymentNode.setParent(parent);
             deploymentNode.setInstances(instances);
             deploymentNode.setEnvironment(environment);
+            deploymentNode.setId(idGenerator.generateId(deploymentNode));
+
             if (properties != null) {
                 deploymentNode.setProperties(properties);
             }
@@ -799,7 +799,6 @@ public final class Model implements PropertyHolder {
                 deploymentNodes.add(deploymentNode);
             }
 
-            deploymentNode.setId(idGenerator.generateId(deploymentNode));
             addElementToInternalStructures(deploymentNode);
 
             return deploymentNode;
@@ -821,11 +820,12 @@ public final class Model implements PropertyHolder {
             infrastructureNode.setTechnology(technology);
             infrastructureNode.setParent(parent);
             infrastructureNode.setEnvironment(parent.getEnvironment());
+            infrastructureNode.setId(idGenerator.generateId(infrastructureNode));
+
             if (properties != null) {
                 infrastructureNode.setProperties(properties);
             }
 
-            infrastructureNode.setId(idGenerator.generateId(infrastructureNode));
             addElementToInternalStructures(infrastructureNode);
 
             return infrastructureNode;

@@ -7,9 +7,9 @@ digraph {
 
   4 [id=4,shape=rect, label=<<font point-size="34">Mainframe Banking<br />System</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">Stores all of the core banking<br />information about customers,<br />accounts, transactions, etc.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
   5 [id=5,shape=rect, label=<<font point-size="34">E-mail System</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">The internal Microsoft<br />Exchange e-mail system.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
-  18 [id=18,shape=cylinder, label=<<font point-size="34">Database</font><br /><font point-size="19">[Container: Oracle Database Schema]</font><br /><br /><font point-size="24">Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
   8 [id=8,shape=rect, label=<<font point-size="34">Single-Page<br />Application</font><br /><font point-size="19">[Container: JavaScript and Angular]</font><br /><br /><font point-size="24">Provides all of the Internet<br />banking functionality to<br />customers via their web<br />browser.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
   9 [id=9,shape=rect, label=<<font point-size="34">Mobile App</font><br /><font point-size="19">[Container: Xamarin]</font><br /><br /><font point-size="24">Provides a limited subset of<br />the Internet banking<br />functionality to customers via<br />their mobile device.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
+  18 [id=18,shape=cylinder, label=<<font point-size="34">Database</font><br /><font point-size="19">[Container: Oracle Database Schema]</font><br /><br /><font point-size="24">Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
 
   subgraph cluster_11 {
     margin=25

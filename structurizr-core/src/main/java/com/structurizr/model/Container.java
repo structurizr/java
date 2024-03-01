@@ -15,7 +15,7 @@ public final class Container extends StaticStructureElement implements Documenta
     private SoftwareSystem parent;
     private String technology;
 
-    private Set<Component> components = new LinkedHashSet<>();
+    private Set<Component> components = new TreeSet<>();
 
     private Documentation documentation = new Documentation();
 
@@ -118,12 +118,12 @@ public final class Container extends StaticStructureElement implements Documenta
      * @return  a Set of Component objects
      */
     public Set<Component> getComponents() {
-        return new HashSet<>(components);
+        return new TreeSet<>(components);
     }
 
     void setComponents(Set<Component> components) {
         if (components != null) {
-            this.components = new HashSet<>(components);
+            this.components = new TreeSet<>(components);
         }
     }
 

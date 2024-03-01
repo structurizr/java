@@ -6,7 +6,7 @@ import com.structurizr.model.Element;
 /**
  * Represents an instance of an Element in a View.
  */
-public final class ElementView {
+public final class ElementView implements Comparable<ElementView> {
 
     private Element element;
     private String id;
@@ -97,6 +97,18 @@ public final class ElementView {
         if (source != null) {
             setX(source.getX());
             setY(source.getY());
+        }
+    }
+
+    @Override
+    public int compareTo(ElementView elementView) {
+        try {
+            int id1 = Integer.parseInt(getId());
+            int id2 = Integer.parseInt(elementView.getId());
+
+            return id1 - id2;
+        } catch (NumberFormatException nfe) {
+            return getId().compareTo(elementView.getId());
         }
     }
 

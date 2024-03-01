@@ -1,7 +1,7 @@
 package com.structurizr.configuration;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * A wrapper for configuration options related to the workspace.
@@ -10,7 +10,7 @@ public final class WorkspaceConfiguration {
 
     private WorkspaceScope scope = null;
     private Visibility visibility = null;
-    private Set<User> users = new HashSet<>();
+    private Set<User> users = new TreeSet<>();
 
     WorkspaceConfiguration() {
     }
@@ -57,12 +57,12 @@ public final class WorkspaceConfiguration {
      * @return   a Set of User objects (could be empty)
      */
     public Set<User> getUsers() {
-        return new HashSet<>(users);
+        return new TreeSet<>(users);
     }
 
     void setUsers(Set<User> users) {
         if (users != null) {
-            this.users = new HashSet<>(users);
+            this.users = new TreeSet<>(users);
         }
     }
 
@@ -89,7 +89,7 @@ public final class WorkspaceConfiguration {
      * Clears all configured users.
      */
     public void clearUsers() {
-        this.users = new HashSet<>();
+        this.users = new TreeSet<>();
     }
 
 }

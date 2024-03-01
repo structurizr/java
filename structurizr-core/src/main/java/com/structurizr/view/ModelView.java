@@ -7,9 +7,9 @@ import com.structurizr.util.StringUtils;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 /**
@@ -34,8 +34,8 @@ public abstract class ModelView extends View {
     private AutomaticLayout automaticLayout = null;
     private boolean mergeFromRemote = true;
 
-    private Set<ElementView> elementViews = new LinkedHashSet<>();
-    private Set<RelationshipView> relationshipViews = new LinkedHashSet<>();
+    private Set<ElementView> elementViews = new TreeSet<>();
+    private Set<RelationshipView> relationshipViews = new TreeSet<>();
 
     private LayoutMergeStrategy layoutMergeStrategy = new DefaultLayoutMergeStrategy();
 
@@ -308,12 +308,12 @@ public abstract class ModelView extends View {
      * @return a Set of ElementView objects
      */
     public Set<ElementView> getElements() {
-        return new HashSet<>(elementViews);
+        return new TreeSet<>(elementViews);
     }
 
     void setElements(Set<ElementView> elementViews) {
         if (elementViews != null) {
-            this.elementViews = new HashSet<>(elementViews);
+            this.elementViews = new TreeSet<>(elementViews);
         }
     }
 
@@ -323,12 +323,12 @@ public abstract class ModelView extends View {
      * @return a Set of RelationshipView objects
      */
     public Set<RelationshipView> getRelationships() {
-        return new HashSet<>(this.relationshipViews);
+        return new TreeSet<>(this.relationshipViews);
     }
 
     void setRelationships(Set<RelationshipView> relationshipViews) {
         if (relationshipViews != null) {
-            this.relationshipViews = new HashSet<>(relationshipViews);
+            this.relationshipViews = new TreeSet<>(relationshipViews);
         }
     }
 

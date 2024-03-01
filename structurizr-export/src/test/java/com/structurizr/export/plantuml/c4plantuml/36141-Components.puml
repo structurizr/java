@@ -21,9 +21,9 @@ AddBoundaryTag("Container", $bgColor="#ffffff", $borderColor="#2e6295", $fontCol
 
 System(MainframeBankingSystem, "Mainframe Banking System", $descr="Stores all of the core banking information about customers, accounts, transactions, etc.", $tags="Software System,Existing System", $link="")
 System(EmailSystem, "E-mail System", $descr="The internal Microsoft Exchange e-mail system.", $tags="Software System,Existing System", $link="")
-ContainerDb(InternetBankingSystem.Database, "Database", $techn="Oracle Database Schema", $descr="Stores user registration information, hashed authentication credentials, access logs, etc.", $tags="Container,Database", $link="")
 Container(InternetBankingSystem.SinglePageApplication, "Single-Page Application", $techn="JavaScript and Angular", $descr="Provides all of the Internet banking functionality to customers via their web browser.", $tags="Container,Web Browser", $link="")
 Container(InternetBankingSystem.MobileApp, "Mobile App", $techn="Xamarin", $descr="Provides a limited subset of the Internet banking functionality to customers via their mobile device.", $tags="Container,Mobile App", $link="")
+ContainerDb(InternetBankingSystem.Database, "Database", $techn="Oracle Database Schema", $descr="Stores user registration information, hashed authentication credentials, access logs, etc.", $tags="Container,Database", $link="")
 
 Container_Boundary("InternetBankingSystem.APIApplication_boundary", "API Application", $tags="Container") {
   Component(InternetBankingSystem.APIApplication.SignInController, "Sign In Controller", $techn="Spring MVC Rest Controller", $descr="Allows users to sign in to the Internet Banking System.", $tags="Component", $link="")

@@ -87,9 +87,9 @@ skinparam rectangle<<InternetBankingSystem.APIApplication>> {
 
 rectangle "==Mainframe Banking System\n<size:10>[Software System]</size>\n\nStores all of the core banking information about customers, accounts, transactions, etc." <<MainframeBankingSystem>> as MainframeBankingSystem
 rectangle "==E-mail System\n<size:10>[Software System]</size>\n\nThe internal Microsoft Exchange e-mail system." <<EmailSystem>> as EmailSystem
-database "==Database\n<size:10>[Container: Oracle Database Schema]</size>\n\nStores user registration information, hashed authentication credentials, access logs, etc." <<InternetBankingSystem.Database>> as InternetBankingSystem.Database
 rectangle "==Single-Page Application\n<size:10>[Container: JavaScript and Angular]</size>\n\nProvides all of the Internet banking functionality to customers via their web browser." <<InternetBankingSystem.SinglePageApplication>> as InternetBankingSystem.SinglePageApplication
 rectangle "==Mobile App\n<size:10>[Container: Xamarin]</size>\n\nProvides a limited subset of the Internet banking functionality to customers via their mobile device." <<InternetBankingSystem.MobileApp>> as InternetBankingSystem.MobileApp
+database "==Database\n<size:10>[Container: Oracle Database Schema]</size>\n\nStores user registration information, hashed authentication credentials, access logs, etc." <<InternetBankingSystem.Database>> as InternetBankingSystem.Database
 
 rectangle "API Application\n<size:10>[Container: Java and Spring MVC]</size>" <<InternetBankingSystem.APIApplication>> {
   rectangle "==Sign In Controller\n<size:10>[Component: Spring MVC Rest Controller]</size>\n\nAllows users to sign in to the Internet Banking System." <<InternetBankingSystem.APIApplication.SignInController>> as InternetBankingSystem.APIApplication.SignInController

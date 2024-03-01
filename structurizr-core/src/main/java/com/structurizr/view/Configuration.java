@@ -1,7 +1,6 @@
 package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.structurizr.PropertyHolder;
 import com.structurizr.util.Url;

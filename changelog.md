@@ -3,6 +3,7 @@
 ## unreleased
 
 - structurizr-core: `ViewSet.isEmpty()` was missing a check for image views.
+- structurizr-client: Fixes https://github.com/structurizr/java/issues/257 (Serialization to JSON is not deterministic).
 - structurizr-dsl: Fixes https://github.com/structurizr/java/issues/252 (DSL parser does not seem to handle curly brackets balance).
 - structurizr-dsl: Deprecates `!constant`, adds `!const` and `!var` (see https://github.com/structurizr/java/issues/253).
 

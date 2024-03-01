@@ -6,8 +6,8 @@ import com.structurizr.util.Url;
 
 import javax.annotation.Nonnull;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Represents a deployment instance of a {@link SoftwareSystem} or {@link Container}, which can be added to a {@link DeploymentNode}.
@@ -17,9 +17,9 @@ public abstract class StaticStructureElementInstance extends DeploymentElement {
     private static final int DEFAULT_HEALTH_CHECK_INTERVAL_IN_SECONDS = 60;
     private static final long DEFAULT_HEALTH_CHECK_TIMEOUT_IN_MILLISECONDS = 0;
 
-    private Set<String> deploymentGroups = new HashSet<>();
+    private Set<String> deploymentGroups = new TreeSet<>();
     private int instanceId;
-    private Set<HttpHealthCheck> healthChecks = new HashSet<>();
+    private Set<HttpHealthCheck> healthChecks = new TreeSet<>();
 
     StaticStructureElementInstance() {
     }
@@ -53,15 +53,15 @@ public abstract class StaticStructureElementInstance extends DeploymentElement {
         if (deploymentGroups.isEmpty()) {
             return Collections.singleton(DEFAULT_DEPLOYMENT_GROUP);
         } else {
-            return new HashSet<>(deploymentGroups);
+            return new TreeSet<>(deploymentGroups);
         }
     }
 
     void setDeploymentGroups(Set<String> deploymentGroups) {
         if (deploymentGroups != null) {
-            this.deploymentGroups = new HashSet<>(deploymentGroups);
+            this.deploymentGroups = new TreeSet<>(deploymentGroups);
         } else {
-            this.deploymentGroups = new HashSet<>();
+            this.deploymentGroups = new TreeSet<>();
         }
     }
 
@@ -123,7 +123,7 @@ public abstract class StaticStructureElementInstance extends DeploymentElement {
      */
     @Nonnull
     public Set<HttpHealthCheck> getHealthChecks() {
-        return new HashSet<>(healthChecks);
+        return new TreeSet<>(healthChecks);
     }
 
     void setHealthChecks(Set<HttpHealthCheck> healthChecks) {

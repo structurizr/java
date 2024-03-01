@@ -13,10 +13,10 @@ graph TB
       style 15 fill:#85bbf0,stroke:#5d82a8,color:#000000
     end
 
-    18[("<div style='font-weight: bold'>Database</div><div style='font-size: 70%; margin-top: 0px'>[Container: Oracle Database Schema]</div><div style='font-size: 80%; margin-top:10px'>Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</div>")]
-    style 18 fill:#438dd5,stroke:#2e6295,color:#ffffff
     8["<div style='font-weight: bold'>Single-Page Application</div><div style='font-size: 70%; margin-top: 0px'>[Container: JavaScript and Angular]</div><div style='font-size: 80%; margin-top:10px'>Provides all of the Internet<br />banking functionality to<br />customers via their web<br />browser.</div>"]
     style 8 fill:#438dd5,stroke:#2e6295,color:#ffffff
+    18[("<div style='font-weight: bold'>Database</div><div style='font-size: 70%; margin-top: 0px'>[Container: Oracle Database Schema]</div><div style='font-size: 80%; margin-top:10px'>Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</div>")]
+    style 18 fill:#438dd5,stroke:#2e6295,color:#ffffff
 
     8-. "<div>1. Submits credentials to</div><div style='font-size: 70%'>[JSON/HTTPS]</div>" .->12
     12-. "<div>2. Validates credentials<br />using</div><div style='font-size: 70%'></div>" .->15

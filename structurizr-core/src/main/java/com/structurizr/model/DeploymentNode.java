@@ -25,10 +25,10 @@ public final class DeploymentNode extends DeploymentElement {
     private String technology;
     private String instances = "1";
 
-    private Set<DeploymentNode> children = new HashSet<>();
-    private Set<InfrastructureNode> infrastructureNodes = new HashSet<>();
-    private Set<SoftwareSystemInstance> softwareSystemInstances = new HashSet<>();
-    private Set<ContainerInstance> containerInstances = new HashSet<>();
+    private Set<DeploymentNode> children = new TreeSet<>();
+    private Set<InfrastructureNode> infrastructureNodes = new TreeSet<>();
+    private Set<SoftwareSystemInstance> softwareSystemInstances = new TreeSet<>();
+    private Set<ContainerInstance> containerInstances = new TreeSet<>();
 
     /**
      * Adds a software system instance to this deployment node, replicating relationships.
@@ -306,12 +306,12 @@ public final class DeploymentNode extends DeploymentElement {
      * @return  a Set of DeploymentNode objects
      */
     public Set<DeploymentNode> getChildren() {
-        return new HashSet<>(children);
+        return new TreeSet<>(children);
     }
 
     void setChildren(Set<DeploymentNode> children) {
         if (children != null) {
-            this.children = new HashSet<>(children);
+            this.children = new TreeSet<>(children);
         }
     }
 
@@ -321,12 +321,12 @@ public final class DeploymentNode extends DeploymentElement {
      * @return  a Set of InfrastructureNode objects
      */
     public Set<InfrastructureNode> getInfrastructureNodes() {
-        return new HashSet<>(infrastructureNodes);
+        return new TreeSet<>(infrastructureNodes);
     }
 
     void setInfrastructureNodes(Set<InfrastructureNode> infrastructureNodes) {
         if (infrastructureNodes != null) {
-            this.infrastructureNodes = new HashSet<>(infrastructureNodes);
+            this.infrastructureNodes = new TreeSet<>(infrastructureNodes);
         }
     }
 
@@ -376,12 +376,12 @@ public final class DeploymentNode extends DeploymentElement {
      * @return  a Set of SoftwareSystemInstance objects
      */
     public Set<SoftwareSystemInstance> getSoftwareSystemInstances() {
-        return new HashSet<>(softwareSystemInstances);
+        return new TreeSet<>(softwareSystemInstances);
     }
 
     void setSoftwareSystemInstances(Set<SoftwareSystemInstance> softwareSystemInstances) {
         if (softwareSystemInstances != null) {
-            this.softwareSystemInstances = new HashSet<>(softwareSystemInstances);
+            this.softwareSystemInstances = new TreeSet<>(softwareSystemInstances);
         }
     }
 
@@ -391,12 +391,12 @@ public final class DeploymentNode extends DeploymentElement {
      * @return  a Set of ContainerInstance objects
      */
     public Set<ContainerInstance> getContainerInstances() {
-        return new HashSet<>(containerInstances);
+        return new TreeSet<>(containerInstances);
     }
 
     void setContainerInstances(Set<ContainerInstance> containerInstances) {
         if (containerInstances != null) {
-            this.containerInstances = new HashSet<>(containerInstances);
+            this.containerInstances = new TreeSet<>(containerInstances);
         }
     }
 

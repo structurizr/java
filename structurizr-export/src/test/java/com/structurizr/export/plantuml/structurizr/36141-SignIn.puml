@@ -48,8 +48,8 @@ rectangle "API Application\n<size:10>[Container: Java and Spring MVC]</size>" <<
   rectangle "==Security Component\n<size:10>[Component: Spring Bean]</size>\n\nProvides functionality related to signing in, changing passwords, etc." <<InternetBankingSystem.APIApplication.SecurityComponent>> as InternetBankingSystem.APIApplication.SecurityComponent
 }
 
-database "==Database\n<size:10>[Container: Oracle Database Schema]</size>\n\nStores user registration information, hashed authentication credentials, access logs, etc." <<InternetBankingSystem.Database>> as InternetBankingSystem.Database
 rectangle "==Single-Page Application\n<size:10>[Container: JavaScript and Angular]</size>\n\nProvides all of the Internet banking functionality to customers via their web browser." <<InternetBankingSystem.SinglePageApplication>> as InternetBankingSystem.SinglePageApplication
+database "==Database\n<size:10>[Container: Oracle Database Schema]</size>\n\nStores user registration information, hashed authentication credentials, access logs, etc." <<InternetBankingSystem.Database>> as InternetBankingSystem.Database
 
 InternetBankingSystem.SinglePageApplication .[#707070,thickness=2].> InternetBankingSystem.APIApplication.SignInController : "<color:#707070>1. Submits credentials to\n<color:#707070><size:8>[JSON/HTTPS]</size>"
 InternetBankingSystem.APIApplication.SignInController .[#707070,thickness=2].> InternetBankingSystem.APIApplication.SecurityComponent : "<color:#707070>2. Validates credentials using"

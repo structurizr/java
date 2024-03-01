@@ -2,11 +2,12 @@ package com.structurizr.model;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Describes a HTTP based health check.
  */
-public final class HttpHealthCheck {
+public final class HttpHealthCheck implements Comparable<HttpHealthCheck> {
 
     /** a name for the health check */
     private String name;
@@ -15,7 +16,7 @@ public final class HttpHealthCheck {
     private String url;
 
     /** the headers that should be sent in the HTTP request */
-    private Map<String,String> headers = new HashMap<>();
+    private final Map<String,String> headers = new TreeMap<>();
 
     /** the polling interval, in seconds */
     private int interval;
@@ -127,6 +128,17 @@ public final class HttpHealthCheck {
     public int hashCode() {
         int result = name.hashCode();
         result = 31 * result + url.hashCode();
+        return result;
+    }
+
+    @Override
+    public int compareTo(HttpHealthCheck healthCheck) {
+        int result = getName().compareTo(healthCheck.getName());
+
+        if (result == 0) {
+            result = getUrl().compareTo(healthCheck.getUrl());
+        }
+
         return result;
     }
 

@@ -19,13 +19,13 @@ skinparam rectangle<<Live.BigBankplc.bigbankapi.ApacheTomcat.APIApplication_1>> 
   BorderColor #2e6295
   shadowing false
 }
-skinparam rectangle<<Live.BigBankplc.bigbankapi.ApacheTomcat>> {
+skinparam rectangle<<Live.BigBankplc.bigbankweb.ApacheTomcat>> {
   BackgroundColor #ffffff
   FontColor #000000
   BorderColor #888888
   shadowing false
 }
-skinparam rectangle<<Live.BigBankplc.bigbankweb.ApacheTomcat>> {
+skinparam rectangle<<Live.BigBankplc.bigbankapi.ApacheTomcat>> {
   BackgroundColor #ffffff
   FontColor #000000
   BorderColor #888888
@@ -49,13 +49,13 @@ skinparam rectangle<<Live.Customersmobiledevice>> {
   BorderColor #888888
   shadowing false
 }
-skinparam database<<Live.BigBankplc.bigbankdb02.OracleSecondary.Database_1>> {
+skinparam database<<Live.BigBankplc.bigbankdb01.OraclePrimary.Database_1>> {
   BackgroundColor #438dd5
   FontColor #ffffff
   BorderColor #2e6295
   shadowing false
 }
-skinparam database<<Live.BigBankplc.bigbankdb01.OraclePrimary.Database_1>> {
+skinparam database<<Live.BigBankplc.bigbankdb02.OracleSecondary.Database_1>> {
   BackgroundColor #438dd5
   FontColor #ffffff
   BorderColor #2e6295

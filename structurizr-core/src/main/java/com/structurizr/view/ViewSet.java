@@ -33,16 +33,16 @@ public final class ViewSet {
 
     private Model model;
 
-    private Collection<CustomView> customViews = new HashSet<>();
-    private Collection<SystemLandscapeView> systemLandscapeViews = new HashSet<>();
-    private Collection<SystemContextView> systemContextViews = new HashSet<>();
-    private Collection<ContainerView> containerViews = new HashSet<>();
-    private Collection<ComponentView> componentViews = new HashSet<>();
-    private Collection<DynamicView> dynamicViews = new HashSet<>();
-    private Collection<DeploymentView> deploymentViews = new HashSet<>();
-    private Collection<ImageView> imageViews = new HashSet<>();
+    private Collection<CustomView> customViews = new TreeSet<>();
+    private Collection<SystemLandscapeView> systemLandscapeViews = new TreeSet<>();
+    private Collection<SystemContextView> systemContextViews = new TreeSet<>();
+    private Collection<ContainerView> containerViews = new TreeSet<>();
+    private Collection<ComponentView> componentViews = new TreeSet<>();
+    private Collection<DynamicView> dynamicViews = new TreeSet<>();
+    private Collection<DeploymentView> deploymentViews = new TreeSet<>();
+    private Collection<ImageView> imageViews = new TreeSet<>();
 
-    private Collection<FilteredView> filteredViews = new HashSet<>();
+    private Collection<FilteredView> filteredViews = new TreeSet<>();
 
     private Configuration configuration = new Configuration();
 
@@ -501,12 +501,12 @@ public final class ViewSet {
      * @return  a Collection of CustomView objects
      */
     public Collection<CustomView> getCustomViews() {
-        return new HashSet<>(customViews);
+        return new TreeSet<>(customViews);
     }
 
     void setCustomViews(Set<CustomView> customViews) {
         if (customViews != null) {
-            this.customViews = new HashSet<>(customViews);
+            this.customViews = new TreeSet<>(customViews);
         }
     }
 
@@ -516,12 +516,12 @@ public final class ViewSet {
      * @return  a Collection of SystemLandscapeView objects
      */
     public Collection<SystemLandscapeView> getSystemLandscapeViews() {
-        return new HashSet<>(systemLandscapeViews);
+        return new TreeSet<>(systemLandscapeViews);
     }
 
     void setSystemLandscapeViews(Set<SystemLandscapeView> systemLandscapeViews) {
         if (systemLandscapeViews != null) {
-            this.systemLandscapeViews = new HashSet<>(systemLandscapeViews);
+            this.systemLandscapeViews = new TreeSet<>(systemLandscapeViews);
         }
     }
 
@@ -531,7 +531,7 @@ public final class ViewSet {
     @JsonSetter("enterpriseContextViews")
     void setEnterpriseContextViews(Collection<SystemLandscapeView> enterpriseContextViews) {
         if (enterpriseContextViews != null) {
-            this.systemLandscapeViews = new HashSet<>(enterpriseContextViews);
+            this.systemLandscapeViews = new TreeSet<>(enterpriseContextViews);
         }
     }
 
@@ -541,12 +541,12 @@ public final class ViewSet {
      * @return  a Collection of SystemContextView objects
      */
     public Collection<SystemContextView> getSystemContextViews() {
-        return new HashSet<>(systemContextViews);
+        return new TreeSet<>(systemContextViews);
     }
 
     void setSystemContextViews(Set<SystemContextView> systemContextViews) {
         if (systemContextViews != null) {
-            this.systemContextViews = new HashSet<>(systemContextViews);
+            this.systemContextViews = new TreeSet<>(systemContextViews);
         }
     }
 
@@ -556,12 +556,12 @@ public final class ViewSet {
      * @return  a Collection of ContainerView objects
      */
     public Collection<ContainerView> getContainerViews() {
-        return new HashSet<>(containerViews);
+        return new TreeSet<>(containerViews);
     }
 
     void setContainerViews(Set<ContainerView> containerViews) {
         if (containerViews != null) {
-            this.containerViews = new HashSet<>(containerViews);
+            this.containerViews = new TreeSet<>(containerViews);
         }
     }
 
@@ -571,12 +571,12 @@ public final class ViewSet {
      * @return  a Collection of ComponentView objects
      */
     public Collection<ComponentView> getComponentViews() {
-        return new HashSet<>(componentViews);
+        return new TreeSet<>(componentViews);
     }
 
     void setComponentViews(Set<ComponentView> componentViews) {
         if (componentViews != null) {
-            this.componentViews = new HashSet<>(componentViews);
+            this.componentViews = new TreeSet<>(componentViews);
         }
     }
 
@@ -586,22 +586,22 @@ public final class ViewSet {
      * @return  a Collection of DynamicView objects
      */
     public Collection<DynamicView> getDynamicViews() {
-        return new HashSet<>(dynamicViews);
+        return new TreeSet<>(dynamicViews);
     }
 
     void setDynamicViews(Set<DynamicView> dynamicViews) {
         if (dynamicViews != null) {
-            this.dynamicViews = new HashSet<>(dynamicViews);
+            this.dynamicViews = new TreeSet<>(dynamicViews);
         }
     }
 
     public Collection<FilteredView> getFilteredViews() {
-        return new HashSet<>(filteredViews);
+        return new TreeSet<>(filteredViews);
     }
 
     void setFilteredViews(Set<FilteredView> filteredViews) {
         if (filteredViews != null) {
-            this.filteredViews = new HashSet<>(filteredViews);
+            this.filteredViews = new TreeSet<>(filteredViews);
         }
     }
 
@@ -611,12 +611,12 @@ public final class ViewSet {
      * @return  a Collection of DeploymentView objects
      */
     public Collection<DeploymentView> getDeploymentViews() {
-        return new HashSet<>(deploymentViews);
+        return new TreeSet<>(deploymentViews);
     }
 
     void setDeploymentViews(Set<DeploymentView> deploymentViews) {
         if (deploymentViews != null) {
-            this.deploymentViews = new HashSet<>(deploymentViews);
+            this.deploymentViews = new TreeSet<>(deploymentViews);
         }
     }
 
@@ -626,12 +626,12 @@ public final class ViewSet {
      * @return  a Collection of ImageView objects
      */
     public Collection<ImageView> getImageViews() {
-        return new HashSet<>(imageViews);
+        return new TreeSet<>(imageViews);
     }
 
     void setImageView(Set<ImageView> imageViews) {
         if (imageViews != null) {
-            this.imageViews = new HashSet<>(imageViews);
+            this.imageViews = new TreeSet<>(imageViews);
         }
     }
 
@@ -642,7 +642,7 @@ public final class ViewSet {
      */
     @JsonIgnore
     public Collection<View> getViews() {
-        HashSet<View> views = new HashSet<>();
+        Set<View> views = new TreeSet<>();
 
         views.addAll(getCustomViews());
         views.addAll(getSystemLandscapeViews());
@@ -1045,7 +1045,7 @@ public final class ViewSet {
     }
 
     private Set<SoftwareSystemInstance> getSoftwareSystemInstances(DeploymentNode deploymentNode) {
-        Set<SoftwareSystemInstance> softwareSystemInstances = new HashSet<>(deploymentNode.getSoftwareSystemInstances());
+        Set<SoftwareSystemInstance> softwareSystemInstances = new TreeSet<>(deploymentNode.getSoftwareSystemInstances());
 
         for (DeploymentNode child : deploymentNode.getChildren()) {
             softwareSystemInstances.addAll(getSoftwareSystemInstances(child));
@@ -1055,7 +1055,7 @@ public final class ViewSet {
     }
 
     private Set<ContainerInstance> getContainerInstances(DeploymentNode deploymentNode) {
-        Set<ContainerInstance> containerInstances = new HashSet<>(deploymentNode.getContainerInstances());
+        Set<ContainerInstance> containerInstances = new TreeSet<>(deploymentNode.getContainerInstances());
 
         for (DeploymentNode child : deploymentNode.getChildren()) {
             containerInstances.addAll(getContainerInstances(child));
@@ -1068,14 +1068,14 @@ public final class ViewSet {
      * Removes all views and configuration.
      */
     public void clear() {
-        customViews = new HashSet<>();
-        systemLandscapeViews = new HashSet<>();
-        systemContextViews = new HashSet<>();
-        containerViews = new HashSet<>();
-        componentViews = new HashSet<>();
-        dynamicViews = new HashSet<>();
-        deploymentViews = new HashSet<>();
-        filteredViews = new HashSet<>();
+        customViews = new TreeSet<>();
+        systemLandscapeViews = new TreeSet<>();
+        systemContextViews = new TreeSet<>();
+        containerViews = new TreeSet<>();
+        componentViews = new TreeSet<>();
+        dynamicViews = new TreeSet<>();
+        deploymentViews = new TreeSet<>();
+        filteredViews = new TreeSet<>();
         configuration = new Configuration();
     }
 

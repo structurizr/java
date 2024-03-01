@@ -11,14 +11,14 @@ import java.util.*;
 /**
  * The base class for elements and relationships.
  */
-public abstract class ModelItem implements PropertyHolder {
+public abstract class ModelItem implements PropertyHolder, Comparable<ModelItem> {
 
     private String id = "";
-    private Set<String> tags = new LinkedHashSet<>();
+    private final Set<String> tags = new LinkedHashSet<>();
 
     private String url;
     private Map<String, String> properties = new HashMap<>();
-    private Set<Perspective> perspectives = new HashSet<>();
+    private final Set<Perspective> perspectives = new TreeSet<>();
 
     @JsonIgnore
     public abstract String getCanonicalName();
@@ -35,7 +35,7 @@ public abstract class ModelItem implements PropertyHolder {
         return id;
     }
 
-    void setId(String id) {
+    protected void setId(String id) {
         this.id = id;
     }
 
@@ -174,7 +174,7 @@ public abstract class ModelItem implements PropertyHolder {
      * @return  a Set of Perspective objects (empty if there are none)
      */
     public Set<Perspective> getPerspectives() {
-        return new HashSet<>(perspectives);
+        return new TreeSet<>(perspectives);
     }
 
     void setPerspectives(Set<Perspective> perspectives) {
@@ -225,6 +225,18 @@ public abstract class ModelItem implements PropertyHolder {
         perspectives.add(perspective);
 
         return perspective;
+    }
+
+    @Override
+    public int compareTo(ModelItem modelItem) {
+        try {
+            int id1 = Integer.parseInt(getId());
+            int id2 = Integer.parseInt(modelItem.getId());
+
+            return id1 - id2;
+        } catch (NumberFormatException nfe) {
+            return getId().compareTo(modelItem.getId());
+        }
     }
 
 }

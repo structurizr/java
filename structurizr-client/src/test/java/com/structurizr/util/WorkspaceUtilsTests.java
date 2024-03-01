@@ -78,22 +78,25 @@ public class WorkspaceUtilsTests {
         String indentedOutput = WorkspaceUtils.toJson(workspace, true);
         String unindentedOutput = WorkspaceUtils.toJson(workspace, false);
 
-        assertEquals("{\n" +
-                "  \"id\" : 0,\n" +
-                "  \"name\" : \"Name\",\n" +
-                "  \"description\" : \"Description\",\n" +
-                "  \"configuration\" : { },\n" +
-                "  \"model\" : { },\n" +
-                "  \"documentation\" : { },\n" +
-                "  \"views\" : {\n" +
-                "    \"configuration\" : {\n" +
-                "      \"branding\" : { },\n" +
-                "      \"styles\" : { },\n" +
-                "      \"terminology\" : { }\n" +
-                "    }\n" +
-                "  }\n" +
-                "}", indentedOutput);
-        assertEquals("{\"id\":0,\"name\":\"Name\",\"description\":\"Description\",\"configuration\":{},\"model\":{},\"documentation\":{},\"views\":{\"configuration\":{\"branding\":{},\"styles\":{},\"terminology\":{}}}}", unindentedOutput);
+        assertEquals("""
+                {
+                  "configuration" : { },
+                  "description" : "Description",
+                  "documentation" : { },
+                  "id" : 0,
+                  "model" : { },
+                  "name" : "Name",
+                  "views" : {
+                    "configuration" : {
+                      "branding" : { },
+                      "styles" : { },
+                      "terminology" : { }
+                    }
+                  }
+                }""", indentedOutput);
+
+        assertEquals("""
+                {"configuration":{},"description":"Description","documentation":{},"id":0,"model":{},"name":"Name","views":{"configuration":{"branding":{},"styles":{},"terminology":{}}}}""", unindentedOutput);
     }
 
     @Test
@@ -150,6 +153,22 @@ public class WorkspaceUtilsTests {
         assertEquals(3, softwareSystem1.getRelationships().size());
 
         WorkspaceUtils.fromJson(WorkspaceUtils.toJson(workspace, false)); // no exception thrown
+    }
+
+    @Test
+    void toJson_IsDeterministic() throws Exception {
+        File file = new File("./src/test/resources/structurizr-36141-workspace.json");
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(file);
+
+        final String expectedJson = WorkspaceUtils.toJson(workspace, true);
+
+        // serialize and deserialize many times ... the JSON should remain the same
+        for (int i = 0; i < 100; i++) {
+            String actualJson = WorkspaceUtils.toJson(workspace, true);
+            assertEquals(expectedJson, actualJson);
+            workspace = WorkspaceUtils.fromJson(actualJson);
+        }
+
     }
 
 }

@@ -3,8 +3,8 @@ package com.structurizr.view;
 import com.structurizr.model.Element;
 import com.structurizr.model.Relationship;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * A wrapper for a collection of animation steps.
@@ -12,8 +12,8 @@ import java.util.Set;
 public final class Animation {
 
     private int order;
-    private Set<String> elements = new HashSet<>();
-    private Set<String> relationships = new HashSet<>();
+    private Set<String> elements = new TreeSet<>();
+    private Set<String> relationships = new TreeSet<>();
 
     Animation() {
     }
@@ -39,22 +39,22 @@ public final class Animation {
     }
 
     public Set<String> getElements() {
-        return new HashSet<>(elements);
+        return new TreeSet<>(elements);
     }
 
     void setElements(Set<String> elements) {
         if (elements != null) {
-            this.elements = new HashSet<>(elements);
+            this.elements = new TreeSet<>(elements);
         }
     }
 
     public Set<String> getRelationships() {
-        return new HashSet<>(relationships);
+        return new TreeSet<>(relationships);
     }
 
     void setRelationships(Set<String> relationships) {
         if (relationships != null) {
-            this.relationships = new HashSet<>(relationships);
+            this.relationships = new TreeSet<>(relationships);
         }
     }
 

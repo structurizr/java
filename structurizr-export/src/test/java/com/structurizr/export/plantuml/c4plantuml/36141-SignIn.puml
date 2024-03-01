@@ -22,8 +22,8 @@ Container_Boundary("InternetBankingSystem.APIApplication_boundary", "API Applica
   Component(InternetBankingSystem.APIApplication.SecurityComponent, "Security Component", $techn="Spring Bean", $descr="Provides functionality related to signing in, changing passwords, etc.", $tags="Component", $link="")
 }
 
-ContainerDb(InternetBankingSystem.Database, "Database", $techn="Oracle Database Schema", $descr="Stores user registration information, hashed authentication credentials, access logs, etc.", $tags="Container,Database", $link="")
 Container(InternetBankingSystem.SinglePageApplication, "Single-Page Application", $techn="JavaScript and Angular", $descr="Provides all of the Internet banking functionality to customers via their web browser.", $tags="Container,Web Browser", $link="")
+ContainerDb(InternetBankingSystem.Database, "Database", $techn="Oracle Database Schema", $descr="Stores user registration information, hashed authentication credentials, access logs, etc.", $tags="Container,Database", $link="")
 
 Rel(InternetBankingSystem.SinglePageApplication, InternetBankingSystem.APIApplication.SignInController, "1. Submits credentials to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
 Rel(InternetBankingSystem.APIApplication.SignInController, InternetBankingSystem.APIApplication.SecurityComponent, "2. Validates credentials using", $techn="", $tags="Relationship", $link="")

@@ -5,7 +5,7 @@ import com.structurizr.util.StringUtils;
 /**
  * Represents a user, and the role-based access they have to a workspace.
  */
-public final class User {
+public final class User implements Comparable<User> {
 
     private String username;
     private Role role;
@@ -73,6 +73,11 @@ public final class User {
                 "username='" + username + '\'' +
                 ", role=" + role +
                 '}';
+    }
+
+    @Override
+    public int compareTo(User user) {
+        return getUsername().compareTo(user.getUsername());
     }
 
 }

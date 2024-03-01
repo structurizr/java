@@ -4,7 +4,7 @@ package com.structurizr.model;
  * Represents an architectural perspective, that can be applied to elements and relationships.
  * See https://www.viewpoints-and-perspectives.info/home/perspectives/ for more details of this concept.
  */
-public final class Perspective {
+public final class Perspective implements Comparable<Perspective> {
 
     private String name;
     private String description;
@@ -71,6 +71,11 @@ public final class Perspective {
     @Override
     public int hashCode() {
         return getName().hashCode();
+    }
+
+    @Override
+    public int compareTo(Perspective perspective) {
+        return getName().compareTo(perspective.getName());
     }
 
 }

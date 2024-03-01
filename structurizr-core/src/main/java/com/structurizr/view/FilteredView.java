@@ -3,8 +3,8 @@ package com.structurizr.view;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Represents a view on top of a view, which can be used to include or exclude specific elements.
@@ -15,7 +15,7 @@ public final class FilteredView extends View {
     private String baseViewKey;
 
     private FilterMode mode = FilterMode.Exclude;
-    private Set<String> tags = new HashSet<>();
+    private final Set<String> tags = new TreeSet<>();
 
     FilteredView() {
     }
@@ -58,7 +58,7 @@ public final class FilteredView extends View {
     }
 
     public Set<String> getTags() {
-        return new HashSet<>(tags);
+        return new TreeSet<>(tags);
     }
 
     @Override

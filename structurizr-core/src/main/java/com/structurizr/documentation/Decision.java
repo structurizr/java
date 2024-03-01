@@ -3,20 +3,20 @@ package com.structurizr.documentation;
 import com.structurizr.util.StringUtils;
 
 import java.util.Date;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Represents a single (architecture) decision, as described at http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions
  */
-public final class Decision extends DocumentationContent {
+public final class Decision extends DocumentationContent implements Comparable<Decision> {
 
     private String id;
     private String title;
     private Date date;
     private String status;
 
-    private Set<Link> links = new HashSet<>();
+    private Set<Link> links = new TreeSet<>();
 
     Decision() {
     }
@@ -83,7 +83,7 @@ public final class Decision extends DocumentationContent {
      * @return  a Set of Link objects
      */
     public Set<Link> getLinks() {
-        return new HashSet<>(links);
+        return new TreeSet<>(links);
     }
 
     void setLinks(Set<Link> links) {
@@ -140,7 +140,7 @@ public final class Decision extends DocumentationContent {
     /**
      * Represents a link between two decisions.
      */
-    public static final class Link {
+    public static final class Link implements Comparable<Link> {
 
         private String id;
         private String description = "";
@@ -199,6 +199,17 @@ public final class Decision extends DocumentationContent {
             result = 31 * result + id.hashCode();
             return result;
         }
+
+        @Override
+        public int compareTo(Link link) {
+            return getId().compareTo(link.getId());
+        }
+
+    }
+
+    @Override
+    public int compareTo(Decision decision) {
+        return getId().compareTo(decision.getId());
     }
 
 }

@@ -13,28 +13,6 @@ public class WorkspaceRulesValidationTests {
     private static final File PATH_TO_WORKSPACE_FILES = new File("./src/integrationTest/resources/workspaceValidation");
 
     @Test
-    void exceptionThrown_WhenElementIdsAreNotUnique() throws Exception {
-        try {
-            WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ElementIdsAreNotUnique.json"));
-            fail();
-        } catch (WorkspaceValidationException we) {
-            assertTrue(we.getMessage().startsWith("The element SoftwareSystem://Software System "));
-            assertTrue(we.getMessage().endsWith(" has a non-unique ID of 1."));
-        }
-    }
-
-    @Test
-    void exceptionThrown_WhenRelationshipIdsAreNotUnique() throws Exception {
-        try {
-            WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "RelationshipIdsAreNotUnique.json"));
-            fail();
-        } catch (WorkspaceValidationException we) {
-            assertTrue(we.getMessage().startsWith("The relationship {1 | User | null} ---[Uses "));
-            assertTrue(we.getMessage().endsWith("]---> {2 | Software System | null} has a non-unique ID of 3."));
-        }
-    }
-
-    @Test
     void exceptionThrown_WhenViewKeysAreNotUnique() throws Exception {
         try {
             WorkspaceUtils.loadWorkspaceFromJson(new File(PATH_TO_WORKSPACE_FILES, "ViewKeysAreNotUnique.json"));

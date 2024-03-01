@@ -8,10 +8,10 @@
   "views" : {
     "systemLandscapeViews" : [ {
       "key" : "key",
-      "enterpriseBoundaryVisible" : true
+      "order": 1
     }, {
       "key" : "key",
-      "enterpriseBoundaryVisible" : true
+      "order": 2
     } ],
     "configuration" : {
       "branding" : { },

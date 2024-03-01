@@ -7,14 +7,14 @@ import com.structurizr.util.StringUtils;
 import com.structurizr.util.Url;
 
 import java.util.Collection;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * This class represents an instance of a Relationship on a View.
  */
-public final class RelationshipView {
+public final class RelationshipView implements Comparable<RelationshipView> {
 
     private static final int START_OF_LINE = 0;
     private static final int END_OF_LINE = 100;
@@ -25,7 +25,7 @@ public final class RelationshipView {
     private String url;
     private String order;
     private Boolean response;
-    private Set<Vertex> vertices = new LinkedHashSet<>();
+    private Set<Vertex> vertices = new TreeSet<>();
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Routing routing;
@@ -168,7 +168,7 @@ public final class RelationshipView {
      */
     public void setVertices(Collection<Vertex> vertices) {
         if (vertices != null) {
-            this.vertices = new LinkedHashSet<>(vertices);
+            this.vertices = new TreeSet<>(vertices);
         }
     }
 
@@ -252,6 +252,14 @@ public final class RelationshipView {
             return (order != null ? order + ": " : "") + (description != null ? description + " " : "") + relationship.toString();
         }
         return "";
+    }
+
+    @Override
+    public int compareTo(RelationshipView relationshipView) {
+        String identifier1 = getId() + "/" + getOrder();
+        String identifier2 = relationshipView.getId() + "/" + relationshipView.getOrder();
+
+        return identifier1.compareTo(identifier2);
     }
 
 }

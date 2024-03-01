@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * The superclass for all views.
  */
-public abstract class View implements PropertyHolder {
+public abstract class View implements PropertyHolder, Comparable<View> {
 
     private String key;
     private boolean generatedKey = false;
@@ -158,6 +158,11 @@ public abstract class View implements PropertyHolder {
         if (properties != null) {
             this.properties = new HashMap<>(properties);
         }
+    }
+
+    @Override
+    public int compareTo(View view) {
+        return getOrder() - view.getOrder();
     }
 
 }

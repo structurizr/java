@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * This is the superclass for all model elements.
@@ -16,7 +17,7 @@ public abstract class Element extends ModelItem {
     private String name;
     private String description;
 
-    private Set<Relationship> relationships = new LinkedHashSet<>();
+    private Set<Relationship> relationships = new TreeSet<>();
 
     protected Element() {
     }
@@ -83,12 +84,12 @@ public abstract class Element extends ModelItem {
      * @return  a Set of Relationship objects, or an empty set if none exist
      */
     public Set<Relationship> getRelationships() {
-        return new LinkedHashSet<>(relationships);
+        return new TreeSet<>(relationships);
     }
 
     void setRelationships(Set<Relationship> relationships) {
         if (relationships != null) {
-            this.relationships = new LinkedHashSet<>(relationships);
+            this.relationships = new TreeSet<>(relationships);
         }
     }
 
@@ -153,7 +154,7 @@ public abstract class Element extends ModelItem {
      * @return  a Set of Relationship objects; empty if no relationships exist
      */
     public Set<Relationship> getEfferentRelationshipsWith(Element element) {
-        Set<Relationship> set = new HashSet<>();
+        Set<Relationship> set = new TreeSet<>();
 
         if (element != null) {
             for (Relationship relationship : relationships) {

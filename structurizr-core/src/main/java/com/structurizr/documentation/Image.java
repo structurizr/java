@@ -3,7 +3,7 @@ package com.structurizr.documentation;
 /**
  * Represents a base64 encoded image (png/jpg/gif).
  */
-public final class Image {
+public final class Image implements Comparable<Image> {
 
     private String name;
     private String content;
@@ -40,6 +40,11 @@ public final class Image {
 
     void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public int compareTo(Image image) {
+        return getName().compareTo(image.getName());
     }
 
 }

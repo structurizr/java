@@ -7,9 +7,9 @@ import com.structurizr.documentation.Documentation;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Represents a "software system" in the C4 model.
@@ -18,7 +18,7 @@ public final class SoftwareSystem extends StaticStructureElement implements Docu
 
     private Location location = Location.Unspecified;
 
-    private Set<Container> containers = new LinkedHashSet<>();
+    private Set<Container> containers = new TreeSet<>();
 
     private Documentation documentation = new Documentation();
 
@@ -66,12 +66,12 @@ public final class SoftwareSystem extends StaticStructureElement implements Docu
      */
     @Nonnull
     public Set<Container> getContainers() {
-        return new HashSet<>(containers);
+        return new TreeSet<>(containers);
     }
 
     void setContainers(Set<Container> containers) {
         if (containers != null) {
-            this.containers = new HashSet<>(containers);
+            this.containers = new TreeSet<>(containers);
         }
     }
 

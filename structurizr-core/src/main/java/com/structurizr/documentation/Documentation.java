@@ -9,14 +9,14 @@ import java.util.*;
  * Represents the documentation within a workspace, software system, container, or component;
  *  a collection of content in Markdown or AsciiDoc format, optionally with attached images.
  *
- * See <a href="https://structurizr.com/help/documentation">Documentation</a>
- * on the Structurizr website for more details.
+ * See <a href="https://docs.structurizr.com/ui/documentation/">Documentation</a>
+ * and <a href="https://docs.structurizr.com/ui/decisions/">Decisions</a> for more details.
  */
 public final class Documentation {
 
     private List<Section> sections = new ArrayList<>();
-    private Set<Decision> decisions = new HashSet<>();
-    private Set<Image> images = new HashSet<>();
+    private Set<Decision> decisions = new TreeSet<>();
+    private Set<Image> images = new TreeSet<>();
 
     public Documentation() {
     }
@@ -76,12 +76,12 @@ public final class Documentation {
      * @return  a Set of Decision objects
      */
     public Set<Decision> getDecisions() {
-        return new HashSet<>(decisions);
+        return new TreeSet<>(decisions);
     }
 
     void setDecisions(Set<Decision> decisions) {
         if (decisions != null) {
-            this.decisions = new HashSet<>(decisions);
+            this.decisions = new TreeSet<>(decisions);
         }
     }
 
@@ -136,12 +136,12 @@ public final class Documentation {
      * @return  a Set of {@link Image} objects
      */
     public Set<Image> getImages() {
-        return new HashSet<>(images);
+        return new TreeSet<>(images);
     }
 
     void setImages(Set<Image> images) {
         if (images != null) {
-            this.images = new HashSet<>(images);
+            this.images = new TreeSet<>(images);
         }
     }
 
@@ -155,8 +155,8 @@ public final class Documentation {
      */
     public void clear() {
         sections = new ArrayList<>();
-        decisions = new HashSet<>();
-        images = new HashSet<>();
+        decisions = new TreeSet<>();
+        images = new TreeSet<>();
     }
 
 }
