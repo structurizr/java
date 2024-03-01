@@ -26,7 +26,7 @@ skinparam rectangle<<B>> {
   shadowing false
 }
 
-rectangle "Group 1" <<group1>> {
+rectangle "Group 1" <<group1>> as group1 {
   skinparam RectangleBorderColor<<group1>> #cccccc
   skinparam RectangleFontColor<<group1>> #cccccc
   skinparam RectangleBorderStyle<<group1>> dashed
@@ -34,7 +34,7 @@ rectangle "Group 1" <<group1>> {
   rectangle "==A\n<size:10>[Software System]</size>" <<A>> as A
 }
 
-rectangle "Group 2" <<group2>> {
+rectangle "Group 2" <<group2>> as group2 {
   skinparam RectangleBorderColor<<group2>> #cccccc
   skinparam RectangleFontColor<<group2>> #cccccc
   skinparam RectangleBorderStyle<<group2>> dashed

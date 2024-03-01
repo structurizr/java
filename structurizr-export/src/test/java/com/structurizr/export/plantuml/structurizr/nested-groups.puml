@@ -44,19 +44,19 @@ skinparam rectangle<<Team2>> {
   shadowing false
 }
 
-rectangle "Organisation 1" <<group1>> {
+rectangle "Organisation 1" <<group1>> as group1 {
   skinparam RectangleBorderColor<<group1>> #cccccc
   skinparam RectangleFontColor<<group1>> #cccccc
   skinparam RectangleBorderStyle<<group1>> dashed
 
   rectangle "==Organisation 1\n<size:10>[Software System]</size>" <<Organisation1>> as Organisation1
-    rectangle "Department 1" <<group2>> {
+    rectangle "Department 1" <<group2>> as group2 {
       skinparam RectangleBorderColor<<group2>> #cccccc
       skinparam RectangleFontColor<<group2>> #cccccc
       skinparam RectangleBorderStyle<<group2>> dashed
 
       rectangle "==Department 1\n<size:10>[Software System]</size>" <<Department1>> as Department1
-        rectangle "Team 1" <<group3>> {
+        rectangle "Team 1" <<group3>> as group3 {
           skinparam RectangleBorderColor<<group3>> #ff0000
           skinparam RectangleFontColor<<group3>> #ff0000
           skinparam RectangleBorderStyle<<group3>> dashed
@@ -64,7 +64,7 @@ rectangle "Organisation 1" <<group1>> {
           rectangle "==Team 1\n<size:10>[Software System]</size>" <<Team1>> as Team1
         }
 
-        rectangle "Team 2" <<group4>> {
+        rectangle "Team 2" <<group4>> as group4 {
           skinparam RectangleBorderColor<<group4>> #0000ff
           skinparam RectangleFontColor<<group4>> #0000ff
           skinparam RectangleBorderStyle<<group4>> dashed
@@ -76,7 +76,7 @@ rectangle "Organisation 1" <<group1>> {
 
 }
 
-rectangle "Organisation 2" <<group5>> {
+rectangle "Organisation 2" <<group5>> as group5 {
   skinparam RectangleBorderColor<<group5>> #cccccc
   skinparam RectangleFontColor<<group5>> #cccccc
   skinparam RectangleBorderStyle<<group5>> dashed

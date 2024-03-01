@@ -6,6 +6,7 @@
 - structurizr-client: Fixes https://github.com/structurizr/java/issues/257 (Serialization to JSON is not deterministic).
 - structurizr-dsl: Fixes https://github.com/structurizr/java/issues/252 (DSL parser does not seem to handle curly brackets balance).
 - structurizr-dsl: Deprecates `!constant`, adds `!const` and `!var` (see https://github.com/structurizr/java/issues/253).
+- structurizr-export: Fixes https://github.com/structurizr/java/issues/258 (Plantuml renderer: Group and system of same name yields puml code resulting in error).
 
 ## 2.0.0 (22nd February 2024)
 

@@ -194,7 +194,7 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
                 icon = "\\n\\n<img:" + icon + "{scale=" + scale + "}>";
             }
 
-            writer.writeLine(String.format("rectangle \"%s%s\" <<group%s>> {", groupName, icon, groupId));
+            writer.writeLine(String.format("rectangle \"%s%s\" <<group%s>> as group%s {", groupName, icon, groupId, groupId));
             writer.indent();
             writer.writeLine(String.format("skinparam RectangleBorderColor<<group%s>> %s", groupId, color));
             writer.writeLine(String.format("skinparam RectangleFontColor<<group%s>> %s", groupId, color));

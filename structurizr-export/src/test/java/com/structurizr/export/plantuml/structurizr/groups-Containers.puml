@@ -40,7 +40,7 @@ skinparam rectangle<<D>> {
 rectangle "==C\n<size:10>[Software System]</size>" <<C>> as C
 
 rectangle "D\n<size:10>[Software System]</size>" <<D>> {
-  rectangle "Group 4" <<group1>> {
+  rectangle "Group 4" <<group1>> as group1 {
     skinparam RectangleBorderColor<<group1>> #cccccc
     skinparam RectangleFontColor<<group1>> #cccccc
     skinparam RectangleBorderStyle<<group1>> dashed

@@ -56,7 +56,7 @@ skinparam person<<PersonalBankingCustomer>> {
   shadowing false
 }
 
-rectangle "Big Bank plc" <<group1>> {
+rectangle "Big Bank plc" <<group1>> as group1 {
   skinparam RectangleBorderColor<<group1>> #cccccc
   skinparam RectangleFontColor<<group1>> #cccccc
   skinparam RectangleBorderStyle<<group1>> dashed

@@ -611,38 +611,39 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
         StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
         Diagram diagram;
-        String expected = "@startuml\n" +
-                "set separator none\n" +
-                "title System Landscape\n" +
-                "\n" +
-                "top to bottom direction\n" +
-                "\n" +
-                "skinparam {\n" +
-                "  arrowFontSize 10\n" +
-                "  defaultTextAlignment center\n" +
-                "  wrapWidth 200\n" +
-                "  maxMessageSize 100\n" +
-                "}\n" +
-                "\n" +
-                "hide stereotype\n" +
-                "\n" +
-                "skinparam rectangle<<SoftwareSystem>> {\n" +
-                "  BackgroundColor #dddddd\n" +
-                "  FontColor #000000\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "\n" +
-                "rectangle \"Group\" <<group1>> {\n" +
-                "  skinparam RectangleBorderColor<<group1>> #cccccc\n" +
-                "  skinparam RectangleFontColor<<group1>> #cccccc\n" +
-                "  skinparam RectangleBorderStyle<<group1>> dashed\n" +
-                "\n" +
-                "  rectangle \"==Software System\\n<size:10>[Software System]</size>\" <<SoftwareSystem>> as SoftwareSystem\n" +
-                "}\n" +
-                "\n" +
-                "\n" +
-                "@enduml";
+        String expected = """
+                @startuml
+                set separator none
+                title System Landscape
+                                
+                top to bottom direction
+                                
+                skinparam {
+                  arrowFontSize 10
+                  defaultTextAlignment center
+                  wrapWidth 200
+                  maxMessageSize 100
+                }
+                                
+                hide stereotype
+                                
+                skinparam rectangle<<SoftwareSystem>> {
+                  BackgroundColor #dddddd
+                  FontColor #000000
+                  BorderColor #9a9a9a
+                  shadowing false
+                }
+                                
+                rectangle "Group" <<group1>> as group1 {
+                  skinparam RectangleBorderColor<<group1>> #cccccc
+                  skinparam RectangleFontColor<<group1>> #cccccc
+                  skinparam RectangleBorderStyle<<group1>> dashed
+                                
+                  rectangle "==Software System\\n<size:10>[Software System]</size>" <<SoftwareSystem>> as SoftwareSystem
+                }
+                                
+                                
+                @enduml""";
 
         diagram = exporter.export(view);
         assertEquals(expected, diagram.getDefinition());
@@ -789,59 +790,60 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         ContainerView view = workspace.getViews().createContainerView(softwareSystem, "Containers", "");
         view.addAllElements();
 
-        String expectedResult = "@startuml\n" +
-                "set separator none\n" +
-                "title Software System - Containers\n" +
-                "\n" +
-                "top to bottom direction\n" +
-                "\n" +
-                "skinparam {\n" +
-                "  arrowFontSize 10\n" +
-                "  defaultTextAlignment center\n" +
-                "  wrapWidth 200\n" +
-                "  maxMessageSize 100\n" +
-                "}\n" +
-                "\n" +
-                "hide stereotype\n" +
-                "\n" +
-                "skinparam rectangle<<SoftwareSystem.Container1>> {\n" +
-                "  BackgroundColor #dddddd\n" +
-                "  FontColor #000000\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "skinparam rectangle<<SoftwareSystem.Container2>> {\n" +
-                "  BackgroundColor #dddddd\n" +
-                "  FontColor #000000\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "skinparam rectangle<<SoftwareSystem>> {\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  FontColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "\n" +
-                "rectangle \"Software System\\n<size:10>[Software System]</size>\" <<SoftwareSystem>> {\n" +
-                "  rectangle \"Group 1\" <<group1>> {\n" +
-                "    skinparam RectangleBorderColor<<group1>> #cccccc\n" +
-                "    skinparam RectangleFontColor<<group1>> #cccccc\n" +
-                "    skinparam RectangleBorderStyle<<group1>> dashed\n" +
-                "\n" +
-                "    rectangle \"==Container 1\\n<size:10>[Container]</size>\" <<SoftwareSystem.Container1>> as SoftwareSystem.Container1\n" +
-                "  }\n" +
-                "\n" +
-                "  rectangle \"Group 2\" <<group2>> {\n" +
-                "    skinparam RectangleBorderColor<<group2>> #cccccc\n" +
-                "    skinparam RectangleFontColor<<group2>> #cccccc\n" +
-                "    skinparam RectangleBorderStyle<<group2>> dashed\n" +
-                "\n" +
-                "    rectangle \"==Container 2\\n<size:10>[Container]</size>\" <<SoftwareSystem.Container2>> as SoftwareSystem.Container2\n" +
-                "  }\n" +
-                "\n" +
-                "}\n" +
-                "\n" +
-                "@enduml";
+        String expectedResult = """
+                @startuml
+                set separator none
+                title Software System - Containers
+                                
+                top to bottom direction
+                                
+                skinparam {
+                  arrowFontSize 10
+                  defaultTextAlignment center
+                  wrapWidth 200
+                  maxMessageSize 100
+                }
+                                
+                hide stereotype
+                                
+                skinparam rectangle<<SoftwareSystem.Container1>> {
+                  BackgroundColor #dddddd
+                  FontColor #000000
+                  BorderColor #9a9a9a
+                  shadowing false
+                }
+                skinparam rectangle<<SoftwareSystem.Container2>> {
+                  BackgroundColor #dddddd
+                  FontColor #000000
+                  BorderColor #9a9a9a
+                  shadowing false
+                }
+                skinparam rectangle<<SoftwareSystem>> {
+                  BorderColor #9a9a9a
+                  FontColor #9a9a9a
+                  shadowing false
+                }
+                                
+                rectangle "Software System\\n<size:10>[Software System]</size>" <<SoftwareSystem>> {
+                  rectangle "Group 1" <<group1>> as group1 {
+                    skinparam RectangleBorderColor<<group1>> #cccccc
+                    skinparam RectangleFontColor<<group1>> #cccccc
+                    skinparam RectangleBorderStyle<<group1>> dashed
+                                
+                    rectangle "==Container 1\\n<size:10>[Container]</size>" <<SoftwareSystem.Container1>> as SoftwareSystem.Container1
+                  }
+                                
+                  rectangle "Group 2" <<group2>> as group2 {
+                    skinparam RectangleBorderColor<<group2>> #cccccc
+                    skinparam RectangleFontColor<<group2>> #cccccc
+                    skinparam RectangleBorderStyle<<group2>> dashed
+                                
+                    rectangle "==Container 2\\n<size:10>[Container]</size>" <<SoftwareSystem.Container2>> as SoftwareSystem.Container2
+                  }
+                                
+                }
+                                
+                @enduml""";
 
         StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
         Diagram diagram = exporter.export(view);
@@ -874,67 +876,68 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         view.add(infrastructureNode2);
         view.add(softwareSystemInstance);
 
-        String expectedResult = "@startuml\n" +
-                "set separator none\n" +
-                "title Deployment - Default\n" +
-                "\n" +
-                "top to bottom direction\n" +
-                "\n" +
-                "skinparam {\n" +
-                "  arrowFontSize 10\n" +
-                "  defaultTextAlignment center\n" +
-                "  wrapWidth 200\n" +
-                "  maxMessageSize 100\n" +
-                "}\n" +
-                "\n" +
-                "hide stereotype\n" +
-                "\n" +
-                "skinparam rectangle<<Default.Server1.InfrastructureNode1>> {\n" +
-                "  BackgroundColor #dddddd\n" +
-                "  FontColor #000000\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "skinparam rectangle<<Default.Server1.InfrastructureNode2>> {\n" +
-                "  BackgroundColor #dddddd\n" +
-                "  FontColor #000000\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "skinparam rectangle<<Default.Server1>> {\n" +
-                "  BackgroundColor #ffffff\n" +
-                "  FontColor #000000\n" +
-                "  BorderColor #888888\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "skinparam rectangle<<Default.Server1.SoftwareSystem_1>> {\n" +
-                "  BackgroundColor #dddddd\n" +
-                "  FontColor #000000\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "\n" +
-                "rectangle \"Group 1\" <<group1>> {\n" +
-                "  skinparam RectangleBorderColor<<group1>> #cccccc\n" +
-                "  skinparam RectangleFontColor<<group1>> #cccccc\n" +
-                "  skinparam RectangleBorderStyle<<group1>> dashed\n" +
-                "\n" +
-                "  rectangle \"Server 1\\n<size:10>[Deployment Node]</size>\" <<Default.Server1>> as Default.Server1 {\n" +
-                "    rectangle \"Group 2\" <<group2>> {\n" +
-                "      skinparam RectangleBorderColor<<group2>> #cccccc\n" +
-                "      skinparam RectangleFontColor<<group2>> #cccccc\n" +
-                "      skinparam RectangleBorderStyle<<group2>> dashed\n" +
-                "\n" +
-                "      rectangle \"==Infrastructure Node 2\\n<size:10>[Infrastructure Node]</size>\" <<Default.Server1.InfrastructureNode2>> as Default.Server1.InfrastructureNode2\n" +
-                "      rectangle \"==Software System\\n<size:10>[Software System]</size>\" <<Default.Server1.SoftwareSystem_1>> as Default.Server1.SoftwareSystem_1\n" +
-                "    }\n" +
-                "\n" +
-                "    rectangle \"==Infrastructure Node 1\\n<size:10>[Infrastructure Node]</size>\" <<Default.Server1.InfrastructureNode1>> as Default.Server1.InfrastructureNode1\n" +
-                "  }\n" +
-                "\n" +
-                "}\n" +
-                "\n" +
-                "@enduml";
+        String expectedResult = """
+                @startuml
+                set separator none
+                title Deployment - Default
+                                
+                top to bottom direction
+                                
+                skinparam {
+                  arrowFontSize 10
+                  defaultTextAlignment center
+                  wrapWidth 200
+                  maxMessageSize 100
+                }
+                                
+                hide stereotype
+                                
+                skinparam rectangle<<Default.Server1.InfrastructureNode1>> {
+                  BackgroundColor #dddddd
+                  FontColor #000000
+                  BorderColor #9a9a9a
+                  shadowing false
+                }
+                skinparam rectangle<<Default.Server1.InfrastructureNode2>> {
+                  BackgroundColor #dddddd
+                  FontColor #000000
+                  BorderColor #9a9a9a
+                  shadowing false
+                }
+                skinparam rectangle<<Default.Server1>> {
+                  BackgroundColor #ffffff
+                  FontColor #000000
+                  BorderColor #888888
+                  shadowing false
+                }
+                skinparam rectangle<<Default.Server1.SoftwareSystem_1>> {
+                  BackgroundColor #dddddd
+                  FontColor #000000
+                  BorderColor #9a9a9a
+                  shadowing false
+                }
+                                
+                rectangle "Group 1" <<group1>> as group1 {
+                  skinparam RectangleBorderColor<<group1>> #cccccc
+                  skinparam RectangleFontColor<<group1>> #cccccc
+                  skinparam RectangleBorderStyle<<group1>> dashed
+                                
+                  rectangle "Server 1\\n<size:10>[Deployment Node]</size>" <<Default.Server1>> as Default.Server1 {
+                    rectangle "Group 2" <<group2>> as group2 {
+                      skinparam RectangleBorderColor<<group2>> #cccccc
+                      skinparam RectangleFontColor<<group2>> #cccccc
+                      skinparam RectangleBorderStyle<<group2>> dashed
+                                
+                      rectangle "==Infrastructure Node 2\\n<size:10>[Infrastructure Node]</size>" <<Default.Server1.InfrastructureNode2>> as Default.Server1.InfrastructureNode2
+                      rectangle "==Software System\\n<size:10>[Software System]</size>" <<Default.Server1.SoftwareSystem_1>> as Default.Server1.SoftwareSystem_1
+                    }
+                                
+                    rectangle "==Infrastructure Node 1\\n<size:10>[Infrastructure Node]</size>" <<Default.Server1.InfrastructureNode1>> as Default.Server1.InfrastructureNode1
+                  }
+                                
+                }
+                                
+                @enduml""";
 
         StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
         Diagram diagram = exporter.export(view);
@@ -1026,6 +1029,54 @@ rectangle "Node\\n<size:10>[Deployment Node]</size>" <<Default.Node>> as Default
   rectangle "==A\\n<size:10>[Software System]</size>" <<Default.Node.A_1>> as Default.Node.A_1 [[https://example.com/url2]]
 }
 
-@enduml""", new StructurizrPlantUMLExporter().export(view).getDefinition());    }
+@enduml""", new StructurizrPlantUMLExporter().export(view).getDefinition());
+
+    }
+
+    @Test
+    void groupAndSoftwareSystemNameAreTheSame() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
+        softwareSystem.setGroup("Name");
+
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
+        view.add(softwareSystem);
+
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
+        Diagram diagram = exporter.export(view);
+        assertEquals("""
+                @startuml
+                set separator none
+                title System Landscape
+                                
+                top to bottom direction
+                                
+                skinparam {
+                  arrowFontSize 10
+                  defaultTextAlignment center
+                  wrapWidth 200
+                  maxMessageSize 100
+                }
+                                
+                hide stereotype
+                                
+                skinparam rectangle<<Name>> {
+                  BackgroundColor #dddddd
+                  FontColor #000000
+                  BorderColor #9a9a9a
+                  shadowing false
+                }
+                                
+                rectangle "Name" <<group1>> as group1 {
+                  skinparam RectangleBorderColor<<group1>> #cccccc
+                  skinparam RectangleFontColor<<group1>> #cccccc
+                  skinparam RectangleBorderStyle<<group1>> dashed
+                                
+                  rectangle "==Name\\n<size:10>[Software System]</size>" <<Name>> as Name
+                }
+                                
+                                
+                @enduml""", diagram.getDefinition());
+    }
 
 }
