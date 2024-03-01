@@ -1,6 +1,6 @@
 # Changelog
 
-## unreleased
+## 2.1.0 (unreleased)
 
 - structurizr-core: `ViewSet.isEmpty()` was missing a check for image views.
 - structurizr-client: Fixes https://github.com/structurizr/java/issues/257 (Serialization to JSON is not deterministic).
