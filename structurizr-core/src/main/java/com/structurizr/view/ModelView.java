@@ -369,7 +369,7 @@ public abstract class ModelView extends View {
      *
      * @param source    the source View
      */
-    void copyLayoutInformationFrom(@Nonnull ModelView source) {
+    public void copyLayoutInformationFrom(@Nonnull ModelView source) {
         layoutMergeStrategy.copyLayoutInformation(source, this);
     }
 
