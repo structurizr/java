@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.1.0 (unreleased)
+## 2.1.0 (2nd March 2024)
 
 - structurizr-core: `ViewSet.isEmpty()` was missing a check for image views.
 - structurizr-core: Promotes `ModelView.copyLayoutInformationFrom()` to be public, to allow individual view layout information to be merged.
