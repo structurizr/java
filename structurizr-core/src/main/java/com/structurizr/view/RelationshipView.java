@@ -6,10 +6,7 @@ import com.structurizr.model.Relationship;
 import com.structurizr.util.StringUtils;
 import com.structurizr.util.Url;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * This class represents an instance of a Relationship on a View.
@@ -25,7 +22,7 @@ public final class RelationshipView implements Comparable<RelationshipView> {
     private String url;
     private String order;
     private Boolean response;
-    private Set<Vertex> vertices = new TreeSet<>();
+    private List<Vertex> vertices = new ArrayList<>();
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Routing routing;
@@ -158,7 +155,7 @@ public final class RelationshipView implements Comparable<RelationshipView> {
      * @return  a collection of Vertex objects
      */
     public Collection<Vertex> getVertices() {
-        return new LinkedList<>(vertices);
+        return new ArrayList<>(vertices);
     }
 
     /**
@@ -168,7 +165,7 @@ public final class RelationshipView implements Comparable<RelationshipView> {
      */
     public void setVertices(Collection<Vertex> vertices) {
         if (vertices != null) {
-            this.vertices = new TreeSet<>(vertices);
+            this.vertices = new ArrayList<>(vertices);
         }
     }
 

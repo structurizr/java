@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.1.1 (3rd March 2024)
+
+- structurizr-core: Fixes problem with ordering of relationship view vertices.
+
 ## 2.1.0 (2nd March 2024)
 
 - structurizr-core: `ViewSet.isEmpty()` was missing a check for image views.

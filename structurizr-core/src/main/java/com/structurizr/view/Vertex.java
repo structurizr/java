@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * The X, Y coordinate of a bend in a line.
  */
-public final class Vertex implements Comparable<Vertex> {
+public final class Vertex {
 
     private int x;
     private int y;
@@ -61,16 +61,6 @@ public final class Vertex implements Comparable<Vertex> {
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
-    }
-
-    @Override
-    public int compareTo(Vertex vertex) {
-        int result = getX() - vertex.getX();
-        if (result == 0) {
-            result = getY() - vertex.getY();
-        }
-
-        return result;
     }
 
 }
