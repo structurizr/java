@@ -1,0 +1,27 @@
+{
+  "description" : "Description",
+  "id" : 0,
+  "model" : {
+    "people" : [ {
+      "id" : "1",
+      "name" : "User",
+      "tags" : "Element,Person"
+    } ]
+  },
+  "name" : "Name",
+  "views" : {
+    "systemLandscapeViews" : [ {
+      "elements" : [ {
+        "id" : "1"
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "key" : "SystemLandscape-001"
+    }, {
+      "elements" : [ {
+        "id" : "1"
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "key" : "SystemLandscape-002"
+    } ]
+  }
+}

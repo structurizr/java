@@ -48,4 +48,12 @@ class BackwardsCompatibilityTests {
                 {"configuration":{},"description":"Description","documentation":{"sections":[{"content":"## Heading 1","format":"Markdown","order":1,"title":""}]},"id":0,"model":{},"name":"Name","views":{"configuration":{"branding":{},"styles":{},"terminology":{}}}}""", WorkspaceUtils.toJson(workspace, false));
     }
 
+    @Test
+    void viewsWithoutOrderProperties() throws Exception {
+        File file = new File(PATH_TO_WORKSPACE_FILES, "views-without-order.json");
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(file);
+
+        assertEquals(2, workspace.getViews().getSystemLandscapeViews().size());
+    }
+
 }

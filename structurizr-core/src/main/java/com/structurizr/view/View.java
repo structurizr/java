@@ -162,7 +162,12 @@ public abstract class View implements PropertyHolder, Comparable<View> {
 
     @Override
     public int compareTo(View view) {
-        return getOrder() - view.getOrder();
+        int result = getOrder() - view.getOrder();
+        if (result == 0) {
+            result = getKey().compareToIgnoreCase(view.getKey());
+        }
+
+        return result;
     }
 
 }
