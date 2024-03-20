@@ -2,8 +2,6 @@ dependencies {
 
     api project(':structurizr-core')
 
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
-
 }
 
 description = 'Utilities to import diagrams and documentation into a Structurizr workspace'
