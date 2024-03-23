@@ -1,5 +1,9 @@
 # Changelog
 
+## unreleased
+
+- structurizr-export: https://github.com/structurizr/java/issues/263 (Fixes C4PlantUMLExporter not following C4-PlantUML best practices with c4plantuml.tags true)
+
 ## 2.1.1 (3rd March 2024)
 
 - structurizr-core: Fixes problem with ordering of relationship view vertices.

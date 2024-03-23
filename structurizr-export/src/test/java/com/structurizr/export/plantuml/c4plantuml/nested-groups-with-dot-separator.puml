@@ -7,11 +7,11 @@ top to bottom direction
 !include <C4/C4>
 !include <C4/C4_Context>
 
-AddBoundaryTag("Organisation 1", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="Dashed", $borderThickness="1")
+AddBoundaryTag("Organisation 1", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed", $borderThickness="1")
 Boundary(group_1, "Organisation 1", $tags="Organisation 1") {
-    AddBoundaryTag("Organisation 1.Department 1", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="Dashed", $borderThickness="1")
+    AddBoundaryTag("Organisation 1.Department 1", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed", $borderThickness="1")
     Boundary(group_2, "Department 1", $tags="Organisation 1.Department 1") {
-        AddBoundaryTag("Organisation 1.Department 1.Team 1", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="Dashed", $borderThickness="1")
+        AddBoundaryTag("Organisation 1.Department 1.Team 1", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed", $borderThickness="1")
         Boundary(group_3, "Team 1", $tags="Organisation 1.Department 1.Team 1") {
           System(Team1, "Team 1", $descr="", $tags="", $link="")
         }

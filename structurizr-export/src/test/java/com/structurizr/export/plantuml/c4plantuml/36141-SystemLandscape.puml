@@ -7,14 +7,14 @@ top to bottom direction
 !include <C4/C4>
 !include <C4/C4_Context>
 
-AddElementTag("Software System", $bgColor="#1168bd", $borderColor="#0b4884", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="Solid", $borderThickness="1")
-AddElementTag("Person,Bank Staff", $bgColor="#999999", $borderColor="#6b6b6b", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="Solid", $borderThickness="1")
-AddElementTag("Software System,Existing System", $bgColor="#999999", $borderColor="#6b6b6b", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="Solid", $borderThickness="1")
-AddElementTag("Person,Customer", $bgColor="#08427b", $borderColor="#052e56", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="Solid", $borderThickness="1")
+AddElementTag("Software System", $bgColor="#1168bd", $borderColor="#0b4884", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="solid", $borderThickness="1")
+AddElementTag("Person,Bank Staff", $bgColor="#999999", $borderColor="#6b6b6b", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="solid", $borderThickness="1")
+AddElementTag("Software System,Existing System", $bgColor="#999999", $borderColor="#6b6b6b", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="solid", $borderThickness="1")
+AddElementTag("Person,Customer", $bgColor="#08427b", $borderColor="#052e56", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="solid", $borderThickness="1")
 
 AddRelTag("Relationship", $textColor="#707070", $lineColor="#707070", $lineStyle = "")
 
-AddBoundaryTag("Big Bank plc", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="Dashed", $borderThickness="1")
+AddBoundaryTag("Big Bank plc", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed", $borderThickness="1")
 Boundary(group_1, "Big Bank plc", $tags="Big Bank plc") {
   Person(CustomerServiceStaff, "Customer Service Staff", $descr="Customer service staff within the bank.", $tags="Person,Bank Staff", $link="")
   Person(BackOfficeStaff, "Back Office Staff", $descr="Administration and support staff within the bank.", $tags="Person,Bank Staff", $link="")

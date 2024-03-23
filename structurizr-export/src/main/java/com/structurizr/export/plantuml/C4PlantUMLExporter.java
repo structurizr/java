@@ -194,7 +194,7 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
                             elementStyle.getColor(),
                             sprite,
                             elementStyle.getProperties().getOrDefault(C4PLANTUML_SHADOW, ""),
-                            elementStyle.getBorder(),
+                            elementStyle.getBorder().toString().toLowerCase(),
                             borderThickness
                     ));
                 }
@@ -241,7 +241,7 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
                             elementStyle.getStroke(),
                             elementStyle.getStroke(),
                             elementStyle.getProperties().getOrDefault(C4PLANTUML_SHADOW, ""),
-                            elementStyle.getBorder(),
+                            elementStyle.getBorder().toString().toLowerCase(),
                             borderThickness
                     ));
                 }
@@ -288,7 +288,6 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
         }
 
         String color = "#cccccc";
-        String borderStyle = "Dashed";
         int borderThickness = 1;
 //        String icon = "";
 
@@ -302,9 +301,9 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
         }
 
         if (elementStyleForGroup != null && !StringUtils.isNullOrEmpty(elementStyleForGroup.getStroke())) {
-            borderStyle = elementStyleForGroup.getStroke();
+            color = elementStyleForGroup.getStroke();
         } else if (elementStyleForAllGroups != null && !StringUtils.isNullOrEmpty(elementStyleForAllGroups.getStroke())) {
-            borderStyle = elementStyleForAllGroups.getStroke();
+            color = elementStyleForAllGroups.getStroke();
         }
 
         if (elementStyleForGroup != null && elementStyleForGroup.getStrokeWidth() != null) {
@@ -330,7 +329,7 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
                 group,
                 color,
                 color,
-                borderStyle,
+                Border.Dashed.toString().toLowerCase(),
                 borderThickness)
         );
 

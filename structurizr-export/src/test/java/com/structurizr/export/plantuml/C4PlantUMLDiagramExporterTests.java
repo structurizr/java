@@ -717,7 +717,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
                 "!include <C4/C4>\n" +
                 "!include <C4/C4_Context>\n" +
                 "\n" +
-                "AddElementTag(\"Element\", $bgColor=\"#dddddd\", $borderColor=\"#008000\", $fontColor=\"#000000\", $sprite=\"\", $shadowing=\"\", $borderStyle=\"Dashed\", $borderThickness=\"2\")\n" +
+                "AddElementTag(\"Element\", $bgColor=\"#dddddd\", $borderColor=\"#008000\", $fontColor=\"#000000\", $sprite=\"\", $shadowing=\"\", $borderStyle=\"dashed\", $borderThickness=\"2\")\n" +
                 "\n" +
                 "System(Name, \"Name\", $descr=\"\", $tags=\"Element\", $link=\"\")\n" +
                 "\n" +

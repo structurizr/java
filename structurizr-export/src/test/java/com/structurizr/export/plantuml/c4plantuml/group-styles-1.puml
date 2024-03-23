@@ -7,17 +7,17 @@ top to bottom direction
 !include <C4/C4>
 !include <C4/C4_Context>
 
-AddBoundaryTag("Group 1", $borderColor="#111111", $fontColor="#111111", $borderStyle="Dashed", $borderThickness="1")
+AddBoundaryTag("Group 1", $borderColor="#111111", $fontColor="#111111", $borderStyle="dashed", $borderThickness="1")
 Boundary(group_1, "Group 1", $tags="Group 1") {
   Person(User1, "User 1", $descr="", $tags="", $link="")
 }
 
-AddBoundaryTag("Group 2", $borderColor="#222222", $fontColor="#222222", $borderStyle="Dashed", $borderThickness="1")
+AddBoundaryTag("Group 2", $borderColor="#222222", $fontColor="#222222", $borderStyle="dashed", $borderThickness="1")
 Boundary(group_2, "Group 2", $tags="Group 2") {
   Person(User2, "User 2", $descr="", $tags="", $link="")
 }
 
-AddBoundaryTag("Group 3", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="Dashed", $borderThickness="1")
+AddBoundaryTag("Group 3", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed", $borderThickness="1")
 Boundary(group_3, "Group 3", $tags="Group 3") {
   Person(User3, "User 3", $descr="", $tags="", $link="")
 }
