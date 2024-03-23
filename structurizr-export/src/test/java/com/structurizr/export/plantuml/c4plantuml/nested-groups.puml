@@ -7,18 +7,18 @@ top to bottom direction
 !include <C4/C4>
 !include <C4/C4_Context>
 
-AddBoundaryTag("Organisation 1", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed", $borderThickness="1")
+AddBoundaryTag("Organisation 1", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed")
 Boundary(group_1, "Organisation 1", $tags="Organisation 1") {
   System(Organisation1, "Organisation 1", $descr="", $tags="", $link="")
-    AddBoundaryTag("Organisation 1/Department 1", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed", $borderThickness="1")
+    AddBoundaryTag("Organisation 1/Department 1", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed")
     Boundary(group_2, "Department 1", $tags="Organisation 1/Department 1") {
       System(Department1, "Department 1", $descr="", $tags="", $link="")
-        AddBoundaryTag("Organisation 1/Department 1/Team 1", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed", $borderThickness="1")
+        AddBoundaryTag("Organisation 1/Department 1/Team 1", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed")
         Boundary(group_3, "Team 1", $tags="Organisation 1/Department 1/Team 1") {
           System(Team1, "Team 1", $descr="", $tags="", $link="")
         }
 
-        AddBoundaryTag("Organisation 1/Department 1/Team 2", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed", $borderThickness="1")
+        AddBoundaryTag("Organisation 1/Department 1/Team 2", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed")
         Boundary(group_4, "Team 2", $tags="Organisation 1/Department 1/Team 2") {
           System(Team2, "Team 2", $descr="", $tags="", $link="")
         }
@@ -27,7 +27,7 @@ Boundary(group_1, "Organisation 1", $tags="Organisation 1") {
 
 }
 
-AddBoundaryTag("Organisation 2", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed", $borderThickness="1")
+AddBoundaryTag("Organisation 2", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed")
 Boundary(group_5, "Organisation 2", $tags="Organisation 2") {
   System(Organisation2, "Organisation 2", $descr="", $tags="", $link="")
 }

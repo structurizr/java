@@ -7,13 +7,13 @@ top to bottom direction
 !include <C4/C4>
 !include <C4/C4_Context>
 
-AddElementTag("Software System", $bgColor="#1168bd", $borderColor="#0b4884", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="solid", $borderThickness="1")
-AddElementTag("Software System,Existing System", $bgColor="#999999", $borderColor="#6b6b6b", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="solid", $borderThickness="1")
-AddElementTag("Person,Customer", $bgColor="#08427b", $borderColor="#052e56", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="solid", $borderThickness="1")
+AddElementTag("Software System", $bgColor="#1168bd", $borderColor="#0b4884", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="solid")
+AddElementTag("Software System,Existing System", $bgColor="#999999", $borderColor="#6b6b6b", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="solid")
+AddElementTag("Person,Customer", $bgColor="#08427b", $borderColor="#052e56", $fontColor="#ffffff", $sprite="", $shadowing="", $borderStyle="solid")
 
 AddRelTag("Relationship", $textColor="#707070", $lineColor="#707070", $lineStyle = "")
 
-AddBoundaryTag("Big Bank plc", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed", $borderThickness="1")
+AddBoundaryTag("Big Bank plc", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed")
 Boundary(group_1, "Big Bank plc", $tags="Big Bank plc") {
   System(MainframeBankingSystem, "Mainframe Banking System", $descr="Stores all of the core banking information about customers, accounts, transactions, etc.", $tags="Software System,Existing System", $link="")
   System(EmailSystem, "E-mail System", $descr="The internal Microsoft Exchange e-mail system.", $tags="Software System,Existing System", $link="")

@@ -11,7 +11,7 @@ top to bottom direction
 System(C, "C", $descr="", $tags="", $link="")
 
 System_Boundary("D_boundary", "D", $tags="") {
-  AddBoundaryTag("Group 4", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed", $borderThickness="1")
+  AddBoundaryTag("Group 4", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed")
   Boundary(group_1, "Group 4", $tags="Group 4") {
     Container(D.F, "F", $techn="", $descr="", $tags="", $link="")
   }

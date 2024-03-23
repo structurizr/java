@@ -187,7 +187,7 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
                         borderThickness = elementStyle.getStrokeWidth();
                     }
 
-                    writer.writeLine(String.format("AddElementTag(\"%s\", $bgColor=\"%s\", $borderColor=\"%s\", $fontColor=\"%s\", $sprite=\"%s\", $shadowing=\"%s\", $borderStyle=\"%s\", $borderThickness=\"%s\")",
+                    String line = String.format("AddElementTag(\"%s\", $bgColor=\"%s\", $borderColor=\"%s\", $fontColor=\"%s\", $sprite=\"%s\", $shadowing=\"%s\", $borderStyle=\"%s\", $borderThickness=\"%s\")",
                             tagList,
                             elementStyle.getBackground(),
                             elementStyle.getStroke(),
@@ -196,7 +196,10 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
                             elementStyle.getProperties().getOrDefault(C4PLANTUML_SHADOW, ""),
                             elementStyle.getBorder().toString().toLowerCase(),
                             borderThickness
-                    ));
+                    );
+
+                    line = line.replace(", $borderThickness=\"1\")", ")");
+                    writer.writeLine(line);
                 }
             }
 
@@ -235,7 +238,7 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
                         borderThickness = elementStyle.getStrokeWidth();
                     }
 
-                    writer.writeLine(String.format("AddBoundaryTag(\"%s\", $bgColor=\"%s\", $borderColor=\"%s\", $fontColor=\"%s\", $shadowing=\"%s\", $borderStyle=\"%s\", $borderThickness=\"%s\")",
+                    String line = String.format("AddBoundaryTag(\"%s\", $bgColor=\"%s\", $borderColor=\"%s\", $fontColor=\"%s\", $shadowing=\"%s\", $borderStyle=\"%s\", $borderThickness=\"%s\")",
                             tagList,
                             "#ffffff",
                             elementStyle.getStroke(),
@@ -243,7 +246,10 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
                             elementStyle.getProperties().getOrDefault(C4PLANTUML_SHADOW, ""),
                             elementStyle.getBorder().toString().toLowerCase(),
                             borderThickness
-                    ));
+                    );
+
+                    line = line.replace(", $borderThickness=\"1\")", ")");
+                    writer.writeLine(line);
                 }
             }
         }
@@ -325,13 +331,15 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
 //            icon = "\\n\\n<img:" + icon + "{scale=" + scale + "}>";
 //        }
 
-        writer.writeLine(String.format("AddBoundaryTag(\"%s\", $borderColor=\"%s\", $fontColor=\"%s\", $borderStyle=\"%s\", $borderThickness=\"%s\")",
+        String line = String.format("AddBoundaryTag(\"%s\", $borderColor=\"%s\", $fontColor=\"%s\", $borderStyle=\"%s\", $borderThickness=\"%s\")",
                 group,
                 color,
                 color,
                 Border.Dashed.toString().toLowerCase(),
-                borderThickness)
-        );
+                borderThickness);
+
+        line = line.replace(", $borderThickness=\"1\")", ")");
+        writer.writeLine(line);
 
         writer.writeLine(String.format("Boundary(group_%s, \"%s\", $tags=\"%s\") {", groupId, groupName, group));
         writer.indent();
