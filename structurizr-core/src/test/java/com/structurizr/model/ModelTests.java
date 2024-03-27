@@ -421,7 +421,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertEquals("Uses 1", relationship.getDescription());
         assertEquals("Technology 1", relationship.getTechnology());
         assertEquals(InteractionStyle.Synchronous, relationship.getInteractionStyle());
-        assertEquals("", relationship.getTags());
+        assertEquals("Relationship,Synchronous", relationship.getTags());
 
         assertEquals(1, containerInstance2.getRelationships().size());
         relationship = containerInstance2.getRelationships().iterator().next();
@@ -430,7 +430,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertEquals("Uses 2", relationship.getDescription());
         assertEquals("Technology 2", relationship.getTechnology());
         assertEquals(InteractionStyle.Asynchronous, relationship.getInteractionStyle());
-        assertEquals("", relationship.getTags());
+        assertEquals("Relationship,Asynchronous", relationship.getTags());
 
         assertEquals(1, containerInstance3.getRelationships().size());
         relationship = containerInstance3.getRelationships().iterator().next();
@@ -439,7 +439,7 @@ public class ModelTests extends AbstractWorkspaceTestBase {
         assertEquals("Uses", relationship.getDescription());
         assertNull(relationship.getTechnology());
         assertNull(relationship.getInteractionStyle());
-        assertEquals("", relationship.getTags());
+        assertEquals("Relationship", relationship.getTags());
     }
 
     @Test

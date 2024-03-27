@@ -437,7 +437,14 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
                 relationshipStyle += ",thickness=" + style.getThickness();
             }
 
-            if (relationshipView.isResponse() != null && relationshipView.isResponse()) {
+            String sourceId = idOf(relationship.getSource());
+            String destId = idOf(relationship.getDestination());
+
+            Boolean reversed = relationship.getTagsAsSet().contains("reversed-flow") ||
+                    "true".equalsIgnoreCase(getViewOrViewSetProperty(view,
+                            "plantuml.reversedFlowRelation." + sourceId + "-" + destId, "false"));
+
+            if (reversed || (relationshipView.isResponse() != null && relationshipView.isResponse())) {
                 arrowStart = solid ? "<-" : "<.";
                 arrowEnd = solid ? "-" : ".";
             } else {
@@ -449,13 +456,19 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
                 relationshipStyle = "hidden";
             }
 
+            if (reversed) {
+                String tmp = sourceId;
+                sourceId = destId;
+                destId = tmp;
+            }
+
             // 1 .[#rrggbb,thickness=n].> 2 : "...\n<size:8>...</size>
             writer.writeLine(format("%s %s[%s]%s %s : \"<color:%s>%s%s\"",
-                    idOf(relationship.getSource()),
+                    sourceId,
                     arrowStart,
                     relationshipStyle,
                     arrowEnd,
-                    idOf(relationship.getDestination()),
+                    destId,
                     style.getColor(),
                     description,
                     (StringUtils.isNullOrEmpty(technology) ? "" : "\\n<color:" + style.getColor() + "><size:8>[" + technology + "]</size>")
