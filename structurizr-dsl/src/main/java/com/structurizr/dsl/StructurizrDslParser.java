@@ -1212,8 +1212,13 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
         for (String line : lines) {
             if (!COMMENT_PATTERN.matcher(line).matches() && line.endsWith(MULTI_LINE_SEPARATOR)) {
-                buf.append(line, 0, line.length()-1);
-                lineComplete = false;
+                if (lineComplete) {
+                    buf.append(line, 0, line.length()-1);
+                    lineComplete = false;
+                } else {
+                    String strippedLine = line.stripLeading();
+                    buf.append(strippedLine, 0, strippedLine.length() - 1);
+                }
             } else {
                 if (lineComplete) {
                     buf.append(line);

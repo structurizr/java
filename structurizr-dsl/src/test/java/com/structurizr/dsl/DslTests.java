@@ -1142,6 +1142,14 @@ class DslTests extends AbstractTests {
     }
 
     @Test
+    void test_MultiLineInTheMiddleOfTheStringSupport() throws Exception {
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(new File("src/test/resources/dsl/multi-line-break-string.dsl"));
+
+        assertNotNull(parser.getWorkspace().getModel().getSoftwareSystemWithName("Software System"));
+    }
+
+    @Test
     void test_MultiLineWithError() {
         File dslFile = new File("src/test/resources/dsl/multi-line-with-error.dsl");
 
