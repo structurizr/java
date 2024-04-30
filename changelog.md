@@ -1,8 +1,9 @@
 # Changelog
 
-## unreleased
+## 2.1.2 (30th April 2024)
 
-- structurizr-export: https://github.com/structurizr/java/issues/263 (Fixes C4PlantUMLExporter not following C4-PlantUML best practices with c4plantuml.tags true)
+- structurizr-core: Adds better backwards compatibility to deal with old workspaces and those created by third party tooling that are missing view `order` property on views.
+- structurizr-export: Fixes https://github.com/structurizr/java/issues/263 (C4PlantUMLExporter not following C4-PlantUML best practices with c4plantuml.tags true).
 
 ## 2.1.1 (3rd March 2024)
 
