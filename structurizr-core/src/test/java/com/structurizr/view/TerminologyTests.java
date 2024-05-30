@@ -12,6 +12,7 @@ public class TerminologyTests {
     void findTerminology() {
         Workspace workspace = new Workspace("Name", "Description");
         Terminology terminology = workspace.getViews().getConfiguration().getTerminology();
+        CustomElement element = workspace.getModel().addCustomElement("Element", "Hardware Device", "Description");
         Person person = workspace.getModel().addPerson("Name");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
         Container container = softwareSystem.addContainer("Container");
@@ -22,6 +23,7 @@ public class TerminologyTests {
         ContainerInstance containerInstance = deploymentNode.add(container);
         Relationship relationship = person.uses(softwareSystem, "Uses");
 
+        assertEquals("Hardware Device", terminology.findTerminology(element));
         assertEquals("Person", terminology.findTerminology(person));
         assertEquals("Software System", terminology.findTerminology(softwareSystem));
         assertEquals("Container", terminology.findTerminology(container));

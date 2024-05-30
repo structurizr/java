@@ -1,5 +1,9 @@
 # Changelog
 
+## unreleased
+
+- structurizr-core: Fixes https://github.com/structurizr/java/issues/298 (Unknown model item type on 'element')
+
 ## 2.1.2 (30th April 2024)
 
 - structurizr-core: Adds better backwards compatibility to deal with old workspaces and those created by third party tooling that are missing view `order` property on views.

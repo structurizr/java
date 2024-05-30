@@ -134,6 +134,9 @@ public final class Terminology {
             return !StringUtils.isNullOrEmpty(getDeploymentNode()) ? getDeploymentNode() : "Deployment Node";
         } else if (modelItem instanceof InfrastructureNode) {
             return !StringUtils.isNullOrEmpty(getInfrastructureNode()) ? getInfrastructureNode() : "Infrastructure Node";
+        } else if (modelItem instanceof CustomElement) {
+            String terminology = ((CustomElement)modelItem).getMetadata();
+            return !StringUtils.isNullOrEmpty(terminology) ? terminology : "Element";
         }
 
         throw new IllegalArgumentException("Unknown model item type.");
