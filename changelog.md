@@ -1,6 +1,6 @@
 # Changelog
 
-## unreleased
+## 2.1.3 (16th June 2024)
 
 - structurizr-core: Fixes https://github.com/structurizr/java/issues/298 (Unknown model item type on 'element')
 
