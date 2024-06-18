@@ -1,8 +1,13 @@
 # Changelog
 
+
+## 2.1.4 (18th June 2024)
+
+- structurizr-core: Fixes https://github.com/structurizr/java/issues/306 (Workspace.trim() is not correctly removing relationships when the destination of a relationship is removed from the workspace).
+
 ## 2.1.3 (16th June 2024)
 
-- structurizr-core: Fixes https://github.com/structurizr/java/issues/298 (Unknown model item type on 'element')
+- structurizr-core: Fixes https://github.com/structurizr/java/issues/298 (Unknown model item type on 'element').
 
 ## 2.1.2 (30th April 2024)
 

@@ -285,4 +285,19 @@ public class WorkspaceTests {
         assertTrue(workspace.getModel().contains(bc));
     }
 
+    @Test
+    void trim_WhenTheDestinationOfAnElementIsRemoved() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
+        SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
+        a.uses(b, "Uses");
+
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
+        view.add(a);
+
+        workspace.trim();
+
+        assertEquals(0, a.getRelationships().size());
+    }
+
 }
