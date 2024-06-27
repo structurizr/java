@@ -24,11 +24,13 @@ abstract class AbstractExpressionParser {
                 token.startsWith(ELEMENT_TYPE_EQUALS_EXPRESSION.toLowerCase()) ||
                         token.startsWith(ELEMENT_TAG_EQUALS_EXPRESSION.toLowerCase()) ||
                         token.startsWith(ELEMENT_TAG_NOT_EQUALS_EXPRESSION.toLowerCase()) ||
+                        token.matches(ELEMENT_PROPERTY_EQUALS_EXPRESSION) ||
                         token.startsWith(ELEMENT_PARENT_EQUALS_EXPRESSION.toLowerCase()) ||
                         token.startsWith(RELATIONSHIP) || token.endsWith(RELATIONSHIP) || token.contains(RELATIONSHIP) ||
                         token.startsWith(ELEMENT_EQUALS_EXPRESSION) ||
                         token.startsWith(RELATIONSHIP_TAG_EQUALS_EXPRESSION.toLowerCase()) ||
                         token.startsWith(RELATIONSHIP_TAG_NOT_EQUALS_EXPRESSION.toLowerCase()) ||
+                        token.matches(RELATIONSHIP_PROPERTY_EQUALS_EXPRESSION) ||
                         token.startsWith(RELATIONSHIP_SOURCE_EQUALS_EXPRESSION.toLowerCase()) ||
                         token.startsWith(RELATIONSHIP_DESTINATION_EQUALS_EXPRESSION.toLowerCase()) ||
                         token.startsWith(RELATIONSHIP_EQUALS_EXPRESSION);
@@ -169,6 +171,15 @@ abstract class AbstractExpressionParser {
                     modelItems.add(element);
                 }
             });
+        } else if (expr.matches(ELEMENT_PROPERTY_EQUALS_EXPRESSION)) {
+            String propertyName = expr.substring(expr.indexOf("[")+1, expr.indexOf("]"));
+            String propertyValue = expr.substring(expr.indexOf("==")+2);
+
+            context.getWorkspace().getModel().getElements().forEach(element -> {
+                if (hasProperty(element, propertyName, propertyValue)) {
+                    modelItems.add(element);
+                }
+            });
         } else if (expr.startsWith(RELATIONSHIP_TAG_EQUALS_EXPRESSION)) {
             String[] tags = expr.substring(RELATIONSHIP_TAG_EQUALS_EXPRESSION.length()).split(",");
             context.getWorkspace().getModel().getRelationships().forEach(relationship -> {
@@ -180,6 +191,15 @@ abstract class AbstractExpressionParser {
             String[] tags = expr.substring(RELATIONSHIP_TAG_NOT_EQUALS_EXPRESSION.length()).split(",");
             context.getWorkspace().getModel().getRelationships().forEach(relationship -> {
                 if (!hasAllTags(relationship, tags)) {
+                    modelItems.add(relationship);
+                }
+            });
+        } else if (expr.matches(RELATIONSHIP_PROPERTY_EQUALS_EXPRESSION)) {
+            String propertyName = expr.substring(expr.indexOf("[")+1, expr.indexOf("]"));
+            String propertyValue = expr.substring(expr.indexOf("==")+2);
+
+            context.getWorkspace().getModel().getRelationships().forEach(relationship -> {
+                if (hasProperty(relationship, propertyName, propertyValue)) {
                     modelItems.add(relationship);
                 }
             });
@@ -271,6 +291,28 @@ abstract class AbstractExpressionParser {
             }
 
             result = result && hasTag;
+        }
+
+        return result;
+    }
+
+    private boolean hasProperty(ModelItem modelItem, String name, String value) {
+        boolean result = modelItem.hasProperty(name, value);
+
+        if (!result) {
+            // perhaps the property is instead on a related model item?
+            if (modelItem instanceof StaticStructureElementInstance) {
+                StaticStructureElementInstance elementInstance = (StaticStructureElementInstance)modelItem;
+                result = elementInstance.getElement().hasProperty(name, value);
+            } else if (modelItem instanceof Relationship) {
+                Relationship relationship = (Relationship)modelItem;
+                if (!StringUtils.isNullOrEmpty(relationship.getLinkedRelationshipId())) {
+                    Relationship linkedRelationship = relationship.getModel().getRelationship(relationship.getLinkedRelationshipId());
+                    if (linkedRelationship != null) {
+                        result = linkedRelationship.hasProperty(name, value);
+                    }
+                }
+            }
         }
 
         return result;

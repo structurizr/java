@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.2.0 (unreleased)
+
+- structurizr-dsl: Adds support for element/relationship property expressions (https://github.com/structurizr/java/issues/297).
 
 ## 2.1.4 (18th June 2024)
 

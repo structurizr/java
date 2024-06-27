@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AbstractExpressionParserTests extends AbstractTests {
 
-    private StaticViewExpressionParser parser = new StaticViewExpressionParser();
+    private final StaticViewExpressionParser parser = new StaticViewExpressionParser();
 
     @Test
     void test_parseExpression_ThrowsAnException_WhenTheRelationshipSourceIsSpecifiedUsingLongSyntaxButDoesNotExist() {
@@ -385,35 +385,36 @@ class AbstractExpressionParserTests extends AbstractTests {
     }
 
     @Test
-    void test_parseExpression_ReturnsElements_WhenUsingAnElementTagExpression() {
-        model.addPerson("User");
-        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
-
-        SystemLandscapeView view = views.createSystemLandscapeView("key", "Description");
-        SystemLandscapeViewDslContext context = new SystemLandscapeViewDslContext(view);
-        context.setWorkspace(workspace);
-        context.setIdentifierRegister(new IdentifiersRegister());
-
-        Set<ModelItem> elements = parser.parseExpression("element.tag==Software System", context);
-        assertEquals(1, elements.size());
-        assertTrue(elements.contains(softwareSystem));
-    }
-
-    @Test
-    void test_parseExpression_ReturnsElementInstances_WhenUsingAnElementTagExpression() {
+    void test_parseExpression_ReturnsElementsAndElementInstances_WhenUsingAnElementTagEqualsExpression() {
         model.addPerson("User");
         SoftwareSystem ss = model.addSoftwareSystem("Software System");
         SoftwareSystemInstance ssi = model.addDeploymentNode("DN").add(ss);
 
-        DeploymentView view = views.createDeploymentView("key", "Description");
-        DeploymentViewDslContext context = new DeploymentViewDslContext(view);
-        context.setWorkspace(workspace);
-        context.setIdentifierRegister(new IdentifiersRegister());
-
-        Set<ModelItem> elements = parser.parseExpression("element.tag==Software System", context);
+        Set<ModelItem> elements = parser.parseExpression("element.tag==Software System", context());
         assertEquals(2, elements.size());
         assertTrue(elements.contains(ss)); // this is tagged "Software System"
         assertTrue(elements.contains(ssi)); // this is not tagged "Software System", but the element it's based upon is
+    }
+
+    @Test
+    void test_parseExpression_ReturnsElementsAndElementInstances_WhenUsingAnElementPropertyEqualsExpression() {
+        SoftwareSystem a = model.addSoftwareSystem("A");
+        a.addProperty("Technical Debt", "Low");
+        SoftwareSystem b = model.addSoftwareSystem("B");
+        b.addProperty("Technical Debt", "Medium");
+        SoftwareSystem c = model.addSoftwareSystem("C");
+        c.addProperty("Technical Debt", "High");
+        SoftwareSystem d = model.addSoftwareSystem("D");
+
+        DeploymentNode deploymentNode = model.addDeploymentNode("Deployment Node");
+        SoftwareSystemInstance ai = deploymentNode.add(a);
+        SoftwareSystemInstance bi = deploymentNode.add(b);
+        SoftwareSystemInstance ci = deploymentNode.add(c);
+
+        Set<ModelItem> elements = parser.parseExpression("element.properties[Technical Debt]==High", context());
+        assertEquals(2, elements.size());
+        assertTrue(elements.contains(c)); // this has the property
+        assertTrue(elements.contains(ci)); // this doesn't have the property, but the element it's based upon does
     }
 
     @Test
@@ -465,42 +466,53 @@ class AbstractExpressionParserTests extends AbstractTests {
     }
 
     @Test
-    void test_parseExpression_ReturnsRelationships_WhenUsingARelationshipTagExpression() {
+    void test_parseExpression_ReturnsRelationshipsAndImpliedRelationships_WhenUsingARelationshipTagEqualsExpression() {
+        Person user = model.addPerson("User");
         SoftwareSystem a = model.addSoftwareSystem("A");
+        Container aa = a.addContainer("AA");
         SoftwareSystem b = model.addSoftwareSystem("B");
-        Relationship r = a.uses(b, "Uses");
-        r.addTags("Tag 1");
+        Container bb = b.addContainer("BB");
+        SoftwareSystem c = model.addSoftwareSystem("C");
+        Container cc = c.addContainer("CC");
 
-        SystemLandscapeView view = views.createSystemLandscapeView("key", "Description");
-        SystemLandscapeViewDslContext context = new SystemLandscapeViewDslContext(view);
-        context.setWorkspace(workspace);
-        context.setIdentifierRegister(new IdentifiersRegister());
+        Relationship r1 = user.uses(aa, "Uses");
+        r1.addTags("Tag 1");
+        Relationship r2 = user.uses(bb, "Uses");
+        r2.addTags("Tag 2");
+        Relationship r3 = user.uses(cc, "Uses");
 
-        Set<ModelItem> relationships = parser.parseExpression("relationship.tag==Tag 1", context);
-        assertEquals(1, relationships.size());
-        assertTrue(relationships.contains(r));
+        Set<ModelItem> relationships = parser.parseExpression("relationship.tag==Tag 1", context());
+        assertEquals(2, relationships.size());
+        assertTrue(relationships.contains(r1));
+
+        Relationship impliedRelationship = user.getEfferentRelationshipWith(a);
+        assertTrue(relationships.contains(impliedRelationship));
     }
 
     @Test
-    void test_parseExpression_ReturnsRelationships_WhenUsingARelationshipTagExpressionAndTheTagIsSetOnTheLinkedRelationship() {
+    void test_parseExpression_ReturnsRelationshipsAndImpliedRelationships_WhenUsingARelationshipPropertyEqualsExpression() {
+        Person user = model.addPerson("User");
         SoftwareSystem a = model.addSoftwareSystem("A");
+        Container aa = a.addContainer("AA");
         SoftwareSystem b = model.addSoftwareSystem("B");
-        Relationship r = a.uses(b, "Uses");
-        r.addTags("Tag 1");
+        Container bb = b.addContainer("BB");
+        SoftwareSystem c = model.addSoftwareSystem("C");
+        Container cc = c.addContainer("CC");
 
-        DeploymentNode dn = model.addDeploymentNode("DN");
-        SoftwareSystemInstance ai = dn.add(a);
-        SoftwareSystemInstance bi = dn.add(b);
+        Relationship r1 = user.uses(aa, "Uses");
+        r1.addProperty("Secure", "Yes");
+        Relationship r2 = user.uses(bb, "Uses");
+        r2.addProperty("Secure", "No");
+        Relationship r3 = user.uses(cc, "Uses");
 
-        DeploymentView view = views.createDeploymentView("key", "Description");
-        DeploymentViewDslContext context = new DeploymentViewDslContext(view);
-        context.setWorkspace(workspace);
-        context.setIdentifierRegister(new IdentifiersRegister());
+        assertEquals(6, model.getRelationships().size());
 
-        Set<ModelItem> relationships = parser.parseExpression("relationship.tag==Tag 1", context);
+        Set<ModelItem> relationships = parser.parseExpression("relationship.properties[Secure]==Yes", context());
         assertEquals(2, relationships.size());
-        assertTrue(relationships.contains(r));
-        assertTrue(relationships.contains(ai.getRelationships().iterator().next()));
+        assertTrue(relationships.contains(r1));
+
+        Relationship impliedRelationship = user.getEfferentRelationshipWith(a);
+        assertTrue(relationships.contains(impliedRelationship));
     }
 
 }

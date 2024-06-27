@@ -105,6 +105,17 @@ public abstract class ModelItem implements PropertyHolder, Comparable<ModelItem>
     }
 
     /**
+     * Determines whether this model item has the given property with the given value.
+     *
+     * @param name      the name of the property
+     * @param value     the value of the property
+     * @return          true if the named property is present with the given value, false otherwise
+     */
+    public boolean hasProperty(String name, String value) {
+        return getProperties().containsKey(name) && getProperties().get(name).equals(value);
+    }
+
+    /**
      * Gets the URL where more information about this item can be found.
      *
      * @return  a URL as a String
