@@ -54,7 +54,7 @@ public final class ViewSet {
     }
 
     /**
-     * Creates a custom view view.
+     * Creates a custom view.
      *
      * @param key           the key for the view (must be unique)
      * @param title         a title of the view
