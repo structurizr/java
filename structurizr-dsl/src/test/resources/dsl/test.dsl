@@ -23,6 +23,10 @@ workspace "Name" "Description" {
     // single line comment
 
     model {
+        !impliedRelationships false
+        !impliedRelationships "com.structurizr.model.CreateImpliedRelationshipsUnlessSameRelationshipExistsStrategy"
+        !impliedRelationships true
+
         properties {
             "Name" "Value"
         }
