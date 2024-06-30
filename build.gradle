@@ -18,22 +18,26 @@ subprojects { proj ->
         useJUnitPlatform()
     }
 
+    dependencies {
+        testImplementation libs.bundles.testing.libs
+    }
+
     compileJava.options.encoding = 'UTF-8'
     compileTestJava.options.encoding = 'UTF-8'
-
-    sourceCompatibility = 17
-    targetCompatibility = 17
 
     java {
         withJavadocJar()
         withSourcesJar()
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(17)
+        }
     }
 
     jar {
         manifest {
             attributes(
                 "Implementation-Title": "Structurizr for Java",
-                "Implementation-Version": version
+                "Implementation-Version": archiveVersion
             )
         }
     }

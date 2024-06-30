@@ -1,0 +1,22 @@
+[versions]
+junit = "5.9.2"
+jackson = "2.16.0"
+
+[libraries]
+jackson-databind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
+httpclient5 = { module = "org.apache.httpcomponents.client5:httpclient5", version = "5.2.1" }
+jaxb-api = { module = "javax.xml.bind:jaxb-api", version = "2.4.0-b180830.0359" }
+jsr305 = { module = "com.google.code.findbugs:jsr305", version = "3.0.2" }
+commons-logging = { module = "commons-logging:commons-logging", version = "1.2" }
+groovy-jsr223 = { module = "org.codehaus.groovy:groovy-jsr223", version = "3.0.19" }
+kotlin-scripting-jsr223 = { module = "org.jetbrains.kotlin:kotlin-scripting-jsr223", version = "1.8.10" }
+jruby-core = { module = "org.jruby:jruby-core", version = "9.4.4.0" }
+
+# Tests
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+junit-jupiter-params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit" }
+assertj-core = { module = "org.assertj:assertj-core", version = "3.24.2" }
+
+[bundles]
+testing-libs = ["junit-jupiter", "junit-jupiter-params", "assertj-core"]

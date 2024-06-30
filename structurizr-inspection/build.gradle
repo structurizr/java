@@ -3,6 +3,5 @@ dependencies {
     api project(':structurizr-core')
 
     testImplementation project(':structurizr-dsl')
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
 
 }
