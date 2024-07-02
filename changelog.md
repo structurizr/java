@@ -1,9 +1,9 @@
 # Changelog
 
-## 2.2.0 (unreleased)
+## 2.2.0 (2nd July 2024)
 
 - structurizr-dsl: Adds support for element/relationship property expressions (https://github.com/structurizr/java/issues/297).
-- structurizr-dsl: Adds a way to specify the implied relationships strategy by a fully qualified class name via `!impliedRelationships`.
+- structurizr-dsl: Adds a way to specify the implied relationships strategy via a fully qualified class name when using `!impliedRelationships`.
 - structurizr-dsl: Adds the ability to include single files as documentation (https://github.com/structurizr/java/issues/303). 
 
 ## 2.1.4 (18th June 2024)
