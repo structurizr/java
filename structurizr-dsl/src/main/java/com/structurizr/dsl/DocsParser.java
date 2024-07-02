@@ -55,17 +55,13 @@ final class DocsParser extends AbstractParser {
                 throw new RuntimeException("Documentation path " + path + " does not exist");
             }
 
-            if (!path.isDirectory()) {
-                throw new RuntimeException("Documentation path " + path + " is not a directory");
-            }
-
             try {
                 Class documentationImporterClass = context.loadClass(fullyQualifiedClassName, dslFile);
                 Constructor constructor = documentationImporterClass.getDeclaredConstructor();
                 DocumentationImporter documentationImporter = (DocumentationImporter)constructor.newInstance();
                 documentationImporter.importDocumentation(documentable, path);
 
-                if (!tokens.includes(FQN_INDEX)) {
+                if (!tokens.includes(FQN_INDEX) && path.isDirectory()) {
                     DefaultImageImporter imageImporter = new DefaultImageImporter();
                     imageImporter.importDocumentation(documentable, path);
                 }

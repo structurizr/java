@@ -1,6 +1,7 @@
 package com.structurizr.dsl;
 
 import com.structurizr.Workspace;
+import com.structurizr.documentation.Section;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 import org.junit.jupiter.api.Test;
@@ -12,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -692,9 +694,34 @@ class DslTests extends AbstractTests {
         Container container = softwareSystem.getContainerWithName("Container");
         Component component = container.getComponentWithName("Component");
 
-        assertEquals(1, parser.getWorkspace().getDocumentation().getSections().size());
-        assertEquals(1, softwareSystem.getDocumentation().getSections().size());
-        assertEquals(1, container.getDocumentation().getSections().size());
+        Collection<Section> sections = parser.getWorkspace().getDocumentation().getSections();
+        assertEquals(1, sections.size());
+        assertEquals("""
+            ## Workspace
+            
+            Content...""", sections.iterator().next().getContent());
+
+        sections = softwareSystem.getDocumentation().getSections();
+        assertEquals(1, sections.size());
+        assertEquals("""
+            ## Software System
+                           
+            Content...""", sections.iterator().next().getContent());
+
+        sections = container.getDocumentation().getSections();
+        assertEquals(1, sections.size());
+        assertEquals("""
+            ## Container
+                           
+            Content...""", sections.iterator().next().getContent());
+
+        sections = component.getDocumentation().getSections();
+        assertEquals(1, sections.size());
+        assertEquals("""
+            ## Component
+                           
+            Content...""", sections.iterator().next().getContent());
+
         assertEquals(1, component.getDocumentation().getSections().size());
     }
 

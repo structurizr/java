@@ -1,17 +1,17 @@
 workspace {
 
-    !docs docs com.structurizr.example.ExampleDocumentationImporter
+    !docs docs/workspace com.structurizr.example.ExampleDocumentationImporter
 
     model {
         user = person "User"
         softwareSystem = softwareSystem "Software System" {
-            !docs docs
+            !docs docs/softwaresystem
 
             container "Container" {
-                !docs docs
+                !docs docs/softwaresystem/container
 
                 component "Component" {
-                    !docs docs
+                    !docs docs/softwaresystem/container/component/1.md
                 }
             }
         }
