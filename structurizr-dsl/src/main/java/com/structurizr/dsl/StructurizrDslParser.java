@@ -248,6 +248,10 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                             for (IncludedFile includedFile : context.getFiles()) {
                                 List<String> paddedLines = new ArrayList<>();
                                 for (String unpaddedLine : includedFile.getLines()) {
+                                    if (unpaddedLine.startsWith(BOM)) {
+                                        // this caters for files encoded as "UTF-8 with BOM"
+                                        unpaddedLine = unpaddedLine.substring(1);
+                                    }
                                     paddedLines.add(leadingSpace + unpaddedLine);
                                 }
 

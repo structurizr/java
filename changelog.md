@@ -1,5 +1,9 @@
 # Changelog
 
+## unreleased
+
+- structurizr-dsl: Fixes https://github.com/structurizr/java/issues/312 (!include doesn't work with files encoded as UTF-8 BOM).
+
 ## 2.2.0 (2nd July 2024)
 
 - structurizr-dsl: Adds support for element/relationship property expressions (https://github.com/structurizr/java/issues/297).
