@@ -132,7 +132,7 @@ public final class RelationshipView implements Comparable<RelationshipView> {
      *
      * @param order     the order, as a String
      */
-    void setOrder(String order) {
+    public void setOrder(String order) {
         this.order = order;
     }
 

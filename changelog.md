@@ -3,6 +3,7 @@
 ## unreleased
 
 - structurizr-dsl: Fixes https://github.com/structurizr/java/issues/312 (!include doesn't work with files encoded as UTF-8 BOM).
+- structurizr-dsl: Adds a way to explicitly specify the order of relationships in dynamic views.
 
 ## 2.2.0 (2nd July 2024)
 

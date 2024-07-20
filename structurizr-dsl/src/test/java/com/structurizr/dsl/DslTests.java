@@ -11,10 +11,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Base64;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -864,6 +861,17 @@ class DslTests extends AbstractTests {
     void test_dynamicViewWithCustomElements() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
         parser.parse(new File("src/test/resources/dsl/dynamic-view-with-custom-elements.dsl"));
+    }
+
+    @Test
+    void test_dynamicViewWithExplicitOrdering() throws Exception {
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(new File("src/test/resources/dsl/dynamic-view-with-explicit-ordering.dsl"));
+        DynamicView view = parser.getWorkspace().getViews().getDynamicViews().iterator().next();
+        Set<RelationshipView> relationships = view.getRelationships();
+        Iterator<RelationshipView> it = relationships.iterator();
+        assertEquals("2", it.next().getOrder());
+        assertEquals("3", it.next().getOrder());
     }
 
     @Test

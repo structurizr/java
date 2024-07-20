@@ -4,13 +4,16 @@ import com.structurizr.model.CustomElement;
 import com.structurizr.model.Element;
 import com.structurizr.model.Relationship;
 import com.structurizr.model.StaticStructureElement;
+import com.structurizr.util.StringUtils;
 import com.structurizr.view.DynamicView;
 import com.structurizr.view.RelationshipView;
 
 final class DynamicViewContentParser extends AbstractParser {
 
-    private static final String GRAMMAR_1 = "<identifier> -> <identifier> [description] [technology]";
-    private static final String GRAMMAR_2 = "<identifier> [description]";
+    private static final String GRAMMAR_1 = "[order:] <identifier> -> <identifier> [description] [technology]";
+    private static final String GRAMMAR_2 = "[order:] <identifier> [description]";
+
+    private static final String ORDER_DELIMITER = ":";
 
     private static final int SOURCE_IDENTIFIER_INDEX = 0;
     private static final int RELATIONSHIP_TOKEN_INDEX = 1;
@@ -22,6 +25,15 @@ final class DynamicViewContentParser extends AbstractParser {
 
     RelationshipView parseRelationship(DynamicViewDslContext context, Tokens tokens) {
         DynamicView view = context.getView();
+        RelationshipView relationshipView = null;
+        String order = null;
+
+        if (tokens.size() > 0 && tokens.get(0).endsWith(ORDER_DELIMITER)) {
+            // the optional [order:] token
+            order = tokens.get(0);
+            order = order.substring(0, order.length()-ORDER_DELIMITER.length());
+            tokens.remove(0);
+        }
 
         if (tokens.size() > 1 && StructurizrDslTokens.RELATIONSHIP_TOKEN.equals(tokens.get(RELATIONSHIP_TOKEN_INDEX))) {
             // <element identifier> -> <element identifier> [description] [technology]
@@ -65,16 +77,16 @@ final class DynamicViewContentParser extends AbstractParser {
             }
 
             if (sourceElement instanceof StaticStructureElement && destinationElement instanceof StaticStructureElement) {
-                return view.add((StaticStructureElement) sourceElement, description, technology, (StaticStructureElement) destinationElement);
+                relationshipView = view.add((StaticStructureElement) sourceElement, description, technology, (StaticStructureElement) destinationElement);
             } else if (sourceElement instanceof StaticStructureElement && destinationElement instanceof CustomElement) {
-                return view.add((StaticStructureElement) sourceElement, description, technology, (CustomElement) destinationElement);
+                relationshipView = view.add((StaticStructureElement) sourceElement, description, technology, (CustomElement) destinationElement);
             } else if (sourceElement instanceof CustomElement && destinationElement instanceof StaticStructureElement) {
-                return view.add((CustomElement) sourceElement, description, technology, (StaticStructureElement) destinationElement);
+                relationshipView = view.add((CustomElement) sourceElement, description, technology, (StaticStructureElement) destinationElement);
             } else if (sourceElement instanceof CustomElement && destinationElement instanceof CustomElement) {
-                return view.add((CustomElement) sourceElement, description, technology, (CustomElement) destinationElement);
+                relationshipView = view.add((CustomElement) sourceElement, description, technology, (CustomElement) destinationElement);
             }
         } else {
-            // <relationship identifier> [description] [technology]
+            // [order] <relationship identifier> [description] [technology]
             String relationshipId = tokens.get(RELATIONSHIP_IDENTIFIER_INDEX);
             Relationship relationship = context.getRelationship(relationshipId);
 
@@ -91,7 +103,15 @@ final class DynamicViewContentParser extends AbstractParser {
                 description = tokens.get(RELATIONSHIP_IDENTIFIER_INDEX+1);
             }
 
-            return view.add(relationship, description);
+            relationshipView = view.add(relationship, description);
+        }
+
+        if (relationshipView != null) {
+            if (!StringUtils.isNullOrEmpty(order)) {
+                relationshipView.setOrder(order);
+            }
+
+            return relationshipView;
         }
 
         throw new RuntimeException("The specified relationship could not be added");

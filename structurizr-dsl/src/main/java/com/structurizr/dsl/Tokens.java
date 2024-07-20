@@ -14,6 +14,10 @@ final class Tokens {
         return tokens.get(index).trim().replaceAll("\\\\\"", "\"").trim().replaceAll("\\\\n", "\n");
     }
 
+    void remove(int index) {
+        tokens.remove(index);
+    }
+
     int size() {
         return tokens.size();
     }
