@@ -1,10 +1,7 @@
 dependencies {
 
-    api 'com.fasterxml.jackson.core:jackson-annotations:2.16.0'
-    api 'com.google.code.findbugs:jsr305:3.0.2'
-    api 'commons-logging:commons-logging:1.2'
-
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
-    testImplementation 'org.assertj:assertj-core:3.24.2'
+    api libs.jackson.annotations
+    api libs.jsr305
+    api libs.commons.logging
 
 }
