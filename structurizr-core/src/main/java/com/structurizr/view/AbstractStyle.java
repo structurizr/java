@@ -2,6 +2,7 @@ package com.structurizr.view;
 
 import com.structurizr.PropertyHolder;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public abstract class AbstractStyle implements PropertyHolder {
      * @return  a Map (String, String) (empty if there are no properties)
      */
     public Map<String, String> getProperties() {
-        return new HashMap<>(properties);
+        return Collections.unmodifiableMap(properties);
     }
 
     /**

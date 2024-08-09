@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonSetter;
 import com.structurizr.PropertyHolder;
 import com.structurizr.util.Url;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Configuration associated with how information in the workspace is rendered.
@@ -203,7 +200,7 @@ public final class Configuration implements PropertyHolder {
      * @return  a Map (String, String) (empty if there are no properties)
      */
     public Map<String, String> getProperties() {
-        return new HashMap<>(properties);
+        return Collections.unmodifiableMap(properties);
     }
 
     /**

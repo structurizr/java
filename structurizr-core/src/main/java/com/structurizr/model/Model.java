@@ -1022,7 +1022,7 @@ public final class Model implements PropertyHolder {
      * @return  a Map (String, String) (empty if there are no properties)
      */
     public Map<String, String> getProperties() {
-        return new HashMap<>(properties);
+        return Collections.unmodifiableMap(properties);
     }
 
     /**

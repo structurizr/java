@@ -3,6 +3,7 @@ package com.structurizr;
 import com.structurizr.configuration.WorkspaceConfiguration;
 
 import java.lang.reflect.Constructor;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -237,7 +238,7 @@ public abstract class AbstractWorkspace implements PropertyHolder {
      * @return  a Map (String, String) (empty if there are no properties)
      */
     public Map<String, String> getProperties() {
-        return new HashMap<>(properties);
+        return Collections.unmodifiableMap(properties);
     }
 
     /**
