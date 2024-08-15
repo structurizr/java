@@ -237,6 +237,9 @@ workspace "Name" "Description" {
             user -> homePageController "Requests via web browser"
             homePageController -> user {
                 url "https://structurizr.com"
+                properties {
+                    "Name" "Value"
+                }
             }
 
             autoLayout

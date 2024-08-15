@@ -2,6 +2,7 @@ package com.structurizr.view;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.structurizr.PropertyHolder;
 import com.structurizr.model.Relationship;
 import com.structurizr.util.StringUtils;
 import com.structurizr.util.Url;
@@ -11,7 +12,7 @@ import java.util.*;
 /**
  * This class represents an instance of a Relationship on a View.
  */
-public final class RelationshipView implements Comparable<RelationshipView> {
+public final class RelationshipView implements PropertyHolder, Comparable<RelationshipView> {
 
     private static final int START_OF_LINE = 0;
     private static final int END_OF_LINE = 100;
@@ -19,6 +20,7 @@ public final class RelationshipView implements Comparable<RelationshipView> {
     private Relationship relationship;
     private String id;
     private String description;
+    private Map<String, String> properties = new HashMap<>();
     private String url;
     private String order;
     private Boolean response;
@@ -85,6 +87,39 @@ public final class RelationshipView implements Comparable<RelationshipView> {
      */
     void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * Gets the collection of name-value property pairs associated with this relationship view, as a Map.
+     *
+     * @return  a Map (String, String) (empty if there are no properties)
+     */
+    public Map<String, String> getProperties() {
+        return Collections.unmodifiableMap(properties);
+    }
+
+    /**
+     * Adds a name-value pair property to this relationship view.
+     *
+     * @param name      the name of the property
+     * @param value     the value of the property
+     */
+    public void addProperty(String name, String value) {
+        if (name == null || name.trim().length() == 0) {
+            throw new IllegalArgumentException("A property name must be specified.");
+        }
+
+        if (value == null || value.trim().length() == 0) {
+            throw new IllegalArgumentException("A property value must be specified.");
+        }
+
+        properties.put(name, value);
+    }
+
+    void setProperties(Map<String, String> properties) {
+        if (properties != null) {
+            this.properties = new HashMap<>(properties);
+        }
     }
 
     /**
