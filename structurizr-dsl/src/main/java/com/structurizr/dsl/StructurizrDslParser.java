@@ -1062,6 +1062,10 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         relationship.addProperty(STRUCTURIZR_DSL_IDENTIFIER_PROPERTY_NAME, identifiersRegister.findIdentifier(relationship));
     }
 
+    public String getConstant(String name) {
+        return constantsAndVariables.get(name).getValue();
+    }
+
     private boolean inContext(Class clazz) {
         if (contextStack.empty()) {
             return false;
