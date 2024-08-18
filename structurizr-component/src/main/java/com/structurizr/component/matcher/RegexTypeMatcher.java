@@ -40,4 +40,11 @@ public class RegexTypeMatcher extends AbstractTypeMatcher {
         }
     }
 
+    @Override
+    public String toString() {
+        return "RegexTypeMatcher{" +
+                "regex=" + regex +
+                '}';
+    }
+
 }

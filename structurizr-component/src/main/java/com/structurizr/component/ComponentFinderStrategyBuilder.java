@@ -4,6 +4,7 @@ import com.structurizr.component.filter.DefaultTypeFilter;
 import com.structurizr.component.filter.TypeFilter;
 import com.structurizr.component.matcher.TypeMatcher;
 import com.structurizr.component.naming.DefaultNamingStrategy;
+import com.structurizr.component.naming.SimpleNamingStrategy;
 import com.structurizr.component.naming.NamingStrategy;
 import com.structurizr.component.supporting.DefaultSupportingTypesStrategy;
 import com.structurizr.component.supporting.SupportingTypesStrategy;

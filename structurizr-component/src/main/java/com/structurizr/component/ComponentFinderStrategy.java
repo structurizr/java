@@ -8,6 +8,7 @@ import com.structurizr.component.visitor.ComponentVisitor;
 import com.structurizr.model.Component;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -36,7 +37,7 @@ class ComponentFinderStrategy {
     }
 
     Set<DiscoveredComponent> findComponents(TypeRepository typeRepository) {
-        Set<DiscoveredComponent> components = new HashSet<>();
+        Set<DiscoveredComponent> components = new LinkedHashSet<>();
 
         Set<Type> types = typeRepository.getTypes();
         for (Type type : types) {
@@ -58,6 +59,14 @@ class ComponentFinderStrategy {
 
     void visit(Component component) {
         this.componentVisitor.visit(component);
+    }
+
+    @Override
+    public String toString() {
+        return "ComponentFinderStrategy{" +
+                "typeMatcher=" + typeMatcher +
+                ", typeFilter=" + typeFilter +
+                '}';
     }
 
 }

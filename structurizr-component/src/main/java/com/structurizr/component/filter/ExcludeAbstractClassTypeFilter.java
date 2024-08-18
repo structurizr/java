@@ -11,4 +11,9 @@ public class ExcludeAbstractClassTypeFilter implements TypeFilter {
         return !type.isAbstract();
     }
 
+    @Override
+    public String toString() {
+        return "ExcludeAbstractClassTypeFilter{}";
+    }
+
 }

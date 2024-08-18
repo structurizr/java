@@ -45,4 +45,11 @@ public class AnnotationTypeMatcher extends AbstractTypeMatcher {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "AnnotationTypeMatcher{" +
+                "annotationType='" + annotationType + '\'' +
+                '}';
+    }
+
 }

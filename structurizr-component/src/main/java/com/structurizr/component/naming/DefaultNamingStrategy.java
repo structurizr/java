@@ -3,12 +3,15 @@ package com.structurizr.component.naming;
 import com.structurizr.component.Type;
 
 /**
- * Uses the simple/short name of the type (i.e. without the package name).
+ * Uses Apache commons-lang to split a camel/Pascal cased name into separate words
+ * (e.g. "CustomerRepository" -> "Customer Repository").
  */
 public class DefaultNamingStrategy implements NamingStrategy {
 
+    @Override
     public String nameOf(Type type) {
-        return type.getName();
+        String[] parts = org.apache.commons.lang3.StringUtils.splitByCharacterTypeCamelCase(type.getName());
+        return String.join(" ", parts);
     }
 
 }

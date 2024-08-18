@@ -4,7 +4,7 @@ import com.structurizr.Workspace;
 import com.structurizr.component.ComponentFinderBuilder;
 import com.structurizr.component.ComponentFinderStrategyBuilder;
 import com.structurizr.component.matcher.NameSuffixTypeMatcher;
-import com.structurizr.component.naming.CommonsLangCamelCaseNamingStrategy;
+import com.structurizr.component.naming.DefaultNamingStrategy;
 import com.structurizr.model.*;
 
 public class Example {
@@ -25,14 +25,12 @@ public class Example {
                 .withStrategy(
                         new ComponentFinderStrategyBuilder()
                                 .matchedBy(new NameSuffixTypeMatcher("Controller", "Web MVC Controller"))
-                                .namedBy(new CommonsLangCamelCaseNamingStrategy())
                                 .forEach(component -> user.uses(component, "Uses"))
                                 .build()
                 )
                 .withStrategy(
                         new ComponentFinderStrategyBuilder()
                                 .matchedBy(new NameSuffixTypeMatcher("Repository", "Data Repository"))
-                                .namedBy(new CommonsLangCamelCaseNamingStrategy())
                                 .forEach(component -> component.uses(databaseSchema, "Reads from and writes to"))
                                 .build()
                 )

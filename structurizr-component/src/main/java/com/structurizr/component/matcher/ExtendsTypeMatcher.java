@@ -37,4 +37,11 @@ public class ExtendsTypeMatcher extends AbstractTypeMatcher {
         return false;
     }
 
+    @Override
+    public String toString() {
+        return "ExtendsTypeMatcher{" +
+                "className='" + className + '\'' +
+                '}';
+    }
+
 }

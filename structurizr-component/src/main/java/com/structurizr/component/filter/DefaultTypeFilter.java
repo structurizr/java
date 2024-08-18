@@ -11,4 +11,9 @@ public class DefaultTypeFilter implements TypeFilter {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "DefaultTypeFilter{}";
+    }
+
 }

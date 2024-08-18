@@ -24,4 +24,11 @@ public class NameSuffixTypeMatcher extends AbstractTypeMatcher {
         return type.getFullyQualifiedName().endsWith(suffix);
     }
 
+    @Override
+    public String toString() {
+        return "NameSuffixTypeMatcher{" +
+                "suffix='" + suffix + '\'' +
+                '}';
+    }
+
 }

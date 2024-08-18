@@ -29,4 +29,11 @@ public class ImplementsTypeMatcher extends AbstractTypeMatcher {
         return interfaceNames.contains(interfaceName);
     }
 
+    @Override
+    public String toString() {
+        return "ImplementsTypeMatcher{" +
+                "interfaceName='" + interfaceName + '\'' +
+                '}';
+    }
+
 }

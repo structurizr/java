@@ -8,6 +8,8 @@ import org.apache.bcel.Repository;
 import org.apache.bcel.classfile.ConstantPool;
 import org.apache.bcel.classfile.Method;
 import org.apache.bcel.generic.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.*;
 
@@ -16,6 +18,8 @@ import java.util.*;
  * Use the {@link ComponentFinderBuilder} to create an instance of this class.
  */
 public final class ComponentFinder {
+
+    private static final Log log = LogFactory.getLog(ComponentFinder.class);
 
     private static final String COMPONENT_TYPE_PROPERTY_NAME = "component.type";
     private static final String COMPONENT_SOURCE_PROPERTY_NAME = "component.src";
@@ -96,11 +100,15 @@ public final class ComponentFinder {
      * Find components, using all configured rules, in the order they were added.
      */
     public void findComponents() {
-        Set<DiscoveredComponent> discoveredComponents = new HashSet<>();
+        Set<DiscoveredComponent> discoveredComponents = new LinkedHashSet<>();
         Map<DiscoveredComponent, Component> componentMap = new HashMap<>();
 
         for (ComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {
-            discoveredComponents.addAll(componentFinderStrategy.findComponents(typeRepository));
+            Set<DiscoveredComponent> set = componentFinderStrategy.findComponents(typeRepository);
+            if (set.isEmpty()) {
+                throw new RuntimeException("No components were found by " + componentFinderStrategy);
+            }
+            discoveredComponents.addAll(set);
         }
 
         for (DiscoveredComponent discoveredComponent : discoveredComponents) {
