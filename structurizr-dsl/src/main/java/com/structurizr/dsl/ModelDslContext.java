@@ -1,7 +1,5 @@
 package com.structurizr.dsl;
 
-import com.structurizr.model.Location;
-
 final class ModelDslContext extends GroupableDslContext {
 
     ModelDslContext() {
