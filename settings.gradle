@@ -1,9 +1,10 @@
 rootProject.name = 'structurizr-java'
 
-include 'structurizr-inspection'
+include 'structurizr-autolayout'
 include 'structurizr-client'
+include 'structurizr-component'
 include 'structurizr-core'
 include 'structurizr-dsl'
 include 'structurizr-export'
-include 'structurizr-autolayout'
 include 'structurizr-import'
+include 'structurizr-inspection'
