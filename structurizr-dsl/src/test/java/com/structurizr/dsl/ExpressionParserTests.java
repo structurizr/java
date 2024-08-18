@@ -10,9 +10,9 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AbstractExpressionParserTests extends AbstractTests {
+class ExpressionParserTests extends AbstractTests {
 
-    private final StaticViewExpressionParser parser = new StaticViewExpressionParser();
+    private final ExpressionParser parser = new ExpressionParser();
 
     @Test
     void test_parseExpression_ThrowsAnException_WhenTheRelationshipSourceIsSpecifiedUsingLongSyntaxButDoesNotExist() {
@@ -394,6 +394,32 @@ class AbstractExpressionParserTests extends AbstractTests {
         assertEquals(2, elements.size());
         assertTrue(elements.contains(ss)); // this is tagged "Software System"
         assertTrue(elements.contains(ssi)); // this is not tagged "Software System", but the element it's based upon is
+    }
+
+    @Test
+    void test_parseExpression_ReturnsElementsAndElementInstances_WhenUsingAnElementTechnologyEqualsExpression() {
+        model.addPerson("User");
+        SoftwareSystem ss = model.addSoftwareSystem("Software System");
+        Container c = ss.addContainer("Container");
+        c.setTechnology("Java");
+        DeploymentNode dn = model.addDeploymentNode("DN");
+        dn.setTechnology("EC2");
+        InfrastructureNode in = dn.addInfrastructureNode("Infrastructure Node");
+        in.setTechnology("ELB");
+        ContainerInstance ci = dn.add(c);
+
+        Set<ModelItem> elements = parser.parseExpression("element.technology==Java", context());
+        assertEquals(2, elements.size());
+        assertTrue(elements.contains(c)); // this has a technology property of "Java"
+        assertTrue(elements.contains(ci)); // this has no technology property, but the element it's based upon is
+
+        elements = parser.parseExpression("element.technology==EC2", context());
+        assertEquals(1, elements.size());
+        assertTrue(elements.contains(dn));
+
+        elements = parser.parseExpression("element.technology==ELB", context());
+        assertEquals(1, elements.size());
+        assertTrue(elements.contains(in));
     }
 
     @Test

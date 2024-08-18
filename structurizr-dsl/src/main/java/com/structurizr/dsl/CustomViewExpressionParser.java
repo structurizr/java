@@ -8,7 +8,7 @@ import java.util.Set;
 
 import static com.structurizr.dsl.StructurizrDslExpressions.ELEMENT_TYPE_EQUALS_EXPRESSION;
 
-final class CustomViewExpressionParser extends AbstractExpressionParser {
+final class CustomViewExpressionParser extends ExpressionParser {
 
     @Override
     protected Set<Element> evaluateElementTypeExpression(String expr, DslContext context) {

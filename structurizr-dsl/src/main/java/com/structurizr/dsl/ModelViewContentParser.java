@@ -9,7 +9,7 @@ abstract class ModelViewContentParser extends AbstractParser {
     protected static final String ELEMENT_WILDCARD = "element==*";
 
     protected boolean isExpression(String token) {
-        return AbstractExpressionParser.isExpression(token.toLowerCase());
+        return ExpressionParser.isExpression(token.toLowerCase());
     }
 
     protected void removeRelationshipFromView(Relationship relationship, ModelView view) {

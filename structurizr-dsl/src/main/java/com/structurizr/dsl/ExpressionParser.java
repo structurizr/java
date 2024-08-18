@@ -1,9 +1,6 @@
 package com.structurizr.dsl;
 
-import com.structurizr.model.Element;
-import com.structurizr.model.ModelItem;
-import com.structurizr.model.Relationship;
-import com.structurizr.model.StaticStructureElementInstance;
+import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
 
 import java.util.HashSet;
@@ -13,7 +10,7 @@ import java.util.stream.Collectors;
 
 import static com.structurizr.dsl.StructurizrDslExpressions.*;
 
-abstract class AbstractExpressionParser {
+class ExpressionParser {
 
     private static final String WILDCARD = "*";
 
@@ -24,6 +21,8 @@ abstract class AbstractExpressionParser {
                 token.startsWith(ELEMENT_TYPE_EQUALS_EXPRESSION.toLowerCase()) ||
                         token.startsWith(ELEMENT_TAG_EQUALS_EXPRESSION.toLowerCase()) ||
                         token.startsWith(ELEMENT_TAG_NOT_EQUALS_EXPRESSION.toLowerCase()) ||
+                        token.startsWith(ELEMENT_TECHNOLOGY_EQUALS_EXPRESSION.toLowerCase()) ||
+                        token.startsWith(ELEMENT_TECHNOLOGY_NOT_EQUALS_EXPRESSION.toLowerCase()) ||
                         token.matches(ELEMENT_PROPERTY_EQUALS_EXPRESSION) ||
                         token.startsWith(ELEMENT_PARENT_EQUALS_EXPRESSION.toLowerCase()) ||
                         token.startsWith(RELATIONSHIP) || token.endsWith(RELATIONSHIP) || token.contains(RELATIONSHIP) ||
@@ -52,10 +51,10 @@ abstract class AbstractExpressionParser {
             Set<ModelItem> modelItems1 = evaluateExpression(expressions[0], context);
             Set<ModelItem> modelItems2 = evaluateExpression(expressions[1], context);
 
-            Set<ModelItem> elements = new HashSet<>(modelItems1);
-            elements.addAll(modelItems2);
+            Set<ModelItem> modelItems = new HashSet<>(modelItems1);
+            modelItems.addAll(modelItems2);
 
-            return elements;
+            return modelItems;
         } else {
             return evaluateExpression(expr, context);
         }
@@ -171,6 +170,20 @@ abstract class AbstractExpressionParser {
                     modelItems.add(element);
                 }
             });
+        } else if (expr.toLowerCase().startsWith(ELEMENT_TECHNOLOGY_EQUALS_EXPRESSION.toLowerCase())) {
+            String technology = expr.substring(ELEMENT_TECHNOLOGY_EQUALS_EXPRESSION.length());
+            modelItems.addAll(context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof Container).map(e -> (Container)e).filter(c -> technology.equals(c.getTechnology())).collect(Collectors.toSet()));
+            modelItems.addAll(context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof Component).map(e -> (Component)e).filter(c -> technology.equals(c.getTechnology())).collect(Collectors.toSet()));
+            modelItems.addAll(context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof DeploymentNode).map(e -> (DeploymentNode)e).filter(dn -> technology.equals(dn.getTechnology())).collect(Collectors.toSet()));
+            modelItems.addAll(context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof InfrastructureNode).map(e -> (InfrastructureNode)e).filter(in -> technology.equals(in.getTechnology())).collect(Collectors.toSet()));
+            modelItems.addAll(context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof ContainerInstance).map(e -> (ContainerInstance)e).filter(c -> technology.equals(c.getContainer().getTechnology())).collect(Collectors.toSet()));
+        } else if (expr.toLowerCase().startsWith(ELEMENT_TECHNOLOGY_NOT_EQUALS_EXPRESSION)) {
+            String technology = expr.substring(ELEMENT_TECHNOLOGY_NOT_EQUALS_EXPRESSION.length());
+            modelItems.addAll(context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof Container).map(e -> (Container)e).filter(c -> !technology.equals(c.getTechnology())).collect(Collectors.toSet()));
+            modelItems.addAll(context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof Component).map(e -> (Component)e).filter(c -> !technology.equals(c.getTechnology())).collect(Collectors.toSet()));
+            modelItems.addAll(context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof DeploymentNode).map(e -> (DeploymentNode)e).filter(dn -> !technology.equals(dn.getTechnology())).collect(Collectors.toSet()));
+            modelItems.addAll(context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof InfrastructureNode).map(e -> (InfrastructureNode)e).filter(in -> !technology.equals(in.getTechnology())).collect(Collectors.toSet()));
+            modelItems.addAll(context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof ContainerInstance).map(e -> (ContainerInstance)e).filter(c -> !technology.equals(c.getContainer().getTechnology())).collect(Collectors.toSet()));
         } else if (expr.matches(ELEMENT_PROPERTY_EQUALS_EXPRESSION)) {
             String propertyName = expr.substring(expr.indexOf("[")+1, expr.indexOf("]"));
             String propertyValue = expr.substring(expr.indexOf("==")+2);
@@ -266,7 +279,42 @@ abstract class AbstractExpressionParser {
         return modelItems;
     }
 
-    protected abstract Set<Element> evaluateElementTypeExpression(String expr, DslContext context);
+    protected Set<Element> evaluateElementTypeExpression(String expr, DslContext context) {
+        Set<Element> elements = new LinkedHashSet<>();
+
+        String type = expr.substring(ELEMENT_TYPE_EQUALS_EXPRESSION.length());
+        switch (type.toLowerCase()) {
+            case "custom":
+                context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof CustomElement).forEach(elements::add);
+                break;
+            case "person":
+                context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof Person).forEach(elements::add);
+                break;
+            case "softwaresystem":
+                context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof SoftwareSystem).forEach(elements::add);
+                break;
+            case "container":
+                context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof Container).forEach(elements::add);
+                break;
+            case "component":
+                context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof Component).forEach(elements::add);
+                break;
+            case "deploymentnode":
+                context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof DeploymentNode).forEach(elements::add);
+                break;
+            case "infrastructurenode":
+                context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof InfrastructureNode).forEach(elements::add);
+                break;
+            case "softwaresysteminstance":
+                context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof SoftwareSystemInstance).forEach(elements::add);
+                break;
+            case "containerinstance":
+                context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof ContainerInstance).forEach(elements::add);
+                break;
+        }
+
+        return elements;
+    }
 
     private boolean hasAllTags(ModelItem modelItem, String[] tags) {
         boolean result = true;
@@ -318,7 +366,9 @@ abstract class AbstractExpressionParser {
         return result;
     }
 
-    protected abstract Set<Element> findAfferentCouplings(Element element);
+    protected Set<Element> findAfferentCouplings(Element element) {
+        return new LinkedHashSet<>(findAfferentCouplings(element, Element.class));
+    }
 
     protected <T extends Element> Set<Element> findAfferentCouplings(Element element, Class<T> typeOfElement) {
         Set<Element> elements = new LinkedHashSet<>();
@@ -331,7 +381,9 @@ abstract class AbstractExpressionParser {
         return elements;
     }
 
-    protected abstract Set<Element> findEfferentCouplings(Element element);
+    protected Set<Element> findEfferentCouplings(Element element) {
+        return new LinkedHashSet<>(findEfferentCouplings(element, Element.class));
+    }
 
     protected <T extends Element> Set<Element> findEfferentCouplings(Element element, Class<T> typeOfElement) {
         Set<Element> elements = new LinkedHashSet<>();

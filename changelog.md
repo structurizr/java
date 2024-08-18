@@ -6,6 +6,7 @@
 - structurizr-dsl: Adds name-value properties to dynamic view relationship views.
 - structurizr-dsl: Fixes https://github.com/structurizr/java/issues/312 (!include doesn't work with files encoded as UTF-8 BOM).
 - structurizr-dsl: Adds a way to explicitly specify the order of relationships in dynamic views.
+- structurizr-dsl: Adds support for element technology expressions (e.g. "element.technology==Java").
 
 ## 2.2.0 (2nd July 2024)
 
