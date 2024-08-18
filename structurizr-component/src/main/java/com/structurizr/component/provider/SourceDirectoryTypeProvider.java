@@ -17,19 +17,19 @@ import java.util.Set;
 /**
  * A type provider that uses JavaParser to read Javadoc comments from source code.
  */
-public final class SourceCodeTypeProvider implements TypeProvider {
+public final class SourceDirectoryTypeProvider implements TypeProvider {
 
-    private static final Log log = LogFactory.getLog(SourceCodeTypeProvider.class);
+    private static final Log log = LogFactory.getLog(SourceDirectoryTypeProvider.class);
     private static final String JAVA_FILE_EXTENSION = ".java";
     private static final int DEFAULT_DESCRIPTION_LENGTH = 60;
 
     private final Set<Type> types = new HashSet<>();
 
-    public SourceCodeTypeProvider(File path) {
+    public SourceDirectoryTypeProvider(File path) {
         this(path, DEFAULT_DESCRIPTION_LENGTH);
     }
 
-    public SourceCodeTypeProvider(File path, int maximumDescriptionLength) {
+    public SourceDirectoryTypeProvider(File path, int maximumDescriptionLength) {
         StaticJavaParser.getParserConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_21);
 
         parse(path, maximumDescriptionLength);

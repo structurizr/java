@@ -19,8 +19,8 @@ public class Example {
 
         new ComponentFinderBuilder()
                 .forContainer(container)
-                .fromDirectory("structurizr-component/build/classes/java/test")
-                .fromSourceCode("structurizr-component/src/test/java")
+                .fromClasses("structurizr-component/build/classes/java/test")
+                .fromSource("structurizr-component/src/test/java")
                 .withStrategy(
                         new ComponentFinderStrategyBuilder()
                                 .matchedBy(new NameSuffixTypeMatcher("Controller", "Web MVC Controller"))

@@ -1,8 +1,8 @@
 package com.structurizr.component;
 
-import com.structurizr.component.provider.DirectoryTypeProvider;
-import com.structurizr.component.provider.JarFileTypeProvider;
-import com.structurizr.component.provider.SourceCodeTypeProvider;
+import com.structurizr.component.provider.ClassDirectoryTypeProvider;
+import com.structurizr.component.provider.ClassJarFileTypeProvider;
+import com.structurizr.component.provider.SourceDirectoryTypeProvider;
 import com.structurizr.component.provider.TypeProvider;
 import com.structurizr.model.Container;
 
@@ -15,6 +15,8 @@ import java.util.List;
  */
 public class ComponentFinderBuilder {
 
+    private static final String JAR_FILE_EXTENSION = ".jar";
+
     private Container container;
     private final List<TypeProvider> typeProviders = new ArrayList<>();
     private final List<ComponentFinderStrategy> componentFinderStrategies = new ArrayList<>();
@@ -25,32 +27,32 @@ public class ComponentFinderBuilder {
         return this;
     }
 
-    public ComponentFinderBuilder fromJarFile(String filename) {
-        return fromJarFile(new File(filename));
+    public ComponentFinderBuilder fromClasses(String path) {
+        return fromClasses(new File(path));
     }
 
-    public ComponentFinderBuilder fromJarFile(File file) {
-        this.typeProviders.add(new JarFileTypeProvider(file));
+    public ComponentFinderBuilder fromClasses(File path) {
+        if (!path.exists()) {
+            throw new IllegalArgumentException(path.getAbsolutePath() + " does not exist");
+        }
+
+        if (path.isDirectory()) {
+            this.typeProviders.add(new ClassDirectoryTypeProvider(path));
+        } else if (path.getName().endsWith(JAR_FILE_EXTENSION)) {
+            this.typeProviders.add(new ClassJarFileTypeProvider(path));
+        } else {
+            throw new IllegalArgumentException("Expected a directory of classes or a .jar file: " + path.getAbsolutePath());
+        }
 
         return this;
     }
 
-    public ComponentFinderBuilder fromDirectory(String path) {
-        return fromDirectory(new File(path));
+    public ComponentFinderBuilder fromSource(String path) {
+        return fromSource(new File(path));
     }
 
-    public ComponentFinderBuilder fromDirectory(File path) {
-        this.typeProviders.add(new DirectoryTypeProvider(path));
-
-        return this;
-    }
-
-    public ComponentFinderBuilder fromSourceCode(String path) {
-        return fromSourceCode(new File(path));
-    }
-
-    public ComponentFinderBuilder fromSourceCode(File path) {
-        this.typeProviders.add(new SourceCodeTypeProvider(path));
+    public ComponentFinderBuilder fromSource(File path) {
+        this.typeProviders.add(new SourceDirectoryTypeProvider(path));
 
         return this;
     }

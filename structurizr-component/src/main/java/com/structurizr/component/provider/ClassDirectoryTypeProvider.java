@@ -14,14 +14,14 @@ import java.util.Set;
 /**
  * A type repository that uses Apache Commons BCEL to load Java classes from a local directory.
  */
-public final class DirectoryTypeProvider implements TypeProvider {
+public final class ClassDirectoryTypeProvider implements TypeProvider {
 
-    private static final Log log = LogFactory.getLog(DirectoryTypeProvider.class);
+    private static final Log log = LogFactory.getLog(ClassDirectoryTypeProvider.class);
     private static final String CLASS_FILE_EXTENSION = ".class";
 
     private final File directory;
 
-    public DirectoryTypeProvider(File directory) {
+    public ClassDirectoryTypeProvider(File directory) {
         this.directory = directory;
     }
 

@@ -16,14 +16,14 @@ import java.util.jar.JarEntry;
 /**
  * A type repository that uses Apache Commons BCEL to load Java classes from a local JAR file.
  */
-public final class JarFileTypeProvider implements TypeProvider {
+public final class ClassJarFileTypeProvider implements TypeProvider {
 
-    private static final Log log = LogFactory.getLog(JarFileTypeProvider.class);
+    private static final Log log = LogFactory.getLog(ClassJarFileTypeProvider.class);
     private static final String CLASS_FILE_EXTENSION = ".class";
 
     private final File jarFile;
 
-    public JarFileTypeProvider(File file) {
+    public ClassJarFileTypeProvider(File file) {
         this.jarFile = file;
     }
 
