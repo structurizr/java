@@ -4,6 +4,8 @@ import com.structurizr.component.filter.TypeFilter;
 import com.structurizr.component.matcher.TypeMatcher;
 import com.structurizr.component.naming.NamingStrategy;
 import com.structurizr.component.supporting.SupportingTypesStrategy;
+import com.structurizr.component.visitor.ComponentVisitor;
+import com.structurizr.model.Component;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -23,12 +25,14 @@ class ComponentFinderStrategy {
     private final TypeFilter typeFilter;
     private final SupportingTypesStrategy supportingTypesStrategy;
     private final NamingStrategy namingStrategy;
+    private final ComponentVisitor componentVisitor;
 
-    ComponentFinderStrategy(TypeMatcher typeMatcher, TypeFilter typeFilter, SupportingTypesStrategy supportingTypesStrategy, NamingStrategy namingStrategy) {
+    ComponentFinderStrategy(TypeMatcher typeMatcher, TypeFilter typeFilter, SupportingTypesStrategy supportingTypesStrategy, NamingStrategy namingStrategy, ComponentVisitor componentVisitor) {
         this.typeMatcher = typeMatcher;
         this.typeFilter = typeFilter;
         this.supportingTypesStrategy = supportingTypesStrategy;
         this.namingStrategy = namingStrategy;
+        this.componentVisitor = componentVisitor;
     }
 
     Set<DiscoveredComponent> findComponents(TypeRepository typeRepository) {
@@ -40,6 +44,7 @@ class ComponentFinderStrategy {
                 DiscoveredComponent component = new DiscoveredComponent(namingStrategy.nameOf(type), type);
                 component.setDescription(type.getDescription());
                 component.setTechnology(typeMatcher.getTechnology());
+                component.setComponentFinderStrategy(this);
                 components.add(component);
 
                 // now find supporting types
@@ -49,6 +54,10 @@ class ComponentFinderStrategy {
         }
 
         return components;
+    }
+
+    void visit(Component component) {
+        this.componentVisitor.visit(component);
     }
 
 }

@@ -7,6 +7,8 @@ import com.structurizr.component.naming.DefaultNamingStrategy;
 import com.structurizr.component.naming.NamingStrategy;
 import com.structurizr.component.supporting.DefaultSupportingTypesStrategy;
 import com.structurizr.component.supporting.SupportingTypesStrategy;
+import com.structurizr.component.visitor.ComponentVisitor;
+import com.structurizr.component.visitor.DefaultComponentVisitor;
 
 /**
  * Provides a way to create a {@link ComponentFinderStrategy} instance.
@@ -17,6 +19,7 @@ public final class ComponentFinderStrategyBuilder {
     private TypeFilter typeFilter = new DefaultTypeFilter();
     private SupportingTypesStrategy supportingTypesStrategy = new DefaultSupportingTypesStrategy();
     private NamingStrategy namingStrategy = new DefaultNamingStrategy();
+    private ComponentVisitor componentVisitor = new DefaultComponentVisitor();
 
     public ComponentFinderStrategyBuilder() {
     }
@@ -45,12 +48,18 @@ public final class ComponentFinderStrategyBuilder {
         return this;
     }
 
+    public ComponentFinderStrategyBuilder forEach(ComponentVisitor componentVisitor) {
+        this.componentVisitor = componentVisitor;
+
+        return this;
+    }
+
     public ComponentFinderStrategy build() {
         if (typeMatcher == null) {
             throw new RuntimeException("A type matcher must be specified");
         }
 
-        return new ComponentFinderStrategy(typeMatcher, typeFilter, supportingTypesStrategy, namingStrategy);
+        return new ComponentFinderStrategy(typeMatcher, typeFilter, supportingTypesStrategy, namingStrategy, componentVisitor);
     }
 
 }

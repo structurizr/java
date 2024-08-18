@@ -11,6 +11,8 @@ final class DiscoveredComponent {
     private String technology;
     private final Set<Type> supportingTypes = new HashSet<>();
 
+    private ComponentFinderStrategy componentFinderStrategy;
+
     DiscoveredComponent(String name, Type primaryType) {
         this.name = name;
         this.primaryType = primaryType;
@@ -65,6 +67,14 @@ final class DiscoveredComponent {
         }
 
         return dependencies;
+    }
+
+    ComponentFinderStrategy getComponentFinderStrategy() {
+        return componentFinderStrategy;
+    }
+
+    void setComponentFinderStrategy(ComponentFinderStrategy componentFinderStrategy) {
+        this.componentFinderStrategy = componentFinderStrategy;
     }
 
 }

@@ -128,6 +128,12 @@ public final class ComponentFinder {
                 }
             }
         }
+
+        // now visit all components
+        for (DiscoveredComponent discoveredComponent : componentMap.keySet()) {
+            Component component = componentMap.get(discoveredComponent);
+            discoveredComponent.getComponentFinderStrategy().visit(component);
+        }
     }
 
 }

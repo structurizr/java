@@ -5,45 +5,56 @@ import com.structurizr.component.ComponentFinderBuilder;
 import com.structurizr.component.ComponentFinderStrategyBuilder;
 import com.structurizr.component.matcher.NameSuffixTypeMatcher;
 import com.structurizr.component.naming.CommonsLangCamelCaseNamingStrategy;
-import com.structurizr.model.Component;
-import com.structurizr.model.Container;
-import com.structurizr.model.Relationship;
-import com.structurizr.model.SoftwareSystem;
+import com.structurizr.model.*;
 
 public class Example {
 
     public static void main(String[] args) {
         Workspace workspace = new Workspace("Name", "Description");
+        workspace.getModel().setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
+
+        Person user = workspace.getModel().addPerson("User");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System");
-        Container container = softwareSystem.addContainer("Container");
+        Container webApplication = softwareSystem.addContainer("Web Application");
+        Container databaseSchema = softwareSystem.addContainer("Database Schema");
 
         new ComponentFinderBuilder()
-                .forContainer(container)
+                .forContainer(webApplication)
                 .fromClasses("structurizr-component/build/classes/java/test")
                 .fromSource("structurizr-component/src/test/java")
                 .withStrategy(
                         new ComponentFinderStrategyBuilder()
                                 .matchedBy(new NameSuffixTypeMatcher("Controller", "Web MVC Controller"))
                                 .namedBy(new CommonsLangCamelCaseNamingStrategy())
+                                .forEach(component -> user.uses(component, "Uses"))
                                 .build()
                 )
                 .withStrategy(
                         new ComponentFinderStrategyBuilder()
                                 .matchedBy(new NameSuffixTypeMatcher("Repository", "Data Repository"))
                                 .namedBy(new CommonsLangCamelCaseNamingStrategy())
+                                .forEach(component -> component.uses(databaseSchema, "Reads from and writes to"))
                                 .build()
                 )
                 .build().findComponents();
 
-        for (Component component : container.getComponents()) {
-            System.out.println(component.getName());
-            System.out.println(" - Description: " + component.getDescription());
+        for (Element element : workspace.getModel().getElements()) {
+            print(element);
+        }
+    }
+
+    private static void print(Element element) {
+        System.out.println("[" + element.getClass().getSimpleName() + "] " + element.getName());
+        System.out.println(" - Description: " + element.getDescription());
+
+        if (element instanceof Component component) {
             System.out.println(" - Technology: " + component.getTechnology());
-            System.out.println(" - Type: " + component.getProperties().get("component.type"));
-            System.out.println(" - Source: " + component.getProperties().get("component.src"));
-            for (Relationship relationship : component.getRelationships()) {
-                System.out.println(" -> " + relationship.getDestination().getName());
-            }
+            System.out.println(" - Type: " + element.getProperties().get("component.type"));
+            System.out.println(" - Source: " + element.getProperties().get("component.src"));
+        }
+
+        for (Relationship relationship : element.getRelationships()) {
+            System.out.println(" -> [" + relationship.getDestination().getClass().getSimpleName() + "] " + relationship.getDestination().getName());
         }
     }
 
