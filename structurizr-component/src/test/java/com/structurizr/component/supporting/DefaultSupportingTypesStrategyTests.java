@@ -14,7 +14,7 @@ public class DefaultSupportingTypesStrategyTests {
         Type type = new Type("com.example.a.A");
         type.addDependency(new Type("com.example.a.AImpl"));
 
-        Set<Type> supportingTypes = new DefaultSupportingTypesStrategy().findSupportingTypes(type);
+        Set<Type> supportingTypes = new DefaultSupportingTypesStrategy().findSupportingTypes(type, null);
         assertTrue(supportingTypes.isEmpty());
     }
 

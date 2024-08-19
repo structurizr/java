@@ -3,7 +3,7 @@ package com.structurizr.component;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
-final class TypeRepository {
+public final class TypeRepository {
 
     private final Set<Type> types = new LinkedHashSet<>();
 

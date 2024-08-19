@@ -40,7 +40,7 @@ public class AnnotationTypeMatcher extends AbstractTypeMatcher {
         }
 
         if (type.getJavaClass() == null) {
-            throw new IllegalArgumentException("This type matcher requires a BCEL JavaClass");
+            return false;
         }
 
         AnnotationEntry[] annotationEntries = type.getJavaClass().getAnnotationEntries();

@@ -31,7 +31,7 @@ public class ExtendsTypeMatcher extends AbstractTypeMatcher {
         }
 
         if (type.getJavaClass() == null) {
-            throw new IllegalArgumentException("This type matcher requires a BCEL JavaClass");
+            return false;
         }
 
         JavaClass javaClass = type.getJavaClass();

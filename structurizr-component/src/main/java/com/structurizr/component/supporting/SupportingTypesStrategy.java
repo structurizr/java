@@ -1,6 +1,7 @@
 package com.structurizr.component.supporting;
 
 import com.structurizr.component.Type;
+import com.structurizr.component.TypeRepository;
 
 import java.util.Set;
 
@@ -9,6 +10,6 @@ import java.util.Set;
  */
 public interface SupportingTypesStrategy {
 
-    Set<Type> findSupportingTypes(Type type);
+    Set<Type> findSupportingTypes(Type type, TypeRepository typeRepository);
 
 }

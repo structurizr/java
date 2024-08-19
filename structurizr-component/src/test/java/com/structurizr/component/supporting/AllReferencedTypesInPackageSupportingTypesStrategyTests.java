@@ -8,7 +8,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class AllReferencedTypesInSamePackageSupportingTypesStrategyTests {
+public class AllReferencedTypesInPackageSupportingTypesStrategyTests {
 
     @Test
     void findSupportingTypes() {
@@ -21,7 +21,7 @@ public class AllReferencedTypesInSamePackageSupportingTypesStrategyTests {
 
         type.addDependency(new Type("com.example.util.SomeUtils"));
 
-        Set<Type> supportingTypes = new AllReferencedTypesInSamePackageSupportingTypesStrategy().findSupportingTypes(type);
+        Set<Type> supportingTypes = new AllReferencedTypesInPackageSupportingTypesStrategy().findSupportingTypes(type, null);
         assertEquals(1, supportingTypes.size());
         assertTrue(supportingTypes.contains(dependency1));
     }

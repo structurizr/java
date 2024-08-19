@@ -2,6 +2,8 @@ package com.structurizr.component.provider;
 
 import com.github.javaparser.ParserConfiguration;
 import com.github.javaparser.StaticJavaParser;
+import com.github.javaparser.ast.Node;
+import com.github.javaparser.ast.PackageDeclaration;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.comments.JavadocComment;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
@@ -65,6 +67,28 @@ public final class SourceDirectoryTypeProvider implements TypeProvider {
 
                                 if (n.getComment().isPresent() && n.getComment().get() instanceof JavadocComment) {
                                     JavadocComment javadocComment = (JavadocComment) n.getComment().get();
+                                    String description = javadocComment.parse().getDescription().toText();
+
+                                    type.setDescription(new JavadocCommentFilter(maximumDescriptionLength).filterAndTruncate(description));
+                                }
+                                types.add(type);
+                            }
+                        }
+
+                        @Override
+                        public void visit(PackageDeclaration n, Object arg) {
+                            String PACKAGE_INFO_JAVA_SOURCE = "package-info.java";
+                            String PACKAGE_INFO_SUFFIX = ".package-info";
+
+                            if (path.getName().endsWith(PACKAGE_INFO_JAVA_SOURCE)) {
+                                String fullyQualifiedName = n.getName().asString() + PACKAGE_INFO_SUFFIX;
+
+                                Type type = new Type(fullyQualifiedName);
+                                type.setSource(path.getAbsolutePath());
+
+                                Node rootNode = n.findRootNode();
+                                if (rootNode != null && rootNode.getComment().isPresent() && rootNode.getComment().get() instanceof JavadocComment) {
+                                    JavadocComment javadocComment = (JavadocComment)rootNode.getComment().get();
                                     String description = javadocComment.parse().getDescription().toText();
 
                                     type.setDescription(new JavadocCommentFilter(maximumDescriptionLength).filterAndTruncate(description));

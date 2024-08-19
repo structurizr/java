@@ -21,7 +21,7 @@ public class AllReferencedTypesSupportingTypesStrategyTests {
 
         type.addDependency(new Type("com.example.util.SomeUtils"));
 
-        Set<Type> supportingTypes = new AllReferencedTypesSupportingTypesStrategy().findSupportingTypes(type);
+        Set<Type> supportingTypes = new AllReferencedTypesSupportingTypesStrategy().findSupportingTypes(type, null);
         assertEquals(2, supportingTypes.size());
         assertTrue(supportingTypes.contains(dependency1));
         assertTrue(supportingTypes.contains(dependency2));

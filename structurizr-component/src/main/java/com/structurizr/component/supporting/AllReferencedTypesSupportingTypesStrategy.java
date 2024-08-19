@@ -1,6 +1,7 @@
 package com.structurizr.component.supporting;
 
 import com.structurizr.component.Type;
+import com.structurizr.component.TypeRepository;
 
 import java.util.Set;
 
@@ -10,7 +11,7 @@ import java.util.Set;
 public class AllReferencedTypesSupportingTypesStrategy implements SupportingTypesStrategy {
 
     @Override
-    public Set<Type> findSupportingTypes(Type type) {
+    public Set<Type> findSupportingTypes(Type type, TypeRepository typeRepository) {
         return type.getDependencies();
     }
 

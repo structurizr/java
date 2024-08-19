@@ -34,7 +34,12 @@ public final class ComponentFinder {
         }
 
         this.container = container;
+        this.componentFinderStrategies.addAll(componentFinderStrategies);
 
+        findTypes(typeProviders);
+    }
+
+    private void findTypes(Collection<TypeProvider> typeProviders) {
         for (TypeProvider typeProvider : typeProviders) {
             Set<com.structurizr.component.Type> types = typeProvider.getTypes();
             for (com.structurizr.component.Type type : types) {
@@ -59,8 +64,6 @@ public final class ComponentFinder {
                 findDependencies(type);
             }
         }
-
-        this.componentFinderStrategies.addAll(componentFinderStrategies);
     }
 
     private void findDependencies(com.structurizr.component.Type type) {
