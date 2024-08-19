@@ -49,7 +49,7 @@ class ComponentFinderStrategy {
                 components.add(component);
 
                 // now find supporting types
-                Set<Type> supportingTypes = supportingTypesStrategy.findSupportingTypes(type);
+                Set<Type> supportingTypes = supportingTypesStrategy.findSupportingTypes(type, typeRepository);
                 component.addSupportingTypes(supportingTypes);
             }
         }
