@@ -1,6 +1,7 @@
 package com.structurizr.component.matcher;
 
 import com.structurizr.component.Type;
+import com.structurizr.util.StringUtils;
 
 import java.util.regex.Pattern;
 
@@ -14,30 +15,20 @@ public class RegexTypeMatcher extends AbstractTypeMatcher {
     public RegexTypeMatcher(String regex, String technology) {
         super(technology);
 
-        if (regex == null) {
+        if (StringUtils.isNullOrEmpty(regex)) {
             throw new IllegalArgumentException("A regex must be supplied");
         }
 
         this.regex = Pattern.compile(regex);
     }
 
-    public RegexTypeMatcher(Pattern regex, String technology) {
-        super(technology);
-
-        if (regex == null) {
-            throw new IllegalArgumentException("A regex must be supplied");
-        }
-
-        this.regex = regex;
-    }
-
     @Override
     public boolean matches(Type type) {
-        if (type != null && type.getFullyQualifiedName() != null) {
-            return Pattern.matches(regex.pattern(), type.getFullyQualifiedName());
-        } else {
-            return false;
+        if (type == null) {
+            throw new IllegalArgumentException("A type must be specified");
         }
+
+        return Pattern.matches(regex.pattern(), type.getFullyQualifiedName());
     }
 
     @Override

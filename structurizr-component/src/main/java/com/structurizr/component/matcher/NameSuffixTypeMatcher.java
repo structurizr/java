@@ -21,6 +21,10 @@ public class NameSuffixTypeMatcher extends AbstractTypeMatcher {
 
     @Override
     public boolean matches(Type type) {
+        if (type == null) {
+            throw new IllegalArgumentException("A type must be specified");
+        }
+
         return type.getFullyQualifiedName().endsWith(suffix);
     }
 

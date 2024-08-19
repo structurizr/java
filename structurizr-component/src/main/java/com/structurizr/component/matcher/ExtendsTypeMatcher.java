@@ -26,6 +26,14 @@ public class ExtendsTypeMatcher extends AbstractTypeMatcher {
 
     @Override
     public boolean matches(Type type) {
+        if (type == null) {
+            throw new IllegalArgumentException("A type must be specified");
+        }
+
+        if (type.getJavaClass() == null) {
+            throw new IllegalArgumentException("This type matcher requires a BCEL JavaClass");
+        }
+
         JavaClass javaClass = type.getJavaClass();
         try {
             Set<String> superClasses = Stream.of(javaClass.getSuperClasses()).map(JavaClass::getClassName).collect(Collectors.toSet());

@@ -35,6 +35,14 @@ public class AnnotationTypeMatcher extends AbstractTypeMatcher {
 
     @Override
     public boolean matches(Type type) {
+        if (type == null) {
+            throw new IllegalArgumentException("A type must be specified");
+        }
+
+        if (type.getJavaClass() == null) {
+            throw new IllegalArgumentException("This type matcher requires a BCEL JavaClass");
+        }
+
         AnnotationEntry[] annotationEntries = type.getJavaClass().getAnnotationEntries();
         for (AnnotationEntry annotationEntry : annotationEntries) {
             if (annotationType.equals(annotationEntry.getAnnotationType())) {
