@@ -4,7 +4,6 @@ import com.structurizr.Workspace;
 import com.structurizr.component.ComponentFinderBuilder;
 import com.structurizr.component.ComponentFinderStrategyBuilder;
 import com.structurizr.component.matcher.NameSuffixTypeMatcher;
-import com.structurizr.component.naming.DefaultNamingStrategy;
 import com.structurizr.model.*;
 
 public class Example {

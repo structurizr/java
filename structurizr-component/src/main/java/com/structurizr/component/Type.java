@@ -3,6 +3,7 @@ package com.structurizr.component;
 import org.apache.bcel.classfile.JavaClass;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -11,21 +12,20 @@ import java.util.Set;
  */
 public final class Type {
 
-    private JavaClass javaClass;
+    private final JavaClass javaClass;
+    private final String fullyQualifiedName;
     private String description;
     private String source;
-    private final Set<Type> dependencies = new HashSet<>();
-
-    private final String fullyQualifiedName;
+    private final Set<Type> dependencies = new LinkedHashSet<>();
 
     public Type(JavaClass javaClass) {
-        this(javaClass.getClassName());
-
+        this.fullyQualifiedName = javaClass.getClassName();
         this.javaClass = javaClass;
     }
 
     public Type(String fullyQualifiedName) {
         this.fullyQualifiedName = fullyQualifiedName;
+        this.javaClass = null;
     }
 
     public String getFullyQualifiedName() {
@@ -56,6 +56,22 @@ public final class Type {
         this.source = source;
     }
 
+    public JavaClass getJavaClass() {
+        return this.javaClass;
+    }
+
+    public void addDependency(Type type) {
+        this.dependencies.add(type);
+    }
+
+    public Set<Type> getDependencies() {
+        return new LinkedHashSet<>(dependencies);
+    }
+
+    public boolean isAbstract() {
+        return javaClass.isAbstract();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -67,22 +83,6 @@ public final class Type {
     @Override
     public int hashCode() {
         return Objects.hash(fullyQualifiedName);
-    }
-
-    public JavaClass getJavaClass() {
-        return this.javaClass;
-    }
-
-    public void addDependency(Type type) {
-        this.dependencies.add(type);
-    }
-
-    public Set<Type> getDependencies() {
-        return new HashSet<>(dependencies);
-    }
-
-    public boolean isAbstract() {
-        return javaClass.isAbstract();
     }
 
     @Override
