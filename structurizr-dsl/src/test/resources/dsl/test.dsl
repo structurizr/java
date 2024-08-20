@@ -67,7 +67,8 @@ workspace "Name" "Description" {
                         "Security" "A description..."
                     }
 
-                    !elements "element.parent==webApplication" {
+                    !elements "element.parent==webApplication && element.technology==Spring MVC Controller" {
+                        tags "Spring MVC Controller"
                     }
                 }
 
