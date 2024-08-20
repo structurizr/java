@@ -889,11 +889,11 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                     } else if (CONST_TOKEN.equalsIgnoreCase(firstToken)) {
                         NameValuePair nameValuePair = new NameValueParser().parseConstant(tokens);
-
-                        if (constantsAndVariables.containsKey(nameValuePair.getName())) {
-                            throw new StructurizrDslParserException("A constant/variable \"" + nameValuePair.getName() + "\" already exists");
+                        try {
+                            addConstant(nameValuePair);
+                        } catch (IllegalArgumentException e) {
+                            throw new StructurizrDslParserException(e.getMessage());
                         }
-                        constantsAndVariables.put(nameValuePair.getName(), nameValuePair);
 
                     } else if (VAR_TOKEN.equalsIgnoreCase(firstToken)) {
                         NameValuePair nameValuePair = new NameValueParser().parseVariable(tokens);
@@ -1062,8 +1062,39 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         relationship.addProperty(STRUCTURIZR_DSL_IDENTIFIER_PROPERTY_NAME, identifiersRegister.findIdentifier(relationship));
     }
 
+    /**
+     * Gets the named constant.
+     *
+     * @param name      the name of the constant
+     * @return  the value, or an empty string if the named constant doesn't exist
+     */
     public String getConstant(String name) {
-        return constantsAndVariables.get(name).getValue();
+        NameValuePair nameValuePair = constantsAndVariables.get(name);
+        if (nameValuePair != null) {
+            return nameValuePair.getValue();
+        } else {
+            return "";
+        }
+    }
+
+    /**
+     * Adds a constant to the parser.
+     * @param name      the name of the constant
+     * @param value     the value of the constant
+     */
+    public void addConstant(String name, String value) {
+        if (StringUtils.isNullOrEmpty(name)) {
+            throw new IllegalArgumentException("A constant name must be specified");
+        }
+
+        addConstant(new NameValuePair(name, value));
+    }
+
+    private void addConstant(NameValuePair nameValuePair) {
+        if (constantsAndVariables.containsKey(nameValuePair.getName())) {
+            throw new IllegalArgumentException("A constant/variable \"" + nameValuePair.getName() + "\" already exists");
+        }
+        constantsAndVariables.put(nameValuePair.getName(), nameValuePair);
     }
 
     private boolean inContext(Class clazz) {
