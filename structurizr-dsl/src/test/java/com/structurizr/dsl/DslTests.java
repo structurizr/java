@@ -1143,6 +1143,62 @@ class DslTests extends AbstractTests {
         }
     }
 
+    @Test
+    void springPetClinic() throws Exception {
+        File path = new File("/Users/simon/sandbox/spring-petclinic");
+        if (path.exists()) {
+            System.out.println("Running Spring PetClinic example...");
+            StructurizrDslParser parser = new StructurizrDslParser();
+            parser.addConstant("SPRING_PETCLINIC_DIR", path.getAbsolutePath());
+            parser.parse(new File("src/test/resources/dsl/spring-petclinic.dsl"));
+
+            Container webApplication = (Container)parser.getIdentifiersRegister().getElement("springPetClinic.webApplication");
+            assertEquals(7, webApplication.getComponents().size());
+
+            Component welcomeController = webApplication.getComponentWithName("Welcome Controller");
+            assertNotNull(welcomeController);
+            assertEquals("org.springframework.samples.petclinic.system.WelcomeController", welcomeController.getProperties().get("component.type"));
+            assertEquals(new File(path, "src/main/java/org/springframework/samples/petclinic/system/WelcomeController.java").getAbsolutePath(), welcomeController.getProperties().get("component.src"));
+
+            Component ownerController = webApplication.getComponentWithName("Owner Controller");
+            assertNotNull(ownerController);
+            assertEquals("org.springframework.samples.petclinic.owner.OwnerController", ownerController.getProperties().get("component.type"));
+            assertEquals(new File(path, "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java").getAbsolutePath(), ownerController.getProperties().get("component.src"));
+
+            Component petController = webApplication.getComponentWithName("Pet Controller");
+            assertNotNull(petController);
+            assertEquals("org.springframework.samples.petclinic.owner.PetController", petController.getProperties().get("component.type"));
+            assertEquals(new File(path, "src/main/java/org/springframework/samples/petclinic/owner/PetController.java").getAbsolutePath(), petController.getProperties().get("component.src"));
+
+            Component vetController = webApplication.getComponentWithName("Vet Controller");
+            assertNotNull(vetController);
+            assertEquals("org.springframework.samples.petclinic.vet.VetController", vetController.getProperties().get("component.type"));
+            assertEquals(new File(path, "src/main/java/org/springframework/samples/petclinic/vet/VetController.java").getAbsolutePath(), vetController.getProperties().get("component.src"));
+
+            Component visitController = webApplication.getComponentWithName("Visit Controller");
+            assertNotNull(visitController);
+            assertEquals("org.springframework.samples.petclinic.owner.VisitController", visitController.getProperties().get("component.type"));
+            assertEquals(new File(path, "src/main/java/org/springframework/samples/petclinic/owner/VisitController.java").getAbsolutePath(), visitController.getProperties().get("component.src"));
+
+            Component ownerRepository = webApplication.getComponentWithName("Owner Repository");
+            assertNotNull(ownerRepository);
+            assertEquals("org.springframework.samples.petclinic.owner.OwnerRepository", ownerRepository.getProperties().get("component.type"));
+            assertEquals(new File(path, "src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java").getAbsolutePath(), ownerRepository.getProperties().get("component.src"));
+
+            Component vetRepository = webApplication.getComponentWithName("Vet Repository");
+            assertNotNull(vetRepository);
+            assertEquals("org.springframework.samples.petclinic.vet.VetRepository", vetRepository.getProperties().get("component.type"));
+            assertEquals(new File(path, "src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java").getAbsolutePath(), vetRepository.getProperties().get("component.src"));
+
+            assertTrue(welcomeController.getRelationships().isEmpty());
+
+            assertNotNull(petController.getEfferentRelationshipWith(ownerRepository));
+            assertNotNull(visitController.getEfferentRelationshipWith(ownerRepository));
+            assertNotNull(ownerController.getEfferentRelationshipWith(ownerRepository));
+
+            assertNotNull(vetController.getEfferentRelationshipWith(vetRepository));
+        }
+    }
 
     @Test
     void test_bulkOperations() throws Exception {

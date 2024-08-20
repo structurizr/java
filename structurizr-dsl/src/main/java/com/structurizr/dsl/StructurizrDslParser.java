@@ -421,6 +421,36 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                         registerIdentifier(identifier, component);
 
+                    } else if (COMPONENT_FINDER_TOKEN.equalsIgnoreCase(firstToken) && inContext(ContainerDslContext.class)) {
+                        if (!restricted) {
+                            if (shouldStartContext(tokens)) {
+                                startContext(new ComponentFinderDslContext(getContext(ContainerDslContext.class).getContainer()));
+                            }
+                        }
+
+                    } else if (COMPONENT_FINDER_CLASSES_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderDslContext.class)) {
+                        new ComponentFinderParser().parseClasses(getContext(ComponentFinderDslContext.class), tokens);
+
+                    } else if (COMPONENT_FINDER_SOURCE_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderDslContext.class)) {
+                        new ComponentFinderParser().parseSource(getContext(ComponentFinderDslContext.class), tokens);
+
+                    } else if (COMPONENT_FINDER_STRATEGY_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderDslContext.class)) {
+                        if (shouldStartContext(tokens)) {
+                            startContext(new ComponentFinderStrategyDslContext(getContext(ComponentFinderDslContext.class).getComponentFinderBuilder()));
+                        }
+
+                    } else if (COMPONENT_FINDER_STRATEGY_MATCHER_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
+                        new ComponentFinderStrategyParser().parseMatcher(getContext(ComponentFinderStrategyDslContext.class), tokens);
+
+                    } else if (COMPONENT_FINDER_STRATEGY_FILTER_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
+                        new ComponentFinderStrategyParser().parseFilter(getContext(ComponentFinderStrategyDslContext.class), tokens);
+
+                    } else if (COMPONENT_FINDER_STRATEGY_SUPPORTING_TYPES_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
+                        new ComponentFinderStrategyParser().parseSupportingTypes(getContext(ComponentFinderStrategyDslContext.class), tokens);
+
+                    } else if (COMPONENT_FINDER_STRATEGY_NAMING_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
+                        new ComponentFinderStrategyParser().parseNaming(getContext(ComponentFinderStrategyDslContext.class), tokens);
+
                     } else if (ENTERPRISE_TOKEN.equalsIgnoreCase(firstToken) && inContext(ModelDslContext.class)) {
                         throw new RuntimeException("The enterprise keyword was previously deprecated, and has now been removed - please use group instead (https://docs.structurizr.com/dsl/language#group)");
 
