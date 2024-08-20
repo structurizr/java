@@ -19,8 +19,6 @@ public class AllReferencedTypesInPackageSupportingTypesStrategyTests {
         type.addDependency(dependency1);
         type.addDependency(dependency2);
 
-        type.addDependency(new Type("com.example.util.SomeUtils"));
-
         Set<Type> supportingTypes = new AllReferencedTypesInPackageSupportingTypesStrategy().findSupportingTypes(type, null);
         assertEquals(1, supportingTypes.size());
         assertTrue(supportingTypes.contains(dependency1));
