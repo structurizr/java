@@ -3,6 +3,7 @@ package com.structurizr.dsl;
 import com.structurizr.model.Element;
 import com.structurizr.model.Relationship;
 
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 final class ImplicitRelationshipParser extends AbstractRelationshipParser {
@@ -52,7 +53,7 @@ final class ImplicitRelationshipParser extends AbstractRelationshipParser {
         return createRelationship(sourceElement, description, technology, tags, destinationElement);
     }
 
-    void parse(ElementsDslContext context, Tokens tokens) {
+    Set<Relationship> parse(ElementsDslContext context, Tokens tokens) {
         // -> <identifier> [description] [technology] [tags]
 
         if (tokens.hasMoreThan(TAGS_INDEX)) {
@@ -86,9 +87,12 @@ final class ImplicitRelationshipParser extends AbstractRelationshipParser {
             tags = tokens.get(TAGS_INDEX).split(",");
         }
 
+        Set<Relationship> relationships = new LinkedHashSet<>();
         for (Element sourceElement : sourceElements) {
-            createRelationship(sourceElement, description, technology, tags, destinationElement);
+            relationships.add(createRelationship(sourceElement, description, technology, tags, destinationElement));
         }
+
+        return relationships;
     }
 
 }

@@ -8,6 +8,7 @@
 - structurizr-dsl: Adds a way to explicitly specify the order of relationships in dynamic views.
 - structurizr-dsl: Adds support for element technology expressions (e.g. "element.technology==Java").
 - structurizr-dsl: Adds an `!elements` keyword that can be used to find a set of elements via an expression.
+- structurizr-dsl: Adds a `!relationships` keyword that can be used to find a set of relationships via an expression.
 
 ## 2.2.0 (2nd July 2024)
 

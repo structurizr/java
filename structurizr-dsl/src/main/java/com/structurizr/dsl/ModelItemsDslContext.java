@@ -8,6 +8,10 @@ abstract class ModelItemsDslContext extends DslContext {
 
     private final DslContext parentDslContext;
 
+    public ModelItemsDslContext() {
+        this.parentDslContext = null;
+    }
+
     ModelItemsDslContext(DslContext parentDslContext) {
         this.parentDslContext = parentDslContext;
     }

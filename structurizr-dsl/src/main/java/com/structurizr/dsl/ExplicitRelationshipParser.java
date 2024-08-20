@@ -58,7 +58,7 @@ final class ExplicitRelationshipParser extends AbstractRelationshipParser {
         return createRelationship(sourceElement, description, technology, tags, destinationElement);
     }
 
-    void parse(ElementsDslContext context, Tokens tokens) {
+    Set<Relationship> parse(ElementsDslContext context, Tokens tokens) {
         // <identifier> -> <identifier> [description] [technology] [tags]
 
         if (tokens.hasMoreThan(TAGS_INDEX)) {
@@ -96,11 +96,14 @@ final class ExplicitRelationshipParser extends AbstractRelationshipParser {
             tags = tokens.get(TAGS_INDEX).split(",");
         }
 
+        Set<Relationship> relationships = new LinkedHashSet<>();
         for (Element sourceElement : sourceElements) {
             for (Element destinationElement : destinationElements) {
-                createRelationship(sourceElement, description, technology, tags, destinationElement);
+                relationships.add(createRelationship(sourceElement, description, technology, tags, destinationElement));
             }
         }
+
+        return relationships;
    }
 
     private Element findElement(String identifier, DslContext context) {

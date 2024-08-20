@@ -17,11 +17,15 @@ workspace {
             !elements "element.parent==application1" {
                 tags "Tag 1"
                 user -> this "Uses 1"
-                this -> databaseSchema1 "Uses 1"
+                this -> databaseSchema1 "Uses 1" {
+                    tags "Tag"
+                }
             }
 
             !elements "element.parent==application1" {
-                -> databaseSchema1 "Uses 2"
+                -> databaseSchema1 "Uses 2" {
+                    tags "Tag"
+                }
             }
         }
 
@@ -39,19 +43,27 @@ workspace {
             !elements "element.parent==application2" {
                 tags "Tag 1"
                 user -> this "Uses"
-                this -> softwareSystem2.databaseSchema2 "Uses 1"
+                this -> softwareSystem2.databaseSchema2 "Uses 1" {
+                    tags "Tag"
+                }
             }
 
             !elements "element.parent==application2" {
-                this -> databaseSchema2 "Uses 2"
+                this -> databaseSchema2 "Uses 2" {
+                    tags "Tag"
+                }
             }
 
             !elements "element.parent==application2" {
-                -> softwareSystem2.databaseSchema2 "Uses 3"
+                -> softwareSystem2.databaseSchema2 "Uses 3" {
+                    tags "Tag"
+                }
             }
 
             !elements "element.parent==application2" {
-                -> databaseSchema2 "Uses 4"
+                -> databaseSchema2 "Uses 4" {
+                   tags "Tag"
+               }
             }
         }
     }

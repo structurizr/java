@@ -314,10 +314,18 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         registerIdentifier(identifier, relationship);
 
                     } else if (tokens.size() > 2 && RELATIONSHIP_TOKEN.equals(tokens.get(1)) && inContext(ElementsDslContext.class)) {
-                        new ExplicitRelationshipParser().parse(getContext(ElementsDslContext.class), tokens.withoutContextStartToken());
+                        Set<Relationship> relationships = new ExplicitRelationshipParser().parse(getContext(ElementsDslContext.class), tokens.withoutContextStartToken());
+
+                        if (shouldStartContext(tokens)) {
+                            startContext(new RelationshipsDslContext(getContext(), relationships));
+                        }
 
                     } else if (tokens.size() >= 2 && RELATIONSHIP_TOKEN.equals(tokens.get(0)) && inContext(ElementsDslContext.class)) {
-                        new ImplicitRelationshipParser().parse(getContext(ElementsDslContext.class), tokens.withoutContextStartToken());
+                        Set<Relationship> relationships = new ImplicitRelationshipParser().parse(getContext(ElementsDslContext.class), tokens.withoutContextStartToken());
+
+                        if (shouldStartContext(tokens)) {
+                            startContext(new RelationshipsDslContext(getContext(), relationships));
+                        }
 
                     } else if ((REF_TOKEN.equalsIgnoreCase(firstToken) || EXTEND_TOKEN.equalsIgnoreCase(firstToken)) && (inContext(ModelDslContext.class))) {
                         ModelItem modelItem = new RefParser().parse(getContext(), tokens.withoutContextStartToken());
@@ -359,6 +367,13 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                         if (shouldStartContext(tokens)) {
                             startContext(new ElementsDslContext(getContext(), elements));
+                        }
+
+                    } else if (RELATIONSHIPS_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class) || inContext(ElementDslContext.class))) {
+                        Set<Relationship> relationships = new RelationshipsParser().parse(getContext(), tokens.withoutContextStartToken());
+
+                        if (shouldStartContext(tokens)) {
+                            startContext(new RelationshipsDslContext(getContext(), relationships));
                         }
 
                     } else if (CUSTOM_ELEMENT_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class))) {

@@ -31,7 +31,7 @@ class ElementsParserTests extends AbstractTests {
         Component componentB = application.addComponent("B");
         Component componentC = application.addComponent("C");
 
-        ModelItemDslContext context = new ContainerDslContext(application);
+        ContainerDslContext context = new ContainerDslContext(application);
         context.setWorkspace(workspace);
         IdentifiersRegister register = new IdentifiersRegister();
         register.register("application", application);
