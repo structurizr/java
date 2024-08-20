@@ -19,6 +19,7 @@ class StructurizrDslTokens {
     static final String TECHNOLOGY_TOKEN = "technology";
     static final String INSTANCES_TOKEN = "instances";
     static final String TAGS_TOKEN = "tags";
+    static final String TAG_TOKEN = "tag";
     static final String URL_TOKEN = "url";
     static final String PROPERTIES_TOKEN = "properties";
     static final String PERSPECTIVES_TOKEN = "perspectives";

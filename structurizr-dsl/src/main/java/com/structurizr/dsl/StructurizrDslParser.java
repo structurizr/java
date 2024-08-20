@@ -427,7 +427,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         DeploymentNode deploymentNode = getContext(DeploymentNodeDslContext.class).getDeploymentNode();
                         startContext(new DeploymentNodeDslContext(deploymentNode, group));
                         registerIdentifier(identifier, group);
-                    } else if (TAGS_TOKEN.equalsIgnoreCase(firstToken) && inContext(ModelItemDslContext.class) && !getContext(ModelItemDslContext.class).hasGroup()) {
+                    } else if ((TAGS_TOKEN.equalsIgnoreCase(firstToken) || TAG_TOKEN.equalsIgnoreCase(firstToken)) && inContext(ModelItemDslContext.class) && !getContext(ModelItemDslContext.class).hasGroup()) {
                         new ModelItemParser().parseTags(getContext(ModelItemDslContext.class), tokens);
 
                     } else if (DESCRIPTION_TOKEN.equalsIgnoreCase(firstToken) && inContext(ModelItemDslContext.class) && getContext(ModelItemDslContext.class).getModelItem() instanceof Element && !getContext(ModelItemDslContext.class).hasGroup()) {
