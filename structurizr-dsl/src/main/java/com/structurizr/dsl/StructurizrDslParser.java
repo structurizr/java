@@ -348,6 +348,13 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                             }
                         }
 
+                    } else if (ELEMENTS_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class) || inContext(ModelItemDslContext.class))) {
+                        Set<Element> elements = new ElementsParser().parse(getContext(), tokens.withoutContextStartToken());
+
+                        if (shouldStartContext(tokens)) {
+                            startContext(new ElementsDslContext(getContext(), elements));
+                        }
+
                     } else if (CUSTOM_ELEMENT_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class))) {
                         CustomElement customElement = new CustomElementParser().parse(getContext(GroupableDslContext.class), tokens.withoutContextStartToken());
 

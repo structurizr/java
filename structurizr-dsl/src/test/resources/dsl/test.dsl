@@ -66,6 +66,9 @@ workspace "Name" "Description" {
                     perspectives {
                         "Security" "A description..."
                     }
+
+                    !elements "element.parent==webApplication" {
+                    }
                 }
 
                 url "https://structurizr.com"
