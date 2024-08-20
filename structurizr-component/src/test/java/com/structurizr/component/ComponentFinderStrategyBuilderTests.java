@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 public class ComponentFinderStrategyBuilderTests {
 
     @Test
-    void build_ThrowsAnException_WhenATypeMatcherHasNotBeenConfgured() {
+    void build_ThrowsAnException_WhenATypeMatcherHasNotBeenConfigured() {
         assertThrowsExactly(RuntimeException.class, () -> new ComponentFinderStrategyBuilder().build());
     }
 
