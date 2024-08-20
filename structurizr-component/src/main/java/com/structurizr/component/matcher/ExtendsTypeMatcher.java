@@ -21,6 +21,10 @@ public class ExtendsTypeMatcher extends AbstractTypeMatcher {
     public ExtendsTypeMatcher(String className, String technology) {
         super(technology);
 
+        if (className == null || className.trim().length() == 0) {
+            throw new IllegalArgumentException("A fully qualified class name must be supplied");
+        }
+
         this.className = className;
     }
 

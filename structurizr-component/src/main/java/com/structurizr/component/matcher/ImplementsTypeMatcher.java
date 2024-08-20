@@ -19,6 +19,10 @@ public class ImplementsTypeMatcher extends AbstractTypeMatcher {
     public ImplementsTypeMatcher(String interfaceName, String technology) {
         super(technology);
 
+        if (interfaceName == null || interfaceName.trim().length() == 0) {
+            throw new IllegalArgumentException("A fully qualified interface name must be supplied");
+        }
+
         this.interfaceName = interfaceName;
     }
 

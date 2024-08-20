@@ -1,5 +1,6 @@
 package com.structurizr.component;
 
+import com.structurizr.util.StringUtils;
 import org.apache.bcel.classfile.JavaClass;
 
 import java.util.HashSet;
@@ -19,11 +20,19 @@ public final class Type {
     private final Set<Type> dependencies = new LinkedHashSet<>();
 
     public Type(JavaClass javaClass) {
+        if (javaClass == null) {
+            throw new IllegalArgumentException("A BCEL JavaClass must be supplied");
+        }
+
         this.fullyQualifiedName = javaClass.getClassName();
         this.javaClass = javaClass;
     }
 
     public Type(String fullyQualifiedName) {
+        if (StringUtils.isNullOrEmpty(fullyQualifiedName)) {
+            throw new IllegalArgumentException("A fully qualified name must be supplied");
+        }
+
         this.fullyQualifiedName = fullyQualifiedName;
         this.javaClass = null;
     }
