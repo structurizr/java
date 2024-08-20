@@ -29,10 +29,6 @@ public final class ComponentFinder {
     private final List<ComponentFinderStrategy> componentFinderStrategies = new ArrayList<>();
 
     ComponentFinder(Container container, Collection<TypeProvider> typeProviders, List<ComponentFinderStrategy> componentFinderStrategies) {
-        if (container == null) {
-            throw new IllegalArgumentException("A container must be specified.");
-        }
-
         this.container = container;
         this.componentFinderStrategies.addAll(componentFinderStrategies);
 

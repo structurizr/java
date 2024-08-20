@@ -64,6 +64,18 @@ public class ComponentFinderBuilder {
     }
 
     public ComponentFinder build() {
+        if (container == null) {
+            throw new RuntimeException("A container must be specified");
+        }
+
+        if (typeProviders.isEmpty()) {
+            throw new RuntimeException("One or more type providers must be configured");
+        }
+
+        if (componentFinderStrategies.isEmpty()) {
+            throw new RuntimeException("One or more component finder strategies must be configured");
+        }
+
         return new ComponentFinder(container, typeProviders, componentFinderStrategies);
     }
 

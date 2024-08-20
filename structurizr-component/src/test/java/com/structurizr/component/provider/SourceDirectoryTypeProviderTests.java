@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class SourceDirectoryTypeProviderTests {
 
-    private static final File classes = new File("src/main/java");
+    private static final File sources = new File("src/main/java");
 
     @Test
     void construction_ThrowsAnException_WhenPassedANullDirectory() {
@@ -19,17 +19,17 @@ public class SourceDirectoryTypeProviderTests {
 
     @Test
     void construction_ThrowsAnException_WhenPassedAPathThatDoesNotExist() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> new SourceDirectoryTypeProvider(new File(classes, "com/example")));
+        assertThrowsExactly(IllegalArgumentException.class, () -> new SourceDirectoryTypeProvider(new File(sources, "com/example")));
     }
 
     @Test
     void construction_ThrowsAnException_WhenPassedAFile() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> new SourceDirectoryTypeProvider(new File(classes, "com/structurizr/component/provider/SourceDirectoryTypeProviderTests.java")));
+        assertThrowsExactly(IllegalArgumentException.class, () -> new SourceDirectoryTypeProvider(new File(sources, "com/structurizr/component/provider/SourceDirectoryTypeProviderTests.java")));
     }
 
     @Test
     void getTypes() {
-        TypeProvider typeProvider = new SourceDirectoryTypeProvider(classes);
+        TypeProvider typeProvider = new SourceDirectoryTypeProvider(sources);
         Set<Type> types = typeProvider.getTypes();
 
         assertTrue(types.size() > 0);
