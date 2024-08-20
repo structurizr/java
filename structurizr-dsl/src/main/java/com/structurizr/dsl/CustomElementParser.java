@@ -13,7 +13,7 @@ final class CustomElementParser extends AbstractParser {
     private final static int DESCRIPTION_INDEX = 3;
     private final static int TAGS_INDEX = 4;
 
-    CustomElement parse(GroupableDslContext context, Tokens tokens) {
+    CustomElement parse(ModelDslContext context, Tokens tokens) {
         // element <name> [metadata] [description] [tags]
 
         if (tokens.hasMoreThan(TAGS_INDEX)) {

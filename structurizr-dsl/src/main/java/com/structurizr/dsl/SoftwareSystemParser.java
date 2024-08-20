@@ -10,7 +10,7 @@ final class SoftwareSystemParser extends AbstractParser {
     private final static int DESCRIPTION_INDEX = 2;
     private final static int TAGS_INDEX = 3;
 
-    SoftwareSystem parse(GroupableDslContext context, Tokens tokens) {
+    SoftwareSystem parse(ModelDslContext context, Tokens tokens) {
         // softwareSystem <name> [description] [tags]
 
         if (tokens.hasMoreThan(TAGS_INDEX)) {

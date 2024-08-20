@@ -2,7 +2,7 @@ package com.structurizr.dsl;
 
 import com.structurizr.model.StaticStructureElementInstance;
 
-abstract class StaticStructureElementInstanceDslContext extends ModelItemDslContext {
+abstract class StaticStructureElementInstanceDslContext extends ElementDslContext {
 
     abstract StaticStructureElementInstance getElementInstance();
 

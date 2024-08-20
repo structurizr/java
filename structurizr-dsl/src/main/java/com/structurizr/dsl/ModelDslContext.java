@@ -1,13 +1,24 @@
 package com.structurizr.dsl;
 
-final class ModelDslContext extends GroupableDslContext {
+final class ModelDslContext extends DslContext implements GroupableDslContext {
+
+    private ElementGroup group;
 
     ModelDslContext() {
-        super(null);
     }
 
     ModelDslContext(ElementGroup group) {
-        super(group);
+        this.group = group;
+    }
+
+    @Override
+    public boolean hasGroup() {
+        return group != null;
+    }
+
+    @Override
+    public ElementGroup getGroup() {
+        return group;
     }
 
     @Override

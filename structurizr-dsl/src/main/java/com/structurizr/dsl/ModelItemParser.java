@@ -1,7 +1,5 @@
 package com.structurizr.dsl;
 
-import com.structurizr.model.Element;
-
 final class ModelItemParser extends AbstractParser {
 
     private final static int DESCRIPTION_INDEX = 1;
@@ -26,7 +24,7 @@ final class ModelItemParser extends AbstractParser {
         }
     }
 
-    void parseDescription(ModelItemDslContext context, Tokens tokens) {
+    void parseDescription(ElementDslContext context, Tokens tokens) {
         // description <description>
         if (tokens.hasMoreThan(DESCRIPTION_INDEX)) {
             throw new RuntimeException("Too many tokens, expected: description <description>");
@@ -37,7 +35,7 @@ final class ModelItemParser extends AbstractParser {
         }
 
         String description = tokens.get(DESCRIPTION_INDEX);
-        ((Element)context.getModelItem()).setDescription(description);
+        context.getElement().setDescription(description);
     }
 
     void parseUrl(ModelItemDslContext context, Tokens tokens) {

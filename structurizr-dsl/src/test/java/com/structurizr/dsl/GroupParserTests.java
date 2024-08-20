@@ -47,7 +47,7 @@ class GroupParserTests extends AbstractTests {
 
     @Test
     void parse_NestedGroup_ThrowsAnExceptionWhenNestedGroupsAreNotConfigured() {
-        ModelDslContext context = new ModelDslContext(new ElementGroup(workspace.getModel(), "Group 1"));
+        ModelDslContext context = new ModelDslContext(new ElementGroup("Group 1"));
         context.setWorkspace(workspace);
 
         try {
@@ -61,7 +61,7 @@ class GroupParserTests extends AbstractTests {
     @Test
     void parse_NestedGroup() {
         workspace.getModel().addProperty("structurizr.groupSeparator", "/");
-        ModelDslContext context = new ModelDslContext(new ElementGroup(workspace.getModel(), "Group 1"));
+        ModelDslContext context = new ModelDslContext(new ElementGroup("Group 1"));
         context.setWorkspace(workspace);
 
         ElementGroup group = parser.parse(context, tokens("group", "Group 2", "{"));

@@ -10,7 +10,7 @@ final class PersonParser extends AbstractParser {
     private final static int DESCRIPTION_INDEX = 2;
     private final static int TAGS_INDEX = 3;
 
-    Person parse(GroupableDslContext context, Tokens tokens) {
+    Person parse(ModelDslContext context, Tokens tokens) {
         // person <name> [description] [tags]
 
         if (tokens.hasMoreThan(TAGS_INDEX)) {

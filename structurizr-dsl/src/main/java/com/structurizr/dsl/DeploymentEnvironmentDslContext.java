@@ -1,21 +1,32 @@
 package com.structurizr.dsl;
 
-final class DeploymentEnvironmentDslContext extends GroupableDslContext {
+final class DeploymentEnvironmentDslContext extends DslContext implements GroupableDslContext {
 
     private final String environment;
+    private final ElementGroup group;
 
     DeploymentEnvironmentDslContext(String environment) {
-        super(null);
         this.environment = environment;
+        this.group = null;
     }
 
     DeploymentEnvironmentDslContext(String environment, ElementGroup group) {
-        super(group);
         this.environment = environment;
+        this.group = group;
     }
 
     String getEnvironment() {
         return environment;
+    }
+
+    @Override
+    public boolean hasGroup() {
+        return group != null;
+    }
+
+    @Override
+    public ElementGroup getGroup() {
+        return group;
     }
 
     @Override

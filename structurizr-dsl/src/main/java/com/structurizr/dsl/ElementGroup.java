@@ -9,28 +9,18 @@ import java.util.Set;
 
 class ElementGroup extends Element {
 
-    private static final String STRUCTURIZR_GROUP_SEPARATOR_PROPERTY_NAME = "structurizr.groupSeparator";
-
     private Element parent;
     private final ElementGroup parentGroup;
     private final String name;
 
     private final Set<Element> elements = new HashSet<>();
 
-    ElementGroup(Model model, String name) {
-        setModel(model);
+    ElementGroup(String name) {
         this.name = name;
         this.parentGroup = null;
     }
 
-    ElementGroup(Model model, String name, ElementGroup parentGroup) {
-        setModel(model);
-        String groupSeparator = getModel().getProperties().getOrDefault(STRUCTURIZR_GROUP_SEPARATOR_PROPERTY_NAME, "");
-
-        if (StringUtils.isNullOrEmpty(groupSeparator)) {
-            throw new RuntimeException("To use nested groups, please define a model property named " + STRUCTURIZR_GROUP_SEPARATOR_PROPERTY_NAME);
-        }
-
+    ElementGroup(String name, String groupSeparator, ElementGroup parentGroup) {
         this.name = parentGroup.getName() + groupSeparator + name;
         this.parentGroup = parentGroup;
     }

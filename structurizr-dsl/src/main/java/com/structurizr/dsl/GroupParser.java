@@ -1,6 +1,10 @@
 package com.structurizr.dsl;
 
+import com.structurizr.util.StringUtils;
+
 class GroupParser {
+
+    private static final String STRUCTURIZR_GROUP_SEPARATOR_PROPERTY_NAME = "structurizr.groupSeparator";
 
     private static final String GRAMMAR = "group <name> {";
 
@@ -24,9 +28,15 @@ class GroupParser {
 
         ElementGroup group;
         if (dslContext.hasGroup()) {
-            group = new ElementGroup(dslContext.getWorkspace().getModel(), tokens.get(NAME_INDEX), dslContext.getGroup());
+            String groupSeparator = ((DslContext)dslContext).getWorkspace().getModel().getProperties().getOrDefault(STRUCTURIZR_GROUP_SEPARATOR_PROPERTY_NAME, "");
+
+            if (StringUtils.isNullOrEmpty(groupSeparator)) {
+                throw new RuntimeException("To use nested groups, please define a model property named " + STRUCTURIZR_GROUP_SEPARATOR_PROPERTY_NAME);
+            }
+
+            group = new ElementGroup(tokens.get(NAME_INDEX), groupSeparator, dslContext.getGroup());
         } else {
-            group = new ElementGroup(dslContext.getWorkspace().getModel(), tokens.get(NAME_INDEX));
+            group = new ElementGroup(tokens.get(NAME_INDEX));
         }
 
         return group;

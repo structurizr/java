@@ -1,23 +1,9 @@
 package com.structurizr.dsl;
 
-abstract class GroupableDslContext extends DslContext {
+interface GroupableDslContext {
 
-    private ElementGroup group;
+    boolean hasGroup();
 
-    GroupableDslContext() {
-        this(null);
-    }
-
-    GroupableDslContext(ElementGroup group) {
-        this.group = group;
-    }
-
-    boolean hasGroup() {
-        return group != null;
-    }
-
-    ElementGroup getGroup() {
-        return group;
-    }
+    ElementGroup getGroup();
 
 }

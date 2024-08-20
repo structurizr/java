@@ -1,11 +1,12 @@
 package com.structurizr.dsl;
 
+import com.structurizr.model.GroupableElement;
 import com.structurizr.model.InfrastructureNode;
 import com.structurizr.model.ModelItem;
 
-final class InfrastructureNodeDslContext extends ModelItemDslContext {
+final class InfrastructureNodeDslContext extends GroupableElementDslContext {
 
-    private InfrastructureNode infrastructureNode;
+    private final InfrastructureNode infrastructureNode;
 
     InfrastructureNodeDslContext(InfrastructureNode infrastructureNode) {
         this.infrastructureNode = infrastructureNode;
@@ -18,6 +19,11 @@ final class InfrastructureNodeDslContext extends ModelItemDslContext {
     @Override
     ModelItem getModelItem() {
         return getInfrastructureNode();
+    }
+
+    @Override
+    GroupableElement getElement() {
+        return infrastructureNode;
     }
 
     @Override

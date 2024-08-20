@@ -2,14 +2,10 @@ package com.structurizr.dsl;
 
 import com.structurizr.model.ModelItem;
 
-abstract class ModelItemDslContext extends GroupableDslContext {
+abstract class ModelItemDslContext extends DslContext {
 
     ModelItemDslContext() {
         super();
-    }
-
-    ModelItemDslContext(ElementGroup group) {
-        super(group);
     }
 
     abstract ModelItem getModelItem();
