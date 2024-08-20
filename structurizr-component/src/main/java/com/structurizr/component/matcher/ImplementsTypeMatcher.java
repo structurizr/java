@@ -1,6 +1,7 @@
 package com.structurizr.component.matcher;
 
 import com.structurizr.component.Type;
+import com.structurizr.util.StringUtils;
 import org.apache.bcel.classfile.JavaClass;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -19,7 +20,7 @@ public class ImplementsTypeMatcher extends AbstractTypeMatcher {
     public ImplementsTypeMatcher(String interfaceName, String technology) {
         super(technology);
 
-        if (interfaceName == null || interfaceName.trim().length() == 0) {
+        if (StringUtils.isNullOrEmpty(interfaceName)) {
             throw new IllegalArgumentException("A fully qualified interface name must be supplied");
         }
 

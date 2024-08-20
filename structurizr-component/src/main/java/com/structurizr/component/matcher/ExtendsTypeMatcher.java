@@ -1,6 +1,7 @@
 package com.structurizr.component.matcher;
 
 import com.structurizr.component.Type;
+import com.structurizr.util.StringUtils;
 import org.apache.bcel.classfile.JavaClass;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -21,7 +22,7 @@ public class ExtendsTypeMatcher extends AbstractTypeMatcher {
     public ExtendsTypeMatcher(String className, String technology) {
         super(technology);
 
-        if (className == null || className.trim().length() == 0) {
+        if (StringUtils.isNullOrEmpty(className)) {
             throw new IllegalArgumentException("A fully qualified class name must be supplied");
         }
 

@@ -3,7 +3,6 @@ package com.structurizr.component;
 import com.structurizr.util.StringUtils;
 import org.apache.bcel.classfile.JavaClass;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -11,7 +10,7 @@ import java.util.Set;
 /**
  * Represents a Java type (e.g. class or interface) - it's a wrapper around a BCEL JavaClass.
  */
-public final class Type {
+public class Type {
 
     private final JavaClass javaClass;
     private final String fullyQualifiedName;
@@ -77,8 +76,8 @@ public final class Type {
         return new LinkedHashSet<>(dependencies);
     }
 
-    public boolean isAbstract() {
-        return javaClass.isAbstract();
+    public boolean isAbstractClass() {
+        return javaClass.isAbstract() && javaClass.isClass();
     }
 
     @Override
