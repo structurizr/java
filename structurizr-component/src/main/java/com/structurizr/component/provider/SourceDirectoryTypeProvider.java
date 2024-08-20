@@ -13,7 +13,7 @@ import org.apache.commons.logging.LogFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -25,21 +25,37 @@ public final class SourceDirectoryTypeProvider implements TypeProvider {
     private static final String JAVA_FILE_EXTENSION = ".java";
     private static final int DEFAULT_DESCRIPTION_LENGTH = 60;
 
-    private final Set<Type> types = new HashSet<>();
+    private final File directory;
+    private final int maximumDescriptionLength;
+    private final Set<Type> types = new LinkedHashSet<>();
 
-    public SourceDirectoryTypeProvider(File path) {
-        this(path, DEFAULT_DESCRIPTION_LENGTH);
+    public SourceDirectoryTypeProvider(File directory) {
+        this(directory, DEFAULT_DESCRIPTION_LENGTH);
     }
 
-    public SourceDirectoryTypeProvider(File path, int maximumDescriptionLength) {
-        StaticJavaParser.getParserConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_21);
+    public SourceDirectoryTypeProvider(File directory, int maximumDescriptionLength) {
+        if (directory == null) {
+            throw new IllegalArgumentException("A directory must be supplied");
+        }
 
-        parse(path, maximumDescriptionLength);
+        if (!directory.exists()) {
+            throw new IllegalArgumentException(directory.getAbsolutePath() + " does not exist");
+        }
+
+        if (!directory.isDirectory()) {
+            throw new IllegalArgumentException(directory.getAbsolutePath() + " is not a directory");
+        }
+
+        this.directory = directory;
+        this.maximumDescriptionLength = maximumDescriptionLength;
+        StaticJavaParser.getParserConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_21);
     }
 
     @Override
     public Set<Type> getTypes() {
-        return new HashSet<>(types);
+        parse(directory, maximumDescriptionLength);
+
+        return new LinkedHashSet<>(types);
     }
 
     private void parse(File path, int maximumDescriptionLength) {

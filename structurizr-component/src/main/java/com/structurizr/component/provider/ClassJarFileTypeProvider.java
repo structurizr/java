@@ -9,7 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.Enumeration;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.jar.JarEntry;
 
@@ -28,7 +28,7 @@ public final class ClassJarFileTypeProvider implements TypeProvider {
     }
 
     public Set<Type> getTypes() {
-        Set<Type> types = new HashSet<>();
+        Set<Type> types = new LinkedHashSet<>();
         java.util.jar.JarFile jar = null;
         try {
             jar = new java.util.jar.JarFile(jarFile);

@@ -8,7 +8,7 @@ import org.apache.commons.logging.LogFactory;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 /**
@@ -22,11 +22,23 @@ public final class ClassDirectoryTypeProvider implements TypeProvider {
     private final File directory;
 
     public ClassDirectoryTypeProvider(File directory) {
+        if (directory == null) {
+            throw new IllegalArgumentException("A directory must be supplied");
+        }
+
+        if (!directory.exists()) {
+            throw new IllegalArgumentException(directory.getAbsolutePath() + " does not exist");
+        }
+
+        if (!directory.isDirectory()) {
+            throw new IllegalArgumentException(directory.getAbsolutePath() + " is not a directory");
+        }
+
         this.directory = directory;
     }
 
     public Set<Type> getTypes() {
-        Set<Type> types = new HashSet<>();
+        Set<Type> types = new LinkedHashSet<>();
 
         Set<File> files = findClassFiles(directory);
         for (File file : files) {
@@ -43,7 +55,7 @@ public final class ClassDirectoryTypeProvider implements TypeProvider {
     }
 
     private Set<File> findClassFiles(File path) {
-        Set<File> classFiles = new HashSet<>();
+        Set<File> classFiles = new LinkedHashSet<>();
         if (path.isDirectory()) {
             File[] files = path.listFiles();
             if (files != null) {
