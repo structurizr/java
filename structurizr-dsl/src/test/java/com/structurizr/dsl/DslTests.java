@@ -1143,4 +1143,13 @@ class DslTests extends AbstractTests {
         }
     }
 
+
+    @Test
+    void test_bulkOperations() throws Exception {
+        File dslFile = new File("src/test/resources/dsl/bulk-operations.dsl");
+
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(dslFile);
+    }
+
 }

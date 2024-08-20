@@ -49,18 +49,25 @@ abstract class DslContext {
         identifier = identifier.toLowerCase();
 
         if (identifiersRegister.getIdentifierScope() == IdentifierScope.Hierarchical) {
-            if (this instanceof ModelItemDslContext) {
-                ModelItemDslContext modelItemDslContext = (ModelItemDslContext)this;
-                if (modelItemDslContext.getModelItem() instanceof Element) {
-                    Element parent = (Element)modelItemDslContext.getModelItem();
-                    while (parent != null && element == null) {
-                        String parentIdentifier = identifiersRegister.findIdentifier(parent);
+            ElementDslContext elementDslContext = null;
+            if (this instanceof ElementDslContext) {
+                elementDslContext = (ElementDslContext)this;
+            } else if (this instanceof ElementsDslContext) {
+                ElementsDslContext elementsDslContext = (ElementsDslContext)this;
+                if (elementsDslContext.getParentDslContext() instanceof ElementDslContext) {
+                    elementDslContext = (ElementDslContext)elementsDslContext.getParentDslContext();
+                }
+            }
 
-                        element = identifiersRegister.getElement(parentIdentifier + "." + identifier);
-                        parent = parent.getParent();
+            if (elementDslContext != null) {
+                Element parent = elementDslContext.getElement();
+                while (parent != null && element == null) {
+                    String parentIdentifier = identifiersRegister.findIdentifier(parent);
 
-                        element = checkElementType(element, type);
-                    }
+                    element = identifiersRegister.getElement(parentIdentifier + "." + identifier);
+                    parent = parent.getParent();
+
+                    element = checkElementType(element, type);
                 }
             } else if (this instanceof DeploymentEnvironmentDslContext) {
                 DeploymentEnvironmentDslContext deploymentEnvironmentDslContext = (DeploymentEnvironmentDslContext)this;

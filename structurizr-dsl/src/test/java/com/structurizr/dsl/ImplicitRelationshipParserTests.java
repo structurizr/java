@@ -9,8 +9,8 @@ class ImplicitRelationshipParserTests extends AbstractTests {
 
     private ImplicitRelationshipParser parser = new ImplicitRelationshipParser();
 
-    private ModelItemDslContext context(Person person) {
-        ModelItemDslContext context = new PersonDslContext(person);
+    private ElementDslContext context(Person person) {
+        PersonDslContext context = new PersonDslContext(person);
         context.setWorkspace(workspace);
         model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
 
@@ -20,7 +20,7 @@ class ImplicitRelationshipParserTests extends AbstractTests {
     @Test
     void test_parse_ThrowsAnException_WhenThereAreTooManyTokens() {
         try {
-            parser.parse(context(null), tokens("->", "destination", "description", "technology", "tags", "extra"));
+            parser.parse((ElementDslContext)null, tokens("->", "destination", "description", "technology", "tags", "extra"));
             fail();
         } catch (Exception e) {
             assertEquals("Too many tokens, expected: -> <identifier> [description] [technology] [tags]", e.getMessage());
@@ -30,7 +30,7 @@ class ImplicitRelationshipParserTests extends AbstractTests {
     @Test
     void test_parse_ThrowsAnException_WhenTheDestinationIdentifierIsMissing() {
         try {
-            parser.parse(context(null), tokens("->"));
+            parser.parse((ElementDslContext)null, tokens("->"));
             fail();
         } catch (Exception e) {
             assertEquals("Expected: -> <identifier> [description] [technology] [tags]", e.getMessage());
@@ -40,7 +40,7 @@ class ImplicitRelationshipParserTests extends AbstractTests {
     @Test
     void test_parse_ThrowsAnException_WhenTheDestinationElementIsNotDefined() {
         Person user = model.addPerson("User", "Description");
-        ModelItemDslContext context = context(user);
+        ElementDslContext context = context(user);
         IdentifiersRegister elements = new IdentifiersRegister();
         context.setIdentifierRegister(elements);
 
@@ -56,7 +56,7 @@ class ImplicitRelationshipParserTests extends AbstractTests {
     void test_parse_AddsTheRelationship() {
         Person user = model.addPerson("User", "Description");
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
-        ModelItemDslContext context = context(user);
+        ElementDslContext context = context(user);
 
         IdentifiersRegister elements = new IdentifiersRegister();
         elements.register("destination", softwareSystem);
@@ -79,7 +79,7 @@ class ImplicitRelationshipParserTests extends AbstractTests {
     void test_parse_AddsTheRelationshipWithADescription() {
         Person user = model.addPerson("User", "Description");
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
-        ModelItemDslContext context = context(user);
+        ElementDslContext context = context(user);
 
         IdentifiersRegister elements = new IdentifiersRegister();
         elements.register("destination", softwareSystem);
@@ -102,7 +102,7 @@ class ImplicitRelationshipParserTests extends AbstractTests {
     void test_parse_AddsTheRelationshipWithADescriptionAndTechnology() {
         Person user = model.addPerson("User", "Description");
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
-        ModelItemDslContext context = context(user);
+        ElementDslContext context = context(user);
 
         IdentifiersRegister elements = new IdentifiersRegister();
         elements.register("destination", softwareSystem);
@@ -124,7 +124,7 @@ class ImplicitRelationshipParserTests extends AbstractTests {
     void test_parse_AddsTheRelationshipWithADescriptionAndTechnologyAndTags() {
         Person user = model.addPerson("User", "Description");
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
-        ModelItemDslContext context = context(user);
+        ElementDslContext context = context(user);
 
         IdentifiersRegister elements = new IdentifiersRegister();
         elements.register("destination", softwareSystem);
@@ -148,7 +148,7 @@ class ImplicitRelationshipParserTests extends AbstractTests {
         Person user = model.addPerson("User", "Description");
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
-        ModelItemDslContext context = context(user);
+        ElementDslContext context = context(user);
 
         IdentifiersRegister elements = new IdentifiersRegister();
         elements.register("destination", container);

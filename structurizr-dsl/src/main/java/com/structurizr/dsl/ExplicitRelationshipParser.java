@@ -1,6 +1,11 @@
 package com.structurizr.dsl;
 
-import com.structurizr.model.*;
+import com.structurizr.model.Element;
+import com.structurizr.model.Relationship;
+
+import javax.lang.model.util.Elements;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 final class ExplicitRelationshipParser extends AbstractRelationshipParser {
 
@@ -24,29 +29,13 @@ final class ExplicitRelationshipParser extends AbstractRelationshipParser {
         }
 
         String sourceId = tokens.get(SOURCE_IDENTIFIER_INDEX);
-        String destinationId = tokens.get(DESTINATION_IDENTIFIER_INDEX);
-
-        Element sourceElement = context.getElement(sourceId);
-        Element destinationElement = context.getElement(destinationId);
-
+        Element sourceElement = findElement(sourceId, context);
         if (sourceElement == null) {
-            if (StructurizrDslTokens.THIS_TOKEN.equalsIgnoreCase(sourceId) && context instanceof GroupableElementDslContext) {
-                GroupableElementDslContext groupableElementDslContext = (GroupableElementDslContext)context;
-                sourceElement = groupableElementDslContext.getElement();
-            } else {
-                throw new RuntimeException("The source element \"" + sourceId + "\" does not exist");
-            }
+            throw new RuntimeException("The source element \"" + sourceId + "\" does not exist");
         }
 
-        if (destinationElement == null) {
-            if (StructurizrDslTokens.THIS_TOKEN.equalsIgnoreCase(destinationId) && context instanceof ModelItemDslContext) {
-                ModelItemDslContext modelItemDslContext = (ModelItemDslContext) context;
-                if (modelItemDslContext.getModelItem() instanceof Element) {
-                    destinationElement = (Element)modelItemDslContext.getModelItem();
-                }
-            }
-        }
-
+        String destinationId = tokens.get(DESTINATION_IDENTIFIER_INDEX);
+        Element destinationElement = findElement(destinationId, context);
         if (destinationElement == null) {
             throw new RuntimeException("The destination element \"" + destinationId + "\" does not exist");
         }
@@ -67,6 +56,76 @@ final class ExplicitRelationshipParser extends AbstractRelationshipParser {
         }
 
         return createRelationship(sourceElement, description, technology, tags, destinationElement);
+    }
+
+    void parse(ElementsDslContext context, Tokens tokens) {
+        // <identifier> -> <identifier> [description] [technology] [tags]
+
+        if (tokens.hasMoreThan(TAGS_INDEX)) {
+            throw new RuntimeException("Too many tokens, expected: " + GRAMMAR);
+        }
+
+        if (!tokens.includes(DESTINATION_IDENTIFIER_INDEX)) {
+            throw new RuntimeException("Expected: " + GRAMMAR);
+        }
+
+        String sourceId = tokens.get(SOURCE_IDENTIFIER_INDEX);
+        Set<Element> sourceElements = findElements(sourceId, context);
+        if (sourceElements.isEmpty()) {
+            throw new RuntimeException("The source element \"" + sourceId + "\" does not exist");
+        }
+
+        String destinationId = tokens.get(DESTINATION_IDENTIFIER_INDEX);
+        Set<Element> destinationElements = findElements(destinationId, context);
+        if (destinationElements.isEmpty()) {
+            throw new RuntimeException("The destination element \"" + destinationId + "\" does not exist");
+        }
+
+        String description = "";
+        if (tokens.includes(DESCRIPTION_INDEX)) {
+            description = tokens.get(DESCRIPTION_INDEX);
+        }
+
+        String technology = "";
+        if (tokens.includes(TECHNOLOGY_INDEX)) {
+            technology = tokens.get(TECHNOLOGY_INDEX);
+        }
+
+        String[] tags = new String[0];
+        if (tokens.includes(TAGS_INDEX)) {
+            tags = tokens.get(TAGS_INDEX).split(",");
+        }
+
+        for (Element sourceElement : sourceElements) {
+            for (Element destinationElement : destinationElements) {
+                createRelationship(sourceElement, description, technology, tags, destinationElement);
+            }
+        }
+   }
+
+    private Element findElement(String identifier, DslContext context) {
+        Element element = context.getElement(identifier);
+
+        if (element == null && StructurizrDslTokens.THIS_TOKEN.equalsIgnoreCase(identifier) && context instanceof ElementDslContext) {
+            element = ((ElementDslContext)context).getElement();
+        }
+
+        return element;
+    }
+
+    private Set<Element> findElements(String identifier, ElementsDslContext context) {
+        Element element = context.getElement(identifier);
+        Set<Element> elements = new LinkedHashSet<>();
+
+        if (element == null) {
+            if (StructurizrDslTokens.THIS_TOKEN.equalsIgnoreCase(identifier)) {
+                elements.addAll(context.getElements());
+            }
+        } else {
+            elements.add(element);
+        }
+
+        return elements;
     }
 
 }
