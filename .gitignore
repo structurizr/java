@@ -27,3 +27,5 @@ bin
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
+structurizr-dsl/src/test/resources/dsl/spring-petclinic/.structurizr
+structurizr-dsl/src/test/resources/dsl/spring-petclinic/workspace.json

@@ -1151,7 +1151,7 @@ class DslTests extends AbstractTests {
         if (!StringUtils.isNullOrEmpty(springPetClinicHome)) {
             System.out.println("Running Spring PetClinic example...");
             StructurizrDslParser parser = new StructurizrDslParser();
-            parser.parse(new File("src/test/resources/dsl/spring-petclinic.dsl"));
+            parser.parse(new File("src/test/resources/dsl/spring-petclinic/workspace.dsl"));
 
             Container webApplication = (Container)parser.getIdentifiersRegister().getElement("springPetClinic.webApplication");
             assertEquals(7, webApplication.getComponents().size());
