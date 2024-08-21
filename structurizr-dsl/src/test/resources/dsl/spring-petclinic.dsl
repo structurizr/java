@@ -1,5 +1,9 @@
  workspace "Spring PetClinic" "A C4 model of the Spring PetClinic sample app (https://github.com/spring-projects/spring-petclinic/)" {
 
+    // this example requires an environment variable as follows:
+    // - Name: SPRING_PETCLINIC_HOME
+    // - Value: the full path to the location of the spring-petclinic example (e.g. /Users/simon/spring-petclinic)
+
     !identifiers hierarchical
 
     model {
@@ -16,8 +20,8 @@
                 technology "Java and Spring"
 
                 !components {
-                    classes "${SPRING_PETCLINIC_DIR}/target/spring-petclinic-3.3.0-SNAPSHOT.jar"
-                    source "${SPRING_PETCLINIC_DIR}/src/main/java"
+                    classes "${SPRING_PETCLINIC_HOME}/target/spring-petclinic-3.3.0-SNAPSHOT.jar"
+                    source "${SPRING_PETCLINIC_HOME}/src/main/java"
                     strategy {
                         matcher annotation "org.springframework.stereotype.Controller" "Spring MVC Controller"
                         filter excludeRegex ".*.CrashController"
@@ -28,7 +32,7 @@
                 }
 
                 !script groovy {
-                    element.components.each { it.url = it.properties["component.src"].replace(context.dslParser.getConstant("SPRING_PETCLINIC_DIR") + "/src/main/java", "https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java") }
+                    element.components.each { it.url = it.properties["component.src"].replace(System.getenv("SPRING_PETCLINIC_HOME") + "/src/main/java", "https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java") }
                 }
 
                 !elements "element.parent==webApplication && element.technology==Spring MVC Controller" {
