@@ -219,4 +219,13 @@ public class IdentifiersRegister {
         }
     }
 
+    static String toIdentifier(String s) {
+        String identifierName = s.replaceAll("[^a-zA-Z0-9_-]", "");
+        if (identifierName.startsWith("-")) {
+            identifierName = identifierName.substring(1);
+        }
+
+        return identifierName;
+    }
+
 }

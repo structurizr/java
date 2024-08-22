@@ -424,7 +424,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (COMPONENT_FINDER_TOKEN.equalsIgnoreCase(firstToken) && inContext(ContainerDslContext.class)) {
                         if (!restricted) {
                             if (shouldStartContext(tokens)) {
-                                startContext(new ComponentFinderDslContext(getContext(ContainerDslContext.class).getContainer()));
+                                startContext(new ComponentFinderDslContext(this, getContext(ContainerDslContext.class).getContainer()));
                             }
                         }
 
@@ -1121,12 +1121,12 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         return identifiersRegister;
     }
 
-    private void registerIdentifier(String identifier, Element element) {
+    void registerIdentifier(String identifier, Element element) {
         identifiersRegister.register(identifier, element);
         element.addProperty(STRUCTURIZR_DSL_IDENTIFIER_PROPERTY_NAME, identifiersRegister.findIdentifier(element));
     }
 
-    private void registerIdentifier(String identifier, Relationship relationship) {
+    void registerIdentifier(String identifier, Relationship relationship) {
         identifiersRegister.register(identifier, relationship);
         relationship.addProperty(STRUCTURIZR_DSL_IDENTIFIER_PROPERTY_NAME, identifiersRegister.findIdentifier(relationship));
     }

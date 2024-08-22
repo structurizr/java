@@ -98,9 +98,10 @@ public final class ComponentFinder {
     /**
      * Find components, using all configured rules, in the order they were added.
      */
-    public void findComponents() {
+    public Set<Component> findComponents() {
         Set<DiscoveredComponent> discoveredComponents = new LinkedHashSet<>();
         Map<DiscoveredComponent, Component> componentMap = new HashMap<>();
+        Set<Component> componentSet = new LinkedHashSet<>();
 
         for (ComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {
             Set<DiscoveredComponent> set = componentFinderStrategy.findComponents(typeRepository);
@@ -119,6 +120,7 @@ public final class ComponentFinder {
             component.setDescription(discoveredComponent.getDescription());
             component.setTechnology(discoveredComponent.getTechnology());
             componentMap.put(discoveredComponent, component);
+            componentSet.add(component);
         }
 
         // find dependencies between all components
@@ -141,6 +143,8 @@ public final class ComponentFinder {
             Component component = componentMap.get(discoveredComponent);
             discoveredComponent.getComponentFinderStrategy().visit(component);
         }
+
+        return componentSet;
     }
 
 }
