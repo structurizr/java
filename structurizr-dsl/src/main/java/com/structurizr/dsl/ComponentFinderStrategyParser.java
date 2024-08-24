@@ -93,8 +93,15 @@ final class ComponentFinderStrategyParser extends AbstractParser {
             default:
                 try {
                     Class<? extends TypeMatcher> typeMatcherClass = context.loadClass(type, dslFile);
-                    Constructor<? extends TypeMatcher> constructor = typeMatcherClass.getDeclaredConstructor();
-                    TypeMatcher typeMatcher = constructor.newInstance();
+
+                    TypeMatcher typeMatcher;
+                    if (tokens.size() == 3) {
+                        String parameter = tokens.get(2);
+                        typeMatcher = typeMatcherClass.getDeclaredConstructor(String.class).newInstance(parameter);
+                    } else {
+                        typeMatcher = typeMatcherClass.getDeclaredConstructor().newInstance();
+                    }
+
                     context.getComponentFinderStrategyBuilder().matchedBy(typeMatcher);
                 } catch (Exception e) {
                     throw new RuntimeException("Type matcher \"" + type + "\" could not be loaded - " + e.getClass() + ": " + e.getMessage());

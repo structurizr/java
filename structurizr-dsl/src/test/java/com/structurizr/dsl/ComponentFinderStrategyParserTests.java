@@ -2,6 +2,7 @@ package com.structurizr.dsl;
 
 import com.structurizr.component.ComponentFinderBuilder;
 import com.structurizr.component.matcher.AnnotationTypeMatcher;
+import com.structurizr.component.matcher.NameSuffixTypeMatcher;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -142,9 +143,15 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
     }
 
     @Test
-    void test_parseMatcher_WhenACustomTypeMatcherIsUsed() {
+    void test_parseMatcher_WhenACustomTypeMatcherIsUsedWithoutParameters() {
         parser.parseMatcher(context, tokens("matcher", "com.structurizr.dsl.example.CustomTypeMatcher"), new File("."));
         assertEquals("ComponentFinderStrategyBuilder{technology='null', typeMatcher=CustomTypeMatcher{}, typeFilter=DefaultTypeFilter{}, supportingTypesStrategy=DefaultSupportingTypesStrategy{}, namingStrategy=DefaultNamingStrategy{}, componentVisitor=DefaultComponentVisitor{}}", context.getComponentFinderStrategyBuilder().toString());
+    }
+
+    @Test
+    void test_parseMatcher_WhenACustomTypeMatcherIsUsedWithAParameter() {
+        parser.parseMatcher(context, tokens("matcher", NameSuffixTypeMatcher.class.getCanonicalName(), "Component"), new File("."));
+        assertEquals("ComponentFinderStrategyBuilder{technology='null', typeMatcher=NameSuffixTypeMatcher{suffix='Component'}, typeFilter=DefaultTypeFilter{}, supportingTypesStrategy=DefaultSupportingTypesStrategy{}, namingStrategy=DefaultNamingStrategy{}, componentVisitor=DefaultComponentVisitor{}}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
