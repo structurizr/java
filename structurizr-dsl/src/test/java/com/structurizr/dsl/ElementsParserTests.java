@@ -25,6 +25,16 @@ class ElementsParserTests extends AbstractTests {
     }
 
     @Test
+    void test_parse_ThrowsAnException_WhenThereAreNoElementsFound() {
+        try {
+            parser.parse(context(), tokens("!elements", "expression"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("No elements found for expression \"expression\"", e.getMessage());
+        }
+    }
+
+    @Test
     void test_parse_FindsElementsByExpression() {
         Container application = model.addSoftwareSystem("Software System").addContainer("Application");
         Component componentA = application.addComponent("A");

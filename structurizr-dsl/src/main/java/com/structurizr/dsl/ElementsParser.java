@@ -22,7 +22,13 @@ final class ElementsParser extends AbstractParser {
         String expression = tokens.get(1);
         Set<ModelItem> modelItems = new ExpressionParser().parseExpression(expression, context);
 
-        return modelItems.stream().filter(mi -> mi instanceof Element).map(mi -> (Element)mi).collect(Collectors.toSet());
+        Set<Element> elements = modelItems.stream().filter(mi -> mi instanceof Element).map(mi -> (Element)mi).collect(Collectors.toSet());
+
+        if (elements.isEmpty()) {
+            throw new RuntimeException("No elements found for expression \"" + expression + "\"");
+        }
+
+        return elements;
     }
 
 }

@@ -9,6 +9,4 @@ public interface TypeMatcher {
 
     boolean matches(Type type);
 
-    String getTechnology();
-
 }

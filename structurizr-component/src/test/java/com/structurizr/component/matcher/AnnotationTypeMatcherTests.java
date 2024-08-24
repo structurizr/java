@@ -13,30 +13,30 @@ public class AnnotationTypeMatcherTests {
 
     @Test
     void construction_ThrowsAnException_WhenPassedANullName() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> new AnnotationTypeMatcher((String)null, "Technology"));
+        assertThrowsExactly(IllegalArgumentException.class, () -> new AnnotationTypeMatcher((String)null));
     }
 
     @Test
     void construction_ThrowsAnException_WhenPassedAnEmptyName() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> new AnnotationTypeMatcher("", "Technology"));
-        assertThrowsExactly(IllegalArgumentException.class, () -> new AnnotationTypeMatcher(" ", "Technology"));
+        assertThrowsExactly(IllegalArgumentException.class, () -> new AnnotationTypeMatcher(""));
+        assertThrowsExactly(IllegalArgumentException.class, () -> new AnnotationTypeMatcher(" "));
     }
 
     @Test
     void construction_ThrowsAnException_WhenPassedANullClass() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> new AnnotationTypeMatcher((Class<? extends Annotation>) null, "Technology"));
+        assertThrowsExactly(IllegalArgumentException.class, () -> new AnnotationTypeMatcher((Class<? extends Annotation>) null));
     }
 
     @Test
     void matches_ThrowsAnException_WhenPassedNull() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> new AnnotationTypeMatcher("com.example.AnnotationName", "Technology").matches(null));
+        assertThrowsExactly(IllegalArgumentException.class, () -> new AnnotationTypeMatcher("com.example.AnnotationName").matches(null));
     }
 
     @Test
     void matches_ReturnsFalse_WhenThereIsNoUnderlyingJavaClass() {
         Type type = new Type("com.structurizr.component.matcher.annotationTypeMatcher.CustomerController");
 
-        assertFalse(new AnnotationTypeMatcher("com.structurizr.component.matcher.annotationTypeMatcher.Controller", "Technology").matches(type));
+        assertFalse(new AnnotationTypeMatcher("com.structurizr.component.matcher.annotationTypeMatcher.Controller").matches(type));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class AnnotationTypeMatcherTests {
         ClassParser parser = new ClassParser(new File(classes, "com/structurizr/component/matcher/annotationTypeMatcher/CustomerController.class").getAbsolutePath());
         Type type = new Type(parser.parse());
 
-        assertFalse(new AnnotationTypeMatcher("com.structurizr.component.matcher.annotationTypeMatcher.Repository", "Technology").matches(type));
+        assertFalse(new AnnotationTypeMatcher("com.structurizr.component.matcher.annotationTypeMatcher.Repository").matches(type));
     }
 
     @Test
@@ -54,7 +54,7 @@ public class AnnotationTypeMatcherTests {
         ClassParser parser = new ClassParser(new File(classes, "com/structurizr/component/matcher/annotationTypeMatcher/CustomerController.class").getAbsolutePath());
         Type type = new Type(parser.parse());
 
-        assertTrue(new AnnotationTypeMatcher("com.structurizr.component.matcher.annotationTypeMatcher.Controller", "Technology").matches(type));
+        assertTrue(new AnnotationTypeMatcher("com.structurizr.component.matcher.annotationTypeMatcher.Controller").matches(type));
     }
 
 }

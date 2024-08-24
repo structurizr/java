@@ -47,8 +47,8 @@ final class ImpliedRelationshipsParser extends AbstractParser {
             }
 
             try {
-                Class impliedRelationshipsStrategyClass = context.loadClass(option, dslFile);
-                Constructor constructor = impliedRelationshipsStrategyClass.getDeclaredConstructor();
+                Class<? extends ImpliedRelationshipsStrategy> impliedRelationshipsStrategyClass = context.loadClass(option, dslFile);
+                Constructor<? extends ImpliedRelationshipsStrategy> constructor = impliedRelationshipsStrategyClass.getDeclaredConstructor();
                 ImpliedRelationshipsStrategy impliedRelationshipsStrategy = (ImpliedRelationshipsStrategy)constructor.newInstance();
                 context.getWorkspace().getModel().setImpliedRelationshipsStrategy(impliedRelationshipsStrategy);
             } catch (ClassNotFoundException cnfe) {

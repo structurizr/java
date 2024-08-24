@@ -14,4 +14,9 @@ public class DefaultNamingStrategy implements NamingStrategy {
         return String.join(" ", parts);
     }
 
+    @Override
+    public String toString() {
+        return "DefaultNamingStrategy{}";
+    }
+
 }

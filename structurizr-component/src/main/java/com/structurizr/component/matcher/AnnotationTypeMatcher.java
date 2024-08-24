@@ -9,13 +9,11 @@ import java.lang.annotation.Annotation;
 /**
  * Matches types based upon the presence of a type-level annotation.
  */
-public class AnnotationTypeMatcher extends AbstractTypeMatcher {
+public class AnnotationTypeMatcher implements TypeMatcher {
 
     private final String annotationType;
 
-    public AnnotationTypeMatcher(String annotationType, String technology) {
-        super(technology);
-
+    public AnnotationTypeMatcher(String annotationType) {
         if (StringUtils.isNullOrEmpty(annotationType)) {
             throw new IllegalArgumentException("An annotation type must be supplied");
         }
@@ -23,9 +21,7 @@ public class AnnotationTypeMatcher extends AbstractTypeMatcher {
         this.annotationType = "L" + annotationType.replace(".", "/") + ";";
     }
 
-    public AnnotationTypeMatcher(Class<? extends Annotation> annotation, String technology) {
-        super(technology);
-
+    public AnnotationTypeMatcher(Class<? extends Annotation> annotation) {
         if (annotation == null) {
             throw new IllegalArgumentException("An annotation must be supplied");
         }

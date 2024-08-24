@@ -13,15 +13,13 @@ import java.util.stream.Stream;
 /**
  * Matches types where the type extends the specified class.
  */
-public class ExtendsTypeMatcher extends AbstractTypeMatcher {
+public class ExtendsTypeMatcher implements TypeMatcher {
 
     private static final Log log = LogFactory.getLog(ExtendsTypeMatcher.class);
 
     private final String className;
 
-    public ExtendsTypeMatcher(String className, String technology) {
-        super(technology);
-
+    public ExtendsTypeMatcher(String className) {
         if (StringUtils.isNullOrEmpty(className)) {
             throw new IllegalArgumentException("A fully qualified class name must be supplied");
         }

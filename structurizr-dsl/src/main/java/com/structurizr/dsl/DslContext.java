@@ -103,7 +103,7 @@ abstract class DslContext {
         return identifiersRegister.getRelationship(identifier.toLowerCase());
     }
 
-    protected Class loadClass(String fqn, File dslFile) throws Exception {
+    protected <T> Class<? extends T> loadClass(String fqn, File dslFile) throws Exception {
         File pluginsDirectory = new File(dslFile.getParent(), PLUGINS_DIRECTORY_NAME);
         URL[] urls = new URL[0];
 
@@ -122,7 +122,7 @@ abstract class DslContext {
         }
 
         URLClassLoader childClassLoader = new URLClassLoader(urls, getClass().getClassLoader());
-        return childClassLoader.loadClass(fqn);
+        return (Class<? extends T>) childClassLoader.loadClass(fqn);
     }
 
     void end() {

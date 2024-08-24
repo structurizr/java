@@ -12,25 +12,25 @@ public class ImplementsTypeMatcherTests {
 
     @Test
     void construction_ThrowsAnException_WhenPassedANullName() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> new ImplementsTypeMatcher(null, "Technology"));
+        assertThrowsExactly(IllegalArgumentException.class, () -> new ImplementsTypeMatcher(null));
     }
 
     @Test
     void construction_ThrowsAnException_WhenPassedAnEmptyName() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> new ImplementsTypeMatcher("", "Technology"));
-        assertThrowsExactly(IllegalArgumentException.class, () -> new ImplementsTypeMatcher(" ", "Technology"));
+        assertThrowsExactly(IllegalArgumentException.class, () -> new ImplementsTypeMatcher(""));
+        assertThrowsExactly(IllegalArgumentException.class, () -> new ImplementsTypeMatcher(" "));
     }
 
     @Test
     void matches_ThrowsAnException_WhenPassedNull() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> new ImplementsTypeMatcher("com.example.InterfaceName", "Technology").matches(null));
+        assertThrowsExactly(IllegalArgumentException.class, () -> new ImplementsTypeMatcher("com.example.InterfaceName").matches(null));
     }
 
     @Test
     void matches_ReturnsFalse_WhenThereIsNoUnderlyingJavaClass() {
         Type type = new Type("com.structurizr.component.matcher.implementsTypeMatcher.CustomerController");
 
-        assertFalse(new ImplementsTypeMatcher("com.structurizr.component.matcher.implementsTypeMatcher.Controller", "Technology").matches(type));
+        assertFalse(new ImplementsTypeMatcher("com.structurizr.component.matcher.implementsTypeMatcher.Controller").matches(type));
     }
 
     @Test
@@ -39,7 +39,7 @@ public class ImplementsTypeMatcherTests {
         ClassParser parser = new ClassParser(new File(classes, "com/structurizr/component/matcher/implementsTypeMatcher/CustomerController.class").getAbsolutePath());
         Type type = new Type(parser.parse());
 
-        assertFalse(new ImplementsTypeMatcher("com.structurizr.component.matcher.implementsTypeMatcher.Repository", "Technology").matches(type));
+        assertFalse(new ImplementsTypeMatcher("com.structurizr.component.matcher.implementsTypeMatcher.Repository").matches(type));
     }
 
     @Test
@@ -48,7 +48,7 @@ public class ImplementsTypeMatcherTests {
         ClassParser parser = new ClassParser(new File(classes, "com/structurizr/component/matcher/implementsTypeMatcher/CustomerController.class").getAbsolutePath());
         Type type = new Type(parser.parse());
 
-        assertTrue(new ImplementsTypeMatcher("com.structurizr.component.matcher.implementsTypeMatcher.Controller", "Technology").matches(type));
+        assertTrue(new ImplementsTypeMatcher("com.structurizr.component.matcher.implementsTypeMatcher.Controller").matches(type));
     }
 
 }

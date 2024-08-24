@@ -11,76 +11,98 @@ import com.structurizr.component.supporting.AllReferencedTypesSupportingTypesStr
 import com.structurizr.component.supporting.AllTypesInPackageSupportingTypesStrategy;
 import com.structurizr.component.supporting.AllTypesUnderPackageSupportingTypesStrategy;
 
+import java.io.File;
+import java.lang.reflect.Constructor;
+
 final class ComponentFinderStrategyParser extends AbstractParser {
 
+    private static final String TECHNOLOGY_GRAMMAR = "technology <name>";
+
     private static final String MATCHER_GRAMMAR = "matcher <annotation|extends|implements|namesuffix|regex> [parameters]";
+    private static final String MATCHER_ANNOTATION_GRAMMAR = "matcher annotation <fqn>";
+    private static final String MATCHER_EXTENDS_GRAMMAR = "matcher extends <fqn>";
+    private static final String MATCHER_IMPLEMENTS_GRAMMAR = "matcher implements <fqn>";
+    private static final String MATCHER_NAMESUFFIX_GRAMMAR = "matcher namesuffix <name>";
+    private static final String MATCHER_REGEX_GRAMMAR = "matcher regex <regex>";
+
     private static final String FILTER_GRAMMAR = "filter <includeregex|excluderegex> [parameters]";
     private static final String SUPPORTING_TYPES_GRAMMAR = "supportingTypes <referenced|referencedinpackage|inpackage|underpackage> [parameters]";
     private static final String NAMING_GRAMMAR = "naming <name|fqn|package>";
 
-    void parseMatcher(ComponentFinderStrategyDslContext context, Tokens tokens) {
+    void parseTechnology(ComponentFinderStrategyDslContext context, Tokens tokens) {
+        if (tokens.size() != 2) {
+            throw new RuntimeException("Expected: " + TECHNOLOGY_GRAMMAR);
+        }
+
+        String name = tokens.get(1);
+        context.getComponentFinderStrategyBuilder().forTechnology(name);
+    }
+
+    void parseMatcher(ComponentFinderStrategyDslContext context, Tokens tokens, File dslFile) {
         if (tokens.size() < 2) {
             throw new RuntimeException("Too few tokens, expected: " + MATCHER_GRAMMAR);
         }
 
-        String type = tokens.get(1).toLowerCase();
-        switch (type) {
+        String type = tokens.get(1);
+        switch (type.toLowerCase()) {
             case "annotation":
-                if (tokens.size() == 4) {
+                if (tokens.size() == 3) {
                     String name = tokens.get(2);
-                    String technology = tokens.get(3);
 
-                    context.getComponentFinderStrategyBuilder().matchedBy(new AnnotationTypeMatcher(name, technology));
+                    context.getComponentFinderStrategyBuilder().matchedBy(new AnnotationTypeMatcher(name));
                 } else {
-                    throw new RuntimeException("Expected: " + MATCHER_GRAMMAR);
+                    throw new RuntimeException("Expected: " + MATCHER_ANNOTATION_GRAMMAR);
                 }
                 break;
             case "extends":
-                if (tokens.size() == 4) {
+                if (tokens.size() == 3) {
                     String name = tokens.get(2);
-                    String technology = tokens.get(3);
 
-                    context.getComponentFinderStrategyBuilder().matchedBy(new ExtendsTypeMatcher(name, technology));
+                    context.getComponentFinderStrategyBuilder().matchedBy(new ExtendsTypeMatcher(name));
                 } else {
-                    throw new RuntimeException("Expected: " + MATCHER_GRAMMAR);
+                    throw new RuntimeException("Expected: " + MATCHER_EXTENDS_GRAMMAR);
                 }
                 break;
             case "implements":
-                if (tokens.size() == 4) {
+                if (tokens.size() == 3) {
                     String name = tokens.get(2);
-                    String technology = tokens.get(3);
 
-                    context.getComponentFinderStrategyBuilder().matchedBy(new ImplementsTypeMatcher(name, technology));
+                    context.getComponentFinderStrategyBuilder().matchedBy(new ImplementsTypeMatcher(name));
                 } else {
-                    throw new RuntimeException("Expected: " + MATCHER_GRAMMAR);
+                    throw new RuntimeException("Expected: " + MATCHER_IMPLEMENTS_GRAMMAR);
                 }
                 break;
             case "namesuffix":
-                if (tokens.size() == 4) {
+                if (tokens.size() == 3) {
                     String suffix = tokens.get(2);
-                    String technology = tokens.get(3);
 
-                    context.getComponentFinderStrategyBuilder().matchedBy(new NameSuffixTypeMatcher(suffix, technology));
+                    context.getComponentFinderStrategyBuilder().matchedBy(new NameSuffixTypeMatcher(suffix));
                 } else {
-                    throw new RuntimeException("Expected: " + MATCHER_GRAMMAR);
+                    throw new RuntimeException("Expected: " + MATCHER_NAMESUFFIX_GRAMMAR);
                 }
                 break;
             case "regex":
-                if (tokens.size() == 4) {
+                if (tokens.size() == 3) {
                     String regex = tokens.get(2);
-                    String technology = tokens.get(3);
 
-                    context.getComponentFinderStrategyBuilder().matchedBy(new RegexTypeMatcher(regex, technology));
+                    context.getComponentFinderStrategyBuilder().matchedBy(new RegexTypeMatcher(regex));
                 } else {
-                    throw new RuntimeException("Expected: " + MATCHER_GRAMMAR);
+                    throw new RuntimeException("Expected: " + MATCHER_REGEX_GRAMMAR);
                 }
                 break;
             default:
-                throw new IllegalArgumentException("Unknown matcher: " + type);
+                try {
+                    Class<? extends TypeMatcher> typeMatcherClass = context.loadClass(type, dslFile);
+                    Constructor<? extends TypeMatcher> constructor = typeMatcherClass.getDeclaredConstructor();
+                    TypeMatcher typeMatcher = constructor.newInstance();
+                    context.getComponentFinderStrategyBuilder().matchedBy(typeMatcher);
+                } catch (Exception e) {
+                    throw new RuntimeException("Type matcher \"" + type + "\" could not be loaded - " + e.getClass() + ": " + e.getMessage());
+                }
         }
     }
 
-    void parseFilter(ComponentFinderStrategyDslContext context, Tokens tokens) {
+    void parseFilter(ComponentFinderStrategyDslContext context, Tokens tokens, File dslFile) {
         if (tokens.size() < 2) {
             throw new RuntimeException("Too few tokens, expected: " + FILTER_GRAMMAR);
         }
@@ -110,7 +132,7 @@ final class ComponentFinderStrategyParser extends AbstractParser {
         }
     }
 
-    void parseSupportingTypes(ComponentFinderStrategyDslContext context, Tokens tokens) {
+    void parseSupportingTypes(ComponentFinderStrategyDslContext context, Tokens tokens, File dslFile) {
         if (tokens.size() < 2) {
             throw new RuntimeException("Too few tokens, expected: " + SUPPORTING_TYPES_GRAMMAR);
         }
@@ -134,8 +156,8 @@ final class ComponentFinderStrategyParser extends AbstractParser {
         }
     }
 
-    void parseNaming(ComponentFinderStrategyDslContext context, Tokens tokens) {
-        if (tokens.size() < 1) {
+    void parseNaming(ComponentFinderStrategyDslContext context, Tokens tokens, File dslFile) {
+        if (tokens.size() < 2) {
             throw new RuntimeException("Too few tokens, expected: " + NAMING_GRAMMAR);
         }
 

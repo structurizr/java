@@ -6,13 +6,11 @@ import com.structurizr.util.StringUtils;
 /**
  * Matches types where the name of the type ends with the specified suffix.
  */
-public class NameSuffixTypeMatcher extends AbstractTypeMatcher {
+public class NameSuffixTypeMatcher implements TypeMatcher {
 
     private final String suffix;
 
-    public NameSuffixTypeMatcher(String suffix, String technology) {
-        super(technology);
-
+    public NameSuffixTypeMatcher(String suffix) {
         if (StringUtils.isNullOrEmpty(suffix)) {
             throw new IllegalArgumentException("A suffix must be supplied");
         }

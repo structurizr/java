@@ -79,4 +79,11 @@ class ImpliedRelationshipsParserTests extends AbstractTests {
         }
     }
 
+    @Test
+    void test_parse_SetsTheStrategy_WhenACustomStrategyIsUsedInUnrestrictedMode() {
+        parser.parse(context(), tokens("!impliedRelationships", "com.structurizr.dsl.example.CustomImpliedRelationshipsStrategy"), new File("."), false);
+
+        assertEquals("com.structurizr.dsl.example.CustomImpliedRelationshipsStrategy", workspace.getModel().getImpliedRelationshipsStrategy().getClass().getCanonicalName());
+    }
+
 }

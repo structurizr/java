@@ -16,4 +16,9 @@ public class DefaultSupportingTypesStrategy implements SupportingTypesStrategy {
         return Collections.emptySet();
     }
 
+    @Override
+    public String toString() {
+        return "DefaultSupportingTypesStrategy{}";
+    }
+
 }

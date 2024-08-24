@@ -23,6 +23,16 @@ class RelationshipsParserTests extends AbstractTests {
     }
 
     @Test
+    void test_parse_ThrowsAnException_WhenThereAreNoRelationshipsFound() {
+        try {
+            parser.parse(context(), tokens("!relationships", "expression"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("No relationships found for expression \"expression\"", e.getMessage());
+        }
+    }
+
+    @Test
     void test_parse_FindsRelationshipsByExpression() {
         SoftwareSystem a = model.addSoftwareSystem("A");
         SoftwareSystem b = model.addSoftwareSystem("B");

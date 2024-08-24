@@ -439,17 +439,20 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                             startContext(new ComponentFinderStrategyDslContext(getContext(ComponentFinderDslContext.class).getComponentFinderBuilder()));
                         }
 
+                    } else if (COMPONENT_FINDER_STRATEGY_TECHNOLOGY_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
+                        new ComponentFinderStrategyParser().parseTechnology(getContext(ComponentFinderStrategyDslContext.class), tokens);
+
                     } else if (COMPONENT_FINDER_STRATEGY_MATCHER_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
-                        new ComponentFinderStrategyParser().parseMatcher(getContext(ComponentFinderStrategyDslContext.class), tokens);
+                        new ComponentFinderStrategyParser().parseMatcher(getContext(ComponentFinderStrategyDslContext.class), tokens, dslFile);
 
                     } else if (COMPONENT_FINDER_STRATEGY_FILTER_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
-                        new ComponentFinderStrategyParser().parseFilter(getContext(ComponentFinderStrategyDslContext.class), tokens);
+                        new ComponentFinderStrategyParser().parseFilter(getContext(ComponentFinderStrategyDslContext.class), tokens, dslFile);
 
                     } else if (COMPONENT_FINDER_STRATEGY_SUPPORTING_TYPES_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
-                        new ComponentFinderStrategyParser().parseSupportingTypes(getContext(ComponentFinderStrategyDslContext.class), tokens);
+                        new ComponentFinderStrategyParser().parseSupportingTypes(getContext(ComponentFinderStrategyDslContext.class), tokens, dslFile);
 
                     } else if (COMPONENT_FINDER_STRATEGY_NAMING_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
-                        new ComponentFinderStrategyParser().parseNaming(getContext(ComponentFinderStrategyDslContext.class), tokens);
+                        new ComponentFinderStrategyParser().parseNaming(getContext(ComponentFinderStrategyDslContext.class), tokens, dslFile);
 
                     } else if (ENTERPRISE_TOKEN.equalsIgnoreCase(firstToken) && inContext(ModelDslContext.class)) {
                         throw new RuntimeException("The enterprise keyword was previously deprecated, and has now been removed - please use group instead (https://docs.structurizr.com/dsl/language#group)");

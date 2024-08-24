@@ -16,6 +16,7 @@ import com.structurizr.component.visitor.DefaultComponentVisitor;
  */
 public final class ComponentFinderStrategyBuilder {
 
+    private String technology;
     private TypeMatcher typeMatcher;
     private TypeFilter typeFilter = new DefaultTypeFilter();
     private SupportingTypesStrategy supportingTypesStrategy = new DefaultSupportingTypesStrategy();
@@ -23,6 +24,12 @@ public final class ComponentFinderStrategyBuilder {
     private ComponentVisitor componentVisitor = new DefaultComponentVisitor();
 
     public ComponentFinderStrategyBuilder() {
+    }
+
+    public ComponentFinderStrategyBuilder forTechnology(String technology) {
+        this.technology = technology;
+
+        return this;
     }
 
     public ComponentFinderStrategyBuilder matchedBy(TypeMatcher typeMatcher) {
@@ -60,7 +67,19 @@ public final class ComponentFinderStrategyBuilder {
             throw new RuntimeException("A type matcher must be specified");
         }
 
-        return new ComponentFinderStrategy(typeMatcher, typeFilter, supportingTypesStrategy, namingStrategy, componentVisitor);
+        return new ComponentFinderStrategy(technology, typeMatcher, typeFilter, supportingTypesStrategy, namingStrategy, componentVisitor);
+    }
+
+    @Override
+    public String toString() {
+        return "ComponentFinderStrategyBuilder{" +
+                "technology='" + technology + '\'' +
+                ", typeMatcher=" + typeMatcher +
+                ", typeFilter=" + typeFilter +
+                ", supportingTypesStrategy=" + supportingTypesStrategy +
+                ", namingStrategy=" + namingStrategy +
+                ", componentVisitor=" + componentVisitor +
+                '}';
     }
 
 }

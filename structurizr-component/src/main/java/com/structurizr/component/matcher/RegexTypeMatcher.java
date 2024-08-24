@@ -8,13 +8,11 @@ import java.util.regex.Pattern;
 /**
  * Matches types using a regex against the fully qualified type name.
  */
-public class RegexTypeMatcher extends AbstractTypeMatcher {
+public class RegexTypeMatcher implements TypeMatcher {
 
     private final Pattern regex;
 
-    public RegexTypeMatcher(String regex, String technology) {
-        super(technology);
-
+    public RegexTypeMatcher(String regex) {
         if (StringUtils.isNullOrEmpty(regex)) {
             throw new IllegalArgumentException("A regex must be supplied");
         }

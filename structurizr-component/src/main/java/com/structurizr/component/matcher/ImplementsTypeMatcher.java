@@ -11,15 +11,13 @@ import java.util.Set;
 /**
  * Matches types where the type implements the specified interface.
  */
-public class ImplementsTypeMatcher extends AbstractTypeMatcher {
+public class ImplementsTypeMatcher implements TypeMatcher {
 
     private static final Log log = LogFactory.getLog(ImplementsTypeMatcher.class);
 
     private final String interfaceName;
 
-    public ImplementsTypeMatcher(String interfaceName, String technology) {
-        super(technology);
-
+    public ImplementsTypeMatcher(String interfaceName) {
         if (StringUtils.isNullOrEmpty(interfaceName)) {
             throw new IllegalArgumentException("A fully qualified interface name must be supplied");
         }

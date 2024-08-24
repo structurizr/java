@@ -23,7 +23,14 @@ final class RelationshipsParser extends AbstractParser {
         String expression = tokens.get(1);
         Set<ModelItem> modelItems = new ExpressionParser().parseExpression(expression, context);
 
-        return modelItems.stream().filter(mi -> mi instanceof Relationship).map(mi -> (Relationship)mi).collect(Collectors.toSet());
+        Set<Relationship> relationships = modelItems.stream().filter(mi -> mi instanceof Relationship).map(mi -> (Relationship)mi).collect(Collectors.toSet());
+
+
+        if (relationships.isEmpty()) {
+            throw new RuntimeException("No relationships found for expression \"" + expression + "\"");
+        }
+
+        return relationships;
     }
 
 }

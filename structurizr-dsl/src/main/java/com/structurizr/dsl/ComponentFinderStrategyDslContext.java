@@ -15,6 +15,7 @@ final class ComponentFinderStrategyDslContext extends DslContext {
     @Override
     protected String[] getPermittedTokens() {
         return new String[] {
+            StructurizrDslTokens.COMPONENT_FINDER_STRATEGY_TECHNOLOGY_TOKEN,
             StructurizrDslTokens.COMPONENT_FINDER_STRATEGY_MATCHER_TOKEN,
             StructurizrDslTokens.COMPONENT_FINDER_STRATEGY_FILTER_TOKEN,
             StructurizrDslTokens.COMPONENT_FINDER_STRATEGY_SUPPORTING_TYPES_TOKEN,

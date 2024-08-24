@@ -22,13 +22,15 @@ import java.util.Set;
  */
 class ComponentFinderStrategy {
 
+    private final String technology;
     private final TypeMatcher typeMatcher;
     private final TypeFilter typeFilter;
     private final SupportingTypesStrategy supportingTypesStrategy;
     private final NamingStrategy namingStrategy;
     private final ComponentVisitor componentVisitor;
 
-    ComponentFinderStrategy(TypeMatcher typeMatcher, TypeFilter typeFilter, SupportingTypesStrategy supportingTypesStrategy, NamingStrategy namingStrategy, ComponentVisitor componentVisitor) {
+    ComponentFinderStrategy(String technology, TypeMatcher typeMatcher, TypeFilter typeFilter, SupportingTypesStrategy supportingTypesStrategy, NamingStrategy namingStrategy, ComponentVisitor componentVisitor) {
+        this.technology = technology;
         this.typeMatcher = typeMatcher;
         this.typeFilter = typeFilter;
         this.supportingTypesStrategy = supportingTypesStrategy;
@@ -44,7 +46,7 @@ class ComponentFinderStrategy {
             if (typeMatcher.matches(type) && typeFilter.accept(type)) {
                 DiscoveredComponent component = new DiscoveredComponent(namingStrategy.nameOf(type), type);
                 component.setDescription(type.getDescription());
-                component.setTechnology(typeMatcher.getTechnology());
+                component.setTechnology(this.technology);
                 component.setComponentFinderStrategy(this);
                 components.add(component);
 

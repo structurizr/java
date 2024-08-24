@@ -11,4 +11,9 @@ public class DefaultComponentVisitor implements ComponentVisitor {
     public void visit(Component component) {
     }
 
+    @Override
+    public String toString() {
+        return "DefaultComponentVisitor{}";
+    }
+
 }

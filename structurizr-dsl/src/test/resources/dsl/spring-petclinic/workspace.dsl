@@ -23,11 +23,13 @@
                     classes "${SPRING_PETCLINIC_HOME}/target/spring-petclinic-3.3.0-SNAPSHOT.jar"
                     source "${SPRING_PETCLINIC_HOME}/src/main/java"
                     strategy {
-                        matcher annotation "org.springframework.stereotype.Controller" "Spring MVC Controller"
+                        technology "Spring MVC Controller"
+                        matcher annotation "org.springframework.stereotype.Controller"
                         filter excludeRegex ".*.CrashController"
                     }
                     strategy {
-                        matcher implements "org.springframework.data.repository.Repository" "Spring Data Repository"
+                        technology "Spring Data Repository"
+                        matcher implements "org.springframework.data.repository.Repository"
                     }
                 }
 
