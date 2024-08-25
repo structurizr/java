@@ -1,4 +1,4 @@
- workspace "Spring PetClinic" "A C4 model of the Spring PetClinic sample app (https://github.com/spring-projects/spring-petclinic/)" {
+workspace "Spring PetClinic" "A C4 model of the Spring PetClinic sample app (https://github.com/spring-projects/spring-petclinic/)" {
 
     // this example requires an environment variable as follows:
     // - Name: SPRING_PETCLINIC_HOME
@@ -26,25 +26,23 @@
                         technology "Spring MVC Controller"
                         matcher annotation "org.springframework.stereotype.Controller"
                         filter excludeRegex ".*.CrashController"
+                        forEach {
+                            clinicEmployee -> this "Uses"
+                            tag "Spring MVC Controller"
+                        }
                     }
                     strategy {
                         technology "Spring Data Repository"
                         matcher implements "org.springframework.data.repository.Repository"
+                        forEach {
+                            -> relationalDatabaseSchema "Reads from and writes to"
+                            tag "Spring Data Repository"
+                        }
                     }
                 }
 
                 !script groovy {
                     element.components.each { it.url = it.properties["component.src"].replace(System.getenv("SPRING_PETCLINIC_HOME") + "/src/main/java", "https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java") }
-                }
-
-                !elements "element.parent==webApplication && element.technology==Spring MVC Controller" {
-                    clinicEmployee -> this "Uses"
-                    tag "Spring MVC Controller"
-                }
-
-                !elements "element.parent==webApplication && element.technology==Spring Data Repository" {
-                    -> relationalDatabaseSchema "Reads from and writes to"
-                    tag "Spring Data Repository"
                 }
             }
         }

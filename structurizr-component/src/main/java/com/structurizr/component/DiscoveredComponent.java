@@ -77,4 +77,11 @@ final class DiscoveredComponent {
         this.componentFinderStrategy = componentFinderStrategy;
     }
 
+    @Override
+    public String toString() {
+        return "DiscoveredComponent{" +
+                "name='" + name + '\'' +
+                '}';
+    }
+
 }

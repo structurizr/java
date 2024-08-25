@@ -12,7 +12,6 @@ import com.structurizr.component.supporting.AllTypesInPackageSupportingTypesStra
 import com.structurizr.component.supporting.AllTypesUnderPackageSupportingTypesStrategy;
 
 import java.io.File;
-import java.lang.reflect.Constructor;
 
 final class ComponentFinderStrategyParser extends AbstractParser {
 
@@ -35,7 +34,7 @@ final class ComponentFinderStrategyParser extends AbstractParser {
         }
 
         String name = tokens.get(1);
-        context.getComponentFinderStrategyBuilder().forTechnology(name);
+        context.getComponentFinderStrategyBuilder().asTechnology(name);
     }
 
     void parseMatcher(ComponentFinderStrategyDslContext context, Tokens tokens, File dslFile) {

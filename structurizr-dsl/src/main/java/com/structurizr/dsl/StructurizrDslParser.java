@@ -108,14 +108,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     }
 
     private String getParsedDsl() {
-        StringBuilder buf = new StringBuilder();
-
-        for (String line : dslSourceLines) {
-            buf.append(line);
-            buf.append(System.lineSeparator());
-        }
-
-        return buf.toString();
+        return String.join(System.lineSeparator(), dslSourceLines);
     }
 
     void parse(DslParserContext context, File path) throws StructurizrDslParserException {
@@ -140,7 +133,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         }
 
         try {
-            parse(Files.readAllLines(dslFile.toPath(), characterEncoding), dslFile, false);
+            parse(Files.readAllLines(dslFile.toPath(), characterEncoding), dslFile, false, true);
         } catch (IOException e) {
             throw new StructurizrDslParserException(e.getMessage());
         }
@@ -175,7 +168,13 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         }
 
         List<String> lines = Arrays.asList(dsl.split("\\r?\\n"));
-        parse(lines, dslFile, false);
+        parse(lines, dslFile, false, true);
+    }
+
+    void parse(List<String> lines, DslContext dslContext) throws StructurizrDslParserException {
+        startContext(dslContext);
+        parse(lines, null, true, false);
+        endContext();
     }
 
     /**
@@ -185,13 +184,12 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
      * @param dslFile   a File representing the DSL file, and therefore where includes/images/etc should be loaded relative to
      * @throws StructurizrDslParserException when something goes wrong
      */
-    void parse(List<String> lines, File dslFile, boolean include) throws StructurizrDslParserException {
+    void parse(List<String> lines, File dslFile, boolean fragment, boolean includeInDslSourceLines) throws StructurizrDslParserException {
         List<DslLine> dslLines = preProcessLines(lines);
 
         for (DslLine dslLine : dslLines) {
-            boolean includeInDslSourceLines = true;
-
             String line = dslLine.getSource();
+            String lineForDslSource = line;
 
             if (line.startsWith(BOM)) {
                 // this caters for files encoded as "UTF-8 with BOM"
@@ -255,11 +253,12 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                                     paddedLines.add(leadingSpace + unpaddedLine);
                                 }
 
-                                parse(paddedLines, includedFile.getFile(), true);
+                                parse(paddedLines, includedFile.getFile(), true, true);
                             }
-
-                            includeInDslSourceLines = false;
                         }
+
+                        // include the !include in the parser DSL as: # !include ...
+                        lineForDslSource = null;
 
                     } else if (PLUGIN_TOKEN.equalsIgnoreCase(firstToken)) {
                         if (!restricted) {
@@ -453,6 +452,14 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                     } else if (COMPONENT_FINDER_STRATEGY_NAMING_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
                         new ComponentFinderStrategyParser().parseNaming(getContext(ComponentFinderStrategyDslContext.class), tokens, dslFile);
+
+                    } else if (COMPONENT_FINDER_STRATEGY_FOREACH_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
+                        if (shouldStartContext(tokens)) {
+                            startContext(new ComponentFinderStrategyForEachDslContext(getContext(ComponentFinderStrategyDslContext.class), this));
+                        }
+
+                    } else if (inContext(ComponentFinderStrategyForEachDslContext.class)) {
+                        getContext(ComponentFinderStrategyForEachDslContext.class).addLine(line);
 
                     } else if (ENTERPRISE_TOKEN.equalsIgnoreCase(firstToken) && inContext(ModelDslContext.class)) {
                         throw new RuntimeException("The enterprise keyword was previously deprecated, and has now been removed - please use group instead (https://docs.structurizr.com/dsl/language#group)");
@@ -998,8 +1005,8 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     }
                 }
 
-                if (includeInDslSourceLines) {
-                    dslSourceLines.add(line);
+                if (includeInDslSourceLines && lineForDslSource != null) {
+                    dslSourceLines.add(lineForDslSource);
                 }
             } catch (Exception e) {
                 if (e.getMessage() != null) {
@@ -1010,7 +1017,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
             }
         }
 
-        if (!include && !contextStack.empty()) {
+        if (!fragment && !contextStack.empty()) {
             throw new StructurizrDslParserException("Unexpected end of DSL content - are one or more closing curly braces missing?");
         }
     }

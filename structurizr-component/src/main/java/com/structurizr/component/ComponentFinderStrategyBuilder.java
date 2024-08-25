@@ -4,7 +4,6 @@ import com.structurizr.component.filter.DefaultTypeFilter;
 import com.structurizr.component.filter.TypeFilter;
 import com.structurizr.component.matcher.TypeMatcher;
 import com.structurizr.component.naming.DefaultNamingStrategy;
-import com.structurizr.component.naming.SimpleNamingStrategy;
 import com.structurizr.component.naming.NamingStrategy;
 import com.structurizr.component.supporting.DefaultSupportingTypesStrategy;
 import com.structurizr.component.supporting.SupportingTypesStrategy;
@@ -24,12 +23,6 @@ public final class ComponentFinderStrategyBuilder {
     private ComponentVisitor componentVisitor = new DefaultComponentVisitor();
 
     public ComponentFinderStrategyBuilder() {
-    }
-
-    public ComponentFinderStrategyBuilder forTechnology(String technology) {
-        this.technology = technology;
-
-        return this;
     }
 
     public ComponentFinderStrategyBuilder matchedBy(TypeMatcher typeMatcher) {
@@ -52,6 +45,12 @@ public final class ComponentFinderStrategyBuilder {
 
     public ComponentFinderStrategyBuilder namedBy(NamingStrategy namingStrategy) {
         this.namingStrategy = namingStrategy;
+
+        return this;
+    }
+
+    public ComponentFinderStrategyBuilder asTechnology(String technology) {
+        this.technology = technology;
 
         return this;
     }

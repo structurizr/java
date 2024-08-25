@@ -332,7 +332,7 @@ class DslTests extends AbstractTests {
                 "        }\n" +
                 "    }\n" +
                 "\n" +
-                "}\n", new String(Base64.getDecoder().decode(workspace.getProperties().get("structurizr.dsl"))));
+                "}", new String(Base64.getDecoder().decode(workspace.getProperties().get("structurizr.dsl"))));
     }
 
     @Test
@@ -380,7 +380,7 @@ class DslTests extends AbstractTests {
                 "        }\n" +
                 "    }\n" +
                 "\n" +
-                "}\n", new String(Base64.getDecoder().decode(workspace.getProperties().get("structurizr.dsl"))));
+                "}", new String(Base64.getDecoder().decode(workspace.getProperties().get("structurizr.dsl"))));
     }
 
     @Test
@@ -415,7 +415,7 @@ class DslTests extends AbstractTests {
                 "        }\n" +
                 "    }\n" +
                 "\n" +
-                "}\n", new String(Base64.getDecoder().decode(workspace.getProperties().get("structurizr.dsl"))));
+                "}", new String(Base64.getDecoder().decode(workspace.getProperties().get("structurizr.dsl"))));
     }
 
     @Test
@@ -1150,10 +1150,16 @@ class DslTests extends AbstractTests {
         System.out.println(springPetClinicHome);
         if (!StringUtils.isNullOrEmpty(springPetClinicHome)) {
             System.out.println("Running Spring PetClinic example...");
+
+            File workspaceFile = new File("src/test/resources/dsl/spring-petclinic/workspace.dsl");
             StructurizrDslParser parser = new StructurizrDslParser();
-            parser.parse(new File("src/test/resources/dsl/spring-petclinic/workspace.dsl"));
+            parser.parse(workspaceFile);
+
+            Person clinicEmployee = (Person)parser.getIdentifiersRegister().getElement("clinicEmployee");
 
             Container webApplication = (Container)parser.getIdentifiersRegister().getElement("springPetClinic.webApplication");
+            Container relationalDatabaseSchema = (Container)parser.getIdentifiersRegister().getElement("springPetClinic.relationalDatabaseSchema");
+
             assertEquals(7, webApplication.getComponents().size());
 
             Component welcomeController = webApplication.getComponentWithName("Welcome Controller");
@@ -1162,6 +1168,7 @@ class DslTests extends AbstractTests {
             assertEquals(new File(springPetClinicHome, "src/main/java/org/springframework/samples/petclinic/system/WelcomeController.java").getAbsolutePath(), welcomeController.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/system/WelcomeController.java", welcomeController.getUrl());
             assertSame(welcomeController, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.welcomecontroller"));
+            assertTrue(clinicEmployee.hasEfferentRelationshipWith(welcomeController));
 
             Component ownerController = webApplication.getComponentWithName("Owner Controller");
             assertNotNull(ownerController);
@@ -1169,6 +1176,7 @@ class DslTests extends AbstractTests {
             assertEquals(new File(springPetClinicHome, "src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java").getAbsolutePath(), ownerController.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java", ownerController.getUrl());
             assertSame(ownerController, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.ownerController"));
+            assertTrue(clinicEmployee.hasEfferentRelationshipWith(ownerController));
 
             Component petController = webApplication.getComponentWithName("Pet Controller");
             assertNotNull(petController);
@@ -1176,6 +1184,7 @@ class DslTests extends AbstractTests {
             assertEquals(new File(springPetClinicHome, "src/main/java/org/springframework/samples/petclinic/owner/PetController.java").getAbsolutePath(), petController.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/owner/PetController.java", petController.getUrl());
             assertSame(petController, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.petcontroller"));
+            assertTrue(clinicEmployee.hasEfferentRelationshipWith(petController));
 
             Component vetController = webApplication.getComponentWithName("Vet Controller");
             assertNotNull(vetController);
@@ -1183,6 +1192,7 @@ class DslTests extends AbstractTests {
             assertEquals(new File(springPetClinicHome, "src/main/java/org/springframework/samples/petclinic/vet/VetController.java").getAbsolutePath(), vetController.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/vet/VetController.java", vetController.getUrl());
             assertSame(vetController, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.vetcontroller"));
+            assertTrue(clinicEmployee.hasEfferentRelationshipWith(vetController));
 
             Component visitController = webApplication.getComponentWithName("Visit Controller");
             assertNotNull(visitController);
@@ -1190,6 +1200,7 @@ class DslTests extends AbstractTests {
             assertEquals(new File(springPetClinicHome, "src/main/java/org/springframework/samples/petclinic/owner/VisitController.java").getAbsolutePath(), visitController.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/owner/VisitController.java", visitController.getUrl());
             assertSame(visitController, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.visitcontroller"));
+            assertTrue(clinicEmployee.hasEfferentRelationshipWith(visitController));
 
             Component ownerRepository = webApplication.getComponentWithName("Owner Repository");
             assertNotNull(ownerRepository);
@@ -1197,6 +1208,7 @@ class DslTests extends AbstractTests {
             assertEquals(new File(springPetClinicHome, "src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java").getAbsolutePath(), ownerRepository.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java", ownerRepository.getUrl());
             assertSame(ownerRepository, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.ownerrepository"));
+            assertTrue(ownerRepository.hasEfferentRelationshipWith(relationalDatabaseSchema));
 
             Component vetRepository = webApplication.getComponentWithName("Vet Repository");
             assertNotNull(vetRepository);
@@ -1204,14 +1216,18 @@ class DslTests extends AbstractTests {
             assertEquals(new File(springPetClinicHome, "src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java").getAbsolutePath(), vetRepository.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java", vetRepository.getUrl());
             assertSame(vetRepository, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.vetrepository"));
+            assertTrue(vetRepository.hasEfferentRelationshipWith(relationalDatabaseSchema));
 
             assertTrue(welcomeController.getRelationships().isEmpty());
-
             assertNotNull(petController.getEfferentRelationshipWith(ownerRepository));
             assertNotNull(visitController.getEfferentRelationshipWith(ownerRepository));
             assertNotNull(ownerController.getEfferentRelationshipWith(ownerRepository));
-
             assertNotNull(vetController.getEfferentRelationshipWith(vetRepository));
+
+            // this checks that the component forEach { ... } lines don't get repeated in the outputted DSL source
+            String content = Files.readString(workspaceFile.toPath());
+            assertEquals(content, new String(Base64.getDecoder().decode(parser.getWorkspace().getProperties().get("structurizr.dsl"))));
+
         } else {
             System.out.println("Skipping Spring PetClinic example...");
         }
