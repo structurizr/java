@@ -1,0 +1,12 @@
+{
+  "name" : "Theme",
+  "elements" : [ {
+    "tag" : "Tag",
+    "background" : "#ff0000",
+    "icon" : "logo.png"
+  } ],
+  "relationships" : [ {
+    "tag" : "Tag",
+    "color" : "#00ff00"
+  } ]
+}

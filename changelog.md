@@ -11,6 +11,7 @@
 - structurizr-dsl: Adds an `!elements` keyword that can be used to find a set of elements via an expression.
 - structurizr-dsl: Adds a `!relationships` keyword that can be used to find a set of relationships via an expression.
 - structurizr-dsl: Adds a DSL wrapper around the `structurizr-component` component finder.
+- structurizr-dsl: Adds support for local theme files to be specified via `theme` (https://github.com/structurizr/java/issues/331).
 
 ## 2.2.0 (2nd July 2024)
 

@@ -4,6 +4,8 @@ import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.model.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class StylesTests extends AbstractWorkspaceTestBase {
@@ -399,6 +401,21 @@ public class StylesTests extends AbstractWorkspaceTestBase {
 
         RelationshipStyle style = styles.getRelationshipStyle("Tag");
         assertEquals("#ffffff", style.getColor());
+    }
+
+    @Test
+    void inlineTheme() {
+        Theme theme = new Theme(
+                Set.of(new ElementStyle("Tag").background("#ff0000")),
+                Set.of(new RelationshipStyle("Tag").color("#00ff00"))
+        );
+
+        styles.addElementStyle("Tag").background("#ffffff");
+        styles.addRelationshipStyle("Tag").color("#ffffff");
+        styles.inlineTheme(theme); // this will override the existing styles
+
+        assertEquals("#ff0000", styles.getElementStyle("Tag").getBackground());
+        assertEquals("#00ff00", styles.getRelationshipStyle("Tag").getColor());
     }
 
 }

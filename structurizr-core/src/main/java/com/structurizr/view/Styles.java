@@ -309,4 +309,30 @@ public final class Styles {
         }
     }
 
+    /**
+     * Inlines the element and relationship styles from the specified theme, adding the styles into the workspace
+     * and overriding any properties already set.
+     *
+     * @param theme         a Theme object
+     */
+    public void inlineTheme(Theme theme) {
+        for (ElementStyle elementStyle : theme.getElements()) {
+            ElementStyle es = getElementStyle(elementStyle.getTag());
+            if (es == null) {
+                es = addElementStyle(elementStyle.getTag());
+            }
+
+            es.copyFrom(elementStyle);
+        }
+
+        for (RelationshipStyle relationshipStyle : theme.getRelationships()) {
+            RelationshipStyle rs = getRelationshipStyle(relationshipStyle.getTag());
+            if (rs == null) {
+                rs = addRelationshipStyle(relationshipStyle.getTag());
+            }
+
+            rs.copyFrom(relationshipStyle);
+        }
+    }
+
 }
