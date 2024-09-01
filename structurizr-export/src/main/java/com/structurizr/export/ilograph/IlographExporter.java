@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
  */
 public class IlographExporter extends AbstractWorkspaceExporter {
 
+    public static final String ILOGRAPH_ICON = "ilograph.icon";
+
     public WorkspaceExport export(Workspace workspace) {
         IndentingWriter writer = new IndentingWriter();
         writer.writeLine("resources:");
@@ -216,6 +218,15 @@ public class IlographExporter extends AbstractWorkspaceExporter {
             writer.writeLine(String.format("backgroundColor: \"%s\"", elementStyle.getBackground()));
         }
         writer.writeLine(String.format("color: \"%s\"", elementStyle.getColor()));
+
+        String icon = elementStyle.getProperties().get(ILOGRAPH_ICON);
+        if (StringUtils.isNullOrEmpty(icon)) {
+            icon = elementStyle.getIcon();
+        }
+        if (!StringUtils.isNullOrEmpty(icon)) {
+            writer.writeLine(String.format("icon: \"%s\"", icon));
+        }
+
         writer.writeLine();
         writer.outdent();
     }

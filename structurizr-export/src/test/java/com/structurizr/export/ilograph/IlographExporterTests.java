@@ -2,21 +2,18 @@ package com.structurizr.export.ilograph;
 
 import com.structurizr.Workspace;
 import com.structurizr.export.AbstractExporterTests;
-import com.structurizr.export.Diagram;
 import com.structurizr.export.WorkspaceExport;
-import com.structurizr.export.dot.DOTExporter;
 import com.structurizr.model.CustomElement;
 import com.structurizr.model.Model;
 import com.structurizr.util.WorkspaceUtils;
-import com.structurizr.view.CustomView;
 import com.structurizr.view.ThemeUtils;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class IlographWriterTests extends AbstractExporterTests {
+public class IlographExporterTests extends AbstractExporterTests {
 
     @Test
     public void test_BigBankPlcExample() throws Exception {
@@ -31,6 +28,8 @@ public class IlographWriterTests extends AbstractExporterTests {
     @Test
     public void test_AmazonWebServicesExample() throws Exception {
         Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-54915-workspace.json"));
+        workspace.getViews().getConfiguration().getStyles().addElementStyle("Amazon Web Services - Route 53").addProperty(IlographExporter.ILOGRAPH_ICON, "AWS/Networking/Route-53.svg");
+
         ThemeUtils.loadThemes(workspace);
         IlographExporter ilographExporter = new IlographExporter();
         WorkspaceExport export = ilographExporter.export(workspace);
