@@ -26,7 +26,7 @@ public class IlographExporterTests extends AbstractExporterTests {
     }
 
     @Test
-    public void test_AmazonWebServicesExample() throws Exception {
+    void test_AmazonWebServicesExample() throws Exception {
         Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-54915-workspace.json"));
         workspace.getViews().getConfiguration().getStyles().addElementStyle("Amazon Web Services - Route 53").addProperty(IlographExporter.ILOGRAPH_ICON, "AWS/Networking/Route-53.svg");
 
@@ -39,7 +39,7 @@ public class IlographExporterTests extends AbstractExporterTests {
     }
 
     @Test
-    public void test_renderCustomElements() throws Exception {
+    void test_renderCustomElements() {
         Workspace workspace = new Workspace("Name", "Description");
         Model model = workspace.getModel();
 
@@ -69,6 +69,25 @@ public class IlographExporterTests extends AbstractExporterTests {
                 "        to: \"2\"\n" +
                 "        label: \"Uses\"\n" +
                 "        color: \"#707070\"\n", export.getDefinition());
+    }
+
+    @Test
+    void test_imports() {
+        Workspace workspace = new Workspace("Name", "Description");
+        workspace.addProperty(IlographExporter.ILOGRAPH_IMPORTS, "NAMESPACE1:path1,NAMESPACE2:path2");
+
+        WorkspaceExport export = new IlographExporter().export(workspace);
+        assertEquals("""
+imports:
+- from: path1
+  namespace: NAMESPACE1
+- from: path2
+  namespace: NAMESPACE2
+
+resources:
+perspectives:
+  - name: Static Structure
+    relations:""", export.getDefinition());
     }
 
 }
