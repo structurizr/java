@@ -49,7 +49,6 @@ public class IlographExporterTests extends AbstractExporterTests {
 
         WorkspaceExport export = new IlographExporter().export(workspace);
         assertEquals("resources:\n" +
-                "\n" +
                 "  - id: \"1\"\n" +
                 "    name: \"A\"\n" +
                 "    subtitle: \"\"\n" +

@@ -1,5 +1,4 @@
 resources:
-
   - id: "1"
     name: "Personal Banking Customer"
     subtitle: "[Person]"

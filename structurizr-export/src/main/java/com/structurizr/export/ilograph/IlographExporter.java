@@ -21,7 +21,6 @@ public class IlographExporter extends AbstractWorkspaceExporter {
     public WorkspaceExport export(Workspace workspace) {
         IndentingWriter writer = new IndentingWriter();
         writer.writeLine("resources:");
-        writer.writeLine();
         writer.indent();
 
         Model model = workspace.getModel();

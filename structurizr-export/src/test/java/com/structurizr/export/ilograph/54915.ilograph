@@ -1,5 +1,4 @@
 resources:
-
   - id: "1"
     name: "Spring PetClinic"
     subtitle: "[Software System]"
