@@ -1,7 +1,8 @@
 # Changelog
 
-## unreleased
+## 3.0.0 (unreleased)
 
+- structurizr-client: Adds support for [workspace branches](https://docs.structurizr.com/onpremises/workspace-branches) (on-premises installation only).
 - structurizr-core: Adds name-value properties to dynamic view relationship views (https://github.com/structurizr/java/issues/316).
 - structurizr-component: Initial rewrite of the original `structurizr-analysis` library - provides a way to automatically find components in a Java codebase.
 - structurizr-dsl: Adds name-value properties to dynamic view relationship views.
