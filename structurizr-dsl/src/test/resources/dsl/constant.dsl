@@ -1,0 +1,5 @@
+workspace {
+
+    !constant NAME VALUE
+
+}

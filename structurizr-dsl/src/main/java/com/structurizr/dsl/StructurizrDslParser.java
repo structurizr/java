@@ -950,13 +950,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         }
 
                     } else if (CONSTANT_TOKEN.equalsIgnoreCase(firstToken)) {
-                        log.warn("!constant has been deprecated and will be removed in a future release - please use !const or !var instead");
-                        NameValuePair nameValuePair = new NameValueParser().parseConstant(tokens);
-
-                        if (constantsAndVariables.containsKey(nameValuePair.getName())) {
-                            log.warn("A constant \"" + nameValuePair.getName() + "\" already exists");
-                        }
-                        constantsAndVariables.put(nameValuePair.getName(), nameValuePair);
+                        throw new RuntimeException("!constant was previously deprecated, and has now been removed - please use !const or !var instead");
 
                     } else if (CONST_TOKEN.equalsIgnoreCase(firstToken)) {
                         NameValuePair nameValuePair = new NameValueParser().parseConstant(tokens);

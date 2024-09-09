@@ -1097,6 +1097,19 @@ class DslTests extends AbstractTests {
     }
 
     @Test
+    void test_Constant() {
+        File dslFile = new File("src/test/resources/dsl/constant.dsl");
+
+        try {
+            StructurizrDslParser parser = new StructurizrDslParser();
+            parser.parse(dslFile);
+            fail();
+        } catch (StructurizrDslParserException e) {
+            assertEquals("!constant was previously deprecated, and has now been removed - please use !const or !var instead at line 3 of " + dslFile.getAbsolutePath() + ": !constant NAME VALUE", e.getMessage());
+        }
+    }
+
+    @Test
     void test_UnbalancedCurlyBraces() {
         try {
             StructurizrDslParser parser = new StructurizrDslParser();
