@@ -52,6 +52,8 @@ final class ImageViewContentParser extends AbstractParser {
                         if (!restricted) {
                             File file = new File(dslFile.getParentFile(), source);
                             new PlantUMLImporter().importDiagram(context.getView(), file);
+                        } else {
+                            throw new RuntimeException("PlantUML source must be specified as a URL when running in restricted mode");
                         }
                     }
                 } catch (Exception e) {
@@ -84,6 +86,8 @@ final class ImageViewContentParser extends AbstractParser {
                         if (!restricted) {
                             File file = new File(dslFile.getParentFile(), source);
                             new MermaidImporter().importDiagram(context.getView(), file);
+                        } else {
+                            throw new RuntimeException("Mermaid source must be specified as a URL when running in restricted mode");
                         }
                     }
                 } catch (Exception e) {
@@ -117,6 +121,8 @@ final class ImageViewContentParser extends AbstractParser {
                         if (!restricted) {
                             File file = new File(dslFile.getParentFile(), source);
                             new KrokiImporter().importDiagram(context.getView(), format, file);
+                        } else {
+                            throw new RuntimeException("Kroki source must be specified as a URL when running in restricted mode");
                         }
                     }
                 } catch (Exception e) {
@@ -149,6 +155,8 @@ final class ImageViewContentParser extends AbstractParser {
                             File file = new File(dslFile.getParentFile(), source);
                             context.getView().setContent(ImageUtils.getImageAsDataUri(file));
                             context.getView().setTitle(file.getName());
+                        } else {
+                            throw new RuntimeException("Images must be specified as a URL when running in restricted mode");
                         }
                     }
                 } catch (Exception e) {

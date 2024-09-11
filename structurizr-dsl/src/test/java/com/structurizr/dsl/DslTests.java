@@ -1254,4 +1254,18 @@ class DslTests extends AbstractTests {
         parser.parse(dslFile);
     }
 
+    @Test
+    void test_ImageView_WhenParserIsInRestrictedMode() {
+        File dslFile = new File("src/test/resources/dsl/image-view.dsl");
+
+        try {
+            StructurizrDslParser parser = new StructurizrDslParser();
+            parser.setRestricted(true);
+            parser.parse(dslFile);
+            fail();
+        } catch (StructurizrDslParserException e) {
+            assertEquals("Images must be specified as a URL when running in restricted mode at line 5 of " + dslFile.getAbsolutePath() + ": image image.png", e.getMessage());
+        }
+    }
+
 }
