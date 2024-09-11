@@ -17,7 +17,6 @@ public abstract class AbstractWorkspace implements PropertyHolder {
     private String name;
     private String description;
     private String version;
-    private Long revision;
     private Date lastModifiedDate;
     private String lastModifiedUser;
     private String lastModifiedAgent;
@@ -110,24 +109,6 @@ public abstract class AbstractWorkspace implements PropertyHolder {
         this.version = version;
     }
 
-
-    /**
-     * Gets the revision number of this workspace.
-     *
-     * @return      the revision number
-     */
-    public Long getRevision() {
-        return revision;
-    }
-
-    /**
-     * Sets the revision number of this workspace.
-     *
-     * @param revision      a number
-     */
-    public void setRevision(Long revision) {
-        this.revision = revision;
-    }
 
     /**
      * Gets the last modified date of this workspace.
