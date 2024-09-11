@@ -2,7 +2,7 @@
 
 ## 3.0.0 (unreleased)
 
-- structurizr-client: Adds support for [workspace branches](https://docs.structurizr.com/onpremises/workspace-branches) (on-premises installation only).
+- structurizr-client: Adds support to get/put workspace branches on the [cloud service](https://docs.structurizr.com/cloud/workspace-branches) and [on-premises installation](https://docs.structurizr.com/onpremises/workspace-branches).
 - structurizr-core: Adds name-value properties to dynamic view relationship views (https://github.com/structurizr/java/issues/316).
 - structurizr-component: Initial rewrite of the original `structurizr-analysis` library - provides a way to automatically find components in a Java codebase.
 - structurizr-dsl: Removes deprecated `!constant` keyword.
