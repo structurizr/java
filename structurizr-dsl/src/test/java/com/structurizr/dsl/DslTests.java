@@ -556,6 +556,21 @@ class DslTests extends AbstractTests {
     }
 
     @Test
+    void test_parallel3() throws Exception {
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(new File("src/test/resources/dsl/parallel3.dsl"));
+
+        assertFalse(parser.getWorkspace().isEmpty());
+        DynamicView view = parser.getWorkspace().getViews().getDynamicViews().iterator().next();
+        List<RelationshipView> relationships = new ArrayList<>(view.getRelationships());
+        assertEquals(4, relationships.size());
+        assertEquals("1", relationships.get(0).getOrder());
+        assertEquals("2", relationships.get(1).getOrder());
+        assertEquals("2", relationships.get(2).getOrder());
+        assertEquals("3", relationships.get(3).getOrder());
+    }
+
+    @Test
     void test_groups() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
         parser.parse(new File("src/test/resources/dsl/groups.dsl"));
