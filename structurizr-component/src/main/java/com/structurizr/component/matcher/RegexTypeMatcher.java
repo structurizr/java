@@ -32,7 +32,7 @@ public class RegexTypeMatcher implements TypeMatcher {
     @Override
     public String toString() {
         return "RegexTypeMatcher{" +
-                "regex=" + regex +
+                "regex='" + regex + "'" +
                 '}';
     }
 

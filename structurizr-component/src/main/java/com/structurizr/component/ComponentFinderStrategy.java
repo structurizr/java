@@ -20,7 +20,7 @@ import java.util.Set;
  *
  * Use the {@link ComponentFinderStrategyBuilder} to create an instance of this class.
  */
-class ComponentFinderStrategy {
+public final class ComponentFinderStrategy {
 
     private final String technology;
     private final TypeMatcher typeMatcher;
@@ -66,8 +66,12 @@ class ComponentFinderStrategy {
     @Override
     public String toString() {
         return "ComponentFinderStrategy{" +
-                "typeMatcher=" + typeMatcher +
+                "technology=" + (technology == null ? null : "'" + technology + "'") +
+                ", typeMatcher=" + typeMatcher +
                 ", typeFilter=" + typeFilter +
+                ", supportingTypesStrategy=" + supportingTypesStrategy +
+                ", namingStrategy=" + namingStrategy +
+                ", componentVisitor=" + componentVisitor +
                 '}';
     }
 

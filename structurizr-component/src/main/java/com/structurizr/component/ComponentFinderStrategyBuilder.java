@@ -9,6 +9,7 @@ import com.structurizr.component.supporting.DefaultSupportingTypesStrategy;
 import com.structurizr.component.supporting.SupportingTypesStrategy;
 import com.structurizr.component.visitor.ComponentVisitor;
 import com.structurizr.component.visitor.DefaultComponentVisitor;
+import com.structurizr.util.StringUtils;
 
 /**
  * Provides a way to create a {@link ComponentFinderStrategy} instance.
@@ -17,45 +18,93 @@ public final class ComponentFinderStrategyBuilder {
 
     private String technology;
     private TypeMatcher typeMatcher;
-    private TypeFilter typeFilter = new DefaultTypeFilter();
-    private SupportingTypesStrategy supportingTypesStrategy = new DefaultSupportingTypesStrategy();
-    private NamingStrategy namingStrategy = new DefaultNamingStrategy();
-    private ComponentVisitor componentVisitor = new DefaultComponentVisitor();
+    private TypeFilter typeFilter;
+    private SupportingTypesStrategy supportingTypesStrategy;
+    private NamingStrategy namingStrategy;
+    private ComponentVisitor componentVisitor;
 
     public ComponentFinderStrategyBuilder() {
     }
 
     public ComponentFinderStrategyBuilder matchedBy(TypeMatcher typeMatcher) {
+        if (typeMatcher == null) {
+            throw new IllegalArgumentException("A type matcher must be provided");
+        }
+
+        if (this.typeMatcher != null) {
+            throw new IllegalArgumentException("A type matcher has already been configured");
+        }
+
         this.typeMatcher = typeMatcher;
 
         return this;
     }
 
     public ComponentFinderStrategyBuilder filteredBy(TypeFilter typeFilter) {
+        if (typeFilter == null) {
+            throw new IllegalArgumentException("A type filter must be provided");
+        }
+
+        if (this.typeFilter != null) {
+            throw new IllegalArgumentException("A type filter has already been configured");
+        }
+
         this.typeFilter = typeFilter;
 
         return this;
     }
 
     public ComponentFinderStrategyBuilder supportedBy(SupportingTypesStrategy supportingTypesStrategy) {
+        if (supportingTypesStrategy == null) {
+            throw new IllegalArgumentException("A supporting types strategy must be provided");
+        }
+
+        if (this.supportingTypesStrategy != null) {
+            throw new IllegalArgumentException("A supporting types strategy has already been configured");
+        }
+
         this.supportingTypesStrategy = supportingTypesStrategy;
 
         return this;
     }
 
     public ComponentFinderStrategyBuilder namedBy(NamingStrategy namingStrategy) {
+        if (namingStrategy == null) {
+            throw new IllegalArgumentException("A naming strategy must be provided");
+        }
+
+        if (this.namingStrategy != null) {
+            throw new IllegalArgumentException("A naming strategy has already been configured");
+        }
+
         this.namingStrategy = namingStrategy;
 
         return this;
     }
 
     public ComponentFinderStrategyBuilder asTechnology(String technology) {
+        if (StringUtils.isNullOrEmpty(technology)) {
+            throw new IllegalArgumentException("A technology must be provided");
+        }
+
+        if (!StringUtils.isNullOrEmpty(this.technology)) {
+            throw new IllegalArgumentException("A technology has already been configured");
+        }
+
         this.technology = technology;
 
         return this;
     }
 
     public ComponentFinderStrategyBuilder forEach(ComponentVisitor componentVisitor) {
+        if (componentVisitor == null) {
+            throw new IllegalArgumentException("A component visitor must be provided");
+        }
+
+        if (this.componentVisitor != null) {
+            throw new IllegalArgumentException("A component visitor has already been configured");
+        }
+
         this.componentVisitor = componentVisitor;
 
         return this;
@@ -63,7 +112,23 @@ public final class ComponentFinderStrategyBuilder {
 
     public ComponentFinderStrategy build() {
         if (typeMatcher == null) {
-            throw new RuntimeException("A type matcher must be specified");
+            throw new RuntimeException("A type matcher must be provided");
+        }
+
+        if (typeFilter == null) {
+            typeFilter = new DefaultTypeFilter();
+        }
+
+        if (supportingTypesStrategy == null) {
+            supportingTypesStrategy = new DefaultSupportingTypesStrategy();
+        }
+
+        if (namingStrategy == null) {
+            namingStrategy = new DefaultNamingStrategy();
+        }
+
+        if (componentVisitor == null) {
+            componentVisitor = new DefaultComponentVisitor();
         }
 
         return new ComponentFinderStrategy(technology, typeMatcher, typeFilter, supportingTypesStrategy, namingStrategy, componentVisitor);
@@ -72,7 +137,7 @@ public final class ComponentFinderStrategyBuilder {
     @Override
     public String toString() {
         return "ComponentFinderStrategyBuilder{" +
-                "technology='" + technology + '\'' +
+                "technology=" + (technology == null ? null : "'" + technology + "'") +
                 ", typeMatcher=" + typeMatcher +
                 ", typeFilter=" + typeFilter +
                 ", supportingTypesStrategy=" + supportingTypesStrategy +

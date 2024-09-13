@@ -39,7 +39,7 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
     @Test
     void test_parseTechnology() {
         parser.parseTechnology(context, tokens("technology", "name"));
-        assertEquals("ComponentFinderStrategyBuilder{technology='name', typeMatcher=null, typeFilter=DefaultTypeFilter{}, supportingTypesStrategy=DefaultSupportingTypesStrategy{}, namingStrategy=DefaultNamingStrategy{}, componentVisitor=DefaultComponentVisitor{}}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology='name', typeMatcher=null, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
@@ -48,7 +48,7 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
             parser.parseMatcher(context, tokens("matcher"), null);
             fail();
         } catch (Exception e) {
-            assertEquals("Too few tokens, expected: matcher <annotation|extends|implements|namesuffix|regex> [parameters]", e.getMessage());
+            assertEquals("Too few tokens, expected: matcher <annotation|extends|implements|name-suffix|fqn-regex> [parameters]", e.getMessage());
         }
     }
 
@@ -65,7 +65,7 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
     @Test
     void test_parseMatcher_WhenTheAnnotationTypeMatcherIsUsed() {
         parser.parseMatcher(context, tokens("matcher", "annotation", "com.example.Component"), null);
-        assertEquals("ComponentFinderStrategyBuilder{technology='null', typeMatcher=AnnotationTypeMatcher{annotationType='Lcom/example/Component;'}, typeFilter=DefaultTypeFilter{}, supportingTypesStrategy=DefaultSupportingTypesStrategy{}, namingStrategy=DefaultNamingStrategy{}, componentVisitor=DefaultComponentVisitor{}}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=AnnotationTypeMatcher{annotationType='Lcom/example/Component;'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
@@ -81,7 +81,7 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
     @Test
     void test_parseMatcher_WhenTheExtendsTypeMatcherIsUsed() {
         parser.parseMatcher(context, tokens("matcher", "extends", "com.example.Component"), null);
-        assertEquals("ComponentFinderStrategyBuilder{technology='null', typeMatcher=ExtendsTypeMatcher{className='com.example.Component'}, typeFilter=DefaultTypeFilter{}, supportingTypesStrategy=DefaultSupportingTypesStrategy{}, namingStrategy=DefaultNamingStrategy{}, componentVisitor=DefaultComponentVisitor{}}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=ExtendsTypeMatcher{className='com.example.Component'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
@@ -97,39 +97,39 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
     @Test
     void test_parseMatcher_WhenTheImplementsTypeMatcherIsUsed() {
         parser.parseMatcher(context, tokens("matcher", "implements", "com.example.Component"), null);
-        assertEquals("ComponentFinderStrategyBuilder{technology='null', typeMatcher=ImplementsTypeMatcher{interfaceName='com.example.Component'}, typeFilter=DefaultTypeFilter{}, supportingTypesStrategy=DefaultSupportingTypesStrategy{}, namingStrategy=DefaultNamingStrategy{}, componentVisitor=DefaultComponentVisitor{}}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=ImplementsTypeMatcher{interfaceName='com.example.Component'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
     void test_parseMatcher_WhenTheNameSuffixTypeMatcherIsUsedAndThereAreTooFewTokens() {
         try {
-            parser.parseMatcher(context, tokens("matcher", "namesuffix"), null);
+            parser.parseMatcher(context, tokens("matcher", "name-suffix"), null);
             fail();
         } catch (Exception e) {
-            assertEquals("Expected: matcher namesuffix <name>", e.getMessage());
+            assertEquals("Expected: matcher name-suffix <name>", e.getMessage());
         }
     }
 
     @Test
     void test_parseMatcher_WhenTheNameSuffixTypeMatcherIsUsed() {
-        parser.parseMatcher(context, tokens("matcher", "namesuffix", "Component"), null);
-        assertEquals("ComponentFinderStrategyBuilder{technology='null', typeMatcher=NameSuffixTypeMatcher{suffix='Component'}, typeFilter=DefaultTypeFilter{}, supportingTypesStrategy=DefaultSupportingTypesStrategy{}, namingStrategy=DefaultNamingStrategy{}, componentVisitor=DefaultComponentVisitor{}}", context.getComponentFinderStrategyBuilder().toString());
+        parser.parseMatcher(context, tokens("matcher", "name-suffix", "Component"), null);
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=NameSuffixTypeMatcher{suffix='Component'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
-    void test_parseMatcher_WhenTheRegexTypeMatcherIsUsedAndThereAreTooFewTokens() {
+    void test_parseMatcher_WhenTheFullyQualifiedNameRegexTypeMatcherIsUsedAndThereAreTooFewTokens() {
         try {
-            parser.parseMatcher(context, tokens("matcher", "regex"), null);
+            parser.parseMatcher(context, tokens("matcher", "fqn-regex"), null);
             fail();
         } catch (Exception e) {
-            assertEquals("Expected: matcher regex <regex>", e.getMessage());
+            assertEquals("Expected: matcher fqn-regex <regex>", e.getMessage());
         }
     }
 
     @Test
     void test_parseMatcher_WhenTheRegexTypeMatcherIsUsed() {
-        parser.parseMatcher(context, tokens("matcher", "regex", ".*Component"), null);
-        assertEquals("ComponentFinderStrategyBuilder{technology='null', typeMatcher=RegexTypeMatcher{regex=.*Component}, typeFilter=DefaultTypeFilter{}, supportingTypesStrategy=DefaultSupportingTypesStrategy{}, namingStrategy=DefaultNamingStrategy{}, componentVisitor=DefaultComponentVisitor{}}", context.getComponentFinderStrategyBuilder().toString());
+        parser.parseMatcher(context, tokens("matcher", "fqn-regex", ".*Component"), null);
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=RegexTypeMatcher{regex='.*Component'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
@@ -145,23 +145,55 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
     @Test
     void test_parseMatcher_WhenACustomTypeMatcherIsUsedWithoutParameters() {
         parser.parseMatcher(context, tokens("matcher", "com.structurizr.dsl.example.CustomTypeMatcher"), new File("."));
-        assertEquals("ComponentFinderStrategyBuilder{technology='null', typeMatcher=CustomTypeMatcher{}, typeFilter=DefaultTypeFilter{}, supportingTypesStrategy=DefaultSupportingTypesStrategy{}, namingStrategy=DefaultNamingStrategy{}, componentVisitor=DefaultComponentVisitor{}}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=CustomTypeMatcher{}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
     void test_parseMatcher_WhenACustomTypeMatcherIsUsedWithAParameter() {
         parser.parseMatcher(context, tokens("matcher", NameSuffixTypeMatcher.class.getCanonicalName(), "Component"), new File("."));
-        assertEquals("ComponentFinderStrategyBuilder{technology='null', typeMatcher=NameSuffixTypeMatcher{suffix='Component'}, typeFilter=DefaultTypeFilter{}, supportingTypesStrategy=DefaultSupportingTypesStrategy{}, namingStrategy=DefaultNamingStrategy{}, componentVisitor=DefaultComponentVisitor{}}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=NameSuffixTypeMatcher{suffix='Component'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+    }
+
+    @Test
+    void test_parseFilter_ThrowsAnException_WhenNoModeAndTypeAreSpecified() {
+        try {
+            parser.parseFilter(context, tokens("filter"), null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Too few tokens, expected: filter <include|exclude> <fqn-regex> [parameters]", e.getMessage());
+        }
     }
 
     @Test
     void test_parseFilter_ThrowsAnException_WhenNoTypeIsSpecified() {
         try {
-            parser.parseFilter(context, tokens("filter"), null);
+            parser.parseFilter(context, tokens("filter", "include"), null);
             fail();
         } catch (Exception e) {
-            assertEquals("Too few tokens, expected: filter <includeregex|excluderegex> [parameters]", e.getMessage());
+            assertEquals("Too few tokens, expected: filter <include|exclude> <fqn-regex> [parameters]", e.getMessage());
         }
+    }
+
+    @Test
+    void test_parseFilter_ThrowsAnException_WhenInvalidModeIsSpecified() {
+        try {
+            parser.parseFilter(context, tokens("filter", "mode", "fqn-regex"), null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Filter mode should be \"include\" or \"exclude\": filter <include|exclude> <fqn-regex> [parameters]", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseFilter_WhenIncludeFullyQualifiedNameRegexTypeFilterIsUsed() {
+        parser.parseFilter(context, tokens("filter", "include", "fqn-regex", ".*"), new File("."));
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=null, typeFilter=IncludeTypesByRegexFilter{regex='.*'}, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+    }
+
+    @Test
+    void test_parseFilter_WhenExcludeFullyQualifiedNameRegexTypeFilterIsUsed() {
+        parser.parseFilter(context, tokens("filter", "exclude", "fqn-regex", ".*"), new File("."));
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=null, typeFilter=ExcludeTypesByRegexFilter{regex='.*'}, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
@@ -170,7 +202,7 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
             parser.parseSupportingTypes(context, tokens("supportingTypes"), null);
             fail();
         } catch (Exception e) {
-            assertEquals("Too few tokens, expected: supportingTypes <referenced|referencedinpackage|inpackage|underpackage> [parameters]", e.getMessage());
+            assertEquals("Too few tokens, expected: supportingTypes <all-referenced|referenced-in-package|in-package|under-package|none> [parameters]", e.getMessage());
         }
     }
 

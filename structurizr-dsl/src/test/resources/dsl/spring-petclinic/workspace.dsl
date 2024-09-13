@@ -25,7 +25,7 @@ workspace "Spring PetClinic" "A C4 model of the Spring PetClinic sample app (htt
                     strategy {
                         technology "Spring MVC Controller"
                         matcher annotation "org.springframework.stereotype.Controller"
-                        filter excludeRegex ".*.CrashController"
+                        filter exclude fqn-regex ".*.CrashController"
                         forEach {
                             clinicEmployee -> this "Uses"
                             tag "Spring MVC Controller"

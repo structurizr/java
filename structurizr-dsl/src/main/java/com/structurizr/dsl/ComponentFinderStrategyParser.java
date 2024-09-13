@@ -6,27 +6,43 @@ import com.structurizr.component.matcher.*;
 import com.structurizr.component.naming.DefaultPackageNamingStrategy;
 import com.structurizr.component.naming.SimpleNamingStrategy;
 import com.structurizr.component.naming.FullyQualifiedNamingStrategy;
-import com.structurizr.component.supporting.AllReferencedTypesInPackageSupportingTypesStrategy;
-import com.structurizr.component.supporting.AllReferencedTypesSupportingTypesStrategy;
-import com.structurizr.component.supporting.AllTypesInPackageSupportingTypesStrategy;
-import com.structurizr.component.supporting.AllTypesUnderPackageSupportingTypesStrategy;
+import com.structurizr.component.supporting.*;
 
 import java.io.File;
+import java.util.List;
 
 final class ComponentFinderStrategyParser extends AbstractParser {
 
     private static final String TECHNOLOGY_GRAMMAR = "technology <name>";
 
-    private static final String MATCHER_GRAMMAR = "matcher <annotation|extends|implements|namesuffix|regex> [parameters]";
+    private static final String MATCHER_ANNOTATION = "annotation";
+    private static final String MATCHER_EXTENDS = "extends";
+    private static final String MATCHER_IMPLEMENTS = "implements";
+    private static final String MATCHER_NAME_SUFFIX = "name-suffix";
+    private static final String MATCHER_FQN_REGEX = "fqn-regex";
+    private static final String MATCHER_GRAMMAR = "matcher <" + String.join("|", List.of(MATCHER_ANNOTATION, MATCHER_EXTENDS, MATCHER_IMPLEMENTS, MATCHER_NAME_SUFFIX, MATCHER_FQN_REGEX)) + "> [parameters]";
     private static final String MATCHER_ANNOTATION_GRAMMAR = "matcher annotation <fqn>";
     private static final String MATCHER_EXTENDS_GRAMMAR = "matcher extends <fqn>";
     private static final String MATCHER_IMPLEMENTS_GRAMMAR = "matcher implements <fqn>";
-    private static final String MATCHER_NAMESUFFIX_GRAMMAR = "matcher namesuffix <name>";
-    private static final String MATCHER_REGEX_GRAMMAR = "matcher regex <regex>";
+    private static final String MATCHER_NAMESUFFIX_GRAMMAR = "matcher name-suffix <name>";
+    private static final String MATCHER_REGEX_GRAMMAR = "matcher fqn-regex <regex>";
 
-    private static final String FILTER_GRAMMAR = "filter <includeregex|excluderegex> [parameters]";
-    private static final String SUPPORTING_TYPES_GRAMMAR = "supportingTypes <referenced|referencedinpackage|inpackage|underpackage> [parameters]";
-    private static final String NAMING_GRAMMAR = "naming <name|fqn|package>";
+    private static final String FILTER_INCLUDE = "include";
+    private static final String FILTER_EXCLUDE = "exclude";
+    private static final String FILTER_FQN_REGEX = "fqn-regex";
+    private static final String FILTER_GRAMMAR = "filter <" + FILTER_INCLUDE + "|" + FILTER_EXCLUDE + "> <" + FILTER_FQN_REGEX + "> [parameters]";
+
+    private static final String SUPPORTING_TYPES_ALL_REFERENCED = "all-referenced";
+    private static final String SUPPORTING_TYPES_REFERENCED_IN_PACKAGE = "referenced-in-package";
+    private static final String SUPPORTING_TYPES_IN_PACKAGE = "in-package";
+    private static final String SUPPORTING_TYPES_UNDER_PACKAGE = "under-package";
+    private static final String SUPPORTING_TYPES_NONE = "none";
+    private static final String SUPPORTING_TYPES_GRAMMAR = "supportingTypes <" + String.join("|", List.of(SUPPORTING_TYPES_ALL_REFERENCED, SUPPORTING_TYPES_REFERENCED_IN_PACKAGE, SUPPORTING_TYPES_IN_PACKAGE, SUPPORTING_TYPES_UNDER_PACKAGE, SUPPORTING_TYPES_NONE)) + "> [parameters]";
+
+    private static final String NAMING_NAME = "name";
+    private static final String NAMING_FQN = "fqn";
+    private static final String NAMING_PACKAGE = "package";
+    private static final String NAMING_GRAMMAR = "naming <" + String.join("|", List.of(NAMING_NAME, NAMING_FQN, NAMING_PACKAGE)) + ">";
 
     void parseTechnology(ComponentFinderStrategyDslContext context, Tokens tokens) {
         if (tokens.size() != 2) {
@@ -44,7 +60,7 @@ final class ComponentFinderStrategyParser extends AbstractParser {
 
         String type = tokens.get(1);
         switch (type.toLowerCase()) {
-            case "annotation":
+            case MATCHER_ANNOTATION:
                 if (tokens.size() == 3) {
                     String name = tokens.get(2);
 
@@ -53,7 +69,7 @@ final class ComponentFinderStrategyParser extends AbstractParser {
                     throw new RuntimeException("Expected: " + MATCHER_ANNOTATION_GRAMMAR);
                 }
                 break;
-            case "extends":
+            case MATCHER_EXTENDS:
                 if (tokens.size() == 3) {
                     String name = tokens.get(2);
 
@@ -62,7 +78,7 @@ final class ComponentFinderStrategyParser extends AbstractParser {
                     throw new RuntimeException("Expected: " + MATCHER_EXTENDS_GRAMMAR);
                 }
                 break;
-            case "implements":
+            case MATCHER_IMPLEMENTS:
                 if (tokens.size() == 3) {
                     String name = tokens.get(2);
 
@@ -71,7 +87,7 @@ final class ComponentFinderStrategyParser extends AbstractParser {
                     throw new RuntimeException("Expected: " + MATCHER_IMPLEMENTS_GRAMMAR);
                 }
                 break;
-            case "namesuffix":
+            case MATCHER_NAME_SUFFIX:
                 if (tokens.size() == 3) {
                     String suffix = tokens.get(2);
 
@@ -80,7 +96,7 @@ final class ComponentFinderStrategyParser extends AbstractParser {
                     throw new RuntimeException("Expected: " + MATCHER_NAMESUFFIX_GRAMMAR);
                 }
                 break;
-            case "regex":
+            case MATCHER_FQN_REGEX:
                 if (tokens.size() == 3) {
                     String regex = tokens.get(2);
 
@@ -109,26 +125,26 @@ final class ComponentFinderStrategyParser extends AbstractParser {
     }
 
     void parseFilter(ComponentFinderStrategyDslContext context, Tokens tokens, File dslFile) {
-        if (tokens.size() < 2) {
+        if (tokens.size() < 3) {
             throw new RuntimeException("Too few tokens, expected: " + FILTER_GRAMMAR);
         }
 
-        String type = tokens.get(1).toLowerCase();
+        String includeOrExclude = tokens.get(1).toLowerCase();
+        if (!"include".equalsIgnoreCase(includeOrExclude) && !"exclude".equalsIgnoreCase(includeOrExclude)) {
+            throw new RuntimeException("Filter mode should be \"" + FILTER_INCLUDE + "\" or \"" + FILTER_EXCLUDE + "\": " + FILTER_GRAMMAR);
+        }
+
+        String type = tokens.get(2).toLowerCase();
         switch (type) {
-            case "includeregex":
-                if (tokens.size() == 3) {
-                    String regex = tokens.get(2);
+            case FILTER_FQN_REGEX:
+                if (tokens.size() == 4) {
+                    String regex = tokens.get(3);
 
-                    context.getComponentFinderStrategyBuilder().filteredBy(new IncludeTypesByRegexFilter(regex));
-                } else {
-                    throw new RuntimeException("Expected: " + FILTER_GRAMMAR);
-                }
-                break;
-            case "excluderegex":
-                if (tokens.size() == 3) {
-                    String regex = tokens.get(2);
-
-                    context.getComponentFinderStrategyBuilder().filteredBy(new ExcludeTypesByRegexFilter(regex));
+                    if (FILTER_INCLUDE.equalsIgnoreCase(includeOrExclude)) {
+                        context.getComponentFinderStrategyBuilder().filteredBy(new IncludeTypesByRegexFilter(regex));
+                    } else {
+                        context.getComponentFinderStrategyBuilder().filteredBy(new ExcludeTypesByRegexFilter(regex));
+                    }
                 } else {
                     throw new RuntimeException("Expected: " + FILTER_GRAMMAR);
                 }
@@ -145,17 +161,20 @@ final class ComponentFinderStrategyParser extends AbstractParser {
 
         String type = tokens.get(1).toLowerCase();
         switch (type) {
-            case "referenced":
+            case SUPPORTING_TYPES_ALL_REFERENCED:
                 context.getComponentFinderStrategyBuilder().supportedBy(new AllReferencedTypesSupportingTypesStrategy());
                 break;
-            case "referencedinpackage":
+            case SUPPORTING_TYPES_REFERENCED_IN_PACKAGE:
                 context.getComponentFinderStrategyBuilder().supportedBy(new AllReferencedTypesInPackageSupportingTypesStrategy());
                 break;
-            case "inpackage":
+            case SUPPORTING_TYPES_IN_PACKAGE:
                 context.getComponentFinderStrategyBuilder().supportedBy(new AllTypesInPackageSupportingTypesStrategy());
                 break;
-            case "underpackage":
+            case SUPPORTING_TYPES_UNDER_PACKAGE:
                 context.getComponentFinderStrategyBuilder().supportedBy(new AllTypesUnderPackageSupportingTypesStrategy());
+                break;
+            case SUPPORTING_TYPES_NONE:
+                context.getComponentFinderStrategyBuilder().supportedBy(new DefaultSupportingTypesStrategy());
                 break;
             default:
                 throw new IllegalArgumentException("Unknown supporting types strategy: " + type);
@@ -169,13 +188,13 @@ final class ComponentFinderStrategyParser extends AbstractParser {
 
         String type = tokens.get(1).toLowerCase();
         switch (type) {
-            case "name":
+            case NAMING_NAME:
                 context.getComponentFinderStrategyBuilder().namedBy(new SimpleNamingStrategy());
                 break;
-            case "fqn":
+            case NAMING_FQN:
                 context.getComponentFinderStrategyBuilder().namedBy(new FullyQualifiedNamingStrategy());
                 break;
-            case "package":
+            case NAMING_PACKAGE:
                 context.getComponentFinderStrategyBuilder().namedBy(new DefaultPackageNamingStrategy());
                 break;
             default:
