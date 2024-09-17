@@ -3,7 +3,7 @@ package com.structurizr.component.naming;
 import com.structurizr.component.Type;
 
 /**
- * Provides a way to map a fully qualified type name to a component name.
+ * Provides a way customise how component names are generated.
  */
 public interface NamingStrategy {
 
