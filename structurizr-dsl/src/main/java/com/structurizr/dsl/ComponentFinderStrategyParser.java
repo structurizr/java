@@ -9,7 +9,7 @@ import com.structurizr.component.naming.DefaultPackageNamingStrategy;
 import com.structurizr.component.naming.TypeNamingStrategy;
 import com.structurizr.component.naming.FullyQualifiedNamingStrategy;
 import com.structurizr.component.supporting.*;
-import com.structurizr.component.url.PrefixUrlStrategy;
+import com.structurizr.component.url.PrefixSourceUrlStrategy;
 
 import java.io.File;
 import java.util.List;
@@ -52,9 +52,9 @@ final class ComponentFinderStrategyParser extends AbstractParser {
     private static final String DESCRIPTION_GRAMMAR = "description <" + String.join("|", List.of(DESCRIPTION_FIRST_SENTENCE, DESCRIPTION_TRUNCATED)) + ">";
     private static final String DESCRIPTION_TRUNCATED_GRAMMAR = "description truncated <maxLength>";
 
-    private static final String URL_PREFIX = "prefix";
-    private static final String URL_GRAMMAR = "url <" + String.join("|", List.of(URL_PREFIX)) + ">";
-    private static final String URL_PREFIX_GRAMMAR = "url prefix <prefix>";
+    private static final String URL_PREFIX_SRC = "prefix-src";
+    private static final String URL_GRAMMAR = "url <" + String.join("|", List.of(URL_PREFIX_SRC)) + ">";
+    private static final String URL_PREFIX_SRC_GRAMMAR = "url prefix-src <prefix>";
 
     void parseTechnology(ComponentFinderStrategyDslContext context, Tokens tokens) {
         if (tokens.size() != 2) {
@@ -248,13 +248,13 @@ final class ComponentFinderStrategyParser extends AbstractParser {
 
         String type = tokens.get(1).toLowerCase();
         switch (type) {
-            case URL_PREFIX:
+            case URL_PREFIX_SRC:
                 if (tokens.size() < 3) {
-                    throw new RuntimeException("Too few tokens, expected: " + URL_PREFIX_GRAMMAR);
+                    throw new RuntimeException("Too few tokens, expected: " + URL_PREFIX_SRC_GRAMMAR);
                 }
 
                 String prefix = tokens.get(2);
-                context.getComponentFinderStrategyBuilder().withUrl(new PrefixUrlStrategy(prefix));
+                context.getComponentFinderStrategyBuilder().withUrl(new PrefixSourceUrlStrategy(prefix));
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URL strategy: " + type);

@@ -283,23 +283,23 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
             parser.parseUrl(context, tokens("url"), null);
             fail();
         } catch (Exception e) {
-            assertEquals("Too few tokens, expected: url <prefix>", e.getMessage());
+            assertEquals("Too few tokens, expected: url <prefix-src>", e.getMessage());
         }
     }
 
     @Test
     void test_parseUrl_Prefix_ThrowsAnException_WhenNoPrefixIsSpecified() {
         try {
-            parser.parseUrl(context, tokens("url", "prefix"), null);
+            parser.parseUrl(context, tokens("url", "prefix-src"), null);
             fail();
         } catch (Exception e) {
-            assertEquals("Too few tokens, expected: url prefix <prefix>", e.getMessage());
+            assertEquals("Too few tokens, expected: url prefix-src <prefix>", e.getMessage());
         }
     }
 
     @Test
     void test_parseUrl_Prefix() {
-        parser.parseUrl(context, tokens("url", "prefix", "https://example.com"), null);
+        parser.parseUrl(context, tokens("url", "prefix-src", "https://example.com"), null);
         assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=null, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=null, urlStrategy=PrefixUrlStrategy{prefix='https://example.com/'}, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
