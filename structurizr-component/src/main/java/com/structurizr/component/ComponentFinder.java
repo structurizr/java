@@ -119,6 +119,7 @@ public final class ComponentFinder {
             }
             component.setDescription(discoveredComponent.getDescription());
             component.setTechnology(discoveredComponent.getTechnology());
+            component.setUrl(discoveredComponent.getUrl());
             componentMap.put(discoveredComponent, component);
             componentSet.add(component);
         }

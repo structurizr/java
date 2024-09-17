@@ -123,6 +123,7 @@ class StructurizrDslTokens {
     static final String COMPONENT_FINDER_STRATEGY_SUPPORTING_TYPES_TOKEN = "supportingTypes";
     static final String COMPONENT_FINDER_STRATEGY_NAME_TOKEN = "name";
     static final String COMPONENT_FINDER_STRATEGY_DESCRIPTION_TOKEN = "description";
+    static final String COMPONENT_FINDER_STRATEGY_URL_TOKEN = "url";
     static final String COMPONENT_FINDER_STRATEGY_FOREACH_TOKEN = "forEach";
 
 }

@@ -9,6 +9,7 @@ import com.structurizr.component.naming.DefaultPackageNamingStrategy;
 import com.structurizr.component.naming.TypeNamingStrategy;
 import com.structurizr.component.naming.FullyQualifiedNamingStrategy;
 import com.structurizr.component.supporting.*;
+import com.structurizr.component.url.PrefixUrlStrategy;
 
 import java.io.File;
 import java.util.List;
@@ -51,13 +52,17 @@ final class ComponentFinderStrategyParser extends AbstractParser {
     private static final String DESCRIPTION_GRAMMAR = "description <" + String.join("|", List.of(DESCRIPTION_FIRST_SENTENCE, DESCRIPTION_TRUNCATED)) + ">";
     private static final String DESCRIPTION_TRUNCATED_GRAMMAR = "description truncated <maxLength>";
 
+    private static final String URL_PREFIX = "prefix";
+    private static final String URL_GRAMMAR = "url <" + String.join("|", List.of(URL_PREFIX)) + ">";
+    private static final String URL_PREFIX_GRAMMAR = "url prefix <prefix>";
+
     void parseTechnology(ComponentFinderStrategyDslContext context, Tokens tokens) {
         if (tokens.size() != 2) {
             throw new RuntimeException("Expected: " + TECHNOLOGY_GRAMMAR);
         }
 
         String name = tokens.get(1);
-        context.getComponentFinderStrategyBuilder().forTechnology(name);
+        context.getComponentFinderStrategyBuilder().withTechnology(name);
     }
 
     void parseMatcher(ComponentFinderStrategyDslContext context, Tokens tokens, File dslFile) {
@@ -233,6 +238,26 @@ final class ComponentFinderStrategyParser extends AbstractParser {
                 break;
             default:
                 throw new IllegalArgumentException("Unknown description strategy: " + type);
+        }
+    }
+
+    void parseUrl(ComponentFinderStrategyDslContext context, Tokens tokens, File dslFile) {
+        if (tokens.size() < 2) {
+            throw new RuntimeException("Too few tokens, expected: " + URL_GRAMMAR);
+        }
+
+        String type = tokens.get(1).toLowerCase();
+        switch (type) {
+            case URL_PREFIX:
+                if (tokens.size() < 3) {
+                    throw new RuntimeException("Too few tokens, expected: " + URL_PREFIX_GRAMMAR);
+                }
+
+                String prefix = tokens.get(2);
+                context.getComponentFinderStrategyBuilder().withUrl(new PrefixUrlStrategy(prefix));
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URL strategy: " + type);
         }
     }
 

@@ -29,3 +29,5 @@ hs_err_pid*
 
 structurizr-dsl/src/test/resources/dsl/spring-petclinic/.structurizr
 structurizr-dsl/src/test/resources/dsl/spring-petclinic/workspace.json
+
+**/structurizr.properties

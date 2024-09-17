@@ -9,6 +9,7 @@ final class DiscoveredComponent {
     private final String name;
     private String description;
     private String technology;
+    private String url;
     private final Set<Type> supportingTypes = new HashSet<>();
 
     private ComponentFinderStrategy componentFinderStrategy;
@@ -44,6 +45,14 @@ final class DiscoveredComponent {
 
     void setTechnology(String technology) {
         this.technology = technology;
+    }
+
+    String getUrl() {
+        return url;
+    }
+
+    void setUrl(String url) {
+        this.url = url;
     }
 
     Set<Type> getSupportingTypes() {

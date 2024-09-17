@@ -1,15 +1,14 @@
 package com.structurizr.component;
 
-import com.structurizr.component.description.DefaultDescriptionStrategy;
 import com.structurizr.component.description.DescriptionStrategy;
 import com.structurizr.component.filter.TypeFilter;
 import com.structurizr.component.matcher.TypeMatcher;
 import com.structurizr.component.naming.NamingStrategy;
 import com.structurizr.component.supporting.SupportingTypesStrategy;
+import com.structurizr.component.url.UrlStrategy;
 import com.structurizr.component.visitor.ComponentVisitor;
 import com.structurizr.model.Component;
 
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -30,15 +29,17 @@ public final class ComponentFinderStrategy {
     private final SupportingTypesStrategy supportingTypesStrategy;
     private final NamingStrategy namingStrategy;
     private final DescriptionStrategy descriptionStrategy;
+    private final UrlStrategy urlStrategy;
     private final ComponentVisitor componentVisitor;
 
-    ComponentFinderStrategy(String technology, TypeMatcher typeMatcher, TypeFilter typeFilter, SupportingTypesStrategy supportingTypesStrategy, NamingStrategy namingStrategy, DescriptionStrategy descriptionStrategy, ComponentVisitor componentVisitor) {
+    ComponentFinderStrategy(String technology, TypeMatcher typeMatcher, TypeFilter typeFilter, SupportingTypesStrategy supportingTypesStrategy, NamingStrategy namingStrategy, DescriptionStrategy descriptionStrategy, UrlStrategy urlStrategy, ComponentVisitor componentVisitor) {
         this.technology = technology;
         this.typeMatcher = typeMatcher;
         this.typeFilter = typeFilter;
         this.supportingTypesStrategy = supportingTypesStrategy;
         this.namingStrategy = namingStrategy;
         this.descriptionStrategy = descriptionStrategy;
+        this.urlStrategy = urlStrategy;
         this.componentVisitor = componentVisitor;
     }
 
@@ -51,6 +52,7 @@ public final class ComponentFinderStrategy {
                 DiscoveredComponent component = new DiscoveredComponent(namingStrategy.nameOf(type), type);
                 component.setDescription(descriptionStrategy.descriptionOf(type));
                 component.setTechnology(this.technology);
+                component.setUrl(urlStrategy.urlOf(type));
                 component.setComponentFinderStrategy(this);
                 components.add(component);
 
@@ -76,6 +78,7 @@ public final class ComponentFinderStrategy {
                 ", supportingTypesStrategy=" + supportingTypesStrategy +
                 ", namingStrategy=" + namingStrategy +
                 ", descriptionStrategy=" + descriptionStrategy +
+                ", urlStrategy=" + urlStrategy +
                 ", componentVisitor=" + componentVisitor +
                 '}';
     }

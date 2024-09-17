@@ -72,7 +72,7 @@ public final class SourceDirectoryTypeProvider implements TypeProvider {
                             if (n.getFullyQualifiedName().isPresent()) {
                                 String fullyQualifiedName = n.getFullyQualifiedName().get();
                                 Type type = new Type(fullyQualifiedName);
-                                type.setSource(path.getAbsolutePath());
+                                type.setSource(relativePath(path));
 
                                 if (n.getComment().isPresent() && n.getComment().get() instanceof JavadocComment) {
                                     JavadocComment javadocComment = (JavadocComment) n.getComment().get();
@@ -93,7 +93,7 @@ public final class SourceDirectoryTypeProvider implements TypeProvider {
                                 String fullyQualifiedName = n.getName().asString() + PACKAGE_INFO_SUFFIX;
 
                                 Type type = new Type(fullyQualifiedName);
-                                type.setSource(path.getAbsolutePath());
+                                type.setSource(relativePath(path));
 
                                 Node rootNode = n.findRootNode();
                                 if (rootNode != null && rootNode.getComment().isPresent() && rootNode.getComment().get() instanceof JavadocComment) {
@@ -114,6 +114,18 @@ public final class SourceDirectoryTypeProvider implements TypeProvider {
                 log.debug("Ignoring " + path.getAbsolutePath());
             }
         }
+    }
+
+    private String relativePath(File path) {
+        String relativePath = path.getAbsolutePath().replace(directory.getAbsolutePath(), "");
+
+        String pathSeparator = System.getProperty("file.separator");
+
+        if (relativePath.startsWith(pathSeparator)) {
+            relativePath = relativePath.substring(1);
+        }
+
+        return relativePath;
     }
 
 }

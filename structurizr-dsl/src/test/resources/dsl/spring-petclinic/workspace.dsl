@@ -26,6 +26,7 @@ workspace "Spring PetClinic" "A C4 model of the Spring PetClinic sample app (htt
                         technology "Spring MVC Controller"
                         matcher annotation "org.springframework.stereotype.Controller"
                         filter exclude fqn-regex ".*.CrashController"
+                        url prefix "https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java"
                         forEach {
                             clinicEmployee -> this "Uses"
                             tag "Spring MVC Controller"
@@ -35,15 +36,12 @@ workspace "Spring PetClinic" "A C4 model of the Spring PetClinic sample app (htt
                         technology "Spring Data Repository"
                         matcher implements "org.springframework.data.repository.Repository"
                         description first-sentence
+                        url prefix "https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java"
                         forEach {
                             -> relationalDatabaseSchema "Reads from and writes to"
                             tag "Spring Data Repository"
                         }
                     }
-                }
-
-                !script groovy {
-                    element.components.each { it.url = it.properties["component.src"].replace(System.getenv("SPRING_PETCLINIC_HOME") + "/src/main/java", "https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java") }
                 }
             }
         }

@@ -9,6 +9,8 @@ import com.structurizr.component.naming.DefaultNamingStrategy;
 import com.structurizr.component.naming.NamingStrategy;
 import com.structurizr.component.supporting.DefaultSupportingTypesStrategy;
 import com.structurizr.component.supporting.SupportingTypesStrategy;
+import com.structurizr.component.url.DefaultUrlStrategy;
+import com.structurizr.component.url.UrlStrategy;
 import com.structurizr.component.visitor.ComponentVisitor;
 import com.structurizr.component.visitor.DefaultComponentVisitor;
 import com.structurizr.util.StringUtils;
@@ -18,12 +20,13 @@ import com.structurizr.util.StringUtils;
  */
 public final class ComponentFinderStrategyBuilder {
 
-    private String technology;
     private TypeMatcher typeMatcher;
     private TypeFilter typeFilter;
     private SupportingTypesStrategy supportingTypesStrategy;
     private NamingStrategy namingStrategy;
     private DescriptionStrategy descriptionStrategy;
+    private String technology;
+    private UrlStrategy urlStrategy;
     private ComponentVisitor componentVisitor;
 
     public ComponentFinderStrategyBuilder() {
@@ -99,7 +102,7 @@ public final class ComponentFinderStrategyBuilder {
         return this;
     }
 
-    public ComponentFinderStrategyBuilder forTechnology(String technology) {
+    public ComponentFinderStrategyBuilder withTechnology(String technology) {
         if (StringUtils.isNullOrEmpty(technology)) {
             throw new IllegalArgumentException("A technology must be provided");
         }
@@ -109,6 +112,20 @@ public final class ComponentFinderStrategyBuilder {
         }
 
         this.technology = technology;
+
+        return this;
+    }
+
+    public ComponentFinderStrategyBuilder withUrl(UrlStrategy urlStrategy) {
+        if (urlStrategy == null) {
+            throw new IllegalArgumentException("A URL strategy must be provided");
+        }
+
+        if (this.urlStrategy != null) {
+            throw new IllegalArgumentException("A url strategy has already been configured");
+        }
+
+        this.urlStrategy = urlStrategy;
 
         return this;
     }
@@ -148,11 +165,15 @@ public final class ComponentFinderStrategyBuilder {
             descriptionStrategy = new DefaultDescriptionStrategy();
         }
 
+        if (urlStrategy == null) {
+            urlStrategy = new DefaultUrlStrategy();
+        }
+
         if (componentVisitor == null) {
             componentVisitor = new DefaultComponentVisitor();
         }
 
-        return new ComponentFinderStrategy(technology, typeMatcher, typeFilter, supportingTypesStrategy, namingStrategy, descriptionStrategy, componentVisitor);
+        return new ComponentFinderStrategy(technology, typeMatcher, typeFilter, supportingTypesStrategy, namingStrategy, descriptionStrategy, urlStrategy, componentVisitor);
     }
 
     @Override
@@ -164,6 +185,7 @@ public final class ComponentFinderStrategyBuilder {
                 ", supportingTypesStrategy=" + supportingTypesStrategy +
                 ", namingStrategy=" + namingStrategy +
                 ", descriptionStrategy=" + descriptionStrategy +
+                ", urlStrategy=" + urlStrategy +
                 ", componentVisitor=" + componentVisitor +
                 '}';
     }

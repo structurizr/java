@@ -116,9 +116,9 @@ public class ComponentFinderStrategyBuilderTests {
     }
 
     @Test
-    void forTechnology_ThrowsAnException_WhenPassedNull() {
+    void withTechnology_ThrowsAnException_WhenPassedNull() {
         try {
-            new ComponentFinderStrategyBuilder().forTechnology(null);
+            new ComponentFinderStrategyBuilder().withTechnology(null);
             fail();
         } catch (Exception e) {
             assertEquals("A technology must be provided", e.getMessage());
@@ -126,9 +126,9 @@ public class ComponentFinderStrategyBuilderTests {
     }
 
     @Test
-    void forTechnology_ThrowsAnException_WhenPassedAnEmptyString() {
+    void withTechnology_ThrowsAnException_WhenPassedAnEmptyString() {
         try {
-            new ComponentFinderStrategyBuilder().forTechnology("");
+            new ComponentFinderStrategyBuilder().withTechnology("");
             fail();
         } catch (Exception e) {
             assertEquals("A technology must be provided", e.getMessage());
@@ -136,9 +136,9 @@ public class ComponentFinderStrategyBuilderTests {
     }
 
     @Test
-    void forTechnology_ThrowsAnException_WhenCalledTwice() {
+    void withTechnology_ThrowsAnException_WhenCalledTwice() {
         try {
-            new ComponentFinderStrategyBuilder().forTechnology("X").forTechnology("Y");
+            new ComponentFinderStrategyBuilder().withTechnology("X").withTechnology("Y");
             fail();
         } catch (Exception e) {
             assertEquals("A technology has already been configured", e.getMessage());
@@ -158,14 +158,14 @@ public class ComponentFinderStrategyBuilderTests {
     @Test
     void build() {
         ComponentFinderStrategy strategy = new ComponentFinderStrategyBuilder()
-                .forTechnology("Spring MVC Controller")
+                .withTechnology("Spring MVC Controller")
                 .matchedBy(new NameSuffixTypeMatcher("Controller"))
                 .filteredBy(new IncludeTypesByRegexFilter("com.example.web.\\.*"))
                 .withName(new TypeNamingStrategy())
                 .withDescription(new FirstSentenceDescriptionStrategy())
                 .build();
 
-        assertEquals("ComponentFinderStrategy{technology='Spring MVC Controller', typeMatcher=NameSuffixTypeMatcher{suffix='Controller'}, typeFilter=IncludeTypesByRegexFilter{regex='com.example.web.\\.*'}, supportingTypesStrategy=DefaultSupportingTypesStrategy{}, namingStrategy=TypeNamingStrategy{}, descriptionStrategy=FirstSentenceDescriptionStrategy{}, componentVisitor=DefaultComponentVisitor{}}", strategy.toString());
+        assertEquals("ComponentFinderStrategy{technology='Spring MVC Controller', typeMatcher=NameSuffixTypeMatcher{suffix='Controller'}, typeFilter=IncludeTypesByRegexFilter{regex='com.example.web.\\.*'}, supportingTypesStrategy=DefaultSupportingTypesStrategy{}, namingStrategy=TypeNamingStrategy{}, descriptionStrategy=FirstSentenceDescriptionStrategy{}, urlStrategy=DefaultUrlStrategy{}, componentVisitor=DefaultComponentVisitor{}}", strategy.toString());
     }
 
 }
