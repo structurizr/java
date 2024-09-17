@@ -1237,15 +1237,16 @@ class DslTests extends AbstractTests {
             assertEquals(new File(springPetClinicHome, "src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java").getAbsolutePath(), ownerRepository.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java", ownerRepository.getUrl());
             assertSame(ownerRepository, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.ownerrepository"));
-            assertTrue(ownerRepository.hasEfferentRelationshipWith(relationalDatabaseSchema));
+            assertTrue(ownerRepository.hasEfferentRelationshipWith(relationalDatabaseSchema, "Reads from and writes to"));
 
             Component vetRepository = webApplication.getComponentWithName("Vet Repository");
             assertNotNull(vetRepository);
+            assertEquals("Repository class for Vet domain objects All method names are compliant with Spring Data naming conventions so this interface can easily be extended for Spring Data.", vetRepository.getDescription());
             assertEquals("org.springframework.samples.petclinic.vet.VetRepository", vetRepository.getProperties().get("component.type"));
             assertEquals(new File(springPetClinicHome, "src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java").getAbsolutePath(), vetRepository.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java", vetRepository.getUrl());
             assertSame(vetRepository, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.vetrepository"));
-            assertTrue(vetRepository.hasEfferentRelationshipWith(relationalDatabaseSchema));
+            assertTrue(vetRepository.hasEfferentRelationshipWith(relationalDatabaseSchema, "Reads from and writes to"));
 
             assertTrue(welcomeController.getRelationships().isEmpty());
             assertNotNull(petController.getEfferentRelationshipWith(ownerRepository));
