@@ -1,10 +1,12 @@
 package com.structurizr.dsl;
 
+import com.structurizr.component.description.FirstSentenceDescriptionStrategy;
+import com.structurizr.component.description.TruncatedDescriptionStrategy;
 import com.structurizr.component.filter.ExcludeTypesByRegexFilter;
 import com.structurizr.component.filter.IncludeTypesByRegexFilter;
 import com.structurizr.component.matcher.*;
 import com.structurizr.component.naming.DefaultPackageNamingStrategy;
-import com.structurizr.component.naming.SimpleNamingStrategy;
+import com.structurizr.component.naming.TypeNamingStrategy;
 import com.structurizr.component.naming.FullyQualifiedNamingStrategy;
 import com.structurizr.component.supporting.*;
 
@@ -39,10 +41,15 @@ final class ComponentFinderStrategyParser extends AbstractParser {
     private static final String SUPPORTING_TYPES_NONE = "none";
     private static final String SUPPORTING_TYPES_GRAMMAR = "supportingTypes <" + String.join("|", List.of(SUPPORTING_TYPES_ALL_REFERENCED, SUPPORTING_TYPES_REFERENCED_IN_PACKAGE, SUPPORTING_TYPES_IN_PACKAGE, SUPPORTING_TYPES_UNDER_PACKAGE, SUPPORTING_TYPES_NONE)) + "> [parameters]";
 
-    private static final String NAMING_NAME = "name";
-    private static final String NAMING_FQN = "fqn";
-    private static final String NAMING_PACKAGE = "package";
-    private static final String NAMING_GRAMMAR = "naming <" + String.join("|", List.of(NAMING_NAME, NAMING_FQN, NAMING_PACKAGE)) + ">";
+    private static final String NAME_TYPE_NAME = "type-name";
+    private static final String NAME_FQN = "fqn";
+    private static final String NAME_PACKAGE = "package";
+    private static final String NAME_GRAMMAR = "name <" + String.join("|", List.of(NAME_TYPE_NAME, NAME_FQN, NAME_PACKAGE)) + ">";
+
+    private static final String DESCRIPTION_TRUNCATED = "truncated";
+    private static final String DESCRIPTION_FIRST_SENTENCE = "first-sentence";
+    private static final String DESCRIPTION_GRAMMAR = "description <" + String.join("|", List.of(DESCRIPTION_FIRST_SENTENCE, DESCRIPTION_TRUNCATED)) + ">";
+    private static final String DESCRIPTION_TRUNCATED_GRAMMAR = "description truncated <maxLength>";
 
     void parseTechnology(ComponentFinderStrategyDslContext context, Tokens tokens) {
         if (tokens.size() != 2) {
@@ -50,7 +57,7 @@ final class ComponentFinderStrategyParser extends AbstractParser {
         }
 
         String name = tokens.get(1);
-        context.getComponentFinderStrategyBuilder().asTechnology(name);
+        context.getComponentFinderStrategyBuilder().forTechnology(name);
     }
 
     void parseMatcher(ComponentFinderStrategyDslContext context, Tokens tokens, File dslFile) {
@@ -181,24 +188,51 @@ final class ComponentFinderStrategyParser extends AbstractParser {
         }
     }
 
-    void parseNaming(ComponentFinderStrategyDslContext context, Tokens tokens, File dslFile) {
+    void parseName(ComponentFinderStrategyDslContext context, Tokens tokens, File dslFile) {
         if (tokens.size() < 2) {
-            throw new RuntimeException("Too few tokens, expected: " + NAMING_GRAMMAR);
+            throw new RuntimeException("Too few tokens, expected: " + NAME_GRAMMAR);
         }
 
         String type = tokens.get(1).toLowerCase();
         switch (type) {
-            case NAMING_NAME:
-                context.getComponentFinderStrategyBuilder().namedBy(new SimpleNamingStrategy());
+            case NAME_TYPE_NAME:
+                context.getComponentFinderStrategyBuilder().withName(new TypeNamingStrategy());
                 break;
-            case NAMING_FQN:
-                context.getComponentFinderStrategyBuilder().namedBy(new FullyQualifiedNamingStrategy());
+            case NAME_FQN:
+                context.getComponentFinderStrategyBuilder().withName(new FullyQualifiedNamingStrategy());
                 break;
-            case NAMING_PACKAGE:
-                context.getComponentFinderStrategyBuilder().namedBy(new DefaultPackageNamingStrategy());
+            case NAME_PACKAGE:
+                context.getComponentFinderStrategyBuilder().withName(new DefaultPackageNamingStrategy());
                 break;
             default:
-                throw new IllegalArgumentException("Unknown naming strategy: " + type);
+                throw new IllegalArgumentException("Unknown name strategy: " + type);
+        }
+    }
+
+    void parseDescription(ComponentFinderStrategyDslContext context, Tokens tokens, File dslFile) {
+        if (tokens.size() < 2) {
+            throw new RuntimeException("Too few tokens, expected: " + DESCRIPTION_GRAMMAR);
+        }
+
+        String type = tokens.get(1).toLowerCase();
+        switch (type) {
+            case DESCRIPTION_FIRST_SENTENCE:
+                context.getComponentFinderStrategyBuilder().withDescription(new FirstSentenceDescriptionStrategy());
+                break;
+            case DESCRIPTION_TRUNCATED:
+                if (tokens.size() < 3) {
+                    throw new RuntimeException("Too few tokens, expected: " + DESCRIPTION_TRUNCATED_GRAMMAR);
+                }
+
+                try {
+                    int maxLength = Integer.parseInt(tokens.get(2));
+                    context.getComponentFinderStrategyBuilder().withDescription(new TruncatedDescriptionStrategy(maxLength));
+                } catch (NumberFormatException e) {
+                    throw new RuntimeException("Max length must be an integer");
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown description strategy: " + type);
         }
     }
 

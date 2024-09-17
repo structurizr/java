@@ -19,7 +19,7 @@ final class ComponentFinderStrategyDslContext extends DslContext {
             StructurizrDslTokens.COMPONENT_FINDER_STRATEGY_MATCHER_TOKEN,
             StructurizrDslTokens.COMPONENT_FINDER_STRATEGY_FILTER_TOKEN,
             StructurizrDslTokens.COMPONENT_FINDER_STRATEGY_SUPPORTING_TYPES_TOKEN,
-            StructurizrDslTokens.COMPONENT_FINDER_STRATEGY_NAMING_TOKEN,
+            StructurizrDslTokens.COMPONENT_FINDER_STRATEGY_NAME_TOKEN,
             StructurizrDslTokens.COMPONENT_FINDER_STRATEGY_FOREACH_TOKEN
         };
     }

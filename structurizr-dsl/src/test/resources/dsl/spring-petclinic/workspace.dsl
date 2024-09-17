@@ -34,6 +34,7 @@ workspace "Spring PetClinic" "A C4 model of the Spring PetClinic sample app (htt
                     strategy {
                         technology "Spring Data Repository"
                         matcher implements "org.springframework.data.repository.Repository"
+                        description first-sentence
                         forEach {
                             -> relationalDatabaseSchema "Reads from and writes to"
                             tag "Spring Data Repository"

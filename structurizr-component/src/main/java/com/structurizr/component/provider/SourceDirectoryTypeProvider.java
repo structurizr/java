@@ -23,17 +23,11 @@ public final class SourceDirectoryTypeProvider implements TypeProvider {
 
     private static final Log log = LogFactory.getLog(SourceDirectoryTypeProvider.class);
     private static final String JAVA_FILE_EXTENSION = ".java";
-    private static final int DEFAULT_DESCRIPTION_LENGTH = 60;
 
     private final File directory;
-    private final int maximumDescriptionLength;
     private final Set<Type> types = new LinkedHashSet<>();
 
     public SourceDirectoryTypeProvider(File directory) {
-        this(directory, DEFAULT_DESCRIPTION_LENGTH);
-    }
-
-    public SourceDirectoryTypeProvider(File directory, int maximumDescriptionLength) {
         if (directory == null) {
             throw new IllegalArgumentException("A directory must be supplied");
         }
@@ -47,24 +41,23 @@ public final class SourceDirectoryTypeProvider implements TypeProvider {
         }
 
         this.directory = directory;
-        this.maximumDescriptionLength = maximumDescriptionLength;
         StaticJavaParser.getParserConfiguration().setLanguageLevel(ParserConfiguration.LanguageLevel.JAVA_21);
     }
 
     @Override
     public Set<Type> getTypes() {
-        parse(directory, maximumDescriptionLength);
+        parse(directory);
 
         return new LinkedHashSet<>(types);
     }
 
-    private void parse(File path, int maximumDescriptionLength) {
+    private void parse(File path) {
         if (path.isDirectory()) {
             File[] files = path.listFiles();
             if (files != null) {
                 for (File file : files) {
                     try {
-                        parse(file, maximumDescriptionLength);
+                        parse(file);
                     } catch (Exception e) {
                         log.warn("Error parsing " + file.getAbsolutePath(), e);
                     }
@@ -85,7 +78,7 @@ public final class SourceDirectoryTypeProvider implements TypeProvider {
                                     JavadocComment javadocComment = (JavadocComment) n.getComment().get();
                                     String description = javadocComment.parse().getDescription().toText();
 
-                                    type.setDescription(new JavadocCommentFilter(maximumDescriptionLength).filterAndTruncate(description));
+                                    type.setDescription(new JavadocCommentFilter().filter(description));
                                 }
                                 types.add(type);
                             }
@@ -107,7 +100,7 @@ public final class SourceDirectoryTypeProvider implements TypeProvider {
                                     JavadocComment javadocComment = (JavadocComment)rootNode.getComment().get();
                                     String description = javadocComment.parse().getDescription().toText();
 
-                                    type.setDescription(new JavadocCommentFilter(maximumDescriptionLength).filterAndTruncate(description));
+                                    type.setDescription(new JavadocCommentFilter().filter(description));
                                 }
 
                                 types.add(type);

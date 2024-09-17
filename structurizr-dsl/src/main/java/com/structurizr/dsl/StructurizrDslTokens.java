@@ -121,7 +121,8 @@ class StructurizrDslTokens {
     static final String COMPONENT_FINDER_STRATEGY_MATCHER_TOKEN = "matcher";
     static final String COMPONENT_FINDER_STRATEGY_FILTER_TOKEN = "filter";
     static final String COMPONENT_FINDER_STRATEGY_SUPPORTING_TYPES_TOKEN = "supportingTypes";
-    static final String COMPONENT_FINDER_STRATEGY_NAMING_TOKEN = "naming";
+    static final String COMPONENT_FINDER_STRATEGY_NAME_TOKEN = "name";
+    static final String COMPONENT_FINDER_STRATEGY_DESCRIPTION_TOKEN = "description";
     static final String COMPONENT_FINDER_STRATEGY_FOREACH_TOKEN = "forEach";
 
 }

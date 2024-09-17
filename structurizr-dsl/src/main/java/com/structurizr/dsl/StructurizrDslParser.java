@@ -450,8 +450,11 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (COMPONENT_FINDER_STRATEGY_SUPPORTING_TYPES_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
                         new ComponentFinderStrategyParser().parseSupportingTypes(getContext(ComponentFinderStrategyDslContext.class), tokens, dslFile);
 
-                    } else if (COMPONENT_FINDER_STRATEGY_NAMING_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
-                        new ComponentFinderStrategyParser().parseNaming(getContext(ComponentFinderStrategyDslContext.class), tokens, dslFile);
+                    } else if (COMPONENT_FINDER_STRATEGY_NAME_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
+                        new ComponentFinderStrategyParser().parseName(getContext(ComponentFinderStrategyDslContext.class), tokens, dslFile);
+
+                    } else if (COMPONENT_FINDER_STRATEGY_DESCRIPTION_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
+                        new ComponentFinderStrategyParser().parseDescription(getContext(ComponentFinderStrategyDslContext.class), tokens, dslFile);
 
                     } else if (COMPONENT_FINDER_STRATEGY_FOREACH_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
                         if (shouldStartContext(tokens)) {

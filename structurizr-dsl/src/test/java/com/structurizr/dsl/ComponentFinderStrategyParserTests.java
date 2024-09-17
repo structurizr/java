@@ -1,7 +1,6 @@
 package com.structurizr.dsl;
 
 import com.structurizr.component.ComponentFinderBuilder;
-import com.structurizr.component.matcher.AnnotationTypeMatcher;
 import com.structurizr.component.matcher.NameSuffixTypeMatcher;
 import org.junit.jupiter.api.Test;
 
@@ -39,7 +38,7 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
     @Test
     void test_parseTechnology() {
         parser.parseTechnology(context, tokens("technology", "name"));
-        assertEquals("ComponentFinderStrategyBuilder{technology='name', typeMatcher=null, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology='name', typeMatcher=null, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
@@ -65,7 +64,7 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
     @Test
     void test_parseMatcher_WhenTheAnnotationTypeMatcherIsUsed() {
         parser.parseMatcher(context, tokens("matcher", "annotation", "com.example.Component"), null);
-        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=AnnotationTypeMatcher{annotationType='Lcom/example/Component;'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=AnnotationTypeMatcher{annotationType='Lcom/example/Component;'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
@@ -81,7 +80,7 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
     @Test
     void test_parseMatcher_WhenTheExtendsTypeMatcherIsUsed() {
         parser.parseMatcher(context, tokens("matcher", "extends", "com.example.Component"), null);
-        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=ExtendsTypeMatcher{className='com.example.Component'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=ExtendsTypeMatcher{className='com.example.Component'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
@@ -97,7 +96,7 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
     @Test
     void test_parseMatcher_WhenTheImplementsTypeMatcherIsUsed() {
         parser.parseMatcher(context, tokens("matcher", "implements", "com.example.Component"), null);
-        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=ImplementsTypeMatcher{interfaceName='com.example.Component'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=ImplementsTypeMatcher{interfaceName='com.example.Component'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
@@ -113,7 +112,7 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
     @Test
     void test_parseMatcher_WhenTheNameSuffixTypeMatcherIsUsed() {
         parser.parseMatcher(context, tokens("matcher", "name-suffix", "Component"), null);
-        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=NameSuffixTypeMatcher{suffix='Component'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=NameSuffixTypeMatcher{suffix='Component'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
@@ -129,7 +128,7 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
     @Test
     void test_parseMatcher_WhenTheRegexTypeMatcherIsUsed() {
         parser.parseMatcher(context, tokens("matcher", "fqn-regex", ".*Component"), null);
-        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=RegexTypeMatcher{regex='.*Component'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=RegexTypeMatcher{regex='.*Component'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
@@ -145,13 +144,13 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
     @Test
     void test_parseMatcher_WhenACustomTypeMatcherIsUsedWithoutParameters() {
         parser.parseMatcher(context, tokens("matcher", "com.structurizr.dsl.example.CustomTypeMatcher"), new File("."));
-        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=CustomTypeMatcher{}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=CustomTypeMatcher{}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
     void test_parseMatcher_WhenACustomTypeMatcherIsUsedWithAParameter() {
         parser.parseMatcher(context, tokens("matcher", NameSuffixTypeMatcher.class.getCanonicalName(), "Component"), new File("."));
-        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=NameSuffixTypeMatcher{suffix='Component'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=NameSuffixTypeMatcher{suffix='Component'}, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
@@ -187,13 +186,13 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
     @Test
     void test_parseFilter_WhenIncludeFullyQualifiedNameRegexTypeFilterIsUsed() {
         parser.parseFilter(context, tokens("filter", "include", "fqn-regex", ".*"), new File("."));
-        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=null, typeFilter=IncludeTypesByRegexFilter{regex='.*'}, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=null, typeFilter=IncludeTypesByRegexFilter{regex='.*'}, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
     void test_parseFilter_WhenExcludeFullyQualifiedNameRegexTypeFilterIsUsed() {
         parser.parseFilter(context, tokens("filter", "exclude", "fqn-regex", ".*"), new File("."));
-        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=null, typeFilter=ExcludeTypesByRegexFilter{regex='.*'}, supportingTypesStrategy=null, namingStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=null, typeFilter=ExcludeTypesByRegexFilter{regex='.*'}, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
@@ -207,13 +206,75 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
     }
 
     @Test
-    void test_parseNaming_ThrowsAnException_WhenNoTypeIsSpecified() {
+    void test_parseName_ThrowsAnException_WhenNoTypeIsSpecified() {
         try {
-            parser.parseNaming(context, tokens("naming"), null);
+            parser.parseName(context, tokens("name"), null);
             fail();
         } catch (Exception e) {
-            assertEquals("Too few tokens, expected: naming <name|fqn|package>", e.getMessage());
+            assertEquals("Too few tokens, expected: name <type-name|fqn|package>", e.getMessage());
         }
+    }
+
+    @Test
+    void test_parseName() {
+        parser.parseName(context, tokens("name", "type-name"), null);
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=null, typeFilter=null, supportingTypesStrategy=null, namingStrategy=TypeNamingStrategy{}, descriptionStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+    }
+
+    @Test
+    void test_parseDescription_ThrowsAnException_WhenNoTypeIsSpecified() {
+        try {
+            parser.parseDescription(context, tokens("description"), null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Too few tokens, expected: description <first-sentence|truncated>", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseDescription_FirstSentence() {
+        parser.parseDescription(context, tokens("description", "first-sentence"), null);
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=null, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=FirstSentenceDescriptionStrategy{}, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+    }
+
+    @Test
+    void test_parseDescription_Truncated_ThrowsAnException_WhenNoMaxLengthIsSpecified() {
+        try {
+            parser.parseDescription(context, tokens("description", "truncated"), null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Too few tokens, expected: description truncated <maxLength>", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseDescription_Truncated_ThrowsAnException_WhenAnInvalidMaxLengthIsSpecified() {
+        try {
+            parser.parseDescription(context, tokens("description", "truncated", "invalid"), null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Max length must be an integer", e.getMessage());
+        }
+
+        try {
+            parser.parseDescription(context, tokens("description", "truncated", "-1"), null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Max length must be greater than 0", e.getMessage());
+        }
+
+        try {
+            parser.parseDescription(context, tokens("description", "truncated", "0"), null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Max length must be greater than 0", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseDescription_Truncated() {
+        parser.parseDescription(context, tokens("description", "truncated", "50"), null);
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=null, typeFilter=null, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=TruncatedDescriptionStrategy{maxLength=50}, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
 }

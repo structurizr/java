@@ -1232,6 +1232,7 @@ class DslTests extends AbstractTests {
 
             Component ownerRepository = webApplication.getComponentWithName("Owner Repository");
             assertNotNull(ownerRepository);
+            assertEquals("Repository class for Owner domain objects All method names are compliant with Spring Data naming conventions so this interface can easily be extended for Spring Data.", ownerRepository.getDescription());
             assertEquals("org.springframework.samples.petclinic.owner.OwnerRepository", ownerRepository.getProperties().get("component.type"));
             assertEquals(new File(springPetClinicHome, "src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java").getAbsolutePath(), ownerRepository.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java", ownerRepository.getUrl());

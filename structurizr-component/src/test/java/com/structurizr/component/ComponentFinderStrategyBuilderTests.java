@@ -1,10 +1,12 @@
 package com.structurizr.component;
 
+import com.structurizr.component.description.FirstSentenceDescriptionStrategy;
+import com.structurizr.component.description.TruncatedDescriptionStrategy;
 import com.structurizr.component.filter.ExcludeTypesByRegexFilter;
 import com.structurizr.component.filter.IncludeTypesByRegexFilter;
 import com.structurizr.component.matcher.NameSuffixTypeMatcher;
 import com.structurizr.component.naming.FullyQualifiedNamingStrategy;
-import com.structurizr.component.naming.SimpleNamingStrategy;
+import com.structurizr.component.naming.TypeNamingStrategy;
 import com.structurizr.component.supporting.AllTypesInPackageSupportingTypesStrategy;
 import com.structurizr.component.supporting.AllTypesUnderPackageSupportingTypesStrategy;
 import org.junit.jupiter.api.Test;
@@ -12,11 +14,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ComponentFinderStrategyBuilderTests {
-
-    @Test
-    void build_ThrowsAnException_WhenATypeMatcherHasNotBeenConfigured() {
-        assertThrowsExactly(RuntimeException.class, () -> new ComponentFinderStrategyBuilder().build());
-    }
 
     @Test
     void matchedBy_ThrowsAnException_WhenPassedNull() {
@@ -79,9 +76,9 @@ public class ComponentFinderStrategyBuilderTests {
     }
 
     @Test
-    void namedBy_ThrowsAnException_WhenPassedNull() {
+    void withName_ThrowsAnException_WhenPassedNull() {
         try {
-            new ComponentFinderStrategyBuilder().namedBy(null);
+            new ComponentFinderStrategyBuilder().withName(null);
             fail();
         } catch (Exception e) {
             assertEquals("A naming strategy must be provided", e.getMessage());
@@ -89,9 +86,9 @@ public class ComponentFinderStrategyBuilderTests {
     }
 
     @Test
-    void namedBy_ThrowsAnException_WhenCalledTwice() {
+    void withName_ThrowsAnException_WhenCalledTwice() {
         try {
-            new ComponentFinderStrategyBuilder().namedBy(new SimpleNamingStrategy()).namedBy(new FullyQualifiedNamingStrategy());
+            new ComponentFinderStrategyBuilder().withName(new TypeNamingStrategy()).withName(new FullyQualifiedNamingStrategy());
             fail();
         } catch (Exception e) {
             assertEquals("A naming strategy has already been configured", e.getMessage());
@@ -99,9 +96,29 @@ public class ComponentFinderStrategyBuilderTests {
     }
 
     @Test
-    void asTechnology_ThrowsAnException_WhenPassedNull() {
+    void withDescription_ThrowsAnException_WhenPassedNull() {
         try {
-            new ComponentFinderStrategyBuilder().asTechnology(null);
+            new ComponentFinderStrategyBuilder().withDescription(null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("A description strategy must be provided", e.getMessage());
+        }
+    }
+
+    @Test
+    void withDescription_ThrowsAnException_WhenCalledTwice() {
+        try {
+            new ComponentFinderStrategyBuilder().withDescription(new TruncatedDescriptionStrategy(50)).withDescription(new FirstSentenceDescriptionStrategy());
+            fail();
+        } catch (Exception e) {
+            assertEquals("A description strategy has already been configured", e.getMessage());
+        }
+    }
+
+    @Test
+    void forTechnology_ThrowsAnException_WhenPassedNull() {
+        try {
+            new ComponentFinderStrategyBuilder().forTechnology(null);
             fail();
         } catch (Exception e) {
             assertEquals("A technology must be provided", e.getMessage());
@@ -109,9 +126,9 @@ public class ComponentFinderStrategyBuilderTests {
     }
 
     @Test
-    void asTechnology_ThrowsAnException_WhenPassedAnEmptyString() {
+    void forTechnology_ThrowsAnException_WhenPassedAnEmptyString() {
         try {
-            new ComponentFinderStrategyBuilder().asTechnology("");
+            new ComponentFinderStrategyBuilder().forTechnology("");
             fail();
         } catch (Exception e) {
             assertEquals("A technology must be provided", e.getMessage());
@@ -119,13 +136,36 @@ public class ComponentFinderStrategyBuilderTests {
     }
 
     @Test
-    void asTechnology_ThrowsAnException_WhenCalledTwice() {
+    void forTechnology_ThrowsAnException_WhenCalledTwice() {
         try {
-            new ComponentFinderStrategyBuilder().asTechnology("X").asTechnology("Y");
+            new ComponentFinderStrategyBuilder().forTechnology("X").forTechnology("Y");
             fail();
         } catch (Exception e) {
             assertEquals("A technology has already been configured", e.getMessage());
         }
+    }
+
+    @Test
+    void build_ThrowsAnException_WhenATypeMatcherHasNotBeenConfigured() {
+        try {
+            new ComponentFinderStrategyBuilder().build();
+            fail();
+        } catch (Exception e) {
+            assertEquals("A type matcher must be provided", e.getMessage());
+        }
+    }
+
+    @Test
+    void build() {
+        ComponentFinderStrategy strategy = new ComponentFinderStrategyBuilder()
+                .forTechnology("Spring MVC Controller")
+                .matchedBy(new NameSuffixTypeMatcher("Controller"))
+                .filteredBy(new IncludeTypesByRegexFilter("com.example.web.\\.*"))
+                .withName(new TypeNamingStrategy())
+                .withDescription(new FirstSentenceDescriptionStrategy())
+                .build();
+
+        assertEquals("ComponentFinderStrategy{technology='Spring MVC Controller', typeMatcher=NameSuffixTypeMatcher{suffix='Controller'}, typeFilter=IncludeTypesByRegexFilter{regex='com.example.web.\\.*'}, supportingTypesStrategy=DefaultSupportingTypesStrategy{}, namingStrategy=TypeNamingStrategy{}, descriptionStrategy=FirstSentenceDescriptionStrategy{}, componentVisitor=DefaultComponentVisitor{}}", strategy.toString());
     }
 
 }

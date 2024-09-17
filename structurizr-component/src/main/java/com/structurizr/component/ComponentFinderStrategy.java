@@ -1,5 +1,7 @@
 package com.structurizr.component;
 
+import com.structurizr.component.description.DefaultDescriptionStrategy;
+import com.structurizr.component.description.DescriptionStrategy;
 import com.structurizr.component.filter.TypeFilter;
 import com.structurizr.component.matcher.TypeMatcher;
 import com.structurizr.component.naming.NamingStrategy;
@@ -27,14 +29,16 @@ public final class ComponentFinderStrategy {
     private final TypeFilter typeFilter;
     private final SupportingTypesStrategy supportingTypesStrategy;
     private final NamingStrategy namingStrategy;
+    private final DescriptionStrategy descriptionStrategy;
     private final ComponentVisitor componentVisitor;
 
-    ComponentFinderStrategy(String technology, TypeMatcher typeMatcher, TypeFilter typeFilter, SupportingTypesStrategy supportingTypesStrategy, NamingStrategy namingStrategy, ComponentVisitor componentVisitor) {
+    ComponentFinderStrategy(String technology, TypeMatcher typeMatcher, TypeFilter typeFilter, SupportingTypesStrategy supportingTypesStrategy, NamingStrategy namingStrategy, DescriptionStrategy descriptionStrategy, ComponentVisitor componentVisitor) {
         this.technology = technology;
         this.typeMatcher = typeMatcher;
         this.typeFilter = typeFilter;
         this.supportingTypesStrategy = supportingTypesStrategy;
         this.namingStrategy = namingStrategy;
+        this.descriptionStrategy = descriptionStrategy;
         this.componentVisitor = componentVisitor;
     }
 
@@ -45,7 +49,7 @@ public final class ComponentFinderStrategy {
         for (Type type : types) {
             if (typeMatcher.matches(type) && typeFilter.accept(type)) {
                 DiscoveredComponent component = new DiscoveredComponent(namingStrategy.nameOf(type), type);
-                component.setDescription(type.getDescription());
+                component.setDescription(descriptionStrategy.descriptionOf(type));
                 component.setTechnology(this.technology);
                 component.setComponentFinderStrategy(this);
                 components.add(component);
@@ -71,6 +75,7 @@ public final class ComponentFinderStrategy {
                 ", typeFilter=" + typeFilter +
                 ", supportingTypesStrategy=" + supportingTypesStrategy +
                 ", namingStrategy=" + namingStrategy +
+                ", descriptionStrategy=" + descriptionStrategy +
                 ", componentVisitor=" + componentVisitor +
                 '}';
     }

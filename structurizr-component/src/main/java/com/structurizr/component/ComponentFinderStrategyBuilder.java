@@ -1,5 +1,7 @@
 package com.structurizr.component;
 
+import com.structurizr.component.description.DefaultDescriptionStrategy;
+import com.structurizr.component.description.DescriptionStrategy;
 import com.structurizr.component.filter.DefaultTypeFilter;
 import com.structurizr.component.filter.TypeFilter;
 import com.structurizr.component.matcher.TypeMatcher;
@@ -21,6 +23,7 @@ public final class ComponentFinderStrategyBuilder {
     private TypeFilter typeFilter;
     private SupportingTypesStrategy supportingTypesStrategy;
     private NamingStrategy namingStrategy;
+    private DescriptionStrategy descriptionStrategy;
     private ComponentVisitor componentVisitor;
 
     public ComponentFinderStrategyBuilder() {
@@ -68,7 +71,7 @@ public final class ComponentFinderStrategyBuilder {
         return this;
     }
 
-    public ComponentFinderStrategyBuilder namedBy(NamingStrategy namingStrategy) {
+    public ComponentFinderStrategyBuilder withName(NamingStrategy namingStrategy) {
         if (namingStrategy == null) {
             throw new IllegalArgumentException("A naming strategy must be provided");
         }
@@ -82,7 +85,21 @@ public final class ComponentFinderStrategyBuilder {
         return this;
     }
 
-    public ComponentFinderStrategyBuilder asTechnology(String technology) {
+    public ComponentFinderStrategyBuilder withDescription(DescriptionStrategy descriptionStrategy) {
+        if (descriptionStrategy == null) {
+            throw new IllegalArgumentException("A description strategy must be provided");
+        }
+
+        if (this.descriptionStrategy != null) {
+            throw new IllegalArgumentException("A description strategy has already been configured");
+        }
+
+        this.descriptionStrategy = descriptionStrategy;
+
+        return this;
+    }
+
+    public ComponentFinderStrategyBuilder forTechnology(String technology) {
         if (StringUtils.isNullOrEmpty(technology)) {
             throw new IllegalArgumentException("A technology must be provided");
         }
@@ -127,11 +144,15 @@ public final class ComponentFinderStrategyBuilder {
             namingStrategy = new DefaultNamingStrategy();
         }
 
+        if (descriptionStrategy == null) {
+            descriptionStrategy = new DefaultDescriptionStrategy();
+        }
+
         if (componentVisitor == null) {
             componentVisitor = new DefaultComponentVisitor();
         }
 
-        return new ComponentFinderStrategy(technology, typeMatcher, typeFilter, supportingTypesStrategy, namingStrategy, componentVisitor);
+        return new ComponentFinderStrategy(technology, typeMatcher, typeFilter, supportingTypesStrategy, namingStrategy, descriptionStrategy, componentVisitor);
     }
 
     @Override
@@ -142,6 +163,7 @@ public final class ComponentFinderStrategyBuilder {
                 ", typeFilter=" + typeFilter +
                 ", supportingTypesStrategy=" + supportingTypesStrategy +
                 ", namingStrategy=" + namingStrategy +
+                ", descriptionStrategy=" + descriptionStrategy +
                 ", componentVisitor=" + componentVisitor +
                 '}';
     }
