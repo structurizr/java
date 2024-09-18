@@ -5,6 +5,7 @@ import com.structurizr.component.description.FirstSentenceDescriptionStrategy;
 import com.structurizr.component.filter.IncludeFullyQualifiedNameRegexFilter;
 import com.structurizr.component.matcher.ImplementsTypeMatcher;
 import com.structurizr.component.naming.TypeNamingStrategy;
+import com.structurizr.component.url.PrefixSourceUrlStrategy;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 import com.structurizr.model.SoftwareSystem;
@@ -35,6 +36,7 @@ public class ComponentFinderTests {
                         .filteredBy(new IncludeFullyQualifiedNameRegexFilter("com\\.structurizr\\.component\\.example\\..*"))
                         .withName(new TypeNamingStrategy())
                         .withDescription(new FirstSentenceDescriptionStrategy())
+                        .withUrl(new PrefixSourceUrlStrategy("https://example.com/src/main/java"))
                         .build()
                 )
                 .withStrategy(new ComponentFinderStrategyBuilder()
@@ -43,6 +45,7 @@ public class ComponentFinderTests {
                         .filteredBy(new IncludeFullyQualifiedNameRegexFilter("com\\.structurizr\\.component\\.example\\..*"))
                         .withName(new TypeNamingStrategy())
                         .withDescription(new FirstSentenceDescriptionStrategy())
+                        .withUrl(new PrefixSourceUrlStrategy("https://example.com/src/main/java"))
                         .build()
                 )
                 .build();
@@ -52,11 +55,13 @@ public class ComponentFinderTests {
         assertEquals(2, container.getComponents().size());
         Component exampleController = container.getComponentWithName("ExampleController");
         assertNotNull(exampleController);
+        assertEquals("https://example.com/src/main/java/com/structurizr/component/example/ExampleController.java", exampleController.getUrl());
         assertTrue(exampleController.hasTag("Controller"));
         assertEquals("https://example.com", exampleController.getProperties().get("Documentation"));
 
         Component exampleRepository = container.getComponentWithName("ExampleRepository");
         assertNotNull(exampleRepository);
+        assertEquals("https://example.com/src/main/java/com/structurizr/component/example/ExampleRepository.java", exampleRepository.getUrl());
 
         assertTrue(exampleController.hasEfferentRelationshipWith(exampleRepository));
     }
