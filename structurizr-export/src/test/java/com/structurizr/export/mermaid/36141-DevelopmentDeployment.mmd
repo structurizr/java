@@ -4,20 +4,20 @@ graph TB
   subgraph diagram ["Internet Banking System - Deployment - Development"]
     style diagram fill:#ffffff,stroke:#ffffff
 
-    subgraph 50 [Developer Laptop]
+    subgraph 50 ["Developer Laptop"]
       style 50 fill:#ffffff,stroke:#888888,color:#000000
 
-      subgraph 51 [Web Browser]
+      subgraph 51 ["Web Browser"]
         style 51 fill:#ffffff,stroke:#888888,color:#000000
 
         52["<div style='font-weight: bold'>Single-Page Application</div><div style='font-size: 70%; margin-top: 0px'>[Container: JavaScript and Angular]</div><div style='font-size: 80%; margin-top:10px'>Provides all of the Internet<br />banking functionality to<br />customers via their web<br />browser.</div>"]
         style 52 fill:#438dd5,stroke:#2e6295,color:#ffffff
       end
 
-      subgraph 53 [Docker Container - Web Server]
+      subgraph 53 ["Docker Container - Web Server"]
         style 53 fill:#ffffff,stroke:#888888,color:#000000
 
-        subgraph 54 [Apache Tomcat]
+        subgraph 54 ["Apache Tomcat"]
           style 54 fill:#ffffff,stroke:#888888,color:#000000
 
           55["<div style='font-weight: bold'>Web Application</div><div style='font-size: 70%; margin-top: 0px'>[Container: Java and Spring MVC]</div><div style='font-size: 80%; margin-top:10px'>Delivers the static content<br />and the Internet banking<br />single page application.</div>"]
@@ -28,10 +28,10 @@ graph TB
 
       end
 
-      subgraph 59 [Docker Container - Database Server]
+      subgraph 59 ["Docker Container - Database Server"]
         style 59 fill:#ffffff,stroke:#888888,color:#000000
 
-        subgraph 60 [Database Server]
+        subgraph 60 ["Database Server"]
           style 60 fill:#ffffff,stroke:#888888,color:#000000
 
           61[("<div style='font-weight: bold'>Database</div><div style='font-size: 70%; margin-top: 0px'>[Container: Oracle Database Schema]</div><div style='font-size: 80%; margin-top:10px'>Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</div>")]
@@ -42,10 +42,10 @@ graph TB
 
     end
 
-    subgraph 63 [Big Bank plc]
+    subgraph 63 ["Big Bank plc"]
       style 63 fill:#ffffff,stroke:#888888,color:#000000
 
-      subgraph 64 [bigbank-dev001]
+      subgraph 64 ["bigbank-dev001"]
         style 64 fill:#ffffff,stroke:#888888,color:#000000
 
         65["<div style='font-weight: bold'>Mainframe Banking System</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>Stores all of the core<br />banking information about<br />customers, accounts,<br />transactions, etc.</div>"]

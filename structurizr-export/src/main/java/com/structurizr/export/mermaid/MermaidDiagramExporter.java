@@ -80,7 +80,7 @@ public class MermaidDiagramExporter extends AbstractDiagramExporter {
 
     @Override
     protected void startEnterpriseBoundary(ModelView view, String enterpriseName, IndentingWriter writer) {
-        writer.writeLine("subgraph enterprise [" + enterpriseName + "]");
+        writer.writeLine("subgraph enterprise [\"" + enterpriseName + "\"]");
         writer.indent();
         writer.writeLine("style enterprise fill:#ffffff,stroke:#444444,color:#444444");
         writer.writeLine();
@@ -118,7 +118,7 @@ public class MermaidDiagramExporter extends AbstractDiagramExporter {
             color = elementStyle.getColor();
         }
 
-        writer.writeLine(String.format("subgraph group%s [" + groupName + "]", groupId));
+        writer.writeLine(String.format("subgraph group%s [\"" + groupName + "\"]", groupId));
         writer.indent();
         writer.writeLine(String.format("style group%s fill:#ffffff,stroke:%s,color:%s,stroke-dasharray:5", groupId, color, color));
         writer.writeLine();
@@ -136,7 +136,7 @@ public class MermaidDiagramExporter extends AbstractDiagramExporter {
         ElementStyle elementStyle = view.getViewSet().getConfiguration().getStyles().findElementStyle(softwareSystem);
         String color = elementStyle.getStroke();
 
-        writer.writeLine(String.format("subgraph %s [%s]", softwareSystem.getId(), softwareSystem.getName()));
+        writer.writeLine(String.format("subgraph %s [\"%s\"]", softwareSystem.getId(), softwareSystem.getName()));
         writer.indent();
         writer.writeLine(String.format("style %s fill:#ffffff,stroke:%s,color:%s", softwareSystem.getId(), color, color));
         writer.writeLine();
@@ -154,7 +154,7 @@ public class MermaidDiagramExporter extends AbstractDiagramExporter {
         ElementStyle elementStyle = view.getViewSet().getConfiguration().getStyles().findElementStyle(container);
         String color = elementStyle.getStroke();
 
-        writer.writeLine(String.format("subgraph %s [%s]", container.getId(), container.getName()));
+        writer.writeLine(String.format("subgraph %s [\"%s\"]", container.getId(), container.getName()));
         writer.indent();
         writer.writeLine(String.format("style %s fill:#ffffff,stroke:%s,color:%s", container.getId(), color, color));
         writer.writeLine();
@@ -171,7 +171,7 @@ public class MermaidDiagramExporter extends AbstractDiagramExporter {
     protected void startDeploymentNodeBoundary(DeploymentView view, DeploymentNode deploymentNode, IndentingWriter writer) {
         ElementStyle elementStyle = view.getViewSet().getConfiguration().getStyles().findElementStyle(deploymentNode);
 
-        writer.writeLine(String.format("subgraph %s [%s]", deploymentNode.getId(), deploymentNode.getName()));
+        writer.writeLine(String.format("subgraph %s [\"%s\"]", deploymentNode.getId(), deploymentNode.getName()));
         writer.indent();
         writer.writeLine(String.format("style %s fill:#ffffff,stroke:%s,color:%s", deploymentNode.getId(), elementStyle.getStroke(), elementStyle.getColor()));
         writer.writeLine();

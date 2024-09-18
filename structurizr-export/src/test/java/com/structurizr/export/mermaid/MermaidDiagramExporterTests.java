@@ -142,28 +142,29 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
         containerView.add(container2);
 
         Diagram diagram = new MermaidDiagramExporter().export(containerView);
-        assertEquals("graph TB\n" +
-                "  linkStyle default fill:#ffffff\n" +
-                "\n" +
-                "  subgraph diagram [\"Software System 1 - Containers\"]\n" +
-                "    style diagram fill:#ffffff,stroke:#ffffff\n" +
-                "\n" +
-                "    subgraph 1 [Software System 1]\n" +
-                "      style 1 fill:#ffffff,stroke:#9a9a9a,color:#9a9a9a\n" +
-                "\n" +
-                "      2[\"<div style='font-weight: bold'>Container 1</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>\"]\n" +
-                "      style 2 fill:#dddddd,stroke:#9a9a9a,color:#000000\n" +
-                "    end\n" +
-                "\n" +
-                "    subgraph 3 [Software System 2]\n" +
-                "      style 3 fill:#ffffff,stroke:#9a9a9a,color:#9a9a9a\n" +
-                "\n" +
-                "      4[\"<div style='font-weight: bold'>Container 2</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>\"]\n" +
-                "      style 4 fill:#dddddd,stroke:#9a9a9a,color:#000000\n" +
-                "    end\n" +
-                "\n" +
-                "    2-. \"<div>Uses</div><div style='font-size: 70%'></div>\" .->4\n" +
-                "  end", diagram.getDefinition());
+        assertEquals("""
+graph TB
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["Software System 1 - Containers"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    subgraph 1 ["Software System 1"]
+      style 1 fill:#ffffff,stroke:#9a9a9a,color:#9a9a9a
+
+      2["<div style='font-weight: bold'>Container 1</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>"]
+      style 2 fill:#dddddd,stroke:#9a9a9a,color:#000000
+    end
+
+    subgraph 3 ["Software System 2"]
+      style 3 fill:#ffffff,stroke:#9a9a9a,color:#9a9a9a
+
+      4["<div style='font-weight: bold'>Container 2</div><div style='font-size: 70%; margin-top: 0px'>[Container]</div>"]
+      style 4 fill:#dddddd,stroke:#9a9a9a,color:#000000
+    end
+
+    2-. "<div>Uses</div><div style='font-size: 70%'></div>" .->4
+  end""", diagram.getDefinition());
     }
 
     @Test
@@ -183,28 +184,29 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
         componentView.add(component2);
 
         Diagram diagram = new MermaidDiagramExporter().export(componentView);
-        assertEquals("graph TB\n" +
-                "  linkStyle default fill:#ffffff\n" +
-                "\n" +
-                "  subgraph diagram [\"Software System 1 - Container 1 - Components\"]\n" +
-                "    style diagram fill:#ffffff,stroke:#ffffff\n" +
-                "\n" +
-                "    subgraph 2 [Container 1]\n" +
-                "      style 2 fill:#ffffff,stroke:#9a9a9a,color:#9a9a9a\n" +
-                "\n" +
-                "      3[\"<div style='font-weight: bold'>Component 1</div><div style='font-size: 70%; margin-top: 0px'>[Component]</div>\"]\n" +
-                "      style 3 fill:#dddddd,stroke:#9a9a9a,color:#000000\n" +
-                "    end\n" +
-                "\n" +
-                "    subgraph 5 [Container 2]\n" +
-                "      style 5 fill:#ffffff,stroke:#9a9a9a,color:#9a9a9a\n" +
-                "\n" +
-                "      6[\"<div style='font-weight: bold'>Component 2</div><div style='font-size: 70%; margin-top: 0px'>[Component]</div>\"]\n" +
-                "      style 6 fill:#dddddd,stroke:#9a9a9a,color:#000000\n" +
-                "    end\n" +
-                "\n" +
-                "    3-. \"<div>Uses</div><div style='font-size: 70%'></div>\" .->6\n" +
-                "  end", diagram.getDefinition());
+        assertEquals("""
+graph TB
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["Software System 1 - Container 1 - Components"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    subgraph 2 ["Container 1"]
+      style 2 fill:#ffffff,stroke:#9a9a9a,color:#9a9a9a
+
+      3["<div style='font-weight: bold'>Component 1</div><div style='font-size: 70%; margin-top: 0px'>[Component]</div>"]
+      style 3 fill:#dddddd,stroke:#9a9a9a,color:#000000
+    end
+
+    subgraph 5 ["Container 2"]
+      style 5 fill:#ffffff,stroke:#9a9a9a,color:#9a9a9a
+
+      6["<div style='font-weight: bold'>Component 2</div><div style='font-size: 70%; margin-top: 0px'>[Component]</div>"]
+      style 6 fill:#dddddd,stroke:#9a9a9a,color:#000000
+    end
+
+    3-. "<div>Uses</div><div style='font-size: 70%'></div>" .->6
+  end""", diagram.getDefinition());
     }
 
     @Test
@@ -222,68 +224,70 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
 
         MermaidDiagramExporter exporter = new MermaidDiagramExporter();
         Diagram diagram = exporter.export(view);
-        assertEquals("graph TB\n" +
-                "  linkStyle default fill:#ffffff\n" +
-                "\n" +
-                "  subgraph diagram [\"System Landscape\"]\n" +
-                "    style diagram fill:#ffffff,stroke:#ffffff\n" +
-                "\n" +
-                "    subgraph group1 [Group 1]\n" +
-                "      style group1 fill:#ffffff,stroke:#111111,color:#111111,stroke-dasharray:5\n" +
-                "\n" +
-                "      1[\"<div style='font-weight: bold'>User 1</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div>\"]\n" +
-                "      style 1 fill:#dddddd,stroke:#9a9a9a,color:#000000\n" +
-                "    end\n" +
-                "\n" +
-                "    subgraph group2 [Group 2]\n" +
-                "      style group2 fill:#ffffff,stroke:#222222,color:#222222,stroke-dasharray:5\n" +
-                "\n" +
-                "      2[\"<div style='font-weight: bold'>User 2</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div>\"]\n" +
-                "      style 2 fill:#dddddd,stroke:#9a9a9a,color:#000000\n" +
-                "    end\n" +
-                "\n" +
-                "    subgraph group3 [Group 3]\n" +
-                "      style group3 fill:#ffffff,stroke:#cccccc,color:#cccccc,stroke-dasharray:5\n" +
-                "\n" +
-                "      3[\"<div style='font-weight: bold'>User 3</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div>\"]\n" +
-                "      style 3 fill:#dddddd,stroke:#9a9a9a,color:#000000\n" +
-                "    end\n" +
-                "\n" +
-                "\n" +
-                "  end", diagram.getDefinition());
+        assertEquals("""
+graph TB
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["System Landscape"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    subgraph group1 ["Group 1"]
+      style group1 fill:#ffffff,stroke:#111111,color:#111111,stroke-dasharray:5
+
+      1["<div style='font-weight: bold'>User 1</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div>"]
+      style 1 fill:#dddddd,stroke:#9a9a9a,color:#000000
+    end
+
+    subgraph group2 ["Group 2"]
+      style group2 fill:#ffffff,stroke:#222222,color:#222222,stroke-dasharray:5
+
+      2["<div style='font-weight: bold'>User 2</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div>"]
+      style 2 fill:#dddddd,stroke:#9a9a9a,color:#000000
+    end
+
+    subgraph group3 ["Group 3"]
+      style group3 fill:#ffffff,stroke:#cccccc,color:#cccccc,stroke-dasharray:5
+
+      3["<div style='font-weight: bold'>User 3</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div>"]
+      style 3 fill:#dddddd,stroke:#9a9a9a,color:#000000
+    end
+
+
+  end""", diagram.getDefinition());
 
         workspace.getViews().getConfiguration().getStyles().addElementStyle("Group").color("#aabbcc");
 
         diagram = exporter.export(view);
-        assertEquals("graph TB\n" +
-                "  linkStyle default fill:#ffffff\n" +
-                "\n" +
-                "  subgraph diagram [\"System Landscape\"]\n" +
-                "    style diagram fill:#ffffff,stroke:#ffffff\n" +
-                "\n" +
-                "    subgraph group1 [Group 1]\n" +
-                "      style group1 fill:#ffffff,stroke:#111111,color:#111111,stroke-dasharray:5\n" +
-                "\n" +
-                "      1[\"<div style='font-weight: bold'>User 1</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div>\"]\n" +
-                "      style 1 fill:#dddddd,stroke:#9a9a9a,color:#000000\n" +
-                "    end\n" +
-                "\n" +
-                "    subgraph group2 [Group 2]\n" +
-                "      style group2 fill:#ffffff,stroke:#222222,color:#222222,stroke-dasharray:5\n" +
-                "\n" +
-                "      2[\"<div style='font-weight: bold'>User 2</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div>\"]\n" +
-                "      style 2 fill:#dddddd,stroke:#9a9a9a,color:#000000\n" +
-                "    end\n" +
-                "\n" +
-                "    subgraph group3 [Group 3]\n" +
-                "      style group3 fill:#ffffff,stroke:#aabbcc,color:#aabbcc,stroke-dasharray:5\n" +
-                "\n" +
-                "      3[\"<div style='font-weight: bold'>User 3</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div>\"]\n" +
-                "      style 3 fill:#dddddd,stroke:#9a9a9a,color:#000000\n" +
-                "    end\n" +
-                "\n" +
-                "\n" +
-                "  end", diagram.getDefinition());
+        assertEquals("""
+graph TB
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["System Landscape"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    subgraph group1 ["Group 1"]
+      style group1 fill:#ffffff,stroke:#111111,color:#111111,stroke-dasharray:5
+
+      1["<div style='font-weight: bold'>User 1</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div>"]
+      style 1 fill:#dddddd,stroke:#9a9a9a,color:#000000
+    end
+
+    subgraph group2 ["Group 2"]
+      style group2 fill:#ffffff,stroke:#222222,color:#222222,stroke-dasharray:5
+
+      2["<div style='font-weight: bold'>User 2</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div>"]
+      style 2 fill:#dddddd,stroke:#9a9a9a,color:#000000
+    end
+
+    subgraph group3 ["Group 3"]
+      style group3 fill:#ffffff,stroke:#aabbcc,color:#aabbcc,stroke-dasharray:5
+
+      3["<div style='font-weight: bold'>User 3</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div>"]
+      style 3 fill:#dddddd,stroke:#9a9a9a,color:#000000
+    end
+
+
+  end""", diagram.getDefinition());
     }
 
     @Test

@@ -19,6 +19,7 @@
 - structurizr-dsl: Adds support for local theme files to be specified via `theme` (https://github.com/structurizr/java/issues/331).
 - structurizr-export: Adds support for icons to the Ilograph exporter (https://github.com/structurizr/java/issues/332).
 - structurizr-export: Adds support for imports to the Ilograph exporter (https://github.com/structurizr/java/issues/332).
+- structurizr-export: Fixes https://github.com/structurizr/java/issues/337 (Malformed subgraph name in Mermaid render).
 
 ## 2.2.0 (2nd July 2024)
 
