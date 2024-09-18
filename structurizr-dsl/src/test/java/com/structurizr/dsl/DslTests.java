@@ -1285,4 +1285,18 @@ class DslTests extends AbstractTests {
         }
     }
 
+    @Test
+    void test_extendHierachical() throws Exception {
+        File dslFile = new File("src/test/resources/dsl/extend-hierarchical.dsl");
+
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(dslFile);
+
+        Component component = parser.getWorkspace().getModel().getSoftwareSystemWithName("A").getContainerWithName("B").getComponentWithName("C");
+        assertEquals("Value1", component.getProperties().get("Name1"));
+        assertEquals("Value2", component.getProperties().get("Name2"));
+        assertEquals("Value3", component.getProperties().get("Name3"));
+    }
+
+
 }
