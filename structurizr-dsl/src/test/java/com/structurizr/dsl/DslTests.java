@@ -516,13 +516,26 @@ class DslTests extends AbstractTests {
     }
 
     @Test
-    void test_ref() throws Exception {
+    void test_findElement() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
-        parser.parse(new File("src/test/resources/dsl/ref.dsl"));
+        parser.parse(new File("src/test/resources/dsl/find-element.dsl"));
 
         assertNotNull(parser.getWorkspace().getModel().getElementWithCanonicalName("InfrastructureNode://Live/Amazon Web Services/New deployment node/New infrastructure node"));
         assertNotNull(parser.getWorkspace().getModel().getElementWithCanonicalName("InfrastructureNode://Live/Amazon Web Services/US-East-1/New deployment node 1/New infrastructure node 1"));
         assertNotNull(parser.getWorkspace().getModel().getElementWithCanonicalName("InfrastructureNode://Live/Amazon Web Services/US-East-1/New deployment node 2/New infrastructure node 2"));
+    }
+
+    @Test
+    void test_findElement_Hierachical() throws Exception {
+        File dslFile = new File("src/test/resources/dsl/find-element-hierarchical.dsl");
+
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(dslFile);
+
+        Component component = parser.getWorkspace().getModel().getSoftwareSystemWithName("A").getContainerWithName("B").getComponentWithName("C");
+        assertEquals("Value1", component.getProperties().get("Name1"));
+        assertEquals("Value2", component.getProperties().get("Name2"));
+        assertEquals("Value3", component.getProperties().get("Name3"));
     }
 
     @Test
@@ -1284,19 +1297,5 @@ class DslTests extends AbstractTests {
             assertEquals("Images must be specified as a URL when running in restricted mode at line 5 of " + dslFile.getAbsolutePath() + ": image image.png", e.getMessage());
         }
     }
-
-    @Test
-    void test_extendHierachical() throws Exception {
-        File dslFile = new File("src/test/resources/dsl/extend-hierarchical.dsl");
-
-        StructurizrDslParser parser = new StructurizrDslParser();
-        parser.parse(dslFile);
-
-        Component component = parser.getWorkspace().getModel().getSoftwareSystemWithName("A").getContainerWithName("B").getComponentWithName("C");
-        assertEquals("Value1", component.getProperties().get("Name1"));
-        assertEquals("Value2", component.getProperties().get("Name2"));
-        assertEquals("Value3", component.getProperties().get("Name3"));
-    }
-
 
 }

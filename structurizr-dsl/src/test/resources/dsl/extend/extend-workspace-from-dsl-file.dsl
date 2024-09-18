@@ -1,7 +1,7 @@
 workspace extends workspace.dsl {
 
     model {
-        !ref softwareSystem1 {
+        !element softwareSystem1 {
             webapp = container "Web Application"
         }
 

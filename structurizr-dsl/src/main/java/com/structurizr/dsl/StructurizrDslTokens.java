@@ -105,11 +105,15 @@ class StructurizrDslTokens {
     static final String VAR_TOKEN = "!var";
     static final String IDENTIFIERS_TOKEN = "!identifiers";
     static final String IMPLIED_RELATIONSHIPS_TOKEN = "!impliedRelationships";
-    static final String REF_TOKEN = "!ref";
-    static final String ELEMENTS_TOKEN = "!elements";
-    static final String RELATIONSHIPS_TOKEN = "!relationships";
 
-    static final String EXTEND_TOKEN = "!extend";
+    static final String REF_TOKEN = "!ref"; // deprecated
+    static final String EXTEND_TOKEN = "!extend"; // deprecated
+
+    static final String FIND_ELEMENT_TOKEN = "!element";
+    static final String FIND_ELEMENTS_TOKEN = "!elements";
+    static final String FIND_RELATIONSHIP_TOKEN = "!relationship";
+    static final String FIND_RELATIONSHIPS_TOKEN = "!relationships";
+
     static final String PLUGIN_TOKEN = "!plugin";
     static final String SCRIPT_TOKEN = "!script";
 

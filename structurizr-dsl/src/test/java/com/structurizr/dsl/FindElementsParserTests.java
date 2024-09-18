@@ -3,16 +3,15 @@ package com.structurizr.dsl;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 import com.structurizr.model.Element;
-import com.structurizr.model.SoftwareSystem;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ElementsParserTests extends AbstractTests {
+class FindElementsParserTests extends AbstractTests {
 
-    private final ElementsParser parser = new ElementsParser();
+    private final FindElementsParser parser = new FindElementsParser();
 
     @Test
     void test_parse_ThrowsAnException_WhenThereAreTooManyTokens() {

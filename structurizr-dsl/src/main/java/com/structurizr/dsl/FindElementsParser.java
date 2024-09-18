@@ -6,7 +6,7 @@ import com.structurizr.model.ModelItem;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-final class ElementsParser extends AbstractParser {
+final class FindElementsParser extends AbstractParser {
 
     private static final String GRAMMAR = "!elements <expression>";
 

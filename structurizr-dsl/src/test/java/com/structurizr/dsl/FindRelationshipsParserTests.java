@@ -8,9 +8,9 @@ import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class RelationshipsParserTests extends AbstractTests {
+class FindRelationshipsParserTests extends AbstractTests {
 
-    private final RelationshipsParser parser = new RelationshipsParser();
+    private final FindRelationshipsParser parser = new FindRelationshipsParser();
 
     @Test
     void test_parse_ThrowsAnException_WhenThereAreTooManyTokens() {

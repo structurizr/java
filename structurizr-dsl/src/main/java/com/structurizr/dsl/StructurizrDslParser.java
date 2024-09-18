@@ -326,8 +326,20 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                             startContext(new RelationshipsDslContext(getContext(), relationships));
                         }
 
-                    } else if ((REF_TOKEN.equalsIgnoreCase(firstToken) || EXTEND_TOKEN.equalsIgnoreCase(firstToken)) && (inContext(ModelItemDslContext.class) || inContext(ModelDslContext.class))) {
-                        ModelItem modelItem = new RefParser().parse(getContext(), tokens.withoutContextStartToken());
+                    } else if ((FIND_ELEMENT_TOKEN.equalsIgnoreCase(firstToken) || FIND_RELATIONSHIP_TOKEN.equalsIgnoreCase(firstToken) || REF_TOKEN.equalsIgnoreCase(firstToken) || EXTEND_TOKEN.equalsIgnoreCase(firstToken)) && (inContext(ModelItemDslContext.class) || inContext(ModelDslContext.class))) {
+                        ModelItem modelItem = null;
+
+                        if (REF_TOKEN.equalsIgnoreCase(firstToken)) {
+                            log.warn(REF_TOKEN + " has been deprecated and will be removed in a future release - please use !element or !relationship instead");
+                            modelItem = new RefParser().parse(getContext(), tokens.withoutContextStartToken());
+                        } else if (EXTEND_TOKEN.equalsIgnoreCase(firstToken)) {
+                            log.warn(EXTEND_TOKEN + " has been deprecated and will be removed in a future release - please use !element or !relationship instead");
+                            modelItem = new RefParser().parse(getContext(), tokens.withoutContextStartToken());
+                        } else if (FIND_ELEMENT_TOKEN.equalsIgnoreCase(firstToken)) {
+                            modelItem = new FindElementParser().parse(getContext(), tokens.withoutContextStartToken());
+                        } else if (FIND_RELATIONSHIP_TOKEN.equalsIgnoreCase(firstToken)) {
+                            modelItem = new FindRelationshipParser().parse(getContext(), tokens.withoutContextStartToken());
+                        }
 
                         if (shouldStartContext(tokens)) {
                             if (modelItem instanceof Person) {
@@ -361,15 +373,15 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                             }
                         }
 
-                    } else if (ELEMENTS_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class) || inContext(ElementDslContext.class))) {
-                        Set<Element> elements = new ElementsParser().parse(getContext(), tokens.withoutContextStartToken());
+                    } else if (FIND_ELEMENTS_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class) || inContext(ElementDslContext.class))) {
+                        Set<Element> elements = new FindElementsParser().parse(getContext(), tokens.withoutContextStartToken());
 
                         if (shouldStartContext(tokens)) {
                             startContext(new ElementsDslContext(getContext(), elements));
                         }
 
-                    } else if (RELATIONSHIPS_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class) || inContext(ElementDslContext.class))) {
-                        Set<Relationship> relationships = new RelationshipsParser().parse(getContext(), tokens.withoutContextStartToken());
+                    } else if (FIND_RELATIONSHIPS_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class) || inContext(ElementDslContext.class))) {
+                        Set<Relationship> relationships = new FindRelationshipsParser().parse(getContext(), tokens.withoutContextStartToken());
 
                         if (shouldStartContext(tokens)) {
                             startContext(new RelationshipsDslContext(getContext(), relationships));

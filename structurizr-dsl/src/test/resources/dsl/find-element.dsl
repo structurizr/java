@@ -2,7 +2,7 @@ workspace extends amazon-web-services.dsl {
 
     model {
 
-        !ref "DeploymentNode://Live/Amazon Web Services" {
+        !element "DeploymentNode://Live/Amazon Web Services" {
             deploymentNode "New deployment node" {
                 infrastructureNode "New infrastructure node" {
                     -> route53
@@ -10,7 +10,7 @@ workspace extends amazon-web-services.dsl {
             }
         }
 
-        !ref "DeploymentNode://Live/Amazon Web Services/US-East-1" {
+        !element "DeploymentNode://Live/Amazon Web Services/US-East-1" {
             deploymentNode "New deployment node 1" {
                 infrastructureNode "New infrastructure node 1" {
                     -> route53
@@ -18,7 +18,7 @@ workspace extends amazon-web-services.dsl {
             }
         }
 
-        !ref region {
+        !element region {
             deploymentNode "New deployment node 2" {
                 infrastructureNode "New infrastructure node 2" {
                     -> route53
@@ -26,7 +26,7 @@ workspace extends amazon-web-services.dsl {
             }
         }
 
-        !ref live {
+        !element live {
             deploymentNode "New deployment node 3" {
                 infrastructureNode "New infrastructure node 3" {
                     -> route53

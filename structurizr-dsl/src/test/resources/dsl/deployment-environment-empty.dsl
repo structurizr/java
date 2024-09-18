@@ -2,7 +2,7 @@ workspace {
     model {
         de = deploymentEnvironment "DeploymentEnvironment"
 
-        !ref de {
+        !element de {
             dn = deploymentNode "DeploymentNode"
         }
     }

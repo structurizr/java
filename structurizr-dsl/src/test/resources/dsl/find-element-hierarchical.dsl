@@ -7,21 +7,21 @@ workspace {
             b = container "B" {
                 c = component "C"
 
-                !extend c {
+                !element c {
                     properties {
                         "Name1" "Value1"
                     }
                 }
             }
 
-            !extend b.c {
+            !element b.c {
                 properties {
                     "Name2" "Value2"
                 }
             }
         }
 
-        !extend a.b.c {
+        !element a.b.c {
             properties {
                 "Name3" "Value3"
             }

@@ -1,7 +1,7 @@
 workspace extends https://raw.githubusercontent.com/structurizr/dsl/master/src/test/dsl/extend/workspace.dsl {
 
     model {
-        !ref softwareSystem1 {
+        !element softwareSystem1 {
             webapp = container "Web Application"
         }
 
