@@ -12,6 +12,7 @@ workspace "Spring PetClinic" "A C4 model of the Spring PetClinic sample app (htt
             relationalDatabaseSchema = container "Relational Database Schema" {
                 description "Stores information regarding the veterinarians, the clients, and their pets."
                 technology "Relational Database Schema"
+                url "https://github.com/spring-projects/spring-petclinic/tree/main/src/main/resources/db"
                 tag "Relational Database Schema"
             }
 
