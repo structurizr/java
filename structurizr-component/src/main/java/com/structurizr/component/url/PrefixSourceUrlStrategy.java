@@ -24,7 +24,7 @@ public class PrefixSourceUrlStrategy implements UrlStrategy {
 
     @Override
     public String urlOf(Type type) {
-        return prefix + type.getSource();
+        return prefix + (type.getSource().replaceAll("\\\\", "/"));
     }
 
     @Override
