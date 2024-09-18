@@ -1,5 +1,6 @@
 package com.structurizr.component.matcher;
 
+import com.structurizr.annotation.Component;
 import com.structurizr.component.Type;
 import org.apache.bcel.classfile.ClassParser;
 import org.junit.jupiter.api.Test;
@@ -54,7 +55,7 @@ public class AnnotationTypeMatcherTests {
         ClassParser parser = new ClassParser(new File(classes, "com/structurizr/component/matcher/annotationTypeMatcher/CustomerController.class").getAbsolutePath());
         Type type = new Type(parser.parse());
 
-        assertTrue(new AnnotationTypeMatcher("com.structurizr.component.matcher.annotationTypeMatcher.Controller").matches(type));
+        assertTrue(new AnnotationTypeMatcher(Component.class.getName()).matches(type));
     }
 
 }

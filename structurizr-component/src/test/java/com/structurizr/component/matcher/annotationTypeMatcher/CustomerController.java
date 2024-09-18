@@ -1,5 +1,7 @@
 package com.structurizr.component.matcher.annotationTypeMatcher;
 
-@Controller
+import com.structurizr.annotation.Component;
+
+@Component
 public class CustomerController {
 }
