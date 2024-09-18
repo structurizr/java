@@ -128,4 +128,11 @@ public final class SourceDirectoryTypeProvider implements TypeProvider {
         return relativePath;
     }
 
+    @Override
+    public String toString() {
+        return "SourceDirectoryTypeProvider{" +
+                "directory=" + directory +
+                '}';
+    }
+
 }

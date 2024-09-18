@@ -2,8 +2,8 @@ package com.structurizr.component;
 
 import com.structurizr.component.description.FirstSentenceDescriptionStrategy;
 import com.structurizr.component.description.TruncatedDescriptionStrategy;
-import com.structurizr.component.filter.ExcludeTypesByRegexFilter;
-import com.structurizr.component.filter.IncludeTypesByRegexFilter;
+import com.structurizr.component.filter.ExcludeFullyQualifiedNameRegexFilter;
+import com.structurizr.component.filter.IncludeFullyQualifiedNameRegexFilter;
 import com.structurizr.component.matcher.NameSuffixTypeMatcher;
 import com.structurizr.component.naming.FullyQualifiedNamingStrategy;
 import com.structurizr.component.naming.TypeNamingStrategy;
@@ -48,7 +48,7 @@ public class ComponentFinderStrategyBuilderTests {
     @Test
     void filteredBy_ThrowsAnException_WhenCalledTwice() {
         try {
-            new ComponentFinderStrategyBuilder().filteredBy(new IncludeTypesByRegexFilter(".*")).filteredBy(new ExcludeTypesByRegexFilter(".*"));
+            new ComponentFinderStrategyBuilder().filteredBy(new IncludeFullyQualifiedNameRegexFilter(".*")).filteredBy(new ExcludeFullyQualifiedNameRegexFilter(".*"));
             fail();
         } catch (Exception e) {
             assertEquals("A type filter has already been configured", e.getMessage());
@@ -160,12 +160,12 @@ public class ComponentFinderStrategyBuilderTests {
         ComponentFinderStrategy strategy = new ComponentFinderStrategyBuilder()
                 .withTechnology("Spring MVC Controller")
                 .matchedBy(new NameSuffixTypeMatcher("Controller"))
-                .filteredBy(new IncludeTypesByRegexFilter("com.example.web.\\.*"))
+                .filteredBy(new IncludeFullyQualifiedNameRegexFilter("com.example.web.\\.*"))
                 .withName(new TypeNamingStrategy())
                 .withDescription(new FirstSentenceDescriptionStrategy())
                 .build();
 
-        assertEquals("ComponentFinderStrategy{technology='Spring MVC Controller', typeMatcher=NameSuffixTypeMatcher{suffix='Controller'}, typeFilter=IncludeTypesByRegexFilter{regex='com.example.web.\\.*'}, supportingTypesStrategy=DefaultSupportingTypesStrategy{}, namingStrategy=TypeNamingStrategy{}, descriptionStrategy=FirstSentenceDescriptionStrategy{}, urlStrategy=DefaultUrlStrategy{}, componentVisitor=DefaultComponentVisitor{}}", strategy.toString());
+        assertEquals("ComponentFinderStrategy{technology='Spring MVC Controller', typeMatcher=NameSuffixTypeMatcher{suffix='Controller'}, typeFilter=IncludeFullyQualifiedNameRegexFilter{regex='com.example.web.\\.*'}, supportingTypesStrategy=DefaultSupportingTypesStrategy{}, namingStrategy=TypeNamingStrategy{}, descriptionStrategy=FirstSentenceDescriptionStrategy{}, urlStrategy=DefaultUrlStrategy{}, componentVisitor=DefaultComponentVisitor{}}", strategy.toString());
     }
 
 }

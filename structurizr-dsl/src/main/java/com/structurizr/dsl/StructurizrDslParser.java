@@ -433,6 +433,9 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (COMPONENT_FINDER_SOURCE_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderDslContext.class)) {
                         new ComponentFinderParser().parseSource(getContext(ComponentFinderDslContext.class), tokens);
 
+                    } else if (COMPONENT_FINDER_FILTER_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderDslContext.class)) {
+                        new ComponentFinderParser().parseFilter(getContext(ComponentFinderDslContext.class), tokens);
+
                     } else if (COMPONENT_FINDER_STRATEGY_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderDslContext.class)) {
                         if (shouldStartContext(tokens)) {
                             startContext(new ComponentFinderStrategyDslContext(getContext(ComponentFinderDslContext.class).getComponentFinderBuilder()));

@@ -1,5 +1,6 @@
 rootProject.name = 'structurizr-java'
 
+include 'structurizr-annotation'
 include 'structurizr-autolayout'
 include 'structurizr-client'
 include 'structurizr-component'

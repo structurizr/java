@@ -32,7 +32,7 @@ final class ComponentFinderDslContext extends DslContext {
 
     @Override
     void end() {
-        Set<Component> components = componentFinderBuilder.build().findComponents();
+        Set<Component> components = componentFinderBuilder.build().run();
         for (Component component : components) {
             dslParser.registerIdentifier(IdentifiersRegister.toIdentifier(component.getName()), component);
         }

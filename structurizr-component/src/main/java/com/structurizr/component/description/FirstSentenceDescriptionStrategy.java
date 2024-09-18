@@ -12,11 +12,15 @@ public class FirstSentenceDescriptionStrategy implements DescriptionStrategy {
     public String descriptionOf(Type type) {
         String description = type.getDescription();
 
+        if (StringUtils.isNullOrEmpty(description)) {
+            return "";
+        }
+
         int index = description.indexOf('.');
         if (index == -1) {
-            return description;
+            return description.trim();
         } else {
-            return description.substring(0, index+1);
+            return description.trim().substring(0, index+1);
         }
     }
 

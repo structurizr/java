@@ -22,6 +22,7 @@ workspace "Spring PetClinic" "A C4 model of the Spring PetClinic sample app (htt
                 !components {
                     classes "${SPRING_PETCLINIC_HOME}/target/spring-petclinic-3.3.0-SNAPSHOT.jar"
                     source "${SPRING_PETCLINIC_HOME}/src/main/java"
+                    filter include fqn-regex "org.springframework.samples.petclinic..*"
                     strategy {
                         technology "Spring MVC Controller"
                         matcher annotation "org.springframework.stereotype.Controller"

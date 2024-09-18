@@ -32,7 +32,7 @@ public class ClassDirectoryTypeProviderTests {
         TypeProvider typeProvider = new ClassDirectoryTypeProvider(classes);
         Set<Type> types = typeProvider.getTypes();
 
-        assertTrue(types.size() > 0);
+        assertFalse(types.isEmpty());
         assertNotNull(types.stream().filter(t -> t.getFullyQualifiedName().equals("com.structurizr.component.provider.ClassDirectoryTypeProviderTests")));
     }
 

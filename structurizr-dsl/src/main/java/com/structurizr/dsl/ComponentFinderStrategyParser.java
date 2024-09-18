@@ -2,8 +2,8 @@ package com.structurizr.dsl;
 
 import com.structurizr.component.description.FirstSentenceDescriptionStrategy;
 import com.structurizr.component.description.TruncatedDescriptionStrategy;
-import com.structurizr.component.filter.ExcludeTypesByRegexFilter;
-import com.structurizr.component.filter.IncludeTypesByRegexFilter;
+import com.structurizr.component.filter.ExcludeFullyQualifiedNameRegexFilter;
+import com.structurizr.component.filter.IncludeFullyQualifiedNameRegexFilter;
 import com.structurizr.component.matcher.*;
 import com.structurizr.component.naming.DefaultPackageNamingStrategy;
 import com.structurizr.component.naming.TypeNamingStrategy;
@@ -153,9 +153,9 @@ final class ComponentFinderStrategyParser extends AbstractParser {
                     String regex = tokens.get(3);
 
                     if (FILTER_INCLUDE.equalsIgnoreCase(includeOrExclude)) {
-                        context.getComponentFinderStrategyBuilder().filteredBy(new IncludeTypesByRegexFilter(regex));
+                        context.getComponentFinderStrategyBuilder().filteredBy(new IncludeFullyQualifiedNameRegexFilter(regex));
                     } else {
-                        context.getComponentFinderStrategyBuilder().filteredBy(new ExcludeTypesByRegexFilter(regex));
+                        context.getComponentFinderStrategyBuilder().filteredBy(new ExcludeFullyQualifiedNameRegexFilter(regex));
                     }
                 } else {
                     throw new RuntimeException("Expected: " + FILTER_GRAMMAR);

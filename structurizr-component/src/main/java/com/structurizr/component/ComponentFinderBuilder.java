@@ -1,5 +1,7 @@
 package com.structurizr.component;
 
+import com.structurizr.component.filter.DefaultTypeFilter;
+import com.structurizr.component.filter.TypeFilter;
 import com.structurizr.component.provider.ClassDirectoryTypeProvider;
 import com.structurizr.component.provider.ClassJarFileTypeProvider;
 import com.structurizr.component.provider.SourceDirectoryTypeProvider;
@@ -19,6 +21,7 @@ public class ComponentFinderBuilder {
 
     private Container container;
     private final List<TypeProvider> typeProviders = new ArrayList<>();
+    private TypeFilter typeFilter;
     private final List<ComponentFinderStrategy> componentFinderStrategies = new ArrayList<>();
 
     public ComponentFinderBuilder forContainer(Container container) {
@@ -57,6 +60,12 @@ public class ComponentFinderBuilder {
         return this;
     }
 
+    public ComponentFinderBuilder filteredBy(TypeFilter typeFilter) {
+        this.typeFilter = typeFilter;
+
+        return this;
+    }
+
     public ComponentFinderBuilder withStrategy(ComponentFinderStrategy componentFinderStrategy) {
         this.componentFinderStrategies.add(componentFinderStrategy);
 
@@ -72,11 +81,25 @@ public class ComponentFinderBuilder {
             throw new RuntimeException("One or more type providers must be configured");
         }
 
+        if (typeFilter == null) {
+            typeFilter = new DefaultTypeFilter();
+        }
+
         if (componentFinderStrategies.isEmpty()) {
             throw new RuntimeException("One or more component finder strategies must be configured");
         }
 
-        return new ComponentFinder(container, typeProviders, componentFinderStrategies);
+        return new ComponentFinder(container, typeFilter, typeProviders, componentFinderStrategies);
+    }
+
+    @Override
+    public String toString() {
+        return "ComponentFinderBuilder{" +
+                "container=" + container +
+                ", typeProviders=" + typeProviders +
+                ", typeFilter=" + typeFilter +
+                ", componentFinderStrategies=" + componentFinderStrategies +
+                '}';
     }
 
 }

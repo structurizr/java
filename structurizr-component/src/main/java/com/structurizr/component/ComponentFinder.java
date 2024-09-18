@@ -1,13 +1,11 @@
 package com.structurizr.component;
 
+import com.structurizr.component.filter.TypeFilter;
 import com.structurizr.component.provider.TypeProvider;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 import com.structurizr.util.StringUtils;
 import org.apache.bcel.Repository;
-import org.apache.bcel.classfile.ConstantPool;
-import org.apache.bcel.classfile.Method;
-import org.apache.bcel.generic.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -28,83 +26,40 @@ public final class ComponentFinder {
     private final Container container;
     private final List<ComponentFinderStrategy> componentFinderStrategies = new ArrayList<>();
 
-    ComponentFinder(Container container, Collection<TypeProvider> typeProviders, List<ComponentFinderStrategy> componentFinderStrategies) {
+    ComponentFinder(Container container, TypeFilter typeFilter, Collection<TypeProvider> typeProviders, List<ComponentFinderStrategy> componentFinderStrategies) {
         this.container = container;
         this.componentFinderStrategies.addAll(componentFinderStrategies);
 
-        findTypes(typeProviders);
-    }
-
-    private void findTypes(Collection<TypeProvider> typeProviders) {
+        log.debug("Initialising component finder:");
+        log.debug(" - for: " + container.getCanonicalName());
         for (TypeProvider typeProvider : typeProviders) {
-            Set<com.structurizr.component.Type> types = typeProvider.getTypes();
-            for (com.structurizr.component.Type type : types) {
-                if (type.getJavaClass() != null) {
-                    // this is the BCEL identified type
-                    typeRepository.add(type);
-                } else {
-                    // this is the source code identified type
-                    com.structurizr.component.Type bcelType = typeRepository.getType(type.getFullyQualifiedName());
-                    if (bcelType != null) {
-                        bcelType.setDescription(type.getDescription());
-                        bcelType.setSource(type.getSource());
-                    }
-                }
-            }
+            log.debug(" - from: " + typeProvider);
+        }
+        log.debug(" - filtered by: " + typeFilter);
+        for (ComponentFinderStrategy strategy : componentFinderStrategies) {
+            log.debug(" - with strategy: " + strategy);
         }
 
+        new TypeFinder().run(typeProviders, typeFilter, typeRepository);
         Repository.clearCache();
-        for (com.structurizr.component.Type type : typeRepository.getTypes()) {
+        for (Type type : typeRepository.getTypes()) {
             if (type.getJavaClass() != null) {
                 Repository.addClass(type.getJavaClass());
-                findDependencies(type);
-            }
-        }
-    }
-
-    private void findDependencies(com.structurizr.component.Type type) {
-        ConstantPool cp = type.getJavaClass().getConstantPool();
-        ConstantPoolGen cpg = new ConstantPoolGen(cp);
-        for (Method m : type.getJavaClass().getMethods()) {
-            MethodGen mg = new MethodGen(m, type.getJavaClass().getClassName(), cpg);
-            InstructionList il = mg.getInstructionList();
-            if (il == null) {
-                continue;
-            }
-
-            InstructionHandle[] instructionHandles = il.getInstructionHandles();
-            for (InstructionHandle instructionHandle : instructionHandles) {
-                Instruction instruction = instructionHandle.getInstruction();
-                if (!(instruction instanceof InvokeInstruction)) {
-                    continue;
-                }
-
-                InvokeInstruction invokeInstruction = (InvokeInstruction)instruction;
-                ReferenceType referenceType = invokeInstruction.getReferenceType(cpg);
-                if (!(referenceType instanceof ObjectType)) {
-                    continue;
-                }
-
-                ObjectType objectType = (ObjectType)referenceType;
-                String referencedClassName = objectType.getClassName();
-                com.structurizr.component.Type referencedType = typeRepository.getType(referencedClassName);
-                if (referencedType != null) {
-                    type.addDependency(referencedType);
-                }
+                new TypeDependencyFinder().run(type, typeRepository);
             }
         }
     }
 
     /**
-     * Find components, using all configured rules, in the order they were added.
+     * Find components, using all configured strategies, in the order they were added.
      */
-    public Set<Component> findComponents() {
+    public Set<Component> run() {
         Set<DiscoveredComponent> discoveredComponents = new LinkedHashSet<>();
         Map<DiscoveredComponent, Component> componentMap = new HashMap<>();
         Set<Component> componentSet = new LinkedHashSet<>();
 
         for (ComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {
-            Set<DiscoveredComponent> set = componentFinderStrategy.findComponents(typeRepository);
+            Set<DiscoveredComponent> set = componentFinderStrategy.run(typeRepository);
             if (set.isEmpty()) {
                 throw new RuntimeException("No components were found by " + componentFinderStrategy);
             }
@@ -120,28 +75,41 @@ public final class ComponentFinder {
             component.setDescription(discoveredComponent.getDescription());
             component.setTechnology(discoveredComponent.getTechnology());
             component.setUrl(discoveredComponent.getUrl());
+
+            component.addTags(discoveredComponent.getTags().toArray(new String[0]));
+            for (String name : discoveredComponent.getProperties().keySet()) {
+                component.addProperty(name, discoveredComponent.getProperties().get(name));
+            }
+
             componentMap.put(discoveredComponent, component);
             componentSet.add(component);
         }
 
         // find dependencies between all components
         for (DiscoveredComponent discoveredComponent : discoveredComponents) {
+            Component component = componentMap.get(discoveredComponent);
+            log.debug("Component dependencies for \"" + component.getName() + "\":");
             Set<com.structurizr.component.Type> typeDependencies = discoveredComponent.getAllDependencies();
             for (Type typeDependency : typeDependencies) {
                 for (DiscoveredComponent c : discoveredComponents) {
                     if (c != discoveredComponent) {
                         if (c.getAllTypes().contains(typeDependency)) {
                             Component componentDependency = componentMap.get(c);
-                            componentMap.get(discoveredComponent).uses(componentDependency, "");
+                            log.debug(" -> " + componentDependency.getName());
+                            component.uses(componentDependency, "");
                         }
                     }
                 }
+            }
+            if (component.getRelationships().isEmpty()) {
+                log.debug(" - none");
             }
         }
 
         // now visit all components
         for (DiscoveredComponent discoveredComponent : componentMap.keySet()) {
             Component component = componentMap.get(discoveredComponent);
+            log.debug("Visiting \"" + component.getName() + "\"");
             discoveredComponent.getComponentFinderStrategy().visit(component);
         }
 

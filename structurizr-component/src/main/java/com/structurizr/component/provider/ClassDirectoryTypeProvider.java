@@ -72,5 +72,11 @@ public final class ClassDirectoryTypeProvider implements TypeProvider {
         return classFiles;
     }
 
+    @Override
+    public String toString() {
+        return "ClassDirectoryTypeProvider{" +
+                "directory=" + directory +
+                '}';
+    }
 
 }

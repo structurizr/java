@@ -186,13 +186,13 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
     @Test
     void test_parseFilter_WhenIncludeFullyQualifiedNameRegexTypeFilterIsUsed() {
         parser.parseFilter(context, tokens("filter", "include", "fqn-regex", ".*"), new File("."));
-        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=null, typeFilter=IncludeTypesByRegexFilter{regex='.*'}, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=null, urlStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=null, typeFilter=IncludeFullyQualifiedNameRegexFilter{regex='.*'}, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=null, urlStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test
     void test_parseFilter_WhenExcludeFullyQualifiedNameRegexTypeFilterIsUsed() {
         parser.parseFilter(context, tokens("filter", "exclude", "fqn-regex", ".*"), new File("."));
-        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=null, typeFilter=ExcludeTypesByRegexFilter{regex='.*'}, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=null, urlStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=null, typeFilter=ExcludeFullyQualifiedNameRegexFilter{regex='.*'}, supportingTypesStrategy=null, namingStrategy=null, descriptionStrategy=null, urlStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test

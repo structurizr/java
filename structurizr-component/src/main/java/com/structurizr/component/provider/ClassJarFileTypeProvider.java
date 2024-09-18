@@ -58,4 +58,11 @@ public final class ClassJarFileTypeProvider implements TypeProvider {
         return types;
     }
 
+    @Override
+    public String toString() {
+        return "ClassJarFileTypeProvider{" +
+                "jarFile=" + jarFile +
+                '}';
+    }
+
 }

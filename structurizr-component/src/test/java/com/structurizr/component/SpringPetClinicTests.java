@@ -2,7 +2,8 @@ package com.structurizr.component;
 
 import com.structurizr.Workspace;
 import com.structurizr.component.description.FirstSentenceDescriptionStrategy;
-import com.structurizr.component.filter.ExcludeTypesByRegexFilter;
+import com.structurizr.component.filter.ExcludeFullyQualifiedNameRegexFilter;
+import com.structurizr.component.filter.IncludeFullyQualifiedNameRegexFilter;
 import com.structurizr.component.matcher.AnnotationTypeMatcher;
 import com.structurizr.component.matcher.ImplementsTypeMatcher;
 import com.structurizr.component.url.PrefixSourceUrlStrategy;
@@ -36,10 +37,11 @@ public class SpringPetClinicTests {
                     .forContainer(webApplication)
                     .fromClasses(new File(springPetClinicHome, "target/spring-petclinic-3.3.0-SNAPSHOT.jar"))
                     .fromSource(new File(springPetClinicHome, "src/main/java"))
+                    .filteredBy(new IncludeFullyQualifiedNameRegexFilter("org\\.springframework\\.samples\\.petclinic\\..*"))
                     .withStrategy(
                             new ComponentFinderStrategyBuilder()
                                     .matchedBy(new AnnotationTypeMatcher("org.springframework.stereotype.Controller"))
-                                    .filteredBy(new ExcludeTypesByRegexFilter(".*.CrashController"))
+                                    .filteredBy(new ExcludeFullyQualifiedNameRegexFilter(".*.CrashController"))
                                     .withTechnology("Spring MVC Controller")
                                     .withUrl(new PrefixSourceUrlStrategy("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java"))
                                     .forEach((component -> {
@@ -62,7 +64,7 @@ public class SpringPetClinicTests {
                     )
                     .build();
 
-            componentFinder.findComponents();
+            componentFinder.run();
             assertEquals(7, webApplication.getComponents().size());
 
             Component welcomeController = webApplication.getComponentWithName("Welcome Controller");

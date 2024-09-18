@@ -8,8 +8,11 @@ import com.structurizr.component.supporting.SupportingTypesStrategy;
 import com.structurizr.component.url.UrlStrategy;
 import com.structurizr.component.visitor.ComponentVisitor;
 import com.structurizr.model.Component;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.LinkedHashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -22,6 +25,8 @@ import java.util.Set;
  * Use the {@link ComponentFinderStrategyBuilder} to create an instance of this class.
  */
 public final class ComponentFinderStrategy {
+
+    private static final Log log = LogFactory.getLog(ComponentFinderStrategy.class);
 
     private final String technology;
     private final TypeMatcher typeMatcher;
@@ -43,22 +48,49 @@ public final class ComponentFinderStrategy {
         this.componentVisitor = componentVisitor;
     }
 
-    Set<DiscoveredComponent> findComponents(TypeRepository typeRepository) {
+    Set<DiscoveredComponent> run(TypeRepository typeRepository) {
         Set<DiscoveredComponent> components = new LinkedHashSet<>();
+        log.debug("Running " + this.toString());
 
         Set<Type> types = typeRepository.getTypes();
         for (Type type : types) {
-            if (typeMatcher.matches(type) && typeFilter.accept(type)) {
+
+            boolean matched = typeMatcher.matches(type);
+            boolean accepted = typeFilter.accept(type);
+
+            if (matched) {
+                if (accepted) {
+                    log.debug(" + " + type.getFullyQualifiedName() + " (matched=true, accepted=true)");
+                } else {
+                    log.debug(" - " + type.getFullyQualifiedName() + " (matched=true, accepted=false)");
+                }
+            } else {
+                log.debug(" - " + type.getFullyQualifiedName() + " (matched=false)");
+            }
+
+            if (matched && accepted) {
                 DiscoveredComponent component = new DiscoveredComponent(namingStrategy.nameOf(type), type);
                 component.setDescription(descriptionStrategy.descriptionOf(type));
                 component.setTechnology(this.technology);
                 component.setUrl(urlStrategy.urlOf(type));
+                component.addTags(type.getTags());
+                Map<String, String> properties = type.getProperties();
+                for (String name : properties.keySet()) {
+                    component.addProperty(name, properties.get(name));
+                }
                 component.setComponentFinderStrategy(this);
                 components.add(component);
 
                 // now find supporting types
                 Set<Type> supportingTypes = supportingTypesStrategy.findSupportingTypes(type, typeRepository);
-                component.addSupportingTypes(supportingTypes);
+                if (supportingTypes.isEmpty()) {
+                    log.debug("   - none");
+                } else {
+                    for (Type supportingType : supportingTypes) {
+                        log.debug("   + supporting type: " + supportingType.getFullyQualifiedName());
+                    }
+                    component.addSupportingTypes(supportingTypes);
+                }
             }
         }
 
