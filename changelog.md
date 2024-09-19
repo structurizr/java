@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.0.0 (unreleased)
+## 3.0.0 (19th September 2024)
 
 - structurizr-client: Adds support to get/put workspace branches on the [cloud service](https://docs.structurizr.com/cloud/workspace-branches) and [on-premises installation](https://docs.structurizr.com/onpremises/workspace-branches).
 - structurizr-core: Adds name-value properties to dynamic view relationship views (https://github.com/structurizr/java/issues/316).
