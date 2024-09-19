@@ -17,6 +17,7 @@
 - structurizr-dsl: Adds a `!relationships` keyword that can be used to find a set of relationships via an expression.
 - structurizr-dsl: Adds a DSL wrapper around the `structurizr-component` component finder.
 - structurizr-dsl: Adds support for local theme files to be specified via `theme` (https://github.com/structurizr/java/issues/331).
+- structurizr-dsl: An exception is now thrown when trying to use disallowed features in restricted mode (e.g. `!docs`, `!include <file>`, etc).
 - structurizr-export: Adds support for icons to the Ilograph exporter (https://github.com/structurizr/java/issues/332).
 - structurizr-export: Adds support for imports to the Ilograph exporter (https://github.com/structurizr/java/issues/332).
 - structurizr-export: Fixes https://github.com/structurizr/java/issues/337 (Malformed subgraph name in Mermaid render).

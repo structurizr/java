@@ -419,13 +419,18 @@ class DslTests extends AbstractTests {
     }
 
     @Test
-    void test_include_WhenRunningInRestrictedMode() throws Exception {
-        StructurizrDslParser parser = new StructurizrDslParser();
-        parser.setRestricted(true);
+    void test_includeLocalFile_ThrowsAnException_WhenRunningInRestrictedMode() {
+        try {
+            StructurizrDslParser parser = new StructurizrDslParser();
+            parser.setRestricted(true);
 
-        // the model include will be ignored, so no software systems
-        parser.parse(new File("src/test/resources/dsl/include-file.dsl"));
-        assertEquals(0, model.getSoftwareSystems().size());
+            // the model include will be ignored, so no software systems
+            parser.parse(new File("src/test/resources/dsl/include-file.dsl"));
+            fail();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            assertTrue(e.getMessage().startsWith("!include <file> is not available when the parser is running in restricted mode"));
+        }
     }
 
     @ParameterizedTest
@@ -664,6 +669,19 @@ class DslTests extends AbstractTests {
     }
 
     @Test
+    void test_plugin_ThrowsAnException_WhenTheParserIsRunningInRestrictedMode() {
+        try {
+            StructurizrDslParser parser = new StructurizrDslParser();
+            parser.setRestricted(true);
+            parser.parse(new File("src/test/resources/dsl/plugin-without-parameters.dsl"));
+            fail();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            assertTrue(e.getMessage().startsWith("!plugin is not available when the parser is running in restricted mode"));
+        }
+    }
+
+    @Test
     void test_pluginWithoutParameters() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
         parser.parse(new File("src/test/resources/dsl/plugin-without-parameters.dsl"));
@@ -677,6 +695,18 @@ class DslTests extends AbstractTests {
         parser.parse(new File("src/test/resources/dsl/plugin-with-parameters.dsl"));
 
         assertNotNull(parser.getWorkspace().getModel().getPersonWithName("Java"));
+    }
+
+    @Test
+    void test_script_ThrowsAnException_WhenTheParserIsInRestrictedMode() {
+        try {
+            StructurizrDslParser parser = new StructurizrDslParser();
+            parser.setRestricted(true);
+            parser.parse(new File("src/test/resources/dsl/script-external.dsl"));
+            fail();
+        } catch (Exception e) {
+            assertTrue(e.getMessage().startsWith("!script is not available when the parser is running in restricted mode"));
+        }
     }
 
     @Test
@@ -752,6 +782,18 @@ class DslTests extends AbstractTests {
     }
 
     @Test
+    void test_docs_ThrowsAnException_WhenTheParserIsInRestrictedMode() {
+        try {
+            StructurizrDslParser parser = new StructurizrDslParser();
+            parser.setRestricted(true);
+            parser.parse(new File("src/test/resources/dsl/docs/workspace.dsl"));
+            fail();
+        } catch (Exception e) {
+            assertTrue(e.getMessage().startsWith("!docs is not available when the parser is running in restricted mode"));
+        }
+    }
+
+    @Test
     void test_decisions() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
         parser.parse(new File("src/test/resources/dsl/decisions/workspace.dsl"));
@@ -769,6 +811,18 @@ class DslTests extends AbstractTests {
 
         // log4brains decisions
         assertEquals(4, component.getDocumentation().getDecisions().size());
+    }
+
+    @Test
+    void test_decisions_ThrowsAnException_WhenTheParserIsInRestrictedMode() {
+        try {
+            StructurizrDslParser parser = new StructurizrDslParser();
+            parser.setRestricted(true);
+            parser.parse(new File("src/test/resources/dsl/decisions/workspace.dsl"));
+            fail();
+        } catch (Exception e) {
+            assertTrue(e.getMessage().startsWith("!adrs is not available when the parser is running in restricted mode"));
+        }
     }
 
     @Test
@@ -1191,6 +1245,17 @@ class DslTests extends AbstractTests {
         System.out.println(springPetClinicHome);
         if (!StringUtils.isNullOrEmpty(springPetClinicHome)) {
             System.out.println("Running Spring PetClinic example...");
+
+            try {
+                File workspaceFile = new File("src/test/resources/dsl/spring-petclinic/workspace.dsl");
+                StructurizrDslParser parser = new StructurizrDslParser();
+                parser.setRestricted(true);
+                parser.parse(workspaceFile);
+                fail();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                assertTrue(e.getMessage().startsWith("!components is not available when the parser is running in restricted mode"));
+            }
 
             File workspaceFile = new File("src/test/resources/dsl/spring-petclinic/workspace.dsl");
             StructurizrDslParser parser = new StructurizrDslParser();
