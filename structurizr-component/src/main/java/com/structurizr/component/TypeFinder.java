@@ -27,17 +27,7 @@ class TypeFinder {
                 }
 
                 if (accepted) {
-                    if (type.getJavaClass() != null) {
-                        // this is the BCEL identified type
-                        typeRepository.add(type);
-                    } else {
-                        // this is the source code identified type
-                        Type bcelType = typeRepository.getType(type.getFullyQualifiedName());
-                        if (bcelType != null) {
-                            bcelType.setDescription(type.getDescription());
-                            bcelType.setSource(type.getSource());
-                        }
-                    }
+                    typeRepository.add(type);
                 }
             }
         }

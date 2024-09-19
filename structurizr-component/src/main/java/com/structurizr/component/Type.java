@@ -16,7 +16,7 @@ public class Type {
     private static final String STRUCTURIZR_PROPERTY_ANNOTATION = "Lcom/structurizr/annotation/Property;";
     private static final String STRUCTURIZR_PROPERTIES_ANNOTATION = "Lcom/structurizr/annotation/Properties;";
 
-    private final JavaClass javaClass;
+    private JavaClass javaClass = null;
     private final String fullyQualifiedName;
     private String description;
     private String source;
@@ -70,6 +70,10 @@ public class Type {
 
     public JavaClass getJavaClass() {
         return this.javaClass;
+    }
+
+    void setJavaClass(JavaClass javaClass) {
+        this.javaClass = javaClass;
     }
 
     public void addDependency(Type type) {
