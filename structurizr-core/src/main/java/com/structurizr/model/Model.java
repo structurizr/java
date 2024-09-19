@@ -3,6 +3,7 @@ package com.structurizr.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.structurizr.PropertyHolder;
 import com.structurizr.WorkspaceValidationException;
+import com.structurizr.util.StringUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -937,18 +938,39 @@ public final class Model implements PropertyHolder {
     /**
      * Gets the element with the specified canonical name.
      *
-     * @param canonicalName the canonical name (e.g. /SoftwareSystem/Container)
+     * @param canonicalName     the canonical name
      * @return the Element with the given canonical name, or null if one doesn't exist
      * @throws IllegalArgumentException if the canonical name is null or empty
      */
     public Element getElementWithCanonicalName(String canonicalName) {
-        if (canonicalName == null || canonicalName.trim().length() == 0) {
+        if (StringUtils.isNullOrEmpty(canonicalName)) {
             throw new IllegalArgumentException("A canonical name must be specified.");
         }
 
         for (Element element : getElements()) {
             if (element.getCanonicalName().equals(canonicalName)) {
                 return element;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Gets the relationship with the specified canonical name.
+     *
+     * @param canonicalName     the canonical name
+     * @return the Relationship with the given canonical name, or null if one doesn't exist
+     * @throws IllegalArgumentException if the canonical name is null or empty
+     */
+    public Relationship getRelationshipWithCanonicalName(String canonicalName) {
+        if (StringUtils.isNullOrEmpty(canonicalName)) {
+            throw new IllegalArgumentException("A canonical name must be specified.");
+        }
+
+        for (Relationship relationship : getRelationships()) {
+            if (relationship.getCanonicalName().equals(canonicalName)) {
+                return relationship;
             }
         }
 

@@ -583,16 +583,48 @@ public class ModelTests extends AbstractWorkspaceTestBase {
 
     @Test
     void getElementWithCanonicalName_ReturnsNull_WhenAnElementWithTheSpecifiedCanonicalNameDoesNotExist() {
-        assertNull(model.getElementWithCanonicalName("Software System"));
+        assertNull(model.getElementWithCanonicalName("SoftwareSystem://A"));
     }
 
     @Test
     void getElementWithCanonicalName_ReturnsTheElement_WhenAnElementWithTheSpecifiedCanonicalNameExists() {
-        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
-        Container container = softwareSystem.addContainer("Web Application", "Description", "Technology");
+        SoftwareSystem a = model.addSoftwareSystem("A");
+        Container b = a.addContainer("B");
 
-        assertSame(softwareSystem, model.getElementWithCanonicalName("SoftwareSystem://Software System"));
-        assertSame(container, model.getElementWithCanonicalName("Container://Software System.Web Application"));
+        assertSame(a, model.getElementWithCanonicalName("SoftwareSystem://A"));
+        assertSame(b, model.getElementWithCanonicalName("Container://A.B"));
+    }
+
+    @Test
+    void getRelationshipWithCanonicalName_ThrowsAnException_WhenANullCanonicalNameIsSpecified() {
+        try {
+            model.getRelationshipWithCanonicalName(null);
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A canonical name must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    void getRelationshipWithCanonicalName_ThrowsAnException_WhenAnEmptyCanonicalNameIsSpecified() {
+        try {
+            model.getRelationshipWithCanonicalName(" ");
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A canonical name must be specified.", iae.getMessage());
+        }
+    }
+
+    @Test
+    void getRelationshipWithCanonicalName_ReturnsNull_WhenARelationshipWithTheSpecifiedCanonicalNameDoesNotExist() {
+        assertNull(model.getRelationshipWithCanonicalName("Relationship://SoftwareSystem://A -> SoftwareSystem://B (Uses)"));
+    }
+
+    @Test
+    void getRelationshipWithCanonicalName_ReturnsTheRelationship_WhenARelationshipWithTheSpecifiedCanonicalNameExists() {
+        SoftwareSystem a = model.addSoftwareSystem("A");
+        SoftwareSystem b = model.addSoftwareSystem("B");
+        Relationship r = a.uses(b, "Uses");
+
+        assertSame(r, model.getRelationshipWithCanonicalName("Relationship://SoftwareSystem://A -> SoftwareSystem://B (Uses)"));
     }
 
     @Test

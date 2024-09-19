@@ -3,6 +3,7 @@ package com.structurizr.dsl;
 import com.structurizr.model.ModelItem;
 import com.structurizr.model.Person;
 import com.structurizr.model.Relationship;
+import com.structurizr.model.SoftwareSystem;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,17 +18,17 @@ class FindRelationshipParserTests extends AbstractTests {
             parser.parse(context(), tokens("!relationship", "name", "tokens"));
             fail();
         } catch (Exception e) {
-            assertEquals("Too many tokens, expected: !relationship <identifier>", e.getMessage());
+            assertEquals("Too many tokens, expected: !relationship <identifier|canonical name>", e.getMessage());
         }
     }
 
     @Test
-    void test_parse_ThrowsAnException_WhenTheIdentifierIsNotSpecified() {
+    void test_parse_ThrowsAnException_WhenTheIdentifierOrCanonicalNameIsNotSpecified() {
         try {
             parser.parse(context(), tokens("!relationship"));
             fail();
         } catch (Exception e) {
-            assertEquals("Expected: !relationship <identifier>", e.getMessage());
+            assertEquals("Expected: !relationship <identifier|canonical name>", e.getMessage());
         }
     }
 
@@ -42,9 +43,22 @@ class FindRelationshipParserTests extends AbstractTests {
     }
 
     @Test
+    void test_parse_FindsARelationshipByCanonicalName() {
+        SoftwareSystem a = model.addSoftwareSystem("A");
+        SoftwareSystem b = model.addSoftwareSystem("B");
+        Relationship relationship = a.uses(b, "Description");
+
+        ModelDslContext context = context();
+
+        ModelItem modelItem = parser.parse(context, tokens("!relationship", "Relationship://SoftwareSystem://A -> SoftwareSystem://B (Description)"));
+        assertSame(modelItem, relationship);
+    }
+
+    @Test
     void test_parse_FindsARelationshipByIdentifier() {
-        Person user = workspace.getModel().addPerson("User");
-        Relationship relationship = user.interactsWith(user, "Description");
+        SoftwareSystem a = model.addSoftwareSystem("A");
+        SoftwareSystem b = model.addSoftwareSystem("B");
+        Relationship relationship = a.uses(b, "Description");
 
         ModelDslContext context = context();
         IdentifiersRegister register = new IdentifiersRegister();

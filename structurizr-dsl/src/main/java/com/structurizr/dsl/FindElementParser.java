@@ -20,10 +20,9 @@ final class FindElementParser extends AbstractParser {
             throw new RuntimeException("Expected: " + GRAMMAR);
         }
 
-        String s = tokens.get(IDENTIFIER_INDEX);
-
         Element element;
 
+        String s = tokens.get(IDENTIFIER_INDEX);
         if (s.contains("://")) {
             element = context.getWorkspace().getModel().getElementWithCanonicalName(s);
         } else {
