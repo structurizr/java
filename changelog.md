@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.0.1 (unreleased)
+
+- structurizr-client: Workspace archive file now includes the branch name in the filename.
+
 ## 3.0.0 (19th September 2024)
 
 - structurizr-client: Adds support to get/put workspace branches on the [cloud service](https://docs.structurizr.com/cloud/workspace-branches) and [on-premises installation](https://docs.structurizr.com/onpremises/workspace-branches).

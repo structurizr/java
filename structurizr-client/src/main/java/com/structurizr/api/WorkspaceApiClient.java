@@ -415,7 +415,7 @@ public class WorkspaceApiClient extends AbstractApiClient {
 
     private String createArchiveFileName(long workspaceId) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        return "structurizr-" + workspaceId + "-" + sdf.format(new Date()) + ".json";
+        return "structurizr-" + workspaceId + "-" + (StringUtils.isNullOrEmpty(branch) ? "" : (branch + "-")) + sdf.format(new Date()) + ".json";
     }
 
     public void setUser(String user) {
