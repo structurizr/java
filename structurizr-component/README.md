@@ -5,7 +5,7 @@
 This library provides a facility to discover components in a Java codebase, via a combination of
 [Apache Commons BCEL](https://commons.apache.org/proper/commons-bcel/) and [JavaParser](https://javaparser.org),
 using a pluggable and customisable set of matching and filtering rules.
-It is also available via the Structurizr DSL `!component` keyword.
+It is also available via the Structurizr DSL `!components` keyword.
 
 See the following tests for an example:
 
