@@ -1,11 +1,11 @@
 dependencies {
 
     api project(':structurizr-core')
-    implementation 'org.apache.bcel:bcel:6.8.1'
-    implementation 'com.github.javaparser:javaparser-symbol-solver-core:3.26.1'
+    implementation 'org.apache.bcel:bcel:6.10.0'
+    implementation 'com.github.javaparser:javaparser-symbol-solver-core:3.26.2'
 
     testImplementation project(':structurizr-annotation')
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.0'
 
 }
 

@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.0.1 (unreleased)
+## 3.1.0 (unreleased)
 
 - structurizr-client: Workspace archive file now includes the branch name in the filename.
 

@@ -2,11 +2,11 @@ dependencies {
 
     api project(':structurizr-core')
 
-    api 'com.fasterxml.jackson.core:jackson-databind:2.16.0'
-    api 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
+    api 'com.fasterxml.jackson.core:jackson-databind:2.17.2'
+    api 'org.apache.httpcomponents.client5:httpclient5:5.4'
     api 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.9.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.0'
 
 }
 
