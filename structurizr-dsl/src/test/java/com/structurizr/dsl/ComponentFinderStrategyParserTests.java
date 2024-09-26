@@ -201,8 +201,40 @@ class ComponentFinderStrategyParserTests extends AbstractTests {
             parser.parseSupportingTypes(context, tokens("supportingTypes"), null);
             fail();
         } catch (Exception e) {
-            assertEquals("Too few tokens, expected: supportingTypes <all-referenced|referenced-in-package|in-package|under-package|none> [parameters]", e.getMessage());
+            assertEquals("Too few tokens, expected: supportingTypes <all-referenced|referenced-in-package|in-package|under-package|implementation-prefix|implementation-suffix|none> [parameters]", e.getMessage());
         }
+    }
+
+    @Test
+    void test_parseSupportingTypes_ThrowsAnException_WhenImplementationSuffixIsUsedWithoutASuffix() {
+        try {
+            parser.parseSupportingTypes(context, tokens("supportingTypes", "implementation-suffix"), null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Too few tokens, expected: supportingTypes implementation-suffix <suffix>", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseSupportingTypes_ImplementationSuffix() {
+        parser.parseSupportingTypes(context, tokens("supportingTypes", "implementation-suffix", "Impl"), null);
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=null, typeFilter=null, supportingTypesStrategy=ImplementationWithSuffixSupportingTypesStrategy{suffix='Impl'}, namingStrategy=null, descriptionStrategy=null, urlStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
+    }
+
+    @Test
+    void test_parseSupportingTypes_ThrowsAnException_WhenImplementationPrefixIsUsedWithoutAPrefix() {
+        try {
+            parser.parseSupportingTypes(context, tokens("supportingTypes", "implementation-prefix"), null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("Too few tokens, expected: supportingTypes implementation-prefix <prefix>", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseSupportingTypes_ImplementationPrefix() {
+        parser.parseSupportingTypes(context, tokens("supportingTypes", "implementation-prefix", "Jdbc"), null);
+        assertEquals("ComponentFinderStrategyBuilder{technology=null, typeMatcher=null, typeFilter=null, supportingTypesStrategy=ImplementationWithPrefixSupportingTypesStrategy{prefix='Jdbc'}, namingStrategy=null, descriptionStrategy=null, urlStrategy=null, componentVisitor=null}", context.getComponentFinderStrategyBuilder().toString());
     }
 
     @Test

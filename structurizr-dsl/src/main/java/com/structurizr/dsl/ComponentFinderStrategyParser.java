@@ -39,8 +39,12 @@ final class ComponentFinderStrategyParser extends AbstractParser {
     private static final String SUPPORTING_TYPES_REFERENCED_IN_PACKAGE = "referenced-in-package";
     private static final String SUPPORTING_TYPES_IN_PACKAGE = "in-package";
     private static final String SUPPORTING_TYPES_UNDER_PACKAGE = "under-package";
+    private static final String SUPPORTING_TYPES_IMPLEMENTATION_WITH_PREFIX = "implementation-prefix";
+    private static final String SUPPORTING_TYPES_IMPLEMENTATION_WITH_SUFFIX = "implementation-suffix";
     private static final String SUPPORTING_TYPES_NONE = "none";
-    private static final String SUPPORTING_TYPES_GRAMMAR = "supportingTypes <" + String.join("|", List.of(SUPPORTING_TYPES_ALL_REFERENCED, SUPPORTING_TYPES_REFERENCED_IN_PACKAGE, SUPPORTING_TYPES_IN_PACKAGE, SUPPORTING_TYPES_UNDER_PACKAGE, SUPPORTING_TYPES_NONE)) + "> [parameters]";
+    private static final String SUPPORTING_TYPES_GRAMMAR = "supportingTypes <" + String.join("|", List.of(SUPPORTING_TYPES_ALL_REFERENCED, SUPPORTING_TYPES_REFERENCED_IN_PACKAGE, SUPPORTING_TYPES_IN_PACKAGE, SUPPORTING_TYPES_UNDER_PACKAGE, SUPPORTING_TYPES_IMPLEMENTATION_WITH_PREFIX, SUPPORTING_TYPES_IMPLEMENTATION_WITH_SUFFIX, SUPPORTING_TYPES_NONE)) + "> [parameters]";
+    private static final String SUPPORTING_TYPES_IMPLEMENTATION_WITH_PREFIX_GRAMMAR = "supportingTypes implementation-prefix <prefix>";
+    private static final String SUPPORTING_TYPES_IMPLEMENTATION_WITH_SUFFIX_GRAMMAR = "supportingTypes implementation-suffix <suffix>";
 
     private static final String NAME_TYPE_NAME = "type-name";
     private static final String NAME_FQN = "fqn";
@@ -184,6 +188,22 @@ final class ComponentFinderStrategyParser extends AbstractParser {
                 break;
             case SUPPORTING_TYPES_UNDER_PACKAGE:
                 context.getComponentFinderStrategyBuilder().supportedBy(new AllTypesUnderPackageSupportingTypesStrategy());
+                break;
+            case SUPPORTING_TYPES_IMPLEMENTATION_WITH_PREFIX:
+                if (tokens.size() < 3) {
+                    throw new RuntimeException("Too few tokens, expected: " + SUPPORTING_TYPES_IMPLEMENTATION_WITH_PREFIX_GRAMMAR);
+                }
+
+                String prefix = tokens.get(2);
+                context.getComponentFinderStrategyBuilder().supportedBy(new ImplementationWithPrefixSupportingTypesStrategy(prefix));
+                break;
+            case SUPPORTING_TYPES_IMPLEMENTATION_WITH_SUFFIX:
+                if (tokens.size() < 3) {
+                    throw new RuntimeException("Too few tokens, expected: " + SUPPORTING_TYPES_IMPLEMENTATION_WITH_SUFFIX_GRAMMAR);
+                }
+
+                String suffix = tokens.get(2);
+                context.getComponentFinderStrategyBuilder().supportedBy(new ImplementationWithSuffixSupportingTypesStrategy(suffix));
                 break;
             case SUPPORTING_TYPES_NONE:
                 context.getComponentFinderStrategyBuilder().supportedBy(new DefaultSupportingTypesStrategy());

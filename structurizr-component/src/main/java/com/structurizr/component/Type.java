@@ -2,6 +2,8 @@ package com.structurizr.component;
 
 import com.structurizr.util.StringUtils;
 import org.apache.bcel.classfile.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import java.util.*;
 
@@ -9,6 +11,8 @@ import java.util.*;
  * Represents a Java type (e.g. class or interface) - it's a wrapper around a BCEL JavaClass.
  */
 public class Type {
+
+    private static final Log log = LogFactory.getLog(Type.class);
 
     private static final String STRUCTURIZR_TAG_ANNOTATION = "Lcom/structurizr/annotation/Tag;";
     private static final String STRUCTURIZR_TAGS_ANNOTATION = "Lcom/structurizr/annotation/Tags;";
@@ -92,6 +96,10 @@ public class Type {
         return javaClass.isAbstract() && javaClass.isClass();
     }
 
+    public boolean isInterface() {
+        return javaClass.isInterface();
+    }
+
     public List<String> getTags() {
         List<String> tags = new ArrayList<>();
 
@@ -157,6 +165,18 @@ public class Type {
     @Override
     public String toString() {
         return this.fullyQualifiedName;
+    }
+
+    public boolean implementsInterface(Type type) {
+        if (javaClass != null) {
+            try {
+                return javaClass.implementationOf(type.javaClass);
+            } catch (ClassNotFoundException e) {
+                log.warn(e);
+            }
+        }
+
+        return false;
     }
 
 }
