@@ -1181,7 +1181,10 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
     void registerIdentifier(String identifier, Relationship relationship) {
         identifiersRegister.register(identifier, relationship);
-        relationship.addProperty(STRUCTURIZR_DSL_IDENTIFIER_PROPERTY_NAME, identifiersRegister.findIdentifier(relationship));
+
+        if (!StringUtils.isNullOrEmpty(identifier)) {
+            relationship.addProperty(STRUCTURIZR_DSL_IDENTIFIER_PROPERTY_NAME, identifiersRegister.findIdentifier(relationship));
+        }
     }
 
     /**

@@ -1008,6 +1008,20 @@ class DslTests extends AbstractTests {
     }
 
     @Test
+    void test_relationshipWithoutIdentifier() throws Exception {
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(new File("src/test/resources/dsl/relationship-without-identifier.dsl"));
+
+        Workspace workspace = parser.getWorkspace();
+        IdentifiersRegister register = parser.getIdentifiersRegister();
+        assertEquals(1, workspace.getModel().getRelationships().size());
+        Relationship relationship = workspace.getModel().getRelationships().iterator().next();
+
+        assertTrue(register.findIdentifier(relationship).matches("[\\w]{8}-[\\w]{4}-[\\w]{4}-[\\w]{4}-[\\w]{12}"));
+        assertNull(relationship.getProperties().get("structurizr.dsl.identifier")); // identifier is not included in model
+    }
+
+    @Test
     void test_imageViews_ViaFiles() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
         parser.parse(new File("src/test/resources/dsl/image-views/workspace-via-file.dsl"));
