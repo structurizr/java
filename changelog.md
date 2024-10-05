@@ -8,6 +8,7 @@
 - structurizr-dsl: Adds `supportingTypes implementation-prefix <prefix>`.
 - structurizr-dsl: Adds `supportingTypes implementation-suffix <suffix>`.
 - structurizr-dsl: Fixes https://github.com/structurizr/java/issues/346 (`// comment \` joins lines).
+- structurizr-dsl: Anonymous identifiers for relationships (i.e. relationships not assigned to an identifier) are excluded from the model, and therefore also excluded from the serialised JSON.
 
 ## 3.0.0 (19th September 2024)
 
