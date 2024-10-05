@@ -1069,7 +1069,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         boolean lineComplete = true;
 
         for (String line : lines) {
-            if (line.endsWith(MULTI_LINE_SEPARATOR)) {
+            if (!COMMENT_PATTERN.matcher(line).matches() && line.endsWith(MULTI_LINE_SEPARATOR)) {
                 buf.append(line, 0, line.length()-1);
                 lineComplete = false;
             } else {

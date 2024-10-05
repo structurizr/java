@@ -27,6 +27,7 @@ workspace "Name" "Description" {
         !impliedRelationships "com.structurizr.model.CreateImpliedRelationshipsUnlessSameRelationshipExistsStrategy"
         !impliedRelationships true
 
+        // single line comment with long line split character \
         properties {
             "Name" "Value"
         }
