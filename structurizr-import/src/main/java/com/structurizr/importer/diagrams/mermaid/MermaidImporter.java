@@ -10,8 +10,9 @@ import java.nio.file.Files;
 
 public class MermaidImporter extends AbstractDiagramImporter {
 
-    private static final String MERMAID_URL_PROPERTY = "mermaid.url";
-    private static final String MERMAID_FORMAT_PROPERTY = "mermaid.format";
+    public static final String MERMAID_URL_PROPERTY = "mermaid.url";
+    public static final String MERMAID_FORMAT_PROPERTY = "mermaid.format";
+    public static final String MERMAID_COMPRESS_PROPERTY = "mermaid.compress";
 
     public void importDiagram(ImageView view, File file) throws Exception {
         String content = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
@@ -28,14 +29,19 @@ public class MermaidImporter extends AbstractDiagramImporter {
 
         String format = getViewOrViewSetProperty(view, MERMAID_FORMAT_PROPERTY);
         if (StringUtils.isNullOrEmpty(format)) {
-            format = PNG_FORMAT;
+            format = SVG_FORMAT;
         }
 
         if (!format.equals(PNG_FORMAT) && !format.equals(SVG_FORMAT)) {
             throw new IllegalArgumentException(String.format("Expected a format of %s or %s", PNG_FORMAT, SVG_FORMAT));
         }
 
-        String encodedMermaid = new MermaidEncoder().encode(content);
+        String compress = getViewOrViewSetProperty(view, MERMAID_COMPRESS_PROPERTY);
+        if (StringUtils.isNullOrEmpty(compress)) {
+            compress = "true";
+        }
+
+        String encodedMermaid = new MermaidEncoder().encode(content, compress.equalsIgnoreCase("true"));
         String url;
         if (format.equals(PNG_FORMAT)) {
             url = String.format("%s/img/%s?type=png", mermaidServer, encodedMermaid);

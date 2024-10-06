@@ -10,8 +10,8 @@ import java.nio.file.Files;
 
 public class PlantUMLImporter extends AbstractDiagramImporter {
 
-    private static final String PLANTUML_URL_PROPERTY = "plantuml.url";
-    private static final String PLANTUML_FORMAT_PROPERTY = "plantuml.format";
+    public static final String PLANTUML_URL_PROPERTY = "plantuml.url";
+    public static final String PLANTUML_FORMAT_PROPERTY = "plantuml.format";
     private static final String TITLE_STRING = "title ";
     private static final String NEWLINE = "\n";
 
@@ -30,7 +30,7 @@ public class PlantUMLImporter extends AbstractDiagramImporter {
 
         String format = getViewOrViewSetProperty(view, PLANTUML_FORMAT_PROPERTY);
         if (StringUtils.isNullOrEmpty(format)) {
-            format = PNG_FORMAT;
+            format = SVG_FORMAT;
         }
 
         if (!format.equals(PNG_FORMAT) && !format.equals(SVG_FORMAT)) {

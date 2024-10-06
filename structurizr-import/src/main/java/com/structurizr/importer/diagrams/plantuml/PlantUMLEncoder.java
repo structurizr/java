@@ -9,9 +9,9 @@ import java.util.zip.DeflaterOutputStream;
  *  A Java implementation of http://plantuml.com/code-javascript-synchronous
  *  that uses Java's built-in Deflate algorithm.
  */
-class PlantUMLEncoder {
+public final class PlantUMLEncoder {
 
-    String encode(String plantUMLDefinition) throws Exception {
+    public String encode(String plantUMLDefinition) throws Exception {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Deflater deflater = new Deflater(Deflater.BEST_COMPRESSION, true);
 

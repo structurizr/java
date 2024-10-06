@@ -6,6 +6,7 @@ workspace {
             "plantuml.format" "svg"
             "mermaid.url" "http://localhost:8888"
             "mermaid.format" "svg"
+            "mermaid.compress" "false"
             "kroki.url" "http://localhost:9999"
             "kroki.format" "svg"
         }

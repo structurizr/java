@@ -4,6 +4,7 @@ workspace {
         properties {
             "plantuml.url" "http://localhost:7777"
             "mermaid.url" "http://localhost:8888"
+            "mermaid.compress" "false"
             "kroki.url" "http://localhost:9999"
         }
 

@@ -13,7 +13,7 @@ public class PlantUMLImporterTests {
     @Test
     public void importDiagram_WhenATitleIsDefined() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
-        workspace.getViews().getConfiguration().addProperty("plantuml.url", "https://plantuml.com/plantuml");
+        workspace.getViews().getConfiguration().addProperty(PlantUMLImporter.PLANTUML_URL_PROPERTY, "https://plantuml.com/plantuml");
         ImageView view = workspace.getViews().createImageView("key");
 
         new PlantUMLImporter().importDiagram(view, new File("./src/test/resources/diagrams/plantuml/with-title.puml"));
@@ -21,14 +21,14 @@ public class PlantUMLImporterTests {
         assertNull(view.getElement());
         assertNull(view.getElementId());
         assertEquals("Sequence diagram example", view.getTitle());
-        assertEquals("https://plantuml.com/plantuml/png/SoWkIImgAStDuIh9BCb9LGXEBInDpKjELKZ9J4mlIinLIAr8p2t8IULooazIqBLJSCp914fQAMIavkJaSpcavgK0zG80", view.getContent());
-        assertEquals("image/png", view.getContentType());
+        assertEquals("https://plantuml.com/plantuml/svg/SoWkIImgAStDuIh9BCb9LGXEBInDpKjELKZ9J4mlIinLIAr8p2t8IULooazIqBLJSCp914fQAMIavkJaSpcavgK0zG80", view.getContent());
+        assertEquals("image/svg+xml", view.getContentType());
     }
 
     @Test
     public void importDiagram_WhenATitleIsNotDefined() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
-        workspace.getViews().getConfiguration().addProperty("plantuml.url", "https://plantuml.com/plantuml");
+        workspace.getViews().getConfiguration().addProperty(PlantUMLImporter.PLANTUML_URL_PROPERTY, "https://plantuml.com/plantuml");
         ImageView view = workspace.getViews().createImageView("key");
 
         new PlantUMLImporter().importDiagram(view, new File("./src/test/resources/diagrams/plantuml/without-title.puml"));
@@ -36,15 +36,15 @@ public class PlantUMLImporterTests {
         assertNull(view.getElement());
         assertNull(view.getElementId());
         assertEquals("without-title.puml", view.getTitle());
-        assertEquals("https://plantuml.com/plantuml/png/SoWkIImgAStDuNBAJrBGjLDmpCbCJbMmKiX8pSd9vt98pKi1IW80", view.getContent());
-        assertEquals("image/png", view.getContentType());
+        assertEquals("https://plantuml.com/plantuml/svg/SoWkIImgAStDuNBAJrBGjLDmpCbCJbMmKiX8pSd9vt98pKi1IW80", view.getContent());
+        assertEquals("image/svg+xml", view.getContentType());
     }
 
     @Test
     public void importDiagram_AsPNG() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
-        workspace.getViews().getConfiguration().addProperty("plantuml.url", "https://plantuml.com/plantuml");
-        workspace.getViews().getConfiguration().addProperty("plantuml.format", "png");
+        workspace.getViews().getConfiguration().addProperty(PlantUMLImporter.PLANTUML_URL_PROPERTY, "https://plantuml.com/plantuml");
+        workspace.getViews().getConfiguration().addProperty(PlantUMLImporter.PLANTUML_FORMAT_PROPERTY, "png");
         ImageView view = workspace.getViews().createImageView("key");
 
         new PlantUMLImporter().importDiagram(view, new File("./src/test/resources/diagrams/plantuml/with-title.puml"));
@@ -55,8 +55,8 @@ public class PlantUMLImporterTests {
     @Test
     public void importDiagram_AsSVG() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
-        workspace.getViews().getConfiguration().addProperty("plantuml.url", "https://plantuml.com/plantuml");
-        workspace.getViews().getConfiguration().addProperty("plantuml.format", "svg");
+        workspace.getViews().getConfiguration().addProperty(PlantUMLImporter.PLANTUML_URL_PROPERTY, "https://plantuml.com/plantuml");
+        workspace.getViews().getConfiguration().addProperty(PlantUMLImporter.PLANTUML_FORMAT_PROPERTY, "svg");
         ImageView view = workspace.getViews().createImageView("key");
 
         new PlantUMLImporter().importDiagram(view, new File("./src/test/resources/diagrams/plantuml/with-title.puml"));
@@ -80,8 +80,8 @@ public class PlantUMLImporterTests {
     @Test
     public void importDiagram_WhenAnInvalidFormatIsSpecified() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
-        workspace.getViews().getConfiguration().addProperty("plantuml.url", "https://plantuml.com/plantuml");
-        workspace.getViews().getConfiguration().addProperty("plantuml.format", "jpg");
+        workspace.getViews().getConfiguration().addProperty(PlantUMLImporter.PLANTUML_URL_PROPERTY, "https://plantuml.com/plantuml");
+        workspace.getViews().getConfiguration().addProperty(PlantUMLImporter.PLANTUML_FORMAT_PROPERTY, "jpg");
         ImageView view = workspace.getViews().createImageView("key");
 
         try {

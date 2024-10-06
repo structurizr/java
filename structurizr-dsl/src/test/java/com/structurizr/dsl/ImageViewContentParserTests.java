@@ -20,8 +20,10 @@ class ImageViewContentParserTests extends AbstractTests {
     @Test
     void test_parsePlantUML_ThrowsAnException_WhenUsingAFileNameInRestrictedMode() {
         try {
+            ImageViewDslContext context = new ImageViewDslContext(imageView);
+            context.setWorkspace(workspace);
             parser = new ImageViewContentParser(true);
-            parser.parsePlantUML(new ImageViewDslContext(imageView), null, tokens("plantuml", "image.puml"));
+            parser.parsePlantUML(context, null, tokens("plantuml", "image.puml"));
             fail();
         } catch (Exception e) {
             assertEquals("PlantUML source must be specified as a URL when running in restricted mode", e.getMessage());
@@ -31,8 +33,10 @@ class ImageViewContentParserTests extends AbstractTests {
     @Test
     void test_parseMermaid_ThrowsAnException_WhenUsingAFileNameInRestrictedMode() {
         try {
+            ImageViewDslContext context = new ImageViewDslContext(imageView);
+            context.setWorkspace(workspace);
             parser = new ImageViewContentParser(true);
-            parser.parseMermaid(new ImageViewDslContext(imageView), null, tokens("mermaid", "image.puml"));
+            parser.parseMermaid(context, null, tokens("mermaid", "image.puml"));
             fail();
         } catch (Exception e) {
             assertEquals("Mermaid source must be specified as a URL when running in restricted mode", e.getMessage());
