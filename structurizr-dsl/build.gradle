@@ -2,6 +2,7 @@ dependencies {
 
     api project(':structurizr-client')
     api project(':structurizr-import')
+    api project(':structurizr-export')
     api project(':structurizr-component')
 
     testImplementation 'org.codehaus.groovy:groovy-jsr223:3.0.22'

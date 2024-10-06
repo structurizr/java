@@ -13,8 +13,9 @@ public class PlantUMLEncoderTests {
     @Test
     public void encode() throws Exception {
         File file = new File("./src/test/resources/diagrams/plantuml/with-title.puml");
-        String mermaid = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
-        assertEquals("SoWkIImgAStDuIh9BCb9LGXEBInDpKjELKZ9J4mlIinLIAr8p2t8IULooazIqBLJSCp914fQAMIavkJaSpcavgK0zG80", new PlantUMLEncoder().encode(mermaid));
+        String plantuml = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
+        String encodedPlantuml = new PlantUMLEncoder().encode(plantuml);
+        assertEquals("SoWkIImgAStDuIh9BCb9LGXEBInDpKjELKZ9J4mlIinLIAr8p2t8IULooazIqBLJSCp914fQAMIavkJaSpcavgK0zG80", encodedPlantuml);
     }
 
 }

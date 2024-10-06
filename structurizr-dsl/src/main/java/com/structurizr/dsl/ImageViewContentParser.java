@@ -1,23 +1,24 @@
 package com.structurizr.dsl;
 
+import com.structurizr.export.mermaid.MermaidDiagramExporter;
+import com.structurizr.export.plantuml.StructurizrPlantUMLExporter;
 import com.structurizr.importer.diagrams.kroki.KrokiImporter;
 import com.structurizr.importer.diagrams.mermaid.MermaidImporter;
 import com.structurizr.importer.diagrams.plantuml.PlantUMLImporter;
 import com.structurizr.util.ImageUtils;
 import com.structurizr.util.Url;
 import com.structurizr.view.ImageView;
+import com.structurizr.view.ModelView;
+import com.structurizr.view.View;
 
 import java.io.File;
 
 final class ImageViewContentParser extends AbstractParser {
 
-    private static final String PLANTUML_GRAMMAR = "plantuml <file|url>";
-    private static final String MERMAID_GRAMMAR = "mermaid <file|url>";
+    private static final String PLANTUML_GRAMMAR = "plantuml <file|url|viewKey>";
+    private static final String MERMAID_GRAMMAR = "mermaid <file|url|viewKey>";
     private static final String KROKI_GRAMMAR = "kroki <format> <file|url>";
     private static final String IMAGE_GRAMMAR = "image <file|url>";
-
-    private static final int TITLE_INDEX = 1;
-    private static final int DESCRIPTION_INDEX = 1;
 
     private static final int PLANTUML_SOURCE_INDEX = 1;
     private static final int MERMAID_SOURCE_INDEX = 1;
@@ -32,7 +33,7 @@ final class ImageViewContentParser extends AbstractParser {
     }
 
     void parsePlantUML(ImageViewDslContext context, File dslFile, Tokens tokens) {
-        // plantuml <file|url>
+        // plantuml <file|url|viewKey>
 
         if (tokens.hasMoreThan(PLANTUML_SOURCE_INDEX)) {
             throw new RuntimeException("Too many tokens, expected: " + PLANTUML_GRAMMAR);
@@ -44,16 +45,23 @@ final class ImageViewContentParser extends AbstractParser {
                 String source = tokens.get(PLANTUML_SOURCE_INDEX);
 
                 try {
-                    if (Url.isUrl(source)) {
-                        RemoteContent content = readFromUrl(source);
-                        new PlantUMLImporter().importDiagram(context.getView(), content.getContent());
-                        context.getView().setTitle(source.substring(source.lastIndexOf("/")+1));
+                    View viewWithKey = context.getWorkspace().getViews().getViewWithKey(source);
+                    if (viewWithKey instanceof ModelView) {
+                        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
+                        String plantuml = exporter.export((ModelView)viewWithKey).getDefinition();
+                        new PlantUMLImporter().importDiagram(context.getView(), plantuml);
                     } else {
-                        if (!restricted) {
-                            File file = new File(dslFile.getParentFile(), source);
-                            new PlantUMLImporter().importDiagram(context.getView(), file);
+                        if (Url.isUrl(source)) {
+                            RemoteContent content = readFromUrl(source);
+                            new PlantUMLImporter().importDiagram(context.getView(), content.getContent());
+                            context.getView().setTitle(source.substring(source.lastIndexOf("/") + 1));
                         } else {
-                            throw new RuntimeException("PlantUML source must be specified as a URL when running in restricted mode");
+                            if (!restricted) {
+                                File file = new File(dslFile.getParentFile(), source);
+                                new PlantUMLImporter().importDiagram(context.getView(), file);
+                            } else {
+                                throw new RuntimeException("PlantUML source must be specified as a URL when running in restricted mode");
+                            }
                         }
                     }
                 } catch (Exception e) {
@@ -66,7 +74,7 @@ final class ImageViewContentParser extends AbstractParser {
     }
 
     void parseMermaid(ImageViewDslContext context, File dslFile, Tokens tokens) {
-        // mermaid <file|url>
+        // mermaid <file|url|viewKey>
 
         if (tokens.hasMoreThan(MERMAID_SOURCE_INDEX)) {
             throw new RuntimeException("Too many tokens, expected: " + MERMAID_GRAMMAR);
@@ -78,16 +86,23 @@ final class ImageViewContentParser extends AbstractParser {
                 String source = tokens.get(MERMAID_SOURCE_INDEX);
 
                 try {
-                    if (Url.isUrl(source)) {
-                        RemoteContent content = readFromUrl(source);
-                        new MermaidImporter().importDiagram(context.getView(), content.getContent());
-                        context.getView().setTitle(source.substring(source.lastIndexOf("/")+1));
+                    View viewWithKey = context.getWorkspace().getViews().getViewWithKey(source);
+                    if (viewWithKey instanceof ModelView) {
+                        MermaidDiagramExporter exporter = new MermaidDiagramExporter();
+                        String mermaid = exporter.export((ModelView)viewWithKey).getDefinition();
+                        new MermaidImporter().importDiagram(context.getView(), mermaid);
                     } else {
-                        if (!restricted) {
-                            File file = new File(dslFile.getParentFile(), source);
-                            new MermaidImporter().importDiagram(context.getView(), file);
+                        if (Url.isUrl(source)) {
+                            RemoteContent content = readFromUrl(source);
+                            new MermaidImporter().importDiagram(context.getView(), content.getContent());
+                            context.getView().setTitle(source.substring(source.lastIndexOf("/") + 1));
                         } else {
-                            throw new RuntimeException("Mermaid source must be specified as a URL when running in restricted mode");
+                            if (!restricted) {
+                                File file = new File(dslFile.getParentFile(), source);
+                                new MermaidImporter().importDiagram(context.getView(), file);
+                            } else {
+                                throw new RuntimeException("Mermaid source must be specified as a URL when running in restricted mode");
+                            }
                         }
                     }
                 } catch (Exception e) {

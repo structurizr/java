@@ -80,6 +80,26 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
         return diagrams;
     }
 
+    public Diagram export(ModelView view) {
+        if (view instanceof SystemLandscapeView) {
+            return export((SystemLandscapeView)view);
+        } else if (view instanceof SystemContextView) {
+            return export((SystemContextView)view);
+        } else if (view instanceof ContainerView) {
+            return export((ContainerView)view);
+        } else if (view instanceof ComponentView) {
+            return export((ComponentView)view);
+        } else if (view instanceof DynamicView) {
+            return export((DynamicView)view);
+        } else if (view instanceof DeploymentView) {
+            return export((DeploymentView)view);
+        } else if (view instanceof CustomView) {
+            return export((CustomView)view);
+        } else {
+            throw new RuntimeException(view.getClass().getName() + " is not supported");
+        }
+    }
+
     public Diagram export(CustomView view) {
         Diagram diagram = export(view, null);
 
