@@ -1,5 +1,7 @@
 package com.structurizr.dsl;
 
+import com.structurizr.PropertyHolder;
+
 final class PropertyParser extends AbstractParser {
 
     private final static int PROPERTY_NAME_INDEX = 0;
@@ -19,7 +21,9 @@ final class PropertyParser extends AbstractParser {
         String name = tokens.get(PROPERTY_NAME_INDEX);
         String value = tokens.get(PROPERTY_VALUE_INDEX);
 
-        context.getPropertyHolder().addProperty(name, value);
+        for (PropertyHolder propertyHolder : context.getPropertyHolders()) {
+            propertyHolder.addProperty(name, value);
+        }
     }
 
 }

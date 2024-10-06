@@ -11,6 +11,7 @@
 - structurizr-dsl: Anonymous identifiers for relationships (i.e. relationships not assigned to an identifier) are excluded from the model, and therefore also excluded from the serialised JSON.
 - structurizr-dsl: Adds a way to configure whether the DSL source is retained via a workspace property named `structurizr.dsl.source` - `true` (default) or `false`.
 - structurizr-dsl: Adds the ability to define a PlantUML/Mermaid image view that is an export of a workspace view.
+- structurizr-dsl: Adds support for `url`, `properties`, and `perspectives` nested inside `!elements` and `!relationships`.
 
 ## 3.0.0 (19th September 2024)
 

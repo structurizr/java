@@ -26,7 +26,13 @@ class RelationshipsDslContext extends ModelItemsDslContext {
 
     @Override
     protected String[] getPermittedTokens() {
-        return new String[0];
+        return new String[] {
+                StructurizrDslTokens.TAG_TOKEN,
+                StructurizrDslTokens.TAGS_TOKEN,
+                StructurizrDslTokens.URL_TOKEN,
+                StructurizrDslTokens.PROPERTIES_TOKEN,
+                StructurizrDslTokens.PERSPECTIVES_TOKEN
+        };
     }
 
 }

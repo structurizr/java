@@ -2,16 +2,23 @@ package com.structurizr.dsl;
 
 import com.structurizr.PropertyHolder;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 final class PropertiesDslContext extends DslContext {
 
-    private PropertyHolder propertyHolder;
+    private final Collection<PropertyHolder> propertyHolders = new ArrayList<>();
 
     public PropertiesDslContext(PropertyHolder propertyHolder) {
-        this.propertyHolder = propertyHolder;
+        this.propertyHolders.add(propertyHolder);
     }
 
-    PropertyHolder getPropertyHolder() {
-        return this.propertyHolder;
+    public PropertiesDslContext(Collection<PropertyHolder> propertyHolders) {
+        this.propertyHolders.addAll(propertyHolders);
+    }
+
+    Collection<PropertyHolder> getPropertyHolders() {
+        return this.propertyHolders;
     }
 
     @Override
