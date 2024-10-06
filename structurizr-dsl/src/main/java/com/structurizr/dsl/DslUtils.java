@@ -11,7 +11,8 @@ import java.util.Base64;
  */
 public class DslUtils {
 
-    private static final String STRUCTURIZR_DSL_PROPERTY_NAME = "structurizr.dsl";
+    static final String STRUCTURIZR_DSL_PROPERTY_NAME = "structurizr.dsl";
+    static final String STRUCTURIZR_DSL_RETAIN_SOURCE_PROPERTY_NAME = "structurizr.dsl.source";
 
     /**
      * Gets the DSL associated with a workspace.
@@ -21,13 +22,11 @@ public class DslUtils {
      */
     public static String getDsl(Workspace workspace) {
         String base64 = workspace.getProperties().get(STRUCTURIZR_DSL_PROPERTY_NAME);
-        String dsl = "";
-
         if (!StringUtils.isNullOrEmpty(base64)) {
-            dsl = new String(Base64.getDecoder().decode(base64));
+            return new String(Base64.getDecoder().decode(base64));
         }
 
-        return dsl;
+        return "";
     }
 
     /**
@@ -37,12 +36,10 @@ public class DslUtils {
      * @param dsl   the DSL string
      */
     public static void setDsl(Workspace workspace, String dsl) {
-        String base64 = "";
         if (!StringUtils.isNullOrEmpty(dsl)) {
-            base64 = Base64.getEncoder().encodeToString(dsl.getBytes(StandardCharsets.UTF_8));
+            String base64 = Base64.getEncoder().encodeToString(dsl.getBytes(StandardCharsets.UTF_8));
+            workspace.addProperty(STRUCTURIZR_DSL_PROPERTY_NAME, base64);
         }
-
-        workspace.addProperty(STRUCTURIZR_DSL_PROPERTY_NAME, base64);
     }
 
 }

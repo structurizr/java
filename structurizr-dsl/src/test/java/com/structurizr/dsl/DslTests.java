@@ -1377,4 +1377,42 @@ class DslTests extends AbstractTests {
         }
     }
 
+    @Test
+    void test_sourceIsRetained() throws Exception {
+        File parentDslFile = new File("src/test/resources/dsl/source-parent.dsl");
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(parentDslFile);
+        Workspace workspace = parser.getWorkspace();
+        assertEquals("""
+workspace {
+
+    model {
+        a = softwareSystem "A"
+    }
+
+}""", DslUtils.getDsl(workspace));
+
+        File childDslFile = new File("src/test/resources/dsl/source-child.dsl");
+        parser = new StructurizrDslParser();
+        parser.parse(childDslFile);
+        workspace = parser.getWorkspace();
+        assertEquals("""
+workspace extends source-parent.dsl {
+
+    model {
+        b = softwareSystem "B"
+    }
+
+}""", DslUtils.getDsl(workspace));
+    }
+
+    @Test
+    void test_sourceIsNotRetained() throws Exception {
+        File parentDslFile = new File("src/test/resources/dsl/source-not-retained.dsl");
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(parentDslFile);
+        Workspace workspace = parser.getWorkspace();
+        assertNull(workspace.getProperties().get(DslUtils.STRUCTURIZR_DSL_PROPERTY_NAME));
+    }
+
 }

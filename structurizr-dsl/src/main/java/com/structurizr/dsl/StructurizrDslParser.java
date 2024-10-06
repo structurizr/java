@@ -101,7 +101,10 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
      */
     public Workspace getWorkspace() {
         if (workspace != null) {
-            DslUtils.setDsl(workspace, getParsedDsl());
+            String value = workspace.getProperties().get(DslUtils.STRUCTURIZR_DSL_RETAIN_SOURCE_PROPERTY_NAME);
+            if (value == null || value.equalsIgnoreCase("true")) {
+                DslUtils.setDsl(workspace, getParsedDsl());
+            }
         }
 
         return workspace;
