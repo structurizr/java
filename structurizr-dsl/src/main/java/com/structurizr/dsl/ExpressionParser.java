@@ -419,7 +419,7 @@ class ExpressionParser {
         }
     }
 
-    private Set<Element> getElements(String identifier, DslContext context) {
+    protected Set<Element> getElements(String identifier, DslContext context) {
         Set<Element> elements = new HashSet<>();
 
         Element element = context.getElement(identifier);

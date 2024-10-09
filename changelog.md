@@ -12,6 +12,7 @@
 - structurizr-dsl: Adds a way to configure whether the DSL source is retained via a workspace property named `structurizr.dsl.source` - `true` (default) or `false`.
 - structurizr-dsl: Adds the ability to define a PlantUML/Mermaid image view that is an export of a workspace view.
 - structurizr-dsl: Adds support for `url`, `properties`, and `perspectives` nested inside `!elements` and `!relationships`.
+- structurizr-dsl: Fixes https://github.com/structurizr/java/issues/347 (`->container->` expression does not work as expected in deployment view).
 
 ## 3.0.0 (19th September 2024)
 

@@ -4,6 +4,7 @@ import com.structurizr.model.*;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.structurizr.dsl.StructurizrDslExpressions.ELEMENT_TYPE_EQUALS_EXPRESSION;
 
@@ -38,6 +39,24 @@ final class DeploymentViewExpressionParser extends ExpressionParser {
                 break;
             default:
                 throw new RuntimeException("The element type of \"" + type + "\" is not valid for this view");
+        }
+
+        return elements;
+    }
+
+    @Override
+    protected Set<Element> getElements(String identifier, DslContext context) {
+        Set<Element> elements = new LinkedHashSet<>();
+        for (Element element : super.getElements(identifier, context)) {
+            if (element instanceof SoftwareSystem) {
+                Set<SoftwareSystemInstance> elementInstances = context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof SoftwareSystemInstance).map(e -> (SoftwareSystemInstance) e).filter(ssi -> ssi.getSoftwareSystem().equals(element)).collect(Collectors.toSet());
+                elements.addAll(elementInstances);
+            } else if (element instanceof Container) {
+                Set<ContainerInstance> elementInstances = context.getWorkspace().getModel().getElements().stream().filter(e -> e instanceof ContainerInstance).map(e -> (ContainerInstance)e).filter(ci -> ci.getContainer().equals(element)).collect(Collectors.toSet());
+                elements.addAll(elementInstances);
+            } else {
+                elements.add(element);
+            }
         }
 
         return elements;

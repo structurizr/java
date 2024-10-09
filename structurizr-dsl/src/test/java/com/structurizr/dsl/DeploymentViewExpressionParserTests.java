@@ -217,4 +217,57 @@ class DeploymentViewExpressionParserTests extends AbstractTests {
         assertTrue(elements.contains(containerInstance));
     }
 
+    @Test
+    void test_parseExpression_ReturnsSoftwareSystemInstanceDependencies_WhenASoftwareSystemExpressionIsUsed() {
+        SoftwareSystem a = model.addSoftwareSystem("A");
+        SoftwareSystem b = model.addSoftwareSystem("B");
+        a.uses(b, "");
+
+        DeploymentNode deploymentNode = model.addDeploymentNode("Live", "Deployment Node", "Description", "Technology");
+        InfrastructureNode infrastructureNode = deploymentNode.addInfrastructureNode("Infrastructure Node");
+        SoftwareSystemInstance softwareSystemInstanceA = deploymentNode.add(a);
+        SoftwareSystemInstance softwareSystemInstanceB = deploymentNode.add(b);
+        infrastructureNode.uses(softwareSystemInstanceA, "", "");
+
+        DeploymentViewDslContext context = new DeploymentViewDslContext(null);
+        context.setWorkspace(workspace);
+
+        IdentifiersRegister identifiersRegister = new IdentifiersRegister();
+        identifiersRegister.register("a", a);
+        context.setIdentifierRegister(identifiersRegister);
+
+        Set<ModelItem> elements = parser.parseExpression("->a->", context);
+        assertEquals(3, elements.size());
+        assertTrue(elements.contains(infrastructureNode));
+        assertTrue(elements.contains(softwareSystemInstanceA));
+        assertTrue(elements.contains(softwareSystemInstanceB));
+    }
+
+    @Test
+    void test_parseExpression_ReturnsContainerInstanceDependencies_WhenAContainerExpressionIsUsed() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        Container container1 = softwareSystem.addContainer("Container 1");
+        Container container2 = softwareSystem.addContainer("Container 2");
+        container1.uses(container2, "");
+
+        DeploymentNode deploymentNode = model.addDeploymentNode("Live", "Deployment Node", "Description", "Technology");
+        InfrastructureNode infrastructureNode = deploymentNode.addInfrastructureNode("Infrastructure Node");
+        ContainerInstance containerInstance1 = deploymentNode.add(container1);
+        ContainerInstance containerInstance2 = deploymentNode.add(container2);
+        infrastructureNode.uses(containerInstance1, "", "");
+
+        DeploymentViewDslContext context = new DeploymentViewDslContext(null);
+        context.setWorkspace(workspace);
+
+        IdentifiersRegister identifiersRegister = new IdentifiersRegister();
+        identifiersRegister.register("c1", container1);
+        context.setIdentifierRegister(identifiersRegister);
+
+        Set<ModelItem> elements = parser.parseExpression("->c1->", context);
+        assertEquals(3, elements.size());
+        assertTrue(elements.contains(infrastructureNode));
+        assertTrue(elements.contains(containerInstance1));
+        assertTrue(elements.contains(containerInstance2));
+    }
+
 }
