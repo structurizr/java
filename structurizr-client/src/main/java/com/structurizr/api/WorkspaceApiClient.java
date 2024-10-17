@@ -39,6 +39,7 @@ import java.util.Date;
 public class WorkspaceApiClient extends AbstractApiClient {
 
     private static final Log log = LogFactory.getLog(WorkspaceApiClient.class);
+    private static final String MAIN_BRANCH = "main";
 
     private String user;
 
@@ -234,7 +235,7 @@ public class WorkspaceApiClient extends AbstractApiClient {
             log.info("Getting workspace with ID " + workspaceId);
 
             HttpGet httpGet;
-            if (StringUtils.isNullOrEmpty(branch)) {
+            if (StringUtils.isNullOrEmpty(branch) || branch.equalsIgnoreCase(MAIN_BRANCH)) {
                 httpGet = new HttpGet(url + WORKSPACE_PATH + "/" + workspaceId);
             } else {
                 httpGet = new HttpGet(url + WORKSPACE_PATH + "/" + workspaceId + "/branch/" + branch);
