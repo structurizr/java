@@ -13,6 +13,7 @@
 - structurizr-dsl: Adds the ability to define a PlantUML/Mermaid image view that is an export of a workspace view.
 - structurizr-dsl: Adds support for `url`, `properties`, and `perspectives` nested inside `!elements` and `!relationships`.
 - structurizr-dsl: Fixes https://github.com/structurizr/java/issues/347 (`->container->` expression does not work as expected in deployment view).
+- structurizr-dsl: Adds support for `!elements group` (https://github.com/structurizr/java/issues/351).
 
 ## 3.0.0 (19th September 2024)
 

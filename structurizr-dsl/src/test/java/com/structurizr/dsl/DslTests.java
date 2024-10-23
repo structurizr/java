@@ -531,7 +531,7 @@ class DslTests extends AbstractTests {
     }
 
     @Test
-    void test_findElement_Hierachical() throws Exception {
+    void test_findElement_Hierarchical() throws Exception {
         File dslFile = new File("src/test/resources/dsl/find-element-hierarchical.dsl");
 
         StructurizrDslParser parser = new StructurizrDslParser();
@@ -541,6 +541,33 @@ class DslTests extends AbstractTests {
         assertEquals("Value1", component.getProperties().get("Name1"));
         assertEquals("Value2", component.getProperties().get("Name2"));
         assertEquals("Value3", component.getProperties().get("Name3"));
+    }
+
+    @Test
+    void test_findElements_InFlatGroup() throws Exception {
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(new File("src/test/resources/dsl/find-elements-in-flat-group.dsl"));
+
+        Person user = parser.getWorkspace().getModel().getPersonWithName("User");
+        assertTrue(user.hasEfferentRelationshipWith(parser.getWorkspace().getModel().getSoftwareSystemWithName("A"), "Uses"));
+        assertTrue(user.hasEfferentRelationshipWith(parser.getWorkspace().getModel().getSoftwareSystemWithName("B"), "Uses"));
+        assertTrue(user.hasEfferentRelationshipWith(parser.getWorkspace().getModel().getSoftwareSystemWithName("C"), "Uses"));
+    }
+
+    @Test
+    void test_findElements_InNestedGroup() throws Exception {
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(new File("src/test/resources/dsl/find-elements-in-nested-group.dsl"));
+
+        Person user1 = parser.getWorkspace().getModel().getPersonWithName("User 1");
+        assertTrue(user1.hasEfferentRelationshipWith(parser.getWorkspace().getModel().getSoftwareSystemWithName("A"), "Uses"));
+        assertTrue(user1.hasEfferentRelationshipWith(parser.getWorkspace().getModel().getSoftwareSystemWithName("B"), "Uses"));
+        assertTrue(user1.hasEfferentRelationshipWith(parser.getWorkspace().getModel().getSoftwareSystemWithName("C"), "Uses"));
+
+        Person user2 = parser.getWorkspace().getModel().getPersonWithName("User 2");
+        assertTrue(user2.hasEfferentRelationshipWith(parser.getWorkspace().getModel().getSoftwareSystemWithName("A"), "Uses"));
+        assertFalse(user2.hasEfferentRelationshipWith(parser.getWorkspace().getModel().getSoftwareSystemWithName("B"), "Uses"));
+        assertFalse(user2.hasEfferentRelationshipWith(parser.getWorkspace().getModel().getSoftwareSystemWithName("C"), "Uses"));
     }
 
     @Test

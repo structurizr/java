@@ -274,6 +274,12 @@ class ExpressionParser {
                     modelItems.add(relationship);
                 }
             });
+        } else {
+            // fallback that the expression is an identifier
+            Set<Element> elements = getElements(expr, context);
+            if (!elements.isEmpty()) {
+                modelItems.addAll(elements);
+            }
         }
 
         return modelItems;
