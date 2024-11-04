@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.1.0 (unreleased)
+## 3.1.0 (4th November 2024)
 
 - structurizr-client: Workspace archive file now includes the branch name in the filename.
 - structurizr-component: Adds `ImplementationWithPrefixSupportingTypesStrategy`.
