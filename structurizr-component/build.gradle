@@ -5,7 +5,7 @@ dependencies {
     implementation 'com.github.javaparser:javaparser-symbol-solver-core:3.26.2'
 
     testImplementation project(':structurizr-annotation')
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
 
 }
 
