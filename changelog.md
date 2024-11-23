@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.0 (unreleased)
+
+- structurizr-dsl: Adds support for `element!=` expressions.
+
 ## 3.1.0 (4th November 2024)
 
 - structurizr-client: Workspace archive file now includes the branch name in the filename.

@@ -18,21 +18,22 @@ class ExpressionParser {
         token = token.toLowerCase();
 
         return
+                token.startsWith(ELEMENT_EQUALS_EXPRESSION.toLowerCase()) ||
+                token.startsWith(ELEMENT_NOT_EQUALS_EXPRESSION.toLowerCase()) ||
                 token.startsWith(ELEMENT_TYPE_EQUALS_EXPRESSION.toLowerCase()) ||
-                        token.startsWith(ELEMENT_TAG_EQUALS_EXPRESSION.toLowerCase()) ||
-                        token.startsWith(ELEMENT_TAG_NOT_EQUALS_EXPRESSION.toLowerCase()) ||
-                        token.startsWith(ELEMENT_TECHNOLOGY_EQUALS_EXPRESSION.toLowerCase()) ||
-                        token.startsWith(ELEMENT_TECHNOLOGY_NOT_EQUALS_EXPRESSION.toLowerCase()) ||
-                        token.matches(ELEMENT_PROPERTY_EQUALS_EXPRESSION) ||
-                        token.startsWith(ELEMENT_PARENT_EQUALS_EXPRESSION.toLowerCase()) ||
-                        token.startsWith(RELATIONSHIP) || token.endsWith(RELATIONSHIP) || token.contains(RELATIONSHIP) ||
-                        token.startsWith(ELEMENT_EQUALS_EXPRESSION) ||
-                        token.startsWith(RELATIONSHIP_TAG_EQUALS_EXPRESSION.toLowerCase()) ||
-                        token.startsWith(RELATIONSHIP_TAG_NOT_EQUALS_EXPRESSION.toLowerCase()) ||
-                        token.matches(RELATIONSHIP_PROPERTY_EQUALS_EXPRESSION) ||
-                        token.startsWith(RELATIONSHIP_SOURCE_EQUALS_EXPRESSION.toLowerCase()) ||
-                        token.startsWith(RELATIONSHIP_DESTINATION_EQUALS_EXPRESSION.toLowerCase()) ||
-                        token.startsWith(RELATIONSHIP_EQUALS_EXPRESSION);
+                token.startsWith(ELEMENT_TAG_EQUALS_EXPRESSION.toLowerCase()) ||
+                token.startsWith(ELEMENT_TAG_NOT_EQUALS_EXPRESSION.toLowerCase()) ||
+                token.startsWith(ELEMENT_TECHNOLOGY_EQUALS_EXPRESSION.toLowerCase()) ||
+                token.startsWith(ELEMENT_TECHNOLOGY_NOT_EQUALS_EXPRESSION.toLowerCase()) ||
+                token.matches(ELEMENT_PROPERTY_EQUALS_EXPRESSION) ||
+                token.startsWith(ELEMENT_PARENT_EQUALS_EXPRESSION.toLowerCase()) ||
+                token.startsWith(RELATIONSHIP) || token.endsWith(RELATIONSHIP) || token.contains(RELATIONSHIP) ||
+                token.startsWith(RELATIONSHIP_TAG_EQUALS_EXPRESSION.toLowerCase()) ||
+                token.startsWith(RELATIONSHIP_TAG_NOT_EQUALS_EXPRESSION.toLowerCase()) ||
+                token.matches(RELATIONSHIP_PROPERTY_EQUALS_EXPRESSION) ||
+                token.startsWith(RELATIONSHIP_SOURCE_EQUALS_EXPRESSION.toLowerCase()) ||
+                token.startsWith(RELATIONSHIP_DESTINATION_EQUALS_EXPRESSION.toLowerCase()) ||
+                token.startsWith(RELATIONSHIP_EQUALS_EXPRESSION);
     }
 
 
@@ -70,6 +71,24 @@ class ExpressionParser {
                 modelItems.addAll(evaluateExpression(expr, context));
             } else {
                 modelItems.addAll(parseIdentifier(expr, context));
+            }
+        } else if (expr.startsWith(ELEMENT_NOT_EQUALS_EXPRESSION)) {
+            expr = expr.substring(ELEMENT_NOT_EQUALS_EXPRESSION.length());
+
+            if (isExpression(expr)) {
+                Set<ModelItem> mi = evaluateExpression(expr, context);
+                context.getWorkspace().getModel().getElements().forEach(element -> {
+                    if (!mi.contains(element)) {
+                        modelItems.add(element);
+                    }
+                });
+            } else {
+                Set<ModelItem> mi = parseIdentifier(expr, context);
+                context.getWorkspace().getModel().getElements().forEach(element -> {
+                    if (!mi.contains(element)) {
+                        modelItems.add(element);
+                    }
+                });
             }
         } else if (expr.startsWith(RELATIONSHIP_EQUALS_EXPRESSION)) {
             expr = expr.substring(RELATIONSHIP_EQUALS_EXPRESSION.length());

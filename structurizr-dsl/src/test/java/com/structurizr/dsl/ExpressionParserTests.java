@@ -541,4 +541,47 @@ class ExpressionParserTests extends AbstractTests {
         assertTrue(relationships.contains(impliedRelationship));
     }
 
+    @Test
+    void test_parseExpression_ReturnsElements_WhenUsingElementNotEqualsIdentifier() {
+        SoftwareSystem a = model.addSoftwareSystem("A");
+        SoftwareSystem b = model.addSoftwareSystem("B");
+        SoftwareSystem c = model.addSoftwareSystem("C");
+
+        SystemLandscapeViewDslContext context = new SystemLandscapeViewDslContext(null);
+        context.setWorkspace(workspace);
+
+        IdentifiersRegister map = new IdentifiersRegister();
+        map.register("a", a);
+        map.register("b", b);
+        map.register("c", c);
+        context.setIdentifierRegister(map);
+
+        Set<ModelItem> elements = parser.parseExpression("element!=c", context);
+        assertEquals(2, elements.size());
+        assertTrue(elements.contains(a));
+        assertTrue(elements.contains(b));
+    }
+
+    @Test
+    void test_parseExpression_ReturnsElements_WhenUsingElementNotEqualsExpression() {
+        SoftwareSystem a = model.addSoftwareSystem("A");
+        SoftwareSystem b = model.addSoftwareSystem("B");
+        SoftwareSystem c = model.addSoftwareSystem("C");
+        Relationship aToB = a.uses(b, "Uses");
+        Relationship bToC = b.uses(c, "Uses");
+
+        SystemLandscapeViewDslContext context = new SystemLandscapeViewDslContext(null);
+        context.setWorkspace(workspace);
+
+        IdentifiersRegister map = new IdentifiersRegister();
+        map.register("a", a);
+        map.register("b", b);
+        map.register("c", c);
+        context.setIdentifierRegister(map);
+
+        Set<ModelItem> elements = parser.parseExpression("element!=->b", context);
+        assertEquals(1, elements.size());
+        assertTrue(elements.contains(c));
+    }
+
 }
