@@ -3,6 +3,7 @@
 ## 3.2.0 (unreleased)
 
 - structurizr-dsl: Adds support for `element!=` expressions.
+- structurizr-dsl: `!elements` and `!relationships` now work inside deployment environment blocks.
 
 ## 3.1.0 (4th November 2024)
 

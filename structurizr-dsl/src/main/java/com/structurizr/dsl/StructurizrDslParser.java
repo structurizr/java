@@ -383,14 +383,14 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                             }
                         }
 
-                    } else if (FIND_ELEMENTS_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class) || inContext(ElementDslContext.class))) {
+                    } else if (FIND_ELEMENTS_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class) || inContext(DeploymentEnvironmentDslContext.class) || inContext(ElementDslContext.class))) {
                         Set<Element> elements = new FindElementsParser().parse(getContext(), tokens.withoutContextStartToken());
 
                         if (shouldStartContext(tokens)) {
                             startContext(new ElementsDslContext(getContext(), elements));
                         }
 
-                    } else if (FIND_RELATIONSHIPS_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class) || inContext(ElementDslContext.class))) {
+                    } else if (FIND_RELATIONSHIPS_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class) || inContext(DeploymentEnvironmentDslContext.class) || inContext(ElementDslContext.class))) {
                         Set<Relationship> relationships = new FindRelationshipsParser().parse(getContext(), tokens.withoutContextStartToken());
 
                         if (shouldStartContext(tokens)) {
