@@ -29,6 +29,8 @@ class ElementsDslContext extends ModelItemsDslContext {
     protected String[] getPermittedTokens() {
         return new String[] {
                 StructurizrDslTokens.RELATIONSHIP_TOKEN,
+                StructurizrDslTokens.DESCRIPTION_TOKEN,
+                StructurizrDslTokens.TECHNOLOGY_TOKEN,
                 StructurizrDslTokens.TAG_TOKEN,
                 StructurizrDslTokens.TAGS_TOKEN,
                 StructurizrDslTokens.URL_TOKEN,

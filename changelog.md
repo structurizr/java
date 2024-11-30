@@ -4,6 +4,7 @@
 
 - structurizr-dsl: Adds support for `element!=` expressions.
 - structurizr-dsl: `!elements` and `!relationships` now work inside deployment environment blocks.
+- structurizr-dsl: `description` and `technology` now work inside `!elements` blocks.
 
 ## 3.1.0 (4th November 2024)
 

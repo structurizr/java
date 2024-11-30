@@ -537,6 +537,9 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (DESCRIPTION_TOKEN.equalsIgnoreCase(firstToken) && inContext(ElementDslContext.class) && !isGroup(getContext())) {
                         new ModelItemParser().parseDescription(getContext(ElementDslContext.class), tokens);
 
+                    } else if (DESCRIPTION_TOKEN.equalsIgnoreCase(firstToken) && inContext(ElementsDslContext.class)) {
+                        new ElementsParser().parseDescription(getContext(ElementsDslContext.class), tokens);
+
                     } else if (TECHNOLOGY_TOKEN.equalsIgnoreCase(firstToken) && inContext(ContainerDslContext.class) && !getContext(ContainerDslContext.class).hasGroup()) {
                         new ContainerParser().parseTechnology(getContext(ContainerDslContext.class), tokens);
 
@@ -548,6 +551,9 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                     } else if (TECHNOLOGY_TOKEN.equalsIgnoreCase(firstToken) && inContext(InfrastructureNodeDslContext.class)) {
                         new InfrastructureNodeParser().parseTechnology(getContext(InfrastructureNodeDslContext.class), tokens);
+
+                    } else if (TECHNOLOGY_TOKEN.equalsIgnoreCase(firstToken) && inContext(ElementsDslContext.class)) {
+                        new ElementsParser().parseTechnology(getContext(ElementsDslContext.class), tokens);
 
                     } else if (INSTANCES_TOKEN.equalsIgnoreCase(firstToken) && inContext(DeploymentNodeDslContext.class)) {
                         new DeploymentNodeParser().parseInstances(getContext(DeploymentNodeDslContext.class), tokens);
