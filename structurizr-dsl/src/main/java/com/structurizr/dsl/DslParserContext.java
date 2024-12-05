@@ -4,8 +4,8 @@ import java.io.File;
 
 final class DslParserContext extends DslContext {
 
-    private boolean restricted;
-    private File file;
+    private final boolean restricted;
+    private final File file;
 
     DslParserContext(File file, boolean restricted) {
         this.file = file;

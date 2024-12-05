@@ -46,6 +46,7 @@ final class WorkspaceParser extends AbstractParser {
                             } else {
                                 String dsl = content.getContent();
                                 StructurizrDslParser structurizrDslParser = new StructurizrDslParser();
+                                structurizrDslParser.setRestricted(context.isRestricted());
                                 structurizrDslParser.parse(context, dsl);
                                 workspace = structurizrDslParser.getWorkspace();
                             }
