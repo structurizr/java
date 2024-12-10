@@ -1,5 +1,9 @@
 # Changelog
 
+## 3.2.1 (10th December 2024)
+
+- structurizr-core: Fixes https://github.com/structurizr/java/issues/362 (Ordering of replicated relationships in deployment environment is non-deterministic).
+
 ## 3.2.0 (6th December 2024)
 
 - structurizr-dsl: Adds support for `element!=` expressions.

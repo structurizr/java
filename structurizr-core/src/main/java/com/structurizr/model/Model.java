@@ -902,12 +902,11 @@ public final class Model implements PropertyHolder {
         StaticStructureElement element = elementInstance.getElement();
 
         // find all StaticStructureElementInstance objects in the same deployment environment and deployment group
-        Set<StaticStructureElementInstance> elementInstances = getElements().stream()
+        TreeSet<StaticStructureElementInstance> elementInstances = getElements().stream()
                 .filter(e -> e instanceof StaticStructureElementInstance)
-                .map(e -> (StaticStructureElementInstance)e)
+                .map(e -> (StaticStructureElementInstance) e)
                 .filter(ssei -> ssei.getEnvironment().equals(elementInstance.getEnvironment()))
-                .filter(ssei -> ssei.inSameDeploymentGroup(elementInstance))
-                .collect(Collectors.toSet());
+                .filter(ssei -> ssei.inSameDeploymentGroup(elementInstance)).collect(Collectors.toCollection(TreeSet::new));
 
         // and replicate the relationships to/from the element instance
         for (StaticStructureElementInstance ssei : elementInstances) {
