@@ -4,6 +4,7 @@ import com.structurizr.Workspace;
 import com.structurizr.documentation.Section;
 import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
+import com.structurizr.util.WorkspaceUtils;
 import com.structurizr.view.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -1440,6 +1441,17 @@ workspace extends source-parent.dsl {
         parser.parse(parentDslFile);
         Workspace workspace = parser.getWorkspace();
         assertNull(workspace.getProperties().get(DslUtils.STRUCTURIZR_DSL_PROPERTY_NAME));
+    }
+
+    @Test
+    void test_archetypes() throws Exception {
+        File parentDslFile = new File("src/test/resources/dsl/archetypes.dsl");
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.setArchetypesEnabled(true);
+        parser.parse(parentDslFile);
+        Workspace workspace = parser.getWorkspace();
+
+        WorkspaceUtils.printWorkspaceAsJson(workspace);
     }
 
 }
