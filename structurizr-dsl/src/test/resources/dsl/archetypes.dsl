@@ -2,8 +2,12 @@ workspace {
 
     model {
         archetypes {
-            application = container
-            datastore = container
+            application = container {
+                tag "Application"
+            }
+            datastore = container {
+                tag "Datastore"
+            }
 
             microservice = group
 

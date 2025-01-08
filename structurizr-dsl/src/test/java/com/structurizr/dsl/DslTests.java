@@ -1444,14 +1444,30 @@ workspace extends source-parent.dsl {
     }
 
     @Test
-    void test_archetypes() throws Exception {
+    void test_archetypes_WhenDisabled() throws Exception {
+        try {
+            File parentDslFile = new File("src/test/resources/dsl/archetypes.dsl");
+            StructurizrDslParser parser = new StructurizrDslParser();
+            parser.parse(parentDslFile);
+            fail();
+        } catch (StructurizrDslParserException e) {
+            assertTrue(e.getMessage().startsWith("Unexpected tokens (expected: !identifiers, group, person, softwareSystem, deploymentEnvironment, element, ->) at line 4"));
+            assertTrue(e.getMessage().endsWith("archetypes {"));
+        }
+    }
+
+    @Test
+    void test_archetypes_WhenEnabled() throws Exception {
         File parentDslFile = new File("src/test/resources/dsl/archetypes.dsl");
         StructurizrDslParser parser = new StructurizrDslParser();
-        parser.setArchetypesEnabled(true);
+        parser.getFeatures().enable(Features.ARCHETYPES);
         parser.parse(parentDslFile);
         Workspace workspace = parser.getWorkspace();
 
-        WorkspaceUtils.printWorkspaceAsJson(workspace);
+        Container customerApi = workspace.getModel().getSoftwareSystemWithName("X").getContainerWithName("Customer API");
+        assertTrue(customerApi.getTagsAsSet().contains("Application"));
+        assertTrue(customerApi.getTagsAsSet().contains("Spring Boot"));
+        assertEquals("Spring Boot", customerApi.getTechnology());
     }
 
 }
