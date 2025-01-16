@@ -22,6 +22,7 @@ import org.apache.hc.client5.http.impl.classic.HttpClients;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.Header;
 import org.apache.hc.core5.http.HttpStatus;
+import org.apache.hc.core5.http.ParseException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.StringEntity;
 
@@ -201,11 +202,10 @@ public class WorkspaceApiClient extends AbstractApiClient {
             debugRequest(httpRequest, null);
 
             try (CloseableHttpResponse response = httpClient.execute(httpRequest)) {
-                debugResponse(response);
+                String json = EntityUtils.toString(response.getEntity());
+                debugResponse(response, json);
 
-                String responseText = EntityUtils.toString(response.getEntity());
-                ApiResponse apiResponse = ApiResponse.parse(responseText);
-                log.info(responseText);
+                ApiResponse apiResponse = ApiResponse.parse(json);
 
                 if (response.getCode() == HttpStatus.SC_OK) {
                     return apiResponse.isSuccess();
@@ -245,9 +245,9 @@ public class WorkspaceApiClient extends AbstractApiClient {
             debugRequest(httpGet, null);
 
             try (CloseableHttpResponse response = httpClient.execute(httpGet)) {
-                debugResponse(response);
-
                 String json = EntityUtils.toString(response.getEntity());
+                debugResponse(response, json);
+
                 if (response.getCode() == HttpStatus.SC_OK) {
                     archiveWorkspace(workspaceId, json);
 
@@ -339,10 +339,9 @@ public class WorkspaceApiClient extends AbstractApiClient {
             log.info("Putting workspace with ID " + workspaceId);
             try (CloseableHttpResponse response = httpClient.execute(httpPut)) {
                 String json = EntityUtils.toString(response.getEntity());
-                if (response.getCode() == HttpStatus.SC_OK) {
-                    debugResponse(response);
-                    log.info(json);
-                } else {
+                debugResponse(response, json);
+
+                if (response.getCode() != HttpStatus.SC_OK) {
                     ApiResponse apiResponse = ApiResponse.parse(json);
                     throw new StructurizrClientException(apiResponse.getMessage());
                 }
@@ -355,19 +354,29 @@ public class WorkspaceApiClient extends AbstractApiClient {
 
     private void debugRequest(HttpUriRequestBase httpRequest, String content) {
         if (log.isDebugEnabled()) {
-            log.debug(httpRequest.getMethod() + " " + httpRequest.getPath());
+            log.debug("Request");
+            log.debug("HTTP method: " + httpRequest.getMethod());
+            log.debug("Path: " + httpRequest.getPath());
             Header[] headers = httpRequest.getHeaders();
             for (Header header : headers) {
-                log.debug(header.getName() + ": " + header.getValue());
+                log.debug("Header: " + header.getName() + "=" + header.getValue());
             }
             if (content != null) {
+                log.debug("---Start content---");
                 log.debug(content);
+                log.debug("---End content---");
             }
         }
     }
 
-    private void debugResponse(CloseableHttpResponse response) {
-        log.debug(response.getCode());
+    private void debugResponse(CloseableHttpResponse response, String content) {
+        log.debug("Response");
+        log.debug("HTTP status code: " + response.getCode());
+        if (content != null) {
+            log.debug("---Start content---");
+            log.debug(content);
+            log.debug("---End content---");
+        }
     }
 
     private void addHeaders(HttpUriRequestBase httpRequest, String content, String contentType) throws Exception {
