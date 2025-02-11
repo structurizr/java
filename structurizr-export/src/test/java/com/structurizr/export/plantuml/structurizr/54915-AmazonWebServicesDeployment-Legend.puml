@@ -22,7 +22,7 @@ skinparam rectangle<<1>> {
   BorderColor #cc2264
   roundCorner 20
 }
-rectangle "==Amazon Web Services - Auto Scaling\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/AWS-Auto-Scaling_light-bg@4x.png{scale=0.1}>" <<1>>
+rectangle "==Amazon Web Services - Auto Scaling\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.1}>" <<1>>
 
 skinparam rectangle<<2>> {
   BackgroundColor #ffffff
@@ -30,7 +30,7 @@ skinparam rectangle<<2>> {
   BorderColor #232f3e
   roundCorner 20
 }
-rectangle "==Amazon Web Services - Cloud\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/AWS-Cloud_light-bg@4x.png{scale=0.21428571428571427}>" <<2>>
+rectangle "==Amazon Web Services - Cloud\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.21428571428571427}>" <<2>>
 
 skinparam rectangle<<3>> {
   BackgroundColor #ffffff
@@ -38,7 +38,7 @@ skinparam rectangle<<3>> {
   BorderColor #d86613
   roundCorner 20
 }
-rectangle "==Amazon Web Services - EC2\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Amazon-EC2_light-bg@4x.png{scale=0.1}>" <<3>>
+rectangle "==Amazon Web Services - EC2\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.1}>" <<3>>
 
 skinparam rectangle<<4>> {
   BackgroundColor #ffffff
@@ -46,7 +46,7 @@ skinparam rectangle<<4>> {
   BorderColor #693cc5
   roundCorner 20
 }
-rectangle "==Amazon Web Services - Elastic Load Balancing\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Elastic-Load-Balancing_light-bg@4x.png{scale=0.1}>" <<4>>
+rectangle "==Amazon Web Services - Elastic Load Balancing\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/elastic-load-balancing.png{scale=0.1}>" <<4>>
 
 skinparam rectangle<<5>> {
   BackgroundColor #ffffff
@@ -54,7 +54,7 @@ skinparam rectangle<<5>> {
   BorderColor #3b48cc
   roundCorner 20
 }
-rectangle "==Amazon Web Services - RDS\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Amazon-RDS_light-bg@4x.png{scale=0.1}>" <<5>>
+rectangle "==Amazon Web Services - RDS\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.1}>" <<5>>
 
 skinparam rectangle<<6>> {
   BackgroundColor #ffffff
@@ -62,7 +62,7 @@ skinparam rectangle<<6>> {
   BorderColor #3b48cc
   roundCorner 20
 }
-rectangle "==Amazon Web Services - RDS MySQL instance\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Amazon-RDS_MySQL_instance_light-bg@4x.png{scale=0.15}>" <<6>>
+rectangle "==Amazon Web Services - RDS MySQL instance\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.15}>" <<6>>
 
 skinparam rectangle<<7>> {
   BackgroundColor #ffffff
@@ -70,7 +70,7 @@ skinparam rectangle<<7>> {
   BorderColor #147eba
   roundCorner 20
 }
-rectangle "==Amazon Web Services - Region\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Region_light-bg@4x.png{scale=0.21428571428571427}>" <<7>>
+rectangle "==Amazon Web Services - Region\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.21428571428571427}>" <<7>>
 
 skinparam rectangle<<8>> {
   BackgroundColor #ffffff
@@ -78,7 +78,7 @@ skinparam rectangle<<8>> {
   BorderColor #693cc5
   roundCorner 20
 }
-rectangle "==Amazon Web Services - Route 53\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Amazon-Route-53_light-bg@4x.png{scale=0.1}>" <<8>>
+rectangle "==Amazon Web Services - Route 53\n\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-route-53.png{scale=0.1}>" <<8>>
 
 skinparam rectangle<<9>> {
   BackgroundColor #ffffff

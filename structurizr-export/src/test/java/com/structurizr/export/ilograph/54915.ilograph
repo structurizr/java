@@ -26,7 +26,7 @@ resources:
     subtitle: "[Deployment Node]"
     backgroundColor: "#ffffff"
     color: "#232f3e"
-    icon: "https://static.structurizr.com/themes/amazon-web-services-2020.04.30/AWS-Cloud_light-bg@4x.png"
+    icon: "https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png"
 
     children:
       - id: "6"
@@ -34,7 +34,7 @@ resources:
         subtitle: "[Deployment Node]"
         backgroundColor: "#ffffff"
         color: "#147eba"
-        icon: "https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Region_light-bg@4x.png"
+        icon: "https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png"
 
         children:
           - id: "12"
@@ -42,7 +42,7 @@ resources:
             subtitle: "[Deployment Node]"
             backgroundColor: "#ffffff"
             color: "#3b48cc"
-            icon: "https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Amazon-RDS_light-bg@4x.png"
+            icon: "https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png"
 
             children:
               - id: "13"
@@ -50,7 +50,7 @@ resources:
                 subtitle: "[Deployment Node]"
                 backgroundColor: "#ffffff"
                 color: "#3b48cc"
-                icon: "https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Amazon-RDS_MySQL_instance_light-bg@4x.png"
+                icon: "https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png"
 
                 children:
                   - id: "14"
@@ -65,7 +65,7 @@ resources:
             subtitle: "[Deployment Node]"
             backgroundColor: "#ffffff"
             color: "#cc2264"
-            icon: "https://static.structurizr.com/themes/amazon-web-services-2020.04.30/AWS-Auto-Scaling_light-bg@4x.png"
+            icon: "https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png"
 
             children:
               - id: "10"
@@ -73,7 +73,7 @@ resources:
                 subtitle: "[Deployment Node]"
                 backgroundColor: "#ffffff"
                 color: "#d86613"
-                icon: "https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Amazon-EC2_light-bg@4x.png"
+                icon: "https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png"
 
                 children:
                   - id: "11"
@@ -97,7 +97,7 @@ resources:
             description: "Automatically distributes incoming application traffic."
             backgroundColor: "#ffffff"
             color: "#693cc5"
-            icon: "https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Elastic-Load-Balancing_light-bg@4x.png"
+            icon: "https://static.structurizr.com/themes/amazon-web-services-2020.04.30/elastic-load-balancing.png"
 
 perspectives:
   - name: Static Structure
