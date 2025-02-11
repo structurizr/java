@@ -39,7 +39,7 @@ public class ThemeUtilsTests {
         assertNotNull(style);
         assertEquals("#d6242d", style.getStroke());
         assertEquals("#d6242d", style.getColor());
-        assertEquals("https://static.structurizr.com/themes/amazon-web-services-2020.04.30/Alexa-For-Business_light-bg@4x.png", style.getIcon());
+        assertEquals("https://static.structurizr.com/themes/amazon-web-services-2020.04.30/alexa-for-business.png", style.getIcon());
     }
 
     @Test
@@ -141,7 +141,7 @@ public class ThemeUtilsTests {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
         softwareSystem.addTags("Amazon Web Services - Alexa For Business");
-        workspace.getViews().getConfiguration().setThemes("https://raw.githubusercontent.com/structurizr/themes/master/amazon-web-services-2020.04.30/theme.json");
+        workspace.getViews().getConfiguration().setThemes("https://static.structurizr.com/themes/amazon-web-services-2020.04.30/theme.json");
 
         ThemeUtils.loadThemes(workspace);
 
@@ -153,7 +153,7 @@ public class ThemeUtilsTests {
         assertNotNull(style);
         assertEquals("#d6242d", style.getStroke());
         assertEquals("#d6242d", style.getColor());
-        assertEquals("https://raw.githubusercontent.com/structurizr/themes/master/amazon-web-services-2020.04.30/Alexa-For-Business_light-bg@4x.png", style.getIcon());
+        assertEquals("https://static.structurizr.com/themes/amazon-web-services-2020.04.30/alexa-for-business.png", style.getIcon());
     }
 
 }
