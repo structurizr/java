@@ -634,7 +634,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         if (parsedTokens.contains(WORKSPACE_TOKEN)) {
                             throw new RuntimeException("Multiple workspaces are not permitted in a DSL definition");
                         }
-                        DslParserContext dslParserContext = new DslParserContext(dslFile, restricted);
+                        DslParserContext dslParserContext = new DslParserContext(this, dslFile, restricted);
                         dslParserContext.setIdentifierRegister(identifiersRegister);
 
                         workspace = new WorkspaceParser().parse(dslParserContext, tokens.withoutContextStartToken());

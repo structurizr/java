@@ -1,5 +1,9 @@
 # Changelog
 
+## (unreleased)
+
+- structurizr-dsl: Fixes https://github.com/structurizr/java/issues/374 (!identifiers hierarchical isn't propagated when extending a workspace).
+
 ## 3.2.1 (10th December 2024)
 
 - structurizr-core: Fixes https://github.com/structurizr/java/issues/362 (Ordering of replicated relationships in deployment environment is non-deterministic).

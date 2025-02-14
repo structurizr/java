@@ -4,12 +4,18 @@ import java.io.File;
 
 final class DslParserContext extends DslContext {
 
-    private final boolean restricted;
+    private final StructurizrDslParser parser;
     private final File file;
+    private final boolean restricted;
 
-    DslParserContext(File file, boolean restricted) {
+    DslParserContext(StructurizrDslParser parser, File file, boolean restricted) {
+        this.parser = parser;
         this.file = file;
         this.restricted = restricted;
+    }
+
+    StructurizrDslParser getParser() {
+        return parser;
     }
 
     File getFile() {

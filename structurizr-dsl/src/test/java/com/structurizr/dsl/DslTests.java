@@ -479,6 +479,8 @@ class DslTests extends AbstractTests {
         parser.parse(new File(dslFile));
 
         Workspace workspace = parser.getWorkspace();
+        assertEquals(IdentifierScope.Hierarchical, parser.getIdentifierScope());
+
         Model model = workspace.getModel();
         assertEquals(CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy.class, model.getImpliedRelationshipsStrategy().getClass());
 
