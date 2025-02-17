@@ -2,7 +2,6 @@ package com.structurizr.dsl;
 
 import com.structurizr.component.ComponentFinderBuilder;
 import com.structurizr.model.Component;
-import com.structurizr.model.Container;
 
 import java.util.Set;
 
@@ -11,10 +10,12 @@ final class ComponentFinderDslContext extends DslContext {
     private final ComponentFinderBuilder componentFinderBuilder = new ComponentFinderBuilder();
 
     private final StructurizrDslParser dslParser;
+    private final ContainerDslContext containerDslContext;
 
-    ComponentFinderDslContext(StructurizrDslParser dslParser, Container container) {
+    ComponentFinderDslContext(StructurizrDslParser dslParser, ContainerDslContext containerDslContext) {
         this.dslParser = dslParser;
-        componentFinderBuilder.forContainer(container);
+        this.containerDslContext = containerDslContext;
+        componentFinderBuilder.forContainer(containerDslContext.getContainer());
     }
 
     @Override
@@ -24,6 +25,10 @@ final class ComponentFinderDslContext extends DslContext {
             StructurizrDslTokens.COMPONENT_FINDER_SOURCE_TOKEN,
             StructurizrDslTokens.COMPONENT_FINDER_STRATEGY_TOKEN
         };
+    }
+
+    ContainerDslContext getContainerDslContext() {
+        return containerDslContext;
     }
 
     ComponentFinderBuilder getComponentFinderBuilder() {

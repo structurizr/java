@@ -10,6 +10,12 @@ final class ComponentFinderStrategyForEachDslContext extends DslContext {
     ComponentFinderStrategyForEachDslContext(ComponentFinderStrategyDslContext dslContext, StructurizrDslParser dslParser) {
         dslContext.getComponentFinderStrategyBuilder().forEach(component -> {
             try {
+                ContainerDslContext containerDslContext = dslContext.getComponentFinderDslContext().getContainerDslContext();
+                if (containerDslContext.hasGroup()) {
+                    component.setGroup(containerDslContext.getGroup().getName());
+                    containerDslContext.getGroup().addElement(component);
+                }
+
                 dslParser.parse(dslLines, new ComponentDslContext(component));
             } catch (StructurizrDslParserException e) {
                 throw new RuntimeException(e);
@@ -23,7 +29,7 @@ final class ComponentFinderStrategyForEachDslContext extends DslContext {
 
     @Override
     protected String[] getPermittedTokens() {
-        return new String[] {};
+        return new ComponentDslContext(null).getPermittedTokens();
     }
 
 }

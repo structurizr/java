@@ -1324,6 +1324,7 @@ class DslTests extends AbstractTests {
             assertEquals("org/springframework/samples/petclinic/system/WelcomeController.java", welcomeController.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/system/WelcomeController.java", welcomeController.getUrl());
             assertSame(welcomeController, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.welcomecontroller"));
+            assertEquals("Web Controllers", welcomeController.getGroup());
             assertTrue(clinicEmployee.hasEfferentRelationshipWith(welcomeController));
 
             Component ownerController = webApplication.getComponentWithName("Owner Controller");
@@ -1332,6 +1333,7 @@ class DslTests extends AbstractTests {
             assertEquals("org/springframework/samples/petclinic/owner/OwnerController.java", ownerController.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java", ownerController.getUrl());
             assertSame(ownerController, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.ownerController"));
+            assertEquals("Web Controllers", ownerController.getGroup());
             assertTrue(clinicEmployee.hasEfferentRelationshipWith(ownerController));
 
             Component petController = webApplication.getComponentWithName("Pet Controller");
@@ -1340,6 +1342,7 @@ class DslTests extends AbstractTests {
             assertEquals("org/springframework/samples/petclinic/owner/PetController.java", petController.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/owner/PetController.java", petController.getUrl());
             assertSame(petController, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.petcontroller"));
+            assertEquals("Web Controllers", petController.getGroup());
             assertTrue(clinicEmployee.hasEfferentRelationshipWith(petController));
 
             Component vetController = webApplication.getComponentWithName("Vet Controller");
@@ -1348,6 +1351,7 @@ class DslTests extends AbstractTests {
             assertEquals("org/springframework/samples/petclinic/vet/VetController.java", vetController.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/vet/VetController.java", vetController.getUrl());
             assertSame(vetController, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.vetcontroller"));
+            assertEquals("Web Controllers", vetController.getGroup());
             assertTrue(clinicEmployee.hasEfferentRelationshipWith(vetController));
 
             Component visitController = webApplication.getComponentWithName("Visit Controller");
@@ -1356,6 +1360,7 @@ class DslTests extends AbstractTests {
             assertEquals("org/springframework/samples/petclinic/owner/VisitController.java", visitController.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/owner/VisitController.java", visitController.getUrl());
             assertSame(visitController, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.visitcontroller"));
+            assertEquals("Web Controllers", visitController.getGroup());
             assertTrue(clinicEmployee.hasEfferentRelationshipWith(visitController));
 
             Component ownerRepository = webApplication.getComponentWithName("Owner Repository");
@@ -1365,6 +1370,7 @@ class DslTests extends AbstractTests {
             assertEquals("org/springframework/samples/petclinic/owner/OwnerRepository.java", ownerRepository.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java", ownerRepository.getUrl());
             assertSame(ownerRepository, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.ownerrepository"));
+            assertEquals("Data Repositories", ownerRepository.getGroup());
             assertTrue(ownerRepository.hasEfferentRelationshipWith(relationalDatabaseSchema, "Reads from and writes to"));
 
             Component vetRepository = webApplication.getComponentWithName("Vet Repository");
@@ -1374,6 +1380,7 @@ class DslTests extends AbstractTests {
             assertEquals("org/springframework/samples/petclinic/vet/VetRepository.java", vetRepository.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java", vetRepository.getUrl());
             assertSame(vetRepository, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.vetrepository"));
+            assertEquals("Data Repositories", vetRepository.getGroup());
             assertTrue(vetRepository.hasEfferentRelationshipWith(relationalDatabaseSchema, "Reads from and writes to"));
 
             assertTrue(welcomeController.getRelationships().isEmpty());

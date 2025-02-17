@@ -32,6 +32,7 @@ workspace "Spring PetClinic" "A C4 model of the Spring PetClinic sample app (htt
                         forEach {
                             clinicEmployee -> this "Uses"
                             tag "Spring MVC Controller"
+                            group "Web Controllers"
                         }
                     }
                     strategy {
@@ -42,6 +43,7 @@ workspace "Spring PetClinic" "A C4 model of the Spring PetClinic sample app (htt
                         forEach {
                             -> relationalDatabaseSchema "Reads from and writes to"
                             tag "Spring Data Repository"
+                            group "Data Repositories"
                         }
                     }
                 }

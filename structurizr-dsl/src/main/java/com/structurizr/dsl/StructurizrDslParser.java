@@ -4,7 +4,6 @@ import com.structurizr.PropertyHolder;
 import com.structurizr.Workspace;
 import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
-import com.structurizr.util.TagUtils;
 import com.structurizr.view.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -469,7 +468,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (COMPONENT_FINDER_TOKEN.equalsIgnoreCase(firstToken) && inContext(ContainerDslContext.class)) {
                         if (!restricted) {
                             if (shouldStartContext(tokens)) {
-                                startContext(new ComponentFinderDslContext(this, getContext(ContainerDslContext.class).getContainer()));
+                                startContext(new ComponentFinderDslContext(this, getContext(ContainerDslContext.class)));
                             }
                         } else {
                             throwRestrictedModeException(firstToken);
@@ -486,7 +485,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                     } else if (COMPONENT_FINDER_STRATEGY_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderDslContext.class)) {
                         if (shouldStartContext(tokens)) {
-                            startContext(new ComponentFinderStrategyDslContext(getContext(ComponentFinderDslContext.class).getComponentFinderBuilder()));
+                            startContext(new ComponentFinderStrategyDslContext(getContext(ComponentFinderDslContext.class)));
                         }
 
                     } else if (COMPONENT_FINDER_STRATEGY_TECHNOLOGY_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderStrategyDslContext.class)) {
