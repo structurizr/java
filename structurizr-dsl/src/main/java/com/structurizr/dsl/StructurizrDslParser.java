@@ -522,32 +522,32 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         throw new RuntimeException("The enterprise keyword was previously deprecated, and has now been removed - please use group instead (https://docs.structurizr.com/dsl/language#group)");
 
                     } else if (isElementKeywordOrArchetype(firstToken, GROUP_TOKEN) && inContext(ModelDslContext.class)) {
-                        ElementGroup group = new GroupParser().parse(getContext(ModelDslContext.class), tokens);
+                        ElementGroup group = new GroupParser().parseContext(getContext(ModelDslContext.class), tokens);
 
                         startContext(new ModelDslContext(group));
                         registerIdentifier(identifier, group);
                     } else if (isElementKeywordOrArchetype(firstToken, GROUP_TOKEN) && inContext(SoftwareSystemDslContext.class)) {
-                        ElementGroup group = new GroupParser().parse(getContext(SoftwareSystemDslContext.class), tokens);
+                        ElementGroup group = new GroupParser().parseContext(getContext(SoftwareSystemDslContext.class), tokens);
 
                         SoftwareSystem softwareSystem = getContext(SoftwareSystemDslContext.class).getSoftwareSystem();
                         group.setParent(softwareSystem);
                         startContext(new SoftwareSystemDslContext(softwareSystem, group));
                         registerIdentifier(identifier, group);
                     } else if (isElementKeywordOrArchetype(firstToken, GROUP_TOKEN) && inContext(ContainerDslContext.class)) {
-                        ElementGroup group = new GroupParser().parse(getContext(ContainerDslContext.class), tokens);
+                        ElementGroup group = new GroupParser().parseContext(getContext(ContainerDslContext.class), tokens);
 
                         Container container = getContext(ContainerDslContext.class).getContainer();
                         group.setParent(container);
                         startContext(new ContainerDslContext(container, group));
                         registerIdentifier(identifier, group);
                     } else if (isElementKeywordOrArchetype(firstToken, GROUP_TOKEN) && inContext(DeploymentEnvironmentDslContext.class)) {
-                        ElementGroup group = new GroupParser().parse(getContext(DeploymentEnvironmentDslContext.class), tokens);
+                        ElementGroup group = new GroupParser().parseContext(getContext(DeploymentEnvironmentDslContext.class), tokens);
 
                         String environment = getContext(DeploymentEnvironmentDslContext.class).getEnvironment();
                         startContext(new DeploymentEnvironmentDslContext(environment, group));
                         registerIdentifier(identifier, group);
                     } else if (isElementKeywordOrArchetype(firstToken, GROUP_TOKEN) && inContext(DeploymentNodeDslContext.class)) {
-                        ElementGroup group = new GroupParser().parse(getContext(DeploymentNodeDslContext.class), tokens);
+                        ElementGroup group = new GroupParser().parseContext(getContext(DeploymentNodeDslContext.class), tokens);
 
                         DeploymentNode deploymentNode = getContext(DeploymentNodeDslContext.class).getDeploymentNode();
                         startContext(new DeploymentNodeDslContext(deploymentNode, group));
@@ -629,6 +629,9 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                     } else if (inContext(PerspectivesDslContext.class)) {
                         new PerspectiveParser().parse(getContext(PerspectivesDslContext.class), tokens);
+
+                    } else if (GROUP_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentDslContext.class)) {
+                        new GroupParser().parseProperty(getContext(ComponentDslContext.class), tokens);
 
                     } else if (WORKSPACE_TOKEN.equalsIgnoreCase(firstToken) && contextStack.empty()) {
                         if (parsedTokens.contains(WORKSPACE_TOKEN)) {

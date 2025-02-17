@@ -641,6 +641,12 @@ class DslTests extends AbstractTests {
         Container aApi = a.getContainerWithName("A API");
         assertEquals("Capability 1/Service A", aApi.getGroup());
 
+        Component aApiEndpoint = aApi.getComponentWithName("API Endpoint");
+        assertEquals("a-api.jar/API Layer", aApiEndpoint.getGroup());
+
+        Component aApiRepository = aApi.getComponentWithName("Repository");
+        assertEquals("a-api.jar/Data Layer", aApiRepository.getGroup());
+
         Container aDatabase = a.getContainerWithName("A Database");
         assertEquals("Capability 1/Service A", aDatabase.getGroup());
 
