@@ -21,7 +21,7 @@ workspace "Spring PetClinic" "A C4 model of the Spring PetClinic sample app (htt
                 technology "Java and Spring"
 
                 !components {
-                    classes "${SPRING_PETCLINIC_HOME}/target/spring-petclinic-3.3.0-SNAPSHOT.jar"
+                    classes "${SPRING_PETCLINIC_HOME}/target/spring-petclinic-3.4.0-SNAPSHOT.jar"
                     source "${SPRING_PETCLINIC_HOME}/src/main/java"
                     filter include fqn-regex "org.springframework.samples.petclinic..*"
                     strategy {
@@ -36,7 +36,7 @@ workspace "Spring PetClinic" "A C4 model of the Spring PetClinic sample app (htt
                     }
                     strategy {
                         technology "Spring Data Repository"
-                        matcher implements "org.springframework.data.repository.Repository"
+                        matcher name-suffix "Repository"
                         description first-sentence
                         url prefix-src "https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java"
                         forEach {
