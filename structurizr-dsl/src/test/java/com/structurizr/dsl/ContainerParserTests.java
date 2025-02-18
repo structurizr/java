@@ -9,11 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class ContainerParserTests extends AbstractTests {
 
     private ContainerParser parser = new ContainerParser();
+    private Archetype archetype = new Archetype("name", "type");
 
     @Test
     void test_parse_ThrowsAnException_WhenThereAreTooManyTokens() {
         try {
-            parser.parse(new SoftwareSystemDslContext(null), tokens("container", "name", "description", "technology", "tags", "extra"));
+            parser.parse(new SoftwareSystemDslContext(null), tokens("container", "name", "description", "technology", "tags", "extra"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("Too many tokens, expected: container <name> [description] [technology] [tags]", e.getMessage());
@@ -23,7 +24,7 @@ class ContainerParserTests extends AbstractTests {
     @Test
     void test_parse_ThrowsAnException_WhenTheNameIsNotSpecified() {
         try {
-            parser.parse(new SoftwareSystemDslContext(null), tokens("container"));
+            parser.parse(new SoftwareSystemDslContext(null), tokens("container"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("Expected: container <name> [description] [technology] [tags]", e.getMessage());
@@ -34,7 +35,7 @@ class ContainerParserTests extends AbstractTests {
     void test_parse_CreatesAContainer() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
         SoftwareSystemDslContext context = new SoftwareSystemDslContext(softwareSystem);
-        parser.parse(context, tokens("container", "Name"));
+        parser.parse(context, tokens("container", "Name"), archetype);
 
         assertEquals(2, model.getElements().size());
         Container container = softwareSystem.getContainerWithName("Name");
@@ -48,7 +49,7 @@ class ContainerParserTests extends AbstractTests {
     void test_parse_CreatesAContainerWithADescription() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
         SoftwareSystemDslContext context = new SoftwareSystemDslContext(softwareSystem);
-        parser.parse(context, tokens("container", "Name", "Description"));
+        parser.parse(context, tokens("container", "Name", "Description"), archetype);
 
         assertEquals(2, model.getElements().size());
         Container container = softwareSystem.getContainerWithName("Name");
@@ -62,7 +63,7 @@ class ContainerParserTests extends AbstractTests {
     void test_parse_CreatesAContainerWithADescriptionAndTechnology() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
         SoftwareSystemDslContext context = new SoftwareSystemDslContext(softwareSystem);
-        parser.parse(context, tokens("container", "Name", "Description", "Technology"));
+        parser.parse(context, tokens("container", "Name", "Description", "Technology"), archetype);
 
         assertEquals(2, model.getElements().size());
         Container container = softwareSystem.getContainerWithName("Name");
@@ -76,7 +77,7 @@ class ContainerParserTests extends AbstractTests {
     void test_parse_CreatesAContainerWithADescriptionAndTechnologyAndTags() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
         SoftwareSystemDslContext context = new SoftwareSystemDslContext(softwareSystem);
-        parser.parse(context, tokens("container", "Name", "Description", "Technology", "Tag 1, Tag 2"));
+        parser.parse(context, tokens("container", "Name", "Description", "Technology", "Tag 1, Tag 2"), archetype);
 
         assertEquals(2, model.getElements().size());
         Container container = softwareSystem.getContainerWithName("Name");

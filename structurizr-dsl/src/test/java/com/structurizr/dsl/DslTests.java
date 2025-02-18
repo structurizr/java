@@ -479,6 +479,8 @@ class DslTests extends AbstractTests {
         parser.parse(new File(dslFile));
 
         Workspace workspace = parser.getWorkspace();
+        assertEquals(IdentifierScope.Hierarchical, parser.getIdentifierScope());
+
         Model model = workspace.getModel();
         assertEquals(CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy.class, model.getImpliedRelationshipsStrategy().getClass());
 
@@ -638,6 +640,12 @@ class DslTests extends AbstractTests {
 
         Container aApi = a.getContainerWithName("A API");
         assertEquals("Capability 1/Service A", aApi.getGroup());
+
+        Component aApiEndpoint = aApi.getComponentWithName("API Endpoint");
+        assertEquals("a-api.jar/API Layer", aApiEndpoint.getGroup());
+
+        Component aApiRepository = aApi.getComponentWithName("Repository");
+        assertEquals("a-api.jar/Data Layer", aApiRepository.getGroup());
 
         Container aDatabase = a.getContainerWithName("A Database");
         assertEquals("Capability 1/Service A", aDatabase.getGroup());
@@ -1316,6 +1324,7 @@ class DslTests extends AbstractTests {
             assertEquals("org/springframework/samples/petclinic/system/WelcomeController.java", welcomeController.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/system/WelcomeController.java", welcomeController.getUrl());
             assertSame(welcomeController, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.welcomecontroller"));
+            assertEquals("Web Controllers", welcomeController.getGroup());
             assertTrue(clinicEmployee.hasEfferentRelationshipWith(welcomeController));
 
             Component ownerController = webApplication.getComponentWithName("Owner Controller");
@@ -1324,6 +1333,7 @@ class DslTests extends AbstractTests {
             assertEquals("org/springframework/samples/petclinic/owner/OwnerController.java", ownerController.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/owner/OwnerController.java", ownerController.getUrl());
             assertSame(ownerController, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.ownerController"));
+            assertEquals("Web Controllers", ownerController.getGroup());
             assertTrue(clinicEmployee.hasEfferentRelationshipWith(ownerController));
 
             Component petController = webApplication.getComponentWithName("Pet Controller");
@@ -1332,6 +1342,7 @@ class DslTests extends AbstractTests {
             assertEquals("org/springframework/samples/petclinic/owner/PetController.java", petController.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/owner/PetController.java", petController.getUrl());
             assertSame(petController, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.petcontroller"));
+            assertEquals("Web Controllers", petController.getGroup());
             assertTrue(clinicEmployee.hasEfferentRelationshipWith(petController));
 
             Component vetController = webApplication.getComponentWithName("Vet Controller");
@@ -1340,6 +1351,7 @@ class DslTests extends AbstractTests {
             assertEquals("org/springframework/samples/petclinic/vet/VetController.java", vetController.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/vet/VetController.java", vetController.getUrl());
             assertSame(vetController, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.vetcontroller"));
+            assertEquals("Web Controllers", vetController.getGroup());
             assertTrue(clinicEmployee.hasEfferentRelationshipWith(vetController));
 
             Component visitController = webApplication.getComponentWithName("Visit Controller");
@@ -1348,6 +1360,7 @@ class DslTests extends AbstractTests {
             assertEquals("org/springframework/samples/petclinic/owner/VisitController.java", visitController.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/owner/VisitController.java", visitController.getUrl());
             assertSame(visitController, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.visitcontroller"));
+            assertEquals("Web Controllers", visitController.getGroup());
             assertTrue(clinicEmployee.hasEfferentRelationshipWith(visitController));
 
             Component ownerRepository = webApplication.getComponentWithName("Owner Repository");
@@ -1357,6 +1370,7 @@ class DslTests extends AbstractTests {
             assertEquals("org/springframework/samples/petclinic/owner/OwnerRepository.java", ownerRepository.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/owner/OwnerRepository.java", ownerRepository.getUrl());
             assertSame(ownerRepository, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.ownerrepository"));
+            assertEquals("Data Repositories", ownerRepository.getGroup());
             assertTrue(ownerRepository.hasEfferentRelationshipWith(relationalDatabaseSchema, "Reads from and writes to"));
 
             Component vetRepository = webApplication.getComponentWithName("Vet Repository");
@@ -1366,6 +1380,7 @@ class DslTests extends AbstractTests {
             assertEquals("org/springframework/samples/petclinic/vet/VetRepository.java", vetRepository.getProperties().get("component.src"));
             assertEquals("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/vet/VetRepository.java", vetRepository.getUrl());
             assertSame(vetRepository, parser.getIdentifiersRegister().getElement("springPetClinic.webApplication.vetrepository"));
+            assertEquals("Data Repositories", vetRepository.getGroup());
             assertTrue(vetRepository.hasEfferentRelationshipWith(relationalDatabaseSchema, "Reads from and writes to"));
 
             assertTrue(welcomeController.getRelationships().isEmpty());
@@ -1468,6 +1483,55 @@ workspace extends source-parent.dsl {
         assertTrue(customerApi.getTagsAsSet().contains("Application"));
         assertTrue(customerApi.getTagsAsSet().contains("Spring Boot"));
         assertEquals("Spring Boot", customerApi.getTechnology());
+
+        Relationship relationship = workspace.getModel().getSoftwareSystemWithName("A").getEfferentRelationshipWith(workspace.getModel().getSoftwareSystemWithName("X"));
+        assertEquals("HTTPS", relationship.getTechnology());
+    }
+
+    @Test
+    void test_archetypesForDefaults() throws Exception {
+        File parentDslFile = new File("src/test/resources/dsl/archetypes-for-defaults.dsl");
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.getFeatures().enable(Features.ARCHETYPES);
+        parser.parse(parentDslFile);
+        Workspace workspace = parser.getWorkspace();
+
+        SoftwareSystem a = workspace.getModel().getSoftwareSystemWithName("A");
+        assertEquals("Default Description", a.getDescription());
+        assertTrue(a.hasTag("Default Tag"));
+
+        SoftwareSystem b = workspace.getModel().getSoftwareSystemWithName("B");
+        assertEquals("Default Description", b.getDescription());
+        assertTrue(b.hasTag("Default Tag"));
+
+        Relationship r = a.getEfferentRelationshipWith(b);
+        assertEquals("Default Description", r.getDescription());
+        assertEquals("Default Technology", r.getTechnology());
+        assertTrue(r.hasTag("Default Tag"));
+    }
+
+    @Test
+    void test_archetypesForExtension() throws Exception {
+        File parentDslFile = new File("src/test/resources/dsl/archetypes-for-extension.dsl");
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.getFeatures().enable(Features.ARCHETYPES);
+        parser.parse(parentDslFile);
+        Workspace workspace = parser.getWorkspace();
+
+        SoftwareSystem a = workspace.getModel().getSoftwareSystemWithName("A");
+        assertEquals("Description of A.", a.getDescription());
+        assertTrue(a.hasTag("Default Tag"));
+
+        SoftwareSystem b = workspace.getModel().getSoftwareSystemWithName("B");
+        assertEquals("Description of B.", b.getDescription());
+        assertTrue(b.hasTag("Default Tag"));
+        assertTrue(b.hasTag("External Software System"));
+
+        Relationship r = a.getEfferentRelationshipWith(b);
+        assertEquals("Makes API calls to", r.getDescription());
+        assertEquals("HTTPS", r.getTechnology());
+        assertTrue(r.hasTag("Default Tag"));
+        assertTrue(r.hasTag("HTTPS"));
     }
 
 }

@@ -49,6 +49,7 @@ final class WorkspaceParser extends AbstractParser {
                                 structurizrDslParser.setRestricted(context.isRestricted());
                                 structurizrDslParser.parse(context, dsl);
                                 workspace = structurizrDslParser.getWorkspace();
+                                context.getParser().setIdentifierScope(structurizrDslParser.getIdentifierScope());
                             }
                         } else {
                             if (context.isRestricted()) {
@@ -72,6 +73,7 @@ final class WorkspaceParser extends AbstractParser {
                                     StructurizrDslParser structurizrDslParser = new StructurizrDslParser();
                                     structurizrDslParser.parse(context, file);
                                     workspace = structurizrDslParser.getWorkspace();
+                                    context.getParser().setIdentifierScope(structurizrDslParser.getIdentifierScope());
                                 }
                             }
                         }

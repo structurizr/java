@@ -1,5 +1,11 @@
 # Changelog
 
+## v4.0.0 (unreleased)
+
+- structurizr-dsl: Fixes https://github.com/structurizr/java/issues/374 (!identifiers hierarchical isn't propagated when extending a workspace).
+- structurizr-dsl: Adds the ability to use the `group` keyword inside a component definition, to set the group name of that component.
+- structurizr-dsl: Adds the ability to use the `group` keyword inside the component finder strategy `forEach` block.
+
 ## 3.2.1 (10th December 2024)
 
 - structurizr-core: Fixes https://github.com/structurizr/java/issues/362 (Ordering of replicated relationships in deployment environment is non-deterministic).

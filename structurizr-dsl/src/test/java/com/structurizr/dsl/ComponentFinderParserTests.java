@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 class ComponentFinderParserTests extends AbstractTests {
 
     private final ComponentFinderParser parser = new ComponentFinderParser();
-    private final ComponentFinderDslContext context = new ComponentFinderDslContext(null, null);
+    private final ComponentFinderDslContext context = new ComponentFinderDslContext(null, new ContainerDslContext(null));
 
     @Test
     void test_parseFilter_ThrowsAnException_WhenNoModeAndTypeAreSpecified() {

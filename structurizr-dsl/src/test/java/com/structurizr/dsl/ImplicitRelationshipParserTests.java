@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ImplicitRelationshipParserTests extends AbstractTests {
 
     private ImplicitRelationshipParser parser = new ImplicitRelationshipParser();
+    private Archetype archetype = new Archetype("name", "type");
 
     private ElementDslContext context(Person person) {
         PersonDslContext context = new PersonDslContext(person);
@@ -20,7 +21,7 @@ class ImplicitRelationshipParserTests extends AbstractTests {
     @Test
     void test_parse_ThrowsAnException_WhenThereAreTooManyTokens() {
         try {
-            parser.parse((ElementDslContext)null, tokens("->", "destination", "description", "technology", "tags", "extra"));
+            parser.parse((ElementDslContext)null, tokens("->", "destination", "description", "technology", "tags", "extra"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("Too many tokens, expected: -> <identifier> [description] [technology] [tags]", e.getMessage());
@@ -30,7 +31,7 @@ class ImplicitRelationshipParserTests extends AbstractTests {
     @Test
     void test_parse_ThrowsAnException_WhenTheDestinationIdentifierIsMissing() {
         try {
-            parser.parse((ElementDslContext)null, tokens("->"));
+            parser.parse((ElementDslContext)null, tokens("->"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("Expected: -> <identifier> [description] [technology] [tags]", e.getMessage());
@@ -45,7 +46,7 @@ class ImplicitRelationshipParserTests extends AbstractTests {
         context.setIdentifierRegister(elements);
 
         try {
-            parser.parse(context, tokens("->", "destination"));
+            parser.parse(context, tokens("->", "destination"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("The destination element \"destination\" does not exist", e.getMessage());
@@ -64,7 +65,7 @@ class ImplicitRelationshipParserTests extends AbstractTests {
 
         assertEquals(0, model.getRelationships().size());
 
-        parser.parse(context, tokens("->", "destination"));
+        parser.parse(context, tokens("->", "destination"), archetype);
 
         assertEquals(1, model.getRelationships().size());
         Relationship r = model.getRelationships().iterator().next();
@@ -87,7 +88,7 @@ class ImplicitRelationshipParserTests extends AbstractTests {
 
         assertEquals(0, model.getRelationships().size());
 
-        parser.parse(context, tokens("->", "destination", "Uses"));
+        parser.parse(context, tokens("->", "destination", "Uses"), archetype);
 
         assertEquals(1, model.getRelationships().size());
         Relationship r = model.getRelationships().iterator().next();
@@ -110,7 +111,7 @@ class ImplicitRelationshipParserTests extends AbstractTests {
 
         assertEquals(0, model.getRelationships().size());
 
-        parser.parse(context, tokens("->", "destination", "Uses", "HTTP"));
+        parser.parse(context, tokens("->", "destination", "Uses", "HTTP"), archetype);
 
         assertEquals(1, model.getRelationships().size());
         Relationship r = model.getRelationships().iterator().next();
@@ -132,7 +133,7 @@ class ImplicitRelationshipParserTests extends AbstractTests {
 
         assertEquals(0, model.getRelationships().size());
 
-        parser.parse(context, tokens("->", "destination", "Uses", "HTTP", "Tag 1,Tag 2"));
+        parser.parse(context, tokens("->", "destination", "Uses", "HTTP", "Tag 1,Tag 2"), archetype);
 
         assertEquals(1, model.getRelationships().size());
         Relationship r = model.getRelationships().iterator().next();
@@ -156,7 +157,7 @@ class ImplicitRelationshipParserTests extends AbstractTests {
 
         assertEquals(0, model.getRelationships().size());
 
-        parser.parse(context, tokens("->", "destination", "Uses", "HTTP", "Tag 1,Tag 2"));
+        parser.parse(context, tokens("->", "destination", "Uses", "HTTP", "Tag 1,Tag 2"), archetype);
         assertEquals(2, model.getRelationships().size());
 
         // this is the relationship that was created

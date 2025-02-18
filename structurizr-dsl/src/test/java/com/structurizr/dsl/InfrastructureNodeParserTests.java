@@ -9,11 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class InfrastructureNodeParserTests extends AbstractTests {
 
     private InfrastructureNodeParser parser = new InfrastructureNodeParser();
+    private Archetype archetype = new Archetype("name", "type");
 
     @Test
     void test_parse_ThrowsAnException_WhenThereAreTooManyTokens() {
         try {
-            parser.parse(new DeploymentNodeDslContext(null), tokens("infrastructureNode", "name", "description", "technology", "tags", "extra"));
+            parser.parse(new DeploymentNodeDslContext(null), tokens("infrastructureNode", "name", "description", "technology", "tags", "extra"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("Too many tokens, expected: infrastructureNode <name> [description] [technology] [tags]", e.getMessage());
@@ -23,7 +24,7 @@ class InfrastructureNodeParserTests extends AbstractTests {
     @Test
     void test_parse_ThrowsAnException_WhenTheNameIsNotSpecified() {
         try {
-            parser.parse(new DeploymentNodeDslContext(null), tokens("infrastructureNode"));
+            parser.parse(new DeploymentNodeDslContext(null), tokens("infrastructureNode"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("Expected: infrastructureNode <name> [description] [technology] [tags]", e.getMessage());
@@ -35,7 +36,7 @@ class InfrastructureNodeParserTests extends AbstractTests {
         DeploymentNode deploymentNode = model.addDeploymentNode("Live", "Deployment Node", "Description", "Technology");
         DeploymentNodeDslContext context = new DeploymentNodeDslContext(deploymentNode);
 
-        parser.parse(context, tokens("infrastructureNode", "Name"));
+        parser.parse(context, tokens("infrastructureNode", "Name"), archetype);
 
         assertEquals(2, model.getElements().size());
         assertEquals(1, deploymentNode.getInfrastructureNodes().size());
@@ -52,7 +53,7 @@ class InfrastructureNodeParserTests extends AbstractTests {
         DeploymentNode deploymentNode = model.addDeploymentNode("Live", "Deployment Node", "Description", "Technology");
         DeploymentNodeDslContext context = new DeploymentNodeDslContext(deploymentNode);
 
-        parser.parse(context, tokens("infrastructureNode", "Name", "Description"));
+        parser.parse(context, tokens("infrastructureNode", "Name", "Description"), archetype);
 
         assertEquals(2, model.getElements().size());
         assertEquals(1, deploymentNode.getInfrastructureNodes().size());
@@ -69,7 +70,7 @@ class InfrastructureNodeParserTests extends AbstractTests {
         DeploymentNode deploymentNode = model.addDeploymentNode("Live", "Deployment Node", "Description", "Technology");
         DeploymentNodeDslContext context = new DeploymentNodeDslContext(deploymentNode);
 
-        parser.parse(context, tokens("infrastructureNode", "Name", "Description", "Technology"));
+        parser.parse(context, tokens("infrastructureNode", "Name", "Description", "Technology"), archetype);
 
         assertEquals(2, model.getElements().size());
         assertEquals(1, deploymentNode.getInfrastructureNodes().size());
@@ -86,7 +87,7 @@ class InfrastructureNodeParserTests extends AbstractTests {
         DeploymentNode deploymentNode = model.addDeploymentNode("Live", "Deployment Node", "Description", "Technology");
         DeploymentNodeDslContext context = new DeploymentNodeDslContext(deploymentNode);
 
-        parser.parse(context, tokens("infrastructureNode", "Name", "Description", "Technology", "Tag 1, Tag 2"));
+        parser.parse(context, tokens("infrastructureNode", "Name", "Description", "Technology", "Tag 1, Tag 2"), archetype);
 
         assertEquals(2, model.getElements().size());
         assertEquals(1, deploymentNode.getInfrastructureNodes().size());

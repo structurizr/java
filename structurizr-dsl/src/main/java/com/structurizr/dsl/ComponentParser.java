@@ -12,7 +12,7 @@ final class ComponentParser extends AbstractParser {
     private final static int TECHNOLOGY_INDEX = 3;
     private final static int TAGS_INDEX = 4;
 
-    Component parse(ContainerDslContext context, Tokens tokens) {
+    Component parse(ContainerDslContext context, Tokens tokens, Archetype archetype) {
         // component <name> [description] [technology] [tags]
 
         if (tokens.hasMoreThan(TAGS_INDEX)) {
@@ -35,20 +35,23 @@ final class ComponentParser extends AbstractParser {
             component = container.addComponent(name);
         }
 
+        String description = archetype.getDescription();
         if (tokens.includes(DESCRIPTION_INDEX)) {
-            String description = tokens.get(DESCRIPTION_INDEX);
-            component.setDescription(description);
+            description = tokens.get(DESCRIPTION_INDEX);
         }
+        component.setDescription(description);
 
+        String technology = archetype.getTechnology();
         if (tokens.includes(TECHNOLOGY_INDEX)) {
-            String technology = tokens.get(TECHNOLOGY_INDEX);
-            component.setTechnology(technology);
+            technology = tokens.get(TECHNOLOGY_INDEX);
         }
+        component.setTechnology(technology);
 
+        String[] tags = archetype.getTags().toArray(new String[0]);
         if (tokens.includes(TAGS_INDEX)) {
-            String tags = tokens.get(TAGS_INDEX);
-            component.addTags(tags.split(","));
+            tags = tokens.get(TAGS_INDEX).split(",");
         }
+        component.addTags(tags);
 
         if (context.hasGroup()) {
             component.setGroup(context.getGroup().getName());

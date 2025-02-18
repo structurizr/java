@@ -1,6 +1,5 @@
 package com.structurizr.dsl;
 
-import com.structurizr.component.ComponentFinderBuilder;
 import com.structurizr.component.matcher.NameSuffixTypeMatcher;
 import org.junit.jupiter.api.Test;
 
@@ -12,8 +11,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 class ComponentFinderStrategyParserTests extends AbstractTests {
 
     private final ComponentFinderStrategyParser parser = new ComponentFinderStrategyParser();
-    private final ComponentFinderBuilder componentFinderBuilder = new ComponentFinderBuilder();
-    private final ComponentFinderStrategyDslContext context = new ComponentFinderStrategyDslContext(componentFinderBuilder);
+    private final ComponentFinderStrategyDslContext context = new ComponentFinderStrategyDslContext(new ComponentFinderDslContext(null, new ContainerDslContext(null)));
 
     @Test
     void test_parseTechnology_ThrowsAnException_WhenThereAreTooFewTokens() {

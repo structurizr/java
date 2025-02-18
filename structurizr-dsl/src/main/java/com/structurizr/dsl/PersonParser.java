@@ -10,7 +10,7 @@ final class PersonParser extends AbstractParser {
     private final static int DESCRIPTION_INDEX = 2;
     private final static int TAGS_INDEX = 3;
 
-    Person parse(ModelDslContext context, Tokens tokens) {
+    Person parse(ModelDslContext context, Tokens tokens, Archetype archetype) {
         // person <name> [description] [tags]
 
         if (tokens.hasMoreThan(TAGS_INDEX)) {
@@ -32,16 +32,17 @@ final class PersonParser extends AbstractParser {
             person = context.getWorkspace().getModel().addPerson(name);
         }
 
-        String description = "";
+        String description = archetype.getDescription();
         if (tokens.includes(DESCRIPTION_INDEX)) {
             description = tokens.get(DESCRIPTION_INDEX);
-            person.setDescription(description);
         }
+        person.setDescription(description);
 
+        String[] tags = archetype.getTags().toArray(new String[0]);
         if (tokens.includes(TAGS_INDEX)) {
-            String tags = tokens.get(TAGS_INDEX);
-            person.addTags(tags.split(","));
+            tags = tokens.get(TAGS_INDEX).split(",");
         }
+        person.addTags(tags);
 
         if (context.hasGroup()) {
             person.setGroup(context.getGroup().getName());

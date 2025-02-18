@@ -1,15 +1,14 @@
 package com.structurizr.dsl;
 
-import com.structurizr.component.ComponentFinderBuilder;
 import com.structurizr.component.ComponentFinderStrategyBuilder;
 
 final class ComponentFinderStrategyDslContext extends DslContext {
 
-    private final ComponentFinderBuilder componentFinderBuilder;
+    private final ComponentFinderDslContext componentFinderDslContext;
     private final ComponentFinderStrategyBuilder componentFinderStrategyBuilder = new ComponentFinderStrategyBuilder();
 
-    ComponentFinderStrategyDslContext(ComponentFinderBuilder componentFinderBuilder) {
-        this.componentFinderBuilder = componentFinderBuilder;
+    ComponentFinderStrategyDslContext(ComponentFinderDslContext componentFinderDslContext) {
+        this.componentFinderDslContext = componentFinderDslContext;
     }
 
     @Override
@@ -28,9 +27,13 @@ final class ComponentFinderStrategyDslContext extends DslContext {
         return this.componentFinderStrategyBuilder;
     }
 
+    ComponentFinderDslContext getComponentFinderDslContext() {
+        return this.componentFinderDslContext;
+    }
+
     @Override
     void end() {
-        componentFinderBuilder.withStrategy(componentFinderStrategyBuilder.build());
+        componentFinderDslContext.getComponentFinderBuilder().withStrategy(componentFinderStrategyBuilder.build());
     }
 
 }

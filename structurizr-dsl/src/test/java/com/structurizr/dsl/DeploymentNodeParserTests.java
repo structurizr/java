@@ -9,11 +9,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class DeploymentNodeParserTests extends AbstractTests {
 
     private DeploymentNodeParser parser = new DeploymentNodeParser();
+    private Archetype archetype = new Archetype("name", "type");
 
     @Test
     void test_parse_ThrowsAnException_WhenThereAreTooManyTokens() {
         try {
-            parser.parse(new DeploymentEnvironmentDslContext("env"), tokens("deploymentNode", "name", "description", "technology", "tags", "instances", "extra"));
+            parser.parse(new DeploymentEnvironmentDslContext("env"), tokens("deploymentNode", "name", "description", "technology", "tags", "instances", "extra"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("Too many tokens, expected: deploymentNode <name> [description] [technology] [tags] [instances] {", e.getMessage());
@@ -23,7 +24,7 @@ class DeploymentNodeParserTests extends AbstractTests {
     @Test
     void test_parse_ThrowsAnException_WhenTheNameIsNotSpecified() {
         try {
-            parser.parse(new DeploymentEnvironmentDslContext("env"), tokens("deploymentNode"));
+            parser.parse(new DeploymentEnvironmentDslContext("env"), tokens("deploymentNode"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("Expected: deploymentNode <name> [description] [technology] [tags] [instances] {", e.getMessage());
@@ -34,7 +35,7 @@ class DeploymentNodeParserTests extends AbstractTests {
     void test_parse_CreatesADeploymentNode() {
         DeploymentEnvironmentDslContext context = new DeploymentEnvironmentDslContext("Live");
         context.setWorkspace(workspace);
-        parser.parse(context, tokens("deploymentNode", "Name"));
+        parser.parse(context, tokens("deploymentNode", "Name"), archetype);
 
         assertEquals(1, model.getElements().size());
         DeploymentNode deploymentNode = model.getDeploymentNodeWithName("Name", "Live");
@@ -50,7 +51,7 @@ class DeploymentNodeParserTests extends AbstractTests {
     void test_parse_CreatesADeploymentNodeWithADescription() {
         DeploymentEnvironmentDslContext context = new DeploymentEnvironmentDslContext("Live");
         context.setWorkspace(workspace);
-        parser.parse(context, tokens("deploymentNode", "Name", "Description"));
+        parser.parse(context, tokens("deploymentNode", "Name", "Description"), archetype);
 
         assertEquals(1, model.getElements().size());
         DeploymentNode deploymentNode = model.getDeploymentNodeWithName("Name", "Live");
@@ -66,7 +67,7 @@ class DeploymentNodeParserTests extends AbstractTests {
     void test_parse_CreatesADeploymentNodeWithADescriptionAndTechnology() {
         DeploymentEnvironmentDslContext context = new DeploymentEnvironmentDslContext("Live");
         context.setWorkspace(workspace);
-        parser.parse(context, tokens("deploymentNode", "Name", "Description", "Technology"));
+        parser.parse(context, tokens("deploymentNode", "Name", "Description", "Technology"), archetype);
 
         assertEquals(1, model.getElements().size());
         DeploymentNode deploymentNode = model.getDeploymentNodeWithName("Name", "Live");
@@ -82,7 +83,7 @@ class DeploymentNodeParserTests extends AbstractTests {
     void test_parse_CreatesADeploymentNodeWithADescriptionAndTechnologyAndTags() {
         DeploymentEnvironmentDslContext context = new DeploymentEnvironmentDslContext("Live");
         context.setWorkspace(workspace);
-        parser.parse(context, tokens("deploymentNode", "Name", "Description", "Technology", "Tag 1, Tag 2"));
+        parser.parse(context, tokens("deploymentNode", "Name", "Description", "Technology", "Tag 1, Tag 2"), archetype);
 
         assertEquals(1, model.getElements().size());
         DeploymentNode deploymentNode = model.getDeploymentNodeWithName("Name", "Live");
@@ -98,7 +99,7 @@ class DeploymentNodeParserTests extends AbstractTests {
     void test_parse_CreatesADeploymentNodeWithADescriptionAndTechnologyAndTagsAndInstances() {
         DeploymentEnvironmentDslContext context = new DeploymentEnvironmentDslContext("Live");
         context.setWorkspace(workspace);
-        parser.parse(context, tokens("deploymentNode", "Name", "Description", "Technology", "Tag 1, Tag 2", "8"));
+        parser.parse(context, tokens("deploymentNode", "Name", "Description", "Technology", "Tag 1, Tag 2", "8"), archetype);
 
         assertEquals(1, model.getElements().size());
         DeploymentNode deploymentNode = model.getDeploymentNodeWithName("Name", "Live");
@@ -116,7 +117,7 @@ class DeploymentNodeParserTests extends AbstractTests {
         context.setWorkspace(workspace);
 
         try {
-            parser.parse(context, tokens("deploymentNode", "Name", "Description", "Technology", "Tag 1, Tag 2", "abc"));
+            parser.parse(context, tokens("deploymentNode", "Name", "Description", "Technology", "Tag 1, Tag 2", "abc"), archetype);
             System.out.println(model.getDeploymentNodes().iterator().next().getInstances());
             fail();
         } catch (Exception e) {
@@ -129,7 +130,7 @@ class DeploymentNodeParserTests extends AbstractTests {
         DeploymentNode parent = model.addDeploymentNode("Live", "Parent", "Description", "Technology");
         DeploymentNodeDslContext context = new DeploymentNodeDslContext(parent);
         context.setWorkspace(workspace);
-        parser.parse(context, tokens("deploymentNode", "Name"));
+        parser.parse(context, tokens("deploymentNode", "Name"), archetype);
 
         assertEquals(2, model.getElements().size());
         DeploymentNode deploymentNode = parent.getDeploymentNodeWithName("Name");

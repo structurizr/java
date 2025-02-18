@@ -8,11 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class ExplicitRelationshipParserTests extends AbstractTests {
 
     private ExplicitRelationshipParser parser = new ExplicitRelationshipParser();
+    private Archetype archetype = new Archetype("name", "type");
 
     @Test
     void test_parse_ThrowsAnException_WhenThereAreTooManyTokens() {
         try {
-            parser.parse(context(), tokens("source", "->", "destination", "description", "technology", "tags", "extra"));
+            parser.parse(context(), tokens("source", "->", "destination", "description", "technology", "tags", "extra"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("Too many tokens, expected: <identifier> -> <identifier> [description] [technology] [tags]", e.getMessage());
@@ -22,7 +23,7 @@ class ExplicitRelationshipParserTests extends AbstractTests {
     @Test
     void test_parse_ThrowsAnException_WhenTheDestinationIdentifierIsMissing() {
         try {
-            parser.parse(context(), tokens("source", "->"));
+            parser.parse(context(), tokens("source", "->"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("Expected: <identifier> -> <identifier> [description] [technology] [tags]", e.getMessage());
@@ -32,7 +33,7 @@ class ExplicitRelationshipParserTests extends AbstractTests {
     @Test
     void test_parse_ThrowsAnException_WhenTheSourceElementIsNotDefined() {
         try {
-            parser.parse(context(), tokens("source", "->", "destination"));
+            parser.parse(context(), tokens("source", "->", "destination"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("The source element \"source\" does not exist", e.getMessage());
@@ -47,7 +48,7 @@ class ExplicitRelationshipParserTests extends AbstractTests {
         context.setIdentifierRegister(elements);
 
         try {
-            parser.parse(context, tokens("source", "->", "destination"));
+            parser.parse(context, tokens("source", "->", "destination"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("The destination element \"destination\" does not exist", e.getMessage());
@@ -67,7 +68,7 @@ class ExplicitRelationshipParserTests extends AbstractTests {
 
         assertEquals(0, model.getRelationships().size());
 
-        parser.parse(context, tokens("source", "->", "destination"));
+        parser.parse(context, tokens("source", "->", "destination"), archetype);
 
         assertEquals(1, model.getRelationships().size());
         Relationship r = model.getRelationships().iterator().next();
@@ -91,7 +92,7 @@ class ExplicitRelationshipParserTests extends AbstractTests {
 
         assertEquals(0, model.getRelationships().size());
 
-        parser.parse(context, tokens("source", "->", "destination", "Uses"));
+        parser.parse(context, tokens("source", "->", "destination", "Uses"), archetype);
 
         assertEquals(1, model.getRelationships().size());
         Relationship r = model.getRelationships().iterator().next();
@@ -115,7 +116,7 @@ class ExplicitRelationshipParserTests extends AbstractTests {
 
         assertEquals(0, model.getRelationships().size());
 
-        parser.parse(context, tokens("source", "->", "destination", "Uses", "HTTP"));
+        parser.parse(context, tokens("source", "->", "destination", "Uses", "HTTP"), archetype);
 
         assertEquals(1, model.getRelationships().size());
         Relationship r = model.getRelationships().iterator().next();
@@ -138,7 +139,7 @@ class ExplicitRelationshipParserTests extends AbstractTests {
 
         assertEquals(0, model.getRelationships().size());
 
-        parser.parse(context, tokens("source", "->", "destination", "Uses", "HTTP", "Tag 1,Tag 2"));
+        parser.parse(context, tokens("source", "->", "destination", "Uses", "HTTP", "Tag 1,Tag 2"), archetype);
 
         assertEquals(1, model.getRelationships().size());
         Relationship r = model.getRelationships().iterator().next();
@@ -163,7 +164,7 @@ class ExplicitRelationshipParserTests extends AbstractTests {
 
         assertEquals(0, model.getRelationships().size());
 
-        parser.parse(context, tokens("source", "->", "destination", "Uses", "HTTP", "Tag 1,Tag 2"));
+        parser.parse(context, tokens("source", "->", "destination", "Uses", "HTTP", "Tag 1,Tag 2"), archetype);
         assertEquals(2, model.getRelationships().size());
 
         // this is the relationship that was created
@@ -195,7 +196,7 @@ class ExplicitRelationshipParserTests extends AbstractTests {
 
         assertEquals(0, model.getRelationships().size());
 
-        parser.parse(context, tokens("this", "->", "destination"));
+        parser.parse(context, tokens("this", "->", "destination"), archetype);
 
         assertEquals(1, model.getRelationships().size());
         Relationship r = model.getRelationships().iterator().next();
@@ -218,7 +219,7 @@ class ExplicitRelationshipParserTests extends AbstractTests {
 
         assertEquals(0, model.getRelationships().size());
 
-        parser.parse(context, tokens("source", "->", "this"));
+        parser.parse(context, tokens("source", "->", "this"), archetype);
 
         assertEquals(1, model.getRelationships().size());
         Relationship r = model.getRelationships().iterator().next();

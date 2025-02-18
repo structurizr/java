@@ -6,6 +6,7 @@ import com.structurizr.component.filter.ExcludeFullyQualifiedNameRegexFilter;
 import com.structurizr.component.filter.IncludeFullyQualifiedNameRegexFilter;
 import com.structurizr.component.matcher.AnnotationTypeMatcher;
 import com.structurizr.component.matcher.ImplementsTypeMatcher;
+import com.structurizr.component.matcher.NameSuffixTypeMatcher;
 import com.structurizr.component.url.PrefixSourceUrlStrategy;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
@@ -35,7 +36,7 @@ public class SpringPetClinicTests {
 
             ComponentFinder componentFinder = new ComponentFinderBuilder()
                     .forContainer(webApplication)
-                    .fromClasses(new File(springPetClinicHome, "target/spring-petclinic-3.3.0-SNAPSHOT.jar"))
+                    .fromClasses(new File(springPetClinicHome, "target/spring-petclinic-3.4.0-SNAPSHOT.jar"))
                     .fromSource(new File(springPetClinicHome, "src/main/java"))
                     .filteredBy(new IncludeFullyQualifiedNameRegexFilter("org\\.springframework\\.samples\\.petclinic\\..*"))
                     .withStrategy(
@@ -52,7 +53,7 @@ public class SpringPetClinicTests {
                     )
                     .withStrategy(
                             new ComponentFinderStrategyBuilder()
-                                    .matchedBy(new ImplementsTypeMatcher("org.springframework.data.repository.Repository"))
+                                    .matchedBy(new NameSuffixTypeMatcher("Repository"))
                                     .withDescription(new FirstSentenceDescriptionStrategy())
                                     .withTechnology("Spring Data Repository")
                                     .withUrl(new PrefixSourceUrlStrategy("https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java"))

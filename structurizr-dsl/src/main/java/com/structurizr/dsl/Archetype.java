@@ -1,7 +1,6 @@
 package com.structurizr.dsl;
 
 import com.structurizr.util.StringUtils;
-import com.structurizr.util.TagUtils;
 
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -10,8 +9,8 @@ final class Archetype {
 
     private final String name;
     private final String type;
-    private String description;
-    private String technology;
+    private String description = "";
+    private String technology = "";
     private final Set<String> tags = new LinkedHashSet<>();
 
     Archetype(String name, String type) {

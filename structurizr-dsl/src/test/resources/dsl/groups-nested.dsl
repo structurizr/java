@@ -10,7 +10,16 @@ workspace {
                 a = softwareSystem "A" {
                     group "Capability 1" {
                         group "Service A" {
-                            container "A API"
+                            container "A API" {
+                                group "a-api.jar" {
+                                    component "API Endpoint" {
+                                        group "API Layer"
+                                    }
+                                    component "Repository" {
+                                        group "Data Layer"
+                                    }
+                                }
+                            }
                             container "A Database"
                         }
                         group "Service B" {

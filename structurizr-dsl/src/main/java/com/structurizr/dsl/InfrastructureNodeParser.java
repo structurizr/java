@@ -12,7 +12,7 @@ final class InfrastructureNodeParser extends AbstractParser {
     private static final int TECHNOLOGY_INDEX = 3;
     private static final int TAGS_INDEX = 4;
 
-    InfrastructureNode parse(DeploymentNodeDslContext context, Tokens tokens) {
+    InfrastructureNode parse(DeploymentNodeDslContext context, Tokens tokens, Archetype archetype) {
         // infrastructureNode <name> [description] [technology] [tags]
 
         if (tokens.hasMoreThan(TAGS_INDEX)) {
@@ -27,22 +27,23 @@ final class InfrastructureNodeParser extends AbstractParser {
         InfrastructureNode infrastructureNode;
         String name = tokens.get(NAME_INDEX);
 
-        String description = "";
+        String description = archetype.getDescription();
         if (tokens.includes(DESCRIPTION_INDEX)) {
             description = tokens.get(DESCRIPTION_INDEX);
         }
 
-        String technology = "";
+        String technology = archetype.getTechnology();
         if (tokens.includes(TECHNOLOGY_INDEX)) {
             technology = tokens.get(TECHNOLOGY_INDEX);
         }
 
         infrastructureNode = deploymentNode.addInfrastructureNode(name, description, technology);
 
+        String[] tags = archetype.getTags().toArray(new String[0]);
         if (tokens.includes(TAGS_INDEX)) {
-            String tags = tokens.get(TAGS_INDEX);
-            infrastructureNode.addTags(tags.split(","));
+            tags = tokens.get(TAGS_INDEX).split(",");
         }
+        infrastructureNode.addTags(tags);
 
         if (context.hasGroup()) {
             infrastructureNode.setGroup(context.getGroup().getName());
