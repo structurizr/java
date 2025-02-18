@@ -45,6 +45,8 @@ final class InfrastructureNodeParser extends AbstractParser {
         }
         infrastructureNode.addTags(tags);
 
+        infrastructureNode.addProperties(archetype.getProperties());
+
         if (context.hasGroup()) {
             infrastructureNode.setGroup(context.getGroup().getName());
             context.getGroup().addElement(infrastructureNode);

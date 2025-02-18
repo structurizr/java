@@ -55,7 +55,10 @@ final class ExplicitRelationshipParser extends AbstractRelationshipParser {
             tags = tokens.get(TAGS_INDEX).split(",");
         }
 
-        return createRelationship(sourceElement, description, technology, tags, destinationElement);
+        Relationship relationship = createRelationship(sourceElement, description, technology, tags, destinationElement);
+        relationship.addProperties(archetype.getProperties());
+
+        return relationship;
     }
 
     Set<Relationship> parse(ElementsDslContext context, Tokens tokens, Archetype archetype) {
@@ -99,7 +102,10 @@ final class ExplicitRelationshipParser extends AbstractRelationshipParser {
         Set<Relationship> relationships = new LinkedHashSet<>();
         for (Element sourceElement : sourceElements) {
             for (Element destinationElement : destinationElements) {
-                relationships.add(createRelationship(sourceElement, description, technology, tags, destinationElement));
+                Relationship relationship = createRelationship(sourceElement, description, technology, tags, destinationElement);
+                relationship.addProperties(archetype.getProperties());
+
+                relationships.add(relationship);
             }
         }
 

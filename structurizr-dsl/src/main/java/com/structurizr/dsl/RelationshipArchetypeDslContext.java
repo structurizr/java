@@ -13,6 +13,7 @@ final class RelationshipArchetypeDslContext extends ArchetypeDslContext {
             StructurizrDslTokens.TECHNOLOGY_TOKEN,
             StructurizrDslTokens.TAG_TOKEN,
             StructurizrDslTokens.TAGS_TOKEN,
+            StructurizrDslTokens.PROPERTIES_TOKEN
         };
     }
 

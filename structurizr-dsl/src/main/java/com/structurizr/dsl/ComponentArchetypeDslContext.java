@@ -13,6 +13,7 @@ final class ComponentArchetypeDslContext extends ElementArchetypeDslContext {
             StructurizrDslTokens.TECHNOLOGY_TOKEN,
             StructurizrDslTokens.TAG_TOKEN,
             StructurizrDslTokens.TAGS_TOKEN,
+            StructurizrDslTokens.PROPERTIES_TOKEN
         };
     }
 

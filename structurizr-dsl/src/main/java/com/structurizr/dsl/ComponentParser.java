@@ -53,6 +53,8 @@ final class ComponentParser extends AbstractParser {
         }
         component.addTags(tags);
 
+        component.addProperties(archetype.getProperties());
+
         if (context.hasGroup()) {
             component.setGroup(context.getGroup().getName());
             context.getGroup().addElement(component);

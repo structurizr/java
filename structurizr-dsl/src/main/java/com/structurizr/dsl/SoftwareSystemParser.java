@@ -44,6 +44,8 @@ final class SoftwareSystemParser extends AbstractParser {
         }
         softwareSystem.addTags(tags);
 
+        softwareSystem.addProperties(archetype.getProperties());
+
         if (context.hasGroup()) {
             softwareSystem.setGroup(context.getGroup().getName());
             context.getGroup().addElement(softwareSystem);

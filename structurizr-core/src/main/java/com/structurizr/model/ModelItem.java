@@ -173,6 +173,17 @@ public abstract class ModelItem implements PropertyHolder, Comparable<ModelItem>
         properties.put(name, value);
     }
 
+    /**
+     * Adds a collection of name-value pair properties to this model item.
+     *
+     * @param   properties      Map of properties
+     */
+    public void addProperties(Map<String, String> properties) {
+        for (String key : properties.keySet()) {
+            this.addProperty(key, properties.get(key));
+        }
+    }
+
     void setProperties(Map<String, String> properties) {
         if (properties != null) {
             this.properties = new HashMap<>(properties);

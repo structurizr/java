@@ -1499,15 +1499,18 @@ workspace extends source-parent.dsl {
         SoftwareSystem a = workspace.getModel().getSoftwareSystemWithName("A");
         assertEquals("Default Description", a.getDescription());
         assertTrue(a.hasTag("Default Tag"));
+        assertTrue(a.hasProperty("Default Property Name", "Default Property Value"));
 
         SoftwareSystem b = workspace.getModel().getSoftwareSystemWithName("B");
         assertEquals("Default Description", b.getDescription());
         assertTrue(b.hasTag("Default Tag"));
+        assertTrue(b.hasProperty("Default Property Name", "Default Property Value"));
 
         Relationship r = a.getEfferentRelationshipWith(b);
         assertEquals("Default Description", r.getDescription());
         assertEquals("Default Technology", r.getTechnology());
         assertTrue(r.hasTag("Default Tag"));
+        assertTrue(r.hasProperty("Default Property Name", "Default Property Value"));
     }
 
     @Test
