@@ -55,6 +55,19 @@ class ExpressionParserTests extends AbstractTests {
     }
 
     @Test
+    void test_parseExpression_ThrowsAnException_WhenTheWildcardRelationshipIsNegated() {
+        try {
+            SystemLandscapeViewDslContext context = new SystemLandscapeViewDslContext(null);
+            context.setWorkspace(workspace);
+
+            parser.parseExpression("relationship!=*", context);
+            fail();
+        } catch (Exception e) {
+            assertEquals("The relationship \"*\" cannot be negated", e.getMessage());
+        }
+    }
+
+    @Test
     void test_parseExpression_ThrowsAnException_WhenTheRelationshipDestinationIsSpecifiedUsingShortSyntaxButDoesNotExist() {
         try {
             SystemLandscapeViewDslContext context = new SystemLandscapeViewDslContext(null);
