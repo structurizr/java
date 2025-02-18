@@ -45,6 +45,7 @@ final class DeploymentNodeParser extends AbstractParser {
         deploymentNode.addTags(tags);
 
         deploymentNode.addProperties(archetype.getProperties());
+        deploymentNode.addPerspectives(archetype.getPerspectives());
 
         String instances = "1";
         if (tokens.includes(INSTANCES_INDEX)) {
@@ -94,6 +95,7 @@ final class DeploymentNodeParser extends AbstractParser {
         deploymentNode.addTags(tags);
 
         deploymentNode.addProperties(archetype.getProperties());
+        deploymentNode.addPerspectives(archetype.getPerspectives());
 
         String instances = "1";
         if (tokens.includes(INSTANCES_INDEX)) {

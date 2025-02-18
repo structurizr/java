@@ -1,6 +1,7 @@
 package com.structurizr.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.structurizr.PerspectivesHolder;
 import com.structurizr.PropertyHolder;
 import com.structurizr.util.StringUtils;
 import com.structurizr.util.TagUtils;
@@ -11,7 +12,7 @@ import java.util.*;
 /**
  * The base class for elements and relationships.
  */
-public abstract class ModelItem implements PropertyHolder, Comparable<ModelItem> {
+public abstract class ModelItem implements PropertyHolder, PerspectivesHolder, Comparable<ModelItem> {
 
     private String id = "";
     private final Set<String> tags = new LinkedHashSet<>();
@@ -247,6 +248,17 @@ public abstract class ModelItem implements PropertyHolder, Comparable<ModelItem>
         perspectives.add(perspective);
 
         return perspective;
+    }
+
+    /**
+     * Adds a collection of name-value pair properties to this model item.
+     *
+     * @param   perspectives        Set of Perspective objects
+     */
+    public void addPerspectives(Set<Perspective> perspectives) {
+        for (Perspective perspective : perspectives) {
+            addPerspective(perspective.getName(), perspective.getDescription(), perspective.getValue());
+        }
     }
 
     @Override

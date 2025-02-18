@@ -12,7 +12,8 @@ final class SoftwareSystemArchetypeDslContext extends ElementArchetypeDslContext
             StructurizrDslTokens.DESCRIPTION_TOKEN,
             StructurizrDslTokens.TAG_TOKEN,
             StructurizrDslTokens.TAGS_TOKEN,
-            StructurizrDslTokens.PROPERTIES_TOKEN
+            StructurizrDslTokens.PROPERTIES_TOKEN,
+            StructurizrDslTokens.PERSPECTIVES_TOKEN
         };
     }
 

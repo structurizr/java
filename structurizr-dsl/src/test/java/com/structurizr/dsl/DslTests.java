@@ -1500,17 +1500,20 @@ workspace extends source-parent.dsl {
         assertEquals("Default Description", a.getDescription());
         assertTrue(a.hasTag("Default Tag"));
         assertTrue(a.hasProperty("Default Property Name", "Default Property Value"));
+        assertEquals("Default Perspective Description", (a.getPerspectives().stream().filter(p -> p.getName().equals("Default Perspective Name")).findFirst().get().getDescription()));
 
         SoftwareSystem b = workspace.getModel().getSoftwareSystemWithName("B");
         assertEquals("Default Description", b.getDescription());
         assertTrue(b.hasTag("Default Tag"));
         assertTrue(b.hasProperty("Default Property Name", "Default Property Value"));
+        assertEquals("Default Perspective Description", (b.getPerspectives().stream().filter(p -> p.getName().equals("Default Perspective Name")).findFirst().get().getDescription()));
 
         Relationship r = a.getEfferentRelationshipWith(b);
         assertEquals("Default Description", r.getDescription());
         assertEquals("Default Technology", r.getTechnology());
         assertTrue(r.hasTag("Default Tag"));
         assertTrue(r.hasProperty("Default Property Name", "Default Property Value"));
+        assertEquals("Default Perspective Description", (r.getPerspectives().stream().filter(p -> p.getName().equals("Default Perspective Name")).findFirst().get().getDescription()));
     }
 
     @Test

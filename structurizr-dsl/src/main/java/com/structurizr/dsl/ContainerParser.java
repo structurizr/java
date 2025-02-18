@@ -54,6 +54,7 @@ final class ContainerParser extends AbstractParser {
         container.addTags(tags);
 
         container.addProperties(archetype.getProperties());
+        container.addPerspectives(archetype.getPerspectives());
 
         if (context.hasGroup()) {
             container.setGroup(context.getGroup().getName());

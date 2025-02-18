@@ -1,5 +1,6 @@
 package com.structurizr.dsl;
 
+import com.structurizr.PerspectivesHolder;
 import com.structurizr.model.ModelItem;
 
 import java.util.ArrayList;
@@ -7,18 +8,18 @@ import java.util.Collection;
 
 final class PerspectivesDslContext extends DslContext {
 
-    private final Collection<ModelItem> modelItems = new ArrayList<>();
+    private final Collection<PerspectivesHolder> perspectivesHolders = new ArrayList<>();
 
-    PerspectivesDslContext(ModelItem modelItem) {
-        this.modelItems.add(modelItem);
+    PerspectivesDslContext(PerspectivesHolder perspectivesHolder) {
+        this.perspectivesHolders.add(perspectivesHolder);
     }
 
-    PerspectivesDslContext(Collection<ModelItem> modelItems) {
-        this.modelItems.addAll(modelItems);
+    PerspectivesDslContext(Collection<? extends PerspectivesHolder> perspectivesHolders) {
+        this.perspectivesHolders.addAll(perspectivesHolders);
     }
 
-    Collection<ModelItem> getModelItems() {
-        return this.modelItems;
+    Collection<PerspectivesHolder> getPerspectivesHolders() {
+        return this.perspectivesHolders;
     }
 
     @Override

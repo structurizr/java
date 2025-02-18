@@ -9,6 +9,10 @@ workspace {
                 properties {
                     "Default Property Name" "Default Property Value"
                 }
+
+                perspectives {
+                    "Default Perspective Name" "Default Perspective Description"
+                }
             }
 
             -> {
@@ -18,6 +22,10 @@ workspace {
 
                 properties {
                     "Default Property Name" "Default Property Value"
+                }
+
+                perspectives {
+                    "Default Perspective Name" "Default Perspective Description"
                 }
             }
         }

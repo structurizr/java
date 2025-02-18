@@ -54,6 +54,7 @@ final class ComponentParser extends AbstractParser {
         component.addTags(tags);
 
         component.addProperties(archetype.getProperties());
+        component.addPerspectives(archetype.getPerspectives());
 
         if (context.hasGroup()) {
             component.setGroup(context.getGroup().getName());

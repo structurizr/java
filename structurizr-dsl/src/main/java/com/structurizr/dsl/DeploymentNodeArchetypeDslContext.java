@@ -13,7 +13,8 @@ final class DeploymentNodeArchetypeDslContext extends ElementArchetypeDslContext
             StructurizrDslTokens.TECHNOLOGY_TOKEN,
             StructurizrDslTokens.TAG_TOKEN,
             StructurizrDslTokens.TAGS_TOKEN,
-            StructurizrDslTokens.PROPERTIES_TOKEN
+            StructurizrDslTokens.PROPERTIES_TOKEN,
+            StructurizrDslTokens.PERSPECTIVES_TOKEN
         };
     }
 

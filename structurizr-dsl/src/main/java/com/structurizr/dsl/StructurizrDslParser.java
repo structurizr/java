@@ -1,5 +1,6 @@
 package com.structurizr.dsl;
 
+import com.structurizr.PerspectivesHolder;
 import com.structurizr.PropertyHolder;
 import com.structurizr.Workspace;
 import com.structurizr.model.*;
@@ -749,8 +750,9 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         Archetype archetype = getContext(ArchetypeDslContext.class).getArchetype();
                         startContext(new PropertiesDslContext(archetype));
 
-                    } else if (inContext(PropertiesDslContext.class)) {
-                        new PropertyParser().parse(getContext(PropertiesDslContext.class), tokens);
+                    } else if (PERSPECTIVES_TOKEN.equalsIgnoreCase(firstToken) && inContext(ArchetypeDslContext.class)) {
+                        Archetype archetype = getContext(ArchetypeDslContext.class).getArchetype();
+                        startContext(new PerspectivesDslContext(archetype));
 
                     } else if (VIEWS_TOKEN.equalsIgnoreCase(firstToken) && inContext(WorkspaceDslContext.class)) {
                         if (parsedTokens.contains(VIEWS_TOKEN)) {

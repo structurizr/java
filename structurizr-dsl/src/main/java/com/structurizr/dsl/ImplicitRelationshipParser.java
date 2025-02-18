@@ -52,6 +52,7 @@ final class ImplicitRelationshipParser extends AbstractRelationshipParser {
 
         Relationship relationship = createRelationship(sourceElement, description, technology, tags, destinationElement);
         relationship.addProperties(archetype.getProperties());
+        relationship.addPerspectives(archetype.getPerspectives());
 
         return relationship;
     }
@@ -94,6 +95,7 @@ final class ImplicitRelationshipParser extends AbstractRelationshipParser {
         for (Element sourceElement : sourceElements) {
             Relationship relationship = createRelationship(sourceElement, description, technology, tags, destinationElement);
             relationship.addProperties(archetype.getProperties());
+            relationship.addPerspectives(archetype.getPerspectives());
 
             relationships.add(relationship);
         }

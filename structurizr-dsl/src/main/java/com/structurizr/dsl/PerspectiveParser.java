@@ -1,6 +1,6 @@
 package com.structurizr.dsl;
 
-import com.structurizr.model.ModelItem;
+import com.structurizr.PerspectivesHolder;
 
 final class PerspectiveParser extends AbstractParser {
 
@@ -27,8 +27,8 @@ final class PerspectiveParser extends AbstractParser {
             value = tokens.get(PERSPECTIVE_VALUE_INDEX);
         }
 
-        for (ModelItem modelItem : context.getModelItems()) {
-            modelItem.addPerspective(name, description, value);
+        for (PerspectivesHolder perspectivesHolder : context.getPerspectivesHolders()) {
+            perspectivesHolder.addPerspective(name, description, value);
         }
     }
 

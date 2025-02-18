@@ -45,6 +45,7 @@ final class PersonParser extends AbstractParser {
         person.addTags(tags);
 
         person.addProperties(archetype.getProperties());
+        person.addPerspectives(archetype.getPerspectives());
 
         if (context.hasGroup()) {
             person.setGroup(context.getGroup().getName());

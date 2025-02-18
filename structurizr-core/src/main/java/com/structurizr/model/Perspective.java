@@ -13,7 +13,7 @@ public final class Perspective implements Comparable<Perspective> {
     Perspective() {
     }
 
-    Perspective(String name, String description, String value) {
+    public Perspective(String name, String description, String value) {
         this.name = name;
         this.description = description;
         this.value = value;
