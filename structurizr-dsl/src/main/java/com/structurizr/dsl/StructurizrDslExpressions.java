@@ -18,9 +18,12 @@ class StructurizrDslExpressions {
     static final String RELATIONSHIP_PROPERTY_EQUALS_EXPRESSION = "relationship\\.properties\\[.*]==.*";
 
     static final String RELATIONSHIP_SOURCE_EQUALS_EXPRESSION = "relationship.source==";
+    static final String RELATIONSHIP_SOURCE_NOT_EQUALS_EXPRESSION = "relationship.source!=";
     static final String RELATIONSHIP_DESTINATION_EQUALS_EXPRESSION = "relationship.destination==";
+    static final String RELATIONSHIP_DESTINATION_NOT_EQUALS_EXPRESSION = "relationship.destination!=";
 
     static final String RELATIONSHIP_EQUALS_EXPRESSION = "relationship==";
+    static final String RELATIONSHIP_NOT_EQUALS_EXPRESSION = "relationship!=";
 
     static final String RELATIONSHIP = "->";
 

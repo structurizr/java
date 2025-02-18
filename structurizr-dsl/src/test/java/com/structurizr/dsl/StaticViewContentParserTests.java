@@ -384,6 +384,56 @@ class StaticViewContentParserTests extends AbstractTests {
     }
 
     @Test
+    void test_parseExclude_RemovesAllRelationshipsExceptSpecificSourceWhenExpressionIsSpecifiedWithSource() {
+        Person user = model.addPerson("User", "Description");
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System", "Description");
+        user.uses(softwareSystem1, "Uses");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
+        user.uses(softwareSystem2, "Uses");
+        softwareSystem1.uses(softwareSystem2, "Uses");
+
+        SystemContextView view = views.createSystemContextView(softwareSystem1, "key", "Description");
+        view.addDefaultElements();
+        SystemContextViewDslContext context = new SystemContextViewDslContext(view);
+        context.setWorkspace(workspace);
+
+        IdentifiersRegister elements = new IdentifiersRegister();
+        elements.register("user", user);
+        elements.register("softwaresystem1", softwareSystem1);
+        elements.register("softwaresystem2", softwareSystem2);
+        context.setIdentifierRegister(elements);
+
+        parser.parseExclude(context, tokens("exclude", "relationship.source!=user"));
+        assertEquals(3, view.getElements().size());
+        assertEquals(2, view.getRelationships().size());
+    }
+
+    @Test
+    void test_parseExclude_RemovesAllRelationshipsExceptSpecificSourceWhenExpressionIsSpecifiedWithWildcard() {
+        Person user = model.addPerson("User", "Description");
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System", "Description");
+        user.uses(softwareSystem1, "Uses");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
+        user.uses(softwareSystem2, "Uses");
+        softwareSystem1.uses(softwareSystem2, "Uses");
+
+        SystemContextView view = views.createSystemContextView(softwareSystem1, "key", "Description");
+        view.addDefaultElements();
+        SystemContextViewDslContext context = new SystemContextViewDslContext(view);
+        context.setWorkspace(workspace);
+
+        IdentifiersRegister elements = new IdentifiersRegister();
+        elements.register("user", user);
+        elements.register("softwaresystem1", softwareSystem1);
+        elements.register("softwaresystem2", softwareSystem2);
+        context.setIdentifierRegister(elements);
+
+        parser.parseExclude(context, tokens("exclude", "relationship!=user->*"));
+        assertEquals(3, view.getElements().size());
+        assertEquals(2, view.getRelationships().size());
+    }
+
+    @Test
     void test_parseExclude_RemovesTheRelationshipFromAView_WhenAnExpressionIsSpecifiedWithWildcardAndDestination() {
         Person user = model.addPerson("User", "Description");
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
@@ -405,6 +455,56 @@ class StaticViewContentParserTests extends AbstractTests {
 
         parser.parseExclude(context, tokens("exclude", "relationship.destination==softwareSystem"));
         assertEquals(0, view.getRelationships().size());
+    }
+
+    @Test
+    void test_parseExclude_RemovesAllRelationshipsExceptSpecificDestinationWhenExpressionIsSpecifiedWithDestination() {
+        Person user = model.addPerson("User", "Description");
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System", "Description");
+        user.uses(softwareSystem1, "Uses");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
+        user.uses(softwareSystem2, "Uses");
+        softwareSystem1.uses(softwareSystem2, "Uses");
+
+        SystemContextView view = views.createSystemContextView(softwareSystem1, "key", "Description");
+        view.addDefaultElements();
+        SystemContextViewDslContext context = new SystemContextViewDslContext(view);
+        context.setWorkspace(workspace);
+
+        IdentifiersRegister elements = new IdentifiersRegister();
+        elements.register("user", user);
+        elements.register("softwaresystem1", softwareSystem1);
+        elements.register("softwaresystem2", softwareSystem2);
+        context.setIdentifierRegister(elements);
+
+        parser.parseExclude(context, tokens("exclude", "relationship.destination!=softwareSystem2"));
+        assertEquals(3, view.getElements().size());
+        assertEquals(2, view.getRelationships().size());
+    }
+
+    @Test
+    void test_parseExclude_RemovesAllRelationshipsExceptSpecificDestinationWhenExpressionIsSpecifiedWithWildcard() {
+        Person user = model.addPerson("User", "Description");
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System", "Description");
+        user.uses(softwareSystem1, "Uses");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
+        user.uses(softwareSystem2, "Uses");
+        softwareSystem1.uses(softwareSystem2, "Uses");
+
+        SystemContextView view = views.createSystemContextView(softwareSystem1, "key", "Description");
+        view.addDefaultElements();
+        SystemContextViewDslContext context = new SystemContextViewDslContext(view);
+        context.setWorkspace(workspace);
+
+        IdentifiersRegister elements = new IdentifiersRegister();
+        elements.register("user", user);
+        elements.register("softwaresystem1", softwareSystem1);
+        elements.register("softwaresystem2", softwareSystem2);
+        context.setIdentifierRegister(elements);
+
+        parser.parseExclude(context, tokens("exclude", "relationship!=*->softwareSystem2"));
+        assertEquals(3, view.getElements().size());
+        assertEquals(2, view.getRelationships().size());
     }
 
     @Test
