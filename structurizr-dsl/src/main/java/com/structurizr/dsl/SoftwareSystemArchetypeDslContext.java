@@ -1,6 +1,6 @@
 package com.structurizr.dsl;
 
-final class SoftwareSystemArchetypeDslContext extends ArchetypeDslContext {
+final class SoftwareSystemArchetypeDslContext extends ElementArchetypeDslContext {
 
     SoftwareSystemArchetypeDslContext(Archetype archetype) {
         super(archetype);

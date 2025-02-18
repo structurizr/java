@@ -10,11 +10,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class ComponentParserTests extends AbstractTests {
 
     private ComponentParser parser = new ComponentParser();
+    private Archetype archetype = new Archetype("name", "type");
 
     @Test
     void test_parse_ThrowsAnException_WhenThereAreTooManyTokens() {
         try {
-            parser.parse(new ContainerDslContext(null), tokens("container", "name", "description", "technology", "tags", "extra"));
+            parser.parse(new ContainerDslContext(null), tokens("container", "name", "description", "technology", "tags", "extra"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("Too many tokens, expected: component <name> [description] [technology] [tags]", e.getMessage());
@@ -24,7 +25,7 @@ class ComponentParserTests extends AbstractTests {
     @Test
     void test_parse_ThrowsAnException_WhenTheNameIsNotSpecified() {
         try {
-            parser.parse(new ContainerDslContext(null), tokens("container"));
+            parser.parse(new ContainerDslContext(null), tokens("container"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("Expected: component <name> [description] [technology] [tags]", e.getMessage());
@@ -36,13 +37,13 @@ class ComponentParserTests extends AbstractTests {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         ContainerDslContext context = new ContainerDslContext(container);
-        parser.parse(context, tokens("component", "Name"));
+        parser.parse(context, tokens("component", "Name"), archetype);
 
         assertEquals(3, model.getElements().size());
         Component component = container.getComponentWithName("Name");
         assertNotNull(component);
         assertEquals("", component.getDescription());
-        assertEquals(null, component.getTechnology());
+        assertEquals("", component.getTechnology());
         assertEquals("Element,Component", component.getTags());
     }
 
@@ -51,13 +52,13 @@ class ComponentParserTests extends AbstractTests {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         ContainerDslContext context = new ContainerDslContext(container);
-        parser.parse(context, tokens("component", "Name", "Description"));
+        parser.parse(context, tokens("component", "Name", "Description"), archetype);
 
         assertEquals(3, model.getElements().size());
         Component component = container.getComponentWithName("Name");
         assertNotNull(component);
         assertEquals("Description", component.getDescription());
-        assertEquals(null, component.getTechnology());
+        assertEquals("", component.getTechnology());
         assertEquals("Element,Component", component.getTags());
     }
 
@@ -66,7 +67,7 @@ class ComponentParserTests extends AbstractTests {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         ContainerDslContext context = new ContainerDslContext(container);
-        parser.parse(context, tokens("component", "Name", "Description", "Technology"));
+        parser.parse(context, tokens("component", "Name", "Description", "Technology"), archetype);
 
         assertEquals(3, model.getElements().size());
         Component component = container.getComponentWithName("Name");
@@ -81,7 +82,7 @@ class ComponentParserTests extends AbstractTests {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         ContainerDslContext context = new ContainerDslContext(container);
-        parser.parse(context, tokens("component", "Name", "Description", "Technology", "Tag 1, Tag 2"));
+        parser.parse(context, tokens("component", "Name", "Description", "Technology", "Tag 1, Tag 2"), archetype);
 
         assertEquals(3, model.getElements().size());
         Component component = container.getComponentWithName("Name");

@@ -113,7 +113,7 @@ public final class Relationship extends ModelItem {
     }
 
     /**
-     * Gets the technology associated with this relationship (e.g. HTTPS, JDBC, etc).
+     * Gets the technology associated with this relationship (e.g. HTTPS, etc).
      *
      * @return  the technology as a String,
      *          or null if a technology is not specified

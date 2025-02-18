@@ -10,7 +10,7 @@ final class SoftwareSystemParser extends AbstractParser {
     private final static int DESCRIPTION_INDEX = 2;
     private final static int TAGS_INDEX = 3;
 
-    SoftwareSystem parse(ModelDslContext context, Tokens tokens) {
+    SoftwareSystem parse(ModelDslContext context, Tokens tokens, Archetype archetype) {
         // softwareSystem <name> [description] [tags]
 
         if (tokens.hasMoreThan(TAGS_INDEX)) {
@@ -32,16 +32,17 @@ final class SoftwareSystemParser extends AbstractParser {
             softwareSystem = context.getWorkspace().getModel().addSoftwareSystem(name);
         }
 
-        String description = "";
+        String description = archetype.getDescription();
         if (tokens.includes(DESCRIPTION_INDEX)) {
             description = tokens.get(DESCRIPTION_INDEX);
-            softwareSystem.setDescription(description);
         }
+        softwareSystem.setDescription(description);
 
+        String[] tags = archetype.getTags().toArray(new String[0]);
         if (tokens.includes(TAGS_INDEX)) {
-            String tags = tokens.get(TAGS_INDEX);
-            softwareSystem.addTags(tags.split(","));
+            tags = tokens.get(TAGS_INDEX).split(",");
         }
+        softwareSystem.addTags(tags);
 
         if (context.hasGroup()) {
             softwareSystem.setGroup(context.getGroup().getName());

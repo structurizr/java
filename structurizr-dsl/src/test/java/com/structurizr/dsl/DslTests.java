@@ -1483,6 +1483,55 @@ workspace extends source-parent.dsl {
         assertTrue(customerApi.getTagsAsSet().contains("Application"));
         assertTrue(customerApi.getTagsAsSet().contains("Spring Boot"));
         assertEquals("Spring Boot", customerApi.getTechnology());
+
+        Relationship relationship = workspace.getModel().getSoftwareSystemWithName("A").getEfferentRelationshipWith(workspace.getModel().getSoftwareSystemWithName("X"));
+        assertEquals("HTTPS", relationship.getTechnology());
+    }
+
+    @Test
+    void test_archetypesForDefaults() throws Exception {
+        File parentDslFile = new File("src/test/resources/dsl/archetypes-for-defaults.dsl");
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.getFeatures().enable(Features.ARCHETYPES);
+        parser.parse(parentDslFile);
+        Workspace workspace = parser.getWorkspace();
+
+        SoftwareSystem a = workspace.getModel().getSoftwareSystemWithName("A");
+        assertEquals("Default Description", a.getDescription());
+        assertTrue(a.hasTag("Default Tag"));
+
+        SoftwareSystem b = workspace.getModel().getSoftwareSystemWithName("B");
+        assertEquals("Default Description", b.getDescription());
+        assertTrue(b.hasTag("Default Tag"));
+
+        Relationship r = a.getEfferentRelationshipWith(b);
+        assertEquals("Default Description", r.getDescription());
+        assertEquals("Default Technology", r.getTechnology());
+        assertTrue(r.hasTag("Default Tag"));
+    }
+
+    @Test
+    void test_archetypesForExtension() throws Exception {
+        File parentDslFile = new File("src/test/resources/dsl/archetypes-for-extension.dsl");
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.getFeatures().enable(Features.ARCHETYPES);
+        parser.parse(parentDslFile);
+        Workspace workspace = parser.getWorkspace();
+
+        SoftwareSystem a = workspace.getModel().getSoftwareSystemWithName("A");
+        assertEquals("Description of A.", a.getDescription());
+        assertTrue(a.hasTag("Default Tag"));
+
+        SoftwareSystem b = workspace.getModel().getSoftwareSystemWithName("B");
+        assertEquals("Description of B.", b.getDescription());
+        assertTrue(b.hasTag("Default Tag"));
+        assertTrue(b.hasTag("External Software System"));
+
+        Relationship r = a.getEfferentRelationshipWith(b);
+        assertEquals("Makes API calls to", r.getDescription());
+        assertEquals("HTTPS", r.getTechnology());
+        assertTrue(r.hasTag("Default Tag"));
+        assertTrue(r.hasTag("HTTPS"));
     }
 
 }

@@ -1,8 +1,8 @@
 package com.structurizr.dsl;
 
-final class PersonArchetypeDslContext extends ElementArchetypeDslContext {
+final class RelationshipArchetypeDslContext extends ArchetypeDslContext {
 
-    PersonArchetypeDslContext(Archetype archetype) {
+    RelationshipArchetypeDslContext(Archetype archetype) {
         super(archetype);
     }
 
@@ -10,6 +10,7 @@ final class PersonArchetypeDslContext extends ElementArchetypeDslContext {
     protected String[] getPermittedTokens() {
         return new String[] {
             StructurizrDslTokens.DESCRIPTION_TOKEN,
+            StructurizrDslTokens.TECHNOLOGY_TOKEN,
             StructurizrDslTokens.TAG_TOKEN,
             StructurizrDslTokens.TAGS_TOKEN,
         };

@@ -12,7 +12,7 @@ final class DeploymentNodeParser extends AbstractParser {
     private static final int TAGS_INDEX = 4;
     private static final int INSTANCES_INDEX = 5;
 
-    DeploymentNode parse(DeploymentEnvironmentDslContext context, Tokens tokens) {
+    DeploymentNode parse(DeploymentEnvironmentDslContext context, Tokens tokens, Archetype archetype) {
         // deploymentNode <name> [description] [technology] [tags] [instances]
 
         if (tokens.hasMoreThan(INSTANCES_INDEX)) {
@@ -26,23 +26,23 @@ final class DeploymentNodeParser extends AbstractParser {
         DeploymentNode deploymentNode = null;
         String name = tokens.get(NAME_INDEX);
 
-        String description = "";
+        String description = archetype.getDescription();
         if (tokens.includes(DESCRIPTION_INDEX)) {
             description = tokens.get(DESCRIPTION_INDEX);
         }
 
-        String technology = "";
+        String technology = archetype.getTechnology();
         if (tokens.includes(TECHNOLOGY_INDEX)) {
             technology = tokens.get(TECHNOLOGY_INDEX);
         }
 
         deploymentNode = context.getWorkspace().getModel().addDeploymentNode(context.getEnvironment(), name, description, technology);
 
-        String tags = "";
+        String[] tags = archetype.getTags().toArray(new String[0]);
         if (tokens.includes(TAGS_INDEX)) {
-            tags = tokens.get(TAGS_INDEX);
-            deploymentNode.addTags(tags.split(","));
+            tags = tokens.get(TAGS_INDEX).split(",");
         }
+        deploymentNode.addTags(tags);
 
         String instances = "1";
         if (tokens.includes(INSTANCES_INDEX)) {
@@ -58,7 +58,7 @@ final class DeploymentNodeParser extends AbstractParser {
         return deploymentNode;
     }
 
-    DeploymentNode parse(DeploymentNodeDslContext context, Tokens tokens) {
+    DeploymentNode parse(DeploymentNodeDslContext context, Tokens tokens, Archetype archetype) {
         // deploymentNode <name> [description] [technology] [tags] [instances]
 
         if (tokens.hasMoreThan(INSTANCES_INDEX)) {
@@ -72,12 +72,12 @@ final class DeploymentNodeParser extends AbstractParser {
         DeploymentNode deploymentNode = null;
         String name = tokens.get(NAME_INDEX);
 
-        String description = "";
+        String description = archetype.getDescription();
         if (tokens.includes(DESCRIPTION_INDEX)) {
             description = tokens.get(DESCRIPTION_INDEX);
         }
 
-        String technology = "";
+        String technology = archetype.getTechnology();
         if (tokens.includes(TECHNOLOGY_INDEX)) {
             technology = tokens.get(TECHNOLOGY_INDEX);
         }
@@ -85,11 +85,11 @@ final class DeploymentNodeParser extends AbstractParser {
         DeploymentNode parent = context.getDeploymentNode();
         deploymentNode = parent.addDeploymentNode(name, description, technology);
 
-        String tags = "";
+        String[] tags = archetype.getTags().toArray(new String[0]);
         if (tokens.includes(TAGS_INDEX)) {
-            tags = tokens.get(TAGS_INDEX);
-            deploymentNode.addTags(tags.split(","));
+            tags = tokens.get(TAGS_INDEX).split(",");
         }
+        deploymentNode.addTags(tags);
 
         String instances = "1";
         if (tokens.includes(INSTANCES_INDEX)) {

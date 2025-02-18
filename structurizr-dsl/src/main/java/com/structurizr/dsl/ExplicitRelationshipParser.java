@@ -17,7 +17,7 @@ final class ExplicitRelationshipParser extends AbstractRelationshipParser {
     private final static int TECHNOLOGY_INDEX = 4;
     private final static int TAGS_INDEX = 5;
 
-    Relationship parse(DslContext context, Tokens tokens) {
+    Relationship parse(DslContext context, Tokens tokens, Archetype archetype) {
         // <identifier> -> <identifier> [description] [technology] [tags]
 
         if (tokens.hasMoreThan(TAGS_INDEX)) {
@@ -40,17 +40,17 @@ final class ExplicitRelationshipParser extends AbstractRelationshipParser {
             throw new RuntimeException("The destination element \"" + destinationId + "\" does not exist");
         }
 
-        String description = "";
+        String description = archetype.getDescription();
         if (tokens.includes(DESCRIPTION_INDEX)) {
             description = tokens.get(DESCRIPTION_INDEX);
         }
 
-        String technology = "";
+        String technology = archetype.getTechnology();
         if (tokens.includes(TECHNOLOGY_INDEX)) {
             technology = tokens.get(TECHNOLOGY_INDEX);
         }
 
-        String[] tags = new String[0];
+        String[] tags = archetype.getTags().toArray(new String[0]);
         if (tokens.includes(TAGS_INDEX)) {
             tags = tokens.get(TAGS_INDEX).split(",");
         }
@@ -58,7 +58,7 @@ final class ExplicitRelationshipParser extends AbstractRelationshipParser {
         return createRelationship(sourceElement, description, technology, tags, destinationElement);
     }
 
-    Set<Relationship> parse(ElementsDslContext context, Tokens tokens) {
+    Set<Relationship> parse(ElementsDslContext context, Tokens tokens, Archetype archetype) {
         // <identifier> -> <identifier> [description] [technology] [tags]
 
         if (tokens.hasMoreThan(TAGS_INDEX)) {
@@ -81,17 +81,17 @@ final class ExplicitRelationshipParser extends AbstractRelationshipParser {
             throw new RuntimeException("The destination element \"" + destinationId + "\" does not exist");
         }
 
-        String description = "";
+        String description = archetype.getDescription();
         if (tokens.includes(DESCRIPTION_INDEX)) {
             description = tokens.get(DESCRIPTION_INDEX);
         }
 
-        String technology = "";
+        String technology = archetype.getTechnology();
         if (tokens.includes(TECHNOLOGY_INDEX)) {
             technology = tokens.get(TECHNOLOGY_INDEX);
         }
 
-        String[] tags = new String[0];
+        String[] tags = archetype.getTags().toArray(new String[0]);
         if (tokens.includes(TAGS_INDEX)) {
             tags = tokens.get(TAGS_INDEX).split(",");
         }

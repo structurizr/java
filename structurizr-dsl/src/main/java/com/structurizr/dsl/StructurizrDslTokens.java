@@ -132,4 +132,7 @@ class StructurizrDslTokens {
     static final String COMPONENT_FINDER_STRATEGY_URL_TOKEN = "url";
     static final String COMPONENT_FINDER_STRATEGY_FOREACH_TOKEN = "forEach";
 
+    static final String RELATIONSHIP_ARCHETYPE_PREFIX = "--";
+    static final String RELATIONSHIP_ARCHETYPE_SUFFIX = "->";
+
 }

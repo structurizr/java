@@ -1,6 +1,6 @@
 package com.structurizr.dsl;
 
-final class ContainerArchetypeDslContext extends ArchetypeDslContext {
+final class ContainerArchetypeDslContext extends ElementArchetypeDslContext {
 
     ContainerArchetypeDslContext(Archetype archetype) {
         super(archetype);
