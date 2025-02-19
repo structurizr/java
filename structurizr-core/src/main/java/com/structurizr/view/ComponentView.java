@@ -156,6 +156,15 @@ public final class ComponentView extends StaticView {
      */
     @Override
     public void addDefaultElements() {
+        addDefaultElements(true);
+    }
+
+    /**
+     * Adds the default set of elements and relationships to this view.
+     *
+     * @param greedy    true (add all relationships) or false (adds relationships to/from the components in the scoped container only)
+     */
+    public void addDefaultElements(boolean greedy) {
         for (Component component : getContainer().getComponents()) {
             add(component);
 
@@ -168,6 +177,10 @@ public final class ComponentView extends StaticView {
             addNearestNeighbours(component, CustomElement.class);
             addNearestNeighbours(component, Person.class);
             addNearestNeighbours(component, SoftwareSystem.class);
+        }
+
+        if (!greedy) {
+            removeRelationshipsNotConnectedToElements(getContainer().getComponents());
         }
     }
 

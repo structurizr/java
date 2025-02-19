@@ -2,10 +2,7 @@ package com.structurizr.dsl;
 
 import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
-import com.structurizr.view.ComponentView;
-import com.structurizr.view.ContainerView;
-import com.structurizr.view.ElementNotPermittedInViewException;
-import com.structurizr.view.StaticView;
+import com.structurizr.view.*;
 
 final class StaticViewContentParser extends ModelViewContentParser {
 
@@ -13,7 +10,11 @@ final class StaticViewContentParser extends ModelViewContentParser {
 
     void parseInclude(StaticViewDslContext context, Tokens tokens) {
         if (!tokens.includes(FIRST_IDENTIFIER_INDEX)) {
-            throw new RuntimeException("Expected: include <*|identifier|expression> [*|identifier|expression...]");
+            if (context.getView() instanceof SystemContextView || context.getView() instanceof ContainerView || context.getView() instanceof ComponentView) {
+                throw new RuntimeException("Expected: include <*|*?|identifier|expression> [*|identifier|expression...]");
+            } else {
+                throw new RuntimeException("Expected: include <*|identifier|expression> [*|identifier|expression...]");
+            }
         }
 
         StaticView view = context.getView();
@@ -24,7 +25,10 @@ final class StaticViewContentParser extends ModelViewContentParser {
 
             if (token.equals(WILDCARD) || token.equals(ELEMENT_WILDCARD)) {
                 // include * or include element==*
-                view.addDefaultElements();
+                view.addDefaultElements(true);
+            } else if (token.equals(WILDCARD_RELUCTANT)) {
+                // include *?
+                view.addDefaultElements(false);
             } else if (isExpression(token)) {
                 new StaticViewExpressionParser().parseExpression(token, context).forEach(mi -> addModelItemToView(mi, view, null));
             } else {

@@ -25,9 +25,16 @@ public abstract class StaticView extends ModelView implements AnimatedView {
     }
 
     /**
-     * Adds the default set of elements to this view.
+     * Adds the default set of elements and relationships to this view.
      */
     public abstract void addDefaultElements();
+
+    /**
+     * Adds the default set of elements and relationships to this view.
+     *
+     * @param greedy    true (add all relationships) or false (depends on view type)
+     */
+    public abstract void addDefaultElements(boolean greedy);
 
     /**
      * Adds all software systems in the model to this view.

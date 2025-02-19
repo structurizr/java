@@ -615,6 +615,70 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    void addDefaultElements_WhenGreedyIsTrue() {
+        model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
+
+        SoftwareSystem a = model.addSoftwareSystem("A");
+        Container a1 = a.addContainer("A1", "", "");
+        Component aa1 = a1.addComponent("AA1", "", "");
+        Component aa2 = a1.addComponent("AA2", "", "");
+        SoftwareSystem b = model.addSoftwareSystem("B");
+        SoftwareSystem c = model.addSoftwareSystem("C");
+
+        aa1.uses(aa2, "Uses");
+        aa1.uses(b, "Uses");
+        aa2.uses(c, "Uses");
+        b.uses(c, "Uses");
+
+        view = new ComponentView(a1, "components", "Description");
+        view.addDefaultElements(true);
+
+        assertEquals(4, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(aa1)));
+        assertTrue(view.getElements().contains(new ElementView(aa2)));
+        assertTrue(view.getElements().contains(new ElementView(b)));
+        assertTrue(view.getElements().contains(new ElementView(c)));
+
+        assertEquals(4, view.getRelationships().size());
+        assertNotNull(view.getRelationshipView(aa1.getEfferentRelationshipWith(aa2)));
+        assertNotNull(view.getRelationshipView(aa1.getEfferentRelationshipWith(b)));
+        assertNotNull(view.getRelationshipView(aa2.getEfferentRelationshipWith(c)));
+        assertNotNull(view.getRelationshipView(b.getEfferentRelationshipWith(c)));
+    }
+
+    @Test
+    void addDefaultElements_WhenGreedyIsFalse() {
+        model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
+
+        SoftwareSystem a = model.addSoftwareSystem("A");
+        Container a1 = a.addContainer("A1", "", "");
+        Component aa1 = a1.addComponent("AA1", "", "");
+        Component aa2 = a1.addComponent("AA2", "", "");
+        SoftwareSystem b = model.addSoftwareSystem("B");
+        SoftwareSystem c = model.addSoftwareSystem("C");
+
+        aa1.uses(aa2, "Uses");
+        aa1.uses(b, "Uses");
+        aa2.uses(c, "Uses");
+        b.uses(c, "Uses");
+
+        view = new ComponentView(a1, "components", "Description");
+        view.addDefaultElements(false);
+
+        assertEquals(4, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(aa1)));
+        assertTrue(view.getElements().contains(new ElementView(aa2)));
+        assertTrue(view.getElements().contains(new ElementView(b)));
+        assertTrue(view.getElements().contains(new ElementView(c)));
+
+        assertEquals(3, view.getRelationships().size());
+        assertNotNull(view.getRelationshipView(aa1.getEfferentRelationshipWith(aa2)));
+        assertNotNull(view.getRelationshipView(aa1.getEfferentRelationshipWith(b)));
+        assertNotNull(view.getRelationshipView(aa2.getEfferentRelationshipWith(c)));
+        assertNull(view.getRelationshipView(b.getEfferentRelationshipWith(c)));
+    }
+
+    @Test
     void addSoftwareSystem_ThrowsAnException_WhenTheSoftwareSystemIsTheScopeOfTheView() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
         Container container = softwareSystem.addContainer("Container");

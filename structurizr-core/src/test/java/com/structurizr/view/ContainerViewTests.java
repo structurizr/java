@@ -307,6 +307,68 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    void addDefaultElements_WhenGreedyIsTrue() {
+        model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
+
+        SoftwareSystem a = model.addSoftwareSystem("A");
+        Container a1 = a.addContainer("A1");
+        Container a2 = a.addContainer("A2");
+        SoftwareSystem b = model.addSoftwareSystem("B");
+        SoftwareSystem c = model.addSoftwareSystem("C");
+
+        a1.uses(a2, "Uses");
+        a1.uses(b, "Uses");
+        a2.uses(c, "Uses");
+        b.uses(c, "Uses");
+
+        view = new ContainerView(a, "containers", "Description");
+        view.addDefaultElements(true);
+
+        assertEquals(4, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(a1)));
+        assertTrue(view.getElements().contains(new ElementView(a2)));
+        assertTrue(view.getElements().contains(new ElementView(b)));
+        assertTrue(view.getElements().contains(new ElementView(c)));
+
+        assertEquals(4, view.getRelationships().size());
+        assertNotNull(view.getRelationshipView(a1.getEfferentRelationshipWith(a2)));
+        assertNotNull(view.getRelationshipView(a1.getEfferentRelationshipWith(b)));
+        assertNotNull(view.getRelationshipView(a2.getEfferentRelationshipWith(c)));
+        assertNotNull(view.getRelationshipView(b.getEfferentRelationshipWith(c)));
+    }
+
+    @Test
+    void addDefaultElements_WhenGreedyIsFalse() {
+        model.setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
+
+        SoftwareSystem a = model.addSoftwareSystem("A");
+        Container a1 = a.addContainer("A1");
+        Container a2 = a.addContainer("A2");
+        SoftwareSystem b = model.addSoftwareSystem("B");
+        SoftwareSystem c = model.addSoftwareSystem("C");
+
+        a1.uses(a2, "Uses");
+        a1.uses(b, "Uses");
+        a2.uses(c, "Uses");
+        b.uses(c, "Uses");
+
+        view = new ContainerView(a, "containers", "Description");
+        view.addDefaultElements(false);
+
+        assertEquals(4, view.getElements().size());
+        assertTrue(view.getElements().contains(new ElementView(a1)));
+        assertTrue(view.getElements().contains(new ElementView(a2)));
+        assertTrue(view.getElements().contains(new ElementView(b)));
+        assertTrue(view.getElements().contains(new ElementView(c)));
+
+        assertEquals(3, view.getRelationships().size());
+        assertNotNull(view.getRelationshipView(a1.getEfferentRelationshipWith(a2)));
+        assertNotNull(view.getRelationshipView(a1.getEfferentRelationshipWith(b)));
+        assertNotNull(view.getRelationshipView(a2.getEfferentRelationshipWith(c)));
+        assertNull(view.getRelationshipView(b.getEfferentRelationshipWith(c)));
+    }
+
+    @Test
     void addSoftwareSystem_ThrowsAnException_WhenTheSoftwareSystemIsTheScopeOfTheView() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
 

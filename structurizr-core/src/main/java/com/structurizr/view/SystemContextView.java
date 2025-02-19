@@ -39,9 +39,22 @@ public final class SystemContextView extends StaticView {
      */
     @Override
     public void addDefaultElements() {
+        addDefaultElements(true);
+    }
+
+    /**
+     * Adds the default set of elements and relationships to this view.
+     *
+     * @param greedy    true (add all relationships) or false (adds relationships to/from the scoped software system only)
+     */
+    public void addDefaultElements(boolean greedy) {
         addNearestNeighbours(getSoftwareSystem(), CustomElement.class);
         addNearestNeighbours(getSoftwareSystem(), Person.class);
         addNearestNeighbours(getSoftwareSystem(), SoftwareSystem.class);
+
+        if (!greedy) {
+            removeRelationshipsNotConnectedToElement(getSoftwareSystem());
+        }
     }
 
     /**

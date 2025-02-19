@@ -54,6 +54,15 @@ public final class SystemLandscapeView extends StaticView {
      */
     @Override
     public void addDefaultElements() {
+        addDefaultElements(true);
+    }
+
+    /**
+     * Adds the default set of elements and relationships to this view.
+     *
+     * @param greedy    true (add all relationships) or false (add all relationships)
+     */
+    public void addDefaultElements(boolean greedy) {
         addAllSoftwareSystems();
         addAllPeople();
 
@@ -61,8 +70,8 @@ public final class SystemLandscapeView extends StaticView {
     }
 
     /**
-     * Adds all software systems and all people to this view.
-     */
+         * Adds all software systems and all people to this view.
+         */
     @Override
     public void addAllElements() {
         addAllSoftwareSystems();

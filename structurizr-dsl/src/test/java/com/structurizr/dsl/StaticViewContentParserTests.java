@@ -76,7 +76,7 @@ class StaticViewContentParserTests extends AbstractTests {
     }
 
     @Test
-    void test_parseInclude_AddsAllPeopleAndSoftwareSystemsToASystemLandscapeView_WhenTheWildcardIsSpecified() {
+    void test_parseInclude_AddsAllPeopleAndSoftwareSystemsToASystemLandscapeView_WhenTheGreedyWildcardIsSpecified() {
         Person user = model.addPerson("User", "Description");
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
         softwareSystem1.addContainer("Container 1", "Description", "Technology");
@@ -89,6 +89,25 @@ class StaticViewContentParserTests extends AbstractTests {
         context.setWorkspace(workspace);
 
         parser.parseInclude(context, tokens("include", "*"));
+
+        assertEquals(3, view.getElements().size());
+        assertEquals(2, view.getRelationships().size());
+    }
+
+    @Test
+    void test_parseInclude_AddsAllPeopleAndSoftwareSystemsToASystemLandscapeView_WhenTheReluctantWildcardIsSpecified() {
+        Person user = model.addPerson("User", "Description");
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
+        softwareSystem1.addContainer("Container 1", "Description", "Technology");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
+        user.uses(softwareSystem1, "Uses");
+        softwareSystem1.uses(softwareSystem2, "Uses");
+
+        SystemLandscapeView view = views.createSystemLandscapeView("key", "Description");
+        SystemLandscapeViewDslContext context = new SystemLandscapeViewDslContext(view);
+        context.setWorkspace(workspace);
+
+        parser.parseInclude(context, tokens("include", "*?"));
 
         assertEquals(3, view.getElements().size());
         assertEquals(2, view.getRelationships().size());
@@ -126,12 +145,13 @@ class StaticViewContentParserTests extends AbstractTests {
     }
 
     @Test
-    void test_parseInclude_AddsNearestNeighboursToASystemContextView_WhenTheWildcardIsSpecified() {
+    void test_parseInclude_AddsNearestNeighboursToASystemContextView_WhenTheGreedyWildcardIsSpecified() {
         Person user = model.addPerson("User", "Description");
         SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
         softwareSystem1.addContainer("Container 1", "Description", "Technology");
         SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
         user.uses(softwareSystem1, "Uses");
+        user.uses(softwareSystem2, "Uses");
         softwareSystem1.uses(softwareSystem2, "Uses");
 
         SystemContextView view = views.createSystemContextView(softwareSystem1, "key", "Description");
@@ -139,6 +159,26 @@ class StaticViewContentParserTests extends AbstractTests {
         context.setWorkspace(workspace);
 
         parser.parseInclude(context, tokens("include", "*"));
+
+        assertEquals(3, view.getElements().size());
+        assertEquals(3, view.getRelationships().size());
+    }
+
+    @Test
+    void test_parseInclude_AddsNearestNeighboursToASystemContextView_WhenTheReluctantWildcardIsSpecified() {
+        Person user = model.addPerson("User", "Description");
+        SoftwareSystem softwareSystem1 = model.addSoftwareSystem("Software System 1", "Description");
+        softwareSystem1.addContainer("Container 1", "Description", "Technology");
+        SoftwareSystem softwareSystem2 = model.addSoftwareSystem("Software System 2", "Description");
+        user.uses(softwareSystem1, "Uses");
+        user.uses(softwareSystem2, "Uses");
+        softwareSystem1.uses(softwareSystem2, "Uses");
+
+        SystemContextView view = views.createSystemContextView(softwareSystem1, "key", "Description");
+        SystemContextViewDslContext context = new SystemContextViewDslContext(view);
+        context.setWorkspace(workspace);
+
+        parser.parseInclude(context, tokens("include", "*?"));
 
         assertEquals(3, view.getElements().size());
         assertEquals(2, view.getRelationships().size());

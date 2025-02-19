@@ -85,11 +85,24 @@ public final class ContainerView extends StaticView {
      */
     @Override
     public void addDefaultElements() {
+        addDefaultElements(true);
+    }
+
+    /**
+     * Adds the default set of elements and relationships to this view.
+     *
+     * @param greedy    true (add all relationships) or false (adds relationships to/from the containers in the scoped software system only)
+     */
+    public void addDefaultElements(boolean greedy) {
         for (Container container : getSoftwareSystem().getContainers()) {
             add(container);
             addNearestNeighbours(container, CustomElement.class);
             addNearestNeighbours(container, Person.class);
             addNearestNeighbours(container, SoftwareSystem.class);
+        }
+
+        if (!greedy) {
+            removeRelationshipsNotConnectedToElements(getSoftwareSystem().getContainers());
         }
     }
 

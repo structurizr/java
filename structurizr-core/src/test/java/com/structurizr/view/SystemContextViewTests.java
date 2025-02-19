@@ -305,4 +305,42 @@ public class SystemContextViewTests extends AbstractWorkspaceTestBase {
         assertTrue(view.getElements().contains(new ElementView(softwareSystem2)));
     }
 
+    @Test
+    void addDefaultElements_WhenGreedyIsTrue() {
+        SoftwareSystem a = model.addSoftwareSystem("A");
+        SoftwareSystem b = model.addSoftwareSystem("B");
+        SoftwareSystem c = model.addSoftwareSystem("C");
+
+        Relationship ab = a.uses(b, "Uses");
+        Relationship ac = a.uses(c, "Uses");
+        Relationship bc = b.uses(c, "Uses");
+
+        view = views.createSystemContextView(a, "key", "description");
+        view.addDefaultElements(true);
+
+        assertEquals(3, view.getElements().size());
+        assertNotNull(view.getRelationshipView(ab));
+        assertNotNull(view.getRelationshipView(ac));
+        assertNotNull(view.getRelationshipView(bc));
+    }
+
+    @Test
+    void addDefaultElements_WhenGreedyIsFalse() {
+        SoftwareSystem a = model.addSoftwareSystem("A");
+        SoftwareSystem b = model.addSoftwareSystem("B");
+        SoftwareSystem c = model.addSoftwareSystem("C");
+
+        Relationship ab = a.uses(b, "Uses");
+        Relationship ac = a.uses(c, "Uses");
+        Relationship bc = b.uses(c, "Uses");
+
+        view = views.createSystemContextView(a, "key", "description");
+        view.addDefaultElements(false);
+
+        assertEquals(3, view.getElements().size());
+        assertNotNull(view.getRelationshipView(ab));
+        assertNotNull(view.getRelationshipView(ac));
+        assertNull(view.getRelationshipView(bc));
+    }
+
 }
