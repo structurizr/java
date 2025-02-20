@@ -1361,12 +1361,11 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
     private void extendArchetype(Archetype archetype, String archetypeName) {
         archetypeName = archetypeName.toLowerCase();
-        Archetype parentArchetype = archetypes.get(archetype.getType()).get(archetypeName);
-        if (parentArchetype != null) {
-            archetype.setDescription(parentArchetype.getDescription());
-            archetype.setTechnology(parentArchetype.getTechnology());
-            archetype.addTags(parentArchetype.getTags().toArray(new String[0]));
-        }
+        Archetype parentArchetype = getArchetype(archetype.getType(), archetypeName);
+
+        archetype.setDescription(parentArchetype.getDescription());
+        archetype.setTechnology(parentArchetype.getTechnology());
+        archetype.addTags(parentArchetype.getTags().toArray(new String[0]));
     }
 
     /**

@@ -15,7 +15,11 @@ workspace {
                 tag "Default Tag"
             }
 
-            https = -> {
+            sync = -> {
+                tag "Synchronous"
+            }
+
+            https = --sync-> {
                 technology "HTTPS"
                 tag "HTTPS"
             }

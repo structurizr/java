@@ -1537,6 +1537,7 @@ workspace extends source-parent.dsl {
         assertEquals("Makes API calls to", r.getDescription());
         assertEquals("HTTPS", r.getTechnology());
         assertTrue(r.hasTag("Default Tag"));
+        assertTrue(r.hasTag("Synchronous"));
         assertTrue(r.hasTag("HTTPS"));
     }
 
