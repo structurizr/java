@@ -30,8 +30,8 @@ public class GraphvizAutomaticLayout {
     private final File path;
 
     private RankDirection rankDirection = RankDirection.TopBottom;
-    private double rankSeparation = 1.0;
-    private double nodeSeparation = 1.0;
+    private double rankSeparation = 300;
+    private double nodeSeparation = 300;
 
     private int margin = 400;
     private boolean changePaperSize = true;
@@ -75,8 +75,21 @@ public class GraphvizAutomaticLayout {
         this.locale = locale;
     }
 
-    private DOTExporter createDOTExporter() {
-        DOTExporter exporter = new DOTExporter(rankDirection, rankSeparation, nodeSeparation);
+    private DOTExporter createDOTExporter(AutomaticLayout automaticLayout) {
+        DOTExporter exporter;
+
+        if (automaticLayout == null) {
+            // use the configured defaults
+            exporter = new DOTExporter(rankDirection, rankSeparation, nodeSeparation);
+        } else {
+            // use the values from the automatic layout configuration associated with the view
+            exporter = new DOTExporter(
+                    RankDirection.valueOf(automaticLayout.getRankDirection().name()),
+                    automaticLayout.getRankSeparation(),
+                    automaticLayout.getNodeSeparation()
+                );
+        }
+
         exporter.setLocale(locale);
 
         return exporter;
@@ -130,7 +143,7 @@ public class GraphvizAutomaticLayout {
 
     public void apply(CustomView view) throws Exception {
         log.debug("Running Graphviz for view with key " + view.getKey());
-        Diagram diagram = createDOTExporter().export(view);
+        Diagram diagram = createDOTExporter(view.getAutomaticLayout()).export(view);
         writeFile(diagram);
         runGraphviz(view);
         createSVGReader().parseAndApplyLayout(view);
@@ -138,7 +151,7 @@ public class GraphvizAutomaticLayout {
 
     public void apply(SystemLandscapeView view) throws Exception {
         log.debug("Running Graphviz for view with key " + view.getKey());
-        Diagram diagram = createDOTExporter().export(view);
+        Diagram diagram = createDOTExporter(view.getAutomaticLayout()).export(view);
         writeFile(diagram);
         runGraphviz(view);
         createSVGReader().parseAndApplyLayout(view);
@@ -146,7 +159,7 @@ public class GraphvizAutomaticLayout {
 
     public void apply(SystemContextView view) throws Exception {
         log.debug("Running Graphviz for view with key " + view.getKey());
-        Diagram diagram = createDOTExporter().export(view);
+        Diagram diagram = createDOTExporter(view.getAutomaticLayout()).export(view);
         writeFile(diagram);
         runGraphviz(view);
         createSVGReader().parseAndApplyLayout(view);
@@ -154,7 +167,7 @@ public class GraphvizAutomaticLayout {
 
     public void apply(ContainerView view) throws Exception {
         log.debug("Running Graphviz for view with key " + view.getKey());
-        Diagram diagram = createDOTExporter().export(view);
+        Diagram diagram = createDOTExporter(view.getAutomaticLayout()).export(view);
         writeFile(diagram);
         runGraphviz(view);
         createSVGReader().parseAndApplyLayout(view);
@@ -162,7 +175,7 @@ public class GraphvizAutomaticLayout {
 
     public void apply(ComponentView view) throws Exception {
         log.debug("Running Graphviz for view with key " + view.getKey());
-        Diagram diagram = createDOTExporter().export(view);
+        Diagram diagram = createDOTExporter(view.getAutomaticLayout()).export(view);
         writeFile(diagram);
         runGraphviz(view);
         createSVGReader().parseAndApplyLayout(view);
@@ -170,7 +183,7 @@ public class GraphvizAutomaticLayout {
 
     public void apply(DynamicView view) throws Exception {
         log.debug("Running Graphviz for view with key " + view.getKey());
-        Diagram diagram = createDOTExporter().export(view);
+        Diagram diagram = createDOTExporter(view.getAutomaticLayout()).export(view);
         writeFile(diagram);
         runGraphviz(view);
         createSVGReader().parseAndApplyLayout(view);
@@ -178,7 +191,7 @@ public class GraphvizAutomaticLayout {
 
     public void apply(DeploymentView view) throws Exception {
         log.debug("Running Graphviz for view with key " + view.getKey());
-        Diagram diagram = createDOTExporter().export(view);
+        Diagram diagram = createDOTExporter(view.getAutomaticLayout()).export(view);
         writeFile(diagram);
         runGraphviz(view);
         createSVGReader().parseAndApplyLayout(view);
@@ -186,31 +199,45 @@ public class GraphvizAutomaticLayout {
 
     public void apply(Workspace workspace) throws Exception {
         for (CustomView view : workspace.getViews().getCustomViews()) {
-            apply(view);
+            if (view.getAutomaticLayout() != null && view.getAutomaticLayout().getImplementation() == AutomaticLayout.Implementation.Graphviz) {
+                apply(view);
+            }
         }
 
         for (SystemLandscapeView view : workspace.getViews().getSystemLandscapeViews()) {
-            apply(view);
+            if (view.getAutomaticLayout() != null && view.getAutomaticLayout().getImplementation() == AutomaticLayout.Implementation.Graphviz) {
+                apply(view);
+            }
         }
 
         for (SystemContextView view : workspace.getViews().getSystemContextViews()) {
-            apply(view);
+            if (view.getAutomaticLayout() != null && view.getAutomaticLayout().getImplementation() == AutomaticLayout.Implementation.Graphviz) {
+                apply(view);
+            }
         }
 
         for (ContainerView view : workspace.getViews().getContainerViews()) {
-            apply(view);
+            if (view.getAutomaticLayout() != null && view.getAutomaticLayout().getImplementation() == AutomaticLayout.Implementation.Graphviz) {
+                apply(view);
+            }
         }
 
         for (ComponentView view : workspace.getViews().getComponentViews()) {
-            apply(view);
+            if (view.getAutomaticLayout() != null && view.getAutomaticLayout().getImplementation() == AutomaticLayout.Implementation.Graphviz) {
+                apply(view);
+            }
         }
 
         for (DynamicView view : workspace.getViews().getDynamicViews()) {
-            apply(view);
+            if (view.getAutomaticLayout() != null && view.getAutomaticLayout().getImplementation() == AutomaticLayout.Implementation.Graphviz) {
+                apply(view);
+            }
         }
 
         for (DeploymentView view : workspace.getViews().getDeploymentViews()) {
-            apply(view);
+            if (view.getAutomaticLayout() != null && view.getAutomaticLayout().getImplementation() == AutomaticLayout.Implementation.Graphviz) {
+                apply(view);
+            }
         }
     }
 

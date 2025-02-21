@@ -483,49 +483,50 @@ public class DOTExporterTests {
     @Test
     public void test_AmazonWebServicesExample() throws Exception {
         Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("src/test/resources/structurizr-54915-workspace.json"));
-        DOTExporter exporter = new DOTExporter(RankDirection.TopBottom, 300, 300);
+        DOTExporter exporter = new DOTExporter(RankDirection.LeftRight, 300, 300);
         Diagram diagram = exporter.export(workspace.getViews().getDeploymentViews().iterator().next());
 
         String content = diagram.getDefinition();
 
-        String expectedResult = "digraph {\n" +
-                "  compound=true\n" +
-                "  graph [splines=polyline,rankdir=LR,ranksep=1.0,nodesep=1.0,fontsize=5]\n" +
-                "  node [shape=box,fontsize=5]\n" +
-                "  edge []\n" +
-                "\n" +
-                "  subgraph cluster_5 {\n" +
-                "    margin=25\n" +
-                "    subgraph cluster_6 {\n" +
-                "      margin=25\n" +
-                "      subgraph cluster_12 {\n" +
-                "        margin=25\n" +
-                "        subgraph cluster_13 {\n" +
-                "          margin=25\n" +
-                "          14 [width=1.500000,height=1.000000,fixedsize=true,id=14,label=\"14: Database\"]\n" +
-                "        }\n" +
-                "\n" +
-                "      }\n" +
-                "\n" +
-                "      7 [width=1.500000,height=1.000000,fixedsize=true,id=7,label=\"7: Route 53\"]\n" +
-                "      8 [width=1.500000,height=1.000000,fixedsize=true,id=8,label=\"8: Elastic Load Balancer\"]\n" +
-                "      subgraph cluster_9 {\n" +
-                "        margin=25\n" +
-                "        subgraph cluster_10 {\n" +
-                "          margin=25\n" +
-                "          11 [width=1.500000,height=1.000000,fixedsize=true,id=11,label=\"11: Web Application\"]\n" +
-                "        }\n" +
-                "\n" +
-                "      }\n" +
-                "\n" +
-                "    }\n" +
-                "\n" +
-                "  }\n" +
-                "\n" +
-                "  11 -> 14 [id=15]\n" +
-                "  7 -> 8 [id=16]\n" +
-                "  8 -> 11 [id=17]\n" +
-                "}";
+        String expectedResult = """
+                digraph {
+                  compound=true
+                  graph [splines=polyline,rankdir=LR,ranksep=1.0,nodesep=1.0,fontsize=5]
+                  node [shape=box,fontsize=5]
+                  edge []
+                
+                  subgraph cluster_5 {
+                    margin=25
+                    subgraph cluster_6 {
+                      margin=25
+                      subgraph cluster_12 {
+                        margin=25
+                        subgraph cluster_13 {
+                          margin=25
+                          14 [width=1.500000,height=1.000000,fixedsize=true,id=14,label="14: Database"]
+                        }
+                
+                      }
+                
+                      7 [width=1.500000,height=1.000000,fixedsize=true,id=7,label="7: Route 53"]
+                      8 [width=1.500000,height=1.000000,fixedsize=true,id=8,label="8: Elastic Load Balancer"]
+                      subgraph cluster_9 {
+                        margin=25
+                        subgraph cluster_10 {
+                          margin=25
+                          11 [width=1.500000,height=1.000000,fixedsize=true,id=11,label="11: Web Application"]
+                        }
+                
+                      }
+                
+                    }
+                
+                  }
+                
+                  11 -> 14 [id=15]
+                  7 -> 8 [id=16]
+                  8 -> 11 [id=17]
+                }""";
 
         assertEquals(expectedResult, content);
     }

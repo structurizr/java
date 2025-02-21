@@ -5,6 +5,7 @@ import com.structurizr.autolayout.graphviz.GraphvizAutomaticLayout;
 import com.structurizr.model.Person;
 import com.structurizr.model.SoftwareSystem;
 import com.structurizr.model.Tags;
+import com.structurizr.view.AutomaticLayout;
 import com.structurizr.view.Shape;
 import com.structurizr.view.SystemContextView;
 import org.junit.jupiter.api.Test;
@@ -17,7 +18,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class GraphvizAutomaticLayoutTests {
 
     @Test
-    public void test() throws Exception {
+    public void apply_Workspace() throws Exception {
+        File tempDir = Files.createTempDirectory("graphviz").toFile();
+        GraphvizAutomaticLayout graphviz = new GraphvizAutomaticLayout(tempDir);
+
         Workspace workspace = new Workspace("Name", "");
         Person user = workspace.getModel().addPerson("User");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System");
@@ -33,12 +37,15 @@ public class GraphvizAutomaticLayoutTests {
         assertEquals(0, view.getElementView(softwareSystem).getX());
         assertEquals(0, view.getElementView(softwareSystem).getY());
 
-        File tempDir = Files.createTempDirectory("graphviz").toFile();
-        GraphvizAutomaticLayout graphviz = new GraphvizAutomaticLayout(tempDir);
-        graphviz.setRankSeparation(300);
-        graphviz.setNodeSeparation(300);
-        graphviz.setMargin(400);
+        graphviz.apply(workspace);
 
+        // no change - the view doesn't have automatic layout configured
+        assertEquals(0, view.getElementView(user).getX());
+        assertEquals(0, view.getElementView(user).getY());
+        assertEquals(0, view.getElementView(softwareSystem).getX());
+        assertEquals(0, view.getElementView(softwareSystem).getY());
+
+        view.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom);
         graphviz.apply(workspace);
 
         assertEquals(233, view.getElementView(user).getX());

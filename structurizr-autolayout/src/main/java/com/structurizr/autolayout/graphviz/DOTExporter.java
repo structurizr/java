@@ -20,16 +20,16 @@ class DOTExporter extends AbstractDiagramExporter {
     private static final int CLUSTER_INTERNAL_MARGIN = 25;
 
     private Locale locale = Locale.US;
-    private RankDirection rankDirection;
-    private double rankSeparation;
-    private double nodeSeparation;
+    private final RankDirection rankDirection;
+    private final double rankSeparation;
+    private final double nodeSeparation;
 
     private int groupId = 1;
 
     DOTExporter(RankDirection rankDirection, double rankSeparation, double nodeSeparation) {
-        this.rankDirection = rankDirection;
-        this.rankSeparation = rankSeparation;
-        this.nodeSeparation = nodeSeparation;
+        this.rankDirection = rankDirection != null ? rankDirection : RankDirection.TopBottom;
+        this.rankSeparation = rankSeparation / Constants.STRUCTURIZR_DPI;
+        this.nodeSeparation = nodeSeparation / Constants.STRUCTURIZR_DPI;
     }
 
     void setLocale(Locale locale) {
@@ -38,33 +38,6 @@ class DOTExporter extends AbstractDiagramExporter {
 
     @Override
     protected void writeHeader(ModelView view, IndentingWriter writer) {
-        if (view.getAutomaticLayout() != null) {
-            if (view.getAutomaticLayout().getRankDirection() == null) {
-                rankDirection = RankDirection.TopBottom;
-            } else {
-                switch (view.getAutomaticLayout().getRankDirection()) {
-                    case TopBottom:
-                        rankDirection = RankDirection.TopBottom;
-                        break;
-                    case BottomTop:
-                        rankDirection = RankDirection.BottomTop;
-                        break;
-                    case LeftRight:
-                        rankDirection = RankDirection.LeftRight;
-                        break;
-                    case RightLeft:
-                        rankDirection = RankDirection.RightLeft;
-                        break;
-                }
-            }
-
-            rankSeparation = view.getAutomaticLayout().getRankSeparation();
-            nodeSeparation = view.getAutomaticLayout().getNodeSeparation();
-        }
-
-        rankSeparation = rankSeparation / Constants.STRUCTURIZR_DPI;
-        nodeSeparation = nodeSeparation / Constants.STRUCTURIZR_DPI;
-
         writer.writeLine("digraph {");
         writer.indent();
         writer.writeLine("compound=true");
