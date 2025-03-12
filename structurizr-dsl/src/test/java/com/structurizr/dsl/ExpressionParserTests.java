@@ -6,6 +6,7 @@ import com.structurizr.view.DeploymentView;
 import com.structurizr.view.SystemLandscapeView;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -50,6 +51,19 @@ class ExpressionParserTests extends AbstractTests {
             fail();
         } catch (Exception e) {
             assertEquals("The element \"a\" does not exist", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseExpression_ThrowsAnException_WhenTheWildcardRelationshipIsNegated() {
+        try {
+            SystemLandscapeViewDslContext context = new SystemLandscapeViewDslContext(null);
+            context.setWorkspace(workspace);
+
+            parser.parseExpression("relationship!=*", context);
+            fail();
+        } catch (Exception e) {
+            assertEquals("The relationship \"*\" cannot be negated", e.getMessage());
         }
     }
 
@@ -137,6 +151,10 @@ class ExpressionParserTests extends AbstractTests {
         assertEquals(1, relationships.size());
         assertTrue(relationships.contains(aToB));
 
+        relationships = parser.parseExpression("relationship!=a->*", context);
+        assertEquals(1, relationships.size());
+        assertTrue(relationships.contains(bToC));
+
         relationships = parser.parseExpression("a -> *", context);
         assertEquals(1, relationships.size());
         assertTrue(relationships.contains(aToB));
@@ -149,6 +167,7 @@ class ExpressionParserTests extends AbstractTests {
         SoftwareSystem c = model.addSoftwareSystem("C");
         Relationship aToB = a.uses(b, "Uses");
         Relationship bToC = b.uses(c, "Uses");
+        Relationship aToC = a.uses(c, "Uses");
 
         SystemLandscapeViewDslContext context = new SystemLandscapeViewDslContext(null);
         context.setWorkspace(workspace);
@@ -162,6 +181,10 @@ class ExpressionParserTests extends AbstractTests {
         Set<ModelItem> relationships = parser.parseExpression("relationship.destination==b", context);
         assertEquals(1, relationships.size());
         assertTrue(relationships.contains(aToB));
+
+        relationships = parser.parseExpression("relationship.destination!=b", context);
+        assertEquals(2, relationships.size());
+        assertTrue(relationships.containsAll(Arrays.asList(aToC, bToC)));
     }
 
     @Test
@@ -185,6 +208,10 @@ class ExpressionParserTests extends AbstractTests {
         assertEquals(1, relationships.size());
         assertTrue(relationships.contains(aToB));
 
+        relationships = parser.parseExpression("relationship!=*->b", context);
+        assertEquals(1, relationships.size());
+        assertTrue(relationships.contains(bToC));
+
         relationships = parser.parseExpression("* -> b", context);
         assertEquals(1, relationships.size());
         assertTrue(relationships.contains(aToB));
@@ -207,9 +234,15 @@ class ExpressionParserTests extends AbstractTests {
         elements.register("c", c);
         context.setIdentifierRegister(elements);
 
-        Set<ModelItem> relationships = parser.parseExpression("relationship.source==a && relationship.destination==b", context);
+        Set<ModelItem> relationships = parser.parseExpression("relationship.source==a && relationship.destination==b",
+                context);
         assertEquals(1, relationships.size());
         assertTrue(relationships.contains(aToB));
+
+        relationships = parser.parseExpression("relationship.source!=a && relationship.destination!=b",
+                context);
+        assertEquals(1, relationships.size());
+        assertTrue(relationships.contains(bToC));
     }
 
     @Test
@@ -232,6 +265,10 @@ class ExpressionParserTests extends AbstractTests {
         Set<ModelItem> relationships = parser.parseExpression("relationship==a->b", context);
         assertEquals(1, relationships.size());
         assertTrue(relationships.contains(aToB));
+
+        relationships = parser.parseExpression("relationship!=a->b", context);
+        assertEquals(1, relationships.size());
+        assertTrue(relationships.contains(bToC));
     }
 
     @Test
