@@ -361,11 +361,9 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         ModelItem modelItem = null;
 
                         if (REF_TOKEN.equalsIgnoreCase(firstToken)) {
-                            log.warn(REF_TOKEN + " has been deprecated and will be removed in a future release - please use !element or !relationship instead");
-                            modelItem = new RefParser().parse(getContext(), tokens.withoutContextStartToken());
+                            throw new RuntimeException(REF_TOKEN + " was previously deprecated, and has now been removed - please use " + FIND_ELEMENT_TOKEN + " or " + FIND_RELATIONSHIP_TOKEN + " instead");
                         } else if (EXTEND_TOKEN.equalsIgnoreCase(firstToken)) {
-                            log.warn(EXTEND_TOKEN + " has been deprecated and will be removed in a future release - please use !element or !relationship instead");
-                            modelItem = new RefParser().parse(getContext(), tokens.withoutContextStartToken());
+                            throw new RuntimeException(EXTEND_TOKEN + " was previously deprecated, and has now been removed - please use " + FIND_ELEMENT_TOKEN + " or " + FIND_RELATIONSHIP_TOKEN + " instead");
                         } else if (FIND_ELEMENT_TOKEN.equalsIgnoreCase(firstToken)) {
                             modelItem = new FindElementParser().parse(getContext(), tokens.withoutContextStartToken());
                         } else if (FIND_RELATIONSHIP_TOKEN.equalsIgnoreCase(firstToken)) {

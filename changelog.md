@@ -8,6 +8,7 @@
 - structurizr-dsl: Adds a reluctant version of `include *` (`include *?`) for system context views that only adds relationships to/from the scoped software system.
 - structurizr-dsl: Adds a reluctant version of `include *` (`include *?`) for container views that only adds relationships to/from the containers in the scoped software system.
 - structurizr-dsl: Adds a reluctant version of `include *` (`include *?`) for component views that only adds relationships to/from the components in the scoped container.
+- structurizr-dsl: Removes deprecated `!ref` and `!extend` keywords.
 
 ## 3.2.1 (10th December 2024)
 
