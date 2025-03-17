@@ -1541,4 +1541,16 @@ workspace extends source-parent.dsl {
         assertTrue(r.hasTag("HTTPS"));
     }
 
+    @Test
+    void test_textBlock() throws Exception {
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(new File("src/test/resources/dsl/text-block.dsl"));
+
+        SoftwareSystem softwareSystem = parser.getWorkspace().getModel().getSoftwareSystemWithName("Name");
+        assertEquals("""
+            - Line 1
+            - Line 2
+            - Line 3""", softwareSystem.getDescription());
+    }
+
 }

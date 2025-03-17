@@ -34,6 +34,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     private static final String MULTI_LINE_COMMENT_START_TOKEN = "/*";
     private static final String MULTI_LINE_COMMENT_END_TOKEN = "*/";
     private static final String MULTI_LINE_SEPARATOR = "\\";
+    private static final String TEXT_BLOCK_MARKER = "\"\"\"";
 
     private static final Pattern STRING_SUBSTITUTION_PATTERN = Pattern.compile("(\\$\\{[a-zA-Z0-9-_.]+?})");
 
@@ -1207,11 +1208,37 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         int lineNumber = 1;
         StringBuilder buf = new StringBuilder();
         boolean lineComplete = true;
+        boolean textBlock = false;
+        int textBlockLeadingSpace = -1;
 
         for (String line : lines) {
-            if (!COMMENT_PATTERN.matcher(line).matches() && line.endsWith(MULTI_LINE_SEPARATOR)) {
-                buf.append(line, 0, line.length()-1);
+            if (textBlock) {
+                if (line.endsWith(TEXT_BLOCK_MARKER)) {
+                    buf.append("\"");
+                    textBlock = false;
+                    textBlockLeadingSpace = -1;
+                    lineComplete = true;
+                } else {
+                    if (textBlockLeadingSpace == -1) {
+                        textBlockLeadingSpace = 0;
+                        for (int i = 0; i < line.length(); i++) {
+                            if (Character.isWhitespace(line.charAt(i))) {
+                                textBlockLeadingSpace++;
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+                    buf.append(line, textBlockLeadingSpace, line.length());
+                    buf.append("\n");
+                }
+            } else if (!COMMENT_PATTERN.matcher(line).matches() && line.endsWith(MULTI_LINE_SEPARATOR)) {
+                buf.append(line, 0, line.length() - 1);
                 lineComplete = false;
+            } else if (!COMMENT_PATTERN.matcher(line).matches() && line.endsWith(TEXT_BLOCK_MARKER)) {
+                buf.append(line, 0, line.length() - 2);
+                lineComplete = false;
+                textBlock = true;
             } else {
                 if (lineComplete) {
                     buf.append(line);
