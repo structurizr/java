@@ -1,9 +1,8 @@
 dependencies {
 
     api project(':structurizr-core')
-    implementation 'org.neo4j.driver:neo4j-java-driver:5.27.0'
+    implementation 'org.neo4j.driver:neo4j-java-driver:5.28.4'
 
     testImplementation project(':structurizr-client')
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
 
 }

@@ -3,7 +3,6 @@ dependencies {
     api project(':structurizr-export')
 
     testImplementation project(':structurizr-client')
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
 
 }
 
