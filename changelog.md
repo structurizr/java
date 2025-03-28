@@ -1,6 +1,6 @@
 # Changelog
 
-## v4.0.0 (unreleased)
+## v4.0.0 (28th March 2025)
 
 - structurizr-dsl: Fixes https://github.com/structurizr/java/issues/374 (!identifiers hierarchical isn't propagated when extending a workspace).
 - structurizr-dsl: Adds the ability to use the `group` keyword inside a component definition, to set the group name of that component.
