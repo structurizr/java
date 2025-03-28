@@ -10,6 +10,7 @@
 - structurizr-dsl: Adds a reluctant version of `include *` (`include *?`) for component views that only adds relationships to/from the components in the scoped container.
 - structurizr-dsl: Removes deprecated `!ref` and `!extend` keywords.
 - structurizr-dsl: Adds support for Java style `"""` multi-line text blocks.
+- structurizr-dsl: Adds support for defining element and relationship archetypes.
 
 ## 3.2.1 (10th December 2024)
 

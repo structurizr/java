@@ -661,7 +661,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         startContext(new ModelDslContext());
                         parsedTokens.add(MODEL_TOKEN);
 
-                    } else if (ARCHETYPES_TOKEN.equalsIgnoreCase(firstToken) && inContext(ModelDslContext.class) && features.isEnabled(Features.ARCHETYPES)) {
+                    } else if (ARCHETYPES_TOKEN.equalsIgnoreCase(firstToken) && inContext(ModelDslContext.class)) {
                         startContext(new ArchetypesDslContext());
 
                     } else if (isElementKeywordOrArchetype(firstToken, GROUP_TOKEN) && inContext(ArchetypesDslContext.class)) {
@@ -1337,28 +1337,22 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     }
 
     private boolean isElementKeywordOrArchetype(String token, String keyword) {
-        if (features.isEnabled(Features.ARCHETYPES)) {
-            if (token.equalsIgnoreCase(keyword)) {
-                return true;
-            } else {
-                return (archetypes.get(keyword).containsKey(token.toLowerCase()));
-            }
+        if (token.equalsIgnoreCase(keyword)) {
+            return true;
         } else {
-            return token.equalsIgnoreCase(keyword);
+            return (archetypes.get(keyword).containsKey(token.toLowerCase()));
         }
     }
 
     private boolean isRelationshipKeywordOrArchetype(String token) {
-        if (features.isEnabled(Features.ARCHETYPES)) {
-            if (token.equalsIgnoreCase(RELATIONSHIP_TOKEN)) {
-                return true;
-            } else if (token.startsWith(RELATIONSHIP_ARCHETYPE_PREFIX) && token.endsWith(RELATIONSHIP_ARCHETYPE_SUFFIX)) {
-                token = token.substring(RELATIONSHIP_ARCHETYPE_PREFIX.length(), token.length()-RELATIONSHIP_ARCHETYPE_SUFFIX.length());
-                return (archetypes.get(RELATIONSHIP_TOKEN).containsKey(token.toLowerCase()));
-            }
+        if (token.equalsIgnoreCase(RELATIONSHIP_TOKEN)) {
+            return true;
+        } else if (token.startsWith(RELATIONSHIP_ARCHETYPE_PREFIX) && token.endsWith(RELATIONSHIP_ARCHETYPE_SUFFIX)) {
+            token = token.substring(RELATIONSHIP_ARCHETYPE_PREFIX.length(), token.length()-RELATIONSHIP_ARCHETYPE_SUFFIX.length());
+            return (archetypes.get(RELATIONSHIP_TOKEN).containsKey(token.toLowerCase()));
         }
 
-        return token.equalsIgnoreCase(RELATIONSHIP_TOKEN);
+        return false;
     }
 
     private void addArchetype(Archetype archetype) {
@@ -1368,14 +1362,12 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     private Archetype getArchetype(String archetypeType, String archetypeName) {
         Archetype archetype = null;
 
-        if (features.isEnabled(Features.ARCHETYPES)) {
-            if (RELATIONSHIP_TOKEN.equals(archetypeType)) {
-                if (archetypeName.startsWith(RELATIONSHIP_ARCHETYPE_PREFIX) && archetypeName.endsWith(RELATIONSHIP_ARCHETYPE_SUFFIX)) {
-                    archetypeName = archetypeName.substring(RELATIONSHIP_ARCHETYPE_PREFIX.length(), archetypeName.length() - RELATIONSHIP_ARCHETYPE_SUFFIX.length());
-                }
+        if (RELATIONSHIP_TOKEN.equals(archetypeType)) {
+            if (archetypeName.startsWith(RELATIONSHIP_ARCHETYPE_PREFIX) && archetypeName.endsWith(RELATIONSHIP_ARCHETYPE_SUFFIX)) {
+                archetypeName = archetypeName.substring(RELATIONSHIP_ARCHETYPE_PREFIX.length(), archetypeName.length() - RELATIONSHIP_ARCHETYPE_SUFFIX.length());
             }
-            archetype = archetypes.get(archetypeType).get(archetypeName.toLowerCase());
         }
+        archetype = archetypes.get(archetypeType).get(archetypeName.toLowerCase());
 
         if (archetype == null) {
             archetype = new Archetype(archetypeName, archetypeType);
