@@ -1,6 +1,5 @@
 package com.structurizr.dsl;
 
-import com.structurizr.PerspectivesHolder;
 import com.structurizr.PropertyHolder;
 import com.structurizr.Workspace;
 import com.structurizr.model.*;
@@ -48,7 +47,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     private final Map<String, NameValuePair> constantsAndVariables;
     private final Features features = new Features();
 
-    private final Map<String,Map<String,Archetype>> archetypes = Map.of(
+    private Map<String,Map<String,Archetype>> archetypes = Map.of(
             StructurizrDslTokens.GROUP_TOKEN, new HashMap<>(),
             StructurizrDslTokens.PERSON_TOKEN, new HashMap<>(),
             StructurizrDslTokens.SOFTWARE_SYSTEM_TOKEN, new HashMap<>(),
@@ -74,6 +73,11 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         constantsAndVariables = new HashMap<>();
     }
 
+    void configureFrom(StructurizrDslParser parser) {
+        setIdentifierScope(parser.getIdentifierScope());
+        archetypes = parser.archetypes;
+    }
+
     /**
      * Provides a way to change the character encoding used by the DSL parser.
      *
@@ -91,7 +95,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         return identifierScope;
     }
 
-    void setIdentifierScope(IdentifierScope identifierScope) {
+    private void setIdentifierScope(IdentifierScope identifierScope) {
         if (identifierScope == null) {
             identifierScope = IdentifierScope.Flat;
         }

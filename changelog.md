@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.0.1 (unreleased)
+
+- structurizr-dsl: Allows archetypes to be used via workspace extension.
+
 ## v4.0.0 (28th March 2025)
 
 - structurizr-dsl: Fixes https://github.com/structurizr/java/issues/374 (!identifiers hierarchical isn't propagated when extending a workspace).

@@ -1502,6 +1502,33 @@ workspace extends source-parent.dsl {
     }
 
     @Test
+    void test_archetypesFromWorkspaceExtension() throws Exception {
+        File parentDslFile = new File("src/test/resources/dsl/archetypes-from-workspace-extension-child.dsl");
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(parentDslFile);
+        Workspace workspace = parser.getWorkspace();
+
+        SoftwareSystem a = workspace.getModel().getSoftwareSystemWithName("A");
+        assertEquals("Default Description", a.getDescription());
+        assertTrue(a.hasTag("Default Tag"));
+        assertTrue(a.hasProperty("Default Property Name", "Default Property Value"));
+        assertEquals("Default Perspective Description", (a.getPerspectives().stream().filter(p -> p.getName().equals("Default Perspective Name")).findFirst().get().getDescription()));
+
+        SoftwareSystem b = workspace.getModel().getSoftwareSystemWithName("B");
+        assertEquals("Default Description", b.getDescription());
+        assertTrue(b.hasTag("Default Tag"));
+        assertTrue(b.hasProperty("Default Property Name", "Default Property Value"));
+        assertEquals("Default Perspective Description", (b.getPerspectives().stream().filter(p -> p.getName().equals("Default Perspective Name")).findFirst().get().getDescription()));
+
+        Relationship r = a.getEfferentRelationshipWith(b);
+        assertEquals("Default Description", r.getDescription());
+        assertEquals("Default Technology", r.getTechnology());
+        assertTrue(r.hasTag("Default Tag"));
+        assertTrue(r.hasProperty("Default Property Name", "Default Property Value"));
+        assertEquals("Default Perspective Description", (r.getPerspectives().stream().filter(p -> p.getName().equals("Default Perspective Name")).findFirst().get().getDescription()));
+    }
+
+    @Test
     void test_archetypesForExtension() throws Exception {
         File parentDslFile = new File("src/test/resources/dsl/archetypes-for-extension.dsl");
         StructurizrDslParser parser = new StructurizrDslParser();
