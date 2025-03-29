@@ -214,6 +214,7 @@ public class ImageUtilsTests {
         ImageUtils.validateImage("image.jpg");
         ImageUtils.validateImage("image.jpeg");
         ImageUtils.validateImage("image.gif");
+        ImageUtils.validateImage("image.svg");
         ImageUtils.validateImage("data:image/svg+xml;utf8,iVBORw0KGg");
 
         //disallowed
@@ -221,7 +222,7 @@ public class ImageUtilsTests {
             ImageUtils.validateImage("data:image/other");
             fail();
         } catch (Exception e) {
-            assertEquals("Only PNG and JPG data URIs are supported: data:image/other", e.getMessage());
+            assertEquals("Only PNG, JPG, and SVG data URIs are supported: data:image/other", e.getMessage());
         }
     }
 

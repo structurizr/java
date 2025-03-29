@@ -136,18 +136,18 @@ public class ImageUtils {
             return;
         }
 
-        if (imageDescriptor.toLowerCase().endsWith(".png") || imageDescriptor.toLowerCase().endsWith(".jpg") || imageDescriptor.toLowerCase().endsWith(".jpeg") || imageDescriptor.toLowerCase().endsWith(".gif")) {
+        if (imageDescriptor.toLowerCase().endsWith(".png") || imageDescriptor.toLowerCase().endsWith(".jpg") || imageDescriptor.toLowerCase().endsWith(".jpeg") || imageDescriptor.toLowerCase().endsWith(".gif") || imageDescriptor.toLowerCase().endsWith(".svg")) {
             // it's just a filename
             return;
         }
 
         if (imageDescriptor.startsWith(DATA_URI_PREFIX)) {
             if (ImageUtils.isSupportedDataUri(imageDescriptor)) {
-                // it's a PNG/JPG data URI
+                // it's a PNG/JPG/SVG data URI
                 return;
             } else {
                 // it's a data URI, but not supported
-                throw new IllegalArgumentException("Only PNG and JPG data URIs are supported: " + imageDescriptor);
+                throw new IllegalArgumentException("Only PNG, JPG, and SVG data URIs are supported: " + imageDescriptor);
             }
         }
 

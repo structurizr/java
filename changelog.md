@@ -3,6 +3,7 @@
 ## v4.0.1 (unreleased)
 
 - structurizr-dsl: Allows archetypes to be used via workspace extension.
+- structurizr-dsl: Fixes https://github.com/structurizr/java/issues/392 (SVG not supported in base 64 encoding not mentioned in documentation).
 
 ## v4.0.0 (28th March 2025)
 
