@@ -3,6 +3,8 @@ set separator none
 title Spring PetClinic - Deployment - Live
 
 left to right direction
+skinparam ranksep 60
+skinparam nodesep 30
 
 skinparam {
   arrowFontSize 10

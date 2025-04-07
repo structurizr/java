@@ -42,6 +42,12 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
                         writer.writeLine("top to bottom direction");
                         break;
                 }
+
+                // the default 300px rank separation in the Structurizr UI is equivalent to a default of 60 in PlantUML
+                writer.writeLine("skinparam ranksep " + view.getAutomaticLayout().getRankSeparation() / (300/60));
+
+                // the default 300px node separation in the Structurizr UI is equivalent to a default of 30 in PlantUML
+                writer.writeLine("skinparam nodesep " + view.getAutomaticLayout().getNodeSeparation() / (300/30));
             } else {
                 writer.writeLine("top to bottom direction");
             }

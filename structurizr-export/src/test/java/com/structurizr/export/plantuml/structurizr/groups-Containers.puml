@@ -3,6 +3,8 @@ set separator none
 title D - Containers
 
 top to bottom direction
+skinparam ranksep 60
+skinparam nodesep 30
 
 skinparam {
   arrowFontSize 10
