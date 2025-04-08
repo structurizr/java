@@ -8,11 +8,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class CustomElementParserTests extends AbstractTests {
 
     private CustomElementParser parser = new CustomElementParser();
+    private Archetype archetype = new Archetype("name", "type");
 
     @Test
     void test_parse_ThrowsAnException_WhenThereAreTooManyTokens() {
         try {
-            parser.parse(context(), tokens("element", "name", "metadata", "description", "tags", "extra"));
+            parser.parse(context(), tokens("element", "name", "metadata", "description", "tags", "extra"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("Too many tokens, expected: element <name> [metadata] [description] [tags]", e.getMessage());
@@ -22,7 +23,7 @@ class CustomElementParserTests extends AbstractTests {
     @Test
     void test_parse_ThrowsAnException_WhenTheNameIsNotSpecified() {
         try {
-            parser.parse(context(), tokens("element"));
+            parser.parse(context(), tokens("element"), archetype);
             fail();
         } catch (Exception e) {
             assertEquals("Expected: element <name> [metadata] [description] [tags]", e.getMessage());
@@ -31,7 +32,7 @@ class CustomElementParserTests extends AbstractTests {
 
     @Test
     void test_parse_CreatesACustomElement() {
-        parser.parse(context(), tokens("element", "Name"));
+        parser.parse(context(), tokens("element", "Name"), archetype);
 
         assertEquals(1, model.getElements().size());
         CustomElement element = model.getCustomElementWithName("Name");
@@ -42,7 +43,7 @@ class CustomElementParserTests extends AbstractTests {
 
     @Test
     void test_parse_CreatesACustomElementWithMetadata() {
-        parser.parse(context(), tokens("element", "Name", "Box"));
+        parser.parse(context(), tokens("element", "Name", "Box"), archetype);
 
         assertEquals(1, model.getElements().size());
         CustomElement element = model.getCustomElementWithName("Name");
@@ -54,7 +55,7 @@ class CustomElementParserTests extends AbstractTests {
 
     @Test
     void test_parse_CreatesACustomElementWithMetadataAndDescription() {
-        parser.parse(context(), tokens("element", "Name", "Box", "Description"));
+        parser.parse(context(), tokens("element", "Name", "Box", "Description"), archetype);
 
         assertEquals(1, model.getElements().size());
         CustomElement element = model.getCustomElementWithName("Name");
@@ -66,7 +67,7 @@ class CustomElementParserTests extends AbstractTests {
 
     @Test
     void test_parse_CreatesACustomElementWithMetadataAndDescriptionAndTags() {
-        parser.parse(context(), tokens("element", "Name", "Box", "Description", "Tag 1, Tag 2"));
+        parser.parse(context(), tokens("element", "Name", "Box", "Description", "Tag 1, Tag 2"), archetype);
 
         assertEquals(1, model.getElements().size());
         CustomElement element = model.getCustomElementWithName("Name");

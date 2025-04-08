@@ -49,6 +49,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
     private Map<String,Map<String,Archetype>> archetypes = Map.of(
             StructurizrDslTokens.GROUP_TOKEN, new HashMap<>(),
+            StructurizrDslTokens.CUSTOM_ELEMENT_TOKEN, new HashMap<>(),
             StructurizrDslTokens.PERSON_TOKEN, new HashMap<>(),
             StructurizrDslTokens.SOFTWARE_SYSTEM_TOKEN, new HashMap<>(),
             StructurizrDslTokens.CONTAINER_TOKEN, new HashMap<>(),
@@ -421,8 +422,9 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                             startContext(new RelationshipsDslContext(getContext(), relationships));
                         }
 
-                    } else if (CUSTOM_ELEMENT_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ModelDslContext.class))) {
-                        CustomElement customElement = new CustomElementParser().parse(getContext(ModelDslContext.class), tokens.withoutContextStartToken());
+                    } else if (isElementKeywordOrArchetype(firstToken, CUSTOM_ELEMENT_TOKEN) && (inContext(ModelDslContext.class))) {
+                        Archetype archetype = getArchetype(CUSTOM_ELEMENT_TOKEN, firstToken);
+                        CustomElement customElement = new CustomElementParser().parse(getContext(ModelDslContext.class), tokens.withoutContextStartToken(), archetype);
 
                         if (shouldStartContext(tokens)) {
                             startContext(new CustomElementDslContext(customElement));
@@ -673,6 +675,15 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         extendArchetype(archetype, firstToken);
                         addArchetype(archetype);
 
+                    } else if (isElementKeywordOrArchetype(firstToken, CUSTOM_ELEMENT_TOKEN) && inContext(ArchetypesDslContext.class)) {
+                        Archetype archetype = new Archetype(identifier, CUSTOM_ELEMENT_TOKEN);
+                        extendArchetype(archetype, firstToken);
+                        addArchetype(archetype);
+
+                        if (shouldStartContext(tokens)) {
+                            startContext(new CustomElementArchetypeDslContext(archetype));
+                        }
+
                     } else if (isElementKeywordOrArchetype(firstToken, PERSON_TOKEN) && inContext(ArchetypesDslContext.class)) {
                         Archetype archetype = new Archetype(identifier, PERSON_TOKEN);
                         extendArchetype(archetype, firstToken);
@@ -736,6 +747,9 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         if (shouldStartContext(tokens)) {
                             startContext(new RelationshipArchetypeDslContext(archetype));
                         }
+
+                    } else if (METADATA_TOKEN.equalsIgnoreCase(firstToken) && inContext(CustomElementArchetypeDslContext.class)) {
+                        new ArchetypeParser().parseMetadata(getContext(ArchetypeDslContext.class), tokens);
 
                     } else if (DESCRIPTION_TOKEN.equalsIgnoreCase(firstToken) && inContext(ArchetypeDslContext.class)) {
                         new ArchetypeParser().parseDescription(getContext(ArchetypeDslContext.class), tokens);
@@ -1384,6 +1398,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         archetypeName = archetypeName.toLowerCase();
         Archetype parentArchetype = getArchetype(archetype.getType(), archetypeName);
 
+        archetype.setMetadata(parentArchetype.getMetadata());
         archetype.setDescription(parentArchetype.getDescription());
         archetype.setTechnology(parentArchetype.getTechnology());
         archetype.addTags(parentArchetype.getTags().toArray(new String[0]));

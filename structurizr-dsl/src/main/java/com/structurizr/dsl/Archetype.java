@@ -11,6 +11,7 @@ final class Archetype implements PropertyHolder, PerspectivesHolder {
 
     private final String name;
     private final String type;
+    private String metadata = "";
     private String description = "";
     private String technology = "";
     private final Set<String> tags = new LinkedHashSet<>();
@@ -33,6 +34,14 @@ final class Archetype implements PropertyHolder, PerspectivesHolder {
 
     String getType() {
         return type;
+    }
+
+    String getMetadata() {
+        return metadata;
+    }
+
+    void setMetadata(String metadata) {
+        this.metadata = metadata;
     }
 
     String getDescription() {

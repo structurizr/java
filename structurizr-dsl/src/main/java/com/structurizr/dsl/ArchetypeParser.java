@@ -31,6 +31,20 @@ final class ArchetypeParser extends AbstractParser {
         }
     }
 
+    void parseMetadata(ArchetypeDslContext context, Tokens tokens) {
+        // metadata <metadata>
+        if (tokens.hasMoreThan(VALUE_INDEX)) {
+            throw new RuntimeException("Too many tokens, expected: metadata <metadata>");
+        }
+
+        if (!tokens.includes(NAME_INDEX)) {
+            throw new RuntimeException("Expected: metadata <metadata>");
+        }
+
+        String metadata = tokens.get(VALUE_INDEX);
+        context.getArchetype().setMetadata(metadata);
+    }
+
     void parseDescription(ArchetypeDslContext context, Tokens tokens) {
         // description <description>
         if (tokens.hasMoreThan(VALUE_INDEX)) {

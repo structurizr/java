@@ -1475,6 +1475,18 @@ workspace extends source-parent.dsl {
     }
 
     @Test
+    void test_archetypesForCustomElements() throws Exception {
+        File parentDslFile = new File("src/test/resources/dsl/archetypes-for-custom-elements.dsl");
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(parentDslFile);
+        Workspace workspace = parser.getWorkspace();
+
+        CustomElement b = workspace.getModel().getCustomElementWithName("B");
+        assertEquals("Hardware System", b.getMetadata());
+        assertTrue(b.getTagsAsSet().contains("Hardware System"));
+    }
+
+    @Test
     void test_archetypesForDefaults() throws Exception {
         File parentDslFile = new File("src/test/resources/dsl/archetypes-for-defaults.dsl");
         StructurizrDslParser parser = new StructurizrDslParser();
