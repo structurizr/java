@@ -11,7 +11,8 @@ final class TerminologyDslContext extends DslContext {
                 StructurizrDslTokens.COMPONENT_TOKEN,
                 StructurizrDslTokens.DEPLOYMENT_NODE_TOKEN,
                 StructurizrDslTokens.INFRASTRUCTURE_NODE_TOKEN,
-                StructurizrDslTokens.TERMINOLOGY_RELATIONSHIP_TOKEN
+                StructurizrDslTokens.TERMINOLOGY_RELATIONSHIP_TOKEN,
+                StructurizrDslTokens.METADATA_SYMBOLS_TOKEN
         };
     }
 

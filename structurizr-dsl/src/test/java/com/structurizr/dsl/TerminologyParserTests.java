@@ -1,5 +1,6 @@
 package com.structurizr.dsl;
 
+import com.structurizr.view.MetadataSymbols;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -126,6 +127,47 @@ class TerminologyParserTests extends AbstractTests {
         parser.parseRelationship(context(), tokens("relationship", "TERM"));
 
         assertEquals("TERM", workspace.getViews().getConfiguration().getTerminology().getRelationship());
+    }
+
+    @Test
+    void test_parseMetadataSymbols_ThrowsAnException_WhenNoSymbolTypeIsSpecified() {
+        try {
+            parser.parseMetadataSymbols(context(), tokens("metadata"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Expected: metadata <square|round|curly|angle|double-angle|none>", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseMetadataSymbols_ThrowsAnException_WhenAnInvalidSymbolTypeIsSpecified() {
+        try {
+            parser.parseMetadataSymbols(context(), tokens("metadata", "invalid"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("The symbol type \"invalid\" is not valid", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseMetadataSymbols_SetsTheMetadataSymbols_WhenSpecified() {
+        parser.parseMetadataSymbols(context(), tokens("metadata", "square"));
+        assertEquals(MetadataSymbols.SquareBrackets, workspace.getViews().getConfiguration().getMetadataSymbols());
+
+        parser.parseMetadataSymbols(context(), tokens("metadata", "round"));
+        assertEquals(MetadataSymbols.RoundBrackets, workspace.getViews().getConfiguration().getMetadataSymbols());
+
+        parser.parseMetadataSymbols(context(), tokens("metadata", "curly"));
+        assertEquals(MetadataSymbols.CurlyBrackets, workspace.getViews().getConfiguration().getMetadataSymbols());
+
+        parser.parseMetadataSymbols(context(), tokens("metadata", "angle"));
+        assertEquals(MetadataSymbols.AngleBrackets, workspace.getViews().getConfiguration().getMetadataSymbols());
+
+        parser.parseMetadataSymbols(context(), tokens("metadata", "double-angle"));
+        assertEquals(MetadataSymbols.DoubleAngleBrackets, workspace.getViews().getConfiguration().getMetadataSymbols());
+
+        parser.parseMetadataSymbols(context(), tokens("metadata", "none"));
+        assertEquals(MetadataSymbols.None, workspace.getViews().getConfiguration().getMetadataSymbols());
     }
 
 }

@@ -359,6 +359,7 @@ workspace "Name" "Description" {
             deploymentNode "Deployment Node"
             infrastructureNode "Infrastructure Node"
             relationship "Relationship"
+            metadata angle
         }
 
         properties {
