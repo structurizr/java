@@ -4,8 +4,7 @@ import com.structurizr.model.Element;
 import com.structurizr.model.Relationship;
 
 import javax.lang.model.util.Elements;
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.*;
 
 final class ExplicitRelationshipParser extends AbstractRelationshipParser {
 
@@ -50,12 +49,12 @@ final class ExplicitRelationshipParser extends AbstractRelationshipParser {
             technology = tokens.get(TECHNOLOGY_INDEX);
         }
 
-        String[] tags = archetype.getTags().toArray(new String[0]);
+        List<String> tags = new ArrayList<>(archetype.getTags());
         if (tokens.includes(TAGS_INDEX)) {
-            tags = tokens.get(TAGS_INDEX).split(",");
+            tags.addAll(Arrays.asList(tokens.get(TAGS_INDEX).split(",")));
         }
 
-        Relationship relationship = createRelationship(sourceElement, description, technology, tags, destinationElement);
+        Relationship relationship = createRelationship(sourceElement, description, technology, tags.toArray(new String[0]), destinationElement);
         relationship.addProperties(archetype.getProperties());
         relationship.addPerspectives(archetype.getPerspectives());
 

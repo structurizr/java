@@ -100,6 +100,28 @@ class InfrastructureNodeParserTests extends AbstractTests {
     }
 
     @Test
+    void test_parse_CreatesAnInfrastructureNodeWithADescriptionAndTechnologyAndTagsBasedUponAnArchetype() {
+        archetype = new Archetype("name", "type");
+        archetype.setDescription("Default Description");
+        archetype.setTechnology("Default Technology");
+        archetype.addTags("Default Tag");
+
+        DeploymentNode deploymentNode = model.addDeploymentNode("Live", "Deployment Node", "Description", "Technology");
+        DeploymentNodeDslContext context = new DeploymentNodeDslContext(deploymentNode);
+
+        parser.parse(context, tokens("infrastructureNode", "Name", "Description", "Technology", "Tag 1, Tag 2"), archetype);
+
+        assertEquals(2, model.getElements().size());
+        assertEquals(1, deploymentNode.getInfrastructureNodes().size());
+        InfrastructureNode infrastructureNode = deploymentNode.getInfrastructureNodeWithName("Name");
+        assertNotNull(infrastructureNode);
+        assertEquals("Description", infrastructureNode.getDescription()); // overridden from archetype
+        assertEquals("Technology", infrastructureNode.getTechnology()); // overridden from archetype
+        assertEquals("Element,Infrastructure Node,Default Tag,Tag 1,Tag 2", infrastructureNode.getTags());
+        assertEquals("Live", infrastructureNode.getEnvironment());
+    }
+
+    @Test
     void test_parseTechnology_ThrowsAnException_WhenThereAreTooManyTokens() {
         try {
             InfrastructureNode infrastructureNode = model.addDeploymentNode("Deployment Node").addInfrastructureNode("Infrastructure Node");

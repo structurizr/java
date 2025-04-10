@@ -3,6 +3,10 @@ package com.structurizr.dsl;
 import com.structurizr.model.DeploymentNode;
 import com.structurizr.model.InfrastructureNode;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 final class InfrastructureNodeParser extends AbstractParser {
 
     private static final String GRAMMAR = "infrastructureNode <name> [description] [technology] [tags]";
@@ -39,11 +43,11 @@ final class InfrastructureNodeParser extends AbstractParser {
 
         infrastructureNode = deploymentNode.addInfrastructureNode(name, description, technology);
 
-        String[] tags = archetype.getTags().toArray(new String[0]);
+        List<String> tags = new ArrayList<>(archetype.getTags());
         if (tokens.includes(TAGS_INDEX)) {
-            tags = tokens.get(TAGS_INDEX).split(",");
+            tags.addAll(Arrays.asList(tokens.get(TAGS_INDEX).split(",")));
         }
-        infrastructureNode.addTags(tags);
+        infrastructureNode.addTags(tags.toArray(new String[0]));
 
         infrastructureNode.addProperties(archetype.getProperties());
         infrastructureNode.addPerspectives(archetype.getPerspectives());

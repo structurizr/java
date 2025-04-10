@@ -2,6 +2,10 @@ package com.structurizr.dsl;
 
 import com.structurizr.model.Person;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 final class PersonParser extends AbstractParser {
 
     private static final String GRAMMAR = "person <name> [description] [tags]";
@@ -38,11 +42,11 @@ final class PersonParser extends AbstractParser {
         }
         person.setDescription(description);
 
-        String[] tags = archetype.getTags().toArray(new String[0]);
+        List<String> tags = new ArrayList<>(archetype.getTags());
         if (tokens.includes(TAGS_INDEX)) {
-            tags = tokens.get(TAGS_INDEX).split(",");
+            tags.addAll(Arrays.asList(tokens.get(TAGS_INDEX).split(",")));
         }
-        person.addTags(tags);
+        person.addTags(tags.toArray(new String[0]));
 
         person.addProperties(archetype.getProperties());
         person.addPerspectives(archetype.getPerspectives());

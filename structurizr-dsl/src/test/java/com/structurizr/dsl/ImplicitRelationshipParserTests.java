@@ -145,6 +145,34 @@ class ImplicitRelationshipParserTests extends AbstractTests {
     }
 
     @Test
+    void test_parse_AddsTheRelationshipWithADescriptionAndTechnologyAndTagsBasedUponAnArchetype() {
+        archetype = new Archetype("name", "type");
+        archetype.setDescription("Default Description");
+        archetype.setTechnology("Default Technology");
+        archetype.addTags("Default Tag");
+
+        Person user = model.addPerson("User", "Description");
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
+        ElementDslContext context = context(user);
+
+        IdentifiersRegister elements = new IdentifiersRegister();
+        elements.register("destination", softwareSystem);
+        context.setIdentifierRegister(elements);
+
+        assertEquals(0, model.getRelationships().size());
+
+        parser.parse(context, tokens("->", "destination", "Uses", "HTTP", "Tag 1,Tag 2"), archetype);
+
+        assertEquals(1, model.getRelationships().size());
+        Relationship r = model.getRelationships().iterator().next();
+        assertSame(user, r.getSource());
+        assertSame(softwareSystem, r.getDestination());
+        assertEquals("Uses", r.getDescription()); // overridden from archetype
+        assertEquals("HTTP", r.getTechnology()); // overridden from archetype
+        assertEquals("Relationship,Default Tag,Tag 1,Tag 2", r.getTags());
+    }
+
+    @Test
     void test_parse_AddsTheRelationshipAndImplicitRelationshipsWithADescriptionAndTechnologyAndTags() {
         Person user = model.addPerson("User", "Description");
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");

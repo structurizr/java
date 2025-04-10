@@ -2,6 +2,10 @@ package com.structurizr.dsl;
 
 import com.structurizr.model.SoftwareSystem;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 final class SoftwareSystemParser extends AbstractParser {
 
     private static final String GRAMMAR = "softwareSystem <name> [description] [tags]";
@@ -38,11 +42,11 @@ final class SoftwareSystemParser extends AbstractParser {
         }
         softwareSystem.setDescription(description);
 
-        String[] tags = archetype.getTags().toArray(new String[0]);
+        List<String> tags = new ArrayList<>(archetype.getTags());
         if (tokens.includes(TAGS_INDEX)) {
-            tags = tokens.get(TAGS_INDEX).split(",");
+            tags.addAll(Arrays.asList(tokens.get(TAGS_INDEX).split(",")));
         }
-        softwareSystem.addTags(tags);
+        softwareSystem.addTags(tags.toArray(new String[0]));
 
         softwareSystem.addProperties(archetype.getProperties());
         softwareSystem.addPerspectives(archetype.getPerspectives());

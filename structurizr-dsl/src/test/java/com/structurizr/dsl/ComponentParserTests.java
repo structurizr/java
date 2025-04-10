@@ -93,6 +93,26 @@ class ComponentParserTests extends AbstractTests {
     }
 
     @Test
+    void test_parse_CreatesAComponentWithADescriptionAndTechnologyAndTagsBasedUponAnArchetype() {
+        archetype = new Archetype("name", "type");
+        archetype.setDescription("Default Description");
+        archetype.setTechnology("Default Technology");
+        archetype.addTags("Default Tag");
+
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
+        Container container = softwareSystem.addContainer("Container", "Description", "Technology");
+        ContainerDslContext context = new ContainerDslContext(container);
+        parser.parse(context, tokens("component", "Name", "Description", "Technology", "Tag 1, Tag 2"), archetype);
+
+        assertEquals(3, model.getElements().size());
+        Component component = container.getComponentWithName("Name");
+        assertNotNull(component);
+        assertEquals("Description", component.getDescription()); // overridden from archetype
+        assertEquals("Technology", component.getTechnology()); // overridden from archetype
+        assertEquals("Element,Component,Default Tag,Tag 1,Tag 2", component.getTags());
+    }
+
+    @Test
     void test_parseTechnology_ThrowsAnException_WhenThereAreTooManyTokens() {
         try {
             Component component = model.addSoftwareSystem("Software System").addContainer("Container").addComponent("Component");

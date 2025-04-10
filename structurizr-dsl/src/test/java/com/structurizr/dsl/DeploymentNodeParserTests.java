@@ -112,6 +112,27 @@ class DeploymentNodeParserTests extends AbstractTests {
     }
 
     @Test
+    void test_parse_CreatesADeploymentNodeWithADescriptionAndTechnologyAndTagsAndInstancesBasedUponAnArchetype() {
+        archetype = new Archetype("name", "type");
+        archetype.setDescription("Default Description");
+        archetype.setTechnology("Default Technology");
+        archetype.addTags("Default Tag");
+
+        DeploymentEnvironmentDslContext context = new DeploymentEnvironmentDslContext("Live");
+        context.setWorkspace(workspace);
+        parser.parse(context, tokens("deploymentNode", "Name", "Description", "Technology", "Tag 1, Tag 2", "8"), archetype);
+
+        assertEquals(1, model.getElements().size());
+        DeploymentNode deploymentNode = model.getDeploymentNodeWithName("Name", "Live");
+        assertNotNull(deploymentNode);
+        assertEquals("Description", deploymentNode.getDescription()); // overridden from archetype
+        assertEquals("Technology", deploymentNode.getTechnology()); // overridden from archetype
+        assertEquals("Element,Deployment Node,Default Tag,Tag 1,Tag 2", deploymentNode.getTags());
+        assertEquals("8", deploymentNode.getInstances());
+        assertEquals("Live", deploymentNode.getEnvironment());
+    }
+
+    @Test
     void test_parse_ThrowsAnException_WhenTheNumberOfInstancesIsNotValid() {
         DeploymentEnvironmentDslContext context = new DeploymentEnvironmentDslContext("Live");
         context.setWorkspace(workspace);
@@ -139,6 +160,28 @@ class DeploymentNodeParserTests extends AbstractTests {
         assertEquals("", deploymentNode.getTechnology());
         assertEquals("Element,Deployment Node", deploymentNode.getTags());
         assertEquals("1", deploymentNode.getInstances());
+        assertEquals("Live", deploymentNode.getEnvironment());
+    }
+
+    @Test
+    void test_parse_CreatesAChildDeploymentNodeWithADescriptionAndTechnologyAndTagsAndInstancesBasedUponAnArchetype() {
+        archetype = new Archetype("name", "type");
+        archetype.setDescription("Default Description");
+        archetype.setTechnology("Default Technology");
+        archetype.addTags("Default Tag");
+
+        DeploymentNode parent = model.addDeploymentNode("Live", "Parent", "Description", "Technology");
+        DeploymentNodeDslContext context = new DeploymentNodeDslContext(parent);
+        context.setWorkspace(workspace);
+        parser.parse(context, tokens("deploymentNode", "Name", "Description", "Technology", "Tag 1, Tag 2", "8"), archetype);
+
+        assertEquals(2, model.getElements().size());
+        DeploymentNode deploymentNode = parent.getDeploymentNodeWithName("Name");
+        assertNotNull(deploymentNode);
+        assertEquals("Description", deploymentNode.getDescription()); // overridden from archetype
+        assertEquals("Technology", deploymentNode.getTechnology()); // overridden from archetype
+        assertEquals("Element,Deployment Node,Default Tag,Tag 1,Tag 2", deploymentNode.getTags());
+        assertEquals("8", deploymentNode.getInstances());
         assertEquals("Live", deploymentNode.getEnvironment());
     }
 

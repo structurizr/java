@@ -4,6 +4,10 @@ import com.structurizr.model.CustomElement;
 import com.structurizr.model.Location;
 import com.structurizr.model.Person;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 final class CustomElementParser extends AbstractParser {
 
     private static final String GRAMMAR = "element <name> [metadata] [description] [tags]";
@@ -38,11 +42,11 @@ final class CustomElementParser extends AbstractParser {
 
         CustomElement customElement = context.getWorkspace().getModel().addCustomElement(name, metadata, description);
 
-        String[] tags = archetype.getTags().toArray(new String[0]);
+        List<String> tags = new ArrayList<>(archetype.getTags());
         if (tokens.includes(TAGS_INDEX)) {
-            tags = tokens.get(TAGS_INDEX).split(",");
+            tags.addAll(Arrays.asList(tokens.get(TAGS_INDEX).split(",")));
         }
-        customElement.addTags(tags);
+        customElement.addTags(tags.toArray(new String[0]));
 
         if (context.hasGroup()) {
             customElement.setGroup(context.getGroup().getName());

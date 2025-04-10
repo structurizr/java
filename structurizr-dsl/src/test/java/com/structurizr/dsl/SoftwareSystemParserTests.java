@@ -63,4 +63,19 @@ class SoftwareSystemParserTests extends AbstractTests {
         assertEquals("Element,Software System,Tag 1,Tag 2", softwareSystem.getTags());
     }
 
+    @Test
+    void test_parse_CreatesASoftwareSystemWithADescriptionAndTagsBasedUponAnArchetype() {
+        archetype = new Archetype("name", "type");
+        archetype.setDescription("Default Description");
+        archetype.addTags("Default Tag");
+
+        parser.parse(context(), tokens("softwareSystem", "Name", "Description", "Tag 1, Tag 2"), archetype);
+
+        assertEquals(1, model.getElements().size());
+        SoftwareSystem softwareSystem = model.getSoftwareSystemWithName("Name");
+        assertNotNull(softwareSystem);
+        assertEquals("Description", softwareSystem.getDescription()); // overridden from archetype
+        assertEquals("Element,Software System,Default Tag,Tag 1,Tag 2", softwareSystem.getTags());
+    }
+
 }

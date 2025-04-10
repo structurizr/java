@@ -77,4 +77,20 @@ class CustomElementParserTests extends AbstractTests {
         assertEquals("Element,Tag 1,Tag 2", element.getTags());
     }
 
+    @Test
+    void test_parse_CreatesACustomElementWithMetadataAndDescriptionAndTagsBasedUponAnArchetype() {
+        archetype = new Archetype("name", "type");
+        archetype.setDescription("Default Description");
+        archetype.addTags("Default Tag");
+
+        parser.parse(context(), tokens("element", "Name", "Box", "Description", "Tag 1, Tag 2"), archetype);
+
+        assertEquals(1, model.getElements().size());
+        CustomElement element = model.getCustomElementWithName("Name");
+        assertNotNull(element);
+        assertEquals("Box", element.getMetadata());
+        assertEquals("Description", element.getDescription()); // overridden from archetype
+        assertEquals("Element,Default Tag,Tag 1,Tag 2", element.getTags());
+    }
+
 }

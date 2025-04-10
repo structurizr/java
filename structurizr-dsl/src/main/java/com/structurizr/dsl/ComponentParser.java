@@ -3,6 +3,10 @@ package com.structurizr.dsl;
 import com.structurizr.model.Component;
 import com.structurizr.model.Container;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 final class ComponentParser extends AbstractParser {
 
     private static final String GRAMMAR = "component <name> [description] [technology] [tags]";
@@ -47,11 +51,11 @@ final class ComponentParser extends AbstractParser {
         }
         component.setTechnology(technology);
 
-        String[] tags = archetype.getTags().toArray(new String[0]);
+        List<String> tags = new ArrayList<>(archetype.getTags());
         if (tokens.includes(TAGS_INDEX)) {
-            tags = tokens.get(TAGS_INDEX).split(",");
+            tags.addAll(Arrays.asList(tokens.get(TAGS_INDEX).split(",")));
         }
-        component.addTags(tags);
+        component.addTags(tags.toArray(new String[0]));
 
         component.addProperties(archetype.getProperties());
         component.addPerspectives(archetype.getPerspectives());

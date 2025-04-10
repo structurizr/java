@@ -3,6 +3,10 @@ package com.structurizr.dsl;
 import com.structurizr.model.Container;
 import com.structurizr.model.SoftwareSystem;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 final class ContainerParser extends AbstractParser {
 
     private static final String GRAMMAR = "container <name> [description] [technology] [tags]";
@@ -47,11 +51,11 @@ final class ContainerParser extends AbstractParser {
         }
         container.setTechnology(technology);
 
-        String[] tags = archetype.getTags().toArray(new String[0]);
+        List<String> tags = new ArrayList<>(archetype.getTags());
         if (tokens.includes(TAGS_INDEX)) {
-            tags = tokens.get(TAGS_INDEX).split(",");
+            tags.addAll(Arrays.asList(tokens.get(TAGS_INDEX).split(",")));
         }
-        container.addTags(tags);
+        container.addTags(tags.toArray(new String[0]));
 
         container.addProperties(archetype.getProperties());
         container.addPerspectives(archetype.getPerspectives());

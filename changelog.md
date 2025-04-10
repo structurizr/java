@@ -4,6 +4,7 @@
 
 - structurizr-dsl: Allows archetypes to be used via workspace extension.
 - structurizr-dsl: Adds archetype support for custom elements.
+- structurizr-dsl: Fixes https://github.com/structurizr/java/issues/399 (Archetype tags sometimes missing).
 - structurizr-dsl: Fixes https://github.com/structurizr/java/issues/392 (SVG not supported in base 64 encoding not mentioned in documentation).
 - structurizr-dsl: Adds support for setting the symbols surrounding element/relationship metadata used when rendering diagrams.
 - structurizr-export: Adds support for rank and node separation to the StructurizrPlantUMLExporter.
