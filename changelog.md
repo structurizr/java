@@ -2,6 +2,7 @@
 
 ## v4.0.1 (unreleased)
 
+- structurizr-client: Fixes https://github.com/structurizr/java/issues/413 (Cannot push to main branch, when branch feature is activated).
 - structurizr-dsl: Allows archetypes to be used via workspace extension.
 - structurizr-dsl: Adds archetype support for custom elements.
 - structurizr-dsl: Fixes https://github.com/structurizr/java/issues/399 (Archetype tags sometimes missing).

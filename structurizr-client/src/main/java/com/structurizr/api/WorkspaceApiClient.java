@@ -313,7 +313,7 @@ public class WorkspaceApiClient extends AbstractApiClient {
             workspace.setLastModifiedUser(getUser());
 
             HttpPut httpPut;
-            if (StringUtils.isNullOrEmpty(branch)) {
+            if (StringUtils.isNullOrEmpty(branch) || branch.equalsIgnoreCase(MAIN_BRANCH)) {
                 httpPut = new HttpPut(url + WORKSPACE_PATH + "/" + workspaceId);
             } else {
                 httpPut = new HttpPut(url + WORKSPACE_PATH + "/" + workspaceId + "/branch/" + branch);
