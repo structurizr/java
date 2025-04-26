@@ -17,7 +17,7 @@ class DeploymentViewContentParserTests extends AbstractTests {
             parser.parseInclude(new DeploymentViewDslContext(null), tokens("include"));
             fail();
         } catch (RuntimeException iae) {
-            assertEquals("Expected: include <*|identifier> [*|identifier...]", iae.getMessage());
+            assertEquals("Expected: include <*|identifier|expression> [*|identifier|expression...]", iae.getMessage());
         }
     }
 
@@ -210,7 +210,7 @@ class DeploymentViewContentParserTests extends AbstractTests {
             parser.parseExclude(new DeploymentViewDslContext(null), tokens("exclude"));
             fail();
         } catch (RuntimeException iae) {
-            assertEquals("Expected: exclude <identifier> [identifier...]", iae.getMessage());
+            assertEquals("Expected: exclude <identifier|expression> [identifier|expression...]", iae.getMessage());
         }
     }
 

@@ -1576,4 +1576,26 @@ workspace extends source-parent.dsl {
             - Line 3""", softwareSystem.getDescription());
     }
 
+    @Test
+    void test_deploymentAnimation() throws Exception {
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(new File("src/test/resources/dsl/deployment-animation.dsl"));
+
+        Workspace workspace = parser.getWorkspace();
+        Container webapp = workspace.getModel().getSoftwareSystemWithName("Software System").getContainerWithName("Web Application");
+        Container db = workspace.getModel().getSoftwareSystemWithName("Software System").getContainerWithName("Database Schema");
+        ContainerInstance webappInstance = workspace.getModel().getDeploymentNodeWithName("Deployment Node", "Live").getContainerInstances().stream().filter(ci -> ci.getContainer().equals(webapp)).findFirst().get();
+        ContainerInstance dbInstance = workspace.getModel().getDeploymentNodeWithName("Deployment Node", "Live").getContainerInstances().stream().filter(ci -> ci.getContainer().equals(db)).findFirst().get();
+
+        for (DeploymentView deploymentView : workspace.getViews().getDeploymentViews()) {
+            assertEquals(2, deploymentView.getAnimations().size());
+
+            // step 1
+            assertTrue(deploymentView.getAnimations().get(0).getElements().contains(webappInstance.getId()));
+
+            // step 2
+            assertTrue(deploymentView.getAnimations().get(1).getElements().contains(dbInstance.getId()));
+        }
+    }
+
 }

@@ -403,14 +403,14 @@ public final class DeploymentView extends ModelView implements AnimatedView {
             }
         }
 
-        if (elementsInThisAnimationStep.size() == 0) {
-            throw new IllegalArgumentException("None of the specified container instances exist in this view.");
+        if (elementsInThisAnimationStep.isEmpty()) {
+            throw new IllegalArgumentException("None of the specified elements exist in this view.");
         }
 
         for (RelationshipView relationshipView : this.getRelationships()) {
             if (
                     (elementsInThisAnimationStep.contains(relationshipView.getRelationship().getSource()) && elementIdsInPreviousAnimationSteps.contains(relationshipView.getRelationship().getDestination().getId())) ||
-                            (elementIdsInPreviousAnimationSteps.contains(relationshipView.getRelationship().getSource().getId()) && elementsInThisAnimationStep.contains(relationshipView.getRelationship().getDestination()))
+                    (elementIdsInPreviousAnimationSteps.contains(relationshipView.getRelationship().getSource().getId()) && elementsInThisAnimationStep.contains(relationshipView.getRelationship().getDestination()))
             ) {
                 relationshipsInThisAnimationStep.add(relationshipView.getRelationship());
             }

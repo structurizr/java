@@ -14,12 +14,11 @@ final class DeploymentViewContentParser extends ModelViewContentParser {
 
     void parseInclude(DeploymentViewDslContext context, Tokens tokens) {
         if (!tokens.includes(FIRST_IDENTIFIER_INDEX)) {
-            throw new RuntimeException("Expected: include <*|identifier> [*|identifier...]");
+            throw new RuntimeException("Expected: include <*|identifier|expression> [*|identifier|expression...]");
         }
 
         DeploymentView view = context.getView();
 
-        // include <identifier> [identifier...]
         for (int i = FIRST_IDENTIFIER_INDEX; i < tokens.size(); i++) {
             String token = tokens.get(i);
 
@@ -36,12 +35,12 @@ final class DeploymentViewContentParser extends ModelViewContentParser {
 
     void parseExclude(DeploymentViewDslContext context, Tokens tokens) {
         if (!tokens.includes(FIRST_IDENTIFIER_INDEX)) {
-            throw new RuntimeException("Expected: exclude <identifier> [identifier...]");
+            throw new RuntimeException("Expected: exclude <identifier|expression> [identifier|expression...]");
         }
 
         DeploymentView view = context.getView();
 
-        // exclude <identifier> [identifier...]
+
         for (int i = FIRST_IDENTIFIER_INDEX; i < tokens.size(); i++) {
             String token = tokens.get(i);
 
