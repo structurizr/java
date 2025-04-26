@@ -347,7 +347,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
             deploymentView.addAnimation(webApplicationInstance, databaseInstance);
             fail();
         } catch (IllegalArgumentException iae) {
-            assertEquals("None of the specified container instances exist in this view.", iae.getMessage());
+            assertEquals("None of the specified elements exist in this view.", iae.getMessage());
         }
     }
 
