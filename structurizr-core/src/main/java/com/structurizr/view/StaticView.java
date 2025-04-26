@@ -218,7 +218,7 @@ public abstract class StaticView extends ModelView implements AnimatedView {
             }
         }
 
-        if (elementsInThisAnimationStep.size() == 0) {
+        if (elementsInThisAnimationStep.isEmpty()) {
             throw new IllegalArgumentException("None of the specified elements exist in this view.");
         }
 

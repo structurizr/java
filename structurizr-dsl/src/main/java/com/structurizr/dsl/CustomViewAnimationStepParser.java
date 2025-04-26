@@ -1,51 +1,70 @@
 package com.structurizr.dsl;
 
-import com.structurizr.model.CustomElement;
-import com.structurizr.model.Element;
+import com.structurizr.model.*;
 import com.structurizr.view.CustomView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 final class CustomViewAnimationStepParser extends AbstractParser {
 
+    private static final String GRAMMAR = "<identifier|element expression> [identifier|element expression...]";
+
     void parse(CustomViewDslContext context, Tokens tokens) {
-        // animationStep <identifier> [identifier...]
+        // animationStep <identifier|element expression> [identifier|element expression...]
 
         if (!tokens.includes(1)) {
-            throw new RuntimeException("Expected: animationStep <identifier> [identifier...]");
+            throw new RuntimeException("Expected: animationStep " + GRAMMAR);
         }
 
         parse(context, context.getCustomView(), tokens, 1);
     }
 
     void parse(CustomViewAnimationDslContext context, Tokens tokens) {
-        // <identifier> [identifier...]
+        // <identifier|element expression> [identifier|element expression...]
 
         if (!tokens.includes(0)) {
-            throw new RuntimeException("Expected: <identifier> [identifier...]");
+            throw new RuntimeException("Expected: " + GRAMMAR);
         }
 
         parse(context, context.getView(), tokens, 0);
     }
 
     void parse(DslContext context, CustomView view, Tokens tokens, int startIndex) {
-        List<CustomElement> elements = new ArrayList<>();
+        List<CustomElement> customElements = new ArrayList<>();
 
         for (int i = startIndex; i < tokens.size(); i++) {
-            String elementIdentifier = tokens.get(i);
+            String token = tokens.get(i);
 
-            Element element = context.getElement(elementIdentifier);
-            if (element == null) {
-                throw new RuntimeException("The element \"" + elementIdentifier + "\" does not exist");
-            }
+            if (ExpressionParser.isExpression(token.toLowerCase())) {
+                Set<ModelItem> elements = new CustomViewExpressionParser().parseExpression(token, context);
 
-            if (element instanceof CustomElement) {
-                elements.add((CustomElement)element);
+                for (ModelItem element : elements) {
+                    if (element instanceof CustomElement) {
+                        customElements.add((CustomElement)element);
+                    }
+                }
+            } else {
+                Set<ModelItem> elements = new CustomViewExpressionParser().parseIdentifier(token, context);
+
+                if (elements.isEmpty()) {
+                    throw new RuntimeException("The element \"" + token + "\" does not exist");
+                }
+
+                for (ModelItem element : elements) {
+                    if (element instanceof CustomElement) {
+                        customElements.add((CustomElement)element);
+                    }
+                }
             }
         }
 
-        view.addAnimation(elements.toArray(new CustomElement[0]));
+        if (!customElements.isEmpty()) {
+            view.addAnimation(customElements.toArray(new CustomElement[0]));
+        } else {
+            throw new RuntimeException("No custom elements were found");
+        }
     }
 
 }

@@ -1577,9 +1577,49 @@ workspace extends source-parent.dsl {
     }
 
     @Test
-    void test_deploymentAnimation() throws Exception {
+    void test_customViewAnimation() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
-        parser.parse(new File("src/test/resources/dsl/deployment-animation.dsl"));
+        parser.parse(new File("src/test/resources/dsl/custom-view-animation.dsl"));
+
+        Workspace workspace = parser.getWorkspace();
+        CustomElement a = workspace.getModel().getCustomElementWithName("A");
+        CustomElement b = workspace.getModel().getCustomElementWithName("B");
+
+        for (CustomView view : workspace.getViews().getCustomViews()) {
+            assertEquals(2, view.getAnimations().size());
+
+            // step 1
+            assertTrue(view.getAnimations().get(0).getElements().contains(a.getId()));
+
+            // step 2
+            assertTrue(view.getAnimations().get(1).getElements().contains(b.getId()));
+        }
+    }
+
+    @Test
+    void test_staticViewAnimation() throws Exception {
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(new File("src/test/resources/dsl/static-view-animation.dsl"));
+
+        Workspace workspace = parser.getWorkspace();
+        SoftwareSystem a = workspace.getModel().getSoftwareSystemWithName("A");
+        SoftwareSystem b = workspace.getModel().getSoftwareSystemWithName("B");
+
+        for (SystemLandscapeView view : workspace.getViews().getSystemLandscapeViews()) {
+            assertEquals(2, view.getAnimations().size());
+
+            // step 1
+            assertTrue(view.getAnimations().get(0).getElements().contains(a.getId()));
+
+            // step 2
+            assertTrue(view.getAnimations().get(1).getElements().contains(b.getId()));
+        }
+    }
+
+    @Test
+    void test_deploymentViewAnimation() throws Exception {
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(new File("src/test/resources/dsl/deployment-view-animation.dsl"));
 
         Workspace workspace = parser.getWorkspace();
         Container webapp = workspace.getModel().getSoftwareSystemWithName("Software System").getContainerWithName("Web Application");
