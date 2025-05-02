@@ -10,6 +10,7 @@
 - structurizr-dsl: Adds support for setting the symbols surrounding element/relationship metadata used when rendering diagrams.
 - structurizr-dsl: Fixes https://github.com/structurizr/java/issues/408 (Animation steps cannot be added to deployment views via static structure element references).
 - structurizr-dsl: Adds support for specifying view animation steps via element expressions.
+- structurizr-dsl: Fixes https://github.com/structurizr/java/issues/404 (deploymentGroup does not obey !identifiers hierarchical).
 - structurizr-export: Adds support for rank and node separation to the StructurizrPlantUMLExporter.
 
 ## v4.0.0 (28th March 2025)

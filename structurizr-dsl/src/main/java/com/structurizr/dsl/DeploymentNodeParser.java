@@ -51,7 +51,7 @@ final class DeploymentNodeParser extends AbstractParser {
 
         if (deploymentEnvironmentDslContext != null) {
             // add a root deployment node
-            deploymentNode = deploymentEnvironmentDslContext.getWorkspace().getModel().addDeploymentNode(deploymentEnvironmentDslContext.getEnvironment(), name, description, technology);
+            deploymentNode = deploymentEnvironmentDslContext.getWorkspace().getModel().addDeploymentNode(deploymentEnvironmentDslContext.getEnvironment().getName(), name, description, technology);
 
             if (deploymentEnvironmentDslContext.hasGroup()) {
                 deploymentNode.setGroup(deploymentEnvironmentDslContext.getGroup().getName());

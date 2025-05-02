@@ -1,11 +1,14 @@
 package com.structurizr.dsl;
 
-import com.structurizr.model.*;
+import com.structurizr.model.Container;
+import com.structurizr.model.ContainerInstance;
+import com.structurizr.model.DeploymentNode;
+import com.structurizr.model.Element;
 
 import java.util.HashSet;
 import java.util.Set;
 
-final class ContainerInstanceParser extends AbstractParser {
+final class ContainerInstanceParser extends StaticStructureInstanceParser {
 
     private static final String GRAMMAR = "containerInstance <identifier> [deploymentGroups] [tags]";
 
@@ -35,15 +38,7 @@ final class ContainerInstanceParser extends AbstractParser {
 
         Set<String> deploymentGroups = new HashSet<>();
         if (tokens.includes(DEPLOYMENT_GROUPS_TOKEN)) {
-            String token = tokens.get(DEPLOYMENT_GROUPS_TOKEN);
-
-            String[] deploymentGroupReferences = token.split(",");
-            for (String deploymentGroupReference : deploymentGroupReferences) {
-                Element e = context.getElement(deploymentGroupReference);
-                if (e instanceof DeploymentGroup) {
-                    deploymentGroups.add(e.getName());
-                }
-            }
+            deploymentGroups = getDeploymentGroups(context, tokens.get(DEPLOYMENT_GROUPS_TOKEN));
         }
 
         ContainerInstance containerInstance = deploymentNode.add((Container)element, deploymentGroups.toArray(new String[]{}));

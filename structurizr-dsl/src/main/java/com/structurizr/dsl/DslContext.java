@@ -40,6 +40,10 @@ abstract class DslContext {
         this.identifiersRegister = identifersRegister;
     }
 
+    String findIdentifier(Element element) {
+        return identifiersRegister.findIdentifier(element);
+    }
+
     Element getElement(String identifier) {
         return getElement(identifier, null);
     }
@@ -71,7 +75,7 @@ abstract class DslContext {
                 }
             } else if (this instanceof DeploymentEnvironmentDslContext) {
                 DeploymentEnvironmentDslContext deploymentEnvironmentDslContext = (DeploymentEnvironmentDslContext)this;
-                DeploymentEnvironment deploymentEnvironment = new DeploymentEnvironment(deploymentEnvironmentDslContext.getEnvironment());
+                DeploymentEnvironment deploymentEnvironment = deploymentEnvironmentDslContext.getEnvironment();
                 String parentIdentifier = identifiersRegister.findIdentifier(deploymentEnvironment);
 
                 element = identifiersRegister.getElement(parentIdentifier + "." + identifier);

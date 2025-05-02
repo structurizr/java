@@ -2,13 +2,13 @@ workspace {
 
     model {
         softwareSystem = softwareSystem "Software System" {
-            database = container "Database"
-            api = container "Service API" {
+            database = container "DB"
+            api = container "API" {
                 -> database "Uses"
             }
         }
 
-        deploymentEnvironment "Example 1" {
+        deploymentEnvironment "WithoutDeploymentGroups" {
             deploymentNode "Server 1" {
                 containerInstance api
                 containerInstance database
@@ -19,7 +19,7 @@ workspace {
             }
         }
 
-        deploymentEnvironment "Example 2" {
+        deploymentEnvironment "WithDeploymentGroups" {
             serviceInstance1 = deploymentGroup "Service Instance 1"
             serviceInstance2 = deploymentGroup "Service Instance 2"
             deploymentNode "Server 1" {
@@ -30,18 +30,6 @@ workspace {
                 containerInstance api serviceInstance2
                 containerInstance database serviceInstance2
             }
-        }
-    }
-
-    views {
-        deployment * "Example 1" {
-            include *
-            autolayout
-        }
-
-        deployment * "Example 2" {
-            include *
-            autolayout
         }
     }
 

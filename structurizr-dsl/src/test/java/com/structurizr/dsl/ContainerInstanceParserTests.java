@@ -103,10 +103,13 @@ class ContainerInstanceParserTests extends AbstractTests {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         DeploymentNode deploymentNode = model.addDeploymentNode("Live", "Deployment Node", "Description", "Technology");
+
         DeploymentNodeDslContext context = new DeploymentNodeDslContext(deploymentNode);
+
         IdentifiersRegister elements = new IdentifiersRegister();
         elements.register("container", container);
-        elements.register("group", new DeploymentGroup("Group"));
+        elements.register("live", new DeploymentEnvironment("Live"));
+        elements.register("group", new DeploymentGroup(new DeploymentEnvironment("Live"), "Group"));
         context.setIdentifierRegister(elements);
 
         parser.parse(context, tokens("containerInstance", "container", "group"));
@@ -126,10 +129,13 @@ class ContainerInstanceParserTests extends AbstractTests {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "Description");
         Container container = softwareSystem.addContainer("Container", "Description", "Technology");
         DeploymentNode deploymentNode = model.addDeploymentNode("Live", "Deployment Node", "Description", "Technology");
+
         DeploymentNodeDslContext context = new DeploymentNodeDslContext(deploymentNode);
+
         IdentifiersRegister elements = new IdentifiersRegister();
         elements.register("container", container);
-        elements.register("group", new DeploymentGroup("Group"));
+        elements.register("live", new DeploymentEnvironment("Live"));
+        elements.register("group", new DeploymentGroup(new DeploymentEnvironment("Live"), "Group"));
         context.setIdentifierRegister(elements);
 
         parser.parse(context, tokens("containerInstance", "container", "group", "Tag 1, Tag 2"));

@@ -549,8 +549,8 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (isElementKeywordOrArchetype(firstToken, GROUP_TOKEN) && inContext(DeploymentEnvironmentDslContext.class)) {
                         ElementGroup group = new GroupParser().parseContext(getContext(DeploymentEnvironmentDslContext.class), tokens);
 
-                        String environment = getContext(DeploymentEnvironmentDslContext.class).getEnvironment();
-                        startContext(new DeploymentEnvironmentDslContext(environment, group));
+                        DeploymentEnvironment environment = getContext(DeploymentEnvironmentDslContext.class).getEnvironment();
+                        startContext(new DeploymentEnvironmentDslContext(environment.getName(), group));
                         registerIdentifier(identifier, group);
                     } else if (isElementKeywordOrArchetype(firstToken, GROUP_TOKEN) && inContext(DeploymentNodeDslContext.class)) {
                         ElementGroup group = new GroupParser().parseContext(getContext(DeploymentNodeDslContext.class), tokens);
@@ -877,7 +877,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (DEPLOYMENT_GROUP_TOKEN.equalsIgnoreCase(firstToken) && inContext(DeploymentEnvironmentDslContext.class)) {
                         String group = new DeploymentGroupParser().parse(tokens.withoutContextStartToken());
 
-                        registerIdentifier(identifier, new DeploymentGroup(group));
+                        registerIdentifier(identifier, new DeploymentGroup(getContext(DeploymentEnvironmentDslContext.class).getEnvironment(), group));
 
                     } else if (isElementKeywordOrArchetype(firstToken, DEPLOYMENT_NODE_TOKEN) && inContext(DeploymentEnvironmentDslContext.class)) {
                         Archetype archetype = getArchetype(DEPLOYMENT_NODE_TOKEN, firstToken);

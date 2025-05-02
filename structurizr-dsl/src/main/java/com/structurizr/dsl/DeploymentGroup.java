@@ -6,9 +6,11 @@ import java.util.Set;
 
 class DeploymentGroup extends Element {
 
-    private String name;
+    private final Element parent;
+    private final String name;
 
-    DeploymentGroup(String name) {
+    DeploymentGroup(DeploymentEnvironment deploymentEnvironment, String name) {
+        this.parent = deploymentEnvironment;
         this.name = name;
     }
 
@@ -24,7 +26,7 @@ class DeploymentGroup extends Element {
 
     @Override
     public Element getParent() {
-        return null;
+        return parent;
     }
 
     @Override

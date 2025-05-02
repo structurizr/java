@@ -1,11 +1,14 @@
 package com.structurizr.dsl;
 
-import com.structurizr.model.*;
+import com.structurizr.model.DeploymentNode;
+import com.structurizr.model.Element;
+import com.structurizr.model.SoftwareSystem;
+import com.structurizr.model.SoftwareSystemInstance;
 
 import java.util.HashSet;
 import java.util.Set;
 
-final class SoftwareSystemInstanceParser extends AbstractParser {
+final class SoftwareSystemInstanceParser extends StaticStructureInstanceParser {
 
     private static final String GRAMMAR = "softwareSystemInstance <identifier> [deploymentGroups] [tags]";
 
@@ -36,15 +39,7 @@ final class SoftwareSystemInstanceParser extends AbstractParser {
 
         Set<String> deploymentGroups = new HashSet<>();
         if (tokens.includes(DEPLOYMENT_GROUPS_TOKEN)) {
-            String token = tokens.get(DEPLOYMENT_GROUPS_TOKEN);
-
-            String[] deploymentGroupReferences = token.split(",");
-            for (String deploymentGroupReference : deploymentGroupReferences) {
-                Element e = context.getElement(deploymentGroupReference);
-                if (e instanceof DeploymentGroup) {
-                    deploymentGroups.add(e.getName());
-                }
-            }
+            deploymentGroups = getDeploymentGroups(context, tokens.get(DEPLOYMENT_GROUPS_TOKEN));
         }
 
         SoftwareSystemInstance softwareSystemInstance = deploymentNode.add((SoftwareSystem)element, deploymentGroups.toArray(new String[]{}));

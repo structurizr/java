@@ -1638,4 +1638,78 @@ workspace extends source-parent.dsl {
         }
     }
 
+    @Test
+    void test_deploymentGroups_Flat() throws Exception {
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(new File("src/test/resources/dsl/deployment-groups-flat.dsl"));
+
+        Workspace workspace = parser.getWorkspace();
+
+        Container api = workspace.getModel().getSoftwareSystemWithName("Software System").getContainerWithName("API");
+        Container db = workspace.getModel().getSoftwareSystemWithName("Software System").getContainerWithName("DB");
+
+        DeploymentNode server1 = workspace.getModel().getDeploymentNodeWithName("Server 1", "WithoutDeploymentGroups");
+        ContainerInstance apiInstance1 = server1.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(api)).findFirst().get();
+        ContainerInstance dbInstance1 = server1.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(db)).findFirst().get();
+
+        DeploymentNode server2 = workspace.getModel().getDeploymentNodeWithName("Server 2", "WithoutDeploymentGroups");
+        ContainerInstance apiInstance2 = server2.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(api)).findFirst().get();
+        ContainerInstance dbInstance2 = server2.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(db)).findFirst().get();
+
+        assertTrue(apiInstance1.hasEfferentRelationshipWith(dbInstance1));
+        assertTrue(apiInstance1.hasEfferentRelationshipWith(dbInstance2));
+        assertTrue(apiInstance2.hasEfferentRelationshipWith(dbInstance2));
+        assertTrue(apiInstance2.hasEfferentRelationshipWith(dbInstance1));
+
+        server1 = workspace.getModel().getDeploymentNodeWithName("Server 1", "WithDeploymentGroups");
+        apiInstance1 = server1.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(api)).findFirst().get();
+        dbInstance1 = server1.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(db)).findFirst().get();
+
+        server2 = workspace.getModel().getDeploymentNodeWithName("Server 2", "WithDeploymentGroups");
+        apiInstance2 = server2.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(api)).findFirst().get();
+        dbInstance2 = server2.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(db)).findFirst().get();
+
+        assertTrue(apiInstance1.hasEfferentRelationshipWith(dbInstance1));
+        assertFalse(apiInstance1.hasEfferentRelationshipWith(dbInstance2));
+        assertTrue(apiInstance2.hasEfferentRelationshipWith(dbInstance2));
+        assertFalse(apiInstance2.hasEfferentRelationshipWith(dbInstance1));
+    }
+
+    @Test
+    void test_deploymentGroups_Hierarchical() throws Exception {
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(new File("src/test/resources/dsl/deployment-groups-hierarchical.dsl"));
+
+        Workspace workspace = parser.getWorkspace();
+
+        Container api = workspace.getModel().getSoftwareSystemWithName("Software System").getContainerWithName("API");
+        Container db = workspace.getModel().getSoftwareSystemWithName("Software System").getContainerWithName("DB");
+
+        DeploymentNode server1 = workspace.getModel().getDeploymentNodeWithName("Server 1", "WithoutDeploymentGroups");
+        ContainerInstance apiInstance1 = server1.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(api)).findFirst().get();
+        ContainerInstance dbInstance1 = server1.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(db)).findFirst().get();
+
+        DeploymentNode server2 = workspace.getModel().getDeploymentNodeWithName("Server 2", "WithoutDeploymentGroups");
+        ContainerInstance apiInstance2 = server2.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(api)).findFirst().get();
+        ContainerInstance dbInstance2 = server2.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(db)).findFirst().get();
+
+        assertTrue(apiInstance1.hasEfferentRelationshipWith(dbInstance1));
+        assertTrue(apiInstance1.hasEfferentRelationshipWith(dbInstance2));
+        assertTrue(apiInstance2.hasEfferentRelationshipWith(dbInstance2));
+        assertTrue(apiInstance2.hasEfferentRelationshipWith(dbInstance1));
+
+        server1 = workspace.getModel().getDeploymentNodeWithName("Server 1", "WithDeploymentGroups");
+        apiInstance1 = server1.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(api)).findFirst().get();
+        dbInstance1 = server1.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(db)).findFirst().get();
+
+        server2 = workspace.getModel().getDeploymentNodeWithName("Server 2", "WithDeploymentGroups");
+        apiInstance2 = server2.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(api)).findFirst().get();
+        dbInstance2 = server2.getContainerInstances().stream().filter(ci -> ci.getContainer().equals(db)).findFirst().get();
+
+        assertTrue(apiInstance1.hasEfferentRelationshipWith(dbInstance1));
+        assertFalse(apiInstance1.hasEfferentRelationshipWith(dbInstance2));
+        assertTrue(apiInstance2.hasEfferentRelationshipWith(dbInstance2));
+        assertFalse(apiInstance2.hasEfferentRelationshipWith(dbInstance1));
+    }
+
 }
