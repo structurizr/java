@@ -1,6 +1,6 @@
 # Changelog
 
-## v4.1.0 (unreleased)
+## v4.1.0 (28th May 2025)
 
 - structurizr-client: Fixes https://github.com/structurizr/java/issues/413 (Cannot push to main branch, when branch feature is activated).
 - structurizr-dsl: Allows archetypes to be used via workspace extension.
