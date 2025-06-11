@@ -26,7 +26,7 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
             throw new IllegalArgumentException("A workspace must be provided.");
         }
 
-        Collection<Diagram> diagrams = new ArrayList<>();
+        Collection<Diagram> diagrams = new ArrayList<>() ;
 
         for (CustomView view : workspace.getViews().getCustomViews()) {
             Diagram diagram = export(view);

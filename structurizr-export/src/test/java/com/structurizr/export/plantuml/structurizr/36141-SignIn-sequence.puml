@@ -40,10 +40,10 @@ participant "Single-Page Application\n<size:10>[Container: JavaScript and Angula
 participant "Sign In Controller\n<size:10>[Component: Spring MVC Rest Controller]</size>" as InternetBankingSystem.APIApplication.SignInController <<InternetBankingSystem.APIApplication.SignInController>> #85bbf0
 participant "Security Component\n<size:10>[Component: Spring Bean]</size>" as InternetBankingSystem.APIApplication.SecurityComponent <<InternetBankingSystem.APIApplication.SecurityComponent>> #85bbf0
 database "Database\n<size:10>[Container: Oracle Database Schema]</size>" as InternetBankingSystem.Database <<InternetBankingSystem.Database>> #438dd5
-InternetBankingSystem.SinglePageApplication -[#707070]> InternetBankingSystem.APIApplication.SignInController : Submits credentials to
+InternetBankingSystem.SinglePageApplication -[#707070]> InternetBankingSystem.APIApplication.SignInController : Submits credentials to\n<color:#707070><size:8>[JSON/HTTPS]</size>
 InternetBankingSystem.APIApplication.SignInController -[#707070]> InternetBankingSystem.APIApplication.SecurityComponent : Validates credentials using
-InternetBankingSystem.APIApplication.SecurityComponent -[#707070]> InternetBankingSystem.Database : select * from users where username = ?
-InternetBankingSystem.APIApplication.SecurityComponent <-[#707070]- InternetBankingSystem.Database : Returns user data to
+InternetBankingSystem.APIApplication.SecurityComponent -[#707070]> InternetBankingSystem.Database : select * from users where username = ?\n<color:#707070><size:8>[SQL/TCP]</size>
+InternetBankingSystem.APIApplication.SecurityComponent <-[#707070]- InternetBankingSystem.Database : Returns user data to\n<color:#707070><size:8>[SQL/TCP]</size>
 InternetBankingSystem.APIApplication.SignInController <-[#707070]- InternetBankingSystem.APIApplication.SecurityComponent : Returns true if the hashed password matches
-InternetBankingSystem.SinglePageApplication <-[#707070]- InternetBankingSystem.APIApplication.SignInController : Sends back an authentication token to
+InternetBankingSystem.SinglePageApplication <-[#707070]- InternetBankingSystem.APIApplication.SignInController : Sends back an authentication token to\n<color:#707070><size:8>[JSON/HTTPS]</size>
 @enduml

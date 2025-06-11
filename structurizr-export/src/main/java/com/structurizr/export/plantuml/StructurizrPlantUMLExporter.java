@@ -425,13 +425,14 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
             }
 
             writer.writeLine(
-                    String.format("%s %s[%s]%s %s : %s",
+                    String.format("%s %s[%s]%s %s : %s%s",
                             idOf(relationship.getSource()),
                             arrowStart,
                             style.getColor(),
                             arrowEnd,
                             idOf(relationship.getDestination()),
-                            description));
+                            description,
+                            (StringUtils.isNullOrEmpty(technology) ? "" : "\\n<color:" + style.getColor() + "><size:8>[" + technology + "]</size>")));
         } else {
             boolean solid = style.getStyle() == LineStyle.Solid || false == style.getDashed();
 
