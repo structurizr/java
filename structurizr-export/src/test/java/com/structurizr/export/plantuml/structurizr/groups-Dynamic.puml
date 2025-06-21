@@ -1,0 +1,33 @@
+@startuml
+set separator none
+title F - Dynamic
+
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+
+hide stereotype
+
+skinparam sequenceParticipant<<D.F.G>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9a9a9a
+  shadowing false
+}
+skinparam sequenceParticipant<<D.F.H>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9a9a9a
+  shadowing false
+}
+
+box "Group 5"
+  participant "H\n<size:10>[Component]</size>" as D.F.H <<D.F.H>> #dddddd
+end box
+
+participant "G\n<size:10>[Component]</size>" as D.F.G <<D.F.G>> #dddddd
+D.F.G -[#707070]> D.F.H : 
+@enduml

@@ -41,6 +41,7 @@ workspace {
     }
 
     views {
+    
         systemlandscape "SystemLandscape" {
             include *
             autolayout
@@ -60,8 +61,8 @@ workspace {
             g -> h
             properties {
                 "plantuml.sequenceDiagram" "true"
-                "mermaid.sequenceDiagram" "true"
-                "mermaid.title" "true"
+                 "mermaid.sequenceDiagram" "true"
+                 "mermaid.title" "true"
             }
             autoLayout
         }

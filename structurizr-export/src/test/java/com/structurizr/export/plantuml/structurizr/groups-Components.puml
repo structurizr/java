@@ -55,4 +55,5 @@ rectangle "F\n<size:10>[Container]</size>" <<D.F>> {
 
 C .[#707070,thickness=2].> D.F.G : "<color:#707070>"
 C .[#707070,thickness=2].> D.F.H : "<color:#707070>"
+D.F.G .[#707070,thickness=2].> D.F.H : "<color:#707070>"
 @enduml
