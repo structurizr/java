@@ -112,7 +112,24 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         diagram = diagrams.stream().filter(md -> md.getKey().equals("Dynamic")).findFirst().get();
         expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/groups-Dynamic.puml"));
         assertEquals(expected, diagram.getDefinition());
+    }
 
+    @Test
+    public void test_Sequence() throws Exception {
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/sequence.json"));
+        ThemeUtils.loadThemes(workspace);
+
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
+        Collection<Diagram> diagrams = exporter.export(workspace);
+        assertEquals(2, diagrams.size());
+        
+        Diagram diagram = diagrams.stream().filter(md -> md.getKey().equals("Sequence-Container")).findFirst().get();
+        String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/groups-Sequence-Container.puml"));
+        assertEquals(expected, diagram.getDefinition());
+
+        diagram = diagrams.stream().filter(md -> md.getKey().equals("Sequence-SoftwareSystem")).findFirst().get();
+        expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/groups-Sequence-SoftwareSystem.puml"));
+        assertEquals(expected, diagram.getDefinition());
     }
 
     @Test

@@ -232,6 +232,11 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
         if (!renderAsSequenceDiagram(view)) {
             writer.writeLine(String.format("rectangle \"%s\\n<size:10>%s</size>\" <<%s>> {", softwareSystem.getName(), typeOf(view, softwareSystem, true), idOf(softwareSystem)));
             writer.indent();
+        } else {
+            //writer.writeLine(String.format("box \"%s%s\" <<group%s>> as group%s {", groupName, icon, groupId, groupId));
+            writer.writeLine(String.format("box \"%s\n%s\"", softwareSystem.getName(), typeOf(view, softwareSystem, true)));
+
+            writer.indent();
         }
     }
 
@@ -248,6 +253,11 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
     protected void startContainerBoundary(ModelView view, Container container, IndentingWriter writer) {
         if (!renderAsSequenceDiagram(view)) {
             writer.writeLine(String.format("rectangle \"%s\\n<size:10>%s</size>\" <<%s>> {", container.getName(), typeOf(view, container, true), idOf(container)));
+            writer.indent();
+        } else {
+            //writer.writeLine(String.format("box \"%s%s\" <<group%s>> as group%s {", groupName, icon, groupId, groupId));
+            writer.writeLine(String.format("box \"%s\n%s\"", container.getName(), typeOf(view, container, true)));
+
             writer.indent();
         }
     }

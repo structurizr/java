@@ -89,7 +89,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
         assertEquals(expected, diagram.getDefinition());
 
         diagram = diagrams.stream().filter(md -> md.getKey().equals("Dynamic")).findFirst().get();
-        expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/groups-Dynamic.puml"));
+        expected = readFile(new File("./src/test/java/com/structurizr/export/dot/groups-Dynamic.dot"));
         assertEquals(expected, diagram.getDefinition());
     }
 

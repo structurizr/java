@@ -3,12 +3,63 @@
   "description" : "Description",
   "documentation" : { },
   "id" : 1,
-  "lastModifiedDate" : "2025-06-17T12:37:53Z",
+  "lastModifiedAgent" : "structurizr-ui",
+  "lastModifiedDate" : "2025-06-21T10:09:35Z",
   "model" : {
     "properties" : {
       "structurizr.groupSeparator" : "/"
     },
     "softwareSystems" : [ {
+      "containers" : [ {
+        "components" : [ {
+          "documentation" : { },
+          "id" : "3",
+          "name" : "C",
+          "properties" : {
+            "structurizr.dsl.identifier" : "c"
+          },
+          "relationships" : [ {
+            "destinationId" : "6",
+            "id" : "14",
+            "sourceId" : "3",
+            "tags" : "Relationship"
+          }, {
+            "destinationId" : "5",
+            "id" : "15",
+            "linkedRelationshipId" : "14",
+            "sourceId" : "3"
+          }, {
+            "destinationId" : "4",
+            "id" : "16",
+            "linkedRelationshipId" : "14",
+            "sourceId" : "3"
+          } ],
+          "tags" : "Element,Component"
+        } ],
+        "documentation" : { },
+        "id" : "2",
+        "name" : "B",
+        "properties" : {
+          "structurizr.dsl.identifier" : "b"
+        },
+        "relationships" : [ {
+          "destinationId" : "5",
+          "id" : "9",
+          "sourceId" : "2",
+          "tags" : "Relationship"
+        }, {
+          "destinationId" : "4",
+          "id" : "10",
+          "linkedRelationshipId" : "9",
+          "sourceId" : "2"
+        }, {
+          "destinationId" : "6",
+          "id" : "17",
+          "linkedRelationshipId" : "14",
+          "sourceId" : "2"
+        } ],
+        "tags" : "Element,Container"
+      } ],
       "documentation" : { },
       "id" : "1",
       "location" : "Unspecified",
@@ -17,112 +68,72 @@
         "structurizr.dsl.identifier" : "a"
       },
       "relationships" : [ {
-        "destinationId" : "2",
-        "id" : "9",
-        "sourceId" : "1",
-        "tags" : "Relationship"
-      } ],
-      "tags" : "Element,Software System"
-    }, {
-      "documentation" : { },
-      "group" : "Group 1",
-      "id" : "2",
-      "location" : "Unspecified",
-      "name" : "B",
-      "properties" : {
-        "structurizr.dsl.identifier" : "b"
-      },
-      "relationships" : [ {
-        "destinationId" : "3",
-        "id" : "10",
-        "sourceId" : "2",
-        "tags" : "Relationship"
-      } ],
-      "tags" : "Element,Software System"
-    }, {
-      "documentation" : { },
-      "group" : "Group 2",
-      "id" : "3",
-      "location" : "Unspecified",
-      "name" : "C",
-      "properties" : {
-        "structurizr.dsl.identifier" : "c"
-      },
-      "relationships" : [ {
         "destinationId" : "5",
         "id" : "11",
-        "sourceId" : "3",
-        "tags" : "Relationship"
+        "linkedRelationshipId" : "9",
+        "sourceId" : "1"
       }, {
         "destinationId" : "4",
         "id" : "12",
-        "linkedRelationshipId" : "11",
-        "sourceId" : "3"
-      }, {
-        "destinationId" : "7",
-        "id" : "13",
-        "sourceId" : "3",
-        "tags" : "Relationship"
+        "linkedRelationshipId" : "9",
+        "sourceId" : "1"
       }, {
         "destinationId" : "6",
-        "id" : "14",
-        "linkedRelationshipId" : "13",
-        "sourceId" : "3"
-      }, {
-        "destinationId" : "8",
-        "id" : "15",
-        "sourceId" : "3",
-        "tags" : "Relationship"
+        "id" : "18",
+        "linkedRelationshipId" : "14",
+        "sourceId" : "1"
       } ],
       "tags" : "Element,Software System"
     }, {
       "containers" : [ {
-        "documentation" : { },
-        "id" : "5",
-        "name" : "E",
-        "properties" : {
-          "structurizr.dsl.identifier" : "e"
-        },
-        "tags" : "Element,Container"
-      }, {
         "components" : [ {
           "documentation" : { },
-          "id" : "7",
-          "name" : "G",
+          "id" : "6",
+          "name" : "f",
           "properties" : {
-            "structurizr.dsl.identifier" : "g"
+            "structurizr.dsl.identifier" : "f"
           },
           "relationships" : [ {
             "destinationId" : "8",
-            "id" : "16",
-            "sourceId" : "7",
+            "id" : "13",
+            "sourceId" : "6",
+            "tags" : "Relationship"
+          }, {
+            "destinationId" : "7",
+            "id" : "19",
+            "sourceId" : "6",
             "tags" : "Relationship"
           } ],
           "tags" : "Element,Component"
         }, {
           "documentation" : { },
-          "group" : "Group 5",
+          "id" : "7",
+          "name" : "g",
+          "properties" : {
+            "structurizr.dsl.identifier" : "g"
+          },
+          "tags" : "Element,Component"
+        }, {
+          "documentation" : { },
           "id" : "8",
-          "name" : "H",
+          "name" : "h",
           "properties" : {
             "structurizr.dsl.identifier" : "h"
           },
           "tags" : "Element,Component"
         } ],
         "documentation" : { },
-        "group" : "Group 4",
-        "id" : "6",
-        "name" : "F",
+        "id" : "5",
+        "name" : "e",
         "properties" : {
-          "structurizr.dsl.identifier" : "f"
+          "structurizr.dsl.identifier" : "e"
         },
         "tags" : "Element,Container"
       } ],
       "documentation" : { },
-      "group" : "Group 2/Group 3",
       "id" : "4",
       "location" : "Unspecified",
-      "name" : "D",
+      "name" : "d",
       "properties" : {
         "structurizr.dsl.identifier" : "d"
       },
@@ -131,83 +142,16 @@
   },
   "name" : "Name",
   "properties" : {
-    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgIHN0cnVjdHVyaXpyLmdyb3VwU2VwYXJhdG9yIC8KICAgICAgICB9CgogICAgICAgIGEgPSBzb2Z0d2FyZVN5c3RlbSAiQSIKCiAgICAgICAgZ3JvdXAgIkdyb3VwIDEiIHsKICAgICAgICAgICAgYiA9IHNvZnR3YXJlU3lzdGVtICJCIgogICAgICAgIH0KCiAgICAgICAgZ3JvdXAgIkdyb3VwIDIiIHsKICAgICAgICAgICAgYyA9IHNvZnR3YXJlU3lzdGVtICJDIgoKICAgICAgICAgICAgZ3JvdXAgIkdyb3VwIDMiIHsKICAgICAgICAgICAgICAgIGQgPSBzb2Z0d2FyZVN5c3RlbSAiRCIgewogICAgICAgICAgICAgICAgICAgIGUgPSBjb250YWluZXIgIkUiCgogICAgICAgICAgICAgICAgICAgIGdyb3VwICJHcm91cCA0IiB7CiAgICAgICAgICAgICAgICAgICAgICAgIGYgPSBjb250YWluZXIgIkYiIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGcgPSBjb21wb25lbnQgIkciCgogICAgICAgICAgICAgICAgICAgICAgICAgICAgZ3JvdXAgIkdyb3VwIDUiIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBoID0gY29tcG9uZW50ICJIIgogICAgICAgICAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgfQoKICAgICAgICBhIC0+IGIKICAgICAgICBiIC0+IGMKICAgICAgICBjIC0+IGUKICAgICAgICBjIC0+IGcKICAgICAgICBjIC0+IGgKICAgICAgICBnIC0+IGgKCiAgICB9CgogICAgdmlld3MgewogICAgCiAgICAgICAgc3lzdGVtbGFuZHNjYXBlICJTeXN0ZW1MYW5kc2NhcGUiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9sYXlvdXQKICAgICAgICB9CgogICAgICAgIGNvbnRhaW5lciBkICJDb250YWluZXJzIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvbGF5b3V0CiAgICAgICAgfQoKICAgICAgICBjb21wb25lbnQgZiAiQ29tcG9uZW50cyIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dAogICAgICAgIH0KCiAgICAgICAgZHluYW1pYyBmICJEeW5hbWljIiB7CiAgICAgICAgICAgIGcgLT4gaAogICAgICAgICAgICBwcm9wZXJ0aWVzIHsKICAgICAgICAgICAgICAgICJwbGFudHVtbC5zZXF1ZW5jZURpYWdyYW0iICJ0cnVlIgogICAgICAgICAgICAgICAgICJtZXJtYWlkLnNlcXVlbmNlRGlhZ3JhbSIgInRydWUiCiAgICAgICAgICAgICAgICAgIm1lcm1haWQudGl0bGUiICJ0cnVlIgogICAgICAgICAgICB9CiAgICAgICAgICAgIGF1dG9MYXlvdXQKICAgICAgICB9CiAgICB9Cgp9"
+    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgIHN0cnVjdHVyaXpyLmdyb3VwU2VwYXJhdG9yIC8KICAgICAgICB9CgogICAgICAgIGEgPSBzb2Z0d2FyZVN5c3RlbSAiQSIgewogICAgICAgICAgICBiID0gY29udGFpbmVyICJCIiB7CiAgICAgICAgICAgICAgICBjID0gY29tcG9uZW50ICJDIgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIGQgPSBzb2Z0d2FyZVN5c3RlbSAiZCIgewogICAgICAgICAgICBlID0gY29udGFpbmVyICJlIiB7CiAgICAgICAgICAgICAgICBmID0gY29tcG9uZW50ICJmIgogICAgICAgICAgICAgICAgZyA9IGNvbXBvbmVudCAiZyIKICAgICAgICAgICAgICAgIGggPSBjb21wb25lbnQgImgiCiAgICAgICAgICAgIH0KICAgICAgICB9CgogICAgICAgIGIgLT4gZQogICAgICAgIGYgLT4gaAogICAgICAgIGMgLT4gZgogICAgICAgIGYgLT4gZwoKICAgIH0KCiAgICB2aWV3cyB7CiAgICAKICAgICAgICBkeW5hbWljIGEgIlNlcXVlbmNlLVNvZnR3YXJlU3lzdGVtIiB7CiAgICAgICAgICAgIGIgLT4gZQogICAgICAgICAgICBwcm9wZXJ0aWVzIHsKICAgICAgICAgICAgICAgICJwbGFudHVtbC5zZXF1ZW5jZURpYWdyYW0iICJ0cnVlIgogICAgICAgICAgICAgICAgIm1lcm1haWQuc2VxdWVuY2VEaWFncmFtIiAidHJ1ZSIKICAgICAgICAgICAgICAgICJtZXJtYWlkLnRpdGxlIiAidHJ1ZSIKICAgICAgICAgICAgICAgICJzdHJ1Y3R1cml6ci5zb2Z0d2FyZVN5c3RlbUJvdW5kYXJpZXMiICJ0cnVlIgogICAgICAgICAgICB9CiAgICAgICAgICAgIGF1dG9MYXlvdXQKICAgICAgICB9CiAgICAgICAgICAgIAogICAgICAgIGR5bmFtaWMgZSAiU2VxdWVuY2UtQ29udGFpbmVyIiB7CiAgICAgICAgICAgIGYgLT4gaAogICAgICAgICAgICBjIC0+IGYKICAgICAgICAgICAgZiAtPiBnCiAgICAgICAgICAgIHByb3BlcnRpZXMgewogICAgICAgICAgICAgICAgInBsYW50dW1sLnNlcXVlbmNlRGlhZ3JhbSIgInRydWUiCiAgICAgICAgICAgICAgICAibWVybWFpZC5zZXF1ZW5jZURpYWdyYW0iICJ0cnVlIgogICAgICAgICAgICAgICAgIm1lcm1haWQudGl0bGUiICJ0cnVlIgogICAgICAgICAgICAgICAgInN0cnVjdHVyaXpyLnNvZnR3YXJlU3lzdGVtQm91bmRhcmllcyIgInRydWUiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgYXV0b0xheW91dAogICAgICAgIH0KICAgIH0KCn0="
   },
   "views" : {
-    "componentViews" : [ {
-      "automaticLayout" : {
-        "applied" : false,
-        "edgeSeparation" : 0,
-        "implementation" : "Graphviz",
-        "nodeSeparation" : 300,
-        "rankDirection" : "TopBottom",
-        "rankSeparation" : 300,
-        "vertices" : false
-      },
-      "containerId" : "6",
-      "elements" : [ {
-        "id" : "3",
-        "x" : 0,
-        "y" : 0
-      }, {
-        "id" : "7",
-        "x" : 0,
-        "y" : 0
-      }, {
-        "id" : "8",
-        "x" : 0,
-        "y" : 0
-      } ],
-      "externalContainerBoundariesVisible" : false,
-      "key" : "Components",
-      "order" : 3,
-      "relationships" : [ {
-        "id" : "13"
-      }, {
-        "id" : "15"
-      }, {
-        "id" : "16"
-      } ]
-    } ],
     "configuration" : {
       "branding" : { },
-      "lastSavedView" : "Dynamic",
+      "lastSavedView" : "Sequence-Container",
+      "metadataSymbols" : "SquareBrackets",
       "styles" : { },
       "terminology" : { }
     },
-    "containerViews" : [ {
-      "automaticLayout" : {
-        "applied" : false,
-        "edgeSeparation" : 0,
-        "implementation" : "Graphviz",
-        "nodeSeparation" : 300,
-        "rankDirection" : "TopBottom",
-        "rankSeparation" : 300,
-        "vertices" : false
-      },
-      "elements" : [ {
-        "id" : "3",
-        "x" : 0,
-        "y" : 0
-      }, {
-        "id" : "5",
-        "x" : 0,
-        "y" : 0
-      }, {
-        "id" : "6",
-        "x" : 0,
-        "y" : 0
-      } ],
-      "externalSoftwareSystemBoundariesVisible" : false,
-      "key" : "Containers",
-      "order" : 2,
-      "relationships" : [ {
-        "id" : "11"
-      }, {
-        "id" : "14"
-      } ],
-      "softwareSystemId" : "4"
-    } ],
     "dynamicViews" : [ {
       "automaticLayout" : {
         "applied" : false,
@@ -218,33 +162,33 @@
         "rankSeparation" : 300,
         "vertices" : false
       },
-      "elementId" : "6",
+      "elementId" : "1",
       "elements" : [ {
-        "id" : "7",
+        "id" : "2",
         "x" : 0,
         "y" : 0
       }, {
-        "id" : "8",
+        "id" : "5",
         "x" : 0,
         "y" : 0
       } ],
       "externalBoundariesVisible" : false,
-      "key" : "Dynamic",
-      "order" : 4,
+      "key" : "Sequence-SoftwareSystem",
+      "order" : 1,
       "properties" : {
-        "plantuml.sequenceDiagram" : "true",
         "mermaid.sequenceDiagram" : "true",
-        "mermaid.title" : "true"
+        "mermaid.title" : "true",
+        "plantuml.sequenceDiagram" : "true",
+        "structurizr.softwareSystemBoundaries" : "true"
       },
       "relationships" : [ {
-        "id" : "16",
+        "id" : "9",
         "order" : "1",
         "response" : false
       } ]
-    } ],
-    "systemLandscapeViews" : [ {
+    }, {
       "automaticLayout" : {
-        "applied" : false,
+        "applied" : true,
         "edgeSeparation" : 0,
         "implementation" : "Graphviz",
         "nodeSeparation" : 300,
@@ -252,32 +196,49 @@
         "rankSeparation" : 300,
         "vertices" : false
       },
+      "dimensions" : {
+        "height" : 2272,
+        "width" : 1680
+      },
+      "elementId" : "5",
       "elements" : [ {
-        "id" : "1",
-        "x" : 0,
-        "y" : 0
-      }, {
-        "id" : "2",
-        "x" : 0,
-        "y" : 0
-      }, {
         "id" : "3",
-        "x" : 0,
-        "y" : 0
+        "x" : 239,
+        "y" : 205
       }, {
-        "id" : "4",
-        "x" : 0,
-        "y" : 0
+        "id" : "6",
+        "x" : 239,
+        "y" : 955
+      }, {
+        "id" : "7",
+        "x" : 239,
+        "y" : 1555
+      }, {
+        "id" : "8",
+        "x" : 989,
+        "y" : 1555
       } ],
-      "enterpriseBoundaryVisible" : true,
-      "key" : "SystemLandscape",
-      "order" : 1,
+      "externalBoundariesVisible" : false,
+      "key" : "Sequence-Container",
+      "order" : 2,
+      "properties" : {
+        "mermaid.sequenceDiagram" : "true",
+        "mermaid.title" : "true",
+        "plantuml.sequenceDiagram" : "true",
+        "structurizr.softwareSystemBoundaries" : "true"
+      },
       "relationships" : [ {
-        "id" : "10"
+        "id" : "13",
+        "order" : "1",
+        "response" : false
       }, {
-        "id" : "12"
+        "id" : "14",
+        "order" : "2",
+        "response" : false
       }, {
-        "id" : "9"
+        "id" : "19",
+        "order" : "3",
+        "response" : false
       } ]
     } ]
   }

@@ -24,10 +24,11 @@ skinparam sequenceParticipant<<D.F.H>> {
   shadowing false
 }
 
-box "Group 5"
-  participant "H\n<size:10>[Component]</size>" as D.F.H <<D.F.H>> #dddddd
-end box
+box "F\n[Container]"
+  box "Group 5"
+    participant "H\n<size:10>[Component]</size>" as D.F.H <<D.F.H>> #dddddd
+  end box
 
-participant "G\n<size:10>[Component]</size>" as D.F.G <<D.F.G>> #dddddd
-D.F.G -[#707070]> D.F.H : 
-@enduml
+  participant "G\n<size:10>[Component]</size>" as D.F.G <<D.F.G>> #dddddd
+  D.F.G -[#707070]> D.F.H : 
+  @enduml

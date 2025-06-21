@@ -99,7 +99,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
 
         C4PlantUMLExporter exporter = new C4PlantUMLExporter();
         Collection<Diagram> diagrams = exporter.export(workspace);
-        assertEquals(3, diagrams.size());
+        assertEquals(4, diagrams.size());
 
         Diagram diagram = diagrams.stream().filter(md -> md.getKey().equals("SystemLandscape")).findFirst().get();
         String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/c4plantuml/groups-SystemLandscape.puml"));
@@ -111,6 +111,10 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
 
         diagram = diagrams.stream().filter(md -> md.getKey().equals("Components")).findFirst().get();
         expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/c4plantuml/groups-Components.puml"));
+        assertEquals(expected, diagram.getDefinition());
+
+        diagram = diagrams.stream().filter(md -> md.getKey().equals("Dynamic")).findFirst().get();
+        expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/c4plantuml/groups-Dynamic.puml"));
         assertEquals(expected, diagram.getDefinition());
     }
 
