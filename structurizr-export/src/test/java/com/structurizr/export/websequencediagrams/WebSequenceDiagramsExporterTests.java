@@ -17,7 +17,7 @@ public class WebSequenceDiagramsExporterTests extends AbstractExporterTests {
 
     @Test
     public void test_BigBankPlcExample() throws Exception {
-        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-36141-workspace.json"));
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-36141-sequence.json"));
         WebSequenceDiagramsExporter exporter = new WebSequenceDiagramsExporter();
 
         Collection<Diagram> diagrams = exporter.export(workspace);
