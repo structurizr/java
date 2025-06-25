@@ -2,6 +2,7 @@ package com.structurizr.dsl;
 
 import com.structurizr.view.Border;
 import com.structurizr.view.ElementStyle;
+import com.structurizr.view.IconPosition;
 import com.structurizr.view.Shape;
 import org.junit.jupiter.api.Test;
 
@@ -541,6 +542,42 @@ class ElementStyleParserTests extends AbstractTests {
         parser.parseIcon(elementStyleDslContext(), tokens("icon", "src/test/resources/dsl/logo.png"), false);
         System.out.println(elementStyle.getIcon());
         assertTrue(elementStyle.getIcon().startsWith("data:image/png;base64,"));
+    }
+
+    @Test
+    void test_parseIconPosition_ThrowsAnException_WhenThereAreTooManyTokens() {
+        try {
+            parser.parseIconPosition(elementStyleDslContext(), tokens("iconPosition", "top", "extra"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Too many tokens, expected: iconPosition <Top|Bottom|Left>", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseIconPosition_ThrowsAnException_WhenTheShapeIsMissing() {
+        try {
+            parser.parseIconPosition(elementStyleDslContext(), tokens("iconPosition"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Expected: iconPosition <Top|Bottom|Left>", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseIconPosition_ThrowsAnException_WhenTheShapeIsNotValid() {
+        try {
+            parser.parseIconPosition(elementStyleDslContext(), tokens("iconPosition", "right"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("The icon position \"right\" is not valid", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseIconPosition_SetsTheIconPosition() {
+        parser.parseIconPosition(elementStyleDslContext(), tokens("iconPosition", "top"));
+        assertEquals(IconPosition.Top, elementStyle.getIconPosition());
     }
 
 }

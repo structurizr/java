@@ -71,6 +71,7 @@ class StructurizrDslTokens {
     static final String ELEMENT_STYLE_COLOUR_TOKEN = "colour";
     static final String ELEMENT_STYLE_COLOR_TOKEN = "color";
     static final String ELEMENT_STYLE_ICON_TOKEN = "icon";
+    static final String ELEMENT_STYLE_ICON_POSITION_TOKEN = "iconPosition";
     static final String ELEMENT_STYLE_OPACITY_TOKEN = "opacity";
     static final String ELEMENT_STYLE_BORDER_TOKEN = "border";
     static final String ELEMENT_STYLE_FONT_SIZE_TOKEN = "fontSize";

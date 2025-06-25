@@ -42,6 +42,9 @@ public final class ElementStyle extends AbstractStyle {
     private String icon;
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private IconPosition iconPosition;
+
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Border border;
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
@@ -287,6 +290,24 @@ public final class ElementStyle extends AbstractStyle {
 
     public ElementStyle icon(String icon) {
         setIcon(icon);
+        return this;
+    }
+
+    /**
+     * Gets the icon position to use when rendering the element.
+     *
+     * @return  an IconPosition, or null if not specified
+     */
+    public IconPosition getIconPosition() {
+        return iconPosition;
+    }
+
+    public void setIconPosition(IconPosition iconPosition) {
+        this.iconPosition = iconPosition;
+    }
+
+    public ElementStyle iconPosition(IconPosition iconPosition) {
+        setIconPosition(iconPosition);
         return this;
     }
 
