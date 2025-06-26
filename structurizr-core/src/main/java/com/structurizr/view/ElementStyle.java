@@ -63,6 +63,11 @@ public final class ElementStyle extends AbstractStyle {
         this.tag = tag;
     }
 
+    ElementStyle(String tag, ColorScheme colorScheme) {
+        this.tag = tag;
+        setColorScheme(colorScheme);
+    }
+
     public ElementStyle(String tag, Integer width, Integer height, String background, String color, Integer fontSize) {
         this(tag, width, height, background, color, fontSize, null);
     }

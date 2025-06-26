@@ -29,8 +29,12 @@ public final class Styles {
                 throw new IllegalArgumentException("A tag must be specified.");
             }
 
-            if (elements.stream().anyMatch(es -> es.getTag().equals(elementStyle.getTag()))) {
-                throw new IllegalArgumentException("An element style for the tag \"" + elementStyle.getTag() + "\" already exists.");
+            if (elements.stream().anyMatch(es -> es.getTag().equals(elementStyle.getTag()) && es.getColorScheme() == elementStyle.getColorScheme())) {
+                if (elementStyle.getColorScheme() == null) {
+                    throw new IllegalArgumentException("An element style for the tag \"" + elementStyle.getTag() + "\" already exists.");
+                } else {
+                    throw new IllegalArgumentException("An element style for the tag \"" + elementStyle.getTag() + "\" and color scheme " + elementStyle.getColorScheme() + " already exists.");
+                }
             }
 
             this.elements.add(elementStyle);
@@ -38,7 +42,11 @@ public final class Styles {
     }
 
     public ElementStyle addElementStyle(String tag) {
-        ElementStyle elementStyle = new ElementStyle(tag);
+        return addElementStyle(tag, null);
+    }
+
+    public ElementStyle addElementStyle(String tag, ColorScheme colorScheme) {
+        ElementStyle elementStyle = new ElementStyle(tag, colorScheme);
         add(elementStyle);
 
         return elementStyle;
@@ -68,8 +76,12 @@ public final class Styles {
                 throw new IllegalArgumentException("A tag must be specified.");
             }
 
-            if (relationships.stream().anyMatch(es -> es.getTag().equals(relationshipStyle.getTag()))) {
-                throw new IllegalArgumentException("A relationship style for the tag \"" + relationshipStyle.getTag() + "\" already exists.");
+            if (relationships.stream().anyMatch(rs -> rs.getTag().equals(relationshipStyle.getTag()) && rs.getColorScheme() == relationshipStyle.getColorScheme())) {
+                if (relationshipStyle.getColorScheme() == null) {
+                    throw new IllegalArgumentException("A relationship style for the tag \"" + relationshipStyle.getTag() + "\" already exists.");
+                } else {
+                    throw new IllegalArgumentException("A relationship style for the tag \"" + relationshipStyle.getTag() + "\" and color scheme " + relationshipStyle.getColorScheme() + " already exists.");
+                }
             }
 
             this.relationships.add(relationshipStyle);
@@ -77,7 +89,11 @@ public final class Styles {
     }
 
     public RelationshipStyle addRelationshipStyle(String tag) {
-        RelationshipStyle relationshipStyle = new RelationshipStyle(tag);
+        return addRelationshipStyle(tag, null);
+    }
+
+    public RelationshipStyle addRelationshipStyle(String tag, ColorScheme colorScheme) {
+        RelationshipStyle relationshipStyle = new RelationshipStyle(tag, colorScheme);
         add(relationshipStyle);
 
         return relationshipStyle;
@@ -90,11 +106,22 @@ public final class Styles {
      * @return      an ElementStyle instance, or null if no element style has been defined in this workspace
      */
     public ElementStyle getElementStyle(String tag) {
+        return getElementStyle(tag, null);
+    }
+
+    /**
+     * Gets the element style that has been defined (in this workspace) for the given tag and color scheme.
+     *
+     * @param tag           the tag (a String)
+     * @param colorScheme  the ColorScheme (can be null)
+     * @return      an ElementStyle instance, or null if no element style has been defined in this workspace
+     */
+    public ElementStyle getElementStyle(String tag, ColorScheme colorScheme) {
         if (StringUtils.isNullOrEmpty(tag)) {
             throw new IllegalArgumentException("A tag must be specified.");
         }
 
-        return elements.stream().filter(es -> es.getTag().equals(tag)).findFirst().orElse(null);
+        return elements.stream().filter(es -> es.getTag().equals(tag) && es.getColorScheme() == colorScheme).findFirst().orElse(null);
     }
 
     /**
@@ -141,11 +168,22 @@ public final class Styles {
      * @return      an RelationshipStyle instance, or null if no relationship style has been defined in this workspace
      */
     public RelationshipStyle getRelationshipStyle(String tag) {
+        return getRelationshipStyle(tag, null);
+    }
+
+    /**
+     * Gets the relationship style that has been defined (in this workspace) for the given tag and color scheme.
+     *
+     * @param tag   the tag (a String)
+     * @param colorScheme  the ColorScheme (can be null)
+     * @return      an RelationshipStyle instance, or null if no relationship style has been defined in this workspace
+     */
+    public RelationshipStyle getRelationshipStyle(String tag, ColorScheme colorScheme) {
         if (StringUtils.isNullOrEmpty(tag)) {
             throw new IllegalArgumentException("A tag must be specified.");
         }
 
-        return relationships.stream().filter(rs -> rs.getTag().equals(tag)).findFirst().orElse(null);
+        return relationships.stream().filter(rs -> rs.getTag().equals(tag) && rs.getColorScheme() == colorScheme).findFirst().orElse(null);
     }
 
     /**

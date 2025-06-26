@@ -3,6 +3,7 @@
 ## v4.2.0 (unreleased)
 
 - structurizr-dsl: Adds support for `iconPosition` on element styles (options are `Top`, `Bottom`, `Left`).
+- structurizr-dsl: Adds support for defining element and relationship styles for light and dark mode.
 
 ## v4.1.0 (28th May 2025)
 

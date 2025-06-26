@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class StylesTests extends AbstractWorkspaceTestBase {
 
-    private Styles styles = new Styles();
+    private final Styles styles = new Styles();
 
     @Test
     void findElementStyle_ReturnsTheDefaultStyle_WhenPassedNull() {
@@ -264,6 +264,27 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    void addElementStyleByTag_ThrowsAnException_WhenAStyleWithTheSameTagAndColorSchemeExistsAlready() {
+        try {
+            styles.addElementStyle(Tags.SOFTWARE_SYSTEM, ColorScheme.Dark);
+            styles.addElementStyle(Tags.SOFTWARE_SYSTEM, ColorScheme.Dark);
+
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("An element style for the tag \"Software System\" and color scheme Dark already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    void addElementStyleByTag_WithDifferentColorSchemes() {
+        styles.addElementStyle(Tags.SOFTWARE_SYSTEM);
+        styles.addElementStyle(Tags.SOFTWARE_SYSTEM, ColorScheme.Dark);
+        styles.addElementStyle(Tags.SOFTWARE_SYSTEM, ColorScheme.Light);
+
+        assertEquals(3, styles.getElements().size());
+    }
+
+    @Test
     void addElementStyle_ThrowsAnException_WhenAStyleWithTheSameTagExistsAlready() {
         try {
             ElementStyle style = styles.addElementStyle(Tags.SOFTWARE_SYSTEM).color("#ff0000");
@@ -309,6 +330,27 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         } catch (IllegalArgumentException iae) {
             assertEquals("A relationship style for the tag \"Relationship\" already exists.", iae.getMessage());
         }
+    }
+
+    @Test
+    void addRelationshipStyleByTag_ThrowsAnException_WhenAStyleWithTheSameTagAndColorSchemeExistsAlready() {
+        try {
+            styles.addRelationshipStyle(Tags.RELATIONSHIP, ColorScheme.Light);
+            styles.addRelationshipStyle(Tags.RELATIONSHIP, ColorScheme.Light);
+
+            fail();
+        } catch (IllegalArgumentException iae) {
+            assertEquals("A relationship style for the tag \"Relationship\" and color scheme Light already exists.", iae.getMessage());
+        }
+    }
+
+    @Test
+    void addRelationshipStyleByTag_WithDifferentColorSchemes() {
+        styles.addRelationshipStyle(Tags.RELATIONSHIP);
+        styles.addRelationshipStyle(Tags.RELATIONSHIP, ColorScheme.Dark);
+        styles.addRelationshipStyle(Tags.RELATIONSHIP, ColorScheme.Light);
+
+        assertEquals(3, styles.getRelationships().size());
     }
 
     @Test

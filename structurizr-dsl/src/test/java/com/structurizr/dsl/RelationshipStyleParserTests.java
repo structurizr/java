@@ -21,10 +21,17 @@ class RelationshipStyleParserTests extends AbstractTests {
         return context;
     }
 
+    private StylesDslContext stylesDslContext() {
+        StylesDslContext context = new StylesDslContext();
+        context.setWorkspace(workspace);
+
+        return context;
+    }
+
     @Test
     void test_parseRelationshipStyle_ThrowsAnException_WhenThereAreTooManyTokens() {
         try {
-            parser.parseRelationshipStyle(context(), tokens("relationship", "tag", "extra"));
+            parser.parseRelationshipStyle(stylesDslContext(), tokens("relationship", "tag", "extra"));
             fail();
         } catch (Exception e) {
             assertEquals("Too many tokens, expected: relationship <tag> {", e.getMessage());
@@ -34,7 +41,7 @@ class RelationshipStyleParserTests extends AbstractTests {
     @Test
     void test_parseRelationshipStyle_ThrowsAnException_WhenTheTagIsMissing() {
         try {
-            parser.parseRelationshipStyle(context(), tokens("relationship"));
+            parser.parseRelationshipStyle(stylesDslContext(), tokens("relationship"));
             fail();
         } catch (Exception e) {
             assertEquals("Expected: relationship <tag> {", e.getMessage());
@@ -44,7 +51,7 @@ class RelationshipStyleParserTests extends AbstractTests {
     @Test
     void test_parseRelationshipStyle_ThrowsAnException_WhenTheTagIsEmpty() {
         try {
-            parser.parseRelationshipStyle(context(), tokens("relationship", ""));
+            parser.parseRelationshipStyle(stylesDslContext(), tokens("relationship", ""));
             fail();
         } catch (Exception e) {
             assertEquals("A tag must be specified", e.getMessage());
@@ -53,7 +60,7 @@ class RelationshipStyleParserTests extends AbstractTests {
 
     @Test
     void test_parseRelationshipStyle_CreatesAnRelationshipStyle() {
-        parser.parseRelationshipStyle(context(), tokens("relationship", "Relationship"));
+        parser.parseRelationshipStyle(stylesDslContext(), tokens("relationship", "Relationship"));
 
         RelationshipStyle style = workspace.getViews().getConfiguration().getStyles().getRelationships().stream().filter(es -> "Relationship".equals(es.getTag())).findFirst().get();
         assertNotNull(style);
@@ -62,7 +69,7 @@ class RelationshipStyleParserTests extends AbstractTests {
     @Test
     void test_parseRelationshipStyle_FindsAnExistingRelationshipStyle() {
         RelationshipStyle style = workspace.getViews().getConfiguration().getStyles().addRelationshipStyle("Tag");
-        assertSame(style, parser.parseRelationshipStyle(context(), tokens("relationship", "Tag")));
+        assertSame(style, parser.parseRelationshipStyle(stylesDslContext(), tokens("relationship", "Tag")));
     }
 
     @Test

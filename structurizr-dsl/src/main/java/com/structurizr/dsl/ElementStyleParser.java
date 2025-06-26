@@ -3,10 +3,7 @@ package com.structurizr.dsl;
 import com.structurizr.Workspace;
 import com.structurizr.util.ImageUtils;
 import com.structurizr.util.StringUtils;
-import com.structurizr.view.Border;
-import com.structurizr.view.ElementStyle;
-import com.structurizr.view.IconPosition;
-import com.structurizr.view.Shape;
+import com.structurizr.view.*;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +14,7 @@ final class ElementStyleParser extends AbstractParser {
 
     private static final int FIRST_PROPERTY_INDEX = 1;
 
-    ElementStyle parseElementStyle(DslContext context, Tokens tokens) {
+    ElementStyle parseElementStyle(StylesDslContext context, Tokens tokens) {
         if (tokens.hasMoreThan(FIRST_PROPERTY_INDEX)) {
             throw new RuntimeException("Too many tokens, expected: element <tag> {");
         } else if (tokens.includes(FIRST_PROPERTY_INDEX)) {
@@ -28,9 +25,9 @@ final class ElementStyleParser extends AbstractParser {
             }
 
             Workspace workspace = context.getWorkspace();
-            ElementStyle elementStyle = workspace.getViews().getConfiguration().getStyles().getElementStyle(tag);
+            ElementStyle elementStyle = workspace.getViews().getConfiguration().getStyles().getElementStyle(tag, context.getColorScheme());
             if (elementStyle == null) {
-                elementStyle = workspace.getViews().getConfiguration().getStyles().addElementStyle(tag);
+                elementStyle = workspace.getViews().getConfiguration().getStyles().addElementStyle(tag, context.getColorScheme());
             }
 
             return elementStyle;
