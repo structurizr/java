@@ -18,7 +18,7 @@ abstract class AbstractParser {
 
     void validateViewKey(String key) {
         if (!VIEW_KEY_PATTERN.matcher(key).matches()) {
-            throw new RuntimeException("View keys can only contain the following characters: a-zA-0-9_-");
+            throw new RuntimeException("View keys can only contain the following characters: a-zA-Z0-9_-");
         }
     }
 
