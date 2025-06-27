@@ -9,6 +9,7 @@ public enum Shape {
     Hexagon,
     Diamond,
     Cylinder,
+    Bucket,
     Pipe,
     Person,
     Robot,

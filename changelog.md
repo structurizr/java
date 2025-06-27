@@ -4,6 +4,7 @@
 
 - structurizr-dsl: Adds support for `iconPosition` on element styles (options are `Top`, `Bottom`, `Left`).
 - structurizr-dsl: Adds support for defining element and relationship styles for light and dark mode.
+- structurizr-dsl: Adds a `Bucket` shape.
 
 ## v4.1.0 (28th May 2025)
 
