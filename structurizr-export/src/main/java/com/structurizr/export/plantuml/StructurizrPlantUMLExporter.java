@@ -233,7 +233,6 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
             writer.writeLine(String.format("rectangle \"%s\\n<size:10>%s</size>\" <<%s>> {", softwareSystem.getName(), typeOf(view, softwareSystem, true), idOf(softwareSystem)));
             writer.indent();
         } else {
-            //writer.writeLine(String.format("box \"%s%s\" <<group%s>> as group%s {", groupName, icon, groupId, groupId));
             writer.writeLine(String.format("box \"%s\n%s\"", softwareSystem.getName(), typeOf(view, softwareSystem, true)));
 
             writer.indent();
@@ -255,7 +254,6 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
             writer.writeLine(String.format("rectangle \"%s\\n<size:10>%s</size>\" <<%s>> {", container.getName(), typeOf(view, container, true), idOf(container)));
             writer.indent();
         } else {
-            //writer.writeLine(String.format("box \"%s%s\" <<group%s>> as group%s {", groupName, icon, groupId, groupId));
             writer.writeLine(String.format("box \"%s\n%s\"", container.getName(), typeOf(view, container, true)));
 
             writer.indent();
@@ -315,23 +313,6 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
     @Override
     public Diagram export(DynamicView view) {
         if (renderAsSequenceDiagram(view)) {
-//            IndentingWriter writer = new IndentingWriter();
-//            writeHeader(view, writer);
-//
-//            Set<Element> elements = new LinkedHashSet<>();
-//            for (RelationshipView relationshipView : view.getRelationships()) {
-//                elements.add(relationshipView.getRelationship().getSource());
-//                elements.add(relationshipView.getRelationship().getDestination());
-//            }
-//
-//            for (Element element : elements) {
-//                writeElement(view, element, writer);
-//            }
-//
-//            writeRelationships(view, writer);
-//            writeFooter(view, writer);
-//
-//            return createDiagram(view, writer.toString());
             return super.export(view);
         } else {
             return super.export(view);

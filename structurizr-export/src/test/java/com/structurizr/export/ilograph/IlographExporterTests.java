@@ -17,7 +17,7 @@ public class IlographExporterTests extends AbstractExporterTests {
 
     @Test
     public void test_BigBankPlcExample() throws Exception {
-        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-36141-sequence.json"));
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-36141-workspace.json"));
         IlographExporter ilographExporter = new IlographExporter();
         WorkspaceExport export = ilographExporter.export(workspace);
 
@@ -27,7 +27,7 @@ public class IlographExporterTests extends AbstractExporterTests {
 
     @Test
     void test_AmazonWebServicesExample() throws Exception {
-        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-54915-sequence.json"));
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-54915-workspace.json"));
         workspace.getViews().getConfiguration().getStyles().addElementStyle("Amazon Web Services - Route 53").addProperty(IlographExporter.ILOGRAPH_ICON, "AWS/Networking/Route-53.svg");
 
         ThemeUtils.loadThemes(workspace);

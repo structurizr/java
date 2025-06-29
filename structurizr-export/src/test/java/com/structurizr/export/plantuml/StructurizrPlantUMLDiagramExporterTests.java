@@ -17,7 +17,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
     @Test
     public void test_BigBankPlcExample() throws Exception {
-        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-36141-sequence.json"));
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-36141-workspace.json"));
         workspace.getViews().getConfiguration().addProperty(StructurizrPlantUMLExporter.PLANTUML_ANIMATION_PROPERTY, "true");
 
         StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
@@ -72,7 +72,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
     @Test
     public void test_AmazonWebServicesExample() throws Exception {
-        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-54915-sequence.json"));
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-54915-workspace.json"));
         ThemeUtils.loadThemes(workspace);
         workspace.getViews().getDeploymentViews().iterator().next().enableAutomaticLayout(AutomaticLayout.RankDirection.LeftRight, 300, 300);
 
@@ -124,11 +124,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals(2, diagrams.size());
         
         Diagram diagram = diagrams.stream().filter(md -> md.getKey().equals("Sequence-Container")).findFirst().get();
-        String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/groups-Sequence-Container.puml"));
+        String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/sequence-Container.puml"));
         assertEquals(expected, diagram.getDefinition());
 
         diagram = diagrams.stream().filter(md -> md.getKey().equals("Sequence-SoftwareSystem")).findFirst().get();
-        expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/groups-Sequence-SoftwareSystem.puml"));
+        expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/sequence-SoftwareSystem.puml"));
         assertEquals(expected, diagram.getDefinition());
     }
 

@@ -17,7 +17,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
 
     @Test
     public void test_BigBankPlcExample() throws Exception {
-        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-36141-sequence.json"));
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-36141-workspace.json"));
         DOTExporter dotWriter = new DOTExporter();
 
         Collection<Diagram> diagrams = dotWriter.export(workspace);
@@ -54,7 +54,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
 
     @Test
     public void test_AmazonWebServicesExample() throws Exception {
-        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-54915-sequence.json"));
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-54915-workspace.json"));
         ThemeUtils.loadThemes(workspace);
         workspace.getViews().getDeploymentViews().iterator().next().enableAutomaticLayout(AutomaticLayout.RankDirection.LeftRight, 300, 300);
 
