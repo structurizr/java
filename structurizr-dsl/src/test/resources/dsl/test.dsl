@@ -308,6 +308,7 @@ workspace "Name" "Description" {
             element "Element" {
                 shape roundedbox
                 icon logo.png
+                iconPosition left
                 width 450
                 height 300
                 background #ffffff
@@ -336,6 +337,26 @@ workspace "Name" "Description" {
                 opacity 50
                 properties {
                     "Name" "Value"
+                }
+            }
+
+            light {
+                element "Element" {
+                    background #ffffff
+                }
+
+                relationship "Relationship" {
+                    color #777777
+                }
+            }
+
+            dark {
+                element "Element" {
+                    background #000000
+                }
+
+                relationship "Relationship" {
+                    color #777777
                 }
             }
 

@@ -60,6 +60,8 @@ class StructurizrDslTokens {
     static final String KROKI_TOKEN = "kroki";
     static final String IMAGE_TOKEN = "image";
     static final String STYLES_TOKEN = "styles";
+    static final String LIGHT_COLOR_SCHEME_TOKEN = "light";
+    static final String DARK_COLOR_SCHEME_TOKEN = "dark";
     static final String BRANDING_TOKEN = "branding";
     static final String BRANDING_LOGO_TOKEN = "logo";
     static final String BRANDING_FONT_TOKEN = "font";
@@ -71,6 +73,7 @@ class StructurizrDslTokens {
     static final String ELEMENT_STYLE_COLOUR_TOKEN = "colour";
     static final String ELEMENT_STYLE_COLOR_TOKEN = "color";
     static final String ELEMENT_STYLE_ICON_TOKEN = "icon";
+    static final String ELEMENT_STYLE_ICON_POSITION_TOKEN = "iconPosition";
     static final String ELEMENT_STYLE_OPACITY_TOKEN = "opacity";
     static final String ELEMENT_STYLE_BORDER_TOKEN = "border";
     static final String ELEMENT_STYLE_FONT_SIZE_TOKEN = "fontSize";

@@ -27,6 +27,7 @@ final class ElementStyleDslContext extends DslContext {
         return new String[] {
                 StructurizrDslTokens.ELEMENT_STYLE_SHAPE_TOKEN,
                 StructurizrDslTokens.ELEMENT_STYLE_ICON_TOKEN,
+                StructurizrDslTokens.ELEMENT_STYLE_ICON_POSITION_TOKEN,
                 StructurizrDslTokens.ELEMENT_STYLE_WIDTH_TOKEN,
                 StructurizrDslTokens.ELEMENT_STYLE_HEIGHT_TOKEN,
                 StructurizrDslTokens.ELEMENT_STYLE_BACKGROUND_TOKEN,
