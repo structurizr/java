@@ -248,6 +248,10 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
             writer.outdent();
             writer.writeLine("}");
             writer.writeLine();
+        } else {
+            writer.outdent();
+            writer.writeLine("end box");
+            writer.writeLine();
         }
     }
 
@@ -268,6 +272,10 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
         if (!renderAsSequenceDiagram(view)) {
             writer.outdent();
             writer.writeLine("}");
+            writer.writeLine();
+        } else {
+            writer.outdent();
+            writer.writeLine("end box");
             writer.writeLine();
         }
     }

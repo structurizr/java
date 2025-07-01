@@ -31,5 +31,7 @@ box "F\n[Container]"
   end box
 
   participant "G\n<size:10>[Component]</size>" as D.F.G <<D.F.G>> #dddddd
-  D.F.G -[#707070]> D.F.H : 
-  @enduml
+end box
+
+D.F.G -[#707070]> D.F.H : 
+@enduml

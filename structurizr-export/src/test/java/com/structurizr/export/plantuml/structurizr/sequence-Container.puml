@@ -40,12 +40,20 @@ skinparam sequenceParticipant<<d.e.h>> {
 box "A\n[Software System]"
     box "B\n[Container]"
       participant "C\n<size:10>[Component]</size>" as A.B.C <<A.B.C>> #dddddd
-    box "d\n[Software System]"
-        box "e\n[Container]"
-          participant "f\n<size:10>[Component]</size>" as d.e.f <<d.e.f>> #dddddd
-          participant "g\n<size:10>[Component]</size>" as d.e.g <<d.e.g>> #dddddd
-          participant "h\n<size:10>[Component]</size>" as d.e.h <<d.e.h>> #dddddd
-        d.e.f -[#707070]> d.e.h : 
-        A.B.C -[#707070]> d.e.f : 
-        d.e.f -[#707070]> d.e.g : 
-        @enduml
+    end box
+
+  end box
+
+box "d\n[Software System]"
+    box "e\n[Container]"
+      participant "f\n<size:10>[Component]</size>" as d.e.f <<d.e.f>> #dddddd
+      participant "g\n<size:10>[Component]</size>" as d.e.g <<d.e.g>> #dddddd
+      participant "h\n<size:10>[Component]</size>" as d.e.h <<d.e.h>> #dddddd
+    end box
+
+  end box
+
+d.e.f -[#707070]> d.e.h : 
+A.B.C -[#707070]> d.e.f : 
+d.e.f -[#707070]> d.e.g : 
+@enduml
