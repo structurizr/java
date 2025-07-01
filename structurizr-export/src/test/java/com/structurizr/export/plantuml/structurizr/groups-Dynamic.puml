@@ -2,6 +2,7 @@
 set separator none
 title F - Dynamic
 
+!pragma teoz true
 skinparam {
   arrowFontSize 10
   defaultTextAlignment center

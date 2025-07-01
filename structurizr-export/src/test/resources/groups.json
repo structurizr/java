@@ -4,7 +4,7 @@
   "documentation" : { },
   "id" : 1,
   "lastModifiedAgent" : "structurizr-ui",
-  "lastModifiedDate" : "2025-06-16T15:39:37Z",
+  "lastModifiedDate" : "2025-07-01T16:48:46Z",
   "model" : {
     "properties" : {
       "structurizr.groupSeparator" : "/"
@@ -132,7 +132,7 @@
   },
   "name" : "Name",
   "properties" : {
-    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgIHN0cnVjdHVyaXpyLmdyb3VwU2VwYXJhdG9yIC8KICAgICAgICB9CgogICAgICAgIGEgPSBzb2Z0d2FyZVN5c3RlbSAiQSIKCiAgICAgICAgZ3JvdXAgIkdyb3VwIDEiIHsKICAgICAgICAgICAgYiA9IHNvZnR3YXJlU3lzdGVtICJCIgogICAgICAgIH0KCiAgICAgICAgZ3JvdXAgIkdyb3VwIDIiIHsKICAgICAgICAgICAgYyA9IHNvZnR3YXJlU3lzdGVtICJDIgoKICAgICAgICAgICAgZ3JvdXAgIkdyb3VwIDMiIHsKICAgICAgICAgICAgICAgIGQgPSBzb2Z0d2FyZVN5c3RlbSAiRCIgewogICAgICAgICAgICAgICAgICAgIGUgPSBjb250YWluZXIgIkUiCgogICAgICAgICAgICAgICAgICAgIGdyb3VwICJHcm91cCA0IiB7CiAgICAgICAgICAgICAgICAgICAgICAgIGYgPSBjb250YWluZXIgIkYiIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGcgPSBjb21wb25lbnQgIkciCgogICAgICAgICAgICAgICAgICAgICAgICAgICAgZ3JvdXAgIkdyb3VwIDUiIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBoID0gY29tcG9uZW50ICJIIgogICAgICAgICAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgfQoKICAgICAgICBhIC0+IGIKICAgICAgICBiIC0+IGMKICAgICAgICBjIC0+IGUKICAgICAgICBjIC0+IGcKICAgICAgICBjIC0+IGgKICAgICAgICBnIC0+IGgKCiAgICB9CgogICAgdmlld3MgewogICAgCiAgICAgICAgc3lzdGVtbGFuZHNjYXBlICJTeXN0ZW1MYW5kc2NhcGUiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9sYXlvdXQKICAgICAgICB9CgogICAgICAgIGNvbnRhaW5lciBkICJDb250YWluZXJzIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvbGF5b3V0CiAgICAgICAgfQoKICAgICAgICBjb21wb25lbnQgZiAiQ29tcG9uZW50cyIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dAogICAgICAgIH0KCiAgICAgICAgZHluYW1pYyBmICJEeW5hbWljIiB7CiAgICAgICAgICAgIGcgLT4gaAogICAgICAgICAgICBwcm9wZXJ0aWVzIHsKICAgICAgICAgICAgICAgICJwbGFudHVtbC5zZXF1ZW5jZURpYWdyYW0iICJ0cnVlIgogICAgICAgICAgICAgICAgICJtZXJtYWlkLnNlcXVlbmNlRGlhZ3JhbSIgInRydWUiCiAgICAgICAgICAgICAgICAgIm1lcm1haWQudGl0bGUiICJ0cnVlIgogICAgICAgICAgICB9CiAgICAgICAgICAgIGF1dG9MYXlvdXQKICAgICAgICB9CiAgICB9Cgp9"
+    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgIHN0cnVjdHVyaXpyLmdyb3VwU2VwYXJhdG9yIC8KICAgICAgICB9CgogICAgICAgIGEgPSBzb2Z0d2FyZVN5c3RlbSAiQSIKCiAgICAgICAgZ3JvdXAgIkdyb3VwIDEiIHsKICAgICAgICAgICAgYiA9IHNvZnR3YXJlU3lzdGVtICJCIgogICAgICAgIH0KCiAgICAgICAgZ3JvdXAgIkdyb3VwIDIiIHsKICAgICAgICAgICAgYyA9IHNvZnR3YXJlU3lzdGVtICJDIgoKICAgICAgICAgICAgZ3JvdXAgIkdyb3VwIDMiIHsKICAgICAgICAgICAgICAgIGQgPSBzb2Z0d2FyZVN5c3RlbSAiRCIgewogICAgICAgICAgICAgICAgICAgIGUgPSBjb250YWluZXIgIkUiCgogICAgICAgICAgICAgICAgICAgIGdyb3VwICJHcm91cCA0IiB7CiAgICAgICAgICAgICAgICAgICAgICAgIGYgPSBjb250YWluZXIgIkYiIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGcgPSBjb21wb25lbnQgIkciCgogICAgICAgICAgICAgICAgICAgICAgICAgICAgZ3JvdXAgIkdyb3VwIDUiIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBoID0gY29tcG9uZW50ICJIIgogICAgICAgICAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgfQoKICAgICAgICBhIC0+IGIKICAgICAgICBiIC0+IGMKICAgICAgICBjIC0+IGUKICAgICAgICBjIC0+IGcKICAgICAgICBjIC0+IGgKICAgICAgICBnIC0+IGgKCiAgICB9CgogICAgdmlld3MgewogICAgICAgIHN5c3RlbWxhbmRzY2FwZSAiU3lzdGVtTGFuZHNjYXBlIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvbGF5b3V0CiAgICAgICAgfQoKICAgICAgICBjb250YWluZXIgZCAiQ29udGFpbmVycyIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b2xheW91dAogICAgICAgIH0KCiAgICAgICAgY29tcG9uZW50IGYgIkNvbXBvbmVudHMiIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9sYXlvdXQKICAgICAgICB9CgogICAgICAgIGR5bmFtaWMgZiAiRHluYW1pYyIgewogICAgICAgICAgICBnIC0+IGgKICAgICAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgICAgICAicGxhbnR1bWwuc2VxdWVuY2VEaWFncmFtIiAidHJ1ZSIKICAgICAgICAgICAgICAgICJwbGFudHVtbC50ZW96IiAidHJ1ZSIKICAgICAgICAgICAgICAgICJtZXJtYWlkLnNlcXVlbmNlRGlhZ3JhbSIgInRydWUiCiAgICAgICAgICAgICAgICAibWVybWFpZC50aXRsZSIgInRydWUiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgYXV0b0xheW91dAogICAgICAgIH0KICAgIH0KCn0="
   },
   "views" : {
     "componentViews" : [ {
@@ -172,7 +172,7 @@
     } ],
     "configuration" : {
       "branding" : { },
-      "lastSavedView" : "Dynamic",
+      "lastSavedView" : "SystemLandscape",
       "metadataSymbols" : "SquareBrackets",
       "styles" : { },
       "terminology" : { }
@@ -212,7 +212,7 @@
     } ],
     "dynamicViews" : [ {
       "automaticLayout" : {
-        "applied" : true,
+        "applied" : false,
         "edgeSeparation" : 0,
         "implementation" : "Graphviz",
         "nodeSeparation" : 300,
@@ -220,27 +220,24 @@
         "rankSeparation" : 300,
         "vertices" : false
       },
-      "dimensions" : {
-        "height" : 1485,
-        "width" : 930
-      },
       "elementId" : "6",
       "elements" : [ {
         "id" : "7",
-        "x" : 240,
-        "y" : 185
+        "x" : 0,
+        "y" : 0
       }, {
         "id" : "8",
-        "x" : 240,
-        "y" : 785
+        "x" : 0,
+        "y" : 0
       } ],
       "externalBoundariesVisible" : false,
       "key" : "Dynamic",
       "order" : 4,
       "properties" : {
-        "plantuml.sequenceDiagram" : "true",
         "mermaid.sequenceDiagram" : "true",
-        "mermaid.title" : "true"
+        "mermaid.title" : "true",
+        "plantuml.sequenceDiagram" : "true",
+        "plantuml.teoz" : "true"
       },
       "relationships" : [ {
         "id" : "16",
@@ -250,7 +247,7 @@
     } ],
     "systemLandscapeViews" : [ {
       "automaticLayout" : {
-        "applied" : false,
+        "applied" : true,
         "edgeSeparation" : 0,
         "implementation" : "Graphviz",
         "nodeSeparation" : 300,
@@ -258,22 +255,26 @@
         "rankSeparation" : 300,
         "vertices" : false
       },
+      "dimensions" : {
+        "height" : 2648,
+        "width" : 930
+      },
       "elements" : [ {
         "id" : "1",
-        "x" : 0,
-        "y" : 0
+        "x" : 240,
+        "y" : 165
       }, {
         "id" : "2",
-        "x" : 0,
-        "y" : 0
+        "x" : 240,
+        "y" : 765
       }, {
         "id" : "3",
-        "x" : 0,
-        "y" : 0
+        "x" : 240,
+        "y" : 1365
       }, {
         "id" : "4",
-        "x" : 0,
-        "y" : 0
+        "x" : 240,
+        "y" : 1965
       } ],
       "enterpriseBoundaryVisible" : true,
       "key" : "SystemLandscape",

@@ -31,6 +31,7 @@ workspace {
             b -> e
             properties {
                 "plantuml.sequenceDiagram" "true"
+                "plantuml.teoz" "true"
                 "mermaid.sequenceDiagram" "true"
                 "mermaid.title" "true"
                 "structurizr.softwareSystemBoundaries" "true"
@@ -44,6 +45,7 @@ workspace {
             f -> g
             properties {
                 "plantuml.sequenceDiagram" "true"
+                "plantuml.teoz" "true"
                 "mermaid.sequenceDiagram" "true"
                 "mermaid.title" "true"
                 "structurizr.softwareSystemBoundaries" "true"

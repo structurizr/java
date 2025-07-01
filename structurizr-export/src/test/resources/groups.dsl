@@ -60,6 +60,7 @@ workspace {
             g -> h
             properties {
                 "plantuml.sequenceDiagram" "true"
+                "plantuml.teoz" "true"
                 "mermaid.sequenceDiagram" "true"
                 "mermaid.title" "true"
             }

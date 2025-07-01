@@ -4,7 +4,7 @@
   "documentation" : { },
   "id" : 1,
   "lastModifiedAgent" : "structurizr-ui",
-  "lastModifiedDate" : "2025-06-21T10:09:35Z",
+  "lastModifiedDate" : "2025-07-01T16:47:09Z",
   "model" : {
     "properties" : {
       "structurizr.groupSeparator" : "/"
@@ -142,7 +142,7 @@
   },
   "name" : "Name",
   "properties" : {
-    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgIHN0cnVjdHVyaXpyLmdyb3VwU2VwYXJhdG9yIC8KICAgICAgICB9CgogICAgICAgIGEgPSBzb2Z0d2FyZVN5c3RlbSAiQSIgewogICAgICAgICAgICBiID0gY29udGFpbmVyICJCIiB7CiAgICAgICAgICAgICAgICBjID0gY29tcG9uZW50ICJDIgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIGQgPSBzb2Z0d2FyZVN5c3RlbSAiZCIgewogICAgICAgICAgICBlID0gY29udGFpbmVyICJlIiB7CiAgICAgICAgICAgICAgICBmID0gY29tcG9uZW50ICJmIgogICAgICAgICAgICAgICAgZyA9IGNvbXBvbmVudCAiZyIKICAgICAgICAgICAgICAgIGggPSBjb21wb25lbnQgImgiCiAgICAgICAgICAgIH0KICAgICAgICB9CgogICAgICAgIGIgLT4gZQogICAgICAgIGYgLT4gaAogICAgICAgIGMgLT4gZgogICAgICAgIGYgLT4gZwoKICAgIH0KCiAgICB2aWV3cyB7CiAgICAKICAgICAgICBkeW5hbWljIGEgIlNlcXVlbmNlLVNvZnR3YXJlU3lzdGVtIiB7CiAgICAgICAgICAgIGIgLT4gZQogICAgICAgICAgICBwcm9wZXJ0aWVzIHsKICAgICAgICAgICAgICAgICJwbGFudHVtbC5zZXF1ZW5jZURpYWdyYW0iICJ0cnVlIgogICAgICAgICAgICAgICAgIm1lcm1haWQuc2VxdWVuY2VEaWFncmFtIiAidHJ1ZSIKICAgICAgICAgICAgICAgICJtZXJtYWlkLnRpdGxlIiAidHJ1ZSIKICAgICAgICAgICAgICAgICJzdHJ1Y3R1cml6ci5zb2Z0d2FyZVN5c3RlbUJvdW5kYXJpZXMiICJ0cnVlIgogICAgICAgICAgICB9CiAgICAgICAgICAgIGF1dG9MYXlvdXQKICAgICAgICB9CiAgICAgICAgICAgIAogICAgICAgIGR5bmFtaWMgZSAiU2VxdWVuY2UtQ29udGFpbmVyIiB7CiAgICAgICAgICAgIGYgLT4gaAogICAgICAgICAgICBjIC0+IGYKICAgICAgICAgICAgZiAtPiBnCiAgICAgICAgICAgIHByb3BlcnRpZXMgewogICAgICAgICAgICAgICAgInBsYW50dW1sLnNlcXVlbmNlRGlhZ3JhbSIgInRydWUiCiAgICAgICAgICAgICAgICAibWVybWFpZC5zZXF1ZW5jZURpYWdyYW0iICJ0cnVlIgogICAgICAgICAgICAgICAgIm1lcm1haWQudGl0bGUiICJ0cnVlIgogICAgICAgICAgICAgICAgInN0cnVjdHVyaXpyLnNvZnR3YXJlU3lzdGVtQm91bmRhcmllcyIgInRydWUiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgYXV0b0xheW91dAogICAgICAgIH0KICAgIH0KCn0="
+    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgIHN0cnVjdHVyaXpyLmdyb3VwU2VwYXJhdG9yIC8KICAgICAgICB9CgogICAgICAgIGEgPSBzb2Z0d2FyZVN5c3RlbSAiQSIgewogICAgICAgICAgICBiID0gY29udGFpbmVyICJCIiB7CiAgICAgICAgICAgICAgICBjID0gY29tcG9uZW50ICJDIgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIGQgPSBzb2Z0d2FyZVN5c3RlbSAiZCIgewogICAgICAgICAgICBlID0gY29udGFpbmVyICJlIiB7CiAgICAgICAgICAgICAgICBmID0gY29tcG9uZW50ICJmIgogICAgICAgICAgICAgICAgZyA9IGNvbXBvbmVudCAiZyIKICAgICAgICAgICAgICAgIGggPSBjb21wb25lbnQgImgiCiAgICAgICAgICAgIH0KICAgICAgICB9CgogICAgICAgIGIgLT4gZQogICAgICAgIGYgLT4gaAogICAgICAgIGMgLT4gZgogICAgICAgIGYgLT4gZwoKICAgIH0KCiAgICB2aWV3cyB7CiAgICAKICAgICAgICBkeW5hbWljIGEgIlNlcXVlbmNlLVNvZnR3YXJlU3lzdGVtIiB7CiAgICAgICAgICAgIGIgLT4gZQogICAgICAgICAgICBwcm9wZXJ0aWVzIHsKICAgICAgICAgICAgICAgICJwbGFudHVtbC5zZXF1ZW5jZURpYWdyYW0iICJ0cnVlIgogICAgICAgICAgICAgICAgInBsYW50dW1sLnRlb3oiICJ0cnVlIgogICAgICAgICAgICAgICAgIm1lcm1haWQuc2VxdWVuY2VEaWFncmFtIiAidHJ1ZSIKICAgICAgICAgICAgICAgICJtZXJtYWlkLnRpdGxlIiAidHJ1ZSIKICAgICAgICAgICAgICAgICJzdHJ1Y3R1cml6ci5zb2Z0d2FyZVN5c3RlbUJvdW5kYXJpZXMiICJ0cnVlIgogICAgICAgICAgICB9CiAgICAgICAgICAgIGF1dG9MYXlvdXQKICAgICAgICB9CiAgICAgICAgICAgIAogICAgICAgIGR5bmFtaWMgZSAiU2VxdWVuY2UtQ29udGFpbmVyIiB7CiAgICAgICAgICAgIGYgLT4gaAogICAgICAgICAgICBjIC0+IGYKICAgICAgICAgICAgZiAtPiBnCiAgICAgICAgICAgIHByb3BlcnRpZXMgewogICAgICAgICAgICAgICAgInBsYW50dW1sLnNlcXVlbmNlRGlhZ3JhbSIgInRydWUiCiAgICAgICAgICAgICAgICAicGxhbnR1bWwudGVveiIgInRydWUiCiAgICAgICAgICAgICAgICAibWVybWFpZC5zZXF1ZW5jZURpYWdyYW0iICJ0cnVlIgogICAgICAgICAgICAgICAgIm1lcm1haWQudGl0bGUiICJ0cnVlIgogICAgICAgICAgICAgICAgInN0cnVjdHVyaXpyLnNvZnR3YXJlU3lzdGVtQm91bmRhcmllcyIgInRydWUiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgYXV0b0xheW91dAogICAgICAgIH0KICAgIH0KCn0="
   },
   "views" : {
     "configuration" : {
@@ -154,7 +154,7 @@
     },
     "dynamicViews" : [ {
       "automaticLayout" : {
-        "applied" : false,
+        "applied" : true,
         "edgeSeparation" : 0,
         "implementation" : "Graphviz",
         "nodeSeparation" : 300,
@@ -162,15 +162,19 @@
         "rankSeparation" : 300,
         "vertices" : false
       },
+      "dimensions" : {
+        "height" : 1411,
+        "width" : 890
+      },
       "elementId" : "1",
       "elements" : [ {
         "id" : "2",
-        "x" : 0,
-        "y" : 0
+        "x" : 220,
+        "y" : 185
       }, {
         "id" : "5",
-        "x" : 0,
-        "y" : 0
+        "x" : 220,
+        "y" : 785
       } ],
       "externalBoundariesVisible" : false,
       "key" : "Sequence-SoftwareSystem",
@@ -179,6 +183,7 @@
         "mermaid.sequenceDiagram" : "true",
         "mermaid.title" : "true",
         "plantuml.sequenceDiagram" : "true",
+        "plantuml.teoz" : "true",
         "structurizr.softwareSystemBoundaries" : "true"
       },
       "relationships" : [ {
@@ -203,19 +208,19 @@
       "elementId" : "5",
       "elements" : [ {
         "id" : "3",
-        "x" : 239,
+        "x" : 240,
         "y" : 205
       }, {
         "id" : "6",
-        "x" : 239,
+        "x" : 240,
         "y" : 955
       }, {
         "id" : "7",
-        "x" : 239,
+        "x" : 240,
         "y" : 1555
       }, {
         "id" : "8",
-        "x" : 989,
+        "x" : 990,
         "y" : 1555
       } ],
       "externalBoundariesVisible" : false,
@@ -225,6 +230,7 @@
         "mermaid.sequenceDiagram" : "true",
         "mermaid.title" : "true",
         "plantuml.sequenceDiagram" : "true",
+        "plantuml.teoz" : "true",
         "structurizr.softwareSystemBoundaries" : "true"
       },
       "relationships" : [ {

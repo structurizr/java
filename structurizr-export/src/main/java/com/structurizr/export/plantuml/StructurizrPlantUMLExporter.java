@@ -28,6 +28,9 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
     @Override
     protected void writeHeader(ModelView view, IndentingWriter writer) {
         super.writeHeader(view, writer);
+        if (view instanceof DynamicView && renderAsTeozDiagram(view)) {
+            writer.writeLine("!pragma teoz true");
+        }
         groupId = 0;
 
         if (view instanceof DynamicView && renderAsSequenceDiagram(view)) {
@@ -312,11 +315,7 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
 
     @Override
     public Diagram export(DynamicView view) {
-        if (renderAsSequenceDiagram(view)) {
-            return super.export(view);
-        } else {
-            return super.export(view);
-        }
+        return super.export(view);
     }
 
     @Override
@@ -628,6 +627,10 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
 
     protected boolean renderAsSequenceDiagram(ModelView view) {
         return view instanceof DynamicView && "true".equalsIgnoreCase(getViewOrViewSetProperty(view, PLANTUML_SEQUENCE_DIAGRAM_PROPERTY, "false"));
+    }
+
+    protected boolean renderAsTeozDiagram(ModelView view) {
+        return view instanceof DynamicView && "true".equalsIgnoreCase(getViewOrViewSetProperty(view, PLANTUML_TEOZ_PROPERTY, "false"));
     }
 
 }
