@@ -8,7 +8,27 @@ import java.util.Map;
 
 public abstract class AbstractStyle implements PropertyHolder {
 
+    private ColorScheme colorScheme = null;
+
     private Map<String, String> properties = new HashMap<>();
+
+    /**
+     * Gets the color scheme of this style.
+     *
+     * @return  a ColorScheme, or null if not specified (i.e. applies to light and dark).
+     */
+    public ColorScheme getColorScheme() {
+        return colorScheme;
+    }
+
+    /**
+     * Sets the color scheme of this style.
+     *
+     * @param colorScheme  a ColorScheme, or null if not specified (i.e. applies to light and dark).
+     */
+    void setColorScheme(ColorScheme colorScheme) {
+        this.colorScheme = colorScheme;
+    }
 
     /**
      * Gets the collection of name-value property pairs associated with this workspace, as a Map.

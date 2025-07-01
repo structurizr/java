@@ -4,7 +4,6 @@ import com.structurizr.Workspace;
 import com.structurizr.documentation.Section;
 import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
-import com.structurizr.util.WorkspaceUtils;
 import com.structurizr.view.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -1710,6 +1709,32 @@ workspace extends source-parent.dsl {
         assertFalse(apiInstance1.hasEfferentRelationshipWith(dbInstance2));
         assertTrue(apiInstance2.hasEfferentRelationshipWith(dbInstance2));
         assertFalse(apiInstance2.hasEfferentRelationshipWith(dbInstance1));
+    }
+
+    @Test
+    void test_colorSchemes() throws Exception {
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(new File("src/test/resources/dsl/color-schemes.dsl"));
+
+        Workspace workspace = parser.getWorkspace();
+
+        ElementStyle elementStyle = workspace.getViews().getConfiguration().getStyles().getElementStyle("Element");
+        assertEquals(Shape.RoundedBox, elementStyle.getShape());
+
+        elementStyle = workspace.getViews().getConfiguration().getStyles().getElementStyle("Element", ColorScheme.Light);
+        assertEquals("#000000", elementStyle.getColor());
+
+        elementStyle = workspace.getViews().getConfiguration().getStyles().getElementStyle("Element", ColorScheme.Dark);
+        assertEquals("#ffffff", elementStyle.getColor());
+
+        RelationshipStyle relationshipStyle = workspace.getViews().getConfiguration().getStyles().getRelationshipStyle("Relationship");
+        assertEquals(LineStyle.Solid, relationshipStyle.getStyle());
+
+        relationshipStyle = workspace.getViews().getConfiguration().getStyles().getRelationshipStyle("Relationship", ColorScheme.Light);
+        assertEquals("#000000", relationshipStyle.getColor());
+
+        relationshipStyle = workspace.getViews().getConfiguration().getStyles().getRelationshipStyle("Relationship", ColorScheme.Dark);
+        assertEquals("#ffffff", relationshipStyle.getColor());
     }
 
 }

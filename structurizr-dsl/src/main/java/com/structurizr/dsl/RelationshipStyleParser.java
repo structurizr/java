@@ -2,9 +2,7 @@ package com.structurizr.dsl;
 
 import com.structurizr.Workspace;
 import com.structurizr.util.StringUtils;
-import com.structurizr.view.LineStyle;
-import com.structurizr.view.RelationshipStyle;
-import com.structurizr.view.Routing;
+import com.structurizr.view.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +11,7 @@ final class RelationshipStyleParser extends AbstractParser {
 
     private static final int FIRST_PROPERTY_INDEX = 1;
 
-    RelationshipStyle parseRelationshipStyle(DslContext context, Tokens tokens) {
+    RelationshipStyle parseRelationshipStyle(StylesDslContext context, Tokens tokens) {
         if (tokens.hasMoreThan(FIRST_PROPERTY_INDEX)) {
             throw new RuntimeException("Too many tokens, expected: relationship <tag> {");
         }
@@ -26,9 +24,9 @@ final class RelationshipStyleParser extends AbstractParser {
             }
 
             Workspace workspace = context.getWorkspace();
-            RelationshipStyle relationshipStyle = workspace.getViews().getConfiguration().getStyles().getRelationshipStyle(tag);
+            RelationshipStyle relationshipStyle = workspace.getViews().getConfiguration().getStyles().getRelationshipStyle(tag, context.getColorScheme());
             if (relationshipStyle == null) {
-                relationshipStyle = workspace.getViews().getConfiguration().getStyles().addRelationshipStyle(tag);
+                relationshipStyle = workspace.getViews().getConfiguration().getStyles().addRelationshipStyle(tag, context.getColorScheme());
             }
 
             return relationshipStyle;

@@ -54,6 +54,11 @@ public final class RelationshipStyle extends AbstractStyle {
         this.tag = tag;
     }
 
+    RelationshipStyle(String tag, ColorScheme colorScheme) {
+        this.tag = tag;
+        setColorScheme(colorScheme);
+    }
+
     public String getTag() {
         return tag;
     }

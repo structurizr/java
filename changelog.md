@@ -1,5 +1,11 @@
 # Changelog
 
+## v4.2.0 (unreleased)
+
+- structurizr-dsl: Adds support for `iconPosition` on element styles (options are `Top`, `Bottom`, `Left`).
+- structurizr-dsl: Adds support for defining element and relationship styles for light and dark mode.
+- structurizr-dsl: Adds a `Bucket` shape.
+
 ## v4.1.0 (28th May 2025)
 
 - structurizr-client: Fixes https://github.com/structurizr/java/issues/413 (Cannot push to main branch, when branch feature is activated).

@@ -791,8 +791,14 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (STYLES_TOKEN.equalsIgnoreCase(firstToken) && inContext(ViewsDslContext.class)) {
                         startContext(new StylesDslContext());
 
+                    } else if (LIGHT_COLOR_SCHEME_TOKEN.equalsIgnoreCase(firstToken) && inContext(StylesDslContext.class)) {
+                        startContext(new StylesDslContext(ColorScheme.Light));
+
+                    } else if (DARK_COLOR_SCHEME_TOKEN.equalsIgnoreCase(firstToken) && inContext(StylesDslContext.class)) {
+                        startContext(new StylesDslContext(ColorScheme.Dark));
+
                     } else if (ELEMENT_STYLE_TOKEN.equalsIgnoreCase(firstToken) && inContext(StylesDslContext.class)) {
-                        ElementStyle elementStyle = new ElementStyleParser().parseElementStyle(getContext(), tokens.withoutContextStartToken());
+                        ElementStyle elementStyle = new ElementStyleParser().parseElementStyle(getContext(StylesDslContext.class), tokens.withoutContextStartToken());
                         startContext(new ElementStyleDslContext(elementStyle, dslFile));
 
                     } else if (ELEMENT_STYLE_BACKGROUND_TOKEN.equalsIgnoreCase(firstToken) && inContext(ElementStyleDslContext.class)) {
@@ -834,8 +840,11 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (ELEMENT_STYLE_ICON_TOKEN.equalsIgnoreCase(firstToken) && inContext(ElementStyleDslContext.class)) {
                         new ElementStyleParser().parseIcon(getContext(ElementStyleDslContext.class), tokens, restricted);
 
+                    } else if (ELEMENT_STYLE_ICON_POSITION_TOKEN.equalsIgnoreCase(firstToken) && inContext(ElementStyleDslContext.class)) {
+                        new ElementStyleParser().parseIconPosition(getContext(ElementStyleDslContext.class), tokens);
+
                     } else if (RELATIONSHIP_STYLE_TOKEN.equalsIgnoreCase(firstToken) && inContext(StylesDslContext.class)) {
-                        RelationshipStyle relationshipStyle = new RelationshipStyleParser().parseRelationshipStyle(getContext(), tokens.withoutContextStartToken());
+                        RelationshipStyle relationshipStyle = new RelationshipStyleParser().parseRelationshipStyle(getContext(StylesDslContext.class), tokens.withoutContextStartToken());
                         startContext(new RelationshipStyleDslContext(relationshipStyle));
 
                     } else if (RELATIONSHIP_STYLE_THICKNESS_TOKEN.equalsIgnoreCase(firstToken) && inContext(RelationshipStyleDslContext.class)) {

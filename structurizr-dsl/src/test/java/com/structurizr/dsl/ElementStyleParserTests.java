@@ -2,6 +2,7 @@ package com.structurizr.dsl;
 
 import com.structurizr.view.Border;
 import com.structurizr.view.ElementStyle;
+import com.structurizr.view.IconPosition;
 import com.structurizr.view.Shape;
 import org.junit.jupiter.api.Test;
 
@@ -22,10 +23,17 @@ class ElementStyleParserTests extends AbstractTests {
         return context;
     }
 
+    private StylesDslContext stylesDslContext() {
+        StylesDslContext context = new StylesDslContext();
+        context.setWorkspace(workspace);
+
+        return context;
+    }
+
     @Test
     void test_parseElementStyle_ThrowsAnException_WhenThereAreTooManyTokens() {
         try {
-            parser.parseElementStyle(context(), tokens("element", "tag", "extra"));
+            parser.parseElementStyle(stylesDslContext(), tokens("element", "tag", "extra"));
             fail();
         } catch (Exception e) {
             assertEquals("Too many tokens, expected: element <tag> {", e.getMessage());
@@ -35,7 +43,7 @@ class ElementStyleParserTests extends AbstractTests {
     @Test
     void test_parseElementStyle_ThrowsAnException_WhenTheTagIsMissing() {
         try {
-            parser.parseElementStyle(context(), tokens("element"));
+            parser.parseElementStyle(stylesDslContext(), tokens("element"));
             fail();
         } catch (Exception e) {
             assertEquals("Expected: element <tag> {", e.getMessage());
@@ -45,7 +53,7 @@ class ElementStyleParserTests extends AbstractTests {
     @Test
     void test_parseElementStyle_ThrowsAnException_WhenTheTagIsEmpty() {
         try {
-            parser.parseElementStyle(context(), tokens("element", ""));
+            parser.parseElementStyle(stylesDslContext(), tokens("element", ""));
             fail();
         } catch (Exception e) {
             assertEquals("A tag must be specified", e.getMessage());
@@ -54,7 +62,7 @@ class ElementStyleParserTests extends AbstractTests {
 
     @Test
     void test_parseElementStyle_CreatesAnElementStyle() {
-        parser.parseElementStyle(context(), tokens("element", "Element"));
+        parser.parseElementStyle(stylesDslContext(), tokens("element", "Element"));
 
         ElementStyle style = workspace.getViews().getConfiguration().getStyles().getElements().stream().filter(es -> "Element".equals(es.getTag())).findFirst().get();
         assertNotNull(style);
@@ -63,7 +71,7 @@ class ElementStyleParserTests extends AbstractTests {
     @Test
     void test_parseElementStyle_FindsAnExistingElementStyle() {
         ElementStyle style = workspace.getViews().getConfiguration().getStyles().addElementStyle("Tag");
-        assertSame(style, parser.parseElementStyle(context(), tokens("element", "Tag")));
+        assertSame(style, parser.parseElementStyle(stylesDslContext(), tokens("element", "Tag")));
     }
 
     @Test
@@ -72,7 +80,7 @@ class ElementStyleParserTests extends AbstractTests {
             parser.parseShape(elementStyleDslContext(), tokens("shape", "shape", "extra"));
             fail();
         } catch (Exception e) {
-            assertEquals("Too many tokens, expected: shape <Box|RoundedBox|Circle|Ellipse|Hexagon|Diamond|Cylinder|Pipe|Person|Robot|Folder|WebBrowser|Window|MobileDevicePortrait|MobileDeviceLandscape|Component>", e.getMessage());
+            assertEquals("Too many tokens, expected: shape <Box|RoundedBox|Circle|Ellipse|Hexagon|Diamond|Cylinder|Bucket|Pipe|Person|Robot|Folder|WebBrowser|Window|MobileDevicePortrait|MobileDeviceLandscape|Component>", e.getMessage());
         }
     }
 
@@ -82,7 +90,7 @@ class ElementStyleParserTests extends AbstractTests {
             parser.parseShape(elementStyleDslContext(), tokens("shape"));
             fail();
         } catch (Exception e) {
-            assertEquals("Expected: shape <Box|RoundedBox|Circle|Ellipse|Hexagon|Diamond|Cylinder|Pipe|Person|Robot|Folder|WebBrowser|Window|MobileDevicePortrait|MobileDeviceLandscape|Component>", e.getMessage());
+            assertEquals("Expected: shape <Box|RoundedBox|Circle|Ellipse|Hexagon|Diamond|Cylinder|Bucket|Pipe|Person|Robot|Folder|WebBrowser|Window|MobileDevicePortrait|MobileDeviceLandscape|Component>", e.getMessage());
         }
     }
 
@@ -541,6 +549,42 @@ class ElementStyleParserTests extends AbstractTests {
         parser.parseIcon(elementStyleDslContext(), tokens("icon", "src/test/resources/dsl/logo.png"), false);
         System.out.println(elementStyle.getIcon());
         assertTrue(elementStyle.getIcon().startsWith("data:image/png;base64,"));
+    }
+
+    @Test
+    void test_parseIconPosition_ThrowsAnException_WhenThereAreTooManyTokens() {
+        try {
+            parser.parseIconPosition(elementStyleDslContext(), tokens("iconPosition", "top", "extra"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Too many tokens, expected: iconPosition <Top|Bottom|Left>", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseIconPosition_ThrowsAnException_WhenTheShapeIsMissing() {
+        try {
+            parser.parseIconPosition(elementStyleDslContext(), tokens("iconPosition"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Expected: iconPosition <Top|Bottom|Left>", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseIconPosition_ThrowsAnException_WhenTheShapeIsNotValid() {
+        try {
+            parser.parseIconPosition(elementStyleDslContext(), tokens("iconPosition", "right"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("The icon position \"right\" is not valid", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseIconPosition_SetsTheIconPosition() {
+        parser.parseIconPosition(elementStyleDslContext(), tokens("iconPosition", "top"));
+        assertEquals(IconPosition.Top, elementStyle.getIconPosition());
     }
 
 }
