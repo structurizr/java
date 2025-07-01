@@ -1,0 +1,37 @@
+@startuml
+set separator none
+title A - Dynamic
+
+!pragma teoz true
+skinparam {
+  arrowFontSize 10
+  defaultTextAlignment center
+  wrapWidth 200
+  maxMessageSize 100
+}
+
+hide stereotype
+
+skinparam sequenceParticipant<<A.B>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9a9a9a
+  shadowing false
+}
+skinparam sequenceParticipant<<d.e>> {
+  BackgroundColor #dddddd
+  FontColor #000000
+  BorderColor #9a9a9a
+  shadowing false
+}
+
+box "A\n[Software System]"
+  participant "B\n<size:10>[Container]</size>" as A.B <<A.B>> #dddddd
+end box
+
+box "d\n[Software System]"
+  participant "e\n<size:10>[Container]</size>" as d.e <<d.e>> #dddddd
+end box
+
+A.B -[#707070]> d.e : 
+@enduml

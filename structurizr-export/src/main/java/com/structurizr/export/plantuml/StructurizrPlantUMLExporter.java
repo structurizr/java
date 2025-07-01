@@ -28,6 +28,9 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
     @Override
     protected void writeHeader(ModelView view, IndentingWriter writer) {
         super.writeHeader(view, writer);
+        if (view instanceof DynamicView && renderAsTeozDiagram(view)) {
+            writer.writeLine("!pragma teoz true");
+        }
         groupId = 0;
 
         if (view instanceof DynamicView && renderAsSequenceDiagram(view)) {
@@ -176,30 +179,29 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
             groupName = group.substring(group.lastIndexOf(groupSeparator) + groupSeparator.length());
         }
 
+        String color = "#cccccc";
+        String icon = "";
+
+        ElementStyle elementStyleForGroup = view.getViewSet().getConfiguration().getStyles().findElementStyle("Group:" + group);
+        ElementStyle elementStyleForAllGroups = view.getViewSet().getConfiguration().getStyles().findElementStyle("Group");
+
+        if (elementStyleForGroup != null && !StringUtils.isNullOrEmpty(elementStyleForGroup.getColor())) {
+            color = elementStyleForGroup.getColor();
+        } else if (elementStyleForAllGroups != null && !StringUtils.isNullOrEmpty(elementStyleForAllGroups.getColor())) {
+            color = elementStyleForAllGroups.getColor();
+        }
+
+        if (elementStyleForGroup != null && elementStyleHasSupportedIcon(elementStyleForGroup)) {
+            icon = elementStyleForGroup.getIcon();
+        } else if (elementStyleForAllGroups != null && elementStyleHasSupportedIcon(elementStyleForAllGroups)) {
+            icon = elementStyleForAllGroups.getColor();
+        }
+
+        if (!StringUtils.isNullOrEmpty(icon)) {
+            double scale = calculateIconScale(icon);
+            icon = "\\n\\n<img:" + icon + "{scale=" + scale + "}>";
+        }
         if (!renderAsSequenceDiagram(view)) {
-            String color = "#cccccc";
-            String icon = "";
-
-            ElementStyle elementStyleForGroup = view.getViewSet().getConfiguration().getStyles().findElementStyle("Group:" + group);
-            ElementStyle elementStyleForAllGroups = view.getViewSet().getConfiguration().getStyles().findElementStyle("Group");
-
-            if (elementStyleForGroup != null && !StringUtils.isNullOrEmpty(elementStyleForGroup.getColor())) {
-                color = elementStyleForGroup.getColor();
-            } else if (elementStyleForAllGroups != null && !StringUtils.isNullOrEmpty(elementStyleForAllGroups.getColor())) {
-                color = elementStyleForAllGroups.getColor();
-            }
-
-            if (elementStyleForGroup != null && elementStyleHasSupportedIcon(elementStyleForGroup)) {
-                icon = elementStyleForGroup.getIcon();
-            } else if (elementStyleForAllGroups != null && elementStyleHasSupportedIcon(elementStyleForAllGroups)) {
-                icon = elementStyleForAllGroups.getColor();
-            }
-
-            if (!StringUtils.isNullOrEmpty(icon)) {
-                double scale = calculateIconScale(icon);
-                icon = "\\n\\n<img:" + icon + "{scale=" + scale + "}>";
-            }
-
             writer.writeLine(String.format("rectangle \"%s%s\" <<group%s>> as group%s {", groupName, icon, groupId, groupId));
             writer.indent();
             writer.writeLine(String.format("skinparam RectangleBorderColor<<group%s>> %s", groupId, color));
@@ -207,6 +209,11 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
             writer.writeLine(String.format("skinparam RectangleBorderStyle<<group%s>> dashed", groupId));
 
             writer.writeLine();
+        } else {
+            //writer.writeLine(String.format("box \"%s%s\" <<group%s>> as group%s {", groupName, icon, groupId, groupId));
+            writer.writeLine(String.format("box \"%s%s\"", groupName, icon));
+
+            writer.indent();
         }
     }
 
@@ -216,6 +223,10 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
             writer.outdent();
             writer.writeLine("}");
             writer.writeLine();
+        } else {
+            writer.outdent();
+            writer.writeLine("end box");
+            writer.writeLine();
         }
     }
 
@@ -223,6 +234,10 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
     protected void startSoftwareSystemBoundary(ModelView view, SoftwareSystem softwareSystem, IndentingWriter writer) {
         if (!renderAsSequenceDiagram(view)) {
             writer.writeLine(String.format("rectangle \"%s\\n<size:10>%s</size>\" <<%s>> {", softwareSystem.getName(), typeOf(view, softwareSystem, true), idOf(softwareSystem)));
+            writer.indent();
+        } else {
+            writer.writeLine(String.format("box \"%s\n%s\"", softwareSystem.getName(), typeOf(view, softwareSystem, true)));
+
             writer.indent();
         }
     }
@@ -233,6 +248,10 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
             writer.outdent();
             writer.writeLine("}");
             writer.writeLine();
+        } else {
+            writer.outdent();
+            writer.writeLine("end box");
+            writer.writeLine();
         }
     }
 
@@ -240,6 +259,10 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
     protected void startContainerBoundary(ModelView view, Container container, IndentingWriter writer) {
         if (!renderAsSequenceDiagram(view)) {
             writer.writeLine(String.format("rectangle \"%s\\n<size:10>%s</size>\" <<%s>> {", container.getName(), typeOf(view, container, true), idOf(container)));
+            writer.indent();
+        } else {
+            writer.writeLine(String.format("box \"%s\n%s\"", container.getName(), typeOf(view, container, true)));
+
             writer.indent();
         }
     }
@@ -249,6 +272,10 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
         if (!renderAsSequenceDiagram(view)) {
             writer.outdent();
             writer.writeLine("}");
+            writer.writeLine();
+        } else {
+            writer.outdent();
+            writer.writeLine("end box");
             writer.writeLine();
         }
     }
@@ -296,27 +323,7 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
 
     @Override
     public Diagram export(DynamicView view) {
-        if (renderAsSequenceDiagram(view)) {
-            IndentingWriter writer = new IndentingWriter();
-            writeHeader(view, writer);
-
-            Set<Element> elements = new LinkedHashSet<>();
-            for (RelationshipView relationshipView : view.getRelationships()) {
-                elements.add(relationshipView.getRelationship().getSource());
-                elements.add(relationshipView.getRelationship().getDestination());
-            }
-
-            for (Element element : elements) {
-                writeElement(view, element, writer);
-            }
-
-            writeRelationships(view, writer);
-            writeFooter(view, writer);
-
-            return createDiagram(view, writer.toString());
-        } else {
-            return super.export(view);
-        }
+        return super.export(view);
     }
 
     @Override
@@ -425,13 +432,14 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
             }
 
             writer.writeLine(
-                    String.format("%s %s[%s]%s %s : %s",
+                    String.format("%s %s[%s]%s %s : %s%s",
                             idOf(relationship.getSource()),
                             arrowStart,
                             style.getColor(),
                             arrowEnd,
                             idOf(relationship.getDestination()),
-                            description));
+                            description,
+                            (StringUtils.isNullOrEmpty(technology) ? "" : "\\n<color:" + style.getColor() + "><size:8>[" + technology + "]</size>")));
         } else {
             boolean solid = style.getStyle() == LineStyle.Solid || false == style.getDashed();
 
@@ -627,6 +635,10 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
 
     protected boolean renderAsSequenceDiagram(ModelView view) {
         return view instanceof DynamicView && "true".equalsIgnoreCase(getViewOrViewSetProperty(view, PLANTUML_SEQUENCE_DIAGRAM_PROPERTY, "false"));
+    }
+
+    protected boolean renderAsTeozDiagram(ModelView view) {
+        return view instanceof DynamicView && "true".equalsIgnoreCase(getViewOrViewSetProperty(view, PLANTUML_TEOZ_PROPERTY, "false"));
     }
 
 }
