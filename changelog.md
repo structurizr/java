@@ -6,6 +6,7 @@
 - structurizr-dsl: Adds support for defining element and relationship styles for light and dark mode.
 - structurizr-dsl: Adds a `Bucket` shape.
 - structurizr-dsl: Adds a `Shell` shape.
+- structurizr-dsl: Adds a `Terminal` shape.
 
 ## v4.1.0 (28th May 2025)
 

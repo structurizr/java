@@ -80,7 +80,7 @@ class ElementStyleParserTests extends AbstractTests {
             parser.parseShape(elementStyleDslContext(), tokens("shape", "shape", "extra"));
             fail();
         } catch (Exception e) {
-            assertEquals("Too many tokens, expected: shape <Box|RoundedBox|Circle|Ellipse|Hexagon|Diamond|Cylinder|Bucket|Pipe|Person|Robot|Folder|WebBrowser|Window|Shell|MobileDevicePortrait|MobileDeviceLandscape|Component>", e.getMessage());
+            assertEquals("Too many tokens, expected: shape <Box|RoundedBox|Circle|Ellipse|Hexagon|Diamond|Cylinder|Bucket|Pipe|Person|Robot|Folder|WebBrowser|Window|Terminal|Shell|MobileDevicePortrait|MobileDeviceLandscape|Component>", e.getMessage());
         }
     }
 
@@ -90,7 +90,7 @@ class ElementStyleParserTests extends AbstractTests {
             parser.parseShape(elementStyleDslContext(), tokens("shape"));
             fail();
         } catch (Exception e) {
-            assertEquals("Expected: shape <Box|RoundedBox|Circle|Ellipse|Hexagon|Diamond|Cylinder|Bucket|Pipe|Person|Robot|Folder|WebBrowser|Window|Shell|MobileDevicePortrait|MobileDeviceLandscape|Component>", e.getMessage());
+            assertEquals("Expected: shape <Box|RoundedBox|Circle|Ellipse|Hexagon|Diamond|Cylinder|Bucket|Pipe|Person|Robot|Folder|WebBrowser|Window|Terminal|Shell|MobileDevicePortrait|MobileDeviceLandscape|Component>", e.getMessage());
         }
     }
 
