@@ -916,6 +916,21 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                         registerIdentifier(identifier, infrastructureNode);
 
+                    } else if (INSTANCE_OF_TOKEN.equalsIgnoreCase(firstToken) && inContext(DeploymentNodeDslContext.class)) {
+                        StaticStructureElementInstance instance = new InstanceOfParser().parse(getContext(DeploymentNodeDslContext.class), tokens.withoutContextStartToken());
+
+                        if (instance instanceof SoftwareSystemInstance) {
+                            if (shouldStartContext(tokens)) {
+                                startContext(new SoftwareSystemInstanceDslContext((SoftwareSystemInstance)instance));
+                            }
+                        } else if (instance instanceof ContainerInstance) {
+                            if (shouldStartContext(tokens)) {
+                                startContext(new ContainerInstanceDslContext((ContainerInstance)instance));
+                            }
+                        }
+
+                        registerIdentifier(identifier, instance);
+
                     } else if (SOFTWARE_SYSTEM_INSTANCE_TOKEN.equalsIgnoreCase(firstToken) && inContext(DeploymentNodeDslContext.class)) {
                         SoftwareSystemInstance softwareSystemInstance = new SoftwareSystemInstanceParser().parse(getContext(DeploymentNodeDslContext.class), tokens.withoutContextStartToken());
 

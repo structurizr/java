@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class SoftwareSystemInstanceParserTests extends AbstractTests {
 
-    private SoftwareSystemInstanceParser parser = new SoftwareSystemInstanceParser();
+    private final SoftwareSystemInstanceParser parser = new SoftwareSystemInstanceParser();
 
     @Test
     void test_parse_ThrowsAnException_WhenThereAreTooManyTokens() {

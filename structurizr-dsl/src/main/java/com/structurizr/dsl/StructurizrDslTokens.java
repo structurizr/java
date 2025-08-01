@@ -35,6 +35,7 @@ class StructurizrDslTokens {
     static final String DEPLOYMENT_GROUP_TOKEN = "deploymentGroup";
     static final String DEPLOYMENT_NODE_TOKEN = "deploymentNode";
     static final String INFRASTRUCTURE_NODE_TOKEN = "infrastructureNode";
+    static final String INSTANCE_OF_TOKEN = "instanceOf";
     static final String SOFTWARE_SYSTEM_INSTANCE_TOKEN = "softwareSystemInstance";
     static final String CONTAINER_INSTANCE_TOKEN = "containerInstance";
     static final String HEALTH_CHECK_TOKEN = "healthCheck";

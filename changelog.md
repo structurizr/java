@@ -7,6 +7,7 @@
 - structurizr-dsl: Adds a `Bucket` shape.
 - structurizr-dsl: Adds a `Shell` shape.
 - structurizr-dsl: Adds a `Terminal` shape.
+- structurizr-dsl: Adds an 'instanceOf' keyword (an alternative for `softwareSystemInstance` and `containerInstance`).
 
 ## v4.1.0 (28th May 2025)
 
