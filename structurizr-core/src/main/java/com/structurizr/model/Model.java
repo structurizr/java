@@ -1171,13 +1171,22 @@ public final class Model implements PropertyHolder {
         // remove any relationships to/from the element
         for (Relationship relationship : getRelationships()) {
             if (relationship.getSource() == element || relationship.getDestination() == element) {
-                removeRelationshipFromInternalStructures(relationship);
-                relationship.getSource().remove(relationship);
+                remove(relationship);
             }
         }
 
         elementsById.remove(element.getId());
         elements.remove(element);
+    }
+
+    /**
+     * Removes a relationship from the model.
+     *
+     * @param relationship      the Relationship to remove
+     */
+    void remove(Relationship relationship) {
+        removeRelationshipFromInternalStructures(relationship);
+        relationship.getSource().remove(relationship);
     }
 
 }

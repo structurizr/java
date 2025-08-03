@@ -310,6 +310,36 @@ public final class Workspace extends AbstractWorkspace implements Documentable {
         }
     }
 
+    /**
+     * Removes a relationship from the workspace.
+     *
+     * @param relationship      the Relationship to remove
+     */
+    public void remove(Relationship relationship) {
+        if (relationship == null) {
+            throw new IllegalArgumentException("A relationship must be specified.");
+        }
+
+        // remove the relationship from views
+        for (View view : viewSet.getViews()) {
+            if (view instanceof ModelView) {
+                ModelView modelView = (ModelView)view;
+                if (modelView.isRelationshipInView(relationship)) {
+                    modelView.remove(relationship);
+                }
+            }
+        }
+
+        // now remove the relationship itself
+        try {
+            Method method = Model.class.getDeclaredMethod("remove", Relationship.class);
+            method.setAccessible(true);
+            method.invoke(model, relationship);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private boolean isElementAssociatedWithAnyViews(Element element) {
         boolean result = false;
 

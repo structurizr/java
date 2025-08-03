@@ -300,4 +300,32 @@ public class WorkspaceTests {
         assertEquals(0, a.getRelationships().size());
     }
 
+    @Test
+    void removeRelationship_ThrowsAnException_WhenNoRelationshipIsSpecified() {
+        Workspace workspace = new Workspace("Name", "Description");
+        try {
+            workspace.remove((Relationship)null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("A relationship must be specified.", e.getMessage());
+        }
+    }
+
+    @Test
+    void removeRelationship() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
+        SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
+        Relationship relationship = a.uses(b, "Uses");
+
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
+        view.addDefaultElements();
+
+        workspace.remove(relationship);
+
+        assertEquals(0, a.getRelationships().size());
+        assertFalse(a.hasEfferentRelationshipWith(b));
+        assertFalse(view.isRelationshipInView(relationship));
+    }
+
 }
