@@ -8,6 +8,8 @@
 - structurizr-dsl: Adds a `Shell` shape.
 - structurizr-dsl: Adds a `Terminal` shape.
 - structurizr-dsl: Adds an 'instanceOf' keyword (an alternative for `softwareSystemInstance` and `containerInstance`).
+- structurizr-dsl: Relationships to/from software system/container instances can be now defined by using the software system/container identifier.
+- structurizr-dsl: Fixes https://github.com/structurizr/java/issues/435 (Relationship archetype not applied to implicit-source relationships).
 
 ## v4.1.0 (28th May 2025)
 

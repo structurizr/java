@@ -1564,6 +1564,22 @@ workspace extends source-parent.dsl {
     }
 
     @Test
+    void test_archetypesForImplicitRelationships() throws Exception {
+        File parentDslFile = new File("src/test/resources/dsl/archetypes-for-implicit-relationships.dsl");
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(parentDslFile);
+        Workspace workspace = parser.getWorkspace();
+
+        SoftwareSystem a = workspace.getModel().getSoftwareSystemWithName("A");
+        SoftwareSystem b = workspace.getModel().getSoftwareSystemWithName("B");
+
+        Relationship r = b.getEfferentRelationshipWith(a);
+        assertEquals("Makes API calls to", r.getDescription());
+        assertEquals("HTTPS", r.getTechnology());
+        assertTrue(r.hasTag("HTTPS"));
+    }
+
+    @Test
     void test_textBlock() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
         parser.parse(new File("src/test/resources/dsl/text-block.dsl"));

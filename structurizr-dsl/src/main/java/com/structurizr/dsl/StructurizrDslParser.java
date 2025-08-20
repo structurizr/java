@@ -345,7 +345,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (tokens.size() >= 2 && isRelationshipKeywordOrArchetype(tokens.get(0)) && inContext(ElementDslContext.class)) {
                         // implicit without archetype: -> this
                         // implicit with archetype: --https-> this
-                        Archetype archetype = getArchetype(RELATIONSHIP_TOKEN, tokens.get(1));
+                        Archetype archetype = getArchetype(RELATIONSHIP_TOKEN, tokens.get(0));
                         Set<Relationship> relationships = new ImplicitRelationshipParser().parse(getContext(ElementDslContext.class), tokens.withoutContextStartToken(), archetype);
 
                         if (relationships.size() == 1) {
