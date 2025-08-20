@@ -3,11 +3,13 @@ package com.structurizr.dsl;
 import com.structurizr.model.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ExplicitRelationshipParserTests extends AbstractTests {
 
-    private ExplicitRelationshipParser parser = new ExplicitRelationshipParser();
+    private final ExplicitRelationshipParser parser = new ExplicitRelationshipParser();
     private Archetype archetype = new Archetype("name", "type");
 
     @Test
@@ -257,6 +259,136 @@ class ExplicitRelationshipParserTests extends AbstractTests {
         assertEquals("", r.getDescription());
         assertEquals("", r.getTechnology());
         assertEquals("Relationship", r.getTags());
+    }
+
+    @Test
+    void test_parse_AddsTheRelationshipToAllSoftwareSystemInstancesInTheDeploymentEnvironment() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+
+        DeploymentNode devDeploymentNode = model.addDeploymentNode("dev", "Deployment Node", "Description", "Technology");
+        devDeploymentNode.addInfrastructureNode("Infrastructure Node");
+        devDeploymentNode.add(softwareSystem);
+        devDeploymentNode.add(softwareSystem);
+
+        DeploymentNode liveDeploymentNode = model.addDeploymentNode("live", "Deployment Node", "Description", "Technology");
+        InfrastructureNode liveInfrastructureNode = liveDeploymentNode.addInfrastructureNode("Infrastructure Node");
+        SoftwareSystemInstance liveSoftwareSystemInstance1 = liveDeploymentNode.add(softwareSystem);
+        SoftwareSystemInstance liveSoftwareSystemInstance2 = liveDeploymentNode.add(softwareSystem);
+
+        DeploymentEnvironmentDslContext context = new DeploymentEnvironmentDslContext("live");
+        context.setWorkspace(workspace);
+
+        IdentifiersRegister elements = new IdentifiersRegister();
+        elements.register("softwareSystem", softwareSystem);
+        elements.register("liveInfrastructureNode", liveInfrastructureNode);
+        context.setIdentifierRegister(elements);
+
+        assertEquals(0, model.getRelationships().size());
+
+        Set<Relationship> relationships = parser.parse(context, tokens("liveInfrastructureNode", "->", "softwareSystem"), archetype);
+
+        assertEquals(2, relationships.size());
+        assertEquals(2, model.getRelationships().size());
+        assertTrue(liveInfrastructureNode.hasEfferentRelationshipWith(liveSoftwareSystemInstance1));
+        assertTrue(liveInfrastructureNode.hasEfferentRelationshipWith(liveSoftwareSystemInstance2));
+    }
+
+    @Test
+    void test_parse_AddsTheRelationshipFromAllSoftwareSystemInstancesInTheDeploymentEnvironment() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+
+        DeploymentNode devDeploymentNode = model.addDeploymentNode("dev", "Deployment Node", "Description", "Technology");
+        devDeploymentNode.addInfrastructureNode("Infrastructure Node");
+        devDeploymentNode.add(softwareSystem);
+        devDeploymentNode.add(softwareSystem);
+
+        DeploymentNode liveDeploymentNode = model.addDeploymentNode("live", "Deployment Node", "Description", "Technology");
+        InfrastructureNode liveInfrastructureNode = liveDeploymentNode.addInfrastructureNode("Infrastructure Node");
+        SoftwareSystemInstance liveSoftwareSystemInstance1 = liveDeploymentNode.add(softwareSystem);
+        SoftwareSystemInstance liveSoftwareSystemInstance2 = liveDeploymentNode.add(softwareSystem);
+
+        DeploymentEnvironmentDslContext context = new DeploymentEnvironmentDslContext("live");
+        context.setWorkspace(workspace);
+
+        IdentifiersRegister elements = new IdentifiersRegister();
+        elements.register("softwareSystem", softwareSystem);
+        elements.register("liveInfrastructureNode", liveInfrastructureNode);
+        context.setIdentifierRegister(elements);
+
+        assertEquals(0, model.getRelationships().size());
+
+        Set<Relationship> relationships = parser.parse(context, tokens("softwareSystem", "->", "liveInfrastructureNode"), archetype);
+
+        assertEquals(2, relationships.size());
+        assertEquals(2, model.getRelationships().size());
+        assertTrue(liveSoftwareSystemInstance1.hasEfferentRelationshipWith(liveInfrastructureNode));
+        assertTrue(liveSoftwareSystemInstance2.hasEfferentRelationshipWith(liveInfrastructureNode));
+    }
+
+    @Test
+    void test_parse_AddsTheRelationshipToAllContainerInstancesInTheDeploymentEnvironment() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        Container container = softwareSystem.addContainer("Container");
+
+        DeploymentNode devDeploymentNode = model.addDeploymentNode("dev", "Deployment Node", "Description", "Technology");
+        devDeploymentNode.addInfrastructureNode("Infrastructure Node");
+        devDeploymentNode.add(container);
+        devDeploymentNode.add(container);
+
+        DeploymentNode liveDeploymentNode = model.addDeploymentNode("live", "Deployment Node", "Description", "Technology");
+        InfrastructureNode liveInfrastructureNode = liveDeploymentNode.addInfrastructureNode("Infrastructure Node");
+        ContainerInstance liveContainerInstance1 = liveDeploymentNode.add(container);
+        ContainerInstance liveContainerInstance2 = liveDeploymentNode.add(container);
+
+        DeploymentNodeDslContext context = new DeploymentNodeDslContext(liveDeploymentNode);
+        context.setWorkspace(workspace);
+
+        IdentifiersRegister elements = new IdentifiersRegister();
+        elements.register("container", container);
+        elements.register("liveInfrastructureNode", liveInfrastructureNode);
+        context.setIdentifierRegister(elements);
+
+        assertEquals(0, model.getRelationships().size());
+
+        Set<Relationship> relationships = parser.parse(context, tokens("liveInfrastructureNode", "->", "container"), archetype);
+
+        assertEquals(2, relationships.size());
+        assertEquals(2, model.getRelationships().size());
+        assertTrue(liveInfrastructureNode.hasEfferentRelationshipWith(liveContainerInstance1));
+        assertTrue(liveInfrastructureNode.hasEfferentRelationshipWith(liveContainerInstance2));
+    }
+
+    @Test
+    void test_parse_AddsTheRelationshipFromAllContainerInstancesInTheDeploymentEnvironment() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        Container container = softwareSystem.addContainer("Container");
+
+        DeploymentNode devDeploymentNode = model.addDeploymentNode("dev", "Deployment Node", "Description", "Technology");
+        devDeploymentNode.addInfrastructureNode("Infrastructure Node");
+        devDeploymentNode.add(container);
+        devDeploymentNode.add(container);
+
+        DeploymentNode liveDeploymentNode = model.addDeploymentNode("live", "Deployment Node", "Description", "Technology");
+        InfrastructureNode liveInfrastructureNode = liveDeploymentNode.addInfrastructureNode("Infrastructure Node");
+        ContainerInstance liveContainerInstance1 = liveDeploymentNode.add(container);
+        ContainerInstance liveContainerInstance2 = liveDeploymentNode.add(container);
+
+        DeploymentNodeDslContext context = new DeploymentNodeDslContext(liveDeploymentNode);
+        context.setWorkspace(workspace);
+
+        IdentifiersRegister elements = new IdentifiersRegister();
+        elements.register("container", container);
+        elements.register("liveInfrastructureNode", liveInfrastructureNode);
+        context.setIdentifierRegister(elements);
+
+        assertEquals(0, model.getRelationships().size());
+
+        Set<Relationship> relationships = parser.parse(context, tokens("container", "->", "liveInfrastructureNode"), archetype);
+
+        assertEquals(2, relationships.size());
+        assertEquals(2, model.getRelationships().size());
+        assertTrue(liveContainerInstance1.hasEfferentRelationshipWith(liveInfrastructureNode));
+        assertTrue(liveContainerInstance2.hasEfferentRelationshipWith(liveInfrastructureNode));
     }
 
 }

@@ -327,25 +327,39 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         // explicit without archetype: a -> b
                         // explicit with archetype: a --https-> b
                         Archetype archetype = getArchetype(RELATIONSHIP_TOKEN, tokens.get(1));
-                        Relationship relationship = new ExplicitRelationshipParser().parse(getContext(), tokens.withoutContextStartToken(), archetype);
+                        Set<Relationship> relationships = new ExplicitRelationshipParser().parse(getContext(), tokens.withoutContextStartToken(), archetype);
 
-                        if (shouldStartContext(tokens)) {
-                            startContext(new RelationshipDslContext(relationship));
+                        if (relationships.size() == 1) {
+                            Relationship relationship = relationships.iterator().next();
+                            registerIdentifier(identifier, relationship);
+
+                            if (shouldStartContext(tokens)) {
+                                startContext(new RelationshipDslContext(relationship));
+                            }
+                        } else {
+                            if (shouldStartContext(tokens)) {
+                                startContext(new RelationshipsDslContext(getContext(), relationships));
+                            }
                         }
-
-                        registerIdentifier(identifier, relationship);
 
                     } else if (tokens.size() >= 2 && isRelationshipKeywordOrArchetype(tokens.get(0)) && inContext(ElementDslContext.class)) {
                         // implicit without archetype: -> this
                         // implicit with archetype: --https-> this
                         Archetype archetype = getArchetype(RELATIONSHIP_TOKEN, tokens.get(1));
-                        Relationship relationship = new ImplicitRelationshipParser().parse(getContext(ElementDslContext.class), tokens.withoutContextStartToken(), archetype);
+                        Set<Relationship> relationships = new ImplicitRelationshipParser().parse(getContext(ElementDslContext.class), tokens.withoutContextStartToken(), archetype);
 
-                        if (shouldStartContext(tokens)) {
-                            startContext(new RelationshipDslContext(relationship));
+                        if (relationships.size() == 1) {
+                            Relationship relationship = relationships.iterator().next();
+                            registerIdentifier(identifier, relationship);
+
+                            if (shouldStartContext(tokens)) {
+                                startContext(new RelationshipDslContext(relationship));
+                            }
+                        } else {
+                            if (shouldStartContext(tokens)) {
+                                startContext(new RelationshipsDslContext(getContext(), relationships));
+                            }
                         }
-
-                        registerIdentifier(identifier, relationship);
 
                     } else if (tokens.size() > 2 && isRelationshipKeywordOrArchetype(tokens.get(1)) && inContext(ElementsDslContext.class)) {
                         Archetype archetype = getArchetype(RELATIONSHIP_TOKEN, tokens.get(1));

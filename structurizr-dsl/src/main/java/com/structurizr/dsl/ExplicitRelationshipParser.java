@@ -1,7 +1,6 @@
 package com.structurizr.dsl;
 
-import com.structurizr.model.Element;
-import com.structurizr.model.Relationship;
+import com.structurizr.model.*;
 
 import javax.lang.model.util.Elements;
 import java.util.*;
@@ -16,8 +15,10 @@ final class ExplicitRelationshipParser extends AbstractRelationshipParser {
     private final static int TECHNOLOGY_INDEX = 4;
     private final static int TAGS_INDEX = 5;
 
-    Relationship parse(DslContext context, Tokens tokens, Archetype archetype) {
+    Set<Relationship> parse(DslContext context, Tokens tokens, Archetype archetype) {
         // <identifier> -> <identifier> [description] [technology] [tags]
+
+        Set<Relationship> relationships = new HashSet<>();
 
         if (tokens.hasMoreThan(TAGS_INDEX)) {
             throw new RuntimeException("Too many tokens, expected: " + GRAMMAR);
@@ -54,11 +55,55 @@ final class ExplicitRelationshipParser extends AbstractRelationshipParser {
             tags.addAll(Arrays.asList(tokens.get(TAGS_INDEX).split(",")));
         }
 
-        Relationship relationship = createRelationship(sourceElement, description, technology, tags.toArray(new String[0]), destinationElement);
-        relationship.addProperties(archetype.getProperties());
-        relationship.addPerspectives(archetype.getPerspectives());
+        Set<Element> sourceElements = new HashSet<>();
+        Set<Element> destinationElements = new HashSet<>();
 
-        return relationship;
+        if (context instanceof DeploymentEnvironmentDslContext || context instanceof DeploymentNodeDslContext) {
+            String deploymentEnvironment;
+            if (context instanceof DeploymentEnvironmentDslContext) {
+                deploymentEnvironment = ((DeploymentEnvironmentDslContext)context).getEnvironment().getName();
+            } else {
+                deploymentEnvironment = ((DeploymentNodeDslContext)context).getDeploymentNode().getEnvironment();
+            }
+
+            if (sourceElement instanceof SoftwareSystem) {
+                // find the software system instances in the deployment environment
+                sourceElements = findSoftwareSystemInstances((SoftwareSystem)sourceElement, deploymentEnvironment);
+            } else if (sourceElement instanceof Container) {
+                // find the container instances in the deployment environment
+                sourceElements = findContainerInstances((Container)sourceElement, deploymentEnvironment);
+            } else {
+                sourceElements.add(sourceElement);
+            }
+
+            if (destinationElement instanceof SoftwareSystem) {
+                // find the software system instances in the deployment environment
+                destinationElements = findSoftwareSystemInstances((SoftwareSystem)destinationElement, deploymentEnvironment);
+            } else if (destinationElement instanceof Container) {
+                // find the container instances in the deployment environment
+                destinationElements = findContainerInstances((Container)destinationElement, deploymentEnvironment);
+            } else {
+                destinationElements.add(destinationElement);
+            }
+
+            for (Element se : sourceElements) {
+                for (Element de : destinationElements) {
+                    Relationship relationship = createRelationship(se, description, technology, tags.toArray(new String[0]), de);
+                    relationship.addProperties(archetype.getProperties());
+                    relationship.addPerspectives(archetype.getPerspectives());
+
+                    relationships.add(relationship);
+                }
+            }
+        } else {
+            Relationship relationship = createRelationship(sourceElement, description, technology, tags.toArray(new String[0]), destinationElement);
+            relationship.addProperties(archetype.getProperties());
+            relationship.addPerspectives(archetype.getPerspectives());
+
+            relationships.add(relationship);
+        }
+
+        return relationships;
     }
 
     Set<Relationship> parse(ElementsDslContext context, Tokens tokens, Archetype archetype) {
