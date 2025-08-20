@@ -63,10 +63,10 @@ final class ImplicitRelationshipParser extends AbstractRelationshipParser {
 
             if (destinationElement instanceof SoftwareSystem) {
                 // find the software system instances in the deployment environment
-                destinationElements = findSoftwareSystemInstances((SoftwareSystem)destinationElement, deploymentEnvironment);
+                destinationElements.addAll(findSoftwareSystemInstances((SoftwareSystem)destinationElement, deploymentEnvironment));
             } else if (destinationElement instanceof Container) {
                 // find the container instances in the deployment environment
-                destinationElements = findContainerInstances((Container)destinationElement, deploymentEnvironment);
+                destinationElements.addAll(findContainerInstances((Container)destinationElement, deploymentEnvironment));
             } else {
                 destinationElements.add(destinationElement);
             }

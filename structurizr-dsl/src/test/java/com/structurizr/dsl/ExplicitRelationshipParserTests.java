@@ -391,4 +391,58 @@ class ExplicitRelationshipParserTests extends AbstractTests {
         assertTrue(liveContainerInstance2.hasEfferentRelationshipWith(liveInfrastructureNode));
     }
 
+    @Test
+    void test_parse_AddsAViaRelationshipUsingTheDescriptionAndTechnologyOfTheRemovedRelationship() {
+        SoftwareSystem ss = model.addSoftwareSystem("SS");
+        Container a = ss.addContainer("A");
+        Container b = ss.addContainer("B");
+        Relationship relationship = a.uses(b, "Makes API calls using", "JSON/HTTPS");
+
+        DeploymentNode liveDeploymentNode = model.addDeploymentNode("live", "Deployment Node", "Description", "Technology");
+        InfrastructureNode infrastructureNode = liveDeploymentNode.addInfrastructureNode("Infrastructure Node");
+        ContainerInstance aInstance = liveDeploymentNode.add(a);
+        ContainerInstance bInstance = liveDeploymentNode.add(b);
+
+        NoRelationshipInDeploymentEnvironmentDslContext context = new NoRelationshipInDeploymentEnvironmentDslContext(new DeploymentEnvironmentDslContext("live"), relationship);
+        context.setWorkspace(workspace);
+
+        IdentifiersRegister elements = new IdentifiersRegister();
+        elements.register("a", aInstance);
+        elements.register("infrastructureNode", infrastructureNode);
+        context.setIdentifierRegister(elements);
+
+        parser.parse(context, tokens("a", "->", "infrastructureNode"), archetype);
+
+        Relationship aInstanceToInfrastructureNode = aInstance.getEfferentRelationshipWith(infrastructureNode);
+        assertEquals("Makes API calls using", aInstanceToInfrastructureNode.getDescription());
+        assertEquals("JSON/HTTPS", aInstanceToInfrastructureNode.getTechnology());
+    }
+
+    @Test
+    void test_parse_AddsAViaRelationshipUOverridingTheDescriptionAndTechnologyOfTheRemovedRelationship() {
+        SoftwareSystem ss = model.addSoftwareSystem("SS");
+        Container a = ss.addContainer("A");
+        Container b = ss.addContainer("B");
+        Relationship relationship = a.uses(b, "Makes API calls using", "JSON/HTTPS");
+
+        DeploymentNode liveDeploymentNode = model.addDeploymentNode("live", "Deployment Node", "Description", "Technology");
+        InfrastructureNode infrastructureNode = liveDeploymentNode.addInfrastructureNode("Infrastructure Node");
+        ContainerInstance aInstance = liveDeploymentNode.add(a);
+        ContainerInstance bInstance = liveDeploymentNode.add(b);
+
+        NoRelationshipInDeploymentEnvironmentDslContext context = new NoRelationshipInDeploymentEnvironmentDslContext(new DeploymentEnvironmentDslContext("live"), relationship);
+        context.setWorkspace(workspace);
+
+        IdentifiersRegister elements = new IdentifiersRegister();
+        elements.register("a", aInstance);
+        elements.register("infrastructureNode", infrastructureNode);
+        context.setIdentifierRegister(elements);
+
+        parser.parse(context, tokens("a", "->", "infrastructureNode", "New description", "New technology"), archetype);
+
+        Relationship aInstanceToInfrastructureNode = aInstance.getEfferentRelationshipWith(infrastructureNode);
+        assertEquals("New description", aInstanceToInfrastructureNode.getDescription());
+        assertEquals("New technology", aInstanceToInfrastructureNode.getTechnology());
+    }
+
 }

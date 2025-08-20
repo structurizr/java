@@ -43,11 +43,19 @@ final class ExplicitRelationshipParser extends AbstractRelationshipParser {
         String description = archetype.getDescription();
         if (tokens.includes(DESCRIPTION_INDEX)) {
             description = tokens.get(DESCRIPTION_INDEX);
+        } else {
+            if (context instanceof NoRelationshipInDeploymentEnvironmentDslContext) {
+                description = ((NoRelationshipInDeploymentEnvironmentDslContext)context).getRelationship().getDescription();
+            }
         }
 
         String technology = archetype.getTechnology();
         if (tokens.includes(TECHNOLOGY_INDEX)) {
             technology = tokens.get(TECHNOLOGY_INDEX);
+        } else {
+            if (context instanceof NoRelationshipInDeploymentEnvironmentDslContext) {
+                technology = ((NoRelationshipInDeploymentEnvironmentDslContext)context).getRelationship().getTechnology();
+            }
         }
 
         List<String> tags = new ArrayList<>(archetype.getTags());
@@ -68,20 +76,20 @@ final class ExplicitRelationshipParser extends AbstractRelationshipParser {
 
             if (sourceElement instanceof SoftwareSystem) {
                 // find the software system instances in the deployment environment
-                sourceElements = findSoftwareSystemInstances((SoftwareSystem)sourceElement, deploymentEnvironment);
+                sourceElements.addAll(findSoftwareSystemInstances((SoftwareSystem)sourceElement, deploymentEnvironment));
             } else if (sourceElement instanceof Container) {
                 // find the container instances in the deployment environment
-                sourceElements = findContainerInstances((Container)sourceElement, deploymentEnvironment);
+                sourceElements.addAll(findContainerInstances((Container)sourceElement, deploymentEnvironment));
             } else {
                 sourceElements.add(sourceElement);
             }
 
             if (destinationElement instanceof SoftwareSystem) {
                 // find the software system instances in the deployment environment
-                destinationElements = findSoftwareSystemInstances((SoftwareSystem)destinationElement, deploymentEnvironment);
+                destinationElements.addAll(findSoftwareSystemInstances((SoftwareSystem)destinationElement, deploymentEnvironment));
             } else if (destinationElement instanceof Container) {
                 // find the container instances in the deployment environment
-                destinationElements = findContainerInstances((Container)destinationElement, deploymentEnvironment);
+                destinationElements.addAll(findContainerInstances((Container)destinationElement, deploymentEnvironment));
             } else {
                 destinationElements.add(destinationElement);
             }

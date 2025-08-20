@@ -323,6 +323,19 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (inContext(ExternalScriptDslContext.class)) {
                         new ScriptParser().parseParameter(getContext(ExternalScriptDslContext.class), tokens);
 
+                    } else if (tokens.size() >= 4 && tokens.get(1).equals(NO_RELATIONSHIP_TOKEN) && shouldStartContext(tokens) && inContext(DeploymentEnvironmentDslContext.class)) {
+                        // source -/> destination {
+                        // or
+                        // source -/> destination "description" {
+
+                        // remove source -> destination (between instances) in the deployment model
+                        Set<Relationship> relationships = new NoRelationshipParser().parse(getContext(DeploymentEnvironmentDslContext.class), tokens.withoutContextStartToken());
+
+                        // find the static element -> static element relationship that the removed relationships were based upon
+                        Relationship relationship = workspace.getModel().getRelationship(relationships.iterator().next().getLinkedRelationshipId());
+
+                        startContext(new NoRelationshipInDeploymentEnvironmentDslContext(getContext(DeploymentEnvironmentDslContext.class), relationship));
+
                     } else if (tokens.size() > 2 && isRelationshipKeywordOrArchetype(tokens.get(1)) && (inContext(ModelDslContext.class) || inContext(DeploymentEnvironmentDslContext.class) || inContext(ElementDslContext.class))) {
                         // explicit without archetype: a -> b
                         // explicit with archetype: a --https-> b

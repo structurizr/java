@@ -38,11 +38,11 @@ abstract class AbstractRelationshipParser extends AbstractParser {
         return relationship;
     }
 
-    protected Set<Element> findSoftwareSystemInstances(SoftwareSystem softwareSystem, String deploymentEnvironment) {
+    protected Set<StaticStructureElementInstance> findSoftwareSystemInstances(SoftwareSystem softwareSystem, String deploymentEnvironment) {
         return softwareSystem.getModel().getElements().stream().filter(e -> e instanceof SoftwareSystemInstance).map(e -> (SoftwareSystemInstance) e).filter(ssi -> ssi.getSoftwareSystem().equals(softwareSystem) && ssi.getEnvironment().equals(deploymentEnvironment)).collect(Collectors.toSet());
     }
 
-    protected Set<Element> findContainerInstances(Container container, String deploymentEnvironment) {
+    protected Set<StaticStructureElementInstance> findContainerInstances(Container container, String deploymentEnvironment) {
         return container.getModel().getElements().stream().filter(e -> e instanceof ContainerInstance).map(e -> (ContainerInstance) e).filter(ci -> ci.getContainer().equals(container) && ci.getEnvironment().equals(deploymentEnvironment)).collect(Collectors.toSet());
     }
 

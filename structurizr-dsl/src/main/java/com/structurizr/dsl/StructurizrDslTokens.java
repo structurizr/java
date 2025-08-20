@@ -11,6 +11,7 @@ class StructurizrDslTokens {
     static final String PERSON_TOKEN = "person";
     static final String SOFTWARE_SYSTEM_TOKEN = "softwareSystem";
     static final String RELATIONSHIP_TOKEN = "->";
+    static final String NO_RELATIONSHIP_TOKEN = "-/>";
     static final String CONTAINER_TOKEN = "container";
     static final String COMPONENT_TOKEN = "component";
     static final String GROUP_TOKEN = "group";

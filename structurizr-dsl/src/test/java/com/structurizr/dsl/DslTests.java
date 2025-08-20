@@ -1753,4 +1753,53 @@ workspace extends source-parent.dsl {
         assertEquals("#ffffff", relationshipStyle.getColor());
     }
 
+    @Test
+    void test_noRelationship() throws Exception {
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(new File("src/test/resources/dsl/no-relationship.dsl"));
+
+        Workspace workspace = parser.getWorkspace();
+
+        Container ui = (Container)parser.getIdentifiersRegister().getElement("ss.ui");
+        Container backend = (Container)parser.getIdentifiersRegister().getElement("ss.backend");
+
+        // environment One: ui -> backend
+        ContainerInstance uiInstance = workspace.getModel().getElements().stream().filter(e -> e instanceof ContainerInstance).map(e -> (ContainerInstance)e).filter(ci -> ci.getEnvironment().equals("One") && ci.getContainer().equals(ui)).findFirst().get();
+        ContainerInstance backendInstance = workspace.getModel().getElements().stream().filter(e -> e instanceof ContainerInstance).map(e -> (ContainerInstance)e).filter(ci -> ci.getEnvironment().equals("One") && ci.getContainer().equals(backend)).findFirst().get();
+
+        assertNotNull(uiInstance);
+        assertNotNull(backendInstance);
+        assertTrue(uiInstance.hasEfferentRelationshipWith(backendInstance));
+
+        // environment Two: ui -> load balancer -> backend
+        uiInstance = workspace.getModel().getElements().stream().filter(e -> e instanceof ContainerInstance).map(e -> (ContainerInstance)e).filter(ci -> ci.getEnvironment().equals("Two") && ci.getContainer().equals(ui)).findFirst().get();
+        backendInstance = workspace.getModel().getElements().stream().filter(e -> e instanceof ContainerInstance).map(e -> (ContainerInstance)e).filter(ci -> ci.getEnvironment().equals("Two") && ci.getContainer().equals(backend)).findFirst().get();
+        InfrastructureNode loadBalancer = workspace.getModel().getElements().stream().filter(e -> e instanceof InfrastructureNode).map(e -> (InfrastructureNode)e).filter(ci -> ci.getEnvironment().equals("Two")).findFirst().get();
+
+        assertNotNull(uiInstance);
+        assertNotNull(backendInstance);
+        assertFalse(uiInstance.hasEfferentRelationshipWith(backendInstance));
+
+        assertEquals("Makes API requests to", uiInstance.getEfferentRelationshipWith(loadBalancer).getDescription());
+        assertEquals("JSON/HTTPS", uiInstance.getEfferentRelationshipWith(loadBalancer).getTechnology());
+
+        assertEquals("Forwards API requests to", loadBalancer.getEfferentRelationshipWith(backendInstance).getDescription());
+        assertEquals("", loadBalancer.getEfferentRelationshipWith(backendInstance).getTechnology());
+
+        // environment Three: ui -> load balancer -> backend
+        uiInstance = workspace.getModel().getElements().stream().filter(e -> e instanceof ContainerInstance).map(e -> (ContainerInstance)e).filter(ci -> ci.getEnvironment().equals("Three") && ci.getContainer().equals(ui)).findFirst().get();
+        backendInstance = workspace.getModel().getElements().stream().filter(e -> e instanceof ContainerInstance).map(e -> (ContainerInstance)e).filter(ci -> ci.getEnvironment().equals("Three") && ci.getContainer().equals(backend)).findFirst().get();
+        loadBalancer = workspace.getModel().getElements().stream().filter(e -> e instanceof InfrastructureNode).map(e -> (InfrastructureNode)e).filter(ci -> ci.getEnvironment().equals("Three")).findFirst().get();
+
+        assertNotNull(uiInstance);
+        assertNotNull(backendInstance);
+        assertFalse(uiInstance.hasEfferentRelationshipWith(backendInstance));
+
+        assertEquals("Makes API requests to", uiInstance.getEfferentRelationshipWith(loadBalancer).getDescription());
+        assertEquals("JSON/HTTPS", uiInstance.getEfferentRelationshipWith(loadBalancer).getTechnology());
+
+        assertEquals("Forwards API requests to", loadBalancer.getEfferentRelationshipWith(backendInstance).getDescription());
+        assertEquals("", loadBalancer.getEfferentRelationshipWith(backendInstance).getTechnology());
+    }
+
 }
