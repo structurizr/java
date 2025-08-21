@@ -17,8 +17,7 @@ class ExpressionParser {
     static boolean isExpression(String token) {
         token = token.toLowerCase();
 
-        return
-                token.startsWith(ELEMENT_EQUALS_EXPRESSION.toLowerCase()) ||
+        return token.startsWith(ELEMENT_EQUALS_EXPRESSION.toLowerCase()) ||
                 token.startsWith(ELEMENT_NOT_EQUALS_EXPRESSION.toLowerCase()) ||
                 token.startsWith(ELEMENT_TYPE_EQUALS_EXPRESSION.toLowerCase()) ||
                 token.startsWith(ELEMENT_TAG_EQUALS_EXPRESSION.toLowerCase()) ||
@@ -32,10 +31,12 @@ class ExpressionParser {
                 token.startsWith(RELATIONSHIP_TAG_NOT_EQUALS_EXPRESSION.toLowerCase()) ||
                 token.matches(RELATIONSHIP_PROPERTY_EQUALS_EXPRESSION) ||
                 token.startsWith(RELATIONSHIP_SOURCE_EQUALS_EXPRESSION.toLowerCase()) ||
+                token.startsWith(RELATIONSHIP_SOURCE_NOT_EQUALS_EXPRESSION.toLowerCase()) ||
                 token.startsWith(RELATIONSHIP_DESTINATION_EQUALS_EXPRESSION.toLowerCase()) ||
-                token.startsWith(RELATIONSHIP_EQUALS_EXPRESSION);
+                token.startsWith(RELATIONSHIP_DESTINATION_NOT_EQUALS_EXPRESSION.toLowerCase()) ||
+                token.startsWith(RELATIONSHIP_EQUALS_EXPRESSION) ||
+                token.startsWith(RELATIONSHIP_NOT_EQUALS_EXPRESSION);
     }
-
 
     final Set<ModelItem> parseExpression(String expr, DslContext context) {
         if (expr.contains(" && ")) {
@@ -90,15 +91,20 @@ class ExpressionParser {
                     }
                 });
             }
-        } else if (expr.startsWith(RELATIONSHIP_EQUALS_EXPRESSION)) {
+        } else if (expr.startsWith(RELATIONSHIP_EQUALS_EXPRESSION)
+                || expr.startsWith(RELATIONSHIP_NOT_EQUALS_EXPRESSION)) {
+            Boolean negate = expr.startsWith(RELATIONSHIP_NOT_EQUALS_EXPRESSION);
             expr = expr.substring(RELATIONSHIP_EQUALS_EXPRESSION.length());
 
             if (WILDCARD.equals(expr)) {
+                if (negate) {
+                    throw new RuntimeException("The relationship \"*\" cannot be negated");
+                }
                 expr = WILDCARD + RELATIONSHIP + WILDCARD;
             }
 
             if (isExpression(expr)) {
-                modelItems.addAll(evaluateExpression(expr, context));
+                modelItems.addAll(evaluateExpression(negate ? "!" + expr : expr, context));
             } else {
                 modelItems.addAll(parseIdentifier(expr, context));
             }
@@ -145,12 +151,15 @@ class ExpressionParser {
                 }
             }
         } else if (expr.contains(RELATIONSHIP)) {
+            Boolean negate = expr.startsWith("!");
             String[] identifiers = expr.split(RELATIONSHIP);
-            String sourceIdentifier = identifiers[0].trim();
+            String sourceIdentifier = identifiers[0].trim().replaceFirst("^!", "");
             String destinationIdentifier = identifiers[1].trim();
 
-            String sourceExpression = RELATIONSHIP_SOURCE_EQUALS_EXPRESSION + sourceIdentifier;
-            String destinationExpression = RELATIONSHIP_DESTINATION_EQUALS_EXPRESSION + destinationIdentifier;
+            String sourceExpression = (negate ? RELATIONSHIP_SOURCE_NOT_EQUALS_EXPRESSION
+                    : RELATIONSHIP_SOURCE_EQUALS_EXPRESSION) + sourceIdentifier;
+            String destinationExpression = (negate ? RELATIONSHIP_DESTINATION_NOT_EQUALS_EXPRESSION
+                    : RELATIONSHIP_DESTINATION_EQUALS_EXPRESSION) + destinationIdentifier;
 
             if (WILDCARD.equals(sourceIdentifier) && WILDCARD.equals(destinationIdentifier)) {
                 modelItems.addAll(context.getWorkspace().getModel().getRelationships());
@@ -235,7 +244,8 @@ class ExpressionParser {
                     modelItems.add(relationship);
                 }
             });
-        } else if (expr.startsWith(RELATIONSHIP_SOURCE_EQUALS_EXPRESSION)) {
+        } else if (expr.startsWith(RELATIONSHIP_SOURCE_EQUALS_EXPRESSION) ||
+                expr.startsWith(RELATIONSHIP_SOURCE_NOT_EQUALS_EXPRESSION)) {
             String identifier = expr.substring(RELATIONSHIP_SOURCE_EQUALS_EXPRESSION.length());
             Set<Element> sourceElements = new HashSet<>();
 
@@ -259,12 +269,15 @@ class ExpressionParser {
                 }
             }
 
+            Boolean negate = expr.startsWith(RELATIONSHIP_SOURCE_NOT_EQUALS_EXPRESSION);
             context.getWorkspace().getModel().getRelationships().forEach(relationship -> {
-                if (sourceElements.contains(relationship.getSource())) {
+                Boolean condition = sourceElements.contains(relationship.getSource());
+                if (negate ? !condition : condition) {
                     modelItems.add(relationship);
                 }
             });
-        } else if (expr.startsWith(RELATIONSHIP_DESTINATION_EQUALS_EXPRESSION)) {
+        } else if (expr.startsWith(RELATIONSHIP_DESTINATION_EQUALS_EXPRESSION) ||
+                expr.startsWith(RELATIONSHIP_DESTINATION_NOT_EQUALS_EXPRESSION)) {
             String identifier = expr.substring(RELATIONSHIP_DESTINATION_EQUALS_EXPRESSION.length());
             Set<Element> destinationElements = new HashSet<>();
 
@@ -288,8 +301,10 @@ class ExpressionParser {
                 }
             }
 
+            Boolean negate = expr.startsWith(RELATIONSHIP_DESTINATION_NOT_EQUALS_EXPRESSION);
             context.getWorkspace().getModel().getRelationships().forEach(relationship -> {
-                if (destinationElements.contains(relationship.getDestination())) {
+                Boolean condition = destinationElements.contains(relationship.getDestination());
+                if (negate ? !condition : condition) {
                     modelItems.add(relationship);
                 }
             });
