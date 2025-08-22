@@ -36,6 +36,7 @@ workspace {
         c -> e
         c -> g
         c -> h
+        g -> h
 
     }
 
@@ -53,6 +54,17 @@ workspace {
         component f "Components" {
             include *
             autolayout
+        }
+
+        dynamic f "Dynamic" {
+            g -> h
+            properties {
+                "plantuml.sequenceDiagram" "true"
+                "plantuml.teoz" "true"
+                "mermaid.sequenceDiagram" "true"
+                "mermaid.title" "true"
+            }
+            autoLayout
         }
     }
 
