@@ -2,6 +2,7 @@
 
 ## v4.2.0 (unreleased)
 
+- structurizr-java: Fixes https://github.com/structurizr/java/issues/437 (Make ComponentFinder.run() not fail on empty Set<DiscoveredComponent>).
 - structurizr-dsl: Adds support for `iconPosition` on element styles (options are `Top`, `Bottom`, `Left`).
 - structurizr-dsl: Adds support for defining element and relationship styles for light and dark mode.
 - structurizr-dsl: Adds a `Bucket` shape.
