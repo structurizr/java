@@ -12,6 +12,7 @@
 - structurizr-dsl: Relationships to/from software system/container instances can be now defined by using the software system/container identifier.
 - structurizr-dsl: Fixes https://github.com/structurizr/java/issues/435 (Relationship archetype not applied to implicit-source relationships).
 - structurizr-dsl: Adds support for removing relationships between software system instance/container instances, with a view to redefining them via infrastructure nodes.
+- structurizr-dsl: Adds support for a `jump` property on relationship styles.
 
 ## v4.1.0 (28th May 2025)
 

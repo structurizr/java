@@ -1,6 +1,5 @@
 package com.structurizr.dsl;
 
-import com.structurizr.view.Border;
 import com.structurizr.view.LineStyle;
 import com.structurizr.view.RelationshipStyle;
 import com.structurizr.view.Routing;
@@ -394,6 +393,46 @@ class RelationshipStyleParserTests extends AbstractTests {
     void test_parseRouting_SetsTheRouting() {
         parser.parseRouting(relationshipStyleDslContext(), tokens("routing", "curved"));
         assertEquals(Routing.Curved, relationshipStyle.getRouting());
+    }
+
+    @Test
+    void test_parseJump_ThrowsAnException_WhenThereAreTooManyTokens() {
+        try {
+            parser.parseJump(relationshipStyleDslContext(), tokens("jump", "boolean", "extra"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Too many tokens, expected: jump <true|false>", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseJump_ThrowsAnException_WhenTheValueIsMissing() {
+        try {
+            parser.parseJump(relationshipStyleDslContext(), tokens("jump"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Expected: jump <true|false>", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseJump_ThrowsAnException_WhenTheValueIsNotValid() {
+        try {
+            parser.parseJump(relationshipStyleDslContext(), tokens("jump", "abc"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Jump must be true or false", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseJump_SetsTheJump() {
+        RelationshipStyleDslContext context = relationshipStyleDslContext();
+        parser.parseJump(context, tokens("jump", "false"));
+        assertEquals(false, relationshipStyle.getJump());
+
+        parser.parseJump(context, tokens("jump", "true"));
+        assertEquals(true, relationshipStyle.getJump());
     }
 
 }
