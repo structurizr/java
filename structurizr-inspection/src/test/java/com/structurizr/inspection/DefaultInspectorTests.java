@@ -37,6 +37,18 @@ public class DefaultInspectorTests {
     }
 
     @Test
+    void test_EmptyWorkspace_WhenInspectionsAreDisabled() {
+        Workspace workspace = new Workspace("Name", "Description");
+        workspace.addProperty("structurizr.inspection", "false");
+
+        DefaultInspector inspector = new DefaultInspector(workspace);
+        List<Violation> violations = inspector.getViolations();
+
+        assertEquals(0, inspector.getNumberOfInspections());
+        assertEquals(0, violations.size());
+    }
+
+    @Test
     void test() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
         parser.parse(new File("src/test/resources/workspace.dsl"));

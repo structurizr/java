@@ -15,9 +15,11 @@ public class DefaultInspector extends Inspector {
     public DefaultInspector(Workspace workspace) {
         super(workspace);
 
-        runWorkspaceInspections();
-        runModelInspections();
-        runViewInspections();
+        if (!"false".equalsIgnoreCase(workspace.getProperties().get("structurizr.inspection"))) {
+            runWorkspaceInspections();
+            runModelInspections();
+            runViewInspections();
+        }
     }
 
     private void runWorkspaceInspections() {

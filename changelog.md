@@ -13,6 +13,7 @@
 - structurizr-dsl: Fixes https://github.com/structurizr/java/issues/435 (Relationship archetype not applied to implicit-source relationships).
 - structurizr-dsl: Adds support for removing relationships between software system instance/container instances, with a view to redefining them via infrastructure nodes.
 - structurizr-dsl: Adds support for a `jump` property on relationship styles.
+- structurizr-inspection: Adds a way to disable inspections via a workspace property named `structurizr.inspection` (`false` to disable).
 
 ## v4.1.0 (28th May 2025)
 
