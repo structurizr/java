@@ -14,6 +14,7 @@
 - structurizr-dsl: Adds support for removing relationships between software system instance/container instances, with a view to redefining them via infrastructure nodes.
 - structurizr-dsl: Adds support for a `jump` property on relationship styles.
 - structurizr-inspection: Adds a way to disable inspections via a workspace property named `structurizr.inspection` (`false` to disable).
+- structurizr-inspection: Default inspector adds a summary of error/warning/info/ignore counts as workspace properties.
 
 ## v4.1.0 (28th May 2025)
 
