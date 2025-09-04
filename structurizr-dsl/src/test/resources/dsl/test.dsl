@@ -355,6 +355,7 @@ workspace "Name" "Description" {
                 colour #777777
                 dashed true
                 routing curved
+                jump true
                 fontSize 24
                 width 400
                 position 50
