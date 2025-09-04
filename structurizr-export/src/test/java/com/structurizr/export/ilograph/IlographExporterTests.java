@@ -7,6 +7,7 @@ import com.structurizr.model.CustomElement;
 import com.structurizr.model.Model;
 import com.structurizr.util.WorkspaceUtils;
 import com.structurizr.view.ThemeUtils;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -26,6 +27,7 @@ public class IlographExporterTests extends AbstractExporterTests {
     }
 
     @Test
+    @Tag("IntegrationTest")
     void test_AmazonWebServicesExample() throws Exception {
         Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-54915-workspace.json"));
         workspace.getViews().getConfiguration().getStyles().addElementStyle("Amazon Web Services - Route 53").addProperty(IlographExporter.ILOGRAPH_ICON, "AWS/Networking/Route-53.svg");

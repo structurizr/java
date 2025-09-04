@@ -4,6 +4,7 @@ import com.structurizr.Workspace;
 import com.structurizr.model.Relationship;
 import com.structurizr.model.SoftwareSystem;
 import com.structurizr.model.Tags;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class ThemeUtilsTests {
     }
 
     @Test
+    @Tag("IntegrationTest")
     void loadThemes_LoadsThemesWhenThemesAreDefined() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
@@ -137,6 +139,7 @@ public class ThemeUtilsTests {
     }
 
     @Test
+    @Tag("IntegrationTest")
     void loadThemes_ReplacesRelativeIconReferences() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");

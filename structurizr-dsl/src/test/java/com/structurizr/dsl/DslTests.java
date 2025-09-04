@@ -5,6 +5,7 @@ import com.structurizr.documentation.Section;
 import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
 import com.structurizr.view.*;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -396,6 +397,7 @@ class DslTests extends AbstractTests {
     }
 
     @Test
+    @Tag("IntegrationTest")
     void test_includeUrl() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
         parser.parse(new File("src/test/resources/dsl/include-url.dsl"));
@@ -434,6 +436,7 @@ class DslTests extends AbstractTests {
     }
 
     @ParameterizedTest
+    @Tag("IntegrationTest")
     @ValueSource(strings = { "src/test/resources/dsl/extend/extend-workspace-from-json-file.dsl", "src/test/resources/dsl/extend/extend-workspace-from-json-url.dsl" })
     void test_extendWorkspaceFromJson(String dslFile) throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
@@ -472,6 +475,7 @@ class DslTests extends AbstractTests {
     }
 
     @ParameterizedTest
+    @Tag("IntegrationTest")
     @ValueSource(strings = { "src/test/resources/dsl/extend/extend-workspace-from-dsl-file.dsl", "src/test/resources/dsl/extend/extend-workspace-from-dsl-url.dsl" })
     void test_extendWorkspaceFromDsl(String dslFile) throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
@@ -1091,6 +1095,7 @@ class DslTests extends AbstractTests {
     }
 
     @Test
+    @Tag("IntegrationTest")
     void test_imageViews_ViaUrls() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
         parser.parse(new File("src/test/resources/dsl/image-views/workspace-via-url.dsl"));

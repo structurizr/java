@@ -6,6 +6,7 @@ import com.structurizr.export.Diagram;
 import com.structurizr.model.*;
 import com.structurizr.util.WorkspaceUtils;
 import com.structurizr.view.*;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -61,6 +62,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
     }
 
     @Test
+    @Tag("IntegrationTest")
     public void test_AmazonWebServicesExampleWithoutTags() throws Exception {
         Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-54915-workspace.json"));
         ThemeUtils.loadThemes(workspace);
@@ -77,6 +79,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
     }
 
     @Test
+    @Tag("IntegrationTest")
     public void test_AmazonWebServicesExampleWithTags() throws Exception {
         Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-54915-workspace.json"));
         ThemeUtils.loadThemes(workspace);
