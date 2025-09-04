@@ -1,17 +1,20 @@
 package com.structurizr.importer.diagrams.kroki;
 
 import com.structurizr.importer.diagrams.AbstractDiagramImporter;
+import com.structurizr.util.ImageUtils;
 import com.structurizr.util.StringUtils;
 import com.structurizr.view.ImageView;
 
 import java.io.File;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
 public class KrokiImporter extends AbstractDiagramImporter {
 
-    private static final String KROKI_URL_PROPERTY = "kroki.url";
-    private static final String KROKI_FORMAT_PROPERTY = "kroki.format";
+    public static final String KROKI_URL_PROPERTY = "kroki.url";
+    public static final String KROKI_FORMAT_PROPERTY = "kroki.format";
+    public static final String KROKI_INLINE_PROPERTY = "kroki.inline";
 
     public void importDiagram(ImageView view, String format, File file) throws Exception {
         String content = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
@@ -38,7 +41,16 @@ public class KrokiImporter extends AbstractDiagramImporter {
         String encodedDiagram = new KrokiEncoder().encode(content);
         String url = String.format("%s/%s/%s/%s", krokiServer, format, imageFormat, encodedDiagram);
 
-        view.setContent(url);
+        String inline = getViewOrViewSetProperty(view, KROKI_INLINE_PROPERTY);
+        if ("true".equals(inline)) {
+            if (imageFormat.equals(SVG_FORMAT)) {
+                view.setContent(ImageUtils.getSvgAsDataUri(new URL(url)));
+            } else {
+                view.setContent(ImageUtils.getPngAsDataUri(new URL(url)));
+            }
+        } else {
+            view.setContent(url);
+        }
         view.setContentType(CONTENT_TYPES_BY_FORMAT.get(imageFormat));
     }
 

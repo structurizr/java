@@ -1,10 +1,13 @@
 package com.structurizr.importer.diagrams.plantuml;
 
 import com.structurizr.importer.diagrams.AbstractDiagramImporter;
+import com.structurizr.util.ImageUtils;
 import com.structurizr.util.StringUtils;
+import com.structurizr.util.Url;
 import com.structurizr.view.ImageView;
 
 import java.io.File;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
@@ -12,6 +15,7 @@ public class PlantUMLImporter extends AbstractDiagramImporter {
 
     public static final String PLANTUML_URL_PROPERTY = "plantuml.url";
     public static final String PLANTUML_FORMAT_PROPERTY = "plantuml.format";
+    public static final String PLANTUML_INLINE_PROPERTY = "plantuml.inline";
     private static final String TITLE_STRING = "title ";
     private static final String NEWLINE = "\n";
 
@@ -39,7 +43,17 @@ public class PlantUMLImporter extends AbstractDiagramImporter {
 
         String encodedPlantUML = new PlantUMLEncoder().encode(content);
         String url = String.format("%s/%s/%s", plantUMLServer, format, encodedPlantUML);
-        view.setContent(url);
+
+        String inline = getViewOrViewSetProperty(view, PLANTUML_INLINE_PROPERTY);
+        if ("true".equals(inline)) {
+            if (format.equals(SVG_FORMAT)) {
+                view.setContent(ImageUtils.getSvgAsDataUri(new URL(url)));
+            } else {
+                view.setContent(ImageUtils.getPngAsDataUri(new URL(url)));
+            }
+        } else {
+            view.setContent(url);
+        }
         view.setContentType(CONTENT_TYPES_BY_FORMAT.get(format));
 
         String[] lines = content.split(NEWLINE);

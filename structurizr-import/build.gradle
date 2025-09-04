@@ -5,3 +5,16 @@ dependencies {
 }
 
 description = 'Utilities to import diagrams and documentation into a Structurizr workspace'
+
+test {
+    useJUnitPlatform {
+        excludeTags "IntegrationTest"
+    }
+}
+
+tasks.register("integrationTest", Test) {
+    useJUnitPlatform {
+        includeTags "IntegrationTest"
+    }
+    mustRunAfter check
+}

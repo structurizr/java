@@ -8,6 +8,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.util.Base64;
 
@@ -122,6 +125,36 @@ public class ImageUtils {
         String base64Content = getImageAsBase64(file);
 
         return DATA_URI_PREFIX + contentType + ";base64," + base64Content;
+    }
+
+    public static String getSvgAsDataUri(@Nonnull URL url) throws Exception {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(url.toURI())
+                .header("accept", CONTENT_TYPE_IMAGE_SVG)
+                .build();
+        HttpClient client = HttpClient.newBuilder()
+                .followRedirects(HttpClient.Redirect.ALWAYS)
+                .build();
+
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        String svg = response.body();
+
+        return DATA_URI_PREFIX + CONTENT_TYPE_IMAGE_SVG + ";base64," + Base64.getEncoder().encodeToString(svg.getBytes());
+    }
+
+    public static String getPngAsDataUri(@Nonnull URL url) throws Exception {
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(url.toURI())
+                .header("accept", CONTENT_TYPE_IMAGE_PNG)
+                .build();
+        HttpClient client = HttpClient.newBuilder()
+                .followRedirects(HttpClient.Redirect.ALWAYS)
+                .build();
+
+        HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
+        byte[] png = response.body();
+
+        return DATA_URI_PREFIX + CONTENT_TYPE_IMAGE_PNG + ";base64," + Base64.getEncoder().encodeToString(png);
     }
 
     public static void validateImage(String imageDescriptor) {
