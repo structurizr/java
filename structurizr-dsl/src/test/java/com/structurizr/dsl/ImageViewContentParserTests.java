@@ -28,7 +28,7 @@ class ImageViewContentParserTests extends AbstractTests {
             parser.parsePlantUML(context, null, tokens("plantuml"));
             fail();
         } catch (Exception e) {
-            assertEquals("Expected: plantuml <file|url|viewKey>", e.getMessage());
+            assertEquals("Expected: plantuml <source|file|url|viewKey>", e.getMessage());
         }
     }
 
@@ -64,10 +64,10 @@ class ImageViewContentParserTests extends AbstractTests {
             ImageViewDslContext context = new ImageViewDslContext(imageView);
             context.setWorkspace(workspace);
             parser = new ImageViewContentParser(true);
-            parser.parseMermaid(context, null, tokens("plantuml"));
+            parser.parseMermaid(context, null, tokens("mermaid"));
             fail();
         } catch (Exception e) {
-            assertEquals("Expected: mermaid <file|url|viewKey>", e.getMessage());
+            assertEquals("Expected: mermaid <source|file|url|viewKey>", e.getMessage());
         }
     }
 
@@ -95,6 +95,19 @@ class ImageViewContentParserTests extends AbstractTests {
         parser = new ImageViewContentParser(true);
         parser.parseMermaid(context, null, tokens("mermaid", "SystemLandscape"));
         assertEquals("https://mermaid.ink/svg/pako:eJxlkMtuwjAQRX9lNAhlE9SwqupCpLLuLt0RFiYeJxZ-RLYppYh_bxJHVR93NrM4c3U0N8DGCUKGred9B2-72gJoZU9VvGoCQZKfdQSptGYLOaW2IxPOx3QiFB8WA_saq2uIZOCVWxEa3lONhxEd4FQ2kz_L8hC9O9HvboD10LYR6j1dbjPpbFxdSLVdZHB0WmTly-ZhAMp_VFCfxOCxWD6D4b5VdhVdz6DoP7JyXzkZL9wTJNVD6vjjuZ4NxZRvwyc-Tt447TxbFFOSL1mBOaAhb7gSyG4YOzLjV-f_4f3-BQMfekI=", imageView.getContent());
+    }
+
+    @Test
+    void test_parseKroki_ThrowsAnException_WithTooFewTokens() {
+        try {
+            ImageViewDslContext context = new ImageViewDslContext(imageView);
+            context.setWorkspace(workspace);
+            parser = new ImageViewContentParser(true);
+            parser.parseKroki(context, null, tokens("kroki"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Expected: kroki <format> <source|file|url>", e.getMessage());
+        }
     }
 
     @Test

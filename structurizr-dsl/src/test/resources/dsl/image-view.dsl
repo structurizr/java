@@ -2,8 +2,8 @@ workspace {
 
     views {
         image * "Image" {
-                image image.png
-            }
+            image image.png
         }
+    }
 
 }

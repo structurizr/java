@@ -21,4 +21,9 @@ class DslLine {
         return lineNumber;
     }
 
+    @Override
+    public String toString() {
+        return source;
+    }
+
 }

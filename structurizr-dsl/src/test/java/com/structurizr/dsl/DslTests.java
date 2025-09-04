@@ -1130,6 +1130,30 @@ class DslTests extends AbstractTests {
     }
 
     @Test
+    void test_imageViews_ViaSource() throws Exception {
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(new File("src/test/resources/dsl/image-views/workspace-via-source.dsl"));
+
+        Workspace workspace = parser.getWorkspace();
+        assertEquals(3, workspace.getViews().getImageViews().size());
+
+        ImageView plantumlView = (ImageView)workspace.getViews().getViewWithKey("plantuml");
+        assertNull(plantumlView.getTitle());
+        assertEquals("http://localhost:7777/svg/SoWkIImgAStDuNBAJrBGjLDmpCbCJbMmKiX8pSd9vt98pKi1IW80", plantumlView.getContent());
+        assertEquals("image/svg+xml", plantumlView.getContentType());
+
+        ImageView mermaidView = (ImageView)workspace.getViews().getViewWithKey("mermaid");
+        assertNull(mermaidView.getTitle());
+        assertEquals("http://localhost:8888/svg/Zmxvd2NoYXJ0IFRECiAgICBTdGFydCAtLT4gU3RvcA==", mermaidView.getContent());
+        assertEquals("image/svg+xml", mermaidView.getContentType());
+
+        ImageView krokiView = (ImageView)workspace.getViews().getViewWithKey("kroki");
+        assertNull(krokiView.getTitle());
+        assertEquals("http://localhost:9999/graphviz/png/eNpLyUwvSizIUHBXqPZIzcnJ17ULzy_KSanlAgB1EAjQ", krokiView.getContent());
+        assertEquals("image/png", krokiView.getContentType());
+    }
+
+    @Test
     void test_EmptyDeploymentEnvironment() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
         parser.parse(new File("src/test/resources/dsl/deployment-environment-empty.dsl"));

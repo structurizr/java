@@ -36,6 +36,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     private static final String TEXT_BLOCK_MARKER = "\"\"\"";
 
     private static final Pattern STRING_SUBSTITUTION_PATTERN = Pattern.compile("(\\$\\{[a-zA-Z0-9-_.]+?})");
+    private static final String STRING_SUBSTITUTION_TEMPLATE = "${%s}";
 
     private static final String STRUCTURIZR_DSL_IDENTIFIER_PROPERTY_NAME = "structurizr.dsl.identifier";
 
@@ -1289,7 +1290,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         for (String line : lines) {
             if (textBlock) {
                 if (line.endsWith(TEXT_BLOCK_MARKER)) {
-                    buf.append("\"");
+                    buf.append(TEXT_BLOCK_MARKER);
                     textBlock = false;
                     textBlockLeadingSpace = -1;
                     lineComplete = true;
@@ -1304,14 +1305,18 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                             }
                         }
                     }
-                    buf.append(line, textBlockLeadingSpace, line.length());
-                    buf.append("\n");
+                    if (StringUtils.isNullOrEmpty(line)) {
+                        buf.append("\n");
+                    } else {
+                        buf.append(line, textBlockLeadingSpace, line.length());
+                        buf.append("\n");
+                    }
                 }
             } else if (!COMMENT_PATTERN.matcher(line).matches() && line.endsWith(MULTI_LINE_SEPARATOR)) {
                 buf.append(line, 0, line.length() - 1);
                 lineComplete = false;
             } else if (!COMMENT_PATTERN.matcher(line).matches() && line.endsWith(TEXT_BLOCK_MARKER)) {
-                buf.append(line, 0, line.length() - 2);
+                buf.append(line, 0, line.length());
                 lineComplete = false;
                 textBlock = true;
             } else {
@@ -1324,7 +1329,19 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
             }
 
             if (lineComplete) {
-                dslLines.add(new DslLine(buf.toString(), lineNumber));
+                // replace the text block with a constant (that will become substituted later)
+                // (this makes it possible for text blocks to include double-quote characters)
+                String s = buf.toString();
+                if (s.endsWith(TEXT_BLOCK_MARKER)) {
+                    String[] parts = s.split(TEXT_BLOCK_MARKER);
+                    String constantName = UUID.randomUUID().toString();
+                    String constantValue = parts[1].substring(0, parts[1].length() - 1); // remove final line break
+                    addConstant(constantName, constantValue);
+                    dslLines.add(new DslLine(parts[0] + "\"" + String.format(STRING_SUBSTITUTION_TEMPLATE, constantName) + "\"", lineNumber));
+                } else {
+                    dslLines.add(new DslLine(buf.toString(), lineNumber));
+                }
+
                 buf = new StringBuilder();
             }
 
