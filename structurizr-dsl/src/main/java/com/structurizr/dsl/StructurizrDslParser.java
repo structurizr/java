@@ -45,7 +45,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     private final Stack<DslContext> contextStack;
     private final Set<String> parsedTokens = new HashSet<>();
     private final IdentifiersRegister identifiersRegister;
-    private final Map<String, NameValuePair> constantsAndVariables;
+    private Map<String, NameValuePair> constantsAndVariables;
     private final Features features = new Features();
 
     private Map<String,Map<String,Archetype>> archetypes = Map.of(
@@ -78,6 +78,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     void configureFrom(StructurizrDslParser parser) {
         setIdentifierScope(parser.getIdentifierScope());
         archetypes = parser.archetypes;
+        constantsAndVariables = parser.constantsAndVariables;
     }
 
     /**

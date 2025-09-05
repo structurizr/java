@@ -14,6 +14,7 @@
 - structurizr-dsl: Adds support for removing relationships between software system instance/container instances, with a view to redefining them via infrastructure nodes.
 - structurizr-dsl: Adds support for a `jump` property on relationship styles.
 - structurizr-dsl: PlantUML, Mermaid, and Kroki image views can now be defined by an inline source block.
+- structurizr-dsl: Constants and variables are inherited when extending a DSL workspace.
 - structurizr-import: Adds support for `plantuml.inline`, `mermaid.inline`, and `kroki.inline` properties to inline the resulting PNG/SVG file into the workspace.
 - structurizr-inspection: Adds a way to disable inspections via a workspace property named `structurizr.inspection` (`false` to disable).
 - structurizr-inspection: Default inspector adds a summary of error/warning/info/ignore counts as workspace properties.

@@ -1270,6 +1270,18 @@ class DslTests extends AbstractTests {
     }
 
     @Test
+    void test_ConstantsAndVariablesFromWorkspaceExtension() throws Exception {
+        File dslFile = new File("src/test/resources/dsl/constants-and-variables-from-workspace-extension-child.dsl");
+
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(dslFile);
+
+        SoftwareSystem softwareSystem = parser.getWorkspace().getModel().getSoftwareSystemWithName("Name");
+        assertNotNull(softwareSystem);
+        assertEquals("Description", softwareSystem.getDescription());
+    }
+
+    @Test
     void test_UnbalancedCurlyBraces() {
         try {
             StructurizrDslParser parser = new StructurizrDslParser();
