@@ -21,6 +21,7 @@ Container_Boundary("D.F_boundary", "F", $tags="") {
 
 Rel(C, D.F.G, "", $techn="", $tags="", $link="")
 Rel(C, D.F.H, "", $techn="", $tags="", $link="")
+Rel(D.F.G, D.F.H, "", $techn="", $tags="", $link="")
 
 SHOW_LEGEND(true)
 @enduml

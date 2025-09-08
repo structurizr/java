@@ -76,7 +76,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
 
         DOTExporter exporter = new DOTExporter();
         Collection<Diagram> diagrams = exporter.export(workspace);
-        assertEquals(3, diagrams.size());
+        assertEquals(4, diagrams.size());
 
         Diagram diagram = diagrams.stream().filter(md -> md.getKey().equals("SystemLandscape")).findFirst().get();
         String expected = readFile(new File("./src/test/java/com/structurizr/export/dot/groups-SystemLandscape.dot"));
@@ -88,6 +88,10 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
 
         diagram = diagrams.stream().filter(md -> md.getKey().equals("Components")).findFirst().get();
         expected = readFile(new File("./src/test/java/com/structurizr/export/dot/groups-Components.dot"));
+        assertEquals(expected, diagram.getDefinition());
+
+        diagram = diagrams.stream().filter(md -> md.getKey().equals("Dynamic")).findFirst().get();
+        expected = readFile(new File("./src/test/java/com/structurizr/export/dot/groups-Dynamic.dot"));
         assertEquals(expected, diagram.getDefinition());
     }
 
