@@ -303,6 +303,7 @@ final class ElementStyleParser extends AbstractParser {
                     if (file.exists() && !file.isDirectory()) {
                         try {
                             style.setIcon(ImageUtils.getImageAsDataUri(file));
+                            context.setDslPortable(false);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }

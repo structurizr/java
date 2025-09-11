@@ -35,6 +35,8 @@ final class DocsParser extends AbstractParser {
     private void parse(DslContext context, Documentable documentable, File dslFile, Tokens tokens) {
         // !docs <path>
 
+        context.setDslPortable(false);
+
         if (tokens.hasMoreThan(FQN_INDEX)) {
             throw new RuntimeException("Too many tokens, expected: " + GRAMMAR);
         }

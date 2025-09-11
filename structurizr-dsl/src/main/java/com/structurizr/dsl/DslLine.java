@@ -8,8 +8,8 @@ class DslLine {
     private final String source;
     private final int lineNumber;
 
-    DslLine(String source, int lineNumber) {
-        this.source = source;
+    DslLine(String processedSource, int lineNumber) {
+        this.source = processedSource;
         this.lineNumber = lineNumber;
     }
 

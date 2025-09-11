@@ -63,6 +63,7 @@ final class ImageViewContentParser extends AbstractParser {
                                 if (!restricted) {
                                     File file = new File(dslFile.getParentFile(), source);
                                     if (file.exists()) {
+                                        context.setDslPortable(false);
                                         new PlantUMLImporter().importDiagram(context.getView(), file);
                                     } else {
                                         throw new RuntimeException("The file at " + file.getAbsolutePath() + " does not exist");
@@ -113,6 +114,7 @@ final class ImageViewContentParser extends AbstractParser {
                                 if (!restricted) {
                                     File file = new File(dslFile.getParentFile(), source);
                                     if (file.exists()) {
+                                        context.setDslPortable(false);
                                         new MermaidImporter().importDiagram(context.getView(), file);
                                     } else {
                                         throw new RuntimeException("The file at " + file.getAbsolutePath() + " does not exist");
@@ -158,6 +160,7 @@ final class ImageViewContentParser extends AbstractParser {
                             if (!restricted) {
                                 File file = new File(dslFile.getParentFile(), source);
                                 if (file.exists()) {
+                                    context.setDslPortable(false);
                                     new KrokiImporter().importDiagram(context.getView(), format, file);
                                 } else {
                                     throw new RuntimeException("The file at " + file.getAbsolutePath() + " does not exist");
@@ -196,6 +199,7 @@ final class ImageViewContentParser extends AbstractParser {
                         if (!restricted) {
                             File file = new File(dslFile.getParentFile(), source);
                             if (file.exists()) {
+                                context.setDslPortable(false);
                                 context.getView().setContent(ImageUtils.getImageAsDataUri(file));
                                 context.getView().setTitle(file.getName());
                             } else {

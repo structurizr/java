@@ -4,6 +4,7 @@ import com.structurizr.Workspace;
 import com.structurizr.documentation.Section;
 import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
+import com.structurizr.util.WorkspaceUtils;
 import com.structurizr.view.*;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -325,15 +326,7 @@ class DslTests extends AbstractTests {
         assertEquals(1, model.getSoftwareSystems().size());
         assertNotNull(model.getSoftwareSystemWithName("Software System"));
 
-        assertEquals("workspace {\n" +
-                "\n" +
-                "    model {\n" +
-                "        softwareSystem = softwareSystem \"Software System\" {\n" +
-                "            !docs docs\n" +
-                "        }\n" +
-                "    }\n" +
-                "\n" +
-                "}", new String(Base64.getDecoder().decode(workspace.getProperties().get("structurizr.dsl"))));
+        assertEquals("", DslUtils.getDsl(workspace));
     }
 
     @Test
@@ -362,26 +355,7 @@ class DslTests extends AbstractTests {
         assertNotNull(softwareSystem3);
         assertEquals(1, softwareSystem3.getDocumentation().getSections().size());
 
-        assertEquals("workspace {\n" +
-                "\n" +
-                "    model {\n" +
-                "        !var SOFTWARE_SYSTEM_NAME \"Software System 1\"\n" +
-                "        softwareSystem \"${SOFTWARE_SYSTEM_NAME}\" {\n" +
-                "            !docs ../../docs\n" +
-                "        }\n" +
-                "\n" +
-                "        !var SOFTWARE_SYSTEM_NAME \"Software System 2\"\n" +
-                "        softwareSystem \"${SOFTWARE_SYSTEM_NAME}\" {\n" +
-                "            !docs ../../docs\n" +
-                "        }\n" +
-                "\n" +
-                "        !var SOFTWARE_SYSTEM_NAME \"Software System 3\"\n" +
-                "        softwareSystem \"${SOFTWARE_SYSTEM_NAME}\" {\n" +
-                "            !docs ../../docs\n" +
-                "        }\n" +
-                "    }\n" +
-                "\n" +
-                "}", new String(Base64.getDecoder().decode(workspace.getProperties().get("structurizr.dsl"))));
+        assertEquals("", DslUtils.getDsl(workspace));
     }
 
     @Test
@@ -404,20 +378,18 @@ class DslTests extends AbstractTests {
 
         Workspace workspace = parser.getWorkspace();
         Model model = workspace.getModel();
-        ViewSet views = workspace.getViews();
 
-        assertEquals(1, workspace.getModel().getSoftwareSystems().size());
-        SoftwareSystem softwareSystem = model.getSoftwareSystemWithName("Software System");
+        assertEquals(1, model.getSoftwareSystems().size());
+        assertNotNull(model.getSoftwareSystemWithName("Software System"));
 
-        assertEquals("workspace {\n" +
-                "\n" +
-                "    model {\n" +
-                "        softwareSystem = softwareSystem \"Software System\" {\n" +
-                "            !docs docs\n" +
-                "        }\n" +
-                "    }\n" +
-                "\n" +
-                "}", new String(Base64.getDecoder().decode(workspace.getProperties().get("structurizr.dsl"))));
+        assertEquals("""
+                workspace {
+                
+                    model {
+                        !include https://raw.githubusercontent.com/structurizr/dsl/master/src/test/dsl/include/model.dsl
+                    }
+                
+                }""", DslUtils.getDsl(workspace));
     }
 
     @Test
@@ -435,10 +407,10 @@ class DslTests extends AbstractTests {
         }
     }
 
-    @ParameterizedTest
+    @Test
     @Tag("IntegrationTest")
-    @ValueSource(strings = { "src/test/resources/dsl/extend/extend-workspace-from-json-file.dsl", "src/test/resources/dsl/extend/extend-workspace-from-json-url.dsl" })
-    void test_extendWorkspaceFromJson(String dslFile) throws Exception {
+    void test_extendWorkspaceFromJsonFile() throws Exception {
+        String dslFile = "src/test/resources/dsl/extend/extend-workspace-from-json-file.dsl";
         StructurizrDslParser parser = new StructurizrDslParser();
         parser.parse(new File(dslFile));
 
@@ -456,6 +428,51 @@ class DslTests extends AbstractTests {
         assertEquals(2, softwareSystem.getContainers().size());
         assertNotNull(softwareSystem.getContainers().stream().filter(c -> c.getName().equals("Web Application 1")).findFirst());
         assertNotNull(softwareSystem.getContainers().stream().filter(c -> c.getName().equals("Web Application 2")).findFirst());
+
+        assertEquals("", DslUtils.getDsl(workspace));
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    void test_extendWorkspaceFromJsonUrl() throws Exception {
+        String dslFile = "src/test/resources/dsl/extend/extend-workspace-from-json-url.dsl";
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.parse(new File(dslFile));
+
+        Workspace workspace = parser.getWorkspace();
+        Model model = workspace.getModel();
+        assertEquals(CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy.class, model.getImpliedRelationshipsStrategy().getClass());
+
+        assertEquals(1, model.getPeople().size());
+        Person user = model.getPersonWithName("User");
+
+        assertEquals(3, workspace.getModel().getSoftwareSystems().size());
+        SoftwareSystem softwareSystem = model.getSoftwareSystemWithName("Software System 1");
+        assertTrue(user.hasEfferentRelationshipWith(softwareSystem, "Uses"));
+
+        assertEquals(2, softwareSystem.getContainers().size());
+        assertNotNull(softwareSystem.getContainers().stream().filter(c -> c.getName().equals("Web Application 1")).findFirst());
+        assertNotNull(softwareSystem.getContainers().stream().filter(c -> c.getName().equals("Web Application 2")).findFirst());
+
+        assertEquals("""
+                        workspace extends https://raw.githubusercontent.com/structurizr/dsl/master/src/test/dsl/extend/workspace.json {
+                        
+                            model {
+                                // !element with DSL identifier
+                                !element softwareSystem1 {
+                                    webapp1 = container "Web Application 1"
+                                }
+                        
+                                // !element with canonical name
+                                !element "SoftwareSystem://Software System 1" {
+                                    webapp2 = container "Web Application 2"
+                                }
+                        
+                                user -> softwareSystem1 "Uses"
+                                softwareSystem3.webapp -> softwareSystem3.db
+                            }
+                        
+                        }""", DslUtils.getDsl(workspace));
     }
 
     @Test
@@ -726,6 +743,9 @@ class DslTests extends AbstractTests {
         parser.parse(new File("src/test/resources/dsl/plugin-without-parameters.dsl"));
 
         assertNotNull(parser.getWorkspace().getModel().getPersonWithName("Java"));
+
+        // check source isn't retained
+        assertEquals("", DslUtils.getDsl(parser.getWorkspace()));
     }
 
     @Test
@@ -734,6 +754,9 @@ class DslTests extends AbstractTests {
         parser.parse(new File("src/test/resources/dsl/plugin-with-parameters.dsl"));
 
         assertNotNull(parser.getWorkspace().getModel().getPersonWithName("Java"));
+
+        // check source isn't retained
+        assertEquals("", DslUtils.getDsl(parser.getWorkspace()));
     }
 
     @Test
@@ -749,21 +772,27 @@ class DslTests extends AbstractTests {
     }
 
     @Test
-    void test_script() throws Exception {
+    void test_externalScript() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
         parser.parse(new File("src/test/resources/dsl/script-external.dsl"));
 
         assertNotNull(parser.getWorkspace().getModel().getPersonWithName("Groovy"));
         assertNotNull(parser.getWorkspace().getModel().getPersonWithName("Kotlin"));
         assertNotNull(parser.getWorkspace().getModel().getPersonWithName("Ruby"));
+
+        // check source isn't retained
+        assertEquals("", DslUtils.getDsl(parser.getWorkspace()));
     }
 
     @Test
-    void test_scriptWithParameters() throws Exception {
+    void test_externalScriptWithParameters() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
         parser.parse(new File("src/test/resources/dsl/script-external-with-parameters.dsl"));
 
         assertNotNull(parser.getWorkspace().getModel().getPersonWithName("Groovy"));
+
+        // check source isn't retained
+        assertEquals("", DslUtils.getDsl(parser.getWorkspace()));
     }
 
     @Test
@@ -778,6 +807,9 @@ class DslTests extends AbstractTests {
         assertTrue(parser.getWorkspace().getModel().getPersonWithName("User").hasTag("Groovy"));
         assertTrue(parser.getWorkspace().getModel().getPersonWithName("User").getRelationships().iterator().next().hasTag("Groovy"));
         assertEquals("Groovy", parser.getWorkspace().getViews().getSystemLandscapeViews().iterator().next().getDescription());
+
+        // check source isn't retained
+        assertEquals("", DslUtils.getDsl(parser.getWorkspace()));
     }
 
     @Test
@@ -818,6 +850,9 @@ class DslTests extends AbstractTests {
             Content...""", sections.iterator().next().getContent());
 
         assertEquals(1, component.getDocumentation().getSections().size());
+
+        // check source isn't retained
+        assertEquals("", DslUtils.getDsl(parser.getWorkspace()));
     }
 
     @Test
@@ -850,6 +885,9 @@ class DslTests extends AbstractTests {
 
         // log4brains decisions
         assertEquals(4, component.getDocumentation().getDecisions().size());
+
+        // check source isn't retained
+        assertEquals("", DslUtils.getDsl(parser.getWorkspace()));
     }
 
     @Test
@@ -1092,6 +1130,9 @@ class DslTests extends AbstractTests {
         assertEquals("image.svg", svgView.getTitle());
         assertEquals("data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXMtYXNjaWkiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiBjb250ZW50U3R5bGVUeXBlPSJ0ZXh0L2NzcyIgaGVpZ2h0PSIxMjBweCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSIgc3R5bGU9IndpZHRoOjExM3B4O2hlaWdodDoxMjBweDtiYWNrZ3JvdW5kOiNGRkZGRkY7IiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxMTMgMTIwIiB3aWR0aD0iMTEzcHgiIHpvb21BbmRQYW49Im1hZ25pZnkiPjxkZWZzLz48Zz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjAuNTtzdHJva2UtZGFzaGFycmF5OjUuMCw1LjA7IiB4MT0iMjYiIHgyPSIyNiIgeTE9IjM2LjI5NjkiIHkyPSI4NS40Mjk3Ii8+PGxpbmUgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7c3Ryb2tlLWRhc2hhcnJheTo1LjAsNS4wOyIgeDE9IjgyIiB4Mj0iODIiIHkxPSIzNi4yOTY5IiB5Mj0iODUuNDI5NyIvPjxyZWN0IGZpbGw9IiNFMkUyRjAiIGhlaWdodD0iMzAuMjk2OSIgcng9IjIuNSIgcnk9IjIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiB3aWR0aD0iNDMiIHg9IjUiIHk9IjUiLz48dGV4dCBmaWxsPSIjMDAwMDAwIiBmb250LWZhbWlseT0ic2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgbGVuZ3RoQWRqdXN0PSJzcGFjaW5nIiB0ZXh0TGVuZ3RoPSIyOSIgeD0iMTIiIHk9IjI0Ljk5NTEiPkJvYjwvdGV4dD48cmVjdCBmaWxsPSIjRTJFMkYwIiBoZWlnaHQ9IjMwLjI5NjkiIHJ4PSIyLjUiIHJ5PSIyLjUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgd2lkdGg9IjQzIiB4PSI1IiB5PSI4NC40Mjk3Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMjkiIHg9IjEyIiB5PSIxMDQuNDI0OCI+Qm9iPC90ZXh0PjxyZWN0IGZpbGw9IiNFMkUyRjAiIGhlaWdodD0iMzAuMjk2OSIgcng9IjIuNSIgcnk9IjIuNSIgc3R5bGU9InN0cm9rZTojMTgxODE4O3N0cm9rZS13aWR0aDowLjU7IiB3aWR0aD0iNDkiIHg9IjU4IiB5PSI1Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMzUiIHg9IjY1IiB5PSIyNC45OTUxIj5BbGljZTwvdGV4dD48cmVjdCBmaWxsPSIjRTJFMkYwIiBoZWlnaHQ9IjMwLjI5NjkiIHJ4PSIyLjUiIHJ5PSIyLjUiIHN0eWxlPSJzdHJva2U6IzE4MTgxODtzdHJva2Utd2lkdGg6MC41OyIgd2lkdGg9IjQ5IiB4PSI1OCIgeT0iODQuNDI5NyIvPjx0ZXh0IGZpbGw9IiMwMDAwMDAiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE0IiBsZW5ndGhBZGp1c3Q9InNwYWNpbmciIHRleHRMZW5ndGg9IjM1IiB4PSI2NSIgeT0iMTA0LjQyNDgiPkFsaWNlPC90ZXh0Pjxwb2x5Z29uIGZpbGw9IiMxODE4MTgiIHBvaW50cz0iNzAuNSw2My40Mjk3LDgwLjUsNjcuNDI5Nyw3MC41LDcxLjQyOTcsNzQuNSw2Ny40Mjk3IiBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjEuMDsiLz48bGluZSBzdHlsZT0ic3Ryb2tlOiMxODE4MTg7c3Ryb2tlLXdpZHRoOjEuMDsiIHgxPSIyNi41IiB4Mj0iNzYuNSIgeTE9IjY3LjQyOTciIHkyPSI2Ny40Mjk3Ii8+PHRleHQgZmlsbD0iIzAwMDAwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTMiIGxlbmd0aEFkanVzdD0ic3BhY2luZyIgdGV4dExlbmd0aD0iMzAiIHg9IjMzLjUiIHk9IjYyLjM2MzgiPmhlbGxvPC90ZXh0PjwhLS1TUkM9W1N5ZkZLajJyS3QzQ29LbkVMUjFJbzRaRG9TYTcwMDAwXS0tPjwvZz48L3N2Zz4=", svgView.getContent());
         assertEquals("image/svg+xml", svgView.getContentType());
+
+        // check that source isn't retained
+        assertEquals("", DslUtils.getDsl(workspace));
     }
 
     @Test
@@ -1127,6 +1168,44 @@ class DslTests extends AbstractTests {
         assertEquals("image.svg", svgView.getTitle());
         assertEquals("https://raw.githubusercontent.com/structurizr/java/master/structurizr-dsl/src/test/resources/dsl/image-views/image.svg", svgView.getContent());
         assertEquals("image/svg+xml", svgView.getContentType());
+
+        // check that source is retained
+        assertEquals("""
+                workspace {
+                
+                    views {
+                        properties {
+                            "plantuml.url" "http://localhost:7777"
+                            "plantuml.format" "svg"
+                            "mermaid.url" "http://localhost:8888"
+                            "mermaid.format" "svg"
+                            "mermaid.compress" "false"
+                            "kroki.url" "http://localhost:9999"
+                            "kroki.format" "svg"
+                        }
+                
+                        image * "plantuml" {
+                            plantuml https://raw.githubusercontent.com/structurizr/java/master/structurizr-dsl/src/test/resources/dsl/image-views/diagram.puml
+                        }
+                
+                        image * "mermaid" {
+                            mermaid https://raw.githubusercontent.com/structurizr/java/master/structurizr-dsl/src/test/resources/dsl/image-views/diagram.mmd
+                        }
+                
+                        image * "kroki" {
+                            kroki graphviz https://raw.githubusercontent.com/structurizr/java/master/structurizr-dsl/src/test/resources/dsl/image-views/diagram.dot
+                        }
+                
+                        image * "png" {
+                            image https://raw.githubusercontent.com/structurizr/java/master/structurizr-dsl/src/test/resources/dsl/image-views/image.png
+                        }
+                
+                        image * "svg" {
+                            image https://raw.githubusercontent.com/structurizr/java/master/structurizr-dsl/src/test/resources/dsl/image-views/image.svg
+                        }
+                    }
+                
+                }""", DslUtils.getDsl(workspace));
     }
 
     @Test
@@ -1429,9 +1508,8 @@ class DslTests extends AbstractTests {
             assertNotNull(ownerController.getEfferentRelationshipWith(ownerRepository));
             assertNotNull(vetController.getEfferentRelationshipWith(vetRepository));
 
-            // this checks that the component forEach { ... } lines don't get repeated in the outputted DSL source
-            String content = Files.readString(workspaceFile.toPath());
-            assertEquals(content, new String(Base64.getDecoder().decode(parser.getWorkspace().getProperties().get("structurizr.dsl"))));
+            // checks that source isn't retained
+            assertEquals("", DslUtils.getDsl(workspace));
 
         } else {
             System.out.println("Skipping Spring PetClinic example...");
@@ -1475,18 +1553,12 @@ workspace {
 
 }""", DslUtils.getDsl(workspace));
 
+        // source not retained because workspace extends a file-based resource
         File childDslFile = new File("src/test/resources/dsl/source-child.dsl");
         parser = new StructurizrDslParser();
         parser.parse(childDslFile);
         workspace = parser.getWorkspace();
-        assertEquals("""
-workspace extends source-parent.dsl {
-
-    model {
-        b = softwareSystem "B"
-    }
-
-}""", DslUtils.getDsl(workspace));
+        assertEquals("", DslUtils.getDsl(workspace));
     }
 
     @Test
@@ -1625,11 +1697,27 @@ workspace extends source-parent.dsl {
         StructurizrDslParser parser = new StructurizrDslParser();
         parser.parse(new File("src/test/resources/dsl/text-block.dsl"));
 
-        SoftwareSystem softwareSystem = parser.getWorkspace().getModel().getSoftwareSystemWithName("Name");
+        workspace = parser.getWorkspace();
+        SoftwareSystem softwareSystem = workspace.getModel().getSoftwareSystemWithName("Name");
         assertEquals("""
             - Line 1
             - Line 2
             - Line 3""", softwareSystem.getDescription());
+
+        assertEquals("""
+                workspace {
+                
+                    model {
+                        softwareSystem = softwareSystem "Name" {
+                            description ""\"
+                                - Line 1
+                                - Line 2
+                                - Line 3
+                            ""\"
+                        }
+                    }
+                
+                }""", DslUtils.getDsl(workspace));
     }
 
     @Test

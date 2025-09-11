@@ -29,6 +29,7 @@ abstract class ScriptDslContext extends DslContext {
         this.parentContext = parentContext;
         this.dslFile = dslFile;
         this.dslParser = dslParser;
+        setDslPortable(false);
     }
 
     void addParameter(String name, String value) {

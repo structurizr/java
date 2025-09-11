@@ -60,6 +60,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
             StructurizrDslTokens.RELATIONSHIP_TOKEN, new HashMap<>()
     );
 
+    private boolean dslPortable = true;
     private final List<String> dslSourceLines = new ArrayList<>();
     private Workspace workspace;
     private boolean extendingWorkspace = false;
@@ -123,9 +124,11 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
      */
     public Workspace getWorkspace() {
         if (workspace != null) {
-            String value = workspace.getProperties().get(DslUtils.STRUCTURIZR_DSL_RETAIN_SOURCE_PROPERTY_NAME);
-            if (value == null || value.equalsIgnoreCase("true")) {
-                DslUtils.setDsl(workspace, getParsedDsl());
+            if (dslPortable) {
+                String value = workspace.getProperties().get(DslUtils.STRUCTURIZR_DSL_RETAIN_SOURCE_PROPERTY_NAME);
+                if (value == null || value.equalsIgnoreCase("true")) {
+                    DslUtils.setDsl(workspace, getParsedDsl());
+                }
             }
         }
 
@@ -210,11 +213,14 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
      * @throws StructurizrDslParserException when something goes wrong
      */
     void parse(List<String> lines, File dslFile, boolean fragment, boolean includeInDslSourceLines) throws StructurizrDslParserException {
+        if (includeInDslSourceLines) {
+            dslSourceLines.addAll(lines);
+        }
+
         List<DslLine> dslLines = preProcessLines(lines);
 
         for (DslLine dslLine : dslLines) {
             String line = dslLine.getSource();
-            String lineForDslSource = line;
 
             if (line.startsWith(BOM)) {
                 // this caters for files encoded as "UTF-8 with BOM"
@@ -266,9 +272,8 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         if (!restricted || tokens.get(1).startsWith("https://") || tokens.get(1).startsWith("http://")) {
                             String leadingSpace = line.substring(0, line.indexOf(INCLUDE_FILE_TOKEN));
 
-                            IncludedDslContext context = new IncludedDslContext(dslFile);
-                            new IncludeParser().parse(context, tokens);
-                            for (IncludedFile includedFile : context.getFiles()) {
+                            List<IncludedFile> files = new IncludeParser().parse(getContext(), dslFile, tokens);
+                            for (IncludedFile includedFile : files) {
                                 List<String> paddedLines = new ArrayList<>();
                                 for (String unpaddedLine : includedFile.getLines()) {
                                     if (unpaddedLine.startsWith(BOM)) {
@@ -278,14 +283,11 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                                     paddedLines.add(leadingSpace + unpaddedLine);
                                 }
 
-                                parse(paddedLines, includedFile.getFile(), true, true);
+                                parse(paddedLines, includedFile.getFile(), true, false);
                             }
                         } else {
                             throwRestrictedModeException(firstToken + " <file>");
                         }
-
-                        // include the !include in the parser DSL as: # !include ...
-                        lineForDslSource = null;
 
                     } else if (PLUGIN_TOKEN.equalsIgnoreCase(firstToken)) {
                         if (!restricted) {
@@ -677,8 +679,11 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                         workspace = new WorkspaceParser().parse(dslParserContext, tokens.withoutContextStartToken());
                         extendingWorkspace = !workspace.getModel().isEmpty();
-                        startContext(new WorkspaceDslContext());
+                        WorkspaceDslContext context = new WorkspaceDslContext();
+                        context.setDslPortable(dslParserContext.isDslPortable());
+                        startContext(context);
                         parsedTokens.add(WORKSPACE_TOKEN);
+
                     } else if (IMPLIED_RELATIONSHIPS_TOKEN.equalsIgnoreCase(firstToken) || IMPLIED_RELATIONSHIPS_TOKEN.substring(1).equalsIgnoreCase(firstToken)) {
                         new ImpliedRelationshipsParser().parse(getContext(), tokens, dslFile, restricted);
 
@@ -1261,10 +1266,6 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         }
                     }
                 }
-
-                if (includeInDslSourceLines && lineForDslSource != null) {
-                    dslSourceLines.add(lineForDslSource);
-                }
             } catch (Exception e) {
                 if (e.getMessage() != null) {
                     throw new StructurizrDslParserException(e.getMessage(), dslFile, dslLine.getLineNumber(), line);
@@ -1332,15 +1333,16 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
             if (lineComplete) {
                 // replace the text block with a constant (that will become substituted later)
                 // (this makes it possible for text blocks to include double-quote characters)
-                String s = buf.toString();
-                if (s.endsWith(TEXT_BLOCK_MARKER)) {
-                    String[] parts = s.split(TEXT_BLOCK_MARKER);
+                String source = buf.toString();
+
+                if (source.endsWith(TEXT_BLOCK_MARKER)) {
+                    String[] parts = source.split(TEXT_BLOCK_MARKER);
                     String constantName = UUID.randomUUID().toString();
                     String constantValue = parts[1].substring(0, parts[1].length() - 1); // remove final line break
                     addConstant(constantName, constantValue);
                     dslLines.add(new DslLine(parts[0] + "\"" + String.format(STRING_SUBSTITUTION_TEMPLATE, constantName) + "\"", lineNumber));
                 } else {
-                    dslLines.add(new DslLine(buf.toString(), lineNumber));
+                    dslLines.add(new DslLine(source, lineNumber));
                 }
 
                 buf = new StringBuilder();
@@ -1412,6 +1414,8 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         if (!contextStack.empty()) {
             DslContext context = contextStack.pop();
             context.end();
+
+            dslPortable &= context.isDslPortable();
         } else {
             throw new StructurizrDslParserException("Unexpected end of context");
         }

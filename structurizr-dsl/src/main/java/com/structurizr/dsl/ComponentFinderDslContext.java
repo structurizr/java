@@ -16,6 +16,7 @@ final class ComponentFinderDslContext extends DslContext {
         this.dslParser = dslParser;
         this.containerDslContext = containerDslContext;
         componentFinderBuilder.forContainer(containerDslContext.getContainer());
+        setDslPortable(false);
     }
 
     @Override

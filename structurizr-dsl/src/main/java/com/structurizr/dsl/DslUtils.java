@@ -42,4 +42,13 @@ public class DslUtils {
         }
     }
 
+    /**
+     * Clears the DSL associated with a workspace.
+     *
+     * @param workspace     a Workspace object
+     */
+    public static void clearDsl(Workspace workspace) {
+        workspace.removeProperty(STRUCTURIZR_DSL_PROPERTY_NAME);
+    }
+
 }
