@@ -1,3 +1,1 @@
-softwareSystem = softwareSystem "Software System" {
-    !docs docs
-}
+softwareSystem = softwareSystem "Software System"
