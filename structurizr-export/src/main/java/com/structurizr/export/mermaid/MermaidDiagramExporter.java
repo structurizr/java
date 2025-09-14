@@ -79,21 +79,6 @@ public class MermaidDiagramExporter extends AbstractDiagramExporter {
     }
 
     @Override
-    protected void startEnterpriseBoundary(ModelView view, String enterpriseName, IndentingWriter writer) {
-        writer.writeLine("subgraph enterprise [\"" + enterpriseName + "\"]");
-        writer.indent();
-        writer.writeLine("style enterprise fill:#ffffff,stroke:#444444,color:#444444");
-        writer.writeLine();
-    }
-
-    @Override
-    protected void endEnterpriseBoundary(ModelView view, IndentingWriter writer) {
-        writer.outdent();
-        writer.writeLine("end");
-        writer.writeLine();
-    }
-
-    @Override
     protected void startGroupBoundary(ModelView view, String group, IndentingWriter writer) {
         groupId++;
 

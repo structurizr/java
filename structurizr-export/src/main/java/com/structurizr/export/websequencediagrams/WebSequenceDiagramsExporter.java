@@ -84,14 +84,6 @@ public class WebSequenceDiagramsExporter extends AbstractDiagramExporter {
     }
 
     @Override
-    protected void startEnterpriseBoundary(ModelView view, String enterpriseName, IndentingWriter writer) {
-    }
-
-    @Override
-    protected void endEnterpriseBoundary(ModelView view, IndentingWriter writer) {
-    }
-
-    @Override
     protected void startGroupBoundary(ModelView view, String group, IndentingWriter writer) {
     }
 

@@ -271,19 +271,6 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
     }
 
     @Override
-    protected void startEnterpriseBoundary(ModelView view, String enterpriseName, IndentingWriter writer) {
-        writer.writeLine(String.format("Enterprise_Boundary(enterprise, \"%s\") {", enterpriseName));
-        writer.indent();
-    }
-
-    @Override
-    protected void endEnterpriseBoundary(ModelView view, IndentingWriter writer) {
-        writer.outdent();
-        writer.writeLine("}");
-        writer.writeLine();
-    }
-
-    @Override
     protected void startGroupBoundary(ModelView view, String group, IndentingWriter writer) {
         groupId++;
         String groupName = group;

@@ -2,7 +2,8 @@
 
 ## v5.0.0 (unreleased)
 
-- structurizr-java: Fixes https://github.com/structurizr/java/issues/437 (Make ComponentFinder.run() not fail on empty Set<DiscoveredComponent>).
+- structurizr-core: Removes support for deprecated enterprise and location concepts.
+- structurizr-component: Fixes https://github.com/structurizr/java/issues/437 (Make ComponentFinder.run() not fail on empty Set<DiscoveredComponent>).
 - structurizr-dsl: Adds support for `iconPosition` on element styles (options are `Top`, `Bottom`, `Left`).
 - structurizr-dsl: Adds support for defining element and relationship styles for light and dark mode.
 - structurizr-dsl: Adds a `Bucket` shape.
@@ -16,6 +17,7 @@
 - structurizr-dsl: PlantUML, Mermaid, and Kroki image views can now be defined by an inline source block.
 - structurizr-dsl: Constants and variables are inherited when extending a DSL workspace.
 - structurizr-dsl: DSL source is only stored in the JSON workspace when the DSL is deemed as "portable" (i.e. no files, plugins, scripts).
+- structurizr-export: Removes support for deprecated enterprise and location concepts.
 - structurizr-import: Adds support for `plantuml.inline`, `mermaid.inline`, and `kroki.inline` properties to inline the resulting PNG/SVG file into the workspace.
 - structurizr-inspection: Adds a way to disable inspections via a workspace property named `structurizr.inspection` (`false` to disable).
 - structurizr-inspection: Default inspector adds a summary of error/warning/info/ignore counts as workspace properties.

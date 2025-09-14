@@ -147,26 +147,6 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
     }
 
     @Override
-    protected void startEnterpriseBoundary(ModelView view, String enterpriseName, IndentingWriter writer) {
-        if (!renderAsSequenceDiagram(view)) {
-            writer.writeLine(String.format("rectangle \"%s\" <<enterprise>> {", enterpriseName));
-            writer.indent();
-            writer.writeLine("skinparam RectangleBorderColor<<enterprise>> #444444");
-            writer.writeLine("skinparam RectangleFontColor<<enterprise>> #444444");
-            writer.writeLine();
-        }
-    }
-
-    @Override
-    protected void endEnterpriseBoundary(ModelView view, IndentingWriter writer) {
-        if (!renderAsSequenceDiagram(view)) {
-            writer.outdent();
-            writer.writeLine("}");
-            writer.writeLine();
-        }
-    }
-
-    @Override
     protected void startGroupBoundary(ModelView view, String group, IndentingWriter writer) {
         groupId++;
         String groupName = group;

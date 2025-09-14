@@ -602,9 +602,6 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
     protected abstract void writeHeader(ModelView view, IndentingWriter writer);
     protected abstract void writeFooter(ModelView view, IndentingWriter writer);
 
-    protected abstract void startEnterpriseBoundary(ModelView view, String enterpriseName, IndentingWriter writer);
-    protected abstract void endEnterpriseBoundary(ModelView view, IndentingWriter writer);
-
     protected abstract void startGroupBoundary(ModelView view, String group, IndentingWriter writer);
     protected abstract void endGroupBoundary(ModelView view, IndentingWriter writer);
 
