@@ -2,6 +2,7 @@ package com.structurizr.dsl;
 
 import com.structurizr.export.mermaid.MermaidDiagramExporter;
 import com.structurizr.export.plantuml.StructurizrPlantUMLExporter;
+import com.structurizr.importer.diagrams.image.ImageImporter;
 import com.structurizr.importer.diagrams.kroki.KrokiImporter;
 import com.structurizr.importer.diagrams.mermaid.MermaidImporter;
 import com.structurizr.importer.diagrams.plantuml.PlantUMLImporter;
@@ -12,6 +13,7 @@ import com.structurizr.view.ModelView;
 import com.structurizr.view.View;
 
 import java.io.File;
+import java.net.URL;
 
 final class ImageViewContentParser extends AbstractParser {
 
@@ -193,15 +195,13 @@ final class ImageViewContentParser extends AbstractParser {
 
                 try {
                     if (Url.isUrl(source)) {
-                        context.getView().setContent(source);
-                        context.getView().setTitle(source.substring(source.lastIndexOf("/")+1));
+                        new ImageImporter().importDiagram(context.getView(), source);
                     } else {
                         if (!restricted) {
                             File file = new File(dslFile.getParentFile(), source);
                             if (file.exists()) {
                                 context.setDslPortable(false);
-                                context.getView().setContent(ImageUtils.getImageAsDataUri(file));
-                                context.getView().setTitle(file.getName());
+                                new ImageImporter().importDiagram(context.getView(), file);
                             } else {
                                 throw new RuntimeException("The file at " + file.getAbsolutePath() + " does not exist");
                             }
