@@ -54,20 +54,6 @@ class DOTExporter extends AbstractDiagramExporter {
     }
 
     @Override
-    protected void startEnterpriseBoundary(ModelView view, String enterpriseName, IndentingWriter writer) {
-        writer.writeLine("subgraph cluster_enterprise {");
-        writer.indent();
-        writer.writeLine("margin=" + CLUSTER_INTERNAL_MARGIN);
-    }
-
-    @Override
-    protected void endEnterpriseBoundary(ModelView view, IndentingWriter writer) {
-        writer.outdent();
-        writer.writeLine("}");
-        writer.writeLine();
-    }
-
-    @Override
     protected void startGroupBoundary(ModelView view, String group, IndentingWriter writer) {
         writer.writeLine("subgraph \"cluster_group_" + (groupId++) + "\" {");
 
