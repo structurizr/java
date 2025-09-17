@@ -34,6 +34,15 @@ public final class Workspace extends AbstractWorkspace implements Documentable {
      * Creates a new workspace.
      *
      * @param name          the name of the workspace
+     */
+    public Workspace(String name) {
+        this(name, "");
+    }
+
+    /**
+     * Creates a new workspace.
+     *
+     * @param name          the name of the workspace
      * @param description   a short description
      */
     public Workspace(String name, String description) {
