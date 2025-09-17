@@ -31,17 +31,19 @@ public class DOTExporterTests {
         Diagram diagram = exporter.export(view);
 
         String content = diagram.getDefinition();
-        assertEquals("digraph {\n" +
-                "  compound=true\n" +
-                "  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]\n" +
-                "  node [shape=box,fontsize=5]\n" +
-                "  edge []\n" +
-                "\n" +
-                "  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label=\"1: Box 1\"]\n" +
-                "  2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label=\"2: Box 2\"]\n" +
-                "\n" +
-                "  1 -> 2 [id=3]\n" +
-                "}", content);
+        assertEquals("""
+                digraph {
+                  compound=true
+                  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]
+                  node [shape=box,fontsize=5]
+                  edge []
+                
+                  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label="1: Box 1"]
+                  2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label="2: Box 2"]
+                
+                  1 -> 2 [id=3]
+                
+                }""", content);
     }
 
     @Test
@@ -60,18 +62,20 @@ public class DOTExporterTests {
         Diagram diagram = exporter.export(view);
 
         String content = diagram.getDefinition();
-        assertEquals("digraph {\n" +
-                "  compound=true\n" +
-                "  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]\n" +
-                "  node [shape=box,fontsize=5]\n" +
-                "  edge []\n" +
-                "\n" +
-                "  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label=\"1: Box\"]\n" +
-                "  2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label=\"2: User\"]\n" +
-                "  3 [width=1.500000,height=1.000000,fixedsize=true,id=3,label=\"3: Software System\"]\n" +
-                "\n" +
-                "  2 -> 3 [id=4]\n" +
-                "}", content);
+        assertEquals("""
+                digraph {
+                  compound=true
+                  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]
+                  node [shape=box,fontsize=5]
+                  edge []
+                
+                  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label="1: Box"]
+                  2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label="2: User"]
+                  3 [width=1.500000,height=1.000000,fixedsize=true,id=3,label="3: Software System"]
+                
+                  2 -> 3 [id=4]
+                
+                }""", content);
     }
 
     @Test
@@ -92,26 +96,28 @@ public class DOTExporterTests {
         Diagram diagram = exporter.export(view);
 
         String content = diagram.getDefinition();
-        assertEquals("digraph {\n" +
-                "  compound=true\n" +
-                "  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]\n" +
-                "  node [shape=box,fontsize=5]\n" +
-                "  edge []\n" +
-                "\n" +
-                "  subgraph \"cluster_group_1\" {\n" +
-                "    margin=25\n" +
-                "    2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label=\"2: User\"]\n" +
-                "  }\n" +
-                "\n" +
-                "  subgraph \"cluster_group_2\" {\n" +
-                "    margin=25\n" +
-                "    3 [width=1.500000,height=1.000000,fixedsize=true,id=3,label=\"3: Software System\"]\n" +
-                "  }\n" +
-                "\n" +
-                "  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label=\"1: Box\"]\n" +
-                "\n" +
-                "  2 -> 3 [id=4]\n" +
-                "}", content);
+        assertEquals("""
+                digraph {
+                  compound=true
+                  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]
+                  node [shape=box,fontsize=5]
+                  edge []
+                
+                  subgraph "cluster_group_1" {
+                    margin=25
+                    2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label="2: User"]
+                  }
+                
+                  subgraph "cluster_group_2" {
+                    margin=25
+                    3 [width=1.500000,height=1.000000,fixedsize=true,id=3,label="3: Software System"]
+                  }
+                
+                  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label="1: Box"]
+                
+                  2 -> 3 [id=4]
+                
+                }""", content);
     }
 
     @Test
@@ -194,18 +200,20 @@ public class DOTExporterTests {
         Diagram diagram = exporter.export(view);
 
         String content = diagram.getDefinition();
-        assertEquals("digraph {\n" +
-                "  compound=true\n" +
-                "  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]\n" +
-                "  node [shape=box,fontsize=5]\n" +
-                "  edge []\n" +
-                "\n" +
-                "  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label=\"1: Box\"]\n" +
-                "  2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label=\"2: User\"]\n" +
-                "  3 [width=1.500000,height=1.000000,fixedsize=true,id=3,label=\"3: Software System\"]\n" +
-                "\n" +
-                "  2 -> 3 [id=4]\n" +
-                "}", content);
+        assertEquals("""
+                digraph {
+                  compound=true
+                  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]
+                  node [shape=box,fontsize=5]
+                  edge []
+                
+                  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label="1: Box"]
+                  2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label="2: User"]
+                  3 [width=1.500000,height=1.000000,fixedsize=true,id=3,label="3: Software System"]
+                
+                  2 -> 3 [id=4]
+                
+                }""", content);
     }
 
     @Test
@@ -224,18 +232,20 @@ public class DOTExporterTests {
         Diagram diagram = exporter.export(view);
 
         String content = diagram.getDefinition();
-        assertEquals("digraph {\n" +
-                "  compound=true\n" +
-                "  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]\n" +
-                "  node [shape=box,fontsize=5]\n" +
-                "  edge []\n" +
-                "\n" +
-                "  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label=\"1: Box\"]\n" +
-                "  2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label=\"2: User\"]\n" +
-                "  3 [width=1.500000,height=1.000000,fixedsize=true,id=3,label=\"3: Software System\"]\n" +
-                "\n" +
-                "  2 -> 3 [id=4]\n" +
-                "}", content);
+        assertEquals("""
+                digraph {
+                  compound=true
+                  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]
+                  node [shape=box,fontsize=5]
+                  edge []
+                
+                  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label="1: Box"]
+                  2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label="2: User"]
+                  3 [width=1.500000,height=1.000000,fixedsize=true,id=3,label="3: Software System"]
+                
+                  2 -> 3 [id=4]
+                
+                }""", content);
     }
 
 
@@ -257,26 +267,28 @@ public class DOTExporterTests {
         Diagram diagram = exporter.export(view);
 
         String content = diagram.getDefinition();
-        assertEquals("digraph {\n" +
-                "  compound=true\n" +
-                "  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]\n" +
-                "  node [shape=box,fontsize=5]\n" +
-                "  edge []\n" +
-                "\n" +
-                "  subgraph \"cluster_group_1\" {\n" +
-                "    margin=25\n" +
-                "    2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label=\"2: User\"]\n" +
-                "  }\n" +
-                "\n" +
-                "  subgraph \"cluster_group_2\" {\n" +
-                "    margin=25\n" +
-                "    3 [width=1.500000,height=1.000000,fixedsize=true,id=3,label=\"3: Software System\"]\n" +
-                "  }\n" +
-                "\n" +
-                "  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label=\"1: Box\"]\n" +
-                "\n" +
-                "  2 -> 3 [id=4]\n" +
-                "}", content);
+        assertEquals("""
+                digraph {
+                  compound=true
+                  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]
+                  node [shape=box,fontsize=5]
+                  edge []
+                
+                  subgraph "cluster_group_1" {
+                    margin=25
+                    2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label="2: User"]
+                  }
+                
+                  subgraph "cluster_group_2" {
+                    margin=25
+                    3 [width=1.500000,height=1.000000,fixedsize=true,id=3,label="3: Software System"]
+                  }
+                
+                  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label="1: Box"]
+                
+                  2 -> 3 [id=4]
+                
+                }""", content);
     }
 
     @Test
@@ -301,32 +313,34 @@ public class DOTExporterTests {
         Diagram diagram = exporter.export(view);
 
         String content = diagram.getDefinition();
-        assertEquals("digraph {\n" +
-                "  compound=true\n" +
-                "  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]\n" +
-                "  node [shape=box,fontsize=5]\n" +
-                "  edge []\n" +
-                "\n" +
-                "  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label=\"1: Box\"]\n" +
-                "\n" +
-                "  subgraph cluster_2 {\n" +
-                "    margin=25\n" +
-                "    subgraph \"cluster_group_1\" {\n" +
-                "      margin=25\n" +
-                "      3 [width=1.500000,height=1.000000,fixedsize=true,id=3,label=\"3: Container 1\"]\n" +
-                "    }\n" +
-                "\n" +
-                "    subgraph \"cluster_group_2\" {\n" +
-                "      margin=25\n" +
-                "      4 [width=1.500000,height=1.000000,fixedsize=true,id=4,label=\"4: Container 2\"]\n" +
-                "    }\n" +
-                "\n" +
-                "    5 [width=1.500000,height=1.000000,fixedsize=true,id=5,label=\"5: Container 3\"]\n" +
-                "  }\n" +
-                "\n" +
-                "  3 -> 4 [id=6]\n" +
-                "  4 -> 5 [id=7]\n" +
-                "}", content);
+        assertEquals("""
+                digraph {
+                  compound=true
+                  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]
+                  node [shape=box,fontsize=5]
+                  edge []
+                
+                  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label="1: Box"]
+                
+                  subgraph cluster_2 {
+                    margin=25
+                    subgraph "cluster_group_1" {
+                      margin=25
+                      3 [width=1.500000,height=1.000000,fixedsize=true,id=3,label="3: Container 1"]
+                    }
+                
+                    subgraph "cluster_group_2" {
+                      margin=25
+                      4 [width=1.500000,height=1.000000,fixedsize=true,id=4,label="4: Container 2"]
+                    }
+                
+                    5 [width=1.500000,height=1.000000,fixedsize=true,id=5,label="5: Container 3"]
+                  }
+                
+                  3 -> 4 [id=6]
+                  4 -> 5 [id=7]
+                
+                }""", content);
     }
 
     @Test
@@ -351,32 +365,34 @@ public class DOTExporterTests {
         Diagram diagram = exporter.export(view);
 
         String content = diagram.getDefinition();
-        assertEquals("digraph {\n" +
-                "  compound=true\n" +
-                "  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]\n" +
-                "  node [shape=box,fontsize=5]\n" +
-                "  edge []\n" +
-                "\n" +
-                "  subgraph cluster_1 {\n" +
-                "    margin=25\n" +
-                "    subgraph \"cluster_group_1\" {\n" +
-                "      margin=25\n" +
-                "      2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label=\"2: Container 1\"]\n" +
-                "    }\n" +
-                "\n" +
-                "  }\n" +
-                "\n" +
-                "  subgraph cluster_3 {\n" +
-                "    margin=25\n" +
-                "    subgraph \"cluster_group_2\" {\n" +
-                "      margin=25\n" +
-                "      4 [width=1.500000,height=1.000000,fixedsize=true,id=4,label=\"4: Container 2\"]\n" +
-                "    }\n" +
-                "\n" +
-                "  }\n" +
-                "\n" +
-                "  2 -> 4 [id=5]\n" +
-                "}", content);
+        assertEquals("""
+                digraph {
+                  compound=true
+                  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]
+                  node [shape=box,fontsize=5]
+                  edge []
+                
+                  subgraph cluster_1 {
+                    margin=25
+                    subgraph "cluster_group_1" {
+                      margin=25
+                      2 [width=1.500000,height=1.000000,fixedsize=true,id=2,label="2: Container 1"]
+                    }
+                
+                  }
+                
+                  subgraph cluster_3 {
+                    margin=25
+                    subgraph "cluster_group_2" {
+                      margin=25
+                      4 [width=1.500000,height=1.000000,fixedsize=true,id=4,label="4: Container 2"]
+                    }
+                
+                  }
+                
+                  2 -> 4 [id=5]
+                
+                }""", content);
     }
 
     @Test
@@ -402,32 +418,34 @@ public class DOTExporterTests {
         Diagram diagram = exporter.export(view);
 
         String content = diagram.getDefinition();
-        assertEquals("digraph {\n" +
-                "  compound=true\n" +
-                "  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]\n" +
-                "  node [shape=box,fontsize=5]\n" +
-                "  edge []\n" +
-                "\n" +
-                "  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label=\"1: Box\"]\n" +
-                "\n" +
-                "  subgraph cluster_3 {\n" +
-                "    margin=25\n" +
-                "    subgraph \"cluster_group_1\" {\n" +
-                "      margin=25\n" +
-                "      5 [width=1.500000,height=1.000000,fixedsize=true,id=5,label=\"5: Component 2\"]\n" +
-                "    }\n" +
-                "\n" +
-                "    subgraph \"cluster_group_2\" {\n" +
-                "      margin=25\n" +
-                "      6 [width=1.500000,height=1.000000,fixedsize=true,id=6,label=\"6: Component 3\"]\n" +
-                "    }\n" +
-                "\n" +
-                "    4 [width=1.500000,height=1.000000,fixedsize=true,id=4,label=\"4: Component 1\"]\n" +
-                "  }\n" +
-                "\n" +
-                "  4 -> 5 [id=7]\n" +
-                "  5 -> 6 [id=8]\n" +
-                "}", content);
+        assertEquals("""
+                digraph {
+                  compound=true
+                  graph [splines=polyline,rankdir=TB,ranksep=1.0,nodesep=1.0,fontsize=5]
+                  node [shape=box,fontsize=5]
+                  edge []
+                
+                  1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label="1: Box"]
+                
+                  subgraph cluster_3 {
+                    margin=25
+                    subgraph "cluster_group_1" {
+                      margin=25
+                      5 [width=1.500000,height=1.000000,fixedsize=true,id=5,label="5: Component 2"]
+                    }
+                
+                    subgraph "cluster_group_2" {
+                      margin=25
+                      6 [width=1.500000,height=1.000000,fixedsize=true,id=6,label="6: Component 3"]
+                    }
+                
+                    4 [width=1.500000,height=1.000000,fixedsize=true,id=4,label="4: Component 1"]
+                  }
+                
+                  4 -> 5 [id=7]
+                  5 -> 6 [id=8]
+                
+                }""", content);
     }
 
     @Test
@@ -486,9 +504,7 @@ public class DOTExporterTests {
         DOTExporter exporter = new DOTExporter(RankDirection.LeftRight, 300, 300);
         Diagram diagram = exporter.export(workspace.getViews().getDeploymentViews().iterator().next());
 
-        String content = diagram.getDefinition();
-
-        String expectedResult = """
+        assertEquals("""
                 digraph {
                   compound=true
                   graph [splines=polyline,rankdir=LR,ranksep=1.0,nodesep=1.0,fontsize=5]
@@ -526,9 +542,8 @@ public class DOTExporterTests {
                   11 -> 14 [id=15]
                   7 -> 8 [id=16]
                   8 -> 11 [id=17]
-                }""";
-
-        assertEquals(expectedResult, content);
+                
+                }""", diagram.getDefinition());
     }
 
 }

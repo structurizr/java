@@ -11,109 +11,991 @@ import org.junit.jupiter.api.Test;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTests {
 
     @Test
-    public void test_BigBankPlcExample() throws Exception {
-        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-36141-workspace.json"));
-        workspace.getViews().getConfiguration().addProperty(StructurizrPlantUMLExporter.PLANTUML_ANIMATION_PROPERTY, "true");
+    public void systemLandscapeView_NoStyling_Light() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem a = workspace.getModel().addSoftwareSystem("A", "Description.");
+        SoftwareSystem b = workspace.getModel().addSoftwareSystem("B", "Description.");
+        a.uses(b, "Description", "Technology");
 
-        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
+        view.addDefaultElements();
 
-        Collection<Diagram> diagrams = exporter.export(workspace);
-        assertEquals(7, diagrams.size());
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter(ColorScheme.Light);
+        Diagram diagram = exporter.export(view);
 
-        Diagram diagram = diagrams.stream().filter(d -> d.getKey().equals("SystemLandscape")).findFirst().get();
-        String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/36141-SystemLandscape.puml"));
-        assertEquals(expected, diagram.getDefinition());
-        assertEquals(0, diagram.getFrames().size());
+        assertEquals("""
+                @startuml
+                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                </style>
+                
+                rectangle "==A\\n<size:16>[Software System]</size>\\n\\nDescription." <<Element-RWxlbWVudA==>> as A
+                rectangle "==B\\n<size:16>[Software System]</size>\\n\\nDescription." <<Element-RWxlbWVudA==>> as B
+                
+                A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "Description\\n<size:16>[Technology]</size>"
+                
+                @enduml""", diagram.getDefinition());
 
-        //assertEquals("", diagram.getLegend().getDefinition());
-
-        diagram = diagrams.stream().filter(d -> d.getKey().equals("SystemContext")).findFirst().get();
-        expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/36141-SystemContext.puml"));
-        assertEquals(expected, diagram.getDefinition());
-        assertEquals(4, diagram.getFrames().size());
-
-        diagram = diagrams.stream().filter(d -> d.getKey().equals("Containers")).findFirst().get();
-        expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/36141-Containers.puml"));
-        assertEquals(expected, diagram.getDefinition());
-        assertEquals(6, diagram.getFrames().size());
-
-        diagram = diagrams.stream().filter(d -> d.getKey().equals("Components")).findFirst().get();
-        expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/36141-Components.puml"));
-        assertEquals(expected, diagram.getDefinition());
-        assertEquals(4, diagram.getFrames().size());
-
-        diagram = diagrams.stream().filter(d -> d.getKey().equals("SignIn")).findFirst().get();
-        expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/36141-SignIn.puml"));
-        assertEquals(expected, diagram.getDefinition());
-        assertEquals(6, diagram.getFrames().size());
-
-        diagram = diagrams.stream().filter(md -> md.getKey().equals("DevelopmentDeployment")).findFirst().get();
-        expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/36141-DevelopmentDeployment.puml"));
-        assertEquals(expected, diagram.getDefinition());
-        assertEquals(3, diagram.getFrames().size());
-
-        diagram = diagrams.stream().filter(md -> md.getKey().equals("LiveDeployment")).findFirst().get();
-        expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/36141-LiveDeployment.puml"));
-        assertEquals(expected, diagram.getDefinition());
-        assertEquals(5, diagram.getFrames().size());
-
-        // and the sequence diagram version
-        workspace.getViews().getConfiguration().addProperty(exporter.PLANTUML_SEQUENCE_DIAGRAM_PROPERTY, "true");
-        diagrams = exporter.export(workspace);
-        diagram = diagrams.stream().filter(d -> d.getKey().equals("SignIn")).findFirst().get();
-        expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/36141-SignIn-sequence.puml"));
-        assertEquals(expected, diagram.getDefinition());
+        assertEquals("""
+                @startuml
+                
+                set separator none
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // transparent element for relationships in legend
+                  .Element-Transparent {
+                    BackgroundColor: transparent;
+                    LineColor: transparent;
+                    FontColor: transparent;
+                  }
+                </style>
+                
+                rectangle "==Element" <<Element-RWxlbWVudA==>>
+                
+                rectangle "." <<.Element-Transparent>> as 1
+                1 --> 1 <<Relationship-UmVsYXRpb25zaGlw>> : "Relationship"
+                
+                @enduml""", diagram.getLegend().getDefinition());
     }
 
     @Test
-    @Tag("IntegrationTest")
-    public void test_AmazonWebServicesExample() throws Exception {
-        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-54915-workspace.json"));
-        ThemeUtils.loadThemes(workspace);
-        workspace.getViews().getDeploymentViews().iterator().next().enableAutomaticLayout(AutomaticLayout.RankDirection.LeftRight, 300, 300);
+    public void systemLandscapeView_NoStyling_Dark() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem a = workspace.getModel().addSoftwareSystem("A", "Description.");
+        SoftwareSystem b = workspace.getModel().addSoftwareSystem("B", "Description.");
+        a.uses(b, "Description", "Technology");
 
-        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
-        Collection<Diagram> diagrams = exporter.export(workspace);
-        assertEquals(1, diagrams.size());
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
+        view.addDefaultElements();
 
-        Diagram diagram = diagrams.stream().findFirst().get();
-        String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/54915-AmazonWebServicesDeployment.puml"));
-        assertEquals(expected, diagram.getDefinition());
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter(ColorScheme.Dark);
+        Diagram diagram = exporter.export(view);
 
-        expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/54915-AmazonWebServicesDeployment-Legend.puml"));
-        assertEquals(expected, diagram.getLegend().getDefinition());
+        assertEquals("""
+                @startuml
+                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #111111;
+                    FontColor: #cccccc;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #111111;
+                    LineColor: #cccccc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #cccccc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #cccccc;
+                    FontColor: #cccccc;
+                    FontSize: 24;
+                  }
+                </style>
+                
+                rectangle "==A\\n<size:16>[Software System]</size>\\n\\nDescription." <<Element-RWxlbWVudA==>> as A
+                rectangle "==B\\n<size:16>[Software System]</size>\\n\\nDescription." <<Element-RWxlbWVudA==>> as B
+                
+                A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "Description\\n<size:16>[Technology]</size>"
+                
+                @enduml""", diagram.getDefinition());
+
+        assertEquals("""
+                @startuml
+                
+                set separator none
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #111111;
+                    FontColor: #cccccc;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #111111;
+                    LineColor: #cccccc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #cccccc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #cccccc;
+                    FontColor: #cccccc;
+                    FontSize: 24;
+                  }
+                  // transparent element for relationships in legend
+                  .Element-Transparent {
+                    BackgroundColor: transparent;
+                    LineColor: transparent;
+                    FontColor: transparent;
+                  }
+                </style>
+                
+                rectangle "==Element" <<Element-RWxlbWVudA==>>
+                
+                rectangle "." <<.Element-Transparent>> as 1
+                1 --> 1 <<Relationship-UmVsYXRpb25zaGlw>> : "Relationship"
+                
+                @enduml""", diagram.getLegend().getDefinition());
     }
 
     @Test
-    public void test_GroupsExample() throws Exception {
+    public void systemContextView_NoStyling_Light() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem a = workspace.getModel().addSoftwareSystem("A", "Description.");
+        SoftwareSystem b = workspace.getModel().addSoftwareSystem("B", "Description.");
+        a.uses(b, "Description", "Technology");
+
+        SystemContextView view = workspace.getViews().createSystemContextView(a, "key", "Description");
+        view.addDefaultElements();
+
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter(ColorScheme.Light);
+        Diagram diagram = exporter.export(view);
+
+        assertEquals("""
+                @startuml
+                title <size:24>A - System Context</size>\\n<size:24>Description</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                </style>
+                
+                rectangle "==A\\n<size:16>[Software System]</size>\\n\\nDescription." <<Element-RWxlbWVudA==>> as A
+                rectangle "==B\\n<size:16>[Software System]</size>\\n\\nDescription." <<Element-RWxlbWVudA==>> as B
+                
+                A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "Description\\n<size:16>[Technology]</size>"
+                
+                @enduml""", diagram.getDefinition());
+    }
+
+    @Test
+    public void containerView_NoStyling_Light() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem a = workspace.getModel().addSoftwareSystem("Software System A", "Description.");
+        Container container1 = a.addContainer("Container 1", "Description", "Technology");
+        Container container2 = a.addContainer("Container 2", "Description", "Technology");
+        container1.uses(container2, "Description", "Technology");
+
+        ContainerView view = workspace.getViews().createContainerView(a, "key", "Description");
+        view.addDefaultElements();
+
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter(ColorScheme.Light);
+        Diagram diagram = exporter.export(view);
+
+        assertEquals("""
+                @startuml
+                title <size:24>Software System A - Containers</size>\\n<size:24>Description</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // Software System A
+                  .Boundary-U29mdHdhcmUgU3lzdGVtIEE= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Software System A\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIEE=>> {
+                  rectangle "==Container 1\\n<size:16>[Container: Technology]</size>\\n\\nDescription" <<Element-RWxlbWVudA==>> as SoftwareSystemA.Container1
+                  rectangle "==Container 2\\n<size:16>[Container: Technology]</size>\\n\\nDescription" <<Element-RWxlbWVudA==>> as SoftwareSystemA.Container2
+                }
+                
+                SoftwareSystemA.Container1 --> SoftwareSystemA.Container2 <<Relationship-UmVsYXRpb25zaGlw>> : "Description\\n<size:16>[Technology]</size>"
+                
+                @enduml""", diagram.getDefinition());
+    }
+
+    @Test
+    public void componentView_NoStyling_Light() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem a = workspace.getModel().addSoftwareSystem("Software System", "Description.");
+        Container container = a.addContainer("Container", "Description", "Technology");
+        Component component1 = container.addComponent("Component 1", "Description", "Technology");
+        Component component2 = container.addComponent("Component 2", "Description", "Technology");
+        component1.uses(component2, "Description", "Technology");
+
+        ComponentView view = workspace.getViews().createComponentView(container, "key", "Description");
+        view.addDefaultElements();
+
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter(ColorScheme.Light);
+        Diagram diagram = exporter.export(view);
+
+        assertEquals("""
+                @startuml
+                title <size:24>Software System - Container - Components</size>\\n<size:24>Description</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // Container
+                  .Boundary-Q29udGFpbmVy {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Container\\n<size:16>[Container: Technology]</size>" <<Boundary-Q29udGFpbmVy>> {
+                  rectangle "==Component 1\\n<size:16>[Component: Technology]</size>\\n\\nDescription" <<Element-RWxlbWVudA==>> as SoftwareSystem.Container.Component1
+                  rectangle "==Component 2\\n<size:16>[Component: Technology]</size>\\n\\nDescription" <<Element-RWxlbWVudA==>> as SoftwareSystem.Container.Component2
+                }
+                
+                SoftwareSystem.Container.Component1 --> SoftwareSystem.Container.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "Description\\n<size:16>[Technology]</size>"
+                
+                @enduml""", diagram.getDefinition());
+    }
+
+    @Test
+    public void deploymentView_NoStyling_Light() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
+        DeploymentNode node1 = workspace.getModel().addDeploymentNode("Node 1");
+        node1.addDeploymentNode("Node 2").add(a);
+        node1.addDeploymentNode("Node 3").addInfrastructureNode("Infrastructure Node");
+
+        DeploymentView view = workspace.getViews().createDeploymentView("deployment", "Default");
+        view.addDefaultElements();
+
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter(ColorScheme.Light);
+        Diagram diagram = exporter.export(view);
+
+        assertEquals("""
+                @startuml
+                title <size:24>Deployment - Default</size>\\n<size:24>Default</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                </style>
+                
+                rectangle "Node 1\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Default.Node1 {
+                  rectangle "Node 2\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Default.Node1.Node2 {
+                    rectangle "==A\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Default.Node1.Node2.A_1
+                  }
+                
+                  rectangle "Node 3\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Default.Node1.Node3 {
+                    rectangle "==Infrastructure Node\\n<size:16>[Infrastructure Node]</size>" <<Element-RWxlbWVudA==>> as Default.Node1.Node3.InfrastructureNode
+                  }
+                
+                }
+                
+                @enduml""", diagram.getDefinition());
+    }
+
+    @Test
+    public void dynamicView_CollaborationStyle_NoStyling_Light() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
+        SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
+
+        a.uses(b, "Uses");
+
+        DynamicView view = workspace.getViews().createDynamicView("key", "Description");
+        view.add(a, b);
+
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
+        Diagram diagram = exporter.export(view);
+
+        assertEquals("""
+                @startuml
+                title <size:24>Dynamic</size>\\n<size:24>Description</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                </style>
+                
+                rectangle "==A\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as A
+                rectangle "==B\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as B
+                
+                A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
+                
+                @enduml""", diagram.getDefinition());
+    }
+
+    @Test
+    public void dynamicView_CollaborationStyle_Frames() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
+        SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
+        SoftwareSystem c = workspace.getModel().addSoftwareSystem("C");
+
+        a.uses(b, "Uses");
+        b.uses(c, "Uses");
+
+        DynamicView view = workspace.getViews().createDynamicView("key", "Description");
+        view.add(a, b);
+        view.add(b, c);
+        view.addProperty(StructurizrPlantUMLExporter.PLANTUML_ANIMATION_PROPERTY, "true");
+
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
+        List<Diagram> frames = exporter.export(view).getFrames();
+        assertEquals(2, frames.size());
+
+        assertEquals("""
+                @startuml
+                title <size:24>Dynamic</size>\\n<size:24>Description</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                </style>
+                
+                rectangle "==A\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as A
+                rectangle "==B\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as B
+                rectangle "==C\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as C
+                hide C
+                
+                A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
+                B --> C <<Relationship-UmVsYXRpb25zaGlw>> : "2. Uses"
+                
+                @enduml""", frames.get(0).getDefinition());
+
+        assertEquals("""
+                @startuml
+                title <size:24>Dynamic</size>\\n<size:24>Description</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                </style>
+                
+                rectangle "==A\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as A
+                hide A
+                rectangle "==B\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as B
+                rectangle "==C\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as C
+
+                A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
+                B --> C <<Relationship-UmVsYXRpb25zaGlw>> : "2. Uses"
+                
+                @enduml""", frames.get(1).getDefinition());
+    }
+
+    @Test
+    public void dynamicView_SequenceStyle_NoStyling_Light() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
+        SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
+
+        a.uses(b, "Uses");
+
+        DynamicView view = workspace.getViews().createDynamicView("key", "Description");
+        view.add(a, b);
+        view.addProperty(StructurizrPlantUMLExporter.PLANTUML_SEQUENCE_DIAGRAM_PROPERTY, "true");
+
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
+        Diagram diagram = exporter.export(view);
+
+        assertEquals("""
+                @startuml
+                title <size:24>Dynamic</size>\\n<size:24>Description</size>
+                
+                set separator none
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                </style>
+                
+                participant "A\\n<size:16>[Software System]</size>" as A <<Element-RWxlbWVudA==>> #ffffff
+                participant "B\\n<size:16>[Software System]</size>" as B <<Element-RWxlbWVudA==>> #ffffff
+
+                A -> B <<Relationship-UmVsYXRpb25zaGlw>> : Uses
+                
+                @enduml""", diagram.getDefinition());
+
+        assertEquals("""
+                @startuml
+                
+                set separator none
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // transparent element for relationships in legend
+                  .Element-Transparent {
+                    BackgroundColor: transparent;
+                    LineColor: transparent;
+                    FontColor: transparent;
+                  }
+                </style>
+                
+                rectangle "==Element" <<Element-RWxlbWVudA==>>
+                
+                rectangle "." <<.Element-Transparent>> as 1
+                1 --> 1 <<Relationship-UmVsYXRpb25zaGlw>> : "Relationship"
+                
+                @enduml""", diagram.getLegend().getDefinition());
+    }
+
+    @Test
+    public void groups() throws Exception {
         Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/groups.json"));
-        ThemeUtils.loadThemes(workspace);
 
         StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
         Collection<Diagram> diagrams = exporter.export(workspace);
         assertEquals(3, diagrams.size());
 
         Diagram diagram = diagrams.stream().filter(md -> md.getKey().equals("SystemLandscape")).findFirst().get();
-        String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/groups-SystemLandscape.puml"));
-        assertEquals(expected, diagram.getDefinition());
+        assertEquals("""
+                @startuml
+                title <size:24>System Landscape</size>
+                
+                set separator none
+                top to bottom direction
+                skinparam ranksep 60
+                skinparam nodesep 30
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // Group 1
+                  .Group-R3JvdXAgMQ== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Group 2
+                  .Group-R3JvdXAgMg== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Group 2/Group 3
+                  .Group-R3JvdXAgMi9Hcm91cCAz {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
+                  rectangle "==B\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as B
+                }
+                
+                rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
+                  rectangle "==C\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as C
+                    rectangle "Group 3" <<Group-R3JvdXAgMi9Hcm91cCAz>> as groupR3JvdXAgMi9Hcm91cCAz {
+                      rectangle "==D\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as D
+                    }
+                
+                }
+                
+                rectangle "==A\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as A
+                
+                B --> C <<Relationship-UmVsYXRpb25zaGlw>> : ""
+                C --> D <<Relationship-UmVsYXRpb25zaGlw>> : ""
+                A --> B <<Relationship-UmVsYXRpb25zaGlw>> : ""
+                
+                @enduml""", diagram.getDefinition());
 
         diagram = diagrams.stream().filter(md -> md.getKey().equals("Containers")).findFirst().get();
-        expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/groups-Containers.puml"));
-        assertEquals(expected, diagram.getDefinition());
+        assertEquals("""
+                @startuml
+                title <size:24>D - Containers</size>
+                
+                set separator none
+                top to bottom direction
+                skinparam ranksep 60
+                skinparam nodesep 30
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // D
+                  .Boundary-RA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Group 4
+                  .Group-R3JvdXAgNA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "==C\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as C
+                
+                rectangle "D\\n<size:16>[Software System]</size>" <<Boundary-RA==>> {
+                  rectangle "Group 4" <<Group-R3JvdXAgNA==>> as groupR3JvdXAgNA== {
+                    rectangle "==F\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as D.F
+                  }
+                
+                  rectangle "==E\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as D.E
+                }
+                
+                C --> D.E <<Relationship-UmVsYXRpb25zaGlw>> : ""
+                C --> D.F <<Relationship-UmVsYXRpb25zaGlw>> : ""
+                
+                @enduml""", diagram.getDefinition());
 
         diagram = diagrams.stream().filter(md -> md.getKey().equals("Components")).findFirst().get();
-        expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/groups-Components.puml"));
-        assertEquals(expected, diagram.getDefinition());
+        assertEquals("""
+                @startuml
+                title <size:24>D - F - Components</size>
+                
+                set separator none
+                top to bottom direction
+                skinparam ranksep 60
+                skinparam nodesep 30
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // F
+                  .Boundary-Rg== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Group 5
+                  .Group-R3JvdXAgNQ== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "==C\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as C
+                
+                rectangle "F\\n<size:16>[Container]</size>" <<Boundary-Rg==>> {
+                  rectangle "Group 5" <<Group-R3JvdXAgNQ==>> as groupR3JvdXAgNQ== {
+                    rectangle "==H\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as D.F.H
+                  }
+                
+                  rectangle "==G\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as D.F.G
+                }
+                
+                C --> D.F.G <<Relationship-UmVsYXRpb25zaGlw>> : ""
+                C --> D.F.H <<Relationship-UmVsYXRpb25zaGlw>> : ""
+                
+                @enduml""", diagram.getDefinition());
     }
 
     @Test
-    public void test_NestedGroupsExample() throws Exception {
+    public void nestedGroups() {
         Workspace workspace = new Workspace("Name", "Description");
         workspace.getModel().addProperty("structurizr.groupSeparator", "/");
 
@@ -132,7 +1014,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         SoftwareSystem e = workspace.getModel().addSoftwareSystem("Department 1");
         e.setGroup("Organisation 1/Department 1");
 
-        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("SystemLandscape", "Description");
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("SystemLandscape");
         view.addAllElements();
 
         workspace.getViews().getConfiguration().getStyles().addElementStyle("Group:Organisation 1/Department 1/Team 1").color("#ff0000");
@@ -142,44 +1024,115 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Collection<Diagram> diagrams = exporter.export(workspace);
 
         Diagram diagram = diagrams.stream().filter(md -> md.getKey().equals("SystemLandscape")).findFirst().get();
-        String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/nested-groups.puml"));
-        assertEquals(expected, diagram.getDefinition());
+        assertEquals("""
+                @startuml
+                title <size:24>System Landscape</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Organisation 1
+                  .Group-T3JnYW5pc2F0aW9uIDE= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Organisation 1/Department 1
+                  .Group-T3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAx {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Organisation 1/Department 1/Team 1
+                  .Group-T3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAxL1RlYW0gMQ== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #ff0000;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Organisation 1/Department 1/Team 2
+                  .Group-T3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAxL1RlYW0gMg== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #0000ff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Organisation 2
+                  .Group-T3JnYW5pc2F0aW9uIDI= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Organisation 1" <<Group-T3JnYW5pc2F0aW9uIDE=>> as groupT3JnYW5pc2F0aW9uIDE= {
+                  rectangle "==Organisation 1\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Organisation1
+                    rectangle "Department 1" <<Group-T3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAx>> as groupT3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAx {
+                      rectangle "==Department 1\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Department1
+                        rectangle "Team 1" <<Group-T3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAxL1RlYW0gMQ==>> as groupT3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAxL1RlYW0gMQ== {
+                          rectangle "==Team 1\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Team1
+                        }
+                
+                        rectangle "Team 2" <<Group-T3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAxL1RlYW0gMg==>> as groupT3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAxL1RlYW0gMg== {
+                          rectangle "==Team 2\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Team2
+                        }
+                
+                    }
+                
+                }
+                
+                rectangle "Organisation 2" <<Group-T3JnYW5pc2F0aW9uIDI=>> as groupT3JnYW5pc2F0aW9uIDI= {
+                  rectangle "==Organisation 2\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Organisation2
+                }
+                
+                
+                @enduml""", diagram.getDefinition());
     }
 
     @Test
-    public void test_renderGroupStyles() throws Exception {
-        Workspace workspace = new Workspace("Name", "Description");
-        workspace.getModel().addPerson("User 1").setGroup("Group 1");
-        workspace.getModel().addPerson("User 2").setGroup("Group 2");
-        workspace.getModel().addPerson("User 3").setGroup("Group 3");
-
-        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "");
-        view.addDefaultElements();
-
-        workspace.getViews().getConfiguration().getStyles().addElementStyle("Group:Group 1").color("#111111").icon("https://example.com/icon1.png");
-        workspace.getViews().getConfiguration().getStyles().addElementStyle("Group:Group 2").color("#222222").icon("https://example.com/icon2.png");
-
-        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter() {
-            @Override
-            protected double calculateIconScale(String iconUrl) {
-                return 1.0;
-            }
-        };
-
-        Diagram diagram = exporter.export(view);
-        String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/group-styles-1.puml"));
-        assertEquals(expected, diagram.getDefinition());
-
-        workspace.getViews().getConfiguration().getStyles().addElementStyle("Group").color("#aabbcc");
-
-        diagram = exporter.export(view);
-        expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/group-styles-2.puml"));
-        assertEquals(expected, diagram.getDefinition());
-    }
-
-    @Test
-    public void test_renderContainerDiagramWithExternalContainers() {
-        Workspace workspace = new Workspace("Name", "Description");
+    public void containerDiagramWithExternalContainers() {
+        Workspace workspace = new Workspace("Name");
         SoftwareSystem softwareSystem1 = workspace.getModel().addSoftwareSystem("Software System 1");
         Container container1 = softwareSystem1.addContainer("Container 1");
         SoftwareSystem softwareSystem2 = workspace.getModel().addSoftwareSystem("Software System 2");
@@ -192,59 +1145,79 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         containerView.add(container2);
 
         Diagram diagram = new StructurizrPlantUMLExporter().export(containerView);
-        assertEquals("@startuml\n" +
-                "set separator none\n" +
-                "title Software System 1 - Containers\n" +
-                "\n" +
-                "top to bottom direction\n" +
-                "\n" +
-                "skinparam {\n" +
-                "  arrowFontSize 10\n" +
-                "  defaultTextAlignment center\n" +
-                "  wrapWidth 200\n" +
-                "  maxMessageSize 100\n" +
-                "}\n" +
-                "\n" +
-                "hide stereotype\n" +
-                "\n" +
-                "skinparam rectangle<<SoftwareSystem1.Container1>> {\n" +
-                "  BackgroundColor #dddddd\n" +
-                "  FontColor #000000\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "skinparam rectangle<<SoftwareSystem2.Container2>> {\n" +
-                "  BackgroundColor #dddddd\n" +
-                "  FontColor #000000\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "skinparam rectangle<<SoftwareSystem1>> {\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  FontColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "skinparam rectangle<<SoftwareSystem2>> {\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  FontColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "\n" +
-                "rectangle \"Software System 1\\n<size:10>[Software System]</size>\" <<SoftwareSystem1>> {\n" +
-                "  rectangle \"==Container 1\\n<size:10>[Container]</size>\" <<SoftwareSystem1.Container1>> as SoftwareSystem1.Container1\n" +
-                "}\n" +
-                "\n" +
-                "rectangle \"Software System 2\\n<size:10>[Software System]</size>\" <<SoftwareSystem2>> {\n" +
-                "  rectangle \"==Container 2\\n<size:10>[Container]</size>\" <<SoftwareSystem2.Container2>> as SoftwareSystem2.Container2\n" +
-                "}\n" +
-                "\n" +
-                "SoftwareSystem1.Container1 .[#707070,thickness=2].> SoftwareSystem2.Container2 : \"<color:#707070>Uses\"\n" +
-                "@enduml", diagram.getDefinition());
+        assertEquals("""
+                @startuml
+                title <size:24>Software System 1 - Containers</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // Software System 1
+                  .Boundary-U29mdHdhcmUgU3lzdGVtIDE= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Software System 2
+                  .Boundary-U29mdHdhcmUgU3lzdGVtIDI= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Software System 1\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDE=>> {
+                  rectangle "==Container 1\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1
+                }
+                
+                rectangle "Software System 2\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDI=>> {
+                  rectangle "==Container 2\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2
+                }
+                
+                SoftwareSystem1.Container1 --> SoftwareSystem2.Container2 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                
+                @enduml""", diagram.getDefinition());
     }
 
     @Test
-    public void test_renderComponentDiagramWithExternalComponents() throws Exception {
-        Workspace workspace = new Workspace("Name", "Description");
+    public void componentDiagramWithExternalComponents() {
+        Workspace workspace = new Workspace("Name");
 
         SoftwareSystem softwareSystem1 = workspace.getModel().addSoftwareSystem("Software System 1");
         Container container1 = softwareSystem1.addContainer("Container 1");
@@ -264,13 +1237,81 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         componentView.add(component3);
 
         Diagram diagram = new StructurizrPlantUMLExporter().export(componentView);
-        String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/component-view-with-external-components-1.puml"));
-        assertEquals(expected, diagram.getDefinition());
+        assertEquals("""
+                @startuml
+                title <size:24>Software System 1 - Container 1 - Components</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // Container 1
+                  .Boundary-Q29udGFpbmVyIDE= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Container 2
+                  .Boundary-Q29udGFpbmVyIDI= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Container 1\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDE=>> {
+                  rectangle "==Component 1\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component1
+                  rectangle "==Component 2\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component2
+                }
+                
+                rectangle "Container 2\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDI=>> {
+                  rectangle "==Component 3\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2.Component3
+                }
+                
+                SoftwareSystem1.Container1.Component1 --> SoftwareSystem1.Container1.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                SoftwareSystem1.Container1.Component2 --> SoftwareSystem2.Container2.Component3 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                
+                @enduml""", diagram.getDefinition());
     }
 
     @Test
-    public void test_renderComponentDiagramWithExternalComponentsAndSoftwareSystemBoundariesIncluded() throws Exception {
-        Workspace workspace = new Workspace("Name", "Description");
+    public void componentDiagramWithExternalComponentsAndSoftwareSystemBoundariesIncluded() {
+        Workspace workspace = new Workspace("Name");
 
         SoftwareSystem softwareSystem1 = workspace.getModel().addSoftwareSystem("Software System 1");
         Container container1 = softwareSystem1.addContainer("Container 1");
@@ -291,13 +1332,109 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         componentView.addProperty("structurizr.softwareSystemBoundaries", "true");
 
         Diagram diagram = new StructurizrPlantUMLExporter().export(componentView);
-        String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/component-view-with-external-components-2.puml"));
-        assertEquals(expected, diagram.getDefinition());
+        assertEquals("""
+                @startuml
+                title <size:24>Software System 1 - Container 1 - Components</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // Container 1
+                  .Boundary-Q29udGFpbmVyIDE= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Container 2
+                  .Boundary-Q29udGFpbmVyIDI= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Software System 1
+                  .Boundary-U29mdHdhcmUgU3lzdGVtIDE= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Software System 2
+                  .Boundary-U29mdHdhcmUgU3lzdGVtIDI= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Software System 1\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDE=>> {
+                    rectangle "Container 1\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDE=>> {
+                      rectangle "==Component 1\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component1
+                      rectangle "==Component 2\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component2
+                    }
+                
+                  }
+                
+                rectangle "Software System 2\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDI=>> {
+                    rectangle "Container 2\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDI=>> {
+                      rectangle "==Component 3\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2.Component3
+                    }
+                
+                  }
+                
+                SoftwareSystem1.Container1.Component1 --> SoftwareSystem1.Container1.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                SoftwareSystem1.Container1.Component2 --> SoftwareSystem2.Container2.Component3 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                
+                @enduml""", diagram.getDefinition());
     }
 
     @Test
-    public void test_renderDynamicDiagramWithExternalContainers() {
-        Workspace workspace = new Workspace("Name", "Description");
+    public void dynamicView_ExternalContainers() {
+        Workspace workspace = new Workspace("Name");
         SoftwareSystem softwareSystem1 = workspace.getModel().addSoftwareSystem("Software System 1");
         Container container1 = softwareSystem1.addContainer("Container 1");
         SoftwareSystem softwareSystem2 = workspace.getModel().addSoftwareSystem("Software System 2");
@@ -309,59 +1446,79 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         dynamicView.add(container1, container2);
 
         Diagram diagram = new StructurizrPlantUMLExporter().export(dynamicView);
-        assertEquals("@startuml\n" +
-                "set separator none\n" +
-                "title Software System 1 - Dynamic\n" +
-                "\n" +
-                "top to bottom direction\n" +
-                "\n" +
-                "skinparam {\n" +
-                "  arrowFontSize 10\n" +
-                "  defaultTextAlignment center\n" +
-                "  wrapWidth 200\n" +
-                "  maxMessageSize 100\n" +
-                "}\n" +
-                "\n" +
-                "hide stereotype\n" +
-                "\n" +
-                "skinparam rectangle<<SoftwareSystem1.Container1>> {\n" +
-                "  BackgroundColor #dddddd\n" +
-                "  FontColor #000000\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "skinparam rectangle<<SoftwareSystem2.Container2>> {\n" +
-                "  BackgroundColor #dddddd\n" +
-                "  FontColor #000000\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "skinparam rectangle<<SoftwareSystem1>> {\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  FontColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "skinparam rectangle<<SoftwareSystem2>> {\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  FontColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "\n" +
-                "rectangle \"Software System 1\\n<size:10>[Software System]</size>\" <<SoftwareSystem1>> {\n" +
-                "  rectangle \"==Container 1\\n<size:10>[Container]</size>\" <<SoftwareSystem1.Container1>> as SoftwareSystem1.Container1\n" +
-                "}\n" +
-                "\n" +
-                "rectangle \"Software System 2\\n<size:10>[Software System]</size>\" <<SoftwareSystem2>> {\n" +
-                "  rectangle \"==Container 2\\n<size:10>[Container]</size>\" <<SoftwareSystem2.Container2>> as SoftwareSystem2.Container2\n" +
-                "}\n" +
-                "\n" +
-                "SoftwareSystem1.Container1 .[#707070,thickness=2].> SoftwareSystem2.Container2 : \"<color:#707070>1. Uses\"\n" +
-                "@enduml", diagram.getDefinition());
+        assertEquals("""
+                @startuml
+                title <size:24>Software System 1 - Dynamic</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // Software System 1
+                  .Boundary-U29mdHdhcmUgU3lzdGVtIDE= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Software System 2
+                  .Boundary-U29mdHdhcmUgU3lzdGVtIDI= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Software System 1\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDE=>> {
+                  rectangle "==Container 1\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1
+                }
+                
+                rectangle "Software System 2\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDI=>> {
+                  rectangle "==Container 2\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2
+                }
+                
+                SoftwareSystem1.Container1 --> SoftwareSystem2.Container2 <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
+                
+                @enduml""", diagram.getDefinition());
     }
 
     @Test
-    public void test_renderDynamicDiagramWithExternalComponents() throws Exception {
-        Workspace workspace = new Workspace("Name", "Description");
+    public void dynamicView_ExternalComponents() {
+        Workspace workspace = new Workspace("Name");
 
         SoftwareSystem softwareSystem1 = workspace.getModel().addSoftwareSystem("Software System 1");
         Container container1 = softwareSystem1.addContainer("Container 1");
@@ -380,13 +1537,81 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         dynamicView.add(component2, component3);
 
         Diagram diagram = new StructurizrPlantUMLExporter().export(dynamicView);
-        String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/dynamic-view-with-external-components-1.puml"));
-        assertEquals(expected, diagram.getDefinition());
+        assertEquals("""
+                @startuml
+                title <size:24>Container 1 - Dynamic</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // Container 1
+                  .Boundary-Q29udGFpbmVyIDE= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Container 2
+                  .Boundary-Q29udGFpbmVyIDI= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Container 1\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDE=>> {
+                  rectangle "==Component 1\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component1
+                  rectangle "==Component 2\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component2
+                }
+                
+                rectangle "Container 2\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDI=>> {
+                  rectangle "==Component 3\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2.Component3
+                }
+                
+                SoftwareSystem1.Container1.Component1 --> SoftwareSystem1.Container1.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
+                SoftwareSystem1.Container1.Component2 --> SoftwareSystem2.Container2.Component3 <<Relationship-UmVsYXRpb25zaGlw>> : "2. Uses"
+                
+                @enduml""", diagram.getDefinition());
     }
 
     @Test
-    public void test_renderDynamicDiagramWithExternalComponentsAndSoftwareSystemBoundariesIncluded() throws Exception {
-        Workspace workspace = new Workspace("Name", "Description");
+    public void dynamicView_ExternalComponentsAndSoftwareSystemBoundariesIncluded() {
+        Workspace workspace = new Workspace("Name");
 
         SoftwareSystem softwareSystem1 = workspace.getModel().addSoftwareSystem("Software System 1");
         Container container1 = softwareSystem1.addContainer("Container 1");
@@ -406,341 +1631,401 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         dynamicView.addProperty("structurizr.softwareSystemBoundaries", "true");
 
         Diagram diagram = new StructurizrPlantUMLExporter().export(dynamicView);
-        String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/dynamic-view-with-external-components-2.puml"));
-        assertEquals(expected, diagram.getDefinition());
+        assertEquals("""
+                @startuml
+                title <size:24>Container 1 - Dynamic</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // Container 1
+                  .Boundary-Q29udGFpbmVyIDE= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Container 2
+                  .Boundary-Q29udGFpbmVyIDI= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Software System 1
+                  .Boundary-U29mdHdhcmUgU3lzdGVtIDE= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Software System 2
+                  .Boundary-U29mdHdhcmUgU3lzdGVtIDI= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Software System 1\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDE=>> {
+                    rectangle "Container 1\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDE=>> {
+                      rectangle "==Component 1\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component1
+                      rectangle "==Component 2\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component2
+                    }
+                
+                  }
+                
+                rectangle "Software System 2\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDI=>> {
+                    rectangle "Container 2\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDI=>> {
+                      rectangle "==Component 3\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2.Component3
+                    }
+                
+                  }
+                
+                SoftwareSystem1.Container1.Component1 --> SoftwareSystem1.Container1.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
+                SoftwareSystem1.Container1.Component2 --> SoftwareSystem2.Container2.Component3 <<Relationship-UmVsYXRpb25zaGlw>> : "2. Uses"
+                
+                @enduml""", diagram.getDefinition());
     }
 
     @Test
-    public void test_renderDiagramWithElementUrls() {
-        Workspace workspace = new Workspace("Name", "Description");
+    public void elementUrls() {
+        Workspace workspace = new Workspace("Name");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System");
         softwareSystem.setUrl("https://structurizr.com");
 
-        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key");
         view.addDefaultElements();
 
         Diagram diagram = new StructurizrPlantUMLExporter().export(view);
-        assertTrue(diagram.getDefinition().contains("rectangle \"==Software System\\n<size:10>[Software System]</size>\" <<SoftwareSystem>> as SoftwareSystem [[https://structurizr.com]]\n"));
+        assertTrue(diagram.getDefinition().contains("as SoftwareSystem [[https://structurizr.com]]"));
     }
 
     @Test
-    public void test_renderDiagramWithIncludes() {
-        Workspace workspace = new Workspace("Name", "Description");
-        workspace.getModel().addSoftwareSystem("Software System");
+    public void elementInstanceUrl() {
+        Workspace workspace = new Workspace("Name");
+        SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
+        a.setUrl("https://example.com/url1");
+        SoftwareSystemInstance aInstance = workspace.getModel().addDeploymentNode("Node").add(a);
 
-        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
-        view.addDefaultElements();
+        DeploymentView view = workspace.getViews().createDeploymentView("deployment", "Default");
+        view.add(aInstance);
 
-        view.getViewSet().getConfiguration().addProperty(StructurizrPlantUMLExporter.PLANTUML_INCLUDES_PROPERTY, "styles.puml");
+        assertTrue(new StructurizrPlantUMLExporter().export(view).getDefinition().contains("as Default.Node.A_1 [[https://example.com/url1]]"));
 
-        Diagram diagram = new StructurizrPlantUMLExporter().export(view);
-        assertTrue(diagram.getDefinition().contains("!include styles.puml\n"));
+        aInstance.setUrl("https://example.com/url2");
+        assertTrue(new StructurizrPlantUMLExporter().export(view).getDefinition().contains("as Default.Node.A_1 [[https://example.com/url2]]"));
     }
 
     @Test
-    public void test_renderDiagramWithNewLineCharacterInElementName() {
-        Workspace workspace = new Workspace("Name", "Description");
+    public void newLineCharacterInElementName() {
+        Workspace workspace = new Workspace("Name");
         workspace.getModel().addSoftwareSystem("Software\nSystem");
 
-        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key");
         view.addDefaultElements();
 
         Diagram diagram = new StructurizrPlantUMLExporter().export(view);
-        assertTrue(diagram.getDefinition().contains("rectangle \"==Software\\nSystem\\n<size:10>[Software System]</size>\" <<SoftwareSystem>> as SoftwareSystem"));
+        assertEquals("""
+                @startuml
+                title <size:24>System Landscape</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                </style>
+                
+                rectangle "==Software\\nSystem\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem
+                
+                @enduml""", diagram.getDefinition());
     }
 
     @Test
-    public void test_renderCustomView() {
-        Workspace workspace = new Workspace("Name", "Description");
+    public void customView() {
+        Workspace workspace = new Workspace("Name");
         Model model = workspace.getModel();
 
         CustomElement a = model.addCustomElement("A");
         CustomElement b = model.addCustomElement("B", "Custom", "Description");
         a.uses(b, "Uses");
 
-        CustomView view = workspace.getViews().createCustomView("key", "Title", "Description");
+        CustomView view = workspace.getViews().createCustomView("key", "Title");
         view.addDefaultElements();
 
         Diagram diagram = new StructurizrPlantUMLExporter().export(view);
-        assertEquals("@startuml\nset separator none\n" +
-                "title Title\n" +
-                "\n" +
-                "top to bottom direction\n" +
-                "\n" +
-                "skinparam {\n" +
-                "  arrowFontSize 10\n" +
-                "  defaultTextAlignment center\n" +
-                "  wrapWidth 200\n" +
-                "  maxMessageSize 100\n" +
-                "}\n" +
-                "\n" +
-                "hide stereotype\n" +
-                "\n" +
-                "skinparam rectangle<<1>> {\n" +
-                "  BackgroundColor #dddddd\n" +
-                "  FontColor #000000\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "skinparam rectangle<<2>> {\n" +
-                "  BackgroundColor #dddddd\n" +
-                "  FontColor #000000\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "\n" +
-                "rectangle \"==A\" <<1>> as 1\n" +
-                "rectangle \"==B\\n<size:10>[Custom]</size>\\n\\nDescription\" <<2>> as 2\n" +
-                "\n" +
-                "1 .[#707070,thickness=2].> 2 : \"<color:#707070>Uses\"\n" +
-                "@enduml", diagram.getDefinition());
+        assertEquals("""
+                @startuml
+                title <size:24>Title</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                </style>
+                
+                rectangle "==A" <<Element-RWxlbWVudA==>> as 1
+                rectangle "==B\\n<size:16>[Custom]</size>\\n\\nDescription" <<Element-RWxlbWVudA==>> as 2
+                
+                1 --> 2 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                
+                @enduml""", diagram.getDefinition());
     }
 
     @Test
     void renderWorkspaceWithUnicodeElementName() {
-        Workspace workspace = new Workspace("Name", "Description");
+        Workspace workspace = new Workspace("Name");
         workspace.getModel().addPerson("Пользователь");
         workspace.getViews().createSystemLandscapeView("key", "Description").addDefaultElements();
 
         String diagramDefinition = new StructurizrPlantUMLExporter().export(workspace).stream().findFirst().get().getDefinition();
 
-        assertTrue(diagramDefinition.contains("skinparam rectangle<<Пользователь>> {"));
-        assertTrue(diagramDefinition.contains("rectangle \"==Пользователь\\n<size:10>[Person]</size>\" <<Пользователь>> as Пользователь"));
-    }
-
-    @Test
-    public void testLegend() {
-        Workspace workspace = new Workspace("Name", "Description");
-        Model model = workspace.getModel();
-
-        CustomElement a = model.addCustomElement("A");
-        a.addTags("Tag 1");
-        CustomElement b = model.addCustomElement("B");
-        b.addTags("Tag 2");
-        a.uses(b, "...").addTags("Tag 3");
-        b.uses(a, "...").addTags("Tag 4");
-
-        CustomView view = workspace.getViews().createCustomView("key", "Title", "Description");
-        view.addDefaultElements();
-
-        Diagram diagram = new StructurizrPlantUMLExporter().export(view);
-        assertEquals("@startuml\nset separator none\n" +
-                "\n" +
-                "skinparam {\n" +
-                "  shadowing false\n" +
-                "  arrowFontSize 15\n" +
-                "  defaultTextAlignment center\n" +
-                "  wrapWidth 100\n" +
-                "  maxMessageSize 100\n" +
-                "}\n" +
-                "hide stereotype\n" +
-                "\n" +
-                "skinparam rectangle<<_transparent>> {\n" +
-                "  BorderColor transparent\n" +
-                "  BackgroundColor transparent\n" +
-                "  FontColor transparent\n" +
-                "}\n" +
-                "\n" +
-                "skinparam rectangle<<1>> {\n" +
-                "  BackgroundColor #dddddd\n" +
-                "  FontColor #000000\n" +
-                "  BorderColor #9a9a9a\n" +
-                "}\n" +
-                "rectangle \"==Element\" <<1>>\n" +
-                "\n" +
-                "rectangle \".\" <<_transparent>> as 2\n" +
-                "2 .[#707070,thickness=2].> 2 : \"<color:#707070>Relationship\"\n" +
-                "\n" +
-                "\n" +
-                "@enduml", diagram.getLegend().getDefinition());
-
-        workspace.getViews().getConfiguration().getStyles().addElementStyle("Tag 1").background("#ff0000").color("#ffffff").shape(Shape.RoundedBox);
-        workspace.getViews().getConfiguration().getStyles().addElementStyle("Tag 2").background("#00ff00").color("#ffffff").shape(Shape.Hexagon);
-        workspace.getViews().getConfiguration().getStyles().addRelationshipStyle("Tag 3").color("#0000ff");
-        workspace.getViews().getConfiguration().getStyles().addRelationshipStyle("Tag 4").color("#ff00ff").thickness(3).style(LineStyle.Solid);
-
-        diagram = new StructurizrPlantUMLExporter().export(view);
-        assertEquals("@startuml\nset separator none\n" +
-                "\n" +
-                "skinparam {\n" +
-                "  shadowing false\n" +
-                "  arrowFontSize 15\n" +
-                "  defaultTextAlignment center\n" +
-                "  wrapWidth 100\n" +
-                "  maxMessageSize 100\n" +
-                "}\n" +
-                "hide stereotype\n" +
-                "\n" +
-                "skinparam rectangle<<_transparent>> {\n" +
-                "  BorderColor transparent\n" +
-                "  BackgroundColor transparent\n" +
-                "  FontColor transparent\n" +
-                "}\n" +
-                "\n" +
-                "skinparam rectangle<<1>> {\n" +
-                "  BackgroundColor #ff0000\n" +
-                "  FontColor #ffffff\n" +
-                "  BorderColor #b20000\n" +
-                "  roundCorner 20\n" +
-                "}\n" +
-                "rectangle \"==Tag 1\" <<1>>\n" +
-                "\n" +
-                "skinparam hexagon<<2>> {\n" +
-                "  BackgroundColor #00ff00\n" +
-                "  FontColor #ffffff\n" +
-                "  BorderColor #00b200\n" +
-                "}\n" +
-                "hexagon \"==Tag 2\" <<2>>\n" +
-                "\n" +
-                "rectangle \".\" <<_transparent>> as 3\n" +
-                "3 .[#0000ff,thickness=2].> 3 : \"<color:#0000ff>Tag 3\"\n" +
-                "\n" +
-                "rectangle \".\" <<_transparent>> as 4\n" +
-                "4 -[#ff00ff,thickness=3]-> 4 : \"<color:#ff00ff>Tag 4\"\n" +
-                "\n" +
-                "\n" +
-                "@enduml", diagram.getLegend().getDefinition());
-    }
-
-    @Test
-    public void staticDiagramsAreUnchangedWhenSequenceDiagramsAreEnabled() {
-        Workspace workspace = new Workspace("Name", "Description");
-        Model model = workspace.getModel();
-
-        model.addSoftwareSystem("Software System").setGroup("Group");
-        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
-        view.addAllElements();
-
-        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
-        Diagram diagram;
-        String expected = """
+        assertEquals("""
                 @startuml
+                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                
                 set separator none
-                title System Landscape
-                                
                 top to bottom direction
-                                
-                skinparam {
-                  arrowFontSize 10
-                  defaultTextAlignment center
-                  wrapWidth 200
-                  maxMessageSize 100
-                }
-                                
                 hide stereotype
-                                
-                skinparam rectangle<<SoftwareSystem>> {
-                  BackgroundColor #dddddd
-                  FontColor #000000
-                  BorderColor #9a9a9a
-                  shadowing false
-                }
-                                
-                rectangle "Group" <<group1>> as group1 {
-                  skinparam RectangleBorderColor<<group1>> #cccccc
-                  skinparam RectangleFontColor<<group1>> #cccccc
-                  skinparam RectangleBorderStyle<<group1>> dashed
-                                
-                  rectangle "==Software System\\n<size:10>[Software System]</size>" <<SoftwareSystem>> as SoftwareSystem
-                }
-                                
-                                
-                @enduml""";
-
-        diagram = exporter.export(view);
-        assertEquals(expected, diagram.getDefinition());
-
-        workspace.getViews().getConfiguration().addProperty(StructurizrPlantUMLExporter.PLANTUML_SEQUENCE_DIAGRAM_PROPERTY, "true");
-
-        diagram = exporter.export(view);
-        assertEquals(expected, diagram.getDefinition());
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                </style>
+                
+                rectangle "==Пользователь\\n<size:16>[Person]</size>" <<Element-RWxlbWVudA==>> as Пользователь
+                
+                @enduml""", diagramDefinition);
     }
 
     @Test
-    public void testFont() {
-        Workspace workspace = new Workspace("Name", "Description");
+    public void font() {
+        Workspace workspace = new Workspace("Name");
         workspace.getModel().addPerson("User");
-        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key");
         view.addAllElements();
         workspace.getViews().getConfiguration().getBranding().setFont(new Font("Courier"));
 
         Diagram diagram = new StructurizrPlantUMLExporter().export(view);
-        assertEquals("@startuml\nset separator none\n" +
-                "title System Landscape\n" +
-                "\n" +
-                "top to bottom direction\n" +
-                "\n" +
-                "skinparam {\n" +
-                "  arrowFontSize 10\n" +
-                "  defaultTextAlignment center\n" +
-                "  wrapWidth 200\n" +
-                "  maxMessageSize 100\n" +
-                "  defaultFontName \"Courier\"\n" +
-                "}\n" +
-                "\n" +
-                "hide stereotype\n" +
-                "\n" +
-                "skinparam rectangle<<User>> {\n" +
-                "  BackgroundColor #dddddd\n" +
-                "  FontColor #000000\n" +
-                "  BorderColor #9a9a9a\n" +
-                "  shadowing false\n" +
-                "}\n" +
-                "\n" +
-                "rectangle \"==User\\n<size:10>[Person]</size>\" <<User>> as User\n" +
-                "\n" +
-                "@enduml", diagram.getDefinition().toString());
+        assertTrue(diagram.getDefinition().contains("""
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                    FontName: Courier;
+                  }"""));
 
-        assertEquals("@startuml\nset separator none\n" +
-                "\n" +
-                "skinparam {\n" +
-                "  shadowing false\n" +
-                "  arrowFontSize 15\n" +
-                "  defaultTextAlignment center\n" +
-                "  wrapWidth 100\n" +
-                "  maxMessageSize 100\n" +
-                "  defaultFontName \"Courier\"\n" +
-                "}\n" +
-                "hide stereotype\n" +
-                "\n" +
-                "skinparam rectangle<<_transparent>> {\n" +
-                "  BorderColor transparent\n" +
-                "  BackgroundColor transparent\n" +
-                "  FontColor transparent\n" +
-                "}\n" +
-                "\n" +
-                "skinparam rectangle<<1>> {\n" +
-                "  BackgroundColor #dddddd\n" +
-                "  FontColor #000000\n" +
-                "  BorderColor #9a9a9a\n" +
-                "}\n" +
-                "rectangle \"==Element\" <<1>>\n" +
-                "\n" +
-                "\n" +
-                "@enduml", diagram.getLegend().getDefinition());
+        assertTrue(diagram.getLegend().getDefinition().contains("""
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                    FontName: Courier;
+                  }"""));
     }
 
     @Test
-    public void dynamicView_UnscopedWithGroups() throws Exception {
-        Workspace workspace = new Workspace("Name", "Description");
+    public void include() {
+        Workspace workspace = new Workspace("Name");
+        workspace.getModel().addSoftwareSystem("A");
+
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key");
+        view.addDefaultElements();
+
+        view.getViewSet().getConfiguration().addProperty(StructurizrPlantUMLExporter.PLANTUML_INCLUDES_PROPERTY, "styles.puml");
+
+        Diagram diagram = new StructurizrPlantUMLExporter().export(view);
+        System.out.println(diagram.getDefinition());
+        assertTrue(diagram.getDefinition().contains("!include styles.puml\n"));
+    }
+
+    @Test
+    public void dynamicView_UnscopedWithGroups() {
+        Workspace workspace = new Workspace("Name");
         SoftwareSystem softwareSystemA = workspace.getModel().addSoftwareSystem("A");
         softwareSystemA.setGroup("Group 1");
         SoftwareSystem softwareSystemB = workspace.getModel().addSoftwareSystem("B");
         softwareSystemB.setGroup("Group 2");
         softwareSystemA.uses(softwareSystemB, "Uses");
 
-        DynamicView view = workspace.getViews().createDynamicView("key", "Description");
+        DynamicView view = workspace.getViews().createDynamicView("key");
         view.add(softwareSystemA, softwareSystemB);
 
         StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
         Diagram diagram = exporter.export(view);
-        String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/dynamic-view-unscoped-with-groups.puml"));
-        assertEquals(expected, diagram.getDefinition());
+        assertEquals("""
+                @startuml
+                title <size:24>Dynamic</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // Group 1
+                  .Group-R3JvdXAgMQ== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Group 2
+                  .Group-R3JvdXAgMg== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
+                  rectangle "==A\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as A
+                }
+                
+                rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
+                  rectangle "==B\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as B
+                }
+                
+                
+                A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
+                
+                @enduml""", diagram.getDefinition());
     }
 
     @Test
-    public void dynamicView_SoftwareSystemScopedWithGroups() throws Exception {
-        Workspace workspace = new Workspace("Name", "Description");
+    public void dynamicView_SoftwareSystemScopedWithGroups() {
+        Workspace workspace = new Workspace("Name");
         SoftwareSystem softwareSystemA = workspace.getModel().addSoftwareSystem("A");
         Container containerA = softwareSystemA.addContainer("A");
         containerA.setGroup("Group 1");
@@ -749,18 +2034,112 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         containerB.setGroup("Group 2");
         containerA.uses(containerB, "Uses");
 
-        DynamicView view = workspace.getViews().createDynamicView(softwareSystemA, "key", "Description");
+        DynamicView view = workspace.getViews().createDynamicView(softwareSystemA, "key");
         view.add(containerA, containerB);
 
         StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
         Diagram diagram = exporter.export(view);
-        String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/dynamic-view-software-system-scoped-with-groups.puml"));
-        assertEquals(expected, diagram.getDefinition());
+        assertEquals("""
+                @startuml
+                title <size:24>A - Dynamic</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // A
+                  .Boundary-QQ== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // B
+                  .Boundary-Qg== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Group 1
+                  .Group-R3JvdXAgMQ== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Group 2
+                  .Group-R3JvdXAgMg== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "A\\n<size:16>[Software System]</size>" <<Boundary-QQ==>> {
+                  rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
+                    rectangle "==A\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as A.A
+                  }
+                
+                }
+                
+                rectangle "B\\n<size:16>[Software System]</size>" <<Boundary-Qg==>> {
+                  rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
+                    rectangle "==B\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as B.B
+                  }
+                
+                }
+                
+                A.A --> B.B <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
+                
+                @enduml""", diagram.getDefinition());
     }
 
     @Test
-    public void dynamicView_ContainerScopedWithGroups() throws Exception {
-        Workspace workspace = new Workspace("Name", "Description");
+    public void dynamicView_ContainerScopedWithGroups() {
+        Workspace workspace = new Workspace("Name");
         SoftwareSystem softwareSystemA = workspace.getModel().addSoftwareSystem("A");
         Container containerA = softwareSystemA.addContainer("A");
         Component componentA = containerA.addComponent("A");
@@ -771,91 +2150,107 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         componentB.setGroup("Group 2");
         componentA.uses(componentB, "Uses");
 
-        DynamicView view = workspace.getViews().createDynamicView(containerA, "key", "Description");
+        DynamicView view = workspace.getViews().createDynamicView(containerA, "key");
         view.add(componentA, componentB);
 
         StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
         Diagram diagram = exporter.export(view);
-        String expected = readFile(new File("./src/test/java/com/structurizr/export/plantuml/structurizr/dynamic-view-container-scoped-with-groups.puml"));
-        assertEquals(expected, diagram.getDefinition());
-    }
-
-    @Test
-    public void test_writeContainerViewWithGroupedElements_WithAndWithoutAGroupSeparator() {
-        Workspace workspace = new Workspace("Name", "");
-        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "");
-        Container container1 = softwareSystem.addContainer("Container 1");
-        container1.setGroup("Group 1");
-        Container container2 = softwareSystem.addContainer("Container 2");
-        container2.setGroup("Group 2");
-
-        ContainerView view = workspace.getViews().createContainerView(softwareSystem, "Containers", "");
-        view.addAllElements();
-
-        String expectedResult = """
+        assertEquals("""
                 @startuml
+                title <size:24>A - Dynamic</size>
+                
                 set separator none
-                title Software System - Containers
-                                
                 top to bottom direction
-                                
-                skinparam {
-                  arrowFontSize 10
-                  defaultTextAlignment center
-                  wrapWidth 200
-                  maxMessageSize 100
-                }
-                                
                 hide stereotype
-                                
-                skinparam rectangle<<SoftwareSystem.Container1>> {
-                  BackgroundColor #dddddd
-                  FontColor #000000
-                  BorderColor #9a9a9a
-                  shadowing false
-                }
-                skinparam rectangle<<SoftwareSystem.Container2>> {
-                  BackgroundColor #dddddd
-                  FontColor #000000
-                  BorderColor #9a9a9a
-                  shadowing false
-                }
-                skinparam rectangle<<SoftwareSystem>> {
-                  BorderColor #9a9a9a
-                  FontColor #9a9a9a
-                  shadowing false
-                }
-                                
-                rectangle "Software System\\n<size:10>[Software System]</size>" <<SoftwareSystem>> {
-                  rectangle "Group 1" <<group1>> as group1 {
-                    skinparam RectangleBorderColor<<group1>> #cccccc
-                    skinparam RectangleFontColor<<group1>> #cccccc
-                    skinparam RectangleBorderStyle<<group1>> dashed
-                                
-                    rectangle "==Container 1\\n<size:10>[Container]</size>" <<SoftwareSystem.Container1>> as SoftwareSystem.Container1
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
                   }
-                                
-                  rectangle "Group 2" <<group2>> as group2 {
-                    skinparam RectangleBorderColor<<group2>> #cccccc
-                    skinparam RectangleFontColor<<group2>> #cccccc
-                    skinparam RectangleBorderStyle<<group2>> dashed
-                                
-                    rectangle "==Container 2\\n<size:10>[Container]</size>" <<SoftwareSystem.Container2>> as SoftwareSystem.Container2
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
                   }
-                                
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // A
+                  .Boundary-QQ== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // B
+                  .Boundary-Qg== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Group 1
+                  .Group-R3JvdXAgMQ== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Group 2
+                  .Group-R3JvdXAgMg== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "A\\n<size:16>[Container]</size>" <<Boundary-QQ==>> {
+                  rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
+                    rectangle "==A\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as A.A.A
+                  }
+                
                 }
-                                
-                @enduml""";
-
-        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
-        Diagram diagram = exporter.export(view);
-        assertEquals(expectedResult, diagram.getDefinition());
-
-        // this should be the same
-        workspace.getModel().addProperty("structurizr.groupSeparator", "/");
-        exporter = new StructurizrPlantUMLExporter();
-        diagram = exporter.export(view);
-        assertEquals(expectedResult, diagram.getDefinition());
+                
+                rectangle "B\\n<size:16>[Container]</size>" <<Boundary-Qg==>> {
+                  rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
+                    rectangle "==B\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as B.B.B
+                  }
+                
+                }
+                
+                A.A.A --> B.B.B <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
+                
+                @enduml""", diagram.getDefinition());
     }
 
     @Test
@@ -873,212 +2268,907 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         softwareSystemInstance.setGroup("Group 2");
         infrastructureNode2.setGroup("Group 2");
 
-        DeploymentView view = workspace.getViews().createDeploymentView("key", "Description");
+        DeploymentView view = workspace.getViews().createDeploymentView("key");
         view.add(infrastructureNode1);
         view.add(infrastructureNode2);
         view.add(softwareSystemInstance);
 
-        String expectedResult = """
-                @startuml
-                set separator none
-                title Deployment - Default
-                                
-                top to bottom direction
-                                
-                skinparam {
-                  arrowFontSize 10
-                  defaultTextAlignment center
-                  wrapWidth 200
-                  maxMessageSize 100
-                }
-                                
-                hide stereotype
-                                
-                skinparam rectangle<<Default.Server1.InfrastructureNode1>> {
-                  BackgroundColor #dddddd
-                  FontColor #000000
-                  BorderColor #9a9a9a
-                  shadowing false
-                }
-                skinparam rectangle<<Default.Server1.InfrastructureNode2>> {
-                  BackgroundColor #dddddd
-                  FontColor #000000
-                  BorderColor #9a9a9a
-                  shadowing false
-                }
-                skinparam rectangle<<Default.Server1>> {
-                  BackgroundColor #ffffff
-                  FontColor #000000
-                  BorderColor #888888
-                  shadowing false
-                }
-                skinparam rectangle<<Default.Server1.SoftwareSystem_1>> {
-                  BackgroundColor #dddddd
-                  FontColor #000000
-                  BorderColor #9a9a9a
-                  shadowing false
-                }
-                                
-                rectangle "Group 1" <<group1>> as group1 {
-                  skinparam RectangleBorderColor<<group1>> #cccccc
-                  skinparam RectangleFontColor<<group1>> #cccccc
-                  skinparam RectangleBorderStyle<<group1>> dashed
-                                
-                  rectangle "Server 1\\n<size:10>[Deployment Node]</size>" <<Default.Server1>> as Default.Server1 {
-                    rectangle "Group 2" <<group2>> as group2 {
-                      skinparam RectangleBorderColor<<group2>> #cccccc
-                      skinparam RectangleFontColor<<group2>> #cccccc
-                      skinparam RectangleBorderStyle<<group2>> dashed
-                                
-                      rectangle "==Infrastructure Node 2\\n<size:10>[Infrastructure Node]</size>" <<Default.Server1.InfrastructureNode2>> as Default.Server1.InfrastructureNode2
-                      rectangle "==Software System\\n<size:10>[Software System]</size>" <<Default.Server1.SoftwareSystem_1>> as Default.Server1.SoftwareSystem_1
-                    }
-                                
-                    rectangle "==Infrastructure Node 1\\n<size:10>[Infrastructure Node]</size>" <<Default.Server1.InfrastructureNode1>> as Default.Server1.InfrastructureNode1
-                  }
-                                
-                }
-                                
-                @enduml""";
-
         StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
         Diagram diagram = exporter.export(view);
-        assertEquals(expectedResult, diagram.getDefinition());
-
-        // this should be the same
-        workspace.getModel().addProperty("structurizr.groupSeparator", "/");
-        exporter = new StructurizrPlantUMLExporter();
-        diagram = exporter.export(view);
-        assertEquals(expectedResult, diagram.getDefinition());
+        assertEquals("""
+                @startuml
+                title <size:24>Deployment - Default</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Group 1
+                  .Group-R3JvdXAgMQ== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Group 2
+                  .Group-R3JvdXAgMg== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
+                  rectangle "Server 1\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Default.Server1 {
+                    rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
+                      rectangle "==Infrastructure Node 2\\n<size:16>[Infrastructure Node]</size>" <<Element-RWxlbWVudA==>> as Default.Server1.InfrastructureNode2
+                      rectangle "==Software System\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Default.Server1.SoftwareSystem_1
+                    }
+                
+                    rectangle "==Infrastructure Node 1\\n<size:16>[Infrastructure Node]</size>" <<Element-RWxlbWVudA==>> as Default.Server1.InfrastructureNode1
+                  }
+                
+                }
+                
+                @enduml""", diagram.getDefinition());
     }
 
     @Test
-    public void test_ElementInstanceUrl() {
-        Workspace workspace = new Workspace("Name", "Description");
-        SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
-        a.setUrl("https://example.com/url1");
-        SoftwareSystemInstance aInstance = workspace.getModel().addDeploymentNode("Node").add(a);
-
-        DeploymentView view = workspace.getViews().createDeploymentView("deployment", "Default");
-        view.add(aInstance);
-
-        assertEquals("""
-@startuml
-set separator none
-title Deployment - Default
-
-top to bottom direction
-
-skinparam {
-  arrowFontSize 10
-  defaultTextAlignment center
-  wrapWidth 200
-  maxMessageSize 100
-}
-
-hide stereotype
-
-skinparam rectangle<<Default.Node.A_1>> {
-  BackgroundColor #dddddd
-  FontColor #000000
-  BorderColor #9a9a9a
-  shadowing false
-}
-skinparam rectangle<<Default.Node>> {
-  BackgroundColor #ffffff
-  FontColor #000000
-  BorderColor #888888
-  shadowing false
-}
-
-rectangle "Node\\n<size:10>[Deployment Node]</size>" <<Default.Node>> as Default.Node {
-  rectangle "==A\\n<size:10>[Software System]</size>" <<Default.Node.A_1>> as Default.Node.A_1 [[https://example.com/url1]]
-}
-
-@enduml""", new StructurizrPlantUMLExporter().export(view).getDefinition());
-
-        aInstance.setUrl("https://example.com/url2");
-        assertEquals("""
-@startuml
-set separator none
-title Deployment - Default
-
-top to bottom direction
-
-skinparam {
-  arrowFontSize 10
-  defaultTextAlignment center
-  wrapWidth 200
-  maxMessageSize 100
-}
-
-hide stereotype
-
-skinparam rectangle<<Default.Node.A_1>> {
-  BackgroundColor #dddddd
-  FontColor #000000
-  BorderColor #9a9a9a
-  shadowing false
-}
-skinparam rectangle<<Default.Node>> {
-  BackgroundColor #ffffff
-  FontColor #000000
-  BorderColor #888888
-  shadowing false
-}
-
-rectangle "Node\\n<size:10>[Deployment Node]</size>" <<Default.Node>> as Default.Node {
-  rectangle "==A\\n<size:10>[Software System]</size>" <<Default.Node.A_1>> as Default.Node.A_1 [[https://example.com/url2]]
-}
-
-@enduml""", new StructurizrPlantUMLExporter().export(view).getDefinition());
-
-    }
-
-    @Test
-    void groupAndSoftwareSystemNameAreTheSame() {
-        Workspace workspace = new Workspace("Name", "Description");
+    void light_group() {
+        Workspace workspace = new Workspace("Name");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
         softwareSystem.setGroup("Name");
 
-        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key", "Description");
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key");
         view.add(softwareSystem);
 
         StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
         Diagram diagram = exporter.export(view);
         assertEquals("""
                 @startuml
+                title <size:24>System Landscape</size>
+                
                 set separator none
-                title System Landscape
-                                
                 top to bottom direction
-                                
-                skinparam {
-                  arrowFontSize 10
-                  defaultTextAlignment center
-                  wrapWidth 200
-                  maxMessageSize 100
-                }
-                                
                 hide stereotype
-                                
-                skinparam rectangle<<Name>> {
-                  BackgroundColor #dddddd
-                  FontColor #000000
-                  BorderColor #9a9a9a
-                  shadowing false
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Name
+                  .Group-TmFtZQ== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Name" <<Group-TmFtZQ==>> as groupTmFtZQ== {
+                  rectangle "==Name\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Name
                 }
-                                
-                rectangle "Name" <<group1>> as group1 {
-                  skinparam RectangleBorderColor<<group1>> #cccccc
-                  skinparam RectangleFontColor<<group1>> #cccccc
-                  skinparam RectangleBorderStyle<<group1>> dashed
-                                
-                  rectangle "==Name\\n<size:10>[Software System]</size>" <<Name>> as Name
-                }
-                                
-                                
+                
+                
                 @enduml""", diagram.getDefinition());
+    }
+
+    @Test
+    void dark_group() {
+        Workspace workspace = new Workspace("Name");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
+        softwareSystem.setGroup("Name");
+
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key");
+        view.add(softwareSystem);
+
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter(ColorScheme.Dark);
+        Diagram diagram = exporter.export(view);
+        assertEquals("""
+                @startuml
+                title <size:24>System Landscape</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #111111;
+                    FontColor: #cccccc;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #111111;
+                    LineColor: #cccccc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #cccccc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Name
+                  .Group-TmFtZQ== {
+                    BackgroundColor: #111111;
+                    LineColor: #cccccc;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #cccccc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Name" <<Group-TmFtZQ==>> as groupTmFtZQ== {
+                  rectangle "==Name\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Name
+                }
+                
+                
+                @enduml""", diagram.getDefinition());
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    public void amazonWebServicesExample_Light() throws Exception {
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/amazon-web-services.json"));
+        ThemeUtils.loadThemes(workspace);
+
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter(ColorScheme.Light);
+        Collection<Diagram> diagrams = exporter.export(workspace);
+        assertEquals(1, diagrams.size());
+
+        Diagram diagram = diagrams.stream().findFirst().get();
+        assertEquals("""
+                @startuml
+                title <size:24>X - Deployment - Live</size>
+                
+                set separator none
+                left to right direction
+                skinparam ranksep 60
+                skinparam nodesep 30
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element,Amazon Web Services - Auto Scaling
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n {
+                    BackgroundColor: #ffffff;
+                    LineColor: #cc2264;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #cc2264;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Amazon Web Services - Cloud
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #232f3e;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #232f3e;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Amazon Web Services - EC2
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy {
+                    BackgroundColor: #ffffff;
+                    LineColor: #d86613;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #d86613;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Amazon Web Services - Elastic Load Balancing
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #693cc5;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #693cc5;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Amazon Web Services - RDS
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT {
+                    BackgroundColor: #ffffff;
+                    LineColor: #3b48cc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #3b48cc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Amazon Web Services - RDS MySQL instance
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl {
+                    BackgroundColor: #ffffff;
+                    LineColor: #3b48cc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #3b48cc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Amazon Web Services - Region
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u {
+                    BackgroundColor: #ffffff;
+                    LineColor: #147eba;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #147eba;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Amazon Web Services - Route 53
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUm91dGUgNTM= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #693cc5;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #693cc5;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Application
+                  .Element-RWxlbWVudCxBcHBsaWNhdGlvbg== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    RoundCorner: 20;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Database
+                  .Element-RWxlbWVudCxEYXRhYmFzZQ== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                </style>
+                
+                rectangle "Amazon Web Services\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ=>> as Live.AmazonWebServices {
+                  rectangle "US-East-1\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u>> as Live.AmazonWebServices.USEast1 {
+                    rectangle "Autoscaling group\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n>> as Live.AmazonWebServices.USEast1.Autoscalinggroup {
+                      rectangle "Amazon EC2 - Ubuntu server\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy>> as Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver {
+                        rectangle "==Web Application\\n<size:16>[Container: Java and Spring Boot]</size>" <<Element-RWxlbWVudCxBcHBsaWNhdGlvbg==>> as Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1
+                      }
+                
+                    }
+                
+                    rectangle "Amazon RDS\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT>> as Live.AmazonWebServices.USEast1.AmazonRDS {
+                      rectangle "MySQL\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.36}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl>> as Live.AmazonWebServices.USEast1.AmazonRDS.MySQL {
+                        database "==Database Schema\\n<size:16>[Container]</size>" <<Element-RWxlbWVudCxEYXRhYmFzZQ==>> as Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1
+                      }
+                
+                    }
+                
+                    rectangle "==DNS router\\n<size:16>[Infrastructure Node: Route 53]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-route-53.png{scale=0.24}>\\n\\nRoutes incoming requests based upon domain name." <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUm91dGUgNTM=>> as Live.AmazonWebServices.USEast1.DNSrouter
+                    rectangle "==Load Balancer\\n<size:16>[Infrastructure Node: Elastic Load Balancer]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/elastic-load-balancing.png{scale=0.24}>\\n\\nAutomatically distributes incoming application traffic." <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw==>> as Live.AmazonWebServices.USEast1.LoadBalancer
+                  }
+                
+                }
+                
+                Live.AmazonWebServices.USEast1.LoadBalancer --> Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Forwards requests to\\n<size:16>[HTTPS]</size>"
+                Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1 --> Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Reads from and writes to\\n<size:16>[MySQL Protocol/SSL]</size>"
+                Live.AmazonWebServices.USEast1.DNSrouter --> Live.AmazonWebServices.USEast1.LoadBalancer <<Relationship-UmVsYXRpb25zaGlw>> : "Forwards requests to\\n<size:16>[HTTPS]</size>"
+                
+                @enduml""", diagram.getDefinition());
+
+        assertEquals("""
+                @startuml
+                
+                set separator none
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element,Amazon Web Services - Auto Scaling
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n {
+                    BackgroundColor: #ffffff;
+                    LineColor: #cc2264;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #cc2264;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - Cloud
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #232f3e;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #232f3e;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - EC2
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy {
+                    BackgroundColor: #ffffff;
+                    LineColor: #d86613;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #d86613;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - Elastic Load Balancing
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #693cc5;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #693cc5;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - RDS
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT {
+                    BackgroundColor: #ffffff;
+                    LineColor: #3b48cc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #3b48cc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - RDS MySQL instance
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl {
+                    BackgroundColor: #ffffff;
+                    LineColor: #3b48cc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #3b48cc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - Region
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u {
+                    BackgroundColor: #ffffff;
+                    LineColor: #147eba;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #147eba;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - Route 53
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUm91dGUgNTM= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #693cc5;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #693cc5;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Application
+                  .Element-RWxlbWVudCxBcHBsaWNhdGlvbg== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    RoundCorner: 20;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Database
+                  .Element-RWxlbWVudCxEYXRhYmFzZQ== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // transparent element for relationships in legend
+                  .Element-Transparent {
+                    BackgroundColor: transparent;
+                    LineColor: transparent;
+                    FontColor: transparent;
+                  }
+                </style>
+                
+                rectangle "==Amazon Web Services - Auto Scaling\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n>>
+                
+                rectangle "==Amazon Web Services - Cloud\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ=>>
+                
+                rectangle "==Amazon Web Services - EC2\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy>>
+                
+                rectangle "==Amazon Web Services - Elastic Load Balancing\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/elastic-load-balancing.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw==>>
+                
+                rectangle "==Amazon Web Services - RDS\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT>>
+                
+                rectangle "==Amazon Web Services - RDS MySQL instance\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.36}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl>>
+                
+                rectangle "==Amazon Web Services - Region\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u>>
+                
+                rectangle "==Amazon Web Services - Route 53\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-route-53.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUm91dGUgNTM=>>
+                
+                rectangle "==Application" <<Element-RWxlbWVudCxBcHBsaWNhdGlvbg==>>
+                
+                database "==Database" <<Element-RWxlbWVudCxEYXRhYmFzZQ==>>
+                
+                rectangle "." <<.Element-Transparent>> as 1
+                1 --> 1 <<Relationship-UmVsYXRpb25zaGlw>> : "Relationship"
+                
+                @enduml""", diagram.getLegend().getDefinition());
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    public void amazonWebServicesExample_Dark() throws Exception {
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/amazon-web-services.json"));
+        ThemeUtils.loadThemes(workspace);
+
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter(ColorScheme.Dark);
+        Collection<Diagram> diagrams = exporter.export(workspace);
+        assertEquals(1, diagrams.size());
+
+        Diagram diagram = diagrams.stream().findFirst().get();
+        assertEquals("""
+                @startuml
+                title <size:24>X - Deployment - Live</size>
+                
+                set separator none
+                left to right direction
+                skinparam ranksep 60
+                skinparam nodesep 30
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #111111;
+                    FontColor: #cccccc;
+                  }
+                  // Element,Amazon Web Services - Auto Scaling
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n {
+                    BackgroundColor: #111111;
+                    LineColor: #cc2264;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #cc2264;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Amazon Web Services - Cloud
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ= {
+                    BackgroundColor: #111111;
+                    LineColor: #232f3e;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #232f3e;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Amazon Web Services - EC2
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy {
+                    BackgroundColor: #111111;
+                    LineColor: #d86613;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #d86613;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Amazon Web Services - Elastic Load Balancing
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw== {
+                    BackgroundColor: #111111;
+                    LineColor: #693cc5;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #693cc5;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Amazon Web Services - RDS
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT {
+                    BackgroundColor: #111111;
+                    LineColor: #3b48cc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #3b48cc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Amazon Web Services - RDS MySQL instance
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl {
+                    BackgroundColor: #111111;
+                    LineColor: #3b48cc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #3b48cc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Amazon Web Services - Region
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u {
+                    BackgroundColor: #111111;
+                    LineColor: #147eba;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #147eba;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Amazon Web Services - Route 53
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUm91dGUgNTM= {
+                    BackgroundColor: #111111;
+                    LineColor: #693cc5;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #693cc5;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Application
+                  .Element-RWxlbWVudCxBcHBsaWNhdGlvbg== {
+                    BackgroundColor: #111111;
+                    LineColor: #cccccc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    RoundCorner: 20;
+                    FontColor: #cccccc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Database
+                  .Element-RWxlbWVudCxEYXRhYmFzZQ== {
+                    BackgroundColor: #111111;
+                    LineColor: #cccccc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #cccccc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #cccccc;
+                    FontColor: #cccccc;
+                    FontSize: 24;
+                  }
+                </style>
+                
+                rectangle "Amazon Web Services\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ=>> as Live.AmazonWebServices {
+                  rectangle "US-East-1\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u>> as Live.AmazonWebServices.USEast1 {
+                    rectangle "Autoscaling group\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n>> as Live.AmazonWebServices.USEast1.Autoscalinggroup {
+                      rectangle "Amazon EC2 - Ubuntu server\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy>> as Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver {
+                        rectangle "==Web Application\\n<size:16>[Container: Java and Spring Boot]</size>" <<Element-RWxlbWVudCxBcHBsaWNhdGlvbg==>> as Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1
+                      }
+                
+                    }
+                
+                    rectangle "Amazon RDS\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT>> as Live.AmazonWebServices.USEast1.AmazonRDS {
+                      rectangle "MySQL\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.36}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl>> as Live.AmazonWebServices.USEast1.AmazonRDS.MySQL {
+                        database "==Database Schema\\n<size:16>[Container]</size>" <<Element-RWxlbWVudCxEYXRhYmFzZQ==>> as Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1
+                      }
+                
+                    }
+                
+                    rectangle "==DNS router\\n<size:16>[Infrastructure Node: Route 53]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-route-53.png{scale=0.24}>\\n\\nRoutes incoming requests based upon domain name." <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUm91dGUgNTM=>> as Live.AmazonWebServices.USEast1.DNSrouter
+                    rectangle "==Load Balancer\\n<size:16>[Infrastructure Node: Elastic Load Balancer]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/elastic-load-balancing.png{scale=0.24}>\\n\\nAutomatically distributes incoming application traffic." <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw==>> as Live.AmazonWebServices.USEast1.LoadBalancer
+                  }
+                
+                }
+                
+                Live.AmazonWebServices.USEast1.LoadBalancer --> Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Forwards requests to\\n<size:16>[HTTPS]</size>"
+                Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1 --> Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Reads from and writes to\\n<size:16>[MySQL Protocol/SSL]</size>"
+                Live.AmazonWebServices.USEast1.DNSrouter --> Live.AmazonWebServices.USEast1.LoadBalancer <<Relationship-UmVsYXRpb25zaGlw>> : "Forwards requests to\\n<size:16>[HTTPS]</size>"
+                
+                @enduml""", diagram.getDefinition());
+
+        assertEquals("""
+                @startuml
+                
+                set separator none
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #111111;
+                    FontColor: #cccccc;
+                  }
+                  // Element,Amazon Web Services - Auto Scaling
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n {
+                    BackgroundColor: #111111;
+                    LineColor: #cc2264;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #cc2264;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - Cloud
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ= {
+                    BackgroundColor: #111111;
+                    LineColor: #232f3e;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #232f3e;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - EC2
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy {
+                    BackgroundColor: #111111;
+                    LineColor: #d86613;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #d86613;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - Elastic Load Balancing
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw== {
+                    BackgroundColor: #111111;
+                    LineColor: #693cc5;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #693cc5;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - RDS
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT {
+                    BackgroundColor: #111111;
+                    LineColor: #3b48cc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #3b48cc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - RDS MySQL instance
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl {
+                    BackgroundColor: #111111;
+                    LineColor: #3b48cc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #3b48cc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - Region
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u {
+                    BackgroundColor: #111111;
+                    LineColor: #147eba;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #147eba;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - Route 53
+                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUm91dGUgNTM= {
+                    BackgroundColor: #111111;
+                    LineColor: #693cc5;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #693cc5;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Application
+                  .Element-RWxlbWVudCxBcHBsaWNhdGlvbg== {
+                    BackgroundColor: #111111;
+                    LineColor: #cccccc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    RoundCorner: 20;
+                    FontColor: #cccccc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Database
+                  .Element-RWxlbWVudCxEYXRhYmFzZQ== {
+                    BackgroundColor: #111111;
+                    LineColor: #cccccc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #cccccc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #cccccc;
+                    FontColor: #cccccc;
+                    FontSize: 24;
+                  }
+                  // transparent element for relationships in legend
+                  .Element-Transparent {
+                    BackgroundColor: transparent;
+                    LineColor: transparent;
+                    FontColor: transparent;
+                  }
+                </style>
+                
+                rectangle "==Amazon Web Services - Auto Scaling\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n>>
+                
+                rectangle "==Amazon Web Services - Cloud\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ=>>
+                
+                rectangle "==Amazon Web Services - EC2\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy>>
+                
+                rectangle "==Amazon Web Services - Elastic Load Balancing\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/elastic-load-balancing.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw==>>
+                
+                rectangle "==Amazon Web Services - RDS\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT>>
+                
+                rectangle "==Amazon Web Services - RDS MySQL instance\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.36}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl>>
+                
+                rectangle "==Amazon Web Services - Region\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u>>
+                
+                rectangle "==Amazon Web Services - Route 53\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-route-53.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUm91dGUgNTM=>>
+                
+                rectangle "==Application" <<Element-RWxlbWVudCxBcHBsaWNhdGlvbg==>>
+                
+                database "==Database" <<Element-RWxlbWVudCxEYXRhYmFzZQ==>>
+                
+                rectangle "." <<.Element-Transparent>> as 1
+                1 --> 1 <<Relationship-UmVsYXRpb25zaGlw>> : "Relationship"
+                
+                @enduml""", diagram.getLegend().getDefinition());
     }
 
 }

@@ -6,7 +6,7 @@ public final class IndentingWriter {
     private IndentType indentType = IndentType.Spaces;
     private int indentQuantity = 2;
 
-    private StringBuilder buf = new StringBuilder();
+    private final StringBuilder buf = new StringBuilder();
 
     public IndentingWriter() {
     }
@@ -47,6 +47,13 @@ public final class IndentingWriter {
 
     public void writeLine(String content) {
         buf.append(String.format("%s%s\n", padding(), content.replace("\n", "\\n")));
+    }
+
+    public void replace(String before, String after) {
+        int start = buf.indexOf(before);
+        int end = start + before.length();
+
+        buf.replace(start, end, after);
     }
 
     @Override

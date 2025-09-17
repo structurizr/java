@@ -7,7 +7,6 @@ import com.structurizr.util.StringUtils;
 import com.structurizr.view.*;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static java.lang.String.format;
 
@@ -21,6 +20,8 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
     public static final String C4PLANTUML_STANDARD_LIBRARY_PROPERTY = "c4plantuml.stdlib";
     public static final String C4PLANTUML_SPRITE = "c4plantuml.sprite";
     public static final String C4PLANTUML_SHADOW = "c4plantuml.shadow";
+
+    private static final int MAX_ICON_SIZE = 30;
 
     /**
      * <p>Set this property to <code>true</code> by calling {@link Configuration#addProperty(String, String)} in your
@@ -51,28 +52,16 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
     public C4PlantUMLExporter() {
     }
 
+    public C4PlantUMLExporter(ColorScheme colorScheme) {
+        super(colorScheme);
+    }
+
     @Override
     protected void writeHeader(ModelView view, IndentingWriter writer) {
         super.writeHeader(view, writer);
         groupId = 0;
 
-        Font font = view.getViewSet().getConfiguration().getBranding().getFont();
-        if (font != null) {
-            String fontName = font.getName();
-            if (!StringUtils.isNullOrEmpty(fontName)) {
-                addSkinParam("defaultFontName", "\"" + fontName + "\"");
-            }
-        }
-
-        writeSkinParams(writer);
-
-        if (renderAsSequenceDiagram(view)) {
-            if (usePlantUMLStandardLibrary(view)) {
-                writer.writeLine("!include <C4/C4_Sequence>");
-            } else {
-                writer.writeLine("!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Sequence.puml");
-            }
-        } else {
+        if (!renderAsSequenceDiagram(view)) {
             if (view.getAutomaticLayout() != null) {
                 switch (view.getAutomaticLayout().getRankDirection()) {
                     case LeftRight:
@@ -85,9 +74,41 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
             } else {
                 writer.writeLine("top to bottom direction");
             }
+        }
 
-            writer.writeLine();
+        writer.writeLine();
+        writer.writeLine("<style>");
+        writer.indent();
 
+        writer.writeLine("root {");
+        writer.indent();
+        if (colorScheme == ColorScheme.Dark) {
+            writer.writeLine("BackgroundColor: " + Styles.DEFAULT_BACKGROUND_DARK);
+            writer.writeLine("FontColor: " + Styles.DEFAULT_COLOR_DARK);
+        } else {
+            writer.writeLine("BackgroundColor: " + Styles.DEFAULT_BACKGROUND_LIGHT);
+            writer.writeLine("FontColor: " + Styles.DEFAULT_COLOR_LIGHT);
+        }
+        Font font = view.getViewSet().getConfiguration().getBranding().getFont();
+        if (font != null) {
+            String fontName = font.getName();
+            if (!StringUtils.isNullOrEmpty(fontName)) {
+                writer.writeLine("FontName: " + fontName);
+            }
+        }
+        writer.outdent();
+        writer.writeLine("}");
+        writer.outdent();
+        writer.writeLine("</style>");
+        writer.writeLine();
+
+        if (renderAsSequenceDiagram(view)) {
+            if (usePlantUMLStandardLibrary(view)) {
+                writer.writeLine("!include <C4/C4_Sequence>");
+            } else {
+                writer.writeLine("!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Sequence.puml");
+            }
+        } else {
             if (usePlantUMLStandardLibrary(view)) {
                 writer.writeLine("!include <C4/C4>");
                 writer.writeLine("!include <C4/C4_Context>");
@@ -120,6 +141,7 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
                 }
             }
         }
+        writer.writeLine();
 
         writeIncludes(view, writer);
 
@@ -169,15 +191,13 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
             }
 
             if (!elementStyles.isEmpty()) {
-                writer.writeLine();
-
                 for (String tagList : elementStyles.keySet()) {
                     ElementStyle elementStyle = elementStyles.get(tagList);
                     tagList = tagList.replaceFirst("Element,", "");
 
                     String sprite = "";
-                    if (elementStyleHasSupportedIcon(elementStyle)) {
-                        double scale = calculateIconScale(elementStyle.getIcon());
+                    if (isSupportedIcon(elementStyle.getIcon())) {
+                        double scale = calculateIconScale(elementStyle.getIcon(), MAX_ICON_SIZE);
                         sprite = "img:" + elementStyle.getIcon() + "{scale=" + scale + "}";
                     }
                     sprite = elementStyle.getProperties().getOrDefault(C4PLANTUML_SPRITE, sprite);
@@ -201,11 +221,11 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
                     line = line.replace(", $borderThickness=\"1\")", ")");
                     writer.writeLine(line);
                 }
+
+                writer.writeLine();
             }
 
             if (!relationshipStyles.isEmpty()) {
-                writer.writeLine();
-
                 for (String tagList : relationshipStyles.keySet()) {
                     RelationshipStyle relationshipStyle = relationshipStyles.get(tagList);
                     tagList = tagList.replaceFirst("Relationship,", "");
@@ -224,6 +244,8 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
                             lineStyle
                     ));
                 }
+
+                writer.writeLine();
             }
 
             if (!boundaryStyles.isEmpty()) {
@@ -253,19 +275,12 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
                 }
             }
         }
-
-        writer.writeLine();
     }
 
     @Override
     protected void writeFooter(ModelView view, IndentingWriter writer) {
-        if (includeLegend(view)) {
-            writer.writeLine();
-            writer.writeLine("SHOW_LEGEND(" + !(includeStereotypes(view)) + ")");
-        } else {
-            writer.writeLine();
-            writer.writeLine((includeStereotypes(view) ? "show" : "hide") + " stereotypes");
-        }
+        writer.writeLine("SHOW_LEGEND(" + includeLegend(view) + ")");
+        writer.writeLine((includeStereotypes(view) ? "show" : "hide") + " stereotypes");
 
         super.writeFooter(view, writer);
     }

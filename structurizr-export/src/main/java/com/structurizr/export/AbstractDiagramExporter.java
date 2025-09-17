@@ -13,7 +13,17 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
 
     protected static final String GROUP_SEPARATOR_PROPERTY_NAME = "structurizr.groupSeparator";
 
+    protected final ColorScheme colorScheme;
+
     private Object frame = null;
+
+    public AbstractDiagramExporter() {
+        this(ColorScheme.Light);
+    }
+
+    public AbstractDiagramExporter(ColorScheme colorScheme) {
+        this.colorScheme = colorScheme;
+    }
 
     /**
      * Exports all views in the workspace.
@@ -120,14 +130,13 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
         IndentingWriter writer = new IndentingWriter();
         writeHeader(view, writer);
 
-        List<GroupableElement> elements = new ArrayList<>();
-        for (ElementView elementView : view.getElements()) {
-            elements.add((CustomElement)elementView.getElement());
-        }
-
+        List<GroupableElement> elements = getGroupableElements(view, null);
         writeElements(view, elements, writer);
 
-        writer.writeLine();
+        if (!elements.isEmpty()) {
+            writer.writeLine();
+        }
+
         writeRelationships(view, writer);
         writeFooter(view, writer);
 
@@ -154,13 +163,13 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
         IndentingWriter writer = new IndentingWriter();
         writeHeader(view, writer);
 
-        List<GroupableElement> elements = new ArrayList<>();
-        for (ElementView elementView : view.getElements()) {
-            elements.add((GroupableElement)elementView.getElement());
-        }
+        List<GroupableElement> elements = getGroupableElements(view, null);
         writeElements(view, elements, writer);
 
-        writer.writeLine();
+        if (!elements.isEmpty()) {
+            writer.writeLine();
+        }
+
         writeRelationships(view, writer);
         writeFooter(view, writer);
 
@@ -187,13 +196,13 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
         IndentingWriter writer = new IndentingWriter();
         writeHeader(view, writer);
 
-        List<GroupableElement> elements = new ArrayList<>();
-        for (ElementView elementView : view.getElements()) {
-            elements.add((GroupableElement)elementView.getElement());
-        }
+        List<GroupableElement> elements = getGroupableElements(view, null);
         writeElements(view, elements, writer);
 
-        writer.writeLine();
+        if (!elements.isEmpty()) {
+            writer.writeLine();
+        }
+
         writeRelationships(view, writer);
         writeFooter(view, writer);
 
@@ -235,13 +244,7 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
         for (SoftwareSystem softwareSystem : softwareSystems) {
             startSoftwareSystemBoundary(view, softwareSystem, writer);
 
-            List<GroupableElement> scopedElements = new ArrayList<>();
-            for (ElementView elementView : view.getElements()) {
-                if (elementView.getElement().getParent() == softwareSystem) {
-                    scopedElements.add((StaticStructureElement) elementView.getElement());
-                }
-            }
-
+            List<GroupableElement> scopedElements = getGroupableElements(view, softwareSystem);
             writeElements(view, scopedElements, writer);
 
             endSoftwareSystemBoundary(view, writer);
@@ -307,12 +310,7 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
                 if (container.getSoftwareSystem() == softwareSystem) {
                     startContainerBoundary(view, container, writer);
 
-                    List<GroupableElement> scopedElements = new ArrayList<>();
-                    for (ElementView elementView : view.getElements()) {
-                        if (elementView.getElement().getParent() == container) {
-                            scopedElements.add((StaticStructureElement) elementView.getElement());
-                        }
-                    }
+                    List<GroupableElement> scopedElements = getGroupableElements(view, container);
                     writeElements(view, scopedElements, writer);
 
                     endContainerBoundary(view, writer);
@@ -369,11 +367,12 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
 
         if (element == null) {
             // dynamic view with no scope
-            List<GroupableElement> elements = new ArrayList<>();
-            for (ElementView elementView : view.getElements()) {
-                elements.add((StaticStructureElement) elementView.getElement());
-            }
+            List<GroupableElement> elements = getGroupableElements(view, null);
             writeElements(view, elements, writer);
+
+            if (!elements.isEmpty()) {
+                elementsWritten = true;
+            }
         } else {
             if (element instanceof SoftwareSystem) {
                 // dynamic view with software system scope
@@ -381,13 +380,7 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
                 for (SoftwareSystem softwareSystem : softwareSystems) {
                     startSoftwareSystemBoundary(view, softwareSystem, writer);
 
-                    List<GroupableElement> scopedElements = new ArrayList<>();
-                    for (ElementView elementView : view.getElements()) {
-                        if (elementView.getElement().getParent() == softwareSystem) {
-                            scopedElements.add((StaticStructureElement) elementView.getElement());
-                        }
-                    }
-
+                    List<GroupableElement> scopedElements = getGroupableElements(view, softwareSystem);
                     writeElements(view, scopedElements, writer);
 
                     endSoftwareSystemBoundary(view, writer);
@@ -416,12 +409,7 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
                         if (container.getSoftwareSystem() == softwareSystem) {
                             startContainerBoundary(view, container, writer);
 
-                            List<GroupableElement> scopedElements = new ArrayList<>();
-                            for (ElementView elementView : view.getElements()) {
-                                if (elementView.getElement().getParent() == container) {
-                                    scopedElements.add((StaticStructureElement) elementView.getElement());
-                                }
-                            }
+                            List<GroupableElement> scopedElements = getGroupableElements(view, container);
                             writeElements(view, scopedElements, writer);
 
                             endContainerBoundary(view, writer);
@@ -472,14 +460,7 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
         IndentingWriter writer = new IndentingWriter();
         writeHeader(view, writer);
 
-        List<GroupableElement> elements = new ArrayList<>();
-
-        for (ElementView elementView : view.getElements()) {
-            if (elementView.getElement() instanceof DeploymentNode && elementView.getElement().getParent() == null) {
-                elements.add((DeploymentNode)elementView.getElement());
-            }
-        }
-
+        List<GroupableElement> elements = getGroupableElements(view, null);
         writeElements(view, elements, writer);
 
         writeRelationships(view, writer);
@@ -488,7 +469,7 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
         return createDiagram(view, writer.toString());
     }
 
-    protected void writeElements(ModelView view, List<GroupableElement> elements, IndentingWriter writer) {
+    protected List<String> findGroups(ModelView view, List<GroupableElement> elements) {
         String groupSeparator = view.getModel().getProperties().get(GROUP_SEPARATOR_PROPERTY_NAME);
         boolean nested = !StringUtils.isNullOrEmpty(groupSeparator);
 
@@ -513,8 +494,16 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
         List<String> groupsAsList = new ArrayList<>(groupsAsSet);
         Collections.sort(groupsAsList);
 
+        return groupsAsList;
+    }
+
+    protected void writeElements(ModelView view, List<GroupableElement> elements, IndentingWriter writer) {
+        String groupSeparator = view.getModel().getProperties().get(GROUP_SEPARATOR_PROPERTY_NAME);
+        boolean nested = !StringUtils.isNullOrEmpty(groupSeparator);
+        List<String> groupsAsList = findGroups(view, elements);
+
         // first render grouped elements
-        if (groupsAsList.size() > 0) {
+        if (!groupsAsList.isEmpty()) {
             if (nested) {
                 String context = "";
 
@@ -585,17 +574,23 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
         }
     }
 
-    protected void writeRelationships(ModelView view, IndentingWriter writer) {
-        Collection<RelationshipView> relationshipList;
-
+    protected Collection<RelationshipView> getRelationshipsInView(ModelView view) {
         if (view instanceof DynamicView) {
-            relationshipList = view.getRelationships();
+            return view.getRelationships();
         } else {
-            relationshipList = view.getRelationships().stream().sorted(Comparator.comparing(rv -> rv.getRelationship().getId())).collect(Collectors.toList());
+            return view.getRelationships().stream().sorted(Comparator.comparing(rv -> rv.getRelationship().getId())).collect(Collectors.toList());
         }
+    }
+
+    protected void writeRelationships(ModelView view, IndentingWriter writer) {
+        Collection<RelationshipView> relationshipList = getRelationshipsInView(view);
 
         for (RelationshipView relationshipView : relationshipList) {
             writeRelationship(view, relationshipView, writer);
+        }
+
+        if (!relationshipList.isEmpty()) {
+            writer.writeLine();
         }
     }
 
@@ -730,6 +725,82 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
             view.getProperties().getOrDefault(name,
                     views.getConfiguration().getProperties().getOrDefault(name, defaultValue)
             );
+    }
+
+    @Override
+    protected ElementStyle findElementStyle(ModelView view, Element element) {
+        return view.getViewSet().getConfiguration().getStyles().findElementStyle(element, colorScheme);
+    }
+
+    protected ElementStyle findElementStyle(ModelView view, String tag) {
+        return view.getViewSet().getConfiguration().getStyles().findElementStyle(tag, colorScheme);
+    }
+
+    @Override
+    protected RelationshipStyle findRelationshipStyle(ModelView view, Relationship relationship) {
+        return view.getViewSet().getConfiguration().getStyles().findRelationshipStyle(relationship, colorScheme);
+    }
+
+    protected List<GroupableElement> getGroupableElements(ModelView view, Element parent) {
+        List<GroupableElement> elements = new ArrayList<>();
+
+        if (view instanceof CustomView) {
+            for (ElementView elementView : view.getElements()) {
+                elements.add((CustomElement)elementView.getElement());
+            }
+        } else if (view instanceof SystemLandscapeView) {
+            for (ElementView elementView : view.getElements()) {
+                elements.add((GroupableElement)elementView.getElement());
+            }
+        } else if (view instanceof SystemContextView) {
+            for (ElementView elementView : view.getElements()) {
+                elements.add((GroupableElement)elementView.getElement());
+            }
+        } else if (view instanceof ContainerView) {
+            for (ElementView elementView : view.getElements()) {
+                if (elementView.getElement() instanceof Container) {
+                    elements.add((StaticStructureElement) elementView.getElement());
+                }
+            }
+        } else if (view instanceof ComponentView) {
+            for (ElementView elementView : view.getElements()) {
+                if (elementView.getElement() instanceof Component) {
+                    elements.add((StaticStructureElement) elementView.getElement());
+                }
+            }
+        } else if (view instanceof DynamicView) {
+            DynamicView dynamicView = (DynamicView)view;
+            Element element = dynamicView.getElement();
+            if (element == null) {
+                for (ElementView elementView : view.getElements()) {
+                    elements.add((StaticStructureElement) elementView.getElement());
+                }
+            } else if (element instanceof SoftwareSystem) {
+                for (ElementView elementView : view.getElements()) {
+                    if (elementView.getElement() instanceof Container) {
+                        elements.add((StaticStructureElement) elementView.getElement());
+                    }
+                }
+            } else if (element instanceof Container) {
+            for (ElementView elementView : view.getElements()) {
+                if (elementView.getElement() instanceof Component) {
+                    elements.add((StaticStructureElement) elementView.getElement());
+                }
+            }
+        }
+        } else if (view instanceof DeploymentView) {
+            for (ElementView elementView : view.getElements()) {
+                if (elementView.getElement() instanceof DeploymentNode && elementView.getElement().getParent() == null) {
+                    elements.add((DeploymentNode)elementView.getElement());
+                }
+            }
+        }
+
+        if (parent != null) {
+            return elements.stream().filter(e -> e.getParent() == parent).collect(Collectors.toList());
+        } else {
+            return elements;
+        }
     }
 
 }

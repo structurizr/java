@@ -5,6 +5,7 @@ import com.structurizr.export.Diagram;
 import com.structurizr.export.IndentingWriter;
 import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
+import com.structurizr.view.ColorScheme;
 import com.structurizr.view.ElementStyle;
 import com.structurizr.view.ModelView;
 import com.structurizr.view.Shape;
@@ -13,32 +14,25 @@ import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.net.URL;
-import java.util.LinkedHashMap;
-import java.util.Map;
-
-import static java.lang.String.format;
 
 public abstract class AbstractPlantUMLExporter extends AbstractDiagramExporter {
+
+    protected static final int DEFAULT_FONT_SIZE = 24;
 
     public static final String PLANTUML_TITLE_PROPERTY = "plantuml.title";
     public static final String PLANTUML_INCLUDES_PROPERTY = "plantuml.includes";
     public static final String PLANTUML_ANIMATION_PROPERTY = "plantuml.animation";
     public static final String PLANTUML_SEQUENCE_DIAGRAM_PROPERTY = "plantuml.sequenceDiagram";
 
-    private static final double MAX_ICON_SIZE = 30.0;
+    public static final String DIAGRAM_TITLE_TAG = "Diagram:Title";
+    public static final String DIAGRAM_DESCRIPTION_TAG = "Diagram:Description";
 
-    private final Map<String, String> skinParams = new LinkedHashMap<>();
-
-    protected Map<String, String> getSkinParams() {
-        return skinParams;
+    public AbstractPlantUMLExporter() {
+        this(ColorScheme.Light);
     }
 
-    public void addSkinParam(String name, String value) {
-        skinParams.put(name, value);
-    }
-
-    public void clearSkinParams() {
-        skinParams.clear();
+    public AbstractPlantUMLExporter(ColorScheme colorScheme) {
+        super(colorScheme);
     }
 
     String plantUMLShapeOf(ModelView view, Element element) {
@@ -178,38 +172,54 @@ public abstract class AbstractPlantUMLExporter extends AbstractDiagramExporter {
     @Override
     protected void writeHeader(ModelView view, IndentingWriter writer) {
         writer.writeLine("@startuml");
-        writer.writeLine("set separator none");
 
         if (includeTitle(view)) {
-            String viewTitle = view.getTitle();
-            if (StringUtils.isNullOrEmpty(viewTitle)) {
-                viewTitle = view.getName();
+            ElementStyle titleStyle = findElementStyle(view, DIAGRAM_TITLE_TAG);
+            ElementStyle descriptionStyle = findElementStyle(view, DIAGRAM_DESCRIPTION_TAG);
+
+            String title = view.getTitle();
+            if (StringUtils.isNullOrEmpty(title)) {
+                title = view.getName();
             }
-            writer.writeLine("title " + viewTitle);
+
+            String description = view.getDescription();
+            if (StringUtils.isNullOrEmpty(description)) {
+                writer.writeLine(
+                        String.format(
+                                "title <size:%s>%s</size>",
+                                titleStyle != null ? titleStyle.getFontSize() : DEFAULT_FONT_SIZE,
+                                title
+                        )
+                );
+            } else {
+                writer.writeLine(
+                        String.format(
+                                "title <size:%s>%s</size>\\n<size:%s>%s</size>",
+                                titleStyle != null ? titleStyle.getFontSize() : DEFAULT_FONT_SIZE,
+                                title,
+                                descriptionStyle != null ? descriptionStyle.getFontSize() : DEFAULT_FONT_SIZE,
+                                description
+                        )
+                );
+            }
         }
 
         writer.writeLine();
-    }
-
-    protected void writeSkinParams(IndentingWriter writer) {
-        if (!skinParams.isEmpty()) {
-            writer.writeLine("skinparam {");
-            writer.indent();
-            for (final String name : skinParams.keySet()) {
-                writer.writeLine(format("%s %s", name, skinParams.get(name)));
-            }
-            writer.outdent();
-            writer.writeLine("}");
-        }
+        writer.writeLine("set separator none");
     }
 
     protected void writeIncludes(ModelView view, IndentingWriter writer) {
-        String[] includes = getViewOrViewSetProperty(view, PLANTUML_INCLUDES_PROPERTY, "").split(",");
-        for (String include : includes) {
-            if (!StringUtils.isNullOrEmpty(include)) {
-                include = include.trim();
-                writer.writeLine("!include " + include);
+        String commaSeparatedIncludes = getViewOrViewSetProperty(view, PLANTUML_INCLUDES_PROPERTY, "");
+        if (!StringUtils.isNullOrEmpty(commaSeparatedIncludes)) {
+            String[] includes = commaSeparatedIncludes.split(",");
+
+            for (String include : includes) {
+                if (!StringUtils.isNullOrEmpty(include)) {
+                    include = include.trim();
+                    writer.writeLine("!include " + include);
+                }
             }
+            writer.writeLine();
         }
     }
 
@@ -223,11 +233,11 @@ public abstract class AbstractPlantUMLExporter extends AbstractDiagramExporter {
         return new PlantUMLDiagram(view, definition);
     }
 
-    protected boolean elementStyleHasSupportedIcon(ElementStyle elementStyle) {
-        return !StringUtils.isNullOrEmpty(elementStyle.getIcon()) && elementStyle.getIcon().startsWith("http");
+    protected boolean isSupportedIcon(String icon) {
+        return !StringUtils.isNullOrEmpty(icon) && icon.startsWith("http");
     }
 
-    protected double calculateIconScale(String iconUrl) {
+    protected double calculateIconScale(String iconUrl, int maxIconSize) {
         double scale = 0.5;
 
         try {
@@ -237,7 +247,7 @@ public abstract class AbstractPlantUMLExporter extends AbstractDiagramExporter {
             int width = bi.getWidth();
             int height = bi.getHeight();
 
-            scale = MAX_ICON_SIZE / Math.max(width, height);
+            scale = ((double)maxIconSize) / Math.max(width, height);
         } catch (UnsupportedOperationException | UnsatisfiedLinkError | IIOException e) {
             // This is a known issue on native builds since AWT packages aren't available.
             // So we just swallow the error and use the default scale

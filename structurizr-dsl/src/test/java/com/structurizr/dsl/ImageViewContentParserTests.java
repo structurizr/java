@@ -55,7 +55,8 @@ class ImageViewContentParserTests extends AbstractTests {
 
         parser = new ImageViewContentParser(true);
         parser.parsePlantUML(context, null, tokens("plantuml", "SystemLandscape"));
-        assertEquals("https://plantuml.com/plantuml/svg/HP2nJiD038RtUmghF00f6oYD6f2OO2eI0p2Od9EUUh4Zdwkq8DwTkrB0bZpylsL_zZePgkt7w18P99fGqKI1XSbPi4YmEIQZ4HwGVUfm8kTC9Z21Tp6J4NnGwYm8EvTsWSk44JuT0AhAV2zic_11iAoovAd7VRGdEbWRmy0ZiK6N2sbsPyNfENZRmbLLkaSyF59AED1vGkM-dDi6Jv2HbCIE1UT_Qm517YBLTTiq9uXRx7Q3ofxzdSHys8K_HNOAsLchJb6wHJtfMRt6abbDM_Go1nwWnvYeGFnjWiLgrRvodJBXpR9gNZRIsupw-xUt-h9OpG9-c311wzoQsEUdVmC0", imageView.getContent());
+        assertEquals("System Landscape", imageView.getTitle());
+        assertEquals("https://plantuml.com/plantuml/svg/ZLBBJiCm4BpxArRb32rLuH2IgE4b3kL243q01pVU9bOJRsHlr0VYtt6Qj1n0Y9LihMTjpth6KyVISbELWZMN2A7JEmp6apZTEiOAPj8ebyaQms5RYT_CSSSjkipgcZMPlYY4GmQ7jRIIoO8XWuAf1YPO43DLeBJ5h3qY2gqGF8T5ucsDGeIEjwM_1C0ICNpu1E1QPglSKcFK3PLa0pXPxkDgNxqdmmTyieyM__HZE8Ix4Yiqx1TdVNhwDD-KY_bBev8e-XV1J1lyIT3XQTjk0ADlvBdGsSgWSm6C_sgmmzDMHnZto0DPlVEeB9DIvwPjDu3CpsYx3MaX5QsroO-KZtAZgwQQQyL509EBKVTuRqOdf6YbbYRtjWwYA3bOTtuPlwQqvBMq29tDxxs10mZ3txIAOv0E4Y6cQ9J_B5y0", imageView.getContent());
     }
 
     @Test
@@ -94,7 +95,7 @@ class ImageViewContentParserTests extends AbstractTests {
 
         parser = new ImageViewContentParser(true);
         parser.parseMermaid(context, null, tokens("mermaid", "SystemLandscape"));
-        assertEquals("https://mermaid.ink/svg/pako:eJxlkMtuwjAQRX9lNAhlE9SwqupCpLLuLt0RFiYeJxZ-RLYppYh_bxJHVR93NrM4c3U0N8DGCUKGred9B2-72gJoZU9VvGoCQZKfdQSptGYLOaW2IxPOx3QiFB8WA_saq2uIZOCVWxEa3lONhxEd4FQ2kz_L8hC9O9HvboD10LYR6j1dbjPpbFxdSLVdZHB0WmTly-ZhAMp_VFCfxOCxWD6D4b5VdhVdz6DoP7JyXzkZL9wTJNVD6vjjuZ4NxZRvwyc-Tt447TxbFFOSL1mBOaAhb7gSyG4YOzLjV-f_4f3-BQMfekI=", imageView.getContent());
+        assertEquals("https://mermaid.ink/svg/pako:eJxtkMtqwzAQRX9lmFK8cWgChYKaGNp1d-4uzkKxRraIHkaaNE1D_r12lEJfs5qBM4fLPQG2QREK7KIcenh9bjyANX5X89ESKNJybxm0sVbc6Ms0fmLSfptflJHj4mDdYH1MTA5epFeplQM1uJnQEc6yK_ldViaOYUc_3QCL0bZU5i1_rgodPM8OZLqeBWyDVUX1tLwbgeoPlcwHCXiY3z6Ck7EzfsZhEDAf3otqXQfNBxkJctRNdvzKufg_4f1lyjbYEL-unJe8whLQUXTSKBQn5J7c1Oq1PzyfPwHoMXnQ", imageView.getContent());
     }
 
     @Test

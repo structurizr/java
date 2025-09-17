@@ -59,10 +59,27 @@ public class PlantUMLImporter extends AbstractDiagramImporter {
         String[] lines = content.split(NEWLINE);
         for (String line : lines) {
             if (line.startsWith(TITLE_STRING)) {
-                String title = line.substring(TITLE_STRING.length());
-                view.setTitle(title);
+                view.setTitle(extractTitle(line));
             }
         }
+    }
+
+    private String extractTitle(String line) {
+        String title = line.substring(TITLE_STRING.length());
+
+        if (title.contains(NEWLINE)) {
+            title = title.split(NEWLINE)[0];
+        }
+
+        if (title.startsWith("<size:")) {
+            title = title.substring(title.indexOf(">") + 1);
+
+            if (title.endsWith("</size>")) {
+                title = title.substring(0, title.indexOf("</size>"));
+            }
+        }
+
+        return title;
     }
 
 }
