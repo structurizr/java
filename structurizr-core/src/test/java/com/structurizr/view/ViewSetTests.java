@@ -491,7 +491,7 @@ public class ViewSetTests {
     void createFilteredView_ThrowsAnException_WhenANullViewIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
-            workspace.getViews().createFilteredView(null, "key", "Description", FilterMode.Include, "tag1", "tag2");
+            workspace.getViews().createFilteredView((SystemLandscapeView)null, "key", "Description", FilterMode.Include, "tag1", "tag2");
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A view must be specified.", iae.getMessage());
@@ -530,9 +530,23 @@ public class ViewSetTests {
     }
 
     @Test
-    void createFilteredView() {
+    void createFilteredView_OnStaticView() {
         Workspace workspace = new Workspace("Name", "Description");
         SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("systemLandscape", "Description");
+        FilteredView filteredView = workspace.getViews().createFilteredView(view, "key", "Description", FilterMode.Include, "tag1", "tag2");
+
+        assertEquals("key", filteredView.getKey());
+        assertEquals("Description", filteredView.getDescription());
+        assertEquals(FilterMode.Include, filteredView.getMode());
+        assertEquals(2, filteredView.getTags().size());
+        assertTrue(filteredView.getTags().contains("tag1"));
+        assertTrue(filteredView.getTags().contains("tag2"));
+    }
+
+    @Test
+    void createFilteredView_OnDeploymentView() {
+        Workspace workspace = new Workspace("Name", "Description");
+        DeploymentView view = workspace.getViews().createDeploymentView("deployment");
         FilteredView filteredView = workspace.getViews().createFilteredView(view, "key", "Description", FilterMode.Include, "tag1", "tag2");
 
         assertEquals("key", filteredView.getKey());

@@ -498,6 +498,24 @@ public final class ViewSet {
      * @return              a FilteredView object
      */
     public FilteredView createFilteredView(StaticView view, String key, String description, FilterMode mode, String... tags) {
+        return newFilteredView(view, key, description, mode, tags);
+    }
+
+    /**
+     * Creates a FilteredView on top of an existing deployment view.
+     *
+     * @param view          the deployment view to base the FilteredView upon
+     * @param key           the key for the filtered view (must be unique)
+     * @param description   a description
+     * @param mode          whether to Include or Exclude elements/relationships based upon their tag
+     * @param tags          the tags to include or exclude
+     * @return              a FilteredView object
+     */
+    public FilteredView createFilteredView(DeploymentView view, String key, String description, FilterMode mode, String... tags) {
+        return newFilteredView(view, key, description, mode, tags);
+    }
+
+    private FilteredView newFilteredView(ModelView view, String key, String description, FilterMode mode, String... tags) {
         boolean keyIsAutomaticallyGenerated = false;
 
         if (StringUtils.isNullOrEmpty(key)) {
@@ -900,11 +918,11 @@ public final class ViewSet {
                 );
             }
 
-            if (view instanceof StaticView) {
-                filteredView.setView((StaticView)view);
+            if (view instanceof StaticView || view instanceof DeploymentView) {
+                filteredView.setView((ModelView)view);
             } else {
                 throw new WorkspaceValidationException(
-                        String.format("The filtered view with key \"%s\" is based upon a view (key=%s), but that view is not a static view.",
+                        String.format("The filtered view with key \"%s\" is based upon a view (key=%s), but that view is not a static or deployment view.",
                                 filteredView.getKey(), filteredView.getBaseViewKey())
                 );
             }
