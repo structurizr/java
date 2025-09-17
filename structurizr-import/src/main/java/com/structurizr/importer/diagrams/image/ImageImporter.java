@@ -28,9 +28,9 @@ public class ImageImporter extends AbstractDiagramImporter {
             }
 
             if (imageFormat.equals(CONTENT_TYPE_IMAGE_SVG)) {
-                view.setContent(ImageUtils.getSvgAsDataUri(new URL(url)));
+                view.setContent(ImageUtils.getSvgAsDataUri(new URL(url), false));
             } else {
-                view.setContent(ImageUtils.getPngAsDataUri(new URL(url)));
+                view.setContent(ImageUtils.getPngAsDataUri(new URL(url), false));
             }
 
             view.setContentType(imageFormat);

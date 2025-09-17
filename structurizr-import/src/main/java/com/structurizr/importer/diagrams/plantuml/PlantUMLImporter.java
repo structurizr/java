@@ -47,9 +47,9 @@ public class PlantUMLImporter extends AbstractDiagramImporter {
         String inline = getViewOrViewSetProperty(view, PLANTUML_INLINE_PROPERTY);
         if ("true".equals(inline)) {
             if (format.equals(SVG_FORMAT)) {
-                view.setContent(ImageUtils.getSvgAsDataUri(new URL(url)));
+                view.setContent(ImageUtils.getSvgAsDataUri(new URL(url), true));
             } else {
-                view.setContent(ImageUtils.getPngAsDataUri(new URL(url)));
+                view.setContent(ImageUtils.getPngAsDataUri(new URL(url), true));
             }
         } else {
             view.setContent(url);
