@@ -273,7 +273,7 @@ public class ViewSetTests {
     @Test
     void createDynamicView_GeneratesAKey_WhenANullKeyIsSpecified() {
         Workspace workspace = new Workspace("Name", "Description");
-        DynamicView view = workspace.getViews().createDynamicView(null, "Description");
+        DynamicView view = workspace.getViews().createDynamicView(null);
         assertEquals("Dynamic-001", view.getKey());
         assertTrue(view.isGeneratedKey());
     }
@@ -397,7 +397,7 @@ public class ViewSetTests {
     @Test
     void createDeploymentView_GeneratesAKey_WhenANullKeyIsSpecified() {
         Workspace workspace = new Workspace("Name", "Description");
-        DeploymentView view = workspace.getViews().createDeploymentView(null, "Description");
+        DeploymentView view = workspace.getViews().createDeploymentView(null);
         assertEquals("Deployment-001", view.getKey());
         assertTrue(view.isGeneratedKey());
     }
