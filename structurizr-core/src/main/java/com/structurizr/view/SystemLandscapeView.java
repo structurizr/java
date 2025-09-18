@@ -31,7 +31,7 @@ public final class SystemLandscapeView extends StaticView {
      */
     @Override
     public String getName() {
-        return "System Landscape";
+        return "System Landscape View";
     }
 
     /**

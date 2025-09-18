@@ -77,7 +77,7 @@ public final class ContainerView extends StaticView {
      */
     @Override
     public String getName() {
-        return getSoftwareSystem().getName() + " - Containers";
+        return "Container View: " + getSoftwareSystem().getName();
     }
 
     /**

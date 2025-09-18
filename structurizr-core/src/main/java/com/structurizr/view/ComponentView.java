@@ -148,7 +148,7 @@ public final class ComponentView extends StaticView {
      */
     @Override
     public String getName() {
-        return getSoftwareSystem().getName() + " - " + getContainer().getName() + " - Components";
+        return "Component View: " + getSoftwareSystem().getName() + " - " + getContainer().getName();
     }
 
     /**

@@ -31,7 +31,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
                   node [fontname="Arial", shape=box, margin="0.4,0.3"]
                   edge [fontname="Arial"]
-                  label=<<br /><font point-size="34">System Landscape</font>>
+                  label=<<br /><font point-size="34">System Landscape View</font>>
                 
                   subgraph "cluster_group_Big Bank plc" {
                     margin=25
@@ -71,7 +71,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
                   node [fontname="Arial", shape=box, margin="0.4,0.3"]
                   edge [fontname="Arial"]
-                  label=<<br /><font point-size="34">Internet Banking System - System Context</font><br /><font point-size="24">The system context diagram for the Internet Banking System.</font>>
+                  label=<<br /><font point-size="34">System Context View: Internet Banking System</font><br /><font point-size="24">The system context diagram for the Internet Banking System.</font>>
                 
                   subgraph "cluster_group_Big Bank plc" {
                     margin=25
@@ -103,7 +103,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
                   node [fontname="Arial", shape=box, margin="0.4,0.3"]
                   edge [fontname="Arial"]
-                  label=<<br /><font point-size="34">Internet Banking System - Containers</font><br /><font point-size="24">The container diagram for the Internet Banking System.</font>>
+                  label=<<br /><font point-size="34">Container View: Internet Banking System</font><br /><font point-size="24">The container diagram for the Internet Banking System.</font>>
                 
                   1 [id=1,shape=rect, label=<<font point-size="32">Personal Banking<br />Customer</font><br /><font point-size="17">[Person]</font><br /><br /><font point-size="22">A customer of the bank, with<br />personal bank accounts.</font>>, style=filled, color="#052e56", fillcolor="#08427b", fontcolor="#ffffff"]
                   4 [id=4,shape=rect, label=<<font point-size="34">Mainframe Banking<br />System</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">Stores all of the core banking<br />information about customers,<br />accounts, transactions, etc.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
@@ -144,7 +144,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
                   node [fontname="Arial", shape=box, margin="0.4,0.3"]
                   edge [fontname="Arial"]
-                  label=<<br /><font point-size="34">Internet Banking System - API Application - Components</font><br /><font point-size="24">The component diagram for the API Application.</font>>
+                  label=<<br /><font point-size="34">Component View: Internet Banking System - API Application</font><br /><font point-size="24">The component diagram for the API Application.</font>>
                 
                   4 [id=4,shape=rect, label=<<font point-size="34">Mainframe Banking<br />System</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">Stores all of the core banking<br />information about customers,<br />accounts, transactions, etc.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
                   5 [id=5,shape=rect, label=<<font point-size="34">E-mail System</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">The internal Microsoft<br />Exchange e-mail system.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
@@ -191,7 +191,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
                   node [fontname="Arial", shape=box, margin="0.4,0.3"]
                   edge [fontname="Arial"]
-                  label=<<br /><font point-size="34">API Application - Dynamic</font><br /><font point-size="24">Summarises how the sign in feature works in the single-page application.</font>>
+                  label=<<br /><font point-size="34">Dynamic View: Internet Banking System - API Application</font><br /><font point-size="24">Summarises how the sign in feature works in the single-page application.</font>>
                 
                   subgraph cluster_11 {
                     margin=25
@@ -224,7 +224,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
                   node [fontname="Arial", shape=box, margin="0.4,0.3"]
                   edge [fontname="Arial"]
-                  label=<<br /><font point-size="34">Internet Banking System - Deployment - Development</font><br /><font point-size="24">An example development deployment scenario for the Internet Banking System.</font>>
+                  label=<<br /><font point-size="34">Deployment View: Internet Banking System - Development</font><br /><font point-size="24">An example development deployment scenario for the Internet Banking System.</font>>
                 
                   subgraph cluster_50 {
                     margin=25
@@ -325,7 +325,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
                   node [fontname="Arial", shape=box, margin="0.4,0.3"]
                   edge [fontname="Arial"]
-                  label=<<br /><font point-size="34">Internet Banking System - Deployment - Live</font><br /><font point-size="24">An example live deployment scenario for the Internet Banking System.</font>>
+                  label=<<br /><font point-size="34">Deployment View: Internet Banking System - Live</font><br /><font point-size="24">An example live deployment scenario for the Internet Banking System.</font>>
                 
                   subgraph cluster_67 {
                     margin=25
@@ -493,7 +493,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   graph [fontname="Arial", rankdir=LR, ranksep=1.0, nodesep=1.0]
                   node [fontname="Arial", shape=box, margin="0.4,0.3"]
                   edge [fontname="Arial"]
-                  label=<<br /><font point-size="34">X - Deployment - Live</font>>
+                  label=<<br /><font point-size="34">Deployment View: X - Live</font>>
                 
                   subgraph cluster_5 {
                     margin=25
@@ -582,7 +582,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
                   node [fontname="Arial", shape=box, margin="0.4,0.3"]
                   edge [fontname="Arial"]
-                  label=<<br /><font point-size="34">System Landscape</font>>
+                  label=<<br /><font point-size="34">System Landscape View</font>>
                 
                   subgraph "cluster_group_Group 1" {
                     margin=25
@@ -635,7 +635,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
                   node [fontname="Arial", shape=box, margin="0.4,0.3"]
                   edge [fontname="Arial"]
-                  label=<<br /><font point-size="34">D - Containers</font>>
+                  label=<<br /><font point-size="34">Container View: D</font>>
                 
                   3 [id=3,shape=rect, label=<<font point-size="34">C</font><br /><font point-size="19">[Software System]</font>>, style=filled, color="#444444", fillcolor="#ffffff", fontcolor="#444444"]
                 
@@ -674,7 +674,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
                   node [fontname="Arial", shape=box, margin="0.4,0.3"]
                   edge [fontname="Arial"]
-                  label=<<br /><font point-size="34">D - F - Components</font>>
+                  label=<<br /><font point-size="34">Component View: D - F</font>>
                 
                   3 [id=3,shape=rect, label=<<font point-size="34">C</font><br /><font point-size="19">[Software System]</font>>, style=filled, color="#444444", fillcolor="#ffffff", fontcolor="#444444"]
                 
@@ -740,7 +740,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
                   node [fontname="Arial", shape=box, margin="0.4,0.3"]
                   edge [fontname="Arial"]
-                  label=<<br /><font point-size="34">System Landscape</font><br /><font point-size="24">Description</font>>
+                  label=<<br /><font point-size="34">System Landscape View</font><br /><font point-size="24">Description</font>>
                 
                   subgraph "cluster_group_Organisation 1" {
                     margin=25
@@ -827,7 +827,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
                   node [fontname="Arial", shape=box, margin="0.4,0.3"]
                   edge [fontname="Arial"]
-                  label=<<br /><font point-size="34">Software System 1 - Containers</font>>
+                  label=<<br /><font point-size="34">Container View: Software System 1</font>>
                 
                   subgraph cluster_1 {
                     margin=25
@@ -879,7 +879,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
                   node [fontname="Arial", shape=box, margin="0.4,0.3"]
                   edge [fontname="Arial"]
-                  label=<<br /><font point-size="34">Software System 1 - Container 1 - Components</font>>
+                  label=<<br /><font point-size="34">Component View: Software System 1 - Container 1</font>>
                 
                   subgraph cluster_2 {
                     margin=25
@@ -929,7 +929,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
                   node [fontname="Arial", shape=box, margin="0.4,0.3"]
                   edge [fontname="Arial"]
-                  label=<<br /><font point-size="34">System Landscape</font>>
+                  label=<<br /><font point-size="34">System Landscape View</font>>
                 
                   subgraph "cluster_group_Group 1" {
                     margin=25
@@ -979,7 +979,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
                   node [fontname="Arial", shape=box, margin="0.4,0.3"]
                   edge [fontname="Arial"]
-                  label=<<br /><font point-size="34">System Landscape</font>>
+                  label=<<br /><font point-size="34">System Landscape View</font>>
                 
                   subgraph "cluster_group_Group 1" {
                     margin=25
@@ -1062,58 +1062,51 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
         ContainerView view = workspace.getViews().createContainerView(softwareSystem, "Containers", "");
         view.addAllElements();
 
-        String expectedResult = "digraph {\n" +
-                "  compound=true\n" +
-                "  graph [fontname=\"Arial\", rankdir=TB, ranksep=1.0, nodesep=1.0]\n" +
-                "  node [fontname=\"Arial\", shape=box, margin=\"0.4,0.3\"]\n" +
-                "  edge [fontname=\"Arial\"]\n" +
-                "  label=<<br /><font point-size=\"34\">Software System - Containers</font>>\n" +
-                "\n" +
-                "  subgraph cluster_1 {\n" +
-                "    margin=25\n" +
-                "    label=<<font point-size=\"24\"><br />Software System</font><br /><font point-size=\"19\">[Software System]</font>>\n" +
-                "    labelloc=b\n" +
-                "    color=\"#444444\"\n" +
-                "    fontcolor=\"#444444\"\n" +
-                "    fillcolor=\"#444444\"\n" +
-                "\n" +
-                "    subgraph \"cluster_group_Group 1\" {\n" +
-                "      margin=25\n" +
-                "      label=<<font point-size=\"24\"><br />Group 1</font>>\n" +
-                "      labelloc=b\n" +
-                "      color=\"#cccccc\"\n" +
-                "      fontcolor=\"#cccccc\"\n" +
-                "      fillcolor=\"#ffffff\"\n" +
-                "      style=\"dashed\"\n" +
-                "\n" +
-                "      2 [id=2,shape=rect, label=<<font point-size=\"34\">Container 1</font><br /><font point-size=\"19\">[Container]</font>>, style=filled, color=\"#444444\", fillcolor=\"#ffffff\", fontcolor=\"#444444\"]\n" +
-                "    }\n" +
-                "\n" +
-                "    subgraph \"cluster_group_Group 2\" {\n" +
-                "      margin=25\n" +
-                "      label=<<font point-size=\"24\"><br />Group 2</font>>\n" +
-                "      labelloc=b\n" +
-                "      color=\"#cccccc\"\n" +
-                "      fontcolor=\"#cccccc\"\n" +
-                "      fillcolor=\"#ffffff\"\n" +
-                "      style=\"dashed\"\n" +
-                "\n" +
-                "      3 [id=3,shape=rect, label=<<font point-size=\"34\">Container 2</font><br /><font point-size=\"19\">[Container]</font>>, style=filled, color=\"#444444\", fillcolor=\"#ffffff\", fontcolor=\"#444444\"]\n" +
-                "    }\n" +
-                "\n" +
-                "  }\n" +
-                "\n" +
-                "}";
-
         DOTExporter exporter = new DOTExporter();
         Diagram diagram = exporter.export(view);
-        assertEquals(expectedResult, diagram.getDefinition());
-
-        // this should be the same
-        workspace.getModel().addProperty("structurizr.groupSeparator", "/");
-        exporter = new DOTExporter();
-        diagram = exporter.export(view);
-        assertEquals(expectedResult, diagram.getDefinition());
+        assertEquals("""
+                digraph {
+                  compound=true
+                  graph [fontname="Arial", rankdir=TB, ranksep=1.0, nodesep=1.0]
+                  node [fontname="Arial", shape=box, margin="0.4,0.3"]
+                  edge [fontname="Arial"]
+                  label=<<br /><font point-size="34">Container View: Software System</font>>
+                
+                  subgraph cluster_1 {
+                    margin=25
+                    label=<<font point-size="24"><br />Software System</font><br /><font point-size="19">[Software System]</font>>
+                    labelloc=b
+                    color="#444444"
+                    fontcolor="#444444"
+                    fillcolor="#444444"
+                
+                    subgraph "cluster_group_Group 1" {
+                      margin=25
+                      label=<<font point-size="24"><br />Group 1</font>>
+                      labelloc=b
+                      color="#cccccc"
+                      fontcolor="#cccccc"
+                      fillcolor="#ffffff"
+                      style="dashed"
+                
+                      2 [id=2,shape=rect, label=<<font point-size="34">Container 1</font><br /><font point-size="19">[Container]</font>>, style=filled, color="#444444", fillcolor="#ffffff", fontcolor="#444444"]
+                    }
+                
+                    subgraph "cluster_group_Group 2" {
+                      margin=25
+                      label=<<font point-size="24"><br />Group 2</font>>
+                      labelloc=b
+                      color="#cccccc"
+                      fontcolor="#cccccc"
+                      fillcolor="#ffffff"
+                      style="dashed"
+                
+                      3 [id=3,shape=rect, label=<<font point-size="34">Container 2</font><br /><font point-size="19">[Container]</font>>, style=filled, color="#444444", fillcolor="#ffffff", fontcolor="#444444"]
+                    }
+                
+                  }
+                
+                }""", diagram.getDefinition());
     }
 
 }

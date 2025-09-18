@@ -20,7 +20,7 @@ public class ContainerViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     void construction() {
-        assertEquals("The System - Containers", view.getName());
+        assertEquals("Container View: The System", view.getName());
         assertEquals("Description", view.getDescription());
         assertEquals(0, view.getElements().size());
         assertSame(softwareSystem, view.getSoftwareSystem());

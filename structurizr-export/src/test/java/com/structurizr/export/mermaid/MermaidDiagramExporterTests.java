@@ -33,7 +33,7 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
                 graph LR
                   linkStyle default fill:#ffffff
                 
-                  subgraph diagram ["X - Deployment - Live"]
+                  subgraph diagram ["Deployment View: X - Live"]
                     style diagram fill:#ffffff,stroke:#ffffff
                 
                     subgraph 5 ["Amazon Web Services"]
@@ -95,7 +95,7 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
                 graph TB
                   linkStyle default fill:#ffffff
                 
-                  subgraph diagram ["System Landscape"]
+                  subgraph diagram ["System Landscape View"]
                     style diagram fill:#ffffff,stroke:#ffffff
                 
                     subgraph group1 ["Group 1"]
@@ -133,7 +133,7 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
                 graph TB
                   linkStyle default fill:#ffffff
                 
-                  subgraph diagram ["D - Containers"]
+                  subgraph diagram ["Container View: D"]
                     style diagram fill:#ffffff,stroke:#ffffff
                 
                     3["<div style='font-weight: bold'>C</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>"]
@@ -163,7 +163,7 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
                 graph TB
                   linkStyle default fill:#ffffff
                 
-                  subgraph diagram ["D - F - Components"]
+                  subgraph diagram ["Component View: D - F"]
                     style diagram fill:#ffffff,stroke:#ffffff
                 
                     3["<div style='font-weight: bold'>C</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>"]
@@ -220,7 +220,7 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
                 graph TB
                   linkStyle default fill:#ffffff
                 
-                  subgraph diagram ["System Landscape"]
+                  subgraph diagram ["System Landscape View"]
                     style diagram fill:#ffffff,stroke:#ffffff
                 
                     subgraph group1 ["Organisation 1"]
@@ -281,7 +281,7 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
                 graph TB
                   linkStyle default fill:#ffffff
                 
-                  subgraph diagram ["Software System 1 - Containers"]
+                  subgraph diagram ["Container View: Software System 1"]
                     style diagram fill:#ffffff,stroke:#ffffff
                 
                     subgraph 1 ["Software System 1"]
@@ -299,7 +299,7 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
                     end
                 
                     2-. "<div>Uses</div><div style='font-size: 70%'></div>" .->4
-
+                
                   end""", diagram.getDefinition());
     }
 
@@ -324,7 +324,7 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
                 graph TB
                   linkStyle default fill:#ffffff
                 
-                  subgraph diagram ["Software System 1 - Container 1 - Components"]
+                  subgraph diagram ["Component View: Software System 1 - Container 1"]
                     style diagram fill:#ffffff,stroke:#ffffff
                 
                     subgraph 2 ["Container 1"]
@@ -342,7 +342,7 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
                     end
                 
                     3-. "<div>Uses</div><div style='font-size: 70%'></div>" .->6
-
+                
                   end""", diagram.getDefinition());
     }
 
@@ -365,7 +365,7 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
                 graph TB
                   linkStyle default fill:#ffffff
                 
-                  subgraph diagram ["System Landscape"]
+                  subgraph diagram ["System Landscape View"]
                     style diagram fill:#ffffff,stroke:#ffffff
                 
                     subgraph group1 ["Group 1"]
@@ -399,7 +399,7 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
                 graph TB
                   linkStyle default fill:#ffffff
                 
-                  subgraph diagram ["System Landscape"]
+                  subgraph diagram ["System Landscape View"]
                     style diagram fill:#ffffff,stroke:#ffffff
                 
                     subgraph group1 ["Group 1"]

@@ -254,9 +254,14 @@ public final class DynamicView extends ModelView {
     @Override
     public String getName() {
         if (element != null) {
-            return element.getName() + " - Dynamic";
+            if (element instanceof Container) {
+                Container container = (Container)element;
+                return "Dynamic View: " + container.getParent().getName() + " - " + container.getName();
+            } else {
+                return "Dynamic View: " + element.getName();
+            }
         } else {
-            return "Dynamic";
+            return "Dynamic View";
         }
     }
 

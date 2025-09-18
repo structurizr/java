@@ -629,7 +629,7 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
 
         if (elementStyleForGroup != null && elementStyleForGroup.getFontSize() != null) {
             fontSize = elementStyleForGroup.getFontSize();
-        } else if (elementStyleForAllGroups != null && elementStyleForGroup.getFontSize() != null) {
+        } else if (elementStyleForAllGroups != null && elementStyleForAllGroups.getFontSize() != null) {
             fontSize = elementStyleForAllGroups.getFontSize();
         }
         style.setFontSize(fontSize);

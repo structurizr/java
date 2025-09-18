@@ -33,7 +33,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                title <size:24>System Landscape View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -135,7 +135,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                title <size:24>System Landscape View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -237,7 +237,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
         assertEquals("""
                 @startuml
-                title <size:24>A - System Context</size>\\n<size:24>Description</size>
+                title <size:24>System Context View: A</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -294,7 +294,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
         assertEquals("""
                 @startuml
-                title <size:24>Software System A - Containers</size>\\n<size:24>Description</size>
+                title <size:24>Container View: Software System A</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -365,7 +365,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
         assertEquals("""
                 @startuml
-                title <size:24>Software System - Container - Components</size>\\n<size:24>Description</size>
+                title <size:24>Component View: Software System - Container</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -435,7 +435,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
         assertEquals("""
                 @startuml
-                title <size:24>Deployment - Default</size>\\n<size:24>Default</size>
+                title <size:24>Deployment View: Default</size>\\n<size:24>Default</size>
                 
                 set separator none
                 top to bottom direction
@@ -490,7 +490,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
         assertEquals("""
                 @startuml
-                title <size:24>Dynamic</size>\\n<size:24>Description</size>
+                title <size:24>Dynamic View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -552,7 +552,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
         assertEquals("""
                 @startuml
-                title <size:24>Dynamic</size>\\n<size:24>Description</size>
+                title <size:24>Dynamic View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -597,7 +597,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
         assertEquals("""
                 @startuml
-                title <size:24>Dynamic</size>\\n<size:24>Description</size>
+                title <size:24>Dynamic View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -658,7 +658,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
         assertEquals("""
                 @startuml
-                title <size:24>Dynamic</size>\\n<size:24>Description</size>
+                title <size:24>Dynamic View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 hide stereotype
@@ -755,7 +755,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = diagrams.stream().filter(md -> md.getKey().equals("SystemLandscape")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>
+                title <size:24>System Landscape View</size>
                 
                 set separator none
                 top to bottom direction
@@ -846,7 +846,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         diagram = diagrams.stream().filter(md -> md.getKey().equals("Containers")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>D - Containers</size>
+                title <size:24>Container View: D</size>
                 
                 set separator none
                 top to bottom direction
@@ -921,7 +921,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         diagram = diagrams.stream().filter(md -> md.getKey().equals("Components")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>D - F - Components</size>
+                title <size:24>Component View: D - F</size>
                 
                 set separator none
                 top to bottom direction
@@ -1026,7 +1026,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = diagrams.stream().filter(md -> md.getKey().equals("SystemLandscape")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>
+                title <size:24>System Landscape View</size>
                 
                 set separator none
                 top to bottom direction
@@ -1147,7 +1147,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = new StructurizrPlantUMLExporter().export(containerView);
         assertEquals("""
                 @startuml
-                title <size:24>Software System 1 - Containers</size>
+                title <size:24>Container View: Software System 1</size>
                 
                 set separator none
                 top to bottom direction
@@ -1239,7 +1239,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = new StructurizrPlantUMLExporter().export(componentView);
         assertEquals("""
                 @startuml
-                title <size:24>Software System 1 - Container 1 - Components</size>
+                title <size:24>Component View: Software System 1 - Container 1</size>
                 
                 set separator none
                 top to bottom direction
@@ -1334,7 +1334,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = new StructurizrPlantUMLExporter().export(componentView);
         assertEquals("""
                 @startuml
-                title <size:24>Software System 1 - Container 1 - Components</size>
+                title <size:24>Component View: Software System 1 - Container 1</size>
                 
                 set separator none
                 top to bottom direction
@@ -1448,7 +1448,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = new StructurizrPlantUMLExporter().export(dynamicView);
         assertEquals("""
                 @startuml
-                title <size:24>Software System 1 - Dynamic</size>
+                title <size:24>Dynamic View: Software System 1</size>
                 
                 set separator none
                 top to bottom direction
@@ -1539,7 +1539,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = new StructurizrPlantUMLExporter().export(dynamicView);
         assertEquals("""
                 @startuml
-                title <size:24>Container 1 - Dynamic</size>
+                title <size:24>Dynamic View: Software System 1 - Container 1</size>
                 
                 set separator none
                 top to bottom direction
@@ -1633,7 +1633,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = new StructurizrPlantUMLExporter().export(dynamicView);
         assertEquals("""
                 @startuml
-                title <size:24>Container 1 - Dynamic</size>
+                title <size:24>Dynamic View: Software System 1 - Container 1</size>
                 
                 set separator none
                 top to bottom direction
@@ -1771,7 +1771,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = new StructurizrPlantUMLExporter().export(view);
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>
+                title <size:24>System Landscape View</size>
                 
                 set separator none
                 top to bottom direction
@@ -1867,7 +1867,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                title <size:24>System Landscape View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -1954,7 +1954,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = exporter.export(view);
         assertEquals("""
                 @startuml
-                title <size:24>Dynamic</size>
+                title <size:24>Dynamic View</size>
                 
                 set separator none
                 top to bottom direction
@@ -2041,7 +2041,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = exporter.export(view);
         assertEquals("""
                 @startuml
-                title <size:24>A - Dynamic</size>
+                title <size:24>Dynamic View: A</size>
                 
                 set separator none
                 top to bottom direction
@@ -2157,7 +2157,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = exporter.export(view);
         assertEquals("""
                 @startuml
-                title <size:24>A - Dynamic</size>
+                title <size:24>Dynamic View: A - A</size>
                 
                 set separator none
                 top to bottom direction
@@ -2277,7 +2277,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = exporter.export(view);
         assertEquals("""
                 @startuml
-                title <size:24>Deployment - Default</size>
+                title <size:24>Deployment View: Default</size>
                 
                 set separator none
                 top to bottom direction
@@ -2352,7 +2352,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = exporter.export(view);
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>
+                title <size:24>System Landscape View</size>
                 
                 set separator none
                 top to bottom direction
@@ -2409,7 +2409,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = exporter.export(view);
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>
+                title <size:24>System Landscape View</size>
                 
                 set separator none
                 top to bottom direction
@@ -2466,7 +2466,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = diagrams.stream().findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>X - Deployment - Live</size>
+                title <size:24>Deployment View: X - Live</size>
                 
                 set separator none
                 left to right direction
@@ -2825,7 +2825,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         Diagram diagram = diagrams.stream().findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>X - Deployment - Live</size>
+                title <size:24>Deployment View: X - Live</size>
                 
                 set separator none
                 left to right direction
@@ -3169,6 +3169,18 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 1 --> 1 <<Relationship-UmVsYXRpb25zaGlw>> : "Relationship"
                 
                 @enduml""", diagram.getLegend().getDefinition());
+    }
+
+    @Test
+    void c4model() throws Exception {
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("/Users/simon/Desktop/c4model/c4model/01-original/workspace.json"));
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
+
+        View view = workspace.getViews().getViewWithKey("Dynamic-SignIn-Collaboration");
+
+        Diagram diagram = exporter.export((DynamicView)view);
+        System.out.println(diagram.getDefinition());
+
     }
 
 }

@@ -111,7 +111,6 @@ public abstract class View implements PropertyHolder, Comparable<View> {
      *
      * @return the name, as a String
      */
-    @JsonIgnore
     public abstract String getName();
 
     void setViewSet(@Nonnull ViewSet viewSet) {

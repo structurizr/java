@@ -25,7 +25,7 @@ public class WebSequenceDiagramsExporterTests extends AbstractExporterTests {
 
         Diagram diagram = diagrams.stream().filter(d -> d.getKey().equals("SignIn")).findFirst().get();
         assertEquals("""
-                title API Application - Dynamic - SignIn
+                title Dynamic View: Internet Banking System - API Application\\nSummarises how the sign in feature works in the single-page application.
                 
                 participant <<Container>>\\nSingle-Page Application as Single-Page Application
                 participant <<Component>>\\nSign In Controller as Sign In Controller
@@ -56,7 +56,7 @@ public class WebSequenceDiagramsExporterTests extends AbstractExporterTests {
         Collection<Diagram> diagrams = exporter.export(workspace);
         Diagram diagram = diagrams.iterator().next();
         assertEquals("""
-                title Dynamic - key
+                title Dynamic View\\nDescription
                 
                 participant <<Software System>>\\nA as A
                 participant <<Software System>>\\nB as B

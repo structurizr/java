@@ -555,7 +555,7 @@ perspectives:
         description: "JSON/HTTPS"
         color: "#444444"
 
-  - name: Dynamic - API Application - Dynamic
+  - name: Dynamic: Internet Banking System - API Application
     sequence:
       start: "8"
       steps:

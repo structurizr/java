@@ -29,7 +29,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = diagrams.stream().filter(d -> d.getKey().equals("SystemLandscape")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>
+                title <size:24>System Landscape View</size>
                 
                 set separator none
                 top to bottom direction
@@ -80,7 +80,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         diagram = diagrams.stream().filter(d -> d.getKey().equals("SystemContext")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>Internet Banking System - System Context</size>\\n<size:24>The system context diagram for the Internet Banking System.</size>
+                title <size:24>System Context View: Internet Banking System</size>\\n<size:24>The system context diagram for the Internet Banking System.</size>
                 
                 set separator none
                 top to bottom direction
@@ -122,7 +122,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         diagram = diagrams.stream().filter(d -> d.getKey().equals("Containers")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>Internet Banking System - Containers</size>\\n<size:24>The container diagram for the Internet Banking System.</size>
+                title <size:24>Container View: Internet Banking System</size>\\n<size:24>The container diagram for the Internet Banking System.</size>
                 
                 set separator none
                 top to bottom direction
@@ -179,7 +179,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         diagram = diagrams.stream().filter(d -> d.getKey().equals("Components")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>Internet Banking System - API Application - Components</size>\\n<size:24>The component diagram for the API Application.</size>
+                title <size:24>Component View: Internet Banking System - API Application</size>\\n<size:24>The component diagram for the API Application.</size>
                 
                 set separator none
                 top to bottom direction
@@ -242,7 +242,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         diagram = diagrams.stream().filter(d -> d.getKey().equals("SignIn")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>API Application - Dynamic</size>\\n<size:24>Summarises how the sign in feature works in the single-page application.</size>
+                title <size:24>Dynamic View: Internet Banking System - API Application</size>\\n<size:24>Summarises how the sign in feature works in the single-page application.</size>
                 
                 set separator none
                 top to bottom direction
@@ -289,7 +289,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         diagram = diagrams.stream().filter(md -> md.getKey().equals("DevelopmentDeployment")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>Internet Banking System - Deployment - Development</size>\\n<size:24>An example development deployment scenario for the Internet Banking System.</size>
+                title <size:24>Deployment View: Internet Banking System - Development</size>\\n<size:24>An example development deployment scenario for the Internet Banking System.</size>
                 
                 set separator none
                 top to bottom direction
@@ -355,7 +355,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         diagram = diagrams.stream().filter(md -> md.getKey().equals("LiveDeployment")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>Internet Banking System - Deployment - Live</size>\\n<size:24>An example live deployment scenario for the Internet Banking System.</size>
+                title <size:24>Deployment View: Internet Banking System - Live</size>\\n<size:24>An example live deployment scenario for the Internet Banking System.</size>
                 
                 set separator none
                 top to bottom direction
@@ -446,7 +446,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         diagram = diagrams.stream().filter(d -> d.getKey().equals("SignIn")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>API Application - Dynamic</size>\\n<size:24>Summarises how the sign in feature works in the single-page application.</size>
+                title <size:24>Dynamic View: Internet Banking System - API Application</size>\\n<size:24>Summarises how the sign in feature works in the single-page application.</size>
                 
                 set separator none
                 
@@ -497,7 +497,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = diagrams.stream().findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>X - Deployment - Live</size>
+                title <size:24>Deployment View: X - Live</size>
                 
                 set separator none
                 left to right direction
@@ -560,7 +560,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = diagrams.stream().findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>X - Deployment - Live</size>
+                title <size:24>Deployment View: X - Live</size>
                 
                 set separator none
                 left to right direction
@@ -632,7 +632,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = diagrams.stream().filter(md -> md.getKey().equals("SystemLandscape")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>
+                title <size:24>System Landscape View</size>
                 
                 set separator none
                 top to bottom direction
@@ -675,7 +675,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         diagram = diagrams.stream().filter(md -> md.getKey().equals("Containers")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>D - Containers</size>
+                title <size:24>Container View: D</size>
                 
                 set separator none
                 top to bottom direction
@@ -712,7 +712,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         diagram = diagrams.stream().filter(md -> md.getKey().equals("Components")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>D - F - Components</size>
+                title <size:24>Component View: D - F</size>
                 
                 set separator none
                 top to bottom direction
@@ -776,7 +776,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = diagrams.stream().filter(md -> md.getKey().equals("SystemLandscape")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                title <size:24>System Landscape View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -839,7 +839,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = diagrams.stream().filter(md -> md.getKey().equals("SystemLandscape")).findFirst().get();
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                title <size:24>System Landscape View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -896,7 +896,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = exporter.export(view);
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>
+                title <size:24>System Landscape View</size>
                 
                 set separator none
                 top to bottom direction
@@ -936,7 +936,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         diagram = exporter.export(view);
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>
+                title <size:24>System Landscape View</size>
                 
                 set separator none
                 top to bottom direction
@@ -990,7 +990,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = new C4PlantUMLExporter().export(containerView);
         assertEquals("""
                 @startuml
-                title <size:24>Software System 1 - Containers</size>
+                title <size:24>Container View: Software System 1</size>
                 
                 set separator none
                 top to bottom direction
@@ -1041,7 +1041,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = new C4PlantUMLExporter().export(componentView);
         assertEquals("""
                 @startuml
-                title <size:24>Software System 1 - Container 1 - Components</size>
+                title <size:24>Component View: Software System 1 - Container 1</size>
                 
                 set separator none
                 top to bottom direction
@@ -1085,7 +1085,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = new C4PlantUMLExporter().export(view);
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                title <size:24>System Landscape View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -1120,7 +1120,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = new C4PlantUMLExporter().export(view);
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                title <size:24>System Landscape View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -1156,7 +1156,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = new C4PlantUMLExporter().export(view);
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                title <size:24>System Landscape View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -1190,7 +1190,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = new C4PlantUMLExporter().export(view);
         assertEquals("""
                 @startuml
-                title <size:24>Deployment - Default</size>\\n<size:24>view description</size>
+                title <size:24>Deployment View: Default</size>\\n<size:24>view description</size>
                 
                 set separator none
                 top to bottom direction
@@ -1239,7 +1239,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = new C4PlantUMLExporter().export(view);
         assertEquals("""
                 @startuml
-                title <size:24>SoftwareSystem - Containers</size>
+                title <size:24>Container View: SoftwareSystem</size>
                 
                 set separator none
                 top to bottom direction
@@ -1293,7 +1293,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = new C4PlantUMLExporter().export(deploymentView);
         assertEquals("""
                 @startuml
-                title <size:24>Deployment - Default</size>
+                title <size:24>Deployment View: Default</size>
                 
                 set separator none
                 top to bottom direction
@@ -1336,7 +1336,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = new C4PlantUMLExporter().export(view);
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                title <size:24>System Landscape View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -1363,7 +1363,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         diagram = new C4PlantUMLExporter().export(view);
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                title <size:24>System Landscape View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -1390,7 +1390,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         diagram = new C4PlantUMLExporter().export(view);
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                title <size:24>System Landscape View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -1417,7 +1417,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         diagram = new C4PlantUMLExporter().export(view);
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                title <size:24>System Landscape View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -1465,7 +1465,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = new C4PlantUMLExporter().export(containerView);
         assertEquals("""
                 @startuml
-                title <size:24>Software System - Containers</size>
+                title <size:24>Container View: Software System</size>
                 
                 set separator none
                 top to bottom direction
@@ -1522,7 +1522,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = new C4PlantUMLExporter().export(componentView);
         assertEquals("""
                 @startuml
-                title <size:24>Software System - Container - Components</size>
+                title <size:24>Component View: Software System - Container</size>
                 
                 set separator none
                 top to bottom direction
@@ -1561,7 +1561,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = new C4PlantUMLExporter().export(view);
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                title <size:24>System Landscape View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -1596,7 +1596,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = new C4PlantUMLExporter().export(view);
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                title <size:24>System Landscape View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -1631,7 +1631,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = new C4PlantUMLExporter().export(view);
         assertEquals("""
                 @startuml
-                title <size:24>Name - Name - Components</size>\\n<size:24>Description</size>
+                title <size:24>Component View: Name - Name</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -1668,7 +1668,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = new C4PlantUMLExporter().export(view);
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                title <size:24>System Landscape View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
@@ -1703,7 +1703,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
         Diagram diagram = new C4PlantUMLExporter().export(view);
         assertEquals("""
                 @startuml
-                title <size:24>System Landscape</size>\\n<size:24>Description</size>
+                title <size:24>System Landscape View</size>\\n<size:24>Description</size>
                 
                 set separator none
                 top to bottom direction
