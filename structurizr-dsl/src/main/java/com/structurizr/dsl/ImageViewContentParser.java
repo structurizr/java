@@ -7,6 +7,7 @@ import com.structurizr.importer.diagrams.kroki.KrokiImporter;
 import com.structurizr.importer.diagrams.mermaid.MermaidImporter;
 import com.structurizr.importer.diagrams.plantuml.PlantUMLImporter;
 import com.structurizr.util.ImageUtils;
+import com.structurizr.util.StringUtils;
 import com.structurizr.util.Url;
 import com.structurizr.view.ImageView;
 import com.structurizr.view.ModelView;
@@ -56,6 +57,13 @@ final class ImageViewContentParser extends AbstractParser {
                             StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
                             String plantuml = exporter.export((ModelView) viewWithKey).getDefinition();
                             new PlantUMLImporter().importDiagram(context.getView(), plantuml);
+
+                            if (!StringUtils.isNullOrEmpty(viewWithKey.getTitle())) {
+                                context.getView().setTitle(viewWithKey.getTitle());
+                            } else {
+                                context.getView().setTitle(viewWithKey.getName());
+                            }
+                            context.getView().setDescription(viewWithKey.getDescription());
                         } else {
                             if (Url.isUrl(source)) {
                                 RemoteContent content = readFromUrl(source);
@@ -107,6 +115,13 @@ final class ImageViewContentParser extends AbstractParser {
                             MermaidDiagramExporter exporter = new MermaidDiagramExporter();
                             String mermaid = exporter.export((ModelView) viewWithKey).getDefinition();
                             new MermaidImporter().importDiagram(context.getView(), mermaid);
+
+                            if (!StringUtils.isNullOrEmpty(viewWithKey.getTitle())) {
+                                context.getView().setTitle(viewWithKey.getTitle());
+                            } else {
+                                context.getView().setTitle(viewWithKey.getName());
+                            }
+                            context.getView().setDescription(viewWithKey.getDescription());
                         } else {
                             if (Url.isUrl(source)) {
                                 RemoteContent content = readFromUrl(source);

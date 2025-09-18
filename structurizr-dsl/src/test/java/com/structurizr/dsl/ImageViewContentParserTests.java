@@ -55,8 +55,9 @@ class ImageViewContentParserTests extends AbstractTests {
 
         parser = new ImageViewContentParser(true);
         parser.parsePlantUML(context, null, tokens("plantuml", "SystemLandscape"));
-        assertEquals("System Landscape", imageView.getTitle());
-        assertEquals("https://plantuml.com/plantuml/svg/ZLBBJiCm4BpxArRb32rLuH2IgE4b3kL243q01pVU9bOJRsHlr0VYtt6Qj1n0Y9LihMTjpth6KyVISbELWZMN2A7JEmp6apZTEiOAPj8ebyaQms5RYT_CSSSjkipgcZMPlYY4GmQ7jRIIoO8XWuAf1YPO43DLeBJ5h3qY2gqGF8T5ucsDGeIEjwM_1C0ICNpu1E1QPglSKcFK3PLa0pXPxkDgNxqdmmTyieyM__HZE8Ix4Yiqx1TdVNhwDD-KY_bBev8e-XV1J1lyIT3XQTjk0ADlvBdGsSgWSm6C_sgmmzDMHnZto0DPlVEeB9DIvwPjDu3CpsYx3MaX5QsroO-KZtAZgwQQQyL509EBKVTuRqOdf6YbbYRtjWwYA3bOTtuPlwQqvBMq29tDxxs10mZ3txIAOv0E4Y6cQ9J_B5y0", imageView.getContent());
+        assertEquals("System Landscape View", imageView.getTitle());
+        assertEquals("Description", imageView.getDescription());
+        assertEquals("https://plantuml.com/plantuml/svg/ZLBBJiCm4BpxArPmXfQgS0X9rF0IXt8Xg3q01pVP9bOTRsHlr0VYtt6Qj1n0Y9LihMTjpth64yVISbDfmOerGkZK3eFHE4wtZh62gJIvosIDC5Eu3WTjENupnsrtw3AhQbPa-g8G3XaSrj9A9Wk630gc6fXWGSnKGQuiPkqHKQeSmHDP9DxMA4JeUAlz9G2MYE739m0tCbiLbXgJtv8c6y3fSX_N--e36JxWutsq-ASVWm7SQwpGi5-Sz-dPytoZ5_DPaoTHz2-2gJBuaw33qxRT08RVo4kfifL1vm8O_TLWXwUjZZ3gaKUoQkTHgHEj2jEs6q3cPxJTXhIKEQsLAOwKJtAZggQQgvpB0CQNm-xntenEID5ABKtXlJs9ekHWtSLL_9hIajVI8dHUl_S6da0O_gPL78Dqa0WnGPFx7_C5", imageView.getContent());
     }
 
     @Test
@@ -95,7 +96,9 @@ class ImageViewContentParserTests extends AbstractTests {
 
         parser = new ImageViewContentParser(true);
         parser.parseMermaid(context, null, tokens("mermaid", "SystemLandscape"));
-        assertEquals("https://mermaid.ink/svg/pako:eJxtkMtqwzAQRX9lmFK8cWgChYKaGNp1d-4uzkKxRraIHkaaNE1D_r12lEJfs5qBM4fLPQG2QREK7KIcenh9bjyANX5X89ESKNJybxm0sVbc6Ms0fmLSfptflJHj4mDdYH1MTA5epFeplQM1uJnQEc6yK_ldViaOYUc_3QCL0bZU5i1_rgodPM8OZLqeBWyDVUX1tLwbgeoPlcwHCXiY3z6Ck7EzfsZhEDAf3otqXQfNBxkJctRNdvzKufg_4f1lyjbYEL-unJe8whLQUXTSKBQn5J7c1Oq1PzyfPwHoMXnQ", imageView.getContent());
+        assertEquals("System Landscape View", imageView.getTitle());
+        assertEquals("Description", imageView.getDescription());
+        assertEquals("https://mermaid.ink/svg/pako:eJxtkM1rwkAQxf-VYYrkEqmCUNjaQD33luLFeFizs8nifoTd1WjF_72Ja6Ffc5qB33vzeBfA2glCho3nXQvvq8oCaGX3ZTxrAkGSH3QEqbRmD_I2lR2ZcNgliVB8WAxsKizPIZKBN25FqHlHsFbUV7gd-UGRHO_4d8c8RO_29PMBwHywXAp1TMqXTDobpz2ppo0Mdk6LrHhdPg5A8YcK6oMYPM0mz2C4b5SdRtcxmHWnrNiUTsaee4KUd5s8fuWc_59wcZu8dtr5ryvlJSswBzTkDVcC2QVjS2as9l4iXq-fYuV7iw==", imageView.getContent());
     }
 
     @Test
