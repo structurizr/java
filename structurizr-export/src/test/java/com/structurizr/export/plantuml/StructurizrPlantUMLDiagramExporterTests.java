@@ -3171,16 +3171,4 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 @enduml""", diagram.getLegend().getDefinition());
     }
 
-    @Test
-    void c4model() throws Exception {
-        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("/Users/simon/Desktop/c4model/c4model/01-original/workspace.json"));
-        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
-
-        View view = workspace.getViews().getViewWithKey("Dynamic-SignIn-Collaboration");
-
-        Diagram diagram = exporter.export((DynamicView)view);
-        System.out.println(diagram.getDefinition());
-
-    }
-
 }
