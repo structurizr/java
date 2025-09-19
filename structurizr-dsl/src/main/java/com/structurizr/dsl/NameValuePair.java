@@ -32,6 +32,7 @@ class NameValuePair {
 enum NameValueType {
 
     Constant,
-    Variable
+    Variable,
+    TextBlock
 
 }

@@ -3,7 +3,8 @@
 ## v5.0.0 (unreleased)
 
 - structurizr-core: Removes support for deprecated enterprise and location concepts.
-- structurizr-core: Adds support for filtered deployment views (https://github.com/structurizr/java/issues/409). 
+- structurizr-core: Adds support for filtered deployment views (https://github.com/structurizr/java/issues/409).
+- structurizr-core: Adds support for separate images for light and dark color schemes.
 - structurizr-component: Fixes https://github.com/structurizr/java/issues/437 (Make ComponentFinder.run() not fail on empty Set<DiscoveredComponent>).
 - structurizr-dsl: Adds support for `iconPosition` on element styles (options are `Top`, `Bottom`, `Left`).
 - structurizr-dsl: Adds support for defining element and relationship styles for light and dark mode.

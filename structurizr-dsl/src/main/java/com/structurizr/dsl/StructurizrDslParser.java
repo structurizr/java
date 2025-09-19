@@ -1099,6 +1099,16 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (IMAGE_VIEW_TOKEN.equalsIgnoreCase(firstToken) && inContext(ImageViewDslContext.class)) {
                         new ImageViewContentParser(restricted).parseImage(getContext(ImageViewDslContext.class), dslFile, tokens);
 
+                    } else if (LIGHT_COLOR_SCHEME_TOKEN.equalsIgnoreCase(firstToken) && inContext(ImageViewDslContext.class) && shouldStartContext(tokens)) {
+                        ImageViewDslContext context = getContext(ImageViewDslContext.class);
+                        context.setColorScheme(ColorScheme.Light);
+                        startContext(context);
+
+                    } else if (DARK_COLOR_SCHEME_TOKEN.equalsIgnoreCase(firstToken) && inContext(ImageViewDslContext.class) && shouldStartContext(tokens)) {
+                        ImageViewDslContext context = getContext(ImageViewDslContext.class);
+                        context.setColorScheme(ColorScheme.Dark);
+                        startContext(context);
+
                     } else if (inContext(DynamicViewDslContext.class)) {
                         RelationshipView relationshipView = new DynamicViewContentParser().parseRelationship(getContext(DynamicViewDslContext.class), tokens);
 
@@ -1230,11 +1240,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                     } else if (VAR_TOKEN.equalsIgnoreCase(firstToken)) {
                         NameValuePair nameValuePair = new NameValueParser().parseVariable(tokens);
-
-                        if (constantsAndVariables.containsKey(nameValuePair.getName()) && constantsAndVariables.get(nameValuePair.getName()).getType() == NameValueType.Constant) {
-                            throw new StructurizrDslParserException("A constant \"" + nameValuePair.getName() + "\" already exists");
-                        }
-                        constantsAndVariables.put(nameValuePair.getName(), nameValuePair);
+                        addVariable(nameValuePair);
 
                     } else if (IDENTIFIERS_TOKEN.equalsIgnoreCase(firstToken) && (inContext(WorkspaceDslContext.class) || inContext(ModelDslContext.class))) {
                         setIdentifierScope(new IdentifierScopeParser().parse(getContext(), tokens));
@@ -1337,10 +1343,10 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                 if (source.endsWith(TEXT_BLOCK_MARKER)) {
                     String[] parts = source.split(TEXT_BLOCK_MARKER);
-                    String constantName = UUID.randomUUID().toString();
-                    String constantValue = parts[1].substring(0, parts[1].length() - 1); // remove final line break
-                    addConstant(constantName, constantValue);
-                    dslLines.add(new DslLine(parts[0] + "\"" + String.format(STRING_SUBSTITUTION_TEMPLATE, constantName) + "\"", lineNumber));
+                    String textBlockName = UUID.randomUUID().toString();
+                    String textBlockValue = parts[1].substring(0, parts[1].length() - 1); // remove final line break
+                    addTextBlock(textBlockName, textBlockValue);
+                    dslLines.add(new DslLine(parts[0] + "\"" + String.format(STRING_SUBSTITUTION_TEMPLATE, textBlockName) + "\"", lineNumber));
                 } else {
                     dslLines.add(new DslLine(source, lineNumber));
                 }
@@ -1365,7 +1371,13 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
             String after = null;
             String name = before.substring(2, before.length()-1);
             if (constantsAndVariables.containsKey(name)) {
-                after = constantsAndVariables.get(name).getValue();
+                NameValuePair nameValuePair = constantsAndVariables.get(name);
+
+                if (nameValuePair.getType() == NameValueType.TextBlock) {
+                    after = substituteStrings(nameValuePair.getValue());
+                } else {
+                    after = nameValuePair.getValue();
+                }
             } else {
                 if (!restricted) {
                     String environmentVariable = System.getenv().get(name);
@@ -1538,6 +1550,23 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
             throw new IllegalArgumentException("A constant/variable \"" + nameValuePair.getName() + "\" already exists");
         }
         constantsAndVariables.put(nameValuePair.getName(), nameValuePair);
+    }
+
+    private void addVariable(NameValuePair nameValuePair) {
+        if (constantsAndVariables.containsKey(nameValuePair.getName()) && constantsAndVariables.get(nameValuePair.getName()).getType() == NameValueType.Constant) {
+            throw new IllegalArgumentException("A constant \"" + nameValuePair.getName() + "\" already exists");
+        }
+        constantsAndVariables.put(nameValuePair.getName(), nameValuePair);
+    }
+
+    private void addTextBlock(String name, String value) {
+        if (StringUtils.isNullOrEmpty(name)) {
+            throw new IllegalArgumentException("A text block name must be specified");
+        }
+
+        NameValuePair nameValuePair = new NameValuePair(name, value);
+        nameValuePair.setType(NameValueType.TextBlock);
+        addConstant(nameValuePair);
     }
 
     private boolean inContext(Class clazz) {

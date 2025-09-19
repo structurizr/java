@@ -13,6 +13,8 @@ public final class ImageView extends View {
     private Element element;
     private String elementId;
     private String content;
+    private String contentLight;
+    private String contentDark;
     private String contentType;
 
     ImageView() {
@@ -63,16 +65,57 @@ public final class ImageView extends View {
     }
 
     /**
+     * Gets the content of this view (a URL or a data URI), for the light color scheme.
+     *
+     * @return  the content, as a String
+     */
+    public String getContentLight() {
+        return contentLight;
+    }
+
+    /**
+     * Gets the content of this view (a URL or a data URI), for the dark color scheme.
+     *
+     * @return  the content, as a String
+     */
+    public String getContentDark() {
+        return contentDark;
+    }
+
+    /**
      * Sets the content of this image view, which needs to be a URL or a data URI.
      *
      * @param content   the content of this view
      */
     public void setContent(String content) {
+        setContent(content, null);
+    }
+
+    /**
+     * Sets the content of this image view, which needs to be a URL or a data URI.
+     *
+     * @param content   the content of this view
+     */
+    public void setContent(String content, ColorScheme colorScheme) {
         if (StringUtils.isNullOrEmpty(content)) {
-            this.content = null;
+            if (colorScheme == ColorScheme.Dark) {
+                this.contentDark = null;
+            } else if (colorScheme == ColorScheme.Light) {
+                this.contentLight = null;
+            } else {
+                this.content = null;
+            }
         } else {
             ImageUtils.validateImage(content);
-            this.content = content.trim();
+            content = content.trim();
+
+            if (colorScheme == ColorScheme.Dark) {
+                this.contentDark = content;
+            } else if (colorScheme == ColorScheme.Light) {
+                this.contentLight = content;
+            } else {
+                this.content = content;
+            }
         }
     }
 
@@ -97,6 +140,13 @@ public final class ImageView extends View {
     @Override
     public String getName() {
         return getTitle();
+    }
+
+    public boolean hasContent() {
+        return
+                !StringUtils.isNullOrEmpty(content) ||
+                !StringUtils.isNullOrEmpty(contentLight) ||
+                !StringUtils.isNullOrEmpty(contentDark);
     }
 
 }

@@ -11,13 +11,14 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 public class ImageImporterTests {
 
     @Test
+    @Tag("IntegrationTest")
     public void importDiagram_Url() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
         ImageView view = workspace.getViews().createImageView("key");
 
         new ImageImporter().importDiagram(view, "https://static.structurizr.com/themes/amazon-web-services-2020.04.30/alexa-for-business.png");
         assertEquals("https://static.structurizr.com/themes/amazon-web-services-2020.04.30/alexa-for-business.png", view.getContent());
-        assertNull(view.getContentType());
+        assertEquals("image/png", view.getContentType());
         assertEquals("alexa-for-business.png", view.getTitle());
     }
 

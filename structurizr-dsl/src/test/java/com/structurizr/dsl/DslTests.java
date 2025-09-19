@@ -1698,22 +1698,39 @@ workspace {
         parser.parse(new File("src/test/resources/dsl/text-block.dsl"));
 
         workspace = parser.getWorkspace();
-        SoftwareSystem softwareSystem = workspace.getModel().getSoftwareSystemWithName("Name");
-        assertEquals("""
-            - Line 1
-            - Line 2
-            - Line 3""", softwareSystem.getDescription());
+
+        ImageView view = (ImageView)workspace.getViews().getViewWithKey("image");
+        assertEquals("https://plantuml.com/plantuml/svg/SoWkIImgAStDuUAoAIwfp4cruohApozHgEPI00AdnEJizAByqhmKv_oS_28h1UKqCB3cgkMoqOUgvqhEIImkLl2jT0RHN0wfUIb0ym00", view.getContent());
 
         assertEquals("""
                 workspace {
                 
-                    model {
-                        softwareSystem = softwareSystem "Name" {
-                            description ""\"
-                                - Line 1
-                                - Line 2
-                                - Line 3
+                    views {
+                        properties {
+                            "plantuml.url" "https://plantuml.com/plantuml"
+                        }
+                
+                        !const SOURCE ""\"
+                            class MyClass
                             ""\"
+                
+                        !var STYLES ""\"
+                            <style>
+                            root {
+                                BackgroundColor: #ffffff;
+                            }
+                            </style>
+                        ""\"
+                
+                        image * "image" {
+                            plantuml ""\"
+                                 @startuml
+                
+                                 ${STYLES}
+                
+                                 ${SOURCE}
+                                 @enduml
+                             ""\"
                         }
                     }
                 

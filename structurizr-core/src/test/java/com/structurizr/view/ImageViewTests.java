@@ -27,4 +27,31 @@ public class ImageViewTests extends AbstractWorkspaceTestBase {
         assertEquals(softwareSystem.getId(), view.getElementId());
     }
 
+    @Test
+    void hasContent_WhenNoContent() {
+        ImageView view = views.createImageView("key");
+        assertFalse(view.hasContent());
+    }
+
+    @Test
+    void hasContent_WhenContent() {
+        ImageView view = views.createImageView("key");
+        view.setContent("https://example.com/image.png");
+        assertTrue(view.hasContent());
+    }
+
+    @Test
+    void hasContent_WhenContentLight() {
+        ImageView view = views.createImageView("key");
+        view.setContent("https://example.com/image.png", ColorScheme.Light);
+        assertTrue(view.hasContent());
+    }
+
+    @Test
+    void hasContent_WhenContentDark() {
+        ImageView view = views.createImageView("key");
+        view.setContent("https://example.com/image.png", ColorScheme.Dark);
+        assertTrue(view.hasContent());
+    }
+
 }

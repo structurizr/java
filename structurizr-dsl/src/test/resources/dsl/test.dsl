@@ -328,6 +328,16 @@ workspace "Name" "Description" {
             default
         }
 
+        image * {
+            light {
+                image logo.png
+            }
+            dark {
+                image logo.png
+            }
+            image logo.png
+        }
+
         styles {
             element "Element" {
                 shape roundedbox

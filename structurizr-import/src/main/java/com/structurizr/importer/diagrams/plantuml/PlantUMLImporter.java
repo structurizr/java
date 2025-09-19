@@ -4,6 +4,7 @@ import com.structurizr.importer.diagrams.AbstractDiagramImporter;
 import com.structurizr.util.ImageUtils;
 import com.structurizr.util.StringUtils;
 import com.structurizr.util.Url;
+import com.structurizr.view.ColorScheme;
 import com.structurizr.view.ImageView;
 
 import java.io.File;
@@ -20,13 +21,21 @@ public class PlantUMLImporter extends AbstractDiagramImporter {
     private static final String NEWLINE = "\n";
 
     public void importDiagram(ImageView view, File file) throws Exception {
+        importDiagram(view, file, null);
+    }
+
+    public void importDiagram(ImageView view, File file, ColorScheme colorScheme) throws Exception {
         String content = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
         view.setTitle(file.getName());
 
-        importDiagram(view, content);
+        importDiagram(view, content, colorScheme);
     }
 
     public void importDiagram(ImageView view, String content) throws Exception {
+        importDiagram(view, content, null);
+    }
+
+    public void importDiagram(ImageView view, String content, ColorScheme colorScheme) throws Exception {
         String plantUMLServer = getViewOrViewSetProperty(view, PLANTUML_URL_PROPERTY);
         if (StringUtils.isNullOrEmpty(plantUMLServer)) {
             throw new IllegalArgumentException("Please define a view/viewset property named " + PLANTUML_URL_PROPERTY + " to specify your PlantUML server");
@@ -47,12 +56,12 @@ public class PlantUMLImporter extends AbstractDiagramImporter {
         String inline = getViewOrViewSetProperty(view, PLANTUML_INLINE_PROPERTY);
         if ("true".equals(inline)) {
             if (format.equals(SVG_FORMAT)) {
-                view.setContent(ImageUtils.getSvgAsDataUri(new URL(url), true));
+                view.setContent(ImageUtils.getSvgAsDataUri(new URL(url), true), colorScheme);
             } else {
-                view.setContent(ImageUtils.getPngAsDataUri(new URL(url), true));
+                view.setContent(ImageUtils.getPngAsDataUri(new URL(url), true), colorScheme);
             }
         } else {
-            view.setContent(url);
+            view.setContent(url, colorScheme);
         }
         view.setContentType(CONTENT_TYPES_BY_FORMAT.get(format));
 
