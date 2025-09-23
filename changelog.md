@@ -2,6 +2,7 @@
 
 ## v5.0.0 (unreleased)
 
+- structurizr-autolayout: Adds support for custom padding view/viewset properties: `structurizr.groupPadding`,`structurizr.boundaryPadding`, and `structurizr.deploymentNodePadding`.
 - structurizr-core: Removes support for deprecated enterprise and location concepts.
 - structurizr-core: Adds support for filtered deployment views (https://github.com/structurizr/java/issues/409).
 - structurizr-core: Adds support for separate images for light and dark color schemes.
