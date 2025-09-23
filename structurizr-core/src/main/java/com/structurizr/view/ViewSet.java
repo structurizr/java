@@ -792,7 +792,7 @@ public final class ViewSet {
         return new TreeSet<>(imageViews);
     }
 
-    void setImageView(Set<ImageView> imageViews) {
+    void setImageViews(Set<ImageView> imageViews) {
         if (imageViews != null) {
             this.imageViews = new TreeSet<>(imageViews);
         }
