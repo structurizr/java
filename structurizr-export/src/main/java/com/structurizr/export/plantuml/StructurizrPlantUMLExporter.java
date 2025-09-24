@@ -34,7 +34,7 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
         plantUMLStyles = new HashSet<>();
         super.writeHeader(view, writer);
 
-        if (view instanceof DynamicView && renderAsSequenceDiagram(view)) {
+        if (renderAsSequenceDiagram(view)) {
             // do nothing
         } else {
             if (view.getAutomaticLayout() != null) {
@@ -324,7 +324,6 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
     @Override
     protected void writeElement(ModelView view, Element element, IndentingWriter writer) {
         ElementStyle elementStyle = findElementStyle(view, element);
-
         PlantUMLElementStyle plantUMLElementStyle = new PlantUMLElementStyle(
                 elementStyle.getTag(),
                 elementStyle.getShape(),
@@ -332,7 +331,7 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
                 elementStyle.getBackground(),
                 elementStyle.getColor(),
                 elementStyle.getStroke(),
-                elementStyle.getStrokeWidth() != null ? elementStyle.getStrokeWidth() : DEFAULT_STROKE_WIDTH,
+                renderAsSequenceDiagram(view) ? DEFAULT_STROKE_WIDTH : elementStyle.getStrokeWidth() != null ? elementStyle.getStrokeWidth() : DEFAULT_STROKE_WIDTH,
                 elementStyle.getBorder(),
                 elementStyle.getFontSize(),
                 elementStyle.getIcon(),
@@ -342,7 +341,7 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
 
         int metadataFontSize = calculateMetadataFontSize(elementStyle.getFontSize());
 
-        if (view instanceof DynamicView && renderAsSequenceDiagram(view)) {
+        if (renderAsSequenceDiagram(view)) {
             writer.writeLine(String.format("%s \"%s\\n<size:%s>%s</size>\" as %s <<%s>> %s",
                     plantumlSequenceType(view, element),
                     element.getName(),
@@ -424,7 +423,7 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
                 style.getTag(),
                 style.getColor(),
                 style.getStyle(),
-                style.getThickness(),
+                renderAsSequenceDiagram(view) ? DEFAULT_STROKE_WIDTH : style.getThickness(),
                 style.getFontSize()
         );
         plantUMLStyles.add(plantUMLRelationshipStyle);
@@ -432,7 +431,7 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
         String description = "";
         String technology = relationship.getTechnology();
 
-        if (view instanceof DynamicView && renderAsSequenceDiagram(view)) {
+        if (renderAsSequenceDiagram(view)) {
             // do nothing - sequence diagrams don't need the order
         } else {
             if (!StringUtils.isNullOrEmpty(relationshipView.getOrder())) {
@@ -442,7 +441,7 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
 
         description += (hasValue(relationshipView.getDescription()) ? relationshipView.getDescription() : hasValue(relationshipView.getRelationship().getDescription()) ? relationshipView.getRelationship().getDescription() : "");
 
-        if (view instanceof DynamicView && renderAsSequenceDiagram(view)) {
+        if (renderAsSequenceDiagram(view)) {
             String arrowStart = "-";
             String arrowEnd = ">";
 
