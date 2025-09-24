@@ -631,6 +631,49 @@ public final class ViewSet {
     }
 
     /**
+     * Removes the view with the specified key.
+     *
+     * @param key   the key
+     * @throws  IllegalArgumentException    if a view with the specified key could not be found
+     */
+    public void removeViewWithKey(String key) {
+        if (StringUtils.isNullOrEmpty(key)) {
+            throw new IllegalArgumentException("A view key must be specified.");
+        }
+
+        View view = getViewWithKey(key);
+        if (view == null) {
+            throw new IllegalArgumentException("A view with key \"" + key + "\" does not exist.");
+        }
+
+        for (FilteredView filteredView : filteredViews) {
+            if (filteredView.getBaseViewKey().equals(key)) {
+                throw new IllegalArgumentException("A filtered view based upon \"" + key + "\" exists - please remove this first.");
+            }
+        }
+
+        if (view instanceof CustomView) {
+            customViews.remove(view);
+        } else if (view instanceof SystemLandscapeView) {
+            systemLandscapeViews.remove(view);
+        } else if (view instanceof SystemContextView) {
+            systemContextViews.remove(view);
+        } else if (view instanceof ContainerView) {
+            containerViews.remove(view);
+        } else if (view instanceof ComponentView) {
+            componentViews.remove(view);
+        } else if (view instanceof DynamicView) {
+            dynamicViews.remove(view);
+        } else if (view instanceof DeploymentView) {
+            deploymentViews.remove(view);
+        } else if (view instanceof ImageView) {
+            imageViews.remove(view);
+        } else if (view instanceof FilteredView) {
+            filteredViews.remove(view);
+        }
+    }
+
+    /**
      * Finds the filtered view with the specified key, or null if the view does not exist.
      *
      * @param key   the key
