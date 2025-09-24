@@ -84,7 +84,12 @@ public abstract class View implements PropertyHolder, Comparable<View> {
         return order;
     }
 
-    void setOrder(int order) {
+    /**
+     * Sets the order of this view.
+     *
+     * @param order     a positive integer
+     */
+    public void setOrder(int order) {
         this.order = Math.max(1, order);
     }
 
