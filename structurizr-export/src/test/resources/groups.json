@@ -4,7 +4,7 @@
   "documentation" : { },
   "id" : 1,
   "lastModifiedAgent" : "structurizr-ui",
-  "lastModifiedDate" : "2025-07-01T16:48:46Z",
+  "lastModifiedDate" : "2025-09-25T10:53:04Z",
   "model" : {
     "properties" : {
       "structurizr.groupSeparator" : "/"
@@ -261,19 +261,19 @@
       },
       "elements" : [ {
         "id" : "1",
-        "x" : 240,
+        "x" : 239,
         "y" : 165
       }, {
         "id" : "2",
-        "x" : 240,
+        "x" : 239,
         "y" : 765
       }, {
         "id" : "3",
-        "x" : 240,
+        "x" : 239,
         "y" : 1365
       }, {
         "id" : "4",
-        "x" : 240,
+        "x" : 239,
         "y" : 1965
       } ],
       "enterpriseBoundaryVisible" : true,

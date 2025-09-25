@@ -3,8 +3,7 @@
   "description" : "Description",
   "documentation" : { },
   "id" : 1,
-  "lastModifiedAgent" : "structurizr-ui",
-  "lastModifiedDate" : "2025-07-01T16:47:09Z",
+  "lastModifiedDate" : "2025-09-25T12:38:13Z",
   "model" : {
     "properties" : {
       "structurizr.groupSeparator" : "/"
@@ -142,97 +141,53 @@
   },
   "name" : "Name",
   "properties" : {
-    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgIHN0cnVjdHVyaXpyLmdyb3VwU2VwYXJhdG9yIC8KICAgICAgICB9CgogICAgICAgIGEgPSBzb2Z0d2FyZVN5c3RlbSAiQSIgewogICAgICAgICAgICBiID0gY29udGFpbmVyICJCIiB7CiAgICAgICAgICAgICAgICBjID0gY29tcG9uZW50ICJDIgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIGQgPSBzb2Z0d2FyZVN5c3RlbSAiZCIgewogICAgICAgICAgICBlID0gY29udGFpbmVyICJlIiB7CiAgICAgICAgICAgICAgICBmID0gY29tcG9uZW50ICJmIgogICAgICAgICAgICAgICAgZyA9IGNvbXBvbmVudCAiZyIKICAgICAgICAgICAgICAgIGggPSBjb21wb25lbnQgImgiCiAgICAgICAgICAgIH0KICAgICAgICB9CgogICAgICAgIGIgLT4gZQogICAgICAgIGYgLT4gaAogICAgICAgIGMgLT4gZgogICAgICAgIGYgLT4gZwoKICAgIH0KCiAgICB2aWV3cyB7CiAgICAKICAgICAgICBkeW5hbWljIGEgIlNlcXVlbmNlLVNvZnR3YXJlU3lzdGVtIiB7CiAgICAgICAgICAgIGIgLT4gZQogICAgICAgICAgICBwcm9wZXJ0aWVzIHsKICAgICAgICAgICAgICAgICJwbGFudHVtbC5zZXF1ZW5jZURpYWdyYW0iICJ0cnVlIgogICAgICAgICAgICAgICAgInBsYW50dW1sLnRlb3oiICJ0cnVlIgogICAgICAgICAgICAgICAgIm1lcm1haWQuc2VxdWVuY2VEaWFncmFtIiAidHJ1ZSIKICAgICAgICAgICAgICAgICJtZXJtYWlkLnRpdGxlIiAidHJ1ZSIKICAgICAgICAgICAgICAgICJzdHJ1Y3R1cml6ci5zb2Z0d2FyZVN5c3RlbUJvdW5kYXJpZXMiICJ0cnVlIgogICAgICAgICAgICB9CiAgICAgICAgICAgIGF1dG9MYXlvdXQKICAgICAgICB9CiAgICAgICAgICAgIAogICAgICAgIGR5bmFtaWMgZSAiU2VxdWVuY2UtQ29udGFpbmVyIiB7CiAgICAgICAgICAgIGYgLT4gaAogICAgICAgICAgICBjIC0+IGYKICAgICAgICAgICAgZiAtPiBnCiAgICAgICAgICAgIHByb3BlcnRpZXMgewogICAgICAgICAgICAgICAgInBsYW50dW1sLnNlcXVlbmNlRGlhZ3JhbSIgInRydWUiCiAgICAgICAgICAgICAgICAicGxhbnR1bWwudGVveiIgInRydWUiCiAgICAgICAgICAgICAgICAibWVybWFpZC5zZXF1ZW5jZURpYWdyYW0iICJ0cnVlIgogICAgICAgICAgICAgICAgIm1lcm1haWQudGl0bGUiICJ0cnVlIgogICAgICAgICAgICAgICAgInN0cnVjdHVyaXpyLnNvZnR3YXJlU3lzdGVtQm91bmRhcmllcyIgInRydWUiCiAgICAgICAgICAgIH0KICAgICAgICAgICAgYXV0b0xheW91dAogICAgICAgIH0KICAgIH0KCn0="
+    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgIHN0cnVjdHVyaXpyLmdyb3VwU2VwYXJhdG9yIC8KICAgICAgICB9CgogICAgICAgIGEgPSBzb2Z0d2FyZVN5c3RlbSAiQSIgewogICAgICAgICAgICBiID0gY29udGFpbmVyICJCIiB7CiAgICAgICAgICAgICAgICBjID0gY29tcG9uZW50ICJDIgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIGQgPSBzb2Z0d2FyZVN5c3RlbSAiZCIgewogICAgICAgICAgICBlID0gY29udGFpbmVyICJlIiB7CiAgICAgICAgICAgICAgICBmID0gY29tcG9uZW50ICJmIgogICAgICAgICAgICAgICAgZyA9IGNvbXBvbmVudCAiZyIKICAgICAgICAgICAgICAgIGggPSBjb21wb25lbnQgImgiCiAgICAgICAgICAgIH0KICAgICAgICB9CgogICAgICAgIGIgLT4gZQogICAgICAgIGYgLT4gaAogICAgICAgIGMgLT4gZgogICAgICAgIGYgLT4gZwoKICAgIH0KCiAgICB2aWV3cyB7CiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgICJzdHJ1Y3R1cml6ci5zb2Z0d2FyZVN5c3RlbUJvdW5kYXJpZXMiICJ0cnVlIgogICAgICAgICAgICAicGxhbnR1bWwuc2VxdWVuY2VEaWFncmFtIiAidHJ1ZSIKICAgICAgICAgICAgInBsYW50dW1sLnRlb3oiICJ0cnVlIgogICAgICAgICAgICAibWVybWFpZC5zZXF1ZW5jZURpYWdyYW0iICJ0cnVlIgogICAgICAgICAgICAibWVybWFpZC50aXRsZSIgInRydWUiCiAgICAgICAgfQogICAgICAgICAgICAKICAgICAgICBkeW5hbWljIGUgIlNlcXVlbmNlLUNvbnRhaW5lciIgewogICAgICAgICAgICBmIC0+IGgKICAgICAgICAgICAgYyAtPiBmCiAgICAgICAgICAgIGYgLT4gZwogICAgICAgICAgICBhdXRvTGF5b3V0CiAgICAgICAgfQogICAgfQoKfQ=="
   },
   "views" : {
     "configuration" : {
       "branding" : { },
       "lastSavedView" : "Sequence-Container",
-      "metadataSymbols" : "SquareBrackets",
+      "properties" : {
+        "structurizr.softwareSystemBoundaries" : "true",
+        "plantuml.sequenceDiagram" : "true",
+        "plantuml.teoz" : "true",
+        "mermaid.sequenceDiagram" : "true",
+        "mermaid.title" : "true"
+      },
       "styles" : { },
       "terminology" : { }
     },
     "dynamicViews" : [ {
       "automaticLayout" : {
-        "applied" : true,
+        "applied" : false,
         "edgeSeparation" : 0,
         "implementation" : "Graphviz",
         "nodeSeparation" : 300,
         "rankDirection" : "TopBottom",
         "rankSeparation" : 300,
         "vertices" : false
-      },
-      "dimensions" : {
-        "height" : 1411,
-        "width" : 890
-      },
-      "elementId" : "1",
-      "elements" : [ {
-        "id" : "2",
-        "x" : 220,
-        "y" : 185
-      }, {
-        "id" : "5",
-        "x" : 220,
-        "y" : 785
-      } ],
-      "externalBoundariesVisible" : false,
-      "key" : "Sequence-SoftwareSystem",
-      "order" : 1,
-      "properties" : {
-        "mermaid.sequenceDiagram" : "true",
-        "mermaid.title" : "true",
-        "plantuml.sequenceDiagram" : "true",
-        "plantuml.teoz" : "true",
-        "structurizr.softwareSystemBoundaries" : "true"
-      },
-      "relationships" : [ {
-        "id" : "9",
-        "order" : "1",
-        "response" : false
-      } ]
-    }, {
-      "automaticLayout" : {
-        "applied" : true,
-        "edgeSeparation" : 0,
-        "implementation" : "Graphviz",
-        "nodeSeparation" : 300,
-        "rankDirection" : "TopBottom",
-        "rankSeparation" : 300,
-        "vertices" : false
-      },
-      "dimensions" : {
-        "height" : 2272,
-        "width" : 1680
       },
       "elementId" : "5",
       "elements" : [ {
         "id" : "3",
-        "x" : 240,
-        "y" : 205
+        "x" : 0,
+        "y" : 0
       }, {
         "id" : "6",
-        "x" : 240,
-        "y" : 955
+        "x" : 0,
+        "y" : 0
       }, {
         "id" : "7",
-        "x" : 240,
-        "y" : 1555
+        "x" : 0,
+        "y" : 0
       }, {
         "id" : "8",
-        "x" : 990,
-        "y" : 1555
+        "x" : 0,
+        "y" : 0
       } ],
       "externalBoundariesVisible" : false,
       "key" : "Sequence-Container",
-      "order" : 2,
-      "properties" : {
-        "mermaid.sequenceDiagram" : "true",
-        "mermaid.title" : "true",
-        "plantuml.sequenceDiagram" : "true",
-        "plantuml.teoz" : "true",
-        "structurizr.softwareSystemBoundaries" : "true"
-      },
+      "order" : 1,
       "relationships" : [ {
         "id" : "13",
         "order" : "1",

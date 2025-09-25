@@ -26,30 +26,18 @@ workspace {
     }
 
     views {
-    
-        dynamic a "Sequence-SoftwareSystem" {
-            b -> e
-            properties {
-                "plantuml.sequenceDiagram" "true"
-                "plantuml.teoz" "true"
-                "mermaid.sequenceDiagram" "true"
-                "mermaid.title" "true"
-                "structurizr.softwareSystemBoundaries" "true"
-            }
-            autoLayout
+        properties {
+            "structurizr.softwareSystemBoundaries" "true"
+            "plantuml.sequenceDiagram" "true"
+            "plantuml.teoz" "true"
+            "mermaid.sequenceDiagram" "true"
+            "mermaid.title" "true"
         }
             
         dynamic e "Sequence-Container" {
             f -> h
             c -> f
             f -> g
-            properties {
-                "plantuml.sequenceDiagram" "true"
-                "plantuml.teoz" "true"
-                "mermaid.sequenceDiagram" "true"
-                "mermaid.title" "true"
-                "structurizr.softwareSystemBoundaries" "true"
-            }
             autoLayout
         }
     }
