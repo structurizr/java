@@ -27,11 +27,16 @@ workspace {
 
     views {
         properties {
-            "structurizr.softwareSystemBoundaries" "true"
             "plantuml.sequenceDiagram" "true"
             "plantuml.teoz" "true"
             "mermaid.sequenceDiagram" "true"
             "mermaid.title" "true"
+            "structurizr.softwareSystemBoundaries" "true"
+        }
+        
+        dynamic a "Sequence-SoftwareSystem" {
+            b -> e
+            autoLayout
         }
             
         dynamic e "Sequence-Container" {
