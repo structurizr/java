@@ -647,7 +647,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
         SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
 
-        a.uses(b, "Uses");
+        a.uses(b, "Uses", "JSON/HTTPS");
 
         DynamicView view = workspace.getViews().createDynamicView("key", "Description");
         view.add(a, b);
@@ -692,8 +692,8 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 
                 participant "A\\n<size:16>[Software System]</size>" as A <<Element-RWxlbWVudA==>> #ffffff
                 participant "B\\n<size:16>[Software System]</size>" as B <<Element-RWxlbWVudA==>> #ffffff
-
-                A -> B <<Relationship-UmVsYXRpb25zaGlw>> : Uses
+                
+                A -> B <<Relationship-UmVsYXRpb25zaGlw>> : 1. Uses\\n<size:16>[JSON/HTTPS]</size>
                 
                 @enduml""", diagram.getDefinition());
 

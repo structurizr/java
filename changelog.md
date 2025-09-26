@@ -23,6 +23,7 @@
 - structurizr-export: Removes support for deprecated enterprise and location concepts.
 - structurizr-export: PlantUML exporters - replaces skinparams with styles.
 - structurizr-export: PlantUML exporters - adds support for dark mode exports.
+- structurizr-export: StructurizrPlantUMLExporter - adds technology to sequence diagrams (https://github.com/structurizr/java/issues/425)
 - structurizr-import: Adds support for `plantuml.inline`, `mermaid.inline`, `kroki.inline`, and `image.inline` properties to inline the resulting PNG/SVG file into the workspace.
 - structurizr-inspection: Adds a way to disable inspections via a workspace property named `structurizr.inspection` (`false` to disable).
 - structurizr-inspection: Default inspector adds a summary of error/warning/info/ignore counts as workspace properties.
