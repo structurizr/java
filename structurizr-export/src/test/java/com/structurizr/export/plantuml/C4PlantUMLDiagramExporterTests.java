@@ -270,9 +270,14 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
                 
                 AddBoundaryTag("Container", $bgColor="#ffffff", $borderColor="#2e6295", $fontColor="#2e6295", $shadowing="", $borderStyle="solid")
                 
-                Container_Boundary("InternetBankingSystem.APIApplication_boundary", "API Application", $tags="Container") {
-                  Component(InternetBankingSystem.APIApplication.SignInController, "Sign In Controller", $techn="Spring MVC Rest Controller", $descr="Allows users to sign in to the Internet Banking System.", $tags="Component", $link="")
-                  Component(InternetBankingSystem.APIApplication.SecurityComponent, "Security Component", $techn="Spring Bean", $descr="Provides functionality related to signing in, changing passwords, etc.", $tags="Component", $link="")
+                System_Boundary("InternetBankingSystem_boundary", "Internet Banking System", $tags="Software System") {
+                  Container_Boundary("InternetBankingSystem.APIApplication_boundary", "API Application", $tags="Container") {
+                    Component(InternetBankingSystem.APIApplication.SignInController, "Sign In Controller", $techn="Spring MVC Rest Controller", $descr="Allows users to sign in to the Internet Banking System.", $tags="Component", $link="")
+                    Component(InternetBankingSystem.APIApplication.SecurityComponent, "Security Component", $techn="Spring Bean", $descr="Provides functionality related to signing in, changing passwords, etc.", $tags="Component", $link="")
+                  }
+                
+                  ContainerDb(InternetBankingSystem.Database, "Database", $techn="Oracle Database Schema", $descr="Stores user registration information, hashed authentication credentials, access logs, etc.", $tags="Container,Database", $link="")
+                  Container(InternetBankingSystem.SinglePageApplication, "Single-Page Application", $techn="JavaScript and Angular", $descr="Provides all of the Internet banking functionality to customers via their web browser.", $tags="Container,Web Browser", $link="")
                 }
                 
                 Container(InternetBankingSystem.SinglePageApplication, "Single-Page Application", $techn="JavaScript and Angular", $descr="Provides all of the Internet banking functionality to customers via their web browser.", $tags="Container,Web Browser", $link="")

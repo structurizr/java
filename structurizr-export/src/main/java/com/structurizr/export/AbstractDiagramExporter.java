@@ -308,7 +308,6 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
         }
 
         List<Container> boundaryContainers = getBoundaryContainers(view);
-        List<Container> containers = getContainers(view);
         Set<SoftwareSystem> boundarySoftwareSystems = boundaryContainers.stream().map(Container::getSoftwareSystem).collect(Collectors.toCollection(LinkedHashSet::new));
         for (SoftwareSystem softwareSystem : boundarySoftwareSystems) {
 
@@ -325,7 +324,7 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
                 }
             }
 
-            for (Container container : containers) {
+            for (Container container : getContainers(view)) {
                 if (container.getSoftwareSystem() == softwareSystem) {
                     writeElement(view, container, writer);
                 }
@@ -418,18 +417,37 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
                 }
             } else if (element instanceof Container) {
                 // dynamic view with container scope
-                boolean includeSoftwareSystemBoundaries = "true".equals(view.getProperties().getOrDefault("structurizr.softwareSystemBoundaries", "false"));
+                List<CustomElement> customElements = getCustomElements(view);
+                for (CustomElement customElement : customElements) {
+                    writeElement(view, customElement, writer);
+                }
+                if (!customElements.isEmpty()) {
+                    writer.writeLine();
+                }
 
-                List<Container> containers = getBoundaryContainers(view);
-                Set<SoftwareSystem> softwareSystems = containers.stream().map(Container::getSoftwareSystem).collect(Collectors.toCollection(LinkedHashSet::new));
+                List<Person> people = getPeople(view);
+                for (Person person : people) {
+                    writeElement(view, person, writer);
+                }
+                if (!people.isEmpty()) {
+                    writer.writeLine();
+                }
+
+                List<SoftwareSystem> softwareSystems = getSoftwareSystems(view);
                 for (SoftwareSystem softwareSystem : softwareSystems) {
+                    writeElement(view, softwareSystem, writer);
+                }
+                if (!softwareSystems.isEmpty()) {
+                    writer.writeLine();
+                }
 
-                    if (includeSoftwareSystemBoundaries) {
-                        startSoftwareSystemBoundary(view, softwareSystem, writer);
-                        writer.indent();
-                    }
+                List<Container> boundaryContainers = getBoundaryContainers(view);
+                Set<SoftwareSystem> boundarySoftwareSystems = boundaryContainers.stream().map(Container::getSoftwareSystem).collect(Collectors.toCollection(LinkedHashSet::new));
+                for (SoftwareSystem softwareSystem : boundarySoftwareSystems) {
 
-                    for (Container container : containers) {
+                    startSoftwareSystemBoundary(view, softwareSystem, writer);
+
+                    for (Container container : boundaryContainers) {
                         if (container.getSoftwareSystem() == softwareSystem) {
                             startContainerBoundary(view, container, writer);
 
@@ -440,10 +458,13 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
                         }
                     }
 
-                    if (includeSoftwareSystemBoundaries) {
-                        endSoftwareSystemBoundary(view, writer);
-                        writer.outdent();
+                    for (Container container : getContainers(view)) {
+                        if (container.getSoftwareSystem() == softwareSystem) {
+                            writeElement(view, container, writer);
+                        }
                     }
+
+                    endSoftwareSystemBoundary(view, writer);
                 }
 
                 for (ElementView elementView : view.getElements()) {

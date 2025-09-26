@@ -203,16 +203,28 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   edge [fontname="Arial"]
                   label=<<br /><font point-size="34">Dynamic View: Internet Banking System - API Application</font><br /><font point-size="24">Summarises how the sign in feature works in the single-page application.</font>>
                 
-                  subgraph cluster_11 {
+                  subgraph cluster_7 {
                     margin=25
-                    label=<<font point-size="24"><br />API Application</font><br /><font point-size="19">[Container: Java and Spring MVC]</font>>
+                    label=<<font point-size="24"><br />Internet Banking System</font><br /><font point-size="19">[Software System]</font>>
                     labelloc=b
-                    color="#444444"
-                    fontcolor="#444444"
-                    fillcolor="#444444"
+                    color="#cccccc"
+                    fontcolor="#cccccc"
+                    fillcolor="#cccccc"
                 
-                    12 [id=12,shape=rect, label=<<font point-size="34">Sign In Controller</font><br /><font point-size="19">[Component: Spring MVC Rest Controller]</font><br /><br /><font point-size="24">Allows users to sign in to the<br />Internet Banking System.</font>>, style=filled, color="#5d82a8", fillcolor="#85bbf0", fontcolor="#000000"]
-                    15 [id=15,shape=rect, label=<<font point-size="34">Security Component</font><br /><font point-size="19">[Component: Spring Bean]</font><br /><br /><font point-size="24">Provides functionality related<br />to signing in, changing<br />passwords, etc.</font>>, style=filled, color="#5d82a8", fillcolor="#85bbf0", fontcolor="#000000"]
+                    subgraph cluster_11 {
+                      margin=25
+                      label=<<font point-size="24"><br />API Application</font><br /><font point-size="19">[Container: Java and Spring MVC]</font>>
+                      labelloc=b
+                      color="#444444"
+                      fontcolor="#444444"
+                      fillcolor="#444444"
+                
+                      12 [id=12,shape=rect, label=<<font point-size="34">Sign In Controller</font><br /><font point-size="19">[Component: Spring MVC Rest Controller]</font><br /><br /><font point-size="24">Allows users to sign in to the<br />Internet Banking System.</font>>, style=filled, color="#5d82a8", fillcolor="#85bbf0", fontcolor="#000000"]
+                      15 [id=15,shape=rect, label=<<font point-size="34">Security Component</font><br /><font point-size="19">[Component: Spring Bean]</font><br /><br /><font point-size="24">Provides functionality related<br />to signing in, changing<br />passwords, etc.</font>>, style=filled, color="#5d82a8", fillcolor="#85bbf0", fontcolor="#000000"]
+                    }
+                
+                    18 [id=18,shape=cylinder, label=<<font point-size="34">Database</font><br /><font point-size="19">[Container: Oracle Database Schema]</font><br /><br /><font point-size="24">Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
+                    8 [id=8,shape=rect, label=<<font point-size="34">Single-Page<br />Application</font><br /><font point-size="19">[Container: JavaScript and Angular]</font><br /><br /><font point-size="24">Provides all of the Internet<br />banking functionality to<br />customers via their web<br />browser.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
                   }
                 
                   8 [id=8,shape=rect, label=<<font point-size="34">Single-Page<br />Application</font><br /><font point-size="19">[Container: JavaScript and Angular]</font><br /><br /><font point-size="24">Provides all of the Internet<br />banking functionality to<br />customers via their web<br />browser.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
