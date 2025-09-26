@@ -428,15 +428,12 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
         );
         plantUMLStyles.add(plantUMLRelationshipStyle);
 
+        int metadataFontSize = calculateMetadataFontSize(style.getFontSize());
         String description = "";
         String technology = relationship.getTechnology();
 
-        if (renderAsSequenceDiagram(view)) {
-            // do nothing - sequence diagrams don't need the order
-        } else {
-            if (!StringUtils.isNullOrEmpty(relationshipView.getOrder())) {
-                description = relationshipView.getOrder() + ". ";
-            }
+        if (!StringUtils.isNullOrEmpty(relationshipView.getOrder())) {
+            description = relationshipView.getOrder() + ": ";
         }
 
         description += (hasValue(relationshipView.getDescription()) ? relationshipView.getDescription() : hasValue(relationshipView.getRelationship().getDescription()) ? relationshipView.getRelationship().getDescription() : "");
@@ -450,14 +447,14 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
                 arrowEnd = "-";
             }
             writer.writeLine(
-                    String.format("%s %s%s %s <<%s>> : %s",
+                    String.format("%s %s%s %s <<%s>> : %s%s",
                             idOf(relationship.getSource()),
                             arrowStart,
                             arrowEnd,
                             idOf(relationship.getDestination()),
                             plantUMLRelationshipStyle.getClassSelector(),
-                            description));
-
+                            description,
+                            (StringUtils.isNullOrEmpty(technology) ? "" : "\\n<size:" + metadataFontSize + ">[" + technology + "]</size>")));
         } else {
             String arrow;
 
@@ -466,12 +463,6 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
             } else {
                 arrow = "-->";
             }
-
-//            if (!isVisible(view, relationshipView)) {
-//                relationshipStyle = "hidden";
-//            }
-
-            int metadataFontSize = calculateMetadataFontSize(style.getFontSize());
 
             // 1 --> 2 : "...\n<size:..>...</size>
             writer.writeLine(format("%s %s %s <<%s>> : \"%s%s\"",

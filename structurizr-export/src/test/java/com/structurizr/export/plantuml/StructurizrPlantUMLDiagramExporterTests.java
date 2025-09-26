@@ -526,7 +526,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 rectangle "==A\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as A
                 rectangle "==B\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as B
                 
-                A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
+                A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
                 
                 @enduml""", diagram.getDefinition());
     }
@@ -590,8 +590,8 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 rectangle "==C\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as C
                 hide C
                 
-                A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
-                B --> C <<Relationship-UmVsYXRpb25zaGlw>> : "2. Uses"
+                A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
+                B --> C <<Relationship-UmVsYXRpb25zaGlw>> : "2: Uses"
                 
                 @enduml""", frames.get(0).getDefinition());
 
@@ -635,8 +635,8 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 rectangle "==B\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as B
                 rectangle "==C\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as C
 
-                A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
-                B --> C <<Relationship-UmVsYXRpb25zaGlw>> : "2. Uses"
+                A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
+                B --> C <<Relationship-UmVsYXRpb25zaGlw>> : "2: Uses"
                 
                 @enduml""", frames.get(1).getDefinition());
     }
@@ -647,7 +647,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
         SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
 
-        a.uses(b, "Uses");
+        a.uses(b, "Uses", "JSON/HTTPS");
 
         DynamicView view = workspace.getViews().createDynamicView("key", "Description");
         view.add(a, b);
@@ -692,8 +692,8 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 
                 participant "A\\n<size:16>[Software System]</size>" as A <<Element-RWxlbWVudA==>> #ffffff
                 participant "B\\n<size:16>[Software System]</size>" as B <<Element-RWxlbWVudA==>> #ffffff
-
-                A -> B <<Relationship-UmVsYXRpb25zaGlw>> : Uses
+                
+                A -> B <<Relationship-UmVsYXRpb25zaGlw>> : 1: Uses\\n<size:16>[JSON/HTTPS]</size>
                 
                 @enduml""", diagram.getDefinition());
 
@@ -1631,7 +1631,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                   rectangle "==Container 2\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2
                 }
                 
-                SoftwareSystem1.Container1 --> SoftwareSystem2.Container2 <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
+                SoftwareSystem1.Container1 --> SoftwareSystem2.Container2 <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
                 
                 @enduml""", diagram.getDefinition());
     }
@@ -1723,8 +1723,8 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                   rectangle "==Component 3\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2.Component3
                 }
                 
-                SoftwareSystem1.Container1.Component1 --> SoftwareSystem1.Container1.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
-                SoftwareSystem1.Container1.Component2 --> SoftwareSystem2.Container2.Component3 <<Relationship-UmVsYXRpb25zaGlw>> : "2. Uses"
+                SoftwareSystem1.Container1.Component1 --> SoftwareSystem1.Container1.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
+                SoftwareSystem1.Container1.Component2 --> SoftwareSystem2.Container2.Component3 <<Relationship-UmVsYXRpb25zaGlw>> : "2: Uses"
                 
                 @enduml""", diagram.getDefinition());
     }
@@ -1845,8 +1845,8 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 
                   }
                 
-                SoftwareSystem1.Container1.Component1 --> SoftwareSystem1.Container1.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
-                SoftwareSystem1.Container1.Component2 --> SoftwareSystem2.Container2.Component3 <<Relationship-UmVsYXRpb25zaGlw>> : "2. Uses"
+                SoftwareSystem1.Container1.Component1 --> SoftwareSystem1.Container1.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
+                SoftwareSystem1.Container1.Component2 --> SoftwareSystem2.Container2.Component3 <<Relationship-UmVsYXRpb25zaGlw>> : "2: Uses"
                 
                 @enduml""", diagram.getDefinition());
     }
@@ -2138,7 +2138,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 }
                 
                 
-                A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
+                A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
                 
                 @enduml""", diagram.getDefinition());
     }
@@ -2252,7 +2252,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 
                 }
                 
-                A.A --> B.B <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
+                A.A --> B.B <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
                 
                 @enduml""", diagram.getDefinition());
     }
@@ -2368,7 +2368,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 
                 }
                 
-                A.A.A --> B.B.B <<Relationship-UmVsYXRpb25zaGlw>> : "1. Uses"
+                A.A.A --> B.B.B <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
                 
                 @enduml""", diagram.getDefinition());
     }
