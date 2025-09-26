@@ -1,10 +1,32 @@
 # Changelog
 
-## v4.2.0 (unreleased)
+## v5.0.0 (unreleased)
 
+- structurizr-autolayout: Adds support for custom padding view/viewset properties: `structurizr.groupPadding`,`structurizr.boundaryPadding`, and `structurizr.deploymentNodePadding`.
+- structurizr-core: Removes support for deprecated enterprise and location concepts.
+- structurizr-core: Adds support for filtered deployment views (https://github.com/structurizr/java/issues/409).
+- structurizr-core: Adds support for separate images for light and dark color schemes.
+- structurizr-component: Fixes https://github.com/structurizr/java/issues/437 (Make ComponentFinder.run() not fail on empty Set<DiscoveredComponent>).
 - structurizr-dsl: Adds support for `iconPosition` on element styles (options are `Top`, `Bottom`, `Left`).
 - structurizr-dsl: Adds support for defining element and relationship styles for light and dark mode.
 - structurizr-dsl: Adds a `Bucket` shape.
+- structurizr-dsl: Adds a `Shell` shape.
+- structurizr-dsl: Adds a `Terminal` shape.
+- structurizr-dsl: Adds an 'instanceOf' keyword (an alternative for `softwareSystemInstance` and `containerInstance`).
+- structurizr-dsl: Relationships to/from software system/container instances can be now defined by using the software system/container identifier.
+- structurizr-dsl: Fixes https://github.com/structurizr/java/issues/435 (Relationship archetype not applied to implicit-source relationships).
+- structurizr-dsl: Adds support for removing relationships between software system instance/container instances, with a view to redefining them via infrastructure nodes.
+- structurizr-dsl: Adds support for a `jump` property on relationship styles.
+- structurizr-dsl: PlantUML, Mermaid, and Kroki image views can now be defined by an inline source block.
+- structurizr-dsl: Constants and variables are inherited when extending a DSL workspace.
+- structurizr-dsl: DSL source is only stored in the JSON workspace when the DSL is deemed as "portable" (i.e. no files, plugins, scripts).
+- structurizr-export: Removes support for deprecated enterprise and location concepts.
+- structurizr-export: PlantUML exporters - replaces skinparams with styles.
+- structurizr-export: PlantUML exporters - adds support for dark mode exports.
+- structurizr-import: Adds support for `plantuml.inline`, `mermaid.inline`, `kroki.inline`, and `image.inline` properties to inline the resulting PNG/SVG file into the workspace.
+- structurizr-inspection: Adds a way to disable inspections via a workspace property named `structurizr.inspection` (`false` to disable).
+- structurizr-inspection: Default inspector adds a summary of error/warning/info/ignore counts as workspace properties.
+- structurizr-inspection: Fixes `model.deploymentnode.technology` (it was checking the description property rather than technology).
 
 ## v4.1.0 (28th May 2025)
 

@@ -8,16 +8,16 @@ import java.util.*;
 
 public final class Styles {
 
-    private static final Integer DEFAULT_WIDTH_OF_ELEMENT = 450;
-    private static final Integer DEFAULT_HEIGHT_OF_ELEMENT = 300;
+    public static final String DEFAULT_BACKGROUND_LIGHT = "#ffffff";
+    public static final String DEFAULT_COLOR_LIGHT = "#444444";
 
-    private static final Integer DEFAULT_WIDTH_OF_PERSON = 400;
-    private static final Integer DEFAULT_HEIGHT_OF_PERSON = 400;
+    public static final String DEFAULT_BACKGROUND_DARK = "#111111";
+    public static final String DEFAULT_COLOR_DARK = "#cccccc";
 
-    private Collection<ElementStyle> elements = new LinkedList<>();
-    private Collection<RelationshipStyle> relationships = new LinkedList<>();
+    private Collection<ElementStyle> elements = new TreeSet<>();
+    private Collection<RelationshipStyle> relationships = new TreeSet<>();
 
-    private List<Theme> themes = new ArrayList<>();
+    private final List<Theme> themes = new ArrayList<>();
 
     public Collection<ElementStyle> getElements() {
         return elements;
@@ -100,7 +100,7 @@ public final class Styles {
     }
 
     /**
-     * Gets the element style that has been defined (in this workspace) for the given tag.
+     * Gets the element style that has been defined (in this workspace) for the given tag (without a color scheme).
      *
      * @param tag   the tag (a String)
      * @return      an ElementStyle instance, or null if no element style has been defined in this workspace
@@ -125,14 +125,24 @@ public final class Styles {
     }
 
     /**
-     * Finds the element style for the given tag. This method creates an empty style,
-     * and copies properties from any element styles (from the workspace and any themes) for the given tag.
-     *
+     * Finds the element style for the given tag and light color scheme.
      *
      * @param tag       the tag (a String)
      * @return          an ElementStyle instance, or null if there is no style for the given tag
      */
     public ElementStyle findElementStyle(String tag) {
+        return findElementStyle(tag, ColorScheme.Light);
+    }
+
+    /**
+     * Finds the element style for the given tag and color scheme. This method creates an empty style,
+     * and copies properties from any element styles (from the workspace and any themes) for the given tag.
+     *
+     * @param tag           the tag (a String)
+     * @param colorScheme   the target color scheme
+     * @return          an ElementStyle instance, or null if there is no style for the given tag
+     */
+    public ElementStyle findElementStyle(String tag, ColorScheme colorScheme) {
         if (tag == null) {
             return null;
         }
@@ -149,8 +159,10 @@ public final class Styles {
 
         for (ElementStyle elementStyle : elementStyles) {
             if (elementStyle != null && elementStyle.getTag().equals(tag)) {
-                elementStyleExists = true;
-                style.copyFrom(elementStyle);
+                if (elementStyle.getColorScheme() == null || elementStyle.getColorScheme() == colorScheme) {
+                    elementStyleExists = true;
+                    style.copyFrom(elementStyle);
+                }
             }
         }
 
@@ -162,7 +174,7 @@ public final class Styles {
     }
 
     /**
-     * Gets the relationship style that has been defined (in this workspace) for the given tag.
+     * Gets the relationship style that has been defined (in this workspace) for the given tag (without a color scheme).
      *
      * @param tag   the tag (a String)
      * @return      an RelationshipStyle instance, or null if no relationship style has been defined in this workspace
@@ -187,14 +199,25 @@ public final class Styles {
     }
 
     /**
-     * Finds the relationship style for the given tag. This method creates an empty style,
-     * and copies properties from any relationship styles (from the workspace and any themes) for the given tag.
+     * Finds the relationship style for the given tag with a light color scheme.
      *
      *
      * @param tag       the tag (a String)
      * @return          a RelationshipStyle instance, or null if there is no style for the given tag
      */
     public RelationshipStyle findRelationshipStyle(String tag) {
+        return findRelationshipStyle(tag, ColorScheme.Light);
+    }
+
+    /**
+     * Finds the relationship style for the given tag and color scheme. This method creates an empty style,
+     * and copies properties from any relationship styles (from the workspace and any themes) for the given tag.
+     *
+     * @param tag           the tag (a String)
+     * @param colorScheme   the target color scheme
+     * @return          a RelationshipStyle instance, or null if there is no style for the given tag
+     */
+    public RelationshipStyle findRelationshipStyle(String tag, ColorScheme colorScheme) {
         if (tag == null) {
             return null;
         }
@@ -211,8 +234,10 @@ public final class Styles {
 
         for (RelationshipStyle relationshipStyle : relationshipStyles) {
             if (relationshipStyle != null && relationshipStyle.getTag().equals(tag)) {
-                style.copyFrom(relationshipStyle);
-                relationshipStyleExists = true;
+                if (relationshipStyle.getColorScheme() == null || relationshipStyle.getColorScheme() == colorScheme) {
+                    style.copyFrom(relationshipStyle);
+                    relationshipStyleExists = true;
+                }
             }
         }
 
@@ -224,23 +249,28 @@ public final class Styles {
     }
 
     /**
-     * Finds the element style used to render the specified element, according to the following rules:
+     * Finds the element style used to render the specified element with a light color scheme.
+     *
+     * @param element       an Element object
+     * @return  an ElementStyle object
+     */
+    public ElementStyle findElementStyle(Element element) {
+        return findElementStyle(element, ColorScheme.Light);
+    }
+
+    /**
+     * Finds the element style used to render the specified element and color scheme, according to the following rules:
      *
      * 1. Start with a default style.
      * 2. Calculate set of tags associated with the element.
      * 3. Find the style properties for each tag (themes first, followed by workspace styles)
      *
      * @param element       an Element object
+     * @param colorScheme   a ColorScheme (Light or Dark)
      * @return  an ElementStyle object
      */
-    public ElementStyle findElementStyle(Element element) {
-        ElementStyle style = new ElementStyle(Tags.ELEMENT).background("#dddddd").color("#000000").shape(Shape.Box).fontSize(24).border(Border.Solid).opacity(100).metadata(true).description(true);
-
-        if (element instanceof DeploymentNode) {
-            style.setBackground("#ffffff");
-            style.setColor("#000000");
-            style.setStroke("#888888");
-        }
+    public ElementStyle findElementStyle(Element element, ColorScheme colorScheme) {
+        ElementStyle style = new ElementStyle(Tags.ELEMENT).shape(Shape.Box).width(ElementStyle.DEFAULT_WIDTH).height(ElementStyle.DEFAULT_HEIGHT).fontSize(24).border(Border.Solid).opacity(100).metadata(true).description(true);
 
         if (element != null) {
             Set<String> tagsUsedToComposeStyle = new LinkedHashSet<>();
@@ -257,7 +287,7 @@ public final class Styles {
 
             for (String tag : tags.split(",")) {
                 if (!StringUtils.isNullOrEmpty(tag)) {
-                    ElementStyle elementStyle = findElementStyle(tag);
+                    ElementStyle elementStyle = findElementStyle(tag, colorScheme);
                     if (elementStyle != null) {
                         style.copyFrom(elementStyle);
                         tagsUsedToComposeStyle.add(elementStyle.getTag());
@@ -268,42 +298,57 @@ public final class Styles {
             style.setTag(TagUtils.toString(tagsUsedToComposeStyle));
         }
 
-        if (style.getWidth() == null) {
-            if (style.getShape() == Shape.Person) {
-                style.setWidth(DEFAULT_WIDTH_OF_PERSON);
+        if (style.getBackground() == null) {
+            if (colorScheme == ColorScheme.Dark) {
+                style.background(DEFAULT_BACKGROUND_DARK);
+                if (style.getStroke() == null) {
+                    style.stroke(DEFAULT_COLOR_DARK);
+                }
             } else {
-                style.setWidth(DEFAULT_WIDTH_OF_ELEMENT);
+                style.background(DEFAULT_BACKGROUND_LIGHT);
+                if (style.getStroke() == null) {
+                    style.stroke(DEFAULT_COLOR_LIGHT);
+                }
+            }
+        } else {
+            if (style.getStroke() == null) {
+                java.awt.Color color = java.awt.Color.decode(style.getBackground());
+                style.setStroke(String.format("#%06X", (0xFFFFFF & color.darker().getRGB())));
             }
         }
 
-        if (style.getHeight() == null) {
-            if (style.getShape() == Shape.Person || style.getShape() == Shape.Robot) {
-                style.setHeight(DEFAULT_HEIGHT_OF_PERSON);
+        if (style.getColor() == null) {
+            if (colorScheme == ColorScheme.Dark) {
+                style.color(DEFAULT_COLOR_DARK);
             } else {
-                style.setHeight(DEFAULT_HEIGHT_OF_ELEMENT);
+                style.color(DEFAULT_COLOR_LIGHT);
             }
         }
 
-        if (style.getStroke() == null) {
-            java.awt.Color color = java.awt.Color.decode(style.getBackground());
-            style.setStroke(String.format("#%06X", (0xFFFFFF & color.darker().getRGB())));
-        }
 
         return style;
     }
 
     /**
-     * Finds the relationship style used to render the specified relationship, according to the following rules:
+     * Finds the relationship style used to render the specified relationship with a light color scheme.
+     */
+    public RelationshipStyle findRelationshipStyle(Relationship relationship) {
+        return findRelationshipStyle(relationship, ColorScheme.Light);
+    }
+
+    /**
+     * Finds the relationship style used to render the specified relationship and color scheme, according to the following rules:
      *
      * 1. Start with a default style.
      * 2. Calculate set of tags associated with the relationship, and any linked relationship(s).
      * 3. Find the style properties for each tag (themes first, followed by workspace styles)
      *
      * @param relationship      a Relationship object
+     * @param colorScheme       a ColorScheme (Light or Dark)
      * @return      a RelationshipStyle object
      */
-    public RelationshipStyle findRelationshipStyle(Relationship relationship) {
-        RelationshipStyle style = new RelationshipStyle(Tags.RELATIONSHIP).thickness(2).color("#707070").dashed(true).routing(Routing.Direct).fontSize(24).width(200).position(50).opacity(100);
+    public RelationshipStyle findRelationshipStyle(Relationship relationship, ColorScheme colorScheme) {
+        RelationshipStyle style = new RelationshipStyle(Tags.RELATIONSHIP).thickness(2).style(LineStyle.Dashed).dashed(true).routing(Routing.Direct).fontSize(24).width(200).position(50).opacity(100);
 
         if (relationship != null) {
             Set<String> tagsUsedToComposeStyle = new LinkedHashSet<>();
@@ -322,7 +367,7 @@ public final class Styles {
 
             for (String tag : tags.split(",")) {
                 if (!StringUtils.isNullOrEmpty(tag)) {
-                    RelationshipStyle relationshipStyle = findRelationshipStyle(tag);
+                    RelationshipStyle relationshipStyle = findRelationshipStyle(tag, colorScheme);
                     if (relationshipStyle != null) {
                         style.copyFrom(relationshipStyle);
                         tagsUsedToComposeStyle.add(relationshipStyle.getTag());
@@ -331,6 +376,14 @@ public final class Styles {
             }
 
             style.setTag(TagUtils.toString(tagsUsedToComposeStyle));
+        }
+
+        if (style.getColor() == null) {
+            if (colorScheme == ColorScheme.Dark) {
+                style.color(DEFAULT_COLOR_DARK);
+            } else {
+                style.color(DEFAULT_COLOR_LIGHT);
+            }
         }
 
         return style;

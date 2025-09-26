@@ -36,6 +36,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     private static final String TEXT_BLOCK_MARKER = "\"\"\"";
 
     private static final Pattern STRING_SUBSTITUTION_PATTERN = Pattern.compile("(\\$\\{[a-zA-Z0-9-_.]+?})");
+    private static final String STRING_SUBSTITUTION_TEMPLATE = "${%s}";
 
     private static final String STRUCTURIZR_DSL_IDENTIFIER_PROPERTY_NAME = "structurizr.dsl.identifier";
 
@@ -44,7 +45,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     private final Stack<DslContext> contextStack;
     private final Set<String> parsedTokens = new HashSet<>();
     private final IdentifiersRegister identifiersRegister;
-    private final Map<String, NameValuePair> constantsAndVariables;
+    private Map<String, NameValuePair> constantsAndVariables;
     private final Features features = new Features();
 
     private Map<String,Map<String,Archetype>> archetypes = Map.of(
@@ -59,6 +60,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
             StructurizrDslTokens.RELATIONSHIP_TOKEN, new HashMap<>()
     );
 
+    private boolean dslPortable = true;
     private final List<String> dslSourceLines = new ArrayList<>();
     private Workspace workspace;
     private boolean extendingWorkspace = false;
@@ -77,6 +79,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     void configureFrom(StructurizrDslParser parser) {
         setIdentifierScope(parser.getIdentifierScope());
         archetypes = parser.archetypes;
+        constantsAndVariables = parser.constantsAndVariables;
     }
 
     /**
@@ -121,9 +124,11 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
      */
     public Workspace getWorkspace() {
         if (workspace != null) {
-            String value = workspace.getProperties().get(DslUtils.STRUCTURIZR_DSL_RETAIN_SOURCE_PROPERTY_NAME);
-            if (value == null || value.equalsIgnoreCase("true")) {
-                DslUtils.setDsl(workspace, getParsedDsl());
+            if (dslPortable) {
+                String value = workspace.getProperties().get(DslUtils.STRUCTURIZR_DSL_RETAIN_SOURCE_PROPERTY_NAME);
+                if (value == null || value.equalsIgnoreCase("true")) {
+                    DslUtils.setDsl(workspace, getParsedDsl());
+                }
             }
         }
 
@@ -208,11 +213,14 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
      * @throws StructurizrDslParserException when something goes wrong
      */
     void parse(List<String> lines, File dslFile, boolean fragment, boolean includeInDslSourceLines) throws StructurizrDslParserException {
+        if (includeInDslSourceLines) {
+            dslSourceLines.addAll(lines);
+        }
+
         List<DslLine> dslLines = preProcessLines(lines);
 
         for (DslLine dslLine : dslLines) {
             String line = dslLine.getSource();
-            String lineForDslSource = line;
 
             if (line.startsWith(BOM)) {
                 // this caters for files encoded as "UTF-8 with BOM"
@@ -264,9 +272,8 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         if (!restricted || tokens.get(1).startsWith("https://") || tokens.get(1).startsWith("http://")) {
                             String leadingSpace = line.substring(0, line.indexOf(INCLUDE_FILE_TOKEN));
 
-                            IncludedDslContext context = new IncludedDslContext(dslFile);
-                            new IncludeParser().parse(context, tokens);
-                            for (IncludedFile includedFile : context.getFiles()) {
+                            List<IncludedFile> files = new IncludeParser().parse(getContext(), dslFile, tokens);
+                            for (IncludedFile includedFile : files) {
                                 List<String> paddedLines = new ArrayList<>();
                                 for (String unpaddedLine : includedFile.getLines()) {
                                     if (unpaddedLine.startsWith(BOM)) {
@@ -276,14 +283,11 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                                     paddedLines.add(leadingSpace + unpaddedLine);
                                 }
 
-                                parse(paddedLines, includedFile.getFile(), true, true);
+                                parse(paddedLines, includedFile.getFile(), true, false);
                             }
                         } else {
                             throwRestrictedModeException(firstToken + " <file>");
                         }
-
-                        // include the !include in the parser DSL as: # !include ...
-                        lineForDslSource = null;
 
                     } else if (PLUGIN_TOKEN.equalsIgnoreCase(firstToken)) {
                         if (!restricted) {
@@ -323,29 +327,56 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (inContext(ExternalScriptDslContext.class)) {
                         new ScriptParser().parseParameter(getContext(ExternalScriptDslContext.class), tokens);
 
+                    } else if (tokens.size() >= 4 && tokens.get(1).equals(NO_RELATIONSHIP_TOKEN) && shouldStartContext(tokens) && inContext(DeploymentEnvironmentDslContext.class)) {
+                        // source -/> destination {
+                        // or
+                        // source -/> destination "description" {
+
+                        // remove source -> destination (between instances) in the deployment model
+                        Set<Relationship> relationships = new NoRelationshipParser().parse(getContext(DeploymentEnvironmentDslContext.class), tokens.withoutContextStartToken());
+
+                        // find the static element -> static element relationship that the removed relationships were based upon
+                        Relationship relationship = workspace.getModel().getRelationship(relationships.iterator().next().getLinkedRelationshipId());
+
+                        startContext(new NoRelationshipInDeploymentEnvironmentDslContext(getContext(DeploymentEnvironmentDslContext.class), relationship));
+
                     } else if (tokens.size() > 2 && isRelationshipKeywordOrArchetype(tokens.get(1)) && (inContext(ModelDslContext.class) || inContext(DeploymentEnvironmentDslContext.class) || inContext(ElementDslContext.class))) {
                         // explicit without archetype: a -> b
                         // explicit with archetype: a --https-> b
                         Archetype archetype = getArchetype(RELATIONSHIP_TOKEN, tokens.get(1));
-                        Relationship relationship = new ExplicitRelationshipParser().parse(getContext(), tokens.withoutContextStartToken(), archetype);
+                        Set<Relationship> relationships = new ExplicitRelationshipParser().parse(getContext(), tokens.withoutContextStartToken(), archetype);
 
-                        if (shouldStartContext(tokens)) {
-                            startContext(new RelationshipDslContext(relationship));
+                        if (relationships.size() == 1) {
+                            Relationship relationship = relationships.iterator().next();
+                            registerIdentifier(identifier, relationship);
+
+                            if (shouldStartContext(tokens)) {
+                                startContext(new RelationshipDslContext(relationship));
+                            }
+                        } else {
+                            if (shouldStartContext(tokens)) {
+                                startContext(new RelationshipsDslContext(getContext(), relationships));
+                            }
                         }
-
-                        registerIdentifier(identifier, relationship);
 
                     } else if (tokens.size() >= 2 && isRelationshipKeywordOrArchetype(tokens.get(0)) && inContext(ElementDslContext.class)) {
                         // implicit without archetype: -> this
                         // implicit with archetype: --https-> this
-                        Archetype archetype = getArchetype(RELATIONSHIP_TOKEN, tokens.get(1));
-                        Relationship relationship = new ImplicitRelationshipParser().parse(getContext(ElementDslContext.class), tokens.withoutContextStartToken(), archetype);
+                        Archetype archetype = getArchetype(RELATIONSHIP_TOKEN, tokens.get(0));
+                        Set<Relationship> relationships = new ImplicitRelationshipParser().parse(getContext(ElementDslContext.class), tokens.withoutContextStartToken(), archetype);
 
-                        if (shouldStartContext(tokens)) {
-                            startContext(new RelationshipDslContext(relationship));
+                        if (relationships.size() == 1) {
+                            Relationship relationship = relationships.iterator().next();
+                            registerIdentifier(identifier, relationship);
+
+                            if (shouldStartContext(tokens)) {
+                                startContext(new RelationshipDslContext(relationship));
+                            }
+                        } else {
+                            if (shouldStartContext(tokens)) {
+                                startContext(new RelationshipsDslContext(getContext(), relationships));
+                            }
                         }
-
-                        registerIdentifier(identifier, relationship);
 
                     } else if (tokens.size() > 2 && isRelationshipKeywordOrArchetype(tokens.get(1)) && inContext(ElementsDslContext.class)) {
                         Archetype archetype = getArchetype(RELATIONSHIP_TOKEN, tokens.get(1));
@@ -648,8 +679,11 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                         workspace = new WorkspaceParser().parse(dslParserContext, tokens.withoutContextStartToken());
                         extendingWorkspace = !workspace.getModel().isEmpty();
-                        startContext(new WorkspaceDslContext());
+                        WorkspaceDslContext context = new WorkspaceDslContext();
+                        context.setDslPortable(dslParserContext.isDslPortable());
+                        startContext(context);
                         parsedTokens.add(WORKSPACE_TOKEN);
+
                     } else if (IMPLIED_RELATIONSHIPS_TOKEN.equalsIgnoreCase(firstToken) || IMPLIED_RELATIONSHIPS_TOKEN.substring(1).equalsIgnoreCase(firstToken)) {
                         new ImpliedRelationshipsParser().parse(getContext(), tokens, dslFile, restricted);
 
@@ -874,6 +908,9 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (RELATIONSHIP_STYLE_ROUTING_TOKEN.equalsIgnoreCase(firstToken) && inContext(RelationshipStyleDslContext.class)) {
                         new RelationshipStyleParser().parseRouting(getContext(RelationshipStyleDslContext.class), tokens);
 
+                    } else if (RELATIONSHIP_STYLE_JUMP_TOKEN.equalsIgnoreCase(firstToken) && inContext(RelationshipStyleDslContext.class)) {
+                        new RelationshipStyleParser().parseJump(getContext(RelationshipStyleDslContext.class), tokens);
+
                     } else if (DEPLOYMENT_ENVIRONMENT_TOKEN.equalsIgnoreCase(firstToken) && inContext(ModelDslContext.class)) {
                         String environment = new DeploymentEnvironmentParser().parse(tokens.withoutContextStartToken());
 
@@ -915,6 +952,21 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         }
 
                         registerIdentifier(identifier, infrastructureNode);
+
+                    } else if (INSTANCE_OF_TOKEN.equalsIgnoreCase(firstToken) && inContext(DeploymentNodeDslContext.class)) {
+                        StaticStructureElementInstance instance = new InstanceOfParser().parse(getContext(DeploymentNodeDslContext.class), tokens.withoutContextStartToken());
+
+                        if (instance instanceof SoftwareSystemInstance) {
+                            if (shouldStartContext(tokens)) {
+                                startContext(new SoftwareSystemInstanceDslContext((SoftwareSystemInstance)instance));
+                            }
+                        } else if (instance instanceof ContainerInstance) {
+                            if (shouldStartContext(tokens)) {
+                                startContext(new ContainerInstanceDslContext((ContainerInstance)instance));
+                            }
+                        }
+
+                        registerIdentifier(identifier, instance);
 
                     } else if (SOFTWARE_SYSTEM_INSTANCE_TOKEN.equalsIgnoreCase(firstToken) && inContext(DeploymentNodeDslContext.class)) {
                         SoftwareSystemInstance softwareSystemInstance = new SoftwareSystemInstanceParser().parse(getContext(DeploymentNodeDslContext.class), tokens.withoutContextStartToken());
@@ -1047,6 +1099,16 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     } else if (IMAGE_VIEW_TOKEN.equalsIgnoreCase(firstToken) && inContext(ImageViewDslContext.class)) {
                         new ImageViewContentParser(restricted).parseImage(getContext(ImageViewDslContext.class), dslFile, tokens);
 
+                    } else if (LIGHT_COLOR_SCHEME_TOKEN.equalsIgnoreCase(firstToken) && inContext(ImageViewDslContext.class) && shouldStartContext(tokens)) {
+                        ImageViewDslContext context = getContext(ImageViewDslContext.class);
+                        context.setColorScheme(ColorScheme.Light);
+                        startContext(context);
+
+                    } else if (DARK_COLOR_SCHEME_TOKEN.equalsIgnoreCase(firstToken) && inContext(ImageViewDslContext.class) && shouldStartContext(tokens)) {
+                        ImageViewDslContext context = getContext(ImageViewDslContext.class);
+                        context.setColorScheme(ColorScheme.Dark);
+                        startContext(context);
+
                     } else if (inContext(DynamicViewDslContext.class)) {
                         RelationshipView relationshipView = new DynamicViewContentParser().parseRelationship(getContext(DynamicViewDslContext.class), tokens);
 
@@ -1062,10 +1124,10 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         new DynamicViewRelationshipParser().parseUrl(getContext(DynamicViewRelationshipContext.class), tokens.withoutContextStartToken());
 
                     } else if (THEME_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ViewsDslContext.class) || inContext(StylesDslContext.class))) {
-                        new ThemeParser().parseTheme(getContext(), dslFile, tokens);
+                        new ThemeParser().parseTheme(getContext(), dslFile, tokens, restricted);
 
                     } else if (THEMES_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ViewsDslContext.class) || inContext(StylesDslContext.class))) {
-                        new ThemeParser().parseThemes(getContext(), dslFile, tokens);
+                        new ThemeParser().parseThemes(getContext(), dslFile, tokens, restricted);
 
                     } else if (TERMINOLOGY_TOKEN.equalsIgnoreCase(firstToken) && inContext(ViewsDslContext.class)) {
                         startContext(new TerminologyDslContext());
@@ -1178,11 +1240,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
                     } else if (VAR_TOKEN.equalsIgnoreCase(firstToken)) {
                         NameValuePair nameValuePair = new NameValueParser().parseVariable(tokens);
-
-                        if (constantsAndVariables.containsKey(nameValuePair.getName()) && constantsAndVariables.get(nameValuePair.getName()).getType() == NameValueType.Constant) {
-                            throw new StructurizrDslParserException("A constant \"" + nameValuePair.getName() + "\" already exists");
-                        }
-                        constantsAndVariables.put(nameValuePair.getName(), nameValuePair);
+                        addVariable(nameValuePair);
 
                     } else if (IDENTIFIERS_TOKEN.equalsIgnoreCase(firstToken) && (inContext(WorkspaceDslContext.class) || inContext(ModelDslContext.class))) {
                         setIdentifierScope(new IdentifierScopeParser().parse(getContext(), tokens));
@@ -1214,10 +1272,6 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         }
                     }
                 }
-
-                if (includeInDslSourceLines && lineForDslSource != null) {
-                    dslSourceLines.add(lineForDslSource);
-                }
             } catch (Exception e) {
                 if (e.getMessage() != null) {
                     throw new StructurizrDslParserException(e.getMessage(), dslFile, dslLine.getLineNumber(), line);
@@ -1244,7 +1298,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         for (String line : lines) {
             if (textBlock) {
                 if (line.endsWith(TEXT_BLOCK_MARKER)) {
-                    buf.append("\"");
+                    buf.append(TEXT_BLOCK_MARKER);
                     textBlock = false;
                     textBlockLeadingSpace = -1;
                     lineComplete = true;
@@ -1259,14 +1313,18 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                             }
                         }
                     }
-                    buf.append(line, textBlockLeadingSpace, line.length());
-                    buf.append("\n");
+                    if (StringUtils.isNullOrEmpty(line)) {
+                        buf.append("\n");
+                    } else {
+                        buf.append(line, textBlockLeadingSpace, line.length());
+                        buf.append("\n");
+                    }
                 }
             } else if (!COMMENT_PATTERN.matcher(line).matches() && line.endsWith(MULTI_LINE_SEPARATOR)) {
                 buf.append(line, 0, line.length() - 1);
                 lineComplete = false;
             } else if (!COMMENT_PATTERN.matcher(line).matches() && line.endsWith(TEXT_BLOCK_MARKER)) {
-                buf.append(line, 0, line.length() - 2);
+                buf.append(line, 0, line.length());
                 lineComplete = false;
                 textBlock = true;
             } else {
@@ -1279,7 +1337,20 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
             }
 
             if (lineComplete) {
-                dslLines.add(new DslLine(buf.toString(), lineNumber));
+                // replace the text block with a constant (that will become substituted later)
+                // (this makes it possible for text blocks to include double-quote characters)
+                String source = buf.toString();
+
+                if (source.endsWith(TEXT_BLOCK_MARKER)) {
+                    String[] parts = source.split(TEXT_BLOCK_MARKER);
+                    String textBlockName = UUID.randomUUID().toString();
+                    String textBlockValue = parts[1].substring(0, parts[1].length() - 1); // remove final line break
+                    addTextBlock(textBlockName, textBlockValue);
+                    dslLines.add(new DslLine(parts[0] + "\"" + String.format(STRING_SUBSTITUTION_TEMPLATE, textBlockName) + "\"", lineNumber));
+                } else {
+                    dslLines.add(new DslLine(source, lineNumber));
+                }
+
                 buf = new StringBuilder();
             }
 
@@ -1300,7 +1371,13 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
             String after = null;
             String name = before.substring(2, before.length()-1);
             if (constantsAndVariables.containsKey(name)) {
-                after = constantsAndVariables.get(name).getValue();
+                NameValuePair nameValuePair = constantsAndVariables.get(name);
+
+                if (nameValuePair.getType() == NameValueType.TextBlock) {
+                    after = substituteStrings(nameValuePair.getValue());
+                } else {
+                    after = nameValuePair.getValue();
+                }
             } else {
                 if (!restricted) {
                     String environmentVariable = System.getenv().get(name);
@@ -1349,6 +1426,8 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         if (!contextStack.empty()) {
             DslContext context = contextStack.pop();
             context.end();
+
+            dslPortable &= context.isDslPortable();
         } else {
             throw new StructurizrDslParserException("Unexpected end of context");
         }
@@ -1471,6 +1550,23 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
             throw new IllegalArgumentException("A constant/variable \"" + nameValuePair.getName() + "\" already exists");
         }
         constantsAndVariables.put(nameValuePair.getName(), nameValuePair);
+    }
+
+    private void addVariable(NameValuePair nameValuePair) {
+        if (constantsAndVariables.containsKey(nameValuePair.getName()) && constantsAndVariables.get(nameValuePair.getName()).getType() == NameValueType.Constant) {
+            throw new IllegalArgumentException("A constant \"" + nameValuePair.getName() + "\" already exists");
+        }
+        constantsAndVariables.put(nameValuePair.getName(), nameValuePair);
+    }
+
+    private void addTextBlock(String name, String value) {
+        if (StringUtils.isNullOrEmpty(name)) {
+            throw new IllegalArgumentException("A text block name must be specified");
+        }
+
+        NameValuePair nameValuePair = new NameValuePair(name, value);
+        nameValuePair.setType(NameValueType.TextBlock);
+        addConstant(nameValuePair);
     }
 
     private boolean inContext(Class clazz) {

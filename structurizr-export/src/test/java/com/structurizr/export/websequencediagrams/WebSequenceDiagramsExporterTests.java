@@ -17,15 +17,28 @@ public class WebSequenceDiagramsExporterTests extends AbstractExporterTests {
 
     @Test
     public void test_BigBankPlcExample() throws Exception {
-        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/structurizr-36141-workspace.json"));
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/big-bank-plc.json"));
         WebSequenceDiagramsExporter exporter = new WebSequenceDiagramsExporter();
 
         Collection<Diagram> diagrams = exporter.export(workspace);
         assertEquals(1, diagrams.size());
 
         Diagram diagram = diagrams.stream().filter(d -> d.getKey().equals("SignIn")).findFirst().get();
-        String expected = readFile(new File("./src/test/java/com/structurizr/export/websequencediagrams/36141-SignIn.wsd"));
-        assertEquals(expected, diagram.getDefinition());
+        assertEquals("""
+                title Dynamic View: Internet Banking System - API Application\\nSummarises how the sign in feature works in the single-page application.
+                
+                participant <<Container>>\\nSingle-Page Application as Single-Page Application
+                participant <<Component>>\\nSign In Controller as Sign In Controller
+                participant <<Component>>\\nSecurity Component as Security Component
+                participant <<Container>>\\nDatabase as Database
+                
+                Single-Page Application->Sign In Controller: Submits credentials to
+                Sign In Controller->Security Component: Validates credentials using
+                Security Component->Database: select * from users where username = ?
+                Database-->Security Component: Returns user data to
+                Security Component-->Sign In Controller: Returns true if the hashed password matches
+                Sign In Controller-->Single-Page Application: Sends back an authentication token to
+                """, diagram.getDefinition());
     }
 
     @Test
@@ -42,12 +55,14 @@ public class WebSequenceDiagramsExporterTests extends AbstractExporterTests {
 
         Collection<Diagram> diagrams = exporter.export(workspace);
         Diagram diagram = diagrams.iterator().next();
-        assertEquals("title Dynamic - key\n" +
-                "\n" +
-                "participant <<Software System>>\\nA as A\n" +
-                "participant <<Software System>>\\nB as B\n" +
-                "\n" +
-                "A->B: Uses", diagram.getDefinition());
+        assertEquals("""
+                title Dynamic View\\nDescription
+                
+                participant <<Software System>>\\nA as A
+                participant <<Software System>>\\nB as B
+                
+                A->B: Uses
+                """, diagram.getDefinition());
     }
 
 }

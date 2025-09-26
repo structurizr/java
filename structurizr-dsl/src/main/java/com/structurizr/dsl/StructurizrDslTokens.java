@@ -11,6 +11,7 @@ class StructurizrDslTokens {
     static final String PERSON_TOKEN = "person";
     static final String SOFTWARE_SYSTEM_TOKEN = "softwareSystem";
     static final String RELATIONSHIP_TOKEN = "->";
+    static final String NO_RELATIONSHIP_TOKEN = "-/>";
     static final String CONTAINER_TOKEN = "container";
     static final String COMPONENT_TOKEN = "component";
     static final String GROUP_TOKEN = "group";
@@ -35,6 +36,7 @@ class StructurizrDslTokens {
     static final String DEPLOYMENT_GROUP_TOKEN = "deploymentGroup";
     static final String DEPLOYMENT_NODE_TOKEN = "deploymentNode";
     static final String INFRASTRUCTURE_NODE_TOKEN = "infrastructureNode";
+    static final String INSTANCE_OF_TOKEN = "instanceOf";
     static final String SOFTWARE_SYSTEM_INSTANCE_TOKEN = "softwareSystemInstance";
     static final String CONTAINER_INSTANCE_TOKEN = "containerInstance";
     static final String HEALTH_CHECK_TOKEN = "healthCheck";
@@ -88,6 +90,7 @@ class StructurizrDslTokens {
     static final String RELATIONSHIP_STYLE_DASHED_TOKEN = "dashed";
     static final String RELATIONSHIP_STYLE_OPACITY_TOKEN = "opacity";
     static final String RELATIONSHIP_STYLE_ROUTING_TOKEN = "routing";
+    static final String RELATIONSHIP_STYLE_JUMP_TOKEN = "jump";
     static final String RELATIONSHIP_STYLE_LINE_STYLE_TOKEN = "style";
     static final String RELATIONSHIP_STYLE_FONT_SIZE_TOKEN = "fontSize";
     static final String RELATIONSHIP_STYLE_WIDTH_TOKEN = "width";

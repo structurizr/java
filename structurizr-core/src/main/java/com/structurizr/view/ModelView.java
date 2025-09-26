@@ -272,8 +272,24 @@ public abstract class ModelView extends View {
         return null;
     }
 
+    /**
+     * Determines whether the specified element exists in this view.
+     *
+     * @param element       the Element to look for
+     * @return      true if the element exists in the view, false otherwise
+     */
     public boolean isElementInView(Element element) {
         return this.elementViews.stream().anyMatch(ev -> ev.getElement().equals(element));
+    }
+
+    /**
+     * Determines whether the specified relationship exists in this view.
+     *
+     * @param relationship      the Relationship to look for
+     * @return      true if the relationship exists in the view, false otherwise
+     */
+    public boolean isRelationshipInView(Relationship relationship) {
+        return this.relationshipViews.stream().anyMatch(rv -> rv.getRelationship().equals(relationship));
     }
 
     /**

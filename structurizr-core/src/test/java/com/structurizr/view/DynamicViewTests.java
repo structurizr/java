@@ -44,6 +44,13 @@ public class DynamicViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
+    void name() {
+        assertEquals("Dynamic View", views.createDynamicView("key1").getName());
+        assertEquals("Dynamic View: Software System A", views.createDynamicView(softwareSystemA, "key2").getName());
+        assertEquals("Dynamic View: Software System A - Container A1", views.createDynamicView(containerA1, "key3").getName());
+    }
+
+    @Test
     void add_ThrowsAnException_WhenPassedANullSourceElement() {
         try {
             DynamicView dynamicView = workspace.getViews().createDynamicView("key", "Description");

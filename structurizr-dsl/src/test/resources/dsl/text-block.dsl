@@ -1,12 +1,31 @@
 workspace {
 
-    model {
-        softwareSystem = softwareSystem "Name" {
-            description """
-                - Line 1
-                - Line 2
-                - Line 3
+    views {
+        properties {
+            "plantuml.url" "https://plantuml.com/plantuml"
+        }
+
+        !const SOURCE """
+            class MyClass
             """
+
+        !var STYLES """
+            <style>
+            root {
+                BackgroundColor: #ffffff;
+            }
+            </style>
+        """
+
+        image * "image" {
+            plantuml """
+                 @startuml
+
+                 ${STYLES}
+
+                 ${SOURCE}
+                 @enduml
+             """
         }
     }
 

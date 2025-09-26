@@ -38,6 +38,7 @@ final class DeploymentNodeDslContext extends GroupableElementDslContext {
                 StructurizrDslTokens.GROUP_TOKEN,
                 StructurizrDslTokens.DEPLOYMENT_NODE_TOKEN,
                 StructurizrDslTokens.INFRASTRUCTURE_NODE_TOKEN,
+                StructurizrDslTokens.INSTANCE_OF_TOKEN,
                 StructurizrDslTokens.SOFTWARE_SYSTEM_INSTANCE_TOKEN,
                 StructurizrDslTokens.CONTAINER_INSTANCE_TOKEN,
                 StructurizrDslTokens.RELATIONSHIP_TOKEN,

@@ -298,8 +298,13 @@ public class IlographExporter extends AbstractWorkspaceExporter {
     }
 
     private void writeDynamicView(DynamicView dynamicView, IndentingWriter writer) {
+        String scope = dynamicView.getName();
+        scope = scope.substring("Dynamic View".length());
+        if (scope.startsWith(": ")) {
+            scope = scope.substring(2);
+        }
         writer.indent();
-        writer.writeLine("- name: Dynamic - " + dynamicView.getName());
+        writer.writeLine("- name: Dynamic: " + scope);
         writer.indent();
         writer.writeLine("sequence:");
 

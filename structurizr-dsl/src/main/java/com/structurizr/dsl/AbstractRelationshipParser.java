@@ -2,6 +2,10 @@ package com.structurizr.dsl;
 
 import com.structurizr.model.*;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 abstract class AbstractRelationshipParser extends AbstractParser {
 
     protected Relationship createRelationship(Element sourceElement, String description, String technology, String[] tags, Element destinationElement) {
@@ -32,6 +36,14 @@ abstract class AbstractRelationshipParser extends AbstractParser {
         }
 
         return relationship;
+    }
+
+    protected Set<StaticStructureElementInstance> findSoftwareSystemInstances(SoftwareSystem softwareSystem, String deploymentEnvironment) {
+        return softwareSystem.getModel().getElements().stream().filter(e -> e instanceof SoftwareSystemInstance).map(e -> (SoftwareSystemInstance) e).filter(ssi -> ssi.getSoftwareSystem().equals(softwareSystem) && ssi.getEnvironment().equals(deploymentEnvironment)).collect(Collectors.toSet());
+    }
+
+    protected Set<StaticStructureElementInstance> findContainerInstances(Container container, String deploymentEnvironment) {
+        return container.getModel().getElements().stream().filter(e -> e instanceof ContainerInstance).map(e -> (ContainerInstance) e).filter(ci -> ci.getContainer().equals(container) && ci.getEnvironment().equals(deploymentEnvironment)).collect(Collectors.toSet());
     }
 
 }

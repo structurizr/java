@@ -7,12 +7,12 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 class IncludeParserTests extends AbstractTests {
 
-    private IncludeParser parser = new IncludeParser();
+    private final IncludeParser parser = new IncludeParser();
 
     @Test
     void test_parse_ThrowsAnException_WhenThereAreTooManyTokens() {
         try {
-            parser.parse(new IncludedDslContext(null), tokens("!include", "file", "extra"));
+            parser.parse(context(), null, tokens("!include", "file", "extra"));
             fail();
         } catch (Exception e) {
             assertEquals("Too many tokens, expected: !include <file|directory|url>", e.getMessage());
@@ -22,7 +22,7 @@ class IncludeParserTests extends AbstractTests {
     @Test
     void test_parse_ThrowsAnException_WhenAFileIsNotSpecified() {
         try {
-            parser.parse(new IncludedDslContext(null), tokens("!include"));
+            parser.parse(context(), null, tokens("!include"));
             fail();
         } catch (Exception e) {
             assertEquals("Expected: !include <file|directory|url>", e.getMessage());

@@ -9,12 +9,14 @@ import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class DefaultInspectorTests {
 
     @Test
     void test_EmptyWorkspace() {
-        DefaultInspector inspector = new DefaultInspector(new Workspace("Name", "Description"));
+        Workspace workspace = new Workspace("Name", "Description");
+        DefaultInspector inspector = new DefaultInspector(workspace);
         List<Violation> violations = inspector.getViolations();
 
         assertEquals(9, inspector.getNumberOfInspections());
@@ -34,6 +36,27 @@ public class DefaultInspectorTests {
         assertEquals(Severity.ERROR, violation.getSeverity());
         assertEquals("views.empty", violation.getType());
         assertEquals("This workspace has no views.", violation.getMessage());
+
+        assertEquals("3", workspace.getProperties().get("structurizr.inspection.error"));
+        assertEquals("0", workspace.getProperties().get("structurizr.inspection.warning"));
+        assertEquals("0", workspace.getProperties().get("structurizr.inspection.info"));
+        assertEquals("0", workspace.getProperties().get("structurizr.inspection.ignore"));
+    }
+
+    @Test
+    void test_EmptyWorkspace_WhenInspectionsAreDisabled() {
+        Workspace workspace = new Workspace("Name", "Description");
+        workspace.addProperty("structurizr.inspection", "false");
+
+        DefaultInspector inspector = new DefaultInspector(workspace);
+        List<Violation> violations = inspector.getViolations();
+
+        assertEquals(0, inspector.getNumberOfInspections());
+        assertEquals(0, violations.size());
+        assertNull(workspace.getProperties().get("structurizr.inspection.error"));
+        assertNull(workspace.getProperties().get("structurizr.inspection.warning"));
+        assertNull(workspace.getProperties().get("structurizr.inspection.info"));
+        assertNull(workspace.getProperties().get("structurizr.inspection.ignore"));
     }
 
     @Test

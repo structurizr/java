@@ -1,6 +1,6 @@
 package com.structurizr.dsl;
 
-final class DeploymentEnvironmentDslContext extends DslContext implements GroupableDslContext {
+class DeploymentEnvironmentDslContext extends DslContext implements GroupableDslContext {
 
     private final DeploymentEnvironment environment;
     private final ElementGroup group;

@@ -1,6 +1,7 @@
 package com.structurizr;
 
 import com.structurizr.configuration.WorkspaceConfiguration;
+import com.structurizr.util.StringUtils;
 
 import java.lang.reflect.Constructor;
 import java.util.Collections;
@@ -229,15 +230,28 @@ public abstract class AbstractWorkspace implements PropertyHolder {
      * @param value     the value of the property
      */
     public void addProperty(String name, String value) {
-        if (name == null || name.trim().length() == 0) {
+        if (StringUtils.isNullOrEmpty(name)) {
             throw new IllegalArgumentException("A property name must be specified.");
         }
 
-        if (value == null || value.trim().length() == 0) {
+        if (StringUtils.isNullOrEmpty(value)) {
             throw new IllegalArgumentException("A property value must be specified.");
         }
 
         properties.put(name, value);
+    }
+
+    /**
+     * Removes a name-value pair property from this workspace.
+     *
+     * @param name      the name of the property to remove
+     */
+    public void removeProperty(String name) {
+        if (StringUtils.isNullOrEmpty(name)) {
+            throw new IllegalArgumentException("A property name must be specified.");
+        }
+
+        properties.remove(name);
     }
 
     void setProperties(Map<String, String> properties) {

@@ -34,6 +34,15 @@ public final class Workspace extends AbstractWorkspace implements Documentable {
      * Creates a new workspace.
      *
      * @param name          the name of the workspace
+     */
+    public Workspace(String name) {
+        this(name, "");
+    }
+
+    /**
+     * Creates a new workspace.
+     *
+     * @param name          the name of the workspace
      * @param description   a short description
      */
     public Workspace(String name, String description) {
@@ -307,6 +316,36 @@ public final class Workspace extends AbstractWorkspace implements Documentable {
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
+        }
+    }
+
+    /**
+     * Removes a relationship from the workspace.
+     *
+     * @param relationship      the Relationship to remove
+     */
+    public void remove(Relationship relationship) {
+        if (relationship == null) {
+            throw new IllegalArgumentException("A relationship must be specified.");
+        }
+
+        // remove the relationship from views
+        for (View view : viewSet.getViews()) {
+            if (view instanceof ModelView) {
+                ModelView modelView = (ModelView)view;
+                if (modelView.isRelationshipInView(relationship)) {
+                    modelView.remove(relationship);
+                }
+            }
+        }
+
+        // now remove the relationship itself
+        try {
+            Method method = Model.class.getDeclaredMethod("remove", Relationship.class);
+            method.setAccessible(true);
+            method.invoke(model, relationship);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 

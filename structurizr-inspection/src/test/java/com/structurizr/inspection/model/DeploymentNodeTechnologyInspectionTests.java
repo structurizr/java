@@ -17,7 +17,7 @@ DeploymentNodeTechnologyInspectionTests {
     @Test
     public void run_WithoutDescription() {
         Workspace workspace = new Workspace("Name", "Description");
-        DeploymentNode deploymentNode = workspace.getModel().addDeploymentNode("Name");
+        DeploymentNode deploymentNode = workspace.getModel().addDeploymentNode("Name", "Description", "");
 
         Violation violation = new DeploymentNodeTechnologyInspection(new DefaultInspector(workspace)).run(deploymentNode);
         Assertions.assertEquals(Severity.ERROR, violation.getSeverity());

@@ -47,6 +47,8 @@ final class DecisionsParser extends AbstractParser {
     private void parse(DslContext context, Documentable documentable, File dslFile, Tokens tokens) {
         // !adrs <path>
 
+        context.setDslPortable(false);
+
         if (tokens.hasMoreThan(TYPE_OR_FQN_INDEX)) {
             throw new RuntimeException("Too many tokens, expected: " + GRAMMAR);
         }

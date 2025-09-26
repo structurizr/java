@@ -1,7 +1,7 @@
 workspace {
 
     model {
-        !include https://raw.githubusercontent.com/structurizr/dsl/master/src/test/dsl/include/model.dsl
+        !include https://raw.githubusercontent.com/structurizr/java/refs/heads/master/structurizr-dsl/src/test/resources/dsl/include/model.dsl
     }
 
 }

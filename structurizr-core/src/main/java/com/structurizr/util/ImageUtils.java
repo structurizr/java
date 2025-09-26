@@ -8,8 +8,13 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Some utility methods for dealing with images.
@@ -24,6 +29,8 @@ public class ImageUtils {
     public static final String CONTENT_TYPE_IMAGE_PNG = "image/png";
     public static final String CONTENT_TYPE_IMAGE_JPG = "image/jpeg";
     public static final String CONTENT_TYPE_IMAGE_SVG = "image/svg+xml";
+
+    private static final Map<String,String> imageCache = new HashMap<>();
 
     /**
      * Gets the content type of the specified file representing an image.
@@ -122,6 +129,60 @@ public class ImageUtils {
         String base64Content = getImageAsBase64(file);
 
         return DATA_URI_PREFIX + contentType + ";base64," + base64Content;
+    }
+
+    public static String getSvgAsDataUri(@Nonnull URL url) throws Exception {
+        return getSvgAsDataUri(url, false);
+    }
+
+    public static String getSvgAsDataUri(@Nonnull URL url, boolean cache) throws Exception {
+        String urlAsString = url.toString();
+        String dataUri = cache ? imageCache.get(urlAsString) : null;
+
+        if (StringUtils.isNullOrEmpty(dataUri)) {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(url.toURI())
+                    .header("accept", CONTENT_TYPE_IMAGE_SVG)
+                    .build();
+            HttpClient client = HttpClient.newBuilder()
+                    .followRedirects(HttpClient.Redirect.ALWAYS)
+                    .build();
+
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            String svg = response.body();
+
+            dataUri = DATA_URI_PREFIX + CONTENT_TYPE_IMAGE_SVG + ";base64," + Base64.getEncoder().encodeToString(svg.getBytes());
+            imageCache.put(urlAsString, dataUri);
+        }
+
+        return dataUri;
+    }
+
+    public static String getPngAsDataUri(@Nonnull URL url) throws Exception {
+        return getPngAsDataUri(url, false);
+    }
+
+    public static String getPngAsDataUri(@Nonnull URL url, boolean cache) throws Exception {
+        String urlAsString = url.toString();
+        String dataUri = cache ? imageCache.get(urlAsString) : null;
+
+        if (StringUtils.isNullOrEmpty(dataUri)) {
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(url.toURI())
+                    .header("accept", CONTENT_TYPE_IMAGE_PNG)
+                    .build();
+            HttpClient client = HttpClient.newBuilder()
+                    .followRedirects(HttpClient.Redirect.ALWAYS)
+                    .build();
+
+            HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
+            byte[] png = response.body();
+
+            dataUri = DATA_URI_PREFIX + CONTENT_TYPE_IMAGE_PNG + ";base64," + Base64.getEncoder().encodeToString(png);
+            imageCache.put(urlAsString, dataUri);
+        }
+
+        return dataUri;
     }
 
     public static void validateImage(String imageDescriptor) {

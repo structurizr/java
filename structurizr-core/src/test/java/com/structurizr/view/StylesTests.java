@@ -4,6 +4,8 @@ import com.structurizr.AbstractWorkspaceTestBase;
 import com.structurizr.model.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,17 +15,53 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     private final Styles styles = new Styles();
 
     @Test
+    void test_sortingOfElementStyles() {
+        ElementStyle softwareLight = styles.addElementStyle(Tags.SOFTWARE_SYSTEM, ColorScheme.Light);
+        ElementStyle softwareDark = styles.addElementStyle(Tags.SOFTWARE_SYSTEM, ColorScheme.Dark);
+        ElementStyle software = styles.addElementStyle(Tags.SOFTWARE_SYSTEM);
+        ElementStyle elementDark = styles.addElementStyle(Tags.ELEMENT, ColorScheme.Dark);
+        ElementStyle elementLight = styles.addElementStyle(Tags.ELEMENT, ColorScheme.Light);
+        ElementStyle element = styles.addElementStyle(Tags.ELEMENT);
+
+        List<ElementStyle> elementStyles = new LinkedList<>(styles.getElements());
+        assertSame(element, elementStyles.get(0));
+        assertSame(software, elementStyles.get(1));
+        assertSame(elementDark, elementStyles.get(2));
+        assertSame(softwareDark, elementStyles.get(3));
+        assertSame(elementLight, elementStyles.get(4));
+        assertSame(softwareLight, elementStyles.get(5));
+    }
+
+    @Test
+    void test_sortingOfRelationshipStyles() {
+        RelationshipStyle tag2Light = styles.addRelationshipStyle("Tag 2", ColorScheme.Light);
+        RelationshipStyle tag2Dark = styles.addRelationshipStyle("Tag 2", ColorScheme.Dark);
+        RelationshipStyle tag2 = styles.addRelationshipStyle("Tag 2");
+        RelationshipStyle tag1Light = styles.addRelationshipStyle("Tag 1", ColorScheme.Light);
+        RelationshipStyle tag1Dark = styles.addRelationshipStyle("Tag 1", ColorScheme.Dark);
+        RelationshipStyle tag1 = styles.addRelationshipStyle("Tag 1");
+
+        List<RelationshipStyle> relationshipStyles = new LinkedList<>(styles.getRelationships());
+        assertSame(tag1, relationshipStyles.get(0));
+        assertSame(tag2, relationshipStyles.get(1));
+        assertSame(tag1Dark, relationshipStyles.get(2));
+        assertSame(tag2Dark, relationshipStyles.get(3));
+        assertSame(tag1Light, relationshipStyles.get(4));
+        assertSame(tag2Light, relationshipStyles.get(5));
+    }
+
+    @Test
     void findElementStyle_ReturnsTheDefaultStyle_WhenPassedNull() {
         ElementStyle style = styles.findElementStyle((Element) null);
         assertEquals(Integer.valueOf(450), style.getWidth());
         assertEquals(Integer.valueOf(300), style.getHeight());
-        assertEquals("#dddddd", style.getBackground());
-        assertEquals("#000000", style.getColor());
+        assertEquals("#ffffff", style.getBackground());
+        assertEquals("#444444", style.getColor());
+        assertEquals("#444444", style.getStroke());
         assertEquals(Integer.valueOf(24), style.getFontSize());
         assertEquals(Shape.Box, style.getShape());
         assertNull(style.getIcon());
         assertEquals(Border.Solid, style.getBorder());
-        assertEquals("#9a9a9a", style.getStroke());
         assertNull(style.getStrokeWidth());
         assertEquals(Integer.valueOf(100), style.getOpacity());
         assertEquals(true, style.getMetadata());
@@ -36,13 +74,32 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         ElementStyle style = styles.findElementStyle(element);
         assertEquals(Integer.valueOf(450), style.getWidth());
         assertEquals(Integer.valueOf(300), style.getHeight());
-        assertEquals("#dddddd", style.getBackground());
-        assertEquals("#000000", style.getColor());
+        assertEquals("#ffffff", style.getBackground());
+        assertEquals("#444444", style.getColor());
+        assertEquals("#444444", style.getStroke());
         assertEquals(Integer.valueOf(24), style.getFontSize());
         assertEquals(Shape.Box, style.getShape());
         assertNull(style.getIcon());
         assertEquals(Border.Solid, style.getBorder());
-        assertEquals("#9a9a9a", style.getStroke());
+        assertNull(style.getStrokeWidth());
+        assertEquals(Integer.valueOf(100), style.getOpacity());
+        assertEquals(true, style.getMetadata());
+        assertEquals(true, style.getDescription());
+    }
+
+    @Test
+    void findElementStyleForDarkMode_ReturnsTheDefaultStyle_WhenNoStylesAreDefined() {
+        SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
+        ElementStyle style = styles.findElementStyle(element, ColorScheme.Dark);
+        assertEquals(Integer.valueOf(450), style.getWidth());
+        assertEquals(Integer.valueOf(300), style.getHeight());
+        assertEquals("#111111", style.getBackground());
+        assertEquals("#cccccc", style.getColor());
+        assertEquals("#cccccc", style.getStroke());
+        assertEquals(Integer.valueOf(24), style.getFontSize());
+        assertEquals(Shape.Box, style.getShape());
+        assertNull(style.getIcon());
+        assertEquals(Border.Solid, style.getBorder());
         assertNull(style.getStrokeWidth());
         assertEquals(Integer.valueOf(100), style.getOpacity());
         assertEquals(true, style.getMetadata());
@@ -116,24 +173,23 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void findElementStyle_ReturnsTheDefaultElementSize_WhenTheShapeIsAPerson() {
-        SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
-        element.addTags("Some Tag");
-
-        styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#ff0000").color("#ffffff");
-        styles.addElementStyle("Some Tag").shape(Shape.Person);
-
-        ElementStyle style = styles.findElementStyle(element);
-        assertEquals(Shape.Person, style.getShape());
-        assertEquals(Integer.valueOf(400), style.getWidth());
-        assertEquals(Integer.valueOf(400), style.getHeight());
+    void findRelationshipStyle_ReturnsTheDefaultStyle_WhenPassedNull_ForLightColorScheme() {
+        RelationshipStyle style = styles.findRelationshipStyle((Relationship) null);
+        assertEquals(Integer.valueOf(2), style.getThickness());
+        assertEquals("#444444", style.getColor());
+        assertTrue(style.getDashed());
+        assertEquals(Routing.Direct, style.getRouting());
+        assertEquals(Integer.valueOf(24), style.getFontSize());
+        assertEquals(Integer.valueOf(200), style.getWidth());
+        assertEquals(Integer.valueOf(50), style.getPosition());
+        assertEquals(Integer.valueOf(100), style.getOpacity());
     }
 
     @Test
-    void findRelationshipStyle_ReturnsTheDefaultStyle_WhenPassedNull() {
-        RelationshipStyle style = styles.findRelationshipStyle((Relationship) null);
+    void findRelationshipStyle_ReturnsTheDefaultStyle_WhenPassedNull_ForDarkColorScheme() {
+        RelationshipStyle style = styles.findRelationshipStyle((Relationship) null, ColorScheme.Dark);
         assertEquals(Integer.valueOf(2), style.getThickness());
-        assertEquals("#707070", style.getColor());
+        assertEquals("#cccccc", style.getColor());
         assertTrue(style.getDashed());
         assertEquals(Routing.Direct, style.getRouting());
         assertEquals(Integer.valueOf(24), style.getFontSize());
@@ -148,7 +204,7 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         Relationship relationship = element.uses(element, "Uses");
         RelationshipStyle style = styles.findRelationshipStyle(relationship);
         assertEquals(Integer.valueOf(2), style.getThickness());
-        assertEquals("#707070", style.getColor());
+        assertEquals("#444444", style.getColor());
         assertTrue(style.getDashed());
         assertEquals(Routing.Direct, style.getRouting());
         assertEquals(Integer.valueOf(24), style.getFontSize());

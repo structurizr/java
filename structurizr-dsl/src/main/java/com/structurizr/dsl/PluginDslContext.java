@@ -15,6 +15,7 @@ class PluginDslContext extends DslContext {
         this.fullyQualifiedClassName = fullyQualifiedClassName;
         this.dslFile = dslFile;
         this.dslParser = dslParser;
+        setDslPortable(false);
     }
 
     void addParameter(String name, String value) {

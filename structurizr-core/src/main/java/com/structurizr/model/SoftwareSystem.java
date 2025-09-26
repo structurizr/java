@@ -16,8 +16,6 @@ import java.util.TreeSet;
  */
 public final class SoftwareSystem extends StaticStructureElement implements Documentable {
 
-    private Location location = Location.Unspecified;
-
     private Set<Container> containers = new TreeSet<>();
 
     private Documentation documentation = new Documentation();
@@ -34,25 +32,6 @@ public final class SoftwareSystem extends StaticStructureElement implements Docu
     }
 
     SoftwareSystem() {
-    }
-
-    @Deprecated
-    public Location getLocation() {
-        return location;
-    }
-
-    /**
-     * Sets the location of this software system.
-     *
-     * @param location  a Location instance
-     */
-    @Deprecated
-    void setLocation(Location location) {
-        if (location != null) {
-            this.location = location;
-        } else {
-            this.location = Location.Unspecified;
-        }
     }
 
     void add(Container container) {

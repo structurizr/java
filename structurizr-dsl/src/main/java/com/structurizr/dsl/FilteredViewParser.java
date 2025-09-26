@@ -2,9 +2,7 @@ package com.structurizr.dsl;
 
 import com.structurizr.Workspace;
 import com.structurizr.util.StringUtils;
-import com.structurizr.view.FilterMode;
-import com.structurizr.view.FilteredView;
-import com.structurizr.view.StaticView;
+import com.structurizr.view.*;
 
 import java.text.DecimalFormat;
 import java.util.HashSet;
@@ -37,7 +35,7 @@ final class FilteredViewParser extends AbstractViewParser {
         Workspace workspace = context.getWorkspace();
         String key = "";
 
-        StaticView baseView;
+        View baseView;
         String baseKey = tokens.get(BASE_KEY_INDEX);
         String mode = tokens.get(MODE_INDEX);
         String tagsAsString = tokens.get(TAGS_INDEX);
@@ -64,13 +62,9 @@ final class FilteredViewParser extends AbstractViewParser {
             throw new RuntimeException("Filter mode should be include or exclude");
         }
 
-        if (workspace.getViews().getViews().stream().noneMatch(v -> v.getKey().equals(baseKey))) {
-            throw new RuntimeException("The view \"" + baseKey + "\" does not exist");
-        }
-
-        baseView = (StaticView)workspace.getViews().getViews().stream().filter(v -> v instanceof StaticView && v.getKey().equals(baseKey)).findFirst().orElse(null);
+        baseView = workspace.getViews().getViewWithKey(baseKey);
         if (baseView == null) {
-            throw new RuntimeException("The view \"" + baseKey + "\" must be a System Landscape, System Context, Container, or Component view");
+            throw new RuntimeException("The view \"" + baseKey + "\" does not exist");
         }
 
         if (tokens.includes(KEY_INDEX)) {
@@ -78,7 +72,13 @@ final class FilteredViewParser extends AbstractViewParser {
             validateViewKey(key);
         }
 
-        return workspace.getViews().createFilteredView(baseView, key, description, filterMode, tags.toArray(new String[0]));
+        if (baseView instanceof StaticView) {
+            return workspace.getViews().createFilteredView((StaticView)baseView, key, description, filterMode, tags.toArray(new String[0]));
+        } else if (baseView instanceof DeploymentView) {
+            return workspace.getViews().createFilteredView((DeploymentView)baseView, key, description, filterMode, tags.toArray(new String[0]));
+        } else {
+            throw new RuntimeException("The view \"" + baseKey + "\" must be a System Landscape, System Context, Container, Component, or Deployment view");
+        }
     }
 
 }

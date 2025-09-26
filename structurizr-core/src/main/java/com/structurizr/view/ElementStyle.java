@@ -12,8 +12,6 @@ public final class ElementStyle extends AbstractStyle {
     public static final int DEFAULT_WIDTH = 450;
     public static final int DEFAULT_HEIGHT = 300;
 
-    private String tag;
-
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Integer width;
 
@@ -59,13 +57,12 @@ public final class ElementStyle extends AbstractStyle {
     ElementStyle() {
     }
 
-    ElementStyle(String tag) {
-        this.tag = tag;
+    public ElementStyle(String tag) {
+        super(tag);
     }
 
     ElementStyle(String tag, ColorScheme colorScheme) {
-        this.tag = tag;
-        setColorScheme(colorScheme);
+        super(tag, colorScheme);
     }
 
     public ElementStyle(String tag, Integer width, Integer height, String background, String color, Integer fontSize) {
@@ -73,26 +70,14 @@ public final class ElementStyle extends AbstractStyle {
     }
 
     public ElementStyle(String tag, Integer width, Integer height, String background, String color, Integer fontSize, Shape shape) {
-        this.tag = tag;
+        super(tag);
+
         this.width = width;
         this.height = height;
         setBackground(background);
         setColor(color);
         this.fontSize = fontSize;
         this.shape = shape;
-    }
-
-    /**
-     * The tag to which this element style applies.
-     *
-     * @return  the tag, as a String
-     */
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
     }
 
     /**
@@ -441,6 +426,10 @@ public final class ElementStyle extends AbstractStyle {
 
         if (!StringUtils.isNullOrEmpty(elementStyle.getIcon())) {
             this.setIcon(elementStyle.getIcon());
+        }
+
+        if (elementStyle.getIconPosition() != null) {
+            this.setIconPosition(elementStyle.getIconPosition());
         }
 
         if (elementStyle.getBorder() != null) {

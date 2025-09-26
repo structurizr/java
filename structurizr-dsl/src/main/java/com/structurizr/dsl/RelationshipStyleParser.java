@@ -234,4 +234,27 @@ final class RelationshipStyleParser extends AbstractParser {
         }
     }
 
+    void parseJump(RelationshipStyleDslContext context, Tokens tokens) {
+        // jump <true|false>
+        RelationshipStyle style = context.getStyle();
+
+        if (tokens.hasMoreThan(FIRST_PROPERTY_INDEX)) {
+            throw new RuntimeException("Too many tokens, expected: jump <true|false>");
+        }
+
+        if (tokens.includes(FIRST_PROPERTY_INDEX)) {
+            String jump = tokens.get(1);
+
+            if ("true".equalsIgnoreCase(jump)) {
+                style.setJump(true);
+            } else if ("false".equalsIgnoreCase(jump)) {
+                style.setJump(false);
+            } else {
+                throw new RuntimeException("Jump must be true or false");
+            }
+        } else {
+            throw new RuntimeException("Expected: jump <true|false>");
+        }
+    }
+
 }

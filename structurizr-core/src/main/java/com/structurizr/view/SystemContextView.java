@@ -31,7 +31,7 @@ public final class SystemContextView extends StaticView {
      */
     @Override
     public String getName() {
-        return getSoftwareSystem().getName() + " - System Context";
+        return "System Context View: " + getSoftwareSystem().getName();
     }
 
     /**

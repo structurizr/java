@@ -40,7 +40,7 @@ public final class CustomView extends ModelView implements AnimatedView {
      */
     @Override
     public String getName() {
-        return "Custom - " + getTitle();
+        return "Custom View: " + getTitle();
     }
 
     /**

@@ -8,9 +8,6 @@ public final class RelationshipStyle extends AbstractStyle {
     private static final int START_OF_LINE = 0;
     private static final int END_OF_LINE = 100;
 
-    /** the name of the tag to which this style applies */
-    private String tag;
-
     /** the thickness of the line, in pixels */
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Integer thickness;
@@ -39,6 +36,10 @@ public final class RelationshipStyle extends AbstractStyle {
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Routing routing;
 
+    /** whether the line should jump over others */
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private Boolean jump;
+
     /** the position of the annotation along the line; 0 (start) to 100 (end) */
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Integer position;
@@ -50,21 +51,12 @@ public final class RelationshipStyle extends AbstractStyle {
     RelationshipStyle() {
     }
 
-    RelationshipStyle(String tag) {
-        this.tag = tag;
+    public RelationshipStyle(String tag) {
+        super(tag);
     }
 
     RelationshipStyle(String tag, ColorScheme colorScheme) {
-        this.tag = tag;
-        setColorScheme(colorScheme);
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
+        super(tag, colorScheme);
     }
 
     public Integer getThickness() {
@@ -139,6 +131,19 @@ public final class RelationshipStyle extends AbstractStyle {
 
     public RelationshipStyle routing(Routing routing) {
         setRouting(routing);
+        return this;
+    }
+
+    public Boolean getJump() {
+        return jump;
+    }
+
+    public void setJump(Boolean jump) {
+        this.jump = jump;
+    }
+
+    public RelationshipStyle jump(boolean jump) {
+        setJump(jump);
         return this;
     }
 
@@ -234,6 +239,10 @@ public final class RelationshipStyle extends AbstractStyle {
 
         if (relationshipStyle.getRouting() != null) {
             this.setRouting(relationshipStyle.getRouting());
+        }
+
+        if (relationshipStyle.getJump() != null) {
+            this.setJump(relationshipStyle.getJump());
         }
 
         if (relationshipStyle.getFontSize() != null) {

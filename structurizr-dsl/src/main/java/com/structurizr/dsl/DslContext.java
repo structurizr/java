@@ -17,6 +17,7 @@ abstract class DslContext {
 
     private Workspace workspace;
     private boolean extendingWorkspace;
+    private boolean dslPortable = true;
 
     protected IdentifiersRegister identifiersRegister = new IdentifiersRegister();
 
@@ -34,6 +35,14 @@ abstract class DslContext {
 
     void setExtendingWorkspace(boolean extendingWorkspace) {
         this.extendingWorkspace = extendingWorkspace;
+    }
+
+    boolean isDslPortable() {
+        return dslPortable;
+    }
+
+    void setDslPortable(boolean bool) {
+        this.dslPortable = bool;
     }
 
     void setIdentifierRegister(IdentifiersRegister identifersRegister) {

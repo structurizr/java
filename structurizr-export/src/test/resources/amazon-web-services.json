@@ -1,0 +1,257 @@
+{
+  "configuration" : { },
+  "description" : "An example AWS deployment architecture.",
+  "documentation" : { },
+  "id" : 0,
+  "model" : {
+    "deploymentNodes" : [ {
+      "children" : [ {
+        "children" : [ {
+          "children" : [ {
+            "containerInstances" : [ {
+              "containerId" : "2",
+              "deploymentGroups" : [ "Default" ],
+              "environment" : "Live",
+              "id" : "12",
+              "instanceId" : 1,
+              "properties" : {
+                "structurizr.dsl.identifier" : "live.4955ad68-6fbf-42a0-a268-21d790224ef4.region.d846537e-73a4-40fa-b64a-0abf118a5241.53a89646-c975-4c46-a3d5-422634503b7e.webapplicationinstance"
+              },
+              "relationships" : [ {
+                "description" : "Reads from and writes to",
+                "destinationId" : "16",
+                "id" : "17",
+                "linkedRelationshipId" : "4",
+                "sourceId" : "12",
+                "technology" : "MySQL Protocol/SSL"
+              } ],
+              "tags" : "Container Instance"
+            } ],
+            "environment" : "Live",
+            "id" : "11",
+            "instances" : "1",
+            "name" : "Amazon EC2 - Ubuntu server",
+            "properties" : {
+              "structurizr.dsl.identifier" : "live.4955ad68-6fbf-42a0-a268-21d790224ef4.region.d846537e-73a4-40fa-b64a-0abf118a5241.53a89646-c975-4c46-a3d5-422634503b7e"
+            },
+            "tags" : "Element,Deployment Node,Amazon Web Services - EC2"
+          } ],
+          "environment" : "Live",
+          "id" : "10",
+          "instances" : "1",
+          "name" : "Autoscaling group",
+          "properties" : {
+            "structurizr.dsl.identifier" : "live.4955ad68-6fbf-42a0-a268-21d790224ef4.region.d846537e-73a4-40fa-b64a-0abf118a5241"
+          },
+          "tags" : "Element,Deployment Node,Amazon Web Services - Auto Scaling"
+        }, {
+          "children" : [ {
+            "containerInstances" : [ {
+              "containerId" : "3",
+              "deploymentGroups" : [ "Default" ],
+              "environment" : "Live",
+              "id" : "16",
+              "instanceId" : 1,
+              "properties" : {
+                "structurizr.dsl.identifier" : "live.4955ad68-6fbf-42a0-a268-21d790224ef4.region.989c5763-5a99-4014-9a7e-397dbc6f755e.91b9b9b5-2ca3-4bcb-8395-9d9f4d49de40.databaseinstance"
+              },
+              "tags" : "Container Instance"
+            } ],
+            "environment" : "Live",
+            "id" : "15",
+            "instances" : "1",
+            "name" : "MySQL",
+            "properties" : {
+              "structurizr.dsl.identifier" : "live.4955ad68-6fbf-42a0-a268-21d790224ef4.region.989c5763-5a99-4014-9a7e-397dbc6f755e.91b9b9b5-2ca3-4bcb-8395-9d9f4d49de40"
+            },
+            "tags" : "Element,Deployment Node,Amazon Web Services - RDS MySQL instance"
+          } ],
+          "environment" : "Live",
+          "id" : "14",
+          "instances" : "1",
+          "name" : "Amazon RDS",
+          "properties" : {
+            "structurizr.dsl.identifier" : "live.4955ad68-6fbf-42a0-a268-21d790224ef4.region.989c5763-5a99-4014-9a7e-397dbc6f755e"
+          },
+          "tags" : "Element,Deployment Node,Amazon Web Services - RDS"
+        } ],
+        "environment" : "Live",
+        "id" : "6",
+        "infrastructureNodes" : [ {
+          "description" : "Routes incoming requests based upon domain name.",
+          "environment" : "Live",
+          "id" : "7",
+          "name" : "DNS router",
+          "properties" : {
+            "structurizr.dsl.identifier" : "live.4955ad68-6fbf-42a0-a268-21d790224ef4.region.dns"
+          },
+          "relationships" : [ {
+            "description" : "Forwards requests to",
+            "destinationId" : "8",
+            "id" : "9",
+            "sourceId" : "7",
+            "tags" : "Relationship",
+            "technology" : "HTTPS"
+          } ],
+          "tags" : "Element,Infrastructure Node,Amazon Web Services - Route 53",
+          "technology" : "Route 53"
+        }, {
+          "description" : "Automatically distributes incoming application traffic.",
+          "environment" : "Live",
+          "id" : "8",
+          "name" : "Load Balancer",
+          "properties" : {
+            "structurizr.dsl.identifier" : "live.4955ad68-6fbf-42a0-a268-21d790224ef4.region.lb"
+          },
+          "relationships" : [ {
+            "description" : "Forwards requests to",
+            "destinationId" : "12",
+            "id" : "13",
+            "sourceId" : "8",
+            "tags" : "Relationship",
+            "technology" : "HTTPS"
+          } ],
+          "tags" : "Element,Infrastructure Node,Amazon Web Services - Elastic Load Balancing",
+          "technology" : "Elastic Load Balancer"
+        } ],
+        "instances" : "1",
+        "name" : "US-East-1",
+        "properties" : {
+          "structurizr.dsl.identifier" : "live.4955ad68-6fbf-42a0-a268-21d790224ef4.region"
+        },
+        "tags" : "Element,Deployment Node,Amazon Web Services - Region"
+      } ],
+      "environment" : "Live",
+      "id" : "5",
+      "instances" : "1",
+      "name" : "Amazon Web Services",
+      "properties" : {
+        "structurizr.dsl.identifier" : "live.4955ad68-6fbf-42a0-a268-21d790224ef4"
+      },
+      "tags" : "Element,Deployment Node,Amazon Web Services - Cloud"
+    } ],
+    "softwareSystems" : [ {
+      "containers" : [ {
+        "documentation" : { },
+        "id" : "2",
+        "name" : "Web Application",
+        "properties" : {
+          "structurizr.dsl.identifier" : "x.wa"
+        },
+        "relationships" : [ {
+          "description" : "Reads from and writes to",
+          "destinationId" : "3",
+          "id" : "4",
+          "sourceId" : "2",
+          "tags" : "Relationship",
+          "technology" : "MySQL Protocol/SSL"
+        } ],
+        "tags" : "Element,Container,Application",
+        "technology" : "Java and Spring Boot"
+      }, {
+        "documentation" : { },
+        "id" : "3",
+        "name" : "Database Schema",
+        "properties" : {
+          "structurizr.dsl.identifier" : "x.db"
+        },
+        "tags" : "Element,Container,Database"
+      } ],
+      "documentation" : { },
+      "id" : "1",
+      "location" : "Unspecified",
+      "name" : "X",
+      "properties" : {
+        "structurizr.dsl.identifier" : "x"
+      },
+      "tags" : "Element,Software System"
+    } ]
+  },
+  "name" : "Amazon Web Services Example",
+  "properties" : {
+    "structurizr.inspection.error" : "23",
+    "structurizr.dsl" : "d29ya3NwYWNlICJBbWF6b24gV2ViIFNlcnZpY2VzIEV4YW1wbGUiICJBbiBleGFtcGxlIEFXUyBkZXBsb3ltZW50IGFyY2hpdGVjdHVyZS4iIHsKCiAgICAhaWRlbnRpZmllcnMgaGllcmFyY2hpY2FsCgogICAgbW9kZWwgewogICAgICAgIHggPSBzb2Z0d2FyZXN5c3RlbSAiWCIgewogICAgICAgICAgICB3YSA9IGNvbnRhaW5lciAiV2ViIEFwcGxpY2F0aW9uIiB7CiAgICAgICAgICAgICAgICB0ZWNobm9sb2d5ICJKYXZhIGFuZCBTcHJpbmcgQm9vdCIKICAgICAgICAgICAgICAgIHRhZ3MgIkFwcGxpY2F0aW9uIgogICAgICAgICAgICB9CiAgICAgICAgICAgIGRiID0gY29udGFpbmVyICJEYXRhYmFzZSBTY2hlbWEiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkRhdGFiYXNlIgogICAgICAgICAgICB9CgogICAgICAgICAgICB3YSAtPiBkYiAiUmVhZHMgZnJvbSBhbmQgd3JpdGVzIHRvIiAiTXlTUUwgUHJvdG9jb2wvU1NMIgogICAgICAgIH0KCiAgICAgICAgbGl2ZSA9IGRlcGxveW1lbnRFbnZpcm9ubWVudCAiTGl2ZSIgewogICAgICAgICAgICBkZXBsb3ltZW50Tm9kZSAiQW1hem9uIFdlYiBTZXJ2aWNlcyIgewogICAgICAgICAgICAgICAgdGFncyAiQW1hem9uIFdlYiBTZXJ2aWNlcyAtIENsb3VkIgoKICAgICAgICAgICAgICAgIHJlZ2lvbiA9IGRlcGxveW1lbnROb2RlICJVUy1FYXN0LTEiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9uIgoKICAgICAgICAgICAgICAgICAgICBkbnMgPSBpbmZyYXN0cnVjdHVyZU5vZGUgIkROUyByb3V0ZXIiIHsKICAgICAgICAgICAgICAgICAgICAgICAgdGVjaG5vbG9neSAiUm91dGUgNTMiCiAgICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uICJSb3V0ZXMgaW5jb21pbmcgcmVxdWVzdHMgYmFzZWQgdXBvbiBkb21haW4gbmFtZS4iCiAgICAgICAgICAgICAgICAgICAgICAgIHRhZ3MgIkFtYXpvbiBXZWIgU2VydmljZXMgLSBSb3V0ZSA1MyIKICAgICAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgICAgIGxiID0gaW5mcmFzdHJ1Y3R1cmVOb2RlICJMb2FkIEJhbGFuY2VyIiB7CiAgICAgICAgICAgICAgICAgICAgICAgIHRlY2hub2xvZ3kgIkVsYXN0aWMgTG9hZCBCYWxhbmNlciIKICAgICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb24gIkF1dG9tYXRpY2FsbHkgZGlzdHJpYnV0ZXMgaW5jb21pbmcgYXBwbGljYXRpb24gdHJhZmZpYy4iCiAgICAgICAgICAgICAgICAgICAgICAgIHRhZ3MgIkFtYXpvbiBXZWIgU2VydmljZXMgLSBFbGFzdGljIExvYWQgQmFsYW5jaW5nIgogICAgICAgICAgICAgICAgICAgICAgICBkbnMgLT4gdGhpcyAiRm9yd2FyZHMgcmVxdWVzdHMgdG8iICJIVFRQUyIKICAgICAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgICAgIGRlcGxveW1lbnROb2RlICJBdXRvc2NhbGluZyBncm91cCIgewogICAgICAgICAgICAgICAgICAgICAgICB0YWdzICJBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5nIgoKICAgICAgICAgICAgICAgICAgICAgICAgZGVwbG95bWVudE5vZGUgIkFtYXpvbiBFQzIgLSBVYnVudHUgc2VydmVyIiB7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICB0YWdzICJBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMyIgoKICAgICAgICAgICAgICAgICAgICAgICAgICAgIHdlYkFwcGxpY2F0aW9uSW5zdGFuY2UgPSBjb250YWluZXJJbnN0YW5jZSB4LndhIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBsYiAtPiB0aGlzICJGb3J3YXJkcyByZXF1ZXN0cyB0byIgIkhUVFBTIgogICAgICAgICAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgICAgICBkZXBsb3ltZW50Tm9kZSAiQW1hem9uIFJEUyIgewogICAgICAgICAgICAgICAgICAgICAgICB0YWdzICJBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIgoKICAgICAgICAgICAgICAgICAgICAgICAgZGVwbG95bWVudE5vZGUgIk15U1FMIiB7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICB0YWdzICJBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNlIgoKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRhdGFiYXNlSW5zdGFuY2UgPSBjb250YWluZXJJbnN0YW5jZSB4LmRiCiAgICAgICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CiAgICAgICAgfQogICAgfQoKICAgIHZpZXdzIHsKICAgICAgICBkZXBsb3ltZW50IHggbGl2ZSAiQW1hem9uV2ViU2VydmljZXNEZXBsb3ltZW50IiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvbGF5b3V0IGxyCiAgICAgICAgfQoKICAgICAgICBzdHlsZXMgewogICAgICAgICAgICBlbGVtZW50ICJBcHBsaWNhdGlvbiIgewogICAgICAgICAgICAgICAgc2hhcGUgcm91bmRlZGJveAogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIkRhdGFiYXNlIiB7CiAgICAgICAgICAgICAgICBzaGFwZSBjeWxpbmRlcgogICAgICAgICAgICB9CiAgICAgICAgfQoKICAgICAgICB0aGVtZXMgaHR0cHM6Ly9zdGF0aWMuc3RydWN0dXJpenIuY29tL3RoZW1lcy9hbWF6b24td2ViLXNlcnZpY2VzLTIwMjAuMDQuMzAvdGhlbWUuanNvbgogICAgfQoKfQ==",
+    "structurizr.inspection.info" : "0",
+    "structurizr.inspection.ignore" : "0",
+    "structurizr.inspection.warning" : "0"
+  },
+  "views" : {
+    "configuration" : {
+      "branding" : { },
+      "styles" : {
+        "elements" : [ {
+          "shape" : "RoundedBox",
+          "tag" : "Application"
+        }, {
+          "shape" : "Cylinder",
+          "tag" : "Database"
+        } ]
+      },
+      "terminology" : { },
+      "themes" : [ "https://static.structurizr.com/themes/amazon-web-services-2020.04.30/theme.json" ]
+    },
+    "deploymentViews" : [ {
+      "automaticLayout" : {
+        "applied" : false,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "elements" : [ {
+        "id" : "5",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "6",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "7",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "8",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "10",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "11",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "12",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "14",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "15",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "16",
+        "x" : 0,
+        "y" : 0
+      } ],
+      "environment" : "Live",
+      "key" : "AmazonWebServicesDeployment",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "13"
+      }, {
+        "id" : "17"
+      }, {
+        "id" : "9"
+      } ],
+      "softwareSystemId" : "1"
+    } ]
+  }
+}

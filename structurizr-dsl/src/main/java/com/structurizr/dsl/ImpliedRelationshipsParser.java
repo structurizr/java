@@ -46,6 +46,10 @@ final class ImpliedRelationshipsParser extends AbstractParser {
                 }
             }
 
+            if (!BUILT_IN_IMPLIED_RELATIONSHIPS_STRATEGIES.contains(option)) {
+                context.setDslPortable(false);
+            }
+
             try {
                 Class<? extends ImpliedRelationshipsStrategy> impliedRelationshipsStrategyClass = context.loadClass(option, dslFile);
                 Constructor<? extends ImpliedRelationshipsStrategy> constructor = impliedRelationshipsStrategyClass.getDeclaredConstructor();

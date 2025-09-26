@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ContainerInstanceParserTests extends AbstractTests {
 
-    private ContainerInstanceParser parser = new ContainerInstanceParser();
+    private final ContainerInstanceParser parser = new ContainerInstanceParser();
 
     @Test
     void test_parse_ThrowsAnException_WhenThereAreTooManyTokens() {

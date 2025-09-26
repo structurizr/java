@@ -11,7 +11,7 @@ import java.util.TreeSet;
  */
 public final class FilteredView extends View {
 
-    private StaticView view;
+    private ModelView view;
     private String baseViewKey;
 
     private FilterMode mode = FilterMode.Exclude;
@@ -20,7 +20,7 @@ public final class FilteredView extends View {
     FilteredView() {
     }
 
-    FilteredView(StaticView view, String key, String description, FilterMode mode, String... tags) {
+    FilteredView(ModelView view, String key, String description, FilterMode mode, String... tags) {
         this.view = view;
         setKey(key);
         setDescription(description);
@@ -33,7 +33,7 @@ public final class FilteredView extends View {
         return view;
     }
 
-    void setView(StaticView view) {
+    void setView(ModelView view) {
         this.view = view;
     }
 

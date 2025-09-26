@@ -23,8 +23,6 @@ public final class Model implements PropertyHolder {
     private final Set<Relationship> relationships = new TreeSet<>();
     private final Map<String, Relationship> relationshipsById = new HashMap<>();
 
-    private Enterprise enterprise;
-
     private Set<Person> people = new TreeSet<>();
     private Set<SoftwareSystem> softwareSystems = new TreeSet<>();
     private Set<DeploymentNode> deploymentNodes = new TreeSet<>();
@@ -35,16 +33,6 @@ public final class Model implements PropertyHolder {
     private Map<String, String> properties = new HashMap<>();
 
     Model() {
-    }
-
-    @Deprecated
-    public Enterprise getEnterprise() {
-        return enterprise;
-    }
-
-    @Deprecated
-    void setEnterprise(Enterprise enterprise) {
-        this.enterprise = enterprise;
     }
 
     /**
@@ -1171,13 +1159,22 @@ public final class Model implements PropertyHolder {
         // remove any relationships to/from the element
         for (Relationship relationship : getRelationships()) {
             if (relationship.getSource() == element || relationship.getDestination() == element) {
-                removeRelationshipFromInternalStructures(relationship);
-                relationship.getSource().remove(relationship);
+                remove(relationship);
             }
         }
 
         elementsById.remove(element.getId());
         elements.remove(element);
+    }
+
+    /**
+     * Removes a relationship from the model.
+     *
+     * @param relationship      the Relationship to remove
+     */
+    void remove(Relationship relationship) {
+        removeRelationshipFromInternalStructures(relationship);
+        relationship.getSource().remove(relationship);
     }
 
 }

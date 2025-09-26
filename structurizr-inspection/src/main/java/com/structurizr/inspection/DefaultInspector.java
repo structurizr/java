@@ -10,14 +10,29 @@ import com.structurizr.inspection.workspace.WorkspaceToolingInspection;
 import com.structurizr.model.*;
 import com.structurizr.view.*;
 
+import java.util.List;
+
 public class DefaultInspector extends Inspector {
+
+    private static final String INSPECTION_SUMMARY_NUMBER_OF_ERROR =    "structurizr.inspection.error";
+    private static final String INSPECTION_SUMMARY_NUMBER_OF_WARNING =  "structurizr.inspection.warning";
+    private static final String INSPECTION_SUMMARY_NUMBER_OF_INFO =     "structurizr.inspection.info";
+    private static final String INSPECTION_SUMMARY_NUMBER_OF_IGNORE =   "structurizr.inspection.ignore";
 
     public DefaultInspector(Workspace workspace) {
         super(workspace);
 
-        runWorkspaceInspections();
-        runModelInspections();
-        runViewInspections();
+        if (!"false".equalsIgnoreCase(workspace.getProperties().get("structurizr.inspection"))) {
+            runWorkspaceInspections();
+            runModelInspections();
+            runViewInspections();
+
+            List<Violation> violations = getViolations();
+            workspace.addProperty(INSPECTION_SUMMARY_NUMBER_OF_ERROR, "" + violations.stream().filter(r -> r.getSeverity() == Severity.ERROR).count());
+            workspace.addProperty(INSPECTION_SUMMARY_NUMBER_OF_WARNING, "" + violations.stream().filter(r -> r.getSeverity() == Severity.WARNING).count());
+            workspace.addProperty(INSPECTION_SUMMARY_NUMBER_OF_INFO, "" + violations.stream().filter(r -> r.getSeverity() == Severity.INFO).count());
+            workspace.addProperty(INSPECTION_SUMMARY_NUMBER_OF_IGNORE, "" + violations.stream().filter(r -> r.getSeverity() == Severity.IGNORE).count());
+        }
     }
 
     private void runWorkspaceInspections() {

@@ -10,6 +10,7 @@ import com.structurizr.model.SoftwareSystem;
 import com.structurizr.view.SystemContextView;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -51,6 +52,7 @@ public class WorkspaceApiClientIntegrationTests {
     }
 
     @Test
+    @Tag("IntegrationTest")
     void putAndGetWorkspace_WithoutEncryption() throws Exception {
         Workspace workspace = new Workspace("Structurizr client library tests - without encryption", "A test workspace for the Structurizr client library");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System", "Description");
@@ -77,6 +79,7 @@ public class WorkspaceApiClientIntegrationTests {
     }
 
     @Test
+    @Tag("IntegrationTest")
     void putAndGetWorkspace_WithEncryption() throws Exception {
         client.setEncryptionStrategy(new AesEncryptionStrategy("password"));
         Workspace workspace = new Workspace("Structurizr client library tests - with encryption", "A test workspace for the Structurizr client library");
@@ -104,6 +107,7 @@ public class WorkspaceApiClientIntegrationTests {
     }
 
     @Test
+    @Tag("IntegrationTest")
     void lockWorkspace() throws Exception {
         client.unlockWorkspace(20081);
         assertTrue(client.lockWorkspace(20081));
@@ -111,6 +115,7 @@ public class WorkspaceApiClientIntegrationTests {
 
 
     @Test
+    @Tag("IntegrationTest")
     void unlockWorkspace() throws Exception {
         client.lockWorkspace(20081);
         assertTrue(client.unlockWorkspace(20081));

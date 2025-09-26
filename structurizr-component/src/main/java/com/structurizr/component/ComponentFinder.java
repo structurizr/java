@@ -61,7 +61,7 @@ public final class ComponentFinder {
         for (ComponentFinderStrategy componentFinderStrategy : componentFinderStrategies) {
             Set<DiscoveredComponent> set = componentFinderStrategy.run(typeRepository);
             if (set.isEmpty()) {
-                throw new RuntimeException("No components were found by " + componentFinderStrategy);
+                log.debug("No components were found by " + componentFinderStrategy);
             }
             discoveredComponents.addAll(set);
         }

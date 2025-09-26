@@ -18,21 +18,21 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
     @Test
     void getName_WithNoSoftwareSystemAndNoEnvironment() {
         deploymentView = views.createDeploymentView("deployment", "Description");
-        assertEquals("Deployment - Default", deploymentView.getName());
+        assertEquals("Deployment View: Default", deploymentView.getName());
     }
 
     @Test
     void getName_WithNoSoftwareSystemAndAnEnvironment() {
         deploymentView = views.createDeploymentView("deployment", "Description");
         deploymentView.setEnvironment("Live");
-        assertEquals("Deployment - Live", deploymentView.getName());
+        assertEquals("Deployment View: Live", deploymentView.getName());
     }
 
     @Test
     void getName_WithASoftwareSystemAndNoEnvironment() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         deploymentView = views.createDeploymentView(softwareSystem, "deployment", "Description");
-        assertEquals("Software System - Deployment - Default", deploymentView.getName());
+        assertEquals("Deployment View: Software System - Default", deploymentView.getName());
     }
 
     @Test
@@ -40,7 +40,7 @@ public class DeploymentViewTests extends AbstractWorkspaceTestBase {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System", "");
         deploymentView = views.createDeploymentView(softwareSystem, "deployment", "Description");
         deploymentView.setEnvironment("Live");
-        assertEquals("Software System - Deployment - Live", deploymentView.getName());
+        assertEquals("Deployment View: Software System - Live", deploymentView.getName());
     }
 
     @Test

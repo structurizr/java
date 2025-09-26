@@ -25,7 +25,7 @@ public class ComponentViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     void construction() {
-        assertEquals("The System - Web Application - Components", view.getName());
+        assertEquals("Component View: The System - Web Application", view.getName());
         assertEquals("Some description", view.getDescription());
         assertEquals(0, view.getElements().size());
         assertSame(softwareSystem, view.getSoftwareSystem());

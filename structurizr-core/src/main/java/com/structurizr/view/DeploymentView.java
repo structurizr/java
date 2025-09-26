@@ -248,13 +248,9 @@ public final class DeploymentView extends ModelView implements AnimatedView {
     public String getName() {
         String name;
         if (getSoftwareSystem() != null) {
-            name = getSoftwareSystem().getName() + " - Deployment";
+            name = "Deployment View: " + getSoftwareSystem().getName() + " - " + getEnvironment();
         } else {
-            name = "Deployment";
-        }
-
-        if (!StringUtils.isNullOrEmpty(getEnvironment())) {
-            name = name + " - " + getEnvironment();
+            name = "Deployment View: " + getEnvironment();
         }
 
         return name;

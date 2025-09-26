@@ -30,6 +30,7 @@ final class BrandingParser extends AbstractParser {
                 if (!restricted) {
                     File file = new File(context.getFile().getParent(), path);
                     if (file.exists() && !file.isDirectory()) {
+                        context.setDslPortable(false);
                         try {
                             String dataUri = ImageUtils.getImageAsDataUri(file);
                             context.getWorkspace().getViews().getConfiguration().getBranding().setLogo(dataUri);

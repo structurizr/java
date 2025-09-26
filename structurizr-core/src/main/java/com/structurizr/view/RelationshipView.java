@@ -30,6 +30,9 @@ public final class RelationshipView implements PropertyHolder, Comparable<Relati
     private Routing routing;
 
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    private Boolean jump;
+
+    @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Integer position;
 
     RelationshipView() {
@@ -223,6 +226,24 @@ public final class RelationshipView implements PropertyHolder, Comparable<Relati
     }
 
     /**
+     * Gets whether this relationship should "jump" when crossing others.
+     *
+     * @return  true if jumping is enabled, false otherwise
+     */
+    public Boolean getJump() {
+        return jump;
+    }
+
+    /**
+     * Sets whether this relationship should "jump" when crossing others.
+     *
+     * @param jump      true if enabled, false otherwise
+     */
+    public void setJump(Boolean jump) {
+        this.jump = jump;
+    }
+
+    /**
      * Gets the position of the annotation along the line.
      *
      * @return  an integer between 0 (start of the line) to 100 (end of the line) inclusive
@@ -253,6 +274,7 @@ public final class RelationshipView implements PropertyHolder, Comparable<Relati
             setVertices(source.getVertices());
             setPosition(source.getPosition());
             setRouting(source.getRouting());
+            setJump(source.getJump());
         }
     }
 

@@ -80,14 +80,14 @@ class FilteredViewParserTests extends AbstractTests {
     }
 
     @Test
-    void test_parse_ThrowsAnException_WhenTheBaseViewIsNotAStaticView() {
+    void test_parse_ThrowsAnException_WhenTheBaseViewIsNotAStaticOrDeploymentView() {
         DslContext context = context();
-        views.createDeploymentView("baseKey", "Description");
+        views.createDynamicView("baseKey", "Description");
         try {
             parser.parse(context, tokens("filtered", "baseKey", "include", "Tag 1, Tag 2", "key"));
             fail();
         } catch (RuntimeException iae) {
-            assertEquals("The view \"baseKey\" must be a System Landscape, System Context, Container, or Component view", iae.getMessage());
+            assertEquals("The view \"baseKey\" must be a System Landscape, System Context, Container, Component, or Deployment view", iae.getMessage());
         }
     }
 

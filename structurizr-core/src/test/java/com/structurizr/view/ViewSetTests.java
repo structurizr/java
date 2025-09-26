@@ -273,7 +273,7 @@ public class ViewSetTests {
     @Test
     void createDynamicView_GeneratesAKey_WhenANullKeyIsSpecified() {
         Workspace workspace = new Workspace("Name", "Description");
-        DynamicView view = workspace.getViews().createDynamicView(null, "Description");
+        DynamicView view = workspace.getViews().createDynamicView(null);
         assertEquals("Dynamic-001", view.getKey());
         assertTrue(view.isGeneratedKey());
     }
@@ -397,7 +397,7 @@ public class ViewSetTests {
     @Test
     void createDeploymentView_GeneratesAKey_WhenANullKeyIsSpecified() {
         Workspace workspace = new Workspace("Name", "Description");
-        DeploymentView view = workspace.getViews().createDeploymentView(null, "Description");
+        DeploymentView view = workspace.getViews().createDeploymentView(null);
         assertEquals("Deployment-001", view.getKey());
         assertTrue(view.isGeneratedKey());
     }
@@ -491,7 +491,7 @@ public class ViewSetTests {
     void createFilteredView_ThrowsAnException_WhenANullViewIsSpecified() {
         try {
             Workspace workspace = new Workspace("Name", "Description");
-            workspace.getViews().createFilteredView(null, "key", "Description", FilterMode.Include, "tag1", "tag2");
+            workspace.getViews().createFilteredView((SystemLandscapeView)null, "key", "Description", FilterMode.Include, "tag1", "tag2");
             fail();
         } catch (IllegalArgumentException iae) {
             assertEquals("A view must be specified.", iae.getMessage());
@@ -530,9 +530,23 @@ public class ViewSetTests {
     }
 
     @Test
-    void createFilteredView() {
+    void createFilteredView_OnStaticView() {
         Workspace workspace = new Workspace("Name", "Description");
         SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("systemLandscape", "Description");
+        FilteredView filteredView = workspace.getViews().createFilteredView(view, "key", "Description", FilterMode.Include, "tag1", "tag2");
+
+        assertEquals("key", filteredView.getKey());
+        assertEquals("Description", filteredView.getDescription());
+        assertEquals(FilterMode.Include, filteredView.getMode());
+        assertEquals(2, filteredView.getTags().size());
+        assertTrue(filteredView.getTags().contains("tag1"));
+        assertTrue(filteredView.getTags().contains("tag2"));
+    }
+
+    @Test
+    void createFilteredView_OnDeploymentView() {
+        Workspace workspace = new Workspace("Name", "Description");
+        DeploymentView view = workspace.getViews().createDeploymentView("deployment");
         FilteredView filteredView = workspace.getViews().createFilteredView(view, "key", "Description", FilterMode.Include, "tag1", "tag2");
 
         assertEquals("key", filteredView.getKey());
@@ -1074,6 +1088,143 @@ public class ViewSetTests {
         assertSame(ss1, workspace.getViews().getSystemContextViews().stream().filter(v -> v.getKey().equals("SystemContext-001")).findFirst().get().getSoftwareSystem());
         assertSame(ss2, workspace.getViews().getSystemContextViews().stream().filter(v -> v.getKey().equals("SystemContext-002")).findFirst().get().getSoftwareSystem());
         assertSame(ss3, workspace.getViews().getSystemContextViews().stream().filter(v -> v.getKey().equals("SystemContext-003")).findFirst().get().getSoftwareSystem());
+    }
+
+    @Test
+    void removeViewWithKey_ThrowsAndException_WhenNoKeyIsSpecified() {
+        try {
+            new Workspace("Name").getViews().removeViewWithKey(null);
+            fail();
+        } catch (Exception e) {
+            assertEquals("A view key must be specified.", e.getMessage());
+        }
+
+        try {
+            new Workspace("Name").getViews().removeViewWithKey("");
+            fail();
+        } catch (Exception e) {
+            assertEquals("A view key must be specified.", e.getMessage());
+        }
+    }
+
+    @Test
+    void removeViewWithKey_ThrowsAndException_WhenNoViewExists() {
+        try {
+            new Workspace("Name").getViews().removeViewWithKey("key");
+            fail();
+        } catch (Exception e) {
+            assertEquals("A view with key \"key\" does not exist.", e.getMessage());
+        }
+    }
+
+    @Test
+    void removeViewWithKey_ThrowsAndException_WhenABaseViewExistsForTheSpecifiedFilteredView() {
+        Workspace workspace = new Workspace("Name");
+
+        try {
+            SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("landscape");
+            workspace.getViews().createFilteredView(view, "filtered", FilterMode.Include, Tags.ELEMENT);
+
+            workspace.getViews().removeViewWithKey("landscape");
+            fail();
+        } catch (Exception e) {
+            assertEquals("A filtered view based upon \"landscape\" exists - please remove this first.", e.getMessage());
+        }
+    }
+
+    @Test
+    void removeViewWithKey_CustomView() {
+        Workspace workspace = new Workspace("Name");
+        workspace.getViews().createCustomView("key", "title");
+
+        assertFalse(workspace.getViews().getCustomViews().isEmpty());
+        workspace.getViews().removeViewWithKey("key");
+        assertTrue(workspace.getViews().getCustomViews().isEmpty());
+    }
+
+    @Test
+    void removeViewWithKey_SystemLandscapeView() {
+        Workspace workspace = new Workspace("Name");
+        workspace.getViews().createSystemLandscapeView("key");
+
+        assertFalse(workspace.getViews().getSystemLandscapeViews().isEmpty());
+        workspace.getViews().removeViewWithKey("key");
+        assertTrue(workspace.getViews().getSystemLandscapeViews().isEmpty());
+    }
+
+    @Test
+    void removeViewWithKey_SystemContextView() {
+        Workspace workspace = new Workspace("Name");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
+        workspace.getViews().createSystemContextView(softwareSystem, "key");
+
+        assertFalse(workspace.getViews().getSystemContextViews().isEmpty());
+        workspace.getViews().removeViewWithKey("key");
+        assertTrue(workspace.getViews().getSystemContextViews().isEmpty());
+    }
+
+    @Test
+    void removeViewWithKey_ContainerView() {
+        Workspace workspace = new Workspace("Name");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
+        workspace.getViews().createContainerView(softwareSystem, "key");
+
+        assertFalse(workspace.getViews().getContainerViews().isEmpty());
+        workspace.getViews().removeViewWithKey("key");
+        assertTrue(workspace.getViews().getContainerViews().isEmpty());
+    }
+
+    @Test
+    void removeViewWithKey_ComponentView() {
+        Workspace workspace = new Workspace("Name");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
+        Container container = softwareSystem.addContainer("Name");
+        workspace.getViews().createComponentView(container, "key");
+
+        assertFalse(workspace.getViews().getComponentViews().isEmpty());
+        workspace.getViews().removeViewWithKey("key");
+        assertTrue(workspace.getViews().getComponentViews().isEmpty());
+    }
+
+    @Test
+    void removeViewWithKey_DynamicView() {
+        Workspace workspace = new Workspace("Name");
+        workspace.getViews().createDynamicView("key");
+
+        assertFalse(workspace.getViews().getDynamicViews().isEmpty());
+        workspace.getViews().removeViewWithKey("key");
+        assertTrue(workspace.getViews().getDynamicViews().isEmpty());
+    }
+
+    @Test
+    void removeViewWithKey_DeploymentView() {
+        Workspace workspace = new Workspace("Name");
+        workspace.getViews().createDeploymentView("key");
+
+        assertFalse(workspace.getViews().getDeploymentViews().isEmpty());
+        workspace.getViews().removeViewWithKey("key");
+        assertTrue(workspace.getViews().getDeploymentViews().isEmpty());
+    }
+
+    @Test
+    void removeViewWithKey_FilteredView() {
+        Workspace workspace = new Workspace("Name");
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("landscape");
+        workspace.getViews().createFilteredView(view, "key", FilterMode.Include, Tags.ELEMENT);
+
+        assertFalse(workspace.getViews().getFilteredViews().isEmpty());
+        workspace.getViews().removeViewWithKey("key");
+        assertTrue(workspace.getViews().getFilteredViews().isEmpty());
+    }
+
+    @Test
+    void removeViewWithKey_ImageView() {
+        Workspace workspace = new Workspace("Name");
+        workspace.getViews().createImageView("key");
+
+        assertFalse(workspace.getViews().getImageViews().isEmpty());
+        workspace.getViews().removeViewWithKey("key");
+        assertTrue(workspace.getViews().getImageViews().isEmpty());
     }
 
 }

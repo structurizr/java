@@ -12,8 +12,6 @@ import java.util.Set;
  */
 public final class Person extends StaticStructureElement {
 
-    private Location location = Location.Unspecified;
-
     @Override
     @JsonIgnore
     public Element getParent() {
@@ -21,20 +19,6 @@ public final class Person extends StaticStructureElement {
     }
 
     Person() {
-    }
-
-    @Deprecated
-    public Location getLocation() {
-        return location;
-    }
-
-    @Deprecated
-    void setLocation(Location location) {
-        if (location != null) {
-            this.location = location;
-        } else {
-            this.location = Location.Unspecified;
-        }
     }
 
     @Override

@@ -18,14 +18,13 @@ public class SystemLandscapeViewTests extends AbstractWorkspaceTestBase {
 
     @Test
     void construction() {
-        assertEquals("System Landscape", view.getName());
         assertEquals(0, view.getElements().size());
         assertSame(model, view.getModel());
     }
 
     @Test
     void getName() {
-        assertEquals("System Landscape", view.getName());
+        assertEquals("System Landscape View", view.getName());
     }
 
     @Test

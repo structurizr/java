@@ -109,6 +109,18 @@ workspace "Name" "Description" {
                     healthCheck "Check 2" "https://example.com/health" 60
                     healthCheck "Check 2" "https://example.com/health" 120 1000
                 }
+                instanceOf softwareSystem {
+                    url "https://structurizr.com"
+                    properties {
+                        "Name" "Value"
+                    }
+                    perspectives {
+                        "Security" "A description..."
+                    }
+                    healthCheck "Check 1" "https://example.com/health"
+                    healthCheck "Check 2" "https://example.com/health" 60
+                    healthCheck "Check 2" "https://example.com/health" 120 1000
+                }
             }
         }
 
@@ -127,6 +139,18 @@ workspace "Name" "Description" {
 
                 deploymentNode "Amazon Web Services - EC2" "Description" "Technology" "Tag" {
                     containerInstance webApplication {
+                        url "https://structurizr.com"
+                        properties {
+                            "Name" "Value"
+                        }
+                        perspectives {
+                            "Security" "A description..."
+                        }
+                        healthCheck "Check 1" "https://example.com/health"
+                        healthCheck "Check 2" "https://example.com/health" 60
+                        healthCheck "Check 2" "https://example.com/health" 120 1000
+                    }
+                    instanceOf webApplication {
                         url "https://structurizr.com"
                         properties {
                             "Name" "Value"
@@ -304,6 +328,16 @@ workspace "Name" "Description" {
             default
         }
 
+        image * {
+            light {
+                image logo.png
+            }
+            dark {
+                image logo.png
+            }
+            image logo.png
+        }
+
         styles {
             element "Element" {
                 shape roundedbox
@@ -331,6 +365,7 @@ workspace "Name" "Description" {
                 colour #777777
                 dashed true
                 routing curved
+                jump true
                 fontSize 24
                 width 400
                 position 50

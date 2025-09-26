@@ -75,20 +75,16 @@ public class WebSequenceDiagramsExporter extends AbstractDiagramExporter {
 
     @Override
     protected void writeHeader(ModelView view, IndentingWriter writer) {
-        writer.writeLine("title " + view.getName() + " - " + view.getKey());
+        if (!StringUtils.isNullOrEmpty(view.getDescription())) {
+            writer.writeLine("title " + view.getName() + "\n" + view.getDescription());
+        } else {
+            writer.writeLine("title " + view.getName());
+        }
         writer.writeLine();
     }
 
     @Override
     protected void writeFooter(ModelView view, IndentingWriter writer) {
-    }
-
-    @Override
-    protected void startEnterpriseBoundary(ModelView view, String enterpriseName, IndentingWriter writer) {
-    }
-
-    @Override
-    protected void endEnterpriseBoundary(ModelView view, IndentingWriter writer) {
     }
 
     @Override

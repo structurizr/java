@@ -75,6 +75,9 @@ final class WorkspaceParser extends AbstractParser {
                                     workspace = structurizrDslParser.getWorkspace();
                                     context.getParser().configureFrom(structurizrDslParser);
                                 }
+
+                                DslUtils.clearDsl(workspace);
+                                context.setDslPortable(false);
                             }
                         }
                     } catch (Exception e) {

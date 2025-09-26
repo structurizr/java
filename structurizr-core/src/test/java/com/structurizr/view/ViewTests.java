@@ -256,13 +256,6 @@ public class ViewTests extends AbstractWorkspaceTestBase {
     }
 
     @Test
-    void getName() {
-        SoftwareSystem softwareSystem = model.addSoftwareSystem("The System", "Description");
-        SystemContextView systemContextView = new SystemContextView(softwareSystem, "context", "Description");
-        assertEquals("The System - System Context", systemContextView.getName());
-    }
-
-    @Test
     void removeElementsThatAreUnreachableFrom_DoesNothing_WhenANullElementIsSpecified() {
         SoftwareSystem softwareSystem = model.addSoftwareSystem("The System", "Description");
         StaticView view = new SystemContextView(softwareSystem, "context", "Description");

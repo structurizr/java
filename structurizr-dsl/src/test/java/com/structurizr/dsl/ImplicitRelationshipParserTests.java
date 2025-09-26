@@ -3,6 +3,8 @@ package com.structurizr.dsl;
 import com.structurizr.model.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ImplicitRelationshipParserTests extends AbstractTests {
@@ -203,6 +205,69 @@ class ImplicitRelationshipParserTests extends AbstractTests {
         assertEquals("Uses", r.getDescription());
         assertEquals("HTTP", r.getTechnology());
         assertEquals("", r.getTags());
+    }
+
+    @Test
+    void test_parse_AddsTheRelationshipToAllSoftwareSystemInstancesInTheDeploymentEnvironment() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+
+        DeploymentNode devDeploymentNode = model.addDeploymentNode("dev", "Deployment Node", "Description", "Technology");
+        devDeploymentNode.addInfrastructureNode("Infrastructure Node");
+        devDeploymentNode.add(softwareSystem);
+        devDeploymentNode.add(softwareSystem);
+
+        DeploymentNode liveDeploymentNode = model.addDeploymentNode("live", "Deployment Node", "Description", "Technology");
+        InfrastructureNode liveInfrastructureNode = liveDeploymentNode.addInfrastructureNode("Infrastructure Node");
+        SoftwareSystemInstance liveSoftwareSystemInstance1 = liveDeploymentNode.add(softwareSystem);
+        SoftwareSystemInstance liveSoftwareSystemInstance2 = liveDeploymentNode.add(softwareSystem);
+
+        InfrastructureNodeDslContext context = new InfrastructureNodeDslContext(liveInfrastructureNode);
+        context.setWorkspace(workspace);
+
+        IdentifiersRegister elements = new IdentifiersRegister();
+        elements.register("softwareSystem", softwareSystem);
+        context.setIdentifierRegister(elements);
+
+        assertEquals(0, model.getRelationships().size());
+
+        Set<Relationship> relationships = parser.parse(context, tokens("->", "softwareSystem"), archetype);
+
+        assertEquals(2, relationships.size());
+        assertEquals(2, model.getRelationships().size());
+        assertTrue(liveInfrastructureNode.hasEfferentRelationshipWith(liveSoftwareSystemInstance1));
+        assertTrue(liveInfrastructureNode.hasEfferentRelationshipWith(liveSoftwareSystemInstance2));
+    }
+
+    @Test
+    void test_parse_AddsTheRelationshipToAllContainerInstancesInTheDeploymentEnvironment() {
+        SoftwareSystem softwareSystem = model.addSoftwareSystem("Software System");
+        Container container = softwareSystem.addContainer("Container");
+
+        DeploymentNode devDeploymentNode = model.addDeploymentNode("dev", "Deployment Node", "Description", "Technology");
+        devDeploymentNode.addInfrastructureNode("Infrastructure Node");
+        devDeploymentNode.add(container);
+        devDeploymentNode.add(container);
+
+        DeploymentNode liveDeploymentNode = model.addDeploymentNode("live", "Deployment Node", "Description", "Technology");
+        InfrastructureNode liveInfrastructureNode = liveDeploymentNode.addInfrastructureNode("Infrastructure Node");
+        ContainerInstance liveContainerInstance1 = liveDeploymentNode.add(container);
+        ContainerInstance liveContainerInstance2 = liveDeploymentNode.add(container);
+
+        InfrastructureNodeDslContext context = new InfrastructureNodeDslContext(liveInfrastructureNode);
+        context.setWorkspace(workspace);
+
+        IdentifiersRegister elements = new IdentifiersRegister();
+        elements.register("container", container);
+        context.setIdentifierRegister(elements);
+
+        assertEquals(0, model.getRelationships().size());
+
+        Set<Relationship> relationships = parser.parse(context, tokens("->", "container"), archetype);
+
+        assertEquals(2, relationships.size());
+        assertEquals(2, model.getRelationships().size());
+        assertTrue(liveInfrastructureNode.hasEfferentRelationshipWith(liveContainerInstance1));
+        assertTrue(liveInfrastructureNode.hasEfferentRelationshipWith(liveContainerInstance2));
     }
 
 }

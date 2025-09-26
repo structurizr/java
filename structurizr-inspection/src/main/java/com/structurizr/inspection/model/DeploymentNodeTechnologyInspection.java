@@ -13,7 +13,7 @@ public class DeploymentNodeTechnologyInspection extends AbstractDeploymentNodeIn
 
     @Override
     protected Violation inspect(DeploymentNode deploymentNode) {
-        if (StringUtils.isNullOrEmpty(deploymentNode.getDescription())) {
+        if (StringUtils.isNullOrEmpty(deploymentNode.getTechnology())) {
             return violation("The " + terminologyFor(deploymentNode).toLowerCase() + " \"" + nameOf(deploymentNode) + "\" is missing a technology.");
         }
 
