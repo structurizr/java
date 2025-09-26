@@ -275,12 +275,12 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
                 Container(InternetBankingSystem.SinglePageApplication, "Single-Page Application", $techn="JavaScript and Angular", $descr="Provides all of the Internet banking functionality to customers via their web browser.", $tags="Container,Web Browser", $link="")
                 ContainerDb(InternetBankingSystem.Database, "Database", $techn="Oracle Database Schema", $descr="Stores user registration information, hashed authentication credentials, access logs, etc.", $tags="Container,Database", $link="")
                 
-                Rel(InternetBankingSystem.SinglePageApplication, InternetBankingSystem.APIApplication.SignInController, "1. Submits credentials to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
-                Rel(InternetBankingSystem.APIApplication.SignInController, InternetBankingSystem.APIApplication.SecurityComponent, "2. Validates credentials using", $techn="", $tags="Relationship", $link="")
-                Rel(InternetBankingSystem.APIApplication.SecurityComponent, InternetBankingSystem.Database, "3. select * from users where username = ?", $techn="SQL/TCP", $tags="Relationship", $link="")
-                Rel(InternetBankingSystem.Database, InternetBankingSystem.APIApplication.SecurityComponent, "4. Returns user data to", $techn="SQL/TCP", $tags="Relationship", $link="")
-                Rel(InternetBankingSystem.APIApplication.SecurityComponent, InternetBankingSystem.APIApplication.SignInController, "5. Returns true if the hashed password matches", $techn="", $tags="Relationship", $link="")
-                Rel(InternetBankingSystem.APIApplication.SignInController, InternetBankingSystem.SinglePageApplication, "6. Sends back an authentication token to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
+                Rel(InternetBankingSystem.SinglePageApplication, InternetBankingSystem.APIApplication.SignInController, "1: Submits credentials to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
+                Rel(InternetBankingSystem.APIApplication.SignInController, InternetBankingSystem.APIApplication.SecurityComponent, "2: Validates credentials using", $techn="", $tags="Relationship", $link="")
+                Rel(InternetBankingSystem.APIApplication.SecurityComponent, InternetBankingSystem.Database, "3: select * from users where username = ?", $techn="SQL/TCP", $tags="Relationship", $link="")
+                Rel(InternetBankingSystem.Database, InternetBankingSystem.APIApplication.SecurityComponent, "4: Returns user data to", $techn="SQL/TCP", $tags="Relationship", $link="")
+                Rel(InternetBankingSystem.APIApplication.SecurityComponent, InternetBankingSystem.APIApplication.SignInController, "5: Returns true if the hashed password matches", $techn="", $tags="Relationship", $link="")
+                Rel(InternetBankingSystem.APIApplication.SignInController, InternetBankingSystem.SinglePageApplication, "6: Sends back an authentication token to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
                 
                 SHOW_LEGEND(true)
                 hide stereotypes
@@ -470,12 +470,12 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
                 Component(InternetBankingSystem.APIApplication.SecurityComponent, "Security Component", $techn="Spring Bean", $descr="Provides functionality related to signing in, changing passwords, etc.", $tags="Component", $link="")
                 ContainerDb(InternetBankingSystem.Database, "Database", $techn="Oracle Database Schema", $descr="Stores user registration information, hashed authentication credentials, access logs, etc.", $tags="Container,Database", $link="")
                 
-                Rel(InternetBankingSystem.SinglePageApplication, InternetBankingSystem.APIApplication.SignInController, "Submits credentials to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
-                Rel(InternetBankingSystem.APIApplication.SignInController, InternetBankingSystem.APIApplication.SecurityComponent, "Validates credentials using", $techn="", $tags="Relationship", $link="")
-                Rel(InternetBankingSystem.APIApplication.SecurityComponent, InternetBankingSystem.Database, "select * from users where username = ?", $techn="SQL/TCP", $tags="Relationship", $link="")
-                Rel(InternetBankingSystem.Database, InternetBankingSystem.APIApplication.SecurityComponent, "Returns user data to", $techn="SQL/TCP", $tags="Relationship", $link="")
-                Rel(InternetBankingSystem.APIApplication.SecurityComponent, InternetBankingSystem.APIApplication.SignInController, "Returns true if the hashed password matches", $techn="", $tags="Relationship", $link="")
-                Rel(InternetBankingSystem.APIApplication.SignInController, InternetBankingSystem.SinglePageApplication, "Sends back an authentication token to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
+                Rel(InternetBankingSystem.SinglePageApplication, InternetBankingSystem.APIApplication.SignInController, "1: Submits credentials to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
+                Rel(InternetBankingSystem.APIApplication.SignInController, InternetBankingSystem.APIApplication.SecurityComponent, "2: Validates credentials using", $techn="", $tags="Relationship", $link="")
+                Rel(InternetBankingSystem.APIApplication.SecurityComponent, InternetBankingSystem.Database, "3: select * from users where username = ?", $techn="SQL/TCP", $tags="Relationship", $link="")
+                Rel(InternetBankingSystem.Database, InternetBankingSystem.APIApplication.SecurityComponent, "4: Returns user data to", $techn="SQL/TCP", $tags="Relationship", $link="")
+                Rel(InternetBankingSystem.APIApplication.SecurityComponent, InternetBankingSystem.APIApplication.SignInController, "5: Returns true if the hashed password matches", $techn="", $tags="Relationship", $link="")
+                Rel(InternetBankingSystem.APIApplication.SignInController, InternetBankingSystem.SinglePageApplication, "6: Sends back an authentication token to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
                 
                 SHOW_LEGEND(true)
                 hide stereotypes
