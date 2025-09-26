@@ -627,7 +627,7 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
 
         C4PlantUMLExporter exporter = new C4PlantUMLExporter();
         Collection<Diagram> diagrams = exporter.export(workspace);
-        assertEquals(3, diagrams.size());
+        assertEquals(4, diagrams.size());
 
         Diagram diagram = diagrams.stream().filter(md -> md.getKey().equals("SystemLandscape")).findFirst().get();
         assertEquals("""
@@ -711,40 +711,41 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
 
         diagram = diagrams.stream().filter(md -> md.getKey().equals("Components")).findFirst().get();
         assertEquals("""
-                @startuml
-                title <size:24>Component View: D - F</size>
-                
-                set separator none
-                top to bottom direction
-                
-                <style>
-                  root {
-                    BackgroundColor: #ffffff
-                    FontColor: #444444
-                  }
-                </style>
-                
-                !include <C4/C4>
-                !include <C4/C4_Context>
-                !include <C4/C4_Component>
-                
-                System(C, "C", $descr="", $tags="", $link="")
-                
-                Container_Boundary("D.F_boundary", "F", $tags="") {
-                  AddBoundaryTag("Group 5", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed")
-                  Boundary(group_1, "Group 5", $tags="Group 5") {
-                    Component(D.F.H, "H", $techn="", $descr="", $tags="", $link="")
-                  }
-                
-                  Component(D.F.G, "G", $techn="", $descr="", $tags="", $link="")
-                }
-                
-                Rel(C, D.F.G, "", $techn="", $tags="", $link="")
-                Rel(C, D.F.H, "", $techn="", $tags="", $link="")
-                
-                SHOW_LEGEND(true)
-                hide stereotypes
-                @enduml""", diagram.getDefinition());
+               @startuml
+               title <size:24>Component View: D - F</size>
+               
+               set separator none
+               top to bottom direction
+               
+               <style>
+                 root {
+                   BackgroundColor: #ffffff
+                   FontColor: #444444
+                 }
+               </style>
+               
+               !include <C4/C4>
+               !include <C4/C4_Context>
+               !include <C4/C4_Component>
+               
+               System(C, "C", $descr="", $tags="", $link="")
+               
+               Container_Boundary("D.F_boundary", "F", $tags="") {
+                 AddBoundaryTag("Group 5", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed")
+                 Boundary(group_1, "Group 5", $tags="Group 5") {
+                   Component(D.F.H, "H", $techn="", $descr="", $tags="", $link="")
+                 }
+               
+                 Component(D.F.G, "G", $techn="", $descr="", $tags="", $link="")
+               }
+               
+               Rel(C, D.F.G, "", $techn="", $tags="", $link="")
+               Rel(C, D.F.H, "", $techn="", $tags="", $link="")
+               Rel(D.F.G, D.F.H, "", $techn="", $tags="", $link="")
+               
+               SHOW_LEGEND(true)
+               hide stereotypes
+               @enduml""", diagram.getDefinition());
     }
 
     @Test

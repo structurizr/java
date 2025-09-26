@@ -573,7 +573,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
 
         DOTExporter exporter = new DOTExporter();
         Collection<Diagram> diagrams = exporter.export(workspace);
-        assertEquals(3, diagrams.size());
+        assertEquals(4, diagrams.size());
 
         Diagram diagram = diagrams.stream().filter(md -> md.getKey().equals("SystemLandscape")).findFirst().get();
         assertEquals("""
@@ -703,6 +703,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                 
                   3 -> 7 [id=13, label=<>, style="dashed", color="#444444", fontcolor="#444444"]
                   3 -> 8 [id=15, label=<>, style="dashed", color="#444444", fontcolor="#444444"]
+                  7 -> 8 [id=16, label=<>, style="dashed", color="#444444", fontcolor="#444444"]
                 
                 }""", diagram.getDefinition());
     }

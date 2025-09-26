@@ -1,0 +1,13 @@
+@startuml
+set separator none
+title F - Dynamic
+
+!include <C4/C4_Sequence>
+
+Component(D.F.G, "G", $techn="", $descr="", $tags="", $link="")
+Component(D.F.H, "H", $techn="", $descr="", $tags="", $link="")
+
+Rel(D.F.G, D.F.H, "", $techn="", $tags="", $link="")
+
+SHOW_LEGEND(true)
+@enduml

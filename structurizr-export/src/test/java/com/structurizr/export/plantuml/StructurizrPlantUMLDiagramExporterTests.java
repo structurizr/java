@@ -750,7 +750,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
         StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
         Collection<Diagram> diagrams = exporter.export(workspace);
-        assertEquals(3, diagrams.size());
+        assertEquals(4, diagrams.size());
 
         Diagram diagram = diagrams.stream().filter(md -> md.getKey().equals("SystemLandscape")).findFirst().get();
         assertEquals("""
@@ -990,6 +990,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 
                 C --> D.F.G <<Relationship-UmVsYXRpb25zaGlw>> : ""
                 C --> D.F.H <<Relationship-UmVsYXRpb25zaGlw>> : ""
+                D.F.G --> D.F.H <<Relationship-UmVsYXRpb25zaGlw>> : ""
                 
                 @enduml""", diagram.getDefinition());
     }
@@ -1127,6 +1128,125 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 }
                 
                 
+                @enduml""", diagram.getDefinition());
+    }
+    
+
+    @Test
+    public void test_Sequence() throws Exception {
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/sequence.json"));
+        ThemeUtils.loadThemes(workspace);
+
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
+        Collection<Diagram> diagrams = exporter.export(workspace);
+        assertEquals(2, diagrams.size());
+
+        Diagram diagram = diagrams.stream().filter(md -> md.getKey().equals("Sequence-Container")).findFirst().get();
+        String actual = """
+                @startuml
+                title <size:24>Dynamic View: d - e</size>
+                                
+                set separator none
+                !pragma teoz true
+                hide stereotype
+                                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                </style>
+                                
+                box "A\\n[Software System]"
+                    box "B\\n[Container]"
+                      participant "C\\n<size:16>[Component]</size>" as A.B.C <<Element-RWxlbWVudA==>> #ffffff
+                    end box
+                                
+                  end box
+                                
+                box "d\\n[Software System]"
+                    box "e\\n[Container]"
+                      participant "f\\n<size:16>[Component]</size>" as d.e.f <<Element-RWxlbWVudA==>> #ffffff
+                      participant "g\\n<size:16>[Component]</size>" as d.e.g <<Element-RWxlbWVudA==>> #ffffff
+                      participant "h\\n<size:16>[Component]</size>" as d.e.h <<Element-RWxlbWVudA==>> #ffffff
+                    end box
+                                
+                  end box
+                                
+                d.e.f -> d.e.h <<Relationship-UmVsYXRpb25zaGlw>> : 1:\s
+                A.B.C -> d.e.f <<Relationship-UmVsYXRpb25zaGlw>> : 2:\s
+                d.e.f -> d.e.g <<Relationship-UmVsYXRpb25zaGlw>> : 3:\s
+                                
+                @enduml""";
+        
+        assertEquals(actual, diagram.getDefinition());
+
+        diagram = diagrams.stream().filter(md -> md.getKey().equals("Sequence-SoftwareSystem")).findFirst().get();
+        assertEquals("""
+                @startuml
+                title <size:24>Dynamic View: A</size>
+                               
+                set separator none
+                !pragma teoz true
+                hide stereotype
+                               
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                </style>
+                               
+                box "A\\n[Software System]"
+                  participant "B\\n<size:16>[Container]</size>" as A.B <<Element-RWxlbWVudA==>> #ffffff
+                end box
+                               
+                box "d\\n[Software System]"
+                  participant "e\\n<size:16>[Container]</size>" as d.e <<Element-RWxlbWVudA==>> #ffffff
+                end box
+                               
+                A.B -> d.e <<Relationship-UmVsYXRpb25zaGlw>> : 1:\s
+                               
                 @enduml""", diagram.getDefinition());
     }
 

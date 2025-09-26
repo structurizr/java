@@ -36,7 +36,7 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
             throw new IllegalArgumentException("A workspace must be provided.");
         }
 
-        Collection<Diagram> diagrams = new ArrayList<>();
+        Collection<Diagram> diagrams = new ArrayList<>() ;
 
         for (CustomView view : workspace.getViews().getCustomViews()) {
             Diagram diagram = export(view);
@@ -295,7 +295,7 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
             writer.writeLine();
         }
 
-        boolean includeSoftwareSystemBoundaries = "true".equals(view.getProperties().getOrDefault("structurizr.softwareSystemBoundaries", "false"));
+        boolean includeSoftwareSystemBoundaries = "true".equalsIgnoreCase(getViewOrViewSetProperty(view, "structurizr.softwareSystemBoundaries", "false"));
 
         List<Container> containers = getBoundaryContainers(view);
         Set<SoftwareSystem> softwareSystems = containers.stream().map(Container::getSoftwareSystem).collect(Collectors.toCollection(LinkedHashSet::new));
@@ -394,8 +394,8 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
                 }
             } else if (element instanceof Container) {
                 // dynamic view with container scope
-                boolean includeSoftwareSystemBoundaries = "true".equals(view.getProperties().getOrDefault("structurizr.softwareSystemBoundaries", "false"));
-
+                boolean includeSoftwareSystemBoundaries = "true".equalsIgnoreCase(getViewOrViewSetProperty(view, "structurizr.softwareSystemBoundaries", "false"));
+                
                 List<Container> containers = getBoundaryContainers(view);
                 Set<SoftwareSystem> softwareSystems = containers.stream().map(Container::getSoftwareSystem).collect(Collectors.toCollection(LinkedHashSet::new));
                 for (SoftwareSystem softwareSystem : softwareSystems) {

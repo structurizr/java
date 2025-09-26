@@ -88,7 +88,7 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
 
         MermaidDiagramExporter exporter = new MermaidDiagramExporter();
         Collection<Diagram> diagrams = exporter.export(workspace);
-        assertEquals(3, diagrams.size());
+        assertEquals(4, diagrams.size());
 
         Diagram diagram = diagrams.stream().filter(md -> md.getKey().equals("SystemLandscape")).findFirst().get();
         assertEquals("""
@@ -185,6 +185,7 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
                 
                     3-. "<div></div><div style='font-size: 70%'></div>" .->7
                     3-. "<div></div><div style='font-size: 70%'></div>" .->8
+                    7-. "<div></div><div style='font-size: 70%'></div>" .->8
 
                   end""", diagram.getDefinition());
     }

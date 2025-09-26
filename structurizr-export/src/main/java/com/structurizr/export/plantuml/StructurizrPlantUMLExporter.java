@@ -33,6 +33,9 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
     protected void writeHeader(ModelView view, IndentingWriter writer) {
         plantUMLStyles = new HashSet<>();
         super.writeHeader(view, writer);
+        if (renderAsTeozDiagram(view)) {
+            writer.writeLine("!pragma teoz true");
+        }
 
         if (renderAsSequenceDiagram(view)) {
             // do nothing
@@ -114,7 +117,7 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
         if (!StringUtils.isNullOrEmpty(groupSeparator)) {
             groupName = group.substring(group.lastIndexOf(groupSeparator) + groupSeparator.length());
         }
-
+        
         ElementStyle elementStyle = findGroupStyle(view, group);
         PlantUMLGroupStyle plantUMLBoundaryStyle = new PlantUMLGroupStyle(
                 group,
@@ -155,6 +158,10 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
             writer.outdent();
             writer.writeLine("}");
             writer.writeLine();
+        } else {
+            writer.outdent();
+            writer.writeLine("end box");
+            writer.writeLine();
         }
     }
 
@@ -184,6 +191,10 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
                     )
                 );
             writer.indent();
+        } else {
+            writer.writeLine(String.format("box \"%s\n%s\"", softwareSystem.getName(), typeOf(view, softwareSystem, true)));
+
+            writer.indent();
         }
     }
 
@@ -192,6 +203,10 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
         if (!renderAsSequenceDiagram(view)) {
             writer.outdent();
             writer.writeLine("}");
+            writer.writeLine();
+        } else {
+            writer.outdent();
+            writer.writeLine("end box");
             writer.writeLine();
         }
     }
@@ -219,6 +234,10 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
                             calculateMetadataFontSize(findBoundaryStyle(view, container).getFontSize()),                            typeOf(view, container, true),
                             plantUMLBoundaryStyle.getClassSelector()));
             writer.indent();
+        } else {
+            writer.writeLine(String.format("box \"%s\n%s\"", container.getName(), typeOf(view, container, true)));
+
+            writer.indent();
         }
     }
 
@@ -227,6 +246,10 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
         if (!renderAsSequenceDiagram(view)) {
             writer.outdent();
             writer.writeLine("}");
+            writer.writeLine();
+        } else {
+            writer.outdent();
+            writer.writeLine("end box");
             writer.writeLine();
         }
     }
@@ -291,34 +314,11 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
 
     @Override
     public Diagram export(DynamicView view) {
-        if (renderAsSequenceDiagram(view)) {
-            IndentingWriter writer = new IndentingWriter();
-            writeHeader(view, writer);
-
-            Set<Element> elements = new LinkedHashSet<>();
-            for (RelationshipView relationshipView : view.getRelationships()) {
-                elements.add(relationshipView.getRelationship().getSource());
-                elements.add(relationshipView.getRelationship().getDestination());
+            Diagram diagram = super.export(view);
+            if (renderAsSequenceDiagram(view)) {
+                diagram.setLegend(createLegend(view));
             }
-
-            for (Element element : elements) {
-                writeElement(view, element, writer);
-            }
-
-            if (!elements.isEmpty()) {
-                writer.writeLine();
-            }
-
-            writeRelationships(view, writer);
-            writeFooter(view, writer);
-
-            Diagram diagram = createDiagram(view, writer.toString());
-            diagram.setLegend(createLegend(view));
-
             return diagram;
-        } else {
-            return super.export(view);
-        }
     }
 
     @Override
@@ -446,7 +446,6 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
                 arrowStart = "<-";
                 arrowEnd = "-";
             }
-
             writer.writeLine(
                     String.format("%s %s%s %s <<%s>> : %s%s",
                             idOf(relationship.getSource()),
@@ -546,7 +545,11 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
     protected boolean renderAsSequenceDiagram(ModelView view) {
         return view instanceof DynamicView && "true".equalsIgnoreCase(getViewOrViewSetProperty(view, PLANTUML_SEQUENCE_DIAGRAM_PROPERTY, "false"));
     }
-
+        
+    protected boolean renderAsTeozDiagram(ModelView view) {
+        return view instanceof DynamicView && "true".equalsIgnoreCase(getViewOrViewSetProperty(view, PLANTUML_TEOZ_PROPERTY, "false"));
+    }
+    
     private String classSelectorFor(ElementStyle elementStyle) {
         return "Element-" + Base64.getEncoder().encodeToString(elementStyle.getTag().getBytes());
     }
@@ -645,3 +648,4 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
     }
 
 }
+
