@@ -499,19 +499,23 @@ public class DOTExporterTests {
                 
                   1 [width=1.500000,height=1.000000,fixedsize=true,id=1,label="1: Box"]
                 
-                  subgraph cluster_3 {
+                  subgraph cluster_2 {
                     margin=25
-                    subgraph "cluster_group_1" {
+                    subgraph cluster_3 {
                       margin=25
-                      5 [width=1.500000,height=1.000000,fixedsize=true,id=5,label="5: Component 2"]
+                      subgraph "cluster_group_1" {
+                        margin=25
+                        5 [width=1.500000,height=1.000000,fixedsize=true,id=5,label="5: Component 2"]
+                      }
+                
+                      subgraph "cluster_group_2" {
+                        margin=25
+                        6 [width=1.500000,height=1.000000,fixedsize=true,id=6,label="6: Component 3"]
+                      }
+                
+                      4 [width=1.500000,height=1.000000,fixedsize=true,id=4,label="4: Component 1"]
                     }
                 
-                    subgraph "cluster_group_2" {
-                      margin=25
-                      6 [width=1.500000,height=1.000000,fixedsize=true,id=6,label="6: Component 3"]
-                    }
-                
-                    4 [width=1.500000,height=1.000000,fixedsize=true,id=4,label="4: Component 1"]
                   }
                 
                   4 -> 5 [id=7]

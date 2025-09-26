@@ -283,30 +283,38 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
         IndentingWriter writer = new IndentingWriter();
         writeHeader(view, writer);
 
-        boolean elementsWritten = false;
-        for (ElementView elementView : view.getElements()) {
-            if (!(elementView.getElement() instanceof Component)) {
-                writeElement(view, elementView.getElement(), writer);
-                elementsWritten = true;
-            }
+        List<CustomElement> customElements = getCustomElements(view);
+        for (CustomElement customElement : customElements) {
+            writeElement(view, customElement, writer);
         }
-
-        if (elementsWritten) {
+        if (!customElements.isEmpty()) {
             writer.writeLine();
         }
 
-        boolean includeSoftwareSystemBoundaries = "true".equals(view.getProperties().getOrDefault("structurizr.softwareSystemBoundaries", "false"));
+        List<Person> people = getPeople(view);
+        for (Person person : people) {
+            writeElement(view, person, writer);
+        }
+        if (!people.isEmpty()) {
+            writer.writeLine();
+        }
 
-        List<Container> containers = getBoundaryContainers(view);
-        Set<SoftwareSystem> softwareSystems = containers.stream().map(Container::getSoftwareSystem).collect(Collectors.toCollection(LinkedHashSet::new));
+        List<SoftwareSystem> softwareSystems = getSoftwareSystems(view);
         for (SoftwareSystem softwareSystem : softwareSystems) {
+            writeElement(view, softwareSystem, writer);
+        }
+        if (!softwareSystems.isEmpty()) {
+            writer.writeLine();
+        }
 
-            if (includeSoftwareSystemBoundaries) {
-                startSoftwareSystemBoundary(view, softwareSystem, writer);
-                writer.indent();
-            }
+        List<Container> boundaryContainers = getBoundaryContainers(view);
+        List<Container> containers = getContainers(view);
+        Set<SoftwareSystem> boundarySoftwareSystems = boundaryContainers.stream().map(Container::getSoftwareSystem).collect(Collectors.toCollection(LinkedHashSet::new));
+        for (SoftwareSystem softwareSystem : boundarySoftwareSystems) {
 
-            for (Container container : containers) {
+            startSoftwareSystemBoundary(view, softwareSystem, writer);
+
+            for (Container container : boundaryContainers) {
                 if (container.getSoftwareSystem() == softwareSystem) {
                     startContainerBoundary(view, container, writer);
 
@@ -317,10 +325,13 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
                 }
             }
 
-            if (includeSoftwareSystemBoundaries) {
-                endSoftwareSystemBoundary(view, writer);
-                writer.outdent();
+            for (Container container : containers) {
+                if (container.getSoftwareSystem() == softwareSystem) {
+                    writeElement(view, container, writer);
+                }
             }
+
+            endSoftwareSystemBoundary(view, writer);
         }
 
         writeRelationships(view, writer);
@@ -330,11 +341,24 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
         return createDiagram(view, writer.toString());
     }
 
-    protected List<Container> getBoundaryContainers(ModelView view) {
-        List<Container> containers = new ArrayList<>(view.getElements().stream().map(ElementView::getElement).filter(e -> e instanceof Component).map(c -> ((Component)c).getContainer()).collect(Collectors.toSet()));
-        containers.sort(Comparator.comparing(Element::getId));
+    protected List<CustomElement> getCustomElements(ModelView view) {
+        return view.getElements().stream().map(ElementView::getElement).filter(e -> e instanceof CustomElement).map(c -> ((CustomElement) c)).distinct().sorted(Comparator.comparing(Element::getId)).collect(Collectors.toList());
+    }
 
-        return containers;
+    protected List<Person> getPeople(ModelView view) {
+        return view.getElements().stream().map(ElementView::getElement).filter(e -> e instanceof Person).map(c -> ((Person) c)).distinct().sorted(Comparator.comparing(Element::getId)).collect(Collectors.toList());
+    }
+
+    protected List<SoftwareSystem> getSoftwareSystems(ModelView view) {
+        return view.getElements().stream().map(ElementView::getElement).filter(e -> e instanceof SoftwareSystem).map(c -> ((SoftwareSystem) c)).distinct().sorted(Comparator.comparing(Element::getId)).collect(Collectors.toList());
+    }
+
+    protected List<Container> getBoundaryContainers(ModelView view) {
+        return view.getElements().stream().map(ElementView::getElement).filter(e -> e instanceof Component).map(c -> ((Component) c).getContainer()).distinct().sorted(Comparator.comparing(Element::getId)).collect(Collectors.toList());
+    }
+
+    protected List<Container> getContainers(ModelView view) {
+        return view.getElements().stream().map(ElementView::getElement).filter(e -> e instanceof Container).map(c -> ((Container) c)).distinct().sorted(Comparator.comparing(Element::getId)).collect(Collectors.toList());
     }
 
     public Diagram export(DynamicView view) {

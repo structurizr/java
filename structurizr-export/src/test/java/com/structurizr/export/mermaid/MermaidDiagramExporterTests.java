@@ -169,23 +169,28 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
                     3["<div style='font-weight: bold'>C</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div>"]
                     style 3 fill:#ffffff,stroke:#444444,color:#444444
                 
-                    subgraph 6 ["F"]
-                      style 6 fill:#ffffff,stroke:#444444,color:#444444
+                    subgraph 4 ["D"]
+                      style 4 fill:#ffffff,stroke:#444444,color:#444444
                 
-                      subgraph group1 ["Group 5"]
-                        style group1 fill:#ffffff,stroke:#cccccc,color:#cccccc,stroke-dasharray:5
+                      subgraph 6 ["F"]
+                        style 6 fill:#ffffff,stroke:#444444,color:#444444
                 
-                        8["<div style='font-weight: bold'>H</div><div style='font-size: 70%; margin-top: 0px'>[Component]</div>"]
-                        style 8 fill:#ffffff,stroke:#444444,color:#444444
+                        subgraph group1 ["Group 5"]
+                          style group1 fill:#ffffff,stroke:#cccccc,color:#cccccc,stroke-dasharray:5
+                
+                          8["<div style='font-weight: bold'>H</div><div style='font-size: 70%; margin-top: 0px'>[Component]</div>"]
+                          style 8 fill:#ffffff,stroke:#444444,color:#444444
+                        end
+                
+                        7["<div style='font-weight: bold'>G</div><div style='font-size: 70%; margin-top: 0px'>[Component]</div>"]
+                        style 7 fill:#ffffff,stroke:#444444,color:#444444
                       end
                 
-                      7["<div style='font-weight: bold'>G</div><div style='font-size: 70%; margin-top: 0px'>[Component]</div>"]
-                      style 7 fill:#ffffff,stroke:#444444,color:#444444
                     end
                 
                     3-. "<div></div><div style='font-size: 70%'></div>" .->7
                     3-. "<div></div><div style='font-size: 70%'></div>" .->8
-
+                
                   end""", diagram.getDefinition());
     }
 
@@ -327,18 +332,28 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
                   subgraph diagram ["Component View: Software System 1 - Container 1"]
                     style diagram fill:#ffffff,stroke:#ffffff
                 
-                    subgraph 2 ["Container 1"]
-                      style 2 fill:#ffffff,stroke:#444444,color:#444444
+                    subgraph 1 ["Software System 1"]
+                      style 1 fill:#ffffff,stroke:#444444,color:#444444
                 
-                      3["<div style='font-weight: bold'>Component 1</div><div style='font-size: 70%; margin-top: 0px'>[Component]</div>"]
-                      style 3 fill:#ffffff,stroke:#444444,color:#444444
+                      subgraph 2 ["Container 1"]
+                        style 2 fill:#ffffff,stroke:#444444,color:#444444
+                
+                        3["<div style='font-weight: bold'>Component 1</div><div style='font-size: 70%; margin-top: 0px'>[Component]</div>"]
+                        style 3 fill:#ffffff,stroke:#444444,color:#444444
+                      end
+                
                     end
                 
-                    subgraph 5 ["Container 2"]
-                      style 5 fill:#ffffff,stroke:#444444,color:#444444
+                    subgraph 4 ["Software System 2"]
+                      style 4 fill:#ffffff,stroke:#444444,color:#444444
                 
-                      6["<div style='font-weight: bold'>Component 2</div><div style='font-size: 70%; margin-top: 0px'>[Component]</div>"]
-                      style 6 fill:#ffffff,stroke:#444444,color:#444444
+                      subgraph 5 ["Container 2"]
+                        style 5 fill:#ffffff,stroke:#444444,color:#444444
+                
+                        6["<div style='font-weight: bold'>Component 2</div><div style='font-size: 70%; margin-top: 0px'>[Component]</div>"]
+                        style 6 fill:#ffffff,stroke:#444444,color:#444444
+                      end
+                
                     end
                 
                     3-. "<div>Uses</div><div style='font-size: 70%'></div>" .->6

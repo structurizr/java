@@ -147,8 +147,8 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
                 
                 AddRelTag("Relationship", $textColor="#444444", $lineColor="#444444", $lineStyle = DashedLine())
                 
-                
                 AddBoundaryTag("Software System", $bgColor="#ffffff", $borderColor="#0b4884", $fontColor="#0b4884", $shadowing="", $borderStyle="solid")
+                
                 Person(PersonalBankingCustomer, "Personal Banking Customer", $descr="A customer of the bank, with personal bank accounts.", $tags="Person,Customer", $link="")
                 System(MainframeBankingSystem, "Mainframe Banking System", $descr="Stores all of the core banking information about customers, accounts, transactions, etc.", $tags="Software System,Existing System", $link="")
                 System(EmailSystem, "E-mail System", $descr="The internal Microsoft Exchange e-mail system.", $tags="Software System,Existing System", $link="")
@@ -204,21 +204,24 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
                 
                 AddRelTag("Relationship", $textColor="#444444", $lineColor="#444444", $lineStyle = DashedLine())
                 
-                
                 AddBoundaryTag("Container", $bgColor="#ffffff", $borderColor="#2e6295", $fontColor="#2e6295", $shadowing="", $borderStyle="solid")
+                
                 System(MainframeBankingSystem, "Mainframe Banking System", $descr="Stores all of the core banking information about customers, accounts, transactions, etc.", $tags="Software System,Existing System", $link="")
                 System(EmailSystem, "E-mail System", $descr="The internal Microsoft Exchange e-mail system.", $tags="Software System,Existing System", $link="")
-                Container(InternetBankingSystem.SinglePageApplication, "Single-Page Application", $techn="JavaScript and Angular", $descr="Provides all of the Internet banking functionality to customers via their web browser.", $tags="Container,Web Browser", $link="")
-                Container(InternetBankingSystem.MobileApp, "Mobile App", $techn="Xamarin", $descr="Provides a limited subset of the Internet banking functionality to customers via their mobile device.", $tags="Container,Mobile App", $link="")
-                ContainerDb(InternetBankingSystem.Database, "Database", $techn="Oracle Database Schema", $descr="Stores user registration information, hashed authentication credentials, access logs, etc.", $tags="Container,Database", $link="")
                 
-                Container_Boundary("InternetBankingSystem.APIApplication_boundary", "API Application", $tags="Container") {
-                  Component(InternetBankingSystem.APIApplication.SignInController, "Sign In Controller", $techn="Spring MVC Rest Controller", $descr="Allows users to sign in to the Internet Banking System.", $tags="Component", $link="")
-                  Component(InternetBankingSystem.APIApplication.AccountsSummaryController, "Accounts Summary Controller", $techn="Spring MVC Rest Controller", $descr="Provides customers with a summary of their bank accounts.", $tags="Component", $link="")
-                  Component(InternetBankingSystem.APIApplication.ResetPasswordController, "Reset Password Controller", $techn="Spring MVC Rest Controller", $descr="Allows users to reset their passwords with a single use URL.", $tags="Component", $link="")
-                  Component(InternetBankingSystem.APIApplication.SecurityComponent, "Security Component", $techn="Spring Bean", $descr="Provides functionality related to signing in, changing passwords, etc.", $tags="Component", $link="")
-                  Component(InternetBankingSystem.APIApplication.MainframeBankingSystemFacade, "Mainframe Banking System Facade", $techn="Spring Bean", $descr="A facade onto the mainframe banking system.", $tags="Component", $link="")
-                  Component(InternetBankingSystem.APIApplication.EmailComponent, "E-mail Component", $techn="Spring Bean", $descr="Sends e-mails to users.", $tags="Component", $link="")
+                System_Boundary("InternetBankingSystem_boundary", "Internet Banking System", $tags="Software System") {
+                  Container_Boundary("InternetBankingSystem.APIApplication_boundary", "API Application", $tags="Container") {
+                    Component(InternetBankingSystem.APIApplication.SignInController, "Sign In Controller", $techn="Spring MVC Rest Controller", $descr="Allows users to sign in to the Internet Banking System.", $tags="Component", $link="")
+                    Component(InternetBankingSystem.APIApplication.AccountsSummaryController, "Accounts Summary Controller", $techn="Spring MVC Rest Controller", $descr="Provides customers with a summary of their bank accounts.", $tags="Component", $link="")
+                    Component(InternetBankingSystem.APIApplication.ResetPasswordController, "Reset Password Controller", $techn="Spring MVC Rest Controller", $descr="Allows users to reset their passwords with a single use URL.", $tags="Component", $link="")
+                    Component(InternetBankingSystem.APIApplication.SecurityComponent, "Security Component", $techn="Spring Bean", $descr="Provides functionality related to signing in, changing passwords, etc.", $tags="Component", $link="")
+                    Component(InternetBankingSystem.APIApplication.MainframeBankingSystemFacade, "Mainframe Banking System Facade", $techn="Spring Bean", $descr="A facade onto the mainframe banking system.", $tags="Component", $link="")
+                    Component(InternetBankingSystem.APIApplication.EmailComponent, "E-mail Component", $techn="Spring Bean", $descr="Sends e-mails to users.", $tags="Component", $link="")
+                  }
+                
+                  ContainerDb(InternetBankingSystem.Database, "Database", $techn="Oracle Database Schema", $descr="Stores user registration information, hashed authentication credentials, access logs, etc.", $tags="Container,Database", $link="")
+                  Container(InternetBankingSystem.SinglePageApplication, "Single-Page Application", $techn="JavaScript and Angular", $descr="Provides all of the Internet banking functionality to customers via their web browser.", $tags="Container,Web Browser", $link="")
+                  Container(InternetBankingSystem.MobileApp, "Mobile App", $techn="Xamarin", $descr="Provides a limited subset of the Internet banking functionality to customers via their mobile device.", $tags="Container,Mobile App", $link="")
                 }
                 
                 Rel(InternetBankingSystem.SinglePageApplication, InternetBankingSystem.APIApplication.SignInController, "Makes API calls to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
@@ -265,8 +268,8 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
                 
                 AddRelTag("Relationship", $textColor="#444444", $lineColor="#444444", $lineStyle = DashedLine())
                 
-                
                 AddBoundaryTag("Container", $bgColor="#ffffff", $borderColor="#2e6295", $fontColor="#2e6295", $shadowing="", $borderStyle="solid")
+                
                 Container_Boundary("InternetBankingSystem.APIApplication_boundary", "API Application", $tags="Container") {
                   Component(InternetBankingSystem.APIApplication.SignInController, "Sign In Controller", $techn="Spring MVC Rest Controller", $descr="Allows users to sign in to the Internet Banking System.", $tags="Component", $link="")
                   Component(InternetBankingSystem.APIApplication.SecurityComponent, "Security Component", $techn="Spring Bean", $descr="Provides functionality related to signing in, changing passwords, etc.", $tags="Component", $link="")
@@ -730,13 +733,16 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
                 
                 System(C, "C", $descr="", $tags="", $link="")
                 
-                Container_Boundary("D.F_boundary", "F", $tags="") {
-                  AddBoundaryTag("Group 5", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed")
-                  Boundary(group_1, "Group 5", $tags="Group 5") {
-                    Component(D.F.H, "H", $techn="", $descr="", $tags="", $link="")
+                System_Boundary("D_boundary", "D", $tags="") {
+                  Container_Boundary("D.F_boundary", "F", $tags="") {
+                    AddBoundaryTag("Group 5", $borderColor="#cccccc", $fontColor="#cccccc", $borderStyle="dashed")
+                    Boundary(group_1, "Group 5", $tags="Group 5") {
+                      Component(D.F.H, "H", $techn="", $descr="", $tags="", $link="")
+                    }
+                
+                    Component(D.F.G, "G", $techn="", $descr="", $tags="", $link="")
                   }
                 
-                  Component(D.F.G, "G", $techn="", $descr="", $tags="", $link="")
                 }
                 
                 Rel(C, D.F.G, "", $techn="", $tags="", $link="")
@@ -1057,12 +1063,18 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
                 !include <C4/C4_Context>
                 !include <C4/C4_Component>
                 
-                Container_Boundary("SoftwareSystem1.Container1_boundary", "Container 1", $tags="") {
-                  Component(SoftwareSystem1.Container1.Component1, "Component 1", $techn="", $descr="", $tags="", $link="")
+                System_Boundary("SoftwareSystem1_boundary", "Software System 1", $tags="") {
+                  Container_Boundary("SoftwareSystem1.Container1_boundary", "Container 1", $tags="") {
+                    Component(SoftwareSystem1.Container1.Component1, "Component 1", $techn="", $descr="", $tags="", $link="")
+                  }
+                
                 }
                 
-                Container_Boundary("SoftwareSystem2.Container2_boundary", "Container 2", $tags="") {
-                  Component(SoftwareSystem2.Container2.Component2, "Component 2", $techn="", $descr="", $tags="", $link="")
+                System_Boundary("SoftwareSystem2_boundary", "Software System 2", $tags="") {
+                  Container_Boundary("SoftwareSystem2.Container2_boundary", "Container 2", $tags="") {
+                    Component(SoftwareSystem2.Container2.Component2, "Component 2", $techn="", $descr="", $tags="", $link="")
+                  }
+                
                 }
                 
                 Rel(SoftwareSystem1.Container1.Component1, SoftwareSystem2.Container2.Component2, "Uses", $techn="", $tags="", $link="")
@@ -1538,11 +1550,14 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
                 !include <C4/C4_Context>
                 !include <C4/C4_Component>
                 
-                Container_Boundary("SoftwareSystem.Container_boundary", "Container", $tags="") {
-                  Component(SoftwareSystem.Container.DefaultComponent, "Default Component", $techn="", $descr="", $tags="", $link="")
-                  ComponentDb(SoftwareSystem.Container.CylinderComponent, "Cylinder Component", $techn="", $descr="", $tags="", $link="")
-                  ComponentQueue(SoftwareSystem.Container.PipeComponent, "Pipe Component", $techn="", $descr="", $tags="", $link="")
-                  Component(SoftwareSystem.Container.RobotComponent, "Robot Component", $techn="", $descr="", $tags="", $link="")
+                System_Boundary("SoftwareSystem_boundary", "Software System", $tags="") {
+                  Container_Boundary("SoftwareSystem.Container_boundary", "Container", $tags="") {
+                    Component(SoftwareSystem.Container.DefaultComponent, "Default Component", $techn="", $descr="", $tags="", $link="")
+                    ComponentDb(SoftwareSystem.Container.CylinderComponent, "Cylinder Component", $techn="", $descr="", $tags="", $link="")
+                    ComponentQueue(SoftwareSystem.Container.PipeComponent, "Pipe Component", $techn="", $descr="", $tags="", $link="")
+                    Component(SoftwareSystem.Container.RobotComponent, "Robot Component", $techn="", $descr="", $tags="", $link="")
+                  }
+                
                 }
                 
                 SHOW_LEGEND(true)
@@ -1647,8 +1662,11 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
                 !include <C4/C4_Context>
                 !include <C4/C4_Component>
                 
-                Container_Boundary("Name.Name_boundary", "Name", $tags="") {
-                  Component(Name.Name.Name, "Name", $techn="", $descr="Description", $tags="", $link="")
+                System_Boundary("Name_boundary", "Name", $tags="") {
+                  Container_Boundary("Name.Name_boundary", "Name", $tags="") {
+                    Component(Name.Name.Name, "Name", $techn="", $descr="Description", $tags="", $link="")
+                  }
+                
                 }
                 
                 SHOW_LEGEND(true)

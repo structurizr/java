@@ -148,24 +148,34 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                 
                   4 [id=4,shape=rect, label=<<font point-size="34">Mainframe Banking<br />System</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">Stores all of the core banking<br />information about customers,<br />accounts, transactions, etc.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
                   5 [id=5,shape=rect, label=<<font point-size="34">E-mail System</font><br /><font point-size="19">[Software System]</font><br /><br /><font point-size="24">The internal Microsoft<br />Exchange e-mail system.</font>>, style=filled, color="#6b6b6b", fillcolor="#999999", fontcolor="#ffffff"]
-                  8 [id=8,shape=rect, label=<<font point-size="34">Single-Page<br />Application</font><br /><font point-size="19">[Container: JavaScript and Angular]</font><br /><br /><font point-size="24">Provides all of the Internet<br />banking functionality to<br />customers via their web<br />browser.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
-                  9 [id=9,shape=rect, label=<<font point-size="34">Mobile App</font><br /><font point-size="19">[Container: Xamarin]</font><br /><br /><font point-size="24">Provides a limited subset of<br />the Internet banking<br />functionality to customers via<br />their mobile device.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
-                  18 [id=18,shape=cylinder, label=<<font point-size="34">Database</font><br /><font point-size="19">[Container: Oracle Database Schema]</font><br /><br /><font point-size="24">Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
                 
-                  subgraph cluster_11 {
+                  subgraph cluster_7 {
                     margin=25
-                    label=<<font point-size="24"><br />API Application</font><br /><font point-size="19">[Container: Java and Spring MVC]</font>>
+                    label=<<font point-size="24"><br />Internet Banking System</font><br /><font point-size="19">[Software System]</font>>
                     labelloc=b
                     color="#444444"
                     fontcolor="#444444"
                     fillcolor="#444444"
                 
-                    12 [id=12,shape=rect, label=<<font point-size="34">Sign In Controller</font><br /><font point-size="19">[Component: Spring MVC Rest Controller]</font><br /><br /><font point-size="24">Allows users to sign in to the<br />Internet Banking System.</font>>, style=filled, color="#5d82a8", fillcolor="#85bbf0", fontcolor="#000000"]
-                    13 [id=13,shape=rect, label=<<font point-size="34">Accounts Summary<br />Controller</font><br /><font point-size="19">[Component: Spring MVC Rest Controller]</font><br /><br /><font point-size="24">Provides customers with a<br />summary of their bank<br />accounts.</font>>, style=filled, color="#5d82a8", fillcolor="#85bbf0", fontcolor="#000000"]
-                    14 [id=14,shape=rect, label=<<font point-size="34">Reset Password<br />Controller</font><br /><font point-size="19">[Component: Spring MVC Rest Controller]</font><br /><br /><font point-size="24">Allows users to reset their<br />passwords with a single use<br />URL.</font>>, style=filled, color="#5d82a8", fillcolor="#85bbf0", fontcolor="#000000"]
-                    15 [id=15,shape=rect, label=<<font point-size="34">Security Component</font><br /><font point-size="19">[Component: Spring Bean]</font><br /><br /><font point-size="24">Provides functionality related<br />to signing in, changing<br />passwords, etc.</font>>, style=filled, color="#5d82a8", fillcolor="#85bbf0", fontcolor="#000000"]
-                    16 [id=16,shape=rect, label=<<font point-size="34">Mainframe Banking<br />System Facade</font><br /><font point-size="19">[Component: Spring Bean]</font><br /><br /><font point-size="24">A facade onto the mainframe<br />banking system.</font>>, style=filled, color="#5d82a8", fillcolor="#85bbf0", fontcolor="#000000"]
-                    17 [id=17,shape=rect, label=<<font point-size="34">E-mail Component</font><br /><font point-size="19">[Component: Spring Bean]</font><br /><br /><font point-size="24">Sends e-mails to users.</font>>, style=filled, color="#5d82a8", fillcolor="#85bbf0", fontcolor="#000000"]
+                    subgraph cluster_11 {
+                      margin=25
+                      label=<<font point-size="24"><br />API Application</font><br /><font point-size="19">[Container: Java and Spring MVC]</font>>
+                      labelloc=b
+                      color="#444444"
+                      fontcolor="#444444"
+                      fillcolor="#444444"
+                
+                      12 [id=12,shape=rect, label=<<font point-size="34">Sign In Controller</font><br /><font point-size="19">[Component: Spring MVC Rest Controller]</font><br /><br /><font point-size="24">Allows users to sign in to the<br />Internet Banking System.</font>>, style=filled, color="#5d82a8", fillcolor="#85bbf0", fontcolor="#000000"]
+                      13 [id=13,shape=rect, label=<<font point-size="34">Accounts Summary<br />Controller</font><br /><font point-size="19">[Component: Spring MVC Rest Controller]</font><br /><br /><font point-size="24">Provides customers with a<br />summary of their bank<br />accounts.</font>>, style=filled, color="#5d82a8", fillcolor="#85bbf0", fontcolor="#000000"]
+                      14 [id=14,shape=rect, label=<<font point-size="34">Reset Password<br />Controller</font><br /><font point-size="19">[Component: Spring MVC Rest Controller]</font><br /><br /><font point-size="24">Allows users to reset their<br />passwords with a single use<br />URL.</font>>, style=filled, color="#5d82a8", fillcolor="#85bbf0", fontcolor="#000000"]
+                      15 [id=15,shape=rect, label=<<font point-size="34">Security Component</font><br /><font point-size="19">[Component: Spring Bean]</font><br /><br /><font point-size="24">Provides functionality related<br />to signing in, changing<br />passwords, etc.</font>>, style=filled, color="#5d82a8", fillcolor="#85bbf0", fontcolor="#000000"]
+                      16 [id=16,shape=rect, label=<<font point-size="34">Mainframe Banking<br />System Facade</font><br /><font point-size="19">[Component: Spring Bean]</font><br /><br /><font point-size="24">A facade onto the mainframe<br />banking system.</font>>, style=filled, color="#5d82a8", fillcolor="#85bbf0", fontcolor="#000000"]
+                      17 [id=17,shape=rect, label=<<font point-size="34">E-mail Component</font><br /><font point-size="19">[Component: Spring Bean]</font><br /><br /><font point-size="24">Sends e-mails to users.</font>>, style=filled, color="#5d82a8", fillcolor="#85bbf0", fontcolor="#000000"]
+                    }
+                
+                    18 [id=18,shape=cylinder, label=<<font point-size="34">Database</font><br /><font point-size="19">[Container: Oracle Database Schema]</font><br /><br /><font point-size="24">Stores user registration<br />information, hashed<br />authentication credentials,<br />access logs, etc.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
+                    8 [id=8,shape=rect, label=<<font point-size="34">Single-Page<br />Application</font><br /><font point-size="19">[Container: JavaScript and Angular]</font><br /><br /><font point-size="24">Provides all of the Internet<br />banking functionality to<br />customers via their web<br />browser.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
+                    9 [id=9,shape=rect, label=<<font point-size="34">Mobile App</font><br /><font point-size="19">[Container: Xamarin]</font><br /><br /><font point-size="24">Provides a limited subset of<br />the Internet banking<br />functionality to customers via<br />their mobile device.</font>>, style=filled, color="#2e6295", fillcolor="#438dd5", fontcolor="#ffffff"]
                   }
                 
                   8 -> 12 [id=32, label=<<font point-size="24">Makes API calls to</font><br /><font point-size="19">[JSON/HTTPS]</font>>, style="dashed", color="#444444", fontcolor="#444444"]
@@ -181,7 +191,7 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   15 -> 18 [id=44, label=<<font point-size="24">Reads from and writes to</font><br /><font point-size="19">[SQL/TCP]</font>>, style="dashed", color="#444444", fontcolor="#444444"]
                   16 -> 4 [id=46, label=<<font point-size="24">Makes API calls to</font><br /><font point-size="19">[XML/HTTPS]</font>>, style="dashed", color="#444444", fontcolor="#444444"]
                   17 -> 5 [id=48, label=<<font point-size="24">Sends e-mail using</font>>, style="dashed", color="#444444", fontcolor="#444444"]
-
+                
                 }""", diagram.getDefinition());
 
         diagram = diagrams.stream().filter(md -> md.getKey().equals("SignIn")).findFirst().get();
@@ -678,27 +688,37 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                 
                   3 [id=3,shape=rect, label=<<font point-size="34">C</font><br /><font point-size="19">[Software System]</font>>, style=filled, color="#444444", fillcolor="#ffffff", fontcolor="#444444"]
                 
-                  subgraph cluster_6 {
+                  subgraph cluster_4 {
                     margin=25
-                    label=<<font point-size="24"><br />F</font><br /><font point-size="19">[Container]</font>>
+                    label=<<font point-size="24"><br />D</font><br /><font point-size="19">[Software System]</font>>
                     labelloc=b
                     color="#444444"
                     fontcolor="#444444"
                     fillcolor="#444444"
                 
-                    subgraph "cluster_group_Group 5" {
+                    subgraph cluster_6 {
                       margin=25
-                      label=<<font point-size="24"><br />Group 5</font>>
+                      label=<<font point-size="24"><br />F</font><br /><font point-size="19">[Container]</font>>
                       labelloc=b
-                      color="#cccccc"
-                      fontcolor="#cccccc"
-                      fillcolor="#ffffff"
-                      style="dashed"
+                      color="#444444"
+                      fontcolor="#444444"
+                      fillcolor="#444444"
                 
-                      8 [id=8,shape=rect, label=<<font point-size="34">H</font><br /><font point-size="19">[Component]</font>>, style=filled, color="#444444", fillcolor="#ffffff", fontcolor="#444444"]
+                      subgraph "cluster_group_Group 5" {
+                        margin=25
+                        label=<<font point-size="24"><br />Group 5</font>>
+                        labelloc=b
+                        color="#cccccc"
+                        fontcolor="#cccccc"
+                        fillcolor="#ffffff"
+                        style="dashed"
+                
+                        8 [id=8,shape=rect, label=<<font point-size="34">H</font><br /><font point-size="19">[Component]</font>>, style=filled, color="#444444", fillcolor="#ffffff", fontcolor="#444444"]
+                      }
+                
+                      7 [id=7,shape=rect, label=<<font point-size="34">G</font><br /><font point-size="19">[Component]</font>>, style=filled, color="#444444", fillcolor="#ffffff", fontcolor="#444444"]
                     }
                 
-                    7 [id=7,shape=rect, label=<<font point-size="34">G</font><br /><font point-size="19">[Component]</font>>, style=filled, color="#444444", fillcolor="#ffffff", fontcolor="#444444"]
                   }
                 
                   3 -> 7 [id=13, label=<>, style="dashed", color="#444444", fontcolor="#444444"]
@@ -881,26 +901,46 @@ public class DOTDiagramExporterTests extends AbstractExporterTests {
                   edge [fontname="Arial"]
                   label=<<br /><font point-size="34">Component View: Software System 1 - Container 1</font>>
                 
-                  subgraph cluster_2 {
+                  subgraph cluster_1 {
                     margin=25
-                    label=<<font point-size="24"><br />Container 1</font><br /><font point-size="19">[Container]</font>>
+                    label=<<font point-size="24"><br />Software System 1</font><br /><font point-size="19">[Software System]</font>>
                     labelloc=b
                     color="#444444"
                     fontcolor="#444444"
                     fillcolor="#444444"
                 
-                    3 [id=3,shape=rect, label=<<font point-size="34">Component 1</font><br /><font point-size="19">[Component]</font>>, style=filled, color="#444444", fillcolor="#ffffff", fontcolor="#444444"]
+                    subgraph cluster_2 {
+                      margin=25
+                      label=<<font point-size="24"><br />Container 1</font><br /><font point-size="19">[Container]</font>>
+                      labelloc=b
+                      color="#444444"
+                      fontcolor="#444444"
+                      fillcolor="#444444"
+                
+                      3 [id=3,shape=rect, label=<<font point-size="34">Component 1</font><br /><font point-size="19">[Component]</font>>, style=filled, color="#444444", fillcolor="#ffffff", fontcolor="#444444"]
+                    }
+                
                   }
                 
-                  subgraph cluster_5 {
+                  subgraph cluster_4 {
                     margin=25
-                    label=<<font point-size="24"><br />Container 2</font><br /><font point-size="19">[Container]</font>>
+                    label=<<font point-size="24"><br />Software System 2</font><br /><font point-size="19">[Software System]</font>>
                     labelloc=b
                     color="#cccccc"
                     fontcolor="#cccccc"
                     fillcolor="#cccccc"
                 
-                    6 [id=6,shape=rect, label=<<font point-size="34">Component 2</font><br /><font point-size="19">[Component]</font>>, style=filled, color="#444444", fillcolor="#ffffff", fontcolor="#444444"]
+                    subgraph cluster_5 {
+                      margin=25
+                      label=<<font point-size="24"><br />Container 2</font><br /><font point-size="19">[Container]</font>>
+                      labelloc=b
+                      color="#cccccc"
+                      fontcolor="#cccccc"
+                      fillcolor="#cccccc"
+                
+                      6 [id=6,shape=rect, label=<<font point-size="34">Component 2</font><br /><font point-size="19">[Component]</font>>, style=filled, color="#444444", fillcolor="#ffffff", fontcolor="#444444"]
+                    }
+                
                   }
                 
                   3 -> 6 [id=7, label=<<font point-size="24">Uses</font>>, style="dashed", color="#444444", fontcolor="#444444"]

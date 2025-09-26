@@ -407,11 +407,25 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     HorizontalAlignment: center;
                     Shadowing: 0;
                   }
+                  // Software System
+                  .Boundary-U29mdHdhcmUgU3lzdGVt {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
                 </style>
                 
-                rectangle "Container\\n<size:16>[Container: Technology]</size>" <<Boundary-Q29udGFpbmVy>> {
-                  rectangle "==Component 1\\n<size:16>[Component: Technology]</size>\\n\\nDescription" <<Element-RWxlbWVudA==>> as SoftwareSystem.Container.Component1
-                  rectangle "==Component 2\\n<size:16>[Component: Technology]</size>\\n\\nDescription" <<Element-RWxlbWVudA==>> as SoftwareSystem.Container.Component2
+                rectangle "Software System\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVt>> {
+                  rectangle "Container\\n<size:16>[Container: Technology]</size>" <<Boundary-Q29udGFpbmVy>> {
+                    rectangle "==Component 1\\n<size:16>[Component: Technology]</size>\\n\\nDescription" <<Element-RWxlbWVudA==>> as SoftwareSystem.Container.Component1
+                    rectangle "==Component 2\\n<size:16>[Component: Technology]</size>\\n\\nDescription" <<Element-RWxlbWVudA==>> as SoftwareSystem.Container.Component2
+                  }
+                
                 }
                 
                 SoftwareSystem.Container.Component1 --> SoftwareSystem.Container.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "Description\\n<size:16>[Technology]</size>"
@@ -954,6 +968,17 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontColor: #444444;
                     FontSize: 24;
                   }
+                  // D
+                  .Boundary-RA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
                   // F
                   .Boundary-Rg== {
                     BackgroundColor: #ffffff;
@@ -980,12 +1005,15 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 
                 rectangle "==C\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as C
                 
-                rectangle "F\\n<size:16>[Container]</size>" <<Boundary-Rg==>> {
-                  rectangle "Group 5" <<Group-R3JvdXAgNQ==>> as groupR3JvdXAgNQ== {
-                    rectangle "==H\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as D.F.H
+                rectangle "D\\n<size:16>[Software System]</size>" <<Boundary-RA==>> {
+                  rectangle "F\\n<size:16>[Container]</size>" <<Boundary-Rg==>> {
+                    rectangle "Group 5" <<Group-R3JvdXAgNQ==>> as groupR3JvdXAgNQ== {
+                      rectangle "==H\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as D.F.H
+                    }
+                
+                    rectangle "==G\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as D.F.G
                   }
                 
-                  rectangle "==G\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as D.F.G
                 }
                 
                 C --> D.F.G <<Relationship-UmVsYXRpb25zaGlw>> : ""
@@ -1216,25 +1244,20 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
     }
 
     @Test
-    public void componentDiagramWithExternalComponents() {
+    public void componentDiagram() {
         Workspace workspace = new Workspace("Name");
 
         SoftwareSystem softwareSystem1 = workspace.getModel().addSoftwareSystem("Software System 1");
         Container container1 = softwareSystem1.addContainer("Container 1");
         Component component1 = container1.addComponent("Component 1");
         Component component2 = container1.addComponent("Component 2");
-
-        SoftwareSystem softwareSystem2 = workspace.getModel().addSoftwareSystem("Software System 2");
-        Container container2 = softwareSystem2.addContainer("Container 2");
-        Component component3 = container2.addComponent("Component 3");
+        Container container2 = softwareSystem1.addContainer("Container 2");
 
         component1.uses(component2, "Uses");
-        component2.uses(component3, "Uses");
+        component2.uses(container2, "Uses");
 
         ComponentView componentView = workspace.getViews().createComponentView(container1, "Components", "");
-        componentView.add(component1);
-        componentView.add(component2);
-        componentView.add(component3);
+        componentView.addDefaultElements();
 
         Diagram diagram = new StructurizrPlantUMLExporter().export(componentView);
         assertEquals("""
@@ -1281,8 +1304,8 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     HorizontalAlignment: center;
                     Shadowing: 0;
                   }
-                  // Container 2
-                  .Boundary-Q29udGFpbmVyIDI= {
+                  // Software System 1
+                  .Boundary-U29mdHdhcmUgU3lzdGVtIDE= {
                     BackgroundColor: #ffffff;
                     LineColor: #444444;
                     LineStyle: 0;
@@ -1294,23 +1317,23 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                   }
                 </style>
                 
-                rectangle "Container 1\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDE=>> {
-                  rectangle "==Component 1\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component1
-                  rectangle "==Component 2\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component2
-                }
+                rectangle "Software System 1\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDE=>> {
+                  rectangle "Container 1\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDE=>> {
+                    rectangle "==Component 1\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component1
+                    rectangle "==Component 2\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component2
+                  }
                 
-                rectangle "Container 2\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDI=>> {
-                  rectangle "==Component 3\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2.Component3
+                  rectangle "==Container 2\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container2
                 }
                 
                 SoftwareSystem1.Container1.Component1 --> SoftwareSystem1.Container1.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
-                SoftwareSystem1.Container1.Component2 --> SoftwareSystem2.Container2.Component3 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                SoftwareSystem1.Container1.Component2 --> SoftwareSystem1.Container2 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
                 
                 @enduml""", diagram.getDefinition());
     }
 
     @Test
-    public void componentDiagramWithExternalComponentsAndSoftwareSystemBoundariesIncluded() {
+    public void componentDiagramWithExternalComponents() {
         Workspace workspace = new Workspace("Name");
 
         SoftwareSystem softwareSystem1 = workspace.getModel().addSoftwareSystem("Software System 1");
@@ -1321,15 +1344,17 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         SoftwareSystem softwareSystem2 = workspace.getModel().addSoftwareSystem("Software System 2");
         Container container2 = softwareSystem2.addContainer("Container 2");
         Component component3 = container2.addComponent("Component 3");
+        Container container4 = softwareSystem2.addContainer("Container 4");
 
         component1.uses(component2, "Uses");
         component2.uses(component3, "Uses");
+        component3.uses(container4, "Uses");
 
         ComponentView componentView = workspace.getViews().createComponentView(container1, "Components", "");
         componentView.add(component1);
         componentView.add(component2);
         componentView.add(component3);
-        componentView.addProperty("structurizr.softwareSystemBoundaries", "true");
+        componentView.add(container4);
 
         Diagram diagram = new StructurizrPlantUMLExporter().export(componentView);
         assertEquals("""
@@ -1412,22 +1437,24 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 </style>
                 
                 rectangle "Software System 1\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDE=>> {
-                    rectangle "Container 1\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDE=>> {
-                      rectangle "==Component 1\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component1
-                      rectangle "==Component 2\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component2
-                    }
-                
+                  rectangle "Container 1\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDE=>> {
+                    rectangle "==Component 1\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component1
+                    rectangle "==Component 2\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component2
                   }
+                
+                }
                 
                 rectangle "Software System 2\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDI=>> {
-                    rectangle "Container 2\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDI=>> {
-                      rectangle "==Component 3\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2.Component3
-                    }
-                
+                  rectangle "Container 2\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDI=>> {
+                    rectangle "==Component 3\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2.Component3
                   }
                 
-                SoftwareSystem1.Container1.Component1 --> SoftwareSystem1.Container1.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                  rectangle "==Container 4\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container4
+                }
+                
                 SoftwareSystem1.Container1.Component2 --> SoftwareSystem2.Container2.Component3 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                SoftwareSystem2.Container2.Component3 --> SoftwareSystem2.Container4 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                SoftwareSystem1.Container1.Component1 --> SoftwareSystem1.Container1.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
                 
                 @enduml""", diagram.getDefinition());
     }

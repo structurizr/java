@@ -249,8 +249,6 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
             }
 
             if (!boundaryStyles.isEmpty()) {
-                writer.writeLine();
-
                 for (String tagList : boundaryStyles.keySet()) {
                     ElementStyle elementStyle = boundaryStyles.get(tagList);
                     tagList = tagList.replaceFirst("Element,", "");
@@ -273,6 +271,8 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
                     line = line.replace(", $borderThickness=\"1\")", ")");
                     writer.writeLine(line);
                 }
+
+                writer.writeLine();
             }
         }
     }
