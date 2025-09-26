@@ -693,7 +693,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 participant "A\\n<size:16>[Software System]</size>" as A <<Element-RWxlbWVudA==>> #ffffff
                 participant "B\\n<size:16>[Software System]</size>" as B <<Element-RWxlbWVudA==>> #ffffff
                 
-                A -> B <<Relationship-UmVsYXRpb25zaGlw>> : 1. Uses\\n<size:16>[JSON/HTTPS]</size>
+                A -> B <<Relationship-UmVsYXRpb25zaGlw>> : 1: Uses\\n<size:16>[JSON/HTTPS]</size>
                 
                 @enduml""", diagram.getDefinition());
 
