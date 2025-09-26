@@ -19,6 +19,959 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTests {
 
     @Test
+    public void test_BigBankPlcExample() throws Exception {
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/big-bank-plc.json"));
+        workspace.getViews().getConfiguration().getStyles().addElementStyle("Boundary:SoftwareSystem").color("#0b4884");
+        workspace.getViews().getConfiguration().getStyles().addElementStyle("Boundary:Container").color("#438dd5");
+
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
+        Collection<Diagram> diagrams = exporter.export(workspace);
+        assertEquals(7, diagrams.size());
+
+        Diagram diagram = diagrams.stream().filter(d -> d.getKey().equals("SystemLandscape")).findFirst().get();
+        assertEquals("""
+                @startuml
+                title <size:24>System Landscape View</size>
+                
+                set separator none
+                top to bottom direction
+                skinparam ranksep 60
+                skinparam nodesep 30
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element,Person,Bank Staff
+                  .Element-RWxlbWVudCxQZXJzb24sQmFuayBTdGFmZg== {
+                    BackgroundColor: #999999;
+                    LineColor: #6b6b6b;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 22;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Person,Customer
+                  .Element-RWxlbWVudCxQZXJzb24sQ3VzdG9tZXI= {
+                    BackgroundColor: #08427b;
+                    LineColor: #052e56;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 22;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Software System
+                  .Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0= {
+                    BackgroundColor: #1168bd;
+                    LineColor: #0b4884;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Software System,Existing System
+                  .Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt {
+                    BackgroundColor: #999999;
+                    LineColor: #6b6b6b;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // Big Bank plc
+                  .Group-QmlnIEJhbmsgcGxj {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Big Bank plc" <<Group-QmlnIEJhbmsgcGxj>> as groupQmlnIEJhbmsgcGxj {
+                  person "==Customer Service Staff\\n<size:15>[Person]</size>\\n\\nCustomer service staff within the bank." <<Element-RWxlbWVudCxQZXJzb24sQmFuayBTdGFmZg==>> as CustomerServiceStaff
+                  person "==Back Office Staff\\n<size:15>[Person]</size>\\n\\nAdministration and support staff within the bank." <<Element-RWxlbWVudCxQZXJzb24sQmFuayBTdGFmZg==>> as BackOfficeStaff
+                  rectangle "==Mainframe Banking System\\n<size:16>[Software System]</size>\\n\\nStores all of the core banking information about customers, accounts, transactions, etc." <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt>> as MainframeBankingSystem
+                  rectangle "==E-mail System\\n<size:16>[Software System]</size>\\n\\nThe internal Microsoft Exchange e-mail system." <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt>> as EmailSystem
+                  rectangle "==ATM\\n<size:16>[Software System]</size>\\n\\nAllows customers to withdraw cash." <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt>> as ATM
+                  rectangle "==Internet Banking System\\n<size:16>[Software System]</size>\\n\\nAllows customers to view information about their bank accounts, and make payments." <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0=>> as InternetBankingSystem
+                }
+                
+                person "==Personal Banking Customer\\n<size:15>[Person]</size>\\n\\nA customer of the bank, with personal bank accounts." <<Element-RWxlbWVudCxQZXJzb24sQ3VzdG9tZXI=>> as PersonalBankingCustomer
+                
+                PersonalBankingCustomer --> InternetBankingSystem <<Relationship-UmVsYXRpb25zaGlw>> : "Views account balances, and makes payments using"
+                InternetBankingSystem --> MainframeBankingSystem <<Relationship-UmVsYXRpb25zaGlw>> : "Gets account information from, and makes payments using"
+                InternetBankingSystem --> EmailSystem <<Relationship-UmVsYXRpb25zaGlw>> : "Sends e-mail using"
+                EmailSystem --> PersonalBankingCustomer <<Relationship-UmVsYXRpb25zaGlw>> : "Sends e-mails to"
+                PersonalBankingCustomer --> CustomerServiceStaff <<Relationship-UmVsYXRpb25zaGlw>> : "Asks questions to\\n<size:16>[Telephone]</size>"
+                CustomerServiceStaff --> MainframeBankingSystem <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                PersonalBankingCustomer --> ATM <<Relationship-UmVsYXRpb25zaGlw>> : "Withdraws cash using"
+                ATM --> MainframeBankingSystem <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                BackOfficeStaff --> MainframeBankingSystem <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                
+                @enduml""", diagram.getDefinition());
+
+        diagram = diagrams.stream().filter(d -> d.getKey().equals("SystemContext")).findFirst().get();
+        assertEquals("""
+                @startuml
+                title <size:24>System Context View: Internet Banking System</size>\\n<size:24>The system context diagram for the Internet Banking System.</size>
+                
+                set separator none
+                top to bottom direction
+                skinparam ranksep 60
+                skinparam nodesep 30
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element,Person,Customer
+                  .Element-RWxlbWVudCxQZXJzb24sQ3VzdG9tZXI= {
+                    BackgroundColor: #08427b;
+                    LineColor: #052e56;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 22;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Software System
+                  .Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0= {
+                    BackgroundColor: #1168bd;
+                    LineColor: #0b4884;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Software System,Existing System
+                  .Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt {
+                    BackgroundColor: #999999;
+                    LineColor: #6b6b6b;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // Big Bank plc
+                  .Group-QmlnIEJhbmsgcGxj {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Big Bank plc" <<Group-QmlnIEJhbmsgcGxj>> as groupQmlnIEJhbmsgcGxj {
+                  rectangle "==Mainframe Banking System\\n<size:16>[Software System]</size>\\n\\nStores all of the core banking information about customers, accounts, transactions, etc." <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt>> as MainframeBankingSystem
+                  rectangle "==E-mail System\\n<size:16>[Software System]</size>\\n\\nThe internal Microsoft Exchange e-mail system." <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt>> as EmailSystem
+                  rectangle "==Internet Banking System\\n<size:16>[Software System]</size>\\n\\nAllows customers to view information about their bank accounts, and make payments." <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0=>> as InternetBankingSystem
+                }
+                
+                person "==Personal Banking Customer\\n<size:15>[Person]</size>\\n\\nA customer of the bank, with personal bank accounts." <<Element-RWxlbWVudCxQZXJzb24sQ3VzdG9tZXI=>> as PersonalBankingCustomer
+                
+                PersonalBankingCustomer --> InternetBankingSystem <<Relationship-UmVsYXRpb25zaGlw>> : "Views account balances, and makes payments using"
+                InternetBankingSystem --> MainframeBankingSystem <<Relationship-UmVsYXRpb25zaGlw>> : "Gets account information from, and makes payments using"
+                InternetBankingSystem --> EmailSystem <<Relationship-UmVsYXRpb25zaGlw>> : "Sends e-mail using"
+                EmailSystem --> PersonalBankingCustomer <<Relationship-UmVsYXRpb25zaGlw>> : "Sends e-mails to"
+                
+                @enduml""", diagram.getDefinition());
+
+        diagram = diagrams.stream().filter(d -> d.getKey().equals("Containers")).findFirst().get();
+        assertEquals("""
+                @startuml
+                title <size:24>Container View: Internet Banking System</size>\\n<size:24>The container diagram for the Internet Banking System.</size>
+                
+                set separator none
+                top to bottom direction
+                skinparam ranksep 60
+                skinparam nodesep 30
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element,Container
+                  .Element-RWxlbWVudCxDb250YWluZXI= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container,Database
+                  .Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container,Mobile App
+                  .Element-RWxlbWVudCxDb250YWluZXIsTW9iaWxlIEFwcA== {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container,Web Browser
+                  .Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Person,Customer
+                  .Element-RWxlbWVudCxQZXJzb24sQ3VzdG9tZXI= {
+                    BackgroundColor: #08427b;
+                    LineColor: #052e56;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 22;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Software System,Existing System
+                  .Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt {
+                    BackgroundColor: #999999;
+                    LineColor: #6b6b6b;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // Internet Banking System
+                  .Boundary-SW50ZXJuZXQgQmFua2luZyBTeXN0ZW0= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #0b4884;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #0b4884;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                person "==Personal Banking Customer\\n<size:15>[Person]</size>\\n\\nA customer of the bank, with personal bank accounts." <<Element-RWxlbWVudCxQZXJzb24sQ3VzdG9tZXI=>> as PersonalBankingCustomer
+                rectangle "==Mainframe Banking System\\n<size:16>[Software System]</size>\\n\\nStores all of the core banking information about customers, accounts, transactions, etc." <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt>> as MainframeBankingSystem
+                rectangle "==E-mail System\\n<size:16>[Software System]</size>\\n\\nThe internal Microsoft Exchange e-mail system." <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt>> as EmailSystem
+                
+                rectangle "Internet Banking System\\n<size:16>[Software System]</size>" <<Boundary-SW50ZXJuZXQgQmFua2luZyBTeXN0ZW0=>> {
+                  rectangle "==Web Application\\n<size:16>[Container: Java and Spring MVC]</size>\\n\\nDelivers the static content and the Internet banking single page application." <<Element-RWxlbWVudCxDb250YWluZXI=>> as InternetBankingSystem.WebApplication
+                  rectangle "==API Application\\n<size:16>[Container: Java and Spring MVC]</size>\\n\\nProvides Internet banking functionality via a JSON/HTTPS API." <<Element-RWxlbWVudCxDb250YWluZXI=>> as InternetBankingSystem.APIApplication
+                  database "==Database\\n<size:16>[Container: Oracle Database Schema]</size>\\n\\nStores user registration information, hashed authentication credentials, access logs, etc." <<Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U=>> as InternetBankingSystem.Database
+                  rectangle "==Single-Page Application\\n<size:16>[Container: JavaScript and Angular]</size>\\n\\nProvides all of the Internet banking functionality to customers via their web browser." <<Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI=>> as InternetBankingSystem.SinglePageApplication
+                  rectangle "==Mobile App\\n<size:16>[Container: Xamarin]</size>\\n\\nProvides a limited subset of the Internet banking functionality to customers via their mobile device." <<Element-RWxlbWVudCxDb250YWluZXIsTW9iaWxlIEFwcA==>> as InternetBankingSystem.MobileApp
+                }
+                
+                EmailSystem --> PersonalBankingCustomer <<Relationship-UmVsYXRpb25zaGlw>> : "Sends e-mails to"
+                PersonalBankingCustomer --> InternetBankingSystem.WebApplication <<Relationship-UmVsYXRpb25zaGlw>> : "Visits bigbank.com/ib using\\n<size:16>[HTTPS]</size>"
+                PersonalBankingCustomer --> InternetBankingSystem.SinglePageApplication <<Relationship-UmVsYXRpb25zaGlw>> : "Views account balances, and makes payments using"
+                PersonalBankingCustomer --> InternetBankingSystem.MobileApp <<Relationship-UmVsYXRpb25zaGlw>> : "Views account balances, and makes payments using"
+                InternetBankingSystem.WebApplication --> InternetBankingSystem.SinglePageApplication <<Relationship-UmVsYXRpb25zaGlw>> : "Delivers to the customer's web browser"
+                InternetBankingSystem.SinglePageApplication --> InternetBankingSystem.APIApplication <<Relationship-UmVsYXRpb25zaGlw>> : "Makes API calls to\\n<size:16>[JSON/HTTPS]</size>"
+                InternetBankingSystem.MobileApp --> InternetBankingSystem.APIApplication <<Relationship-UmVsYXRpb25zaGlw>> : "Makes API calls to\\n<size:16>[JSON/HTTPS]</size>"
+                InternetBankingSystem.APIApplication --> InternetBankingSystem.Database <<Relationship-UmVsYXRpb25zaGlw>> : "Reads from and writes to\\n<size:16>[SQL/TCP]</size>"
+                InternetBankingSystem.APIApplication --> MainframeBankingSystem <<Relationship-UmVsYXRpb25zaGlw>> : "Makes API calls to\\n<size:16>[XML/HTTPS]</size>"
+                InternetBankingSystem.APIApplication --> EmailSystem <<Relationship-UmVsYXRpb25zaGlw>> : "Sends e-mail using"
+                
+                @enduml""", diagram.getDefinition());
+
+        diagram = diagrams.stream().filter(d -> d.getKey().equals("Components")).findFirst().get();
+        assertEquals("""
+                @startuml
+                title <size:24>Component View: Internet Banking System - API Application</size>\\n<size:24>The component diagram for the API Application.</size>
+                
+                set separator none
+                top to bottom direction
+                skinparam ranksep 60
+                skinparam nodesep 30
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element,Component
+                  .Element-RWxlbWVudCxDb21wb25lbnQ= {
+                    BackgroundColor: #85bbf0;
+                    LineColor: #5d82a8;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #000000;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container,Database
+                  .Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container,Mobile App
+                  .Element-RWxlbWVudCxDb250YWluZXIsTW9iaWxlIEFwcA== {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container,Web Browser
+                  .Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Software System,Existing System
+                  .Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt {
+                    BackgroundColor: #999999;
+                    LineColor: #6b6b6b;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // API Application
+                  .Boundary-QVBJIEFwcGxpY2F0aW9u {
+                    BackgroundColor: #ffffff;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #438dd5;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Internet Banking System
+                  .Boundary-SW50ZXJuZXQgQmFua2luZyBTeXN0ZW0= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #0b4884;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #0b4884;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "==Mainframe Banking System\\n<size:16>[Software System]</size>\\n\\nStores all of the core banking information about customers, accounts, transactions, etc." <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt>> as MainframeBankingSystem
+                rectangle "==E-mail System\\n<size:16>[Software System]</size>\\n\\nThe internal Microsoft Exchange e-mail system." <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt>> as EmailSystem
+                
+                rectangle "Internet Banking System\\n<size:16>[Software System]</size>" <<Boundary-SW50ZXJuZXQgQmFua2luZyBTeXN0ZW0=>> {
+                  rectangle "API Application\\n<size:16>[Container: Java and Spring MVC]</size>" <<Boundary-QVBJIEFwcGxpY2F0aW9u>> {
+                    rectangle "==Sign In Controller\\n<size:16>[Component: Spring MVC Rest Controller]</size>\\n\\nAllows users to sign in to the Internet Banking System." <<Element-RWxlbWVudCxDb21wb25lbnQ=>> as InternetBankingSystem.APIApplication.SignInController
+                    rectangle "==Accounts Summary Controller\\n<size:16>[Component: Spring MVC Rest Controller]</size>\\n\\nProvides customers with a summary of their bank accounts." <<Element-RWxlbWVudCxDb21wb25lbnQ=>> as InternetBankingSystem.APIApplication.AccountsSummaryController
+                    rectangle "==Reset Password Controller\\n<size:16>[Component: Spring MVC Rest Controller]</size>\\n\\nAllows users to reset their passwords with a single use URL." <<Element-RWxlbWVudCxDb21wb25lbnQ=>> as InternetBankingSystem.APIApplication.ResetPasswordController
+                    rectangle "==Security Component\\n<size:16>[Component: Spring Bean]</size>\\n\\nProvides functionality related to signing in, changing passwords, etc." <<Element-RWxlbWVudCxDb21wb25lbnQ=>> as InternetBankingSystem.APIApplication.SecurityComponent
+                    rectangle "==Mainframe Banking System Facade\\n<size:16>[Component: Spring Bean]</size>\\n\\nA facade onto the mainframe banking system." <<Element-RWxlbWVudCxDb21wb25lbnQ=>> as InternetBankingSystem.APIApplication.MainframeBankingSystemFacade
+                    rectangle "==E-mail Component\\n<size:16>[Component: Spring Bean]</size>\\n\\nSends e-mails to users." <<Element-RWxlbWVudCxDb21wb25lbnQ=>> as InternetBankingSystem.APIApplication.EmailComponent
+                  }
+                
+                  database "==Database\\n<size:16>[Container: Oracle Database Schema]</size>\\n\\nStores user registration information, hashed authentication credentials, access logs, etc." <<Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U=>> as InternetBankingSystem.Database
+                  rectangle "==Single-Page Application\\n<size:16>[Container: JavaScript and Angular]</size>\\n\\nProvides all of the Internet banking functionality to customers via their web browser." <<Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI=>> as InternetBankingSystem.SinglePageApplication
+                  rectangle "==Mobile App\\n<size:16>[Container: Xamarin]</size>\\n\\nProvides a limited subset of the Internet banking functionality to customers via their mobile device." <<Element-RWxlbWVudCxDb250YWluZXIsTW9iaWxlIEFwcA==>> as InternetBankingSystem.MobileApp
+                }
+                
+                InternetBankingSystem.SinglePageApplication --> InternetBankingSystem.APIApplication.SignInController <<Relationship-UmVsYXRpb25zaGlw>> : "Makes API calls to\\n<size:16>[JSON/HTTPS]</size>"
+                InternetBankingSystem.SinglePageApplication --> InternetBankingSystem.APIApplication.AccountsSummaryController <<Relationship-UmVsYXRpb25zaGlw>> : "Makes API calls to\\n<size:16>[JSON/HTTPS]</size>"
+                InternetBankingSystem.SinglePageApplication --> InternetBankingSystem.APIApplication.ResetPasswordController <<Relationship-UmVsYXRpb25zaGlw>> : "Makes API calls to\\n<size:16>[JSON/HTTPS]</size>"
+                InternetBankingSystem.MobileApp --> InternetBankingSystem.APIApplication.SignInController <<Relationship-UmVsYXRpb25zaGlw>> : "Makes API calls to\\n<size:16>[JSON/HTTPS]</size>"
+                InternetBankingSystem.MobileApp --> InternetBankingSystem.APIApplication.AccountsSummaryController <<Relationship-UmVsYXRpb25zaGlw>> : "Makes API calls to\\n<size:16>[JSON/HTTPS]</size>"
+                InternetBankingSystem.MobileApp --> InternetBankingSystem.APIApplication.ResetPasswordController <<Relationship-UmVsYXRpb25zaGlw>> : "Makes API calls to\\n<size:16>[JSON/HTTPS]</size>"
+                InternetBankingSystem.APIApplication.SignInController --> InternetBankingSystem.APIApplication.SecurityComponent <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                InternetBankingSystem.APIApplication.AccountsSummaryController --> InternetBankingSystem.APIApplication.MainframeBankingSystemFacade <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                InternetBankingSystem.APIApplication.ResetPasswordController --> InternetBankingSystem.APIApplication.SecurityComponent <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                InternetBankingSystem.APIApplication.ResetPasswordController --> InternetBankingSystem.APIApplication.EmailComponent <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
+                InternetBankingSystem.APIApplication.SecurityComponent --> InternetBankingSystem.Database <<Relationship-UmVsYXRpb25zaGlw>> : "Reads from and writes to\\n<size:16>[SQL/TCP]</size>"
+                InternetBankingSystem.APIApplication.MainframeBankingSystemFacade --> MainframeBankingSystem <<Relationship-UmVsYXRpb25zaGlw>> : "Makes API calls to\\n<size:16>[XML/HTTPS]</size>"
+                InternetBankingSystem.APIApplication.EmailComponent --> EmailSystem <<Relationship-UmVsYXRpb25zaGlw>> : "Sends e-mail using"
+                
+                @enduml""", diagram.getDefinition());
+
+        diagram = diagrams.stream().filter(d -> d.getKey().equals("SignIn")).findFirst().get();
+        assertEquals("""
+                @startuml
+                title <size:24>Dynamic View: Internet Banking System - API Application</size>\\n<size:24>Summarises how the sign in feature works in the single-page application.</size>
+                
+                set separator none
+                top to bottom direction
+                skinparam ranksep 60
+                skinparam nodesep 30
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element,Component
+                  .Element-RWxlbWVudCxDb21wb25lbnQ= {
+                    BackgroundColor: #85bbf0;
+                    LineColor: #5d82a8;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #000000;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container,Database
+                  .Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container,Web Browser
+                  .Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // API Application
+                  .Boundary-QVBJIEFwcGxpY2F0aW9u {
+                    BackgroundColor: #ffffff;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #438dd5;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Internet Banking System
+                  .Boundary-SW50ZXJuZXQgQmFua2luZyBTeXN0ZW0= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #0b4884;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #0b4884;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                </style>
+                
+                rectangle "Internet Banking System\\n<size:16>[Software System]</size>" <<Boundary-SW50ZXJuZXQgQmFua2luZyBTeXN0ZW0=>> {
+                  rectangle "API Application\\n<size:16>[Container: Java and Spring MVC]</size>" <<Boundary-QVBJIEFwcGxpY2F0aW9u>> {
+                    rectangle "==Sign In Controller\\n<size:16>[Component: Spring MVC Rest Controller]</size>\\n\\nAllows users to sign in to the Internet Banking System." <<Element-RWxlbWVudCxDb21wb25lbnQ=>> as InternetBankingSystem.APIApplication.SignInController
+                    rectangle "==Security Component\\n<size:16>[Component: Spring Bean]</size>\\n\\nProvides functionality related to signing in, changing passwords, etc." <<Element-RWxlbWVudCxDb21wb25lbnQ=>> as InternetBankingSystem.APIApplication.SecurityComponent
+                  }
+                
+                  database "==Database\\n<size:16>[Container: Oracle Database Schema]</size>\\n\\nStores user registration information, hashed authentication credentials, access logs, etc." <<Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U=>> as InternetBankingSystem.Database
+                  rectangle "==Single-Page Application\\n<size:16>[Container: JavaScript and Angular]</size>\\n\\nProvides all of the Internet banking functionality to customers via their web browser." <<Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI=>> as InternetBankingSystem.SinglePageApplication
+                }
+                
+                rectangle "==Single-Page Application\\n<size:16>[Container: JavaScript and Angular]</size>\\n\\nProvides all of the Internet banking functionality to customers via their web browser." <<Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI=>> as InternetBankingSystem.SinglePageApplication
+                database "==Database\\n<size:16>[Container: Oracle Database Schema]</size>\\n\\nStores user registration information, hashed authentication credentials, access logs, etc." <<Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U=>> as InternetBankingSystem.Database
+                
+                InternetBankingSystem.SinglePageApplication --> InternetBankingSystem.APIApplication.SignInController <<Relationship-UmVsYXRpb25zaGlw>> : "1: Submits credentials to\\n<size:16>[JSON/HTTPS]</size>"
+                InternetBankingSystem.APIApplication.SignInController --> InternetBankingSystem.APIApplication.SecurityComponent <<Relationship-UmVsYXRpb25zaGlw>> : "2: Validates credentials using"
+                InternetBankingSystem.APIApplication.SecurityComponent --> InternetBankingSystem.Database <<Relationship-UmVsYXRpb25zaGlw>> : "3: select * from users where username = ?\\n<size:16>[SQL/TCP]</size>"
+                InternetBankingSystem.APIApplication.SecurityComponent <-- InternetBankingSystem.Database <<Relationship-UmVsYXRpb25zaGlw>> : "4: Returns user data to\\n<size:16>[SQL/TCP]</size>"
+                InternetBankingSystem.APIApplication.SignInController <-- InternetBankingSystem.APIApplication.SecurityComponent <<Relationship-UmVsYXRpb25zaGlw>> : "5: Returns true if the hashed password matches"
+                InternetBankingSystem.SinglePageApplication <-- InternetBankingSystem.APIApplication.SignInController <<Relationship-UmVsYXRpb25zaGlw>> : "6: Sends back an authentication token to\\n<size:16>[JSON/HTTPS]</size>"
+                
+                @enduml""", diagram.getDefinition());
+
+        diagram = diagrams.stream().filter(md -> md.getKey().equals("DevelopmentDeployment")).findFirst().get();
+        assertEquals("""
+                @startuml
+                title <size:24>Deployment View: Internet Banking System - Development</size>\\n<size:24>An example development deployment scenario for the Internet Banking System.</size>
+                
+                set separator none
+                top to bottom direction
+                skinparam ranksep 60
+                skinparam nodesep 30
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container
+                  .Element-RWxlbWVudCxDb250YWluZXI= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container,Database
+                  .Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container,Web Browser
+                  .Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Software System,Existing System
+                  .Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt {
+                    BackgroundColor: #999999;
+                    LineColor: #6b6b6b;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                </style>
+                
+                rectangle "Developer Laptop\\n<size:16>[Deployment Node: Microsoft Windows 10 or Apple macOS]</size>" <<Element-RWxlbWVudA==>> as Development.DeveloperLaptop {
+                  rectangle "Web Browser\\n<size:16>[Deployment Node: Chrome, Firefox, Safari, or Edge]</size>" <<Element-RWxlbWVudA==>> as Development.DeveloperLaptop.WebBrowser {
+                    rectangle "==Single-Page Application\\n<size:16>[Container: JavaScript and Angular]</size>\\n\\nProvides all of the Internet banking functionality to customers via their web browser." <<Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI=>> as Development.DeveloperLaptop.WebBrowser.SinglePageApplication_1
+                  }
+                
+                  rectangle "Docker Container - Web Server\\n<size:16>[Deployment Node: Docker]</size>" <<Element-RWxlbWVudA==>> as Development.DeveloperLaptop.DockerContainerWebServer {
+                    rectangle "Apache Tomcat\\n<size:16>[Deployment Node: Apache Tomcat 8.x]</size>" <<Element-RWxlbWVudA==>> as Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat {
+                      rectangle "==Web Application\\n<size:16>[Container: Java and Spring MVC]</size>\\n\\nDelivers the static content and the Internet banking single page application." <<Element-RWxlbWVudCxDb250YWluZXI=>> as Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.WebApplication_1
+                      rectangle "==API Application\\n<size:16>[Container: Java and Spring MVC]</size>\\n\\nProvides Internet banking functionality via a JSON/HTTPS API." <<Element-RWxlbWVudCxDb250YWluZXI=>> as Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1
+                    }
+                
+                  }
+                
+                  rectangle "Docker Container - Database Server\\n<size:16>[Deployment Node: Docker]</size>" <<Element-RWxlbWVudA==>> as Development.DeveloperLaptop.DockerContainerDatabaseServer {
+                    rectangle "Database Server\\n<size:16>[Deployment Node: Oracle 12c]</size>" <<Element-RWxlbWVudA==>> as Development.DeveloperLaptop.DockerContainerDatabaseServer.DatabaseServer {
+                      database "==Database\\n<size:16>[Container: Oracle Database Schema]</size>\\n\\nStores user registration information, hashed authentication credentials, access logs, etc." <<Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U=>> as Development.DeveloperLaptop.DockerContainerDatabaseServer.DatabaseServer.Database_1
+                    }
+                
+                  }
+                
+                }
+                
+                rectangle "Big Bank plc\\n<size:16>[Deployment Node: Big Bank plc data center]</size>" <<Element-RWxlbWVudA==>> as Development.BigBankplc {
+                  rectangle "bigbank-dev001\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Development.BigBankplc.bigbankdev001 {
+                    rectangle "==Mainframe Banking System\\n<size:16>[Software System]</size>\\n\\nStores all of the core banking information about customers, accounts, transactions, etc." <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt>> as Development.BigBankplc.bigbankdev001.MainframeBankingSystem_1
+                  }
+                
+                }
+                
+                Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.WebApplication_1 --> Development.DeveloperLaptop.WebBrowser.SinglePageApplication_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Delivers to the customer's web browser"
+                Development.DeveloperLaptop.WebBrowser.SinglePageApplication_1 --> Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Makes API calls to\\n<size:16>[JSON/HTTPS]</size>"
+                Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1 --> Development.DeveloperLaptop.DockerContainerDatabaseServer.DatabaseServer.Database_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Reads from and writes to\\n<size:16>[SQL/TCP]</size>"
+                Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1 --> Development.BigBankplc.bigbankdev001.MainframeBankingSystem_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Makes API calls to\\n<size:16>[XML/HTTPS]</size>"
+                
+                @enduml""", diagram.getDefinition());
+
+        diagram = diagrams.stream().filter(md -> md.getKey().equals("LiveDeployment")).findFirst().get();
+        assertEquals("""
+                @startuml
+                title <size:24>Deployment View: Internet Banking System - Live</size>\\n<size:24>An example live deployment scenario for the Internet Banking System.</size>
+                
+                set separator none
+                top to bottom direction
+                skinparam ranksep 60
+                skinparam nodesep 30
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container
+                  .Element-RWxlbWVudCxDb250YWluZXI= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container,Database
+                  .Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container,Mobile App
+                  .Element-RWxlbWVudCxDb250YWluZXIsTW9iaWxlIEFwcA== {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container,Web Browser
+                  .Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Failover
+                  .Element-RWxlbWVudCxGYWlsb3Zlcg== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Software System,Existing System
+                  .Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt {
+                    BackgroundColor: #999999;
+                    LineColor: #6b6b6b;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                </style>
+                
+                rectangle "Customer's mobile device\\n<size:16>[Deployment Node: Apple iOS or Android]</size>" <<Element-RWxlbWVudA==>> as Live.Customersmobiledevice {
+                  rectangle "==Mobile App\\n<size:16>[Container: Xamarin]</size>\\n\\nProvides a limited subset of the Internet banking functionality to customers via their mobile device." <<Element-RWxlbWVudCxDb250YWluZXIsTW9iaWxlIEFwcA==>> as Live.Customersmobiledevice.MobileApp_1
+                }
+                
+                rectangle "Customer's computer\\n<size:16>[Deployment Node: Microsoft Windows or Apple macOS]</size>" <<Element-RWxlbWVudA==>> as Live.Customerscomputer {
+                  rectangle "Web Browser\\n<size:16>[Deployment Node: Chrome, Firefox, Safari, or Edge]</size>" <<Element-RWxlbWVudA==>> as Live.Customerscomputer.WebBrowser {
+                    rectangle "==Single-Page Application\\n<size:16>[Container: JavaScript and Angular]</size>\\n\\nProvides all of the Internet banking functionality to customers via their web browser." <<Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI=>> as Live.Customerscomputer.WebBrowser.SinglePageApplication_1
+                  }
+                
+                }
+                
+                rectangle "Big Bank plc\\n<size:16>[Deployment Node: Big Bank plc data center]</size>" <<Element-RWxlbWVudA==>> as Live.BigBankplc {
+                  rectangle "bigbank-web*** (x4)\\n<size:16>[Deployment Node: Ubuntu 16.04 LTS]</size>" <<Element-RWxlbWVudA==>> as Live.BigBankplc.bigbankweb {
+                    rectangle "Apache Tomcat\\n<size:16>[Deployment Node: Apache Tomcat 8.x]</size>" <<Element-RWxlbWVudA==>> as Live.BigBankplc.bigbankweb.ApacheTomcat {
+                      rectangle "==Web Application\\n<size:16>[Container: Java and Spring MVC]</size>\\n\\nDelivers the static content and the Internet banking single page application." <<Element-RWxlbWVudCxDb250YWluZXI=>> as Live.BigBankplc.bigbankweb.ApacheTomcat.WebApplication_1
+                    }
+                
+                  }
+                
+                  rectangle "bigbank-api*** (x8)\\n<size:16>[Deployment Node: Ubuntu 16.04 LTS]</size>" <<Element-RWxlbWVudA==>> as Live.BigBankplc.bigbankapi {
+                    rectangle "Apache Tomcat\\n<size:16>[Deployment Node: Apache Tomcat 8.x]</size>" <<Element-RWxlbWVudA==>> as Live.BigBankplc.bigbankapi.ApacheTomcat {
+                      rectangle "==API Application\\n<size:16>[Container: Java and Spring MVC]</size>\\n\\nProvides Internet banking functionality via a JSON/HTTPS API." <<Element-RWxlbWVudCxDb250YWluZXI=>> as Live.BigBankplc.bigbankapi.ApacheTomcat.APIApplication_1
+                    }
+                
+                  }
+                
+                  rectangle "bigbank-db01\\n<size:16>[Deployment Node: Ubuntu 16.04 LTS]</size>" <<Element-RWxlbWVudA==>> as Live.BigBankplc.bigbankdb01 {
+                    rectangle "Oracle - Primary\\n<size:16>[Deployment Node: Oracle 12c]</size>" <<Element-RWxlbWVudA==>> as Live.BigBankplc.bigbankdb01.OraclePrimary {
+                      database "==Database\\n<size:16>[Container: Oracle Database Schema]</size>\\n\\nStores user registration information, hashed authentication credentials, access logs, etc." <<Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U=>> as Live.BigBankplc.bigbankdb01.OraclePrimary.Database_1
+                    }
+                
+                  }
+                
+                  rectangle "bigbank-db02\\n<size:16>[Deployment Node: Ubuntu 16.04 LTS]</size>" <<Element-RWxlbWVudCxGYWlsb3Zlcg==>> as Live.BigBankplc.bigbankdb02 {
+                    rectangle "Oracle - Secondary\\n<size:16>[Deployment Node: Oracle 12c]</size>" <<Element-RWxlbWVudCxGYWlsb3Zlcg==>> as Live.BigBankplc.bigbankdb02.OracleSecondary {
+                      database "==Database\\n<size:16>[Container: Oracle Database Schema]</size>\\n\\nStores user registration information, hashed authentication credentials, access logs, etc." <<Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U=>> as Live.BigBankplc.bigbankdb02.OracleSecondary.Database_1
+                    }
+                
+                  }
+                
+                  rectangle "bigbank-prod001\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Live.BigBankplc.bigbankprod001 {
+                    rectangle "==Mainframe Banking System\\n<size:16>[Software System]</size>\\n\\nStores all of the core banking information about customers, accounts, transactions, etc." <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt>> as Live.BigBankplc.bigbankprod001.MainframeBankingSystem_1
+                  }
+                
+                }
+                
+                Live.BigBankplc.bigbankweb.ApacheTomcat.WebApplication_1 --> Live.Customerscomputer.WebBrowser.SinglePageApplication_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Delivers to the customer's web browser"
+                Live.Customersmobiledevice.MobileApp_1 --> Live.BigBankplc.bigbankapi.ApacheTomcat.APIApplication_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Makes API calls to\\n<size:16>[JSON/HTTPS]</size>"
+                Live.Customerscomputer.WebBrowser.SinglePageApplication_1 --> Live.BigBankplc.bigbankapi.ApacheTomcat.APIApplication_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Makes API calls to\\n<size:16>[JSON/HTTPS]</size>"
+                Live.BigBankplc.bigbankapi.ApacheTomcat.APIApplication_1 --> Live.BigBankplc.bigbankdb01.OraclePrimary.Database_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Reads from and writes to\\n<size:16>[SQL/TCP]</size>"
+                Live.BigBankplc.bigbankapi.ApacheTomcat.APIApplication_1 --> Live.BigBankplc.bigbankdb02.OracleSecondary.Database_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Reads from and writes to\\n<size:16>[SQL/TCP]</size>"
+                Live.BigBankplc.bigbankapi.ApacheTomcat.APIApplication_1 --> Live.BigBankplc.bigbankprod001.MainframeBankingSystem_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Makes API calls to\\n<size:16>[XML/HTTPS]</size>"
+                Live.BigBankplc.bigbankdb01.OraclePrimary --> Live.BigBankplc.bigbankdb02.OracleSecondary <<Relationship-UmVsYXRpb25zaGlw>> : "Replicates data to"
+                
+                @enduml""", diagram.getDefinition());
+
+        // and the sequence diagram version
+        workspace.getViews().getConfiguration().addProperty(exporter.PLANTUML_SEQUENCE_DIAGRAM_PROPERTY, "true");
+        diagrams = exporter.export(workspace);
+        diagram = diagrams.stream().filter(d -> d.getKey().equals("SignIn")).findFirst().get();
+        assertEquals("""
+                @startuml
+                title <size:24>Dynamic View: Internet Banking System - API Application</size>\\n<size:24>Summarises how the sign in feature works in the single-page application.</size>
+                
+                set separator none
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element,Component
+                  .Element-RWxlbWVudCxDb21wb25lbnQ= {
+                    BackgroundColor: #85bbf0;
+                    LineColor: #5d82a8;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #000000;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container,Database
+                  .Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #2e6295;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,Container,Web Browser
+                  .Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #ffffff;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                </style>
+                
+                participant "Single-Page Application\\n<size:16>[Container: JavaScript and Angular]</size>" as InternetBankingSystem.SinglePageApplication <<Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI=>>
+                participant "Sign In Controller\\n<size:16>[Component: Spring MVC Rest Controller]</size>" as InternetBankingSystem.APIApplication.SignInController <<Element-RWxlbWVudCxDb21wb25lbnQ=>>
+                participant "Security Component\\n<size:16>[Component: Spring Bean]</size>" as InternetBankingSystem.APIApplication.SecurityComponent <<Element-RWxlbWVudCxDb21wb25lbnQ=>>
+                database "Database\\n<size:16>[Container: Oracle Database Schema]</size>" as InternetBankingSystem.Database <<Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U=>>
+                
+                InternetBankingSystem.SinglePageApplication -> InternetBankingSystem.APIApplication.SignInController <<Relationship-UmVsYXRpb25zaGlw>> : 1: Submits credentials to\\n<size:16>[JSON/HTTPS]</size>
+                InternetBankingSystem.APIApplication.SignInController -> InternetBankingSystem.APIApplication.SecurityComponent <<Relationship-UmVsYXRpb25zaGlw>> : 2: Validates credentials using
+                InternetBankingSystem.APIApplication.SecurityComponent -> InternetBankingSystem.Database <<Relationship-UmVsYXRpb25zaGlw>> : 3: select * from users where username = ?\\n<size:16>[SQL/TCP]</size>
+                InternetBankingSystem.APIApplication.SecurityComponent <-- InternetBankingSystem.Database <<Relationship-UmVsYXRpb25zaGlw>> : 4: Returns user data to\\n<size:16>[SQL/TCP]</size>
+                InternetBankingSystem.APIApplication.SignInController <-- InternetBankingSystem.APIApplication.SecurityComponent <<Relationship-UmVsYXRpb25zaGlw>> : 5: Returns true if the hashed password matches
+                InternetBankingSystem.SinglePageApplication <-- InternetBankingSystem.APIApplication.SignInController <<Relationship-UmVsYXRpb25zaGlw>> : 6: Sends back an authentication token to\\n<size:16>[JSON/HTTPS]</size>
+                
+                @enduml""", diagram.getDefinition());
+    }
+
+    @Test
     public void systemLandscapeView_NoStyling_Light() {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem a = workspace.getModel().addSoftwareSystem("A", "Description.");
@@ -704,8 +1657,8 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                   }
                 </style>
                 
-                participant "A\\n<size:16>[Software System]</size>" as A <<Element-RWxlbWVudA==>> #ffffff
-                participant "B\\n<size:16>[Software System]</size>" as B <<Element-RWxlbWVudA==>> #ffffff
+                participant "A\\n<size:16>[Software System]</size>" as A <<Element-RWxlbWVudA==>>
+                participant "B\\n<size:16>[Software System]</size>" as B <<Element-RWxlbWVudA==>>
                 
                 A -> B <<Relationship-UmVsYXRpb25zaGlw>> : 1: Uses\\n<size:16>[JSON/HTTPS]</size>
                 
@@ -751,6 +1704,140 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 </style>
                 
                 rectangle "==Element" <<Element-RWxlbWVudA==>>
+                
+                rectangle "." <<.Element-Transparent>> as 1
+                1 --> 1 <<Relationship-UmVsYXRpb25zaGlw>> : "Relationship"
+                
+                @enduml""", diagram.getLegend().getDefinition());
+    }
+
+    @Test
+    public void dynamicView_SequenceStyle_Styling_Light() {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
+        a.addTags("A");
+        SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
+        b.addTags("B");
+
+        a.uses(b, "Uses", "JSON/HTTPS");
+
+        workspace.getViews().getConfiguration().getStyles().addElementStyle("A").shape(Shape.Person).color("#ff0000");
+        workspace.getViews().getConfiguration().getStyles().addElementStyle("B").shape(Shape.Cylinder).color("#00ff00");
+
+        DynamicView view = workspace.getViews().createDynamicView("key", "Description");
+        view.add(a, b);
+        view.addProperty(StructurizrPlantUMLExporter.PLANTUML_SEQUENCE_DIAGRAM_PROPERTY, "true");
+
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
+        Diagram diagram = exporter.export(view);
+
+        assertEquals("""
+                @startuml
+                title <size:24>Dynamic View</size>\\n<size:24>Description</size>
+                
+                set separator none
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element,A
+                  .Element-RWxlbWVudCxB {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Element,B
+                  .Element-RWxlbWVudCxC {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                </style>
+                
+                actor "A\\n<size:16>[Software System]</size>" as A <<Element-RWxlbWVudCxB>>
+                database "B\\n<size:16>[Software System]</size>" as B <<Element-RWxlbWVudCxC>>
+                
+                A -> B <<Relationship-UmVsYXRpb25zaGlw>> : 1: Uses\\n<size:16>[JSON/HTTPS]</size>
+                
+                @enduml""", diagram.getDefinition());
+
+        assertEquals("""
+                @startuml
+                
+                set separator none
+                hide stereotype
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element,A
+                  .Element-RWxlbWVudCxB {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,B
+                  .Element-RWxlbWVudCxC {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Relationship
+                  .Relationship-UmVsYXRpb25zaGlw {
+                    LineThickness: 2;
+                    LineStyle: 10-10;
+                    LineColor: #444444;
+                    FontColor: #444444;
+                    FontSize: 24;
+                  }
+                  // transparent element for relationships in legend
+                  .Element-Transparent {
+                    BackgroundColor: transparent;
+                    LineColor: transparent;
+                    FontColor: transparent;
+                  }
+                </style>
+                
+                person "==A" <<Element-RWxlbWVudCxB>>
+                
+                database "==B" <<Element-RWxlbWVudCxC>>
                 
                 rectangle "." <<.Element-Transparent>> as 1
                 1 --> 1 <<Relationship-UmVsYXRpb25zaGlw>> : "Relationship"

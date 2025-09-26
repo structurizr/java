@@ -22,7 +22,7 @@ public abstract class AbstractDiagramExporter extends AbstractExporter implement
     }
 
     public AbstractDiagramExporter(ColorScheme colorScheme) {
-        this.colorScheme = colorScheme;
+        this.colorScheme = colorScheme != null ? colorScheme : ColorScheme.Light;
     }
 
     /**

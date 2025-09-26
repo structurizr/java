@@ -267,7 +267,7 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
                 format(
                         "rectangle \"%s\\n<size:%s>%s</size>%s\" <<%s>> as %s%s {",
                         deploymentNode.getName() + (!"1".equals(deploymentNode.getInstances()) ? " (x" + deploymentNode.getInstances() + ")" : ""),
-                        calculateMetadataFontSize(findBoundaryStyle(view, deploymentNode).getFontSize()),
+                        calculateMetadataFontSize(findElementStyle(view, deploymentNode).getFontSize()),
                         typeOf(view, deploymentNode, true),
                         icon,
                         classSelectorFor(elementStyle),
@@ -324,6 +324,15 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
     @Override
     protected void writeElement(ModelView view, Element element, IndentingWriter writer) {
         ElementStyle elementStyle = findElementStyle(view, element);
+        String sequenceDiagramShape = plantumlSequenceType(view, element);
+
+        if (renderAsSequenceDiagram(view)) {
+            // actor and database require special treatment because the label sits outside the shape
+            if ("actor".equals(sequenceDiagramShape) || "database".equals(sequenceDiagramShape)) {
+                elementStyle.color(elementStyle.getStroke());
+            }
+        }
+
         PlantUMLElementStyle plantUMLElementStyle = new PlantUMLElementStyle(
                 elementStyle.getTag(),
                 elementStyle.getShape(),
@@ -342,14 +351,14 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
         int metadataFontSize = calculateMetadataFontSize(elementStyle.getFontSize());
 
         if (renderAsSequenceDiagram(view)) {
-            writer.writeLine(String.format("%s \"%s\\n<size:%s>%s</size>\" as %s <<%s>> %s",
-                    plantumlSequenceType(view, element),
+            writer.writeLine(String.format("%s \"%s\\n<size:%s>%s</size>\" as %s <<%s>>",
+                    sequenceDiagramShape,
                     element.getName(),
                     metadataFontSize,
                     typeOf(view, element, true),
                     idOf(element),
-                    plantUMLElementStyle.getClassSelector(),
-                    elementStyle.getBackground()));
+                    plantUMLElementStyle.getClassSelector()
+            ));
         } else {
             String shape = plantUMLShapeOf(view, element);
             String name = element.getName();
@@ -556,7 +565,83 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
     }
 
     private ElementStyle findBoundaryStyle(ModelView view, Element element) {
-        return findElementStyle(view, element);
+        String background = colorScheme == ColorScheme.Dark ? Styles.DEFAULT_BACKGROUND_DARK : Styles.DEFAULT_BACKGROUND_LIGHT;
+        String stroke = colorScheme == ColorScheme.Dark ? Styles.DEFAULT_COLOR_DARK : Styles.DEFAULT_COLOR_LIGHT;
+        int strokeWidth = DEFAULT_STROKE_WIDTH;
+        Border border = Border.Dotted;
+        String color = colorScheme == ColorScheme.Dark ? Styles.DEFAULT_COLOR_DARK : Styles.DEFAULT_COLOR_LIGHT;
+        String icon = "";
+        int fontSize = DEFAULT_FONT_SIZE;
+
+        String type = element instanceof SoftwareSystem ? "SoftwareSystem" : "Container";
+
+        ElementStyle style = new ElementStyle("");
+        ElementStyle elementStyleForBoundary = findElementStyle(view, "Boundary:" + type);
+        ElementStyle elementStyleForAllBoundaries = findElementStyle(view, "Boundary");
+        ElementStyle elementStyleForElement = findElementStyle(view, element);
+
+        if (elementStyleForBoundary != null && !StringUtils.isNullOrEmpty(elementStyleForBoundary.getBackground())) {
+            background = elementStyleForBoundary.getBackground();
+        } else if (elementStyleForAllBoundaries != null && !StringUtils.isNullOrEmpty(elementStyleForAllBoundaries.getBackground())) {
+            background = elementStyleForAllBoundaries.getBackground();
+        }
+        style.setBackground(background);
+
+        if (elementStyleForBoundary != null && !StringUtils.isNullOrEmpty(elementStyleForBoundary.getStroke())) {
+            stroke = elementStyleForBoundary.getStroke();
+        } else if (elementStyleForAllBoundaries != null && !StringUtils.isNullOrEmpty(elementStyleForAllBoundaries.getStroke())) {
+            stroke = elementStyleForAllBoundaries.getStroke();
+        } else if (!StringUtils.isNullOrEmpty(elementStyleForElement.getStroke())) {
+            stroke = elementStyleForElement.getStroke();
+        }
+        style.setStroke(stroke);
+
+        if (elementStyleForBoundary != null && elementStyleForBoundary.getStrokeWidth() != null) {
+            strokeWidth = elementStyleForBoundary.getStrokeWidth();
+        } else if (elementStyleForAllBoundaries != null && elementStyleForAllBoundaries.getStrokeWidth() != null) {
+            strokeWidth = elementStyleForAllBoundaries.getStrokeWidth();
+        } else if (elementStyleForElement.getStrokeWidth() != null) {
+            strokeWidth = elementStyleForElement.getStrokeWidth();
+        }
+        style.setStrokeWidth(strokeWidth);
+
+        if (elementStyleForBoundary != null && !StringUtils.isNullOrEmpty(elementStyleForBoundary.getColor())) {
+            color = elementStyleForBoundary.getColor();
+        } else if (elementStyleForAllBoundaries != null && !StringUtils.isNullOrEmpty(elementStyleForAllBoundaries.getColor())) {
+            color = elementStyleForAllBoundaries.getColor();
+        } else if (!StringUtils.isNullOrEmpty(elementStyleForElement.getColor())) {
+            color = elementStyleForElement.getColor();
+        }
+        style.setColor(color);
+
+        if (elementStyleForBoundary != null && elementStyleForBoundary.getBorder() != null) {
+            border = elementStyleForBoundary.getBorder();
+        } else if (elementStyleForAllBoundaries != null && elementStyleForAllBoundaries.getBorder() != null) {
+            border = elementStyleForAllBoundaries.getBorder();
+        } else if (elementStyleForElement.getBorder() != null) {
+            border = elementStyleForElement.getBorder();
+        }
+        style.setBorder(border);
+
+        if (elementStyleForBoundary != null && isSupportedIcon(elementStyleForBoundary.getIcon())) {
+            icon = elementStyleForBoundary.getIcon();
+        } else if (elementStyleForAllBoundaries != null && isSupportedIcon(elementStyleForAllBoundaries.getIcon())) {
+            icon = elementStyleForAllBoundaries.getIcon();
+        } else if (isSupportedIcon(elementStyleForElement.getIcon())) {
+            icon = elementStyleForElement.getIcon();
+        }
+        style.setIcon(icon);
+
+        if (elementStyleForBoundary != null && elementStyleForBoundary.getFontSize() != null) {
+            fontSize = elementStyleForBoundary.getFontSize();
+        } else if (elementStyleForAllBoundaries != null && elementStyleForAllBoundaries.getFontSize() != null) {
+            fontSize = elementStyleForAllBoundaries.getFontSize();
+        } else if (elementStyleForElement.getFontSize() != null) {
+            fontSize = elementStyleForElement.getFontSize();
+        }
+        style.setFontSize(fontSize);
+
+        return style;
     }
 
     private String classSelectorForGroup(String group) {
