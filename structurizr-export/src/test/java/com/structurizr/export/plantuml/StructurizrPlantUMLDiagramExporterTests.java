@@ -34,11 +34,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>System Landscape View</size>\\n<size:24>Description</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -65,20 +65,20 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontSize: 24;
                   }
                 </style>
-                
+                                
                 rectangle "==A\\n<size:16>[Software System]</size>\\n\\nDescription." <<Element-RWxlbWVudA==>> as A
                 rectangle "==B\\n<size:16>[Software System]</size>\\n\\nDescription." <<Element-RWxlbWVudA==>> as B
-                
+                                
                 A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "Description\\n<size:16>[Technology]</size>"
-                
+                                
                 @enduml""", diagram.getDefinition());
 
         assertEquals("""
                 @startuml
-                
+                                
                 set separator none
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -111,12 +111,12 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontColor: transparent;
                   }
                 </style>
-                
+                                
                 rectangle "==Element" <<Element-RWxlbWVudA==>>
-                
+                                
                 rectangle "." <<.Element-Transparent>> as 1
                 1 --> 1 <<Relationship-UmVsYXRpb25zaGlw>> : "Relationship"
-                
+                                
                 @enduml""", diagram.getLegend().getDefinition());
     }
 
@@ -136,11 +136,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>System Landscape View</size>\\n<size:24>Description</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #111111;
@@ -167,20 +167,20 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontSize: 24;
                   }
                 </style>
-                
+                                
                 rectangle "==A\\n<size:16>[Software System]</size>\\n\\nDescription." <<Element-RWxlbWVudA==>> as A
                 rectangle "==B\\n<size:16>[Software System]</size>\\n\\nDescription." <<Element-RWxlbWVudA==>> as B
-                
+                                
                 A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "Description\\n<size:16>[Technology]</size>"
-                
+                                
                 @enduml""", diagram.getDefinition());
 
         assertEquals("""
                 @startuml
-                
+                                
                 set separator none
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #111111;
@@ -213,12 +213,12 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontColor: transparent;
                   }
                 </style>
-                
+                                
                 rectangle "==Element" <<Element-RWxlbWVudA==>>
-                
+                                
                 rectangle "." <<.Element-Transparent>> as 1
                 1 --> 1 <<Relationship-UmVsYXRpb25zaGlw>> : "Relationship"
-                
+                                
                 @enduml""", diagram.getLegend().getDefinition());
     }
 
@@ -238,11 +238,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>System Context View: A</size>\\n<size:24>Description</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -269,12 +269,12 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontSize: 24;
                   }
                 </style>
-                
+                                
                 rectangle "==A\\n<size:16>[Software System]</size>\\n\\nDescription." <<Element-RWxlbWVudA==>> as A
                 rectangle "==B\\n<size:16>[Software System]</size>\\n\\nDescription." <<Element-RWxlbWVudA==>> as B
-                
+                                
                 A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "Description\\n<size:16>[Technology]</size>"
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -295,11 +295,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Container View: Software System A</size>\\n<size:24>Description</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -337,14 +337,14 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "Software System A\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIEE=>> {
                   rectangle "==Container 1\\n<size:16>[Container: Technology]</size>\\n\\nDescription" <<Element-RWxlbWVudA==>> as SoftwareSystemA.Container1
                   rectangle "==Container 2\\n<size:16>[Container: Technology]</size>\\n\\nDescription" <<Element-RWxlbWVudA==>> as SoftwareSystemA.Container2
                 }
-                
+                                
                 SoftwareSystemA.Container1 --> SoftwareSystemA.Container2 <<Relationship-UmVsYXRpb25zaGlw>> : "Description\\n<size:16>[Technology]</size>"
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -366,11 +366,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Component View: Software System - Container</size>\\n<size:24>Description</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -408,14 +408,14 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "Container\\n<size:16>[Container: Technology]</size>" <<Boundary-Q29udGFpbmVy>> {
                   rectangle "==Component 1\\n<size:16>[Component: Technology]</size>\\n\\nDescription" <<Element-RWxlbWVudA==>> as SoftwareSystem.Container.Component1
                   rectangle "==Component 2\\n<size:16>[Component: Technology]</size>\\n\\nDescription" <<Element-RWxlbWVudA==>> as SoftwareSystem.Container.Component2
                 }
-                
+                                
                 SoftwareSystem.Container.Component1 --> SoftwareSystem.Container.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "Description\\n<size:16>[Technology]</size>"
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -436,11 +436,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Deployment View: Default</size>\\n<size:24>Default</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -459,18 +459,18 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     MaximumWidth: 450;
                   }
                 </style>
-                
+                                
                 rectangle "Node 1\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Default.Node1 {
                   rectangle "Node 2\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Default.Node1.Node2 {
                     rectangle "==A\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Default.Node1.Node2.A_1
                   }
-                
+                                
                   rectangle "Node 3\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Default.Node1.Node3 {
                     rectangle "==Infrastructure Node\\n<size:16>[Infrastructure Node]</size>" <<Element-RWxlbWVudA==>> as Default.Node1.Node3.InfrastructureNode
                   }
-                
+                                
                 }
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -491,11 +491,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Dynamic View</size>\\n<size:24>Description</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -522,12 +522,12 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontSize: 24;
                   }
                 </style>
-                
+                                
                 rectangle "==A\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as A
                 rectangle "==B\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as B
-                
+                                
                 A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -553,11 +553,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Dynamic View</size>\\n<size:24>Description</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -584,25 +584,25 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontSize: 24;
                   }
                 </style>
-                
+                                
                 rectangle "==A\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as A
                 rectangle "==B\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as B
                 rectangle "==C\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as C
                 hide C
-                
+                                
                 A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
                 B --> C <<Relationship-UmVsYXRpb25zaGlw>> : "2: Uses"
-                
+                                
                 @enduml""", frames.get(0).getDefinition());
 
         assertEquals("""
                 @startuml
                 title <size:24>Dynamic View</size>\\n<size:24>Description</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -629,7 +629,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontSize: 24;
                   }
                 </style>
-                
+                                
                 rectangle "==A\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as A
                 hide A
                 rectangle "==B\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as B
@@ -637,7 +637,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
                 A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
                 B --> C <<Relationship-UmVsYXRpb25zaGlw>> : "2: Uses"
-                
+                                
                 @enduml""", frames.get(1).getDefinition());
     }
 
@@ -659,10 +659,10 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Dynamic View</size>\\n<size:24>Description</size>
-                
+                                
                 set separator none
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -689,20 +689,20 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontSize: 24;
                   }
                 </style>
-                
+                                
                 participant "A\\n<size:16>[Software System]</size>" as A <<Element-RWxlbWVudA==>> #ffffff
                 participant "B\\n<size:16>[Software System]</size>" as B <<Element-RWxlbWVudA==>> #ffffff
-                
+                                
                 A -> B <<Relationship-UmVsYXRpb25zaGlw>> : 1: Uses\\n<size:16>[JSON/HTTPS]</size>
-                
+                                
                 @enduml""", diagram.getDefinition());
 
         assertEquals("""
                 @startuml
-                
+                                
                 set separator none
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -735,12 +735,12 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontColor: transparent;
                   }
                 </style>
-                
+                                
                 rectangle "==Element" <<Element-RWxlbWVudA==>>
-                
+                                
                 rectangle "." <<.Element-Transparent>> as 1
                 1 --> 1 <<Relationship-UmVsYXRpb25zaGlw>> : "Relationship"
-                
+                                
                 @enduml""", diagram.getLegend().getDefinition());
     }
 
@@ -756,13 +756,13 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>System Landscape View</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 skinparam ranksep 60
                 skinparam nodesep 30
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -822,38 +822,38 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
                   rectangle "==B\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as B
                 }
-                
+                                
                 rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
                   rectangle "==C\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as C
                     rectangle "Group 3" <<Group-R3JvdXAgMi9Hcm91cCAz>> as groupR3JvdXAgMi9Hcm91cCAz {
                       rectangle "==D\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as D
                     }
-                
+                                
                 }
-                
+                                
                 rectangle "==A\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as A
-                
+                                
                 B --> C <<Relationship-UmVsYXRpb25zaGlw>> : ""
                 C --> D <<Relationship-UmVsYXRpb25zaGlw>> : ""
                 A --> B <<Relationship-UmVsYXRpb25zaGlw>> : ""
-                
+                                
                 @enduml""", diagram.getDefinition());
 
         diagram = diagrams.stream().filter(md -> md.getKey().equals("Containers")).findFirst().get();
         assertEquals("""
                 @startuml
                 title <size:24>Container View: D</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 skinparam ranksep 60
                 skinparam nodesep 30
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -902,33 +902,33 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "==C\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as C
-                
+                                
                 rectangle "D\\n<size:16>[Software System]</size>" <<Boundary-RA==>> {
                   rectangle "Group 4" <<Group-R3JvdXAgNA==>> as groupR3JvdXAgNA== {
                     rectangle "==F\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as D.F
                   }
-                
+                                
                   rectangle "==E\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as D.E
                 }
-                
+                                
                 C --> D.E <<Relationship-UmVsYXRpb25zaGlw>> : ""
                 C --> D.F <<Relationship-UmVsYXRpb25zaGlw>> : ""
-                
+                                
                 @enduml""", diagram.getDefinition());
 
         diagram = diagrams.stream().filter(md -> md.getKey().equals("Components")).findFirst().get();
         assertEquals("""
                 @startuml
                 title <size:24>Component View: D - F</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 skinparam ranksep 60
                 skinparam nodesep 30
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -977,21 +977,21 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "==C\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as C
-                
+                                
                 rectangle "F\\n<size:16>[Container]</size>" <<Boundary-Rg==>> {
                   rectangle "Group 5" <<Group-R3JvdXAgNQ==>> as groupR3JvdXAgNQ== {
                     rectangle "==H\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as D.F.H
                   }
-                
+                                
                   rectangle "==G\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as D.F.G
                 }
-                
+                                
                 C --> D.F.G <<Relationship-UmVsYXRpb25zaGlw>> : ""
                 C --> D.F.H <<Relationship-UmVsYXRpb25zaGlw>> : ""
                 D.F.G --> D.F.H <<Relationship-UmVsYXRpb25zaGlw>> : ""
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -1028,11 +1028,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>System Landscape View</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -1106,7 +1106,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "Organisation 1" <<Group-T3JnYW5pc2F0aW9uIDE=>> as groupT3JnYW5pc2F0aW9uIDE= {
                   rectangle "==Organisation 1\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Organisation1
                     rectangle "Department 1" <<Group-T3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAx>> as groupT3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAx {
@@ -1114,23 +1114,23 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                         rectangle "Team 1" <<Group-T3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAxL1RlYW0gMQ==>> as groupT3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAxL1RlYW0gMQ== {
                           rectangle "==Team 1\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Team1
                         }
-                
+                                
                         rectangle "Team 2" <<Group-T3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAxL1RlYW0gMg==>> as groupT3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAxL1RlYW0gMg== {
                           rectangle "==Team 2\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Team2
                         }
-                
+                                
                     }
-                
+                                
                 }
-                
+                                
                 rectangle "Organisation 2" <<Group-T3JnYW5pc2F0aW9uIDI=>> as groupT3JnYW5pc2F0aW9uIDI= {
                   rectangle "==Organisation 2\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Organisation2
                 }
-                
-                
+                                
+                                
                 @enduml""", diagram.getDefinition());
     }
-    
+
 
     @Test
     public void test_Sequence() throws Exception {
@@ -1198,7 +1198,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 d.e.f -> d.e.g <<Relationship-UmVsYXRpb25zaGlw>> : 3:\s
                                 
                 @enduml""";
-        
+
         assertEquals(actual, diagram.getDefinition());
 
         diagram = diagrams.stream().filter(md -> md.getKey().equals("Sequence-SoftwareSystem")).findFirst().get();
@@ -1268,11 +1268,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Container View: Software System 1</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -1321,17 +1321,17 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "Software System 1\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDE=>> {
                   rectangle "==Container 1\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1
                 }
-                
+                                
                 rectangle "Software System 2\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDI=>> {
                   rectangle "==Container 2\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2
                 }
-                
+                                
                 SoftwareSystem1.Container1 --> SoftwareSystem2.Container2 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -1360,11 +1360,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Component View: Software System 1 - Container 1</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -1413,19 +1413,19 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "Container 1\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDE=>> {
                   rectangle "==Component 1\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component1
                   rectangle "==Component 2\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component2
                 }
-                
+                                
                 rectangle "Container 2\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDI=>> {
                   rectangle "==Component 3\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2.Component3
                 }
-                
+                                
                 SoftwareSystem1.Container1.Component1 --> SoftwareSystem1.Container1.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
                 SoftwareSystem1.Container1.Component2 --> SoftwareSystem2.Container2.Component3 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -1455,11 +1455,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Component View: Software System 1 - Container 1</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -1530,25 +1530,25 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "Software System 1\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDE=>> {
                     rectangle "Container 1\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDE=>> {
                       rectangle "==Component 1\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component1
                       rectangle "==Component 2\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component2
                     }
-                
+                                
                   }
-                
+                                
                 rectangle "Software System 2\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDI=>> {
                     rectangle "Container 2\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDI=>> {
                       rectangle "==Component 3\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2.Component3
                     }
-                
+                                
                   }
-                
+                                
                 SoftwareSystem1.Container1.Component1 --> SoftwareSystem1.Container1.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
                 SoftwareSystem1.Container1.Component2 --> SoftwareSystem2.Container2.Component3 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -1569,11 +1569,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Dynamic View: Software System 1</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -1622,17 +1622,17 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "Software System 1\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDE=>> {
                   rectangle "==Container 1\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1
                 }
-                
+                                
                 rectangle "Software System 2\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDI=>> {
                   rectangle "==Container 2\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2
                 }
-                
+                                
                 SoftwareSystem1.Container1 --> SoftwareSystem2.Container2 <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -1660,11 +1660,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Dynamic View: Software System 1 - Container 1</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -1713,19 +1713,19 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "Container 1\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDE=>> {
                   rectangle "==Component 1\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component1
                   rectangle "==Component 2\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component2
                 }
-                
+                                
                 rectangle "Container 2\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDI=>> {
                   rectangle "==Component 3\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2.Component3
                 }
-                
+                                
                 SoftwareSystem1.Container1.Component1 --> SoftwareSystem1.Container1.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
                 SoftwareSystem1.Container1.Component2 --> SoftwareSystem2.Container2.Component3 <<Relationship-UmVsYXRpb25zaGlw>> : "2: Uses"
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -1754,11 +1754,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Dynamic View: Software System 1 - Container 1</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -1829,25 +1829,25 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "Software System 1\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDE=>> {
                     rectangle "Container 1\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDE=>> {
                       rectangle "==Component 1\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component1
                       rectangle "==Component 2\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem1.Container1.Component2
                     }
-                
+                                
                   }
-                
+                                
                 rectangle "Software System 2\\n<size:16>[Software System]</size>" <<Boundary-U29mdHdhcmUgU3lzdGVtIDI=>> {
                     rectangle "Container 2\\n<size:16>[Container]</size>" <<Boundary-Q29udGFpbmVyIDI=>> {
                       rectangle "==Component 3\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem2.Container2.Component3
                     }
-                
+                                
                   }
-                
+                                
                 SoftwareSystem1.Container1.Component1 --> SoftwareSystem1.Container1.Component2 <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
                 SoftwareSystem1.Container1.Component2 --> SoftwareSystem2.Container2.Component3 <<Relationship-UmVsYXRpb25zaGlw>> : "2: Uses"
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -1892,11 +1892,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>System Landscape View</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -1915,9 +1915,9 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     MaximumWidth: 450;
                   }
                 </style>
-                
+                                
                 rectangle "==Software\\nSystem\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as SoftwareSystem
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -1937,11 +1937,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Title</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -1968,12 +1968,12 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontSize: 24;
                   }
                 </style>
-                
+                                
                 rectangle "==A" <<Element-RWxlbWVudA==>> as 1
                 rectangle "==B\\n<size:16>[Custom]</size>\\n\\nDescription" <<Element-RWxlbWVudA==>> as 2
-                
+                                
                 1 --> 2 <<Relationship-UmVsYXRpb25zaGlw>> : "Uses"
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -1988,11 +1988,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>System Landscape View</size>\\n<size:24>Description</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -2011,9 +2011,9 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     MaximumWidth: 450;
                   }
                 </style>
-                
+                                
                 rectangle "==Пользователь\\n<size:16>[Person]</size>" <<Element-RWxlbWVudA==>> as Пользователь
-                
+                                
                 @enduml""", diagramDefinition);
     }
 
@@ -2075,11 +2075,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Dynamic View</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -2128,18 +2128,18 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
                   rectangle "==A\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as A
                 }
-                
+                                
                 rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
                   rectangle "==B\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as B
                 }
-                
-                
+                                
+                                
                 A --> B <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -2162,11 +2162,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Dynamic View: A</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -2237,23 +2237,23 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "A\\n<size:16>[Software System]</size>" <<Boundary-QQ==>> {
                   rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
                     rectangle "==A\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as A.A
                   }
-                
+                                
                 }
-                
+                                
                 rectangle "B\\n<size:16>[Software System]</size>" <<Boundary-Qg==>> {
                   rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
                     rectangle "==B\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as B.B
                   }
-                
+                                
                 }
-                
+                                
                 A.A --> B.B <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -2278,11 +2278,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Dynamic View: A - A</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -2353,23 +2353,23 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "A\\n<size:16>[Container]</size>" <<Boundary-QQ==>> {
                   rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
                     rectangle "==A\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as A.A.A
                   }
-                
+                                
                 }
-                
+                                
                 rectangle "B\\n<size:16>[Container]</size>" <<Boundary-Qg==>> {
                   rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
                     rectangle "==B\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as B.B.B
                   }
-                
+                                
                 }
-                
+                                
                 A.A.A --> B.B.B <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -2398,11 +2398,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Deployment View: Default</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -2443,19 +2443,19 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
                   rectangle "Server 1\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Default.Server1 {
                     rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
                       rectangle "==Infrastructure Node 2\\n<size:16>[Infrastructure Node]</size>" <<Element-RWxlbWVudA==>> as Default.Server1.InfrastructureNode2
                       rectangle "==Software System\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Default.Server1.SoftwareSystem_1
                     }
-                
+                                
                     rectangle "==Infrastructure Node 1\\n<size:16>[Infrastructure Node]</size>" <<Element-RWxlbWVudA==>> as Default.Server1.InfrastructureNode1
                   }
-                
+                                
                 }
-                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -2473,11 +2473,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>System Landscape View</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -2507,12 +2507,12 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "Name" <<Group-TmFtZQ==>> as groupTmFtZQ== {
                   rectangle "==Name\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Name
                 }
-                
-                
+                                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -2530,11 +2530,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>System Landscape View</size>
-                
+                                
                 set separator none
                 top to bottom direction
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #111111;
@@ -2564,12 +2564,12 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                
+                                
                 rectangle "Name" <<Group-TmFtZQ==>> as groupTmFtZQ== {
                   rectangle "==Name\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Name
                 }
-                
-                
+                                
+                                
                 @enduml""", diagram.getDefinition());
     }
 
@@ -2587,13 +2587,13 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Deployment View: X - Live</size>
-                
+                                
                 set separator none
                 left to right direction
                 skinparam ranksep 60
                 skinparam nodesep 30
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -2729,41 +2729,41 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontSize: 24;
                   }
                 </style>
-                
+                                
                 rectangle "Amazon Web Services\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ=>> as Live.AmazonWebServices {
                   rectangle "US-East-1\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u>> as Live.AmazonWebServices.USEast1 {
                     rectangle "Autoscaling group\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n>> as Live.AmazonWebServices.USEast1.Autoscalinggroup {
                       rectangle "Amazon EC2 - Ubuntu server\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy>> as Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver {
                         rectangle "==Web Application\\n<size:16>[Container: Java and Spring Boot]</size>" <<Element-RWxlbWVudCxBcHBsaWNhdGlvbg==>> as Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1
                       }
-                
+                                
                     }
-                
+                                
                     rectangle "Amazon RDS\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT>> as Live.AmazonWebServices.USEast1.AmazonRDS {
                       rectangle "MySQL\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.36}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl>> as Live.AmazonWebServices.USEast1.AmazonRDS.MySQL {
                         database "==Database Schema\\n<size:16>[Container]</size>" <<Element-RWxlbWVudCxEYXRhYmFzZQ==>> as Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1
                       }
-                
+                                
                     }
-                
+                                
                     rectangle "==DNS router\\n<size:16>[Infrastructure Node: Route 53]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-route-53.png{scale=0.24}>\\n\\nRoutes incoming requests based upon domain name." <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUm91dGUgNTM=>> as Live.AmazonWebServices.USEast1.DNSrouter
                     rectangle "==Load Balancer\\n<size:16>[Infrastructure Node: Elastic Load Balancer]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/elastic-load-balancing.png{scale=0.24}>\\n\\nAutomatically distributes incoming application traffic." <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw==>> as Live.AmazonWebServices.USEast1.LoadBalancer
                   }
-                
+                                
                 }
-                
+                                
                 Live.AmazonWebServices.USEast1.LoadBalancer --> Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Forwards requests to\\n<size:16>[HTTPS]</size>"
                 Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1 --> Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Reads from and writes to\\n<size:16>[MySQL Protocol/SSL]</size>"
                 Live.AmazonWebServices.USEast1.DNSrouter --> Live.AmazonWebServices.USEast1.LoadBalancer <<Relationship-UmVsYXRpb25zaGlw>> : "Forwards requests to\\n<size:16>[HTTPS]</size>"
-                
+                                
                 @enduml""", diagram.getDefinition());
 
         assertEquals("""
                 @startuml
-                
+                                
                 set separator none
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -2905,30 +2905,30 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontColor: transparent;
                   }
                 </style>
-                
+                                
                 rectangle "==Amazon Web Services - Auto Scaling\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n>>
-                
+                                
                 rectangle "==Amazon Web Services - Cloud\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ=>>
-                
+                                
                 rectangle "==Amazon Web Services - EC2\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy>>
-                
+                                
                 rectangle "==Amazon Web Services - Elastic Load Balancing\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/elastic-load-balancing.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw==>>
-                
+                                
                 rectangle "==Amazon Web Services - RDS\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT>>
-                
+                                
                 rectangle "==Amazon Web Services - RDS MySQL instance\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.36}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl>>
-                
+                                
                 rectangle "==Amazon Web Services - Region\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u>>
-                
+                                
                 rectangle "==Amazon Web Services - Route 53\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-route-53.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUm91dGUgNTM=>>
-                
+                                
                 rectangle "==Application" <<Element-RWxlbWVudCxBcHBsaWNhdGlvbg==>>
-                
+                                
                 database "==Database" <<Element-RWxlbWVudCxEYXRhYmFzZQ==>>
-                
+                                
                 rectangle "." <<.Element-Transparent>> as 1
                 1 --> 1 <<Relationship-UmVsYXRpb25zaGlw>> : "Relationship"
-                
+                                
                 @enduml""", diagram.getLegend().getDefinition());
     }
 
@@ -2946,13 +2946,13 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         assertEquals("""
                 @startuml
                 title <size:24>Deployment View: X - Live</size>
-                
+                                
                 set separator none
                 left to right direction
                 skinparam ranksep 60
                 skinparam nodesep 30
                 hide stereotype
-                
+                                
                 <style>
                   root {
                     BackgroundColor: #111111;
@@ -3088,207 +3088,285 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontSize: 24;
                   }
                 </style>
-                
+                                
                 rectangle "Amazon Web Services\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ=>> as Live.AmazonWebServices {
                   rectangle "US-East-1\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u>> as Live.AmazonWebServices.USEast1 {
                     rectangle "Autoscaling group\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n>> as Live.AmazonWebServices.USEast1.Autoscalinggroup {
                       rectangle "Amazon EC2 - Ubuntu server\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy>> as Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver {
                         rectangle "==Web Application\\n<size:16>[Container: Java and Spring Boot]</size>" <<Element-RWxlbWVudCxBcHBsaWNhdGlvbg==>> as Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1
                       }
-                
+                                
                     }
-                
+                                
                     rectangle "Amazon RDS\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT>> as Live.AmazonWebServices.USEast1.AmazonRDS {
                       rectangle "MySQL\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.36}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl>> as Live.AmazonWebServices.USEast1.AmazonRDS.MySQL {
                         database "==Database Schema\\n<size:16>[Container]</size>" <<Element-RWxlbWVudCxEYXRhYmFzZQ==>> as Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1
                       }
-                
+                                
                     }
-                
+                                
                     rectangle "==DNS router\\n<size:16>[Infrastructure Node: Route 53]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-route-53.png{scale=0.24}>\\n\\nRoutes incoming requests based upon domain name." <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUm91dGUgNTM=>> as Live.AmazonWebServices.USEast1.DNSrouter
                     rectangle "==Load Balancer\\n<size:16>[Infrastructure Node: Elastic Load Balancer]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/elastic-load-balancing.png{scale=0.24}>\\n\\nAutomatically distributes incoming application traffic." <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw==>> as Live.AmazonWebServices.USEast1.LoadBalancer
                   }
-                
+                                
                 }
-                
+                                
                 Live.AmazonWebServices.USEast1.LoadBalancer --> Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Forwards requests to\\n<size:16>[HTTPS]</size>"
                 Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1 --> Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1 <<Relationship-UmVsYXRpb25zaGlw>> : "Reads from and writes to\\n<size:16>[MySQL Protocol/SSL]</size>"
                 Live.AmazonWebServices.USEast1.DNSrouter --> Live.AmazonWebServices.USEast1.LoadBalancer <<Relationship-UmVsYXRpb25zaGlw>> : "Forwards requests to\\n<size:16>[HTTPS]</size>"
-                
+                                
                 @enduml""", diagram.getDefinition());
 
         assertEquals("""
                 @startuml
-                
+                title <size:24>Dynamic View: Internet Banking System - API Application</size>\\n<size:24>Summarises how the sign in feature works in the single-page application.</size>
+                                
                 set separator none
                 hide stereotype
-                
+                                
                 <style>
                   root {
-                    BackgroundColor: #111111;
-                    FontColor: #cccccc;
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
                   }
-                  // Element,Amazon Web Services - Auto Scaling
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n {
-                    BackgroundColor: #111111;
-                    LineColor: #cc2264;
+                  // Element,Component
+                  .Element-RWxlbWVudCxDb21wb25lbnQ= {
+                    BackgroundColor: #85bbf0;
+                    LineColor: #5d82a8;
                     LineStyle: 0;
                     LineThickness: 2;
-                    FontColor: #cc2264;
+                    FontColor: #000000;
                     FontSize: 24;
                     HorizontalAlignment: center;
                     Shadowing: 0;
-                    MaximumWidth: 200;
+                    MaximumWidth: 450;
                   }
-                  // Element,Amazon Web Services - Cloud
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ= {
-                    BackgroundColor: #111111;
-                    LineColor: #232f3e;
+                  // Element,Container,Database
+                  .Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
                     LineStyle: 0;
                     LineThickness: 2;
-                    FontColor: #232f3e;
+                    FontColor: #ffffff;
                     FontSize: 24;
                     HorizontalAlignment: center;
                     Shadowing: 0;
-                    MaximumWidth: 200;
+                    MaximumWidth: 450;
                   }
-                  // Element,Amazon Web Services - EC2
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy {
-                    BackgroundColor: #111111;
-                    LineColor: #d86613;
+                  // Element,Container,Web Browser
+                  .Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI= {
+                    BackgroundColor: #438dd5;
+                    LineColor: #2e6295;
                     LineStyle: 0;
                     LineThickness: 2;
-                    FontColor: #d86613;
+                    FontColor: #ffffff;
                     FontSize: 24;
                     HorizontalAlignment: center;
                     Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Amazon Web Services - Elastic Load Balancing
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw== {
-                    BackgroundColor: #111111;
-                    LineColor: #693cc5;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #693cc5;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Amazon Web Services - RDS
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT {
-                    BackgroundColor: #111111;
-                    LineColor: #3b48cc;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #3b48cc;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Amazon Web Services - RDS MySQL instance
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl {
-                    BackgroundColor: #111111;
-                    LineColor: #3b48cc;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #3b48cc;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Amazon Web Services - Region
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u {
-                    BackgroundColor: #111111;
-                    LineColor: #147eba;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #147eba;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Amazon Web Services - Route 53
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUm91dGUgNTM= {
-                    BackgroundColor: #111111;
-                    LineColor: #693cc5;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #693cc5;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Application
-                  .Element-RWxlbWVudCxBcHBsaWNhdGlvbg== {
-                    BackgroundColor: #111111;
-                    LineColor: #cccccc;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    RoundCorner: 20;
-                    FontColor: #cccccc;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Database
-                  .Element-RWxlbWVudCxEYXRhYmFzZQ== {
-                    BackgroundColor: #111111;
-                    LineColor: #cccccc;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #cccccc;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
+                    MaximumWidth: 450;
                   }
                   // Relationship
                   .Relationship-UmVsYXRpb25zaGlw {
                     LineThickness: 2;
                     LineStyle: 10-10;
-                    LineColor: #cccccc;
-                    FontColor: #cccccc;
+                    LineColor: #444444;
+                    FontColor: #444444;
                     FontSize: 24;
                   }
-                  // transparent element for relationships in legend
-                  .Element-Transparent {
-                    BackgroundColor: transparent;
-                    LineColor: transparent;
-                    FontColor: transparent;
-                  }
                 </style>
-                
-                rectangle "==Amazon Web Services - Auto Scaling\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n>>
-                
-                rectangle "==Amazon Web Services - Cloud\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ=>>
-                
-                rectangle "==Amazon Web Services - EC2\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy>>
-                
-                rectangle "==Amazon Web Services - Elastic Load Balancing\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/elastic-load-balancing.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw==>>
-                
-                rectangle "==Amazon Web Services - RDS\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT>>
-                
-                rectangle "==Amazon Web Services - RDS MySQL instance\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.36}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl>>
-                
-                rectangle "==Amazon Web Services - Region\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u>>
-                
-                rectangle "==Amazon Web Services - Route 53\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-route-53.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUm91dGUgNTM=>>
-                
-                rectangle "==Application" <<Element-RWxlbWVudCxBcHBsaWNhdGlvbg==>>
-                
-                database "==Database" <<Element-RWxlbWVudCxEYXRhYmFzZQ==>>
-                
-                rectangle "." <<.Element-Transparent>> as 1
-                1 --> 1 <<Relationship-UmVsYXRpb25zaGlw>> : "Relationship"
-                
+                                
+                box "API Application\\n[Container: Java and Spring MVC]"
+                  participant "Sign In Controller\\n<size:16>[Component: Spring MVC Rest Controller]</size>" as InternetBankingSystem.APIApplication.SignInController <<Element-RWxlbWVudCxDb21wb25lbnQ=>> #85bbf0
+                  participant "Security Component\\n<size:16>[Component: Spring Bean]</size>" as InternetBankingSystem.APIApplication.SecurityComponent <<Element-RWxlbWVudCxDb21wb25lbnQ=>> #85bbf0
+                end box
+                                
+                participant "Single-Page Application\\n<size:16>[Container: JavaScript and Angular]</size>" as InternetBankingSystem.SinglePageApplication <<Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI=>> #438dd5
+                database "Database\\n<size:16>[Container: Oracle Database Schema]</size>" as InternetBankingSystem.Database <<Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U=>> #438dd5
+                                
+                InternetBankingSystem.SinglePageApplication -> InternetBankingSystem.APIApplication.SignInController <<Relationship-UmVsYXRpb25zaGlw>> : 1: Submits credentials to\\n<size:16>[JSON/HTTPS]</size>
+                InternetBankingSystem.APIApplication.SignInController -> InternetBankingSystem.APIApplication.SecurityComponent <<Relationship-UmVsYXRpb25zaGlw>> : 2: Validates credentials using
+                InternetBankingSystem.APIApplication.SecurityComponent -> InternetBankingSystem.Database <<Relationship-UmVsYXRpb25zaGlw>> : 3: select * from users where username = ?\\n<size:16>[SQL/TCP]</size>
+                InternetBankingSystem.APIApplication.SecurityComponent <-- InternetBankingSystem.Database <<Relationship-UmVsYXRpb25zaGlw>> : 4: Returns user data to\\n<size:16>[SQL/TCP]</size>
+                InternetBankingSystem.APIApplication.SignInController <-- InternetBankingSystem.APIApplication.SecurityComponent <<Relationship-UmVsYXRpb25zaGlw>> : 5: Returns true if the hashed password matches
+                InternetBankingSystem.SinglePageApplication <-- InternetBankingSystem.APIApplication.SignInController <<Relationship-UmVsYXRpb25zaGlw>> : 6: Sends back an authentication token to\\n<size:16>[JSON/HTTPS]</size>
+                                
                 @enduml""", diagram.getLegend().getDefinition());
     }
 
+    @Test
+    public void test_BigBankPlcExample_StructurizrPlantUML_Seq() throws Exception {
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/big-bank-plc.json"));
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
+        Collection<Diagram> diagrams = exporter.export(workspace);
+        assertEquals(7, diagrams.size());
+
+        Diagram diagram = diagrams.stream().filter(d -> d.getKey().equals("SignIn")).findFirst().get();
+        assertEquals("""
+               @startuml
+               title <size:24>Dynamic View: Internet Banking System - API Application</size>\\n<size:24>Summarises how the sign in feature works in the single-page application.</size>
+               
+               set separator none
+               top to bottom direction
+               skinparam ranksep 60
+               skinparam nodesep 30
+               hide stereotype
+               
+               <style>
+                 root {
+                   BackgroundColor: #ffffff;
+                   FontColor: #444444;
+                 }
+                 // Element,Component
+                 .Element-RWxlbWVudCxDb21wb25lbnQ= {
+                   BackgroundColor: #85bbf0;
+                   LineColor: #5d82a8;
+                   LineStyle: 0;
+                   LineThickness: 2;
+                   FontColor: #000000;
+                   FontSize: 24;
+                   HorizontalAlignment: center;
+                   Shadowing: 0;
+                   MaximumWidth: 450;
+                 }
+                 // Element,Container,Database
+                 .Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U= {
+                   BackgroundColor: #438dd5;
+                   LineColor: #2e6295;
+                   LineStyle: 0;
+                   LineThickness: 2;
+                   FontColor: #ffffff;
+                   FontSize: 24;
+                   HorizontalAlignment: center;
+                   Shadowing: 0;
+                   MaximumWidth: 450;
+                 }
+                 // Element,Container,Web Browser
+                 .Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI= {
+                   BackgroundColor: #438dd5;
+                   LineColor: #2e6295;
+                   LineStyle: 0;
+                   LineThickness: 2;
+                   FontColor: #ffffff;
+                   FontSize: 24;
+                   HorizontalAlignment: center;
+                   Shadowing: 0;
+                   MaximumWidth: 450;
+                 }
+                 // Relationship
+                 .Relationship-UmVsYXRpb25zaGlw {
+                   LineThickness: 2;
+                   LineStyle: 10-10;
+                   LineColor: #444444;
+                   FontColor: #444444;
+                   FontSize: 24;
+                 }
+                 // API Application
+                 .Boundary-QVBJIEFwcGxpY2F0aW9u {
+                   BackgroundColor: #438dd5;
+                   LineColor: #2e6295;
+                   LineStyle: 0;
+                   LineThickness: 2;
+                   FontColor: #ffffff;
+                   FontSize: 24;
+                   HorizontalAlignment: center;
+                   Shadowing: 0;
+                 }
+               </style>
+               
+               rectangle "API Application\\n<size:16>[Container: Java and Spring MVC]</size>" <<Boundary-QVBJIEFwcGxpY2F0aW9u>> {
+                 rectangle "==Sign In Controller\\n<size:16>[Component: Spring MVC Rest Controller]</size>\\n\\nAllows users to sign in to the Internet Banking System." <<Element-RWxlbWVudCxDb21wb25lbnQ=>> as InternetBankingSystem.APIApplication.SignInController
+                 rectangle "==Security Component\\n<size:16>[Component: Spring Bean]</size>\\n\\nProvides functionality related to signing in, changing passwords, etc." <<Element-RWxlbWVudCxDb21wb25lbnQ=>> as InternetBankingSystem.APIApplication.SecurityComponent
+               }
+               
+               rectangle "==Single-Page Application\\n<size:16>[Container: JavaScript and Angular]</size>\\n\\nProvides all of the Internet banking functionality to customers via their web browser." <<Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI=>> as InternetBankingSystem.SinglePageApplication
+               database "==Database\\n<size:16>[Container: Oracle Database Schema]</size>\\n\\nStores user registration information, hashed authentication credentials, access logs, etc." <<Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U=>> as InternetBankingSystem.Database
+               
+               InternetBankingSystem.SinglePageApplication --> InternetBankingSystem.APIApplication.SignInController <<Relationship-UmVsYXRpb25zaGlw>> : "1: Submits credentials to\\n<size:16>[JSON/HTTPS]</size>"
+               InternetBankingSystem.APIApplication.SignInController --> InternetBankingSystem.APIApplication.SecurityComponent <<Relationship-UmVsYXRpb25zaGlw>> : "2: Validates credentials using"
+               InternetBankingSystem.APIApplication.SecurityComponent --> InternetBankingSystem.Database <<Relationship-UmVsYXRpb25zaGlw>> : "3: select * from users where username = ?\\n<size:16>[SQL/TCP]</size>"
+               InternetBankingSystem.APIApplication.SecurityComponent <-- InternetBankingSystem.Database <<Relationship-UmVsYXRpb25zaGlw>> : "4: Returns user data to\\n<size:16>[SQL/TCP]</size>"
+               InternetBankingSystem.APIApplication.SignInController <-- InternetBankingSystem.APIApplication.SecurityComponent <<Relationship-UmVsYXRpb25zaGlw>> : "5: Returns true if the hashed password matches"
+               InternetBankingSystem.SinglePageApplication <-- InternetBankingSystem.APIApplication.SignInController <<Relationship-UmVsYXRpb25zaGlw>> : "6: Sends back an authentication token to\\n<size:16>[JSON/HTTPS]</size>"
+               
+               @enduml""", diagram.getDefinition());
+
+        // and the sequence diagram version
+        workspace.getViews().getConfiguration().addProperty(exporter.PLANTUML_SEQUENCE_DIAGRAM_PROPERTY, "true");
+        diagrams = exporter.export(workspace);
+        diagram = diagrams.stream().filter(d -> d.getKey().equals("SignIn")).findFirst().get();
+            assertEquals("""
+                    @startuml
+                    title <size:24>Dynamic View: Internet Banking System - API Application</size>\\n<size:24>Summarises how the sign in feature works in the single-page application.</size>
+                                     
+                    set separator none
+                    hide stereotype
+                                     
+                    <style>
+                      root {
+                        BackgroundColor: #ffffff;
+                        FontColor: #444444;
+                      }
+                      // Element,Component
+                      .Element-RWxlbWVudCxDb21wb25lbnQ= {
+                        BackgroundColor: #85bbf0;
+                        LineColor: #5d82a8;
+                        LineStyle: 0;
+                        LineThickness: 2;
+                        FontColor: #000000;
+                        FontSize: 24;
+                        HorizontalAlignment: center;
+                        Shadowing: 0;
+                        MaximumWidth: 450;
+                      }
+                      // Element,Container,Database
+                      .Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U= {
+                        BackgroundColor: #438dd5;
+                        LineColor: #2e6295;
+                        LineStyle: 0;
+                        LineThickness: 2;
+                        FontColor: #ffffff;
+                        FontSize: 24;
+                        HorizontalAlignment: center;
+                        Shadowing: 0;
+                        MaximumWidth: 450;
+                      }
+                      // Element,Container,Web Browser
+                      .Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI= {
+                        BackgroundColor: #438dd5;
+                        LineColor: #2e6295;
+                        LineStyle: 0;
+                        LineThickness: 2;
+                        FontColor: #ffffff;
+                        FontSize: 24;
+                        HorizontalAlignment: center;
+                        Shadowing: 0;
+                        MaximumWidth: 450;
+                      }
+                      // Relationship
+                      .Relationship-UmVsYXRpb25zaGlw {
+                        LineThickness: 2;
+                        LineStyle: 10-10;
+                        LineColor: #444444;
+                        FontColor: #444444;
+                        FontSize: 24;
+                      }
+                    </style>
+                                     
+                    box "API Application\\n[Container: Java and Spring MVC]"
+                      participant "Sign In Controller\\n<size:16>[Component: Spring MVC Rest Controller]</size>" as InternetBankingSystem.APIApplication.SignInController <<Element-RWxlbWVudCxDb21wb25lbnQ=>> #85bbf0
+                      participant "Security Component\\n<size:16>[Component: Spring Bean]</size>" as InternetBankingSystem.APIApplication.SecurityComponent <<Element-RWxlbWVudCxDb21wb25lbnQ=>> #85bbf0
+                    end box
+                                     
+                    participant "Single-Page Application\\n<size:16>[Container: JavaScript and Angular]</size>" as InternetBankingSystem.SinglePageApplication <<Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI=>> #438dd5
+                    database "Database\\n<size:16>[Container: Oracle Database Schema]</size>" as InternetBankingSystem.Database <<Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U=>> #438dd5
+                                     
+                    InternetBankingSystem.SinglePageApplication -> InternetBankingSystem.APIApplication.SignInController <<Relationship-UmVsYXRpb25zaGlw>> : 1: Submits credentials to\\n<size:16>[JSON/HTTPS]</size>
+                    InternetBankingSystem.APIApplication.SignInController -> InternetBankingSystem.APIApplication.SecurityComponent <<Relationship-UmVsYXRpb25zaGlw>> : 2: Validates credentials using
+                    InternetBankingSystem.APIApplication.SecurityComponent -> InternetBankingSystem.Database <<Relationship-UmVsYXRpb25zaGlw>> : 3: select * from users where username = ?\\n<size:16>[SQL/TCP]</size>
+                    InternetBankingSystem.APIApplication.SecurityComponent <-- InternetBankingSystem.Database <<Relationship-UmVsYXRpb25zaGlw>> : 4: Returns user data to\\n<size:16>[SQL/TCP]</size>
+                    InternetBankingSystem.APIApplication.SignInController <-- InternetBankingSystem.APIApplication.SecurityComponent <<Relationship-UmVsYXRpb25zaGlw>> : 5: Returns true if the hashed password matches
+                    InternetBankingSystem.SinglePageApplication <-- InternetBankingSystem.APIApplication.SignInController <<Relationship-UmVsYXRpb25zaGlw>> : 6: Sends back an authentication token to\\n<size:16>[JSON/HTTPS]</size>
+                                     
+                    @enduml""", diagram.getDefinition());
+    }
 }

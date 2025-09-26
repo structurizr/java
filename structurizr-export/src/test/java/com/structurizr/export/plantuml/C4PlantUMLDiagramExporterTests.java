@@ -18,6 +18,145 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
 
     @Test
+    @Tag("IntegrationTest")
+    public void test_AmazonWebServicesExampleWithoutTags() throws Exception {
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/amazon-web-services.json"));
+        ThemeUtils.loadThemes(workspace);
+        workspace.getViews().getDeploymentViews().iterator().next().enableAutomaticLayout(AutomaticLayout.RankDirection.LeftRight, 300, 300);
+        workspace.getViews().getViews().forEach(v -> v.addProperty(C4PlantUMLExporter.C4PLANTUML_TAGS_PROPERTY, "false"));
+
+        C4PlantUMLExporter exporter = new C4PlantUMLExporter();
+        Collection<Diagram> diagrams = exporter.export(workspace);
+        assertEquals(1, diagrams.size());
+
+        Diagram diagram = diagrams.stream().findFirst().get();
+        assertEquals("""
+                @startuml
+                title <size:24>Deployment View: X - Live</size>
+                
+                set separator none
+                left to right direction
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff
+                    FontColor: #444444
+                  }
+                </style>
+                
+                !include <C4/C4>
+                !include <C4/C4_Context>
+                !include <C4/C4_Container>
+                !include <C4/C4_Deployment>
+                
+                Deployment_Node(Live.AmazonWebServices, "Amazon Web Services", $type="", $descr="", $tags="", $link="") {
+                  Deployment_Node(Live.AmazonWebServices.USEast1, "US-East-1", $type="", $descr="", $tags="", $link="") {
+                    Deployment_Node(Live.AmazonWebServices.USEast1.Autoscalinggroup, "Autoscaling group", $type="", $descr="", $tags="", $link="") {
+                      Deployment_Node(Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver, "Amazon EC2 - Ubuntu server", $type="", $descr="", $tags="", $link="") {
+                        Container(Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1, "Web Application", $techn="Java and Spring Boot", $descr="", $tags="", $link="")
+                      }
+                
+                    }
+                
+                    Deployment_Node(Live.AmazonWebServices.USEast1.AmazonRDS, "Amazon RDS", $type="", $descr="", $tags="", $link="") {
+                      Deployment_Node(Live.AmazonWebServices.USEast1.AmazonRDS.MySQL, "MySQL", $type="", $descr="", $tags="", $link="") {
+                        ContainerDb(Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1, "Database Schema", $techn="", $descr="", $tags="", $link="")
+                      }
+                
+                    }
+                
+                    Deployment_Node(Live.AmazonWebServices.USEast1.DNSrouter, "DNS router", $type="Route 53", $descr="Routes incoming requests based upon domain name.", $tags="", $link="")
+                    Deployment_Node(Live.AmazonWebServices.USEast1.LoadBalancer, "Load Balancer", $type="Elastic Load Balancer", $descr="Automatically distributes incoming application traffic.", $tags="", $link="")
+                  }
+                
+                }
+                
+                Rel(Live.AmazonWebServices.USEast1.LoadBalancer, Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1, "Forwards requests to", $techn="HTTPS", $tags="", $link="")
+                Rel(Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1, Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1, "Reads from and writes to", $techn="MySQL Protocol/SSL", $tags="", $link="")
+                Rel(Live.AmazonWebServices.USEast1.DNSrouter, Live.AmazonWebServices.USEast1.LoadBalancer, "Forwards requests to", $techn="HTTPS", $tags="", $link="")
+                
+                SHOW_LEGEND(true)
+                hide stereotypes
+                @enduml""", diagram.getDefinition());
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    public void test_AmazonWebServicesExampleWithTags() throws Exception {
+        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/amazon-web-services.json"));
+        ThemeUtils.loadThemes(workspace);
+        workspace.getViews().getDeploymentViews().iterator().next().enableAutomaticLayout(AutomaticLayout.RankDirection.LeftRight, 300, 300);
+        workspace.getViews().getConfiguration().addProperty(C4PlantUMLExporter.C4PLANTUML_TAGS_PROPERTY, "true");
+
+        C4PlantUMLExporter exporter = new C4PlantUMLExporter();
+        Collection<Diagram> diagrams = exporter.export(workspace);
+        assertEquals(1, diagrams.size());
+
+        Diagram diagram = diagrams.stream().findFirst().get();
+        assertEquals("""
+                @startuml
+                title <size:24>Deployment View: X - Live</size>
+                
+                set separator none
+                left to right direction
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff
+                    FontColor: #444444
+                  }
+                </style>
+                
+                !include <C4/C4>
+                !include <C4/C4_Context>
+                !include <C4/C4_Container>
+                !include <C4/C4_Deployment>
+                
+                AddElementTag("Amazon Web Services - RDS", $bgColor="#ffffff", $borderColor="#3b48cc", $fontColor="#3b48cc", $sprite="img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.1}", $shadowing="", $borderStyle="solid")
+                AddElementTag("Amazon Web Services - Auto Scaling", $bgColor="#ffffff", $borderColor="#cc2264", $fontColor="#cc2264", $sprite="img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.1}", $shadowing="", $borderStyle="solid")
+                AddElementTag("Amazon Web Services - Route 53", $bgColor="#ffffff", $borderColor="#693cc5", $fontColor="#693cc5", $sprite="img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-route-53.png{scale=0.1}", $shadowing="", $borderStyle="solid")
+                AddElementTag("Amazon Web Services - EC2", $bgColor="#ffffff", $borderColor="#d86613", $fontColor="#d86613", $sprite="img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.1}", $shadowing="", $borderStyle="solid")
+                AddElementTag("Amazon Web Services - Region", $bgColor="#ffffff", $borderColor="#147eba", $fontColor="#147eba", $sprite="img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.21428571428571427}", $shadowing="", $borderStyle="solid")
+                AddElementTag("Amazon Web Services - Elastic Load Balancing", $bgColor="#ffffff", $borderColor="#693cc5", $fontColor="#693cc5", $sprite="img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/elastic-load-balancing.png{scale=0.1}", $shadowing="", $borderStyle="solid")
+                AddElementTag("Application", $bgColor="#ffffff", $borderColor="#444444", $fontColor="#444444", $sprite="", $shadowing="", $borderStyle="solid")
+                AddElementTag("Amazon Web Services - RDS MySQL instance", $bgColor="#ffffff", $borderColor="#3b48cc", $fontColor="#3b48cc", $sprite="img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.15}", $shadowing="", $borderStyle="solid")
+                AddElementTag("Amazon Web Services - Cloud", $bgColor="#ffffff", $borderColor="#232f3e", $fontColor="#232f3e", $sprite="img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.21428571428571427}", $shadowing="", $borderStyle="solid")
+                AddElementTag("Database", $bgColor="#ffffff", $borderColor="#444444", $fontColor="#444444", $sprite="", $shadowing="", $borderStyle="solid")
+                
+                AddRelTag("Relationship", $textColor="#444444", $lineColor="#444444", $lineStyle = DashedLine())
+                
+                Deployment_Node(Live.AmazonWebServices, "Amazon Web Services", $type="", $descr="", $tags="Amazon Web Services - Cloud", $link="") {
+                  Deployment_Node(Live.AmazonWebServices.USEast1, "US-East-1", $type="", $descr="", $tags="Amazon Web Services - Region", $link="") {
+                    Deployment_Node(Live.AmazonWebServices.USEast1.Autoscalinggroup, "Autoscaling group", $type="", $descr="", $tags="Amazon Web Services - Auto Scaling", $link="") {
+                      Deployment_Node(Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver, "Amazon EC2 - Ubuntu server", $type="", $descr="", $tags="Amazon Web Services - EC2", $link="") {
+                        Container(Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1, "Web Application", $techn="Java and Spring Boot", $descr="", $tags="Application", $link="")
+                      }
+                
+                    }
+                
+                    Deployment_Node(Live.AmazonWebServices.USEast1.AmazonRDS, "Amazon RDS", $type="", $descr="", $tags="Amazon Web Services - RDS", $link="") {
+                      Deployment_Node(Live.AmazonWebServices.USEast1.AmazonRDS.MySQL, "MySQL", $type="", $descr="", $tags="Amazon Web Services - RDS MySQL instance", $link="") {
+                        ContainerDb(Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1, "Database Schema", $techn="", $descr="", $tags="Database", $link="")
+                      }
+                
+                    }
+                
+                    Deployment_Node(Live.AmazonWebServices.USEast1.DNSrouter, "DNS router", $type="Route 53", $descr="Routes incoming requests based upon domain name.", $tags="Amazon Web Services - Route 53", $link="")
+                    Deployment_Node(Live.AmazonWebServices.USEast1.LoadBalancer, "Load Balancer", $type="Elastic Load Balancer", $descr="Automatically distributes incoming application traffic.", $tags="Amazon Web Services - Elastic Load Balancing", $link="")
+                  }
+                
+                }
+                
+                Rel(Live.AmazonWebServices.USEast1.LoadBalancer, Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1, "Forwards requests to", $techn="HTTPS", $tags="Relationship", $link="")
+                Rel(Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1, Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1, "Reads from and writes to", $techn="MySQL Protocol/SSL", $tags="Relationship", $link="")
+                Rel(Live.AmazonWebServices.USEast1.DNSrouter, Live.AmazonWebServices.USEast1.LoadBalancer, "Forwards requests to", $techn="HTTPS", $tags="Relationship", $link="")
+                
+                SHOW_LEGEND(true)
+                hide stereotypes
+                @enduml""", diagram.getDefinition());
+    }
+
+    @Test
     public void test_BigBankPlcExample() throws Exception {
         Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/big-bank-plc.json"));
         workspace.getViews().getConfiguration().addProperty(C4PlantUMLExporter.C4PLANTUML_TAGS_PROPERTY, "true");
@@ -476,145 +615,6 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
                 Rel(InternetBankingSystem.Database, InternetBankingSystem.APIApplication.SecurityComponent, "4: Returns user data to", $techn="SQL/TCP", $tags="Relationship", $link="")
                 Rel(InternetBankingSystem.APIApplication.SecurityComponent, InternetBankingSystem.APIApplication.SignInController, "5: Returns true if the hashed password matches", $techn="", $tags="Relationship", $link="")
                 Rel(InternetBankingSystem.APIApplication.SignInController, InternetBankingSystem.SinglePageApplication, "6: Sends back an authentication token to", $techn="JSON/HTTPS", $tags="Relationship", $link="")
-                
-                SHOW_LEGEND(true)
-                hide stereotypes
-                @enduml""", diagram.getDefinition());
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    public void test_AmazonWebServicesExampleWithoutTags() throws Exception {
-        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/amazon-web-services.json"));
-        ThemeUtils.loadThemes(workspace);
-        workspace.getViews().getDeploymentViews().iterator().next().enableAutomaticLayout(AutomaticLayout.RankDirection.LeftRight, 300, 300);
-        workspace.getViews().getViews().forEach(v -> v.addProperty(C4PlantUMLExporter.C4PLANTUML_TAGS_PROPERTY, "false"));
-
-        C4PlantUMLExporter exporter = new C4PlantUMLExporter();
-        Collection<Diagram> diagrams = exporter.export(workspace);
-        assertEquals(1, diagrams.size());
-
-        Diagram diagram = diagrams.stream().findFirst().get();
-        assertEquals("""
-                @startuml
-                title <size:24>Deployment View: X - Live</size>
-                
-                set separator none
-                left to right direction
-                
-                <style>
-                  root {
-                    BackgroundColor: #ffffff
-                    FontColor: #444444
-                  }
-                </style>
-                
-                !include <C4/C4>
-                !include <C4/C4_Context>
-                !include <C4/C4_Container>
-                !include <C4/C4_Deployment>
-                
-                Deployment_Node(Live.AmazonWebServices, "Amazon Web Services", $type="", $descr="", $tags="", $link="") {
-                  Deployment_Node(Live.AmazonWebServices.USEast1, "US-East-1", $type="", $descr="", $tags="", $link="") {
-                    Deployment_Node(Live.AmazonWebServices.USEast1.Autoscalinggroup, "Autoscaling group", $type="", $descr="", $tags="", $link="") {
-                      Deployment_Node(Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver, "Amazon EC2 - Ubuntu server", $type="", $descr="", $tags="", $link="") {
-                        Container(Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1, "Web Application", $techn="Java and Spring Boot", $descr="", $tags="", $link="")
-                      }
-                
-                    }
-                
-                    Deployment_Node(Live.AmazonWebServices.USEast1.AmazonRDS, "Amazon RDS", $type="", $descr="", $tags="", $link="") {
-                      Deployment_Node(Live.AmazonWebServices.USEast1.AmazonRDS.MySQL, "MySQL", $type="", $descr="", $tags="", $link="") {
-                        ContainerDb(Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1, "Database Schema", $techn="", $descr="", $tags="", $link="")
-                      }
-                
-                    }
-                
-                    Deployment_Node(Live.AmazonWebServices.USEast1.DNSrouter, "DNS router", $type="Route 53", $descr="Routes incoming requests based upon domain name.", $tags="", $link="")
-                    Deployment_Node(Live.AmazonWebServices.USEast1.LoadBalancer, "Load Balancer", $type="Elastic Load Balancer", $descr="Automatically distributes incoming application traffic.", $tags="", $link="")
-                  }
-                
-                }
-                
-                Rel(Live.AmazonWebServices.USEast1.LoadBalancer, Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1, "Forwards requests to", $techn="HTTPS", $tags="", $link="")
-                Rel(Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1, Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1, "Reads from and writes to", $techn="MySQL Protocol/SSL", $tags="", $link="")
-                Rel(Live.AmazonWebServices.USEast1.DNSrouter, Live.AmazonWebServices.USEast1.LoadBalancer, "Forwards requests to", $techn="HTTPS", $tags="", $link="")
-                
-                SHOW_LEGEND(true)
-                hide stereotypes
-                @enduml""", diagram.getDefinition());
-    }
-
-    @Test
-    @Tag("IntegrationTest")
-    public void test_AmazonWebServicesExampleWithTags() throws Exception {
-        Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/amazon-web-services.json"));
-        ThemeUtils.loadThemes(workspace);
-        workspace.getViews().getDeploymentViews().iterator().next().enableAutomaticLayout(AutomaticLayout.RankDirection.LeftRight, 300, 300);
-        workspace.getViews().getConfiguration().addProperty(C4PlantUMLExporter.C4PLANTUML_TAGS_PROPERTY, "true");
-
-        C4PlantUMLExporter exporter = new C4PlantUMLExporter();
-        Collection<Diagram> diagrams = exporter.export(workspace);
-        assertEquals(1, diagrams.size());
-
-        Diagram diagram = diagrams.stream().findFirst().get();
-        assertEquals("""
-                @startuml
-                title <size:24>Deployment View: X - Live</size>
-                
-                set separator none
-                left to right direction
-                
-                <style>
-                  root {
-                    BackgroundColor: #ffffff
-                    FontColor: #444444
-                  }
-                </style>
-                
-                !include <C4/C4>
-                !include <C4/C4_Context>
-                !include <C4/C4_Container>
-                !include <C4/C4_Deployment>
-                
-                AddElementTag("Amazon Web Services - RDS", $bgColor="#ffffff", $borderColor="#3b48cc", $fontColor="#3b48cc", $sprite="img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.1}", $shadowing="", $borderStyle="solid")
-                AddElementTag("Amazon Web Services - Auto Scaling", $bgColor="#ffffff", $borderColor="#cc2264", $fontColor="#cc2264", $sprite="img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.1}", $shadowing="", $borderStyle="solid")
-                AddElementTag("Amazon Web Services - Route 53", $bgColor="#ffffff", $borderColor="#693cc5", $fontColor="#693cc5", $sprite="img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-route-53.png{scale=0.1}", $shadowing="", $borderStyle="solid")
-                AddElementTag("Amazon Web Services - EC2", $bgColor="#ffffff", $borderColor="#d86613", $fontColor="#d86613", $sprite="img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.1}", $shadowing="", $borderStyle="solid")
-                AddElementTag("Amazon Web Services - Region", $bgColor="#ffffff", $borderColor="#147eba", $fontColor="#147eba", $sprite="img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.21428571428571427}", $shadowing="", $borderStyle="solid")
-                AddElementTag("Amazon Web Services - Elastic Load Balancing", $bgColor="#ffffff", $borderColor="#693cc5", $fontColor="#693cc5", $sprite="img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/elastic-load-balancing.png{scale=0.1}", $shadowing="", $borderStyle="solid")
-                AddElementTag("Application", $bgColor="#ffffff", $borderColor="#444444", $fontColor="#444444", $sprite="", $shadowing="", $borderStyle="solid")
-                AddElementTag("Amazon Web Services - RDS MySQL instance", $bgColor="#ffffff", $borderColor="#3b48cc", $fontColor="#3b48cc", $sprite="img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.15}", $shadowing="", $borderStyle="solid")
-                AddElementTag("Amazon Web Services - Cloud", $bgColor="#ffffff", $borderColor="#232f3e", $fontColor="#232f3e", $sprite="img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.21428571428571427}", $shadowing="", $borderStyle="solid")
-                AddElementTag("Database", $bgColor="#ffffff", $borderColor="#444444", $fontColor="#444444", $sprite="", $shadowing="", $borderStyle="solid")
-                
-                AddRelTag("Relationship", $textColor="#444444", $lineColor="#444444", $lineStyle = DashedLine())
-                
-                Deployment_Node(Live.AmazonWebServices, "Amazon Web Services", $type="", $descr="", $tags="Amazon Web Services - Cloud", $link="") {
-                  Deployment_Node(Live.AmazonWebServices.USEast1, "US-East-1", $type="", $descr="", $tags="Amazon Web Services - Region", $link="") {
-                    Deployment_Node(Live.AmazonWebServices.USEast1.Autoscalinggroup, "Autoscaling group", $type="", $descr="", $tags="Amazon Web Services - Auto Scaling", $link="") {
-                      Deployment_Node(Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver, "Amazon EC2 - Ubuntu server", $type="", $descr="", $tags="Amazon Web Services - EC2", $link="") {
-                        Container(Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1, "Web Application", $techn="Java and Spring Boot", $descr="", $tags="Application", $link="")
-                      }
-                
-                    }
-                
-                    Deployment_Node(Live.AmazonWebServices.USEast1.AmazonRDS, "Amazon RDS", $type="", $descr="", $tags="Amazon Web Services - RDS", $link="") {
-                      Deployment_Node(Live.AmazonWebServices.USEast1.AmazonRDS.MySQL, "MySQL", $type="", $descr="", $tags="Amazon Web Services - RDS MySQL instance", $link="") {
-                        ContainerDb(Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1, "Database Schema", $techn="", $descr="", $tags="Database", $link="")
-                      }
-                
-                    }
-                
-                    Deployment_Node(Live.AmazonWebServices.USEast1.DNSrouter, "DNS router", $type="Route 53", $descr="Routes incoming requests based upon domain name.", $tags="Amazon Web Services - Route 53", $link="")
-                    Deployment_Node(Live.AmazonWebServices.USEast1.LoadBalancer, "Load Balancer", $type="Elastic Load Balancer", $descr="Automatically distributes incoming application traffic.", $tags="Amazon Web Services - Elastic Load Balancing", $link="")
-                  }
-                
-                }
-                
-                Rel(Live.AmazonWebServices.USEast1.LoadBalancer, Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1, "Forwards requests to", $techn="HTTPS", $tags="Relationship", $link="")
-                Rel(Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1, Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1, "Reads from and writes to", $techn="MySQL Protocol/SSL", $tags="Relationship", $link="")
-                Rel(Live.AmazonWebServices.USEast1.DNSrouter, Live.AmazonWebServices.USEast1.LoadBalancer, "Forwards requests to", $techn="HTTPS", $tags="Relationship", $link="")
                 
                 SHOW_LEGEND(true)
                 hide stereotypes
