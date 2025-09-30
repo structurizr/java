@@ -149,7 +149,11 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
                             Base64.getEncoder().encodeToString(group.getBytes()))
             );
             writer.indent();
+        } else {
+            writer.writeLine(String.format("box \"%s\" <<%s>>", groupName, classSelectorForGroup(group)));
+            writer.indent();
         }
+        writer.writeLine();
     }
 
     @Override

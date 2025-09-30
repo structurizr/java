@@ -824,12 +824,15 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 </style>
                                 
                 rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
+                
                   rectangle "==B\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as B
                 }
                                 
                 rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
+                
                   rectangle "==C\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as C
                     rectangle "Group 3" <<Group-R3JvdXAgMi9Hcm91cCAz>> as groupR3JvdXAgMi9Hcm91cCAz {
+                    
                       rectangle "==D\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as D
                     }
                                 
@@ -907,6 +910,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                                 
                 rectangle "D\\n<size:16>[Software System]</size>" <<Boundary-RA==>> {
                   rectangle "Group 4" <<Group-R3JvdXAgNA==>> as groupR3JvdXAgNA== {
+                  
                     rectangle "==F\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as D.F
                   }
                                 
@@ -982,6 +986,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                                 
                 rectangle "F\\n<size:16>[Container]</size>" <<Boundary-Rg==>> {
                   rectangle "Group 5" <<Group-R3JvdXAgNQ==>> as groupR3JvdXAgNQ== {
+                  
                     rectangle "==H\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as D.F.H
                   }
                                 
@@ -1108,14 +1113,18 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 </style>
                                 
                 rectangle "Organisation 1" <<Group-T3JnYW5pc2F0aW9uIDE=>> as groupT3JnYW5pc2F0aW9uIDE= {
+                                
                   rectangle "==Organisation 1\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Organisation1
                     rectangle "Department 1" <<Group-T3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAx>> as groupT3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAx {
+                                
                       rectangle "==Department 1\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Department1
                         rectangle "Team 1" <<Group-T3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAxL1RlYW0gMQ==>> as groupT3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAxL1RlYW0gMQ== {
+                                
                           rectangle "==Team 1\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Team1
                         }
                                 
                         rectangle "Team 2" <<Group-T3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAxL1RlYW0gMg==>> as groupT3JnYW5pc2F0aW9uIDEvRGVwYXJ0bWVudCAxL1RlYW0gMg== {
+                                
                           rectangle "==Team 2\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Team2
                         }
                                 
@@ -1124,6 +1133,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 }
                                 
                 rectangle "Organisation 2" <<Group-T3JnYW5pc2F0aW9uIDI=>> as groupT3JnYW5pc2F0aW9uIDI= {
+                                
                   rectangle "==Organisation 2\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Organisation2
                 }
                                 
@@ -1175,6 +1185,17 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontColor: #444444;
                     FontSize: 24;
                   }
+                  // group2
+                  .Group-Z3JvdXAy {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 2-2;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
                 </style>
                                 
                 box "A\\n[Software System]"
@@ -1186,9 +1207,13 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                                 
                 box "d\\n[Software System]"
                     box "e\\n[Container]"
-                      participant "f\\n<size:16>[Component]</size>" as d.e.f <<Element-RWxlbWVudA==>> #ffffff
-                      participant "g\\n<size:16>[Component]</size>" as d.e.g <<Element-RWxlbWVudA==>> #ffffff
-                      participant "h\\n<size:16>[Component]</size>" as d.e.h <<Element-RWxlbWVudA==>> #ffffff
+                      box "group2" <<Group-Z3JvdXAy>>
+                                
+                        participant "f\\n<size:16>[Component]</size>" as d.e.f <<Element-RWxlbWVudA==>> #ffffff
+                        participant "g\\n<size:16>[Component]</size>" as d.e.g <<Element-RWxlbWVudA==>> #ffffff
+                        participant "h\\n<size:16>[Component]</size>" as d.e.h <<Element-RWxlbWVudA==>> #ffffff
+                      end box
+                                
                     end box
                                 
                   end box
@@ -1203,51 +1228,66 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
 
         diagram = diagrams.stream().filter(md -> md.getKey().equals("Sequence-SoftwareSystem")).findFirst().get();
         assertEquals("""
-                @startuml
-                title <size:24>Dynamic View: A</size>
-                               
-                set separator none
-                !pragma teoz true
-                hide stereotype
-                               
-                <style>
-                  root {
-                    BackgroundColor: #ffffff;
-                    FontColor: #444444;
-                  }
-                  // Element
-                  .Element-RWxlbWVudA== {
-                    BackgroundColor: #ffffff;
-                    LineColor: #444444;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #444444;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
-                  }
-                  // Relationship
-                  .Relationship-UmVsYXRpb25zaGlw {
-                    LineThickness: 2;
-                    LineStyle: 10-10;
-                    LineColor: #444444;
-                    FontColor: #444444;
-                    FontSize: 24;
-                  }
-                </style>
-                               
-                box "A\\n[Software System]"
-                  participant "B\\n<size:16>[Container]</size>" as A.B <<Element-RWxlbWVudA==>> #ffffff
-                end box
-                               
-                box "d\\n[Software System]"
-                  participant "e\\n<size:16>[Container]</size>" as d.e <<Element-RWxlbWVudA==>> #ffffff
-                end box
-                               
-                A.B -> d.e <<Relationship-UmVsYXRpb25zaGlw>> : 1:\s
-                               
-                @enduml""", diagram.getDefinition());
+               @startuml
+               title <size:24>Dynamic View: A</size>
+               
+               set separator none
+               !pragma teoz true
+               hide stereotype
+               
+               <style>
+                 root {
+                   BackgroundColor: #ffffff;
+                   FontColor: #444444;
+                 }
+                 // Element
+                 .Element-RWxlbWVudA== {
+                   BackgroundColor: #ffffff;
+                   LineColor: #444444;
+                   LineStyle: 0;
+                   LineThickness: 2;
+                   FontColor: #444444;
+                   FontSize: 24;
+                   HorizontalAlignment: center;
+                   Shadowing: 0;
+                   MaximumWidth: 450;
+                 }
+                 // Relationship
+                 .Relationship-UmVsYXRpb25zaGlw {
+                   LineThickness: 2;
+                   LineStyle: 10-10;
+                   LineColor: #444444;
+                   FontColor: #444444;
+                   FontSize: 24;
+                 }
+                 // group1
+                 .Group-Z3JvdXAx {
+                   BackgroundColor: #ffffff;
+                   LineColor: #444444;
+                   LineStyle: 2-2;
+                   LineThickness: 2;
+                   FontColor: #444444;
+                   FontSize: 24;
+                   HorizontalAlignment: center;
+                   Shadowing: 0;
+                 }
+               </style>
+               
+               box "A\\n[Software System]"
+                 participant "B\\n<size:16>[Container]</size>" as A.B <<Element-RWxlbWVudA==>> #ffffff
+               end box
+               
+               box "d\\n[Software System]"
+                 box "group1" <<Group-Z3JvdXAx>>
+               
+                   participant "e\\n<size:16>[Container]</size>" as d.e <<Element-RWxlbWVudA==>> #ffffff
+                 end box
+               
+               end box
+               
+               A.B -> d.e <<Relationship-UmVsYXRpb25zaGlw>> : 1:\s
+               
+               @enduml""", diagram.getDefinition());
     }
 
     @Test
@@ -2130,10 +2170,12 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 </style>
                                 
                 rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
+                
                   rectangle "==A\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as A
                 }
                                 
                 rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
+                
                   rectangle "==B\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as B
                 }
                                 
@@ -2240,6 +2282,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                                 
                 rectangle "A\\n<size:16>[Software System]</size>" <<Boundary-QQ==>> {
                   rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
+                  
                     rectangle "==A\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as A.A
                   }
                                 
@@ -2247,6 +2290,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                                 
                 rectangle "B\\n<size:16>[Software System]</size>" <<Boundary-Qg==>> {
                   rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
+                  
                     rectangle "==B\\n<size:16>[Container]</size>" <<Element-RWxlbWVudA==>> as B.B
                   }
                                 
@@ -2276,101 +2320,103 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
         Diagram diagram = exporter.export(view);
         assertEquals("""
-                @startuml
-                title <size:24>Dynamic View: A - A</size>
-                                
-                set separator none
-                top to bottom direction
-                hide stereotype
-                                
-                <style>
-                  root {
-                    BackgroundColor: #ffffff;
-                    FontColor: #444444;
-                  }
-                  // Element
-                  .Element-RWxlbWVudA== {
-                    BackgroundColor: #ffffff;
-                    LineColor: #444444;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #444444;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
-                  }
-                  // Relationship
-                  .Relationship-UmVsYXRpb25zaGlw {
-                    LineThickness: 2;
-                    LineStyle: 10-10;
-                    LineColor: #444444;
-                    FontColor: #444444;
-                    FontSize: 24;
-                  }
-                  // A
-                  .Boundary-QQ== {
-                    BackgroundColor: #ffffff;
-                    LineColor: #444444;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #444444;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                  }
-                  // B
-                  .Boundary-Qg== {
-                    BackgroundColor: #ffffff;
-                    LineColor: #444444;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #444444;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                  }
-                  // Group 1
-                  .Group-R3JvdXAgMQ== {
-                    BackgroundColor: #ffffff;
-                    LineColor: #444444;
-                    LineStyle: 2-2;
-                    LineThickness: 2;
-                    FontColor: #444444;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                  }
-                  // Group 2
-                  .Group-R3JvdXAgMg== {
-                    BackgroundColor: #ffffff;
-                    LineColor: #444444;
-                    LineStyle: 2-2;
-                    LineThickness: 2;
-                    FontColor: #444444;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                  }
-                </style>
-                                
-                rectangle "A\\n<size:16>[Container]</size>" <<Boundary-QQ==>> {
-                  rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
-                    rectangle "==A\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as A.A.A
-                  }
-                                
-                }
-                                
-                rectangle "B\\n<size:16>[Container]</size>" <<Boundary-Qg==>> {
-                  rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
-                    rectangle "==B\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as B.B.B
-                  }
-                                
-                }
-                                
-                A.A.A --> B.B.B <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
-                                
-                @enduml""", diagram.getDefinition());
+               @startuml
+               title <size:24>Dynamic View: A - A</size>
+               
+               set separator none
+               top to bottom direction
+               hide stereotype
+               
+               <style>
+                 root {
+                   BackgroundColor: #ffffff;
+                   FontColor: #444444;
+                 }
+                 // Element
+                 .Element-RWxlbWVudA== {
+                   BackgroundColor: #ffffff;
+                   LineColor: #444444;
+                   LineStyle: 0;
+                   LineThickness: 2;
+                   FontColor: #444444;
+                   FontSize: 24;
+                   HorizontalAlignment: center;
+                   Shadowing: 0;
+                   MaximumWidth: 450;
+                 }
+                 // Relationship
+                 .Relationship-UmVsYXRpb25zaGlw {
+                   LineThickness: 2;
+                   LineStyle: 10-10;
+                   LineColor: #444444;
+                   FontColor: #444444;
+                   FontSize: 24;
+                 }
+                 // A
+                 .Boundary-QQ== {
+                   BackgroundColor: #ffffff;
+                   LineColor: #444444;
+                   LineStyle: 0;
+                   LineThickness: 2;
+                   FontColor: #444444;
+                   FontSize: 24;
+                   HorizontalAlignment: center;
+                   Shadowing: 0;
+                 }
+                 // B
+                 .Boundary-Qg== {
+                   BackgroundColor: #ffffff;
+                   LineColor: #444444;
+                   LineStyle: 0;
+                   LineThickness: 2;
+                   FontColor: #444444;
+                   FontSize: 24;
+                   HorizontalAlignment: center;
+                   Shadowing: 0;
+                 }
+                 // Group 1
+                 .Group-R3JvdXAgMQ== {
+                   BackgroundColor: #ffffff;
+                   LineColor: #444444;
+                   LineStyle: 2-2;
+                   LineThickness: 2;
+                   FontColor: #444444;
+                   FontSize: 24;
+                   HorizontalAlignment: center;
+                   Shadowing: 0;
+                 }
+                 // Group 2
+                 .Group-R3JvdXAgMg== {
+                   BackgroundColor: #ffffff;
+                   LineColor: #444444;
+                   LineStyle: 2-2;
+                   LineThickness: 2;
+                   FontColor: #444444;
+                   FontSize: 24;
+                   HorizontalAlignment: center;
+                   Shadowing: 0;
+                 }
+               </style>
+               
+               rectangle "A\\n<size:16>[Container]</size>" <<Boundary-QQ==>> {
+                 rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
+               
+                   rectangle "==A\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as A.A.A
+                 }
+               
+               }
+               
+               rectangle "B\\n<size:16>[Container]</size>" <<Boundary-Qg==>> {
+                 rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
+               
+                   rectangle "==B\\n<size:16>[Component]</size>" <<Element-RWxlbWVudA==>> as B.B.B
+                 }
+               
+               }
+               
+               A.A.A --> B.B.B <<Relationship-UmVsYXRpb25zaGlw>> : "1: Uses"
+               
+               @enduml""", diagram.getDefinition());
     }
 
     @Test
@@ -2445,8 +2491,10 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 </style>
                                 
                 rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
+                
                   rectangle "Server 1\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Default.Server1 {
                     rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
+                    
                       rectangle "==Infrastructure Node 2\\n<size:16>[Infrastructure Node]</size>" <<Element-RWxlbWVudA==>> as Default.Server1.InfrastructureNode2
                       rectangle "==Software System\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Default.Server1.SoftwareSystem_1
                     }
@@ -2509,6 +2557,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 </style>
                                 
                 rectangle "Name" <<Group-TmFtZQ==>> as groupTmFtZQ== {
+                
                   rectangle "==Name\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Name
                 }
                                 
@@ -2566,6 +2615,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 </style>
                                 
                 rectangle "Name" <<Group-TmFtZQ==>> as groupTmFtZQ== {
+                
                   rectangle "==Name\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Name
                 }
                                 

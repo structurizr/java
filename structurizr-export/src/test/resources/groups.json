@@ -4,7 +4,7 @@
   "documentation" : { },
   "id" : 1,
   "lastModifiedAgent" : "structurizr-ui",
-  "lastModifiedDate" : "2025-09-25T10:53:04Z",
+  "lastModifiedDate" : "2025-09-29T14:50:11Z",
   "model" : {
     "properties" : {
       "structurizr.groupSeparator" : "/"
@@ -137,7 +137,7 @@
   "views" : {
     "componentViews" : [ {
       "automaticLayout" : {
-        "applied" : false,
+        "applied" : true,
         "edgeSeparation" : 0,
         "implementation" : "Graphviz",
         "nodeSeparation" : 300,
@@ -146,18 +146,22 @@
         "vertices" : false
       },
       "containerId" : "6",
+      "dimensions" : {
+        "height" : 2065,
+        "width" : 1212
+      },
       "elements" : [ {
         "id" : "3",
-        "x" : 0,
-        "y" : 0
+        "x" : 200,
+        "y" : 165
       }, {
         "id" : "7",
-        "x" : 0,
-        "y" : 0
+        "x" : 542,
+        "y" : 765
       }, {
         "id" : "8",
-        "x" : 0,
-        "y" : 0
+        "x" : 488,
+        "y" : 1365
       } ],
       "externalContainerBoundariesVisible" : false,
       "key" : "Components",
@@ -165,21 +169,28 @@
       "relationships" : [ {
         "id" : "13"
       }, {
-        "id" : "15"
+        "id" : "15",
+        "vertices" : [ {
+          "x" : 259,
+          "y" : 661
+        }, {
+          "x" : 259,
+          "y" : 1065
+        } ]
       }, {
         "id" : "16"
       } ]
     } ],
     "configuration" : {
       "branding" : { },
-      "lastSavedView" : "SystemLandscape",
+      "lastSavedView" : "Components",
       "metadataSymbols" : "SquareBrackets",
       "styles" : { },
       "terminology" : { }
     },
     "containerViews" : [ {
       "automaticLayout" : {
-        "applied" : false,
+        "applied" : true,
         "edgeSeparation" : 0,
         "implementation" : "Graphviz",
         "nodeSeparation" : 300,
@@ -187,18 +198,22 @@
         "rankSeparation" : 300,
         "vertices" : false
       },
+      "dimensions" : {
+        "height" : 1465,
+        "width" : 1660
+      },
       "elements" : [ {
         "id" : "3",
-        "x" : 0,
-        "y" : 0
+        "x" : 594,
+        "y" : 165
       }, {
         "id" : "5",
-        "x" : 0,
-        "y" : 0
+        "x" : 219,
+        "y" : 765
       }, {
         "id" : "6",
-        "x" : 0,
-        "y" : 0
+        "x" : 969,
+        "y" : 765
       } ],
       "externalSoftwareSystemBoundariesVisible" : false,
       "key" : "Containers",

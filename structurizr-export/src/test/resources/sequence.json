@@ -4,7 +4,7 @@
   "documentation" : { },
   "id" : 1,
   "lastModifiedAgent" : "structurizr-ui",
-  "lastModifiedDate" : "2025-09-26T11:58:43Z",
+  "lastModifiedDate" : "2025-09-29T14:48:22Z",
   "model" : {
     "properties" : {
       "structurizr.groupSeparator" : "/"
@@ -88,6 +88,7 @@
       "containers" : [ {
         "components" : [ {
           "documentation" : { },
+          "group" : "group2",
           "id" : "6",
           "name" : "f",
           "properties" : {
@@ -107,6 +108,7 @@
           "tags" : "Element,Component"
         }, {
           "documentation" : { },
+          "group" : "group2",
           "id" : "7",
           "name" : "g",
           "properties" : {
@@ -115,6 +117,7 @@
           "tags" : "Element,Component"
         }, {
           "documentation" : { },
+          "group" : "group2",
           "id" : "8",
           "name" : "h",
           "properties" : {
@@ -123,6 +126,7 @@
           "tags" : "Element,Component"
         } ],
         "documentation" : { },
+        "group" : "group1",
         "id" : "5",
         "name" : "e",
         "properties" : {
@@ -142,7 +146,7 @@
   },
   "name" : "Name",
   "properties" : {
-    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgIHN0cnVjdHVyaXpyLmdyb3VwU2VwYXJhdG9yIC8KICAgICAgICB9CgogICAgICAgIGEgPSBzb2Z0d2FyZVN5c3RlbSAiQSIgewogICAgICAgICAgICBiID0gY29udGFpbmVyICJCIiB7CiAgICAgICAgICAgICAgICBjID0gY29tcG9uZW50ICJDIgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIGQgPSBzb2Z0d2FyZVN5c3RlbSAiZCIgewogICAgICAgICAgICBlID0gY29udGFpbmVyICJlIiB7CiAgICAgICAgICAgICAgICBmID0gY29tcG9uZW50ICJmIgogICAgICAgICAgICAgICAgZyA9IGNvbXBvbmVudCAiZyIKICAgICAgICAgICAgICAgIGggPSBjb21wb25lbnQgImgiCiAgICAgICAgICAgIH0KICAgICAgICB9CgogICAgICAgIGIgLT4gZQogICAgICAgIGYgLT4gaAogICAgICAgIGMgLT4gZgogICAgICAgIGYgLT4gZwoKICAgIH0KCiAgICB2aWV3cyB7CiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgICJwbGFudHVtbC5zZXF1ZW5jZURpYWdyYW0iICJ0cnVlIgogICAgICAgICAgICAicGxhbnR1bWwudGVveiIgInRydWUiCiAgICAgICAgICAgICJtZXJtYWlkLnNlcXVlbmNlRGlhZ3JhbSIgInRydWUiCiAgICAgICAgICAgICJtZXJtYWlkLnRpdGxlIiAidHJ1ZSIKICAgICAgICAgICAgInN0cnVjdHVyaXpyLnNvZnR3YXJlU3lzdGVtQm91bmRhcmllcyIgInRydWUiCiAgICAgICAgfQogICAgICAgIAogICAgICAgIGR5bmFtaWMgYSAiU2VxdWVuY2UtU29mdHdhcmVTeXN0ZW0iIHsKICAgICAgICAgICAgYiAtPiBlCiAgICAgICAgICAgIGF1dG9MYXlvdXQKICAgICAgICB9CiAgICAgICAgICAgIAogICAgICAgIGR5bmFtaWMgZSAiU2VxdWVuY2UtQ29udGFpbmVyIiB7CiAgICAgICAgICAgIGYgLT4gaAogICAgICAgICAgICBjIC0+IGYKICAgICAgICAgICAgZiAtPiBnCiAgICAgICAgICAgIGF1dG9MYXlvdXQKICAgICAgICB9CiAgICB9Cgp9"
+    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgIHN0cnVjdHVyaXpyLmdyb3VwU2VwYXJhdG9yIC8KICAgICAgICB9CgogICAgICAgIGEgPSBzb2Z0d2FyZVN5c3RlbSAiQSIgewogICAgICAgICAgICBiID0gY29udGFpbmVyICJCIiB7CiAgICAgICAgICAgICAgICBjID0gY29tcG9uZW50ICJDIgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIGQgPSBzb2Z0d2FyZVN5c3RlbSAiZCIgewogICAgICAgICAgICBncm91cDEgPSBncm91cCAiZ3JvdXAxIiB7CiAgICAgICAgICAgICAgICBlID0gY29udGFpbmVyICJlIiB7CiAgICAgICAgICAgICAgICAgICAgZ3JvdXAyID0gZ3JvdXAgImdyb3VwMiIgewogICAgICAgICAgICAgICAgICAgICAgICBmID0gY29tcG9uZW50ICJmIgogICAgICAgICAgICAgICAgICAgICAgICBnID0gY29tcG9uZW50ICJnIgogICAgICAgICAgICAgICAgICAgICAgICBoID0gY29tcG9uZW50ICJoIgogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQogICAgICAgIH0KCiAgICAgICAgYiAtPiBlCiAgICAgICAgZiAtPiBoCiAgICAgICAgYyAtPiBmCiAgICAgICAgZiAtPiBnCgogICAgfQoKICAgIHZpZXdzIHsKICAgICAgICBwcm9wZXJ0aWVzIHsKICAgICAgICAgICAgInBsYW50dW1sLnNlcXVlbmNlRGlhZ3JhbSIgInRydWUiCiAgICAgICAgICAgICJwbGFudHVtbC50ZW96IiAidHJ1ZSIKICAgICAgICAgICAgIm1lcm1haWQuc2VxdWVuY2VEaWFncmFtIiAidHJ1ZSIKICAgICAgICAgICAgIm1lcm1haWQudGl0bGUiICJ0cnVlIgogICAgICAgICAgICAic3RydWN0dXJpenIuc29mdHdhcmVTeXN0ZW1Cb3VuZGFyaWVzIiAidHJ1ZSIKICAgICAgICB9CiAgICAgICAgCiAgICAgICAgZHluYW1pYyBhICJTZXF1ZW5jZS1Tb2Z0d2FyZVN5c3RlbSIgewogICAgICAgICAgICBiIC0+IGUKICAgICAgICAgICAgYXV0b0xheW91dAogICAgICAgIH0KICAgICAgICAgICAgCiAgICAgICAgZHluYW1pYyBlICJTZXF1ZW5jZS1Db250YWluZXIiIHsKICAgICAgICAgICAgZiAtPiBoCiAgICAgICAgICAgIGMgLT4gZgogICAgICAgICAgICBmIC0+IGcKICAgICAgICAgICAgYXV0b0xheW91dAogICAgICAgIH0KICAgIH0KCn0="
   },
   "views" : {
     "configuration" : {
@@ -161,7 +165,7 @@
     },
     "dynamicViews" : [ {
       "automaticLayout" : {
-        "applied" : false,
+        "applied" : true,
         "edgeSeparation" : 0,
         "implementation" : "Graphviz",
         "nodeSeparation" : 300,
@@ -169,15 +173,19 @@
         "rankSeparation" : 300,
         "vertices" : false
       },
+      "dimensions" : {
+        "height" : 1531,
+        "width" : 930
+      },
       "elementId" : "1",
       "elements" : [ {
         "id" : "2",
-        "x" : 0,
-        "y" : 0
+        "x" : 240,
+        "y" : 185
       }, {
         "id" : "5",
-        "x" : 0,
-        "y" : 0
+        "x" : 240,
+        "y" : 831
       } ],
       "externalBoundariesVisible" : false,
       "key" : "Sequence-SoftwareSystem",
@@ -198,26 +206,26 @@
         "vertices" : false
       },
       "dimensions" : {
-        "height" : 2011,
-        "width" : 1640
+        "height" : 2131,
+        "width" : 1680
       },
       "elementId" : "5",
       "elements" : [ {
         "id" : "3",
-        "x" : 220,
+        "x" : 614,
         "y" : 185
       }, {
         "id" : "6",
-        "x" : 220,
-        "y" : 785
+        "x" : 614,
+        "y" : 831
       }, {
         "id" : "7",
-        "x" : 220,
-        "y" : 1385
+        "x" : 239,
+        "y" : 1431
       }, {
         "id" : "8",
-        "x" : 970,
-        "y" : 1385
+        "x" : 989,
+        "y" : 1431
       } ],
       "externalBoundariesVisible" : false,
       "key" : "Sequence-Container",

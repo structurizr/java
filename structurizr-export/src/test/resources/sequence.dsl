@@ -11,10 +11,14 @@ workspace {
             }
         }
         d = softwareSystem "d" {
-            e = container "e" {
-                f = component "f"
-                g = component "g"
-                h = component "h"
+            group1 = group "group1" {
+                e = container "e" {
+                    group2 = group "group2" {
+                        f = component "f"
+                        g = component "g"
+                        h = component "h"
+                    }
+                }
             }
         }
 
