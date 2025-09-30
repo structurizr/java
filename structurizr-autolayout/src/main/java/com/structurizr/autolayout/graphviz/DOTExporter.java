@@ -6,6 +6,7 @@ import com.structurizr.export.IndentingWriter;
 import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
 import com.structurizr.view.DeploymentView;
+import com.structurizr.view.ElementStyle;
 import com.structurizr.view.ModelView;
 import com.structurizr.view.RelationshipView;
 
@@ -114,10 +115,12 @@ class DOTExporter extends AbstractDiagramExporter {
 
     @Override
     protected void writeElement(ModelView view, Element element, IndentingWriter writer) {
+        ElementStyle elementStyle = StyleUtils.findElementStyle(view, element);
+
         writer.writeLine(String.format(locale, "%s [width=%f,height=%f,fixedsize=true,id=%s,label=\"%s: %s\"]",
                 element.getId(),
-                getElementWidth(view, element.getId()) / Constants.STRUCTURIZR_DPI, // convert Structurizr dimensions to inches
-                getElementHeight(view, element.getId()) / Constants.STRUCTURIZR_DPI, // convert Structurizr dimensions to inches
+                elementStyle.getWidth() / Constants.STRUCTURIZR_DPI, // convert Structurizr dimensions to inches
+                elementStyle.getHeight() / Constants.STRUCTURIZR_DPI, // convert Structurizr dimensions to inches
                 element.getId(),
                 element.getId(),
                 escape(element.getName())
@@ -215,16 +218,6 @@ class DOTExporter extends AbstractDiagramExporter {
         }
 
         return null;
-    }
-
-    private int getElementWidth(ModelView view, String elementId) {
-        Element element = view.getModel().getElement(elementId);
-        return view.getViewSet().getConfiguration().getStyles().findElementStyle(element).getWidth();
-    }
-
-    private int getElementHeight(ModelView view, String elementId) {
-        Element element = view.getModel().getElement(elementId);
-        return view.getViewSet().getConfiguration().getStyles().findElementStyle(element).getHeight();
     }
 
 }

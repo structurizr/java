@@ -89,7 +89,7 @@ class SVGReader {
                 minimumX = Math.min(elementView.getX(), minimumX);
                 minimumY = Math.min(elementView.getY(), minimumY);
 
-                ElementStyle style = view.getViewSet().getConfiguration().getStyles().findElementStyle(view.getModel().getElement(elementView.getId()));
+                ElementStyle style = StyleUtils.findElementStyle(view, view.getModel().getElement(elementView.getId()));
 
                 maximumX = Math.max(elementView.getX() + style.getWidth(), maximumX);
                 maximumY = Math.max(elementView.getY() + style.getHeight(), maximumY);

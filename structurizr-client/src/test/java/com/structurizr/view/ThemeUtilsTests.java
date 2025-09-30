@@ -94,8 +94,8 @@ public class ThemeUtilsTests {
         workspace.getViews().getConfiguration().getStyles().addStylesFromTheme(new Theme(elementStyles, relationshipStyles));
 
         ElementStyle style = workspace.getViews().getConfiguration().getStyles().findElementStyle(softwareSystem);
-        assertEquals(Integer.valueOf(450), style.getWidth());
-        assertEquals(Integer.valueOf(300), style.getHeight());
+        assertNull(style.getWidth());
+        assertNull(style.getHeight());
         assertEquals("#ff0000", style.getBackground()); // from theme 2
         assertEquals("#ffffff", style.getColor()); // from theme 1
         assertEquals(Integer.valueOf(24), style.getFontSize());

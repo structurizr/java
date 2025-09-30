@@ -8,7 +8,6 @@ import com.structurizr.model.Tags;
 import com.structurizr.view.AutomaticLayout;
 import com.structurizr.view.Shape;
 import com.structurizr.view.SystemContextView;
-import com.structurizr.view.SystemLandscapeView;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -23,36 +22,36 @@ public class GraphvizAutomaticLayoutTests {
         File tempDir = Files.createTempDirectory("graphviz").toFile();
         GraphvizAutomaticLayout graphviz = new GraphvizAutomaticLayout(tempDir);
 
-        Workspace workspace = new Workspace("Name");
-        SoftwareSystem a = workspace.getModel().addSoftwareSystem("A");
-        SoftwareSystem b = workspace.getModel().addSoftwareSystem("B");
-        a.uses(b, "Uses");
+        Workspace workspace = new Workspace("Name", "");
+        Person user = workspace.getModel().addPerson("User");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System");
+        user.uses(softwareSystem, "Uses");
 
-        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key");
+        SystemContextView view = workspace.getViews().createSystemContextView(softwareSystem, "SystemContext", "");
         view.addAllElements();
 
         workspace.getViews().getConfiguration().getStyles().addElementStyle(Tags.PERSON).shape(Shape.Person);
 
-        assertEquals(0, view.getElementView(a).getX());
-        assertEquals(0, view.getElementView(a).getY());
-        assertEquals(0, view.getElementView(b).getX());
-        assertEquals(0, view.getElementView(b).getY());
+        assertEquals(0, view.getElementView(user).getX());
+        assertEquals(0, view.getElementView(user).getY());
+        assertEquals(0, view.getElementView(softwareSystem).getX());
+        assertEquals(0, view.getElementView(softwareSystem).getY());
 
         graphviz.apply(workspace);
 
         // no change - the view doesn't have automatic layout configured
-        assertEquals(0, view.getElementView(a).getX());
-        assertEquals(0, view.getElementView(a).getY());
-        assertEquals(0, view.getElementView(b).getX());
-        assertEquals(0, view.getElementView(b).getY());
+        assertEquals(0, view.getElementView(user).getX());
+        assertEquals(0, view.getElementView(user).getY());
+        assertEquals(0, view.getElementView(softwareSystem).getX());
+        assertEquals(0, view.getElementView(softwareSystem).getY());
 
         view.enableAutomaticLayout(AutomaticLayout.RankDirection.TopBottom);
         graphviz.apply(workspace);
 
-        assertEquals(208, view.getElementView(a).getX());
-        assertEquals(208, view.getElementView(a).getY());
-        assertEquals(208, view.getElementView(b).getX());
-        assertEquals(808, view.getElementView(b).getY());
+        assertEquals(233, view.getElementView(user).getX());
+        assertEquals(208, view.getElementView(user).getY());
+        assertEquals(208, view.getElementView(softwareSystem).getX());
+        assertEquals(908, view.getElementView(softwareSystem).getY());
     }
 
 }

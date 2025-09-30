@@ -9,9 +9,6 @@ import com.structurizr.util.StringUtils;
  */
 public final class ElementStyle extends AbstractStyle {
 
-    public static final int DEFAULT_WIDTH = 450;
-    public static final int DEFAULT_HEIGHT = 300;
-
     @JsonInclude(value = JsonInclude.Include.NON_NULL)
     private Integer width;
 

@@ -15,6 +15,8 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
 
     public static final String PLANTUML_SHADOW = "plantuml.shadow";
 
+    private static final int DEFAULT_WIDTH = 450;
+    private static final int DEFAULT_HEIGHT = 300;
     private static final int DEFAULT_STROKE_WIDTH = 2;
     private static final double METADATA_FONT_SIZE_RATIO = 0.7;
     private static final int MAX_ICON_SIZE_RATIO = 3;
@@ -99,6 +101,7 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
         sortedStyles.stream().filter(style -> style instanceof PlantUMLRootStyle).forEach(style -> styles.append(style.toString()));
         sortedStyles.stream().filter(style -> style instanceof PlantUMLElementStyle).forEach(style -> styles.append(style.toString()));
         sortedStyles.stream().filter(style -> style instanceof PlantUMLRelationshipStyle).forEach(style -> styles.append(style.toString()));
+        sortedStyles.stream().filter(style -> style instanceof PlantUMLDeploymentNodeStyle).forEach(style -> styles.append(style.toString()));
         sortedStyles.stream().filter(style -> style instanceof PlantUMLBoundaryStyle).forEach(style -> styles.append(style.toString()));
         sortedStyles.stream().filter(style -> style instanceof PlantUMLGroupStyle).forEach(style -> styles.append(style.toString()));
         sortedStyles.stream().filter(style -> style instanceof PlantUMLLegendStyle).forEach(style -> styles.append(style.toString()));
@@ -235,10 +238,8 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
     protected void startDeploymentNodeBoundary(DeploymentView view, DeploymentNode deploymentNode, IndentingWriter writer) {
         ElementStyle elementStyle = findElementStyle(view, deploymentNode);
 
-        PlantUMLElementStyle plantUMLElementStyle = new PlantUMLElementStyle(
+        PlantUMLDeploymentNodeStyle plantUMLDeploymentNodeStyle = new PlantUMLDeploymentNodeStyle(
                 elementStyle.getTag(),
-                elementStyle.getShape(),
-                elementStyle.getWidth(),
                 elementStyle.getBackground(),
                 elementStyle.getColor(),
                 elementStyle.getStroke(),
@@ -248,7 +249,7 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
                 elementStyle.getIcon(),
                 "true".equalsIgnoreCase(elementStyle.getProperties().getOrDefault(PLANTUML_SHADOW, "false"))
         );
-        plantUMLStyles.add(plantUMLElementStyle);
+        plantUMLStyles.add(plantUMLDeploymentNodeStyle);
 
         String icon = "";
         if (isSupportedIcon(elementStyle.getIcon())) {
@@ -270,7 +271,7 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
                         calculateMetadataFontSize(findElementStyle(view, deploymentNode).getFontSize()),
                         typeOf(view, deploymentNode, true),
                         icon,
-                        classSelectorFor(elementStyle),
+                        plantUMLDeploymentNodeStyle.getClassSelector(),
                         idOf(deploymentNode),
                         url
                 )
@@ -324,6 +325,15 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
     @Override
     protected void writeElement(ModelView view, Element element, IndentingWriter writer) {
         ElementStyle elementStyle = findElementStyle(view, element);
+
+        if (elementStyle.getWidth() == null) {
+            elementStyle.setWidth(DEFAULT_WIDTH);
+        }
+
+        if (elementStyle.getHeight() == null) {
+            elementStyle.setHeight(DEFAULT_HEIGHT);
+        }
+
         String sequenceDiagramShape = plantumlSequenceType(view, element);
 
         if (renderAsSequenceDiagram(view)) {
@@ -499,6 +509,28 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
         writer.writeLine("<style></style>");
         writer.writeLine();
 
+        plantUMLStyles.stream().sorted(Comparator.comparing(PlantUMLStyle::getName)).filter(style -> style instanceof PlantUMLDeploymentNodeStyle).map(style -> (PlantUMLDeploymentNodeStyle)style).forEach(style -> {
+            style.setWidth(200);
+            String description = style.getName();
+            if (description.startsWith("Element,")) {
+                description = description.substring("Element,".length());
+            }
+            description = description.replaceAll(",", ", ");
+
+            String icon = "";
+            if (isSupportedIcon(style.getIcon())) {
+                double scale = calculateIconScale(style.getIcon(), style.getFontSize() * MAX_ICON_SIZE_RATIO);
+                icon = "\\n\\n<img:" + style.getIcon() + "{scale=" + scale + "}>";
+            }
+
+            writer.writeLine(format("rectangle \"==%s%s\" <<%s>>",
+                    description,
+                    icon,
+                    style.getClassSelector())
+            );
+            writer.writeLine();
+        });
+
         plantUMLStyles.stream().sorted(Comparator.comparing(PlantUMLStyle::getName)).filter(style -> style instanceof PlantUMLElementStyle).map(style -> (PlantUMLElementStyle)style).forEach(style -> {
             style.setWidth(200);
             String description = style.getName();
@@ -554,14 +586,6 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
 
     protected boolean renderAsSequenceDiagram(ModelView view) {
         return view instanceof DynamicView && "true".equalsIgnoreCase(getViewOrViewSetProperty(view, PLANTUML_SEQUENCE_DIAGRAM_PROPERTY, "false"));
-    }
-
-    private String classSelectorFor(ElementStyle elementStyle) {
-        return "Element-" + Base64.getEncoder().encodeToString(elementStyle.getTag().getBytes());
-    }
-
-    private String classSelectorForBoundary(Element element) {
-        return "Boundary-" + Base64.getEncoder().encodeToString(element.getName().getBytes());
     }
 
     private ElementStyle findBoundaryStyle(ModelView view, Element element) {

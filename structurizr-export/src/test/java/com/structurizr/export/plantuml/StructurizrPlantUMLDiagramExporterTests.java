@@ -622,18 +622,6 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     BackgroundColor: #ffffff;
                     FontColor: #444444;
                   }
-                  // Element
-                  .Element-RWxlbWVudA== {
-                    BackgroundColor: #ffffff;
-                    LineColor: #444444;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #444444;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
-                  }
                   // Element,Container
                   .Element-RWxlbWVudCxDb250YWluZXI= {
                     BackgroundColor: #438dd5;
@@ -690,23 +678,34 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontColor: #444444;
                     FontSize: 24;
                   }
+                  // Element
+                  .DeploymentNode-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
                 </style>
                 
-                rectangle "Developer Laptop\\n<size:16>[Deployment Node: Microsoft Windows 10 or Apple macOS]</size>" <<Element-RWxlbWVudA==>> as Development.DeveloperLaptop {
-                  rectangle "Web Browser\\n<size:16>[Deployment Node: Chrome, Firefox, Safari, or Edge]</size>" <<Element-RWxlbWVudA==>> as Development.DeveloperLaptop.WebBrowser {
+                rectangle "Developer Laptop\\n<size:16>[Deployment Node: Microsoft Windows 10 or Apple macOS]</size>" <<DeploymentNode-RWxlbWVudA==>> as Development.DeveloperLaptop {
+                  rectangle "Web Browser\\n<size:16>[Deployment Node: Chrome, Firefox, Safari, or Edge]</size>" <<DeploymentNode-RWxlbWVudA==>> as Development.DeveloperLaptop.WebBrowser {
                     rectangle "==Single-Page Application\\n<size:16>[Container: JavaScript and Angular]</size>\\n\\nProvides all of the Internet banking functionality to customers via their web browser." <<Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI=>> as Development.DeveloperLaptop.WebBrowser.SinglePageApplication_1
                   }
                 
-                  rectangle "Docker Container - Web Server\\n<size:16>[Deployment Node: Docker]</size>" <<Element-RWxlbWVudA==>> as Development.DeveloperLaptop.DockerContainerWebServer {
-                    rectangle "Apache Tomcat\\n<size:16>[Deployment Node: Apache Tomcat 8.x]</size>" <<Element-RWxlbWVudA==>> as Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat {
+                  rectangle "Docker Container - Web Server\\n<size:16>[Deployment Node: Docker]</size>" <<DeploymentNode-RWxlbWVudA==>> as Development.DeveloperLaptop.DockerContainerWebServer {
+                    rectangle "Apache Tomcat\\n<size:16>[Deployment Node: Apache Tomcat 8.x]</size>" <<DeploymentNode-RWxlbWVudA==>> as Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat {
                       rectangle "==Web Application\\n<size:16>[Container: Java and Spring MVC]</size>\\n\\nDelivers the static content and the Internet banking single page application." <<Element-RWxlbWVudCxDb250YWluZXI=>> as Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.WebApplication_1
                       rectangle "==API Application\\n<size:16>[Container: Java and Spring MVC]</size>\\n\\nProvides Internet banking functionality via a JSON/HTTPS API." <<Element-RWxlbWVudCxDb250YWluZXI=>> as Development.DeveloperLaptop.DockerContainerWebServer.ApacheTomcat.APIApplication_1
                     }
                 
                   }
                 
-                  rectangle "Docker Container - Database Server\\n<size:16>[Deployment Node: Docker]</size>" <<Element-RWxlbWVudA==>> as Development.DeveloperLaptop.DockerContainerDatabaseServer {
-                    rectangle "Database Server\\n<size:16>[Deployment Node: Oracle 12c]</size>" <<Element-RWxlbWVudA==>> as Development.DeveloperLaptop.DockerContainerDatabaseServer.DatabaseServer {
+                  rectangle "Docker Container - Database Server\\n<size:16>[Deployment Node: Docker]</size>" <<DeploymentNode-RWxlbWVudA==>> as Development.DeveloperLaptop.DockerContainerDatabaseServer {
+                    rectangle "Database Server\\n<size:16>[Deployment Node: Oracle 12c]</size>" <<DeploymentNode-RWxlbWVudA==>> as Development.DeveloperLaptop.DockerContainerDatabaseServer.DatabaseServer {
                       database "==Database\\n<size:16>[Container: Oracle Database Schema]</size>\\n\\nStores user registration information, hashed authentication credentials, access logs, etc." <<Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U=>> as Development.DeveloperLaptop.DockerContainerDatabaseServer.DatabaseServer.Database_1
                     }
                 
@@ -714,8 +713,8 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 
                 }
                 
-                rectangle "Big Bank plc\\n<size:16>[Deployment Node: Big Bank plc data center]</size>" <<Element-RWxlbWVudA==>> as Development.BigBankplc {
-                  rectangle "bigbank-dev001\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Development.BigBankplc.bigbankdev001 {
+                rectangle "Big Bank plc\\n<size:16>[Deployment Node: Big Bank plc data center]</size>" <<DeploymentNode-RWxlbWVudA==>> as Development.BigBankplc {
+                  rectangle "bigbank-dev001\\n<size:16>[Deployment Node]</size>" <<DeploymentNode-RWxlbWVudA==>> as Development.BigBankplc.bigbankdev001 {
                     rectangle "==Mainframe Banking System\\n<size:16>[Software System]</size>\\n\\nStores all of the core banking information about customers, accounts, transactions, etc." <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt>> as Development.BigBankplc.bigbankdev001.MainframeBankingSystem_1
                   }
                 
@@ -743,18 +742,6 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                   root {
                     BackgroundColor: #ffffff;
                     FontColor: #444444;
-                  }
-                  // Element
-                  .Element-RWxlbWVudA== {
-                    BackgroundColor: #ffffff;
-                    LineColor: #444444;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #444444;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
                   }
                   // Element,Container
                   .Element-RWxlbWVudCxDb250YWluZXI= {
@@ -804,18 +791,6 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                     MaximumWidth: 450;
                   }
-                  // Element,Failover
-                  .Element-RWxlbWVudCxGYWlsb3Zlcg== {
-                    BackgroundColor: #ffffff;
-                    LineColor: #444444;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #444444;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
-                  }
                   // Element,Software System,Existing System
                   .Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt {
                     BackgroundColor: #999999;
@@ -836,49 +811,71 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontColor: #444444;
                     FontSize: 24;
                   }
+                  // Element
+                  .DeploymentNode-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Element,Failover
+                  .DeploymentNode-RWxlbWVudCxGYWlsb3Zlcg== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
                 </style>
                 
-                rectangle "Customer's mobile device\\n<size:16>[Deployment Node: Apple iOS or Android]</size>" <<Element-RWxlbWVudA==>> as Live.Customersmobiledevice {
+                rectangle "Customer's mobile device\\n<size:16>[Deployment Node: Apple iOS or Android]</size>" <<DeploymentNode-RWxlbWVudA==>> as Live.Customersmobiledevice {
                   rectangle "==Mobile App\\n<size:16>[Container: Xamarin]</size>\\n\\nProvides a limited subset of the Internet banking functionality to customers via their mobile device." <<Element-RWxlbWVudCxDb250YWluZXIsTW9iaWxlIEFwcA==>> as Live.Customersmobiledevice.MobileApp_1
                 }
                 
-                rectangle "Customer's computer\\n<size:16>[Deployment Node: Microsoft Windows or Apple macOS]</size>" <<Element-RWxlbWVudA==>> as Live.Customerscomputer {
-                  rectangle "Web Browser\\n<size:16>[Deployment Node: Chrome, Firefox, Safari, or Edge]</size>" <<Element-RWxlbWVudA==>> as Live.Customerscomputer.WebBrowser {
+                rectangle "Customer's computer\\n<size:16>[Deployment Node: Microsoft Windows or Apple macOS]</size>" <<DeploymentNode-RWxlbWVudA==>> as Live.Customerscomputer {
+                  rectangle "Web Browser\\n<size:16>[Deployment Node: Chrome, Firefox, Safari, or Edge]</size>" <<DeploymentNode-RWxlbWVudA==>> as Live.Customerscomputer.WebBrowser {
                     rectangle "==Single-Page Application\\n<size:16>[Container: JavaScript and Angular]</size>\\n\\nProvides all of the Internet banking functionality to customers via their web browser." <<Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI=>> as Live.Customerscomputer.WebBrowser.SinglePageApplication_1
                   }
                 
                 }
                 
-                rectangle "Big Bank plc\\n<size:16>[Deployment Node: Big Bank plc data center]</size>" <<Element-RWxlbWVudA==>> as Live.BigBankplc {
-                  rectangle "bigbank-web*** (x4)\\n<size:16>[Deployment Node: Ubuntu 16.04 LTS]</size>" <<Element-RWxlbWVudA==>> as Live.BigBankplc.bigbankweb {
-                    rectangle "Apache Tomcat\\n<size:16>[Deployment Node: Apache Tomcat 8.x]</size>" <<Element-RWxlbWVudA==>> as Live.BigBankplc.bigbankweb.ApacheTomcat {
+                rectangle "Big Bank plc\\n<size:16>[Deployment Node: Big Bank plc data center]</size>" <<DeploymentNode-RWxlbWVudA==>> as Live.BigBankplc {
+                  rectangle "bigbank-web*** (x4)\\n<size:16>[Deployment Node: Ubuntu 16.04 LTS]</size>" <<DeploymentNode-RWxlbWVudA==>> as Live.BigBankplc.bigbankweb {
+                    rectangle "Apache Tomcat\\n<size:16>[Deployment Node: Apache Tomcat 8.x]</size>" <<DeploymentNode-RWxlbWVudA==>> as Live.BigBankplc.bigbankweb.ApacheTomcat {
                       rectangle "==Web Application\\n<size:16>[Container: Java and Spring MVC]</size>\\n\\nDelivers the static content and the Internet banking single page application." <<Element-RWxlbWVudCxDb250YWluZXI=>> as Live.BigBankplc.bigbankweb.ApacheTomcat.WebApplication_1
                     }
                 
                   }
                 
-                  rectangle "bigbank-api*** (x8)\\n<size:16>[Deployment Node: Ubuntu 16.04 LTS]</size>" <<Element-RWxlbWVudA==>> as Live.BigBankplc.bigbankapi {
-                    rectangle "Apache Tomcat\\n<size:16>[Deployment Node: Apache Tomcat 8.x]</size>" <<Element-RWxlbWVudA==>> as Live.BigBankplc.bigbankapi.ApacheTomcat {
+                  rectangle "bigbank-api*** (x8)\\n<size:16>[Deployment Node: Ubuntu 16.04 LTS]</size>" <<DeploymentNode-RWxlbWVudA==>> as Live.BigBankplc.bigbankapi {
+                    rectangle "Apache Tomcat\\n<size:16>[Deployment Node: Apache Tomcat 8.x]</size>" <<DeploymentNode-RWxlbWVudA==>> as Live.BigBankplc.bigbankapi.ApacheTomcat {
                       rectangle "==API Application\\n<size:16>[Container: Java and Spring MVC]</size>\\n\\nProvides Internet banking functionality via a JSON/HTTPS API." <<Element-RWxlbWVudCxDb250YWluZXI=>> as Live.BigBankplc.bigbankapi.ApacheTomcat.APIApplication_1
                     }
                 
                   }
                 
-                  rectangle "bigbank-db01\\n<size:16>[Deployment Node: Ubuntu 16.04 LTS]</size>" <<Element-RWxlbWVudA==>> as Live.BigBankplc.bigbankdb01 {
-                    rectangle "Oracle - Primary\\n<size:16>[Deployment Node: Oracle 12c]</size>" <<Element-RWxlbWVudA==>> as Live.BigBankplc.bigbankdb01.OraclePrimary {
+                  rectangle "bigbank-db01\\n<size:16>[Deployment Node: Ubuntu 16.04 LTS]</size>" <<DeploymentNode-RWxlbWVudA==>> as Live.BigBankplc.bigbankdb01 {
+                    rectangle "Oracle - Primary\\n<size:16>[Deployment Node: Oracle 12c]</size>" <<DeploymentNode-RWxlbWVudA==>> as Live.BigBankplc.bigbankdb01.OraclePrimary {
                       database "==Database\\n<size:16>[Container: Oracle Database Schema]</size>\\n\\nStores user registration information, hashed authentication credentials, access logs, etc." <<Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U=>> as Live.BigBankplc.bigbankdb01.OraclePrimary.Database_1
                     }
                 
                   }
                 
-                  rectangle "bigbank-db02\\n<size:16>[Deployment Node: Ubuntu 16.04 LTS]</size>" <<Element-RWxlbWVudCxGYWlsb3Zlcg==>> as Live.BigBankplc.bigbankdb02 {
-                    rectangle "Oracle - Secondary\\n<size:16>[Deployment Node: Oracle 12c]</size>" <<Element-RWxlbWVudCxGYWlsb3Zlcg==>> as Live.BigBankplc.bigbankdb02.OracleSecondary {
+                  rectangle "bigbank-db02\\n<size:16>[Deployment Node: Ubuntu 16.04 LTS]</size>" <<DeploymentNode-RWxlbWVudCxGYWlsb3Zlcg==>> as Live.BigBankplc.bigbankdb02 {
+                    rectangle "Oracle - Secondary\\n<size:16>[Deployment Node: Oracle 12c]</size>" <<DeploymentNode-RWxlbWVudCxGYWlsb3Zlcg==>> as Live.BigBankplc.bigbankdb02.OracleSecondary {
                       database "==Database\\n<size:16>[Container: Oracle Database Schema]</size>\\n\\nStores user registration information, hashed authentication credentials, access logs, etc." <<Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U=>> as Live.BigBankplc.bigbankdb02.OracleSecondary.Database_1
                     }
                 
                   }
                 
-                  rectangle "bigbank-prod001\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Live.BigBankplc.bigbankprod001 {
+                  rectangle "bigbank-prod001\\n<size:16>[Deployment Node]</size>" <<DeploymentNode-RWxlbWVudA==>> as Live.BigBankplc.bigbankprod001 {
                     rectangle "==Mainframe Banking System\\n<size:16>[Software System]</size>\\n\\nStores all of the core banking information about customers, accounts, transactions, etc." <<Element-RWxlbWVudCxTb2Z0d2FyZSBTeXN0ZW0sRXhpc3RpbmcgU3lzdGVt>> as Live.BigBankplc.bigbankprod001.MainframeBankingSystem_1
                   }
                 
@@ -1425,14 +1422,25 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                     MaximumWidth: 450;
                   }
+                  // Element
+                  .DeploymentNode-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
                 </style>
                 
-                rectangle "Node 1\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Default.Node1 {
-                  rectangle "Node 2\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Default.Node1.Node2 {
+                rectangle "Node 1\\n<size:16>[Deployment Node]</size>" <<DeploymentNode-RWxlbWVudA==>> as Default.Node1 {
+                  rectangle "Node 2\\n<size:16>[Deployment Node]</size>" <<DeploymentNode-RWxlbWVudA==>> as Default.Node1.Node2 {
                     rectangle "==A\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Default.Node1.Node2.A_1
                   }
                 
-                  rectangle "Node 3\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Default.Node1.Node3 {
+                  rectangle "Node 3\\n<size:16>[Deployment Node]</size>" <<DeploymentNode-RWxlbWVudA==>> as Default.Node1.Node3 {
                     rectangle "==Infrastructure Node\\n<size:16>[Infrastructure Node]</size>" <<Element-RWxlbWVudA==>> as Default.Node1.Node3.InfrastructureNode
                   }
                 
@@ -3333,6 +3341,17 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                     MaximumWidth: 450;
                   }
+                  // Element
+                  .DeploymentNode-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
                   // Group 1
                   .Group-R3JvdXAgMQ== {
                     BackgroundColor: #ffffff;
@@ -3358,7 +3377,7 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 </style>
                 
                 rectangle "Group 1" <<Group-R3JvdXAgMQ==>> as groupR3JvdXAgMQ== {
-                  rectangle "Server 1\\n<size:16>[Deployment Node]</size>" <<Element-RWxlbWVudA==>> as Default.Server1 {
+                  rectangle "Server 1\\n<size:16>[Deployment Node]</size>" <<DeploymentNode-RWxlbWVudA==>> as Default.Server1 {
                     rectangle "Group 2" <<Group-R3JvdXAgMg==>> as groupR3JvdXAgMg== {
                       rectangle "==Infrastructure Node 2\\n<size:16>[Infrastructure Node]</size>" <<Element-RWxlbWVudA==>> as Default.Server1.InfrastructureNode2
                       rectangle "==Software System\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as Default.Server1.SoftwareSystem_1
@@ -3512,42 +3531,6 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     BackgroundColor: #ffffff;
                     FontColor: #444444;
                   }
-                  // Element,Amazon Web Services - Auto Scaling
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n {
-                    BackgroundColor: #ffffff;
-                    LineColor: #cc2264;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #cc2264;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
-                  }
-                  // Element,Amazon Web Services - Cloud
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ= {
-                    BackgroundColor: #ffffff;
-                    LineColor: #232f3e;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #232f3e;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
-                  }
-                  // Element,Amazon Web Services - EC2
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy {
-                    BackgroundColor: #ffffff;
-                    LineColor: #d86613;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #d86613;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
-                  }
                   // Element,Amazon Web Services - Elastic Load Balancing
                   .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw== {
                     BackgroundColor: #ffffff;
@@ -3555,42 +3538,6 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     LineStyle: 0;
                     LineThickness: 2;
                     FontColor: #693cc5;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
-                  }
-                  // Element,Amazon Web Services - RDS
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT {
-                    BackgroundColor: #ffffff;
-                    LineColor: #3b48cc;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #3b48cc;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
-                  }
-                  // Element,Amazon Web Services - RDS MySQL instance
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl {
-                    BackgroundColor: #ffffff;
-                    LineColor: #3b48cc;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #3b48cc;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
-                  }
-                  // Element,Amazon Web Services - Region
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u {
-                    BackgroundColor: #ffffff;
-                    LineColor: #147eba;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #147eba;
                     FontSize: 24;
                     HorizontalAlignment: center;
                     Shadowing: 0;
@@ -3641,19 +3588,85 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontColor: #444444;
                     FontSize: 24;
                   }
+                  // Element,Amazon Web Services - Auto Scaling
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n {
+                    BackgroundColor: #ffffff;
+                    LineColor: #cc2264;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #cc2264;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Element,Amazon Web Services - Cloud
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #232f3e;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #232f3e;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Element,Amazon Web Services - EC2
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy {
+                    BackgroundColor: #ffffff;
+                    LineColor: #d86613;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #d86613;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Element,Amazon Web Services - RDS
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT {
+                    BackgroundColor: #ffffff;
+                    LineColor: #3b48cc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #3b48cc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Element,Amazon Web Services - RDS MySQL instance
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl {
+                    BackgroundColor: #ffffff;
+                    LineColor: #3b48cc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #3b48cc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Element,Amazon Web Services - Region
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u {
+                    BackgroundColor: #ffffff;
+                    LineColor: #147eba;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #147eba;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
                 </style>
                 
-                rectangle "Amazon Web Services\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ=>> as Live.AmazonWebServices {
-                  rectangle "US-East-1\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u>> as Live.AmazonWebServices.USEast1 {
-                    rectangle "Autoscaling group\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n>> as Live.AmazonWebServices.USEast1.Autoscalinggroup {
-                      rectangle "Amazon EC2 - Ubuntu server\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy>> as Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver {
+                rectangle "Amazon Web Services\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.5142857142857142}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ=>> as Live.AmazonWebServices {
+                  rectangle "US-East-1\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.5142857142857142}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u>> as Live.AmazonWebServices.USEast1 {
+                    rectangle "Autoscaling group\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.24}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n>> as Live.AmazonWebServices.USEast1.Autoscalinggroup {
+                      rectangle "Amazon EC2 - Ubuntu server\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.24}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy>> as Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver {
                         rectangle "==Web Application\\n<size:16>[Container: Java and Spring Boot]</size>" <<Element-RWxlbWVudCxBcHBsaWNhdGlvbg==>> as Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1
                       }
                 
                     }
                 
-                    rectangle "Amazon RDS\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT>> as Live.AmazonWebServices.USEast1.AmazonRDS {
-                      rectangle "MySQL\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.36}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl>> as Live.AmazonWebServices.USEast1.AmazonRDS.MySQL {
+                    rectangle "Amazon RDS\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.24}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT>> as Live.AmazonWebServices.USEast1.AmazonRDS {
+                      rectangle "MySQL\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.36}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl>> as Live.AmazonWebServices.USEast1.AmazonRDS.MySQL {
                         database "==Database Schema\\n<size:16>[Container]</size>" <<Element-RWxlbWVudCxEYXRhYmFzZQ==>> as Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1
                       }
                 
@@ -3682,42 +3695,6 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     BackgroundColor: #ffffff;
                     FontColor: #444444;
                   }
-                  // Element,Amazon Web Services - Auto Scaling
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n {
-                    BackgroundColor: #ffffff;
-                    LineColor: #cc2264;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #cc2264;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Amazon Web Services - Cloud
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ= {
-                    BackgroundColor: #ffffff;
-                    LineColor: #232f3e;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #232f3e;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Amazon Web Services - EC2
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy {
-                    BackgroundColor: #ffffff;
-                    LineColor: #d86613;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #d86613;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
                   // Element,Amazon Web Services - Elastic Load Balancing
                   .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw== {
                     BackgroundColor: #ffffff;
@@ -3725,42 +3702,6 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     LineStyle: 0;
                     LineThickness: 2;
                     FontColor: #693cc5;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Amazon Web Services - RDS
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT {
-                    BackgroundColor: #ffffff;
-                    LineColor: #3b48cc;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #3b48cc;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Amazon Web Services - RDS MySQL instance
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl {
-                    BackgroundColor: #ffffff;
-                    LineColor: #3b48cc;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #3b48cc;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Amazon Web Services - Region
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u {
-                    BackgroundColor: #ffffff;
-                    LineColor: #147eba;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #147eba;
                     FontSize: 24;
                     HorizontalAlignment: center;
                     Shadowing: 0;
@@ -3811,6 +3752,78 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontColor: #444444;
                     FontSize: 24;
                   }
+                  // Element,Amazon Web Services - Auto Scaling
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n {
+                    BackgroundColor: #ffffff;
+                    LineColor: #cc2264;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #cc2264;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - Cloud
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ= {
+                    BackgroundColor: #ffffff;
+                    LineColor: #232f3e;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #232f3e;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - EC2
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy {
+                    BackgroundColor: #ffffff;
+                    LineColor: #d86613;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #d86613;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - RDS
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT {
+                    BackgroundColor: #ffffff;
+                    LineColor: #3b48cc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #3b48cc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - RDS MySQL instance
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl {
+                    BackgroundColor: #ffffff;
+                    LineColor: #3b48cc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #3b48cc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - Region
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u {
+                    BackgroundColor: #ffffff;
+                    LineColor: #147eba;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #147eba;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
                   // transparent element for relationships in legend
                   .Element-Transparent {
                     BackgroundColor: transparent;
@@ -3819,19 +3832,19 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                   }
                 </style>
                 
-                rectangle "==Amazon Web Services - Auto Scaling\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n>>
+                rectangle "==Amazon Web Services - Auto Scaling\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.24}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n>>
                 
-                rectangle "==Amazon Web Services - Cloud\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ=>>
+                rectangle "==Amazon Web Services - Cloud\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.5142857142857142}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ=>>
                 
-                rectangle "==Amazon Web Services - EC2\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy>>
+                rectangle "==Amazon Web Services - EC2\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.24}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy>>
+                
+                rectangle "==Amazon Web Services - RDS\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.24}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT>>
+                
+                rectangle "==Amazon Web Services - RDS MySQL instance\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.36}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl>>
+                
+                rectangle "==Amazon Web Services - Region\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.5142857142857142}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u>>
                 
                 rectangle "==Amazon Web Services - Elastic Load Balancing\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/elastic-load-balancing.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw==>>
-                
-                rectangle "==Amazon Web Services - RDS\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT>>
-                
-                rectangle "==Amazon Web Services - RDS MySQL instance\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.36}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl>>
-                
-                rectangle "==Amazon Web Services - Region\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u>>
                 
                 rectangle "==Amazon Web Services - Route 53\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-route-53.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUm91dGUgNTM=>>
                 
@@ -3871,42 +3884,6 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     BackgroundColor: #111111;
                     FontColor: #cccccc;
                   }
-                  // Element,Amazon Web Services - Auto Scaling
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n {
-                    BackgroundColor: #111111;
-                    LineColor: #cc2264;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #cc2264;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
-                  }
-                  // Element,Amazon Web Services - Cloud
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ= {
-                    BackgroundColor: #111111;
-                    LineColor: #232f3e;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #232f3e;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
-                  }
-                  // Element,Amazon Web Services - EC2
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy {
-                    BackgroundColor: #111111;
-                    LineColor: #d86613;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #d86613;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
-                  }
                   // Element,Amazon Web Services - Elastic Load Balancing
                   .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw== {
                     BackgroundColor: #111111;
@@ -3914,42 +3891,6 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     LineStyle: 0;
                     LineThickness: 2;
                     FontColor: #693cc5;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
-                  }
-                  // Element,Amazon Web Services - RDS
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT {
-                    BackgroundColor: #111111;
-                    LineColor: #3b48cc;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #3b48cc;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
-                  }
-                  // Element,Amazon Web Services - RDS MySQL instance
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl {
-                    BackgroundColor: #111111;
-                    LineColor: #3b48cc;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #3b48cc;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 450;
-                  }
-                  // Element,Amazon Web Services - Region
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u {
-                    BackgroundColor: #111111;
-                    LineColor: #147eba;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #147eba;
                     FontSize: 24;
                     HorizontalAlignment: center;
                     Shadowing: 0;
@@ -4000,19 +3941,85 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontColor: #cccccc;
                     FontSize: 24;
                   }
+                  // Element,Amazon Web Services - Auto Scaling
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n {
+                    BackgroundColor: #111111;
+                    LineColor: #cc2264;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #cc2264;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Element,Amazon Web Services - Cloud
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ= {
+                    BackgroundColor: #111111;
+                    LineColor: #232f3e;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #232f3e;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Element,Amazon Web Services - EC2
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy {
+                    BackgroundColor: #111111;
+                    LineColor: #d86613;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #d86613;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Element,Amazon Web Services - RDS
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT {
+                    BackgroundColor: #111111;
+                    LineColor: #3b48cc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #3b48cc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Element,Amazon Web Services - RDS MySQL instance
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl {
+                    BackgroundColor: #111111;
+                    LineColor: #3b48cc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #3b48cc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // Element,Amazon Web Services - Region
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u {
+                    BackgroundColor: #111111;
+                    LineColor: #147eba;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #147eba;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
                 </style>
                 
-                rectangle "Amazon Web Services\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ=>> as Live.AmazonWebServices {
-                  rectangle "US-East-1\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u>> as Live.AmazonWebServices.USEast1 {
-                    rectangle "Autoscaling group\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n>> as Live.AmazonWebServices.USEast1.Autoscalinggroup {
-                      rectangle "Amazon EC2 - Ubuntu server\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy>> as Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver {
+                rectangle "Amazon Web Services\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.5142857142857142}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ=>> as Live.AmazonWebServices {
+                  rectangle "US-East-1\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.5142857142857142}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u>> as Live.AmazonWebServices.USEast1 {
+                    rectangle "Autoscaling group\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.24}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n>> as Live.AmazonWebServices.USEast1.Autoscalinggroup {
+                      rectangle "Amazon EC2 - Ubuntu server\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.24}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy>> as Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver {
                         rectangle "==Web Application\\n<size:16>[Container: Java and Spring Boot]</size>" <<Element-RWxlbWVudCxBcHBsaWNhdGlvbg==>> as Live.AmazonWebServices.USEast1.Autoscalinggroup.AmazonEC2Ubuntuserver.WebApplication_1
                       }
                 
                     }
                 
-                    rectangle "Amazon RDS\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT>> as Live.AmazonWebServices.USEast1.AmazonRDS {
-                      rectangle "MySQL\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.36}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl>> as Live.AmazonWebServices.USEast1.AmazonRDS.MySQL {
+                    rectangle "Amazon RDS\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.24}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT>> as Live.AmazonWebServices.USEast1.AmazonRDS {
+                      rectangle "MySQL\\n<size:16>[Deployment Node]</size>\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.36}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl>> as Live.AmazonWebServices.USEast1.AmazonRDS.MySQL {
                         database "==Database Schema\\n<size:16>[Container]</size>" <<Element-RWxlbWVudCxEYXRhYmFzZQ==>> as Live.AmazonWebServices.USEast1.AmazonRDS.MySQL.DatabaseSchema_1
                       }
                 
@@ -4041,42 +4048,6 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     BackgroundColor: #111111;
                     FontColor: #cccccc;
                   }
-                  // Element,Amazon Web Services - Auto Scaling
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n {
-                    BackgroundColor: #111111;
-                    LineColor: #cc2264;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #cc2264;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Amazon Web Services - Cloud
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ= {
-                    BackgroundColor: #111111;
-                    LineColor: #232f3e;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #232f3e;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Amazon Web Services - EC2
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy {
-                    BackgroundColor: #111111;
-                    LineColor: #d86613;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #d86613;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
                   // Element,Amazon Web Services - Elastic Load Balancing
                   .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw== {
                     BackgroundColor: #111111;
@@ -4084,42 +4055,6 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     LineStyle: 0;
                     LineThickness: 2;
                     FontColor: #693cc5;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Amazon Web Services - RDS
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT {
-                    BackgroundColor: #111111;
-                    LineColor: #3b48cc;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #3b48cc;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Amazon Web Services - RDS MySQL instance
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl {
-                    BackgroundColor: #111111;
-                    LineColor: #3b48cc;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #3b48cc;
-                    FontSize: 24;
-                    HorizontalAlignment: center;
-                    Shadowing: 0;
-                    MaximumWidth: 200;
-                  }
-                  // Element,Amazon Web Services - Region
-                  .Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u {
-                    BackgroundColor: #111111;
-                    LineColor: #147eba;
-                    LineStyle: 0;
-                    LineThickness: 2;
-                    FontColor: #147eba;
                     FontSize: 24;
                     HorizontalAlignment: center;
                     Shadowing: 0;
@@ -4170,6 +4105,78 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontColor: #cccccc;
                     FontSize: 24;
                   }
+                  // Element,Amazon Web Services - Auto Scaling
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n {
+                    BackgroundColor: #111111;
+                    LineColor: #cc2264;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #cc2264;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - Cloud
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ= {
+                    BackgroundColor: #111111;
+                    LineColor: #232f3e;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #232f3e;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - EC2
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy {
+                    BackgroundColor: #111111;
+                    LineColor: #d86613;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #d86613;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - RDS
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT {
+                    BackgroundColor: #111111;
+                    LineColor: #3b48cc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #3b48cc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - RDS MySQL instance
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl {
+                    BackgroundColor: #111111;
+                    LineColor: #3b48cc;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #3b48cc;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
+                  // Element,Amazon Web Services - Region
+                  .DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u {
+                    BackgroundColor: #111111;
+                    LineColor: #147eba;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #147eba;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 200;
+                  }
                   // transparent element for relationships in legend
                   .Element-Transparent {
                     BackgroundColor: transparent;
@@ -4178,19 +4185,19 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                   }
                 </style>
                 
-                rectangle "==Amazon Web Services - Auto Scaling\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n>>
+                rectangle "==Amazon Web Services - Auto Scaling\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-auto-scaling.png{scale=0.24}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQXV0byBTY2FsaW5n>>
                 
-                rectangle "==Amazon Web Services - Cloud\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ=>>
+                rectangle "==Amazon Web Services - Cloud\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/aws-cloud.png{scale=0.5142857142857142}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gQ2xvdWQ=>>
                 
-                rectangle "==Amazon Web Services - EC2\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy>>
+                rectangle "==Amazon Web Services - EC2\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-ec2.png{scale=0.24}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRUMy>>
+                
+                rectangle "==Amazon Web Services - RDS\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.24}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT>>
+                
+                rectangle "==Amazon Web Services - RDS MySQL instance\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.36}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl>>
+                
+                rectangle "==Amazon Web Services - Region\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.5142857142857142}>" <<DeploymentNode-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u>>
                 
                 rectangle "==Amazon Web Services - Elastic Load Balancing\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/elastic-load-balancing.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gRWxhc3RpYyBMb2FkIEJhbGFuY2luZw==>>
-                
-                rectangle "==Amazon Web Services - RDS\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRT>>
-                
-                rectangle "==Amazon Web Services - RDS MySQL instance\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-rds-mysql-instance.png{scale=0.36}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUkRTIE15U1FMIGluc3RhbmNl>>
-                
-                rectangle "==Amazon Web Services - Region\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/region.png{scale=0.5142857142857142}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUmVnaW9u>>
                 
                 rectangle "==Amazon Web Services - Route 53\\n\\n<img:https://static.structurizr.com/themes/amazon-web-services-2020.04.30/amazon-route-53.png{scale=0.24}>" <<Element-RWxlbWVudCxBbWF6b24gV2ViIFNlcnZpY2VzIC0gUm91dGUgNTM=>>
                 

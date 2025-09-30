@@ -12,6 +12,8 @@ import com.structurizr.view.*;
  */
 public class DOTExporter extends AbstractDiagramExporter {
 
+    private static final int DEFAULT_WIDTH = 450;
+    private static final int DEFAULT_HEIGHT = 300;
     private static final String DEFAULT_FONT = "Arial";
 
     private int clusterInternalMargin = 25;
@@ -208,6 +210,14 @@ public class DOTExporter extends AbstractDiagramExporter {
     @Override
     protected void writeElement(ModelView view, Element element, IndentingWriter writer) {
         ElementStyle elementStyle = view.getViewSet().getConfiguration().getStyles().findElementStyle(element);
+
+        if (elementStyle.getWidth() == null) {
+            elementStyle.setWidth(DEFAULT_WIDTH);
+        }
+
+        if (elementStyle.getHeight() == null) {
+            elementStyle.setHeight(DEFAULT_HEIGHT);
+        }
 
         int nameFontSize = elementStyle.getFontSize() + 10;
         int metadataFontSize = elementStyle.getFontSize() - 5;

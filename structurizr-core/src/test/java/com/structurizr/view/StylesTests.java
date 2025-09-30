@@ -53,8 +53,8 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     @Test
     void findElementStyle_ReturnsTheDefaultStyle_WhenPassedNull() {
         ElementStyle style = styles.findElementStyle((Element) null);
-        assertEquals(Integer.valueOf(450), style.getWidth());
-        assertEquals(Integer.valueOf(300), style.getHeight());
+        assertNull(style.getWidth());
+        assertNull(style.getHeight());
         assertEquals("#ffffff", style.getBackground());
         assertEquals("#444444", style.getColor());
         assertEquals("#444444", style.getStroke());
@@ -72,8 +72,8 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     void findElementStyle_ReturnsTheDefaultStyle_WhenNoStylesAreDefined() {
         SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
         ElementStyle style = styles.findElementStyle(element);
-        assertEquals(Integer.valueOf(450), style.getWidth());
-        assertEquals(Integer.valueOf(300), style.getHeight());
+        assertNull(style.getWidth());
+        assertNull(style.getHeight());
         assertEquals("#ffffff", style.getBackground());
         assertEquals("#444444", style.getColor());
         assertEquals("#444444", style.getStroke());
@@ -91,8 +91,8 @@ public class StylesTests extends AbstractWorkspaceTestBase {
     void findElementStyleForDarkMode_ReturnsTheDefaultStyle_WhenNoStylesAreDefined() {
         SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
         ElementStyle style = styles.findElementStyle(element, ColorScheme.Dark);
-        assertEquals(Integer.valueOf(450), style.getWidth());
-        assertEquals(Integer.valueOf(300), style.getHeight());
+        assertNull(style.getWidth());
+        assertNull(style.getHeight());
         assertEquals("#111111", style.getBackground());
         assertEquals("#cccccc", style.getColor());
         assertEquals("#cccccc", style.getStroke());
@@ -156,20 +156,6 @@ public class StylesTests extends AbstractWorkspaceTestBase {
         assertEquals(true, style.getMetadata());
         assertEquals(true, style.getDescription());
         assertEquals("value", style.getProperties().get("name"));
-    }
-
-    @Test
-    void findElementStyle_ReturnsTheDefaultElementSize_WhenTheShapeIsABox() {
-        SoftwareSystem element = model.addSoftwareSystem("Name", "Description");
-        element.addTags("Some Tag");
-
-        styles.addElementStyle(Tags.SOFTWARE_SYSTEM).background("#ff0000").color("#ffffff");
-        styles.addElementStyle("Some Tag").shape(Shape.Box);
-
-        ElementStyle style = styles.findElementStyle(element);
-        assertEquals(Shape.Box, style.getShape());
-        assertEquals(Integer.valueOf(450), style.getWidth());
-        assertEquals(Integer.valueOf(300), style.getHeight());
     }
 
     @Test

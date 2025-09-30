@@ -270,7 +270,7 @@ public final class Styles {
      * @return  an ElementStyle object
      */
     public ElementStyle findElementStyle(Element element, ColorScheme colorScheme) {
-        ElementStyle style = new ElementStyle(Tags.ELEMENT).shape(Shape.Box).width(ElementStyle.DEFAULT_WIDTH).height(ElementStyle.DEFAULT_HEIGHT).fontSize(24).border(Border.Solid).opacity(100).metadata(true).description(true);
+        ElementStyle style = new ElementStyle(Tags.ELEMENT).shape(Shape.Box).fontSize(24).border(Border.Solid).opacity(100).metadata(true).description(true);
 
         if (element != null) {
             Set<String> tagsUsedToComposeStyle = new LinkedHashSet<>();
