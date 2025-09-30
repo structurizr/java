@@ -5,10 +5,7 @@ import com.structurizr.inspection.model.ComponentDescriptionInspection;
 import com.structurizr.inspection.model.RelationshipDescriptionInspection;
 import com.structurizr.inspection.model.RelationshipTechnologyInspection;
 import com.structurizr.inspection.workspace.WorkspaceScopeInspection;
-import com.structurizr.model.Component;
-import com.structurizr.model.Container;
-import com.structurizr.model.Relationship;
-import com.structurizr.model.SoftwareSystem;
+import com.structurizr.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -252,6 +249,23 @@ public class PropertyBasedSeverityStrategyTests {
         // specify by relationship type in workspace
         workspace.addProperty("structurizr.inspection.model.relationship[component->component].technology", "info");
         assertEquals(Severity.INFO, severityStrategy.getSeverity(inspection, relationship));
+    }
+
+    @Test
+    void getSeverityForRelationship_WhenSpecifiedInLinkedRelationship() {
+        inspection = new RelationshipTechnologyInspection(inspector);
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Software System");
+        workspace.getModel().setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
+        Container container1 = softwareSystem.addContainer("Container 1");
+        Component component1 = container1.addComponent("Component 1");
+        Container container2 = softwareSystem.addContainer("Container 2");
+        Component component2 = container2.addComponent("Component 2");
+        Relationship relationship = component1.uses(component2, "");
+        Relationship impliedRelationship = container1.getEfferentRelationshipWith(container2);
+
+        // specify in original relationship
+        relationship.addProperty("structurizr.inspection.model.relationship.technology", "info");
+        assertEquals(Severity.INFO, severityStrategy.getSeverity(inspection, impliedRelationship));
     }
 
 }

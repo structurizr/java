@@ -29,6 +29,7 @@
 - structurizr-inspection: Adds a way to disable inspections via a workspace property named `structurizr.inspection` (`false` to disable).
 - structurizr-inspection: Default inspector adds a summary of error/warning/info/ignore counts as workspace properties.
 - structurizr-inspection: Fixes `model.deploymentnode.technology` (it was checking the description property rather than technology).
+- structurizr-inspection: Fixes a bug preventing inspection severity to be specified via linked relationships.
 
 ## v4.1.0 (28th May 2025)
 

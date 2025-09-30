@@ -69,7 +69,7 @@ public class PropertyBasedSeverityStrategy implements SeverityStrategy {
         Element source = relationship.getSource();
         Relationship linkedRelationship = null;
         if (!StringUtils.isNullOrEmpty(relationship.getLinkedRelationshipId())) {
-            inspection.getWorkspace().getModel().getRelationship(relationship.getLinkedRelationshipId());
+            linkedRelationship = inspection.getWorkspace().getModel().getRelationship(relationship.getLinkedRelationshipId());
         }
 
         String allRelationshipsType = inspection.getType();
