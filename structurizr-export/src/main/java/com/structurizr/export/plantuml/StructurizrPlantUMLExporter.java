@@ -152,6 +152,8 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
         } else {
             writer.writeLine(String.format("box \"%s\" <<%s>>", groupName, classSelectorForGroup(group)));
             writer.indent();
+            writer.writeLine("box");
+            writer.indent();
         }
         writer.writeLine();
     }
@@ -165,26 +167,29 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
         } else {
             writer.outdent();
             writer.writeLine("end box");
+            writer.outdent();
+            writer.writeLine("end box");
             writer.writeLine();
+            
+            
         }
     }
 
     @Override
     protected void startSoftwareSystemBoundary(ModelView view, SoftwareSystem softwareSystem, IndentingWriter writer) {
+        ElementStyle elementStyle = findBoundaryStyle(view, softwareSystem);
+        PlantUMLBoundaryStyle plantUMLBoundaryStyle = new PlantUMLBoundaryStyle(
+                softwareSystem.getName(),
+                elementStyle.getBackground(),
+                elementStyle.getColor(),
+                elementStyle.getStroke(),
+                elementStyle.getStrokeWidth() != null ? elementStyle.getStrokeWidth() : DEFAULT_STROKE_WIDTH,
+                elementStyle.getBorder(),
+                elementStyle.getFontSize(),
+                "true".equalsIgnoreCase(elementStyle.getProperties().getOrDefault(PLANTUML_SHADOW, "false"))
+        );
+        plantUMLStyles.add(plantUMLBoundaryStyle);
         if (!renderAsSequenceDiagram(view)) {
-            ElementStyle elementStyle = findBoundaryStyle(view, softwareSystem);
-            PlantUMLBoundaryStyle plantUMLBoundaryStyle = new PlantUMLBoundaryStyle(
-                    softwareSystem.getName(),
-                    elementStyle.getBackground(),
-                    elementStyle.getColor(),
-                    elementStyle.getStroke(),
-                    elementStyle.getStrokeWidth() != null ? elementStyle.getStrokeWidth() : DEFAULT_STROKE_WIDTH,
-                    elementStyle.getBorder(),
-                    elementStyle.getFontSize(),
-                    "true".equalsIgnoreCase(elementStyle.getProperties().getOrDefault(PLANTUML_SHADOW, "false"))
-            );
-            plantUMLStyles.add(plantUMLBoundaryStyle);
-
             writer.writeLine(
                     String.format(
                             "rectangle \"%s\\n<size:%s>%s</size>\" <<%s>> {",
@@ -193,11 +198,18 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
                             typeOf(view, softwareSystem, true),
                             plantUMLBoundaryStyle.getClassSelector()
                     )
-                );
+            );
             writer.indent();
         } else {
-            writer.writeLine(String.format("box \"%s\n%s\"", softwareSystem.getName(), typeOf(view, softwareSystem, true)));
-
+            writer.writeLine(
+                    String.format("box \"%s\n%s\" <<%s>>",
+                            softwareSystem.getName(),
+                            typeOf(view, softwareSystem, true),
+                            plantUMLBoundaryStyle.getClassSelector()
+                    )
+            );
+            writer.indent();
+            writer.writeLine("box");
             writer.indent();
         }
     }
@@ -211,26 +223,27 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
         } else {
             writer.outdent();
             writer.writeLine("end box");
+            writer.outdent();
+            writer.writeLine("end box");
             writer.writeLine();
         }
     }
 
     @Override
     protected void startContainerBoundary(ModelView view, Container container, IndentingWriter writer) {
+        ElementStyle elementStyle = findBoundaryStyle(view, container);
+        PlantUMLBoundaryStyle plantUMLBoundaryStyle = new PlantUMLBoundaryStyle(
+                container.getName(),
+                elementStyle.getBackground(),
+                elementStyle.getColor(),
+                elementStyle.getStroke(),
+                elementStyle.getStrokeWidth() != null ? elementStyle.getStrokeWidth() : DEFAULT_STROKE_WIDTH,
+                elementStyle.getBorder(),
+                elementStyle.getFontSize(),
+                "true".equalsIgnoreCase(elementStyle.getProperties().getOrDefault(PLANTUML_SHADOW, "false"))
+        );
+        plantUMLStyles.add(plantUMLBoundaryStyle);
         if (!renderAsSequenceDiagram(view)) {
-            ElementStyle elementStyle = findBoundaryStyle(view, container);
-            PlantUMLBoundaryStyle plantUMLBoundaryStyle = new PlantUMLBoundaryStyle(
-                    container.getName(),
-                    elementStyle.getBackground(),
-                    elementStyle.getColor(),
-                    elementStyle.getStroke(),
-                    elementStyle.getStrokeWidth() != null ? elementStyle.getStrokeWidth() : DEFAULT_STROKE_WIDTH,
-                    elementStyle.getBorder(),
-                    elementStyle.getFontSize(),
-                    "true".equalsIgnoreCase(elementStyle.getProperties().getOrDefault(PLANTUML_SHADOW, "false"))
-            );
-            plantUMLStyles.add(plantUMLBoundaryStyle);
-
             writer.writeLine(
                     String.format(
                             "rectangle \"%s\\n<size:%s>%s</size>\" <<%s>> {",
@@ -239,8 +252,15 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
                             plantUMLBoundaryStyle.getClassSelector()));
             writer.indent();
         } else {
-            writer.writeLine(String.format("box \"%s\n%s\"", container.getName(), typeOf(view, container, true)));
-
+            writer.writeLine(
+                    String.format("box \"%s\n%s\" <<%s>>",
+                            container.getName(),
+                            typeOf(view, container, true),
+                            plantUMLBoundaryStyle.getClassSelector()
+                    )
+            );
+            writer.indent();
+            writer.writeLine("box");
             writer.indent();
         }
     }
@@ -252,6 +272,8 @@ public class StructurizrPlantUMLExporter extends AbstractPlantUMLExporter {
             writer.writeLine("}");
             writer.writeLine();
         } else {
+            writer.outdent();
+            writer.writeLine("end box");
             writer.outdent();
             writer.writeLine("end box");
             writer.writeLine();

@@ -1155,11 +1155,11 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
         String actual = """
                 @startuml
                 title <size:24>Dynamic View: d - e</size>
-                                
+                               
                 set separator none
                 !pragma teoz true
                 hide stereotype
-                                
+                               
                 <style>
                   root {
                     BackgroundColor: #ffffff;
@@ -1185,6 +1185,50 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     FontColor: #444444;
                     FontSize: 24;
                   }
+                  // A
+                  .Boundary-QQ== {
+                    BackgroundColor: #add8e6;
+                    LineColor: #7997a1;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // B
+                  .Boundary-Qg== {
+                    BackgroundColor: #f5f5dc;
+                    LineColor: #abab9a;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // d
+                  .Boundary-ZA== {
+                    BackgroundColor: #add8e6;
+                    LineColor: #7997a1;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
+                  // e
+                  .Boundary-ZQ== {
+                    BackgroundColor: #f5f5dc;
+                    LineColor: #abab9a;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                  }
                   // group2
                   .Group-Z3JvdXAy {
                     BackgroundColor: #ffffff;
@@ -1197,31 +1241,41 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                     Shadowing: 0;
                   }
                 </style>
-                                
-                box "A\\n[Software System]"
-                    box "B\\n[Container]"
-                      participant "C\\n<size:16>[Component]</size>" as A.B.C <<Element-RWxlbWVudA==>> #ffffff
-                    end box
-                                
-                  end box
-                                
-                box "d\\n[Software System]"
-                    box "e\\n[Container]"
-                      box "group2" <<Group-Z3JvdXAy>>
-                                
-                        participant "f\\n<size:16>[Component]</size>" as d.e.f <<Element-RWxlbWVudA==>> #ffffff
-                        participant "g\\n<size:16>[Component]</size>" as d.e.g <<Element-RWxlbWVudA==>> #ffffff
-                        participant "h\\n<size:16>[Component]</size>" as d.e.h <<Element-RWxlbWVudA==>> #ffffff
+                               
+                box "A\\n[Software System]" <<Boundary-QQ==>>
+                  box
+                      box "B\\n[Container]" <<Boundary-Qg==>>
+                        box
+                          participant "C\\n<size:16>[Component]</size>" as A.B.C <<Element-RWxlbWVudA==>> #ffffff
+                        end box
                       end box
-                                
+                               
                     end box
-                                
                   end box
-                                
+                               
+                box "d\\n[Software System]" <<Boundary-ZA==>>
+                  box
+                      box "e\\n[Container]" <<Boundary-ZQ==>>
+                        box
+                          box "group2" <<Group-Z3JvdXAy>>
+                            box
+                               
+                              participant "f\\n<size:16>[Component]</size>" as d.e.f <<Element-RWxlbWVudA==>> #ffffff
+                              participant "g\\n<size:16>[Component]</size>" as d.e.g <<Element-RWxlbWVudA==>> #ffffff
+                              participant "h\\n<size:16>[Component]</size>" as d.e.h <<Element-RWxlbWVudA==>> #ffffff
+                            end box
+                          end box
+                               
+                        end box
+                      end box
+                               
+                    end box
+                  end box
+                               
                 d.e.f -> d.e.h <<Relationship-UmVsYXRpb25zaGlw>> : 1:\s
                 A.B.C -> d.e.f <<Relationship-UmVsYXRpb25zaGlw>> : 2:\s
                 d.e.f -> d.e.g <<Relationship-UmVsYXRpb25zaGlw>> : 3:\s
-                                
+                               
                 @enduml""";
 
         assertEquals(actual, diagram.getDefinition());
@@ -1240,10 +1294,10 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                    BackgroundColor: #ffffff;
                    FontColor: #444444;
                  }
-                 // Element
-                 .Element-RWxlbWVudA== {
-                   BackgroundColor: #ffffff;
-                   LineColor: #444444;
+                 // Element,Container
+                 .Element-RWxlbWVudCxDb250YWluZXI= {
+                   BackgroundColor: #f5f5dc;
+                   LineColor: #abab9a;
                    LineStyle: 0;
                    LineThickness: 2;
                    FontColor: #444444;
@@ -1260,6 +1314,28 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                    FontColor: #444444;
                    FontSize: 24;
                  }
+                 // A
+                 .Boundary-QQ== {
+                   BackgroundColor: #add8e6;
+                   LineColor: #7997a1;
+                   LineStyle: 0;
+                   LineThickness: 2;
+                   FontColor: #444444;
+                   FontSize: 24;
+                   HorizontalAlignment: center;
+                   Shadowing: 0;
+                 }
+                 // d
+                 .Boundary-ZA== {
+                   BackgroundColor: #add8e6;
+                   LineColor: #7997a1;
+                   LineStyle: 0;
+                   LineThickness: 2;
+                   FontColor: #444444;
+                   FontSize: 24;
+                   HorizontalAlignment: center;
+                   Shadowing: 0;
+                 }
                  // group1
                  .Group-Z3JvdXAx {
                    BackgroundColor: #ffffff;
@@ -1273,16 +1349,22 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                  }
                </style>
                
-               box "A\\n[Software System]"
-                 participant "B\\n<size:16>[Container]</size>" as A.B <<Element-RWxlbWVudA==>> #ffffff
+               box "A\\n[Software System]" <<Boundary-QQ==>>
+                 box
+                   participant "B\\n<size:16>[Container]</size>" as A.B <<Element-RWxlbWVudCxDb250YWluZXI=>> #f5f5dc
+                 end box
                end box
                
-               box "d\\n[Software System]"
-                 box "group1" <<Group-Z3JvdXAx>>
+               box "d\\n[Software System]" <<Boundary-ZA==>>
+                 box
+                   box "group1" <<Group-Z3JvdXAx>>
+                     box
                
-                   participant "e\\n<size:16>[Container]</size>" as d.e <<Element-RWxlbWVudA==>> #ffffff
+                       participant "e\\n<size:16>[Container]</size>" as d.e <<Element-RWxlbWVudCxDb250YWluZXI=>> #f5f5dc
+                     end box
+                   end box
+               
                  end box
-               
                end box
                
                A.B -> d.e <<Relationship-UmVsYXRpb25zaGlw>> : 1:\s
@@ -3347,10 +3429,10 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
             assertEquals("""
                     @startuml
                     title <size:24>Dynamic View: Internet Banking System - API Application</size>\\n<size:24>Summarises how the sign in feature works in the single-page application.</size>
-                                     
+                                        
                     set separator none
                     hide stereotype
-                                     
+                                        
                     <style>
                       root {
                         BackgroundColor: #ffffff;
@@ -3400,23 +3482,36 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                         FontColor: #444444;
                         FontSize: 24;
                       }
+                      // API Application
+                      .Boundary-QVBJIEFwcGxpY2F0aW9u {
+                        BackgroundColor: #438dd5;
+                        LineColor: #2e6295;
+                        LineStyle: 0;
+                        LineThickness: 2;
+                        FontColor: #ffffff;
+                        FontSize: 24;
+                        HorizontalAlignment: center;
+                        Shadowing: 0;
+                      }
                     </style>
-                                     
-                    box "API Application\\n[Container: Java and Spring MVC]"
-                      participant "Sign In Controller\\n<size:16>[Component: Spring MVC Rest Controller]</size>" as InternetBankingSystem.APIApplication.SignInController <<Element-RWxlbWVudCxDb21wb25lbnQ=>> #85bbf0
-                      participant "Security Component\\n<size:16>[Component: Spring Bean]</size>" as InternetBankingSystem.APIApplication.SecurityComponent <<Element-RWxlbWVudCxDb21wb25lbnQ=>> #85bbf0
+                                        
+                    box "API Application\\n[Container: Java and Spring MVC]" <<Boundary-QVBJIEFwcGxpY2F0aW9u>>
+                      box
+                        participant "Sign In Controller\\n<size:16>[Component: Spring MVC Rest Controller]</size>" as InternetBankingSystem.APIApplication.SignInController <<Element-RWxlbWVudCxDb21wb25lbnQ=>> #85bbf0
+                        participant "Security Component\\n<size:16>[Component: Spring Bean]</size>" as InternetBankingSystem.APIApplication.SecurityComponent <<Element-RWxlbWVudCxDb21wb25lbnQ=>> #85bbf0
+                      end box
                     end box
-                                     
+                                        
                     participant "Single-Page Application\\n<size:16>[Container: JavaScript and Angular]</size>" as InternetBankingSystem.SinglePageApplication <<Element-RWxlbWVudCxDb250YWluZXIsV2ViIEJyb3dzZXI=>> #438dd5
                     database "Database\\n<size:16>[Container: Oracle Database Schema]</size>" as InternetBankingSystem.Database <<Element-RWxlbWVudCxDb250YWluZXIsRGF0YWJhc2U=>> #438dd5
-                                     
+                                        
                     InternetBankingSystem.SinglePageApplication -> InternetBankingSystem.APIApplication.SignInController <<Relationship-UmVsYXRpb25zaGlw>> : 1: Submits credentials to\\n<size:16>[JSON/HTTPS]</size>
                     InternetBankingSystem.APIApplication.SignInController -> InternetBankingSystem.APIApplication.SecurityComponent <<Relationship-UmVsYXRpb25zaGlw>> : 2: Validates credentials using
                     InternetBankingSystem.APIApplication.SecurityComponent -> InternetBankingSystem.Database <<Relationship-UmVsYXRpb25zaGlw>> : 3: select * from users where username = ?\\n<size:16>[SQL/TCP]</size>
                     InternetBankingSystem.APIApplication.SecurityComponent <-- InternetBankingSystem.Database <<Relationship-UmVsYXRpb25zaGlw>> : 4: Returns user data to\\n<size:16>[SQL/TCP]</size>
                     InternetBankingSystem.APIApplication.SignInController <-- InternetBankingSystem.APIApplication.SecurityComponent <<Relationship-UmVsYXRpb25zaGlw>> : 5: Returns true if the hashed password matches
                     InternetBankingSystem.SinglePageApplication <-- InternetBankingSystem.APIApplication.SignInController <<Relationship-UmVsYXRpb25zaGlw>> : 6: Sends back an authentication token to\\n<size:16>[JSON/HTTPS]</size>
-                                     
+                                        
                     @enduml""", diagram.getDefinition());
     }
 }

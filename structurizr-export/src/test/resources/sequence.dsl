@@ -30,6 +30,14 @@ workspace {
     }
 
     views {
+        styles {
+            element "Software System" {
+                background "LightBlue"
+            }
+            element "Container" {
+                background "Beige"
+            }
+        }
         properties {
             "plantuml.sequenceDiagram" "true"
             "plantuml.teoz" "true"

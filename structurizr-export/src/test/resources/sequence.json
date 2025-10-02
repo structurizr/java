@@ -4,7 +4,7 @@
   "documentation" : { },
   "id" : 1,
   "lastModifiedAgent" : "structurizr-ui",
-  "lastModifiedDate" : "2025-09-29T14:48:22Z",
+  "lastModifiedDate" : "2025-10-02T10:16:15Z",
   "model" : {
     "properties" : {
       "structurizr.groupSeparator" : "/"
@@ -146,7 +146,7 @@
   },
   "name" : "Name",
   "properties" : {
-    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgIHN0cnVjdHVyaXpyLmdyb3VwU2VwYXJhdG9yIC8KICAgICAgICB9CgogICAgICAgIGEgPSBzb2Z0d2FyZVN5c3RlbSAiQSIgewogICAgICAgICAgICBiID0gY29udGFpbmVyICJCIiB7CiAgICAgICAgICAgICAgICBjID0gY29tcG9uZW50ICJDIgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIGQgPSBzb2Z0d2FyZVN5c3RlbSAiZCIgewogICAgICAgICAgICBncm91cDEgPSBncm91cCAiZ3JvdXAxIiB7CiAgICAgICAgICAgICAgICBlID0gY29udGFpbmVyICJlIiB7CiAgICAgICAgICAgICAgICAgICAgZ3JvdXAyID0gZ3JvdXAgImdyb3VwMiIgewogICAgICAgICAgICAgICAgICAgICAgICBmID0gY29tcG9uZW50ICJmIgogICAgICAgICAgICAgICAgICAgICAgICBnID0gY29tcG9uZW50ICJnIgogICAgICAgICAgICAgICAgICAgICAgICBoID0gY29tcG9uZW50ICJoIgogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQogICAgICAgIH0KCiAgICAgICAgYiAtPiBlCiAgICAgICAgZiAtPiBoCiAgICAgICAgYyAtPiBmCiAgICAgICAgZiAtPiBnCgogICAgfQoKICAgIHZpZXdzIHsKICAgICAgICBwcm9wZXJ0aWVzIHsKICAgICAgICAgICAgInBsYW50dW1sLnNlcXVlbmNlRGlhZ3JhbSIgInRydWUiCiAgICAgICAgICAgICJwbGFudHVtbC50ZW96IiAidHJ1ZSIKICAgICAgICAgICAgIm1lcm1haWQuc2VxdWVuY2VEaWFncmFtIiAidHJ1ZSIKICAgICAgICAgICAgIm1lcm1haWQudGl0bGUiICJ0cnVlIgogICAgICAgICAgICAic3RydWN0dXJpenIuc29mdHdhcmVTeXN0ZW1Cb3VuZGFyaWVzIiAidHJ1ZSIKICAgICAgICB9CiAgICAgICAgCiAgICAgICAgZHluYW1pYyBhICJTZXF1ZW5jZS1Tb2Z0d2FyZVN5c3RlbSIgewogICAgICAgICAgICBiIC0+IGUKICAgICAgICAgICAgYXV0b0xheW91dAogICAgICAgIH0KICAgICAgICAgICAgCiAgICAgICAgZHluYW1pYyBlICJTZXF1ZW5jZS1Db250YWluZXIiIHsKICAgICAgICAgICAgZiAtPiBoCiAgICAgICAgICAgIGMgLT4gZgogICAgICAgICAgICBmIC0+IGcKICAgICAgICAgICAgYXV0b0xheW91dAogICAgICAgIH0KICAgIH0KCn0="
+    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgcHJvcGVydGllcyB7CiAgICAgICAgICAgIHN0cnVjdHVyaXpyLmdyb3VwU2VwYXJhdG9yIC8KICAgICAgICB9CgogICAgICAgIGEgPSBzb2Z0d2FyZVN5c3RlbSAiQSIgewogICAgICAgICAgICBiID0gY29udGFpbmVyICJCIiB7CiAgICAgICAgICAgICAgICBjID0gY29tcG9uZW50ICJDIgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIGQgPSBzb2Z0d2FyZVN5c3RlbSAiZCIgewogICAgICAgICAgICBncm91cDEgPSBncm91cCAiZ3JvdXAxIiB7CiAgICAgICAgICAgICAgICBlID0gY29udGFpbmVyICJlIiB7CiAgICAgICAgICAgICAgICAgICAgZ3JvdXAyID0gZ3JvdXAgImdyb3VwMiIgewogICAgICAgICAgICAgICAgICAgICAgICBmID0gY29tcG9uZW50ICJmIgogICAgICAgICAgICAgICAgICAgICAgICBnID0gY29tcG9uZW50ICJnIgogICAgICAgICAgICAgICAgICAgICAgICBoID0gY29tcG9uZW50ICJoIgogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQogICAgICAgIH0KCiAgICAgICAgYiAtPiBlCiAgICAgICAgZiAtPiBoCiAgICAgICAgYyAtPiBmCiAgICAgICAgZiAtPiBnCgogICAgfQoKICAgIHZpZXdzIHsKICAgICAgICBzdHlsZXMgewogICAgICAgICAgICBlbGVtZW50ICJTb2Z0d2FyZSBTeXN0ZW0iIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIkxpZ2h0Qmx1ZSIKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJDb250YWluZXIiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIkJlaWdlIgogICAgICAgICAgICB9CiAgICAgICAgfQogICAgICAgIHByb3BlcnRpZXMgewogICAgICAgICAgICAicGxhbnR1bWwuc2VxdWVuY2VEaWFncmFtIiAidHJ1ZSIKICAgICAgICAgICAgInBsYW50dW1sLnRlb3oiICJ0cnVlIgogICAgICAgICAgICAibWVybWFpZC5zZXF1ZW5jZURpYWdyYW0iICJ0cnVlIgogICAgICAgICAgICAibWVybWFpZC50aXRsZSIgInRydWUiCiAgICAgICAgICAgICJzdHJ1Y3R1cml6ci5zb2Z0d2FyZVN5c3RlbUJvdW5kYXJpZXMiICJ0cnVlIgogICAgICAgIH0KICAgICAgICAKICAgICAgICBkeW5hbWljIGEgIlNlcXVlbmNlLVNvZnR3YXJlU3lzdGVtIiB7CiAgICAgICAgICAgIGIgLT4gZQogICAgICAgICAgICBhdXRvTGF5b3V0CiAgICAgICAgfQogICAgICAgICAgICAKICAgICAgICBkeW5hbWljIGUgIlNlcXVlbmNlLUNvbnRhaW5lciIgewogICAgICAgICAgICBmIC0+IGgKICAgICAgICAgICAgYyAtPiBmCiAgICAgICAgICAgIGYgLT4gZwogICAgICAgICAgICBhdXRvTGF5b3V0CiAgICAgICAgfQogICAgfQoKfQ=="
   },
   "views" : {
     "configuration" : {
@@ -160,12 +160,20 @@
         "plantuml.teoz" : "true",
         "structurizr.softwareSystemBoundaries" : "true"
       },
-      "styles" : { },
+      "styles" : {
+        "elements" : [ {
+          "background" : "#add8e6",
+          "tag" : "Software System"
+        }, {
+          "background" : "#f5f5dc",
+          "tag" : "Container"
+        } ]
+      },
       "terminology" : { }
     },
     "dynamicViews" : [ {
       "automaticLayout" : {
-        "applied" : true,
+        "applied" : false,
         "edgeSeparation" : 0,
         "implementation" : "Graphviz",
         "nodeSeparation" : 300,
@@ -173,19 +181,15 @@
         "rankSeparation" : 300,
         "vertices" : false
       },
-      "dimensions" : {
-        "height" : 1531,
-        "width" : 930
-      },
       "elementId" : "1",
       "elements" : [ {
         "id" : "2",
-        "x" : 240,
-        "y" : 185
+        "x" : 0,
+        "y" : 0
       }, {
         "id" : "5",
-        "x" : 240,
-        "y" : 831
+        "x" : 0,
+        "y" : 0
       } ],
       "externalBoundariesVisible" : false,
       "key" : "Sequence-SoftwareSystem",
@@ -212,19 +216,19 @@
       "elementId" : "5",
       "elements" : [ {
         "id" : "3",
-        "x" : 614,
+        "x" : 615,
         "y" : 185
       }, {
         "id" : "6",
-        "x" : 614,
+        "x" : 615,
         "y" : 831
       }, {
         "id" : "7",
-        "x" : 239,
+        "x" : 240,
         "y" : 1431
       }, {
         "id" : "8",
-        "x" : 989,
+        "x" : 990,
         "y" : 1431
       } ],
       "externalBoundariesVisible" : false,
