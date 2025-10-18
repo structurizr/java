@@ -7,6 +7,7 @@ import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
@@ -79,7 +80,7 @@ public final class AesEncryptionStrategy extends EncryptionStrategy {
         cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(DatatypeConverter.parseHexBinary(iv)));
         byte[] unencrypted = cipher.doFinal(Base64.getDecoder().decode(ciphertext));
 
-        return new String(unencrypted, "UTF-8");
+        return new String(unencrypted, StandardCharsets.UTF_8);
     }
 
     private SecretKey createSecretKey() throws NoSuchAlgorithmException, InvalidKeySpecException {
