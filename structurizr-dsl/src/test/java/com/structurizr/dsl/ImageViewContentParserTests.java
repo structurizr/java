@@ -6,6 +6,7 @@ import com.structurizr.importer.diagrams.plantuml.PlantUMLImporter;
 import com.structurizr.view.ColorScheme;
 import com.structurizr.view.ImageView;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -371,6 +372,7 @@ class ImageViewContentParserTests extends AbstractTests {
     }
 
     @Test
+    @Tag("IntegrationTest")
     void test_parseImage() {
         parser = new ImageViewContentParser();
         ImageViewDslContext context = new ImageViewDslContext(imageView);
@@ -382,6 +384,7 @@ class ImageViewContentParserTests extends AbstractTests {
     }
 
     @Test
+    @Tag("IntegrationTest")
     void test_parseImage_Url_Light() {
         parser = new ImageViewContentParser();
         ImageViewDslContext context = new ImageViewDslContext(imageView);
@@ -394,6 +397,7 @@ class ImageViewContentParserTests extends AbstractTests {
     }
 
     @Test
+    @Tag("IntegrationTest")
     void test_parseImage_Url_Dark() {
         parser = new ImageViewContentParser();
         ImageViewDslContext context = new ImageViewDslContext(imageView);

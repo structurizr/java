@@ -3,7 +3,6 @@ package com.structurizr.api;
 import com.structurizr.Workspace;
 import com.structurizr.documentation.Format;
 import com.structurizr.documentation.Section;
-import com.structurizr.model.Location;
 import com.structurizr.util.WorkspaceUtils;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BackwardsCompatibilityTests {
 
-    private static final File PATH_TO_WORKSPACE_FILES = new File("./src/integrationTest/resources/backwardsCompatibility");
+    private static final File PATH_TO_WORKSPACE_FILES = new File("./src/test/resources/backwardsCompatibility");
 
     @Test
     void test() throws Exception {

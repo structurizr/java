@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class WorkspaceRulesValidationTests {
 
-    private static final File PATH_TO_WORKSPACE_FILES = new File("./src/integrationTest/resources/workspaceValidation");
+    private static final File PATH_TO_WORKSPACE_FILES = new File("./src/test/resources/workspaceValidation");
 
     @Test
     void exceptionThrown_WhenViewKeysAreNotUnique() throws Exception {

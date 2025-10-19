@@ -1,6 +1,7 @@
 package com.structurizr.view;
 
 import com.structurizr.Workspace;
+import com.structurizr.http.HttpClient;
 import com.structurizr.model.Relationship;
 import com.structurizr.model.SoftwareSystem;
 import com.structurizr.model.Tags;
@@ -31,7 +32,9 @@ public class ThemeUtilsTests {
         softwareSystem.addTags("Amazon Web Services - Alexa For Business");
         workspace.getViews().getConfiguration().setThemes("https://static.structurizr.com/themes/amazon-web-services-2020.04.30/theme.json");
 
-        ThemeUtils.loadThemes(workspace);
+        HttpClient httpClient = new HttpClient();
+        httpClient.allow(".*");
+        ThemeUtils.loadThemes(workspace, httpClient);
 
         // there should still be zero styles in the workspace
         assertEquals(0, workspace.getViews().getConfiguration().getStyles().getElements().size());
@@ -146,7 +149,9 @@ public class ThemeUtilsTests {
         softwareSystem.addTags("Amazon Web Services - Alexa For Business");
         workspace.getViews().getConfiguration().setThemes("https://static.structurizr.com/themes/amazon-web-services-2020.04.30/theme.json");
 
-        ThemeUtils.loadThemes(workspace);
+        HttpClient httpClient = new HttpClient();
+        httpClient.allow(".*");
+        ThemeUtils.loadThemes(workspace, httpClient);
 
         // there should still be zero styles in the workspace
         assertEquals(0, workspace.getViews().getConfiguration().getStyles().getElements().size());

@@ -7,12 +7,3 @@ dependencies {
     api 'javax.xml.bind:jaxb-api:2.4.0-b180830.0359'
 
 }
-
-sourceSets {
-    test {
-        java {
-            srcDir 'src/test/java'
-            srcDir 'src/integrationTest/java'
-        }
-    }
-}

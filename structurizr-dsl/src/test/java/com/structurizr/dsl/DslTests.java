@@ -1416,7 +1416,7 @@ class DslTests extends AbstractTests {
                 fail();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
-                assertTrue(e.getMessage().startsWith("!components is not available when the parser is running in restricted mode"));
+                assertTrue(e.getMessage().startsWith("!components is not permitted (feature structurizr.feature.dsl.componentfinder is not enabled)"));
             }
 
             File workspaceFile = new File("src/test/resources/dsl/spring-petclinic/workspace.dsl");
