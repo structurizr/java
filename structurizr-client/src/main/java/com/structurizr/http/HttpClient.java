@@ -63,7 +63,7 @@ public class HttpClient {
      */
     public RemoteContent get(String url, boolean cache) {
         if (!isAllowed(url)) {
-            throw new RuntimeException("Access to " + url + " is not permitted");
+            throw new HttpClientException("Access to " + url + " is not permitted");
         }
 
         RemoteContent remoteContent = contentCache.get(url);
@@ -97,10 +97,10 @@ public class HttpClient {
                         contentCache.put(url, remoteContent);
                     }
                 } else {
-                    throw new RuntimeException("The content from " + url + " could not be loaded: HTTP status=" + httpStatus);
+                    throw new HttpClientException("The content from " + url + " could not be loaded: HTTP status=" + httpStatus);
                 }
             } catch (Exception ioe) {
-                throw new RuntimeException("The content from " + url + " could not be loaded: " + ioe.getMessage());
+                throw new HttpClientException("The content from " + url + " could not be loaded: " + ioe.getMessage());
             }
         }
 
