@@ -5,31 +5,21 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.structurizr.Workspace;
+import com.structurizr.http.HttpClient;
+import com.structurizr.http.RemoteContent;
 import com.structurizr.io.WorkspaceWriterException;
-import com.structurizr.model.Relationship;
 import com.structurizr.util.ImageUtils;
 import com.structurizr.util.StringUtils;
 import com.structurizr.util.Url;
-import org.apache.hc.client5.http.classic.methods.HttpGet;
-import org.apache.hc.client5.http.config.ConnectionConfig;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
-import org.apache.hc.client5.http.impl.classic.CloseableHttpResponse;
-import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
-import org.apache.hc.client5.http.impl.classic.HttpClients;
-import org.apache.hc.client5.http.impl.io.BasicHttpClientConnectionManager;
-import org.apache.hc.core5.http.io.entity.EntityUtils;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Some utility methods for exporting themes to JSON.
  */
 public final class ThemeUtils {
-
-    private static final int HTTP_OK_STATUS = 200;
 
     private static final int DEFAULT_TIMEOUT_IN_MILLISECONDS = 10000;
 
@@ -90,27 +80,38 @@ public final class ThemeUtils {
      * @throws Exception    if something goes wrong
      */
     public static void loadThemes(Workspace workspace, int timeoutInMilliseconds) throws Exception {
+        HttpClient httpClient = new HttpClient();
+        httpClient.setTimeout(timeoutInMilliseconds);
+
+        loadThemes(workspace, httpClient);
+    }
+
+    public static void loadThemes(Workspace workspace, HttpClient httpClient) throws Exception {
         for (String themeLocation : workspace.getViews().getConfiguration().getThemes()) {
             if (Url.isUrl(themeLocation)) {
-                String json = loadFrom(themeLocation, timeoutInMilliseconds);
-                Theme theme = fromJson(json);
-                String baseUrl = themeLocation.substring(0, themeLocation.lastIndexOf('/') + 1);
+                RemoteContent remoteContent = httpClient.get(themeLocation);
+                if (remoteContent.getContentType().equals(RemoteContent.CONTENT_TYPE_JSON)) {
+                    Theme theme = fromJson(remoteContent.getContentAsString());
+                    String baseUrl = themeLocation.substring(0, themeLocation.lastIndexOf('/') + 1);
 
-                for (ElementStyle elementStyle : theme.getElements()) {
-                    String icon = elementStyle.getIcon();
-                    if (!StringUtils.isNullOrEmpty(icon)) {
-                        if (icon.startsWith("http")) {
-                            // okay, image served over HTTP
-                        } else if (icon.startsWith("data:image")) {
-                            // also okay, data URI
-                        } else {
-                            // convert the relative icon filename into a full URL
-                            elementStyle.setIcon(baseUrl + icon);
+                    for (ElementStyle elementStyle : theme.getElements()) {
+                        String icon = elementStyle.getIcon();
+                        if (!StringUtils.isNullOrEmpty(icon)) {
+                            if (Url.isHttpUrl(icon) || Url.isHttpsUrl(icon)) {
+                                // okay, image served over HTTP or HTTPS
+                            } else if (icon.startsWith("data:image")) {
+                                // also okay, data URI
+                            } else {
+                                // convert the relative icon filename into a full URL
+                                elementStyle.setIcon(baseUrl + icon);
+                            }
                         }
                     }
-                }
 
-                workspace.getViews().getConfiguration().getStyles().addStylesFromTheme(theme);
+                    workspace.getViews().getConfiguration().getStyles().addStylesFromTheme(theme);
+                } else {
+                    throw new RuntimeException(String.format("%s - expected content type of %s, actual content type is %s", themeLocation, RemoteContent.CONTENT_TYPE_JSON, remoteContent.getContentType()));
+                }
             }
         }
     }
@@ -142,31 +143,6 @@ public final class ThemeUtils {
         }
 
         workspace.getViews().getConfiguration().getStyles().inlineTheme(theme);
-    }
-
-    private static String loadFrom(String url, int timeoutInMilliseconds) throws Exception {
-        ConnectionConfig connectionConfig = ConnectionConfig.custom()
-                .setConnectTimeout(timeoutInMilliseconds, TimeUnit.MILLISECONDS)
-                .setSocketTimeout(timeoutInMilliseconds, TimeUnit.MILLISECONDS)
-                .build();
-
-        BasicHttpClientConnectionManager cm = new BasicHttpClientConnectionManager();
-        cm.setConnectionConfig(connectionConfig);
-
-        try (CloseableHttpClient httpClient = HttpClientBuilder.create()
-                .useSystemProperties()
-                .setConnectionManager(cm)
-                .build()) {
-
-            HttpGet httpGet = new HttpGet(url);
-
-            CloseableHttpResponse response = httpClient.execute(httpGet);
-            if (response.getCode() == HTTP_OK_STATUS) {
-                return EntityUtils.toString(response.getEntity());
-            }
-        }
-
-        return "";
     }
 
     private static Theme fromJson(String json) throws Exception {

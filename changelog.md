@@ -20,6 +20,7 @@
 - structurizr-dsl: PlantUML, Mermaid, and Kroki image views can now be defined by an inline source block.
 - structurizr-dsl: Constants and variables are inherited when extending a DSL workspace.
 - structurizr-dsl: DSL source is only stored in the JSON workspace when the DSL is deemed as "portable" (i.e. no files, plugins, scripts).
+- structurizr-dsl: Deprecates `setRestricted(boolean)` in favour of finer-grained features.
 - structurizr-export: Removes support for deprecated enterprise and location concepts.
 - structurizr-export: PlantUML exporters - replaces skinparams with styles.
 - structurizr-export: PlantUML exporters - adds support for dark mode exports.

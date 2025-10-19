@@ -1,8 +1,10 @@
 package com.structurizr.dsl;
 
 import com.structurizr.Workspace;
+import com.structurizr.util.FeatureNotEnabledException;
 import com.structurizr.util.ImageUtils;
 import com.structurizr.util.StringUtils;
+import com.structurizr.util.Url;
 import com.structurizr.view.*;
 
 import java.io.File;
@@ -284,7 +286,7 @@ final class ElementStyleParser extends AbstractParser {
         }
     }
 
-    void parseIcon(ElementStyleDslContext context, Tokens tokens, boolean restricted) {
+    void parseIcon(ElementStyleDslContext context, Tokens tokens) {
         ElementStyle style = context.getStyle();
 
         if (tokens.hasMoreThan(FIRST_PROPERTY_INDEX)) {
@@ -294,11 +296,25 @@ final class ElementStyleParser extends AbstractParser {
         if (tokens.includes(FIRST_PROPERTY_INDEX)) {
             String path = tokens.get(1);
 
-            if (path.startsWith("data:image/") || path.startsWith("https://") || path.startsWith("http://")) {
+            if (path.startsWith("data:image/")) {
                 ImageUtils.validateImage(path);
                 style.setIcon(path);
+            } else if (Url.isHttpsUrl(path)) {
+                if (context.getFeatures().isEnabled(Features.HTTPS)) {
+                    ImageUtils.validateImage(path);
+                    style.setIcon(path);
+                } else {
+                    throw new FeatureNotEnabledException(Features.HTTPS, "Icons via HTTPS are not permitted");
+                }
+            } else if (Url.isHttpUrl(path)) {
+                if (context.getFeatures().isEnabled(Features.HTTP)) {
+                    ImageUtils.validateImage(path);
+                    style.setIcon(path);
+                } else {
+                    throw new FeatureNotEnabledException(Features.HTTP, "Icons via HTTP are not permitted");
+                }
             } else {
-                if (!restricted) {
+                if (context.getFeatures().isEnabled(Features.FILE_SYSTEM)) {
                     File file = new File(context.getFile().getParent(), path);
                     if (file.exists() && !file.isDirectory()) {
                         try {
@@ -310,6 +326,8 @@ final class ElementStyleParser extends AbstractParser {
                     } else {
                         throw new RuntimeException(path + " does not exist");
                     }
+                } else {
+                    throw new FeatureNotEnabledException(Features.FILE_SYSTEM, "!icon <file> is not permitted");
                 }
             }
         } else {

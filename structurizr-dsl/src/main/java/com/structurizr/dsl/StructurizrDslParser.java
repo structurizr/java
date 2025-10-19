@@ -2,7 +2,9 @@ package com.structurizr.dsl;
 
 import com.structurizr.PropertyHolder;
 import com.structurizr.Workspace;
+import com.structurizr.http.HttpClient;
 import com.structurizr.model.*;
+import com.structurizr.util.FeatureNotEnabledException;
 import com.structurizr.util.StringUtils;
 import com.structurizr.view.*;
 import org.apache.commons.logging.Log;
@@ -46,7 +48,8 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     private final Set<String> parsedTokens = new HashSet<>();
     private final IdentifiersRegister identifiersRegister;
     private Map<String, NameValuePair> constantsAndVariables;
-    private final Features features = new Features();
+    private Features features = new Features();
+    private HttpClient httpClient = new HttpClient();
 
     private Map<String,Map<String,Archetype>> archetypes = Map.of(
             StructurizrDslTokens.GROUP_TOKEN, new HashMap<>(),
@@ -65,8 +68,6 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
     private Workspace workspace;
     private boolean extendingWorkspace = false;
 
-    private boolean restricted = false;
-
     /**
      * Creates a new instance of the parser.
      */
@@ -74,6 +75,20 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         contextStack = new Stack<>();
         identifiersRegister = new IdentifiersRegister();
         constantsAndVariables = new HashMap<>();
+
+        features.enable(Features.ENVIRONMENT);
+        features.enable(Features.FILE_SYSTEM);
+        features.enable(Features.HTTP);
+        features.enable(Features.HTTPS);
+
+        features.enable(Features.PLUGINS);
+        features.enable(Features.SCRIPTS);
+        features.enable(Features.COMPONENT_FINDER);
+
+        features.enable(Features.DOCUMENTATION);
+        features.enable(Features.DECISIONS);
+
+        features.enable(Features.INCLUDE);
     }
 
     void configureFrom(StructurizrDslParser parser) {
@@ -113,8 +128,17 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
      *
      * @param restricted        true for restricted mode, false otherwise
      */
+    @Deprecated
     public void setRestricted(boolean restricted) {
-        this.restricted = restricted;
+        features.configure(Features.ENVIRONMENT, !restricted);
+        features.configure(Features.FILE_SYSTEM, !restricted);
+
+        features.configure(Features.PLUGINS, !restricted);
+        features.configure(Features.SCRIPTS, !restricted);
+        features.configure(Features.COMPONENT_FINDER, !restricted);
+
+        features.configure(Features.DOCUMENTATION, !restricted);
+        features.configure(Features.DECISIONS, !restricted);
     }
 
     /**
@@ -269,28 +293,24 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         endContext();
 
                     } else if (INCLUDE_FILE_TOKEN.equalsIgnoreCase(firstToken)) {
-                        if (!restricted || tokens.get(1).startsWith("https://") || tokens.get(1).startsWith("http://")) {
-                            String leadingSpace = line.substring(0, line.indexOf(INCLUDE_FILE_TOKEN));
+                        String leadingSpace = line.substring(0, line.indexOf(INCLUDE_FILE_TOKEN));
 
-                            List<IncludedFile> files = new IncludeParser().parse(getContext(), dslFile, tokens);
-                            for (IncludedFile includedFile : files) {
-                                List<String> paddedLines = new ArrayList<>();
-                                for (String unpaddedLine : includedFile.getLines()) {
-                                    if (unpaddedLine.startsWith(BOM)) {
-                                        // this caters for files encoded as "UTF-8 with BOM"
-                                        unpaddedLine = unpaddedLine.substring(1);
-                                    }
-                                    paddedLines.add(leadingSpace + unpaddedLine);
+                        List<IncludedFile> files = new IncludeParser().parse(getContext(), dslFile, tokens);
+                        for (IncludedFile includedFile : files) {
+                            List<String> paddedLines = new ArrayList<>();
+                            for (String unpaddedLine : includedFile.getLines()) {
+                                if (unpaddedLine.startsWith(BOM)) {
+                                    // this caters for files encoded as "UTF-8 with BOM"
+                                    unpaddedLine = unpaddedLine.substring(1);
                                 }
-
-                                parse(paddedLines, includedFile.getFile(), true, false);
+                                paddedLines.add(leadingSpace + unpaddedLine);
                             }
-                        } else {
-                            throwRestrictedModeException(firstToken + " <file>");
+
+                            parse(paddedLines, includedFile.getFile(), true, false);
                         }
 
                     } else if (PLUGIN_TOKEN.equalsIgnoreCase(firstToken)) {
-                        if (!restricted) {
+                        if (features.isEnabled(Features.PLUGINS)) {
                             String fullyQualifiedClassName = new PluginParser().parse(getContext(), tokens.withoutContextStartToken());
                             startContext(new PluginDslContext(fullyQualifiedClassName, dslFile, this));
                             if (!shouldStartContext(tokens)) {
@@ -298,14 +318,14 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                                 endContext();
                             }
                         } else {
-                            throwRestrictedModeException(firstToken);
+                            throw new FeatureNotEnabledException(Features.PLUGINS, firstToken + " is not permitted");
                         }
 
                     } else if (inContext(PluginDslContext.class)) {
                         new PluginParser().parseParameter(getContext(PluginDslContext.class), tokens);
 
                     } else if (SCRIPT_TOKEN.equalsIgnoreCase(firstToken)) {
-                        if (!restricted) {
+                        if (features.isEnabled(Features.SCRIPTS)) {
                             ScriptParser scriptParser = new ScriptParser();
                             if (scriptParser.isInlineScript(tokens)) {
                                 String language = scriptParser.parseInline(tokens.withoutContextStartToken());
@@ -321,7 +341,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                                 }
                             }
                         } else {
-                            throwRestrictedModeException(firstToken);
+                            throw new FeatureNotEnabledException(Features.SCRIPTS, firstToken + " is not permitted");
                         }
 
                     } else if (inContext(ExternalScriptDslContext.class)) {
@@ -504,12 +524,12 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         registerIdentifier(identifier, component);
 
                     } else if (COMPONENT_FINDER_TOKEN.equalsIgnoreCase(firstToken) && inContext(ContainerDslContext.class)) {
-                        if (!restricted) {
+                        if (features.isEnabled(Features.COMPONENT_FINDER)) {
                             if (shouldStartContext(tokens)) {
                                 startContext(new ComponentFinderDslContext(this, getContext(ContainerDslContext.class)));
                             }
                         } else {
-                            throwRestrictedModeException(firstToken);
+                            throw new FeatureNotEnabledException(Features.COMPONENT_FINDER, firstToken + " is not permitted");
                         }
 
                     } else if (COMPONENT_FINDER_CLASSES_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentFinderDslContext.class)) {
@@ -674,8 +694,10 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         if (parsedTokens.contains(WORKSPACE_TOKEN)) {
                             throw new RuntimeException("Multiple workspaces are not permitted in a DSL definition");
                         }
-                        DslParserContext dslParserContext = new DslParserContext(this, dslFile, restricted);
+                        DslParserContext dslParserContext = new DslParserContext(this, dslFile);
                         dslParserContext.setIdentifierRegister(identifiersRegister);
+                        dslParserContext.setFeatures(features);
+                        dslParserContext.setHttpClient(httpClient);
 
                         workspace = new WorkspaceParser().parse(dslParserContext, tokens.withoutContextStartToken());
                         extendingWorkspace = !workspace.getModel().isEmpty();
@@ -685,7 +707,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         parsedTokens.add(WORKSPACE_TOKEN);
 
                     } else if (IMPLIED_RELATIONSHIPS_TOKEN.equalsIgnoreCase(firstToken) || IMPLIED_RELATIONSHIPS_TOKEN.substring(1).equalsIgnoreCase(firstToken)) {
-                        new ImpliedRelationshipsParser().parse(getContext(), tokens, dslFile, restricted);
+                        new ImpliedRelationshipsParser().parse(getContext(), tokens, dslFile);
 
                     } else if (NAME_TOKEN.equalsIgnoreCase(firstToken) && inContext(WorkspaceDslContext.class)) {
                         new WorkspaceParser().parseName(getContext(), tokens);
@@ -817,7 +839,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         startContext(new BrandingDslContext(dslFile));
 
                     } else if (BRANDING_LOGO_TOKEN.equalsIgnoreCase(firstToken) && inContext(BrandingDslContext.class)) {
-                        new BrandingParser().parseLogo(getContext(BrandingDslContext.class), tokens, restricted);
+                        new BrandingParser().parseLogo(getContext(BrandingDslContext.class), tokens);
 
                     } else if (BRANDING_FONT_TOKEN.equalsIgnoreCase(firstToken) && inContext(BrandingDslContext.class)) {
                         new BrandingParser().parseFont(getContext(BrandingDslContext.class), tokens);
@@ -872,7 +894,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         new ElementStyleParser().parseDescription(getContext(ElementStyleDslContext.class), tokens);
 
                     } else if (ELEMENT_STYLE_ICON_TOKEN.equalsIgnoreCase(firstToken) && inContext(ElementStyleDslContext.class)) {
-                        new ElementStyleParser().parseIcon(getContext(ElementStyleDslContext.class), tokens, restricted);
+                        new ElementStyleParser().parseIcon(getContext(ElementStyleDslContext.class), tokens);
 
                     } else if (ELEMENT_STYLE_ICON_POSITION_TOKEN.equalsIgnoreCase(firstToken) && inContext(ElementStyleDslContext.class)) {
                         new ElementStyleParser().parseIconPosition(getContext(ElementStyleDslContext.class), tokens);
@@ -1088,16 +1110,16 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         new ViewParser().parseDescription(getContext(ViewDslContext.class), tokens);
 
                     } else if (PLANTUML_TOKEN.equalsIgnoreCase(firstToken) && inContext(ImageViewDslContext.class)) {
-                        new ImageViewContentParser(restricted).parsePlantUML(getContext(ImageViewDslContext.class), dslFile, tokens);
+                        new ImageViewContentParser().parsePlantUML(getContext(ImageViewDslContext.class), dslFile, tokens);
 
                     } else if (MERMAID_TOKEN.equalsIgnoreCase(firstToken) && inContext(ImageViewDslContext.class)) {
-                        new ImageViewContentParser(restricted).parseMermaid(getContext(ImageViewDslContext.class), dslFile, tokens);
+                        new ImageViewContentParser().parseMermaid(getContext(ImageViewDslContext.class), dslFile, tokens);
 
                     } else if (KROKI_TOKEN.equalsIgnoreCase(firstToken) && inContext(ImageViewDslContext.class)) {
-                        new ImageViewContentParser(restricted).parseKroki(getContext(ImageViewDslContext.class), dslFile, tokens);
+                        new ImageViewContentParser().parseKroki(getContext(ImageViewDslContext.class), dslFile, tokens);
 
                     } else if (IMAGE_VIEW_TOKEN.equalsIgnoreCase(firstToken) && inContext(ImageViewDslContext.class)) {
-                        new ImageViewContentParser(restricted).parseImage(getContext(ImageViewDslContext.class), dslFile, tokens);
+                        new ImageViewContentParser().parseImage(getContext(ImageViewDslContext.class), dslFile, tokens);
 
                     } else if (LIGHT_COLOR_SCHEME_TOKEN.equalsIgnoreCase(firstToken) && inContext(ImageViewDslContext.class) && shouldStartContext(tokens)) {
                         ImageViewDslContext context = getContext(ImageViewDslContext.class);
@@ -1124,10 +1146,10 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         new DynamicViewRelationshipParser().parseUrl(getContext(DynamicViewRelationshipContext.class), tokens.withoutContextStartToken());
 
                     } else if (THEME_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ViewsDslContext.class) || inContext(StylesDslContext.class))) {
-                        new ThemeParser().parseTheme(getContext(), dslFile, tokens, restricted);
+                        new ThemeParser().parseTheme(getContext(), dslFile, tokens);
 
                     } else if (THEMES_TOKEN.equalsIgnoreCase(firstToken) && (inContext(ViewsDslContext.class) || inContext(StylesDslContext.class))) {
-                        new ThemeParser().parseThemes(getContext(), dslFile, tokens, restricted);
+                        new ThemeParser().parseThemes(getContext(), dslFile, tokens);
 
                     } else if (TERMINOLOGY_TOKEN.equalsIgnoreCase(firstToken) && inContext(ViewsDslContext.class)) {
                         startContext(new TerminologyDslContext());
@@ -1172,59 +1194,59 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                         new UserRoleParser().parse(getContext(), tokens);
 
                     } else if (DOCS_TOKEN.equalsIgnoreCase(firstToken) && inContext(WorkspaceDslContext.class)) {
-                        if (!restricted) {
+                        if (features.isEnabled(Features.DOCUMENTATION)) {
                             new DocsParser().parse(getContext(WorkspaceDslContext.class), dslFile, tokens);
                         } else {
-                            throwRestrictedModeException(firstToken);
+                            throw new FeatureNotEnabledException(Features.DOCUMENTATION, firstToken + " is not permitted");
                         }
 
                     } else if (DOCS_TOKEN.equalsIgnoreCase(firstToken) && inContext(SoftwareSystemDslContext.class)) {
-                        if (!restricted) {
+                        if (features.isEnabled(Features.DOCUMENTATION)) {
                             new DocsParser().parse(getContext(SoftwareSystemDslContext.class), dslFile, tokens);
                         } else {
-                            throwRestrictedModeException(firstToken);
+                            throw new FeatureNotEnabledException(Features.DOCUMENTATION, firstToken + " is not permitted");
                         }
 
                     } else if (DOCS_TOKEN.equalsIgnoreCase(firstToken) && inContext(ContainerDslContext.class)) {
-                        if (!restricted) {
+                        if (features.isEnabled(Features.DOCUMENTATION)) {
                             new DocsParser().parse(getContext(ContainerDslContext.class), dslFile, tokens);
                         } else {
-                            throwRestrictedModeException(firstToken);
+                            throw new FeatureNotEnabledException(Features.DOCUMENTATION, firstToken + " is not permitted");
                         }
 
                     } else if (DOCS_TOKEN.equalsIgnoreCase(firstToken) && inContext(ComponentDslContext.class)) {
-                        if (!restricted) {
+                        if (features.isEnabled(Features.DOCUMENTATION)) {
                             new DocsParser().parse(getContext(ComponentDslContext.class), dslFile, tokens);
                         } else {
-                            throwRestrictedModeException(firstToken);
+                            throw new FeatureNotEnabledException(Features.DOCUMENTATION, firstToken + " is not permitted");
                         }
 
                     } else if ((ADRS_TOKEN.equalsIgnoreCase(firstToken) || DECISIONS_TOKEN.equalsIgnoreCase(firstToken)) && inContext(WorkspaceDslContext.class)) {
-                        if (!restricted) {
+                        if (features.isEnabled(Features.DECISIONS)) {
                             new DecisionsParser().parse(getContext(WorkspaceDslContext.class), dslFile, tokens);
                         } else {
-                            throwRestrictedModeException(firstToken);
+                            throw new FeatureNotEnabledException(Features.DECISIONS, firstToken + " is not permitted");
                         }
 
                     } else if ((ADRS_TOKEN.equalsIgnoreCase(firstToken) || DECISIONS_TOKEN.equalsIgnoreCase(firstToken)) && inContext(SoftwareSystemDslContext.class)) {
-                        if (!restricted) {
+                        if (features.isEnabled(Features.DECISIONS)) {
                             new DecisionsParser().parse(getContext(SoftwareSystemDslContext.class), dslFile, tokens);
                         } else {
-                            throwRestrictedModeException(firstToken);
+                            throw new FeatureNotEnabledException(Features.DECISIONS, firstToken + " is not permitted");
                         }
 
                     } else if ((ADRS_TOKEN.equalsIgnoreCase(firstToken) || DECISIONS_TOKEN.equalsIgnoreCase(firstToken)) && inContext(ContainerDslContext.class)) {
-                        if (!restricted) {
+                        if (features.isEnabled(Features.DECISIONS)) {
                             new DecisionsParser().parse(getContext(ContainerDslContext.class), dslFile, tokens);
                         } else {
-                            throwRestrictedModeException(firstToken);
+                            throw new FeatureNotEnabledException(Features.DECISIONS, firstToken + " is not permitted");
                         }
 
                     } else if ((ADRS_TOKEN.equalsIgnoreCase(firstToken) || DECISIONS_TOKEN.equalsIgnoreCase(firstToken)) && inContext(ComponentDslContext.class)) {
-                        if (!restricted) {
+                        if (features.isEnabled(Features.DECISIONS)) {
                             new DecisionsParser().parse(getContext(ComponentDslContext.class), dslFile, tokens);
                         } else {
-                            throwRestrictedModeException(firstToken);
+                            throw new FeatureNotEnabledException(Features.DECISIONS, firstToken + " is not permitted");
                         }
 
                     } else if (CONSTANT_TOKEN.equalsIgnoreCase(firstToken)) {
@@ -1360,10 +1382,6 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         return dslLines;
     }
 
-    private void throwRestrictedModeException(String firstToken) {
-        throw new RuntimeException(firstToken + " is not available when the parser is running in restricted mode");
-    }
-
     private String substituteStrings(String token) {
         Matcher m = STRING_SUBSTITUTION_PATTERN.matcher(token);
         while (m.find()) {
@@ -1379,7 +1397,7 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
                     after = nameValuePair.getValue();
                 }
             } else {
-                if (!restricted) {
+                if (getFeatures().isEnabled(Features.ENVIRONMENT)) {
                     String environmentVariable = System.getenv().get(name);
                     if (environmentVariable != null) {
                         after = environmentVariable;
@@ -1403,6 +1421,8 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
         context.setWorkspace(workspace);
         context.setIdentifierRegister(identifiersRegister);
         context.setExtendingWorkspace(extendingWorkspace);
+        context.setFeatures(features);
+        context.setHttpClient(httpClient);
         contextStack.push(context);
     }
 
@@ -1443,6 +1463,18 @@ public final class StructurizrDslParser extends StructurizrDslTokens {
 
     public Features getFeatures() {
         return features;
+    }
+
+    void setFeatures(Features features) {
+        this.features = features;
+    }
+
+    public HttpClient getHttpClient() {
+        return httpClient;
+    }
+
+    void setHttpClient(HttpClient httpClient) {
+        this.httpClient = httpClient;
     }
 
     private boolean isElementKeywordOrArchetype(String token, String keyword) {

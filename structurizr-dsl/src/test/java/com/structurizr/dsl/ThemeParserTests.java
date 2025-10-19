@@ -13,7 +13,7 @@ class ThemeParserTests extends AbstractTests {
     @Test
     void test_parseTheme_ThrowsAnException_WhenThereAreTooManyTokens() {
         try {
-            parser.parseTheme(context(), null, tokens("theme", "url", "extra"), false);
+            parser.parseTheme(context(), null, tokens("theme", "url", "extra"));
             fail();
         } catch (Exception e) {
             assertEquals("Too many tokens, expected: theme <url|file>", e.getMessage());
@@ -23,7 +23,7 @@ class ThemeParserTests extends AbstractTests {
     @Test
     void test_parseTheme_ThrowsAnException_WhenNoThemeIsSpecified() {
         try {
-            parser.parseTheme(context(), null, tokens("theme"), false);
+            parser.parseTheme(context(), null, tokens("theme"));
             fail();
         } catch (Exception e) {
             assertEquals("Expected: theme <url|file>", e.getMessage());
@@ -32,7 +32,7 @@ class ThemeParserTests extends AbstractTests {
 
     @Test
     void test_parseTheme_AddsTheTheme_WhenAThemeIsSpecified() {
-        parser.parseTheme(context(), null, tokens("theme", "http://example.com/1"), false);
+        parser.parseTheme(context(), null, tokens("theme", "http://example.com/1"));
 
         assertEquals(1, workspace.getViews().getConfiguration().getThemes().length);
         assertEquals("http://example.com/1", workspace.getViews().getConfiguration().getThemes()[0]);
@@ -40,7 +40,7 @@ class ThemeParserTests extends AbstractTests {
 
     @Test
     void test_parseTheme_AddsTheTheme_WhenTheDefaultThemeIsSpecified() {
-        parser.parseTheme(context(), null, tokens("theme", "default"), false);
+        parser.parseTheme(context(), null, tokens("theme", "default"));
 
         assertEquals(1, workspace.getViews().getConfiguration().getThemes().length);
         assertEquals("https://static.structurizr.com/themes/default/theme.json", workspace.getViews().getConfiguration().getThemes()[0]);
@@ -49,7 +49,7 @@ class ThemeParserTests extends AbstractTests {
     @Test
     void test_parseThemes_ThrowsAnException_WhenNoThemesAreSpecified() {
         try {
-            parser.parseThemes(context(), null, tokens("themes"), false);
+            parser.parseThemes(context(), null, tokens("themes"));
             fail();
         } catch (Exception e) {
             assertEquals("Expected: themes <url|file> [url|file] ... [url|file]", e.getMessage());
@@ -58,7 +58,7 @@ class ThemeParserTests extends AbstractTests {
 
     @Test
     void test_parseThemes_AddsTheTheme_WhenOneThemeIsSpecified() {
-        parser.parseThemes(context(), null, tokens("themes", "http://example.com/1"), false);
+        parser.parseThemes(context(), null, tokens("themes", "http://example.com/1"));
 
         assertEquals(1, workspace.getViews().getConfiguration().getThemes().length);
         assertEquals("http://example.com/1", workspace.getViews().getConfiguration().getThemes()[0]);
@@ -66,7 +66,7 @@ class ThemeParserTests extends AbstractTests {
 
     @Test
     void test_parseThemes_AddsTheThemes_WhenMultipleThemesAreSpecified() {
-        parser.parseThemes(context(), null, tokens("themes", "http://example.com/1", "http://example.com/2", "http://example.com/3"), false);
+        parser.parseThemes(context(), null, tokens("themes", "http://example.com/1", "http://example.com/2", "http://example.com/3"));
 
         assertEquals(3, workspace.getViews().getConfiguration().getThemes().length);
         assertEquals("http://example.com/1", workspace.getViews().getConfiguration().getThemes()[0]);
@@ -76,7 +76,7 @@ class ThemeParserTests extends AbstractTests {
 
     @Test
     void test_parseThemes_AddsTheTheme_WhenTheDefaultThemeIsSpecified() {
-        parser.parseThemes(context(), null, tokens("themes", "default"), false);
+        parser.parseThemes(context(), null, tokens("themes", "default"));
 
         assertEquals(1, workspace.getViews().getConfiguration().getThemes().length);
         assertEquals("https://static.structurizr.com/themes/default/theme.json", workspace.getViews().getConfiguration().getThemes()[0]);
@@ -84,9 +84,13 @@ class ThemeParserTests extends AbstractTests {
 
     @Test
     void test_parseTheme_ThrowsAnException_WhenTheThemeFileDoesNotExist() {
-        File dslFile = new File("src/test/resources/themes/workspace.dsl");
         try {
-            parser.parseTheme(context(), dslFile, tokens("theme", "my-theme.json"), false);
+            DslContext context = context();
+            context.getFeatures().enable(Features.FILE_SYSTEM);
+
+            File dslFile = new File("src/test/resources/themes/workspace.dsl");
+
+            parser.parseTheme(context, dslFile, tokens("theme", "my-theme.json"));
             fail();
         } catch (Exception e) {
             assertTrue(e.getMessage().endsWith("/src/test/resources/themes/my-theme.json does not exist"));
@@ -95,9 +99,13 @@ class ThemeParserTests extends AbstractTests {
 
     @Test
     void test_parseTheme_ThrowsAnException_WhenTheThemeFileIsADirectory() {
-        File dslFile = new File("src/test/resources/workspace.dsl");
         try {
-            parser.parseTheme(context(), dslFile, tokens("theme", "themes"), false);
+            DslContext context = context();
+            context.getFeatures().enable(Features.FILE_SYSTEM);
+
+            File dslFile = new File("src/test/resources/workspace.dsl");
+
+            parser.parseTheme(context, dslFile, tokens("theme", "themes"));
             fail();
         } catch (Exception e) {
             assertTrue(e.getMessage().endsWith("/src/test/resources/themes is not a file"));
@@ -106,8 +114,12 @@ class ThemeParserTests extends AbstractTests {
 
     @Test
     void test_parseTheme_InlinesTheTheme_WhenAThemeFileIsSpecified() {
+        DslContext context = context();
+        context.getFeatures().enable(Features.FILE_SYSTEM);
+
         File dslFile = new File("src/test/resources/themes/workspace.dsl");
-        parser.parseTheme(context(), dslFile, tokens("theme", "theme.json"), false);
+
+        parser.parseTheme(context, dslFile, tokens("theme", "theme.json"));
 
         assertEquals(0, workspace.getViews().getConfiguration().getThemes().length);
         assertEquals("#ff0000", workspace.getViews().getConfiguration().getStyles().getElementStyle("Tag").getBackground());
@@ -115,13 +127,16 @@ class ThemeParserTests extends AbstractTests {
     }
 
     @Test
-    void test_parseTheme_ThrowsAnException_WhenAThemeFileIsSpecifiedAndTheParserIsRunningInRestrictedMode() {
+    void test_parseTheme_ThrowsAnException_WhenAThemeFileIsSpecifiedAndFileSystemAccessIsNotEnabled() {
         try {
+            DslContext context = context();
+            context.getFeatures().disable(Features.FILE_SYSTEM);
+
             File dslFile = new File("src/test/resources/themes/workspace.dsl");
-            parser.parseTheme(context(), dslFile, tokens("theme", "theme.json"), true);
+            parser.parseTheme(context, dslFile, tokens("theme", "theme.json"));
             fail();
         } catch (Exception e) {
-            assertEquals("File-based themes are not supported when the DSL parser is running in restricted mode", e.getMessage());
+            assertEquals("File-based themes are not permitted (feature structurizr.feature.dsl.filesystem is not enabled)", e.getMessage());
         }
     }
 

@@ -1,5 +1,9 @@
 package com.structurizr.dsl;
 
+import com.structurizr.http.RemoteContent;
+import com.structurizr.util.FeatureNotEnabledException;
+import com.structurizr.util.Url;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -17,6 +21,10 @@ final class IncludeParser extends AbstractParser {
     List<IncludedFile> parse(DslContext context, File dslFile, Tokens tokens) {
         // !include <file|directory|url>
 
+        if (!context.getFeatures().isEnabled(Features.INCLUDE)) {
+            throw new FeatureNotEnabledException(Features.INCLUDE, "!include is not permitted");
+        }
+
         List<IncludedFile> includedFiles = new ArrayList<>();
 
         if (tokens.hasMoreThan(SOURCE_INDEX)) {
@@ -28,24 +36,40 @@ final class IncludeParser extends AbstractParser {
         }
 
         String source = tokens.get(SOURCE_INDEX);
-        if (source.startsWith("https://") || source.startsWith("http://")) {
-            RemoteContent content = readFromUrl(source);
-            List<String> lines = Arrays.asList(content.getContent().split("\n"));
-            includedFiles.add(new IncludedFile(dslFile, lines));
+        if (Url.isHttpsUrl(source)) {
+            if (context.getFeatures().isEnabled(Features.HTTPS)) {
+                RemoteContent content = context.getHttpClient().get(source);
+                List<String> lines = Arrays.asList(content.getContentAsString().split("\n"));
+                includedFiles.add(new IncludedFile(dslFile, lines));
+            } else {
+                throw new FeatureNotEnabledException(Features.HTTPS, "Includes via HTTPS are not permitted");
+            }
+        } else if (Url.isHttpUrl(source)) {
+            if (context.getFeatures().isEnabled(Features.HTTP)) {
+                RemoteContent content = context.getHttpClient().get(source);
+                List<String> lines = Arrays.asList(content.getContentAsString().split("\n"));
+                includedFiles.add(new IncludedFile(dslFile, lines));
+            } else {
+                throw new FeatureNotEnabledException(Features.HTTP, "Includes via HTTP are not permitted");
+            }
         } else {
-            if (dslFile != null) {
-                File path = new File(dslFile.getParent(), source);
+            if (context.getFeatures().isEnabled(Features.FILE_SYSTEM)) {
+                if (dslFile != null) {
+                    File path = new File(dslFile.getParent(), source);
 
-                try {
-                    if (!path.exists()) {
-                        throw new RuntimeException(path.getCanonicalPath() + " could not be found");
+                    try {
+                        if (!path.exists()) {
+                            throw new RuntimeException(path.getCanonicalPath() + " could not be found");
+                        }
+
+                        includedFiles.addAll(readFiles(path));
+                        context.setDslPortable(false);
+                    } catch (IOException e) {
+                        throw new RuntimeException("Error including " + path.getAbsolutePath() + ": " + e.getMessage());
                     }
-
-                    includedFiles.addAll(readFiles(path));
-                    context.setDslPortable(false);
-                } catch (IOException e) {
-                    throw new RuntimeException("Error including " + path.getAbsolutePath() + ": " + e.getMessage());
                 }
+            } else {
+                throw new FeatureNotEnabledException(Features.FILE_SYSTEM, "!include <file> is not permitted");
             }
         }
 

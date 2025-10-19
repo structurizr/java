@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 class WorkspaceParserTests extends AbstractTests {
 
-    private WorkspaceParser parser = new WorkspaceParser();
+    private final WorkspaceParser parser = new WorkspaceParser();
 
     @Test
     void test_parseTitle_ThrowsAnException_WhenThereAreTooManyTokens() {
@@ -44,6 +44,32 @@ class WorkspaceParserTests extends AbstractTests {
         workspace = parser.parse(null, tokens("workspace", "New Name", "New Description"));
         assertEquals("New Name", workspace.getName());
         assertEquals("New Description", workspace.getDescription());
+    }
+
+    @Test
+    void test_parse_ThrowsAnException_WhenExtendingAHttpsUrlAndHttpsIsNotEnabled() {
+        try {
+            DslParserContext context = new DslParserContext(null, null);
+            context.getFeatures().disable(Features.HTTPS);
+
+            parser.parse(context, tokens("workspace", "extends", "https://example.com"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Extends via HTTPS are not permitted (feature structurizr.feature.dsl.https is not enabled)", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parse_ThrowsAnException_WhenExtendingAHttpUrlAndHttpIsNotEnabled() {
+        try {
+            DslParserContext context = new DslParserContext(null, null);
+            context.getFeatures().disable(Features.HTTPS);
+
+            parser.parse(context, tokens("workspace", "extends", "http://example.com"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Extends via HTTP are not permitted (feature structurizr.feature.dsl.http is not enabled)", e.getMessage());
+        }
     }
 
     @Test

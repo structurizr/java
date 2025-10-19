@@ -25,7 +25,7 @@ class ImageViewContentParserTests extends AbstractTests {
         try {
             ImageViewDslContext context = new ImageViewDslContext(imageView);
             context.setWorkspace(workspace);
-            parser = new ImageViewContentParser(true);
+            parser = new ImageViewContentParser();
             parser.parsePlantUML(context, null, tokens("plantuml"));
             fail();
         } catch (Exception e) {
@@ -38,11 +38,39 @@ class ImageViewContentParserTests extends AbstractTests {
         try {
             ImageViewDslContext context = new ImageViewDslContext(imageView);
             context.setWorkspace(workspace);
-            parser = new ImageViewContentParser(true);
+            parser = new ImageViewContentParser();
             parser.parsePlantUML(context, null, tokens("plantuml", "image.puml"));
             fail();
         } catch (Exception e) {
-            assertEquals("PlantUML source must be specified as a URL when running in restricted mode", e.getMessage());
+            assertEquals("plantuml <file> is not permitted (feature structurizr.feature.dsl.filesystem is not enabled)", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parsePlantUML_ThrowsAnException_WhenUsingAHttpsUrlAndHttpsIsNotEnabled() {
+        try {
+            ImageViewDslContext context = new ImageViewDslContext(imageView);
+            context.setWorkspace(workspace);
+            context.getFeatures().disable(Features.HTTPS);
+            parser = new ImageViewContentParser();
+            parser.parsePlantUML(context, null, tokens("plantuml", "https://example.com"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Image views via HTTPS are not permitted (feature structurizr.feature.dsl.https is not enabled)", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parsePlantUML_ThrowsAnException_WhenUsingAHttpUrlAndHttpIsNotEnabled() {
+        try {
+            ImageViewDslContext context = new ImageViewDslContext(imageView);
+            context.setWorkspace(workspace);
+            context.getFeatures().disable(Features.HTTP);
+            parser = new ImageViewContentParser();
+            parser.parsePlantUML(context, null, tokens("plantuml", "http://example.com"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Image views via HTTP are not permitted (feature structurizr.feature.dsl.http is not enabled)", e.getMessage());
         }
     }
 
@@ -54,7 +82,7 @@ class ImageViewContentParserTests extends AbstractTests {
                 @enduml""";
 
         workspace.getViews().getConfiguration().addProperty(PlantUMLImporter.PLANTUML_URL_PROPERTY, "https://plantuml.com/plantuml");
-        parser = new ImageViewContentParser(true);
+        parser = new ImageViewContentParser();
         parser.parsePlantUML(new ImageViewDslContext(imageView), null, tokens("plantuml", source));
         assertEquals("https://plantuml.com/plantuml/svg/SoWkIImgAStDuNBAJrBGjLDmpCbCJbMmKiX8pSd9vt98pKi1IW80", imageView.getContent());
     }
@@ -67,7 +95,7 @@ class ImageViewContentParserTests extends AbstractTests {
                 @enduml""";
 
         workspace.getViews().getConfiguration().addProperty(PlantUMLImporter.PLANTUML_URL_PROPERTY, "https://plantuml.com/plantuml");
-        parser = new ImageViewContentParser(true);
+        parser = new ImageViewContentParser();
         ImageViewDslContext context = new ImageViewDslContext(imageView);
         context.setColorScheme(ColorScheme.Light);
         parser.parsePlantUML(context, null, tokens("plantuml", source));
@@ -82,7 +110,7 @@ class ImageViewContentParserTests extends AbstractTests {
                 @enduml""";
 
         workspace.getViews().getConfiguration().addProperty(PlantUMLImporter.PLANTUML_URL_PROPERTY, "https://plantuml.com/plantuml");
-        parser = new ImageViewContentParser(true);
+        parser = new ImageViewContentParser();
         ImageViewDslContext context = new ImageViewDslContext(imageView);
         context.setColorScheme(ColorScheme.Dark);
         parser.parsePlantUML(context, null, tokens("plantuml", source));
@@ -97,7 +125,7 @@ class ImageViewContentParserTests extends AbstractTests {
         workspace.getViews().createSystemLandscapeView("SystemLandscape", "Description").addAllElements();
         workspace.getViews().getConfiguration().addProperty(PlantUMLImporter.PLANTUML_URL_PROPERTY, "https://plantuml.com/plantuml");
 
-        parser = new ImageViewContentParser(true);
+        parser = new ImageViewContentParser();
         parser.parsePlantUML(context, null, tokens("plantuml", "SystemLandscape"));
         assertEquals("System Landscape View", imageView.getTitle());
         assertEquals("Description", imageView.getDescription());
@@ -111,7 +139,7 @@ class ImageViewContentParserTests extends AbstractTests {
         try {
             ImageViewDslContext context = new ImageViewDslContext(imageView);
             context.setWorkspace(workspace);
-            parser = new ImageViewContentParser(true);
+            parser = new ImageViewContentParser();
             parser.parseMermaid(context, null, tokens("mermaid"));
             fail();
         } catch (Exception e) {
@@ -124,11 +152,39 @@ class ImageViewContentParserTests extends AbstractTests {
         try {
             ImageViewDslContext context = new ImageViewDslContext(imageView);
             context.setWorkspace(workspace);
-            parser = new ImageViewContentParser(true);
-            parser.parseMermaid(context, null, tokens("mermaid", "image.puml"));
+            parser = new ImageViewContentParser();
+            parser.parseMermaid(context, null, tokens("mermaid", "image.mmd"));
             fail();
         } catch (Exception e) {
-            assertEquals("Mermaid source must be specified as a URL when running in restricted mode", e.getMessage());
+            assertEquals("mermaid <file> is not permitted (feature structurizr.feature.dsl.filesystem is not enabled)", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseMermaid_ThrowsAnException_WhenUsingAHttpsUrlAndHttpsIsNotEnabled() {
+        try {
+            ImageViewDslContext context = new ImageViewDslContext(imageView);
+            context.setWorkspace(workspace);
+            context.getFeatures().disable(Features.HTTPS);
+            parser = new ImageViewContentParser();
+            parser.parseMermaid(context, null, tokens("mermaid", "https://example.com"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Image views via HTTPS are not permitted (feature structurizr.feature.dsl.https is not enabled)", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseMermaid_ThrowsAnException_WhenUsingAHttpUrlAndHttpIsNotEnabled() {
+        try {
+            ImageViewDslContext context = new ImageViewDslContext(imageView);
+            context.setWorkspace(workspace);
+            context.getFeatures().disable(Features.HTTP);
+            parser = new ImageViewContentParser();
+            parser.parseMermaid(context, null, tokens("mermaid", "http://example.com"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Image views via HTTP are not permitted (feature structurizr.feature.dsl.http is not enabled)", e.getMessage());
         }
     }
 
@@ -143,7 +199,7 @@ class ImageViewContentParserTests extends AbstractTests {
                     C -->|Three| F[fa:fa-car Car]""";
 
         workspace.getViews().getConfiguration().addProperty(MermaidImporter.MERMAID_URL_PROPERTY, "https://mermaid.ink");
-        parser = new ImageViewContentParser(true);
+        parser = new ImageViewContentParser();
         parser.parseMermaid(new ImageViewDslContext(imageView), null, tokens("mermaid", source));
         assertEquals("https://mermaid.ink/svg/pako:eJxVj70OgjAUhV_lppMm8gIMJlKUhUQHtspwAxfbSH9SaoihvLsgi571-85JzgSssS2xlHW9HRuJPkCV3w0sOQkuvRqCxqGGJDnGggJoa-gdIdsVFgZpnVPmsd_8bJWAT-WqEQSpzHPeEP_2r4Yi5KJEF6yrf0k12ghnoW5ymf8n0tPSuogO0w6TBj1w9DU7ANPkNaqWpRMLkvR6oqUOX31g8_wBLY9E1w==", imageView.getContent());
     }
@@ -159,7 +215,7 @@ class ImageViewContentParserTests extends AbstractTests {
                     C -->|Three| F[fa:fa-car Car]""";
 
         workspace.getViews().getConfiguration().addProperty(MermaidImporter.MERMAID_URL_PROPERTY, "https://mermaid.ink");
-        parser = new ImageViewContentParser(true);
+        parser = new ImageViewContentParser();
         ImageViewDslContext context = new ImageViewDslContext(imageView);
         context.setColorScheme(ColorScheme.Light);
         parser.parseMermaid(context, null, tokens("mermaid", source));
@@ -177,7 +233,7 @@ class ImageViewContentParserTests extends AbstractTests {
                     C -->|Three| F[fa:fa-car Car]""";
 
         workspace.getViews().getConfiguration().addProperty(MermaidImporter.MERMAID_URL_PROPERTY, "https://mermaid.ink");
-        parser = new ImageViewContentParser(true);
+        parser = new ImageViewContentParser();
         ImageViewDslContext context = new ImageViewDslContext(imageView);
         context.setColorScheme(ColorScheme.Dark);
         parser.parseMermaid(context, null, tokens("mermaid", source));
@@ -192,7 +248,7 @@ class ImageViewContentParserTests extends AbstractTests {
         workspace.getViews().createSystemLandscapeView("SystemLandscape", "Description").addAllElements();
         workspace.getViews().getConfiguration().addProperty(MermaidImporter.MERMAID_URL_PROPERTY, "https://mermaid.ink");
 
-        parser = new ImageViewContentParser(true);
+        parser = new ImageViewContentParser();
         parser.parseMermaid(context, null, tokens("mermaid", "SystemLandscape"));
         assertEquals("System Landscape View", imageView.getTitle());
         assertEquals("Description", imageView.getDescription());
@@ -204,7 +260,7 @@ class ImageViewContentParserTests extends AbstractTests {
         try {
             ImageViewDslContext context = new ImageViewDslContext(imageView);
             context.setWorkspace(workspace);
-            parser = new ImageViewContentParser(true);
+            parser = new ImageViewContentParser();
             parser.parseKroki(context, null, tokens("kroki"));
             fail();
         } catch (Exception e) {
@@ -215,11 +271,39 @@ class ImageViewContentParserTests extends AbstractTests {
     @Test
     void test_parseKroki_ThrowsAnException_WhenUsingAFileNameInRestrictedMode() {
         try {
-            parser = new ImageViewContentParser(true);
+            parser = new ImageViewContentParser();
             parser.parseKroki(new ImageViewDslContext(imageView), null, tokens("kroki", "plantuml", "image.puml"));
             fail();
         } catch (Exception e) {
-            assertEquals("Kroki source must be specified as a URL when running in restricted mode", e.getMessage());
+            assertEquals("kroki plantuml <file> is not permitted (feature structurizr.feature.dsl.filesystem is not enabled)", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseKroki_ThrowsAnException_WhenUsingAHttpsUrlAndHttpsIsNotEnabled() {
+        try {
+            ImageViewDslContext context = new ImageViewDslContext(imageView);
+            context.setWorkspace(workspace);
+            context.getFeatures().disable(Features.HTTPS);
+            parser = new ImageViewContentParser();
+            parser.parseKroki(context, null, tokens("kroki", "plantuml", "https://example.com"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Image views via HTTPS are not permitted (feature structurizr.feature.dsl.https is not enabled)", e.getMessage());
+        }
+    }
+
+    @Test
+    void test_parseKroki_ThrowsAnException_WhenUsingAHttpUrlAndHttpIsNotEnabled() {
+        try {
+            ImageViewDslContext context = new ImageViewDslContext(imageView);
+            context.setWorkspace(workspace);
+            context.getFeatures().disable(Features.HTTP);
+            parser = new ImageViewContentParser();
+            parser.parseKroki(context, null, tokens("kroki", "plantuml", "http://example.com"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Image views via HTTP are not permitted (feature structurizr.feature.dsl.http is not enabled)", e.getMessage());
         }
     }
 
@@ -234,7 +318,7 @@ class ImageViewContentParserTests extends AbstractTests {
                     C -->|Three| F[fa:fa-car Car]""";
 
         workspace.getViews().getConfiguration().addProperty(KrokiImporter.KROKI_URL_PROPERTY, "https://kroki.io");
-        parser = new ImageViewContentParser(true);
+        parser = new ImageViewContentParser();
         parser.parseKroki(new ImageViewDslContext(imageView), null, tokens("kroki", "mermaid", source));
         assertEquals("https://kroki.io/mermaid/png/eNpVjLEOwiAURXe_4o068AMOJpZqlyZ16EYYXhrwES2PAEljxH-XdtK7nnOuffIyEcYMY7uDurOSFF3KMyYNQpxKZzLM7M2rQLPvGBJxCM7fD5verA7Id79aBjI5__hsRG714E2BVvUYMgf9A8aFC1yUu1H9_gMUTW2uyuLRopgwgsSovzbHM0c=", imageView.getContent());
     }
@@ -250,7 +334,7 @@ class ImageViewContentParserTests extends AbstractTests {
                     C -->|Three| F[fa:fa-car Car]""";
 
         workspace.getViews().getConfiguration().addProperty(KrokiImporter.KROKI_URL_PROPERTY, "https://kroki.io");
-        parser = new ImageViewContentParser(true);
+        parser = new ImageViewContentParser();
         ImageViewDslContext context = new ImageViewDslContext(imageView);
         context.setColorScheme(ColorScheme.Light);
         parser.parseKroki(context, null, tokens("kroki", "mermaid", source));
@@ -268,7 +352,7 @@ class ImageViewContentParserTests extends AbstractTests {
                     C -->|Three| F[fa:fa-car Car]""";
 
         workspace.getViews().getConfiguration().addProperty(KrokiImporter.KROKI_URL_PROPERTY, "https://kroki.io");
-        parser = new ImageViewContentParser(true);
+        parser = new ImageViewContentParser();
         ImageViewDslContext context = new ImageViewDslContext(imageView);
         context.setColorScheme(ColorScheme.Dark);
         parser.parseKroki(context, null, tokens("kroki", "mermaid", source));
@@ -278,37 +362,47 @@ class ImageViewContentParserTests extends AbstractTests {
     @Test
     void test_parseImage_ThrowsAnException_WhenUsingAFileNameInRestrictedMode() {
         try {
-            parser = new ImageViewContentParser(true);
+            parser = new ImageViewContentParser();
             parser.parseImage(new ImageViewDslContext(imageView), null, tokens("image", "image.png"));
             fail();
         } catch (Exception e) {
-            assertEquals("Images must be specified as a URL when running in restricted mode", e.getMessage());
+            assertEquals("image <file> is not permitted (feature structurizr.feature.dsl.filesystem is not enabled)", e.getMessage());
         }
     }
 
     @Test
     void test_parseImage() {
-        parser = new ImageViewContentParser(true);
-        parser.parseImage(new ImageViewDslContext(imageView), null, tokens("image", "https://example.com/image.png"));
-        assertEquals("https://example.com/image.png", imageView.getContent());
+        parser = new ImageViewContentParser();
+        ImageViewDslContext context = new ImageViewDslContext(imageView);
+        context.getFeatures().enable(Features.HTTPS);
+        context.getHttpClient().allow(".*");
+
+        parser.parseImage(context, null, tokens("image", "https://static.structurizr.com/img/structurizr-banner.png"));
+        assertEquals("https://static.structurizr.com/img/structurizr-banner.png", imageView.getContent());
     }
 
     @Test
     void test_parseImage_Url_Light() {
-        parser = new ImageViewContentParser(true);
+        parser = new ImageViewContentParser();
         ImageViewDslContext context = new ImageViewDslContext(imageView);
         context.setColorScheme(ColorScheme.Light);
-        parser.parseImage(context, null, tokens("image", "https://example.com/image.png"));
-        assertEquals("https://example.com/image.png", imageView.getContentLight());
+        context.getFeatures().enable(Features.HTTPS);
+        context.getHttpClient().allow(".*");
+
+        parser.parseImage(context, null, tokens("image", "https://static.structurizr.com/img/structurizr-banner.png"));
+        assertEquals("https://static.structurizr.com/img/structurizr-banner.png", imageView.getContentLight());
     }
 
     @Test
     void test_parseImage_Url_Dark() {
-        parser = new ImageViewContentParser(true);
+        parser = new ImageViewContentParser();
         ImageViewDslContext context = new ImageViewDslContext(imageView);
         context.setColorScheme(ColorScheme.Dark);
-        parser.parseImage(context, null, tokens("image", "https://example.com/image.png"));
-        assertEquals("https://example.com/image.png", imageView.getContentDark());
+        context.getFeatures().enable(Features.HTTPS);
+        context.getHttpClient().allow(".*");
+
+        parser.parseImage(context, null, tokens("image", "https://static.structurizr.com/img/structurizr-banner.png"));
+        assertEquals("https://static.structurizr.com/img/structurizr-banner.png", imageView.getContentDark());
     }
 
 }

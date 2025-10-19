@@ -3,6 +3,7 @@ package com.structurizr.dsl;
 import com.structurizr.model.CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy;
 import com.structurizr.model.DefaultImpliedRelationshipsStrategy;
 import com.structurizr.model.ImpliedRelationshipsStrategy;
+import com.structurizr.util.FeatureNotEnabledException;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -22,7 +23,7 @@ final class ImpliedRelationshipsParser extends AbstractParser {
     private static final String TRUE = "true";
     private static final String FALSE = "false";
 
-    void parse(DslContext context, Tokens tokens, File dslFile, boolean restricted) {
+    void parse(DslContext context, Tokens tokens, File dslFile) {
         // impliedRelationships <true|false|fqcn>
 
         if (tokens.hasMoreThan(OPTION_INDEX)) {
@@ -40,9 +41,9 @@ final class ImpliedRelationshipsParser extends AbstractParser {
         } else if (option.equalsIgnoreCase(TRUE)) {
             context.getWorkspace().getModel().setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
         } else {
-            if (restricted) {
+            if (!context.getFeatures().isEnabled(Features.PLUGINS)) {
                 if (!BUILT_IN_IMPLIED_RELATIONSHIPS_STRATEGIES.contains(option)) {
-                    throw new RuntimeException("The implied relationships strategy " + option + " is not available when the DSL parser is running in restricted mode");
+                    throw new FeatureNotEnabledException(Features.PLUGINS, "The implied relationships strategy " + option + " is not available");
                 }
             }
 

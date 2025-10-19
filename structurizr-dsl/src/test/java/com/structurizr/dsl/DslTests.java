@@ -4,7 +4,6 @@ import com.structurizr.Workspace;
 import com.structurizr.documentation.Section;
 import com.structurizr.model.*;
 import com.structurizr.util.StringUtils;
-import com.structurizr.util.WorkspaceUtils;
 import com.structurizr.view.*;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -23,6 +22,7 @@ class DslTests extends AbstractTests {
     @Test
     void test_test() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
+        parser.getFeatures().configure(Features.FILE_SYSTEM, true);
         parser.parse(new File("src/test/resources/dsl/test.dsl"));
 
         assertFalse(parser.getWorkspace().isEmpty());
@@ -374,6 +374,7 @@ class DslTests extends AbstractTests {
     @Tag("IntegrationTest")
     void test_includeUrl() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
+        parser.getHttpClient().allow(".*");
         parser.parse(new File("src/test/resources/dsl/include-url.dsl"));
 
         Workspace workspace = parser.getWorkspace();
@@ -390,21 +391,6 @@ class DslTests extends AbstractTests {
                     }
                 
                 }""", DslUtils.getDsl(workspace));
-    }
-
-    @Test
-    void test_includeLocalFile_ThrowsAnException_WhenRunningInRestrictedMode() {
-        try {
-            StructurizrDslParser parser = new StructurizrDslParser();
-            parser.setRestricted(true);
-
-            // the model include will be ignored, so no software systems
-            parser.parse(new File("src/test/resources/dsl/include-file.dsl"));
-            fail();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            assertTrue(e.getMessage().startsWith("!include <file> is not available when the parser is running in restricted mode"));
-        }
     }
 
     @Test
@@ -437,6 +423,7 @@ class DslTests extends AbstractTests {
     void test_extendWorkspaceFromJsonUrl() throws Exception {
         String dslFile = "src/test/resources/dsl/extend/extend-workspace-from-json-url.dsl";
         StructurizrDslParser parser = new StructurizrDslParser();
+        parser.getHttpClient().allow(".*");
         parser.parse(new File(dslFile));
 
         Workspace workspace = parser.getWorkspace();
@@ -487,7 +474,7 @@ class DslTests extends AbstractTests {
             parser.parse(dslFile);
             fail();
         } catch (StructurizrDslParserException e) {
-            assertEquals("Cannot import workspace from a file when running in restricted mode at line 1 of " + dslFile.getAbsolutePath() + ": workspace extends workspace.json {", e.getMessage());
+            assertEquals("Extending a file-based workspace is not permitted (feature structurizr.feature.dsl.filesystem is not enabled) at line 1 of " + dslFile.getAbsolutePath() + ": workspace extends workspace.json {", e.getMessage());
         }
     }
 
@@ -496,6 +483,7 @@ class DslTests extends AbstractTests {
     @ValueSource(strings = { "src/test/resources/dsl/extend/extend-workspace-from-dsl-file.dsl", "src/test/resources/dsl/extend/extend-workspace-from-dsl-url.dsl" })
     void test_extendWorkspaceFromDsl(String dslFile) throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
+        parser.getHttpClient().allow(".*");
         parser.parse(new File(dslFile));
 
         Workspace workspace = parser.getWorkspace();
@@ -526,7 +514,7 @@ class DslTests extends AbstractTests {
             parser.parse(dslFile);
             fail();
         } catch (StructurizrDslParserException e) {
-            assertEquals("Cannot import workspace from a file when running in restricted mode at line 1 of " + dslFile.getAbsolutePath() +": workspace extends workspace.dsl {", e.getMessage());
+            assertEquals("Extending a file-based workspace is not permitted (feature structurizr.feature.dsl.filesystem is not enabled) at line 1 of " + dslFile.getAbsolutePath() +": workspace extends workspace.dsl {", e.getMessage());
         }
     }
 
@@ -725,15 +713,15 @@ class DslTests extends AbstractTests {
     }
 
     @Test
-    void test_plugin_ThrowsAnException_WhenTheParserIsRunningInRestrictedMode() {
+    void test_plugin_ThrowsAnException_WhenPluginsAreNotEnabled() {
         try {
             StructurizrDslParser parser = new StructurizrDslParser();
-            parser.setRestricted(true);
+            parser.getFeatures().disable(Features.PLUGINS);
             parser.parse(new File("src/test/resources/dsl/plugin-without-parameters.dsl"));
             fail();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            assertTrue(e.getMessage().startsWith("!plugin is not available when the parser is running in restricted mode"));
+            assertTrue(e.getMessage().startsWith("!plugin is not permitted (feature structurizr.feature.dsl.plugins is not enabled)"));
         }
     }
 
@@ -760,14 +748,15 @@ class DslTests extends AbstractTests {
     }
 
     @Test
-    void test_script_ThrowsAnException_WhenTheParserIsInRestrictedMode() {
+    void test_script_ThrowsAnException_WhenScriptsAreNotEnabled() {
         try {
             StructurizrDslParser parser = new StructurizrDslParser();
-            parser.setRestricted(true);
+            parser.getFeatures().disable(Features.SCRIPTS);
             parser.parse(new File("src/test/resources/dsl/script-external.dsl"));
             fail();
         } catch (Exception e) {
-            assertTrue(e.getMessage().startsWith("!script is not available when the parser is running in restricted mode"));
+            System.out.println(e.getMessage());
+            assertTrue(e.getMessage().startsWith("!script is not permitted (feature structurizr.feature.dsl.scripts is not enabled)"));
         }
     }
 
@@ -863,7 +852,8 @@ class DslTests extends AbstractTests {
             parser.parse(new File("src/test/resources/dsl/docs/workspace.dsl"));
             fail();
         } catch (Exception e) {
-            assertTrue(e.getMessage().startsWith("!docs is not available when the parser is running in restricted mode"));
+            System.out.println(e.getMessage());
+            assertTrue(e.getMessage().startsWith("!docs is not permitted (feature structurizr.feature.dsl.documentation is not enabled)"));
         }
     }
 
@@ -898,7 +888,8 @@ class DslTests extends AbstractTests {
             parser.parse(new File("src/test/resources/dsl/decisions/workspace.dsl"));
             fail();
         } catch (Exception e) {
-            assertTrue(e.getMessage().startsWith("!adrs is not available when the parser is running in restricted mode"));
+            System.out.println(e.getMessage());
+            assertTrue(e.getMessage().startsWith("!adrs is not permitted (feature structurizr.feature.dsl.decisions is not enabled)"));
         }
     }
 
@@ -1101,6 +1092,7 @@ class DslTests extends AbstractTests {
     @Test
     void test_imageViews_ViaFiles() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
+        parser.getFeatures().configure(Features.FILE_SYSTEM, true);
         parser.parse(new File("src/test/resources/dsl/image-views/workspace-via-file.dsl"));
 
         Workspace workspace = parser.getWorkspace();
@@ -1139,6 +1131,7 @@ class DslTests extends AbstractTests {
     @Tag("IntegrationTest")
     void test_imageViews_ViaUrls() throws Exception {
         StructurizrDslParser parser = new StructurizrDslParser();
+        parser.getHttpClient().allow(".*");
         parser.parse(new File("src/test/resources/dsl/image-views/workspace-via-url.dsl"));
 
         Workspace workspace = parser.getWorkspace();
@@ -1534,7 +1527,7 @@ class DslTests extends AbstractTests {
             parser.parse(dslFile);
             fail();
         } catch (StructurizrDslParserException e) {
-            assertEquals("Images must be specified as a URL when running in restricted mode at line 5 of " + dslFile.getAbsolutePath() + ": image image.png", e.getMessage());
+            assertEquals("image <file> is not permitted (feature structurizr.feature.dsl.filesystem is not enabled) at line 5 of " + dslFile.getAbsolutePath() + ": image image.png", e.getMessage());
         }
     }
 

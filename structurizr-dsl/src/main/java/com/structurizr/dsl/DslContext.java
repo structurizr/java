@@ -1,6 +1,7 @@
 package com.structurizr.dsl;
 
 import com.structurizr.Workspace;
+import com.structurizr.http.HttpClient;
 import com.structurizr.model.Element;
 import com.structurizr.model.Relationship;
 
@@ -20,6 +21,9 @@ abstract class DslContext {
     private boolean dslPortable = true;
 
     protected IdentifiersRegister identifiersRegister = new IdentifiersRegister();
+
+    private Features features = new Features();
+    private HttpClient httpClient = new HttpClient();
 
     Workspace getWorkspace() {
         return workspace;
@@ -114,6 +118,22 @@ abstract class DslContext {
 
     Relationship getRelationship(String identifier) {
         return identifiersRegister.getRelationship(identifier.toLowerCase());
+    }
+
+    Features getFeatures() {
+        return features;
+    }
+
+    void setFeatures(Features features) {
+        this.features = features;
+    }
+
+    HttpClient getHttpClient() {
+        return httpClient;
+    }
+
+    void setHttpClient(HttpClient httpClient) {
+        this.httpClient = httpClient;
     }
 
     protected <T> Class<? extends T> loadClass(String fqn, File dslFile) throws Exception {

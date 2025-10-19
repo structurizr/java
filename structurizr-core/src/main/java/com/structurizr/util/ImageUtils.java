@@ -6,18 +6,12 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.net.URLConnection;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.util.Base64;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
- * Some utility methods for dealing with images.
+ * Some utility methods for dealing with images as files and data URIs.
  */
 public class ImageUtils {
 
@@ -29,8 +23,6 @@ public class ImageUtils {
     public static final String CONTENT_TYPE_IMAGE_PNG = "image/png";
     public static final String CONTENT_TYPE_IMAGE_JPG = "image/jpeg";
     public static final String CONTENT_TYPE_IMAGE_SVG = "image/svg+xml";
-
-    private static final Map<String,String> imageCache = new HashMap<>();
 
     /**
      * Gets the content type of the specified file representing an image.
@@ -54,23 +46,6 @@ public class ImageUtils {
         }
 
         return contentType;
-    }
-
-    /**
-     * Gets the content type of the specified URL representing an image.
-     *
-     * @param   url             a URL pointing to an image
-     * @return  a content type (e.g. "image/png")
-     * @throws IOException      if there is an error reading the file
-     */
-    public static String getContentType(String url) throws IOException {
-        if (StringUtils.isNullOrEmpty(url)) {
-            throw new IllegalArgumentException("A URL must be specified.");
-        }
-
-        URLConnection connection = new URL(url).openConnection();
-        connection.setConnectTimeout(1000 * 30);
-        return connection.getContentType();
     }
 
     /**
@@ -131,58 +106,24 @@ public class ImageUtils {
         return DATA_URI_PREFIX + contentType + ";base64," + base64Content;
     }
 
-    public static String getSvgAsDataUri(@Nonnull URL url) throws Exception {
-        return getSvgAsDataUri(url, false);
+    /**
+     * Converts an SVG string to a data URI.
+     *
+     * @param svg       the SVG string
+     * @return          a data URI
+     */
+    public static String getSvgAsDataUri(String svg) {
+        return DATA_URI_PREFIX + CONTENT_TYPE_IMAGE_SVG + ";base64," + Base64.getEncoder().encodeToString(svg.getBytes());
     }
 
-    public static String getSvgAsDataUri(@Nonnull URL url, boolean cache) throws Exception {
-        String urlAsString = url.toString();
-        String dataUri = cache ? imageCache.get(urlAsString) : null;
-
-        if (StringUtils.isNullOrEmpty(dataUri)) {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(url.toURI())
-                    .header("accept", CONTENT_TYPE_IMAGE_SVG)
-                    .build();
-            HttpClient client = HttpClient.newBuilder()
-                    .followRedirects(HttpClient.Redirect.ALWAYS)
-                    .build();
-
-            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            String svg = response.body();
-
-            dataUri = DATA_URI_PREFIX + CONTENT_TYPE_IMAGE_SVG + ";base64," + Base64.getEncoder().encodeToString(svg.getBytes());
-            imageCache.put(urlAsString, dataUri);
-        }
-
-        return dataUri;
-    }
-
-    public static String getPngAsDataUri(@Nonnull URL url) throws Exception {
-        return getPngAsDataUri(url, false);
-    }
-
-    public static String getPngAsDataUri(@Nonnull URL url, boolean cache) throws Exception {
-        String urlAsString = url.toString();
-        String dataUri = cache ? imageCache.get(urlAsString) : null;
-
-        if (StringUtils.isNullOrEmpty(dataUri)) {
-            HttpRequest request = HttpRequest.newBuilder()
-                    .uri(url.toURI())
-                    .header("accept", CONTENT_TYPE_IMAGE_PNG)
-                    .build();
-            HttpClient client = HttpClient.newBuilder()
-                    .followRedirects(HttpClient.Redirect.ALWAYS)
-                    .build();
-
-            HttpResponse<byte[]> response = client.send(request, HttpResponse.BodyHandlers.ofByteArray());
-            byte[] png = response.body();
-
-            dataUri = DATA_URI_PREFIX + CONTENT_TYPE_IMAGE_PNG + ";base64," + Base64.getEncoder().encodeToString(png);
-            imageCache.put(urlAsString, dataUri);
-        }
-
-        return dataUri;
+    /**
+     * Converts an PNG to a data URI.
+     *
+     * @param png       the PNG as a byte array
+     * @return          a data URI
+     */
+    public static String getPngAsDataUri(byte[] png) {
+        return DATA_URI_PREFIX + CONTENT_TYPE_IMAGE_PNG + ";base64," + Base64.getEncoder().encodeToString(png);
     }
 
     public static void validateImage(String imageDescriptor) {

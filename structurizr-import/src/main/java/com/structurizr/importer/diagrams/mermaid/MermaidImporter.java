@@ -1,5 +1,7 @@
 package com.structurizr.importer.diagrams.mermaid;
 
+import com.structurizr.http.HttpClient;
+import com.structurizr.http.RemoteContent;
 import com.structurizr.importer.diagrams.AbstractDiagramImporter;
 import com.structurizr.util.ImageUtils;
 import com.structurizr.util.StringUtils;
@@ -7,7 +9,6 @@ import com.structurizr.view.ColorScheme;
 import com.structurizr.view.ImageView;
 
 import java.io.File;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
@@ -17,6 +18,13 @@ public class MermaidImporter extends AbstractDiagramImporter {
     public static final String MERMAID_FORMAT_PROPERTY = "mermaid.format";
     public static final String MERMAID_COMPRESS_PROPERTY = "mermaid.compress";
     public static final String MERMAID_INLINE_PROPERTY = "mermaid.inline";
+
+    public MermaidImporter() {
+    }
+
+    public MermaidImporter(HttpClient httpClient) {
+        super(httpClient);
+    }
 
     public void importDiagram(ImageView view, File file) throws Exception {
         importDiagram(view, file, null);
@@ -63,10 +71,12 @@ public class MermaidImporter extends AbstractDiagramImporter {
 
         String inline = getViewOrViewSetProperty(view, MERMAID_INLINE_PROPERTY);
         if ("true".equals(inline)) {
+            RemoteContent remoteContent = httpClient.get(url, true);
+
             if (format.equals(SVG_FORMAT)) {
-                view.setContent(ImageUtils.getSvgAsDataUri(new URL(url), true), colorScheme);
+                view.setContent(ImageUtils.getSvgAsDataUri(remoteContent.getContentAsString()), colorScheme);
             } else {
-                view.setContent(ImageUtils.getPngAsDataUri(new URL(url), true), colorScheme);
+                view.setContent(ImageUtils.getPngAsDataUri(remoteContent.getContentAsBytes()), colorScheme);
             }
         } else {
             view.setContent(url, colorScheme);

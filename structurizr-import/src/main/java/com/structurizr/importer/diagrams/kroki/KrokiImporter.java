@@ -1,5 +1,7 @@
 package com.structurizr.importer.diagrams.kroki;
 
+import com.structurizr.http.HttpClient;
+import com.structurizr.http.RemoteContent;
 import com.structurizr.importer.diagrams.AbstractDiagramImporter;
 import com.structurizr.util.ImageUtils;
 import com.structurizr.util.StringUtils;
@@ -7,7 +9,6 @@ import com.structurizr.view.ColorScheme;
 import com.structurizr.view.ImageView;
 
 import java.io.File;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
@@ -16,6 +17,13 @@ public class KrokiImporter extends AbstractDiagramImporter {
     public static final String KROKI_URL_PROPERTY = "kroki.url";
     public static final String KROKI_FORMAT_PROPERTY = "kroki.format";
     public static final String KROKI_INLINE_PROPERTY = "kroki.inline";
+
+    public KrokiImporter() {
+    }
+
+    public KrokiImporter(HttpClient httpClient) {
+        super(httpClient);
+    }
 
     public void importDiagram(ImageView view, String format, File file) throws Exception {
         importDiagram(view, format, file, null);
@@ -52,10 +60,12 @@ public class KrokiImporter extends AbstractDiagramImporter {
 
         String inline = getViewOrViewSetProperty(view, KROKI_INLINE_PROPERTY);
         if ("true".equals(inline)) {
+            RemoteContent remoteContent = httpClient.get(url, true);
+
             if (imageFormat.equals(SVG_FORMAT)) {
-                view.setContent(ImageUtils.getSvgAsDataUri(new URL(url), true), colorScheme);
+                view.setContent(ImageUtils.getSvgAsDataUri(remoteContent.getContentAsString()), colorScheme);
             } else {
-                view.setContent(ImageUtils.getPngAsDataUri(new URL(url), true), colorScheme);
+                view.setContent(ImageUtils.getPngAsDataUri(remoteContent.getContentAsBytes()), colorScheme);
             }
         } else {
             view.setContent(url, colorScheme);

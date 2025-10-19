@@ -63,28 +63,6 @@ public class ImageUtilsTests {
     }
 
     @Test
-    void getContentType_ThrowsAnException_WhenANullUrlIsSpecified() throws Exception {
-        try {
-            ImageUtils.getContentType((String)null);
-            fail();
-        } catch (IllegalArgumentException iae) {
-            assertEquals("A URL must be specified.", iae.getMessage());
-        }
-    }
-
-    @Test
-    void getContentType_ReturnsTheContentType_WhenAPNGUrlIsSpecified() throws Exception {
-        String contentType = ImageUtils.getContentType(new File("../structurizr-core/test/unit/com/structurizr/util/image.png").toURI().toURL().toExternalForm());
-        assertEquals("image/png", contentType);
-    }
-
-    @Test
-    void getContentType_ReturnsTheContentType_WhenASVGUrlIsSpecified() throws Exception {
-        String contentType = ImageUtils.getContentType(new File("../structurizr-core/test/unit/com/structurizr/util/image.svg").toURI().toURL().toExternalForm());
-        assertEquals("image/svg+xml", contentType);
-    }
-
-    @Test
     void getContentTypeFromDataUri_ThrowsAnException_WhenANullDataUriIsSpecified() throws Exception {
         try {
             ImageUtils.getContentTypeFromDataUri(null);

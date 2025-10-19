@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ElementStyleParserTests extends AbstractTests {
 
-    private ElementStyleParser parser = new ElementStyleParser();
+    private final ElementStyleParser parser = new ElementStyleParser();
     private ElementStyle elementStyle;
 
     private ElementStyleDslContext elementStyleDslContext() {
@@ -499,7 +499,7 @@ class ElementStyleParserTests extends AbstractTests {
     @Test
     void test_parseIcon_ThrowsAnException_WhenThereAreTooManyTokens() {
         try {
-            parser.parseIcon(elementStyleDslContext(), tokens("icon", "file", "extra"), false);
+            parser.parseIcon(elementStyleDslContext(), tokens("icon", "file", "extra"));
             fail();
         } catch (Exception e) {
             assertEquals("Too many tokens, expected: icon <file|url>", e.getMessage());
@@ -509,7 +509,7 @@ class ElementStyleParserTests extends AbstractTests {
     @Test
     void test_parseIcon_ThrowsAnException_WhenTheIconIsMissing() {
         try {
-            parser.parseIcon(elementStyleDslContext(), tokens("icon"), false);
+            parser.parseIcon(elementStyleDslContext(), tokens("icon"));
             fail();
         } catch (Exception e) {
             assertEquals("Expected: icon <file|url>", e.getMessage());
@@ -519,7 +519,10 @@ class ElementStyleParserTests extends AbstractTests {
     @Test
     void test_parseIcon_ThrowsAnException_WhenTheIconDoesNotExist() {
         try {
-            parser.parseIcon(elementStyleDslContext(), tokens("icon", "hello.png"), false);
+            ElementStyleDslContext context = elementStyleDslContext();
+            context.getFeatures().enable(Features.FILE_SYSTEM);
+
+            parser.parseIcon(context, tokens("icon", "hello.png"));
             fail();
         } catch (Exception e) {
             assertEquals("hello.png does not exist", e.getMessage());
@@ -528,27 +531,75 @@ class ElementStyleParserTests extends AbstractTests {
 
     @Test
     void test_parseIcon_SetsTheIconFromADataUri() {
-        parser.parseIcon(elementStyleDslContext(), tokens("icon", "data:image/png;base64,123456789012345678901234567890"), true);
+        parser.parseIcon(elementStyleDslContext(), tokens("icon", "data:image/png;base64,123456789012345678901234567890"));
         assertTrue(elementStyle.getIcon().startsWith("data:image/png;base64,123456789012345678901234567890"));
     }
 
     @Test
+    void test_parseIcon_ThrowsAnException_WithAHttpIconAndHttpIsNotEnabled() {
+        try {
+            ElementStyleDslContext context = elementStyleDslContext();
+            context.getFeatures().disable(Features.HTTP);
+
+            parser.parseIcon(context, tokens("icon", "http://structurizr.com/logo.png"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Icons via HTTP are not permitted (feature structurizr.feature.dsl.http is not enabled)", e.getMessage());
+        }
+    }
+
+    @Test
     void test_parseIcon_SetsTheIconFromAHttpUrl() {
-        parser.parseIcon(elementStyleDslContext(), tokens("icon", "http://structurizr.com/logo.png"), true);
+        ElementStyleDslContext context = elementStyleDslContext();
+        context.getFeatures().enable(Features.HTTP);
+
+        parser.parseIcon(context, tokens("icon", "http://structurizr.com/logo.png"));
         assertEquals("http://structurizr.com/logo.png", elementStyle.getIcon());
     }
 
     @Test
+    void test_parseIcon_ThrowsAnException_WithAHttpsIconAndHttpsIsNotEnabled() {
+        try {
+            ElementStyleDslContext context = elementStyleDslContext();
+            context.getFeatures().disable(Features.HTTPS);
+
+            parser.parseIcon(context, tokens("icon", "https://structurizr.com/logo.png"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("Icons via HTTPS are not permitted (feature structurizr.feature.dsl.https is not enabled)", e.getMessage());
+        }
+    }
+
+    @Test
     void test_parseIcon_SetsTheIconFromAHttpsUrl() {
-        parser.parseIcon(elementStyleDslContext(), tokens("icon", "https://structurizr.com/logo.png"), true);
+        ElementStyleDslContext context = elementStyleDslContext();
+        context.getFeatures().enable(Features.HTTPS);
+
+        parser.parseIcon(context, tokens("icon", "https://structurizr.com/logo.png"));
         assertEquals("https://structurizr.com/logo.png", elementStyle.getIcon());
     }
 
     @Test
     void test_parseIcon_SetsTheIconFromAFile() {
-        parser.parseIcon(elementStyleDslContext(), tokens("icon", "src/test/resources/dsl/logo.png"), false);
+        ElementStyleDslContext context = elementStyleDslContext();
+        context.getFeatures().enable(Features.FILE_SYSTEM);
+
+        parser.parseIcon(context, tokens("icon", "src/test/resources/dsl/logo.png"));
         System.out.println(elementStyle.getIcon());
         assertTrue(elementStyle.getIcon().startsWith("data:image/png;base64,"));
+    }
+
+    @Test
+    void test_parseIcon_ThrowsAnException_WhenFileSystemAccessIsNotEnabled() {
+        try {
+            ElementStyleDslContext context = elementStyleDslContext();
+            context.getFeatures().disable(Features.FILE_SYSTEM);
+
+            parser.parseIcon(context, tokens("icon", "src/test/resources/dsl/logo.png"));
+            fail();
+        } catch (Exception e) {
+            assertEquals("!icon <file> is not permitted (feature structurizr.feature.dsl.filesystem is not enabled)", e.getMessage());
+        }
     }
 
     @Test

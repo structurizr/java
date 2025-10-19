@@ -6,12 +6,10 @@ final class DslParserContext extends DslContext {
 
     private final StructurizrDslParser parser;
     private final File file;
-    private final boolean restricted;
 
-    DslParserContext(StructurizrDslParser parser, File file, boolean restricted) {
+    DslParserContext(StructurizrDslParser parser, File file) {
         this.parser = parser;
         this.file = file;
-        this.restricted = restricted;
     }
 
     StructurizrDslParser getParser() {
@@ -20,10 +18,6 @@ final class DslParserContext extends DslContext {
 
     File getFile() {
         return file;
-    }
-
-    boolean isRestricted() {
-        return restricted;
     }
 
     void copyFrom(IdentifiersRegister identifersRegister) {

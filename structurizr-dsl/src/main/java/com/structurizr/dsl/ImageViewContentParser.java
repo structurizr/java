@@ -2,10 +2,12 @@ package com.structurizr.dsl;
 
 import com.structurizr.export.mermaid.MermaidDiagramExporter;
 import com.structurizr.export.plantuml.StructurizrPlantUMLExporter;
+import com.structurizr.http.RemoteContent;
 import com.structurizr.importer.diagrams.image.ImageImporter;
 import com.structurizr.importer.diagrams.kroki.KrokiImporter;
 import com.structurizr.importer.diagrams.mermaid.MermaidImporter;
 import com.structurizr.importer.diagrams.plantuml.PlantUMLImporter;
+import com.structurizr.util.FeatureNotEnabledException;
 import com.structurizr.util.StringUtils;
 import com.structurizr.util.Url;
 import com.structurizr.view.ColorScheme;
@@ -30,10 +32,7 @@ final class ImageViewContentParser extends AbstractParser {
 
     private static final int IMAGE_SOURCE_INDEX = 1;
 
-    private boolean restricted = false;
-
-    ImageViewContentParser(boolean restricted) {
-        this.restricted = restricted;
+    ImageViewContentParser() {
     }
 
     void parsePlantUML(ImageViewDslContext context, File dslFile, Tokens tokens) {
@@ -53,15 +52,15 @@ final class ImageViewContentParser extends AbstractParser {
         try {
             if (source.contains("\n")) {
                 // inline source
-                new PlantUMLImporter().importDiagram(context.getView(), source, colorScheme);
+                new PlantUMLImporter(context.getHttpClient()).importDiagram(context.getView(), source, colorScheme);
             } else {
                 View viewWithKey = context.getWorkspace().getViews().getViewWithKey(source);
                 if (viewWithKey instanceof ModelView) {
                     String plantumlLight = new StructurizrPlantUMLExporter(ColorScheme.Light).export((ModelView) viewWithKey).getDefinition();
-                    new PlantUMLImporter().importDiagram(context.getView(), plantumlLight, ColorScheme.Light);
+                    new PlantUMLImporter(context.getHttpClient()).importDiagram(context.getView(), plantumlLight, ColorScheme.Light);
 
                     String plantumlDark = new StructurizrPlantUMLExporter(ColorScheme.Dark).export((ModelView) viewWithKey).getDefinition();
-                    new PlantUMLImporter().importDiagram(context.getView(), plantumlDark, ColorScheme.Dark);
+                    new PlantUMLImporter(context.getHttpClient()).importDiagram(context.getView(), plantumlDark, ColorScheme.Dark);
 
                     if (!StringUtils.isNullOrEmpty(viewWithKey.getTitle())) {
                         context.getView().setTitle(viewWithKey.getTitle());
@@ -70,21 +69,28 @@ final class ImageViewContentParser extends AbstractParser {
                     }
                     context.getView().setDescription(viewWithKey.getDescription());
                 } else {
-                    if (Url.isUrl(source)) {
-                        RemoteContent content = readFromUrl(source);
-                        new PlantUMLImporter().importDiagram(context.getView(), content.getContent(), colorScheme);
+                    if (Url.isHttpsUrl(source) || Url.isHttpUrl(source)) {
+                        if (Url.isHttpsUrl(source) && !context.getFeatures().isEnabled(Features.HTTPS)) {
+                            throw new FeatureNotEnabledException(Features.HTTPS, "Image views via HTTPS are not permitted");
+                        }
+                        if (Url.isHttpUrl(source) && !context.getFeatures().isEnabled(Features.HTTP)) {
+                            throw new FeatureNotEnabledException(Features.HTTP, "Image views via HTTP are not permitted");
+                        }
+
+                        RemoteContent content = context.getHttpClient().get(source);
+                        new PlantUMLImporter(context.getHttpClient()).importDiagram(context.getView(), content.getContentAsString(), colorScheme);
                         context.getView().setTitle(source.substring(source.lastIndexOf("/") + 1));
                     } else {
-                        if (!restricted) {
+                        if (context.getFeatures().isEnabled(Features.FILE_SYSTEM)) {
                             File file = new File(dslFile.getParentFile(), source);
                             if (file.exists()) {
                                 context.setDslPortable(false);
-                                new PlantUMLImporter().importDiagram(context.getView(), file, colorScheme);
+                                new PlantUMLImporter(context.getHttpClient()).importDiagram(context.getView(), file, colorScheme);
                             } else {
                                 throw new RuntimeException("The file at " + file.getAbsolutePath() + " does not exist");
                             }
                         } else {
-                            throw new RuntimeException("PlantUML source must be specified as a URL when running in restricted mode");
+                            throw new FeatureNotEnabledException(Features.FILE_SYSTEM, "plantuml <file> is not permitted");
                         }
                     }
                 }
@@ -111,13 +117,13 @@ final class ImageViewContentParser extends AbstractParser {
         try {
             if (source.contains("\n")) {
                 // inline source
-                new MermaidImporter().importDiagram(context.getView(), source, colorScheme);
+                new MermaidImporter(context.getHttpClient()).importDiagram(context.getView(), source, colorScheme);
             } else {
                 View viewWithKey = context.getWorkspace().getViews().getViewWithKey(source);
                 if (viewWithKey instanceof ModelView) {
                     MermaidDiagramExporter exporter = new MermaidDiagramExporter();
                     String mermaid = exporter.export((ModelView) viewWithKey).getDefinition();
-                    new MermaidImporter().importDiagram(context.getView(), mermaid, colorScheme);
+                    new MermaidImporter(context.getHttpClient()).importDiagram(context.getView(), mermaid, colorScheme);
 
                     if (!StringUtils.isNullOrEmpty(viewWithKey.getTitle())) {
                         context.getView().setTitle(viewWithKey.getTitle());
@@ -126,21 +132,28 @@ final class ImageViewContentParser extends AbstractParser {
                     }
                     context.getView().setDescription(viewWithKey.getDescription());
                 } else {
-                    if (Url.isUrl(source)) {
-                        RemoteContent content = readFromUrl(source);
-                        new MermaidImporter().importDiagram(context.getView(), content.getContent(), colorScheme);
+                    if (Url.isHttpsUrl(source) || Url.isHttpUrl(source)) {
+                        if (Url.isHttpsUrl(source) && !context.getFeatures().isEnabled(Features.HTTPS)) {
+                            throw new FeatureNotEnabledException(Features.HTTPS, "Image views via HTTPS are not permitted");
+                        }
+                        if (Url.isHttpUrl(source) && !context.getFeatures().isEnabled(Features.HTTP)) {
+                            throw new FeatureNotEnabledException(Features.HTTP, "Image views via HTTP are not permitted");
+                        }
+
+                        RemoteContent content = context.getHttpClient().get(source);
+                        new MermaidImporter(context.getHttpClient()).importDiagram(context.getView(), content.getContentAsString(), colorScheme);
                         context.getView().setTitle(source.substring(source.lastIndexOf("/") + 1));
                     } else {
-                        if (!restricted) {
+                        if (context.getFeatures().isEnabled(Features.FILE_SYSTEM)) {
                             File file = new File(dslFile.getParentFile(), source);
                             if (file.exists()) {
                                 context.setDslPortable(false);
-                                new MermaidImporter().importDiagram(context.getView(), file, colorScheme);
+                                new MermaidImporter(context.getHttpClient()).importDiagram(context.getView(), file, colorScheme);
                             } else {
                                 throw new RuntimeException("The file at " + file.getAbsolutePath() + " does not exist");
                             }
                         } else {
-                            throw new RuntimeException("Mermaid source must be specified as a URL when running in restricted mode");
+                            throw new FeatureNotEnabledException(Features.FILE_SYSTEM, "mermaid <file> is not permitted");
                         }
                     }
                 }
@@ -168,23 +181,30 @@ final class ImageViewContentParser extends AbstractParser {
         try {
             if (source.contains("\n")) {
                 // inline source
-                new KrokiImporter().importDiagram(context.getView(), format, source, colorScheme);
+                new KrokiImporter(context.getHttpClient()).importDiagram(context.getView(), format, source, colorScheme);
             } else {
-                if (Url.isUrl(source)) {
-                    RemoteContent content = readFromUrl(source);
-                    new KrokiImporter().importDiagram(context.getView(), format, content.getContent(), colorScheme);
+                if (Url.isHttpsUrl(source) || Url.isHttpUrl(source)) {
+                    if (Url.isHttpsUrl(source) && !context.getFeatures().isEnabled(Features.HTTPS)) {
+                        throw new FeatureNotEnabledException(Features.HTTPS, "Image views via HTTPS are not permitted");
+                    }
+                    if (Url.isHttpUrl(source) && !context.getFeatures().isEnabled(Features.HTTP)) {
+                        throw new FeatureNotEnabledException(Features.HTTP, "Image views via HTTP are not permitted");
+                    }
+
+                    RemoteContent content = context.getHttpClient().get(source);
+                    new KrokiImporter(context.getHttpClient()).importDiagram(context.getView(), format, content.getContentAsString(), colorScheme);
                     context.getView().setTitle(source.substring(source.lastIndexOf("/") + 1));
                 } else {
-                    if (!restricted) {
+                    if (context.getFeatures().isEnabled(Features.FILE_SYSTEM)) {
                         File file = new File(dslFile.getParentFile(), source);
                         if (file.exists()) {
                             context.setDslPortable(false);
-                            new KrokiImporter().importDiagram(context.getView(), format, file, colorScheme);
+                            new KrokiImporter(context.getHttpClient()).importDiagram(context.getView(), format, file, colorScheme);
                         } else {
                             throw new RuntimeException("The file at " + file.getAbsolutePath() + " does not exist");
                         }
                     } else {
-                        throw new RuntimeException("Kroki source must be specified as a URL when running in restricted mode");
+                        throw new FeatureNotEnabledException(Features.FILE_SYSTEM, "kroki " + format + " <file> is not permitted");
                     }
                 }
             }
@@ -208,38 +228,31 @@ final class ImageViewContentParser extends AbstractParser {
         ColorScheme colorScheme = context.getColorScheme();
 
         try {
-            if (Url.isUrl(source)) {
-                new ImageImporter().importDiagram(context.getView(), source, colorScheme);
+            if (Url.isHttpsUrl(source) || Url.isHttpUrl(source)) {
+                if (Url.isHttpsUrl(source) && !context.getFeatures().isEnabled(Features.HTTPS)) {
+                    throw new FeatureNotEnabledException(Features.HTTPS, "Image views via HTTPS are not permitted");
+                }
+                if (Url.isHttpUrl(source) && !context.getFeatures().isEnabled(Features.HTTP)) {
+                    throw new FeatureNotEnabledException(Features.HTTP, "Image views via HTTP are not permitted");
+                }
+
+                new ImageImporter(context.getHttpClient()).importDiagram(context.getView(), source, colorScheme);
             } else {
-                if (!restricted) {
+                if (context.getFeatures().isEnabled(Features.FILE_SYSTEM)) {
                     File file = new File(dslFile.getParentFile(), source);
                     if (file.exists()) {
                         context.setDslPortable(false);
-                        new ImageImporter().importDiagram(context.getView(), file, colorScheme);
+                        new ImageImporter(context.getHttpClient()).importDiagram(context.getView(), file, colorScheme);
                     } else {
                         throw new RuntimeException("The file at " + file.getAbsolutePath() + " does not exist");
                     }
                 } else {
-                    throw new RuntimeException("Images must be specified as a URL when running in restricted mode");
+                    throw new FeatureNotEnabledException(Features.FILE_SYSTEM, "image <file> is not permitted");
                 }
             }
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage());
         }
-    }
-
-    private ColorScheme calculateColorScheme(Tokens tokens, int index) {
-        if (tokens.includes(index)) {
-            if (ColorScheme.Dark.toString().equalsIgnoreCase(tokens.get(index))) {
-                return ColorScheme.Dark;
-            } else if (ColorScheme.Light.toString().equalsIgnoreCase(tokens.get(index))) {
-                return ColorScheme.Light;
-            } else {
-                throw new RuntimeException("Invalid color scheme \"" + tokens.get(index) + "\" - expected: light or dark");
-            }
-        }
-
-        return null;
     }
 
 }

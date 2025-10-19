@@ -1,5 +1,6 @@
 package com.structurizr.importer.diagrams;
 
+import com.structurizr.http.HttpClient;
 import com.structurizr.view.View;
 import com.structurizr.view.ViewSet;
 
@@ -19,6 +20,16 @@ public abstract class AbstractDiagramImporter {
     static {
         CONTENT_TYPES_BY_FORMAT.put(PNG_FORMAT, CONTENT_TYPE_IMAGE_PNG);
         CONTENT_TYPES_BY_FORMAT.put(SVG_FORMAT, CONTENT_TYPE_IMAGE_SVG);
+    }
+
+    protected HttpClient httpClient;
+
+    public AbstractDiagramImporter() {
+        this.httpClient = new HttpClient();
+    }
+
+    public AbstractDiagramImporter(HttpClient httpClient) {
+        this.httpClient = httpClient;
     }
 
     protected String getViewOrViewSetProperty(View view, String name) {

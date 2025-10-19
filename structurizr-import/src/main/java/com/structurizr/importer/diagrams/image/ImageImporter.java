@@ -1,18 +1,24 @@
 package com.structurizr.importer.diagrams.image;
 
+import com.structurizr.http.HttpClient;
+import com.structurizr.http.RemoteContent;
 import com.structurizr.importer.diagrams.AbstractDiagramImporter;
 import com.structurizr.util.ImageUtils;
 import com.structurizr.view.ColorScheme;
 import com.structurizr.view.ImageView;
 
 import java.io.File;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 
 public class ImageImporter extends AbstractDiagramImporter {
 
     public static final String IMAGE_INLINE_PROPERTY = "image.inline";
+
+    public ImageImporter() {
+    }
+
+    public ImageImporter(HttpClient httpClient) {
+        super(httpClient);
+    }
 
     public void importDiagram(ImageView view, File file) throws Exception {
         importDiagram(view, file, null);
@@ -29,23 +35,27 @@ public class ImageImporter extends AbstractDiagramImporter {
     }
 
     public void importDiagram(ImageView view, String url, ColorScheme colorScheme) throws Exception {
+        RemoteContent remoteContent = httpClient.get(url, false);
+
         String inline = getViewOrViewSetProperty(view, IMAGE_INLINE_PROPERTY);
         if ("true".equals(inline)) {
-            String imageFormat = ImageUtils.getContentType(url);
-            if (!imageFormat.equals(CONTENT_TYPE_IMAGE_PNG) && !imageFormat.equals(CONTENT_TYPE_IMAGE_SVG)) {
-                throw new IllegalArgumentException(String.format("Found %s - expected a format of %s or %s", imageFormat, PNG_FORMAT, SVG_FORMAT));
+
+            String contentType = remoteContent.getContentType();
+
+            if (!contentType.equals(CONTENT_TYPE_IMAGE_PNG) && !contentType.equals(CONTENT_TYPE_IMAGE_SVG)) {
+                throw new IllegalArgumentException(String.format("Found %s - expected a format of %s or %s", contentType, PNG_FORMAT, SVG_FORMAT));
             }
 
-            if (imageFormat.equals(CONTENT_TYPE_IMAGE_SVG)) {
-                view.setContent(ImageUtils.getSvgAsDataUri(new URL(url), false), colorScheme);
+            if (contentType.equals(CONTENT_TYPE_IMAGE_SVG)) {
+                view.setContent(ImageUtils.getSvgAsDataUri(remoteContent.getContentAsString()), colorScheme);
             } else {
-                view.setContent(ImageUtils.getPngAsDataUri(new URL(url), false), colorScheme);
+                view.setContent(ImageUtils.getPngAsDataUri(remoteContent.getContentAsBytes()), colorScheme);
             }
 
-            view.setContentType(imageFormat);
+            view.setContentType(contentType);
         } else {
             view.setContent(url, colorScheme);
-            view.setContentType(ImageUtils.getContentType(url));
+            view.setContentType(remoteContent.getContentType());
         }
 
         view.setTitle(url.substring(url.lastIndexOf("/")+1));

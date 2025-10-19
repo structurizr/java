@@ -1,9 +1,12 @@
 package com.structurizr.dsl;
 
 import com.structurizr.Workspace;
+import com.structurizr.http.RemoteContent;
 import com.structurizr.model.CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy;
 import com.structurizr.model.Element;
 import com.structurizr.model.Relationship;
+import com.structurizr.util.FeatureNotEnabledException;
+import com.structurizr.util.Url;
 import com.structurizr.util.WorkspaceUtils;
 
 import java.io.File;
@@ -36,24 +39,32 @@ final class WorkspaceParser extends AbstractParser {
                     String source = tokens.get(SECOND_INDEX);
 
                     try {
-                        if (source.startsWith("https://") || source.startsWith("http://")) {
-                            RemoteContent content = readFromUrl(source);
+                        if (Url.isHttpsUrl(source) || Url.isHttpUrl(source)) {
+                            if (Url.isHttpsUrl(source) && !context.getFeatures().isEnabled(Features.HTTPS)) {
+                                throw new FeatureNotEnabledException(Features.HTTPS, "Extends via HTTPS are not permitted");
+                            }
+                            if (Url.isHttpUrl(source) && !context.getFeatures().isEnabled(Features.HTTP)) {
+                                throw new FeatureNotEnabledException(Features.HTTP, "Extends via HTTP are not permitted");
+                            }
 
-                            if (source.endsWith(".json") || content.getContentType().startsWith(RemoteContent.CONTENT_TYPE_JSON)) {
-                                String json = content.getContent();
+                            RemoteContent remoteContent = context.getHttpClient().get(source);
+
+                            if (source.toLowerCase().endsWith(".json") || remoteContent.getContentType().startsWith(RemoteContent.CONTENT_TYPE_JSON)) {
+                                String json = remoteContent.getContentAsString();
                                 workspace = WorkspaceUtils.fromJson(json);
                                 registerIdentifiers(workspace, context);
                             } else {
-                                String dsl = content.getContent();
-                                StructurizrDslParser structurizrDslParser = new StructurizrDslParser();
-                                structurizrDslParser.setRestricted(context.isRestricted());
+                                String dsl = remoteContent.getContentAsString();
+
+                                StructurizrDslParser structurizrDslParser = createParser(context);
                                 structurizrDslParser.parse(context, dsl);
+
                                 workspace = structurizrDslParser.getWorkspace();
                                 context.getParser().configureFrom(structurizrDslParser);
                             }
                         } else {
-                            if (context.isRestricted()) {
-                                throw new RuntimeException("Cannot import workspace from a file when running in restricted mode");
+                            if (!context.getFeatures().isEnabled(Features.FILE_SYSTEM)) {
+                                throw new FeatureNotEnabledException(Features.FILE_SYSTEM, "Extending a file-based workspace is not permitted");
                             }
 
                             if (context.getFile() != null) {
@@ -66,12 +77,13 @@ final class WorkspaceParser extends AbstractParser {
                                     throw new RuntimeException(file.getCanonicalPath() + " should be a single file");
                                 }
 
-                                if (source.endsWith(".json")) {
+                                if (source.toLowerCase().endsWith(".json")) {
                                     workspace = WorkspaceUtils.loadWorkspaceFromJson(file);
                                     registerIdentifiers(workspace, context);
                                 } else {
-                                    StructurizrDslParser structurizrDslParser = new StructurizrDslParser();
+                                    StructurizrDslParser structurizrDslParser = createParser(context);
                                     structurizrDslParser.parse(context, file);
+
                                     workspace = structurizrDslParser.getWorkspace();
                                     context.getParser().configureFrom(structurizrDslParser);
                                 }
@@ -98,6 +110,14 @@ final class WorkspaceParser extends AbstractParser {
         workspace.getModel().setImpliedRelationshipsStrategy(new CreateImpliedRelationshipsUnlessAnyRelationshipExistsStrategy());
 
         return workspace;
+    }
+
+    private StructurizrDslParser createParser(DslParserContext context) {
+        StructurizrDslParser parser = new StructurizrDslParser();
+        parser.setFeatures(context.getFeatures());
+        parser.setHttpClient(context.getHttpClient());
+
+        return parser;
     }
 
     private void registerIdentifiers(Workspace workspace, DslParserContext context) {

@@ -1,6 +1,8 @@
 package com.structurizr.dsl;
 
+import com.structurizr.util.FeatureNotEnabledException;
 import com.structurizr.util.ImageUtils;
+import com.structurizr.util.Url;
 import com.structurizr.view.Font;
 
 import java.io.File;
@@ -15,7 +17,7 @@ final class BrandingParser extends AbstractParser {
     private static final int FONT_NAME_INDEX = 1;
     private static final int FONT_URL_INDEX = 2;
 
-    void parseLogo(BrandingDslContext context, Tokens tokens, boolean restricted) {
+    void parseLogo(BrandingDslContext context, Tokens tokens) {
         // logo <path>
 
         if (tokens.hasMoreThan(LOGO_FILE_INDEX)) {
@@ -23,11 +25,25 @@ final class BrandingParser extends AbstractParser {
         } else if (tokens.includes(LOGO_FILE_INDEX)) {
             String path = tokens.get(1);
 
-            if (path.startsWith("data:image/") || path.startsWith("https://") || path.startsWith("http://")) {
+            if (path.startsWith("data:image/")) {
                 ImageUtils.validateImage(path);
                 context.getWorkspace().getViews().getConfiguration().getBranding().setLogo(path);
+            } else if (Url.isHttpsUrl(path)) {
+                if (context.getFeatures().isEnabled(Features.HTTPS)) {
+                    ImageUtils.validateImage(path);
+                    context.getWorkspace().getViews().getConfiguration().getBranding().setLogo(path);
+                } else {
+                    throw new FeatureNotEnabledException(Features.HTTPS, "Icons via HTTPS are not permitted");
+                }
+            } else if (Url.isHttpUrl(path)) {
+                if (context.getFeatures().isEnabled(Features.HTTP)) {
+                    ImageUtils.validateImage(path);
+                    context.getWorkspace().getViews().getConfiguration().getBranding().setLogo(path);
+                } else {
+                    throw new FeatureNotEnabledException(Features.HTTP, "Icons via HTTP are not permitted");
+                }
             } else {
-                if (!restricted) {
+                if (context.getFeatures().isEnabled(Features.FILE_SYSTEM)) {
                     File file = new File(context.getFile().getParent(), path);
                     if (file.exists() && !file.isDirectory()) {
                         context.setDslPortable(false);
@@ -40,6 +56,8 @@ final class BrandingParser extends AbstractParser {
                     } else {
                         throw new RuntimeException(path + " does not exist");
                     }
+                } else {
+                    throw new FeatureNotEnabledException(Features.FILE_SYSTEM, "!branding <file> is not permitted");
                 }
             }
         } else {
