@@ -70,8 +70,13 @@ public class IdentifiersRegister {
      * @return                  an Element, or null if one doesn't exist
      */
     public Element getElement(String identifier) {
-        identifier = identifier.toLowerCase();
-        return elementsByIdentifier.get(identifier);
+        for (String key : elementsByIdentifier.keySet()) {
+            if (key.equalsIgnoreCase(identifier)) {
+                return elementsByIdentifier.get(key);
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -89,8 +94,6 @@ public class IdentifiersRegister {
             identifier = UUID.randomUUID().toString();
         }
 
-        identifier = identifier.toLowerCase();
-
         if (identifierScope == IdentifierScope.Hierarchical) {
             identifier = calculateHierarchicalIdentifier(identifier, element);
         }
@@ -99,17 +102,17 @@ public class IdentifiersRegister {
         for (String id : elementsByIdentifier.keySet()) {
             Element e = elementsByIdentifier.get(id);
 
-            if (e.equals(element) && !id.equals(identifier)) {
+            if (e.equals(element) && !id.equalsIgnoreCase(identifier)) {
                 if (id.matches("[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}")) {
-                    throw new RuntimeException("Please assign an identifier to \"" + element.getCanonicalName() + "\" before using it with !ref");
+                    throw new RuntimeException("Please assign an identifier to \"" + element.getCanonicalName() + "\" before using it");
                 } else {
                     throw new RuntimeException("The element is already registered with an identifier of \"" + id + "\"");
                 }
             }
         }
 
-        Element e = elementsByIdentifier.get(identifier);
-        Relationship r = relationshipsByIdentifier.get(identifier);
+        Element e = getElement(identifier);
+        Relationship r = getRelationship(identifier);
 
         if ((e == null && r == null) || (e == element)) {
             elementsByIdentifier.put(identifier, element);
@@ -125,8 +128,13 @@ public class IdentifiersRegister {
      * @return                  a Relationship, or null if one doesn't exist
      */
     public Relationship getRelationship(String identifier) {
-        identifier = identifier.toLowerCase();
-        return relationshipsByIdentifier.get(identifier);
+        for (String key : relationshipsByIdentifier.keySet()) {
+            if (key.equalsIgnoreCase(identifier)) {
+                return relationshipsByIdentifier.get(key);
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -144,10 +152,21 @@ public class IdentifiersRegister {
             identifier = UUID.randomUUID().toString();
         }
 
-        identifier = identifier.toLowerCase();
+        // check whether this relationship has already been registered with another identifier
+        for (String id : relationshipsByIdentifier.keySet()) {
+            Relationship r = relationshipsByIdentifier.get(id);
 
-        Element e = elementsByIdentifier.get(identifier);
-        Relationship r = relationshipsByIdentifier.get(identifier);
+            if (r.equals(relationship) && !id.equalsIgnoreCase(identifier)) {
+                if (id.matches("[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}")) {
+                    throw new RuntimeException("Please assign an identifier to \"" + relationship.getCanonicalName() + "\" before using it");
+                } else {
+                    throw new RuntimeException("The relationship is already registered with an identifier of \"" + id + "\"");
+                }
+            }
+        }
+
+        Element e = getElement(identifier);
+        Relationship r = getRelationship(identifier);
 
         if ((e == null && r == null) || (r == relationship)) {
             relationshipsByIdentifier.put(identifier, relationship);

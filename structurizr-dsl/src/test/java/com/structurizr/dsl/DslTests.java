@@ -1059,18 +1059,20 @@ class DslTests extends AbstractTests {
 
         IdentifiersRegister register = parser.getIdentifiersRegister();
         assertEquals("user", register.findIdentifier(user));
-        assertEquals("softwaresystem", register.findIdentifier(softwareSystem));
-        assertEquals("softwaresystem.container", register.findIdentifier(container));
+        assertEquals("softwareSystem", register.findIdentifier(softwareSystem));
+        assertEquals("softwareSystem.container", register.findIdentifier(container));
         assertEquals("rel", register.findIdentifier(relationship));
 
         assertSame(user, register.getElement("user"));
         assertSame(softwareSystem, register.getElement("softwareSystem"));
+        assertSame(softwareSystem, register.getElement("softwaresystem"));
         assertSame(container, register.getElement("softwareSystem.container"));
+        assertSame(container, register.getElement("softwaresystem.container"));
         assertSame(relationship, register.getRelationship("rel"));
 
         assertEquals("user", user.getProperties().get("structurizr.dsl.identifier"));
-        assertEquals("softwaresystem", softwareSystem.getProperties().get("structurizr.dsl.identifier"));
-        assertEquals("softwaresystem.container", container.getProperties().get("structurizr.dsl.identifier"));
+        assertEquals("softwareSystem", softwareSystem.getProperties().get("structurizr.dsl.identifier"));
+        assertEquals("softwareSystem.container", container.getProperties().get("structurizr.dsl.identifier"));
         assertEquals("rel", relationship.getProperties().get("structurizr.dsl.identifier"));
         assertNull(impliedRelationship.getProperties().get("structurizr.dsl.identifier"));
     }

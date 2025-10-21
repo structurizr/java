@@ -21,6 +21,7 @@
 - structurizr-dsl: Constants and variables are inherited when extending a DSL workspace.
 - structurizr-dsl: DSL source is only stored in the JSON workspace when the DSL is deemed as "portable" (i.e. no files, plugins, scripts).
 - structurizr-dsl: Deprecates `StructurizrDSLParser.setRestricted(boolean)` in favour of finer-grained features.
+- structurizr-dsl: Identifiers are no longer stored as lower case in the JSON (`structurizr.dsl.identifier` property on elements and relationships). 
 - structurizr-export: Removes support for deprecated enterprise and location concepts.
 - structurizr-export: PlantUML exporters - replaces skinparams with styles.
 - structurizr-export: PlantUML exporters - adds support for dark mode exports.
