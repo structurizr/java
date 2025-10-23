@@ -1,6 +1,7 @@
 package com.structurizr.importer.diagrams.kroki;
 
 import com.structurizr.Workspace;
+import com.structurizr.http.HttpClient;
 import com.structurizr.view.ImageView;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -51,7 +52,10 @@ public class KrokiImporterTests {
         workspace.getViews().getConfiguration().addProperty(KrokiImporter.KROKI_INLINE_PROPERTY, "true");
         ImageView view = workspace.getViews().createImageView("key");
 
-        new KrokiImporter().importDiagram(view, "graphviz", new File("./src/test/resources/diagrams/kroki/diagram.dot"));
+        HttpClient httpClient = new HttpClient();
+        httpClient.allow(".*");
+
+        new KrokiImporter(httpClient).importDiagram(view, "graphviz", new File("./src/test/resources/diagrams/kroki/diagram.dot"));
         assertEquals("key", view.getKey());
         assertNull(view.getElement());
         assertNull(view.getElementId());
@@ -85,7 +89,10 @@ public class KrokiImporterTests {
         workspace.getViews().getConfiguration().addProperty(KrokiImporter.KROKI_INLINE_PROPERTY, "true");
         ImageView view = workspace.getViews().createImageView("key");
 
-        new KrokiImporter().importDiagram(view, "graphviz", new File("./src/test/resources/diagrams/kroki/diagram.dot"));
+        HttpClient httpClient = new HttpClient();
+        httpClient.allow(".*");
+
+        new KrokiImporter(httpClient).importDiagram(view, "graphviz", new File("./src/test/resources/diagrams/kroki/diagram.dot"));
         assertEquals("key", view.getKey());
         assertNull(view.getElement());
         assertNull(view.getElementId());

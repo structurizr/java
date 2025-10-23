@@ -3,6 +3,7 @@ package com.structurizr.export.plantuml;
 import com.structurizr.Workspace;
 import com.structurizr.export.AbstractExporterTests;
 import com.structurizr.export.Diagram;
+import com.structurizr.http.HttpClient;
 import com.structurizr.model.*;
 import com.structurizr.util.WorkspaceUtils;
 import com.structurizr.view.*;
@@ -3509,7 +3510,9 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
     @Tag("IntegrationTest")
     public void amazonWebServicesExample_Light() throws Exception {
         Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/amazon-web-services.json"));
-        ThemeUtils.loadThemes(workspace);
+        HttpClient httpClient = new HttpClient();
+        httpClient.allow(".*");
+        ThemeUtils.loadThemes(workspace, httpClient);
 
         StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter(ColorScheme.Light);
         Collection<Diagram> diagrams = exporter.export(workspace);
@@ -3862,7 +3865,9 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
     @Tag("IntegrationTest")
     public void amazonWebServicesExample_Dark() throws Exception {
         Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/amazon-web-services.json"));
-        ThemeUtils.loadThemes(workspace);
+        HttpClient httpClient = new HttpClient();
+        httpClient.allow(".*");
+        ThemeUtils.loadThemes(workspace, httpClient);
 
         StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter(ColorScheme.Dark);
         Collection<Diagram> diagrams = exporter.export(workspace);

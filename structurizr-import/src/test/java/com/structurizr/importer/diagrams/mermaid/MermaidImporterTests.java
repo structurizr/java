@@ -1,6 +1,7 @@
 package com.structurizr.importer.diagrams.mermaid;
 
 import com.structurizr.Workspace;
+import com.structurizr.http.HttpClient;
 import com.structurizr.view.ImageView;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -54,7 +55,10 @@ public class MermaidImporterTests {
         workspace.getViews().getConfiguration().addProperty(MermaidImporter.MERMAID_INLINE_PROPERTY, "true");
         ImageView view = workspace.getViews().createImageView("key");
 
-        new MermaidImporter().importDiagram(view, new File("./src/test/resources/diagrams/mermaid/flowchart.mmd"));
+        HttpClient httpClient = new HttpClient();
+        httpClient.allow(".*");
+
+        new MermaidImporter(httpClient).importDiagram(view, new File("./src/test/resources/diagrams/mermaid/flowchart.mmd"));
         assertEquals("key", view.getKey());
         assertNull(view.getElement());
         assertNull(view.getElementId());
@@ -90,7 +94,10 @@ public class MermaidImporterTests {
         workspace.getViews().getConfiguration().addProperty(MermaidImporter.MERMAID_INLINE_PROPERTY, "true");
         ImageView view = workspace.getViews().createImageView("key");
 
-        new MermaidImporter().importDiagram(view, new File("./src/test/resources/diagrams/mermaid/flowchart.mmd"));
+        HttpClient httpClient = new HttpClient();
+        httpClient.allow(".*");
+
+        new MermaidImporter(httpClient).importDiagram(view, new File("./src/test/resources/diagrams/mermaid/flowchart.mmd"));
         assertEquals("key", view.getKey());
         assertNull(view.getElement());
         assertNull(view.getElementId());

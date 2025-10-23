@@ -3,6 +3,7 @@ package com.structurizr.export.mermaid;
 import com.structurizr.Workspace;
 import com.structurizr.export.AbstractExporterTests;
 import com.structurizr.export.Diagram;
+import com.structurizr.http.HttpClient;
 import com.structurizr.model.*;
 import com.structurizr.util.WorkspaceUtils;
 import com.structurizr.view.*;
@@ -21,7 +22,10 @@ public class MermaidDiagramExporterTests extends AbstractExporterTests {
     @Tag("IntegrationTest")
     public void test_AmazonWebServicesExample() throws Exception {
         Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/amazon-web-services.json"));
-        ThemeUtils.loadThemes(workspace);
+        HttpClient httpClient = new HttpClient();
+        httpClient.allow(".*");
+        ThemeUtils.loadThemes(workspace, httpClient);
+
         workspace.getViews().getDeploymentViews().iterator().next().enableAutomaticLayout(AutomaticLayout.RankDirection.LeftRight, 300, 300);
 
         MermaidDiagramExporter exporter = new MermaidDiagramExporter();

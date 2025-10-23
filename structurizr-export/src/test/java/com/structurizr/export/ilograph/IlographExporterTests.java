@@ -3,6 +3,7 @@ package com.structurizr.export.ilograph;
 import com.structurizr.Workspace;
 import com.structurizr.export.AbstractExporterTests;
 import com.structurizr.export.WorkspaceExport;
+import com.structurizr.http.HttpClient;
 import com.structurizr.model.CustomElement;
 import com.structurizr.model.Model;
 import com.structurizr.util.WorkspaceUtils;
@@ -647,7 +648,10 @@ perspectives:
         Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/amazon-web-services.json"));
         workspace.getViews().getConfiguration().getStyles().addElementStyle("Amazon Web Services - Route 53").addProperty(IlographExporter.ILOGRAPH_ICON, "AWS/Networking/Route-53.svg");
 
-        ThemeUtils.loadThemes(workspace);
+        HttpClient httpClient = new HttpClient();
+        httpClient.allow(".*");
+        ThemeUtils.loadThemes(workspace, httpClient);
+
         IlographExporter ilographExporter = new IlographExporter();
         WorkspaceExport export = ilographExporter.export(workspace);
 

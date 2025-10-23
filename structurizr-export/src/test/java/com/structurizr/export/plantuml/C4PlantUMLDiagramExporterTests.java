@@ -3,6 +3,7 @@ package com.structurizr.export.plantuml;
 import com.structurizr.Workspace;
 import com.structurizr.export.AbstractExporterTests;
 import com.structurizr.export.Diagram;
+import com.structurizr.http.HttpClient;
 import com.structurizr.model.*;
 import com.structurizr.util.WorkspaceUtils;
 import com.structurizr.view.*;
@@ -494,7 +495,10 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
     @Tag("IntegrationTest")
     public void test_AmazonWebServicesExampleWithoutTags() throws Exception {
         Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/amazon-web-services.json"));
-        ThemeUtils.loadThemes(workspace);
+        HttpClient httpClient = new HttpClient();
+        httpClient.allow(".*");
+        ThemeUtils.loadThemes(workspace, httpClient);
+
         workspace.getViews().getDeploymentViews().iterator().next().enableAutomaticLayout(AutomaticLayout.RankDirection.LeftRight, 300, 300);
         workspace.getViews().getViews().forEach(v -> v.addProperty(C4PlantUMLExporter.C4PLANTUML_TAGS_PROPERTY, "false"));
 
@@ -557,7 +561,10 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
     @Tag("IntegrationTest")
     public void test_AmazonWebServicesExampleWithTags() throws Exception {
         Workspace workspace = WorkspaceUtils.loadWorkspaceFromJson(new File("./src/test/resources/amazon-web-services.json"));
-        ThemeUtils.loadThemes(workspace);
+        HttpClient httpClient = new HttpClient();
+        httpClient.allow(".*");
+        ThemeUtils.loadThemes(workspace, httpClient);
+
         workspace.getViews().getDeploymentViews().iterator().next().enableAutomaticLayout(AutomaticLayout.RankDirection.LeftRight, 300, 300);
         workspace.getViews().getConfiguration().addProperty(C4PlantUMLExporter.C4PLANTUML_TAGS_PROPERTY, "true");
 
