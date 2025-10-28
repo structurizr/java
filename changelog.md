@@ -1,6 +1,6 @@
 # Changelog
 
-## v5.0.0 (unreleased)
+## v5.0.0 (28th October 2025)
 
 - structurizr-autolayout: Adds support for custom padding view/viewset properties: `structurizr.groupPadding`,`structurizr.boundaryPadding`, and `structurizr.deploymentNodePadding`.
 - structurizr-core: Removes support for deprecated enterprise and location concepts.
