@@ -90,7 +90,7 @@ public final class ThemeUtils {
         for (String themeLocation : workspace.getViews().getConfiguration().getThemes()) {
             if (Url.isUrl(themeLocation)) {
                 RemoteContent remoteContent = httpClient.get(themeLocation);
-                if (remoteContent.getContentType().equals(RemoteContent.CONTENT_TYPE_JSON)) {
+                if (remoteContent.getContentType().startsWith(RemoteContent.CONTENT_TYPE_JSON) || remoteContent.getContentType().startsWith(RemoteContent.CONTENT_TYPE_PLAIN_TEXT)) {
                     Theme theme = fromJson(remoteContent.getContentAsString());
                     String baseUrl = themeLocation.substring(0, themeLocation.lastIndexOf('/') + 1);
 

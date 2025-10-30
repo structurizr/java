@@ -1,5 +1,9 @@
 # Changelog
 
+## v5.0.1 (unreleased)
+
+-structurizr-core: Fixes https://github.com/structurizr/java/issues/449 (allow text/plain content types when loading themes).
+
 ## v5.0.0 (28th October 2025)
 
 - structurizr-autolayout: Adds support for custom padding view/viewset properties: `structurizr.groupPadding`,`structurizr.boundaryPadding`, and `structurizr.deploymentNodePadding`.

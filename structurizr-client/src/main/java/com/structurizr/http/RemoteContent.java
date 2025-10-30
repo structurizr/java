@@ -6,6 +6,7 @@ package com.structurizr.http;
 public final class RemoteContent {
 
     public static final String CONTENT_TYPE_JSON = "application/json";
+    public static final String CONTENT_TYPE_PLAIN_TEXT = "text/plain";
 
     private final String content;
     private final byte[] bytes;

@@ -26,7 +26,7 @@ public class ThemeUtilsTests {
 
     @Test
     @Tag("IntegrationTest")
-    void loadThemes_LoadsThemesWhenThemesAreDefined() throws Exception {
+    void loadThemes_LoadsThemesWhenThemesAreDefined_AndContentTypeIsApplicationJson() throws Exception {
         Workspace workspace = new Workspace("Name", "Description");
         SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
         softwareSystem.addTags("Amazon Web Services - Alexa For Business");
@@ -45,6 +45,29 @@ public class ThemeUtilsTests {
         assertEquals("#d6242d", style.getStroke());
         assertEquals("#d6242d", style.getColor());
         assertEquals("https://static.structurizr.com/themes/amazon-web-services-2020.04.30/alexa-for-business.png", style.getIcon());
+    }
+
+    @Test
+    @Tag("IntegrationTest")
+    void loadThemes_LoadsThemesWhenThemesAreDefined_AndContentTypeIsPlainText() throws Exception {
+        Workspace workspace = new Workspace("Name", "Description");
+        SoftwareSystem softwareSystem = workspace.getModel().addSoftwareSystem("Name");
+        softwareSystem.addTags("Amazon Web Services - Alexa For Business");
+        workspace.getViews().getConfiguration().setThemes("https://raw.githubusercontent.com/structurizr/themes/refs/heads/master/amazon-web-services-2020.04.30/theme.json");
+
+        HttpClient httpClient = new HttpClient();
+        httpClient.allow(".*");
+        ThemeUtils.loadThemes(workspace, httpClient);
+
+        // there should still be zero styles in the workspace
+        assertEquals(0, workspace.getViews().getConfiguration().getStyles().getElements().size());
+
+        // but we should be able to find a style included in the theme
+        ElementStyle style = workspace.getViews().getConfiguration().getStyles().findElementStyle(softwareSystem);
+        assertNotNull(style);
+        assertEquals("#d6242d", style.getStroke());
+        assertEquals("#d6242d", style.getColor());
+        assertEquals("https://raw.githubusercontent.com/structurizr/themes/refs/heads/master/amazon-web-services-2020.04.30/alexa-for-business.png", style.getIcon());
     }
 
     @Test
