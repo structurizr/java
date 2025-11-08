@@ -1,5 +1,9 @@
 # Changelog
 
+## v5.0.2 (unreleased)
+
+- structurizr-client: Adds a `getWorkspaceAsJson()` to `WorkspaceApiClient`.
+
 ## v5.0.1 (1st November 2025)
 
 -structurizr-core: Fixes https://github.com/structurizr/java/issues/449 (allow text/plain content types when loading themes).

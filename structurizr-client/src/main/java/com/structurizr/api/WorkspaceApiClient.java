@@ -227,6 +227,44 @@ public class WorkspaceApiClient extends AbstractApiClient {
      * @throws StructurizrClientException   if there are problems related to the network, authorization, JSON deserialization, etc
      */
     public Workspace getWorkspace(long workspaceId) throws StructurizrClientException {
+        String json = getWorkspaceAsJson(workspaceId);
+
+        try {
+            if (encryptionStrategy == null) {
+                if (json.contains("\"encryptionStrategy\"") && json.contains("\"ciphertext\"")) {
+                    log.warn("The JSON may contain a client-side encrypted workspace, but no passphrase has been specified.");
+                }
+
+                JsonReader jsonReader = new JsonReader();
+                jsonReader.setIdGenerator(idGenerator);
+                return jsonReader.read(new StringReader(json));
+            } else {
+                EncryptedWorkspace encryptedWorkspace = new EncryptedJsonReader().read(new StringReader(json));
+
+                if (encryptedWorkspace.getEncryptionStrategy() != null) {
+                    encryptedWorkspace.getEncryptionStrategy().setPassphrase(encryptionStrategy.getPassphrase());
+                    return encryptedWorkspace.getWorkspace();
+                } else {
+                    // this workspace isn't encrypted, even though the client has an encryption strategy set
+                    JsonReader jsonReader = new JsonReader();
+                    jsonReader.setIdGenerator(idGenerator);
+                    return jsonReader.read(new StringReader(json));
+                }
+            }
+        } catch (Exception e) {
+            log.error(e);
+            throw new StructurizrClientException(e);
+        }
+    }
+
+    /**
+     * Gets the workspace with the given ID, as a JSON string.
+     *
+     * @param workspaceId the workspace ID
+     * @return a JSON string
+     * @throws StructurizrClientException   if there are problems related to the network, authorization, JSON deserialization, etc
+     */
+    public String getWorkspaceAsJson(long workspaceId) throws StructurizrClientException {
         if (workspaceId <= 0) {
             throw new IllegalArgumentException("The workspace ID must be a positive integer.");
         }
@@ -251,27 +289,7 @@ public class WorkspaceApiClient extends AbstractApiClient {
                 if (response.getCode() == HttpStatus.SC_OK) {
                     archiveWorkspace(workspaceId, json);
 
-                    if (encryptionStrategy == null) {
-                        if (json.contains("\"encryptionStrategy\"") && json.contains("\"ciphertext\"")) {
-                            log.warn("The JSON may contain a client-side encrypted workspace, but no passphrase has been specified.");
-                        }
-
-                        JsonReader jsonReader = new JsonReader();
-                        jsonReader.setIdGenerator(idGenerator);
-                        return jsonReader.read(new StringReader(json));
-                    } else {
-                        EncryptedWorkspace encryptedWorkspace = new EncryptedJsonReader().read(new StringReader(json));
-
-                        if (encryptedWorkspace.getEncryptionStrategy() != null) {
-                            encryptedWorkspace.getEncryptionStrategy().setPassphrase(encryptionStrategy.getPassphrase());
-                            return encryptedWorkspace.getWorkspace();
-                        } else {
-                            // this workspace isn't encrypted, even though the client has an encryption strategy set
-                            JsonReader jsonReader = new JsonReader();
-                            jsonReader.setIdGenerator(idGenerator);
-                            return jsonReader.read(new StringReader(json));
-                        }
-                    }
+                    return json;
                 } else {
                     ApiResponse apiResponse = ApiResponse.parse(json);
                     throw new StructurizrClientException(apiResponse.getMessage());
