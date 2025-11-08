@@ -40,12 +40,14 @@ public abstract class AbstractDocumentableInspection extends Inspection {
     protected Set<String> findEmbeddedViewKeys(Documentable documentable) {
         Set<String> keys = new LinkedHashSet<>();
 
-        for (Section section : documentable.getDocumentation().getSections()) {
-            keys.addAll(findEmbeddedViewKeys(section));
-        }
+        if (documentable.getDocumentation() != null) {
+            for (Section section : documentable.getDocumentation().getSections()) {
+                keys.addAll(findEmbeddedViewKeys(section));
+            }
 
-        for (Decision decision : documentable.getDocumentation().getDecisions()) {
-            keys.addAll(findEmbeddedViewKeys(decision));
+            for (Decision decision : documentable.getDocumentation().getDecisions()) {
+                keys.addAll(findEmbeddedViewKeys(decision));
+            }
         }
 
         return keys;
