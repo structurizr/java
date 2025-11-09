@@ -12,6 +12,10 @@ public class WorkspaceMetadata {
     private String publicUrl;
     private String shareableUrl;
 
+    private String[] branches;
+
+    private WorkspaceUsers users;
+
     WorkspaceMetadata() {
     }
 
@@ -77,6 +81,22 @@ public class WorkspaceMetadata {
 
     void setShareableUrl(String shareableUrl) {
         this.shareableUrl = shareableUrl;
+    }
+
+    public String[] getBranches() {
+        return branches;
+    }
+
+    void setBranches(String[] branches) {
+        this.branches = branches;
+    }
+
+    public WorkspaceUsers getUsers() {
+        return users;
+    }
+
+    void setUsers(WorkspaceUsers users) {
+        this.users = users;
     }
 
 }
