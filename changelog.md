@@ -1,6 +1,6 @@
 # Changelog
 
-## v5.0.2 (unreleased)
+## v5.0.2 (9th November 2025)
 
 - structurizr-client: Adds a `getWorkspaceAsJson()` to `WorkspaceApiClient`.
 - structurizr-client: Adds branches and users information to the admin API response.
