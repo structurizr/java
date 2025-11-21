@@ -1755,4 +1755,44 @@ public class C4PlantUMLDiagramExporterTests extends AbstractExporterTests {
                 @enduml""", diagram.getDefinition());
     }
 
+    @Test
+    void skinparams() {
+        Workspace workspace = new Workspace("Name", "Description");
+        workspace.getModel().addSoftwareSystem("A");
+
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key");
+        view.addAllElements();
+
+        C4PlantUMLExporter exporter = new C4PlantUMLExporter();
+        exporter.addSkinParam("linetype", "ortho");
+        Diagram diagram = exporter.export(view);
+
+        assertEquals("""
+                @startuml
+                title <size:24>System Landscape View</size>
+                
+                set separator none
+                top to bottom direction
+                
+                skinparam {
+                  linetype ortho
+                }
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff
+                    FontColor: #444444
+                  }
+                </style>
+                
+                !include <C4/C4>
+                !include <C4/C4_Context>
+                
+                System(A, "A", $descr="", $tags="", $link="")
+                
+                SHOW_LEGEND(true)
+                hide stereotypes
+                @enduml""", diagram.getDefinition());
+    }
+
 }

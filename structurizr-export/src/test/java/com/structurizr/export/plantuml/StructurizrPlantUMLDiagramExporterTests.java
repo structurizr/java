@@ -4216,4 +4216,52 @@ public class StructurizrPlantUMLDiagramExporterTests extends AbstractExporterTes
                 @enduml""", diagram.getLegend().getDefinition());
     }
 
+    @Test
+    void skinparams() {
+        Workspace workspace = new Workspace("Name", "Description");
+        workspace.getModel().addSoftwareSystem("A");
+
+        SystemLandscapeView view = workspace.getViews().createSystemLandscapeView("key");
+        view.addAllElements();
+
+        StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
+        exporter.addSkinParam("linetype", "ortho");
+        Diagram diagram = exporter.export(view);
+
+        assertEquals("""
+                @startuml
+                title <size:24>System Landscape View</size>
+                
+                set separator none
+                top to bottom direction
+                hide stereotype
+                
+                skinparam {
+                  linetype ortho
+                }
+                
+                <style>
+                  root {
+                    BackgroundColor: #ffffff;
+                    FontColor: #444444;
+                  }
+                  // Element
+                  .Element-RWxlbWVudA== {
+                    BackgroundColor: #ffffff;
+                    LineColor: #444444;
+                    LineStyle: 0;
+                    LineThickness: 2;
+                    FontColor: #444444;
+                    FontSize: 24;
+                    HorizontalAlignment: center;
+                    Shadowing: 0;
+                    MaximumWidth: 450;
+                  }
+                </style>
+                
+                rectangle "==A\\n<size:16>[Software System]</size>" <<Element-RWxlbWVudA==>> as A
+                
+                @enduml""", diagram.getDefinition());
+    }
+
 }

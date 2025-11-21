@@ -14,6 +14,10 @@ import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.net.URL;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import static java.lang.String.format;
 
 public abstract class AbstractPlantUMLExporter extends AbstractDiagramExporter {
 
@@ -26,6 +30,20 @@ public abstract class AbstractPlantUMLExporter extends AbstractDiagramExporter {
 
     public static final String DIAGRAM_TITLE_TAG = "Diagram:Title";
     public static final String DIAGRAM_DESCRIPTION_TAG = "Diagram:Description";
+
+    private final Map<String, String> skinParams = new LinkedHashMap<>();
+
+    protected Map<String, String> getSkinParams() {
+        return skinParams;
+    }
+
+    public void addSkinParam(String name, String value) {
+        skinParams.put(name, value);
+    }
+
+    public void clearSkinParams() {
+        skinParams.clear();
+    }
 
     public AbstractPlantUMLExporter() {
         this(ColorScheme.Light);
@@ -206,6 +224,21 @@ public abstract class AbstractPlantUMLExporter extends AbstractDiagramExporter {
 
         writer.writeLine();
         writer.writeLine("set separator none");
+    }
+
+    protected void writeSkinParams(IndentingWriter writer) {
+        if (!skinParams.isEmpty()) {
+            writer.writeLine();
+            writer.writeLine("skinparam {");
+            writer.indent();
+            for (final String name : skinParams.keySet()) {
+                writer.writeLine(format("%s %s", name, skinParams.get(name)));
+            }
+            writer.outdent();
+            writer.writeLine("}");
+        }
+
+        writer.writeLine();
     }
 
     protected void writeIncludes(ModelView view, IndentingWriter writer) {

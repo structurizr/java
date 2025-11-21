@@ -1,5 +1,9 @@
 # Changelog
 
+## v5.0.3 (21st November 2025)
+
+- structurizr-export: Adds the `addSkinParam()` method back to the PlantUML exporters. 
+
 ## v5.0.2 (9th November 2025)
 
 - structurizr-client: Adds a `getWorkspaceAsJson()` to `WorkspaceApiClient`.

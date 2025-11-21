@@ -76,7 +76,8 @@ public class C4PlantUMLExporter extends AbstractPlantUMLExporter {
             }
         }
 
-        writer.writeLine();
+        writeSkinParams(writer);
+
         writer.writeLine("<style>");
         writer.indent();
 
